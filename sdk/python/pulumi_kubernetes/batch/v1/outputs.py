@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -27,6 +27,23 @@ class CronJob(dict):
     """
     CronJob represents the configuration of a single cron job.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CronJob. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CronJob.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CronJob.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -92,15 +109,37 @@ class CronJob(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CronJobSpec(dict):
     """
     CronJobSpec describes how the job execution will look like and when it will actually run.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "jobTemplate":
+            suggest = "job_template"
+        elif key == "concurrencyPolicy":
+            suggest = "concurrency_policy"
+        elif key == "failedJobsHistoryLimit":
+            suggest = "failed_jobs_history_limit"
+        elif key == "startingDeadlineSeconds":
+            suggest = "starting_deadline_seconds"
+        elif key == "successfulJobsHistoryLimit":
+            suggest = "successful_jobs_history_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CronJobSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CronJobSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CronJobSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  job_template: 'outputs.JobTemplateSpec',
                  schedule: str,
@@ -188,15 +227,31 @@ class CronJobSpec(dict):
         """
         return pulumi.get(self, "suspend")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CronJobStatus(dict):
     """
     CronJobStatus represents the current state of a cron job.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastScheduleTime":
+            suggest = "last_schedule_time"
+        elif key == "lastSuccessfulTime":
+            suggest = "last_successful_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CronJobStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CronJobStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CronJobStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
                  last_schedule_time: Optional[str] = None,
@@ -238,9 +293,6 @@ class CronJobStatus(dict):
         """
         return pulumi.get(self, "last_successful_time")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Job(dict):
@@ -262,6 +314,23 @@ class Job(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Job. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Job.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Job.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -342,15 +411,31 @@ class Job(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class JobCondition(dict):
     """
     JobCondition describes current state of a job.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastProbeTime":
+            suggest = "last_probe_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in JobCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        JobCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        JobCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -426,15 +511,37 @@ class JobCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class JobSpec(dict):
     """
     JobSpec describes how the job execution will look like.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "activeDeadlineSeconds":
+            suggest = "active_deadline_seconds"
+        elif key == "backoffLimit":
+            suggest = "backoff_limit"
+        elif key == "completionMode":
+            suggest = "completion_mode"
+        elif key == "manualSelector":
+            suggest = "manual_selector"
+        elif key == "ttlSecondsAfterFinished":
+            suggest = "ttl_seconds_after_finished"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in JobSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        JobSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        JobSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  template: '_core.v1.outputs.PodTemplateSpec',
                  active_deadline_seconds: Optional[int] = None,
@@ -571,15 +678,33 @@ class JobSpec(dict):
         """
         return pulumi.get(self, "ttl_seconds_after_finished")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class JobStatus(dict):
     """
     JobStatus represents the current state of a Job.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "completedIndexes":
+            suggest = "completed_indexes"
+        elif key == "completionTime":
+            suggest = "completion_time"
+        elif key == "startTime":
+            suggest = "start_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in JobStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        JobStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        JobStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  active: Optional[int] = None,
                  completed_indexes: Optional[str] = None,
@@ -669,9 +794,6 @@ class JobStatus(dict):
         """
         return pulumi.get(self, "succeeded")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class JobTemplateSpec(dict):
@@ -706,8 +828,5 @@ class JobTemplateSpec(dict):
         Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

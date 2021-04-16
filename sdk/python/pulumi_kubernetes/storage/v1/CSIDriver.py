@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -93,9 +93,7 @@ class CSIDriver(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['CSIDriverSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 
@@ -134,15 +132,7 @@ class CSIDriver(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['CSIDriverSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -152,14 +142,14 @@ class CSIDriver(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = CSIDriverArgs.__new__(CSIDriverArgs)
 
-            __props__['api_version'] = 'storage.k8s.io/v1'
-            __props__['kind'] = 'CSIDriver'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'storage.k8s.io/v1'
+            __props__.__dict__["kind"] = 'CSIDriver'
+            __props__.__dict__["metadata"] = metadata
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
-            __props__['spec'] = spec
+            __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:CSIDriver")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(CSIDriver, __self__).__init__(
@@ -182,12 +172,12 @@ class CSIDriver(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = CSIDriverArgs.__new__(CSIDriverArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["spec"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["spec"] = None
         return CSIDriver(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -221,10 +211,4 @@ class CSIDriver(pulumi.CustomResource):
         Specification of the CSI Driver.
         """
         return pulumi.get(self, "spec")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

@@ -3,7 +3,7 @@ package tests
 import (
 	"sort"
 
-	"github.com/pulumi/pulumi/pkg/v2/testing/integration"
+	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 )
 
 func SortResourcesByURN(stackInfo integration.RuntimeValidationStackInfo) {

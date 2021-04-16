@@ -39,4 +39,4 @@ nginx = Pod(
                 container_port=80,
             )],
         )],
-    ), __opts__=ResourceOptions(provider=my_k8s))
+    ), opts=ResourceOptions(provider=my_k8s))

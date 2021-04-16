@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -94,9 +94,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  webhooks: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ValidatingWebhookArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
 
@@ -135,15 +133,7 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  webhooks: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ValidatingWebhookArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -153,12 +143,12 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ValidatingWebhookConfigurationArgs.__new__(ValidatingWebhookConfigurationArgs)
 
-            __props__['api_version'] = 'admissionregistration.k8s.io/v1'
-            __props__['kind'] = 'ValidatingWebhookConfiguration'
-            __props__['metadata'] = metadata
-            __props__['webhooks'] = webhooks
+            __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1'
+            __props__.__dict__["kind"] = 'ValidatingWebhookConfiguration'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["webhooks"] = webhooks
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ValidatingWebhookConfiguration, __self__).__init__(
@@ -181,12 +171,12 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = ValidatingWebhookConfigurationArgs.__new__(ValidatingWebhookConfigurationArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["webhooks"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["webhooks"] = None
         return ValidatingWebhookConfiguration(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -220,10 +210,4 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         Webhooks is a list of webhooks and the affected resources and operations.
         """
         return pulumi.get(self, "webhooks")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

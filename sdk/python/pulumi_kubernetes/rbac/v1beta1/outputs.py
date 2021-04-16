@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 
@@ -26,6 +26,23 @@ class AggregationRule(dict):
     """
     AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clusterRoleSelectors":
+            suggest = "cluster_role_selectors"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AggregationRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AggregationRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AggregationRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  cluster_role_selectors: Optional[Sequence['_meta.v1.outputs.LabelSelector']] = None):
         """
@@ -43,15 +60,31 @@ class AggregationRule(dict):
         """
         return pulumi.get(self, "cluster_role_selectors")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ClusterRole(dict):
     """
     ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRole, and will no longer be served in v1.22.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "aggregationRule":
+            suggest = "aggregation_rule"
+        elif key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterRole. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterRole.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterRole.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  aggregation_rule: Optional['outputs.AggregationRule'] = None,
                  api_version: Optional[str] = None,
@@ -117,15 +150,31 @@ class ClusterRole(dict):
         """
         return pulumi.get(self, "rules")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ClusterRoleBinding(dict):
     """
     ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.22.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "roleRef":
+            suggest = "role_ref"
+        elif key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterRoleBinding. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterRoleBinding.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterRoleBinding.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  role_ref: 'outputs.RoleRef',
                  api_version: Optional[str] = None,
@@ -190,15 +239,33 @@ class ClusterRoleBinding(dict):
         """
         return pulumi.get(self, "subjects")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PolicyRule(dict):
     """
     PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroups":
+            suggest = "api_groups"
+        elif key == "nonResourceURLs":
+            suggest = "non_resource_urls"
+        elif key == "resourceNames":
+            suggest = "resource_names"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PolicyRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PolicyRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PolicyRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  verbs: Sequence[str],
                  api_groups: Optional[Sequence[str]] = None,
@@ -263,15 +330,29 @@ class PolicyRule(dict):
         """
         return pulumi.get(self, "resources")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Role(dict):
     """
     Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 Role, and will no longer be served in v1.22.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Role. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Role.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Role.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -325,15 +406,31 @@ class Role(dict):
         """
         return pulumi.get(self, "rules")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RoleBinding(dict):
     """
     RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "roleRef":
+            suggest = "role_ref"
+        elif key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RoleBinding. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RoleBinding.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RoleBinding.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  role_ref: 'outputs.RoleRef',
                  api_version: Optional[str] = None,
@@ -398,15 +495,29 @@ class RoleBinding(dict):
         """
         return pulumi.get(self, "subjects")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RoleRef(dict):
     """
     RoleRef contains information that points to the role being used
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroup":
+            suggest = "api_group"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RoleRef. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RoleRef.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RoleRef.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_group: str,
                  kind: str,
@@ -445,15 +556,29 @@ class RoleRef(dict):
         """
         return pulumi.get(self, "name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Subject(dict):
     """
     Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroup":
+            suggest = "api_group"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Subject. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Subject.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Subject.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  name: str,
@@ -504,8 +629,5 @@ class Subject(dict):
         Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
         return pulumi.get(self, "namespace")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

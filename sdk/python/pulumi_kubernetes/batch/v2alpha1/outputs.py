@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import batch as _batch
 from ... import core as _core
@@ -24,6 +24,23 @@ class CronJob(dict):
     """
     CronJob represents the configuration of a single cron job.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CronJob. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CronJob.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CronJob.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -89,15 +106,37 @@ class CronJob(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CronJobSpec(dict):
     """
     CronJobSpec describes how the job execution will look like and when it will actually run.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "jobTemplate":
+            suggest = "job_template"
+        elif key == "concurrencyPolicy":
+            suggest = "concurrency_policy"
+        elif key == "failedJobsHistoryLimit":
+            suggest = "failed_jobs_history_limit"
+        elif key == "startingDeadlineSeconds":
+            suggest = "starting_deadline_seconds"
+        elif key == "successfulJobsHistoryLimit":
+            suggest = "successful_jobs_history_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CronJobSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CronJobSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CronJobSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  job_template: 'outputs.JobTemplateSpec',
                  schedule: str,
@@ -185,15 +224,29 @@ class CronJobSpec(dict):
         """
         return pulumi.get(self, "suspend")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CronJobStatus(dict):
     """
     CronJobStatus represents the current state of a cron job.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastScheduleTime":
+            suggest = "last_schedule_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CronJobStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CronJobStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CronJobStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
                  last_schedule_time: Optional[str] = None):
@@ -222,9 +275,6 @@ class CronJobStatus(dict):
         Information when was the last time the job was successfully scheduled.
         """
         return pulumi.get(self, "last_schedule_time")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -260,8 +310,5 @@ class JobTemplateSpec(dict):
         Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

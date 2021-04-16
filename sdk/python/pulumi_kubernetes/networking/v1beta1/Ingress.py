@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -95,9 +95,7 @@ class Ingress(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['IngressSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 
@@ -164,15 +162,7 @@ class Ingress(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['IngressSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -182,13 +172,13 @@ class Ingress(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = IngressArgs.__new__(IngressArgs)
 
-            __props__['api_version'] = 'networking.k8s.io/v1beta1'
-            __props__['kind'] = 'Ingress'
-            __props__['metadata'] = metadata
-            __props__['spec'] = spec
-            __props__['status'] = None
+            __props__.__dict__["api_version"] = 'networking.k8s.io/v1beta1'
+            __props__.__dict__["kind"] = 'Ingress'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["spec"] = spec
+            __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:extensions/v1beta1:Ingress"), pulumi.Alias(type_="kubernetes:networking.k8s.io/v1:Ingress")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(Ingress, __self__).__init__(
@@ -211,13 +201,13 @@ class Ingress(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = IngressArgs.__new__(IngressArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["spec"] = None
-        __props__["status"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["spec"] = None
+        __props__.__dict__["status"] = None
         return Ingress(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -259,10 +249,4 @@ class Ingress(pulumi.CustomResource):
         Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

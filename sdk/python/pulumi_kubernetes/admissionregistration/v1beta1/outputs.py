@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 
@@ -25,6 +25,39 @@ class MutatingWebhook(dict):
     """
     MutatingWebhook describes an admission webhook and the resources and operations it applies to.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientConfig":
+            suggest = "client_config"
+        elif key == "admissionReviewVersions":
+            suggest = "admission_review_versions"
+        elif key == "failurePolicy":
+            suggest = "failure_policy"
+        elif key == "matchPolicy":
+            suggest = "match_policy"
+        elif key == "namespaceSelector":
+            suggest = "namespace_selector"
+        elif key == "objectSelector":
+            suggest = "object_selector"
+        elif key == "reinvocationPolicy":
+            suggest = "reinvocation_policy"
+        elif key == "sideEffects":
+            suggest = "side_effects"
+        elif key == "timeoutSeconds":
+            suggest = "timeout_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MutatingWebhook. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MutatingWebhook.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MutatingWebhook.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  client_config: 'outputs.WebhookClientConfig',
                  name: str,
@@ -244,15 +277,29 @@ class MutatingWebhook(dict):
         """
         return pulumi.get(self, "timeout_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class MutatingWebhookConfiguration(dict):
     """
     MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 MutatingWebhookConfiguration instead.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in MutatingWebhookConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        MutatingWebhookConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        MutatingWebhookConfiguration.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -306,15 +353,31 @@ class MutatingWebhookConfiguration(dict):
         """
         return pulumi.get(self, "webhooks")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RuleWithOperations(dict):
     """
     RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroups":
+            suggest = "api_groups"
+        elif key == "apiVersions":
+            suggest = "api_versions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RuleWithOperations. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RuleWithOperations.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RuleWithOperations.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_groups: Optional[Sequence[str]] = None,
                  api_versions: Optional[Sequence[str]] = None,
@@ -392,9 +455,6 @@ class RuleWithOperations(dict):
         """
         return pulumi.get(self, "scope")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceReference(dict):
@@ -452,15 +512,43 @@ class ServiceReference(dict):
         """
         return pulumi.get(self, "port")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ValidatingWebhook(dict):
     """
     ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientConfig":
+            suggest = "client_config"
+        elif key == "admissionReviewVersions":
+            suggest = "admission_review_versions"
+        elif key == "failurePolicy":
+            suggest = "failure_policy"
+        elif key == "matchPolicy":
+            suggest = "match_policy"
+        elif key == "namespaceSelector":
+            suggest = "namespace_selector"
+        elif key == "objectSelector":
+            suggest = "object_selector"
+        elif key == "sideEffects":
+            suggest = "side_effects"
+        elif key == "timeoutSeconds":
+            suggest = "timeout_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidatingWebhook. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidatingWebhook.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidatingWebhook.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  client_config: 'outputs.WebhookClientConfig',
                  name: str,
@@ -656,15 +744,29 @@ class ValidatingWebhook(dict):
         """
         return pulumi.get(self, "timeout_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ValidatingWebhookConfiguration(dict):
     """
     ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it. Deprecated in v1.16, planned for removal in v1.19. Use admissionregistration.k8s.io/v1 ValidatingWebhookConfiguration instead.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidatingWebhookConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidatingWebhookConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidatingWebhookConfiguration.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -718,15 +820,29 @@ class ValidatingWebhookConfiguration(dict):
         """
         return pulumi.get(self, "webhooks")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WebhookClientConfig(dict):
     """
     WebhookClientConfig contains the information to make a TLS connection with the webhook
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "caBundle":
+            suggest = "ca_bundle"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WebhookClientConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WebhookClientConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WebhookClientConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  ca_bundle: Optional[str] = None,
                  service: Optional['outputs.ServiceReference'] = None,
@@ -791,8 +907,5 @@ class WebhookClientConfig(dict):
         Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
         return pulumi.get(self, "url")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

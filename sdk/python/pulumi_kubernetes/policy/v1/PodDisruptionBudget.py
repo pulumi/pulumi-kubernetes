@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -94,9 +94,7 @@ class PodDisruptionBudget(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['PodDisruptionBudgetSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 
@@ -135,15 +133,7 @@ class PodDisruptionBudget(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['PodDisruptionBudgetSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -153,13 +143,13 @@ class PodDisruptionBudget(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = PodDisruptionBudgetArgs.__new__(PodDisruptionBudgetArgs)
 
-            __props__['api_version'] = 'policy/v1'
-            __props__['kind'] = 'PodDisruptionBudget'
-            __props__['metadata'] = metadata
-            __props__['spec'] = spec
-            __props__['status'] = None
+            __props__.__dict__["api_version"] = 'policy/v1'
+            __props__.__dict__["kind"] = 'PodDisruptionBudget'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["spec"] = spec
+            __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:policy/v1beta1:PodDisruptionBudget")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(PodDisruptionBudget, __self__).__init__(
@@ -182,13 +172,13 @@ class PodDisruptionBudget(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = PodDisruptionBudgetArgs.__new__(PodDisruptionBudgetArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["spec"] = None
-        __props__["status"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["spec"] = None
+        __props__.__dict__["status"] = None
         return PodDisruptionBudget(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -230,10 +220,4 @@ class PodDisruptionBudget(pulumi.CustomResource):
         Most recently observed status of the PodDisruptionBudget.
         """
         return pulumi.get(self, "status")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -94,9 +94,7 @@ class Endpoints(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  subsets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['EndpointSubsetArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         Endpoints is a collection of endpoints that implement the actual service. Example:
           Name: "mysvc",
@@ -157,15 +155,7 @@ class Endpoints(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  subsets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['EndpointSubsetArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -175,12 +165,12 @@ class Endpoints(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = EndpointsArgs.__new__(EndpointsArgs)
 
-            __props__['api_version'] = 'v1'
-            __props__['kind'] = 'Endpoints'
-            __props__['metadata'] = metadata
-            __props__['subsets'] = subsets
+            __props__.__dict__["api_version"] = 'v1'
+            __props__.__dict__["kind"] = 'Endpoints'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["subsets"] = subsets
         super(Endpoints, __self__).__init__(
             'kubernetes:core/v1:Endpoints',
             resource_name,
@@ -201,12 +191,12 @@ class Endpoints(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = EndpointsArgs.__new__(EndpointsArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["subsets"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["subsets"] = None
         return Endpoints(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -240,10 +230,4 @@ class Endpoints(pulumi.CustomResource):
         The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
         """
         return pulumi.get(self, "subsets")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

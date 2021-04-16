@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from ... import meta as _meta
 
 __all__ = ['ControllerRevisionArgs', 'ControllerRevision']
@@ -108,9 +108,7 @@ class ControllerRevision(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  revision: Optional[pulumi.Input[int]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
 
@@ -151,15 +149,7 @@ class ControllerRevision(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  revision: Optional[pulumi.Input[int]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -169,15 +159,15 @@ class ControllerRevision(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = ControllerRevisionArgs.__new__(ControllerRevisionArgs)
 
-            __props__['api_version'] = 'apps/v1beta1'
-            __props__['data'] = data
-            __props__['kind'] = 'ControllerRevision'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'apps/v1beta1'
+            __props__.__dict__["data"] = data
+            __props__.__dict__["kind"] = 'ControllerRevision'
+            __props__.__dict__["metadata"] = metadata
             if revision is None and not opts.urn:
                 raise TypeError("Missing required property 'revision'")
-            __props__['revision'] = revision
+            __props__.__dict__["revision"] = revision
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1:ControllerRevision"), pulumi.Alias(type_="kubernetes:apps/v1beta2:ControllerRevision")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ControllerRevision, __self__).__init__(
@@ -200,13 +190,13 @@ class ControllerRevision(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = ControllerRevisionArgs.__new__(ControllerRevisionArgs)
 
-        __props__["api_version"] = None
-        __props__["data"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["revision"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["data"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["revision"] = None
         return ControllerRevision(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -248,10 +238,4 @@ class ControllerRevision(pulumi.CustomResource):
         Revision indicates the revision of the state represented by Data.
         """
         return pulumi.get(self, "revision")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

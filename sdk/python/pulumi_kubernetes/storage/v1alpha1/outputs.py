@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -33,6 +33,29 @@ class CSIStorageCapacity(dict):
 
     They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "storageClassName":
+            suggest = "storage_class_name"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "maximumVolumeSize":
+            suggest = "maximum_volume_size"
+        elif key == "nodeTopology":
+            suggest = "node_topology"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIStorageCapacity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIStorageCapacity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIStorageCapacity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  storage_class_name: str,
                  api_version: Optional[str] = None,
@@ -145,9 +168,6 @@ class CSIStorageCapacity(dict):
         """
         return pulumi.get(self, "node_topology")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachment(dict):
@@ -156,6 +176,23 @@ class VolumeAttachment(dict):
 
     VolumeAttachment objects are non-namespaced.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachment. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachment.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachment.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  spec: 'outputs.VolumeAttachmentSpec',
                  api_version: Optional[str] = None,
@@ -222,15 +259,31 @@ class VolumeAttachment(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachmentSource(dict):
     """
     VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "inlineVolumeSpec":
+            suggest = "inline_volume_spec"
+        elif key == "persistentVolumeName":
+            suggest = "persistent_volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpec'] = None,
                  persistent_volume_name: Optional[str] = None):
@@ -260,15 +313,29 @@ class VolumeAttachmentSource(dict):
         """
         return pulumi.get(self, "persistent_volume_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachmentSpec(dict):
     """
     VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  attacher: str,
                  node_name: str,
@@ -307,15 +374,33 @@ class VolumeAttachmentSpec(dict):
         """
         return pulumi.get(self, "source")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeAttachmentStatus(dict):
     """
     VolumeAttachmentStatus is the status of a VolumeAttachment request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "attachError":
+            suggest = "attach_error"
+        elif key == "attachmentMetadata":
+            suggest = "attachment_metadata"
+        elif key == "detachError":
+            suggest = "detach_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  attached: bool,
                  attach_error: Optional['outputs.VolumeError'] = None,
@@ -368,9 +453,6 @@ class VolumeAttachmentStatus(dict):
         """
         return pulumi.get(self, "detach_error")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeError(dict):
@@ -405,8 +487,5 @@ class VolumeError(dict):
         Time the error was encountered.
         """
         return pulumi.get(self, "time")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

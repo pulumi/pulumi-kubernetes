@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -315,9 +315,7 @@ class Event(pulumi.CustomResource):
                  reporting_instance: Optional[pulumi.Input[str]] = None,
                  series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 
@@ -382,15 +380,7 @@ class Event(pulumi.CustomResource):
                  reporting_instance: Optional[pulumi.Input[str]] = None,
                  series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -400,27 +390,27 @@ class Event(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = EventArgs.__new__(EventArgs)
 
-            __props__['action'] = action
-            __props__['api_version'] = 'events.k8s.io/v1beta1'
-            __props__['deprecated_count'] = deprecated_count
-            __props__['deprecated_first_timestamp'] = deprecated_first_timestamp
-            __props__['deprecated_last_timestamp'] = deprecated_last_timestamp
-            __props__['deprecated_source'] = deprecated_source
+            __props__.__dict__["action"] = action
+            __props__.__dict__["api_version"] = 'events.k8s.io/v1beta1'
+            __props__.__dict__["deprecated_count"] = deprecated_count
+            __props__.__dict__["deprecated_first_timestamp"] = deprecated_first_timestamp
+            __props__.__dict__["deprecated_last_timestamp"] = deprecated_last_timestamp
+            __props__.__dict__["deprecated_source"] = deprecated_source
             if event_time is None and not opts.urn:
                 raise TypeError("Missing required property 'event_time'")
-            __props__['event_time'] = event_time
-            __props__['kind'] = 'Event'
-            __props__['metadata'] = metadata
-            __props__['note'] = note
-            __props__['reason'] = reason
-            __props__['regarding'] = regarding
-            __props__['related'] = related
-            __props__['reporting_controller'] = reporting_controller
-            __props__['reporting_instance'] = reporting_instance
-            __props__['series'] = series
-            __props__['type'] = type
+            __props__.__dict__["event_time"] = event_time
+            __props__.__dict__["kind"] = 'Event'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["note"] = note
+            __props__.__dict__["reason"] = reason
+            __props__.__dict__["regarding"] = regarding
+            __props__.__dict__["related"] = related
+            __props__.__dict__["reporting_controller"] = reporting_controller
+            __props__.__dict__["reporting_instance"] = reporting_instance
+            __props__.__dict__["series"] = series
+            __props__.__dict__["type"] = type
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:core/v1:Event"), pulumi.Alias(type_="kubernetes:events.k8s.io/v1:Event")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(Event, __self__).__init__(
@@ -443,25 +433,25 @@ class Event(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = EventArgs.__new__(EventArgs)
 
-        __props__["action"] = None
-        __props__["api_version"] = None
-        __props__["deprecated_count"] = None
-        __props__["deprecated_first_timestamp"] = None
-        __props__["deprecated_last_timestamp"] = None
-        __props__["deprecated_source"] = None
-        __props__["event_time"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["note"] = None
-        __props__["reason"] = None
-        __props__["regarding"] = None
-        __props__["related"] = None
-        __props__["reporting_controller"] = None
-        __props__["reporting_instance"] = None
-        __props__["series"] = None
-        __props__["type"] = None
+        __props__.__dict__["action"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["deprecated_count"] = None
+        __props__.__dict__["deprecated_first_timestamp"] = None
+        __props__.__dict__["deprecated_last_timestamp"] = None
+        __props__.__dict__["deprecated_source"] = None
+        __props__.__dict__["event_time"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["note"] = None
+        __props__.__dict__["reason"] = None
+        __props__.__dict__["regarding"] = None
+        __props__.__dict__["related"] = None
+        __props__.__dict__["reporting_controller"] = None
+        __props__.__dict__["reporting_instance"] = None
+        __props__.__dict__["series"] = None
+        __props__.__dict__["type"] = None
         return Event(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -599,10 +589,4 @@ class Event(pulumi.CustomResource):
         type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
         """
         return pulumi.get(self, "type")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

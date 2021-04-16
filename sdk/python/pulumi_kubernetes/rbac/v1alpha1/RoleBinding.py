@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -110,9 +110,7 @@ class RoleBinding(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefArgs']]] = None,
                  subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
 
@@ -153,15 +151,7 @@ class RoleBinding(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefArgs']]] = None,
                  subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -171,15 +161,15 @@ class RoleBinding(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = RoleBindingArgs.__new__(RoleBindingArgs)
 
-            __props__['api_version'] = 'rbac.authorization.k8s.io/v1alpha1'
-            __props__['kind'] = 'RoleBinding'
-            __props__['metadata'] = metadata
+            __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1alpha1'
+            __props__.__dict__["kind"] = 'RoleBinding'
+            __props__.__dict__["metadata"] = metadata
             if role_ref is None and not opts.urn:
                 raise TypeError("Missing required property 'role_ref'")
-            __props__['role_ref'] = role_ref
-            __props__['subjects'] = subjects
+            __props__.__dict__["role_ref"] = role_ref
+            __props__.__dict__["subjects"] = subjects
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1:RoleBinding"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(RoleBinding, __self__).__init__(
@@ -202,13 +192,13 @@ class RoleBinding(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = RoleBindingArgs.__new__(RoleBindingArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["role_ref"] = None
-        __props__["subjects"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["role_ref"] = None
+        __props__.__dict__["subjects"] = None
         return RoleBinding(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -250,10 +240,4 @@ class RoleBinding(pulumi.CustomResource):
         Subjects holds references to the objects the role applies to.
         """
         return pulumi.get(self, "subjects")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

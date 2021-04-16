@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -95,9 +95,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['PodSecurityPolicySpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
 
@@ -136,15 +134,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['PodSecurityPolicySpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -154,12 +144,12 @@ class PodSecurityPolicy(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = PodSecurityPolicyArgs.__new__(PodSecurityPolicyArgs)
 
-            __props__['api_version'] = 'extensions/v1beta1'
-            __props__['kind'] = 'PodSecurityPolicy'
-            __props__['metadata'] = metadata
-            __props__['spec'] = spec
+            __props__.__dict__["api_version"] = 'extensions/v1beta1'
+            __props__.__dict__["kind"] = 'PodSecurityPolicy'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:policy/v1beta1:PodSecurityPolicy")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(PodSecurityPolicy, __self__).__init__(
@@ -182,12 +172,12 @@ class PodSecurityPolicy(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = PodSecurityPolicyArgs.__new__(PodSecurityPolicyArgs)
 
-        __props__["api_version"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["spec"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["spec"] = None
         return PodSecurityPolicy(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -221,10 +211,4 @@ class PodSecurityPolicy(pulumi.CustomResource):
         spec defines the policy enforced.
         """
         return pulumi.get(self, "spec")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

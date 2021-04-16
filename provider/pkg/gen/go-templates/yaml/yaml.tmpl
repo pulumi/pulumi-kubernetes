@@ -25,12 +25,12 @@ import (
 	"path/filepath"
 
 	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v2/go/kubernetes/apiextensions"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apiextensions"
 {{- range .Imports}}
     {{.}}
 {{- end}}
-	"github.com/pulumi/pulumi/sdk/v2/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool, opts ...pulumi.ResourceOption,

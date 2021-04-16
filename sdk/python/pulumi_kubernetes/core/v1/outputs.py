@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._enums import *
@@ -190,6 +190,27 @@ class AWSElasticBlockStoreVolumeSource(dict):
 
     An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumeID":
+            suggest = "volume_id"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AWSElasticBlockStoreVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AWSElasticBlockStoreVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AWSElasticBlockStoreVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  volume_id: str,
                  fs_type: Optional[str] = None,
@@ -244,15 +265,33 @@ class AWSElasticBlockStoreVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Affinity(dict):
     """
     Affinity is a group of affinity scheduling rules.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeAffinity":
+            suggest = "node_affinity"
+        elif key == "podAffinity":
+            suggest = "pod_affinity"
+        elif key == "podAntiAffinity":
+            suggest = "pod_anti_affinity"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Affinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Affinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Affinity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  node_affinity: Optional['outputs.NodeAffinity'] = None,
                  pod_affinity: Optional['outputs.PodAffinity'] = None,
@@ -294,15 +333,29 @@ class Affinity(dict):
         """
         return pulumi.get(self, "pod_anti_affinity")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AttachedVolume(dict):
     """
     AttachedVolume describes a volume attached to a node
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "devicePath":
+            suggest = "device_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AttachedVolume. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AttachedVolume.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AttachedVolume.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  device_path: str,
                  name: str):
@@ -330,15 +383,37 @@ class AttachedVolume(dict):
         """
         return pulumi.get(self, "name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AzureDiskVolumeSource(dict):
     """
     AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "diskName":
+            suggest = "disk_name"
+        elif key == "diskURI":
+            suggest = "disk_uri"
+        elif key == "cachingMode":
+            suggest = "caching_mode"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AzureDiskVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AzureDiskVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AzureDiskVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  disk_name: str,
                  disk_uri: str,
@@ -414,15 +489,35 @@ class AzureDiskVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AzureFilePersistentVolumeSource(dict):
     """
     AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "secretName":
+            suggest = "secret_name"
+        elif key == "shareName":
+            suggest = "share_name"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretNamespace":
+            suggest = "secret_namespace"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AzureFilePersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AzureFilePersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AzureFilePersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  secret_name: str,
                  share_name: str,
@@ -474,15 +569,33 @@ class AzureFilePersistentVolumeSource(dict):
         """
         return pulumi.get(self, "secret_namespace")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class AzureFileVolumeSource(dict):
     """
     AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "secretName":
+            suggest = "secret_name"
+        elif key == "shareName":
+            suggest = "share_name"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AzureFileVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AzureFileVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AzureFileVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  secret_name: str,
                  share_name: str,
@@ -522,15 +635,43 @@ class AzureFileVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSIPersistentVolumeSource(dict):
     """
     Represents storage that is managed by an external CSI volume driver (Beta feature)
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumeHandle":
+            suggest = "volume_handle"
+        elif key == "controllerExpandSecretRef":
+            suggest = "controller_expand_secret_ref"
+        elif key == "controllerPublishSecretRef":
+            suggest = "controller_publish_secret_ref"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "nodePublishSecretRef":
+            suggest = "node_publish_secret_ref"
+        elif key == "nodeStageSecretRef":
+            suggest = "node_stage_secret_ref"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeAttributes":
+            suggest = "volume_attributes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  driver: str,
                  volume_handle: str,
@@ -642,15 +783,35 @@ class CSIPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "volume_attributes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CSIVolumeSource(dict):
     """
     Represents a source location of a volume to mount, managed by an external CSI driver
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "nodePublishSecretRef":
+            suggest = "node_publish_secret_ref"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeAttributes":
+            suggest = "volume_attributes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  driver: str,
                  fs_type: Optional[str] = None,
@@ -715,9 +876,6 @@ class CSIVolumeSource(dict):
         """
         return pulumi.get(self, "volume_attributes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Capabilities(dict):
@@ -753,15 +911,33 @@ class Capabilities(dict):
         """
         return pulumi.get(self, "drop")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CephFSPersistentVolumeSource(dict):
     """
     Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretFile":
+            suggest = "secret_file"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CephFSPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CephFSPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CephFSPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  monitors: Sequence[str],
                  path: Optional[str] = None,
@@ -838,15 +1014,33 @@ class CephFSPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CephFSVolumeSource(dict):
     """
     Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretFile":
+            suggest = "secret_file"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CephFSVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CephFSVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CephFSVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  monitors: Sequence[str],
                  path: Optional[str] = None,
@@ -923,15 +1117,35 @@ class CephFSVolumeSource(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CinderPersistentVolumeSource(dict):
     """
     Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumeID":
+            suggest = "volume_id"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CinderPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CinderPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CinderPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  volume_id: str,
                  fs_type: Optional[str] = None,
@@ -984,15 +1198,35 @@ class CinderPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class CinderVolumeSource(dict):
     """
     Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumeID":
+            suggest = "volume_id"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CinderVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CinderVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CinderVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  volume_id: str,
                  fs_type: Optional[str] = None,
@@ -1045,15 +1279,29 @@ class CinderVolumeSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ClientIPConfig(dict):
     """
     ClientIPConfig represents the configurations of Client IP based session affinity.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "timeoutSeconds":
+            suggest = "timeout_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClientIPConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClientIPConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClientIPConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  timeout_seconds: Optional[int] = None):
         """
@@ -1071,15 +1319,31 @@ class ClientIPConfig(dict):
         """
         return pulumi.get(self, "timeout_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ConfigMap(dict):
     """
     ConfigMap holds configuration data for pods to consume.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "binaryData":
+            suggest = "binary_data"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConfigMap. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConfigMap.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConfigMap.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  binary_data: Optional[Mapping[str, str]] = None,
@@ -1157,9 +1421,6 @@ class ConfigMap(dict):
         """
         return pulumi.get(self, "metadata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ConfigMapEnvSource(dict):
@@ -1198,9 +1459,6 @@ class ConfigMapEnvSource(dict):
         Specify whether the ConfigMap must be defined
         """
         return pulumi.get(self, "optional")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -1248,15 +1506,31 @@ class ConfigMapKeySelector(dict):
         """
         return pulumi.get(self, "optional")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ConfigMapNodeConfigSource(dict):
     """
     ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "kubeletConfigKey":
+            suggest = "kubelet_config_key"
+        elif key == "resourceVersion":
+            suggest = "resource_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConfigMapNodeConfigSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConfigMapNodeConfigSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConfigMapNodeConfigSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kubelet_config_key: str,
                  name: str,
@@ -1319,9 +1593,6 @@ class ConfigMapNodeConfigSource(dict):
         """
         return pulumi.get(self, "uid")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ConfigMapProjection(dict):
@@ -1373,9 +1644,6 @@ class ConfigMapProjection(dict):
         """
         return pulumi.get(self, "optional")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ConfigMapVolumeSource(dict):
@@ -1384,6 +1652,23 @@ class ConfigMapVolumeSource(dict):
 
     The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConfigMapVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConfigMapVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConfigMapVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  default_mode: Optional[int] = None,
                  items: Optional[Sequence['outputs.KeyToPath']] = None,
@@ -1439,15 +1724,51 @@ class ConfigMapVolumeSource(dict):
         """
         return pulumi.get(self, "optional")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Container(dict):
     """
     A single application container that you want to run within a pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envFrom":
+            suggest = "env_from"
+        elif key == "imagePullPolicy":
+            suggest = "image_pull_policy"
+        elif key == "livenessProbe":
+            suggest = "liveness_probe"
+        elif key == "readinessProbe":
+            suggest = "readiness_probe"
+        elif key == "securityContext":
+            suggest = "security_context"
+        elif key == "startupProbe":
+            suggest = "startup_probe"
+        elif key == "stdinOnce":
+            suggest = "stdin_once"
+        elif key == "terminationMessagePath":
+            suggest = "termination_message_path"
+        elif key == "terminationMessagePolicy":
+            suggest = "termination_message_policy"
+        elif key == "volumeDevices":
+            suggest = "volume_devices"
+        elif key == "volumeMounts":
+            suggest = "volume_mounts"
+        elif key == "workingDir":
+            suggest = "working_dir"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Container. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Container.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Container.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  args: Optional[Sequence[str]] = None,
@@ -1716,15 +2037,29 @@ class Container(dict):
         """
         return pulumi.get(self, "working_dir")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerImage(dict):
     """
     Describe a container image
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sizeBytes":
+            suggest = "size_bytes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerImage. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerImage.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerImage.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  names: Sequence[str],
                  size_bytes: Optional[int] = None):
@@ -1753,15 +2088,33 @@ class ContainerImage(dict):
         """
         return pulumi.get(self, "size_bytes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerPort(dict):
     """
     ContainerPort represents a network port in a single container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerPort":
+            suggest = "container_port"
+        elif key == "hostIP":
+            suggest = "host_ip"
+        elif key == "hostPort":
+            suggest = "host_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerPort. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerPort.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerPort.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  container_port: int,
                  host_ip: Optional[str] = None,
@@ -1826,9 +2179,6 @@ class ContainerPort(dict):
         """
         return pulumi.get(self, "protocol")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerState(dict):
@@ -1876,15 +2226,29 @@ class ContainerState(dict):
         """
         return pulumi.get(self, "waiting")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerStateRunning(dict):
     """
     ContainerStateRunning is a running state of a container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "startedAt":
+            suggest = "started_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerStateRunning. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerStateRunning.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerStateRunning.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  started_at: Optional[str] = None):
         """
@@ -1902,15 +2266,35 @@ class ContainerStateRunning(dict):
         """
         return pulumi.get(self, "started_at")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerStateTerminated(dict):
     """
     ContainerStateTerminated is a terminated state of a container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "exitCode":
+            suggest = "exit_code"
+        elif key == "containerID":
+            suggest = "container_id"
+        elif key == "finishedAt":
+            suggest = "finished_at"
+        elif key == "startedAt":
+            suggest = "started_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerStateTerminated. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerStateTerminated.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerStateTerminated.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  exit_code: int,
                  container_id: Optional[str] = None,
@@ -1999,9 +2383,6 @@ class ContainerStateTerminated(dict):
         """
         return pulumi.get(self, "started_at")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerStateWaiting(dict):
@@ -2037,15 +2418,35 @@ class ContainerStateWaiting(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ContainerStatus(dict):
     """
     ContainerStatus contains details for the current status of this container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "imageID":
+            suggest = "image_id"
+        elif key == "restartCount":
+            suggest = "restart_count"
+        elif key == "containerID":
+            suggest = "container_id"
+        elif key == "lastState":
+            suggest = "last_state"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  image: str,
                  image_id: str,
@@ -2154,15 +2555,29 @@ class ContainerStatus(dict):
         """
         return pulumi.get(self, "state")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DaemonEndpoint(dict):
     """
     DaemonEndpoint contains information about a single Daemon endpoint.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "Port":
+            suggest = "port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonEndpoint. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonEndpoint.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonEndpoint.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  port: int):
         """
@@ -2178,9 +2593,6 @@ class DaemonEndpoint(dict):
         Port number of the given endpoint.
         """
         return pulumi.get(self, "port")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -2205,15 +2617,31 @@ class DownwardAPIProjection(dict):
         """
         return pulumi.get(self, "items")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DownwardAPIVolumeFile(dict):
     """
     DownwardAPIVolumeFile represents information to create the file containing the pod field
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fieldRef":
+            suggest = "field_ref"
+        elif key == "resourceFieldRef":
+            suggest = "resource_field_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DownwardAPIVolumeFile. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DownwardAPIVolumeFile.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DownwardAPIVolumeFile.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path: str,
                  field_ref: Optional['outputs.ObjectFieldSelector'] = None,
@@ -2266,15 +2694,29 @@ class DownwardAPIVolumeFile(dict):
         """
         return pulumi.get(self, "resource_field_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class DownwardAPIVolumeSource(dict):
     """
     DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DownwardAPIVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DownwardAPIVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DownwardAPIVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  default_mode: Optional[int] = None,
                  items: Optional[Sequence['outputs.DownwardAPIVolumeFile']] = None):
@@ -2304,15 +2746,29 @@ class DownwardAPIVolumeSource(dict):
         """
         return pulumi.get(self, "items")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EmptyDirVolumeSource(dict):
     """
     Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sizeLimit":
+            suggest = "size_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EmptyDirVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EmptyDirVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EmptyDirVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  medium: Optional[str] = None,
                  size_limit: Optional[str] = None):
@@ -2342,15 +2798,31 @@ class EmptyDirVolumeSource(dict):
         """
         return pulumi.get(self, "size_limit")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointAddress(dict):
     """
     EndpointAddress is a tuple that describes single IP address.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+        elif key == "targetRef":
+            suggest = "target_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointAddress. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointAddress.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointAddress.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  ip: str,
                  hostname: Optional[str] = None,
@@ -2403,15 +2875,29 @@ class EndpointAddress(dict):
         """
         return pulumi.get(self, "target_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointPort(dict):
     """
     EndpointPort is a tuple that describes a single port.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appProtocol":
+            suggest = "app_protocol"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointPort. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointPort.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointPort.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  port: int,
                  app_protocol: Optional[str] = None,
@@ -2464,9 +2950,6 @@ class EndpointPort(dict):
         """
         return pulumi.get(self, "protocol")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EndpointSubset(dict):
@@ -2480,6 +2963,23 @@ class EndpointSubset(dict):
         a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
         b: [ 10.10.1.1:309, 10.10.2.2:309 ]
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notReadyAddresses":
+            suggest = "not_ready_addresses"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointSubset. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointSubset.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointSubset.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  addresses: Optional[Sequence['outputs.EndpointAddress']] = None,
                  not_ready_addresses: Optional[Sequence['outputs.EndpointAddress']] = None,
@@ -2528,9 +3028,6 @@ class EndpointSubset(dict):
         """
         return pulumi.get(self, "ports")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Endpoints(dict):
@@ -2548,6 +3045,23 @@ class Endpoints(dict):
         },
      ]
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Endpoints. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Endpoints.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Endpoints.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -2612,15 +3126,31 @@ class Endpoints(dict):
         """
         return pulumi.get(self, "subsets")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EnvFromSource(dict):
     """
     EnvFromSource represents the source of a set of ConfigMaps
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMapRef":
+            suggest = "config_map_ref"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EnvFromSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EnvFromSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EnvFromSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config_map_ref: Optional['outputs.ConfigMapEnvSource'] = None,
                  prefix: Optional[str] = None,
@@ -2662,15 +3192,29 @@ class EnvFromSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EnvVar(dict):
     """
     EnvVar represents an environment variable present in a Container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "valueFrom":
+            suggest = "value_from"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EnvVar. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EnvVar.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EnvVar.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  value: Optional[str] = None,
@@ -2711,15 +3255,35 @@ class EnvVar(dict):
         """
         return pulumi.get(self, "value_from")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EnvVarSource(dict):
     """
     EnvVarSource represents a source for the value of an EnvVar.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMapKeyRef":
+            suggest = "config_map_key_ref"
+        elif key == "fieldRef":
+            suggest = "field_ref"
+        elif key == "resourceFieldRef":
+            suggest = "resource_field_ref"
+        elif key == "secretKeyRef":
+            suggest = "secret_key_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EnvVarSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EnvVarSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EnvVarSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config_map_key_ref: Optional['outputs.ConfigMapKeySelector'] = None,
                  field_ref: Optional['outputs.ObjectFieldSelector'] = None,
@@ -2773,15 +3337,53 @@ class EnvVarSource(dict):
         """
         return pulumi.get(self, "secret_key_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EphemeralContainer(dict):
     """
     An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envFrom":
+            suggest = "env_from"
+        elif key == "imagePullPolicy":
+            suggest = "image_pull_policy"
+        elif key == "livenessProbe":
+            suggest = "liveness_probe"
+        elif key == "readinessProbe":
+            suggest = "readiness_probe"
+        elif key == "securityContext":
+            suggest = "security_context"
+        elif key == "startupProbe":
+            suggest = "startup_probe"
+        elif key == "stdinOnce":
+            suggest = "stdin_once"
+        elif key == "targetContainerName":
+            suggest = "target_container_name"
+        elif key == "terminationMessagePath":
+            suggest = "termination_message_path"
+        elif key == "terminationMessagePolicy":
+            suggest = "termination_message_policy"
+        elif key == "volumeDevices":
+            suggest = "volume_devices"
+        elif key == "volumeMounts":
+            suggest = "volume_mounts"
+        elif key == "workingDir":
+            suggest = "working_dir"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EphemeralContainer. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EphemeralContainer.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EphemeralContainer.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  args: Optional[Sequence[str]] = None,
@@ -3062,15 +3664,29 @@ class EphemeralContainer(dict):
         """
         return pulumi.get(self, "working_dir")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EphemeralVolumeSource(dict):
     """
     Represents an ephemeral volume that is handled by a normal storage driver.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumeClaimTemplate":
+            suggest = "volume_claim_template"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EphemeralVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EphemeralVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EphemeralVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  volume_claim_template: Optional['outputs.PersistentVolumeClaimTemplate'] = None):
         """
@@ -3100,15 +3716,41 @@ class EphemeralVolumeSource(dict):
         """
         return pulumi.get(self, "volume_claim_template")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Event(dict):
     """
     Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "involvedObject":
+            suggest = "involved_object"
+        elif key == "apiVersion":
+            suggest = "api_version"
+        elif key == "eventTime":
+            suggest = "event_time"
+        elif key == "firstTimestamp":
+            suggest = "first_timestamp"
+        elif key == "lastTimestamp":
+            suggest = "last_timestamp"
+        elif key == "reportingComponent":
+            suggest = "reporting_component"
+        elif key == "reportingInstance":
+            suggest = "reporting_instance"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Event. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Event.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Event.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  involved_object: 'outputs.ObjectReference',
                  metadata: '_meta.v1.outputs.ObjectMeta',
@@ -3316,15 +3958,29 @@ class Event(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EventSeries(dict):
     """
     EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastObservedTime":
+            suggest = "last_observed_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EventSeries. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EventSeries.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EventSeries.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  count: Optional[int] = None,
                  last_observed_time: Optional[str] = None,
@@ -3366,9 +4022,6 @@ class EventSeries(dict):
         """
         return pulumi.get(self, "state")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class EventSource(dict):
@@ -3404,9 +4057,6 @@ class EventSource(dict):
         """
         return pulumi.get(self, "host")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ExecAction(dict):
@@ -3430,15 +4080,33 @@ class ExecAction(dict):
         """
         return pulumi.get(self, "command")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FCVolumeSource(dict):
     """
     Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "targetWWNs":
+            suggest = "target_wwns"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FCVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FCVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FCVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  fs_type: Optional[str] = None,
                  lun: Optional[int] = None,
@@ -3504,15 +4172,33 @@ class FCVolumeSource(dict):
         """
         return pulumi.get(self, "wwids")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlexPersistentVolumeSource(dict):
     """
     FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlexPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlexPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlexPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  driver: str,
                  fs_type: Optional[str] = None,
@@ -3577,15 +4263,33 @@ class FlexPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlexVolumeSource(dict):
     """
     FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlexVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlexVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlexVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  driver: str,
                  fs_type: Optional[str] = None,
@@ -3650,15 +4354,31 @@ class FlexVolumeSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlockerVolumeSource(dict):
     """
     Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "datasetName":
+            suggest = "dataset_name"
+        elif key == "datasetUUID":
+            suggest = "dataset_uuid"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlockerVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlockerVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlockerVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  dataset_name: Optional[str] = None,
                  dataset_uuid: Optional[str] = None):
@@ -3688,9 +4408,6 @@ class FlockerVolumeSource(dict):
         """
         return pulumi.get(self, "dataset_uuid")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class GCEPersistentDiskVolumeSource(dict):
@@ -3699,6 +4416,27 @@ class GCEPersistentDiskVolumeSource(dict):
 
     A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "pdName":
+            suggest = "pd_name"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GCEPersistentDiskVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GCEPersistentDiskVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GCEPersistentDiskVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  pd_name: str,
                  fs_type: Optional[str] = None,
@@ -3753,9 +4491,6 @@ class GCEPersistentDiskVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class GitRepoVolumeSource(dict):
@@ -3806,15 +4541,31 @@ class GitRepoVolumeSource(dict):
         """
         return pulumi.get(self, "revision")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class GlusterfsPersistentVolumeSource(dict):
     """
     Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "endpointsNamespace":
+            suggest = "endpoints_namespace"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GlusterfsPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GlusterfsPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GlusterfsPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  endpoints: str,
                  path: str,
@@ -3866,15 +4617,29 @@ class GlusterfsPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class GlusterfsVolumeSource(dict):
     """
     Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GlusterfsVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GlusterfsVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GlusterfsVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  endpoints: str,
                  path: str,
@@ -3914,15 +4679,29 @@ class GlusterfsVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HTTPGetAction(dict):
     """
     HTTPGetAction describes an action based on HTTP Get requests.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "httpHeaders":
+            suggest = "http_headers"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HTTPGetAction. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HTTPGetAction.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HTTPGetAction.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  port: Any,
                  host: Optional[str] = None,
@@ -3987,9 +4766,6 @@ class HTTPGetAction(dict):
         """
         return pulumi.get(self, "scheme")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HTTPHeader(dict):
@@ -4023,15 +4799,33 @@ class HTTPHeader(dict):
         """
         return pulumi.get(self, "value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Handler(dict):
     """
     Handler defines a specific action that should be taken
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "exec":
+            suggest = "exec_"
+        elif key == "httpGet":
+            suggest = "http_get"
+        elif key == "tcpSocket":
+            suggest = "tcp_socket"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Handler. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Handler.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Handler.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  exec_: Optional['outputs.ExecAction'] = None,
                  http_get: Optional['outputs.HTTPGetAction'] = None,
@@ -4073,9 +4867,6 @@ class Handler(dict):
         """
         return pulumi.get(self, "tcp_socket")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HostAlias(dict):
@@ -4111,9 +4902,6 @@ class HostAlias(dict):
         """
         return pulumi.get(self, "ip")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HostPathVolumeSource(dict):
@@ -4148,15 +4936,43 @@ class HostPathVolumeSource(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ISCSIPersistentVolumeSource(dict):
     """
     ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetPortal":
+            suggest = "target_portal"
+        elif key == "chapAuthDiscovery":
+            suggest = "chap_auth_discovery"
+        elif key == "chapAuthSession":
+            suggest = "chap_auth_session"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "initiatorName":
+            suggest = "initiator_name"
+        elif key == "iscsiInterface":
+            suggest = "iscsi_interface"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ISCSIPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ISCSIPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ISCSIPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  iqn: str,
                  lun: int,
@@ -4291,15 +5107,43 @@ class ISCSIPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ISCSIVolumeSource(dict):
     """
     Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "targetPortal":
+            suggest = "target_portal"
+        elif key == "chapAuthDiscovery":
+            suggest = "chap_auth_discovery"
+        elif key == "chapAuthSession":
+            suggest = "chap_auth_session"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "initiatorName":
+            suggest = "initiator_name"
+        elif key == "iscsiInterface":
+            suggest = "iscsi_interface"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ISCSIVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ISCSIVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ISCSIVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  iqn: str,
                  lun: int,
@@ -4434,9 +5278,6 @@ class ISCSIVolumeSource(dict):
         """
         return pulumi.get(self, "secret_ref")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class KeyToPath(dict):
@@ -4482,15 +5323,31 @@ class KeyToPath(dict):
         """
         return pulumi.get(self, "mode")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Lifecycle(dict):
     """
     Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "postStart":
+            suggest = "post_start"
+        elif key == "preStop":
+            suggest = "pre_stop"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Lifecycle. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Lifecycle.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Lifecycle.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  post_start: Optional['outputs.Handler'] = None,
                  pre_stop: Optional['outputs.Handler'] = None):
@@ -4520,15 +5377,29 @@ class Lifecycle(dict):
         """
         return pulumi.get(self, "pre_stop")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LimitRange(dict):
     """
     LimitRange sets resource usage limits for each kind of resource in a Namespace.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LimitRange. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LimitRange.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LimitRange.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -4582,15 +5453,31 @@ class LimitRange(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LimitRangeItem(dict):
     """
     LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultRequest":
+            suggest = "default_request"
+        elif key == "maxLimitRequestRatio":
+            suggest = "max_limit_request_ratio"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LimitRangeItem. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LimitRangeItem.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LimitRangeItem.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: str,
                  default: Optional[Mapping[str, str]] = None,
@@ -4667,9 +5554,6 @@ class LimitRangeItem(dict):
         """
         return pulumi.get(self, "min")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LimitRangeSpec(dict):
@@ -4691,9 +5575,6 @@ class LimitRangeSpec(dict):
         Limits is the list of LimitRangeItem objects that are enforced.
         """
         return pulumi.get(self, "limits")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -4742,9 +5623,6 @@ class LoadBalancerIngress(dict):
         """
         return pulumi.get(self, "ports")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LoadBalancerStatus(dict):
@@ -4767,9 +5645,6 @@ class LoadBalancerStatus(dict):
         Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
         """
         return pulumi.get(self, "ingress")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -4794,15 +5669,29 @@ class LocalObjectReference(dict):
         """
         return pulumi.get(self, "name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LocalVolumeSource(dict):
     """
     Local represents directly-attached storage with node affinity (Beta feature)
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LocalVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LocalVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LocalVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path: str,
                  fs_type: Optional[str] = None):
@@ -4831,15 +5720,29 @@ class LocalVolumeSource(dict):
         """
         return pulumi.get(self, "fs_type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NFSVolumeSource(dict):
     """
     Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NFSVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NFSVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NFSVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path: str,
                  server: str,
@@ -4879,15 +5782,29 @@ class NFSVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Namespace(dict):
     """
     Namespace provides a scope for Names. Use of multiple namespaces is optional.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Namespace. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Namespace.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Namespace.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -4953,15 +5870,29 @@ class Namespace(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NamespaceCondition(dict):
     """
     NamespaceCondition contains details about state of namespace.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NamespaceCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NamespaceCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NamespaceCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -5013,9 +5944,6 @@ class NamespaceCondition(dict):
     def reason(self) -> Optional[str]:
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NamespaceSpec(dict):
@@ -5038,9 +5966,6 @@ class NamespaceSpec(dict):
         Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
         """
         return pulumi.get(self, "finalizers")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -5077,15 +6002,29 @@ class NamespaceStatus(dict):
         """
         return pulumi.get(self, "phase")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Node(dict):
     """
     Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Node. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Node.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Node.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -5151,9 +6090,6 @@ class Node(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeAddress(dict):
@@ -5187,15 +6123,31 @@ class NodeAddress(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeAffinity(dict):
     """
     Node affinity is a group of node affinity scheduling rules.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecution":
+            suggest = "preferred_during_scheduling_ignored_during_execution"
+        elif key == "requiredDuringSchedulingIgnoredDuringExecution":
+            suggest = "required_during_scheduling_ignored_during_execution"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeAffinity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  preferred_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.PreferredSchedulingTerm']] = None,
                  required_during_scheduling_ignored_during_execution: Optional['outputs.NodeSelector'] = None):
@@ -5225,15 +6177,31 @@ class NodeAffinity(dict):
         """
         return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeCondition(dict):
     """
     NodeCondition contains condition information for a node.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastHeartbeatTime":
+            suggest = "last_heartbeat_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -5309,15 +6277,29 @@ class NodeCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeConfigSource(dict):
     """
     NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMap":
+            suggest = "config_map"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeConfigSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeConfigSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeConfigSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config_map: Optional['outputs.ConfigMapNodeConfigSource'] = None):
         """
@@ -5335,15 +6317,29 @@ class NodeConfigSource(dict):
         """
         return pulumi.get(self, "config_map")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeConfigStatus(dict):
     """
     NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastKnownGood":
+            suggest = "last_known_good"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeConfigStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeConfigStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeConfigStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  active: Optional['outputs.NodeConfigSource'] = None,
                  assigned: Optional['outputs.NodeConfigSource'] = None,
@@ -5397,15 +6393,29 @@ class NodeConfigStatus(dict):
         """
         return pulumi.get(self, "last_known_good")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeDaemonEndpoints(dict):
     """
     NodeDaemonEndpoints lists ports opened by daemons running on the Node.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "kubeletEndpoint":
+            suggest = "kubelet_endpoint"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeDaemonEndpoints. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeDaemonEndpoints.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeDaemonEndpoints.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kubelet_endpoint: Optional['outputs.DaemonEndpoint'] = None):
         """
@@ -5423,15 +6433,29 @@ class NodeDaemonEndpoints(dict):
         """
         return pulumi.get(self, "kubelet_endpoint")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeSelector(dict):
     """
     A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeSelectorTerms":
+            suggest = "node_selector_terms"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSelector. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSelector.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSelector.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  node_selector_terms: Sequence['outputs.NodeSelectorTerm']):
         """
@@ -5447,9 +6471,6 @@ class NodeSelector(dict):
         Required. A list of node selector terms. The terms are ORed.
         """
         return pulumi.get(self, "node_selector_terms")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -5496,15 +6517,31 @@ class NodeSelectorRequirement(dict):
         """
         return pulumi.get(self, "values")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeSelectorTerm(dict):
     """
     A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+        elif key == "matchFields":
+            suggest = "match_fields"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSelectorTerm. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSelectorTerm.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSelectorTerm.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  match_expressions: Optional[Sequence['outputs.NodeSelectorRequirement']] = None,
                  match_fields: Optional[Sequence['outputs.NodeSelectorRequirement']] = None):
@@ -5534,15 +6571,37 @@ class NodeSelectorTerm(dict):
         """
         return pulumi.get(self, "match_fields")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeSpec(dict):
     """
     NodeSpec describes the attributes that a node is created with.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configSource":
+            suggest = "config_source"
+        elif key == "externalID":
+            suggest = "external_id"
+        elif key == "podCIDR":
+            suggest = "pod_cidr"
+        elif key == "podCIDRs":
+            suggest = "pod_cidrs"
+        elif key == "providerID":
+            suggest = "provider_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config_source: Optional['outputs.NodeConfigSource'] = None,
                  external_id: Optional[str] = None,
@@ -5632,15 +6691,35 @@ class NodeSpec(dict):
         """
         return pulumi.get(self, "unschedulable")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeStatus(dict):
     """
     NodeStatus is information about the current status of a node.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "daemonEndpoints":
+            suggest = "daemon_endpoints"
+        elif key == "nodeInfo":
+            suggest = "node_info"
+        elif key == "volumesAttached":
+            suggest = "volumes_attached"
+        elif key == "volumesInUse":
+            suggest = "volumes_in_use"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  addresses: Optional[Sequence['outputs.NodeAddress']] = None,
                  allocatable: Optional[Mapping[str, str]] = None,
@@ -5778,15 +6857,45 @@ class NodeStatus(dict):
         """
         return pulumi.get(self, "volumes_in_use")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NodeSystemInfo(dict):
     """
     NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "bootID":
+            suggest = "boot_id"
+        elif key == "containerRuntimeVersion":
+            suggest = "container_runtime_version"
+        elif key == "kernelVersion":
+            suggest = "kernel_version"
+        elif key == "kubeProxyVersion":
+            suggest = "kube_proxy_version"
+        elif key == "kubeletVersion":
+            suggest = "kubelet_version"
+        elif key == "machineID":
+            suggest = "machine_id"
+        elif key == "operatingSystem":
+            suggest = "operating_system"
+        elif key == "osImage":
+            suggest = "os_image"
+        elif key == "systemUUID":
+            suggest = "system_uuid"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSystemInfo. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSystemInfo.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSystemInfo.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  architecture: str,
                  boot_id: str,
@@ -5902,15 +7011,31 @@ class NodeSystemInfo(dict):
         """
         return pulumi.get(self, "system_uuid")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ObjectFieldSelector(dict):
     """
     ObjectFieldSelector selects an APIVersioned field of an object.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fieldPath":
+            suggest = "field_path"
+        elif key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectFieldSelector. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectFieldSelector.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectFieldSelector.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  field_path: str,
                  api_version: Optional[str] = None):
@@ -5939,15 +7064,33 @@ class ObjectFieldSelector(dict):
         """
         return pulumi.get(self, "api_version")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ObjectReference(dict):
     """
     ObjectReference contains enough information to let you inspect or modify the referred object.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "fieldPath":
+            suggest = "field_path"
+        elif key == "resourceVersion":
+            suggest = "resource_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  field_path: Optional[str] = None,
@@ -6037,15 +7180,29 @@ class ObjectReference(dict):
         """
         return pulumi.get(self, "uid")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolume(dict):
     """
     PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolume. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolume.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolume.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -6111,15 +7268,29 @@ class PersistentVolume(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeClaim(dict):
     """
     PersistentVolumeClaim is a user's request for and claim to a persistent volume
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaim. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaim.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaim.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -6185,15 +7356,31 @@ class PersistentVolumeClaim(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeClaimCondition(dict):
     """
     PersistentVolumeClaimCondition contails details about state of pvc
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastProbeTime":
+            suggest = "last_probe_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -6261,15 +7448,37 @@ class PersistentVolumeClaimCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeClaimSpec(dict):
     """
     PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessModes":
+            suggest = "access_modes"
+        elif key == "dataSource":
+            suggest = "data_source"
+        elif key == "storageClassName":
+            suggest = "storage_class_name"
+        elif key == "volumeMode":
+            suggest = "volume_mode"
+        elif key == "volumeName":
+            suggest = "volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  access_modes: Optional[Sequence[str]] = None,
                  data_source: Optional['outputs.TypedLocalObjectReference'] = None,
@@ -6359,15 +7568,29 @@ class PersistentVolumeClaimSpec(dict):
         """
         return pulumi.get(self, "volume_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeClaimStatus(dict):
     """
     PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessModes":
+            suggest = "access_modes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  access_modes: Optional[Sequence[str]] = None,
                  capacity: Optional[Mapping[str, str]] = None,
@@ -6421,9 +7644,6 @@ class PersistentVolumeClaimStatus(dict):
         """
         return pulumi.get(self, "phase")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeClaimTemplate(dict):
@@ -6458,15 +7678,31 @@ class PersistentVolumeClaimTemplate(dict):
         """
         return pulumi.get(self, "metadata")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeClaimVolumeSource(dict):
     """
     PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "claimName":
+            suggest = "claim_name"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  claim_name: str,
                  read_only: Optional[bool] = None):
@@ -6495,15 +7731,61 @@ class PersistentVolumeClaimVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeSpec(dict):
     """
     PersistentVolumeSpec is the specification of a persistent volume.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessModes":
+            suggest = "access_modes"
+        elif key == "awsElasticBlockStore":
+            suggest = "aws_elastic_block_store"
+        elif key == "azureDisk":
+            suggest = "azure_disk"
+        elif key == "azureFile":
+            suggest = "azure_file"
+        elif key == "claimRef":
+            suggest = "claim_ref"
+        elif key == "flexVolume":
+            suggest = "flex_volume"
+        elif key == "gcePersistentDisk":
+            suggest = "gce_persistent_disk"
+        elif key == "hostPath":
+            suggest = "host_path"
+        elif key == "mountOptions":
+            suggest = "mount_options"
+        elif key == "nodeAffinity":
+            suggest = "node_affinity"
+        elif key == "persistentVolumeReclaimPolicy":
+            suggest = "persistent_volume_reclaim_policy"
+        elif key == "photonPersistentDisk":
+            suggest = "photon_persistent_disk"
+        elif key == "portworxVolume":
+            suggest = "portworx_volume"
+        elif key == "scaleIO":
+            suggest = "scale_io"
+        elif key == "storageClassName":
+            suggest = "storage_class_name"
+        elif key == "volumeMode":
+            suggest = "volume_mode"
+        elif key == "vsphereVolume":
+            suggest = "vsphere_volume"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  access_modes: Optional[Sequence[str]] = None,
                  aws_elastic_block_store: Optional['outputs.AWSElasticBlockStoreVolumeSource'] = None,
@@ -6869,9 +8151,6 @@ class PersistentVolumeSpec(dict):
         """
         return pulumi.get(self, "vsphere_volume")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PersistentVolumeStatus(dict):
@@ -6919,15 +8198,31 @@ class PersistentVolumeStatus(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PhotonPersistentDiskVolumeSource(dict):
     """
     Represents a Photon Controller persistent disk resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "pdID":
+            suggest = "pd_id"
+        elif key == "fsType":
+            suggest = "fs_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PhotonPersistentDiskVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PhotonPersistentDiskVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PhotonPersistentDiskVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  pd_id: str,
                  fs_type: Optional[str] = None):
@@ -6956,9 +8251,6 @@ class PhotonPersistentDiskVolumeSource(dict):
         """
         return pulumi.get(self, "fs_type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Pod(dict):
@@ -6980,6 +8272,23 @@ class Pod(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Pod. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Pod.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Pod.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -7060,15 +8369,31 @@ class Pod(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodAffinity(dict):
     """
     Pod affinity is a group of inter pod affinity scheduling rules.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecution":
+            suggest = "preferred_during_scheduling_ignored_during_execution"
+        elif key == "requiredDuringSchedulingIgnoredDuringExecution":
+            suggest = "required_during_scheduling_ignored_during_execution"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodAffinity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  preferred_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.WeightedPodAffinityTerm']] = None,
                  required_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.PodAffinityTerm']] = None):
@@ -7098,15 +8423,33 @@ class PodAffinity(dict):
         """
         return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodAffinityTerm(dict):
     """
     Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "topologyKey":
+            suggest = "topology_key"
+        elif key == "labelSelector":
+            suggest = "label_selector"
+        elif key == "namespaceSelector":
+            suggest = "namespace_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodAffinityTerm. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodAffinityTerm.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodAffinityTerm.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  topology_key: str,
                  label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -7159,15 +8502,31 @@ class PodAffinityTerm(dict):
         """
         return pulumi.get(self, "namespaces")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodAntiAffinity(dict):
     """
     Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecution":
+            suggest = "preferred_during_scheduling_ignored_during_execution"
+        elif key == "requiredDuringSchedulingIgnoredDuringExecution":
+            suggest = "required_during_scheduling_ignored_during_execution"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodAntiAffinity. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodAntiAffinity.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodAntiAffinity.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  preferred_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.WeightedPodAffinityTerm']] = None,
                  required_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.PodAffinityTerm']] = None):
@@ -7197,15 +8556,31 @@ class PodAntiAffinity(dict):
         """
         return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodCondition(dict):
     """
     PodCondition contains details for the current condition of this pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastProbeTime":
+            suggest = "last_probe_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -7281,9 +8656,6 @@ class PodCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDNSConfig(dict):
@@ -7331,9 +8703,6 @@ class PodDNSConfig(dict):
         """
         return pulumi.get(self, "searches")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodDNSConfigOption(dict):
@@ -7365,9 +8734,6 @@ class PodDNSConfigOption(dict):
     def value(self) -> Optional[str]:
         return pulumi.get(self, "value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodIP(dict):
@@ -7393,15 +8759,29 @@ class PodIP(dict):
         """
         return pulumi.get(self, "ip")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodReadinessGate(dict):
     """
     PodReadinessGate contains the reference to a pod condition
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "conditionType":
+            suggest = "condition_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodReadinessGate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodReadinessGate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodReadinessGate.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  condition_type: str):
         """
@@ -7418,15 +8798,45 @@ class PodReadinessGate(dict):
         """
         return pulumi.get(self, "condition_type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodSecurityContext(dict):
     """
     PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsGroup":
+            suggest = "fs_group"
+        elif key == "fsGroupChangePolicy":
+            suggest = "fs_group_change_policy"
+        elif key == "runAsGroup":
+            suggest = "run_as_group"
+        elif key == "runAsNonRoot":
+            suggest = "run_as_non_root"
+        elif key == "runAsUser":
+            suggest = "run_as_user"
+        elif key == "seLinuxOptions":
+            suggest = "se_linux_options"
+        elif key == "seccompProfile":
+            suggest = "seccomp_profile"
+        elif key == "supplementalGroups":
+            suggest = "supplemental_groups"
+        elif key == "windowsOptions":
+            suggest = "windows_options"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSecurityContext. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSecurityContext.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSecurityContext.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  fs_group: Optional[int] = None,
                  fs_group_change_policy: Optional[str] = None,
@@ -7560,15 +8970,81 @@ class PodSecurityContext(dict):
         """
         return pulumi.get(self, "windows_options")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodSpec(dict):
     """
     PodSpec is a description of a pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "activeDeadlineSeconds":
+            suggest = "active_deadline_seconds"
+        elif key == "automountServiceAccountToken":
+            suggest = "automount_service_account_token"
+        elif key == "dnsConfig":
+            suggest = "dns_config"
+        elif key == "dnsPolicy":
+            suggest = "dns_policy"
+        elif key == "enableServiceLinks":
+            suggest = "enable_service_links"
+        elif key == "ephemeralContainers":
+            suggest = "ephemeral_containers"
+        elif key == "hostAliases":
+            suggest = "host_aliases"
+        elif key == "hostIPC":
+            suggest = "host_ipc"
+        elif key == "hostNetwork":
+            suggest = "host_network"
+        elif key == "hostPID":
+            suggest = "host_pid"
+        elif key == "imagePullSecrets":
+            suggest = "image_pull_secrets"
+        elif key == "initContainers":
+            suggest = "init_containers"
+        elif key == "nodeName":
+            suggest = "node_name"
+        elif key == "nodeSelector":
+            suggest = "node_selector"
+        elif key == "preemptionPolicy":
+            suggest = "preemption_policy"
+        elif key == "priorityClassName":
+            suggest = "priority_class_name"
+        elif key == "readinessGates":
+            suggest = "readiness_gates"
+        elif key == "restartPolicy":
+            suggest = "restart_policy"
+        elif key == "runtimeClassName":
+            suggest = "runtime_class_name"
+        elif key == "schedulerName":
+            suggest = "scheduler_name"
+        elif key == "securityContext":
+            suggest = "security_context"
+        elif key == "serviceAccount":
+            suggest = "service_account"
+        elif key == "serviceAccountName":
+            suggest = "service_account_name"
+        elif key == "setHostnameAsFQDN":
+            suggest = "set_hostname_as_fqdn"
+        elif key == "shareProcessNamespace":
+            suggest = "share_process_namespace"
+        elif key == "terminationGracePeriodSeconds":
+            suggest = "termination_grace_period_seconds"
+        elif key == "topologySpreadConstraints":
+            suggest = "topology_spread_constraints"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  containers: Sequence['outputs.Container'],
                  active_deadline_seconds: Optional[int] = None,
@@ -7993,15 +9469,45 @@ class PodSpec(dict):
         """
         return pulumi.get(self, "volumes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodStatus(dict):
     """
     PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerStatuses":
+            suggest = "container_statuses"
+        elif key == "ephemeralContainerStatuses":
+            suggest = "ephemeral_container_statuses"
+        elif key == "hostIP":
+            suggest = "host_ip"
+        elif key == "initContainerStatuses":
+            suggest = "init_container_statuses"
+        elif key == "nominatedNodeName":
+            suggest = "nominated_node_name"
+        elif key == "podIP":
+            suggest = "pod_ip"
+        elif key == "podIPs":
+            suggest = "pod_ips"
+        elif key == "qosClass":
+            suggest = "qos_class"
+        elif key == "startTime":
+            suggest = "start_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  conditions: Optional[Sequence['outputs.PodCondition']] = None,
                  container_statuses: Optional[Sequence['outputs.ContainerStatus']] = None,
@@ -8171,15 +9677,29 @@ class PodStatus(dict):
         """
         return pulumi.get(self, "start_time")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodTemplate(dict):
     """
     PodTemplate describes a template for creating copies of a predefined pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodTemplate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodTemplate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodTemplate.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -8233,9 +9753,6 @@ class PodTemplate(dict):
         """
         return pulumi.get(self, "template")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PodTemplateSpec(dict):
@@ -8270,9 +9787,6 @@ class PodTemplateSpec(dict):
         Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -8321,15 +9835,33 @@ class PortStatus(dict):
         """
         return pulumi.get(self, "error")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PortworxVolumeSource(dict):
     """
     PortworxVolumeSource represents a Portworx volume resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumeID":
+            suggest = "volume_id"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PortworxVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PortworxVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PortworxVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  volume_id: str,
                  fs_type: Optional[str] = None,
@@ -8370,9 +9902,6 @@ class PortworxVolumeSource(dict):
         """
         return pulumi.get(self, "read_only")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PreferredSchedulingTerm(dict):
@@ -8406,15 +9935,45 @@ class PreferredSchedulingTerm(dict):
         """
         return pulumi.get(self, "weight")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Probe(dict):
     """
     Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "exec":
+            suggest = "exec_"
+        elif key == "failureThreshold":
+            suggest = "failure_threshold"
+        elif key == "httpGet":
+            suggest = "http_get"
+        elif key == "initialDelaySeconds":
+            suggest = "initial_delay_seconds"
+        elif key == "periodSeconds":
+            suggest = "period_seconds"
+        elif key == "successThreshold":
+            suggest = "success_threshold"
+        elif key == "tcpSocket":
+            suggest = "tcp_socket"
+        elif key == "terminationGracePeriodSeconds":
+            suggest = "termination_grace_period_seconds"
+        elif key == "timeoutSeconds":
+            suggest = "timeout_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Probe. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Probe.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Probe.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  exec_: Optional['outputs.ExecAction'] = None,
                  failure_threshold: Optional[int] = None,
@@ -8528,15 +10087,29 @@ class Probe(dict):
         """
         return pulumi.get(self, "timeout_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ProjectedVolumeSource(dict):
     """
     Represents a projected volume source
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectedVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectedVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectedVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  sources: Sequence['outputs.VolumeProjection'],
                  default_mode: Optional[int] = None):
@@ -8565,15 +10138,29 @@ class ProjectedVolumeSource(dict):
         """
         return pulumi.get(self, "default_mode")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class QuobyteVolumeSource(dict):
     """
     Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in QuobyteVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        QuobyteVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        QuobyteVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  registry: str,
                  volume: str,
@@ -8649,15 +10236,33 @@ class QuobyteVolumeSource(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RBDPersistentVolumeSource(dict):
     """
     Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RBDPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RBDPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RBDPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  image: str,
                  monitors: Sequence[str],
@@ -8757,15 +10362,33 @@ class RBDPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class RBDVolumeSource(dict):
     """
     Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RBDVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RBDVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RBDVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  image: str,
                  monitors: Sequence[str],
@@ -8865,15 +10488,29 @@ class RBDVolumeSource(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicationController(dict):
     """
     ReplicationController represents the configuration of a replication controller.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationController. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationController.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationController.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -8939,15 +10576,29 @@ class ReplicationController(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicationControllerCondition(dict):
     """
     ReplicationControllerCondition describes the state of a replication controller at a certain point.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationControllerCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationControllerCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationControllerCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  status: str,
                  type: str,
@@ -9011,15 +10662,29 @@ class ReplicationControllerCondition(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicationControllerSpec(dict):
     """
     ReplicationControllerSpec is the specification of a replication controller.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationControllerSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationControllerSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationControllerSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  min_ready_seconds: Optional[int] = None,
                  replicas: Optional[int] = None,
@@ -9073,15 +10738,35 @@ class ReplicationControllerSpec(dict):
         """
         return pulumi.get(self, "template")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ReplicationControllerStatus(dict):
     """
     ReplicationControllerStatus represents the current status of a replication controller.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "fullyLabeledReplicas":
+            suggest = "fully_labeled_replicas"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationControllerStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationControllerStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationControllerStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  replicas: int,
                  available_replicas: Optional[int] = None,
@@ -9158,15 +10843,29 @@ class ReplicationControllerStatus(dict):
         """
         return pulumi.get(self, "ready_replicas")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceFieldSelector(dict):
     """
     ResourceFieldSelector represents container resources (cpu, memory) and their output format
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerName":
+            suggest = "container_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceFieldSelector. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceFieldSelector.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceFieldSelector.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  resource: str,
                  container_name: Optional[str] = None,
@@ -9207,15 +10906,29 @@ class ResourceFieldSelector(dict):
         """
         return pulumi.get(self, "divisor")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceQuota(dict):
     """
     ResourceQuota sets aggregate quota restrictions enforced per namespace
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceQuota. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceQuota.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceQuota.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -9281,15 +10994,29 @@ class ResourceQuota(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceQuotaSpec(dict):
     """
     ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "scopeSelector":
+            suggest = "scope_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceQuotaSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceQuotaSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceQuotaSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  hard: Optional[Mapping[str, str]] = None,
                  scope_selector: Optional['outputs.ScopeSelector'] = None,
@@ -9331,9 +11058,6 @@ class ResourceQuotaSpec(dict):
         """
         return pulumi.get(self, "scopes")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceQuotaStatus(dict):
@@ -9369,9 +11093,6 @@ class ResourceQuotaStatus(dict):
         """
         return pulumi.get(self, "used")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourceRequirements(dict):
@@ -9406,9 +11127,6 @@ class ResourceRequirements(dict):
         Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
         return pulumi.get(self, "requests")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -9469,15 +11187,43 @@ class SELinuxOptions(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ScaleIOPersistentVolumeSource(dict):
     """
     ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "protectionDomain":
+            suggest = "protection_domain"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "sslEnabled":
+            suggest = "ssl_enabled"
+        elif key == "storageMode":
+            suggest = "storage_mode"
+        elif key == "storagePool":
+            suggest = "storage_pool"
+        elif key == "volumeName":
+            suggest = "volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScaleIOPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScaleIOPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScaleIOPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  gateway: str,
                  secret_ref: 'outputs.SecretReference',
@@ -9600,15 +11346,43 @@ class ScaleIOPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "volume_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ScaleIOVolumeSource(dict):
     """
     ScaleIOVolumeSource represents a persistent ScaleIO volume
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "protectionDomain":
+            suggest = "protection_domain"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "sslEnabled":
+            suggest = "ssl_enabled"
+        elif key == "storageMode":
+            suggest = "storage_mode"
+        elif key == "storagePool":
+            suggest = "storage_pool"
+        elif key == "volumeName":
+            suggest = "volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScaleIOVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScaleIOVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScaleIOVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  gateway: str,
                  secret_ref: 'outputs.LocalObjectReference',
@@ -9731,15 +11505,29 @@ class ScaleIOVolumeSource(dict):
         """
         return pulumi.get(self, "volume_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ScopeSelector(dict):
     """
     A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScopeSelector. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScopeSelector.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScopeSelector.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  match_expressions: Optional[Sequence['outputs.ScopedResourceSelectorRequirement']] = None):
         """
@@ -9757,15 +11545,29 @@ class ScopeSelector(dict):
         """
         return pulumi.get(self, "match_expressions")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ScopedResourceSelectorRequirement(dict):
     """
     A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "scopeName":
+            suggest = "scope_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScopedResourceSelectorRequirement. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScopedResourceSelectorRequirement.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScopedResourceSelectorRequirement.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  operator: str,
                  scope_name: str,
@@ -9805,15 +11607,29 @@ class ScopedResourceSelectorRequirement(dict):
         """
         return pulumi.get(self, "values")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SeccompProfile(dict):
     """
     SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "localhostProfile":
+            suggest = "localhost_profile"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SeccompProfile. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SeccompProfile.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SeccompProfile.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  type: str,
                  localhost_profile: Optional[str] = None):
@@ -9846,9 +11662,6 @@ class SeccompProfile(dict):
         """
         return pulumi.get(self, "localhost_profile")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Secret(dict):
@@ -9865,6 +11678,25 @@ class Secret(dict):
     https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
     https://kubernetes.io/docs/concepts/configuration/secret/#risks
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "stringData":
+            suggest = "string_data"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Secret. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Secret.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Secret.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  data: Optional[Mapping[str, str]] = None,
@@ -9964,9 +11796,6 @@ class Secret(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SecretEnvSource(dict):
@@ -10005,9 +11834,6 @@ class SecretEnvSource(dict):
         Specify whether the Secret must be defined
         """
         return pulumi.get(self, "optional")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -10054,9 +11880,6 @@ class SecretKeySelector(dict):
         Specify whether the Secret or its key must be defined
         """
         return pulumi.get(self, "optional")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -10109,9 +11932,6 @@ class SecretProjection(dict):
         """
         return pulumi.get(self, "optional")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SecretReference(dict):
@@ -10147,9 +11967,6 @@ class SecretReference(dict):
         """
         return pulumi.get(self, "namespace")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SecretVolumeSource(dict):
@@ -10158,6 +11975,25 @@ class SecretVolumeSource(dict):
 
     The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+        elif key == "secretName":
+            suggest = "secret_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SecretVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SecretVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SecretVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  default_mode: Optional[int] = None,
                  items: Optional[Sequence['outputs.KeyToPath']] = None,
@@ -10213,15 +12049,45 @@ class SecretVolumeSource(dict):
         """
         return pulumi.get(self, "secret_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SecurityContext(dict):
     """
     SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allowPrivilegeEscalation":
+            suggest = "allow_privilege_escalation"
+        elif key == "procMount":
+            suggest = "proc_mount"
+        elif key == "readOnlyRootFilesystem":
+            suggest = "read_only_root_filesystem"
+        elif key == "runAsGroup":
+            suggest = "run_as_group"
+        elif key == "runAsNonRoot":
+            suggest = "run_as_non_root"
+        elif key == "runAsUser":
+            suggest = "run_as_user"
+        elif key == "seLinuxOptions":
+            suggest = "se_linux_options"
+        elif key == "seccompProfile":
+            suggest = "seccomp_profile"
+        elif key == "windowsOptions":
+            suggest = "windows_options"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SecurityContext. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SecurityContext.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SecurityContext.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  allow_privilege_escalation: Optional[bool] = None,
                  capabilities: Optional['outputs.Capabilities'] = None,
@@ -10359,9 +12225,6 @@ class SecurityContext(dict):
         """
         return pulumi.get(self, "windows_options")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Service(dict):
@@ -10393,6 +12256,23 @@ class Service(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Service. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Service.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Service.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -10483,15 +12363,33 @@ class Service(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceAccount(dict):
     """
     ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "automountServiceAccountToken":
+            suggest = "automount_service_account_token"
+        elif key == "imagePullSecrets":
+            suggest = "image_pull_secrets"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceAccount. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceAccount.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceAccount.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  automount_service_account_token: Optional[bool] = None,
@@ -10569,15 +12467,29 @@ class ServiceAccount(dict):
         """
         return pulumi.get(self, "secrets")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceAccountTokenProjection(dict):
     """
     ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expirationSeconds":
+            suggest = "expiration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceAccountTokenProjection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceAccountTokenProjection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceAccountTokenProjection.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  path: str,
                  audience: Optional[str] = None,
@@ -10618,15 +12530,33 @@ class ServiceAccountTokenProjection(dict):
         """
         return pulumi.get(self, "expiration_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServicePort(dict):
     """
     ServicePort contains information on service's port.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appProtocol":
+            suggest = "app_protocol"
+        elif key == "nodePort":
+            suggest = "node_port"
+        elif key == "targetPort":
+            suggest = "target_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServicePort. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServicePort.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServicePort.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  port: int,
                  app_protocol: Optional[str] = None,
@@ -10703,15 +12633,63 @@ class ServicePort(dict):
         """
         return pulumi.get(self, "target_port")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceSpec(dict):
     """
     ServiceSpec describes the attributes that a user creates on a service.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allocateLoadBalancerNodePorts":
+            suggest = "allocate_load_balancer_node_ports"
+        elif key == "clusterIP":
+            suggest = "cluster_ip"
+        elif key == "clusterIPs":
+            suggest = "cluster_ips"
+        elif key == "externalIPs":
+            suggest = "external_ips"
+        elif key == "externalName":
+            suggest = "external_name"
+        elif key == "externalTrafficPolicy":
+            suggest = "external_traffic_policy"
+        elif key == "healthCheckNodePort":
+            suggest = "health_check_node_port"
+        elif key == "internalTrafficPolicy":
+            suggest = "internal_traffic_policy"
+        elif key == "ipFamilies":
+            suggest = "ip_families"
+        elif key == "ipFamily":
+            suggest = "ip_family"
+        elif key == "ipFamilyPolicy":
+            suggest = "ip_family_policy"
+        elif key == "loadBalancerClass":
+            suggest = "load_balancer_class"
+        elif key == "loadBalancerIP":
+            suggest = "load_balancer_ip"
+        elif key == "loadBalancerSourceRanges":
+            suggest = "load_balancer_source_ranges"
+        elif key == "publishNotReadyAddresses":
+            suggest = "publish_not_ready_addresses"
+        elif key == "sessionAffinity":
+            suggest = "session_affinity"
+        elif key == "sessionAffinityConfig":
+            suggest = "session_affinity_config"
+        elif key == "topologyKeys":
+            suggest = "topology_keys"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  allocate_load_balancer_node_ports: Optional[bool] = None,
                  cluster_ip: Optional[str] = None,
@@ -10977,15 +12955,29 @@ class ServiceSpec(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceStatus(dict):
     """
     ServiceStatus represents the current status of a service.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "loadBalancer":
+            suggest = "load_balancer"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
                  load_balancer: Optional['outputs.LoadBalancerStatus'] = None):
@@ -11015,15 +13007,29 @@ class ServiceStatus(dict):
         """
         return pulumi.get(self, "load_balancer")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class SessionAffinityConfig(dict):
     """
     SessionAffinityConfig represents the configurations of session affinity.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientIP":
+            suggest = "client_ip"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SessionAffinityConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SessionAffinityConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SessionAffinityConfig.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  client_ip: Optional['outputs.ClientIPConfig'] = None):
         """
@@ -11041,15 +13047,37 @@ class SessionAffinityConfig(dict):
         """
         return pulumi.get(self, "client_ip")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StorageOSPersistentVolumeSource(dict):
     """
     Represents a StorageOS persistent volume resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "volumeName":
+            suggest = "volume_name"
+        elif key == "volumeNamespace":
+            suggest = "volume_namespace"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StorageOSPersistentVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StorageOSPersistentVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StorageOSPersistentVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  fs_type: Optional[str] = None,
                  read_only: Optional[bool] = None,
@@ -11115,15 +13143,37 @@ class StorageOSPersistentVolumeSource(dict):
         """
         return pulumi.get(self, "volume_namespace")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StorageOSVolumeSource(dict):
     """
     Represents a StorageOS persistent volume resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "volumeName":
+            suggest = "volume_name"
+        elif key == "volumeNamespace":
+            suggest = "volume_namespace"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StorageOSVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StorageOSVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StorageOSVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  fs_type: Optional[str] = None,
                  read_only: Optional[bool] = None,
@@ -11189,9 +13239,6 @@ class StorageOSVolumeSource(dict):
         """
         return pulumi.get(self, "volume_namespace")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Sysctl(dict):
@@ -11224,9 +13271,6 @@ class Sysctl(dict):
         Value of a property to set
         """
         return pulumi.get(self, "value")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -11262,15 +13306,29 @@ class TCPSocketAction(dict):
         """
         return pulumi.get(self, "host")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Taint(dict):
     """
     The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "timeAdded":
+            suggest = "time_added"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Taint. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Taint.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Taint.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  effect: str,
                  key: str,
@@ -11322,15 +13380,29 @@ class Taint(dict):
         """
         return pulumi.get(self, "value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Toleration(dict):
     """
     The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "tolerationSeconds":
+            suggest = "toleration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Toleration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Toleration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Toleration.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  effect: Optional[str] = None,
                  key: Optional[str] = None,
@@ -11396,9 +13468,6 @@ class Toleration(dict):
         """
         return pulumi.get(self, "value")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TopologySelectorLabelRequirement(dict):
@@ -11432,15 +13501,29 @@ class TopologySelectorLabelRequirement(dict):
         """
         return pulumi.get(self, "values")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TopologySelectorTerm(dict):
     """
     A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchLabelExpressions":
+            suggest = "match_label_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TopologySelectorTerm. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TopologySelectorTerm.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TopologySelectorTerm.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  match_label_expressions: Optional[Sequence['outputs.TopologySelectorLabelRequirement']] = None):
         """
@@ -11458,15 +13541,35 @@ class TopologySelectorTerm(dict):
         """
         return pulumi.get(self, "match_label_expressions")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TopologySpreadConstraint(dict):
     """
     TopologySpreadConstraint specifies how to spread matching pods among the given topology.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxSkew":
+            suggest = "max_skew"
+        elif key == "topologyKey":
+            suggest = "topology_key"
+        elif key == "whenUnsatisfiable":
+            suggest = "when_unsatisfiable"
+        elif key == "labelSelector":
+            suggest = "label_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TopologySpreadConstraint. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TopologySpreadConstraint.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TopologySpreadConstraint.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_skew: int,
                  topology_key: str,
@@ -11523,15 +13626,29 @@ class TopologySpreadConstraint(dict):
         """
         return pulumi.get(self, "label_selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TypedLocalObjectReference(dict):
     """
     TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroup":
+            suggest = "api_group"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TypedLocalObjectReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TypedLocalObjectReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TypedLocalObjectReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  name: str,
@@ -11571,15 +13688,57 @@ class TypedLocalObjectReference(dict):
         """
         return pulumi.get(self, "api_group")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Volume(dict):
     """
     Volume represents a named volume in a pod that may be accessed by any container in the pod.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "awsElasticBlockStore":
+            suggest = "aws_elastic_block_store"
+        elif key == "azureDisk":
+            suggest = "azure_disk"
+        elif key == "azureFile":
+            suggest = "azure_file"
+        elif key == "configMap":
+            suggest = "config_map"
+        elif key == "downwardAPI":
+            suggest = "downward_api"
+        elif key == "emptyDir":
+            suggest = "empty_dir"
+        elif key == "flexVolume":
+            suggest = "flex_volume"
+        elif key == "gcePersistentDisk":
+            suggest = "gce_persistent_disk"
+        elif key == "gitRepo":
+            suggest = "git_repo"
+        elif key == "hostPath":
+            suggest = "host_path"
+        elif key == "persistentVolumeClaim":
+            suggest = "persistent_volume_claim"
+        elif key == "photonPersistentDisk":
+            suggest = "photon_persistent_disk"
+        elif key == "portworxVolume":
+            suggest = "portworx_volume"
+        elif key == "scaleIO":
+            suggest = "scale_io"
+        elif key == "vsphereVolume":
+            suggest = "vsphere_volume"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Volume. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Volume.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Volume.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  name: str,
                  aws_elastic_block_store: Optional['outputs.AWSElasticBlockStoreVolumeSource'] = None,
@@ -11974,15 +14133,29 @@ class Volume(dict):
         """
         return pulumi.get(self, "vsphere_volume")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeDevice(dict):
     """
     volumeDevice describes a mapping of a raw block device within a container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "devicePath":
+            suggest = "device_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeDevice. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeDevice.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeDevice.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  device_path: str,
                  name: str):
@@ -12010,15 +14183,37 @@ class VolumeDevice(dict):
         """
         return pulumi.get(self, "name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeMount(dict):
     """
     VolumeMount describes a mounting of a Volume within a container.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "mountPath":
+            suggest = "mount_path"
+        elif key == "mountPropagation":
+            suggest = "mount_propagation"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "subPath":
+            suggest = "sub_path"
+        elif key == "subPathExpr":
+            suggest = "sub_path_expr"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeMount. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeMount.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeMount.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  mount_path: str,
                  name: str,
@@ -12094,9 +14289,6 @@ class VolumeMount(dict):
         """
         return pulumi.get(self, "sub_path_expr")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeNodeAffinity(dict):
@@ -12120,15 +14312,33 @@ class VolumeNodeAffinity(dict):
         """
         return pulumi.get(self, "required")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VolumeProjection(dict):
     """
     Projection that may be projected along with other supported volume types
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMap":
+            suggest = "config_map"
+        elif key == "downwardAPI":
+            suggest = "downward_api"
+        elif key == "serviceAccountToken":
+            suggest = "service_account_token"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeProjection. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeProjection.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeProjection.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  config_map: Optional['outputs.ConfigMapProjection'] = None,
                  downward_api: Optional['outputs.DownwardAPIProjection'] = None,
@@ -12182,15 +14392,35 @@ class VolumeProjection(dict):
         """
         return pulumi.get(self, "service_account_token")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class VsphereVirtualDiskVolumeSource(dict):
     """
     Represents a vSphere volume resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "volumePath":
+            suggest = "volume_path"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "storagePolicyID":
+            suggest = "storage_policy_id"
+        elif key == "storagePolicyName":
+            suggest = "storage_policy_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VsphereVirtualDiskVolumeSource. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VsphereVirtualDiskVolumeSource.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VsphereVirtualDiskVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  volume_path: str,
                  fs_type: Optional[str] = None,
@@ -12243,15 +14473,29 @@ class VsphereVirtualDiskVolumeSource(dict):
         """
         return pulumi.get(self, "storage_policy_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WeightedPodAffinityTerm(dict):
     """
     The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podAffinityTerm":
+            suggest = "pod_affinity_term"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WeightedPodAffinityTerm. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WeightedPodAffinityTerm.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WeightedPodAffinityTerm.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  pod_affinity_term: 'outputs.PodAffinityTerm',
                  weight: int):
@@ -12279,15 +14523,33 @@ class WeightedPodAffinityTerm(dict):
         """
         return pulumi.get(self, "weight")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class WindowsSecurityContextOptions(dict):
     """
     WindowsSecurityContextOptions contain Windows-specific options and credentials.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "gmsaCredentialSpec":
+            suggest = "gmsa_credential_spec"
+        elif key == "gmsaCredentialSpecName":
+            suggest = "gmsa_credential_spec_name"
+        elif key == "runAsUserName":
+            suggest = "run_as_user_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WindowsSecurityContextOptions. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WindowsSecurityContextOptions.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WindowsSecurityContextOptions.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  gmsa_credential_spec: Optional[str] = None,
                  gmsa_credential_spec_name: Optional[str] = None,
@@ -12328,8 +14590,5 @@ class WindowsSecurityContextOptions(dict):
         The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
         """
         return pulumi.get(self, "run_as_user_name")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

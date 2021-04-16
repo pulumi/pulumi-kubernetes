@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -128,9 +128,7 @@ class RuntimeClass(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  overhead: Optional[pulumi.Input[pulumi.InputType['OverheadArgs']]] = None,
                  scheduling: Optional[pulumi.Input[pulumi.InputType['SchedulingArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
 
@@ -173,15 +171,7 @@ class RuntimeClass(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  overhead: Optional[pulumi.Input[pulumi.InputType['OverheadArgs']]] = None,
                  scheduling: Optional[pulumi.Input[pulumi.InputType['SchedulingArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -191,16 +181,16 @@ class RuntimeClass(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = RuntimeClassArgs.__new__(RuntimeClassArgs)
 
-            __props__['api_version'] = 'node.k8s.io/v1beta1'
+            __props__.__dict__["api_version"] = 'node.k8s.io/v1beta1'
             if handler is None and not opts.urn:
                 raise TypeError("Missing required property 'handler'")
-            __props__['handler'] = handler
-            __props__['kind'] = 'RuntimeClass'
-            __props__['metadata'] = metadata
-            __props__['overhead'] = overhead
-            __props__['scheduling'] = scheduling
+            __props__.__dict__["handler"] = handler
+            __props__.__dict__["kind"] = 'RuntimeClass'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["overhead"] = overhead
+            __props__.__dict__["scheduling"] = scheduling
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1:RuntimeClass"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(RuntimeClass, __self__).__init__(
@@ -223,14 +213,14 @@ class RuntimeClass(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = RuntimeClassArgs.__new__(RuntimeClassArgs)
 
-        __props__["api_version"] = None
-        __props__["handler"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["overhead"] = None
-        __props__["scheduling"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["handler"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["overhead"] = None
+        __props__.__dict__["scheduling"] = None
         return RuntimeClass(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -280,10 +270,4 @@ class RuntimeClass(pulumi.CustomResource):
         Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
         return pulumi.get(self, "scheduling")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

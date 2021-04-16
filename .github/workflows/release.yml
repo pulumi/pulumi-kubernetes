@@ -3,6 +3,7 @@ name: release
   push:
     tags:
       - v*.*.*
+      - '!v*.*.*-**'
 
 env:
   AWS_REGION: us-west-2

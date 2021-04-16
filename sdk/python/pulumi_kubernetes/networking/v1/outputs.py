@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import core as _core
 from ... import meta as _meta
@@ -39,6 +39,23 @@ class HTTPIngressPath(dict):
     """
     HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "pathType":
+            suggest = "path_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HTTPIngressPath. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HTTPIngressPath.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HTTPIngressPath.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  backend: 'outputs.IngressBackend',
                  path: Optional[str] = None,
@@ -99,9 +116,6 @@ class HTTPIngressPath(dict):
         """
         return pulumi.get(self, "path_type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HTTPIngressRuleValue(dict):
@@ -124,15 +138,29 @@ class HTTPIngressRuleValue(dict):
         """
         return pulumi.get(self, "paths")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IPBlock(dict):
     """
     IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "except":
+            suggest = "except_"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IPBlock. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IPBlock.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IPBlock.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  cidr: str,
                  except_: Optional[Sequence[str]] = None):
@@ -161,9 +189,6 @@ class IPBlock(dict):
         """
         return pulumi.get(self, "except_")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Ingress(dict):
@@ -184,6 +209,23 @@ class Ingress(dict):
     time out and mark the resource update as Failed. You can override the default timeout value
     by setting the 'customTimeouts' option on the resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Ingress. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Ingress.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Ingress.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -263,9 +305,6 @@ class Ingress(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressBackend(dict):
@@ -301,15 +340,29 @@ class IngressBackend(dict):
         """
         return pulumi.get(self, "service")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressClass(dict):
     """
     IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressClass. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressClass.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressClass.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -363,15 +416,29 @@ class IngressClass(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressClassParametersReference(dict):
     """
     IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroup":
+            suggest = "api_group"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressClassParametersReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressClassParametersReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressClassParametersReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  name: str,
@@ -435,9 +502,6 @@ class IngressClassParametersReference(dict):
         """
         return pulumi.get(self, "scope")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressClassSpec(dict):
@@ -472,9 +536,6 @@ class IngressClassSpec(dict):
         Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         return pulumi.get(self, "parameters")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -521,9 +582,6 @@ class IngressRule(dict):
     def http(self) -> Optional['outputs.HTTPIngressRuleValue']:
         return pulumi.get(self, "http")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressServiceBackend(dict):
@@ -558,15 +616,31 @@ class IngressServiceBackend(dict):
         """
         return pulumi.get(self, "port")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressSpec(dict):
     """
     IngressSpec describes the Ingress the user wishes to exist.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultBackend":
+            suggest = "default_backend"
+        elif key == "ingressClassName":
+            suggest = "ingress_class_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  default_backend: Optional['outputs.IngressBackend'] = None,
                  ingress_class_name: Optional[str] = None,
@@ -620,15 +694,29 @@ class IngressSpec(dict):
         """
         return pulumi.get(self, "tls")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressStatus(dict):
     """
     IngressStatus describe the current state of the Ingress.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "loadBalancer":
+            suggest = "load_balancer"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  load_balancer: Optional['_core.v1.outputs.LoadBalancerStatus'] = None):
         """
@@ -646,15 +734,29 @@ class IngressStatus(dict):
         """
         return pulumi.get(self, "load_balancer")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class IngressTLS(dict):
     """
     IngressTLS describes the transport layer security associated with an Ingress.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "secretName":
+            suggest = "secret_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IngressTLS. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IngressTLS.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IngressTLS.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  hosts: Optional[Sequence[str]] = None,
                  secret_name: Optional[str] = None):
@@ -684,15 +786,29 @@ class IngressTLS(dict):
         """
         return pulumi.get(self, "secret_name")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicy(dict):
     """
     NetworkPolicy describes what network traffic is allowed for a set of Pods
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicy.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -746,9 +862,6 @@ class NetworkPolicy(dict):
         """
         return pulumi.get(self, "spec")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyEgressRule(dict):
@@ -784,15 +897,29 @@ class NetworkPolicyEgressRule(dict):
         """
         return pulumi.get(self, "to")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyIngressRule(dict):
     """
     NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "from":
+            suggest = "from_"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicyIngressRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicyIngressRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicyIngressRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  from_: Optional[Sequence['outputs.NetworkPolicyPeer']] = None,
                  ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None):
@@ -822,15 +949,33 @@ class NetworkPolicyIngressRule(dict):
         """
         return pulumi.get(self, "ports")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyPeer(dict):
     """
     NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipBlock":
+            suggest = "ip_block"
+        elif key == "namespaceSelector":
+            suggest = "namespace_selector"
+        elif key == "podSelector":
+            suggest = "pod_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicyPeer. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicyPeer.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicyPeer.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  ip_block: Optional['outputs.IPBlock'] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -880,15 +1025,29 @@ class NetworkPolicyPeer(dict):
         """
         return pulumi.get(self, "pod_selector")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicyPort(dict):
     """
     NetworkPolicyPort describes a port to allow traffic on
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "endPort":
+            suggest = "end_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicyPort. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicyPort.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicyPort.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  end_port: Optional[int] = None,
                  port: Optional[Any] = None,
@@ -930,15 +1089,31 @@ class NetworkPolicyPort(dict):
         """
         return pulumi.get(self, "protocol")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NetworkPolicySpec(dict):
     """
     NetworkPolicySpec provides the specification of a NetworkPolicy
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podSelector":
+            suggest = "pod_selector"
+        elif key == "policyTypes":
+            suggest = "policy_types"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NetworkPolicySpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NetworkPolicySpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NetworkPolicySpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  pod_selector: '_meta.v1.outputs.LabelSelector',
                  egress: Optional[Sequence['outputs.NetworkPolicyEgressRule']] = None,
@@ -991,9 +1166,6 @@ class NetworkPolicySpec(dict):
         """
         return pulumi.get(self, "policy_types")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceBackendPort(dict):
@@ -1028,8 +1200,5 @@ class ServiceBackendPort(dict):
         Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
         return pulumi.get(self, "number")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

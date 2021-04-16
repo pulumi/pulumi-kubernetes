@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -85,9 +85,7 @@ class CertificateSigningRequestList(pulumi.CustomResource):
                  items: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['CertificateSigningRequestArgs']]]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         Create a CertificateSigningRequestList resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
@@ -122,15 +120,7 @@ class CertificateSigningRequestList(pulumi.CustomResource):
                  items: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['CertificateSigningRequestArgs']]]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -140,14 +130,14 @@ class CertificateSigningRequestList(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = CertificateSigningRequestListArgs.__new__(CertificateSigningRequestListArgs)
 
-            __props__['api_version'] = 'certificates.k8s.io/v1beta1'
+            __props__.__dict__["api_version"] = 'certificates.k8s.io/v1beta1'
             if items is None and not opts.urn:
                 raise TypeError("Missing required property 'items'")
-            __props__['items'] = items
-            __props__['kind'] = 'CertificateSigningRequestList'
-            __props__['metadata'] = metadata
+            __props__.__dict__["items"] = items
+            __props__.__dict__["kind"] = 'CertificateSigningRequestList'
+            __props__.__dict__["metadata"] = metadata
         super(CertificateSigningRequestList, __self__).__init__(
             'kubernetes:certificates.k8s.io/v1beta1:CertificateSigningRequestList',
             resource_name,
@@ -168,12 +158,12 @@ class CertificateSigningRequestList(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = CertificateSigningRequestListArgs.__new__(CertificateSigningRequestListArgs)
 
-        __props__["api_version"] = None
-        __props__["items"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["items"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
         return CertificateSigningRequestList(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -201,10 +191,4 @@ class CertificateSigningRequestList(pulumi.CustomResource):
     @pulumi.getter
     def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ListMeta']]:
         return pulumi.get(self, "metadata")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

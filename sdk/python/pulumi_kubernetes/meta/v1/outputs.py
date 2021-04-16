@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 
 __all__ = [
@@ -26,6 +26,25 @@ class Condition(dict):
     """
     Condition contains details for one aspect of the current state of this API Resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Condition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Condition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Condition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  last_transition_time: str,
                  message: str,
@@ -98,15 +117,31 @@ class Condition(dict):
         """
         return pulumi.get(self, "observed_generation")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LabelSelector(dict):
     """
     A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+        elif key == "matchLabels":
+            suggest = "match_labels"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LabelSelector. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LabelSelector.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LabelSelector.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  match_expressions: Optional[Sequence['outputs.LabelSelectorRequirement']] = None,
                  match_labels: Optional[Mapping[str, str]] = None):
@@ -135,9 +170,6 @@ class LabelSelector(dict):
         matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
         """
         return pulumi.get(self, "match_labels")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -184,15 +216,35 @@ class LabelSelectorRequirement(dict):
         """
         return pulumi.get(self, "values")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ListMeta(dict):
     """
     ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "continue":
+            suggest = "continue_"
+        elif key == "remainingItemCount":
+            suggest = "remaining_item_count"
+        elif key == "resourceVersion":
+            suggest = "resource_version"
+        elif key == "selfLink":
+            suggest = "self_link"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ListMeta. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ListMeta.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ListMeta.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  continue_: Optional[str] = None,
                  remaining_item_count: Optional[int] = None,
@@ -250,15 +302,33 @@ class ListMeta(dict):
         """
         return pulumi.get(self, "self_link")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ManagedFieldsEntry(dict):
     """
     ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "fieldsType":
+            suggest = "fields_type"
+        elif key == "fieldsV1":
+            suggest = "fields_v1"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ManagedFieldsEntry. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ManagedFieldsEntry.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ManagedFieldsEntry.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  fields_type: Optional[str] = None,
@@ -336,15 +406,45 @@ class ManagedFieldsEntry(dict):
         """
         return pulumi.get(self, "time")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ObjectMeta(dict):
     """
     ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clusterName":
+            suggest = "cluster_name"
+        elif key == "creationTimestamp":
+            suggest = "creation_timestamp"
+        elif key == "deletionGracePeriodSeconds":
+            suggest = "deletion_grace_period_seconds"
+        elif key == "deletionTimestamp":
+            suggest = "deletion_timestamp"
+        elif key == "generateName":
+            suggest = "generate_name"
+        elif key == "managedFields":
+            suggest = "managed_fields"
+        elif key == "ownerReferences":
+            suggest = "owner_references"
+        elif key == "resourceVersion":
+            suggest = "resource_version"
+        elif key == "selfLink":
+            suggest = "self_link"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectMeta. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectMeta.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectMeta.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  annotations: Optional[Mapping[str, str]] = None,
                  cluster_name: Optional[str] = None,
@@ -574,15 +674,31 @@ class ObjectMeta(dict):
         """
         return pulumi.get(self, "uid")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class OwnerReference(dict):
     """
     OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "blockOwnerDeletion":
+            suggest = "block_owner_deletion"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OwnerReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OwnerReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OwnerReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: str,
                  kind: str,
@@ -656,9 +772,6 @@ class OwnerReference(dict):
         """
         return pulumi.get(self, "controller")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatusCause(dict):
@@ -714,15 +827,29 @@ class StatusCause(dict):
         """
         return pulumi.get(self, "reason")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class StatusDetails(dict):
     """
     StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "retryAfterSeconds":
+            suggest = "retry_after_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatusDetails. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatusDetails.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatusDetails.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  causes: Optional[Sequence['outputs.StatusCause']] = None,
                  group: Optional[str] = None,
@@ -799,8 +926,5 @@ class StatusDetails(dict):
         UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
         """
         return pulumi.get(self, "uid")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

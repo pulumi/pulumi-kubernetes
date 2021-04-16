@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from ... import meta as _meta
 
 __all__ = ['PriorityClassArgs', 'PriorityClass']
@@ -142,9 +142,7 @@ class PriorityClass(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  preemption_policy: Optional[pulumi.Input[str]] = None,
                  value: Optional[pulumi.Input[int]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 
@@ -189,15 +187,7 @@ class PriorityClass(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  preemption_policy: Optional[pulumi.Input[str]] = None,
                  value: Optional[pulumi.Input[int]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -207,17 +197,17 @@ class PriorityClass(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = dict()
+            __props__ = PriorityClassArgs.__new__(PriorityClassArgs)
 
-            __props__['api_version'] = 'scheduling.k8s.io/v1alpha1'
-            __props__['description'] = description
-            __props__['global_default'] = global_default
-            __props__['kind'] = 'PriorityClass'
-            __props__['metadata'] = metadata
-            __props__['preemption_policy'] = preemption_policy
+            __props__.__dict__["api_version"] = 'scheduling.k8s.io/v1alpha1'
+            __props__.__dict__["description"] = description
+            __props__.__dict__["global_default"] = global_default
+            __props__.__dict__["kind"] = 'PriorityClass'
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["preemption_policy"] = preemption_policy
             if value is None and not opts.urn:
                 raise TypeError("Missing required property 'value'")
-            __props__['value'] = value
+            __props__.__dict__["value"] = value
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1:PriorityClass"), pulumi.Alias(type_="kubernetes:scheduling.k8s.io/v1beta1:PriorityClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(PriorityClass, __self__).__init__(
@@ -240,15 +230,15 @@ class PriorityClass(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = dict()
+        __props__ = PriorityClassArgs.__new__(PriorityClassArgs)
 
-        __props__["api_version"] = None
-        __props__["description"] = None
-        __props__["global_default"] = None
-        __props__["kind"] = None
-        __props__["metadata"] = None
-        __props__["preemption_policy"] = None
-        __props__["value"] = None
+        __props__.__dict__["api_version"] = None
+        __props__.__dict__["description"] = None
+        __props__.__dict__["global_default"] = None
+        __props__.__dict__["kind"] = None
+        __props__.__dict__["metadata"] = None
+        __props__.__dict__["preemption_policy"] = None
+        __props__.__dict__["value"] = None
         return PriorityClass(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -306,10 +296,4 @@ class PriorityClass(pulumi.CustomResource):
         The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """
         return pulumi.get(self, "value")
-
-    def translate_output_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop):
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop
 

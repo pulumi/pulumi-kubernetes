@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 
 __all__ = [
@@ -23,6 +23,23 @@ class BoundObjectReference(dict):
     """
     BoundObjectReference is a reference to an object that a token is bound to.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in BoundObjectReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        BoundObjectReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        BoundObjectReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -76,15 +93,31 @@ class BoundObjectReference(dict):
         """
         return pulumi.get(self, "uid")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TokenRequestSpec(dict):
     """
     TokenRequestSpec contains client provided parameters of a token request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "boundObjectRef":
+            suggest = "bound_object_ref"
+        elif key == "expirationSeconds":
+            suggest = "expiration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TokenRequestSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TokenRequestSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TokenRequestSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  audiences: Sequence[str],
                  bound_object_ref: Optional['outputs.BoundObjectReference'] = None,
@@ -125,15 +158,29 @@ class TokenRequestSpec(dict):
         """
         return pulumi.get(self, "expiration_seconds")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class TokenRequestStatus(dict):
     """
     TokenRequestStatus is the result of a token request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expirationTimestamp":
+            suggest = "expiration_timestamp"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TokenRequestStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TokenRequestStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TokenRequestStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  expiration_timestamp: str,
                  token: str):
@@ -160,9 +207,6 @@ class TokenRequestStatus(dict):
         Token is the opaque bearer token.
         """
         return pulumi.get(self, "token")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -198,9 +242,6 @@ class TokenReviewSpec(dict):
         Token is the opaque bearer token.
         """
         return pulumi.get(self, "token")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -261,9 +302,6 @@ class TokenReviewStatus(dict):
         """
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class UserInfo(dict):
@@ -322,8 +360,5 @@ class UserInfo(dict):
         The name that uniquely identifies this user among all active users.
         """
         return pulumi.get(self, "username")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 
@@ -22,6 +22,23 @@ class CrossVersionObjectReference(dict):
     """
     CrossVersionObjectReference contains enough information to let you identify the referred resource.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CrossVersionObjectReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CrossVersionObjectReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CrossVersionObjectReference.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  name: str,
@@ -61,15 +78,29 @@ class CrossVersionObjectReference(dict):
         """
         return pulumi.get(self, "api_version")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscaler(dict):
     """
     configuration of a horizontal pod autoscaler.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscaler. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscaler.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscaler.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -135,15 +166,35 @@ class HorizontalPodAutoscaler(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscalerSpec(dict):
     """
     specification of a horizontal pod autoscaler.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxReplicas":
+            suggest = "max_replicas"
+        elif key == "scaleTargetRef":
+            suggest = "scale_target_ref"
+        elif key == "minReplicas":
+            suggest = "min_replicas"
+        elif key == "targetCPUUtilizationPercentage":
+            suggest = "target_cpu_utilization_percentage"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  max_replicas: int,
                  scale_target_ref: 'outputs.CrossVersionObjectReference',
@@ -195,15 +246,37 @@ class HorizontalPodAutoscalerSpec(dict):
         """
         return pulumi.get(self, "target_cpu_utilization_percentage")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class HorizontalPodAutoscalerStatus(dict):
     """
     current status of a horizontal pod autoscaler
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentReplicas":
+            suggest = "current_replicas"
+        elif key == "desiredReplicas":
+            suggest = "desired_replicas"
+        elif key == "currentCPUUtilizationPercentage":
+            suggest = "current_cpu_utilization_percentage"
+        elif key == "lastScaleTime":
+            suggest = "last_scale_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerStatus.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  current_replicas: int,
                  desired_replicas: int,
@@ -266,8 +339,5 @@ class HorizontalPodAutoscalerStatus(dict):
         most recent generation observed by this autoscaler.
         """
         return pulumi.get(self, "observed_generation")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 

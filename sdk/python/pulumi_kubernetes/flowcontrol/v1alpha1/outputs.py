@@ -6,7 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from ... import _utilities, _tables
+from ... import _utilities
 from . import outputs
 from ... import meta as _meta
 
@@ -54,15 +54,29 @@ class FlowDistinguisherMethod(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlowSchema(dict):
     """
     FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlowSchema. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlowSchema.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlowSchema.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -128,15 +142,29 @@ class FlowSchema(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlowSchemaCondition(dict):
     """
     FlowSchemaCondition describes conditions for a FlowSchema.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlowSchemaCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlowSchemaCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlowSchemaCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  last_transition_time: Optional[str] = None,
                  message: Optional[str] = None,
@@ -202,15 +230,33 @@ class FlowSchemaCondition(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlowSchemaSpec(dict):
     """
     FlowSchemaSpec describes how the FlowSchema's specification looks like.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "priorityLevelConfiguration":
+            suggest = "priority_level_configuration"
+        elif key == "distinguisherMethod":
+            suggest = "distinguisher_method"
+        elif key == "matchingPrecedence":
+            suggest = "matching_precedence"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlowSchemaSpec. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlowSchemaSpec.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlowSchemaSpec.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  priority_level_configuration: 'outputs.PriorityLevelConfigurationReference',
                  distinguisher_method: Optional['outputs.FlowDistinguisherMethod'] = None,
@@ -263,9 +309,6 @@ class FlowSchemaSpec(dict):
         """
         return pulumi.get(self, "rules")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class FlowSchemaStatus(dict):
@@ -289,9 +332,6 @@ class FlowSchemaStatus(dict):
         """
         return pulumi.get(self, "conditions")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class GroupSubject(dict):
@@ -313,9 +353,6 @@ class GroupSubject(dict):
         name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
         """
         return pulumi.get(self, "name")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -351,9 +388,6 @@ class LimitResponse(dict):
         """
         return pulumi.get(self, "queuing")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class LimitedPriorityLevelConfiguration(dict):
@@ -362,6 +396,25 @@ class LimitedPriorityLevelConfiguration(dict):
      * How are requests for this priority level limited?
      * What should be done with requests that exceed the limit?
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "assuredConcurrencyShares":
+            suggest = "assured_concurrency_shares"
+        elif key == "limitResponse":
+            suggest = "limit_response"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LimitedPriorityLevelConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LimitedPriorityLevelConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LimitedPriorityLevelConfiguration.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  assured_concurrency_shares: Optional[int] = None,
                  limit_response: Optional['outputs.LimitResponse'] = None):
@@ -401,15 +454,29 @@ class LimitedPriorityLevelConfiguration(dict):
         """
         return pulumi.get(self, "limit_response")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class NonResourcePolicyRule(dict):
     """
     NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nonResourceURLs":
+            suggest = "non_resource_urls"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NonResourcePolicyRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NonResourcePolicyRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NonResourcePolicyRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  non_resource_urls: Sequence[str],
                  verbs: Sequence[str]):
@@ -449,15 +516,31 @@ class NonResourcePolicyRule(dict):
         """
         return pulumi.get(self, "verbs")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PolicyRulesWithSubjects(dict):
     """
     PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nonResourceRules":
+            suggest = "non_resource_rules"
+        elif key == "resourceRules":
+            suggest = "resource_rules"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PolicyRulesWithSubjects. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PolicyRulesWithSubjects.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PolicyRulesWithSubjects.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  subjects: Sequence['outputs.Subject'],
                  non_resource_rules: Optional[Sequence['outputs.NonResourcePolicyRule']] = None,
@@ -498,15 +581,29 @@ class PolicyRulesWithSubjects(dict):
         """
         return pulumi.get(self, "resource_rules")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PriorityLevelConfiguration(dict):
     """
     PriorityLevelConfiguration represents the configuration of a priority level.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PriorityLevelConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PriorityLevelConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PriorityLevelConfiguration.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
@@ -572,15 +669,29 @@ class PriorityLevelConfiguration(dict):
         """
         return pulumi.get(self, "status")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PriorityLevelConfigurationCondition(dict):
     """
     PriorityLevelConfigurationCondition defines the condition of priority level.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PriorityLevelConfigurationCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PriorityLevelConfigurationCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PriorityLevelConfigurationCondition.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  last_transition_time: Optional[str] = None,
                  message: Optional[str] = None,
@@ -646,9 +757,6 @@ class PriorityLevelConfigurationCondition(dict):
         """
         return pulumi.get(self, "type")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PriorityLevelConfigurationReference(dict):
@@ -670,9 +778,6 @@ class PriorityLevelConfigurationReference(dict):
         `name` is the name of the priority level configuration being referenced Required.
         """
         return pulumi.get(self, "name")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
 @pulumi.output_type
@@ -708,9 +813,6 @@ class PriorityLevelConfigurationSpec(dict):
         """
         return pulumi.get(self, "limited")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class PriorityLevelConfigurationStatus(dict):
@@ -734,15 +836,31 @@ class PriorityLevelConfigurationStatus(dict):
         """
         return pulumi.get(self, "conditions")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class QueuingConfiguration(dict):
     """
     QueuingConfiguration holds the configuration parameters for queuing
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "handSize":
+            suggest = "hand_size"
+        elif key == "queueLengthLimit":
+            suggest = "queue_length_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in QueuingConfiguration. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        QueuingConfiguration.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        QueuingConfiguration.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  hand_size: Optional[int] = None,
                  queue_length_limit: Optional[int] = None,
@@ -784,15 +902,31 @@ class QueuingConfiguration(dict):
         """
         return pulumi.get(self, "queues")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ResourcePolicyRule(dict):
     """
     ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroups":
+            suggest = "api_groups"
+        elif key == "clusterScope":
+            suggest = "cluster_scope"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourcePolicyRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourcePolicyRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourcePolicyRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  api_groups: Sequence[str],
                  resources: Sequence[str],
@@ -855,9 +989,6 @@ class ResourcePolicyRule(dict):
         """
         return pulumi.get(self, "namespaces")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class ServiceAccountSubject(dict):
@@ -891,15 +1022,29 @@ class ServiceAccountSubject(dict):
         """
         return pulumi.get(self, "namespace")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class Subject(dict):
     """
     Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "serviceAccount":
+            suggest = "service_account"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Subject. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Subject.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Subject.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  kind: str,
                  group: Optional['outputs.GroupSubject'] = None,
@@ -940,9 +1085,6 @@ class Subject(dict):
     def user(self) -> Optional['outputs.UserSubject']:
         return pulumi.get(self, "user")
 
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
 
 @pulumi.output_type
 class UserSubject(dict):
@@ -964,8 +1106,5 @@ class UserSubject(dict):
         `name` is the username that matches, or "*" to match all usernames. Required.
         """
         return pulumi.get(self, "name")
-
-    def _translate_property(self, prop):
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
 
 
