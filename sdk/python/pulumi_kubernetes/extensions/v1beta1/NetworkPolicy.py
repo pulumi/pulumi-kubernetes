@@ -6,11 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-<<<<<<< HEAD
-from ... import _utilities, _tables
-=======
 from ... import _utilities
->>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -98,9 +94,7 @@ class NetworkPolicy(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['NetworkPolicySpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         DEPRECATED 1.9 - This group version of NetworkPolicy is deprecated by networking/v1/NetworkPolicy. NetworkPolicy describes what network traffic is allowed for a set of Pods
 
@@ -139,15 +133,7 @@ class NetworkPolicy(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['NetworkPolicySpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):

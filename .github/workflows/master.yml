@@ -30,6 +30,7 @@ env:
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   TRAVIS_OS_NAME: linux
+  VERSION_PREFIX: 3.0.0
 
 jobs:
   golangci:
@@ -99,14 +100,10 @@ jobs:
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - uses: actions/checkout@v2
       - id: vars
         run: echo "::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-$(date +%s)"
@@ -129,9 +126,6 @@ jobs:
     name: build-provider
     runs-on: ubuntu-latest
     steps:
-      - if: github.ref == 'refs/heads/feature-3.0'
-        run:
-          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - name: Unshallow clone for tags
         run: git fetch --prune --unshallow --tags
@@ -143,14 +137,10 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - name: Build K8sgen
         run: make k8sgen
       - name: Prepare openapi file
@@ -182,9 +172,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: prerequisities
     steps:
-      - if: github.ref == 'refs/heads/feature-3.0'
-        run:
-          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Checkout Scripts Repo
@@ -202,14 +189,10 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -274,9 +257,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build_sdks, build-test-cluster]
     steps:
-      - if: github.ref == 'refs/heads/feature-3.0'
-        run:
-          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Checkout Scripts Repo
@@ -294,14 +274,10 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -440,14 +416,10 @@ jobs:
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - uses: actions/checkout@v2
       - name: Destroy test infra
         run: |
@@ -471,9 +443,6 @@ jobs:
       matrix:
         go-version: [ 1.16.x ]
     steps:
-      - if: github.ref == 'refs/heads/feature-3.0'
-        run:
-          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Unshallow clone for tags
@@ -501,14 +470,10 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - name: Set PreRelease Version
         run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language
           generic)" >> $GITHUB_ENV
@@ -529,9 +494,6 @@ jobs:
     needs: publish
     runs-on: ubuntu-latest
     steps:
-      - if: github.ref == 'refs/heads/feature-3.0'
-        run:
-          echo "VERSION_PREFIX=3.0.0" >> $GITHUB_ENV
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: Checkout Scripts Repo
@@ -549,14 +511,10 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
-      - name: Retrieve Pulumi CLI Version
-        run: |
-          echo "::set-output name=CLI_VERSION::$(curl -sSL http://registry.npmjs.org/-/package/@pulumi/pulumi/dist-tags | jq -r .\"feature-3.0\")"
-        id: version
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
         with:
-          pulumi-version: ${{ steps.version.outputs.CLI_VERSION }}
+          pulumi-version: 3.0.0-rc.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:

@@ -6,11 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-<<<<<<< HEAD
-from ... import _utilities, _tables
-=======
 from ... import _utilities
->>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -98,9 +94,7 @@ class IngressClass(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['IngressClassSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
 
@@ -139,15 +133,7 @@ class IngressClass(pulumi.CustomResource):
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  spec: Optional[pulumi.Input[pulumi.InputType['IngressClassSpecArgs']]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):

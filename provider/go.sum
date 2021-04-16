@@ -1207,8 +1207,14 @@ github.com/prometheus/tsdb v0.7.1 h1:YZcsG11NqnK4czYLrWd9mpEuAJIHVQLwdrleYfszMAA
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
 github.com/pulumi/pulumi/pkg/v3 v3.0.0-beta.2 h1:9ZrTeR2CKNmyYjx4GprltxHGMRguno4shKRWedWBRvo=
 github.com/pulumi/pulumi/pkg/v3 v3.0.0-beta.2/go.mod h1:JCl+sZFEEeDQF1CLAYkxmQv7jxGsNVR7Sn2+gXTu/ag=
+github.com/pulumi/pulumi/pkg/v3 v3.0.0-rc.1 h1:Wqtq1v+Q3Jpx8cxDh24iEWvsZ6y6672maA5Kw9pBGU4=
+github.com/pulumi/pulumi/pkg/v3 v3.0.0-rc.1/go.mod h1:Ollz7eH01VTWzhhzwJ7jp01nS1wD4CEgpZltrwymrfs=
+github.com/pulumi/pulumi/pkg/v3 v3.0.0-rc.1.0.20210416134304-6cebe7ecac81 h1:F6dDLfgK+5LcD6m68x8/CA88bWZEJEcx07XE+sqcAl8=
+github.com/pulumi/pulumi/pkg/v3 v3.0.0-rc.1.0.20210416134304-6cebe7ecac81/go.mod h1:Ollz7eH01VTWzhhzwJ7jp01nS1wD4CEgpZltrwymrfs=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-beta.2 h1:uw3nUFEtygkBTSVjL+kvE12pS8imafKcALPewEFVv1c=
 github.com/pulumi/pulumi/sdk/v3 v3.0.0-beta.2/go.mod h1:GBHyQ7awNQSRmiKp/p8kIKrGrMOZeA/k2czoM/GOqds=
+github.com/pulumi/pulumi/sdk/v3 v3.0.0-rc.1 h1:RJcy2x1UJOsWJOUzDO7yC98yEd5w9lR4shaQD0dhJkE=
+github.com/pulumi/pulumi/sdk/v3 v3.0.0-rc.1/go.mod h1:GBHyQ7awNQSRmiKp/p8kIKrGrMOZeA/k2czoM/GOqds=
 github.com/qri-io/starlib v0.4.2-0.20200213133954-ff2e8cd5ef8d h1:K6eOUihrFLdZjZnA4XlRp864fmWXv9YTIk7VPLhRacA=
 github.com/qri-io/starlib v0.4.2-0.20200213133954-ff2e8cd5ef8d/go.mod h1:7DPO4domFU579Ga6E61sB9VFNaniPVwJP5C4bBCu3wA=
 github.com/quasilyte/go-consistent v0.0.0-20190521200055-c6f3937de18c h1:JoUA0uz9U0FVFq5p4LjEq4C0VgQ0El320s3Ms0V4eww=

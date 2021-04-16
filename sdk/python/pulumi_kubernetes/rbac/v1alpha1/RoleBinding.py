@@ -6,11 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-<<<<<<< HEAD
-from ... import _utilities, _tables
-=======
 from ... import _utilities
->>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -114,9 +110,7 @@ class RoleBinding(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefArgs']]] = None,
                  subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
 
@@ -157,15 +151,7 @@ class RoleBinding(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  role_ref: Optional[pulumi.Input[pulumi.InputType['RoleRefArgs']]] = None,
                  subjects: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):

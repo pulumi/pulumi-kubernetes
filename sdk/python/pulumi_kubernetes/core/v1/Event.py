@@ -6,11 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-<<<<<<< HEAD
-from ... import _utilities, _tables
-=======
 from ... import _utilities
->>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from . import outputs
 from ... import meta as _meta
 from ._inputs import *
@@ -317,9 +313,7 @@ class Event(pulumi.CustomResource):
                  series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
                  source: Optional[pulumi.Input[pulumi.InputType['EventSourceArgs']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 
@@ -384,15 +378,7 @@ class Event(pulumi.CustomResource):
                  series: Optional[pulumi.Input[pulumi.InputType['EventSeriesArgs']]] = None,
                  source: Optional[pulumi.Input[pulumi.InputType['EventSourceArgs']]] = None,
                  type: Optional[pulumi.Input[str]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):

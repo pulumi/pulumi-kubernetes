@@ -6,11 +6,7 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-<<<<<<< HEAD
-from ... import _utilities, _tables
-=======
 from ... import _utilities
->>>>>>> 86ab531d (Upgrade to Pulumi v3.0.0-beta.2)
 from ... import meta as _meta
 
 __all__ = ['CSIStorageCapacityArgs', 'CSIStorageCapacity']
@@ -162,9 +158,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  node_topology: Optional[pulumi.Input[pulumi.InputType['_meta.v1.LabelSelectorArgs']]] = None,
                  storage_class_name: Optional[pulumi.Input[str]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
+                 __props__=None):
         """
         CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
 
@@ -233,15 +227,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  node_topology: Optional[pulumi.Input[pulumi.InputType['_meta.v1.LabelSelectorArgs']]] = None,
                  storage_class_name: Optional[pulumi.Input[str]] = None,
-                 __props__=None,
-                 __name__=None,
-                 __opts__=None):
-        if __name__ is not None:
-            warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
-            resource_name = __name__
-        if __opts__ is not None:
-            warnings.warn("explicit use of __opts__ is deprecated, use 'opts' instead", DeprecationWarning)
-            opts = __opts__
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
