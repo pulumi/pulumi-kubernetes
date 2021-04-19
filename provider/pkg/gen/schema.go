@@ -251,7 +251,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
 		"packageReferences": map[string]string{
 			"Glob":                         "1.1.5",
-			"Pulumi":                       "3.*-*", // this will cover the alphas while we are in the testing phase
+			"Pulumi":                       "3.*",
 			"System.Collections.Immutable": "1.6.0",
 		},
 		"namespaces":             csharpNamespaces,
@@ -267,7 +267,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"compatibility": kubernetes20,
 		"dependencies": map[string]string{
-			"@pulumi/pulumi":    "^3.0.0-alpha.0",
+			"@pulumi/pulumi":    "^3.0.0",
 			"shell-quote":       "^1.6.1",
 			"tmp":               "^0.0.33",
 			"@types/tmp":        "^0.0.33",
@@ -300,7 +300,7 @@ Use the navigation below to see detailed documentation for each of the supported
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
-			"pulumi":   ">=3.0.0a1,<4.0.0", // https://www.python.org/dev/peps/pep-0440/#handling-of-pre-releases
+			"pulumi":   ">=3.0.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
 			"pyyaml":   ">=5.3.1,<6.0",
 		},

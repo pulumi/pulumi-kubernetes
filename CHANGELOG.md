@@ -1,4 +1,10 @@
 ## HEAD (Unreleased)
+_(none)_
+
+## 3.0.0 (April 19, 2021)
+
+- Depend on Pulumi 3.0, which includes improvements to Python resource arguments and key translation, Go SDK performance,
+  Node SDK performance, general availability of Automation API, and more.
 
 - Update pulumi dependency (https://github.com/pulumi/pulumi-kubernetes/pull/1521)
     - [sdk/go] Fix Go resource registrations (https://github.com/pulumi/pulumi/pull/6641)
