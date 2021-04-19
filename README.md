@@ -2,7 +2,7 @@
 [![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.pulumi.com)
 [![NPM version](https://badge.fury.io/js/%40pulumi%2Fkubernetes.svg)](https://www.npmjs.com/package/@pulumi/kubernetes)
 [![Python version](https://badge.fury.io/py/pulumi-kubernetes.svg)](https://pypi.org/project/pulumi-kubernetes/)
-[![GoDoc](https://godoc.org/github.com/pulumi/pulumi-kubernetes?status.svg)](https://godoc.org/github.com/pulumi/pulumi-kubernetes)
+[![GoDoc](https://godoc.org/github.com/pulumi/pulumi-kubernetes/sdk/v3?status.svg)](https://pkg.go.dev/github.com/pulumi/pulumi-kubernetes/sdk/v3)
 [![License](https://img.shields.io/github/license/pulumi/pulumi-kubernetes)](https://github.com/pulumi/pulumi-kubernetes/blob/master/LICENSE)
 
 # Pulumi Kubernetes Resource Provider
@@ -90,7 +90,7 @@ for more details.
 
 ## Installing
 
-This package is available in JavaScript/TypeScript for use with Node.js, as well as in Python and .NET.
+This package is available in many languages in the standard packaging formats.
 
 For Node.js use either `npm` or `yarn`:
 
@@ -113,6 +113,10 @@ pip install pulumi-kubernetes
 ```
 
 For .NET, dependencies will be automatically installed as part of your Pulumi deployments using `dotnet build`.
+
+To use from Go, use `go get` to grab the latest version of the library
+
+    $ go get github.com/pulumi/pulumi-kubernetes/sdk/v3/go/...
 
 ## Quick Examples
 
