@@ -502,7 +502,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load Kubernetes client configuration from kubeconfig file: %v", err)
 		} else {
-			k.config = config
+			warningConfig := rest.CopyConfig(config)
+			warningConfig.WarningHandler = rest.NoWarnings{}
+			k.config = warningConfig
 		}
 	}
 
