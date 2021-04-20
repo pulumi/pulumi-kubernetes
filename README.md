@@ -11,7 +11,7 @@ The Kubernetes resource provider for Pulumi lets you create, deploy, and manage 
 <div>
     <p>
         <a href="https://www.pulumi.com/docs/get-started/kubernetes" title="Get Started">
-            <img src="https://www.pulumi.com/images/get-started.svg" width="120">
+            <img src="https://www.pulumi.com/images/get-started.svg?" width="120">
         </a>
     </p>  
 </div>
