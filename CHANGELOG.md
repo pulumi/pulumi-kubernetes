@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
-_(none)_
+
+- Update Helm to v3.5.4 and client-go to v0.20.4 (https://github.com/pulumi/pulumi-kubernetes/pull/1536)
 
 ## 3.0.0 (April 19, 2021)
 
