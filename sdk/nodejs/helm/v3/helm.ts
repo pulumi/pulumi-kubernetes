@@ -155,13 +155,13 @@ export class Chart extends yaml.CollectionComponentResource {
         });
 
         this.resources = allConfig.apply(cfg => {
-            return this.parseChart(cfg, releaseName, opts)
+            return this.parseChart(cfg, releaseName)
         });
 
         this.ready = this.resources.apply(m => Object.values(m));
     }
 
-    parseChart(config: ChartOpts | LocalChartOpts, releaseName: string, opts?: pulumi.ComponentResourceOptions) {
+    parseChart(config: ChartOpts | LocalChartOpts, releaseName: string) {
         const blob = {
             ...config,
             releaseName,
@@ -226,7 +226,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 objs: p.result,
                 transformations: config.transformations || [],
             },
-            { ...opts, parent: this }
+            { parent: this }
         ));
     }
 }

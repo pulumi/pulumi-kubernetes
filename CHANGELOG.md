@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
-_(none)_
+
+- In Python helmv2 and helmv3, and Node.js helmv3, no longer pass `Chart` resource options to child resources explicitly.
+  (https://github.com/pulumi/pulumi-kubernetes/pull/1539)
 
 ## 3.0.0 (April 19, 2021)
 
