@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package ints
+package test
 
 import (
 	"path/filepath"
@@ -24,29 +24,34 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var baseOptions = &integration.ProgramTestOptions{
+	Verbose: true,
+	Dependencies: []string{
+		"Pulumi.Kubernetes",
+	},
+}
+
 func TestDotnet_Basic(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "basic",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
-		// The CRD sometimes, but not always, has changes during refresh.
-		ExpectRefreshChanges: true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  "basic",
+		Quick:                true,
+		ExpectRefreshChanges: true, // The CRD sometimes, but not always, has changes during refresh.
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_Guestbook(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "guestbook",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   "guestbook",
+		Quick: true,
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_YamlUrl(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "yaml-url",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   "yaml-url",
+		Quick: true,
 		ExtraRuntimeValidation: func(
 			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 		) {
@@ -54,13 +59,13 @@ func TestDotnet_YamlUrl(t *testing.T) {
 			assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 		},
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_YamlLocal(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "yaml-local",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   "yaml-local",
+		Quick: true,
 		ExtraRuntimeValidation: func(
 			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 		) {
@@ -68,13 +73,13 @@ func TestDotnet_YamlLocal(t *testing.T) {
 			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
 		},
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_Helm(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          filepath.Join("helm", "step1"),
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("helm", "step1"),
+		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Ensure that all `Services` have `status` marked as a `Secret`
 			for _, res := range stackInfo.Deployment.Resources {
@@ -97,13 +102,13 @@ func TestDotnet_Helm(t *testing.T) {
 			},
 		},
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_HelmLocal(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          filepath.Join("helm-local", "step1"),
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("helm-local", "step1"),
+		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 11, len(stackInfo.Deployment.Resources))
@@ -116,13 +121,13 @@ func TestDotnet_HelmLocal(t *testing.T) {
 			},
 		},
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_HelmApiVersions(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          filepath.Join("helm-api-versions", "step1"),
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("helm-api-versions", "step1"),
+		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
@@ -135,22 +140,22 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 			},
 		},
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_CustomResource(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "custom-resource",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
-		// The CRD sometimes, but not always, has changes during refresh.
-		ExpectRefreshChanges: true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  "custom-resource",
+		Quick:                true,
+		ExpectRefreshChanges: true, // The CRD sometimes, but not always, has changes during refresh.
 	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_Kustomize(t *testing.T) {
-	integration.ProgramTest(t, &integration.ProgramTestOptions{
-		Dir:          "kustomize",
-		Dependencies: []string{"Pulumi.Kubernetes"},
-		Quick:        true,
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   "kustomize",
+		Quick: true,
 	})
+	integration.ProgramTest(t, &test)
 }
