@@ -174,8 +174,7 @@ class Chart(pulumi.ComponentResource):
 
         config.release_name = release_name
 
-        opts.parent = self
-        all_config = pulumi.Output.from_input((config, opts))
+        all_config = pulumi.Output.from_input((config, pulumi.ResourceOptions(parent=self)))
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
