@@ -89,8 +89,6 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-        with:
-          pulumi-version: 3.0.0-rc.1
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.PR_COMMIT_SHA }}
@@ -122,10 +120,12 @@ jobs:
         uses: jaxxstorm/action-install-gh-release@v1.1.0
         with:
           repo: pulumi/pulumictl
+      - name: Install Schema Tools
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
+        with:
+          repo: mikhailshilkov/schema-tools
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-        with:
-          pulumi-version: 3.0.0-rc.1
       - name: Build K8sgen
         run: make k8sgen
       - name: Prepare openapi file
@@ -134,6 +134,19 @@ jobs:
         run: make schema
       - name: Make Kubernetes Provider
         run: make k8sprovider
+      - name: Check Schema is Valid
+        run: |
+          echo 'SCHEMA_CHANGES<<EOF' >> $GITHUB_ENV
+          schema-tools compare ${{ env.PROVIDER }} master --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - name: Comment on PR with Details of Schema Check
+        uses: thollander/actions-comment-pull-request@1.0.1
+        with:
+          message: |
+            ### Does the PR have any schema changes?
+
+            ${{ env.SCHEMA_CHANGES }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Tar provider binaries
         run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
           }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-gen-${{ env.PROVIDER
@@ -172,8 +185,6 @@ jobs:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-        with:
-          pulumi-version: 3.0.0-rc.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -253,8 +264,6 @@ jobs:
           repo: pulumi/pulumictl
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-        with:
-          pulumi-version: 3.0.0-rc.1
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
@@ -389,8 +398,6 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-        with:
-          pulumi-version: 3.0.0-rc.1
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.PR_COMMIT_SHA }}
