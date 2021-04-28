@@ -16,7 +16,7 @@ import (
 type HTTPIngressPath struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackend `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path *string `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
@@ -29,7 +29,7 @@ type HTTPIngressPath struct {
 	//   the IngressClass. Implementations can treat this as a separate PathType
 	//   or treat it identically to Prefix or Exact path types.
 	//   Implementations are required to support all path types.
-	PathType *string `pulumi:"pathType"`
+	PathType string `pulumi:"pathType"`
 }
 
 // HTTPIngressPathInput is an input type that accepts HTTPIngressPathArgs and HTTPIngressPathOutput values.
@@ -47,7 +47,7 @@ type HTTPIngressPathInput interface {
 type HTTPIngressPathArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendInput `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
@@ -60,7 +60,7 @@ type HTTPIngressPathArgs struct {
 	//   the IngressClass. Implementations can treat this as a separate PathType
 	//   or treat it identically to Prefix or Exact path types.
 	//   Implementations are required to support all path types.
-	PathType pulumi.StringPtrInput `pulumi:"pathType"`
+	PathType pulumi.StringInput `pulumi:"pathType"`
 }
 
 func (HTTPIngressPathArgs) ElementType() reflect.Type {
@@ -120,7 +120,7 @@ func (o HTTPIngressPathOutput) Backend() IngressBackendOutput {
 	return o.ApplyT(func(v HTTPIngressPath) IngressBackend { return v.Backend }).(IngressBackendOutput)
 }
 
-// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
@@ -136,8 +136,8 @@ func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 //   the IngressClass. Implementations can treat this as a separate PathType
 //   or treat it identically to Prefix or Exact path types.
 //   Implementations are required to support all path types.
-func (o HTTPIngressPathOutput) PathType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v HTTPIngressPath) *string { return v.PathType }).(pulumi.StringPtrOutput)
+func (o HTTPIngressPathOutput) PathType() pulumi.StringOutput {
+	return o.ApplyT(func(v HTTPIngressPath) string { return v.PathType }).(pulumi.StringOutput)
 }
 
 type HTTPIngressPathArrayOutput struct{ *pulumi.OutputState }
@@ -2705,7 +2705,7 @@ func (o NetworkPolicyPeerArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPeer
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPort struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
 	EndPort *int `pulumi:"endPort"`
 	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port interface{} `pulumi:"port"`
@@ -2726,7 +2726,7 @@ type NetworkPolicyPortInput interface {
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPortArgs struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
 	EndPort pulumi.IntPtrInput `pulumi:"endPort"`
 	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port pulumi.Input `pulumi:"port"`
@@ -2786,7 +2786,7 @@ func (o NetworkPolicyPortOutput) ToNetworkPolicyPortOutputWithContext(ctx contex
 	return o
 }
 
-// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
 func (o NetworkPolicyPortOutput) EndPort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPort) *int { return v.EndPort }).(pulumi.IntPtrOutput)
 }

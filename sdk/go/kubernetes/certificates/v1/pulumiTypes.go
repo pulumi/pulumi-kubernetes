@@ -24,7 +24,7 @@ type CertificateSigningRequestType struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+	// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
 	Spec CertificateSigningRequestSpec `pulumi:"spec"`
 	// status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
 	Status *CertificateSigningRequestStatus `pulumi:"status"`
@@ -54,7 +54,7 @@ type CertificateSigningRequestTypeArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+	// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
 	Spec CertificateSigningRequestSpecInput `pulumi:"spec"`
 	// status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
 	Status CertificateSigningRequestStatusPtrInput `pulumi:"status"`
@@ -132,7 +132,7 @@ func (o CertificateSigningRequestTypeOutput) Metadata() metav1.ObjectMetaPtrOutp
 	return o.ApplyT(func(v CertificateSigningRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
 func (o CertificateSigningRequestTypeOutput) Spec() CertificateSigningRequestSpecOutput {
 	return o.ApplyT(func(v CertificateSigningRequestType) CertificateSigningRequestSpec { return v.Spec }).(CertificateSigningRequestSpecOutput)
 }
@@ -418,6 +418,21 @@ func (o CertificateSigningRequestListTypeOutput) Metadata() metav1.ListMetaPtrOu
 
 // CertificateSigningRequestSpec contains the certificate request.
 type CertificateSigningRequestSpec struct {
+	// expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+	//
+	// The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+	//
+	// Certificate signers may not honor this field for various reasons:
+	//
+	//   1. Old signer that is unaware of the field (such as the in-tree
+	//      implementations prior to v1.22)
+	//   2. Signer whose configured maximum is shorter than the requested duration
+	//   3. Signer whose configured minimum is longer than the requested duration
+	//
+	// The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+	//
+	// As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
+	ExpirationSeconds *int `pulumi:"expirationSeconds"`
 	// extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
 	Extra map[string][]string `pulumi:"extra"`
 	// groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
@@ -480,6 +495,21 @@ type CertificateSigningRequestSpecInput interface {
 
 // CertificateSigningRequestSpec contains the certificate request.
 type CertificateSigningRequestSpecArgs struct {
+	// expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+	//
+	// The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+	//
+	// Certificate signers may not honor this field for various reasons:
+	//
+	//   1. Old signer that is unaware of the field (such as the in-tree
+	//      implementations prior to v1.22)
+	//   2. Signer whose configured maximum is shorter than the requested duration
+	//   3. Signer whose configured minimum is longer than the requested duration
+	//
+	// The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+	//
+	// As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
+	ExpirationSeconds pulumi.IntPtrInput `pulumi:"expirationSeconds"`
 	// extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
 	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
 	// groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
@@ -607,6 +637,24 @@ func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrO
 	}).(CertificateSigningRequestSpecPtrOutput)
 }
 
+// expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+//
+// The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+//
+// Certificate signers may not honor this field for various reasons:
+//
+//   1. Old signer that is unaware of the field (such as the in-tree
+//      implementations prior to v1.22)
+//   2. Signer whose configured maximum is shorter than the requested duration
+//   3. Signer whose configured minimum is longer than the requested duration
+//
+// The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+//
+// As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
+func (o CertificateSigningRequestSpecOutput) ExpirationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CertificateSigningRequestSpec) *int { return v.ExpirationSeconds }).(pulumi.IntPtrOutput)
+}
+
 // extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
 func (o CertificateSigningRequestSpecOutput) Extra() pulumi.StringArrayMapOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpec) map[string][]string { return v.Extra }).(pulumi.StringArrayMapOutput)
@@ -691,6 +739,29 @@ func (o CertificateSigningRequestSpecPtrOutput) ToCertificateSigningRequestSpecP
 
 func (o CertificateSigningRequestSpecPtrOutput) Elem() CertificateSigningRequestSpecOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestSpec) CertificateSigningRequestSpec { return *v }).(CertificateSigningRequestSpecOutput)
+}
+
+// expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+//
+// The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+//
+// Certificate signers may not honor this field for various reasons:
+//
+//   1. Old signer that is unaware of the field (such as the in-tree
+//      implementations prior to v1.22)
+//   2. Signer whose configured maximum is shorter than the requested duration
+//   3. Signer whose configured minimum is longer than the requested duration
+//
+// The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+//
+// As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
+func (o CertificateSigningRequestSpecPtrOutput) ExpirationSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ExpirationSeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.

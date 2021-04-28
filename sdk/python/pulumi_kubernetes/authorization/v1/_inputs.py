@@ -221,6 +221,7 @@ class SelfSubjectRulesReviewSpecArgs:
     def __init__(__self__, *,
                  namespace: Optional[pulumi.Input[str]] = None):
         """
+        SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
         :param pulumi.Input[str] namespace: Namespace to evaluate rules for. Required.
         """
         if namespace is not None:

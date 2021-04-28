@@ -58,12 +58,11 @@ class HTTPIngressPath(dict):
 
     def __init__(__self__, *,
                  backend: 'outputs.IngressBackend',
-                 path: Optional[str] = None,
-                 path_type: Optional[str] = None):
+                 path_type: str,
+                 path: Optional[str] = None):
         """
         HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
         :param 'IngressBackendArgs' backend: Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-        :param str path: Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
         :param str path_type: PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
                  done on a path element by element basis. A path element refers is the
                  list of labels in the path split by the '/' separator. A request is a
@@ -75,12 +74,12 @@ class HTTPIngressPath(dict):
                  the IngressClass. Implementations can treat this as a separate PathType
                  or treat it identically to Prefix or Exact path types.
                Implementations are required to support all path types.
+        :param str path: Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         """
         pulumi.set(__self__, "backend", backend)
+        pulumi.set(__self__, "path_type", path_type)
         if path is not None:
             pulumi.set(__self__, "path", path)
-        if path_type is not None:
-            pulumi.set(__self__, "path_type", path_type)
 
     @property
     @pulumi.getter
@@ -91,16 +90,8 @@ class HTTPIngressPath(dict):
         return pulumi.get(self, "backend")
 
     @property
-    @pulumi.getter
-    def path(self) -> Optional[str]:
-        """
-        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
-        """
-        return pulumi.get(self, "path")
-
-    @property
     @pulumi.getter(name="pathType")
-    def path_type(self) -> Optional[str]:
+    def path_type(self) -> str:
         """
         PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
@@ -115,6 +106,14 @@ class HTTPIngressPath(dict):
         Implementations are required to support all path types.
         """
         return pulumi.get(self, "path_type")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+        """
+        return pulumi.get(self, "path")
 
 
 @pulumi.output_type
@@ -1054,7 +1053,7 @@ class NetworkPolicyPort(dict):
                  protocol: Optional[str] = None):
         """
         NetworkPolicyPort describes a port to allow traffic on
-        :param int end_port: If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+        :param int end_port: If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
         :param Union[int, str] port: The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param str protocol: The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
@@ -1069,7 +1068,7 @@ class NetworkPolicyPort(dict):
     @pulumi.getter(name="endPort")
     def end_port(self) -> Optional[int]:
         """
-        If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+        If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
         """
         return pulumi.get(self, "end_port")
 

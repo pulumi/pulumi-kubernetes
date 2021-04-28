@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class NodeSpecArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+        /// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
         /// </summary>
         [Input("configSource")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeConfigSourceArgs>? ConfigSource { get; set; }

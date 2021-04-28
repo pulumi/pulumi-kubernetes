@@ -332,7 +332,7 @@ func (o CustomResourceConversionPtrOutput) WebhookClientConfig() WebhookClientCo
 	}).(WebhookClientConfigPtrOutput)
 }
 
-// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -356,7 +356,7 @@ type CustomResourceDefinitionTypeInput interface {
 	ToCustomResourceDefinitionTypeOutputWithContext(context.Context) CustomResourceDefinitionTypeOutput
 }
 
-// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -406,7 +406,7 @@ func (i CustomResourceDefinitionTypeArray) ToCustomResourceDefinitionTypeArrayOu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionTypeArrayOutput)
 }
 
-// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionTypeOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionTypeOutput) ElementType() reflect.Type {
@@ -2215,8 +2215,6 @@ type JSONSchemaProps struct {
 	// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 	//
 	// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-	//
-	// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 	X_kubernetes_list_map_keys []string `pulumi:"x_kubernetes_list_map_keys"`
 	// x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 	//
@@ -2316,8 +2314,6 @@ type JSONSchemaPropsArgs struct {
 	// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 	//
 	// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-	//
-	// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 	X_kubernetes_list_map_keys pulumi.StringArrayInput `pulumi:"x_kubernetes_list_map_keys"`
 	// x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 	//
@@ -2648,8 +2644,6 @@ func (o JSONSchemaPropsOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput
 // x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 //
 // This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-//
-// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 func (o JSONSchemaPropsOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v JSONSchemaProps) []string { return v.X_kubernetes_list_map_keys }).(pulumi.StringArrayOutput)
 }
@@ -3076,8 +3070,6 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOut
 // x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 //
 // This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-//
-// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) []string {
 		if v == nil {

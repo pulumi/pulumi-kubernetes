@@ -32,7 +32,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1
         public readonly string Kind;
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Certificates.V1.CertificateSigningRequestSpec Spec;
         /// <summary>

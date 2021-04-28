@@ -132,7 +132,6 @@
         "core/v1/configMapList.ts",
         "core/v1/endpoints.ts",
         "core/v1/endpointsList.ts",
-        "core/v1/ephemeralContainers.ts",
         "core/v1/event.ts",
         "core/v1/eventList.ts",
         "core/v1/index.ts",

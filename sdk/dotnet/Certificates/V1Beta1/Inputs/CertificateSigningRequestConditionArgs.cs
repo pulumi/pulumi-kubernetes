@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
         public Input<string>? Status { get; set; }
 
         /// <summary>
-        /// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+        /// request approval state, currently Approved or Denied.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

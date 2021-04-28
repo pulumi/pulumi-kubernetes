@@ -51,7 +51,7 @@ export class CertificateSigningRequest extends pulumi.CustomResource {
     public readonly kind!: pulumi.Output<"CertificateSigningRequest">;
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+     * spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
      */
     public readonly spec!: pulumi.Output<outputs.certificates.v1.CertificateSigningRequestSpec>;
     /**
@@ -108,7 +108,7 @@ export interface CertificateSigningRequestArgs {
     kind?: pulumi.Input<"CertificateSigningRequest">;
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+     * spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
      */
     spec: pulumi.Input<inputs.certificates.v1.CertificateSigningRequestSpec>;
 }

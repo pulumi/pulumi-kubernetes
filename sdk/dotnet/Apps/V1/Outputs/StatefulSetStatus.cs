@@ -17,6 +17,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
     public sealed class StatefulSetStatus
     {
         /// <summary>
+        /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+        /// </summary>
+        public readonly int AvailableReplicas;
+        /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         /// </summary>
         public readonly int CollisionCount;
@@ -55,6 +59,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 
         [OutputConstructor]
         private StatefulSetStatus(
+            int availableReplicas,
+
             int collisionCount,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Apps.V1.StatefulSetCondition> conditions,
@@ -73,6 +79,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 
             int updatedReplicas)
         {
+            AvailableReplicas = availableReplicas;
             CollisionCount = collisionCount;
             Conditions = conditions;
             CurrentReplicas = currentReplicas;

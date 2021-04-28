@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Update Helm and client-go deps (https://github.com/pulumi/pulumi-kubernetes/pull/1662)
+- Add support for k8s v1.22.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1551)
 
 ## 3.5.2 (July 29, 2021)
 

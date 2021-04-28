@@ -321,7 +321,6 @@ _utilities.register(
    "kubernetes:core/v1:ConfigMapList": "ConfigMapList",
    "kubernetes:core/v1:Endpoints": "Endpoints",
    "kubernetes:core/v1:EndpointsList": "EndpointsList",
-   "kubernetes:core/v1:EphemeralContainers": "EphemeralContainers",
    "kubernetes:core/v1:Event": "Event",
    "kubernetes:core/v1:EventList": "EventList",
    "kubernetes:core/v1:LimitRange": "LimitRange",

@@ -107,23 +107,24 @@ class APIServiceConditionArgs:
 class APIServiceSpecArgs:
     def __init__(__self__, *,
                  group_priority_minimum: pulumi.Input[int],
+                 service: pulumi.Input['ServiceReferenceArgs'],
                  version_priority: pulumi.Input[int],
                  ca_bundle: Optional[pulumi.Input[str]] = None,
                  group: Optional[pulumi.Input[str]] = None,
                  insecure_skip_tls_verify: Optional[pulumi.Input[bool]] = None,
-                 service: Optional[pulumi.Input['ServiceReferenceArgs']] = None,
                  version: Optional[pulumi.Input[str]] = None):
         """
         APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
         :param pulumi.Input[int] group_priority_minimum: GroupPriorityMininum is the priority this group should have at least. Higher priority means that the group is preferred by clients over lower priority ones. Note that other versions of this group might specify even higher GroupPriorityMininum values such that the whole group gets a higher priority. The primary sort is based on GroupPriorityMinimum, ordered highest number to lowest (20 before 10). The secondary sort is based on the alphabetical comparison of the name of the object.  (v1.bar before v1.foo) We'd recommend something like: *.k8s.io (except extensions) at 18000 and PaaSes (OpenShift, Deis) are recommended to be in the 2000s
+        :param pulumi.Input['ServiceReferenceArgs'] service: Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
         :param pulumi.Input[int] version_priority: VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         :param pulumi.Input[str] ca_bundle: CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
         :param pulumi.Input[str] group: Group is the API group name this server hosts
         :param pulumi.Input[bool] insecure_skip_tls_verify: InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
-        :param pulumi.Input['ServiceReferenceArgs'] service: Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
         :param pulumi.Input[str] version: Version is the API version this server hosts.  For example, "v1"
         """
         pulumi.set(__self__, "group_priority_minimum", group_priority_minimum)
+        pulumi.set(__self__, "service", service)
         pulumi.set(__self__, "version_priority", version_priority)
         if ca_bundle is not None:
             pulumi.set(__self__, "ca_bundle", ca_bundle)
@@ -131,8 +132,6 @@ class APIServiceSpecArgs:
             pulumi.set(__self__, "group", group)
         if insecure_skip_tls_verify is not None:
             pulumi.set(__self__, "insecure_skip_tls_verify", insecure_skip_tls_verify)
-        if service is not None:
-            pulumi.set(__self__, "service", service)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -147,6 +146,18 @@ class APIServiceSpecArgs:
     @group_priority_minimum.setter
     def group_priority_minimum(self, value: pulumi.Input[int]):
         pulumi.set(self, "group_priority_minimum", value)
+
+    @property
+    @pulumi.getter
+    def service(self) -> pulumi.Input['ServiceReferenceArgs']:
+        """
+        Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+        """
+        return pulumi.get(self, "service")
+
+    @service.setter
+    def service(self, value: pulumi.Input['ServiceReferenceArgs']):
+        pulumi.set(self, "service", value)
 
     @property
     @pulumi.getter(name="versionPriority")
@@ -195,18 +206,6 @@ class APIServiceSpecArgs:
     @insecure_skip_tls_verify.setter
     def insecure_skip_tls_verify(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "insecure_skip_tls_verify", value)
-
-    @property
-    @pulumi.getter
-    def service(self) -> Optional[pulumi.Input['ServiceReferenceArgs']]:
-        """
-        Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-        """
-        return pulumi.get(self, "service")
-
-    @service.setter
-    def service(self, value: Optional[pulumi.Input['ServiceReferenceArgs']]):
-        pulumi.set(self, "service", value)
 
     @property
     @pulumi.getter

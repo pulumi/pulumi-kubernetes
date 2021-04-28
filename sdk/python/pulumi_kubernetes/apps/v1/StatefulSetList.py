@@ -23,8 +23,10 @@ class StatefulSetListArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
         """
         The set of arguments for constructing a StatefulSetList resource.
+        :param pulumi.Input[Sequence[pulumi.Input['StatefulSetArgs']]] items: Items is the list of stateful sets.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         pulumi.set(__self__, "items", items)
         if api_version is not None:
@@ -37,6 +39,9 @@ class StatefulSetListArgs:
     @property
     @pulumi.getter
     def items(self) -> pulumi.Input[Sequence[pulumi.Input['StatefulSetArgs']]]:
+        """
+        Items is the list of stateful sets.
+        """
         return pulumi.get(self, "items")
 
     @items.setter
@@ -70,6 +75,9 @@ class StatefulSetListArgs:
     @property
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ListMetaArgs']]:
+        """
+        Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
@@ -93,7 +101,9 @@ class StatefulSetList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['StatefulSetArgs']]]] items: Items is the list of stateful sets.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']] metadata: Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         ...
     @overload
@@ -180,6 +190,9 @@ class StatefulSetList(pulumi.CustomResource):
     @property
     @pulumi.getter
     def items(self) -> pulumi.Output[Sequence['outputs.StatefulSet']]:
+        """
+        Items is the list of stateful sets.
+        """
         return pulumi.get(self, "items")
 
     @property
@@ -193,5 +206,8 @@ class StatefulSetList(pulumi.CustomResource):
     @property
     @pulumi.getter
     def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ListMeta']]:
+        """
+        Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
         return pulumi.get(self, "metadata")
 

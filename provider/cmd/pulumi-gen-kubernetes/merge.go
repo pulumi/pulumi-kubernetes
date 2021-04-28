@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import (
 	"github.com/imdario/mergo"
 )
 
-func mergeSwaggerSpecs(legacyBytes, currentBytes []byte) interface{} {
+func mergeSwaggerSpecs(legacyBytes, currentBytes []byte) []byte {
 
 	var legacyObj, newObj map[string]interface{}
 	err := json.Unmarshal(legacyBytes, &legacyObj)
@@ -35,6 +35,10 @@ func mergeSwaggerSpecs(legacyBytes, currentBytes []byte) interface{} {
 	if err != nil {
 		panic(err)
 	}
+	b, err := json.Marshal(legacyObj)
+	if err != nil {
+		panic(err)
+	}
 
-	return legacyObj
+	return b
 }

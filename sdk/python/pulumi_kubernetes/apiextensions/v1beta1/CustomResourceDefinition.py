@@ -91,7 +91,7 @@ class CustomResourceDefinition(pulumi.CustomResource):
                  spec: Optional[pulumi.Input[pulumi.InputType['CustomResourceDefinitionSpecArgs']]] = None,
                  __props__=None):
         """
-        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -106,7 +106,7 @@ class CustomResourceDefinition(pulumi.CustomResource):
                  args: CustomResourceDefinitionInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 
         :param str resource_name: The name of the resource.
         :param CustomResourceDefinitionInitArgs args: The arguments to use to populate this resource's properties.

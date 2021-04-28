@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
     /// <summary>
-    /// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.
+    /// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
     /// </summary>
     [OutputType]
     public sealed class NodeConfigSource

@@ -39,11 +39,17 @@ export class StatefulSetList extends pulumi.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     public readonly apiVersion!: pulumi.Output<"apps/v1">;
+    /**
+     * Items is the list of stateful sets.
+     */
     public readonly items!: pulumi.Output<outputs.apps.v1.StatefulSet[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     public readonly kind!: pulumi.Output<"StatefulSetList">;
+    /**
+     * Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ListMeta>;
 
     /**
@@ -85,10 +91,16 @@ export interface StatefulSetListArgs {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     apiVersion?: pulumi.Input<"apps/v1">;
+    /**
+     * Items is the list of stateful sets.
+     */
     items: pulumi.Input<pulumi.Input<inputs.apps.v1.StatefulSet>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind?: pulumi.Input<"StatefulSetList">;
+    /**
+     * Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     */
     metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }

@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs> Backend { get; set; } = null!;
 
         /// <summary>
-        /// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+        /// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         /// </summary>
         [Input("path")]
         public Input<string>? Path { get; set; }
@@ -40,8 +40,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         ///   or treat it identically to Prefix or Exact path types.
         /// Implementations are required to support all path types.
         /// </summary>
-        [Input("pathType")]
-        public Input<string>? PathType { get; set; }
+        [Input("pathType", required: true)]
+        public Input<string> PathType { get; set; } = null!;
 
         public HTTPIngressPathArgs()
         {

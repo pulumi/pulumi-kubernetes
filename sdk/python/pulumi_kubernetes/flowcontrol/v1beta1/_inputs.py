@@ -993,7 +993,10 @@ class SubjectArgs:
                  user: Optional[pulumi.Input['UserSubjectArgs']] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-        :param pulumi.Input[str] kind: Required
+        :param pulumi.Input[str] kind: `kind` indicates which one of the other fields is non-empty. Required
+        :param pulumi.Input['GroupSubjectArgs'] group: `group` matches based on user group name.
+        :param pulumi.Input['ServiceAccountSubjectArgs'] service_account: `serviceAccount` matches ServiceAccounts.
+        :param pulumi.Input['UserSubjectArgs'] user: `user` matches based on username.
         """
         pulumi.set(__self__, "kind", kind)
         if group is not None:
@@ -1007,7 +1010,7 @@ class SubjectArgs:
     @pulumi.getter
     def kind(self) -> pulumi.Input[str]:
         """
-        Required
+        `kind` indicates which one of the other fields is non-empty. Required
         """
         return pulumi.get(self, "kind")
 
@@ -1018,6 +1021,9 @@ class SubjectArgs:
     @property
     @pulumi.getter
     def group(self) -> Optional[pulumi.Input['GroupSubjectArgs']]:
+        """
+        `group` matches based on user group name.
+        """
         return pulumi.get(self, "group")
 
     @group.setter
@@ -1027,6 +1033,9 @@ class SubjectArgs:
     @property
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional[pulumi.Input['ServiceAccountSubjectArgs']]:
+        """
+        `serviceAccount` matches ServiceAccounts.
+        """
         return pulumi.get(self, "service_account")
 
     @service_account.setter
@@ -1036,6 +1045,9 @@ class SubjectArgs:
     @property
     @pulumi.getter
     def user(self) -> Optional[pulumi.Input['UserSubjectArgs']]:
+        """
+        `user` matches based on username.
+        """
         return pulumi.get(self, "user")
 
     @user.setter

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1
 {
 
+    /// <summary>
+    /// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
+    /// </summary>
     [OutputType]
     public sealed class SelfSubjectRulesReviewSpec
     {

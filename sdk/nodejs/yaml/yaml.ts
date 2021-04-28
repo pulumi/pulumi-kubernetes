@@ -226,8 +226,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "v1/Endpoints", namespace: string, name: string): pulumi.Output<core.v1.Endpoints>;
     public getResource(groupVersionKind: "v1/EndpointsList", name: string): pulumi.Output<core.v1.EndpointsList>;
     public getResource(groupVersionKind: "v1/EndpointsList", namespace: string, name: string): pulumi.Output<core.v1.EndpointsList>;
-    public getResource(groupVersionKind: "v1/EphemeralContainers", name: string): pulumi.Output<core.v1.EphemeralContainers>;
-    public getResource(groupVersionKind: "v1/EphemeralContainers", namespace: string, name: string): pulumi.Output<core.v1.EphemeralContainers>;
     public getResource(groupVersionKind: "v1/Event", name: string): pulumi.Output<core.v1.Event>;
     public getResource(groupVersionKind: "v1/Event", namespace: string, name: string): pulumi.Output<core.v1.Event>;
     public getResource(groupVersionKind: "v1/EventList", name: string): pulumi.Output<core.v1.EventList>;
@@ -1234,14 +1232,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "v1/EndpointsList", namespace: string, name: string, property: "kind"): pulumi.Output<"EndpointsList">;
     public getResourceProperty(groupVersionKind: "v1/EndpointsList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "v1/EndpointsList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", name: string, property: "apiVersion"): pulumi.Output<"v1">;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", name: string, property: "ephemeralContainers"): pulumi.Output<outputs.core.v1.EphemeralContainer[]>;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", namespace: string, name: string, property: "ephemeralContainers"): pulumi.Output<outputs.core.v1.EphemeralContainer[]>;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", name: string, property: "kind"): pulumi.Output<"EphemeralContainers">;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", namespace: string, name: string, property: "kind"): pulumi.Output<"EphemeralContainers">;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "v1/EphemeralContainers", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
     public getResourceProperty(groupVersionKind: "v1/Event", name: string, property: "action"): pulumi.Output<string>;
     public getResourceProperty(groupVersionKind: "v1/Event", namespace: string, name: string, property: "action"): pulumi.Output<string>;
     public getResourceProperty(groupVersionKind: "v1/Event", name: string, property: "apiVersion"): pulumi.Output<"v1">;
@@ -3334,11 +3324,6 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `v1/Endpoints::${id}`,
                 resource: new core.v1.Endpoints(id, obj, opts),
-            }))];
-        case "v1/EphemeralContainers":
-            return [id.apply(id => ({
-                name: `v1/EphemeralContainers::${id}`,
-                resource: new core.v1.EphemeralContainers(id, obj, opts),
             }))];
         case "v1/Event":
             return [id.apply(id => ({

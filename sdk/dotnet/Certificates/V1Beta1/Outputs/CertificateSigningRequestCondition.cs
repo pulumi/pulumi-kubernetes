@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1Beta1
         /// </summary>
         public readonly string Status;
         /// <summary>
-        /// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+        /// request approval state, currently Approved or Denied.
         /// </summary>
         public readonly string Type;
 

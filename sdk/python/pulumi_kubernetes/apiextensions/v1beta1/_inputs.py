@@ -734,7 +734,7 @@ class CustomResourceDefinitionArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
                  status: Optional[pulumi.Input['CustomResourceDefinitionStatusArgs']] = None):
         """
-        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+        CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
         :param pulumi.Input['CustomResourceDefinitionSpecArgs'] spec: spec describes how the user wants the resources to appear
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1024,8 +1024,6 @@ class JSONSchemaPropsArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] x_kubernetes_list_map_keys: x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
                
                This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-               
-               The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
         :param pulumi.Input[str] x_kubernetes_list_type: x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
                
                1) `atomic`: the list is treated as a single entity, like a scalar.
@@ -1518,8 +1516,6 @@ class JSONSchemaPropsArgs:
         x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 
         This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-
-        The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
         """
         return pulumi.get(self, "x_kubernetes_list_map_keys")
 
