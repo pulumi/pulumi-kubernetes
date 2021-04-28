@@ -23,7 +23,6 @@ import (
 	"go/format"
 	"io/ioutil"
 	"os"
-	"path"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -90,21 +89,21 @@ func main() {
 	language, inputFile := Language(args[0]), args[1]
 
 	BaseDir = args[2]
-	TemplateDir = path.Join(BaseDir, "provider", "pkg", "gen")
-	outdir := path.Join(BaseDir, "sdk", string(language))
+	TemplateDir = filepath.Join(BaseDir, "provider", "pkg", "gen")
+	outdir := filepath.Join(BaseDir, "sdk", string(language))
 
 	switch language {
 	case NodeJS:
-		templateDir := path.Join(TemplateDir, "nodejs-templates")
+		templateDir := filepath.Join(TemplateDir, "nodejs-templates")
 		writeNodeJSClient(readSchema(inputFile, version), outdir, templateDir)
 	case Python:
-		templateDir := path.Join(TemplateDir, "python-templates")
+		templateDir := filepath.Join(TemplateDir, "python-templates")
 		writePythonClient(readSchema(inputFile, version), outdir, templateDir)
 	case DotNet:
-		templateDir := path.Join(TemplateDir, "dotnet-templates")
+		templateDir := filepath.Join(TemplateDir, "dotnet-templates")
 		writeDotnetClient(readSchema(inputFile, version), outdir, templateDir)
 	case Go:
-		templateDir := path.Join(TemplateDir, "go-templates")
+		templateDir := filepath.Join(TemplateDir, "go-templates")
 		writeGoClient(readSchema(inputFile, version), outdir, templateDir)
 	case Kinds:
 		pkg := readSchema(inputFile, version)
@@ -385,7 +384,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 	}
 
 	files := map[string][]byte{}
-	files["provider/pkg/kinds/kinds.go"] = mustRenderGoTemplate(path.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
+	files["provider/pkg/kinds/kinds.go"] = mustRenderGoTemplate(filepath.Join(TemplateDir, "kinds", "kinds.tmpl"), gvk)
 	mustWriteFiles(BaseDir, files)
 }
 
