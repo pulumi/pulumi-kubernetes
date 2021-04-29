@@ -26,6 +26,11 @@ openapi_file::
 	@mkdir -p $(OPENAPI_DIR)
 	test -f $(OPENAPI_FILE) || curl -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
+ensure::
+	cd provider && go mod tidy
+	cd sdk && go mod tidy
+	cd tests && go mod tidy
+
 k8sgen::
 	(cd provider && go build -a -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
