@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.1.0 (April 29, 2021)
+
 - Update Helm to v3.5.4 and client-go to v0.20.4 (https://github.com/pulumi/pulumi-kubernetes/pull/1536)
 - In Python helmv2 and helmv3, and Node.js helmv3, no longer pass `Chart` resource options to child resources explicitly.
   (https://github.com/pulumi/pulumi-kubernetes/pull/1539)
