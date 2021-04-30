@@ -67,7 +67,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
         private InputList<string>? _verbs;
 
         /// <summary>
-        /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+        /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
         /// </summary>
         public InputList<string> Verbs
         {

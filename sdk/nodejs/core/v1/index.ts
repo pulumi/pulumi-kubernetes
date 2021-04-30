@@ -10,7 +10,6 @@ export * from "./configMap";
 export * from "./configMapList";
 export * from "./endpoints";
 export * from "./endpointsList";
-export * from "./ephemeralContainers";
 export * from "./event";
 export * from "./eventList";
 export * from "./limitRange";
@@ -47,7 +46,6 @@ import { ConfigMap } from "./configMap";
 import { ConfigMapList } from "./configMapList";
 import { Endpoints } from "./endpoints";
 import { EndpointsList } from "./endpointsList";
-import { EphemeralContainers } from "./ephemeralContainers";
 import { Event } from "./event";
 import { EventList } from "./eventList";
 import { LimitRange } from "./limitRange";
@@ -89,8 +87,6 @@ const _module = {
                 return new Endpoints(name, <any>undefined, { urn })
             case "kubernetes:core/v1:EndpointsList":
                 return new EndpointsList(name, <any>undefined, { urn })
-            case "kubernetes:core/v1:EphemeralContainers":
-                return new EphemeralContainers(name, <any>undefined, { urn })
             case "kubernetes:core/v1:Event":
                 return new Event(name, <any>undefined, { urn })
             case "kubernetes:core/v1:EventList":

@@ -11,6 +11,88 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+type Eviction struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// DeleteOptions may be provided
+	DeleteOptions *metav1.DeleteOptions `pulumi:"deleteOptions"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// ObjectMeta describes the pod that is being evicted.
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+}
+
+// EvictionInput is an input type that accepts EvictionArgs and EvictionOutput values.
+// You can construct a concrete instance of `EvictionInput` via:
+//
+//          EvictionArgs{...}
+type EvictionInput interface {
+	pulumi.Input
+
+	ToEvictionOutput() EvictionOutput
+	ToEvictionOutputWithContext(context.Context) EvictionOutput
+}
+
+// Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+type EvictionArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// DeleteOptions may be provided
+	DeleteOptions metav1.DeleteOptionsPtrInput `pulumi:"deleteOptions"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// ObjectMeta describes the pod that is being evicted.
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+}
+
+func (EvictionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Eviction)(nil)).Elem()
+}
+
+func (i EvictionArgs) ToEvictionOutput() EvictionOutput {
+	return i.ToEvictionOutputWithContext(context.Background())
+}
+
+func (i EvictionArgs) ToEvictionOutputWithContext(ctx context.Context) EvictionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EvictionOutput)
+}
+
+// Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
+type EvictionOutput struct{ *pulumi.OutputState }
+
+func (EvictionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Eviction)(nil)).Elem()
+}
+
+func (o EvictionOutput) ToEvictionOutput() EvictionOutput {
+	return o
+}
+
+func (o EvictionOutput) ToEvictionOutputWithContext(ctx context.Context) EvictionOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EvictionOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Eviction) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// DeleteOptions may be provided
+func (o EvictionOutput) DeleteOptions() metav1.DeleteOptionsPtrOutput {
+	return o.ApplyT(func(v Eviction) *metav1.DeleteOptions { return v.DeleteOptions }).(metav1.DeleteOptionsPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EvictionOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Eviction) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// ObjectMeta describes the pod that is being evicted.
+func (o EvictionOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v Eviction) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -682,6 +764,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOu
 }
 
 func init() {
+	pulumi.RegisterOutputType(EvictionOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetTypeOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetTypeArrayOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetListTypeOutput{})

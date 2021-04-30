@@ -591,7 +591,7 @@ type PolicyRule struct {
 	ResourceNames []string `pulumi:"resourceNames"`
 	// Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
 	Resources []string `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 	Verbs []string `pulumi:"verbs"`
 }
 
@@ -616,7 +616,7 @@ type PolicyRuleArgs struct {
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
 	// Resources is a list of resources this rule applies to.  '*' represents all resources in the specified apiGroups. '*/foo' represents the subresource 'foo' for all resources in the specified apiGroups.
 	Resources pulumi.StringArrayInput `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
 }
 
@@ -692,7 +692,7 @@ func (o PolicyRuleOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
 
-// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 func (o PolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }

@@ -7739,85 +7739,6 @@ func (o EphemeralContainerArrayOutput) Index(i pulumi.IntInput) EphemeralContain
 	}).(EphemeralContainerOutput)
 }
 
-// A list of ephemeral containers used with the Pod ephemeralcontainers subresource.
-type EphemeralContainersType struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.
-	EphemeralContainers []EphemeralContainer `pulumi:"ephemeralContainers"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-}
-
-// EphemeralContainersTypeInput is an input type that accepts EphemeralContainersTypeArgs and EphemeralContainersTypeOutput values.
-// You can construct a concrete instance of `EphemeralContainersTypeInput` via:
-//
-//          EphemeralContainersTypeArgs{...}
-type EphemeralContainersTypeInput interface {
-	pulumi.Input
-
-	ToEphemeralContainersTypeOutput() EphemeralContainersTypeOutput
-	ToEphemeralContainersTypeOutputWithContext(context.Context) EphemeralContainersTypeOutput
-}
-
-// A list of ephemeral containers used with the Pod ephemeralcontainers subresource.
-type EphemeralContainersTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.
-	EphemeralContainers EphemeralContainerArrayInput `pulumi:"ephemeralContainers"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-}
-
-func (EphemeralContainersTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*EphemeralContainersType)(nil)).Elem()
-}
-
-func (i EphemeralContainersTypeArgs) ToEphemeralContainersTypeOutput() EphemeralContainersTypeOutput {
-	return i.ToEphemeralContainersTypeOutputWithContext(context.Background())
-}
-
-func (i EphemeralContainersTypeArgs) ToEphemeralContainersTypeOutputWithContext(ctx context.Context) EphemeralContainersTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EphemeralContainersTypeOutput)
-}
-
-// A list of ephemeral containers used with the Pod ephemeralcontainers subresource.
-type EphemeralContainersTypeOutput struct{ *pulumi.OutputState }
-
-func (EphemeralContainersTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EphemeralContainersType)(nil)).Elem()
-}
-
-func (o EphemeralContainersTypeOutput) ToEphemeralContainersTypeOutput() EphemeralContainersTypeOutput {
-	return o
-}
-
-func (o EphemeralContainersTypeOutput) ToEphemeralContainersTypeOutputWithContext(ctx context.Context) EphemeralContainersTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EphemeralContainersTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EphemeralContainersType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.
-func (o EphemeralContainersTypeOutput) EphemeralContainers() EphemeralContainerArrayOutput {
-	return o.ApplyT(func(v EphemeralContainersType) []EphemeralContainer { return v.EphemeralContainers }).(EphemeralContainerArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EphemeralContainersTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EphemeralContainersType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o EphemeralContainersTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v EphemeralContainersType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
 // Represents an ephemeral volume that is handled by a normal storage driver.
 type EphemeralVolumeSource struct {
 	// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
@@ -20613,7 +20534,7 @@ type PodSpec struct {
 	NodeName *string `pulumi:"nodeName"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 	NodeSelector map[string]string `pulumi:"nodeSelector"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead map[string]string `pulumi:"overhead"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
@@ -20698,7 +20619,7 @@ type PodSpecArgs struct {
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 	NodeSelector pulumi.StringMapInput `pulumi:"nodeSelector"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
@@ -20899,7 +20820,7 @@ func (o PodSpecOutput) NodeSelector() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o PodSpecOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
 }
@@ -21177,7 +21098,7 @@ func (o PodSpecPtrOutput) NodeSelector() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PodSpec) map[string]string {
 		if v == nil {
@@ -32609,7 +32530,6 @@ func init() {
 	pulumi.RegisterOutputType(EnvVarSourcePtrOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerArrayOutput{})
-	pulumi.RegisterOutputType(EphemeralContainersTypeOutput{})
 	pulumi.RegisterOutputType(EphemeralVolumeSourceOutput{})
 	pulumi.RegisterOutputType(EphemeralVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(EventTypeOutput{})

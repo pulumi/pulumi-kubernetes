@@ -12799,50 +12799,6 @@
                 }
             }
         },
-        "kubernetes:core/v1:EphemeralContainers": {
-            "description": "A list of ephemeral containers used with the Pod ephemeralcontainers subresource.",
-            "properties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "ephemeralContainers": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:EphemeralContainer"
-                    },
-                    "description": "A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.",
-                    "language": {
-                        "csharp": {
-                            "name": "EphemeralContainersValue"
-                        }
-                    }
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "EphemeralContainers"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta"
-                }
-            },
-            "type": "object",
-            "required": [
-                "ephemeralContainers"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "apiVersion",
-                        "ephemeralContainers",
-                        "kind",
-                        "metadata"
-                    ]
-                }
-            }
-        },
         "kubernetes:core/v1:EphemeralVolumeSource": {
             "description": "Represents an ephemeral volume that is handled by a normal storage driver.",
             "properties": {
@@ -15808,7 +15764,7 @@
                     "additionalProperties": {
                         "type": "string"
                     },
-                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature."
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature."
                 },
                 "preemptionPolicy": {
                     "type": "string",
@@ -23209,6 +23165,10 @@
                     "type": "string",
                     "description": "Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'."
                 },
+                "subresource": {
+                    "type": "string",
+                    "description": "Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource."
+                },
                 "time": {
                     "type": "string",
                     "description": "Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'"
@@ -23223,6 +23183,7 @@
                         "fieldsV1",
                         "manager",
                         "operation",
+                        "subresource",
                         "time"
                     ]
                 }
@@ -24935,7 +24896,7 @@
             "properties": {
                 "overhead": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1alpha1:Overhead",
-                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature."
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature."
                 },
                 "runtimeHandler": {
                     "type": "string",
@@ -25031,7 +24992,7 @@
                 },
                 "overhead": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1beta1:Overhead",
-                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature."
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature."
                 },
                 "scheduling": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1beta1:Scheduling",
@@ -25178,6 +25139,38 @@
                         "major",
                         "minor",
                         "platform"
+                    ]
+                }
+            }
+        },
+        "kubernetes:policy/v1:Eviction": {
+            "description": "Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/\u003cpod name\u003e/evictions.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                },
+                "deleteOptions": {
+                    "$ref": "#/types/kubernetes:meta/v1:DeleteOptions",
+                    "description": "DeleteOptions may be provided"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "ObjectMeta describes the pod that is being evicted."
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "apiVersion",
+                        "deleteOptions",
+                        "kind",
+                        "metadata"
                     ]
                 }
             }
@@ -26303,14 +26296,14 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Resources is a list of resources this rule applies to.  ResourceAll represents all resources."
+                    "description": "Resources is a list of resources this rule applies to. '*' represents all resources."
                 },
                 "verbs": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds."
+                    "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs."
                 }
             },
             "type": "object",
@@ -26775,14 +26768,14 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Resources is a list of resources this rule applies to.  ResourceAll represents all resources."
+                    "description": "Resources is a list of resources this rule applies to. '*' represents all resources."
                 },
                 "verbs": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds."
+                    "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs."
                 }
             },
             "type": "object",
@@ -27254,7 +27247,7 @@
                     "items": {
                         "type": "string"
                     },
-                    "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds."
+                    "description": "Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs."
                 }
             },
             "type": "object",
@@ -27986,7 +27979,7 @@
                 },
                 "fsGroupPolicy": {
                     "type": "string",
-                    "description": "Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.\n\nThis field is immutable."
+                    "description": "Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.\n\nThis field is immutable.\n\nDefaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce."
                 },
                 "podInfoOnMount": {
                     "type": "boolean",
@@ -28897,7 +28890,7 @@
                 },
                 "fsGroupPolicy": {
                     "type": "string",
-                    "description": "Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is alpha-level, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.\n\nThis field is immutable."
+                    "description": "Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.\n\nThis field is immutable.\n\nDefaults to ReadWriteOnceWithFSType, which will examine each volume to determine if Kubernetes should modify ownership and permissions of the volume. With the default policy the defined fsGroup will only be applied if a fstype is defined and the volume's access mode contains ReadWriteOnce."
                 },
                 "podInfoOnMount": {
                     "type": "boolean",
@@ -34165,70 +34158,6 @@
                 "items"
             ]
         },
-        "kubernetes:core/v1:EphemeralContainers": {
-            "description": "A list of ephemeral containers used with the Pod ephemeralcontainers subresource.",
-            "properties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "ephemeralContainers": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:EphemeralContainer"
-                    },
-                    "description": "A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.",
-                    "language": {
-                        "csharp": {
-                            "name": "EphemeralContainersValue"
-                        }
-                    }
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "EphemeralContainers"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta"
-                }
-            },
-            "type": "object",
-            "required": [
-                "ephemeralContainers"
-            ],
-            "inputProperties": {
-                "apiVersion": {
-                    "type": "string",
-                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-                    "const": "v1"
-                },
-                "ephemeralContainers": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:core/v1:EphemeralContainer"
-                    },
-                    "description": "A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.",
-                    "language": {
-                        "csharp": {
-                            "name": "EphemeralContainersValue"
-                        }
-                    }
-                },
-                "kind": {
-                    "type": "string",
-                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-                    "const": "EphemeralContainers"
-                },
-                "metadata": {
-                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta"
-                }
-            },
-            "requiredInputs": [
-                "ephemeralContainers"
-            ]
-        },
         "kubernetes:core/v1:Event": {
             "description": "Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.",
             "properties": {
@@ -38451,7 +38380,7 @@
                 },
                 "overhead": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1beta1:Overhead",
-                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature."
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature."
                 },
                 "scheduling": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1beta1:Scheduling",
@@ -38483,7 +38412,7 @@
                 },
                 "overhead": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1beta1:Overhead",
-                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature."
+                    "description": "Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature."
                 },
                 "scheduling": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1beta1:Scheduling",
