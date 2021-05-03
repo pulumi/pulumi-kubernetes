@@ -195,6 +195,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	for pkg := range packages {
 		templateResources.Packages = append(templateResources.Packages, pkg)
 	}
+	sort.Strings(templateResources.Packages)
 
 	overlays := map[string][]byte{
 		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
