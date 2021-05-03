@@ -167,6 +167,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
+	packages := codegen.StringSet{}
 	for _, resource := range resources {
 		if resource.Package == "" {
 			continue
@@ -185,10 +186,13 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 			tr.Properties = append(tr.Properties, tp)
 		}
 		templateResources.Resources = append(templateResources.Resources, tr)
+		groupPackage := strings.Split(resource.Package, ".")[0]
+		packages.Add(groupPackage)
 	}
 	sort.Slice(templateResources.Resources, func(i, j int) bool {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
+	templateResources.Packages = packages.SortedValues()
 
 	overlays := map[string][]byte{
 		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),

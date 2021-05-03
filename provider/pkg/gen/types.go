@@ -63,6 +63,7 @@ func (tr TemplateResource) IsListKind() bool {
 // TemplateResources holds a list of TemplateResource structs than can be filtered for codegen purposes.
 type TemplateResources struct {
 	Resources []TemplateResource
+	Packages  []string
 }
 
 // ListKinds returns a sorted list of resources that are a List kind.

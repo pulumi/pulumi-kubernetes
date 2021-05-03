@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Avoid circular dependencies in NodeJS SDK modules (https://github.com/pulumi/pulumi-kubernetes/pull/1558)
+
 ## 3.1.0 (April 29, 2021)
 
 - Update Helm to v3.5.4 and client-go to v0.20.4 (https://github.com/pulumi/pulumi-kubernetes/pull/1536)

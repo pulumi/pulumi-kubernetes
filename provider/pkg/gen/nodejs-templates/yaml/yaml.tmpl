@@ -19,7 +19,9 @@ import * as pulumi from "@pulumi/pulumi";
 import * as fs from "fs";
 import * as glob from "glob";
 import fetch from "node-fetch";
-import * as k8s from "../index";
+{{- range .Packages}}
+import * as {{.}} from "../{{.}}";
+{{- end}}
 import * as outputs from "../types/output";
 import { getVersion } from "../utilities";
 
@@ -40,8 +42,8 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
      *     getResource("apps/v1/Deployment", "nginx")
      */
 {{- range .Resources}}
-    public getResource(groupVersionKind: "{{.GVK}}", name: string): pulumi.Output<k8s.{{.Package}}.{{.Name}}>;
-    public getResource(groupVersionKind: "{{.GVK}}", namespace: string, name: string): pulumi.Output<k8s.{{.Package}}.{{.Name}}>;
+    public getResource(groupVersionKind: "{{.GVK}}", name: string): pulumi.Output<{{.Package}}.{{.Name}}>;
+    public getResource(groupVersionKind: "{{.GVK}}", namespace: string, name: string): pulumi.Output<{{.Package}}.{{.Name}}>;
 {{- end}}
     public getResource(groupVersionKind: string, namespaceOrName: string, name?: string): pulumi.Output<pulumi.CustomResource> {
         return this.getResourceImpl(groupVersionKind, namespaceOrName, name);
@@ -517,13 +519,13 @@ export interface ConfigOpts {
         case "{{.GVK}}":
             return [id.apply(id => ({
                 name: `{{.GVK}}::${id}`,
-                resource: new k8s.{{.Package}}.{{.Name}}(id, obj, opts),
+                resource: new {{.Package}}.{{.Name}}(id, obj, opts),
             }))];
 {{- end}}
         default:
             return [id.apply(id => ({
                 name: `${apiVersion}/${kind}::${id}`,
-                resource: new k8s.apiextensions.CustomResource(id, obj, opts),
+                resource: new apiextensions.CustomResource(id, obj, opts),
             }))];
     }
 }
