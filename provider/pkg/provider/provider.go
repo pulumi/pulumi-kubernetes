@@ -1382,6 +1382,12 @@ func (k *kubeProvider) Diff(
 			// object in a new namespace and then deleting the old one).
 			newInputs.GetNamespace() == oldInputs.GetNamespace()
 
+	// If the replaceOnUpdate annotation is "true", then schedule the resource for replacement.
+	if metadata.ReplaceOnUpdate(newInputs) {
+		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+		replaces = append(replaces, `.metadata.annotations["pulumi.com/replaceOnUpdate"]`)
+	}
+
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
 		Replaces:            replaces,

@@ -31,6 +31,7 @@ const (
 	AnnotationSkipAwait         = AnnotationPrefix + "skipAwait"
 	AnnotationTimeoutSeconds    = AnnotationPrefix + "timeoutSeconds"
 	AnnotationInitialAPIVersion = AnnotationPrefix + "initialApiVersion"
+	AnnotationReplaceOnUpdate   = AnnotationPrefix + "replaceOnUpdate"
 
 	AnnotationHelmHook = "helm.sh/hook"
 )
