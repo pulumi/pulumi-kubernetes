@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Avoid circular dependencies in NodeJS SDK modules (https://github.com/pulumi/pulumi-kubernetes/pull/1558)
+- Update pulumi dependencies v3.2.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1564)
 
 ## 3.1.0 (April 29, 2021)
 
