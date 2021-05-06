@@ -2,11 +2,9 @@
     "name": "steps",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "latest"
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/kubernetes": "^3.0.0"
     },
     "devDependencies": {
     },
-    "peerDependencies": {
-        "@pulumi/kubernetes": "latest"
-    }
 }

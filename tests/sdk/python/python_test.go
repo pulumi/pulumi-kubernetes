@@ -34,6 +34,7 @@ var baseOptions = &integration.ProgramTestOptions{
 	Dependencies: []string{
 		filepath.Join("..", "..", "..", "sdk", "python", "bin"),
 	},
+	RunUpdateTest: true,
 }
 
 func TestSmoke(t *testing.T) {

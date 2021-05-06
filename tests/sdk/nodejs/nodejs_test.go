@@ -40,6 +40,7 @@ var baseOptions = &integration.ProgramTestOptions{
 	Dependencies: []string{
 		"@pulumi/kubernetes",
 	},
+	RunUpdateTest: true,
 }
 
 func TestAliases(t *testing.T) {
