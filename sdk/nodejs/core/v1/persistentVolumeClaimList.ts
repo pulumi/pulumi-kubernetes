@@ -90,17 +90,17 @@ export interface PersistentVolumeClaimListArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"v1">;
+    apiVersion?: pulumi.Input<"v1">;
     /**
      * A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaim>[]>;
+    items: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaim>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<"PersistentVolumeClaimList">;
+    kind?: pulumi.Input<"PersistentVolumeClaimList">;
     /**
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }

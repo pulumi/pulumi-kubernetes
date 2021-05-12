@@ -81,11 +81,11 @@ export interface PodPresetArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"settings.k8s.io/v1alpha1">;
+    apiVersion?: pulumi.Input<"settings.k8s.io/v1alpha1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<"PodPreset">;
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
-    readonly spec?: pulumi.Input<inputs.settings.v1alpha1.PodPresetSpec>;
+    kind?: pulumi.Input<"PodPreset">;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    spec?: pulumi.Input<inputs.settings.v1alpha1.PodPresetSpec>;
 }

@@ -56,20 +56,20 @@ export interface ProviderArgs {
     /**
      * If present, the name of the kubeconfig cluster to use.
      */
-    readonly cluster?: pulumi.Input<string>;
+    cluster?: pulumi.Input<string>;
     /**
      * If present, the name of the kubeconfig context to use.
      */
-    readonly context?: pulumi.Input<string>;
+    context?: pulumi.Input<string>;
     /**
      * BETA FEATURE - If present and set to true, enable server-side diff calculations.
      * This feature is in developer preview, and is disabled by default.
      */
-    readonly enableDryRun?: pulumi.Input<boolean>;
+    enableDryRun?: pulumi.Input<boolean>;
     /**
      * The contents of a kubeconfig file or the path to a kubeconfig file.
      */
-    readonly kubeconfig?: pulumi.Input<string>;
+    kubeconfig?: pulumi.Input<string>;
     /**
      * If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
      *
@@ -78,7 +78,7 @@ export interface ProviderArgs {
      * 2. This `namespace` parameter.
      * 3. `namespace` set for the active context in the kubeconfig.
      */
-    readonly namespace?: pulumi.Input<string>;
+    namespace?: pulumi.Input<string>;
     /**
      * BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
      * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
@@ -89,9 +89,9 @@ export interface ProviderArgs {
      * and may result in an error if they are referenced by other resources. Also note that any secret values
      * used in these resources will be rendered in plaintext to the resulting YAML.
      */
-    readonly renderYamlToDirectory?: pulumi.Input<string>;
+    renderYamlToDirectory?: pulumi.Input<string>;
     /**
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */
-    readonly suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    suppressDeprecationWarnings?: pulumi.Input<boolean>;
 }

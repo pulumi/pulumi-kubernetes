@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Update pulumi dependencies to fix Python regression from 3.1.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1573)
+
 ## 3.1.1 (May 5, 2021)
 
 - Avoid circular dependencies in NodeJS SDK modules (https://github.com/pulumi/pulumi-kubernetes/pull/1558)
