@@ -95,17 +95,17 @@ export interface HorizontalPodAutoscalerArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"autoscaling/v2beta2">;
+    apiVersion?: pulumi.Input<"autoscaling/v2beta2">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<"HorizontalPodAutoscaler">;
+    kind?: pulumi.Input<"HorizontalPodAutoscaler">;
     /**
      * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
      * spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      */
-    readonly spec?: pulumi.Input<inputs.autoscaling.v2beta2.HorizontalPodAutoscalerSpec>;
+    spec?: pulumi.Input<inputs.autoscaling.v2beta2.HorizontalPodAutoscalerSpec>;
 }

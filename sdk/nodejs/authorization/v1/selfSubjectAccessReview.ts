@@ -95,14 +95,14 @@ export interface SelfSubjectAccessReviewArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"authorization.k8s.io/v1">;
+    apiVersion?: pulumi.Input<"authorization.k8s.io/v1">;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<"SelfSubjectAccessReview">;
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+    kind?: pulumi.Input<"SelfSubjectAccessReview">;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
      * Spec holds information about the request being evaluated.  user and groups must be empty
      */
-    readonly spec: pulumi.Input<inputs.authorization.v1.SelfSubjectAccessReviewSpec>;
+    spec: pulumi.Input<inputs.authorization.v1.SelfSubjectAccessReviewSpec>;
 }

@@ -90,17 +90,17 @@ export interface FlowSchemaListArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">;
+    apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1alpha1">;
     /**
      * `items` is a list of FlowSchemas.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchema>[]>;
+    items: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1alpha1.FlowSchema>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<"FlowSchemaList">;
+    kind?: pulumi.Input<"FlowSchemaList">;
     /**
      * `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }

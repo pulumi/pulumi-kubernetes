@@ -90,17 +90,17 @@ export interface DaemonSetListArgs {
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
-    readonly apiVersion?: pulumi.Input<"apps/v1beta2">;
+    apiVersion?: pulumi.Input<"apps/v1beta2">;
     /**
      * A list of daemon sets.
      */
-    readonly items: pulumi.Input<pulumi.Input<inputs.apps.v1beta2.DaemonSet>[]>;
+    items: pulumi.Input<pulumi.Input<inputs.apps.v1beta2.DaemonSet>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    readonly kind?: pulumi.Input<"DaemonSetList">;
+    kind?: pulumi.Input<"DaemonSetList">;
     /**
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    readonly metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
+    metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }
