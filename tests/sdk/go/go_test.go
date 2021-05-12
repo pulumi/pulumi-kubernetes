@@ -26,7 +26,7 @@ import (
 var baseOptions = &integration.ProgramTestOptions{
 	Verbose: true,
 	Dependencies: []string{
-		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 	},
 }
 
@@ -94,6 +94,19 @@ func TestGo(t *testing.T) {
 					Additive:        true,
 					ExpectNoChanges: true,
 				},
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Helm Skip CRD Rendering", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
+			Quick:       true,
+			SkipRefresh: true, // Istio custom resources may exhibit refresh changes.
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotNil(t, stackInfo.Deployment)
+				assert.Equal(t, 28, len(stackInfo.Deployment.Resources))
 			},
 		})
 		integration.ProgramTest(t, &options)
