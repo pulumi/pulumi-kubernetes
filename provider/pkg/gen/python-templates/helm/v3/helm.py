@@ -388,13 +388,19 @@ class BaseChartOpts:
     this flag to true to include these resources.
     """
 
+    skip_crd_rendering: Optional[pulumi.Input[bool]]
+    """
+    By default, CRDs are rendered along with Helm chart templates. Setting this to true will skip CRD rendering.
+    """
+
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
-                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None):
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
+                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
@@ -408,9 +414,12 @@ class BaseChartOpts:
         :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
                'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
                resources.
+        :param Optional[pulumi.Input[bool]] skip_crd_rendering: By default, CRDs are rendered along with Helm chart
+               templates. Setting this to true will skip CRD rendering.
         """
         self.namespace = namespace
         self.include_test_hook_resources = include_test_hook_resources
+        self.skip_crd_rendering = skip_crd_rendering
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
@@ -459,7 +468,8 @@ class ChartOpts(BaseChartOpts):
                  version: Optional[pulumi.Input[str]] = None,
                  fetch_opts: Optional[pulumi.Input[FetchOpts]] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
-                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None):
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
+                 skip_crd_install: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
                will be prefixed by the repo name.
@@ -483,9 +493,11 @@ class ChartOpts(BaseChartOpts):
         :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
                'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
                resources.
+        :param Optional[pulumi.Input[bool]] skip_crd_rendering: By default, CRDs are rendered along with Helm chart
+               templates. Setting this to true will skip CRD rendering.
         """
         super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
-                                        include_test_hook_resources)
+                                        include_test_hook_resources, skip_crd_install)
         self.chart = chart
         self.repo = repo
         self.version = version
@@ -509,7 +521,8 @@ class LocalChartOpts(BaseChartOpts):
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
-                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None):
+                 include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
+                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -525,10 +538,12 @@ class LocalChartOpts(BaseChartOpts):
         :param Optional[pulumi.Input[bool]] include_test_hook_resources: By default, Helm resources with the 'test',
                'test-success', and 'test-failure' hooks are not installed. Set this flag to true to include these
                resources.
+        :param Optional[pulumi.Input[bool]] skip_crd_rendering: By default, CRDs are rendered along with Helm chart
+               templates. Setting this to true will skip CRD rendering.
         """
 
         super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
-                                             include_test_hook_resources)
+                                             include_test_hook_resources, skip_crd_rendering)
         self.path = path
 
 

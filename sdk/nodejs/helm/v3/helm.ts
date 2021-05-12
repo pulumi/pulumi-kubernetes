@@ -191,6 +191,10 @@ export class Chart extends yaml.CollectionComponentResource {
                                 obj["include_test_hook_resources"] = value;
                                 break;
                             }
+                            case "skipCRDRendering": {
+                                obj["skip_crd_rendering"] = value;
+                                break;
+                            }
                             case "releaseName": {
                                 obj["release_name"] = value;
                                 break;
@@ -241,6 +245,10 @@ interface BaseChartOpts {
      * this flag to true to include these resources.
      */
     includeTestHookResources?: boolean;
+    /**
+     * By default, CRDs are rendered along with Helm chart templates. Setting this to true will skip CRD rendering.
+     */
+    skipCRDRendering?: boolean;
     /**
      * The optional namespace to install chart resources into.
      */

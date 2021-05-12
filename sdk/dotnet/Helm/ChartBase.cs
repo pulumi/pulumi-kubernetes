@@ -409,6 +409,11 @@ namespace Pulumi.Kubernetes.Helm
         /// </summary>
         public Input<bool>? IncludeTestHookResources { get; set; }
 
+        // <summary>
+        // By default, CRDs are rendered along with Helm chart templates. Setting this to true will skip CRD rendering.
+        // </summary>
+        public Input<bool>? SkipCRDRendering {get; set; }
+
         /// <summary>
         /// The optional namespace to install chart resources into.
         /// </summary>
