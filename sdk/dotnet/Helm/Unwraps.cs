@@ -69,22 +69,22 @@ namespace Pulumi.Kubernetes.Helm
         public static Output<Union<ChartArgsUnwrap, LocalChartArgsUnwrap>> Unwrap(this Union<ChartArgs, LocalChartArgs> options)
         {
             return options.Match(
-                v => Output.All(ImmutableArray.Create<Input<object>>(v.ApiVersions, v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.Namespace.ToNullable(), v.Values, v.Repo.ToNullable(), v.Chart, v.Version.ToNullable(), v.FetchOptions.Unwrap())).Apply(vs =>
-                                    Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT0(
-                                        new ChartArgsUnwrap
-                                        {
-                                            ApiVersions = (ImmutableArray<string>)vs[0],
-                                            IncludeTestHookResources = (bool)vs[1],
-                                            SkipCRDRendering = (bool)vs[2],
-                                            Namespace = (string)vs[3],
-                                            Values = (ImmutableDictionary<string, object>)vs[4],
-                                            Transformations = v.Transformations,
-                                            ResourcePrefix = v.ResourcePrefix,
-                                            Repo = (string)vs[5],
-                                            Chart = (string)vs[6],
-                                            Version = (string)vs[7],
-                                            FetchOptions = (ChartFetchArgsUnwrap)vs[8]
-                                        })),
+                v => Output.Tuple(v.ApiVersions, v.Namespace.ToNullable(), v.Values, v.Repo.ToNullable(), v.Chart, v.Version.ToNullable(), v.FetchOptions.Unwrap(), new InputList<bool?> { v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable() }).Apply(vs =>
+                    Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT0(
+                        new ChartArgsUnwrap
+                        {
+                            ApiVersions = vs.Item1,
+                            Namespace = vs.Item2,
+                            Values = vs.Item3,
+                            Transformations = v.Transformations,
+                            ResourcePrefix = v.ResourcePrefix,
+                            Repo = vs.Item4,
+                            Chart = vs.Item5,
+                            Version = vs.Item6,
+                            FetchOptions = vs.Item7,
+                            IncludeTestHookResources = vs.Item8[0],
+                            SkipCRDRendering = vs.Item8[1]
+                        })),
                 v => Output.Tuple(v.ApiVersions, v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.Namespace.ToNullable(), v.Values).Apply(vs =>
                     Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT1(
                         new LocalChartArgsUnwrap
