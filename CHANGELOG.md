@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.1.2 (May 12, 2021)
+
 - Update pulumi dependencies to fix Python regression from 3.1.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1573)
 
 ## 3.1.1 (May 5, 2021)
