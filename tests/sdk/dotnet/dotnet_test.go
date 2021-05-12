@@ -143,6 +143,19 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestDotnet_HelmAllowCRDRendering(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
+		Quick:       true,
+		SkipRefresh: true, // Istio custom resources may exhibit refresh changes.
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			assert.Equal(t, 28, len(stackInfo.Deployment.Resources))
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestDotnet_CustomResource(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "custom-resource",
