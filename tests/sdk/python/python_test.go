@@ -373,10 +373,10 @@ func TestHelmAllowCRDRendering(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
 		Quick:       true,
-		SkipRefresh: true, // Istio custom resources may exhibit refresh changes.
+		SkipRefresh: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 28, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
 		},
 	})
 	integration.ProgramTest(t, &test)

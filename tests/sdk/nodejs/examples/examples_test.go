@@ -194,7 +194,7 @@ func TestAccHelmAllowCRDRendering(t *testing.T) {
 			SkipRefresh: true,
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 28, len(stackInfo.Deployment.Resources))
+				assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
 			},
 		})
 	integration.ProgramTest(t, &test)
