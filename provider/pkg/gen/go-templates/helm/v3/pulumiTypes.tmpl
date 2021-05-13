@@ -120,6 +120,8 @@ type ChartArgs struct {
 	// By default, Helm resources with the `test`, `test-success`, and `test-failure` hooks are not installed. Set
 	// this flag to true to include these resources.
 	IncludeTestHookResources pulumi.BoolInput
+	// By default CRDs are also rendered along side templates. Set this to skip CRDs.
+	SkipCRDRendering pulumi.BoolInput
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
 	// Overrides for chart values.
@@ -153,6 +155,7 @@ type ChartArgs struct {
 type chartArgs struct {
 	APIVersions              []string               `json:"api_versions,omitempty" pulumi:"apiVersions"`
 	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty" pulumi:"includeTestHookResources"`
+	SkipCRDRendering         bool                   `json:"skip_crd_rendering,omitempty" pulumi:"skipCRDRendering"`
 	Namespace                string                 `json:"namespace,omitempty" pulumi:"namespace"`
 	Values                   map[string]interface{} `json:"values,omitempty" pulumi:"values"`
 	Transformations          []yaml.Transformation  `json:"-" pulumi:"transformations"`

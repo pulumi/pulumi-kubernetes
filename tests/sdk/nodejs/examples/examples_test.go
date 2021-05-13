@@ -186,6 +186,20 @@ func TestAccHelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestAccHelmAllowCRDRendering(t *testing.T) {
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
+			Quick:       true,
+			SkipRefresh: true,
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotNil(t, stackInfo.Deployment)
+				assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+			},
+		})
+	integration.ProgramTest(t, &test)
+}
+
 func TestAccHelmLocal(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).

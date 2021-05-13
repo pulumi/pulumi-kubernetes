@@ -59,6 +59,7 @@ type HelmChartOpts struct {
 	APIVersions              []string               `json:"api_versions,omitempty"`
 	Chart                    string                 `json:"chart,omitempty"`
 	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty"`
+	SkipCRDRendering         bool                   `json:"skip_crd_rendering,omitempty"`
 	Namespace                string                 `json:"namespace,omitempty"`
 	Path                     string                 `json:"path,omitempty"`
 	ReleaseName              string                 `json:"release_name,omitempty"`
@@ -211,7 +212,7 @@ func (c *chart) template() (string, error) {
 	installAction.APIVersions = c.opts.APIVersions
 	installAction.ClientOnly = true
 	installAction.DryRun = true
-	installAction.IncludeCRDs = true // TODO: handle this conditionally?
+	installAction.IncludeCRDs = !c.opts.SkipCRDRendering
 	installAction.Namespace = c.opts.Namespace
 	installAction.NameTemplate = c.opts.ReleaseName
 	installAction.ReleaseName = c.opts.ReleaseName

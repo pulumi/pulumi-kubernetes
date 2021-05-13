@@ -310,6 +310,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                 {
                     ApiVersions = cfgBase.ApiVersions,
                     IncludeTestHookResources = cfgBase.IncludeTestHookResources,
+                    SkipCRDRendering = cfgBase.SkipCRDRendering,
                     Namespace = cfgBase.Namespace,
                     Values = cfgBase.Values,
                     ReleaseName = releaseName,
@@ -347,6 +348,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                 {
                     ApiVersions = cfgBase.ApiVersions,
                     IncludeTestHookResources = cfgBase.IncludeTestHookResources,
+                    SkipCRDRendering = cfgBase.SkipCRDRendering,
                     Namespace = cfgBase.Namespace,
                     Values = cfgBase.Values,
                     ReleaseName = releaseName,
@@ -376,6 +378,8 @@ namespace Pulumi.Kubernetes.Helm.V3
             public ImmutableArray<string> ApiVersions { get; set; }
             [JsonPropertyName("include_test_hook_resources")]
             public bool? IncludeTestHookResources { get; set; }
+            [JsonPropertyName("skip_crd_rendering")]
+            public bool? SkipCRDRendering { get; set; }
             [JsonPropertyName("namespace")]
             public string? Namespace { get; set; }
             [JsonPropertyName("values")]
