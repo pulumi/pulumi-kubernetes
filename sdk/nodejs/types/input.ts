@@ -4831,6 +4831,11 @@ export namespace batch {
          * If the Job has not reached a Ready state after 10 minutes, it will
          * time out and mark the resource update as Failed. You can override the default timeout value
          * by setting the 'customTimeouts' option on the resource.
+         *
+         * By default, if a resource failed to become ready in a previous update, 
+         * Pulumi will continue to wait for readiness on the next update. If you would prefer
+         * to schedule a replacement for an unready resource on the next update, you can add the
+         * "pulumi.com/replaceUnready": "true" annotation to the resource definition.
          */
         export interface Job {
             /**
