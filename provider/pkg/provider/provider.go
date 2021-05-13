@@ -1381,6 +1381,8 @@ func (k *kubeProvider) Diff(
 					replaces = append(replaces, `.metadata.annotations["pulumi.com/replaceUnready"]`)
 				}
 			}
+		default:
+			_ = k.host.Log(ctx, diag.Warning, urn, "replaceUnready annotation is not supported for this resource")
 		}
 	}
 
