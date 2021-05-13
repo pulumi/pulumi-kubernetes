@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,6 +35,7 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen"
@@ -1364,6 +1365,21 @@ func (k *kubeProvider) Diff(
 			switch v.Kind {
 			case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
 				replaces = append(replaces, k)
+			}
+		}
+	}
+
+	if metadata.ReplaceUnready(newInputs) {
+		switch newInputs.GetKind() {
+		case "Job":
+			jobChecker := states.NewJobChecker()
+			job, err := clients.FromUnstructured(newInputs)
+			if err == nil {
+				jobChecker.Update(job)
+				if !jobChecker.Ready() {
+					hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+					replaces = append(replaces, `.metadata.annotations["pulumi.com/replaceUnready"]`)
+				}
 			}
 		}
 	}

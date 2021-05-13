@@ -26,6 +26,11 @@ func SkipAwaitLogic(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationSkipAwait)
 }
 
+// ReplaceUnready returns true if the `pulumi.com/replaceUnready` annotation is "true", false otherwise.
+func ReplaceUnready(obj *unstructured.Unstructured) bool {
+	return IsAnnotationTrue(obj, AnnotationReplaceUnready)
+}
+
 // TimeoutDuration returns the resource timeout duration. There are a number of things it can do here in this order
 // 1. Return the timeout as specified in the customResource options
 // 2. Return the timeout as specified in `pulumi.com/timeoutSeconds` annotation,
