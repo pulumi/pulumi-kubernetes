@@ -114,6 +114,11 @@ class Job(pulumi.CustomResource):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        By default, if a resource failed to become ready in a previous update,
+        Pulumi will continue to wait for readiness on the next update. If you would prefer
+        to schedule a replacement for an unready resource on the next update, you can add the
+        "pulumi.com/replaceUnready": "true" annotation to the resource definition.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -144,6 +149,11 @@ class Job(pulumi.CustomResource):
         If the Job has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
+        By default, if a resource failed to become ready in a previous update,
+        Pulumi will continue to wait for readiness on the next update. If you would prefer
+        to schedule a replacement for an unready resource on the next update, you can add the
+        "pulumi.com/replaceUnready": "true" annotation to the resource definition.
 
         :param str resource_name: The name of the resource.
         :param JobArgs args: The arguments to use to populate this resource's properties.

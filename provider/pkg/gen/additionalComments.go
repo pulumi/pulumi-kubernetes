@@ -147,6 +147,13 @@ https://kubernetes.io/docs/concepts/configuration/secret/#risks`
 	}
 }
 
+func replaceUnreadyComment() string {
+	return `By default, if a resource failed to become ready in a previous update, 
+Pulumi will continue to wait for readiness on the next update. If you would prefer
+to schedule a replacement for an unready resource on the next update, you can add the
+"pulumi.com/replaceUnready": "true" annotation to the resource definition.`
+}
+
 // PulumiComment adds additional information to the docs generated automatically from the OpenAPI specs.
 // This includes information about Pulumi's await behavior, deprecation information, etc.
 func PulumiComment(kind string) string {
@@ -154,8 +161,10 @@ func PulumiComment(kind string) string {
 
 	k := kinds.Kind(kind)
 	switch k {
-	case kinds.Deployment, kinds.Ingress, kinds.Job, kinds.Pod, kinds.Service, kinds.StatefulSet:
+	case kinds.Deployment, kinds.Ingress, kinds.Pod, kinds.Service, kinds.StatefulSet:
 		return prefix + awaitComments(k)
+	case kinds.Job:
+		return prefix + awaitComments(k) + prefix + replaceUnreadyComment()
 	case kinds.Secret:
 		return prefix + helpfulLinkComments(k)
 	default:

@@ -666,6 +666,11 @@ func (o CronJobStatusPtrOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
 // If the Job has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
+//
+// By default, if a resource failed to become ready in a previous update,
+// Pulumi will continue to wait for readiness on the next update. If you would prefer
+// to schedule a replacement for an unready resource on the next update, you can add the
+// "pulumi.com/replaceUnready": "true" annotation to the resource definition.
 type JobType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -706,6 +711,11 @@ type JobTypeInput interface {
 // If the Job has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
+//
+// By default, if a resource failed to become ready in a previous update,
+// Pulumi will continue to wait for readiness on the next update. If you would prefer
+// to schedule a replacement for an unready resource on the next update, you can add the
+// "pulumi.com/replaceUnready": "true" annotation to the resource definition.
 type JobTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -772,6 +782,11 @@ func (i JobTypeArray) ToJobTypeArrayOutputWithContext(ctx context.Context) JobTy
 // If the Job has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
+//
+// By default, if a resource failed to become ready in a previous update,
+// Pulumi will continue to wait for readiness on the next update. If you would prefer
+// to schedule a replacement for an unready resource on the next update, you can add the
+// "pulumi.com/replaceUnready": "true" annotation to the resource definition.
 type JobTypeOutput struct{ *pulumi.OutputState }
 
 func (JobTypeOutput) ElementType() reflect.Type {
