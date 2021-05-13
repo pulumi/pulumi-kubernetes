@@ -30,6 +30,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/tests/v3"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
@@ -842,6 +843,90 @@ func TestRenderYAML(t *testing.T) {
 					files, err = ioutil.ReadDir(filepath.Join(dir, "1-manifest"))
 					assert.NoError(t, err)
 					assert.Equal(t, len(files), 2)
+				},
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
+func TestReplaceUnready(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("replace-unready", "step1"),
+		Quick:                true,
+		ExpectFailure:        true, // The Job is intended to fail.
+		ExpectRefreshChanges: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+
+			tests.SortResourcesByURN(stackInfo)
+
+			job := stackInfo.Deployment.Resources[0]
+			provRes := stackInfo.Deployment.Resources[1]
+			stackRes := stackInfo.Deployment.Resources[2]
+
+			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+			assert.Equal(t, tokens.Type("kubernetes:batch/v1:Job"), job.URN.Type())
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:           filepath.Join("replace-unready", "step2"),
+				Additive:      true,
+				ExpectFailure: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					job := stackInfo.Deployment.Resources[0]
+					provRes := stackInfo.Deployment.Resources[1]
+					stackRes := stackInfo.Deployment.Resources[2]
+
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					assert.Equal(t, tokens.Type("kubernetes:batch/v1:Job"), job.URN.Type())
+
+					// Check the event stream for a preview showing that the Job will be updated.
+					for _, e := range stackInfo.Events {
+						if e.ResourcePreEvent != nil && e.ResourcePreEvent.Metadata.Type == "kubernetes:batch/v1:Job" {
+							assert.Equal(t, e.ResourcePreEvent.Metadata.Op, apitype.OpUpdate)
+						}
+					}
+				},
+			},
+			{
+				Dir:           filepath.Join("replace-unready", "step3"),
+				Additive:      true,
+				ExpectFailure: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// The stack has an extra Job now from the failed update in step2.
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+
+					tests.SortResourcesByURN(stackInfo)
+
+					job := stackInfo.Deployment.Resources[0]
+					jobOld := stackInfo.Deployment.Resources[1]
+					provRes := stackInfo.Deployment.Resources[2]
+					stackRes := stackInfo.Deployment.Resources[3]
+
+					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+
+					assert.Equal(t, tokens.Type("kubernetes:batch/v1:Job"), job.URN.Type())
+					assert.Equal(t, tokens.Type("kubernetes:batch/v1:Job"), jobOld.URN.Type())
+
+					// Check the event stream for a preview showing that the Job will be replaced.
+					for _, e := range stackInfo.Events {
+						if e.ResourcePreEvent != nil && e.ResourcePreEvent.Metadata.Type == "kubernetes:batch/v1:Job" {
+							assert.Equal(t, e.ResourcePreEvent.Metadata.Op, apitype.OpCreateReplacement)
+						}
+					}
 				},
 			},
 		},
