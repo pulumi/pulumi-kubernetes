@@ -1372,13 +1372,16 @@ func (k *kubeProvider) Diff(
 	if metadata.ReplaceUnready(newInputs) {
 		switch newInputs.GetKind() {
 		case "Job":
-			jobChecker := states.NewJobChecker()
-			job, err := clients.FromUnstructured(newInputs)
-			if err == nil {
-				jobChecker.Update(job)
-				if !jobChecker.Ready() {
-					hasChanges = pulumirpc.DiffResponse_DIFF_SOME
-					replaces = append(replaces, `.metadata.annotations["pulumi.com/replaceUnready"]`)
+			// Fetch current Job status and check point-in-time readiness. Errors are ignored.
+			if live, err := k.readLiveObject(newInputs); err == nil {
+				jobChecker := states.NewJobChecker()
+				job, err := clients.FromUnstructured(live)
+				if err == nil {
+					jobChecker.Update(job)
+					if !jobChecker.Ready() {
+						hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+						replaces = append(replaces, `.metadata.annotations["pulumi.com/replaceUnready"]`)
+					}
 				}
 			}
 		default:
