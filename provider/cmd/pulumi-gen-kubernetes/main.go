@@ -249,6 +249,10 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		panic(err)
 	}
 
+	// Manually override the generated file.
+	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
+	files["pulumi_kubernetes/core/v1/Secret.py"] = mustLoadFile(filepath.Join(templateDir, "corev1", "Secret.py"))
+
 	mustWriteFiles(outdir, files)
 }
 
