@@ -62,6 +62,9 @@ func main() {
 					},
 				},
 			})
+		if err != nil {
+			return err
+		}
 
 		_, err = apiextensions.NewCustomResource(ctx, "cr", &apiextensions.CustomResourceArgs{
 			ApiVersion: pulumi.String("example.com/v1"),
