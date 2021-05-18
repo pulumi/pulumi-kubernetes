@@ -206,6 +206,10 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		panic(err)
 	}
 
+	// Manually override the generated file.
+	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
+	files["core/v1/secret.ts"] = mustLoadFile(filepath.Join(templateDir, "corev1", "secret.ts"))
+
 	// Internal files that don't need to be exported
 	files["path.ts"] = mustLoadFile(filepath.Join(templateDir, "path.ts"))
 	files["tests/path.ts"] = mustLoadFile(filepath.Join(templateDir, "tests", "path.ts"))
