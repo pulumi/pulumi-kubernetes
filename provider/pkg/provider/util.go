@@ -106,7 +106,7 @@ func parseKubeconfigPropertyValue(kubeconfig resource.PropertyValue) (*clientapi
 
 // getActiveClusterFromConfig gets the current cluster from a kubeconfig, accounting for provider overrides.
 func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.PropertyMap) *clientapi.Cluster {
-	if len(config.Clusters) == 0 {
+	if config == nil || len(config.Clusters) == 0 {
 		return &clientapi.Cluster{}
 	}
 
@@ -115,11 +115,18 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 		currentContext = val.StringValue()
 	}
 
-	activeClusterName := config.Contexts[currentContext].Cluster
+	activeContext := config.Contexts[currentContext]
+	if activeContext == nil {
+		return &clientapi.Cluster{}
+	}
+	activeClusterName := activeContext.Cluster
 
 	activeCluster := config.Clusters[activeClusterName]
 	if val := overrides["cluster"]; !val.IsNull() {
 		activeCluster = config.Clusters[val.StringValue()]
+	}
+	if activeCluster == nil {
+		return &clientapi.Cluster{}
 	}
 
 	return activeCluster
