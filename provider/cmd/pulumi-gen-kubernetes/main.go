@@ -294,6 +294,11 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
+
+	// Manually override the generated file.
+	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
+	files["Core/V1/Secret.cs"] = mustLoadFile(filepath.Join(templateDir, "corev1", "Secret.cs"))
+
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
 

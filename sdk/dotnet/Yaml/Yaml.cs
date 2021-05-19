@@ -566,7 +566,19 @@ namespace Pulumi.Kubernetes.Yaml
             if (resourcePrefix != null)
                 id = Output.Format($"{resourcePrefix}-{id}");
 
-            switch ($"{apiVersion}/{kind}")
+            if (gvk == "v1/Secret")
+            {
+                // Always mark these fields as secret to avoid leaking sensitive values from raw YAML.
+                foreach (string key in new string[]{"data", "stringData"})
+                {
+                    if (obj.ContainsKey(key))
+                    {
+                        obj = obj.SetItem(key, Output.CreateSecret(obj[key]));
+                    }
+                }
+            }
+
+            switch (gvk)
             {
                     case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":
                         return new[]
