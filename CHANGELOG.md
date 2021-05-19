@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.2.0 (May 19, 2021)
+
 - Allow opting out of CRD rendering for Helm v3 by specifying `SkipCRDRendering` argument to Helm charts. (https://github.com/pulumi/pulumi-kubernetes/pull/1572)
 - Add replaceUnready annotation for Jobs. (https://github.com/pulumi/pulumi-kubernetes/pull/1575)
 - Read live Job state for replaceUnready check. (https://github.com/pulumi/pulumi-kubernetes/pull/1578)
