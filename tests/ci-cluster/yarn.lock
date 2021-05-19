@@ -117,13 +117,6 @@
   resolved "https://registry.yarnpkg.com/@pulumi/query/-/query-0.3.0.tgz#f496608e86a18c3dd31b6c533408e2441c29071d"
   integrity sha512-xfo+yLRM2zVjVEA4p23IjQWzyWl1ZhWOGobsBqRpIarzLvwNH/RAGaoehdxlhx4X92302DrpdIFgTICMN4P38w==
 
-"@pulumi/random@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@pulumi/random/-/random-4.1.1.tgz#0b8048a0fd72048191355293c9b248663904d231"
-  integrity sha512-R5XAuhb7ASAhTlbGVC8zd4m1LSbvbHl/ZXjD2BfhvlsrOQlSjF0AnsXQlG7VZVosADAKmWb7GTD3sYF6f6AulA==
-  dependencies:
-    "@pulumi/pulumi" "^3.0.0"
-
 "@types/body-parser@*":
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/@types/body-parser/-/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import { Config } from "@pulumi/pulumi";
-import * as random from "@pulumi/random";
 
 const config = new Config();
 
