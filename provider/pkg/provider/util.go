@@ -115,7 +115,11 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 		currentContext = val.StringValue()
 	}
 
-	activeClusterName := config.Contexts[currentContext].Cluster
+	activeContext := config.Contexts[currentContext]
+	if activeContext == nil {
+		return &clientapi.Cluster{}
+	}
+	activeClusterName := activeContext.Cluster
 
 	activeCluster := config.Clusters[activeClusterName]
 	if val := overrides["cluster"]; !val.IsNull() {
