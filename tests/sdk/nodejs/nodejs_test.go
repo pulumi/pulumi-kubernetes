@@ -307,13 +307,13 @@ func TestPod(t *testing.T) {
 			readyStatus := ready["status"]
 			assert.Equal(t, "True", readyStatus)
 
-			// Container is called "nginx" and uses image "nginx:1.13-alpine".
+			// Container is called "nginx" and uses image "docker.io/library/nginx:1.13-alpine".
 			containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
 			containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
 			containerName := containerStatus["name"]
 			assert.Equal(t, "nginx", containerName)
 			image := containerStatus["image"]
-			assert.Equal(t, "nginx:1.13-alpine", image)
+			assert.Equal(t, "docker.io/library/nginx:1.13-alpine", image)
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -360,13 +360,13 @@ func TestPod(t *testing.T) {
 					readyStatus := ready["status"]
 					assert.Equal(t, "True", readyStatus)
 
-					// Container is called "nginx" and uses image "nginx:1.13-alpine".
+					// Container is called "nginx" and uses image "docker.io/library/nginx:1.15-alpine".
 					containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
 					containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
 					containerName := containerStatus["name"]
 					assert.Equal(t, "nginx", containerName)
 					image := containerStatus["image"]
-					assert.Equal(t, "nginx:1.15-alpine", image)
+					assert.Equal(t, "docker.io/library/nginx:1.15-alpine", image)
 				},
 			},
 		},

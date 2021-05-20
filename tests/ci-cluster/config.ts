@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import { Config } from "@pulumi/pulumi";
-import * as random from "@pulumi/random";
 
 const config = new Config();
 
@@ -27,13 +26,3 @@ export const nodeCount = config.getNumber("nodeCount") || 3;
 // nodeMachineType is the machine type to use for cluster nodes. Defaults to n1-standard-2 if unspecified.
 // See https://cloud.google.com/compute/docs/machine-types for more details on available machine types.
 export const nodeMachineType = config.get("nodeMachineType") || "n1-standard-2";
-
-// masterUsername is the admin username for the cluster.
-export const masterUsername = config.get("masterUsername") || "admin";
-
-// masterPassword is the password for the admin user in the cluster.
-export const masterPassword =
-    config.get("password") ||
-    new random.RandomPassword("password", {
-        length: 20,
-    }).result;
