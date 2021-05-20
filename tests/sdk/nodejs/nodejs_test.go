@@ -974,6 +974,8 @@ func TestSecrets(t *testing.T) {
 		Config: map[string]string{
 			"message": secretMessage,
 		},
+		ExpectRefreshChanges: true,
+		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			state, err := json.Marshal(stackInfo.Deployment)

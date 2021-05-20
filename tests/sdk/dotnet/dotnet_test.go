@@ -15,6 +15,8 @@
 package test
 
 import (
+	b64 "encoding/base64"
+	"encoding/json"
 	"path/filepath"
 	"testing"
 
@@ -169,6 +171,31 @@ func TestDotnet_Kustomize(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   "kustomize",
 		Quick: true,
+	})
+	integration.ProgramTest(t, &test)
+}
+
+func TestDotnet_Secrets(t *testing.T) {
+	secretMessage := "secret message for testing"
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   "secrets",
+		Quick: true,
+		Config: map[string]string{
+			"message": secretMessage,
+		},
+		ExpectRefreshChanges: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			state, err := json.Marshal(stackInfo.Deployment)
+			assert.NoError(t, err)
+
+			assert.NotContains(t, string(state), secretMessage)
+
+			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
+			// should also not contain the base64 encoding of secret message.
+			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
+		},
 	})
 	integration.ProgramTest(t, &test)
 }
