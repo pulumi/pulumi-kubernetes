@@ -228,7 +228,7 @@ class Secret(pulumi.CustomResource):
             __props__.__dict__["string_data"] = string_data
             __props__.__dict__["type"] = type
         # Always mark these fields as secret to avoid leaking sensitive values into the state.
-        for key in ['data', 'string_data']:
+        for key in ["data", "string_data"]:
             if __props__.__dict__.get(key):
                 __props__.__dict__[key] = pulumi.Output.secret(__props__.__dict__[key])
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["data", "stringData"])
