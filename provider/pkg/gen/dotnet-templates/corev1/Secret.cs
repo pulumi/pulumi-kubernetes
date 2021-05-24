@@ -94,13 +94,6 @@ namespace Pulumi.Kubernetes.Core.V1
             args ??= new Pulumi.Kubernetes.Types.Inputs.Core.V1.SecretArgs();
             args.ApiVersion = "v1";
             args.Kind = "Secret";
-
-            // Always mark these fields as secret to avoid leaking sensitive values into the state.
-            // Since we can't directly assign the Output from CreateSecret to an InputMap, use an apply all to enable the secret flag on the data.
-            var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
-            args.Data = Output.All(args.Data, emptySecret).Apply(v => v[0]);
-            args.StringData = Output.All(args.StringData, emptySecret).Apply(v => v[0]);
-
             return args;
         }
 
@@ -154,7 +147,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public InputMap<string> Data
         {
             get => _data ?? (_data = new InputMap<string>());
-            set => _data = value;
+            set
+            {
+                // Always mark this field as secret to avoid leaking sensitive values into the state.
+                // Since we can't directly assign the Output from CreateSecret to the property, use an
+                // Output.all to enable the secret flag on the data.
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _data = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>
@@ -184,7 +184,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public InputMap<string> StringData
         {
             get => _stringData ?? (_stringData = new InputMap<string>());
-            set => _stringData = value;
+            set
+            {
+                // Always mark this field as secret to avoid leaking sensitive values into the state.
+                // Since we can't directly assign the Output from CreateSecret to the property, use an
+                // Output.all to enable the secret flag on the data.
+                var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
+                _stringData = Output.All(value, emptySecret).Apply(v => v[0]);
+            }
         }
 
         /// <summary>
