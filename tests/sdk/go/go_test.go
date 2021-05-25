@@ -15,6 +15,8 @@
 package test
 
 import (
+	b64 "encoding/base64"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"testing"
@@ -116,6 +118,31 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "kustomize"),
 			Quick: true,
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Secrets", func(t *testing.T) {
+		secretMessage := "secret message for testing"
+
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "secrets"),
+			Quick: true,
+			Config: map[string]string{
+				"message": secretMessage,
+			},
+			ExpectRefreshChanges: true,
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotNil(t, stackInfo.Deployment)
+				state, err := json.Marshal(stackInfo.Deployment)
+				assert.NoError(t, err)
+
+				assert.NotContains(t, string(state), secretMessage)
+
+				// The program converts the secret message to base64, to make a ConfigMap from it, so the state
+				// should also not contain the base64 encoding of secret message.
+				assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
+			},
 		})
 		integration.ProgramTest(t, &options)
 	})

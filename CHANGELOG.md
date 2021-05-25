@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Automatically mark Secret data as Pulumi secrets. (https://github.com/pulumi/pulumi-kubernetes/pull/1577)
+
 ## 3.2.0 (May 19, 2021)
 
 - Allow opting out of CRD rendering for Helm v3 by specifying `SkipCRDRendering` argument to Helm charts. (https://github.com/pulumi/pulumi-kubernetes/pull/1572)

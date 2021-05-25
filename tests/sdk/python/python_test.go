@@ -14,6 +14,8 @@
 package python
 
 import (
+	b64 "encoding/base64"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -389,6 +391,36 @@ func TestKustomize(t *testing.T) {
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join(cwd, "kustomize"),
+	})
+	integration.ProgramTest(t, &options)
+}
+
+func TestSecrets(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+
+	secretMessage := "secret message for testing"
+
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "secrets"),
+		Config: map[string]string{
+			"message": secretMessage,
+		},
+		ExpectRefreshChanges: true,
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			state, err := json.Marshal(stackInfo.Deployment)
+			assert.NoError(t, err)
+
+			assert.NotContains(t, string(state), secretMessage)
+
+			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
+			// should also not contain the base64 encoding of secret message.
+			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
+		},
 	})
 	integration.ProgramTest(t, &options)
 }

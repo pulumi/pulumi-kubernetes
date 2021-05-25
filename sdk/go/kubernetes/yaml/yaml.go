@@ -356,6 +356,15 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 
 	key := fmt.Sprintf("%s::%s", fullKind, metaName)
 
+	if fullKind == "v1/Secret" {
+		// Always mark these fields as secret to avoid leaking sensitive values from raw YAML.
+		for _, key := range []string{"data", "stringData"} {
+			if _, ok := obj[key]; ok {
+				obj[key] = pulumi.ToSecret(obj[key])
+			}
+		}
+	}
+
 	// Finally allocate a resource of the correct type.
 	switch fullKind {
 	case "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration":

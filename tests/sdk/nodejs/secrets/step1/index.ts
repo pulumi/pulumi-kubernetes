@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,10 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
-const pw = (new pulumi.Config()).requireSecret("message");
+const config = new pulumi.Config();
+
+const pw = config.requireSecret("message");
+const rawPW = config.require("message");
 
 const cmData = new k8s.core.v1.ConfigMap("cmdata", {
     data: {
@@ -25,23 +28,39 @@ const cmData = new k8s.core.v1.ConfigMap("cmdata", {
 
 const cmBinaryData = new k8s.core.v1.ConfigMap("cmbinarydata", {
     binaryData: {
-        password: pw.apply(d => new Buffer(d).toString("base64")),
+        password: pw.apply(d => Buffer.from(d).toString("base64")),
     }
 });
 
 const ssStringData = new k8s.core.v1.Secret("ssstringdata", {
     stringData: {
-        password: pw,
+        password: rawPW,
     }
 });
 
 const ssData = new k8s.core.v1.Secret("ssdata", {
     data: {
-        password: pw.apply(d => new Buffer(d).toString("base64")),
+        password: Buffer.from(rawPW).toString("base64"),
     }
+});
+
+const randSuffix = Math.random().toString(36).substring(7);
+const name = `test-${randSuffix}`;
+
+const secretYaml = `
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${name}
+stringData:
+  password: ${rawPW}
+`
+const cg = new k8s.yaml.ConfigGroup("example", {
+    yaml: secretYaml,
 });
 
 export const cmDataData = cmData.data;
 export const cmBinaryDataData = cmBinaryData.binaryData;
 export const ssStringDataData = ssStringData.data;
 export const ssDataData = ssData.data;
+export const cgSecret = cg.getResource("v1/Secret", name).stringData;
