@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.3.0 (May 26, 2021)
+
 - Automatically mark Secret data as Pulumi secrets. (https://github.com/pulumi/pulumi-kubernetes/pull/1577)
 - Update pulumi dependency (https://github.com/pulumi/pulumi-kubernetes/pull/1588)
     - [codegen] Automatically encrypt secret input parameters (https://github.com/pulumi/pulumi/pull/7128)
