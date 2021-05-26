@@ -50,12 +50,11 @@ func NewSecret(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Secret")
-	// Always mark these fields as secret to avoid leaking sensitive values into the state.
 	if args.Data != nil {
-		args.Data = pulumi.ToSecret(args.Data).(pulumi.StringMapInput)
+		args.Data = pulumi.ToSecret(args.Data).(pulumi.StringMapOutput)
 	}
 	if args.StringData != nil {
-		args.StringData = pulumi.ToSecret(args.StringData).(pulumi.StringMapInput)
+		args.StringData = pulumi.ToSecret(args.StringData).(pulumi.StringMapOutput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"data",

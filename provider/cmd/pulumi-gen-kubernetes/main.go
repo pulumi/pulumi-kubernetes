@@ -206,10 +206,6 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		panic(err)
 	}
 
-	// Manually override the generated file.
-	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
-	files["core/v1/secret.ts"] = mustLoadFile(filepath.Join(templateDir, "corev1", "secret.ts"))
-
 	// Internal files that don't need to be exported
 	files["path.ts"] = mustLoadFile(filepath.Join(templateDir, "path.ts"))
 	files["tests/path.ts"] = mustLoadFile(filepath.Join(templateDir, "tests", "path.ts"))
@@ -248,10 +244,6 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
-
-	// Manually override the generated file.
-	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
-	files["pulumi_kubernetes/core/v1/Secret.py"] = mustLoadFile(filepath.Join(templateDir, "corev1", "Secret.py"))
 
 	mustWriteFiles(outdir, files)
 }
@@ -294,10 +286,6 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
-
-	// Manually override the generated file.
-	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
-	files["Core/V1/Secret.cs"] = mustLoadFile(filepath.Join(templateDir, "corev1", "Secret.cs"))
 
 	for filename, contents := range files {
 		path := filepath.Join(outdir, filename)
@@ -349,10 +337,6 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/yaml/configGroup.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configGroup.go"))
 	files["kubernetes/yaml/transformation.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "transformation.go"))
 	files["kubernetes/yaml/yaml.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
-
-	// Manually override the generated file.
-	// TODO: remove once https://github.com/pulumi/pulumi/issues/7062 is done.
-	files["kubernetes/core/v1/secret.go"] = mustLoadGoFile(filepath.Join(templateDir, "corev1", "secret.go"))
 
 	mustWriteFiles(outdir, files)
 }

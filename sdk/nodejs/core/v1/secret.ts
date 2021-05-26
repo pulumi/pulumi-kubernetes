@@ -86,11 +86,11 @@ export class Secret extends pulumi.CustomResource {
         opts = opts || {};
         if (!opts.id) {
             inputs["apiVersion"] = "v1";
-            inputs["data"] = args ? args.data : undefined;
+            inputs["data"] = args?.data ? pulumi.secret(args.data) : undefined;
             inputs["immutable"] = args ? args.immutable : undefined;
             inputs["kind"] = "Secret";
             inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["stringData"] = args ? args.stringData : undefined;
+            inputs["stringData"] = args?.stringData ? pulumi.secret(args.stringData) : undefined;
             inputs["type"] = args ? args.type : undefined;
         } else {
             inputs["apiVersion"] = undefined /*out*/;
@@ -104,12 +104,6 @@ export class Secret extends pulumi.CustomResource {
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-
-        // Always mark these fields as secret to avoid leaking sensitive values into the state.
-        for (const key of ["data", "stringData"]) {
-            if (key in inputs && inputs[key] !== undefined) inputs[key] = pulumi.secret(inputs[key]);
-        }
-
         const secretOpts = { additionalSecretOutputs: ["data", "stringData"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(Secret.__pulumiType, name, inputs, opts);

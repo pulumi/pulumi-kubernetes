@@ -149,9 +149,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             get => _data ?? (_data = new InputMap<string>());
             set
             {
-                // Always mark this field as secret to avoid leaking sensitive values into the state.
-                // Since we can't directly assign the Output from CreateSecret to the property, use an
-                // Output.all to enable the secret flag on the data.
                 var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
                 _data = Output.All(value, emptySecret).Apply(v => v[0]);
             }
@@ -186,9 +183,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             get => _stringData ?? (_stringData = new InputMap<string>());
             set
             {
-                // Always mark this field as secret to avoid leaking sensitive values into the state.
-                // Since we can't directly assign the Output from CreateSecret to the property, use an
-                // Output.all to enable the secret flag on the data.
                 var emptySecret = Output.CreateSecret(ImmutableDictionary.Create<string, string>());
                 _stringData = Output.All(value, emptySecret).Apply(v => v[0]);
             }

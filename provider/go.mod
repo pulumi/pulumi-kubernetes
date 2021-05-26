@@ -11,8 +11,8 @@ require (
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v3 v3.2.2-0.20210512083603-840c7a5a13c1
-	github.com/pulumi/pulumi/sdk/v3 v3.2.1
+	github.com/pulumi/pulumi/pkg/v3 v3.3.2-0.20210526220051-aeb6857f7f29
+	github.com/pulumi/pulumi/sdk/v3 v3.3.1
 	github.com/stretchr/testify v1.7.0
 	google.golang.org/grpc v1.34.0
 	helm.sh/helm/v3 v3.5.4
