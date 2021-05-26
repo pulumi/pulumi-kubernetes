@@ -1,14 +1,23 @@
 package main
 
 import (
+	k8s "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
+	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := kustomize.NewDirectory(ctx, "helloWorld",
+		ns, err := corev1.NewNamespace(ctx, "test", &corev1.NamespaceArgs{})
+		provider, err := k8s.NewProvider(ctx, "k8s", &k8s.ProviderArgs{
+			Kubeconfig: pulumi.String("~/.kube/config"),
+			Namespace:  ns.Metadata.Name(),
+		})
+
+		_, err = kustomize.NewDirectory(ctx, "helloWorld",
 			kustomize.DirectoryArgs{Directory: pulumi.String("helloWorld")},
+			pulumi.Provider(provider),
 		)
 		if err != nil {
 			return err
