@@ -199,16 +199,16 @@ class Secret(pulumi.CustomResource):
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
-                       resource_name: str,
-                       opts: Optional[pulumi.ResourceOptions] = None,
-                       api_version: Optional[pulumi.Input[str]] = None,
-                       data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                       immutable: Optional[pulumi.Input[bool]] = None,
-                       kind: Optional[pulumi.Input[str]] = None,
-                       metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
-                       string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                       type: Optional[pulumi.Input[str]] = None,
-                       __props__=None):
+                 resource_name: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 immutable: Optional[pulumi.Input[bool]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
+                 __props__=None):
         if opts is None:
             opts = pulumi.ResourceOptions()
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -221,16 +221,12 @@ class Secret(pulumi.CustomResource):
             __props__ = SecretArgs.__new__(SecretArgs)
 
             __props__.__dict__["api_version"] = 'v1'
-            __props__.__dict__["data"] = data
+            __props__.__dict__["data"] = None if data is None else pulumi.Output.secret(data)
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'Secret'
             __props__.__dict__["metadata"] = metadata
-            __props__.__dict__["string_data"] = string_data
+            __props__.__dict__["string_data"] = None if string_data is None else pulumi.Output.secret(string_data)
             __props__.__dict__["type"] = type
-        # Always mark these fields as secret to avoid leaking sensitive values into the state.
-        for key in ["data", "string_data"]:
-            if __props__.__dict__.get(key):
-                __props__.__dict__[key] = pulumi.Output.secret(__props__.__dict__[key])
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["data", "stringData"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Secret, __self__).__init__(

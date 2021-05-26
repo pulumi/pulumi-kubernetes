@@ -90,14 +90,6 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
-  "mod": "meta/v1",
-  "fqn": "pulumi_kubernetes.meta.v1",
-  "classes": {
-   "kubernetes:meta/v1:Status": "Status"
-  }
- },
- {
-  "pkg": "kubernetes",
   "mod": "apiextensions.k8s.io/v1",
   "fqn": "pulumi_kubernetes.apiextensions.v1",
   "classes": {
@@ -177,45 +169,6 @@ _utilities.register(
    "kubernetes:apps/v1beta2:ReplicaSetList": "ReplicaSetList",
    "kubernetes:apps/v1beta2:StatefulSet": "StatefulSet",
    "kubernetes:apps/v1beta2:StatefulSetList": "StatefulSetList"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "core/v1",
-  "fqn": "pulumi_kubernetes.core.v1",
-  "classes": {
-   "kubernetes:core/v1:Binding": "Binding",
-   "kubernetes:core/v1:ConfigMap": "ConfigMap",
-   "kubernetes:core/v1:ConfigMapList": "ConfigMapList",
-   "kubernetes:core/v1:Endpoints": "Endpoints",
-   "kubernetes:core/v1:EndpointsList": "EndpointsList",
-   "kubernetes:core/v1:EphemeralContainers": "EphemeralContainers",
-   "kubernetes:core/v1:Event": "Event",
-   "kubernetes:core/v1:EventList": "EventList",
-   "kubernetes:core/v1:LimitRange": "LimitRange",
-   "kubernetes:core/v1:LimitRangeList": "LimitRangeList",
-   "kubernetes:core/v1:Namespace": "Namespace",
-   "kubernetes:core/v1:NamespaceList": "NamespaceList",
-   "kubernetes:core/v1:Node": "Node",
-   "kubernetes:core/v1:NodeList": "NodeList",
-   "kubernetes:core/v1:PersistentVolume": "PersistentVolume",
-   "kubernetes:core/v1:PersistentVolumeClaim": "PersistentVolumeClaim",
-   "kubernetes:core/v1:PersistentVolumeClaimList": "PersistentVolumeClaimList",
-   "kubernetes:core/v1:PersistentVolumeList": "PersistentVolumeList",
-   "kubernetes:core/v1:Pod": "Pod",
-   "kubernetes:core/v1:PodList": "PodList",
-   "kubernetes:core/v1:PodTemplate": "PodTemplate",
-   "kubernetes:core/v1:PodTemplateList": "PodTemplateList",
-   "kubernetes:core/v1:ReplicationController": "ReplicationController",
-   "kubernetes:core/v1:ReplicationControllerList": "ReplicationControllerList",
-   "kubernetes:core/v1:ResourceQuota": "ResourceQuota",
-   "kubernetes:core/v1:ResourceQuotaList": "ResourceQuotaList",
-   "kubernetes:core/v1:Secret": "Secret",
-   "kubernetes:core/v1:SecretList": "SecretList",
-   "kubernetes:core/v1:Service": "Service",
-   "kubernetes:core/v1:ServiceAccount": "ServiceAccount",
-   "kubernetes:core/v1:ServiceAccountList": "ServiceAccountList",
-   "kubernetes:core/v1:ServiceList": "ServiceList"
   }
  },
  {
@@ -360,6 +313,45 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "core/v1",
+  "fqn": "pulumi_kubernetes.core.v1",
+  "classes": {
+   "kubernetes:core/v1:Binding": "Binding",
+   "kubernetes:core/v1:ConfigMap": "ConfigMap",
+   "kubernetes:core/v1:ConfigMapList": "ConfigMapList",
+   "kubernetes:core/v1:Endpoints": "Endpoints",
+   "kubernetes:core/v1:EndpointsList": "EndpointsList",
+   "kubernetes:core/v1:EphemeralContainers": "EphemeralContainers",
+   "kubernetes:core/v1:Event": "Event",
+   "kubernetes:core/v1:EventList": "EventList",
+   "kubernetes:core/v1:LimitRange": "LimitRange",
+   "kubernetes:core/v1:LimitRangeList": "LimitRangeList",
+   "kubernetes:core/v1:Namespace": "Namespace",
+   "kubernetes:core/v1:NamespaceList": "NamespaceList",
+   "kubernetes:core/v1:Node": "Node",
+   "kubernetes:core/v1:NodeList": "NodeList",
+   "kubernetes:core/v1:PersistentVolume": "PersistentVolume",
+   "kubernetes:core/v1:PersistentVolumeClaim": "PersistentVolumeClaim",
+   "kubernetes:core/v1:PersistentVolumeClaimList": "PersistentVolumeClaimList",
+   "kubernetes:core/v1:PersistentVolumeList": "PersistentVolumeList",
+   "kubernetes:core/v1:Pod": "Pod",
+   "kubernetes:core/v1:PodList": "PodList",
+   "kubernetes:core/v1:PodTemplate": "PodTemplate",
+   "kubernetes:core/v1:PodTemplateList": "PodTemplateList",
+   "kubernetes:core/v1:ReplicationController": "ReplicationController",
+   "kubernetes:core/v1:ReplicationControllerList": "ReplicationControllerList",
+   "kubernetes:core/v1:ResourceQuota": "ResourceQuota",
+   "kubernetes:core/v1:ResourceQuotaList": "ResourceQuotaList",
+   "kubernetes:core/v1:Secret": "Secret",
+   "kubernetes:core/v1:SecretList": "SecretList",
+   "kubernetes:core/v1:Service": "Service",
+   "kubernetes:core/v1:ServiceAccount": "ServiceAccount",
+   "kubernetes:core/v1:ServiceAccountList": "ServiceAccountList",
+   "kubernetes:core/v1:ServiceList": "ServiceList"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "discovery.k8s.io/v1",
   "fqn": "pulumi_kubernetes.discovery.v1",
   "classes": {
@@ -433,6 +425,14 @@ _utilities.register(
    "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaList": "FlowSchemaList",
    "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration": "PriorityLevelConfiguration",
    "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationList": "PriorityLevelConfigurationList"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "meta/v1",
+  "fqn": "pulumi_kubernetes.meta.v1",
+  "classes": {
+   "kubernetes:meta/v1:Status": "Status"
   }
  },
  {

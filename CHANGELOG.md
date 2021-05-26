@@ -1,6 +1,9 @@
 ## HEAD (Unreleased)
 
 - Automatically mark Secret data as Pulumi secrets. (https://github.com/pulumi/pulumi-kubernetes/pull/1577)
+- Update pulumi dependency (https://github.com/pulumi/pulumi-kubernetes/pull/1588)
+    - [codegen] Automatically encrypt secret input parameters (https://github.com/pulumi/pulumi/pull/7128)
+    - [sdk/python] Nondeterministic import ordering fix from (https://github.com/pulumi/pulumi/pull/7126)
 
 ## 3.2.0 (May 19, 2021)
 
