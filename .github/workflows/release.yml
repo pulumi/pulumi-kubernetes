@@ -15,6 +15,7 @@ env:
   GOOGLE_ZONE: us-central1-a
   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
   PROVIDER: kubernetes
+  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
   PULUMI_TEST_OWNER: moolumi
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
@@ -350,7 +351,7 @@ jobs:
           - nodejs
           - python
           - dotnet
-#          - go // temporarily removed
+          - go
         nodeversion:
           - 13.x
         pythonversion:
