@@ -44,7 +44,7 @@ func main() {
 		hostIP := resources.GetResource("v1/Pod", "foo", "").(*corev1.Pod).Status.HostIP()
 		ctx.Export("hostIP", hostIP)
 
-		ct := resources.GetResource("stable.example.com/v1/CronTab", "my-new-cron-object", "")
+		ct := resources.GetResource("stable.example.com/v1/GoYamlCronTab", "my-new-cron-object", "")
 		cronSpec := ct.(*apiextensions.CustomResource).OtherFields.ApplyT(func(otherFields interface{}) string {
 			fields := otherFields.(map[string]interface{})
 			spec := fields["spec"].(map[string]interface{})
