@@ -44,25 +44,21 @@ export const istio_init = new k8s.helm.v2.Chart(
     `${appName}-init`,
     {
         path: "charts/istio-init",
-        // Note: had to use a hardcoded namespace name to avoid error: https://github.com/pulumi/pulumi-kubernetes/issues/814
-        // namespace: namespace.metadata.name,
-        namespace: "istio-system",
+        namespace: namespace.metadata.name,
         values: { kiali: { enabled: true } }
     },
     { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
 );
 
-export const crd10 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-10");
-export const crd11 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-11");
-export const crd12 = istio_init.getResource("batch/v1/Job", "istio-system", "istio-init-crd-12");
+export const crd10 = namespace.metadata.name.apply(ns => istio_init.getResource("batch/v1/Job", ns, "istio-init-crd-10"));
+export const crd11 = namespace.metadata.name.apply(ns => istio_init.getResource("batch/v1/Job", ns, "istio-init-crd-11"));
+export const crd12 = namespace.metadata.name.apply(ns => istio_init.getResource("batch/v1/Job", ns, "istio-init-crd-12"));
 
 export const istio = new k8s.helm.v2.Chart(
     appName,
     {
         path: "charts/istio",
-        // Note: had to use a hardcoded namespace name to avoid error: https://github.com/pulumi/pulumi-kubernetes/issues/814
-        // namespace: namespace.metadata.name,
-        namespace: "istio-system",
+        namespace: namespace.metadata.name,
         values: { kiali: { enabled: true } }
     },
     { dependsOn: [adminBinding, crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
