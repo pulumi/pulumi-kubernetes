@@ -150,16 +150,32 @@ func (dia *deploymentInitAwaiter) Await() error {
 		return err
 	}
 
-	// Create Deployment watcher.
-	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), metav1.ListOptions{})
+	// Create Deployment watcher starting from the deployment's resource version, if set.
+	var depListOptions metav1.ListOptions
+	if dia.deployment != nil {
+		depListOptions.ResourceVersion = dia.deployment.GetResourceVersion()
+	}
+	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), depListOptions)
 	if err != nil {
 		return errors.Wrapf(err, "could not set up watch for Deployment object %q",
 			dia.config.currentInputs.GetName())
 	}
 	defer deploymentWatcher.Stop()
 
-	// Create ReplicaSet watcher.
-	replicaSetWatcher, err := replicaSetClient.Watch(context.TODO(), metav1.ListOptions{})
+	var rsVersion string
+	for _, rs := range dia.replicaSets {
+		if rsVersion == "" || rsVersion < rs.GetResourceVersion() {
+			rsVersion = rs.GetResourceVersion()
+		}
+	}
+
+	// Create ReplicaSet watcher starting from the most recent version for known replicasets.
+	var rsListOptions metav1.ListOptions
+	if rsVersion != "" {
+		rsListOptions.ResourceVersion = rsVersion
+	}
+
+	replicaSetWatcher, err := replicaSetClient.Watch(context.TODO(), rsListOptions)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for ReplicaSet objects associated with Deployment %q",
@@ -167,8 +183,19 @@ func (dia *deploymentInitAwaiter) Await() error {
 	}
 	defer replicaSetWatcher.Stop()
 
-	// Create Pod watcher.
-	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
+	var podVersion string
+	for _, pod := range dia.pods {
+		if podVersion == "" || podVersion < pod.GetResourceVersion() {
+			podVersion = pod.GetResourceVersion()
+		}
+	}
+
+	// Create Pod watcher starting from the most recent version for known pods if we have any.
+	var podListOptions metav1.ListOptions
+	if podVersion != "" {
+		podListOptions.ResourceVersion = podVersion
+	}
+	podWatcher, err := podClient.Watch(context.TODO(), podListOptions)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for Pods objects associated with Deployment %q",
@@ -176,8 +203,19 @@ func (dia *deploymentInitAwaiter) Await() error {
 	}
 	defer podWatcher.Stop()
 
-	// Create PersistentVolumeClaims watcher.
-	pvcWatcher, err := pvcClient.Watch(context.TODO(), metav1.ListOptions{})
+	var pvcVersion string
+	for _, pvc := range dia.pvcs {
+		if pvcVersion == "" || pvcVersion < pvc.GetResourceVersion() {
+			pvcVersion = pvc.GetResourceVersion()
+		}
+	}
+
+	var pvcListOptions metav1.ListOptions
+	if pvcVersion != "" {
+		pvcListOptions.ResourceVersion = pvcVersion
+	}
+	// Create PersistentVolumeClaims watcher starting from the most recent version for known PVCs.
+	pvcWatcher, err := pvcClient.Watch(context.TODO(), pvcListOptions)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not create watcher for PersistentVolumeClaims objects associated with Deployment %q",
@@ -323,6 +361,14 @@ func (dia *deploymentInitAwaiter) await(
 	}
 }
 
+func (dia *deploymentInitAwaiter) isEveryPVCReady() bool {
+	if len(dia.pvcs) == 0 || (len(dia.pvcs) > 0 && dia.pvcsAvailable) {
+		return true
+	}
+
+	return false
+}
+
 // Check whether we've succeeded, log the result as a status message to the provider. There are two
 // cases:
 //
@@ -333,18 +379,31 @@ func (dia *deploymentInitAwaiter) await(
 //      rolled out. This means there is no rollout to be marked as "progressing", so we need only
 //      check that the Deployment was created, and the corresponding ReplicaSet needs to be marked
 //      available.
-func (dia *deploymentInitAwaiter) isEveryPVCReady() bool {
-	if len(dia.pvcs) == 0 || (len(dia.pvcs) > 0 && dia.pvcsAvailable) {
-		return true
-	}
-
-	return false
-}
-
 func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
+	rs, updatedReplicaSetCreated := dia.replicaSets[dia.replicaSetGeneration]
+	if updatedReplicaSetCreated {
+		logger.V(9).Infof("Replicaset %s for deployment: %s generation: %s check - [RS available: %v], [RS ready: %v], [deployment available: %v]",
+			rs.GetName(),
+			dia.deployment.GetName(),
+			dia.replicaSetGeneration,
+			dia.replicaSetAvailable,
+			dia.updatedReplicaSetReady,
+			dia.deploymentAvailable)
+	} else {
+		logger.V(9).Infof("No replicaset at generation %s for deployment: %s. [RS available: %v], [RS ready: %v], [deployment available: %v]",
+			dia.replicaSetGeneration,
+			dia.deployment.GetName(),
+			dia.replicaSetAvailable,
+			dia.updatedReplicaSetReady,
+			dia.deploymentAvailable)
+	}
 	if dia.replicaSetGeneration == "1" {
 		if dia.deploymentAvailable && dia.updatedReplicaSetReady {
 			if !dia.isEveryPVCReady() {
+				logger.V(9).Infof("Replicaset %s for deployment: %s generation: %s PVC check failed",
+					rs.GetName(),
+					dia.deployment.GetName(),
+					dia.replicaSetGeneration)
 				return false
 			}
 
@@ -363,11 +422,11 @@ func (dia *deploymentInitAwaiter) checkAndLogStatus() bool {
 			return true
 		}
 	}
-
 	return false
 }
 
 func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
+	logger.V(9).Infof("Processing event for deployment: %s", dia.deployment.GetName())
 	inputDeploymentName := dia.config.currentInputs.GetName()
 
 	deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
@@ -382,12 +441,36 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 
 	// Do nothing if this is not the Deployment we're waiting for.
 	if deployment.GetName() != inputDeploymentName {
+		logger.V(9).Infof("Watch event NOT actually for deployment: %s", dia.deployment.GetName())
 		return
 	}
 
+	logger.V(9).Infof("Watch event for deployment: %s", dia.deployment.GetName())
 	// Mark the rollout as incomplete if it's deleted.
 	if event.Type == watch.Deleted {
+		logger.V(9).Infof("Watch event for deployment: %s - DELETED", dia.deployment.GetName())
 		return
+	}
+
+	if dia.deployment != nil {
+		if dia.deployment.GetResourceVersion() > deployment.GetResourceVersion() {
+			logger.V(9).Infof("Deployment %s received an older event. Known version: %q, received: %q",
+				dia.deployment.GetName(),
+				dia.deployment.GetResourceVersion(),
+				deployment.GetResourceVersion())
+			return
+		}
+	}
+
+	currentGeneration := dia.deployment.GetAnnotations()[revision]
+	newGeneration := deployment.GetAnnotations()[revision]
+	if dia.deployment.GetResourceVersion() != deployment.GetResourceVersion() {
+		logger.V(9).Infof("Deployment %s possible generation flip. Known version: %q, received: %q. Existing generation: %q, New generation: %q",
+			dia.deployment.GetName(),
+			dia.deployment.GetResourceVersion(),
+			deployment.GetResourceVersion(),
+			currentGeneration,
+			newGeneration)
 	}
 
 	dia.deployment = deployment
@@ -399,7 +482,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	extensionsV1Beta1API := dia.config.initialAPIVersion == extensionsv1b1ApiVersion
 
 	// Get generation of the Deployment's ReplicaSet.
-	dia.replicaSetGeneration = deployment.GetAnnotations()[revision]
+	dia.replicaSetGeneration = newGeneration
 	if dia.replicaSetGeneration == "" {
 		// No current generation, Deployment controller has not yet created a ReplicaSet. Do
 		// nothing.
@@ -496,6 +579,7 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 
 	// Check whether this ReplicaSet was created by our Deployment.
 	if !isOwnedBy(rs, dia.config.currentInputs) {
+		logger.V(9).Infof("ReplicaSet event %q is NOT for %q", rs.GetName(), dia.config.currentInputs.GetName())
 		return
 	}
 
@@ -684,9 +768,12 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 		return
 	}
 
+	logger.V(9).Infof("Received POD watch event for %q", pod.GetName())
+
 	// Check whether this Pod was created by our Deployment.
 	currentReplicaSet := dia.replicaSets[dia.replicaSetGeneration]
 	if !isOwnedBy(pod, currentReplicaSet) {
+		logger.V(9).Infof("Pod event %q is NOT for %q", pod.GetName(), dia.config.currentInputs.GetName())
 		return
 	}
 	podName := pod.GetName()
