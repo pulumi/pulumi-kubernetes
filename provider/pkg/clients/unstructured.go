@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
 package clients
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -25,14 +24,10 @@ import (
 	networkingv1b1 "k8s.io/api/networking/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
-	b, err := obj.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-
 	var output metav1.Object
 	switch kinds.Kind(obj.GetKind()) {
 	case kinds.Deployment:
@@ -54,8 +49,7 @@ func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
 	default:
 		return nil, fmt.Errorf("unhandled Kind: %s", obj.GetKind())
 	}
-
-	err = json.Unmarshal(b, &output)
+	err := runtime.DefaultUnstructuredConverter.FromUnstructured(obj.Object, output)
 	if err != nil {
 		return nil, err
 	}
