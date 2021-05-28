@@ -144,16 +144,14 @@ func (dia *deploymentInitAwaiter) Await() error {
 	//      because it doesn't do a rollout (i.e., it simply creates the Deployment and
 	//      corresponding ReplicaSet), and therefore there is no rollout to mark as "Progressing".
 	//
-
 	deploymentClient, replicaSetClient, podClient, pvcClient, err := dia.makeClients()
 	if err != nil {
 		return err
 	}
 
 	// Create Deployment watcher starting from the deployment's resource version, if set.
-	var depListOptions metav1.ListOptions
-	if dia.deployment != nil {
-		depListOptions.ResourceVersion = dia.deployment.GetResourceVersion()
+	depListOptions := metav1.ListOptions{
+		ResourceVersion: dia.deployment.GetResourceVersion(),
 	}
 	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), depListOptions)
 	if err != nil {
@@ -452,25 +450,25 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 		return
 	}
 
+	newGeneration := deployment.GetAnnotations()[revision]
 	if dia.deployment != nil {
 		if dia.deployment.GetResourceVersion() > deployment.GetResourceVersion() {
-			logger.V(9).Infof("Deployment %s received an older event. Known version: %q, received: %q",
+			logger.V(3).Infof("Deployment %s received an older event. Known version: %q, received: %q",
 				dia.deployment.GetName(),
 				dia.deployment.GetResourceVersion(),
 				deployment.GetResourceVersion())
 			return
 		}
-	}
 
-	currentGeneration := dia.deployment.GetAnnotations()[revision]
-	newGeneration := deployment.GetAnnotations()[revision]
-	if dia.deployment.GetResourceVersion() != deployment.GetResourceVersion() {
-		logger.V(9).Infof("Deployment %s possible generation flip. Known version: %q, received: %q. Existing generation: %q, New generation: %q",
-			dia.deployment.GetName(),
-			dia.deployment.GetResourceVersion(),
-			deployment.GetResourceVersion(),
-			currentGeneration,
-			newGeneration)
+		currentGeneration := dia.deployment.GetAnnotations()[revision]
+		if dia.deployment.GetResourceVersion() != deployment.GetResourceVersion() {
+			logger.V(9).Infof("Deployment %s updated. Known version: %q, received: %q. Existing generation: %q, New generation: %q",
+				dia.deployment.GetName(),
+				dia.deployment.GetResourceVersion(),
+				deployment.GetResourceVersion(),
+				currentGeneration,
+				newGeneration)
+		}
 	}
 
 	dia.deployment = deployment
