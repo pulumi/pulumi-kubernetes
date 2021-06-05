@@ -79,10 +79,18 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 		}
 	}
 
+  // Find options which are also Invoke options, and prepare them to pass to Invoke functions
+	var invokeOpts []pulumi.InvokeOption
+	for _, opt := range opts {
+		if invokeOpt, ok := opt.(pulumi.InvokeOption); ok {
+			invokeOpts = append(invokeOpts, invokeOpt)
+		}
+	}
+
 	// Next parse all YAML documents into objects.
 	for _, yaml := range yamls {
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
-		dec, err := yamlDecode(ctx, yaml, opts...)
+		dec, err := yamlDecode(ctx, yaml, invokeOpts...)
 		if err != nil {
 			return nil, errors.Wrapf(err, "decoding YAML")
 		}
@@ -94,7 +102,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 }
 
 // yamlDecode invokes the function to decode a single YAML file and decompose it into object structures.
-func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption) ([]map[string]interface{}, error) {
+func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.InvokeOption) ([]map[string]interface{}, error) {
 	args := struct {
 		Text string `pulumi:"text"`
 	}{Text: text}
@@ -102,7 +110,7 @@ func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.ResourceOption)
 		Result []map[string]interface{} `pulumi:"result"`
 	}
 
-	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret); err != nil {
+	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret, opts...); err != nil {
 		return nil, err
 	}
 	return ret.Result, nil

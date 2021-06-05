@@ -264,7 +264,8 @@ func NewConfigGroup(ctx *pulumi.Context,
 		}
 
 		// Parse and decode the YAML files.
-		rs, err := parseDecodeYamlFiles(ctx, args, true, pulumi.Parent(configGroup))
+		parseOpts := append(opts, pulumi.Parent(configGroup))
+		rs, err := parseDecodeYamlFiles(ctx, args, true, parseOpts...)
 		if err != nil {
 			return nil, err
 		}

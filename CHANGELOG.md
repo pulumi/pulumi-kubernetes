@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- `ConfigGroup` now respects explicit provider instances when parsing YAML.
+
 ## 3.3.0 (May 26, 2021)
 
 - Automatically mark Secret data as Pulumi secrets. (https://github.com/pulumi/pulumi-kubernetes/pull/1577)
