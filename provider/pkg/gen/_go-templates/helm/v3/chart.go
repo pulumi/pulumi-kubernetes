@@ -278,14 +278,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 
 	transformations := args.Transformations
 	if args.SkipAwait {
-		transformations = append(transformations, func(obj map[string]interface{}, opts ...pulumi.ResourceOption) {
-			metadata := obj["metadata"].(map[string]interface{})
-			if annotations, ok := metadata["annotations"].(map[string]interface{}); ok {
-				annotations["pulumi.com/skipAwait"] = "true"
-			} else {
-				metadata["annotations"] = map[string]string{"pulumi.com/skipAwait": "true"}
-			}
-		})
+		transformations = yaml.AddSkipAwaitTransformation(transformations)
 	}
 
 	resources, err := yaml.ParseYamlObjects(ctx, objs, transformations, args.ResourcePrefix, opts...)

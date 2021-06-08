@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -241,6 +241,9 @@ type ConfigGroupArgs struct {
 	// ResourcePrefix is an optional prefix for the auto-generated resource names. For example, a resource named `bar`
 	// created with resource prefix of `"foo"` would produce a resource named `"foo-bar"`.
 	ResourcePrefix string
+	// Skip await logic for all resources in this YAML. Resources will be marked ready as soon as they are created.
+	// Warning: This option should not be used if you have resources depending on Outputs from the YAML.
+	SkipAwait bool
 }
 
 // NewConfigGroup registers a new resource with the given unique name, arguments, and options.

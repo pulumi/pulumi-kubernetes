@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -2741,11 +2741,16 @@ export class ConfigFile extends CollectionComponentResource {
             text = Promise.resolve(fs.readFileSync(fileId).toString());
         }
 
+        const transformations = config?.transformations ?? [];
+        if (config?.skipAwait) {
+            transformations.push(skipAwait);
+        }
+
         this.resources = pulumi.output(text.then(t => {
             try {
                 return parseYamlDocument({
                     objs: yamlLoadAll(t),
-                    transformations: config && config.transformations || [],
+                    transformations,
                     resourcePrefix: config && config.resourcePrefix || undefined
                 }, {parent: this})
             } catch (e) {
@@ -2776,6 +2781,12 @@ export interface ConfigGroupOpts {
      * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
     resourcePrefix?: string;
+
+    /**
+     * Skip await logic for all resources in this YAML. Resources will be marked ready as soon as they are created.
+     * Warning: This option should not be used if you have resources depending on Outputs from the YAML.
+     */
+    skipAwait?: boolean;
 }
 
 /**
@@ -2793,6 +2804,12 @@ export interface ConfigFileOpts {
      * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
     resourcePrefix?: string;
+
+    /**
+     * Skip await logic for all resources in this YAML. Resources will be marked ready as soon as they are created.
+     * Warning: This option should not be used if you have resources depending on Outputs from the YAML.
+     */
+    skipAwait?: boolean;
 }
 
 /**
@@ -2821,10 +2838,23 @@ export interface ConfigOpts {
         .then((p => p.result));
 }
 
+/** @ignore */ export function skipAwait(o: any, opts: pulumi.ComponentResourceOptions) {
+    if (o.metadata.annotations === undefined) {
+        o.metadata.annotations = {"pulumi.com/skipAwait": "true"};
+    } else {
+        o.metadata.annotations["pulumi.com/skipAwait"] = "true";
+    }
+}
+
 /** @ignore */ export function parse(
     config: ConfigGroupOpts, opts?: pulumi.CustomResourceOptions
 ): pulumi.Output<{[key: string]: pulumi.CustomResource}> {
     let resources = pulumi.output<{[key: string]: pulumi.CustomResource}>({});
+
+    const transformations = config.transformations ?? [];
+    if (config.skipAwait) {
+        transformations.push(skipAwait);
+    }
 
     if (config.files !== undefined) {
         let files: string[] = [];
@@ -2849,7 +2879,7 @@ export interface ConfigOpts {
                 file,
                 {
                     file: file,
-                    transformations: config.transformations,
+                    transformations,
                     resourcePrefix: config.resourcePrefix
                 },
                 opts
@@ -2869,7 +2899,7 @@ export interface ConfigOpts {
         for (const text of yamlTexts) {
             const docResources = parseYamlDocument({
                     objs: yamlLoadAll(text),
-                    transformations: config.transformations,
+                    transformations,
                     resourcePrefix: config.resourcePrefix
                 },
                 opts);
@@ -2881,7 +2911,7 @@ export interface ConfigOpts {
         const objs: Promise<any[]> = Array.isArray(config.objs) ? Promise.resolve(config.objs) : Promise.resolve([config.objs]);
         const docResources = parseYamlDocument({
             objs,
-            transformations: config.transformations,
+            transformations,
             resourcePrefix: config.resourcePrefix
         }, opts);
         resources = pulumi.all([resources, docResources]).apply(([rs, drs]) => ({...rs, ...drs}));

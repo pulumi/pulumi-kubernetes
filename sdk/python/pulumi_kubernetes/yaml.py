@@ -30,7 +30,8 @@ class ConfigGroup(pulumi.ComponentResource):
                  yaml: Optional[Sequence[str]] = None,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
-                 resource_prefix: Optional[str] = None):
+                 resource_prefix: Optional[str] = None,
+                 skip_await: Optional[bool] = None):
         """
         ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text
         may be supplied using any of the following methods:
@@ -140,6 +141,9 @@ class ConfigGroup(pulumi.ComponentResource):
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        :param Optional[bool] skip_await: Skip await logic for all resources in this YAML. Resources will be marked
+               ready as soon as they are created. Warning: This option should not be used if you have resources
+               depending on Outputs from the YAML.
         """
         if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
@@ -163,6 +167,10 @@ class ConfigGroup(pulumi.ComponentResource):
             opts)
 
         self.resources = pulumi.Output.from_input({})
+
+        transformations = transformations if transformations is not None else []
+        if skip_await:
+            transformations.append(_skip_await)
 
         _files: List[str] = []
         for file in files:
@@ -234,7 +242,8 @@ class ConfigFile(pulumi.ComponentResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  transformations: Optional[Sequence[Callable[[Any, pulumi.ResourceOptions], None]]] = None,
                  resource_prefix: Optional[str] = None,
-                 file_id: Optional[str] = None):
+                 file_id: Optional[str] = None,
+                 skip_await: Optional[bool] = None):
         """
         ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
 
@@ -292,6 +301,9 @@ class ConfigFile(pulumi.ComponentResource):
                transformations to apply to Kubernetes resource definitions before registering with engine.
         :param Optional[str] resource_prefix: An optional prefix for the auto-generated resource names.
                Example: A resource created with resource_prefix="foo" would produce a resource named "foo-resourceName".
+        :param Optional[bool] skip_await: Skip await logic for all resources in this YAML. Resources will be marked
+               ready as soon as they are created. Warning: This option should not be used if you have resources
+               depending on Outputs from the YAML.
         """
         if not name:
             raise TypeError('Missing resource name argument (for URN creation)')
@@ -322,6 +334,10 @@ class ConfigFile(pulumi.ComponentResource):
             text = _read_file(file)
 
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
+
+        transformations = transformations if transformations is not None else []
+        if skip_await:
+            transformations.append(_skip_await)
 
         # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
@@ -361,6 +377,14 @@ class ConfigFile(pulumi.ComponentResource):
 
         resource_id = id.apply(lambda x: f'{group_version_kind}:{x}')
         return resource_id.apply(lambda x: self.resources[x])
+
+
+# Add skipAwait annotation to all resources.
+def _skip_await(obj, opts):
+    if obj["metadata"].get("annotations") is None:
+        obj["metadata"]["annotations"] = {"pulumi.com/skipAwait": "true"}
+    else:
+        obj["metadata"]["annotations"]["pulumi.com/skipAwait"] = "true"
 
 
 def _is_url(url: str) -> bool:

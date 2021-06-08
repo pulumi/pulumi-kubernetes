@@ -261,5 +261,11 @@ namespace Pulumi.Kubernetes.Yaml
         /// "foo-resourceName".
         /// </summary>
         public string? ResourcePrefix { get; set; }
+
+        /// <summary>
+        /// Skip await logic for all resources in this YAML. Resources will be marked ready as soon as they are created.
+        /// Warning: This option should not be used if you have resources depending on Outputs from the YAML.
+        /// </summary>
+        public bool? SkipAwait { get; set; }
     }
 }
