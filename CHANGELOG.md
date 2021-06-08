@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- [sdk/python] Pin pulumi dependency to <3.4.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1605)
+
 ## 3.3.0 (May 26, 2021)
 
 - Automatically mark Secret data as Pulumi secrets. (https://github.com/pulumi/pulumi-kubernetes/pull/1577)
