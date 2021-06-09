@@ -1,6 +1,10 @@
 ## HEAD (Unreleased)
 
-- `ConfigGroup` now respects explicit provider instances when parsing YAML.
+- [sdk/go] `ConfigGroup` now respects explicit provider instances when parsing YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1601)
+
+## 3.3.1 (June 8, 2021)
+
+- [sdk/python] Fix YAML regression by pinning pulumi dependency to <3.4.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1605)
 
 ## 3.3.0 (May 26, 2021)
 
