@@ -23,6 +23,7 @@ class HelmStack : Stack
         {
             Namespace = namespaceName,
             SkipCRDRendering = true,
+            SkipAwait = false,
             Path = "helm-skip-crd-rendering"
         });
 
@@ -30,6 +31,7 @@ class HelmStack : Stack
         {
             Namespace = namespaceName,
             SkipCRDRendering = false,
+            SkipAwait = true,
             Path = "helm-allow-crd-rendering"
         });
 
