@@ -12,11 +12,11 @@
         "build": "tsc"
     },
     "dependencies": {
-        "@pulumi/pulumi": "^3.0.0",
         "@types/glob": "^5.0.35",
         "@types/node-fetch": "^2.1.4",
         "@types/tmp": "^0.0.33",
         "glob": "^7.1.2",
+        "install-peers-cli": "^2.2.0",
         "node-fetch": "^2.3.0",
         "shell-quote": "^1.6.1",
         "tmp": "^0.0.33"
@@ -25,6 +25,9 @@
         "@types/mocha": "^5.2.5",
         "@types/shell-quote": "^1.6.0",
         "mocha": "^5.2.0"
+    },
+    "peerDependencies": {
+        "@pulumi/pulumi": "^3.0.0"
     },
     "pulumi": {
         "resource": true

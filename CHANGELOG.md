@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- [sdk/nodejs] Install pulumi as a peerDependency. (https://github.com/pulumi/pulumi-kubernetes/pull/1609)
+
 ## 3.3.1 (June 8, 2021)
 
 - [sdk/python] Fix YAML regression by pinning pulumi dependency to <3.4.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1605)
