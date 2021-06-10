@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -276,7 +276,19 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		return nil, err
 	}
 
-	resources, err := yaml.ParseYamlObjects(ctx, objs, args.Transformations, args.ResourcePrefix, opts...)
+	transformations := args.Transformations
+	if args.SkipAwait {
+		transformations = append(transformations, func(obj map[string]interface{}, opts ...pulumi.ResourceOption) {
+			metadata := obj["metadata"].(map[string]interface{})
+			if annotations, ok := metadata["annotations"].(map[string]interface{}); ok {
+				annotations["pulumi.com/skipAwait"] = "true"
+			} else {
+				metadata["annotations"] = map[string]string{"pulumi.com/skipAwait": "true"}
+			}
+		})
+	}
+
+	resources, err := yaml.ParseYamlObjects(ctx, objs, transformations, args.ResourcePrefix, opts...)
 	if err != nil {
 		return nil, err
 	}

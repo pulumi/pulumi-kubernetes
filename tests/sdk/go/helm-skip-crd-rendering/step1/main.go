@@ -15,6 +15,7 @@ func main() {
 
 		_, err = helm.NewChart(ctx, "skip-crd-rendering", helm.ChartArgs{
 			SkipCRDRendering: pulumi.Bool(true),
+			SkipAwait:        pulumi.Bool(false),
 			Namespace:        namespace.Metadata.Name().Elem(),
 			Path:             pulumi.String("helm-skip-crd-rendering"),
 		})
@@ -24,6 +25,7 @@ func main() {
 
 		_, err = helm.NewChart(ctx, "allow-crd-rendering", helm.ChartArgs{
 			SkipCRDRendering: pulumi.Bool(false),
+			SkipAwait:        pulumi.Bool(true),
 			Namespace:        namespace.Metadata.Name().Elem(),
 			Path:             pulumi.String("helm-allow-crd-rendering"),
 		})

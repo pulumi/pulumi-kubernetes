@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -120,6 +120,9 @@ type ChartArgs struct {
 	// By default, Helm resources with the `test`, `test-success`, and `test-failure` hooks are not installed. Set
 	// this flag to true to include these resources.
 	IncludeTestHookResources pulumi.BoolInput
+	// Skip await logic for all resources in this Chart. Resources will be marked ready as soon as they are created.
+	// Warning: This option should not be used if you have resources depending on Outputs from the Chart.
+	SkipAwait pulumi.BoolInput
 	// By default CRDs are also rendered along side templates. Set this to skip CRDs.
 	SkipCRDRendering pulumi.BoolInput
 	// The optional namespace to install chart resources into.
@@ -155,6 +158,7 @@ type ChartArgs struct {
 type chartArgs struct {
 	APIVersions              []string               `json:"api_versions,omitempty" pulumi:"apiVersions"`
 	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty" pulumi:"includeTestHookResources"`
+	SkipAwait                bool                   `json:"skip_await,omitempty" pulumi:"skipAwait"`
 	SkipCRDRendering         bool                   `json:"skip_crd_rendering,omitempty" pulumi:"skipCRDRendering"`
 	Namespace                string                 `json:"namespace,omitempty" pulumi:"namespace"`
 	Values                   map[string]interface{} `json:"values,omitempty" pulumi:"values"`
