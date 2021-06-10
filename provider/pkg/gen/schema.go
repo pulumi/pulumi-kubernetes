@@ -86,7 +86,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						},
 					},
 					Description: "The contents of a kubeconfig file or the path to a kubeconfig file.",
-					TypeSpec: pschema.TypeSpec{Type: "string"},
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
 					Language: map[string]json.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
 							"name": "KubeConfig",
@@ -267,7 +267,6 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
 		"compatibility": kubernetes20,
 		"dependencies": map[string]string{
-			"@pulumi/pulumi":    "^3.0.0",
 			"shell-quote":       "^1.6.1",
 			"tmp":               "^0.0.33",
 			"@types/tmp":        "^0.0.33",
@@ -275,11 +274,15 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			"@types/glob":       "^5.0.35",
 			"node-fetch":        "^2.3.0",
 			"@types/node-fetch": "^2.1.4",
+			"install-peers-cli": "^2.2.0",
 		},
 		"devDependencies": map[string]string{
 			"mocha":              "^5.2.0",
 			"@types/mocha":       "^5.2.5",
 			"@types/shell-quote": "^1.6.0",
+		},
+		"peerDependencies": map[string]string{
+			"@pulumi/pulumi": "^3.0.0",
 		},
 		"moduleToPackage": modToPkg,
 		"readme": `The Kubernetes provider package offers support for all Kubernetes resources and their properties.
