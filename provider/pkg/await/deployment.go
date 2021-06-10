@@ -3,6 +3,7 @@ package await
 import (
 	"context"
 	"fmt"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"reflect"
 	"strings"
 	"time"
@@ -150,10 +151,23 @@ func (dia *deploymentInitAwaiter) Await() error {
 	}
 
 	// Create Deployment watcher starting from the deployment's resource version, if set.
-	depListOptions := metav1.ListOptions{
+	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), metav1.ListOptions{
 		ResourceVersion: dia.deployment.GetResourceVersion(),
+	})
+	// If the required resource version is no longer available, reset tracked deployment state to the latest.
+	if apierrors.IsResourceExpired(err) || apierrors.IsGone(err) {
+		// Get live versions of Deployment again.
+		deployment, err := deploymentClient.Get(context.TODO(),
+			dia.config.currentInputs.GetName(),
+			metav1.GetOptions{})
+		if err != nil {
+			return err
+		}
+		dia.processDeploymentEvent(watchAddedEvent(deployment))
+		deploymentWatcher, err = deploymentClient.Watch(context.TODO(), metav1.ListOptions{
+			ResourceVersion: dia.deployment.GetResourceVersion(), // dia.deployment was reset in processDeploymentEvent.
+		})
 	}
-	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), depListOptions)
 	if err != nil {
 		return errors.Wrapf(err, "could not set up watch for Deployment object %q",
 			dia.config.currentInputs.GetName())
@@ -768,13 +782,18 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 
 	logger.V(9).Infof("Received POD watch event for %q", pod.GetName())
 
-	// Check whether this Pod was created by our Deployment.
-	currentReplicaSet := dia.replicaSets[dia.replicaSetGeneration]
-	if !isOwnedBy(pod, currentReplicaSet) {
+	// Check whether this Pod was created by a replicaset associated with our Deployment.
+	var podName string
+	for _, replicaSet := range dia.replicaSets {
+		if isOwnedBy(pod, replicaSet) {
+			podName = pod.GetName()
+			break
+		}
+	}
+	if podName == "" {
 		logger.V(9).Infof("Pod event %q is NOT for %q", pod.GetName(), dia.config.currentInputs.GetName())
 		return
 	}
-	podName := pod.GetName()
 
 	// If Pod was deleted, remove it from our aggregated checkers.
 	if event.Type == watch.Deleted {
