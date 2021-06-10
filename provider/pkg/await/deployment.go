@@ -156,8 +156,9 @@ func (dia *deploymentInitAwaiter) Await() error {
 	})
 	// If the required resource version is no longer available, reset tracked deployment state to the latest.
 	if apierrors.IsResourceExpired(err) || apierrors.IsGone(err) {
+		var deployment *unstructured.Unstructured
 		// Get live versions of Deployment again.
-		deployment, err := deploymentClient.Get(context.TODO(),
+		deployment, err = deploymentClient.Get(context.TODO(),
 			dia.config.currentInputs.GetName(),
 			metav1.GetOptions{})
 		if err != nil {
