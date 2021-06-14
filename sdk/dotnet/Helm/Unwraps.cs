@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,6 +26,7 @@ namespace Pulumi.Kubernetes.Helm
         public ImmutableArray<string> ApiVersions { get; set; }
         public bool? IncludeTestHookResources { get; set; }
         public bool? SkipCRDRendering { get; set; }
+        public bool? SkipAwait { get; set; }
         public string? Namespace { get; set; }
         public ImmutableDictionary<string, object> Values { get; set; } = null!;
         public List<TransformationAction> Transformations { get; set; } = null!;
@@ -69,7 +70,7 @@ namespace Pulumi.Kubernetes.Helm
         public static Output<Union<ChartArgsUnwrap, LocalChartArgsUnwrap>> Unwrap(this Union<ChartArgs, LocalChartArgs> options)
         {
             return options.Match(
-                v => Output.Tuple(v.ApiVersions, v.Namespace.ToNullable(), v.Values, v.Repo.ToNullable(), v.Chart, v.Version.ToNullable(), v.FetchOptions.Unwrap(), new InputList<bool?> { v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable() }).Apply(vs =>
+                v => Output.Tuple(v.ApiVersions, v.Namespace.ToNullable(), v.Values, v.Repo.ToNullable(), v.Chart, v.Version.ToNullable(), v.FetchOptions.Unwrap(), new InputList<bool?> { v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.SkipAwait.ToNullable() }).Apply(vs =>
                     Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT0(
                         new ChartArgsUnwrap
                         {
@@ -83,17 +84,19 @@ namespace Pulumi.Kubernetes.Helm
                             Version = vs.Item6,
                             FetchOptions = vs.Item7,
                             IncludeTestHookResources = vs.Item8[0],
-                            SkipCRDRendering = vs.Item8[1]
+                            SkipCRDRendering = vs.Item8[1],
+                            SkipAwait = vs.Item8[2]
                         })),
-                v => Output.Tuple(v.ApiVersions, v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.Namespace.ToNullable(), v.Values).Apply(vs =>
+                v => Output.Tuple(v.ApiVersions, v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.SkipAwait.ToNullable(), v.Namespace.ToNullable(), v.Values).Apply(vs =>
                     Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT1(
                         new LocalChartArgsUnwrap
                         {
                             ApiVersions = vs.Item1,
                             IncludeTestHookResources = vs.Item2,
                             SkipCRDRendering = vs.Item3,
-                            Namespace = vs.Item4,
-                            Values = vs.Item5,
+                            SkipAwait = vs.Item4,
+                            Namespace = vs.Item5,
+                            Values = vs.Item6,
                             Transformations = v.Transformations,
                             ResourcePrefix = v.ResourcePrefix,
                             Path = v.Path

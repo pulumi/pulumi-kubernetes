@@ -17,7 +17,9 @@ package test
 import (
 	b64 "encoding/base64"
 	"encoding/json"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
@@ -153,6 +155,18 @@ func TestDotnet_HelmAllowCRDRendering(t *testing.T) {
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:core/v1:Pod" {
+					annotations, ok := openapi.Pluck(res.Inputs, "metadata", "annotations")
+					if strings.Contains(res.ID.String(), "skip-crd") {
+						assert.False(t, ok)
+					} else {
+						assert.True(t, ok)
+						assert.Contains(t, annotations, "pulumi.com/skipAwait")
+					}
+				}
+			}
 		},
 	})
 	integration.ProgramTest(t, &test)

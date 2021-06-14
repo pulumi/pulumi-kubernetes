@@ -393,6 +393,12 @@ class BaseChartOpts:
     By default, CRDs are rendered along with Helm chart templates. Setting this to true will skip CRD rendering.
     """
 
+    skip_await: Optional[pulumi.Input[bool]]
+    """
+    Skip await logic for all resources in this Chart. Resources will be marked ready as soon as they are created.
+    Warning: This option should not be used if you have resources depending on Outputs from the Chart.
+    """
+
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
@@ -400,7 +406,8 @@ class BaseChartOpts:
                  resource_prefix: Optional[str] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
                  include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
-                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None):
+                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
@@ -416,10 +423,14 @@ class BaseChartOpts:
                resources.
         :param Optional[pulumi.Input[bool]] skip_crd_rendering: By default, CRDs are rendered along with Helm chart
                templates. Setting this to true will skip CRD rendering.
+        :param Optional[pulumi.Input[bool]] skip_await: Skip await logic for all resources in this Chart. Resources
+               will be marked ready as soon as they are created. Warning: This option should not be used if you have
+               resources depending on Outputs from the Chart.
         """
         self.namespace = namespace
         self.include_test_hook_resources = include_test_hook_resources
         self.skip_crd_rendering = skip_crd_rendering
+        self.skip_await = skip_await
         self.values = values
         self.transformations = transformations
         self.resource_prefix = resource_prefix
@@ -469,7 +480,8 @@ class ChartOpts(BaseChartOpts):
                  fetch_opts: Optional[pulumi.Input[FetchOpts]] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
                  include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
-                 skip_crd_install: Optional[pulumi.Input[bool]] = None):
+                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
                will be prefixed by the repo name.
@@ -495,9 +507,12 @@ class ChartOpts(BaseChartOpts):
                resources.
         :param Optional[pulumi.Input[bool]] skip_crd_rendering: By default, CRDs are rendered along with Helm chart
                templates. Setting this to true will skip CRD rendering.
+        :param Optional[pulumi.Input[bool]] skip_await: Skip await logic for all resources in this Chart. Resources
+               will be marked ready as soon as they are created. Warning: This option should not be used if you have
+               resources depending on Outputs from the Chart.
         """
         super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
-                                        include_test_hook_resources, skip_crd_install)
+                                        include_test_hook_resources, skip_crd_rendering, skip_await)
         self.chart = chart
         self.repo = repo
         self.version = version
@@ -522,7 +537,8 @@ class LocalChartOpts(BaseChartOpts):
                  resource_prefix: Optional[str] = None,
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
                  include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
-                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None):
+                 skip_crd_rendering: Optional[pulumi.Input[bool]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None):
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -540,11 +556,22 @@ class LocalChartOpts(BaseChartOpts):
                resources.
         :param Optional[pulumi.Input[bool]] skip_crd_rendering: By default, CRDs are rendered along with Helm chart
                templates. Setting this to true will skip CRD rendering.
+        :param Optional[pulumi.Input[bool]] skip_await: Skip await logic for all resources in this Chart. Resources
+               will be marked ready as soon as they are created. Warning: This option should not be used if you have
+               resources depending on Outputs from the Chart.
         """
 
         super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
-                                             include_test_hook_resources, skip_crd_rendering)
+                                             include_test_hook_resources, skip_crd_rendering, skip_await)
         self.path = path
+
+
+# Add skipAwait annotation to all resources.
+def _skip_await(obj, opts):
+    if obj["metadata"].get("annotations") is None:
+        obj["metadata"]["annotations"] = {"pulumi.com/skipAwait": "true"}
+    else:
+        obj["metadata"]["annotations"]["pulumi.com/skipAwait"] = "true"
 
 
 def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:
@@ -556,6 +583,10 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
     # in package.json.
     invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
 
+    transformations = config.transformations if config.transformations is not None else []
+    if config.skip_await:
+        transformations.append(_skip_await)
+
     objects = json_opts.apply(lambda x: pulumi.runtime.invoke('kubernetes:helm:template',
                                                               {'jsonOpts': x}, invoke_opts).value['result'])
-    return objects.apply(lambda x: _parse_yaml_document(x, opts, config.transformations))
+    return objects.apply(lambda x: _parse_yaml_document(x, opts, transformations))

@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
@@ -361,15 +362,41 @@ namespace Pulumi.Kubernetes.Helm.V3
                 .HelmTemplate(new HelmTemplateArgs { JsonOpts = jsonOptsString })
                 .Apply(objs =>
                 {
+                    var transformations = cfgBase.Transformations;
+                    if (cfgBase.SkipAwait == true)
+                    {
+                        transformations = transformations.Append(SkipAwait).ToList();
+                    }
                     var args = new ConfigGroupArgs
                     {
                         ResourcePrefix = cfgBase.ResourcePrefix,
                         Objs = objs,
-                        Transformations = cfgBase.Transformations
+                        Transformations = transformations
                     };
                     var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray() };
                     return Parser.Parse(args, opts);
                 });
+        }
+
+        // Set skipAwait annotation on all chart resources.
+        internal ImmutableDictionary<string, object> SkipAwait(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+        {
+            var metadata = (ImmutableDictionary<string, object>)obj["metadata"];
+            if (metadata.ContainsKey("annotations"))
+            {
+                var annotations = (ImmutableDictionary<string, object>)metadata["annotations"];
+                annotations = annotations.SetItem("pulumi.com/skipAwait", "true");
+                metadata = metadata.SetItem("annotations", annotations);
+                obj = obj.SetItem("metadata", metadata);
+            }
+            else
+            {
+                var annotations = new Dictionary<string, string> { { "pulumi.com/skipAwait", "true" } }.ToImmutableDictionary();
+                metadata = metadata.SetItem("annotations", annotations);
+                obj = obj.SetItem("metadata", metadata);
+            }
+
+            return obj;
         }
 
         internal class JsonOpts

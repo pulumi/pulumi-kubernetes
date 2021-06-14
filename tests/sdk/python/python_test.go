@@ -379,6 +379,18 @@ func TestHelmAllowCRDRendering(t *testing.T) {
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
+
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:core/v1:Pod" {
+					annotations, ok := openapi.Pluck(res.Inputs, "metadata", "annotations")
+					if strings.Contains(res.ID.String(), "skip-crd") {
+						assert.False(t, ok)
+					} else {
+						assert.True(t, ok)
+						assert.Contains(t, annotations, "pulumi.com/skipAwait")
+					}
+				}
+			}
 		},
 	})
 	integration.ProgramTest(t, &test)
@@ -409,7 +421,7 @@ func TestSecrets(t *testing.T) {
 			"message": secretMessage,
 		},
 		ExpectRefreshChanges: true,
-		Quick: true,
+		Quick:                true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			state, err := json.Marshal(stackInfo.Deployment)

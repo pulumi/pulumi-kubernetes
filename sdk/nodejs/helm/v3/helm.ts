@@ -219,6 +219,17 @@ export class Chart extends yaml.CollectionComponentResource {
 
         const jsonOpts = JSON.stringify(blob)
 
+        const transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] = config.transformations ?? [];
+        if (config.skipAwait) {
+            transformations.push((o: any, opts: pulumi.ComponentResourceOptions) => {
+                if (o.metadata.annotations === undefined) {
+                    o.metadata.annotations = {"pulumi.com/skipAwait": "true"};
+                } else {
+                    o.metadata.annotations["pulumi.com/skipAwait"] = "true";
+                }
+            });
+        }
+
         // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
         let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
@@ -228,7 +239,7 @@ export class Chart extends yaml.CollectionComponentResource {
             {
                 resourcePrefix: config.resourcePrefix,
                 objs: p.result,
-                transformations: config.transformations || [],
+                transformations,
             },
             { parent: this }
         ));
@@ -267,6 +278,11 @@ interface BaseChartOpts {
      * Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
      */
     resourcePrefix?: string
+    /**
+     * Skip await logic for all resources in this Chart. Resources will be marked ready as soon as they are created.
+     * Warning: This option should not be used if you have resources depending on Outputs from the Chart.
+     */
+    skipAwait?: pulumi.Input<boolean>;
 }
 
 /**

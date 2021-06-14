@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -175,7 +175,7 @@ namespace Pulumi.Kubernetes.Helm
 
         private void Fetch(string chart, ChartFetchArgsUnwrap opts)
         {
-            var flags = new List<string>{ "fetch", chart };
+            var flags = new List<string> { "fetch", chart };
 
             // Untar by default.
             if (opts.Untar != false)
@@ -412,7 +412,13 @@ namespace Pulumi.Kubernetes.Helm
         // <summary>
         // By default, CRDs are rendered along with Helm chart templates. Setting this to true will skip CRD rendering.
         // </summary>
-        public Input<bool>? SkipCRDRendering {get; set; }
+        public Input<bool>? SkipCRDRendering { get; set; }
+
+        // <summary>
+        // Skip await logic for all resources in this Chart. Resources will be marked ready as soon as they are created.
+        // Warning: This option should not be used if you have resources depending on Outputs from the Chart.
+        // </summary>
+        public Input<bool>? SkipAwait { get; set; }
 
         /// <summary>
         /// The optional namespace to install chart resources into.

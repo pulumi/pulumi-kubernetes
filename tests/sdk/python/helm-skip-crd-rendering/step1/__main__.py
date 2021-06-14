@@ -18,12 +18,14 @@ namespace = Namespace("test")
 
 Chart("skip-crd-rendering", LocalChartOpts(
     skip_crd_rendering=True,
+    skip_await=False,
     namespace=namespace.metadata["name"],
     path="helm-skip-crd-rendering",
 ))
 
 Chart("allow-crd-rendering", LocalChartOpts(
     skip_crd_rendering=False,
+    skip_await=True,
     namespace=namespace.metadata["name"],
     path="helm-allow-crd-rendering",
 ))
