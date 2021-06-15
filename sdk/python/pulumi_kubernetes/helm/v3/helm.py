@@ -5,7 +5,7 @@ import json
 from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 import pulumi.runtime
-from pulumi_kubernetes.yaml import _parse_yaml_document
+from pulumi_kubernetes.yaml import _parse_yaml_document, _skip_await
 
 from ... import _utilities
 
@@ -564,14 +564,6 @@ class LocalChartOpts(BaseChartOpts):
         super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
                                              include_test_hook_resources, skip_crd_rendering, skip_await)
         self.path = path
-
-
-# Add skipAwait annotation to all resources.
-def _skip_await(obj, opts):
-    if obj["metadata"].get("annotations") is None:
-        obj["metadata"]["annotations"] = {"pulumi.com/skipAwait": "true"}
-    else:
-        obj["metadata"]["annotations"]["pulumi.com/skipAwait"] = "true"
 
 
 def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.ResourceOptions]) -> pulumi.Output:

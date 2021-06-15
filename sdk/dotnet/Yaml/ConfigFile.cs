@@ -128,6 +128,11 @@ namespace Pulumi.Kubernetes.Yaml
             options ??= new ComponentResourceOptions();
             options.Parent ??= this;
 
+			var transformations = args?.Transformations ?? new List<TransformationAction>();
+			if (args?.SkipAwait == true)
+			{
+				transformations.Add(Parser.SkipAwait);
+			}
             var fileOutput = args?.File.ToOutput() ?? Output.Create(name);
             var resources = fileOutput.Apply(fileId =>
             {
@@ -149,7 +154,7 @@ namespace Pulumi.Kubernetes.Yaml
                 Parser.ParseYamlDocument(new ParseArgs
                 {
                     Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }),
-                    Transformations = args?.Transformations ?? new List<TransformationAction>(),
+                    Transformations = transformations,
                     ResourcePrefix = args?.ResourcePrefix
                 }, options));
 
@@ -187,5 +192,11 @@ namespace Pulumi.Kubernetes.Yaml
         /// Example: A resource created with resourcePrefix="foo" would produce a resource named "foo-resourceName".
         /// </summary>
         public string? ResourcePrefix { get; set; }
+
+        /// <summary>
+        /// Skip await logic for all resources in this YAML. Resources will be marked ready as soon as they are created.
+        /// Warning: This option should not be used if you have resources depending on Outputs from the YAML.
+        /// </summary>
+        public bool? SkipAwait { get; set; }
     }
 }

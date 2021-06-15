@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -220,14 +220,8 @@ export class Chart extends yaml.CollectionComponentResource {
         const jsonOpts = JSON.stringify(blob)
 
         const transformations: ((o: any, opts: pulumi.CustomResourceOptions) => void)[] = config.transformations ?? [];
-        if (config.skipAwait) {
-            transformations.push((o: any, opts: pulumi.ComponentResourceOptions) => {
-                if (o.metadata.annotations === undefined) {
-                    o.metadata.annotations = {"pulumi.com/skipAwait": "true"};
-                } else {
-                    o.metadata.annotations["pulumi.com/skipAwait"] = "true";
-                }
-            });
+        if (config?.skipAwait) {
+            transformations.push(yaml.skipAwait);
         }
 
         // Rather than using the default provider for the following invoke call, use the version specified

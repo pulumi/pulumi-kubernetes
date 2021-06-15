@@ -304,6 +304,12 @@ namespace Pulumi.Kubernetes.Yaml
         {
             var resources = Output.Create(ImmutableDictionary.Create<string, KubernetesResource>());
 
+            var transformations = config.Transformations;
+            if (config?.SkipAwait == true)
+            {
+                transformations.Add(SkipAwait);
+            }
+
             if (config.Files != null)
             {
                 var files = new List<string>();
@@ -322,7 +328,7 @@ namespace Pulumi.Kubernetes.Yaml
                         new ConfigFileArgs
                         {
                             File = file,
-                            Transformations = config.Transformations,
+                            Transformations = transformations,
                             ResourcePrefix = config.ResourcePrefix
                         },
                         options);
@@ -339,7 +345,7 @@ namespace Pulumi.Kubernetes.Yaml
                             ParseYamlDocument(new ParseArgs
                             {
                                 Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }),
-                                Transformations = config.Transformations,
+                                Transformations = transformations,
                                 ResourcePrefix = config.ResourcePrefix
                             }, options))
                         .Select(output => (Input<ImmutableDictionary<string, KubernetesResource>>)output)
@@ -362,7 +368,7 @@ namespace Pulumi.Kubernetes.Yaml
                 var docResources = ParseYamlDocument(new ParseArgs
                 {
                     Objs = config.Objs,
-                    Transformations = config.Transformations,
+                    Transformations = transformations,
                     ResourcePrefix = config.ResourcePrefix
                 }, options);
                 resources = Output.Tuple(resources, docResources).Apply(vs => vs.Item1.AddRange(vs.Item2));
@@ -370,6 +376,27 @@ namespace Pulumi.Kubernetes.Yaml
 
             return resources;
 
+        }
+
+        // Define a transformation to set the skipAwait annotation on resources.
+        internal static ImmutableDictionary<string, object> SkipAwait(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)
+        {
+            var metadata = (ImmutableDictionary<string, object>)obj["metadata"];
+            if (metadata.ContainsKey("annotations"))
+            {
+                var annotations = (ImmutableDictionary<string, object>)metadata["annotations"];
+                annotations = annotations.SetItem("pulumi.com/skipAwait", "true");
+                metadata = metadata.SetItem("annotations", annotations);
+                obj = obj.SetItem("metadata", metadata);
+            }
+            else
+            {
+                var annotations = new Dictionary<string, string> { { "pulumi.com/skipAwait", "true" } }.ToImmutableDictionary();
+                metadata = metadata.SetItem("annotations", annotations);
+                obj = obj.SetItem("metadata", metadata);
+            }
+
+            return obj;
         }
 
         internal static bool IsUrl(string s)
