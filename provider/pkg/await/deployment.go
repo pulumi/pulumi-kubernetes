@@ -598,8 +598,13 @@ func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 
 	logger.V(3).Infof("ReplicaSet %q is owned by %q", rs.GetName(), dia.config.currentInputs.GetName())
 
-	// If Pod was deleted, remove it from our aggregated checkers.
 	generation := rs.GetAnnotations()[revision]
+	if generation == "" {
+		// This should be unlikely but this is not a RS we want to process anyway if no revision is specified.
+		return
+	}
+
+	// If Pod was deleted, remove it from our aggregated checkers.
 	if event.Type == watch.Deleted {
 		delete(dia.replicaSets, generation)
 		return
