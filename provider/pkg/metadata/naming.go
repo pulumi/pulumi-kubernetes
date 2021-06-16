@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -28,8 +29,16 @@ var dns1123Alphabet = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
-func AssignNameIfAutonamable(obj *unstructured.Unstructured, base tokens.QName) {
+func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.PropertyMap, base tokens.QName) {
 	contract.Assert(base != "")
+
+	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
+	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
+		if name, ok := md["name"]; ok && name.IsComputed() {
+			return
+		}
+	}
+
 	if obj.GetName() == "" {
 		obj.SetName(fmt.Sprintf("%s-%s", base, randString(8)))
 		SetAnnotationTrue(obj, AnnotationAutonamed)

@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+
 	"github.com/stretchr/testify/assert"
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -26,7 +28,8 @@ import (
 func TestAssignNameIfAutonamable(t *testing.T) {
 	// o1 has no name, so autonaming succeeds.
 	o1 := &unstructured.Unstructured{}
-	AssignNameIfAutonamable(o1, "foo")
+	pm1 := resource.NewPropertyMap(struct{}{})
+	AssignNameIfAutonamable(o1, pm1, "foo")
 	assert.True(t, IsAutonamed(o1))
 	assert.True(t, strings.HasPrefix(o1.GetName(), "foo-"))
 
@@ -34,9 +37,27 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	o2 := &unstructured.Unstructured{
 		Object: map[string]interface{}{"metadata": map[string]interface{}{"name": "bar"}},
 	}
-	AssignNameIfAutonamable(o2, "foo")
+	pm2 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"name": resource.NewStringProperty("bar"),
+		}),
+	}
+	AssignNameIfAutonamable(o2, pm2, "foo")
 	assert.False(t, IsAutonamed(o2))
 	assert.Equal(t, "bar", o2.GetName())
+
+	// o3 has a computed name, so autonaming fails.
+	o3 := &unstructured.Unstructured{
+		Object: map[string]interface{}{"metadata": map[string]interface{}{"name": "[Computed]"}},
+	}
+	pm3 := resource.PropertyMap{
+		"metadata": resource.NewObjectProperty(resource.PropertyMap{
+			"name": resource.MakeComputed(resource.NewStringProperty("bar")),
+		}),
+	}
+	AssignNameIfAutonamable(o3, pm3, "foo")
+	assert.False(t, IsAutonamed(o3))
+	assert.Equal(t, "[Computed]", o3.GetName())
 }
 
 func TestAdoptName(t *testing.T) {
