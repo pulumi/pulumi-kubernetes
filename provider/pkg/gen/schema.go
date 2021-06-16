@@ -300,7 +300,7 @@ Use the navigation below to see detailed documentation for each of the supported
 	})
 	pkg.Language["python"] = rawMessage(map[string]interface{}{
 		"requires": map[string]string{
-			"pulumi":   ">=3.0.0,<3.4.0",
+			"pulumi":   ">=3.0.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
 			"pyyaml":   ">=5.3.1,<6.0",
 		},
