@@ -4,6 +4,7 @@
 - Add skipAwait option to YAML SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1610)
 - [sdk/go] `ConfigGroup` now respects explicit provider instances when parsing YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1601)
 - Fix hanging updates for deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1596)
+- Fix auto-naming bug for computed names (https://github.com/pulumi/pulumi-kubernetes/pull/1618)
 
 ## 3.3.1 (June 8, 2021)
 
