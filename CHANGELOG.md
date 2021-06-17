@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.4.0 (June 17, 2021)
+
 - Add skipAwait option to helm.v3 SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1603)
 - Add skipAwait option to YAML SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1610)
 - [sdk/go] `ConfigGroup` now respects explicit provider instances when parsing YAML. (https://github.com/pulumi/pulumi-kubernetes/pull/1601)
