@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['ResourceQuotaArgs', 'ResourceQuota']
+__all__ = ['ResourceQuotaInitArgs', 'ResourceQuota']
 
 @pulumi.input_type
-class ResourceQuotaArgs:
+class ResourceQuotaInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -109,18 +109,18 @@ class ResourceQuota(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ResourceQuotaArgs] = None,
+                 args: Optional[ResourceQuotaInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ResourceQuota sets aggregate quota restrictions enforced per namespace
 
         :param str resource_name: The name of the resource.
-        :param ResourceQuotaArgs args: The arguments to use to populate this resource's properties.
+        :param ResourceQuotaInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(ResourceQuotaArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(ResourceQuotaInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -143,7 +143,7 @@ class ResourceQuota(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = ResourceQuotaArgs.__new__(ResourceQuotaArgs)
+            __props__ = ResourceQuotaInitArgs.__new__(ResourceQuotaInitArgs)
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'ResourceQuota'
@@ -170,7 +170,7 @@ class ResourceQuota(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = ResourceQuotaArgs.__new__(ResourceQuotaArgs)
+        __props__ = ResourceQuotaInitArgs.__new__(ResourceQuotaInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

@@ -9,10 +9,10 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
-__all__ = ['SecretArgs', 'Secret']
+__all__ = ['SecretInitArgs', 'Secret']
 
 @pulumi.input_type
-class SecretArgs:
+class SecretInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
@@ -171,7 +171,7 @@ class Secret(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[SecretArgs] = None,
+                 args: Optional[SecretInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
@@ -187,12 +187,12 @@ class Secret(pulumi.CustomResource):
         https://kubernetes.io/docs/concepts/configuration/secret/#risks
 
         :param str resource_name: The name of the resource.
-        :param SecretArgs args: The arguments to use to populate this resource's properties.
+        :param SecretInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(SecretArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(SecretInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -218,7 +218,7 @@ class Secret(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = SecretArgs.__new__(SecretArgs)
+            __props__ = SecretInitArgs.__new__(SecretInitArgs)
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["data"] = None if data is None else pulumi.Output.secret(data)
@@ -249,7 +249,7 @@ class Secret(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = SecretArgs.__new__(SecretArgs)
+        __props__ = SecretInitArgs.__new__(SecretInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["data"] = None

@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['FlowSchemaArgs', 'FlowSchema']
+__all__ = ['FlowSchemaInitArgs', 'FlowSchema']
 
 @pulumi.input_type
-class FlowSchemaArgs:
+class FlowSchemaInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -109,18 +109,18 @@ class FlowSchema(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[FlowSchemaArgs] = None,
+                 args: Optional[FlowSchemaInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 
         :param str resource_name: The name of the resource.
-        :param FlowSchemaArgs args: The arguments to use to populate this resource's properties.
+        :param FlowSchemaInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(FlowSchemaArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(FlowSchemaInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -143,7 +143,7 @@ class FlowSchema(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = FlowSchemaArgs.__new__(FlowSchemaArgs)
+            __props__ = FlowSchemaInitArgs.__new__(FlowSchemaInitArgs)
 
             __props__.__dict__["api_version"] = 'flowcontrol.apiserver.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'FlowSchema'
@@ -172,7 +172,7 @@ class FlowSchema(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = FlowSchemaArgs.__new__(FlowSchemaArgs)
+        __props__ = FlowSchemaInitArgs.__new__(FlowSchemaInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['RoleBindingArgs', 'RoleBinding']
+__all__ = ['RoleBindingInitArgs', 'RoleBinding']
 
 @pulumi.input_type
-class RoleBindingArgs:
+class RoleBindingInitArgs:
     def __init__(__self__, *,
                  role_ref: pulumi.Input['RoleRefArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -126,18 +126,18 @@ class RoleBinding(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: RoleBindingArgs,
+                 args: RoleBindingInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
 
         :param str resource_name: The name of the resource.
-        :param RoleBindingArgs args: The arguments to use to populate this resource's properties.
+        :param RoleBindingInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(RoleBindingArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(RoleBindingInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -161,7 +161,7 @@ class RoleBinding(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = RoleBindingArgs.__new__(RoleBindingArgs)
+            __props__ = RoleBindingInitArgs.__new__(RoleBindingInitArgs)
 
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'RoleBinding'
@@ -192,7 +192,7 @@ class RoleBinding(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = RoleBindingArgs.__new__(RoleBindingArgs)
+        __props__ = RoleBindingInitArgs.__new__(RoleBindingInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

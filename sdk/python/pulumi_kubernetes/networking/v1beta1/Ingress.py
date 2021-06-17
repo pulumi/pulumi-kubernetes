@@ -12,10 +12,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['IngressArgs', 'Ingress']
+__all__ = ['IngressInitArgs', 'Ingress']
 
 @pulumi.input_type
-class IngressArgs:
+class IngressInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -124,7 +124,7 @@ class Ingress(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[IngressArgs] = None,
+                 args: Optional[IngressInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
@@ -144,12 +144,12 @@ class Ingress(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         :param str resource_name: The name of the resource.
-        :param IngressArgs args: The arguments to use to populate this resource's properties.
+        :param IngressInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(IngressArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(IngressInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -172,7 +172,7 @@ class Ingress(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = IngressArgs.__new__(IngressArgs)
+            __props__ = IngressInitArgs.__new__(IngressInitArgs)
 
             __props__.__dict__["api_version"] = 'networking.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'Ingress'
@@ -201,7 +201,7 @@ class Ingress(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = IngressArgs.__new__(IngressArgs)
+        __props__ = IngressInitArgs.__new__(IngressInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

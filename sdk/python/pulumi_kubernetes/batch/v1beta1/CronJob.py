@@ -13,10 +13,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['CronJobArgs', 'CronJob']
+__all__ = ['CronJobInitArgs', 'CronJob']
 
 @pulumi.input_type
-class CronJobArgs:
+class CronJobInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -111,18 +111,18 @@ class CronJob(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[CronJobArgs] = None,
+                 args: Optional[CronJobInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CronJob represents the configuration of a single cron job.
 
         :param str resource_name: The name of the resource.
-        :param CronJobArgs args: The arguments to use to populate this resource's properties.
+        :param CronJobInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(CronJobArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(CronJobInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -145,7 +145,7 @@ class CronJob(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = CronJobArgs.__new__(CronJobArgs)
+            __props__ = CronJobInitArgs.__new__(CronJobInitArgs)
 
             __props__.__dict__["api_version"] = 'batch/v1beta1'
             __props__.__dict__["kind"] = 'CronJob'
@@ -174,7 +174,7 @@ class CronJob(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = CronJobArgs.__new__(CronJobArgs)
+        __props__ = CronJobInitArgs.__new__(CronJobInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

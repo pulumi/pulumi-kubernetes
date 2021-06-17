@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['EventArgs', 'Event']
+__all__ = ['EventInitArgs', 'Event']
 
 @pulumi.input_type
-class EventArgs:
+class EventInitArgs:
     def __init__(__self__, *,
                  involved_object: pulumi.Input['ObjectReferenceArgs'],
                  metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
@@ -341,18 +341,18 @@ class Event(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: EventArgs,
+                 args: EventInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 
         :param str resource_name: The name of the resource.
-        :param EventArgs args: The arguments to use to populate this resource's properties.
+        :param EventInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(EventArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(EventInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -388,7 +388,7 @@ class Event(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = EventArgs.__new__(EventArgs)
+            __props__ = EventInitArgs.__new__(EventInitArgs)
 
             __props__.__dict__["action"] = action
             __props__.__dict__["api_version"] = 'v1'
@@ -433,7 +433,7 @@ class Event(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = EventArgs.__new__(EventArgs)
+        __props__ = EventInitArgs.__new__(EventInitArgs)
 
         __props__.__dict__["action"] = None
         __props__.__dict__["api_version"] = None

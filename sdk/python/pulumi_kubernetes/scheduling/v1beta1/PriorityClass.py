@@ -9,10 +9,10 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
-__all__ = ['PriorityClassArgs', 'PriorityClass']
+__all__ = ['PriorityClassInitArgs', 'PriorityClass']
 
 @pulumi.input_type
-class PriorityClassArgs:
+class PriorityClassInitArgs:
     def __init__(__self__, *,
                  value: pulumi.Input[int],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -160,18 +160,18 @@ class PriorityClass(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: PriorityClassArgs,
+                 args: PriorityClassInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
 
         :param str resource_name: The name of the resource.
-        :param PriorityClassArgs args: The arguments to use to populate this resource's properties.
+        :param PriorityClassInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(PriorityClassArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(PriorityClassInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -197,7 +197,7 @@ class PriorityClass(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = PriorityClassArgs.__new__(PriorityClassArgs)
+            __props__ = PriorityClassInitArgs.__new__(PriorityClassInitArgs)
 
             __props__.__dict__["api_version"] = 'scheduling.k8s.io/v1beta1'
             __props__.__dict__["description"] = description
@@ -230,7 +230,7 @@ class PriorityClass(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = PriorityClassArgs.__new__(PriorityClassArgs)
+        __props__ = PriorityClassInitArgs.__new__(PriorityClassInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["description"] = None

@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['PersistentVolumeClaimArgs', 'PersistentVolumeClaim']
+__all__ = ['PersistentVolumeClaimInitArgs', 'PersistentVolumeClaim']
 
 @pulumi.input_type
-class PersistentVolumeClaimArgs:
+class PersistentVolumeClaimInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -109,18 +109,18 @@ class PersistentVolumeClaim(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[PersistentVolumeClaimArgs] = None,
+                 args: Optional[PersistentVolumeClaimInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         PersistentVolumeClaim is a user's request for and claim to a persistent volume
 
         :param str resource_name: The name of the resource.
-        :param PersistentVolumeClaimArgs args: The arguments to use to populate this resource's properties.
+        :param PersistentVolumeClaimInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(PersistentVolumeClaimArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(PersistentVolumeClaimInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -143,7 +143,7 @@ class PersistentVolumeClaim(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = PersistentVolumeClaimArgs.__new__(PersistentVolumeClaimArgs)
+            __props__ = PersistentVolumeClaimInitArgs.__new__(PersistentVolumeClaimInitArgs)
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'PersistentVolumeClaim'
@@ -170,7 +170,7 @@ class PersistentVolumeClaim(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = PersistentVolumeClaimArgs.__new__(PersistentVolumeClaimArgs)
+        __props__ = PersistentVolumeClaimInitArgs.__new__(PersistentVolumeClaimInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

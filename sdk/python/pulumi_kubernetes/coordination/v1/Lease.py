@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['LeaseArgs', 'Lease']
+__all__ = ['LeaseInitArgs', 'Lease']
 
 @pulumi.input_type
-class LeaseArgs:
+class LeaseInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -109,18 +109,18 @@ class Lease(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[LeaseArgs] = None,
+                 args: Optional[LeaseInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Lease defines a lease concept.
 
         :param str resource_name: The name of the resource.
-        :param LeaseArgs args: The arguments to use to populate this resource's properties.
+        :param LeaseInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(LeaseArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(LeaseInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -143,7 +143,7 @@ class Lease(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = LeaseArgs.__new__(LeaseArgs)
+            __props__ = LeaseInitArgs.__new__(LeaseInitArgs)
 
             __props__.__dict__["api_version"] = 'coordination.k8s.io/v1'
             __props__.__dict__["kind"] = 'Lease'
@@ -171,7 +171,7 @@ class Lease(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = LeaseArgs.__new__(LeaseArgs)
+        __props__ = LeaseInitArgs.__new__(LeaseInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

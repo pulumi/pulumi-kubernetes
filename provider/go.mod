@@ -5,16 +5,16 @@ go 1.16
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
 	github.com/evanphx/json-patch v4.9.0+incompatible
-	github.com/golang/protobuf v1.4.3
+	github.com/golang/protobuf v1.5.2
 	github.com/googleapis/gnostic v0.4.1
 	github.com/imdario/mergo v0.3.11
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v3 v3.3.2-0.20210526220051-aeb6857f7f29
-	github.com/pulumi/pulumi/sdk/v3 v3.3.1
+	github.com/pulumi/pulumi/pkg/v3 v3.5.1
+	github.com/pulumi/pulumi/sdk/v3 v3.5.1
 	github.com/stretchr/testify v1.7.0
-	google.golang.org/grpc v1.34.0
+	google.golang.org/grpc v1.37.0
 	helm.sh/helm/v3 v3.5.4
 	k8s.io/api v0.20.4
 	k8s.io/apimachinery v0.20.4
