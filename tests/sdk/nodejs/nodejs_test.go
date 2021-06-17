@@ -17,14 +17,11 @@ package test
 import (
 	b64 "encoding/base64"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
-	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/tests/v3"
@@ -536,31 +533,32 @@ func TestGet(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestIstio(t *testing.T) {
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:         filepath.Join("istio", "step1"),
-		Quick:       true,
-		SkipRefresh: true,
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			frontend := stackInfo.Outputs["frontendIp"].(string)
-
-			// Retry the GET on the Istio gateway repeatedly. Istio doesn't publish `.status` on any
-			// of its CRDs, so this is as reliable as we can be right now.
-			for i := 1; i < 10; i++ {
-				req, err := http.Get(fmt.Sprintf("http://%s", frontend))
-				if err != nil {
-					fmt.Printf("Request to Istio gateway failed: %v\n", err)
-					time.Sleep(time.Second * 10)
-				} else if req.StatusCode == 200 {
-					return
-				}
-			}
-
-			assert.Fail(t, "Maximum Istio gateway request retries exceeded")
-		},
-	})
-	integration.ProgramTest(t, &test)
-}
+// TODO(lblackstone): Disable Istio test until https://github.com/pulumi/pulumi-kubernetes/issues/1622 is fixed.
+//func TestIstio(t *testing.T) {
+//	test := baseOptions.With(integration.ProgramTestOptions{
+//		Dir:         filepath.Join("istio", "step1"),
+//		Quick:       true,
+//		SkipRefresh: true,
+//		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+//			frontend := stackInfo.Outputs["frontendIp"].(string)
+//
+//			// Retry the GET on the Istio gateway repeatedly. Istio doesn't publish `.status` on any
+//			// of its CRDs, so this is as reliable as we can be right now.
+//			for i := 1; i < 10; i++ {
+//				req, err := http.Get(fmt.Sprintf("http://%s", frontend))
+//				if err != nil {
+//					fmt.Printf("Request to Istio gateway failed: %v\n", err)
+//					time.Sleep(time.Second * 10)
+//				} else if req.StatusCode == 200 {
+//					return
+//				}
+//			}
+//
+//			assert.Fail(t, "Maximum Istio gateway request retries exceeded")
+//		},
+//	})
+//	integration.ProgramTest(t, &test)
+//}
 
 func TestKustomize(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
