@@ -252,7 +252,6 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"packageReferences": map[string]string{
 			"Glob":                         "1.1.5",
 			"Pulumi":                       "3.*",
-			"System.Collections.Immutable": "1.6.0",
 		},
 		"namespaces":             csharpNamespaces,
 		"compatibility":          kubernetes20,

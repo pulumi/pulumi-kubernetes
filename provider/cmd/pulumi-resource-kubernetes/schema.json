@@ -42344,8 +42344,7 @@
             },
             "packageReferences": {
                 "Glob": "1.1.5",
-                "Pulumi": "3.*",
-                "System.Collections.Immutable": "1.6.0"
+                "Pulumi": "3.*"
             }
         },
         "go": {

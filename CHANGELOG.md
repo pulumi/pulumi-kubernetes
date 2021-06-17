@@ -6,6 +6,7 @@
 - Fix hanging updates for deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1596)
 - Fix auto-naming bug for computed names (https://github.com/pulumi/pulumi-kubernetes/pull/1618)
 - [sdk/python] Revert pulumi dependency to <4.0.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1619)
+- [sdk/dotnet] Unpin System.Collections.Immutable dependency (https://github.com/pulumi/pulumi-kubernetes/pull/1621)
 
 ## 3.3.1 (June 8, 2021)
 
