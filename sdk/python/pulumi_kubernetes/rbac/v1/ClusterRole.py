@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['ClusterRoleArgs', 'ClusterRole']
+__all__ = ['ClusterRoleInitArgs', 'ClusterRole']
 
 @pulumi.input_type
-class ClusterRoleArgs:
+class ClusterRoleInitArgs:
     def __init__(__self__, *,
                  aggregation_rule: Optional[pulumi.Input['AggregationRuleArgs']] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -127,18 +127,18 @@ class ClusterRole(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ClusterRoleArgs] = None,
+                 args: Optional[ClusterRoleInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 
         :param str resource_name: The name of the resource.
-        :param ClusterRoleArgs args: The arguments to use to populate this resource's properties.
+        :param ClusterRoleInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(ClusterRoleArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(ClusterRoleInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -162,7 +162,7 @@ class ClusterRole(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = ClusterRoleArgs.__new__(ClusterRoleArgs)
+            __props__ = ClusterRoleInitArgs.__new__(ClusterRoleInitArgs)
 
             __props__.__dict__["aggregation_rule"] = aggregation_rule
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1'
@@ -191,7 +191,7 @@ class ClusterRole(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = ClusterRoleArgs.__new__(ClusterRoleArgs)
+        __props__ = ClusterRoleInitArgs.__new__(ClusterRoleInitArgs)
 
         __props__.__dict__["aggregation_rule"] = None
         __props__.__dict__["api_version"] = None

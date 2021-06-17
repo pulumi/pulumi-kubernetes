@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['CSINodeArgs', 'CSINode']
+__all__ = ['CSINodeInitArgs', 'CSINode']
 
 @pulumi.input_type
-class CSINodeArgs:
+class CSINodeInitArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['CSINodeSpecArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -108,18 +108,18 @@ class CSINode(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: CSINodeArgs,
+                 args: CSINodeInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
 
         :param str resource_name: The name of the resource.
-        :param CSINodeArgs args: The arguments to use to populate this resource's properties.
+        :param CSINodeInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(CSINodeArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(CSINodeInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -142,7 +142,7 @@ class CSINode(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = CSINodeArgs.__new__(CSINodeArgs)
+            __props__ = CSINodeInitArgs.__new__(CSINodeInitArgs)
 
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'CSINode'
@@ -172,7 +172,7 @@ class CSINode(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = CSINodeArgs.__new__(CSINodeArgs)
+        __props__ = CSINodeInitArgs.__new__(CSINodeInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

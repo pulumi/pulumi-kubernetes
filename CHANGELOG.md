@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Update pulumi dependencies v3.5.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1623)
+
 ## 3.4.0 (June 17, 2021)
 
 - Add skipAwait option to helm.v3 SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1603)

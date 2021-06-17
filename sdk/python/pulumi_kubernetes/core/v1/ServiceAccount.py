@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['ServiceAccountArgs', 'ServiceAccount']
+__all__ = ['ServiceAccountInitArgs', 'ServiceAccount']
 
 @pulumi.input_type
-class ServiceAccountArgs:
+class ServiceAccountInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  automount_service_account_token: Optional[pulumi.Input[bool]] = None,
@@ -145,18 +145,18 @@ class ServiceAccount(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ServiceAccountArgs] = None,
+                 args: Optional[ServiceAccountInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
 
         :param str resource_name: The name of the resource.
-        :param ServiceAccountArgs args: The arguments to use to populate this resource's properties.
+        :param ServiceAccountInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(ServiceAccountArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(ServiceAccountInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -181,7 +181,7 @@ class ServiceAccount(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = ServiceAccountArgs.__new__(ServiceAccountArgs)
+            __props__ = ServiceAccountInitArgs.__new__(ServiceAccountInitArgs)
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["automount_service_account_token"] = automount_service_account_token
@@ -209,7 +209,7 @@ class ServiceAccount(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = ServiceAccountArgs.__new__(ServiceAccountArgs)
+        __props__ = ServiceAccountInitArgs.__new__(ServiceAccountInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["automount_service_account_token"] = None

@@ -12,10 +12,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['DaemonSetArgs', 'DaemonSet']
+__all__ = ['DaemonSetInitArgs', 'DaemonSet']
 
 @pulumi.input_type
-class DaemonSetArgs:
+class DaemonSetInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -110,18 +110,18 @@ class DaemonSet(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[DaemonSetArgs] = None,
+                 args: Optional[DaemonSetInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         DaemonSet represents the configuration of a daemon set.
 
         :param str resource_name: The name of the resource.
-        :param DaemonSetArgs args: The arguments to use to populate this resource's properties.
+        :param DaemonSetInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(DaemonSetArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(DaemonSetInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -144,7 +144,7 @@ class DaemonSet(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = DaemonSetArgs.__new__(DaemonSetArgs)
+            __props__ = DaemonSetInitArgs.__new__(DaemonSetInitArgs)
 
             __props__.__dict__["api_version"] = 'extensions/v1beta1'
             __props__.__dict__["kind"] = 'DaemonSet'
@@ -173,7 +173,7 @@ class DaemonSet(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = DaemonSetArgs.__new__(DaemonSetArgs)
+        __props__ = DaemonSetInitArgs.__new__(DaemonSetInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

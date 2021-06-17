@@ -9,10 +9,10 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
-__all__ = ['ControllerRevisionArgs', 'ControllerRevision']
+__all__ = ['ControllerRevisionInitArgs', 'ControllerRevision']
 
 @pulumi.input_type
-class ControllerRevisionArgs:
+class ControllerRevisionInitArgs:
     def __init__(__self__, *,
                  revision: pulumi.Input[int],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -124,18 +124,18 @@ class ControllerRevision(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: ControllerRevisionArgs,
+                 args: ControllerRevisionInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
 
         :param str resource_name: The name of the resource.
-        :param ControllerRevisionArgs args: The arguments to use to populate this resource's properties.
+        :param ControllerRevisionInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(ControllerRevisionArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(ControllerRevisionInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -159,7 +159,7 @@ class ControllerRevision(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = ControllerRevisionArgs.__new__(ControllerRevisionArgs)
+            __props__ = ControllerRevisionInitArgs.__new__(ControllerRevisionInitArgs)
 
             __props__.__dict__["api_version"] = 'apps/v1beta2'
             __props__.__dict__["data"] = data
@@ -190,7 +190,7 @@ class ControllerRevision(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = ControllerRevisionArgs.__new__(ControllerRevisionArgs)
+        __props__ = ControllerRevisionInitArgs.__new__(ControllerRevisionInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["data"] = None

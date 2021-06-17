@@ -12,10 +12,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['PodSecurityPolicyArgs', 'PodSecurityPolicy']
+__all__ = ['PodSecurityPolicyInitArgs', 'PodSecurityPolicy']
 
 @pulumi.input_type
-class PodSecurityPolicyArgs:
+class PodSecurityPolicyInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -110,18 +110,18 @@ class PodSecurityPolicy(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[PodSecurityPolicyArgs] = None,
+                 args: Optional[PodSecurityPolicyInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
 
         :param str resource_name: The name of the resource.
-        :param PodSecurityPolicyArgs args: The arguments to use to populate this resource's properties.
+        :param PodSecurityPolicyInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(PodSecurityPolicyArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(PodSecurityPolicyInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -144,7 +144,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = PodSecurityPolicyArgs.__new__(PodSecurityPolicyArgs)
+            __props__ = PodSecurityPolicyInitArgs.__new__(PodSecurityPolicyInitArgs)
 
             __props__.__dict__["api_version"] = 'policy/v1beta1'
             __props__.__dict__["kind"] = 'PodSecurityPolicy'
@@ -172,7 +172,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = PodSecurityPolicyArgs.__new__(PodSecurityPolicyArgs)
+        __props__ = PodSecurityPolicyInitArgs.__new__(PodSecurityPolicyInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

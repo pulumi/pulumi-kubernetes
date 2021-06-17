@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['CustomResourceDefinitionArgs', 'CustomResourceDefinition']
+__all__ = ['CustomResourceDefinitionInitArgs', 'CustomResourceDefinition']
 
 @pulumi.input_type
-class CustomResourceDefinitionArgs:
+class CustomResourceDefinitionInitArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['CustomResourceDefinitionSpecArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -103,18 +103,18 @@ class CustomResourceDefinition(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: CustomResourceDefinitionArgs,
+                 args: CustomResourceDefinitionInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 
         :param str resource_name: The name of the resource.
-        :param CustomResourceDefinitionArgs args: The arguments to use to populate this resource's properties.
+        :param CustomResourceDefinitionInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(CustomResourceDefinitionArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(CustomResourceDefinitionInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -137,7 +137,7 @@ class CustomResourceDefinition(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = CustomResourceDefinitionArgs.__new__(CustomResourceDefinitionArgs)
+            __props__ = CustomResourceDefinitionInitArgs.__new__(CustomResourceDefinitionInitArgs)
 
             __props__.__dict__["api_version"] = 'apiextensions.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'CustomResourceDefinition'
@@ -168,7 +168,7 @@ class CustomResourceDefinition(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = CustomResourceDefinitionArgs.__new__(CustomResourceDefinitionArgs)
+        __props__ = CustomResourceDefinitionInitArgs.__new__(CustomResourceDefinitionInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

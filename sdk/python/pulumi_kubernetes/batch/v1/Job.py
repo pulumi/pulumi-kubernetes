@@ -12,10 +12,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['JobArgs', 'Job']
+__all__ = ['JobInitArgs', 'Job']
 
 @pulumi.input_type
-class JobArgs:
+class JobInitArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
@@ -130,7 +130,7 @@ class Job(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[JobArgs] = None,
+                 args: Optional[JobInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Job represents the configuration of a single job.
@@ -156,12 +156,12 @@ class Job(pulumi.CustomResource):
         "pulumi.com/replaceUnready": "true" annotation to the resource definition.
 
         :param str resource_name: The name of the resource.
-        :param JobArgs args: The arguments to use to populate this resource's properties.
+        :param JobInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(JobArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(JobInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -184,7 +184,7 @@ class Job(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = JobArgs.__new__(JobArgs)
+            __props__ = JobInitArgs.__new__(JobInitArgs)
 
             __props__.__dict__["api_version"] = 'batch/v1'
             __props__.__dict__["kind"] = 'Job'
@@ -211,7 +211,7 @@ class Job(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = JobArgs.__new__(JobArgs)
+        __props__ = JobInitArgs.__new__(JobInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

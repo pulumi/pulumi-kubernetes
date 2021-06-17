@@ -10,10 +10,10 @@ from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
 
-__all__ = ['StorageClassArgs', 'StorageClass']
+__all__ = ['StorageClassInitArgs', 'StorageClass']
 
 @pulumi.input_type
-class StorageClassArgs:
+class StorageClassInitArgs:
     def __init__(__self__, *,
                  provisioner: pulumi.Input[str],
                  allow_volume_expansion: Optional[pulumi.Input[bool]] = None,
@@ -217,7 +217,7 @@ class StorageClass(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: StorageClassArgs,
+                 args: StorageClassInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
@@ -225,12 +225,12 @@ class StorageClass(pulumi.CustomResource):
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
 
         :param str resource_name: The name of the resource.
-        :param StorageClassArgs args: The arguments to use to populate this resource's properties.
+        :param StorageClassInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(StorageClassArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(StorageClassInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -259,7 +259,7 @@ class StorageClass(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = StorageClassArgs.__new__(StorageClassArgs)
+            __props__ = StorageClassInitArgs.__new__(StorageClassInitArgs)
 
             __props__.__dict__["allow_volume_expansion"] = allow_volume_expansion
             __props__.__dict__["allowed_topologies"] = allowed_topologies
@@ -295,7 +295,7 @@ class StorageClass(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = StorageClassArgs.__new__(StorageClassArgs)
+        __props__ = StorageClassInitArgs.__new__(StorageClassInitArgs)
 
         __props__.__dict__["allow_volume_expansion"] = None
         __props__.__dict__["allowed_topologies"] = None

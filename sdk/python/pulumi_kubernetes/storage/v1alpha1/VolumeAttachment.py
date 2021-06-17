@@ -12,10 +12,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['VolumeAttachmentArgs', 'VolumeAttachment']
+__all__ = ['VolumeAttachmentInitArgs', 'VolumeAttachment']
 
 @pulumi.input_type
-class VolumeAttachmentArgs:
+class VolumeAttachmentInitArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['VolumeAttachmentSpecArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -111,7 +111,7 @@ class VolumeAttachment(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: VolumeAttachmentArgs,
+                 args: VolumeAttachmentInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
@@ -119,12 +119,12 @@ class VolumeAttachment(pulumi.CustomResource):
         VolumeAttachment objects are non-namespaced.
 
         :param str resource_name: The name of the resource.
-        :param VolumeAttachmentArgs args: The arguments to use to populate this resource's properties.
+        :param VolumeAttachmentInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(VolumeAttachmentArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(VolumeAttachmentInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -147,7 +147,7 @@ class VolumeAttachment(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = VolumeAttachmentArgs.__new__(VolumeAttachmentArgs)
+            __props__ = VolumeAttachmentInitArgs.__new__(VolumeAttachmentInitArgs)
 
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'VolumeAttachment'
@@ -178,7 +178,7 @@ class VolumeAttachment(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = VolumeAttachmentArgs.__new__(VolumeAttachmentArgs)
+        __props__ = VolumeAttachmentInitArgs.__new__(VolumeAttachmentInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None

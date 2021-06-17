@@ -9,10 +9,10 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
-__all__ = ['CSIStorageCapacityArgs', 'CSIStorageCapacity']
+__all__ = ['CSIStorageCapacityInitArgs', 'CSIStorageCapacity']
 
 @pulumi.input_type
-class CSIStorageCapacityArgs:
+class CSIStorageCapacityInitArgs:
     def __init__(__self__, *,
                  storage_class_name: pulumi.Input[str],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -192,7 +192,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: CSIStorageCapacityArgs,
+                 args: CSIStorageCapacityInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
@@ -206,12 +206,12 @@ class CSIStorageCapacity(pulumi.CustomResource):
         They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
 
         :param str resource_name: The name of the resource.
-        :param CSIStorageCapacityArgs args: The arguments to use to populate this resource's properties.
+        :param CSIStorageCapacityInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(CSIStorageCapacityArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(CSIStorageCapacityInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -237,7 +237,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = CSIStorageCapacityArgs.__new__(CSIStorageCapacityArgs)
+            __props__ = CSIStorageCapacityInitArgs.__new__(CSIStorageCapacityInitArgs)
 
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
             __props__.__dict__["capacity"] = capacity
@@ -270,7 +270,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = CSIStorageCapacityArgs.__new__(CSIStorageCapacityArgs)
+        __props__ = CSIStorageCapacityInitArgs.__new__(CSIStorageCapacityInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["capacity"] = None

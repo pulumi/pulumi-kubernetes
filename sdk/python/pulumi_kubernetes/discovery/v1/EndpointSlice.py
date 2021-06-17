@@ -12,10 +12,10 @@ from ... import core as _core
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['EndpointSliceArgs', 'EndpointSlice']
+__all__ = ['EndpointSliceInitArgs', 'EndpointSlice']
 
 @pulumi.input_type
-class EndpointSliceArgs:
+class EndpointSliceInitArgs:
     def __init__(__self__, *,
                  address_type: pulumi.Input[str],
                  endpoints: pulumi.Input[Sequence[pulumi.Input['EndpointArgs']]],
@@ -144,18 +144,18 @@ class EndpointSlice(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: EndpointSliceArgs,
+                 args: EndpointSliceInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 
         :param str resource_name: The name of the resource.
-        :param EndpointSliceArgs args: The arguments to use to populate this resource's properties.
+        :param EndpointSliceInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(EndpointSliceArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(EndpointSliceInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -180,7 +180,7 @@ class EndpointSlice(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = EndpointSliceArgs.__new__(EndpointSliceArgs)
+            __props__ = EndpointSliceInitArgs.__new__(EndpointSliceInitArgs)
 
             if address_type is None and not opts.urn:
                 raise TypeError("Missing required property 'address_type'")
@@ -214,7 +214,7 @@ class EndpointSlice(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = EndpointSliceArgs.__new__(EndpointSliceArgs)
+        __props__ = EndpointSliceInitArgs.__new__(EndpointSliceInitArgs)
 
         __props__.__dict__["address_type"] = None
         __props__.__dict__["api_version"] = None

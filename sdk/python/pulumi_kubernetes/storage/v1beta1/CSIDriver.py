@@ -11,10 +11,10 @@ from . import outputs
 from ... import meta as _meta
 from ._inputs import *
 
-__all__ = ['CSIDriverArgs', 'CSIDriver']
+__all__ = ['CSIDriverInitArgs', 'CSIDriver']
 
 @pulumi.input_type
-class CSIDriverArgs:
+class CSIDriverInitArgs:
     def __init__(__self__, *,
                  spec: pulumi.Input['CSIDriverSpecArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -108,18 +108,18 @@ class CSIDriver(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: CSIDriverArgs,
+                 args: CSIDriverInitArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
 
         :param str resource_name: The name of the resource.
-        :param CSIDriverArgs args: The arguments to use to populate this resource's properties.
+        :param CSIDriverInitArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(CSIDriverArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(CSIDriverInitArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -142,7 +142,7 @@ class CSIDriver(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = CSIDriverArgs.__new__(CSIDriverArgs)
+            __props__ = CSIDriverInitArgs.__new__(CSIDriverInitArgs)
 
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'CSIDriver'
@@ -172,7 +172,7 @@ class CSIDriver(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = CSIDriverArgs.__new__(CSIDriverArgs)
+        __props__ = CSIDriverInitArgs.__new__(CSIDriverInitArgs)
 
         __props__.__dict__["api_version"] = None
         __props__.__dict__["kind"] = None
