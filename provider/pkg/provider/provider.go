@@ -2018,12 +2018,6 @@ func (k *kubeProvider) Delete(
 	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	if k.clusterUnreachable {
-		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s\n"+
-			"If the cluster has been deleted, you can edit the pulumi state to remove this resource",
-			k.clusterUnreachableReason)
-	}
-
 	// TODO(hausdorff): Propagate other options, like grace period through flags.
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
@@ -2035,15 +2029,6 @@ func (k *kubeProvider) Delete(
 	}
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
-
-	initialAPIVersion, err := initialAPIVersion(oldState, &unstructured.Unstructured{})
-	if err != nil {
-		return nil, err
-	}
-	resources, err := k.getResources()
-	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
-	}
 
 	if k.yamlRenderMode {
 		file := renderPathForResource(current, k.yamlDirectory)
@@ -2059,6 +2044,22 @@ func (k *kubeProvider) Delete(
 
 		return &pbempty.Empty{}, nil
 	}
+
+	if k.clusterUnreachable {
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s\n"+
+			"If the cluster has been deleted, you can edit the pulumi state to remove this resource",
+			k.clusterUnreachableReason)
+	}
+
+	initialAPIVersion, err := initialAPIVersion(oldState, &unstructured.Unstructured{})
+	if err != nil {
+		return nil, err
+	}
+	resources, err := k.getResources()
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
+	}
+
 
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
