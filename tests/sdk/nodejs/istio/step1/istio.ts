@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,26 +40,8 @@ const adminBinding = new k8s.rbac.v1.ClusterRoleBinding(
     { provider: k8sProvider }
 );
 
-export const istio_init = new k8s.helm.v2.Chart(
-    `${appName}-init`,
-    {
-        path: "charts/istio-init",
-        namespace: namespace.metadata.name,
-        values: { kiali: { enabled: true } }
-    },
-    { dependsOn: [namespace, adminBinding], providers: { kubernetes: k8sProvider } }
-);
-
-export const crd10 = namespace.metadata.name.apply(ns => istio_init.getResource("batch/v1/Job", ns, "istio-init-crd-10"));
-export const crd11 = namespace.metadata.name.apply(ns => istio_init.getResource("batch/v1/Job", ns, "istio-init-crd-11"));
-export const crd12 = namespace.metadata.name.apply(ns => istio_init.getResource("batch/v1/Job", ns, "istio-init-crd-12"));
-
-export const istio = new k8s.helm.v2.Chart(
-    appName,
-    {
-        path: "charts/istio",
-        namespace: namespace.metadata.name,
-        values: { kiali: { enabled: true } }
-    },
-    { dependsOn: [adminBinding, crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
-);
+// Generated YAML using `istioctl manifest generate > yaml/istio.yaml`
+// istioctl version: 1.10.1
+export const istio = new k8s.yaml.ConfigFile(appName, {
+    file: "yaml/istio.yaml",
+}, { provider: k8sProvider });

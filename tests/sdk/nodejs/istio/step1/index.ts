@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ import * as k8s from "@pulumi/kubernetes";
 import * as pulumi from "@pulumi/pulumi";
 
 import { k8sProvider } from "./cluster";
-import { crd10, crd11, crd12, istio } from "./istio";
+import { istio } from "./istio";
 
 new k8s.core.v1.Namespace(
     "bookinfo",
@@ -33,13 +33,13 @@ function addNamespace(o: any) {
 const bookinfo = new k8s.yaml.ConfigFile(
     "yaml/bookinfo.yaml",
     { transformations: [addNamespace] },
-    { dependsOn: [crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
+    { provider: k8sProvider }
 );
 
 new k8s.yaml.ConfigFile(
     "yaml/bookinfo-gateway.yaml",
     { transformations: [addNamespace] },
-    { dependsOn: [crd10, crd11, crd12], providers: { kubernetes: k8sProvider } }
+    { provider: k8sProvider }
 );
 
 export const port = istio
