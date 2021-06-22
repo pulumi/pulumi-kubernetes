@@ -2213,6 +2213,9 @@ func (k *kubeProvider) serverSidePatch(
 		newObject, err = client.Create(context.TODO(), newInputs, metav1.CreateOptions{
 			DryRun: []string{metav1.DryRunAll},
 		})
+		if err != nil {
+			return nil, nil, err
+		}
 	case err == nil:
 		newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
 			DryRun: []string{metav1.DryRunAll},
