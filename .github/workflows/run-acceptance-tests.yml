@@ -140,7 +140,8 @@ jobs:
           echo 'SCHEMA_CHANGES<<EOF' >> $GITHUB_ENV
           schema-tools compare ${{ env.PROVIDER }} master --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-      - name: Comment on PR with Details of Schema Check
+      - if: github.event_name != 'repository_dispatch'
+        name: Comment on PR with Details of Schema Check
         uses: thollander/actions-comment-pull-request@1.0.1
         with:
           message: |
@@ -148,6 +149,10 @@ jobs:
 
             ${{ env.SCHEMA_CHANGES }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - if: github.event_name == 'repository_dispatch'
+        name: Write details of schema change to the action log
+        run: |
+          echo $SCHEMA_CHANGES
       - name: Tar provider binaries
         run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
           }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-gen-${{ env.PROVIDER
