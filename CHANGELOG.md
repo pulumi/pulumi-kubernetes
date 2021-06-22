@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Update pulumi dependencies v3.5.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1623)
+- Skip cluster connectivity check in yamlRenderMode (https://github.com/pulumi/pulumi-kubernetes/pull/1629)
 
 ## 3.4.0 (June 17, 2021)
 
