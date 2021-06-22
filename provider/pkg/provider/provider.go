@@ -2060,7 +2060,6 @@ func (k *kubeProvider) Delete(
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
 	}
 
-
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
 			Context:           k.canceler.context, // TODO: should this just be ctx from the args?
