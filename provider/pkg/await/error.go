@@ -2,6 +2,8 @@ package await
 
 import (
 	"fmt"
+
+	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -12,6 +14,11 @@ type AggregatedError interface {
 
 // PartialError represents an object that failed to complete its current operation.
 type PartialError interface {
+	Object() *unstructured.Unstructured
+}
+
+// PreviewError represents a preview operation that failed.
+type PreviewError interface {
 	Object() *unstructured.Unstructured
 }
 
@@ -36,6 +43,22 @@ func (ce *cancellationError) SubErrors() []string {
 
 func (ce *cancellationError) Object() *unstructured.Unstructured {
 	return ce.object
+}
+
+// namespaceError represents an operation that failed because the namespace didn't exist.
+type namespaceError struct {
+	object *unstructured.Unstructured
+}
+
+var _ error = (*namespaceError)(nil)
+var _ PreviewError = (*namespaceError)(nil)
+
+func (ne *namespaceError) Error() string {
+	return fmt.Sprintf("namespace does not exist for %q", ne.object.GetName())
+}
+
+func (ne *namespaceError) Object() *unstructured.Unstructured {
+	return ne.object
 }
 
 // timeoutError represents an operation that failed because it timed out.
@@ -83,4 +106,14 @@ func (ie *initializationError) SubErrors() []string {
 
 func (ie *initializationError) Object() *unstructured.Unstructured {
 	return ie.object
+}
+
+// IsNamespaceNotFoundErr returns true if the namespace wasn't found for a k8s client operation.
+func IsNamespaceNotFoundErr(err error) bool {
+	se, isStatusError := err.(*errors.StatusError)
+	if !isStatusError {
+		return false
+	}
+
+	return errors.IsNotFound(err) && se.Status().Details.Kind == "namespaces"
 }
