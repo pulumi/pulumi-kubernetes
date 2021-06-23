@@ -16,13 +16,13 @@ import * as k8s from "@pulumi/kubernetes";
 import * as random from "@pulumi/random";
 import * as pulumi from "@pulumi/pulumi";
 
-// This test creates a Provider with `enableDryRun` (server side apply) enabled. A namespace is also specified, which
-// causes the Deployment to be created in that namespace.
+// This test creates a Provider with `enableDryRun` (server side apply) enabled. The namespace option is removed, which
+// causes the Deployment to be recreated in the default namespace.
 
 // TODO(levi): Use auto-naming for namespace once https://github.com/pulumi/pulumi-kubernetes/issues/1632 is fixed.
 const suffix = new random.RandomString("suffix", {length: 7, special: false, upper: false}).result;
 const ns = new k8s.core.v1.Namespace("test", {metadata: {name: pulumi.interpolate`test-${suffix}`}});
-const provider = new k8s.Provider("k8s", {enableDryRun: true, namespace: ns.metadata.name});
+const provider = new k8s.Provider("k8s", {enableDryRun: true}); // Use the default namespace.
 
 const appLabels = { app: "nginx" };
 const deployment = new k8s.apps.v1.Deployment("nginx", {

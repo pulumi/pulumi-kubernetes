@@ -451,6 +451,12 @@ func TestDeploymentRollout(t *testing.T) {
 func TestDryRun(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join("dry-run", "step1"),
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("dry-run", "step2"),
+				Additive: true,
+			},
+		},
 	})
 	integration.ProgramTest(t, &test)
 }

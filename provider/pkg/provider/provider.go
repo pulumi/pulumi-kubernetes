@@ -2201,12 +2201,23 @@ func (k *kubeProvider) serverSidePatch(
 	var newObject *unstructured.Unstructured
 	_, err = client.Get(context.TODO(), newInputs.GetName(), metav1.GetOptions{})
 	switch {
-	case err == nil:
-		newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
 	case errors.IsNotFound(err):
 		newObject, err = client.Create(context.TODO(), newInputs, metav1.CreateOptions{
+			DryRun: []string{metav1.DryRunAll},
+		})
+	case newInputs.GetNamespace() != oldInputs.GetNamespace():
+		client, err := k.clientSet.ResourceClient(newInputs.GroupVersionKind(), newInputs.GetNamespace())
+		if err != nil {
+			return nil, nil, err
+		}
+		newObject, err = client.Create(context.TODO(), newInputs, metav1.CreateOptions{
+			DryRun: []string{metav1.DryRunAll},
+		})
+		if err != nil {
+			return nil, nil, err
+		}
+	case err == nil:
+		newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
 			DryRun: []string{metav1.DryRunAll},
 		})
 	default:
