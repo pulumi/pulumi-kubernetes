@@ -3,12 +3,9 @@ package await
 import (
 	"context"
 	"fmt"
-	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"reflect"
 	"strings"
 	"time"
-
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
@@ -18,12 +15,16 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/tools/cache"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -145,6 +146,36 @@ func (dia *deploymentInitAwaiter) Await() error {
 	//      because it doesn't do a rollout (i.e., it simply creates the Deployment and
 	//      corresponding ReplicaSet), and therefore there is no rollout to mark as "Progressing".
 	//
+	stopper := make(chan struct{})
+	defer close(stopper)
+	deploymentEvents := make(chan watch.Event)
+	deploymentInformer := dia.config.informerFactory.ForResource(
+		schema.GroupVersionResource{
+			Group:    "apps",
+			Version:  "v1",
+			Resource: "deployments",
+		}).Informer()
+	deploymentInformer.AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: func(obj interface{}) {
+			deploymentEvents <- watch.Event{
+				Object: obj.(*unstructured.Unstructured),
+				Type:   watch.Added,
+			}
+		},
+		UpdateFunc: func(_, newObj interface{}) {
+			deploymentEvents <- watch.Event{
+				Object: newObj.(*unstructured.Unstructured),
+				Type:   watch.Modified,
+			}
+		},
+		DeleteFunc: func(obj interface{}) {
+			deploymentEvents <- watch.Event{
+				Object: obj.(*unstructured.Unstructured),
+				Type:   watch.Deleted,
+			}
+		},
+	})
+	go deploymentInformer.Run(stopper)
 	deploymentClient, replicaSetClient, podClient, pvcClient, err := dia.makeClients()
 	if err != nil {
 		return err
@@ -241,6 +272,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 
 	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
 	return dia.await(
+		deploymentEvents,
 		deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), aggregateErrorTicker.C)
 }
 
@@ -335,6 +367,7 @@ func (dia *deploymentInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (dia *deploymentInitAwaiter) await(
+	deploymentEvents <-chan watch.Event,
 	deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher watch.Interface,
 	timeout, aggregateErrorTicker <-chan time.Time,
 ) error {
@@ -362,7 +395,7 @@ func (dia *deploymentInitAwaiter) await(
 			for _, message := range messages {
 				dia.config.logMessage(message)
 			}
-		case event := <-deploymentWatcher.ResultChan():
+		case event := <-deploymentEvents:
 			dia.processDeploymentEvent(event)
 		case event := <-replicaSetWatcher.ResultChan():
 			dia.processReplicaSetEvent(event)
