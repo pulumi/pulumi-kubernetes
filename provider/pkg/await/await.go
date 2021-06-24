@@ -37,6 +37,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 )
 
@@ -59,9 +60,10 @@ type ProviderConfig struct {
 	InitialAPIVersion string
 	ClusterVersion    *cluster.ServerVersion
 
-	ClientSet   *clients.DynamicClientSet
-	DedupLogger *logging.DedupLogger
-	Resources   k8sopenapi.Resources
+	ClientSet       *clients.DynamicClientSet
+	InformerFactory dynamicinformer.DynamicSharedInformerFactory
+	DedupLogger     *logging.DedupLogger
+	Resources       k8sopenapi.Resources
 }
 
 type CreateConfig struct {
@@ -215,6 +217,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
+					informerFactory:   c.InformerFactory,
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
