@@ -29,6 +29,7 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
@@ -59,6 +60,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -126,9 +128,10 @@ type kubeProvider struct {
 
 	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
 
-	clientSet  *clients.DynamicClientSet
-	logClient  *clients.LogClient
-	k8sVersion cluster.ServerVersion
+	clientSet       *clients.DynamicClientSet
+	informerFactory dynamicinformer.DynamicSharedInformerFactory
+	logClient       *clients.LogClient
+	k8sVersion      cluster.ServerVersion
 
 	resources      k8sopenapi.Resources
 	resourcesMutex sync.RWMutex
@@ -516,6 +519,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, err
 		}
 		k.clientSet = cs
+
+		k.informerFactory = dynamicinformer.NewDynamicSharedInformerFactory(cs.GenericClient, 5*time.Second)
 
 		lc, err := clients.NewLogClient(k.config)
 		if err != nil {
@@ -1519,6 +1524,7 @@ func (k *kubeProvider) Create(
 			InitialAPIVersion: initialAPIVersion,
 			ClusterVersion:    &k.k8sVersion,
 			ClientSet:         k.clientSet,
+			InformerFactory:   k.informerFactory,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 		},
