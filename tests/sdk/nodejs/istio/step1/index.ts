@@ -53,6 +53,5 @@ export const frontendIp = pulumi
     ])
     .apply(([status, spec]) => {
         const port = spec.ports.filter(p => p.name == "http2")[0].port;
-        const ingress = status.loadBalancer.ingress[0];
-        return `${ingress.hostname ?? ingress.ip}:${port}/productpage`;
+        return `${status.loadBalancer.ingress[0].ip}:${port}/productpage`;
     });
