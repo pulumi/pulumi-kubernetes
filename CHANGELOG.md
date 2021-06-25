@@ -5,6 +5,9 @@
 - Handle different namespaces for server-side diff (https://github.com/pulumi/pulumi-kubernetes/pull/1631)
 - *Revert* Fix hanging updates for deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1596)
 
+## 3.4.1 (June 24, 2021)
+- *Revert* Fix hanging updates for deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1596)
+
 ## 3.4.0 (June 17, 2021)
 
 - Add skipAwait option to helm.v3 SDKs. (https://github.com/pulumi/pulumi-kubernetes/pull/1603)
