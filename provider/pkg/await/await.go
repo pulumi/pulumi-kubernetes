@@ -17,6 +17,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
@@ -60,10 +61,9 @@ type ProviderConfig struct {
 	InitialAPIVersion string
 	ClusterVersion    *cluster.ServerVersion
 
-	ClientSet       *clients.DynamicClientSet
-	InformerFactory dynamicinformer.DynamicSharedInformerFactory
-	DedupLogger     *logging.DedupLogger
-	Resources       k8sopenapi.Resources
+	ClientSet   *clients.DynamicClientSet
+	DedupLogger *logging.DedupLogger
+	Resources   k8sopenapi.Resources
 }
 
 type CreateConfig struct {
@@ -217,7 +217,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					informerFactory:   c.InformerFactory,
+					informerFactory:   dynamicinformer.NewDynamicSharedInformerFactory(c.ClientSet.GenericClient, 5*time.Second),
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
@@ -273,6 +273,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
+					informerFactory:   dynamicinformer.NewDynamicSharedInformerFactory(c.ClientSet.GenericClient, 5*time.Second),
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
@@ -403,6 +404,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						urn:               c.URN,
 						initialAPIVersion: c.InitialAPIVersion,
 						clientSet:         c.ClientSet,
+						informerFactory:   dynamicinformer.NewDynamicSharedInformerFactory(c.ClientSet.GenericClient, 5*time.Second),
 						currentInputs:     c.Inputs,
 						currentOutputs:    currentOutputs,
 						logger:            c.DedupLogger,
@@ -497,6 +499,7 @@ func Deletion(c DeleteConfig) error {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
+					informerFactory:   dynamicinformer.NewDynamicSharedInformerFactory(c.ClientSet.GenericClient, 5*time.Second),
 					currentInputs:     c.Inputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,

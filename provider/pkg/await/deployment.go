@@ -3,7 +3,6 @@ package await
 import (
 	"context"
 	"fmt"
-	"reflect"
 	"strings"
 	"time"
 
@@ -17,7 +16,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -148,73 +146,58 @@ func (dia *deploymentInitAwaiter) Await() error {
 	//
 	stopper := make(chan struct{})
 	defer close(stopper)
+
+	// Limit the lifetime of this to each deployment await for now. We can reduce this sharing further later.
+	dia.config.informerFactory.Start(stopper)
 	deploymentEvents := make(chan watch.Event)
-	deploymentInformer := dia.config.informerFactory.ForResource(
+	deploymentV1Informer := dia.makeInformer(
 		schema.GroupVersionResource{
 			Group:    "apps",
 			Version:  "v1",
 			Resource: "deployments",
-		}).Informer()
-	deploymentInformer.AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: func(obj interface{}) {
-			deploymentEvents <- watch.Event{
-				Object: obj.(*unstructured.Unstructured),
-				Type:   watch.Added,
-			}
-		},
-		UpdateFunc: func(_, newObj interface{}) {
-			deploymentEvents <- watch.Event{
-				Object: newObj.(*unstructured.Unstructured),
-				Type:   watch.Modified,
-			}
-		},
-		DeleteFunc: func(obj interface{}) {
-			deploymentEvents <- watch.Event{
-				Object: obj.(*unstructured.Unstructured),
-				Type:   watch.Deleted,
-			}
-		},
-	})
-	go deploymentInformer.Run(stopper)
-	deploymentClient, replicaSetClient, podClient, pvcClient, err := dia.makeClients()
-	if err != nil {
-		return err
-	}
+		}, deploymentEvents)
+	go deploymentV1Informer.Run(stopper)
+	deploymentV1Beta1Informer := dia.makeInformer(
+		schema.GroupVersionResource{
+			Group:    "extensions",
+			Version:  "v1beta1",
+			Resource: "deployments",
+		}, deploymentEvents)
+	go deploymentV1Beta1Informer.Run(stopper)
 
-	// Create Deployment watcher.
-	deploymentWatcher, err := deploymentClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err, "could not set up watch for Deployment object %q",
-			dia.config.currentInputs.GetName())
-	}
-	defer deploymentWatcher.Stop()
+	replicaSetEvents := make(chan watch.Event)
+	replicaSetV1Informer := dia.makeInformer(
+		schema.GroupVersionResource{
+			Group:    "apps",
+			Version:  "v1",
+			Resource: "replicasets",
+		}, replicaSetEvents)
+	go replicaSetV1Informer.Run(stopper)
+	replicaSetV1Beta1Informer := dia.makeInformer(
+		schema.GroupVersionResource{
+			Group:    "extensions",
+			Version:  "v1beta1",
+			Resource: "replicasets",
+		}, replicaSetEvents)
+	go replicaSetV1Beta1Informer.Run(stopper)
 
-	// Create ReplicaSet watcher.
-	replicaSetWatcher, err := replicaSetClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for ReplicaSet objects associated with Deployment %q",
-			dia.config.currentInputs.GetName())
-	}
-	defer replicaSetWatcher.Stop()
+	podEvents := make(chan watch.Event)
+	podV1Informer := dia.makeInformer(
+		schema.GroupVersionResource{
+			Group:    "",
+			Version:  "v1",
+			Resource: "pods",
+		}, podEvents)
+	go podV1Informer.Run(stopper)
 
-	// Create Pod watcher.
-	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Pods objects associated with Deployment %q",
-			dia.config.currentInputs.GetName())
-	}
-	defer podWatcher.Stop()
-
-	// Create PersistentVolumeClaims watcher.
-	pvcWatcher, err := pvcClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for PersistentVolumeClaims objects associated with Deployment %q",
-			dia.config.currentInputs.GetName())
-	}
-	defer pvcWatcher.Stop()
+	pvcEvents := make(chan watch.Event)
+	pvcV1Informer := dia.makeInformer(
+		schema.GroupVersionResource{
+			Group:    "",
+			Version:  "v1",
+			Resource: "persistentvolumeclaims",
+		}, pvcEvents)
+	go pvcV1Informer.Run(stopper)
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
@@ -222,7 +205,11 @@ func (dia *deploymentInitAwaiter) Await() error {
 	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
 	return dia.await(
 		deploymentEvents,
-		deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher, time.After(timeout), aggregateErrorTicker.C)
+		replicaSetEvents,
+		podEvents,
+		pvcEvents,
+		time.After(timeout),
+		aggregateErrorTicker.C)
 }
 
 func (dia *deploymentInitAwaiter) Read() error {
@@ -317,8 +304,11 @@ func (dia *deploymentInitAwaiter) read(
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (dia *deploymentInitAwaiter) await(
 	deploymentEvents <-chan watch.Event,
-	deploymentWatcher, replicaSetWatcher, podWatcher, pvcWatcher watch.Interface,
-	timeout, aggregateErrorTicker <-chan time.Time,
+	replicaSetEvents <-chan watch.Event,
+	podEvents <-chan watch.Event,
+	pvcEvents <-chan watch.Event,
+	timeout,
+	aggregateErrorTicker <-chan time.Time,
 ) error {
 	dia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
 
@@ -346,11 +336,11 @@ func (dia *deploymentInitAwaiter) await(
 			}
 		case event := <-deploymentEvents:
 			dia.processDeploymentEvent(event)
-		case event := <-replicaSetWatcher.ResultChan():
+		case event := <-replicaSetEvents:
 			dia.processReplicaSetEvent(event)
-		case event := <-podWatcher.ResultChan():
+		case event := <-podEvents:
 			dia.processPodEvent(event)
-		case event := <-pvcWatcher.ResultChan():
+		case event := <-pvcEvents:
 			dia.processPersistentVolumeClaimsEvent(event)
 		}
 	}
@@ -405,8 +395,8 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 
 	deployment, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		logger.V(3).Infof("Deployment watch received unknown object type %q",
-			reflect.TypeOf(deployment))
+		logger.V(3).Infof("Deployment watch received unknown object type %T",
+			event.Object)
 		return
 	}
 
@@ -520,8 +510,8 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) processReplicaSetEvent(event watch.Event) {
 	rs, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		logger.V(3).Infof("ReplicaSet watch received unknown object type %q",
-			reflect.TypeOf(rs))
+		logger.V(3).Infof("ReplicaSet watch received unknown object type %T",
+			event.Object)
 		return
 	}
 
@@ -557,12 +547,12 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	logger.V(3).Infof("Deployment %q has generation %q, which corresponds to ReplicaSet %q",
 		inputs.GetName(), dia.replicaSetGeneration, rs.GetName())
 
-	var lastGeneration string
+	var lastRevision string
 	if outputs := dia.config.lastOutputs; outputs != nil {
-		lastGeneration = outputs.GetAnnotations()[revision]
+		lastRevision = outputs.GetAnnotations()[revision]
 	}
 
-	logger.V(3).Infof("The last generation of Deployment %q was %q", inputs.GetName(), lastGeneration)
+	logger.V(3).Infof("The last generation of Deployment %q was %q", inputs.GetName(), lastRevision)
 
 	// NOTE: Check `.spec.replicas` in the live `ReplicaSet` instead of the last input `Deployment`,
 	// since this is the plan of record. This protects against (e.g.) a user running `kubectl scale`
@@ -621,7 +611,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		}
 
 		if dia.changeTriggeredRollout() {
-			dia.updatedReplicaSetReady = lastGeneration != dia.replicaSetGeneration && updatedReplicaSetCreated &&
+			dia.updatedReplicaSetReady = lastRevision != dia.replicaSetGeneration && updatedReplicaSetCreated &&
 				doneWaitingOnReplicas() && !unavailableReplicasPresent && !tooManyReplicas &&
 				expectedNumberOfUpdatedReplicas
 		} else {
@@ -643,7 +633,12 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 			rs.GetName(), specReplicas, readyReplicas)
 
 		if dia.changeTriggeredRollout() {
-			dia.updatedReplicaSetReady = lastGeneration != dia.replicaSetGeneration && updatedReplicaSetCreated &&
+			logger.V(9).
+				Infof("Template change detected for replicaset %q - last revision: %q, current revision: %q",
+					rs.GetName(),
+					lastRevision,
+					dia.replicaSetGeneration)
+			dia.updatedReplicaSetReady = lastRevision != dia.replicaSetGeneration && updatedReplicaSetCreated &&
 				doneWaitingOnReplicas()
 		} else {
 			dia.updatedReplicaSetReady = updatedReplicaSetCreated &&
@@ -712,8 +707,8 @@ func (dia *deploymentInitAwaiter) checkPersistentVolumeClaimStatus() {
 func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 	pod, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		logger.V(3).Infof("Pod watch received unknown object type %q",
-			reflect.TypeOf(pod))
+		logger.V(3).Infof("Pod watch received unknown object type %T",
+			event.Object)
 		return
 	}
 
@@ -736,8 +731,8 @@ func (dia *deploymentInitAwaiter) processPodEvent(event watch.Event) {
 func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch.Event) {
 	pvc, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
-		logger.V(3).Infof("PersistentVolumeClaim watch received unknown object type %q",
-			reflect.TypeOf(pvc))
+		logger.V(3).Infof("PersistentVolumeClaim watch received unknown object type %T",
+			event.Object)
 		return
 	}
 
@@ -890,4 +885,36 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	}
 
 	return
+}
+
+func (dia *deploymentInitAwaiter) makeInformer(gvr schema.GroupVersionResource, informChan chan<- watch.Event) cache.SharedIndexInformer {
+	informer := dia.config.informerFactory.ForResource(gvr).Informer()
+	informer.AddEventHandler(cache.ResourceEventHandlerFuncs{
+		AddFunc: func(obj interface{}) {
+			informChan <- watch.Event{
+				Object: obj.(*unstructured.Unstructured),
+				Type:   watch.Added,
+			}
+		},
+		UpdateFunc: func(_, newObj interface{}) {
+			informChan <- watch.Event{
+				Object: newObj.(*unstructured.Unstructured),
+				Type:   watch.Modified,
+			}
+		},
+		DeleteFunc: func(obj interface{}) {
+			if unknown, ok := obj.(cache.DeletedFinalStateUnknown); ok {
+				informChan <- watch.Event{
+					Object: unknown.Obj.(*unstructured.Unstructured),
+					Type:   watch.Deleted,
+				}
+			} else {
+				informChan <- watch.Event{
+					Object: obj.(*unstructured.Unstructured),
+					Type:   watch.Deleted,
+				}
+			}
+		},
+	})
+	return informer
 }
