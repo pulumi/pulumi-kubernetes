@@ -4,6 +4,7 @@
 - Skip cluster connectivity check in yamlRenderMode (https://github.com/pulumi/pulumi-kubernetes/pull/1629)
 - Handle different namespaces for server-side diff (https://github.com/pulumi/pulumi-kubernetes/pull/1631)
 - *Revert* Fix hanging updates for deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1596)
+- Use shared informer for await logic for deployments (https://github.com/pulumi/pulumi-kubernetes/pull/1639)
 
 ## 3.4.1 (June 24, 2021)
 - *Revert* Fix hanging updates for deployment await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1596)
