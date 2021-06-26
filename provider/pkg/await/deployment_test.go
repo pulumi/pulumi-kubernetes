@@ -568,14 +568,14 @@ func Test_Apps_Deployment(t *testing.T) {
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
 		pods := make(chan watch.Event)
+		pvcs := make(chan watch.Event)
 
 		timeout := make(chan time.Time)
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, timeout)
 
 		err := awaiter.await(
-			&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets}, &chanWatcher{results: pods},
-			&chanWatcher{}, timeout, period)
+			deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -630,8 +630,7 @@ func Test_Apps_Deployment_With_PersistentVolumeClaims(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, pvcs, timeout)
 
-		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, &chanWatcher{results: pvcs}, timeout, period)
+		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -684,8 +683,7 @@ func Test_Apps_Deployment_Without_PersistentVolumeClaims(t *testing.T) {
 		period := make(chan time.Time)
 		go test.do(deployments, replicaSets, pods, pvcs, timeout)
 
-		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, &chanWatcher{results: pvcs}, timeout, period)
+		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
@@ -734,6 +732,7 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 		deployments := make(chan watch.Event)
 		replicaSets := make(chan watch.Event)
 		pods := make(chan watch.Event)
+		pvcs := make(chan watch.Event)
 
 		timeout := make(chan time.Time)
 		period := make(chan time.Time)
@@ -742,20 +741,19 @@ func Test_Apps_Deployment_MultipleUpdates(t *testing.T) {
 				awaiter.config.lastInputs = obj
 			})
 
-		err := awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, &chanWatcher{}, timeout, period)
+		err := awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Nil(t, err, test.description)
 
 		deployments = make(chan watch.Event)
 		replicaSets = make(chan watch.Event)
 		pods = make(chan watch.Event)
+		pvcs = make(chan watch.Event)
 
 		timeout = make(chan time.Time)
 		period = make(chan time.Time)
 		go test.secondUpdate(deployments, replicaSets, pods, timeout)
 
-		err = awaiter.await(&chanWatcher{results: deployments}, &chanWatcher{results: replicaSets},
-			&chanWatcher{results: pods}, &chanWatcher{}, timeout, period)
+		err = awaiter.await(deployments, replicaSets, pods, pvcs, timeout, period)
 		assert.Equal(t, test.expectedError, err, test.description)
 	}
 }
