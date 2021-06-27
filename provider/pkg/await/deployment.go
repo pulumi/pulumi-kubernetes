@@ -404,7 +404,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	dia.deploymentErrors = map[string]string{}
 
 	// Do nothing if this is not the Deployment we're waiting for.
-	if deployment.GetName() != inputDeploymentName {
+	if deployment.GetName() != inputDeploymentName || deployment.GetNamespace() != dia.config.currentInputs.GetNamespace() {
 		return
 	}
 
