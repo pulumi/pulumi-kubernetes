@@ -182,7 +182,7 @@ func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 		}
 
 		if ownerAPIVersion == possibleOwnerAPIVersion &&
-			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name && possibleOwner.GetNamespace() == obj.GetNamespace() {
+			possibleOwner.GetKind() == owner.Kind && possibleOwner.GetName() == owner.Name {
 			return true
 		}
 	}

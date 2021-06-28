@@ -91,6 +91,7 @@ const (
 	revision                     = "deployment.kubernetes.io/revision"
 	DefaultDeploymentTimeoutMins = 10
 	extensionsv1b1ApiVersion     = "extensions/v1beta1"
+	defaultPollingInterval       = 30 * time.Second
 )
 
 type deploymentInitAwaiter struct {
@@ -198,10 +199,10 @@ func (dia *deploymentInitAwaiter) Await() error {
 			Resource: "persistentvolumeclaims",
 		}, pvcEvents)
 	go pvcV1Informer.Run(stopper)
-
+	dia.config.informerFactory.WaitForCacheSync(stopper)
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
-	defer aggregateErrorTicker.Stop()
 
+	defer aggregateErrorTicker.Stop()
 	timeout := metadata.TimeoutDuration(dia.config.timeout, dia.config.currentInputs, DefaultDeploymentTimeoutMins*60)
 	return dia.await(
 		deploymentEvents,
@@ -404,7 +405,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	dia.deploymentErrors = map[string]string{}
 
 	// Do nothing if this is not the Deployment we're waiting for.
-	if deployment.GetName() != inputDeploymentName || deployment.GetNamespace() != dia.config.currentInputs.GetNamespace() {
+	if deployment.GetName() != inputDeploymentName {
 		return
 	}
 
