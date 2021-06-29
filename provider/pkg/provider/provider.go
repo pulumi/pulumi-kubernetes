@@ -1529,15 +1529,13 @@ func (k *kubeProvider) Create(
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
 		if req.GetPreview() {
-			failedPreview := func() bool {
-				_, isPreviewErr := awaitErr.(await.PreviewError)
-				if k.isDryRunDisabledError(err) || isPreviewErr {
-					return true
-				}
-
-				return false
+			failedPreview := false
+			_, isPreviewErr := awaitErr.(await.PreviewError)
+			if k.isDryRunDisabledError(err) || isPreviewErr {
+				failedPreview = true
 			}
-			if failedPreview() {
+
+			if failedPreview {
 				logger.V(9).Infof("could not preview Create(%v): %v", urn, err)
 				return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 			}
