@@ -3,6 +3,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 	"strings"
 	"time"
 
@@ -148,11 +149,17 @@ func (dia *deploymentInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
+	namespace := dia.deployment.GetNamespace()
+	if namespace == "" {
+		namespace = metav1.NamespaceDefault
+	}
+	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dia.config.clientSet.GenericClient, 0, namespace, nil)
 	// Limit the lifetime of this to each deployment await for now. We can reduce this sharing further later.
-	dia.config.informerFactory.Start(stopper)
+	informerFactory.Start(stopper)
 
 	deploymentEvents := make(chan watch.Event)
 	deploymentV1Informer := dia.makeInformer(
+		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "apps",
 			Version:  "v1",
@@ -160,6 +167,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 		}, deploymentEvents)
 	go deploymentV1Informer.Informer().Run(stopper)
 	deploymentV1Beta1Informer := dia.makeInformer(
+		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "extensions",
 			Version:  "v1beta1",
@@ -169,6 +177,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 
 	replicaSetEvents := make(chan watch.Event)
 	replicaSetV1Informer := dia.makeInformer(
+		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "apps",
 			Version:  "v1",
@@ -176,6 +185,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 		}, replicaSetEvents)
 	go replicaSetV1Informer.Informer().Run(stopper)
 	replicaSetV1Beta1Informer := dia.makeInformer(
+		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "extensions",
 			Version:  "v1beta1",
@@ -185,6 +195,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 
 	podEvents := make(chan watch.Event)
 	podV1Informer := dia.makeInformer(
+		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "",
 			Version:  "v1",
@@ -194,6 +205,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 
 	pvcEvents := make(chan watch.Event)
 	pvcV1Informer := dia.makeInformer(
+		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "",
 			Version:  "v1",
@@ -202,7 +214,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	go pvcV1Informer.Informer().Run(stopper)
 
 	// Wait for the cache to sync
-	dia.config.informerFactory.WaitForCacheSync(stopper)
+	informerFactory.WaitForCacheSync(stopper)
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
@@ -893,8 +905,12 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	return
 }
 
-func (dia *deploymentInitAwaiter) makeInformer(gvr schema.GroupVersionResource, informChan chan<- watch.Event) informers.GenericInformer {
-	informer := dia.config.informerFactory.ForResource(gvr)
+func (dia *deploymentInitAwaiter) makeInformer(
+	informerFactory dynamicinformer.DynamicSharedInformerFactory,
+	gvr schema.GroupVersionResource,
+	informChan chan<- watch.Event) informers.GenericInformer {
+
+	informer := informerFactory.ForResource(gvr)
 	informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc: func(obj interface{}) {
 			informChan <- watch.Event{

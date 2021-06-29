@@ -31,7 +31,6 @@ import (
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/dynamic/dynamicinformer"
 )
 
 const (
@@ -50,7 +49,6 @@ type createAwaitConfig struct {
 	initialAPIVersion string
 	logger            *logging.DedupLogger
 	clientSet         *clients.DynamicClientSet
-	informerFactory   dynamicinformer.DynamicSharedInformerFactory
 	currentInputs     *unstructured.Unstructured
 	currentOutputs    *unstructured.Unstructured
 	timeout           float64

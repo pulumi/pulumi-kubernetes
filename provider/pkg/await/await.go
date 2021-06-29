@@ -17,8 +17,6 @@ package await
 import (
 	"context"
 	"fmt"
-	"time"
-
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -38,7 +36,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/dynamic/dynamicinformer"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
 )
 
@@ -210,10 +207,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
-			var namespace = c.Inputs.GetNamespace()
-			if namespace == "" {
-				namespace = metav1.NamespaceDefault
-			}
 			if awaiter.awaitCreation != nil {
 				conf := createAwaitConfig{
 					host:              c.Host,
@@ -221,7 +214,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					informerFactory:   dynamicinformer.NewFilteredDynamicSharedInformerFactory(c.ClientSet.GenericClient, 60*time.Second, namespace, nil),
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
@@ -270,10 +262,6 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
-			var namespace = c.Inputs.GetNamespace()
-			if namespace == "" {
-				namespace = metav1.NamespaceDefault
-			}
 			if awaiter.awaitRead != nil {
 				conf := createAwaitConfig{
 					host:              c.Host,
@@ -281,7 +269,6 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					informerFactory:   dynamicinformer.NewFilteredDynamicSharedInformerFactory(c.ClientSet.GenericClient, 60*time.Second, namespace, nil),
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
@@ -405,10 +392,6 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
 			if awaiter.awaitUpdate != nil {
-				var namespace = c.Inputs.GetNamespace()
-				if namespace == "" {
-					namespace = metav1.NamespaceDefault
-				}
 				conf := updateAwaitConfig{
 					createAwaitConfig: createAwaitConfig{
 						host:              c.Host,
@@ -416,7 +399,6 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						urn:               c.URN,
 						initialAPIVersion: c.InitialAPIVersion,
 						clientSet:         c.ClientSet,
-						informerFactory:   dynamicinformer.NewFilteredDynamicSharedInformerFactory(c.ClientSet.GenericClient, 60*time.Second, namespace, nil),
 						currentInputs:     c.Inputs,
 						currentOutputs:    currentOutputs,
 						logger:            c.DedupLogger,
@@ -504,10 +486,6 @@ func Deletion(c DeleteConfig) error {
 		if metadata.SkipAwaitLogic(c.Inputs) {
 			logger.V(1).Infof("Skipping await logic for %v", c.Inputs.GetName())
 		} else {
-			var namespace = c.Inputs.GetNamespace()
-			if namespace == "" {
-				namespace = metav1.NamespaceDefault
-			}
 			waitErr = awaiter.awaitDeletion(deleteAwaitConfig{
 				createAwaitConfig: createAwaitConfig{
 					host:              c.Host,
@@ -515,7 +493,6 @@ func Deletion(c DeleteConfig) error {
 					urn:               c.URN,
 					initialAPIVersion: c.InitialAPIVersion,
 					clientSet:         c.ClientSet,
-					informerFactory:   dynamicinformer.NewFilteredDynamicSharedInformerFactory(c.ClientSet.GenericClient, 60*time.Second, namespace, nil),
 					currentInputs:     c.Inputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,
