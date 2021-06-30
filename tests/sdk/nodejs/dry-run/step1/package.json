@@ -2,8 +2,7 @@
     "name": "dry-run",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "latest",
-        "@pulumi/random": "latest"
+        "@pulumi/pulumi": "latest"
     },
     "devDependencies": {
     },

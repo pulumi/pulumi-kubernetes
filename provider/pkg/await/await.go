@@ -179,13 +179,17 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 			outputs, err = client.Create(context.TODO(), c.Inputs, options)
 			if err != nil {
+				// If the namespace hasn't been created yet, the preview will always fail.
+				if c.DryRun && IsNamespaceNotFoundErr(err) {
+					return &namespaceError{c.Inputs}
+				}
+
 				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
 					"Retry #%d; creation failed: %v", i, err))
 				return err
 			}
 
-			// TODO(levi): return nil here to be more explicit (early returns on any error)
-			return err
+			return nil
 
 		}).
 		WithMaxRetries(5).
