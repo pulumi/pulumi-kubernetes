@@ -153,7 +153,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	if namespace == "" {
 		namespace = metav1.NamespaceDefault
 	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dia.config.clientSet.GenericClient, 0, namespace, nil)
+	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
 	// Limit the lifetime of this to each deployment await for now. We can reduce this sharing further later.
 	informerFactory.Start(stopper)
 
