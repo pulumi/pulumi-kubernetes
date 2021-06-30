@@ -166,14 +166,6 @@ func (dia *deploymentInitAwaiter) Await() error {
 			Resource: "deployments",
 		}, deploymentEvents)
 	go deploymentV1Informer.Informer().Run(stopper)
-	deploymentV1Beta1Informer := dia.makeInformer(
-		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "extensions",
-			Version:  "v1beta1",
-			Resource: "deployments",
-		}, deploymentEvents)
-	go deploymentV1Beta1Informer.Informer().Run(stopper)
 
 	replicaSetEvents := make(chan watch.Event)
 	replicaSetV1Informer := dia.makeInformer(
@@ -184,14 +176,6 @@ func (dia *deploymentInitAwaiter) Await() error {
 			Resource: "replicasets",
 		}, replicaSetEvents)
 	go replicaSetV1Informer.Informer().Run(stopper)
-	replicaSetV1Beta1Informer := dia.makeInformer(
-		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "extensions",
-			Version:  "v1beta1",
-			Resource: "replicasets",
-		}, replicaSetEvents)
-	go replicaSetV1Beta1Informer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
 	podV1Informer := dia.makeInformer(
