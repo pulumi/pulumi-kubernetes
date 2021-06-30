@@ -58,10 +58,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         }
 
         [Input("dependencies")]
-        private InputMap<Union<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<string>>>? _dependencies;
-        public InputMap<Union<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<string>>> Dependencies
+        private InputMap<Union<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<Input<string>>>>? _dependencies;
+        public InputMap<Union<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<Input<string>>>> Dependencies
         {
-            get => _dependencies ?? (_dependencies = new InputMap<Union<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<string>>>());
+            get => _dependencies ?? (_dependencies = new InputMap<Union<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<Input<string>>>>());
             set => _dependencies = value;
         }
 
@@ -100,7 +100,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public Input<string>? Id { get; set; }
 
         [Input("items")]
-        public InputUnion<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<System.Text.Json.JsonElement>>? Items { get; set; }
+        public InputUnion<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.JSONSchemaPropsArgs, ImmutableArray<InputJson>>? Items { get; set; }
 
         [Input("maxItems")]
         public Input<int>? MaxItems { get; set; }

@@ -81,49 +81,9 @@ func GetStorageClass(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering StorageClass resources.
 type storageClassState struct {
-	// AllowVolumeExpansion shows whether the storage class allow volume expand
-	AllowVolumeExpansion *bool `pulumi:"allowVolumeExpansion"`
-	// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
-	AllowedTopologies []corev1.TopologySelectorTerm `pulumi:"allowedTopologies"`
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-	MountOptions []string `pulumi:"mountOptions"`
-	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-	Parameters map[string]string `pulumi:"parameters"`
-	// Provisioner indicates the type of the provisioner.
-	Provisioner *string `pulumi:"provisioner"`
-	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-	ReclaimPolicy *string `pulumi:"reclaimPolicy"`
-	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-	VolumeBindingMode *string `pulumi:"volumeBindingMode"`
 }
 
 type StorageClassState struct {
-	// AllowVolumeExpansion shows whether the storage class allow volume expand
-	AllowVolumeExpansion pulumi.BoolPtrInput
-	// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
-	AllowedTopologies corev1.TopologySelectorTermArrayInput
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrInput
-	// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-	MountOptions pulumi.StringArrayInput
-	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-	Parameters pulumi.StringMapInput
-	// Provisioner indicates the type of the provisioner.
-	Provisioner pulumi.StringPtrInput
-	// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-	ReclaimPolicy pulumi.StringPtrInput
-	// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-	VolumeBindingMode pulumi.StringPtrInput
 }
 
 func (StorageClassState) ElementType() reflect.Type {

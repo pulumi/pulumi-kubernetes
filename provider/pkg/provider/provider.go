@@ -19,6 +19,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"os"
+	"os/user"
+	"path/filepath"
+	"reflect"
+	"regexp"
+	"strings"
+	"sync"
+
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
@@ -42,7 +53,6 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"io/ioutil"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -53,16 +63,7 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
-	"net/http"
-	"net/url"
-	"os"
-	"os/user"
-	"path/filepath"
-	"reflect"
-	"regexp"
 	"sigs.k8s.io/yaml"
-	"strings"
-	"sync"
 )
 
 // --------------------------------------------------------------------------
@@ -176,6 +177,11 @@ func (k *kubeProvider) invalidateResources() {
 	defer k.resourcesMutex.Unlock()
 
 	k.resources = nil
+}
+
+// Call dynamically executes a method in the provider associated with a component resource.
+func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
 // Construct creates a new instance of the provided component resource and returns its state.

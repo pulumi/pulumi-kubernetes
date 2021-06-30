@@ -9935,6 +9935,7 @@ export namespace core {
              */
             runAsUserName?: pulumi.Input<string>;
         }
+
     }
 }
 
@@ -11744,6 +11745,7 @@ export namespace flowcontrol {
              */
             name: pulumi.Input<string>;
         }
+
     }
 
     export namespace v1beta1 {
@@ -12089,6 +12091,7 @@ export namespace flowcontrol {
              */
             name: pulumi.Input<string>;
         }
+
     }
 }
 
@@ -12754,6 +12757,7 @@ export namespace networking {
              */
             number?: pulumi.Input<number>;
         }
+
     }
 
     export namespace v1beta1 {

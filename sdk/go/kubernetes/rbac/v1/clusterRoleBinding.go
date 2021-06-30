@@ -71,29 +71,9 @@ func GetClusterRoleBinding(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering ClusterRoleBinding resources.
 type clusterRoleBindingState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// Standard object's metadata.
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef *RoleRef `pulumi:"roleRef"`
-	// Subjects holds references to the objects the role applies to.
-	Subjects []Subject `pulumi:"subjects"`
 }
 
 type ClusterRoleBindingState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput
-	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrInput
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
-	RoleRef RoleRefPtrInput
-	// Subjects holds references to the objects the role applies to.
-	Subjects SubjectArrayInput
 }
 
 func (ClusterRoleBindingState) ElementType() reflect.Type {

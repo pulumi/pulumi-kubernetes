@@ -16,14 +16,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
     public class SubjectAccessReviewSpecArgs : Pulumi.ResourceArgs
     {
         [Input("extra")]
-        private InputMap<ImmutableArray<string>>? _extra;
+        private InputMap<ImmutableArray<Input<string>>>? _extra;
 
         /// <summary>
         /// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
         /// </summary>
-        public InputMap<ImmutableArray<string>> Extra
+        public InputMap<ImmutableArray<Input<string>>> Extra
         {
-            get => _extra ?? (_extra = new InputMap<ImmutableArray<string>>());
+            get => _extra ?? (_extra = new InputMap<ImmutableArray<Input<string>>>());
             set => _extra = value;
         }
 
