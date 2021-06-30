@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.5.0 (June 30, 2021)
+
 - Update pulumi dependencies v3.5.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1623)
 - Skip cluster connectivity check in yamlRenderMode (https://github.com/pulumi/pulumi-kubernetes/pull/1629)
 - Handle different namespaces for server-side diff (https://github.com/pulumi/pulumi-kubernetes/pull/1631)
