@@ -15,12 +15,12 @@
 package await
 
 import (
-	"context"
+	"k8s.io/apimachinery/pkg/labels"
+	"k8s.io/client-go/tools/cache"
 	"sync"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
@@ -28,7 +28,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic"
 )
 
 // PodAggregator tracks status for any Pods related to the owner resource, and writes
@@ -45,41 +44,29 @@ type PodAggregator struct {
 	checker *states.StateChecker
 
 	// Clients
-	client  dynamic.ResourceInterface
-	watcher watch.Interface
+	lister cache.GenericLister
 
 	// Messages
 	messages chan logging.Messages
 }
 
 // NewPodAggregator returns an initialized PodAggregator.
-func NewPodAggregator(owner ResourceID, clientset *clients.DynamicClientSet) (*PodAggregator, error) {
-	client, err := clients.ResourceClient(kinds.Pod, owner.Namespace, clientset)
-	if err != nil {
-		return nil, err
-	}
-
-	watcher, err := client.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return nil, err
-	}
-
+func NewPodAggregator(owner ResourceID, lister cache.GenericLister, informChan <-chan watch.Event) (*PodAggregator, error) {
 	pa := &PodAggregator{
 		stopped:  false,
 		owner:    owner,
+		lister:   lister,
 		checker:  states.NewPodChecker(),
-		client:   client,
-		watcher:  watcher,
 		messages: make(chan logging.Messages),
 	}
-	go pa.run()
+	go pa.run(informChan)
 
 	return pa, nil
 }
 
 // run contains the aggregation logic and is executed as a goroutine when a PodAggregator
 // is initialized.
-func (pa *PodAggregator) run() {
+func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 	defer close(pa.messages)
 
 	checkPod := func(object runtime.Object) {
@@ -96,23 +83,11 @@ func (pa *PodAggregator) run() {
 		}
 	}
 
-	// Get existing Pods.
-	pods, err := pa.client.List(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		logger.V(3).Infof("Failed to list existing Pods: %v", err)
-	} else {
-		// Log errors and move on.
-		_ = pods.EachListItem(func(object runtime.Object) error {
-			checkPod(object)
-			return nil
-		})
-	}
-
 	for {
 		if pa.stopping() {
 			return
 		}
-		event := <-pa.watcher.ResultChan()
+		event := <-informChan
 		if event.Object == nil {
 			continue
 		}
@@ -135,15 +110,13 @@ func (pa *PodAggregator) Read() logging.Messages {
 	}
 
 	// Get existing Pods.
-	pods, err := pa.client.List(context.TODO(), metav1.ListOptions{})
+	pods, err := pa.lister.List(labels.Everything())
 	if err != nil {
 		logger.V(3).Infof("Failed to list existing Pods: %v", err)
 	} else {
-		// Log errors and move on.
-		_ = pods.EachListItem(func(object runtime.Object) error {
-			checkPod(object)
-			return nil
-		})
+		for _, pod := range pods {
+			checkPod(pod)
+		}
 	}
 
 	return messages
@@ -155,7 +128,6 @@ func (pa *PodAggregator) Stop() {
 	defer pa.Unlock()
 	if !pa.stopped {
 		pa.stopped = true
-		pa.watcher.Stop()
 	}
 }
 

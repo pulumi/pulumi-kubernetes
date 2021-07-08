@@ -23,8 +23,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/informers"
-	"k8s.io/client-go/tools/cache"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -158,7 +156,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	deploymentEvents := make(chan watch.Event)
-	deploymentV1Informer := dia.makeInformer(
+	deploymentV1Informer := makeInformer(
 		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "apps",
@@ -168,7 +166,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	go deploymentV1Informer.Informer().Run(stopper)
 
 	replicaSetEvents := make(chan watch.Event)
-	replicaSetV1Informer := dia.makeInformer(
+	replicaSetV1Informer := makeInformer(
 		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "apps",
@@ -178,7 +176,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	go replicaSetV1Informer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
-	podV1Informer := dia.makeInformer(
+	podV1Informer := makeInformer(
 		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "",
@@ -188,7 +186,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	go podV1Informer.Informer().Run(stopper)
 
 	pvcEvents := make(chan watch.Event)
-	pvcV1Informer := dia.makeInformer(
+	pvcV1Informer := makeInformer(
 		informerFactory,
 		schema.GroupVersionResource{
 			Group:    "",
@@ -887,40 +885,4 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	}
 
 	return
-}
-
-func (dia *deploymentInitAwaiter) makeInformer(
-	informerFactory dynamicinformer.DynamicSharedInformerFactory,
-	gvr schema.GroupVersionResource,
-	informChan chan<- watch.Event) informers.GenericInformer {
-
-	informer := informerFactory.ForResource(gvr)
-	informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: func(obj interface{}) {
-			informChan <- watch.Event{
-				Object: obj.(*unstructured.Unstructured),
-				Type:   watch.Added,
-			}
-		},
-		UpdateFunc: func(_, newObj interface{}) {
-			informChan <- watch.Event{
-				Object: newObj.(*unstructured.Unstructured),
-				Type:   watch.Modified,
-			}
-		},
-		DeleteFunc: func(obj interface{}) {
-			if unknown, ok := obj.(cache.DeletedFinalStateUnknown); ok {
-				informChan <- watch.Event{
-					Object: unknown.Obj.(*unstructured.Unstructured),
-					Type:   watch.Deleted,
-				}
-			} else {
-				informChan <- watch.Event{
-					Object: obj.(*unstructured.Unstructured),
-					Type:   watch.Deleted,
-				}
-			}
-		},
-	})
-	return informer
 }
