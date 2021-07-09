@@ -16,6 +16,7 @@ package await
 
 import (
 	"context"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"strings"
 	"time"
@@ -106,14 +107,14 @@ func (jia *jobInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	jobEvents := make(chan watch.Event)
-	jobInformer, err := NewInformer(informerFactory, ForJobs(), WithEventChannel(jobEvents))
+	jobInformer, err := informers.New(informerFactory, informers.ForJobs(), informers.WithEventChannel(jobEvents))
 	if err != nil {
 		return err
 	}
 	go jobInformer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
-	podInformer, err := NewInformer(informerFactory, ForPods(), WithEventChannel(podEvents))
+	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
 	if err != nil {
 		return err
 	}
@@ -181,7 +182,7 @@ func (jia *jobInitAwaiter) Read() error {
 		return nil
 	}
 
-	podInformer, err := NewInformer(informerFactory, ForPods())
+	podInformer, err := informers.New(informerFactory, informers.ForPods())
 	if err != nil {
 		return err
 	}

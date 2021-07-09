@@ -2,6 +2,7 @@ package await
 
 import (
 	"context"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"time"
 
@@ -141,7 +142,7 @@ func (pia *podInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	podEvents := make(chan watch.Event)
-	podInformer, err := NewInformer(informerFactory, ForPods(), WithEventChannel(podEvents))
+	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
 	if err != nil {
 		return err
 	}

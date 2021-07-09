@@ -3,6 +3,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"reflect"
@@ -154,18 +155,18 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	statefulSetEvents := make(chan watch.Event)
-	statefulSetInformer, err := NewInformer(informerFactory, WithGVR(schema.GroupVersionResource{
+	statefulSetInformer, err := informers.New(informerFactory, informers.WithGVR(schema.GroupVersionResource{
 		Group:    "apps",
 		Version:  "v1",
 		Resource: "statefulsets",
-	}), WithEventChannel(statefulSetEvents))
+	}), informers.WithEventChannel(statefulSetEvents))
 	if err != nil {
 		return err
 	}
 	go statefulSetInformer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
-	podInformer, err := NewInformer(informerFactory, ForPods(), WithEventChannel(podEvents))
+	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
 	if err != nil {
 		return err
 	}

@@ -1,4 +1,4 @@
-package await
+package informers
 
 import (
 	"fmt"
@@ -15,7 +15,7 @@ type options struct {
 	informChan chan<- watch.Event
 }
 
-type InformerOption interface {
+type Option interface {
 	apply(*options)
 }
 
@@ -25,13 +25,19 @@ func (a applyFunc) apply(o *options) {
 	a(o)
 }
 
-func WithEventChannel(ch chan<- watch.Event) InformerOption {
+// WithEventChannel adds an event handler to the informer which sends
+// which converts Add/Update/Delete callbacks to an appropriate watch.Event
+// object and sent down the channel. This allows loosely mimicking the
+// behavior expected in a low-level Watch but all caveats associated with
+// cache.ResourceEventHandler apply.
+func WithEventChannel(ch chan<- watch.Event) Option {
 	return applyFunc(func(o *options) {
 		o.informChan = ch
 	})
 }
 
-func ForPods() InformerOption {
+// ForPods provides a shortcut for specifying "core/v1/pods" as a GVR.
+func ForPods() Option {
 	return WithGVR(schema.GroupVersionResource{
 		Group:    "",
 		Version:  "v1",
@@ -39,7 +45,8 @@ func ForPods() InformerOption {
 	})
 }
 
-func ForServices() InformerOption {
+// ForServices provides a shortcut for specifying "core/v1/services" as a GVR.
+func ForServices() Option {
 	return WithGVR(schema.GroupVersionResource{
 		Group:    "",
 		Version:  "v1",
@@ -47,7 +54,8 @@ func ForServices() InformerOption {
 	})
 }
 
-func ForJobs() InformerOption {
+// ForJobs provides a shortcut for specifying "batch/v1/jobs" as a GVR.
+func ForJobs() Option {
 	return WithGVR(schema.GroupVersionResource{
 		Group:    "batch",
 		Version:  "v1",
@@ -55,7 +63,8 @@ func ForJobs() InformerOption {
 	})
 }
 
-func ForEndpoints() InformerOption {
+// ForEndpoints provides a shortcut for specifying "core/v1/endpoints" as a GVR.
+func ForEndpoints() Option {
 	return WithGVR(schema.GroupVersionResource{
 		Group:    "",
 		Version:  "v1",
@@ -63,15 +72,20 @@ func ForEndpoints() InformerOption {
 	})
 }
 
-func WithGVR(gvr schema.GroupVersionResource) InformerOption {
+// WithGVR configures the required GVR for the informer.
+func WithGVR(gvr schema.GroupVersionResource) Option {
 	return applyFunc(func(o *options) {
 		o.gvr = gvr
 	})
 }
 
-func NewInformer(
+// New provides a convenient wrapper to initiate a GenericInformer associated with
+// the provided informerFactory for a particular GVR.
+// A GVR must be specified through either WithGVR option or one of the convenience
+// wrappers around it in this package.
+func New(
 	informerFactory dynamicinformer.DynamicSharedInformerFactory,
-	opts ...InformerOption,
+	opts ...Option,
 ) (informers.GenericInformer, error) {
 	options := options{}
 	for _, o := range opts {
@@ -79,7 +93,7 @@ func NewInformer(
 	}
 
 	if options.gvr.Empty() {
-		return nil, fmt.Errorf("must specify ")
+		return nil, fmt.Errorf("must specify a GVR")
 	}
 	informer := informerFactory.ForResource(options.gvr)
 

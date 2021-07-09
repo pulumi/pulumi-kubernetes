@@ -3,6 +3,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"strings"
 	"time"
@@ -156,56 +157,56 @@ func (dia *deploymentInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	deploymentEvents := make(chan watch.Event)
-	deploymentV1Informer, err := NewInformer(
+	deploymentV1Informer, err := informers.New(
 		informerFactory,
-		WithGVR(
+		informers.WithGVR(
 			schema.GroupVersionResource{
 				Group:    "apps",
 				Version:  "v1",
 				Resource: "deployments",
 			},
 		),
-		WithEventChannel(deploymentEvents))
+		informers.WithEventChannel(deploymentEvents))
 	if err != nil {
 		return err
 	}
 	go deploymentV1Informer.Informer().Run(stopper)
 
 	replicaSetEvents := make(chan watch.Event)
-	replicaSetV1Informer, err := NewInformer(
+	replicaSetV1Informer, err := informers.New(
 		informerFactory,
-		WithGVR(
+		informers.WithGVR(
 			schema.GroupVersionResource{
 				Group:    "apps",
 				Version:  "v1",
 				Resource: "replicasets",
 			}),
-		WithEventChannel(replicaSetEvents))
+		informers.WithEventChannel(replicaSetEvents))
 	if err != nil {
 		return err
 	}
 	go replicaSetV1Informer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
-	podV1Informer, err := NewInformer(
+	podV1Informer, err := informers.New(
 		informerFactory,
-		ForPods(),
-		WithEventChannel(podEvents))
+		informers.ForPods(),
+		informers.WithEventChannel(podEvents))
 	if err != nil {
 		return err
 	}
 	go podV1Informer.Informer().Run(stopper)
 
 	pvcEvents := make(chan watch.Event)
-	pvcV1Informer, err := NewInformer(
+	pvcV1Informer, err := informers.New(
 		informerFactory,
-		WithGVR(
+		informers.WithGVR(
 			schema.GroupVersionResource{
 				Group:    "",
 				Version:  "v1",
 				Resource: "persistentvolumeclaims",
 			}),
-		WithEventChannel(pvcEvents))
+		informers.WithEventChannel(pvcEvents))
 	if err != nil {
 		return err
 	}

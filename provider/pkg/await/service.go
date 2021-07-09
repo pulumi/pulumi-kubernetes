@@ -3,6 +3,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"reflect"
 	"time"
@@ -132,14 +133,14 @@ func (sia *serviceInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	serviceEvents := make(chan watch.Event)
-	serviceInformer, err := NewInformer(informerFactory, ForServices(), WithEventChannel(serviceEvents))
+	serviceInformer, err := informers.New(informerFactory, informers.ForServices(), informers.WithEventChannel(serviceEvents))
 	if err != nil {
 		return err
 	}
 	go serviceInformer.Informer().Run(stopper)
 
 	endpointsEvents := make(chan watch.Event)
-	endpointsInformer, err := NewInformer(informerFactory, ForEndpoints(), WithEventChannel(endpointsEvents))
+	endpointsInformer, err := informers.New(informerFactory, informers.ForEndpoints(), informers.WithEventChannel(endpointsEvents))
 	if err != nil {
 		return err
 	}

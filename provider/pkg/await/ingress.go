@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"reflect"
@@ -108,25 +109,25 @@ func (iia *ingressInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	ingressEvents := make(chan watch.Event)
-	ingressInformer, err := NewInformer(informerFactory, WithGVR(schema.GroupVersionResource{
+	ingressInformer, err := informers.New(informerFactory, informers.WithGVR(schema.GroupVersionResource{
 		Group:    "networking.k8s.io",
 		Version:  "v1",
 		Resource: "ingresses",
-	}), WithEventChannel(ingressEvents))
+	}), informers.WithEventChannel(ingressEvents))
 	if err != nil {
 		return err
 	}
 	go ingressInformer.Informer().Run(stopper)
 
 	endpointsEvents := make(chan watch.Event)
-	endpointsInformer, err := NewInformer(informerFactory, ForEndpoints(), WithEventChannel(endpointsEvents))
+	endpointsInformer, err := informers.New(informerFactory, informers.ForEndpoints(), informers.WithEventChannel(endpointsEvents))
 	if err != nil {
 		return err
 	}
 	go endpointsInformer.Informer().Run(stopper)
 
 	serviceEvents := make(chan watch.Event)
-	serviceInformer, err := NewInformer(informerFactory, ForServices(), WithEventChannel(serviceEvents))
+	serviceInformer, err := informers.New(informerFactory, informers.ForServices(), informers.WithEventChannel(serviceEvents))
 	if err != nil {
 		return err
 	}
