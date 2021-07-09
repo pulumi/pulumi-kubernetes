@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 	"reflect"
 	"time"
 
@@ -95,36 +97,43 @@ func (iia *ingressInitAwaiter) Await() error {
 	//   3.  Ingress entry exists for .status.loadBalancer.ingress.
 	//
 
-	ingressClient, endpointsClient, servicesClient, err := iia.makeClients()
+	stopper := make(chan struct{})
+	defer close(stopper)
+
+	namespace := iia.config.currentInputs.GetNamespace()
+	if namespace == "" {
+		namespace = metav1.NamespaceDefault
+	}
+	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(iia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory.Start(stopper)
+
+	ingressEvents := make(chan watch.Event)
+	ingressInformer, err := NewInformer(informerFactory, WithGVR(schema.GroupVersionResource{
+		Group:    "networking.k8s.io",
+		Version:  "v1",
+		Resource: "ingresses",
+	}), WithEventChannel(ingressEvents))
 	if err != nil {
 		return err
 	}
+	go ingressInformer.Informer().Run(stopper)
 
-	// Create ingress watcher.
-	ingressWatcher, err := ingressClient.Watch(context.TODO(), metav1.ListOptions{})
+	endpointsEvents := make(chan watch.Event)
+	endpointsInformer, err := NewInformer(informerFactory, ForEndpoints(), WithEventChannel(endpointsEvents))
 	if err != nil {
-		return errors.Wrapf(err, "Could not set up watch for Ingress object %q",
-			iia.config.currentInputs.GetName())
+		return err
 	}
-	defer ingressWatcher.Stop()
+	go endpointsInformer.Informer().Run(stopper)
 
-	endpointWatcher, err := endpointsClient.Watch(context.TODO(), metav1.ListOptions{})
+	serviceEvents := make(chan watch.Event)
+	serviceInformer, err := NewInformer(informerFactory, ForServices(), WithEventChannel(serviceEvents))
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Endpoint objects associated with Ingress %q",
-			iia.config.currentInputs.GetName())
+		return err
 	}
-	defer endpointWatcher.Stop()
-
-	serviceWatcher, err := servicesClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Service objects associated with Ingress %q",
-			iia.config.currentInputs.GetName())
-	}
+	go serviceInformer.Informer().Run(stopper)
 
 	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
-	return iia.await(ingressWatcher, serviceWatcher, endpointWatcher, make(chan struct{}), time.After(timeout))
+	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(timeout))
 }
 
 func (iia *ingressInitAwaiter) Read() error {
@@ -193,7 +202,7 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (iia *ingressInitAwaiter) await(
-	ingressWatcher, serviceWatcher, endpointWatcher watch.Interface,
+	ingressEvents, serviceEvents, endpointsEvents <-chan watch.Event,
 	settled chan struct{},
 	timeout <-chan time.Time,
 ) error {
@@ -227,11 +236,11 @@ func (iia *ingressInitAwaiter) await(
 			}
 		case <-settled:
 			iia.endpointsSettled = true
-		case event := <-ingressWatcher.ResultChan():
+		case event := <-ingressEvents:
 			iia.processIngressEvent(event)
-		case event := <-endpointWatcher.ResultChan():
+		case event := <-endpointsEvents:
 			iia.processEndpointEvent(event, settled)
-		case event := <-serviceWatcher.ResultChan():
+		case event := <-serviceEvents:
 			iia.processServiceEvent(event)
 		}
 	}

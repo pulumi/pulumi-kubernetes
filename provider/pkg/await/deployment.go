@@ -156,43 +156,59 @@ func (dia *deploymentInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	deploymentEvents := make(chan watch.Event)
-	deploymentV1Informer := makeInformer(
+	deploymentV1Informer, err := NewInformer(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "apps",
-			Version:  "v1",
-			Resource: "deployments",
-		}, deploymentEvents)
+		WithGVR(
+			schema.GroupVersionResource{
+				Group:    "apps",
+				Version:  "v1",
+				Resource: "deployments",
+			},
+		),
+		WithEventChannel(deploymentEvents))
+	if err != nil {
+		return err
+	}
 	go deploymentV1Informer.Informer().Run(stopper)
 
 	replicaSetEvents := make(chan watch.Event)
-	replicaSetV1Informer := makeInformer(
+	replicaSetV1Informer, err := NewInformer(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "apps",
-			Version:  "v1",
-			Resource: "replicasets",
-		}, replicaSetEvents)
+		WithGVR(
+			schema.GroupVersionResource{
+				Group:    "apps",
+				Version:  "v1",
+				Resource: "replicasets",
+			}),
+		WithEventChannel(replicaSetEvents))
+	if err != nil {
+		return err
+	}
 	go replicaSetV1Informer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
-	podV1Informer := makeInformer(
+	podV1Informer, err := NewInformer(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "",
-			Version:  "v1",
-			Resource: "pods",
-		}, podEvents)
+		ForPods(),
+		WithEventChannel(podEvents))
+	if err != nil {
+		return err
+	}
 	go podV1Informer.Informer().Run(stopper)
 
 	pvcEvents := make(chan watch.Event)
-	pvcV1Informer := makeInformer(
+	pvcV1Informer, err := NewInformer(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "",
-			Version:  "v1",
-			Resource: "persistentvolumeclaims",
-		}, pvcEvents)
+		WithGVR(
+			schema.GroupVersionResource{
+				Group:    "",
+				Version:  "v1",
+				Resource: "persistentvolumeclaims",
+			}),
+		WithEventChannel(pvcEvents))
+	if err != nil {
+		return err
+	}
 	go pvcV1Informer.Informer().Run(stopper)
 
 	// Wait for the cache to sync

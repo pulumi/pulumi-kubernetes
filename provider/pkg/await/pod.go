@@ -2,6 +2,7 @@ package await
 
 import (
 	"context"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 	"time"
 
 	"github.com/pkg/errors"
@@ -129,19 +130,22 @@ func awaitPodUpdate(u updateAwaitConfig) error {
 }
 
 func (pia *podInitAwaiter) Await() error {
-	podClient, err := clients.ResourceClient(
-		kinds.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to watch Pod %q",
-			pia.config.currentInputs.GetName())
+	stopper := make(chan struct{})
+	defer close(stopper)
+
+	namespace := pia.config.currentInputs.GetNamespace()
+	if namespace == "" {
+		namespace = metav1.NamespaceDefault
 	}
-	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
+	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(pia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory.Start(stopper)
+
+	podEvents := make(chan watch.Event)
+	podInformer, err := NewInformer(informerFactory, ForPods(), WithEventChannel(podEvents))
 	if err != nil {
-		return errors.Wrapf(err, "Couldn't set up watch for Pod object %q",
-			pia.config.currentInputs.GetName())
+		return err
 	}
-	defer podWatcher.Stop()
+	go podInformer.Informer().Run(stopper)
 
 	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentInputs, DefaultPodTimeoutMins*60)
 	for {
@@ -162,7 +166,7 @@ func (pia *podInitAwaiter) Await() error {
 				object:    pia.pod,
 				subErrors: pia.errorMessages(),
 			}
-		case event := <-podWatcher.ResultChan():
+		case event := <-podEvents:
 			pia.processPodEvent(event)
 		}
 	}

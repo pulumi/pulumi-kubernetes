@@ -51,7 +51,7 @@ type PodAggregator struct {
 }
 
 // NewPodAggregator returns an initialized PodAggregator.
-func NewPodAggregator(owner ResourceID, lister cache.GenericLister, informChan <-chan watch.Event) (*PodAggregator, error) {
+func NewPodAggregator(owner ResourceID, lister cache.GenericLister) *PodAggregator {
 	pa := &PodAggregator{
 		stopped:  false,
 		owner:    owner,
@@ -59,9 +59,11 @@ func NewPodAggregator(owner ResourceID, lister cache.GenericLister, informChan <
 		checker:  states.NewPodChecker(),
 		messages: make(chan logging.Messages),
 	}
-	go pa.run(informChan)
+	return pa
+}
 
-	return pa, nil
+func (pa *PodAggregator) Start(informChan <-chan watch.Event) {
+	go pa.run(informChan)
 }
 
 // run contains the aggregation logic and is executed as a goroutine when a PodAggregator
