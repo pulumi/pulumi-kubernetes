@@ -4,13 +4,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/dynamic/dynamicinformer"
 	"reflect"
 	"time"
 
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/client-go/dynamic/dynamicinformer"
+
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"

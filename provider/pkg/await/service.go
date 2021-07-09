@@ -3,10 +3,10 @@ package await
 import (
 	"context"
 	"fmt"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"k8s.io/client-go/dynamic/dynamicinformer"
 	"reflect"
 	"time"
+
+	"k8s.io/client-go/dynamic/dynamicinformer"
 
 	"github.com/pkg/errors"
 	v1 "k8s.io/api/core/v1"
@@ -16,6 +16,7 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"

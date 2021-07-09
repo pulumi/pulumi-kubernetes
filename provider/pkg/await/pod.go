@@ -2,11 +2,12 @@ package await
 
 import (
 	"context"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"k8s.io/client-go/dynamic/dynamicinformer"
 	"time"
 
+	"k8s.io/client-go/dynamic/dynamicinformer"
+
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
