@@ -3,6 +3,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"k8s.io/client-go/dynamic/dynamicinformer"
 	"strings"
 	"time"
@@ -23,8 +24,6 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/informers"
-	"k8s.io/client-go/tools/cache"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -158,43 +157,59 @@ func (dia *deploymentInitAwaiter) Await() error {
 	informerFactory.Start(stopper)
 
 	deploymentEvents := make(chan watch.Event)
-	deploymentV1Informer := dia.makeInformer(
+	deploymentV1Informer, err := informers.New(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "apps",
-			Version:  "v1",
-			Resource: "deployments",
-		}, deploymentEvents)
+		informers.WithGVR(
+			schema.GroupVersionResource{
+				Group:    "apps",
+				Version:  "v1",
+				Resource: "deployments",
+			},
+		),
+		informers.WithEventChannel(deploymentEvents))
+	if err != nil {
+		return err
+	}
 	go deploymentV1Informer.Informer().Run(stopper)
 
 	replicaSetEvents := make(chan watch.Event)
-	replicaSetV1Informer := dia.makeInformer(
+	replicaSetV1Informer, err := informers.New(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "apps",
-			Version:  "v1",
-			Resource: "replicasets",
-		}, replicaSetEvents)
+		informers.WithGVR(
+			schema.GroupVersionResource{
+				Group:    "apps",
+				Version:  "v1",
+				Resource: "replicasets",
+			}),
+		informers.WithEventChannel(replicaSetEvents))
+	if err != nil {
+		return err
+	}
 	go replicaSetV1Informer.Informer().Run(stopper)
 
 	podEvents := make(chan watch.Event)
-	podV1Informer := dia.makeInformer(
+	podV1Informer, err := informers.New(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "",
-			Version:  "v1",
-			Resource: "pods",
-		}, podEvents)
+		informers.ForPods(),
+		informers.WithEventChannel(podEvents))
+	if err != nil {
+		return err
+	}
 	go podV1Informer.Informer().Run(stopper)
 
 	pvcEvents := make(chan watch.Event)
-	pvcV1Informer := dia.makeInformer(
+	pvcV1Informer, err := informers.New(
 		informerFactory,
-		schema.GroupVersionResource{
-			Group:    "",
-			Version:  "v1",
-			Resource: "persistentvolumeclaims",
-		}, pvcEvents)
+		informers.WithGVR(
+			schema.GroupVersionResource{
+				Group:    "",
+				Version:  "v1",
+				Resource: "persistentvolumeclaims",
+			}),
+		informers.WithEventChannel(pvcEvents))
+	if err != nil {
+		return err
+	}
 	go pvcV1Informer.Informer().Run(stopper)
 
 	// Wait for the cache to sync
@@ -887,40 +902,4 @@ func (dia *deploymentInitAwaiter) makeClients() (
 	}
 
 	return
-}
-
-func (dia *deploymentInitAwaiter) makeInformer(
-	informerFactory dynamicinformer.DynamicSharedInformerFactory,
-	gvr schema.GroupVersionResource,
-	informChan chan<- watch.Event) informers.GenericInformer {
-
-	informer := informerFactory.ForResource(gvr)
-	informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-		AddFunc: func(obj interface{}) {
-			informChan <- watch.Event{
-				Object: obj.(*unstructured.Unstructured),
-				Type:   watch.Added,
-			}
-		},
-		UpdateFunc: func(_, newObj interface{}) {
-			informChan <- watch.Event{
-				Object: newObj.(*unstructured.Unstructured),
-				Type:   watch.Modified,
-			}
-		},
-		DeleteFunc: func(obj interface{}) {
-			if unknown, ok := obj.(cache.DeletedFinalStateUnknown); ok {
-				informChan <- watch.Event{
-					Object: unknown.Obj.(*unstructured.Unstructured),
-					Type:   watch.Deleted,
-				}
-			} else {
-				informChan <- watch.Event{
-					Object: obj.(*unstructured.Unstructured),
-					Type:   watch.Deleted,
-				}
-			}
-		},
-	})
-	return informer
 }
