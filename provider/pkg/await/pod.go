@@ -4,8 +4,6 @@ import (
 	"context"
 	"time"
 
-	"k8s.io/client-go/dynamic/dynamicinformer"
-
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
@@ -135,11 +133,8 @@ func (pia *podInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := pia.config.currentInputs.GetNamespace()
-	if namespace == "" {
-		namespace = metav1.NamespaceDefault
-	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(pia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory := informers.NewInformerFactory(pia.config.clientSet,
+		informers.WithNamespaceOrDefault(pia.config.currentInputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	podEvents := make(chan watch.Event)

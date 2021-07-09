@@ -100,11 +100,8 @@ func (jia *jobInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := jia.config.currentInputs.GetNamespace()
-	if namespace == "" {
-		namespace = metav1.NamespaceDefault
-	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(jia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory := informers.NewInformerFactory(jia.config.clientSet,
+		informers.WithNamespaceOrDefault(jia.config.currentInputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	jobEvents := make(chan watch.Event)

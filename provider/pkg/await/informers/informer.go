@@ -2,7 +2,6 @@ package informers
 
 import (
 	"fmt"
-
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
@@ -11,18 +10,18 @@ import (
 	"k8s.io/client-go/tools/cache"
 )
 
-type options struct {
+type informerOptions struct {
 	gvr        schema.GroupVersionResource
 	informChan chan<- watch.Event
 }
 
-type Option interface {
-	apply(*options)
+type InformerOption interface {
+	apply(*informerOptions)
 }
 
-type applyFunc func(*options)
+type applyInformerOptionFunc func(*informerOptions)
 
-func (a applyFunc) apply(o *options) {
+func (a applyInformerOptionFunc) apply(o *informerOptions) {
 	a(o)
 }
 
@@ -31,15 +30,15 @@ func (a applyFunc) apply(o *options) {
 // object and sent down the channel. This allows loosely mimicking the
 // behavior expected in a low-level Watch but all caveats associated with
 // cache.ResourceEventHandler apply.
-func WithEventChannel(ch chan<- watch.Event) Option {
-	return applyFunc(func(o *options) {
+func WithEventChannel(ch chan<- watch.Event) InformerOption {
+	return applyInformerOptionFunc(func(o *informerOptions) {
 		o.informChan = ch
 	})
 }
 
 // ForPods provides a shortcut for specifying "core/v1/pods" as a GVR.
-func ForPods() Option {
-	return WithGVR(schema.GroupVersionResource{
+func ForPods() InformerOption {
+	return ForGVR(schema.GroupVersionResource{
 		Group:    "",
 		Version:  "v1",
 		Resource: "pods",
@@ -47,8 +46,8 @@ func ForPods() Option {
 }
 
 // ForServices provides a shortcut for specifying "core/v1/services" as a GVR.
-func ForServices() Option {
-	return WithGVR(schema.GroupVersionResource{
+func ForServices() InformerOption {
+	return ForGVR(schema.GroupVersionResource{
 		Group:    "",
 		Version:  "v1",
 		Resource: "services",
@@ -56,8 +55,8 @@ func ForServices() Option {
 }
 
 // ForJobs provides a shortcut for specifying "batch/v1/jobs" as a GVR.
-func ForJobs() Option {
-	return WithGVR(schema.GroupVersionResource{
+func ForJobs() InformerOption {
+	return ForGVR(schema.GroupVersionResource{
 		Group:    "batch",
 		Version:  "v1",
 		Resource: "jobs",
@@ -65,30 +64,30 @@ func ForJobs() Option {
 }
 
 // ForEndpoints provides a shortcut for specifying "core/v1/endpoints" as a GVR.
-func ForEndpoints() Option {
-	return WithGVR(schema.GroupVersionResource{
+func ForEndpoints() InformerOption {
+	return ForGVR(schema.GroupVersionResource{
 		Group:    "",
 		Version:  "v1",
 		Resource: "endpoints",
 	})
 }
 
-// WithGVR configures the required GVR for the informer.
-func WithGVR(gvr schema.GroupVersionResource) Option {
-	return applyFunc(func(o *options) {
+// ForGVR configures the required GVR for the informer.
+func ForGVR(gvr schema.GroupVersionResource) InformerOption {
+	return applyInformerOptionFunc(func(o *informerOptions) {
 		o.gvr = gvr
 	})
 }
 
 // New provides a convenient wrapper to initiate a GenericInformer associated with
 // the provided informerFactory for a particular GVR.
-// A GVR must be specified through either WithGVR option or one of the convenience
+// A GVR must be specified through either ForGVR option or one of the convenience
 // wrappers around it in this package.
 func New(
 	informerFactory dynamicinformer.DynamicSharedInformerFactory,
-	opts ...Option,
+	opts ...InformerOption,
 ) (informers.GenericInformer, error) {
-	options := options{}
+	options := informerOptions{}
 	for _, o := range opts {
 		o.apply(&options)
 	}

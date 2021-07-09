@@ -6,8 +6,6 @@ import (
 	"strings"
 	"time"
 
-	"k8s.io/client-go/dynamic/dynamicinformer"
-
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
@@ -149,18 +147,16 @@ func (dia *deploymentInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := dia.deployment.GetNamespace()
-	if namespace == "" {
-		namespace = metav1.NamespaceDefault
-	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory := informers.NewInformerFactory(dia.config.clientSet,
+		informers.WithNamespaceOrDefault(dia.deployment.GetNamespace()))
+
 	// Limit the lifetime of this to each deployment await for now. We can reduce this sharing further later.
 	informerFactory.Start(stopper)
 
 	deploymentEvents := make(chan watch.Event)
 	deploymentV1Informer, err := informers.New(
 		informerFactory,
-		informers.WithGVR(
+		informers.ForGVR(
 			schema.GroupVersionResource{
 				Group:    "apps",
 				Version:  "v1",
@@ -176,7 +172,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	replicaSetEvents := make(chan watch.Event)
 	replicaSetV1Informer, err := informers.New(
 		informerFactory,
-		informers.WithGVR(
+		informers.ForGVR(
 			schema.GroupVersionResource{
 				Group:    "apps",
 				Version:  "v1",
@@ -201,7 +197,7 @@ func (dia *deploymentInitAwaiter) Await() error {
 	pvcEvents := make(chan watch.Event)
 	pvcV1Informer, err := informers.New(
 		informerFactory,
-		informers.WithGVR(
+		informers.ForGVR(
 			schema.GroupVersionResource{
 				Group:    "",
 				Version:  "v1",

@@ -6,10 +6,8 @@ import (
 	"reflect"
 	"time"
 
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/dynamic/dynamicinformer"
-
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
@@ -148,15 +146,12 @@ func (sia *statefulsetInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := sia.config.currentInputs.GetNamespace()
-	if namespace == "" {
-		namespace = metav1.NamespaceDefault
-	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(sia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
+		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	statefulSetEvents := make(chan watch.Event)
-	statefulSetInformer, err := informers.New(informerFactory, informers.WithGVR(schema.GroupVersionResource{
+	statefulSetInformer, err := informers.New(informerFactory, informers.ForGVR(schema.GroupVersionResource{
 		Group:    "apps",
 		Version:  "v1",
 		Resource: "statefulsets",

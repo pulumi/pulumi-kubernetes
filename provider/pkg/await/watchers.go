@@ -63,12 +63,12 @@ func NewPodAggregator(owner ResourceID, lister cache.GenericLister) *PodAggregat
 	return pa
 }
 
+// Start initiates the aggregation logic and is executed as a goroutine which should be
+// stopped through a call to Stop
 func (pa *PodAggregator) Start(informChan <-chan watch.Event) {
 	go pa.run(informChan)
 }
 
-// run contains the aggregation logic and is executed as a goroutine when a PodAggregator
-// is initialized.
 func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 	defer close(pa.messages)
 

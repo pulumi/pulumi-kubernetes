@@ -7,9 +7,6 @@ import (
 	"reflect"
 	"time"
 
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/client-go/dynamic/dynamicinformer"
-
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
@@ -23,6 +20,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
@@ -102,15 +100,12 @@ func (iia *ingressInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := iia.config.currentInputs.GetNamespace()
-	if namespace == "" {
-		namespace = metav1.NamespaceDefault
-	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(iia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory := informers.NewInformerFactory(iia.config.clientSet,
+		informers.WithNamespaceOrDefault(iia.config.currentInputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	ingressEvents := make(chan watch.Event)
-	ingressInformer, err := informers.New(informerFactory, informers.WithGVR(schema.GroupVersionResource{
+	ingressInformer, err := informers.New(informerFactory, informers.ForGVR(schema.GroupVersionResource{
 		Group:    "networking.k8s.io",
 		Version:  "v1",
 		Resource: "ingresses",

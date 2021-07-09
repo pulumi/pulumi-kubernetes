@@ -6,8 +6,6 @@ import (
 	"reflect"
 	"time"
 
-	"k8s.io/client-go/dynamic/dynamicinformer"
-
 	"github.com/pkg/errors"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -126,11 +124,8 @@ func (sia *serviceInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := sia.config.currentInputs.GetNamespace()
-	if namespace == "" {
-		namespace = metav1.NamespaceDefault
-	}
-	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(sia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
+		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	serviceEvents := make(chan watch.Event)
