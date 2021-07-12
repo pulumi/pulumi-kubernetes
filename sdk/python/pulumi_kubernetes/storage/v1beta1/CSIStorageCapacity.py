@@ -283,7 +283,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -291,7 +291,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def capacity(self) -> pulumi.Output[Optional[str]]:
+    def capacity(self) -> pulumi.Output[str]:
         """
         Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
 
@@ -301,7 +301,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -309,7 +309,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="maximumVolumeSize")
-    def maximum_volume_size(self) -> pulumi.Output[Optional[str]]:
+    def maximum_volume_size(self) -> pulumi.Output[str]:
         """
         MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
 
@@ -319,7 +319,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
 
@@ -331,7 +331,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="nodeTopology")
-    def node_topology(self) -> pulumi.Output[Optional['_meta.v1.outputs.LabelSelector']]:
+    def node_topology(self) -> pulumi.Output['_meta.v1.outputs.LabelSelector']:
         """
         NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
         """

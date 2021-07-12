@@ -29608,6 +29608,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "webhooks"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -29664,7 +29670,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -29719,6 +29728,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "webhooks"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -29775,7 +29790,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -29830,6 +29848,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "webhooks"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -29886,7 +29910,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -29941,6 +29968,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "webhooks"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -29997,7 +30030,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30053,7 +30089,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30109,7 +30149,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30164,7 +30207,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30220,7 +30267,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30274,6 +30324,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -30330,7 +30387,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30388,6 +30448,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -30444,7 +30511,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30505,6 +30575,10 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "data",
+                "kind",
+                "metadata",
                 "revision"
             ],
             "inputProperties": {
@@ -30571,7 +30645,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30627,6 +30704,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -30683,7 +30767,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30739,6 +30826,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -30798,7 +30892,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30854,6 +30951,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -30910,7 +31014,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -30965,6 +31072,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31018,7 +31132,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31074,6 +31191,10 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "data",
+                "kind",
+                "metadata",
                 "revision"
             ],
             "inputProperties": {
@@ -31141,7 +31262,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31197,6 +31321,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31257,7 +31388,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31312,6 +31446,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31366,7 +31507,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31422,6 +31566,10 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "data",
+                "kind",
+                "metadata",
                 "revision"
             ],
             "inputProperties": {
@@ -31489,7 +31637,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31545,6 +31696,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31602,7 +31760,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31658,6 +31819,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31718,7 +31886,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31774,6 +31945,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31831,7 +32009,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31886,6 +32067,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -31940,7 +32128,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -31989,6 +32180,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -32035,7 +32232,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32088,7 +32288,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32139,7 +32343,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32196,7 +32404,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32253,7 +32465,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32310,7 +32526,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32367,7 +32587,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32424,7 +32648,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32481,7 +32709,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32538,7 +32770,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32595,7 +32831,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32652,7 +32892,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32709,6 +32953,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -32765,7 +33016,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32821,6 +33075,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -32877,7 +33138,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -32933,6 +33197,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -32989,7 +33260,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33045,6 +33319,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33101,7 +33382,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33157,6 +33441,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33205,7 +33496,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33261,6 +33555,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33317,7 +33618,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33373,6 +33677,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33429,7 +33740,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33485,7 +33799,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33541,7 +33859,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33595,6 +33916,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33644,7 +33972,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33694,6 +34025,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33747,7 +34084,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33799,6 +34139,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -33852,7 +34198,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -33905,6 +34254,9 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
                 "target"
             ],
             "inputProperties": {
@@ -33968,6 +34320,14 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "binaryData",
+                "data",
+                "immutable",
+                "kind",
+                "metadata"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34030,7 +34390,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34085,6 +34448,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "subsets"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34136,7 +34505,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34196,7 +34568,10 @@
             },
             "type": "object",
             "required": [
-                "ephemeralContainers"
+                "apiVersion",
+                "ephemeralContainers",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34305,8 +34680,23 @@
             },
             "type": "object",
             "required": [
+                "action",
+                "apiVersion",
+                "count",
+                "eventTime",
+                "firstTimestamp",
                 "involvedObject",
-                "metadata"
+                "kind",
+                "lastTimestamp",
+                "message",
+                "metadata",
+                "reason",
+                "related",
+                "reportingComponent",
+                "reportingInstance",
+                "series",
+                "source",
+                "type"
             ],
             "inputProperties": {
                 "action": {
@@ -34420,7 +34810,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34472,6 +34865,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34520,7 +34919,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34576,6 +34978,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34624,7 +35033,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34680,6 +35092,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34728,7 +35147,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34784,6 +35206,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34832,6 +35261,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -34880,7 +35316,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34936,7 +35375,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -34992,6 +35434,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35040,7 +35489,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35092,6 +35544,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "template"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35140,7 +35598,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35196,6 +35657,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35244,7 +35712,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35300,6 +35771,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35348,7 +35826,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35420,6 +35901,15 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "data",
+                "immutable",
+                "kind",
+                "metadata",
+                "stringData",
+                "type"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35488,7 +35978,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35544,6 +36037,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35602,6 +36102,14 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "automountServiceAccountToken",
+                "imagePullSecrets",
+                "kind",
+                "metadata",
+                "secrets"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -35664,7 +36172,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35720,7 +36231,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35788,7 +36302,11 @@
             "type": "object",
             "required": [
                 "addressType",
-                "endpoints"
+                "apiVersion",
+                "endpoints",
+                "kind",
+                "metadata",
+                "ports"
             ],
             "inputProperties": {
                 "addressType": {
@@ -35861,7 +36379,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -35929,7 +36450,11 @@
             "type": "object",
             "required": [
                 "addressType",
-                "endpoints"
+                "apiVersion",
+                "endpoints",
+                "kind",
+                "metadata",
+                "ports"
             ],
             "inputProperties": {
                 "addressType": {
@@ -36002,7 +36527,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36107,7 +36635,23 @@
             },
             "type": "object",
             "required": [
-                "eventTime"
+                "action",
+                "apiVersion",
+                "deprecatedCount",
+                "deprecatedFirstTimestamp",
+                "deprecatedLastTimestamp",
+                "deprecatedSource",
+                "eventTime",
+                "kind",
+                "metadata",
+                "note",
+                "reason",
+                "regarding",
+                "related",
+                "reportingController",
+                "reportingInstance",
+                "series",
+                "type"
             ],
             "inputProperties": {
                 "action": {
@@ -36220,7 +36764,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36325,7 +36872,23 @@
             },
             "type": "object",
             "required": [
-                "eventTime"
+                "action",
+                "apiVersion",
+                "deprecatedCount",
+                "deprecatedFirstTimestamp",
+                "deprecatedLastTimestamp",
+                "deprecatedSource",
+                "eventTime",
+                "kind",
+                "metadata",
+                "note",
+                "reason",
+                "regarding",
+                "related",
+                "reportingController",
+                "reportingInstance",
+                "series",
+                "type"
             ],
             "inputProperties": {
                 "action": {
@@ -36438,7 +37001,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36494,6 +37060,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -36551,7 +37124,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36607,6 +37183,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -36667,7 +37250,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36723,6 +37309,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -36780,7 +37373,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36832,6 +37428,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -36885,7 +37487,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -36937,6 +37542,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -36990,7 +37601,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37046,6 +37660,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37103,7 +37724,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37159,6 +37783,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37212,7 +37843,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37268,6 +37902,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37321,7 +37962,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37377,6 +38021,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37430,7 +38081,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37486,6 +38140,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37539,7 +38200,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37612,6 +38276,16 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "code",
+                "details",
+                "kind",
+                "message",
+                "metadata",
+                "reason",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37672,6 +38346,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37724,6 +38405,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37777,7 +38464,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37833,7 +38523,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37885,6 +38578,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -37938,7 +38637,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -37994,6 +38696,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -38046,6 +38755,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -38099,7 +38814,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38155,7 +38873,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38216,7 +38937,12 @@
             },
             "type": "object",
             "required": [
-                "handler"
+                "apiVersion",
+                "handler",
+                "kind",
+                "metadata",
+                "overhead",
+                "scheduling"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38285,7 +39011,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38338,6 +39067,9 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
                 "spec"
             ],
             "inputProperties": {
@@ -38399,7 +39131,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38460,7 +39195,12 @@
             },
             "type": "object",
             "required": [
-                "handler"
+                "apiVersion",
+                "handler",
+                "kind",
+                "metadata",
+                "overhead",
+                "scheduling"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38529,7 +39269,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38585,6 +39328,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -38638,7 +39388,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38693,6 +39446,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -38743,7 +39503,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38793,6 +39556,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -38846,7 +39615,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -38905,6 +39677,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "aggregationRule",
+                "apiVersion",
+                "kind",
+                "metadata",
+                "rules"
+            ],
             "inputProperties": {
                 "aggregationRule": {
                     "$ref": "#/types/kubernetes:rbac.authorization.k8s.io/v1:AggregationRule",
@@ -38972,7 +39751,11 @@
             },
             "type": "object",
             "required": [
-                "roleRef"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "roleRef",
+                "subjects"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39040,7 +39823,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39096,7 +39882,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39151,6 +39940,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "rules"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -39214,7 +40009,11 @@
             },
             "type": "object",
             "required": [
-                "roleRef"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "roleRef",
+                "subjects"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39282,7 +40081,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39338,7 +40140,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39397,6 +40202,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "aggregationRule",
+                "apiVersion",
+                "kind",
+                "metadata",
+                "rules"
+            ],
             "inputProperties": {
                 "aggregationRule": {
                     "$ref": "#/types/kubernetes:rbac.authorization.k8s.io/v1alpha1:AggregationRule",
@@ -39464,7 +40276,11 @@
             },
             "type": "object",
             "required": [
-                "roleRef"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "roleRef",
+                "subjects"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39532,7 +40348,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39588,7 +40407,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39643,6 +40465,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "rules"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -39706,7 +40534,11 @@
             },
             "type": "object",
             "required": [
-                "roleRef"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "roleRef",
+                "subjects"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39774,7 +40606,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39830,7 +40665,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -39889,6 +40727,13 @@
                 }
             },
             "type": "object",
+            "required": [
+                "aggregationRule",
+                "apiVersion",
+                "kind",
+                "metadata",
+                "rules"
+            ],
             "inputProperties": {
                 "aggregationRule": {
                     "$ref": "#/types/kubernetes:rbac.authorization.k8s.io/v1beta1:AggregationRule",
@@ -39956,7 +40801,11 @@
             },
             "type": "object",
             "required": [
-                "roleRef"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "roleRef",
+                "subjects"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40024,7 +40873,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40080,7 +40932,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40135,6 +40990,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "rules"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -40198,7 +41059,11 @@
             },
             "type": "object",
             "required": [
-                "roleRef"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "roleRef",
+                "subjects"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40266,7 +41131,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40322,7 +41190,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40387,6 +41258,12 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "description",
+                "globalDefault",
+                "kind",
+                "metadata",
+                "preemptionPolicy",
                 "value"
             ],
             "inputProperties": {
@@ -40460,7 +41337,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40525,6 +41405,12 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "description",
+                "globalDefault",
+                "kind",
+                "metadata",
+                "preemptionPolicy",
                 "value"
             ],
             "inputProperties": {
@@ -40598,7 +41484,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40663,6 +41552,12 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "description",
+                "globalDefault",
+                "kind",
+                "metadata",
+                "preemptionPolicy",
                 "value"
             ],
             "inputProperties": {
@@ -40736,7 +41631,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40786,6 +41684,12 @@
                 }
             },
             "type": "object",
+            "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec"
+            ],
             "inputProperties": {
                 "apiVersion": {
                     "type": "string",
@@ -40832,7 +41736,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40885,6 +41792,9 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
                 "spec"
             ],
             "inputProperties": {
@@ -40943,7 +41853,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -40996,6 +41909,9 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
                 "spec"
             ],
             "inputProperties": {
@@ -41054,7 +41970,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41140,7 +42059,16 @@
             },
             "type": "object",
             "required": [
-                "provisioner"
+                "allowVolumeExpansion",
+                "allowedTopologies",
+                "apiVersion",
+                "kind",
+                "metadata",
+                "mountOptions",
+                "parameters",
+                "provisioner",
+                "reclaimPolicy",
+                "volumeBindingMode"
             ],
             "inputProperties": {
                 "allowVolumeExpansion": {
@@ -41231,7 +42159,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41288,7 +42219,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41349,7 +42284,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41414,6 +42352,12 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "capacity",
+                "kind",
+                "maximumVolumeSize",
+                "metadata",
+                "nodeTopology",
                 "storageClassName"
             ],
             "inputProperties": {
@@ -41484,7 +42428,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41541,7 +42488,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41602,7 +42553,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41655,6 +42609,9 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
                 "spec"
             ],
             "inputProperties": {
@@ -41713,7 +42670,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41766,6 +42726,9 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "kind",
+                "metadata",
                 "spec"
             ],
             "inputProperties": {
@@ -41825,7 +42788,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -41890,6 +42856,12 @@
             },
             "type": "object",
             "required": [
+                "apiVersion",
+                "capacity",
+                "kind",
+                "maximumVolumeSize",
+                "metadata",
+                "nodeTopology",
                 "storageClassName"
             ],
             "inputProperties": {
@@ -41960,7 +42932,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -42046,7 +43021,16 @@
             },
             "type": "object",
             "required": [
-                "provisioner"
+                "allowVolumeExpansion",
+                "allowedTopologies",
+                "apiVersion",
+                "kind",
+                "metadata",
+                "mountOptions",
+                "parameters",
+                "provisioner",
+                "reclaimPolicy",
+                "volumeBindingMode"
             ],
             "inputProperties": {
                 "allowVolumeExpansion": {
@@ -42137,7 +43121,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -42194,7 +43181,11 @@
             },
             "type": "object",
             "required": [
-                "spec"
+                "apiVersion",
+                "kind",
+                "metadata",
+                "spec",
+                "status"
             ],
             "inputProperties": {
                 "apiVersion": {
@@ -42255,7 +43246,10 @@
             },
             "type": "object",
             "required": [
-                "items"
+                "apiVersion",
+                "items",
+                "kind",
+                "metadata"
             ],
             "inputProperties": {
                 "apiVersion": {

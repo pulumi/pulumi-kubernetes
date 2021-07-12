@@ -16,14 +16,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
     public class CertificateSigningRequestSpecArgs : Pulumi.ResourceArgs
     {
         [Input("extra")]
-        private InputMap<ImmutableArray<string>>? _extra;
+        private InputMap<ImmutableArray<Input<string>>>? _extra;
 
         /// <summary>
         /// extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         /// </summary>
-        public InputMap<ImmutableArray<string>> Extra
+        public InputMap<ImmutableArray<Input<string>>> Extra
         {
-            get => _extra ?? (_extra = new InputMap<ImmutableArray<string>>());
+            get => _extra ?? (_extra = new InputMap<ImmutableArray<Input<string>>>());
             set => _extra = value;
         }
 

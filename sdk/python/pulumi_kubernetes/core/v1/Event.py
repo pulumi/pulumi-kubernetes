@@ -456,7 +456,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def action(self) -> pulumi.Output[Optional[str]]:
+    def action(self) -> pulumi.Output[str]:
         """
         What action was taken/failed regarding to the Regarding object.
         """
@@ -464,7 +464,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -472,7 +472,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def count(self) -> pulumi.Output[Optional[int]]:
+    def count(self) -> pulumi.Output[int]:
         """
         The number of times this event has occurred.
         """
@@ -480,7 +480,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="eventTime")
-    def event_time(self) -> pulumi.Output[Optional[str]]:
+    def event_time(self) -> pulumi.Output[str]:
         """
         Time when this Event was first observed.
         """
@@ -488,7 +488,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="firstTimestamp")
-    def first_timestamp(self) -> pulumi.Output[Optional[str]]:
+    def first_timestamp(self) -> pulumi.Output[str]:
         """
         The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
         """
@@ -504,7 +504,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -512,7 +512,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="lastTimestamp")
-    def last_timestamp(self) -> pulumi.Output[Optional[str]]:
+    def last_timestamp(self) -> pulumi.Output[str]:
         """
         The time at which the most recent occurrence of this event was recorded.
         """
@@ -520,7 +520,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def message(self) -> pulumi.Output[Optional[str]]:
+    def message(self) -> pulumi.Output[str]:
         """
         A human-readable description of the status of this operation.
         """
@@ -536,7 +536,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def reason(self) -> pulumi.Output[Optional[str]]:
+    def reason(self) -> pulumi.Output[str]:
         """
         This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
         """
@@ -544,7 +544,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def related(self) -> pulumi.Output[Optional['outputs.ObjectReference']]:
+    def related(self) -> pulumi.Output['outputs.ObjectReference']:
         """
         Optional secondary object for more complex actions.
         """
@@ -552,7 +552,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="reportingComponent")
-    def reporting_component(self) -> pulumi.Output[Optional[str]]:
+    def reporting_component(self) -> pulumi.Output[str]:
         """
         Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
@@ -560,7 +560,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="reportingInstance")
-    def reporting_instance(self) -> pulumi.Output[Optional[str]]:
+    def reporting_instance(self) -> pulumi.Output[str]:
         """
         ID of the controller instance, e.g. `kubelet-xyzf`.
         """
@@ -568,7 +568,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def series(self) -> pulumi.Output[Optional['outputs.EventSeries']]:
+    def series(self) -> pulumi.Output['outputs.EventSeries']:
         """
         Data about the Event series this event represents or nil if it's a singleton Event.
         """
@@ -576,7 +576,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def source(self) -> pulumi.Output[Optional['outputs.EventSource']]:
+    def source(self) -> pulumi.Output['outputs.EventSource']:
         """
         The component reporting this event. Should be a short machine understandable string.
         """
@@ -584,7 +584,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def type(self) -> pulumi.Output[Optional[str]]:
+    def type(self) -> pulumi.Output[str]:
         """
         Type of this event (Normal, Warning), new types could be added in the future
         """

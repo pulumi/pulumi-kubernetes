@@ -25,20 +25,20 @@ __all__ = [
     'CinderPersistentVolumeSourceArgs',
     'CinderVolumeSourceArgs',
     'ClientIPConfigArgs',
-    'ConfigMapArgs',
     'ConfigMapEnvSourceArgs',
     'ConfigMapKeySelectorArgs',
     'ConfigMapNodeConfigSourceArgs',
     'ConfigMapProjectionArgs',
     'ConfigMapVolumeSourceArgs',
-    'ContainerArgs',
+    'ConfigMapArgs',
     'ContainerImageArgs',
     'ContainerPortArgs',
-    'ContainerStateArgs',
     'ContainerStateRunningArgs',
     'ContainerStateTerminatedArgs',
     'ContainerStateWaitingArgs',
+    'ContainerStateArgs',
     'ContainerStatusArgs',
+    'ContainerArgs',
     'DaemonEndpointArgs',
     'DownwardAPIProjectionArgs',
     'DownwardAPIVolumeFileArgs',
@@ -49,13 +49,13 @@ __all__ = [
     'EndpointSubsetArgs',
     'EndpointsArgs',
     'EnvFromSourceArgs',
-    'EnvVarArgs',
     'EnvVarSourceArgs',
+    'EnvVarArgs',
     'EphemeralContainerArgs',
     'EphemeralVolumeSourceArgs',
-    'EventArgs',
     'EventSeriesArgs',
     'EventSourceArgs',
+    'EventArgs',
     'ExecActionArgs',
     'FCVolumeSourceArgs',
     'FlexPersistentVolumeSourceArgs',
@@ -74,57 +74,57 @@ __all__ = [
     'ISCSIVolumeSourceArgs',
     'KeyToPathArgs',
     'LifecycleArgs',
-    'LimitRangeArgs',
     'LimitRangeItemArgs',
     'LimitRangeSpecArgs',
+    'LimitRangeArgs',
     'LoadBalancerIngressArgs',
     'LoadBalancerStatusArgs',
     'LocalObjectReferenceArgs',
     'LocalVolumeSourceArgs',
     'NFSVolumeSourceArgs',
-    'NamespaceArgs',
     'NamespaceConditionArgs',
     'NamespaceSpecArgs',
     'NamespaceStatusArgs',
-    'NodeArgs',
+    'NamespaceArgs',
     'NodeAddressArgs',
     'NodeAffinityArgs',
     'NodeConditionArgs',
     'NodeConfigSourceArgs',
     'NodeConfigStatusArgs',
     'NodeDaemonEndpointsArgs',
-    'NodeSelectorArgs',
     'NodeSelectorRequirementArgs',
     'NodeSelectorTermArgs',
+    'NodeSelectorArgs',
     'NodeSpecArgs',
     'NodeStatusArgs',
     'NodeSystemInfoArgs',
+    'NodeArgs',
     'ObjectFieldSelectorArgs',
     'ObjectReferenceArgs',
-    'PersistentVolumeArgs',
-    'PersistentVolumeClaimArgs',
     'PersistentVolumeClaimConditionArgs',
     'PersistentVolumeClaimSpecArgs',
     'PersistentVolumeClaimStatusArgs',
     'PersistentVolumeClaimTemplateArgs',
     'PersistentVolumeClaimVolumeSourceArgs',
+    'PersistentVolumeClaimArgs',
     'PersistentVolumeSpecArgs',
     'PersistentVolumeStatusArgs',
+    'PersistentVolumeArgs',
     'PhotonPersistentDiskVolumeSourceArgs',
-    'PodArgs',
-    'PodAffinityArgs',
     'PodAffinityTermArgs',
+    'PodAffinityArgs',
     'PodAntiAffinityArgs',
     'PodConditionArgs',
-    'PodDNSConfigArgs',
     'PodDNSConfigOptionArgs',
+    'PodDNSConfigArgs',
     'PodIPArgs',
     'PodReadinessGateArgs',
     'PodSecurityContextArgs',
     'PodSpecArgs',
     'PodStatusArgs',
-    'PodTemplateArgs',
     'PodTemplateSpecArgs',
+    'PodTemplateArgs',
+    'PodArgs',
     'PortStatusArgs',
     'PortworxVolumeSourceArgs',
     'PreferredSchedulingTermArgs',
@@ -133,14 +133,14 @@ __all__ = [
     'QuobyteVolumeSourceArgs',
     'RBDPersistentVolumeSourceArgs',
     'RBDVolumeSourceArgs',
-    'ReplicationControllerArgs',
     'ReplicationControllerConditionArgs',
     'ReplicationControllerSpecArgs',
     'ReplicationControllerStatusArgs',
+    'ReplicationControllerArgs',
     'ResourceFieldSelectorArgs',
-    'ResourceQuotaArgs',
     'ResourceQuotaSpecArgs',
     'ResourceQuotaStatusArgs',
+    'ResourceQuotaArgs',
     'ResourceRequirementsArgs',
     'SELinuxOptionsArgs',
     'ScaleIOPersistentVolumeSourceArgs',
@@ -148,19 +148,19 @@ __all__ = [
     'ScopeSelectorArgs',
     'ScopedResourceSelectorRequirementArgs',
     'SeccompProfileArgs',
-    'SecretArgs',
     'SecretEnvSourceArgs',
     'SecretKeySelectorArgs',
     'SecretProjectionArgs',
     'SecretReferenceArgs',
     'SecretVolumeSourceArgs',
+    'SecretArgs',
     'SecurityContextArgs',
-    'ServiceArgs',
-    'ServiceAccountArgs',
     'ServiceAccountTokenProjectionArgs',
+    'ServiceAccountArgs',
     'ServicePortArgs',
     'ServiceSpecArgs',
     'ServiceStatusArgs',
+    'ServiceArgs',
     'SessionAffinityConfigArgs',
     'StorageOSPersistentVolumeSourceArgs',
     'StorageOSVolumeSourceArgs',
@@ -172,11 +172,11 @@ __all__ = [
     'TopologySelectorTermArgs',
     'TopologySpreadConstraintArgs',
     'TypedLocalObjectReferenceArgs',
-    'VolumeArgs',
     'VolumeDeviceArgs',
     'VolumeMountArgs',
     'VolumeNodeAffinityArgs',
     'VolumeProjectionArgs',
+    'VolumeArgs',
     'VsphereVirtualDiskVolumeSourceArgs',
     'WeightedPodAffinityTermArgs',
     'WindowsSecurityContextOptionsArgs',
@@ -1225,110 +1225,6 @@ class ClientIPConfigArgs:
 
 
 @pulumi.input_type
-class ConfigMapArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 binary_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 immutable: Optional[pulumi.Input[bool]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
-        """
-        ConfigMap holds configuration data for pods to consume.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] data: Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
-        :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if binary_data is not None:
-            pulumi.set(__self__, "binary_data", binary_data)
-        if data is not None:
-            pulumi.set(__self__, "data", data)
-        if immutable is not None:
-            pulumi.set(__self__, "immutable", immutable)
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'ConfigMap')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter(name="binaryData")
-    def binary_data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        """
-        BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
-        """
-        return pulumi.get(self, "binary_data")
-
-    @binary_data.setter
-    def binary_data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "binary_data", value)
-
-    @property
-    @pulumi.getter
-    def data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        """
-        Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
-        """
-        return pulumi.get(self, "data")
-
-    @data.setter
-    def data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "data", value)
-
-    @property
-    @pulumi.getter
-    def immutable(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
-        """
-        return pulumi.get(self, "immutable")
-
-    @immutable.setter
-    def immutable(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "immutable", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-
-@pulumi.input_type
 class ConfigMapEnvSourceArgs:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[str]] = None,
@@ -1640,6 +1536,622 @@ class ConfigMapVolumeSourceArgs:
     @optional.setter
     def optional(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "optional", value)
+
+
+@pulumi.input_type
+class ConfigMapArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 binary_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 immutable: Optional[pulumi.Input[bool]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
+        """
+        ConfigMap holds configuration data for pods to consume.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] data: Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+        :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if binary_data is not None:
+            pulumi.set(__self__, "binary_data", binary_data)
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if immutable is not None:
+            pulumi.set(__self__, "immutable", immutable)
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ConfigMap')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter(name="binaryData")
+    def binary_data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
+        """
+        return pulumi.get(self, "binary_data")
+
+    @binary_data.setter
+    def binary_data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "binary_data", value)
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
+        """
+        return pulumi.get(self, "data")
+
+    @data.setter
+    def data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "data", value)
+
+    @property
+    @pulumi.getter
+    def immutable(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+        """
+        return pulumi.get(self, "immutable")
+
+    @immutable.setter
+    def immutable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "immutable", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+
+@pulumi.input_type
+class ContainerImageArgs:
+    def __init__(__self__, *,
+                 names: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 size_bytes: Optional[pulumi.Input[int]] = None):
+        """
+        Describe a container image
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] names: Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        :param pulumi.Input[int] size_bytes: The size of the image in bytes.
+        """
+        pulumi.set(__self__, "names", names)
+        if size_bytes is not None:
+            pulumi.set(__self__, "size_bytes", size_bytes)
+
+    @property
+    @pulumi.getter
+    def names(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        """
+        Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        """
+        return pulumi.get(self, "names")
+
+    @names.setter
+    def names(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "names", value)
+
+    @property
+    @pulumi.getter(name="sizeBytes")
+    def size_bytes(self) -> Optional[pulumi.Input[int]]:
+        """
+        The size of the image in bytes.
+        """
+        return pulumi.get(self, "size_bytes")
+
+    @size_bytes.setter
+    def size_bytes(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "size_bytes", value)
+
+
+@pulumi.input_type
+class ContainerPortArgs:
+    def __init__(__self__, *,
+                 container_port: pulumi.Input[int],
+                 host_ip: Optional[pulumi.Input[str]] = None,
+                 host_port: Optional[pulumi.Input[int]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 protocol: Optional[pulumi.Input[str]] = None):
+        """
+        ContainerPort represents a network port in a single container.
+        :param pulumi.Input[int] container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
+        :param pulumi.Input[str] host_ip: What host IP to bind the external port to.
+        :param pulumi.Input[int] host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+        :param pulumi.Input[str] name: If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
+        :param pulumi.Input[str] protocol: Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+        """
+        pulumi.set(__self__, "container_port", container_port)
+        if host_ip is not None:
+            pulumi.set(__self__, "host_ip", host_ip)
+        if host_port is not None:
+            pulumi.set(__self__, "host_port", host_port)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @property
+    @pulumi.getter(name="containerPort")
+    def container_port(self) -> pulumi.Input[int]:
+        """
+        Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
+        """
+        return pulumi.get(self, "container_port")
+
+    @container_port.setter
+    def container_port(self, value: pulumi.Input[int]):
+        pulumi.set(self, "container_port", value)
+
+    @property
+    @pulumi.getter(name="hostIP")
+    def host_ip(self) -> Optional[pulumi.Input[str]]:
+        """
+        What host IP to bind the external port to.
+        """
+        return pulumi.get(self, "host_ip")
+
+    @host_ip.setter
+    def host_ip(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "host_ip", value)
+
+    @property
+    @pulumi.getter(name="hostPort")
+    def host_port(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+        """
+        return pulumi.get(self, "host_port")
+
+    @host_port.setter
+    def host_port(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "host_port", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[pulumi.Input[str]]:
+        """
+        Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+        """
+        return pulumi.get(self, "protocol")
+
+    @protocol.setter
+    def protocol(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protocol", value)
+
+
+@pulumi.input_type
+class ContainerStateRunningArgs:
+    def __init__(__self__, *,
+                 started_at: Optional[pulumi.Input[str]] = None):
+        """
+        ContainerStateRunning is a running state of a container.
+        :param pulumi.Input[str] started_at: Time at which the container was last (re-)started
+        """
+        if started_at is not None:
+            pulumi.set(__self__, "started_at", started_at)
+
+    @property
+    @pulumi.getter(name="startedAt")
+    def started_at(self) -> Optional[pulumi.Input[str]]:
+        """
+        Time at which the container was last (re-)started
+        """
+        return pulumi.get(self, "started_at")
+
+    @started_at.setter
+    def started_at(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "started_at", value)
+
+
+@pulumi.input_type
+class ContainerStateTerminatedArgs:
+    def __init__(__self__, *,
+                 exit_code: pulumi.Input[int],
+                 container_id: Optional[pulumi.Input[str]] = None,
+                 finished_at: Optional[pulumi.Input[str]] = None,
+                 message: Optional[pulumi.Input[str]] = None,
+                 reason: Optional[pulumi.Input[str]] = None,
+                 signal: Optional[pulumi.Input[int]] = None,
+                 started_at: Optional[pulumi.Input[str]] = None):
+        """
+        ContainerStateTerminated is a terminated state of a container.
+        :param pulumi.Input[int] exit_code: Exit status from the last termination of the container
+        :param pulumi.Input[str] container_id: Container's ID in the format 'docker://<container_id>'
+        :param pulumi.Input[str] finished_at: Time at which the container last terminated
+        :param pulumi.Input[str] message: Message regarding the last termination of the container
+        :param pulumi.Input[str] reason: (brief) reason from the last termination of the container
+        :param pulumi.Input[int] signal: Signal from the last termination of the container
+        :param pulumi.Input[str] started_at: Time at which previous execution of the container started
+        """
+        pulumi.set(__self__, "exit_code", exit_code)
+        if container_id is not None:
+            pulumi.set(__self__, "container_id", container_id)
+        if finished_at is not None:
+            pulumi.set(__self__, "finished_at", finished_at)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if signal is not None:
+            pulumi.set(__self__, "signal", signal)
+        if started_at is not None:
+            pulumi.set(__self__, "started_at", started_at)
+
+    @property
+    @pulumi.getter(name="exitCode")
+    def exit_code(self) -> pulumi.Input[int]:
+        """
+        Exit status from the last termination of the container
+        """
+        return pulumi.get(self, "exit_code")
+
+    @exit_code.setter
+    def exit_code(self, value: pulumi.Input[int]):
+        pulumi.set(self, "exit_code", value)
+
+    @property
+    @pulumi.getter(name="containerID")
+    def container_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Container's ID in the format 'docker://<container_id>'
+        """
+        return pulumi.get(self, "container_id")
+
+    @container_id.setter
+    def container_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "container_id", value)
+
+    @property
+    @pulumi.getter(name="finishedAt")
+    def finished_at(self) -> Optional[pulumi.Input[str]]:
+        """
+        Time at which the container last terminated
+        """
+        return pulumi.get(self, "finished_at")
+
+    @finished_at.setter
+    def finished_at(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "finished_at", value)
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[pulumi.Input[str]]:
+        """
+        Message regarding the last termination of the container
+        """
+        return pulumi.get(self, "message")
+
+    @message.setter
+    def message(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "message", value)
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[pulumi.Input[str]]:
+        """
+        (brief) reason from the last termination of the container
+        """
+        return pulumi.get(self, "reason")
+
+    @reason.setter
+    def reason(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "reason", value)
+
+    @property
+    @pulumi.getter
+    def signal(self) -> Optional[pulumi.Input[int]]:
+        """
+        Signal from the last termination of the container
+        """
+        return pulumi.get(self, "signal")
+
+    @signal.setter
+    def signal(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "signal", value)
+
+    @property
+    @pulumi.getter(name="startedAt")
+    def started_at(self) -> Optional[pulumi.Input[str]]:
+        """
+        Time at which previous execution of the container started
+        """
+        return pulumi.get(self, "started_at")
+
+    @started_at.setter
+    def started_at(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "started_at", value)
+
+
+@pulumi.input_type
+class ContainerStateWaitingArgs:
+    def __init__(__self__, *,
+                 message: Optional[pulumi.Input[str]] = None,
+                 reason: Optional[pulumi.Input[str]] = None):
+        """
+        ContainerStateWaiting is a waiting state of a container.
+        :param pulumi.Input[str] message: Message regarding why the container is not yet running.
+        :param pulumi.Input[str] reason: (brief) reason the container is not yet running.
+        """
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[pulumi.Input[str]]:
+        """
+        Message regarding why the container is not yet running.
+        """
+        return pulumi.get(self, "message")
+
+    @message.setter
+    def message(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "message", value)
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[pulumi.Input[str]]:
+        """
+        (brief) reason the container is not yet running.
+        """
+        return pulumi.get(self, "reason")
+
+    @reason.setter
+    def reason(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "reason", value)
+
+
+@pulumi.input_type
+class ContainerStateArgs:
+    def __init__(__self__, *,
+                 running: Optional[pulumi.Input['ContainerStateRunningArgs']] = None,
+                 terminated: Optional[pulumi.Input['ContainerStateTerminatedArgs']] = None,
+                 waiting: Optional[pulumi.Input['ContainerStateWaitingArgs']] = None):
+        """
+        ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
+        :param pulumi.Input['ContainerStateRunningArgs'] running: Details about a running container
+        :param pulumi.Input['ContainerStateTerminatedArgs'] terminated: Details about a terminated container
+        :param pulumi.Input['ContainerStateWaitingArgs'] waiting: Details about a waiting container
+        """
+        if running is not None:
+            pulumi.set(__self__, "running", running)
+        if terminated is not None:
+            pulumi.set(__self__, "terminated", terminated)
+        if waiting is not None:
+            pulumi.set(__self__, "waiting", waiting)
+
+    @property
+    @pulumi.getter
+    def running(self) -> Optional[pulumi.Input['ContainerStateRunningArgs']]:
+        """
+        Details about a running container
+        """
+        return pulumi.get(self, "running")
+
+    @running.setter
+    def running(self, value: Optional[pulumi.Input['ContainerStateRunningArgs']]):
+        pulumi.set(self, "running", value)
+
+    @property
+    @pulumi.getter
+    def terminated(self) -> Optional[pulumi.Input['ContainerStateTerminatedArgs']]:
+        """
+        Details about a terminated container
+        """
+        return pulumi.get(self, "terminated")
+
+    @terminated.setter
+    def terminated(self, value: Optional[pulumi.Input['ContainerStateTerminatedArgs']]):
+        pulumi.set(self, "terminated", value)
+
+    @property
+    @pulumi.getter
+    def waiting(self) -> Optional[pulumi.Input['ContainerStateWaitingArgs']]:
+        """
+        Details about a waiting container
+        """
+        return pulumi.get(self, "waiting")
+
+    @waiting.setter
+    def waiting(self, value: Optional[pulumi.Input['ContainerStateWaitingArgs']]):
+        pulumi.set(self, "waiting", value)
+
+
+@pulumi.input_type
+class ContainerStatusArgs:
+    def __init__(__self__, *,
+                 image: pulumi.Input[str],
+                 image_id: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 ready: pulumi.Input[bool],
+                 restart_count: pulumi.Input[int],
+                 container_id: Optional[pulumi.Input[str]] = None,
+                 last_state: Optional[pulumi.Input['ContainerStateArgs']] = None,
+                 started: Optional[pulumi.Input[bool]] = None,
+                 state: Optional[pulumi.Input['ContainerStateArgs']] = None):
+        """
+        ContainerStatus contains details for the current status of this container.
+        :param pulumi.Input[str] image: The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+        :param pulumi.Input[str] image_id: ImageID of the container's image.
+        :param pulumi.Input[str] name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        :param pulumi.Input[bool] ready: Specifies whether the container has passed its readiness probe.
+        :param pulumi.Input[int] restart_count: The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+        :param pulumi.Input[str] container_id: Container's ID in the format 'docker://<container_id>'.
+        :param pulumi.Input['ContainerStateArgs'] last_state: Details about the container's last termination condition.
+        :param pulumi.Input[bool] started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        :param pulumi.Input['ContainerStateArgs'] state: Details about the container's current condition.
+        """
+        pulumi.set(__self__, "image", image)
+        pulumi.set(__self__, "image_id", image_id)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "ready", ready)
+        pulumi.set(__self__, "restart_count", restart_count)
+        if container_id is not None:
+            pulumi.set(__self__, "container_id", container_id)
+        if last_state is not None:
+            pulumi.set(__self__, "last_state", last_state)
+        if started is not None:
+            pulumi.set(__self__, "started", started)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def image(self) -> pulumi.Input[str]:
+        """
+        The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+        """
+        return pulumi.get(self, "image")
+
+    @image.setter
+    def image(self, value: pulumi.Input[str]):
+        pulumi.set(self, "image", value)
+
+    @property
+    @pulumi.getter(name="imageID")
+    def image_id(self) -> pulumi.Input[str]:
+        """
+        ImageID of the container's image.
+        """
+        return pulumi.get(self, "image_id")
+
+    @image_id.setter
+    def image_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "image_id", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def ready(self) -> pulumi.Input[bool]:
+        """
+        Specifies whether the container has passed its readiness probe.
+        """
+        return pulumi.get(self, "ready")
+
+    @ready.setter
+    def ready(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "ready", value)
+
+    @property
+    @pulumi.getter(name="restartCount")
+    def restart_count(self) -> pulumi.Input[int]:
+        """
+        The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+        """
+        return pulumi.get(self, "restart_count")
+
+    @restart_count.setter
+    def restart_count(self, value: pulumi.Input[int]):
+        pulumi.set(self, "restart_count", value)
+
+    @property
+    @pulumi.getter(name="containerID")
+    def container_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Container's ID in the format 'docker://<container_id>'.
+        """
+        return pulumi.get(self, "container_id")
+
+    @container_id.setter
+    def container_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "container_id", value)
+
+    @property
+    @pulumi.getter(name="lastState")
+    def last_state(self) -> Optional[pulumi.Input['ContainerStateArgs']]:
+        """
+        Details about the container's last termination condition.
+        """
+        return pulumi.get(self, "last_state")
+
+    @last_state.setter
+    def last_state(self, value: Optional[pulumi.Input['ContainerStateArgs']]):
+        pulumi.set(self, "last_state", value)
+
+    @property
+    @pulumi.getter
+    def started(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        """
+        return pulumi.get(self, "started")
+
+    @started.setter
+    def started(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "started", value)
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[pulumi.Input['ContainerStateArgs']]:
+        """
+        Details about the container's current condition.
+        """
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[pulumi.Input['ContainerStateArgs']]):
+        pulumi.set(self, "state", value)
 
 
 @pulumi.input_type
@@ -1999,518 +2511,6 @@ class ContainerArgs:
     @working_dir.setter
     def working_dir(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "working_dir", value)
-
-
-@pulumi.input_type
-class ContainerImageArgs:
-    def __init__(__self__, *,
-                 names: pulumi.Input[Sequence[pulumi.Input[str]]],
-                 size_bytes: Optional[pulumi.Input[int]] = None):
-        """
-        Describe a container image
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] names: Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
-        :param pulumi.Input[int] size_bytes: The size of the image in bytes.
-        """
-        pulumi.set(__self__, "names", names)
-        if size_bytes is not None:
-            pulumi.set(__self__, "size_bytes", size_bytes)
-
-    @property
-    @pulumi.getter
-    def names(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
-        """
-        return pulumi.get(self, "names")
-
-    @names.setter
-    def names(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "names", value)
-
-    @property
-    @pulumi.getter(name="sizeBytes")
-    def size_bytes(self) -> Optional[pulumi.Input[int]]:
-        """
-        The size of the image in bytes.
-        """
-        return pulumi.get(self, "size_bytes")
-
-    @size_bytes.setter
-    def size_bytes(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "size_bytes", value)
-
-
-@pulumi.input_type
-class ContainerPortArgs:
-    def __init__(__self__, *,
-                 container_port: pulumi.Input[int],
-                 host_ip: Optional[pulumi.Input[str]] = None,
-                 host_port: Optional[pulumi.Input[int]] = None,
-                 name: Optional[pulumi.Input[str]] = None,
-                 protocol: Optional[pulumi.Input[str]] = None):
-        """
-        ContainerPort represents a network port in a single container.
-        :param pulumi.Input[int] container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
-        :param pulumi.Input[str] host_ip: What host IP to bind the external port to.
-        :param pulumi.Input[int] host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
-        :param pulumi.Input[str] name: If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
-        :param pulumi.Input[str] protocol: Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-        """
-        pulumi.set(__self__, "container_port", container_port)
-        if host_ip is not None:
-            pulumi.set(__self__, "host_ip", host_ip)
-        if host_port is not None:
-            pulumi.set(__self__, "host_port", host_port)
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if protocol is not None:
-            pulumi.set(__self__, "protocol", protocol)
-
-    @property
-    @pulumi.getter(name="containerPort")
-    def container_port(self) -> pulumi.Input[int]:
-        """
-        Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
-        """
-        return pulumi.get(self, "container_port")
-
-    @container_port.setter
-    def container_port(self, value: pulumi.Input[int]):
-        pulumi.set(self, "container_port", value)
-
-    @property
-    @pulumi.getter(name="hostIP")
-    def host_ip(self) -> Optional[pulumi.Input[str]]:
-        """
-        What host IP to bind the external port to.
-        """
-        return pulumi.get(self, "host_ip")
-
-    @host_ip.setter
-    def host_ip(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "host_ip", value)
-
-    @property
-    @pulumi.getter(name="hostPort")
-    def host_port(self) -> Optional[pulumi.Input[int]]:
-        """
-        Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
-        """
-        return pulumi.get(self, "host_port")
-
-    @host_port.setter
-    def host_port(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "host_port", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def protocol(self) -> Optional[pulumi.Input[str]]:
-        """
-        Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-        """
-        return pulumi.get(self, "protocol")
-
-    @protocol.setter
-    def protocol(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "protocol", value)
-
-
-@pulumi.input_type
-class ContainerStateArgs:
-    def __init__(__self__, *,
-                 running: Optional[pulumi.Input['ContainerStateRunningArgs']] = None,
-                 terminated: Optional[pulumi.Input['ContainerStateTerminatedArgs']] = None,
-                 waiting: Optional[pulumi.Input['ContainerStateWaitingArgs']] = None):
-        """
-        ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
-        :param pulumi.Input['ContainerStateRunningArgs'] running: Details about a running container
-        :param pulumi.Input['ContainerStateTerminatedArgs'] terminated: Details about a terminated container
-        :param pulumi.Input['ContainerStateWaitingArgs'] waiting: Details about a waiting container
-        """
-        if running is not None:
-            pulumi.set(__self__, "running", running)
-        if terminated is not None:
-            pulumi.set(__self__, "terminated", terminated)
-        if waiting is not None:
-            pulumi.set(__self__, "waiting", waiting)
-
-    @property
-    @pulumi.getter
-    def running(self) -> Optional[pulumi.Input['ContainerStateRunningArgs']]:
-        """
-        Details about a running container
-        """
-        return pulumi.get(self, "running")
-
-    @running.setter
-    def running(self, value: Optional[pulumi.Input['ContainerStateRunningArgs']]):
-        pulumi.set(self, "running", value)
-
-    @property
-    @pulumi.getter
-    def terminated(self) -> Optional[pulumi.Input['ContainerStateTerminatedArgs']]:
-        """
-        Details about a terminated container
-        """
-        return pulumi.get(self, "terminated")
-
-    @terminated.setter
-    def terminated(self, value: Optional[pulumi.Input['ContainerStateTerminatedArgs']]):
-        pulumi.set(self, "terminated", value)
-
-    @property
-    @pulumi.getter
-    def waiting(self) -> Optional[pulumi.Input['ContainerStateWaitingArgs']]:
-        """
-        Details about a waiting container
-        """
-        return pulumi.get(self, "waiting")
-
-    @waiting.setter
-    def waiting(self, value: Optional[pulumi.Input['ContainerStateWaitingArgs']]):
-        pulumi.set(self, "waiting", value)
-
-
-@pulumi.input_type
-class ContainerStateRunningArgs:
-    def __init__(__self__, *,
-                 started_at: Optional[pulumi.Input[str]] = None):
-        """
-        ContainerStateRunning is a running state of a container.
-        :param pulumi.Input[str] started_at: Time at which the container was last (re-)started
-        """
-        if started_at is not None:
-            pulumi.set(__self__, "started_at", started_at)
-
-    @property
-    @pulumi.getter(name="startedAt")
-    def started_at(self) -> Optional[pulumi.Input[str]]:
-        """
-        Time at which the container was last (re-)started
-        """
-        return pulumi.get(self, "started_at")
-
-    @started_at.setter
-    def started_at(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "started_at", value)
-
-
-@pulumi.input_type
-class ContainerStateTerminatedArgs:
-    def __init__(__self__, *,
-                 exit_code: pulumi.Input[int],
-                 container_id: Optional[pulumi.Input[str]] = None,
-                 finished_at: Optional[pulumi.Input[str]] = None,
-                 message: Optional[pulumi.Input[str]] = None,
-                 reason: Optional[pulumi.Input[str]] = None,
-                 signal: Optional[pulumi.Input[int]] = None,
-                 started_at: Optional[pulumi.Input[str]] = None):
-        """
-        ContainerStateTerminated is a terminated state of a container.
-        :param pulumi.Input[int] exit_code: Exit status from the last termination of the container
-        :param pulumi.Input[str] container_id: Container's ID in the format 'docker://<container_id>'
-        :param pulumi.Input[str] finished_at: Time at which the container last terminated
-        :param pulumi.Input[str] message: Message regarding the last termination of the container
-        :param pulumi.Input[str] reason: (brief) reason from the last termination of the container
-        :param pulumi.Input[int] signal: Signal from the last termination of the container
-        :param pulumi.Input[str] started_at: Time at which previous execution of the container started
-        """
-        pulumi.set(__self__, "exit_code", exit_code)
-        if container_id is not None:
-            pulumi.set(__self__, "container_id", container_id)
-        if finished_at is not None:
-            pulumi.set(__self__, "finished_at", finished_at)
-        if message is not None:
-            pulumi.set(__self__, "message", message)
-        if reason is not None:
-            pulumi.set(__self__, "reason", reason)
-        if signal is not None:
-            pulumi.set(__self__, "signal", signal)
-        if started_at is not None:
-            pulumi.set(__self__, "started_at", started_at)
-
-    @property
-    @pulumi.getter(name="exitCode")
-    def exit_code(self) -> pulumi.Input[int]:
-        """
-        Exit status from the last termination of the container
-        """
-        return pulumi.get(self, "exit_code")
-
-    @exit_code.setter
-    def exit_code(self, value: pulumi.Input[int]):
-        pulumi.set(self, "exit_code", value)
-
-    @property
-    @pulumi.getter(name="containerID")
-    def container_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Container's ID in the format 'docker://<container_id>'
-        """
-        return pulumi.get(self, "container_id")
-
-    @container_id.setter
-    def container_id(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "container_id", value)
-
-    @property
-    @pulumi.getter(name="finishedAt")
-    def finished_at(self) -> Optional[pulumi.Input[str]]:
-        """
-        Time at which the container last terminated
-        """
-        return pulumi.get(self, "finished_at")
-
-    @finished_at.setter
-    def finished_at(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "finished_at", value)
-
-    @property
-    @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[str]]:
-        """
-        Message regarding the last termination of the container
-        """
-        return pulumi.get(self, "message")
-
-    @message.setter
-    def message(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "message", value)
-
-    @property
-    @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[str]]:
-        """
-        (brief) reason from the last termination of the container
-        """
-        return pulumi.get(self, "reason")
-
-    @reason.setter
-    def reason(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "reason", value)
-
-    @property
-    @pulumi.getter
-    def signal(self) -> Optional[pulumi.Input[int]]:
-        """
-        Signal from the last termination of the container
-        """
-        return pulumi.get(self, "signal")
-
-    @signal.setter
-    def signal(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "signal", value)
-
-    @property
-    @pulumi.getter(name="startedAt")
-    def started_at(self) -> Optional[pulumi.Input[str]]:
-        """
-        Time at which previous execution of the container started
-        """
-        return pulumi.get(self, "started_at")
-
-    @started_at.setter
-    def started_at(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "started_at", value)
-
-
-@pulumi.input_type
-class ContainerStateWaitingArgs:
-    def __init__(__self__, *,
-                 message: Optional[pulumi.Input[str]] = None,
-                 reason: Optional[pulumi.Input[str]] = None):
-        """
-        ContainerStateWaiting is a waiting state of a container.
-        :param pulumi.Input[str] message: Message regarding why the container is not yet running.
-        :param pulumi.Input[str] reason: (brief) reason the container is not yet running.
-        """
-        if message is not None:
-            pulumi.set(__self__, "message", message)
-        if reason is not None:
-            pulumi.set(__self__, "reason", reason)
-
-    @property
-    @pulumi.getter
-    def message(self) -> Optional[pulumi.Input[str]]:
-        """
-        Message regarding why the container is not yet running.
-        """
-        return pulumi.get(self, "message")
-
-    @message.setter
-    def message(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "message", value)
-
-    @property
-    @pulumi.getter
-    def reason(self) -> Optional[pulumi.Input[str]]:
-        """
-        (brief) reason the container is not yet running.
-        """
-        return pulumi.get(self, "reason")
-
-    @reason.setter
-    def reason(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "reason", value)
-
-
-@pulumi.input_type
-class ContainerStatusArgs:
-    def __init__(__self__, *,
-                 image: pulumi.Input[str],
-                 image_id: pulumi.Input[str],
-                 name: pulumi.Input[str],
-                 ready: pulumi.Input[bool],
-                 restart_count: pulumi.Input[int],
-                 container_id: Optional[pulumi.Input[str]] = None,
-                 last_state: Optional[pulumi.Input['ContainerStateArgs']] = None,
-                 started: Optional[pulumi.Input[bool]] = None,
-                 state: Optional[pulumi.Input['ContainerStateArgs']] = None):
-        """
-        ContainerStatus contains details for the current status of this container.
-        :param pulumi.Input[str] image: The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
-        :param pulumi.Input[str] image_id: ImageID of the container's image.
-        :param pulumi.Input[str] name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-        :param pulumi.Input[bool] ready: Specifies whether the container has passed its readiness probe.
-        :param pulumi.Input[int] restart_count: The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
-        :param pulumi.Input[str] container_id: Container's ID in the format 'docker://<container_id>'.
-        :param pulumi.Input['ContainerStateArgs'] last_state: Details about the container's last termination condition.
-        :param pulumi.Input[bool] started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-        :param pulumi.Input['ContainerStateArgs'] state: Details about the container's current condition.
-        """
-        pulumi.set(__self__, "image", image)
-        pulumi.set(__self__, "image_id", image_id)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "ready", ready)
-        pulumi.set(__self__, "restart_count", restart_count)
-        if container_id is not None:
-            pulumi.set(__self__, "container_id", container_id)
-        if last_state is not None:
-            pulumi.set(__self__, "last_state", last_state)
-        if started is not None:
-            pulumi.set(__self__, "started", started)
-        if state is not None:
-            pulumi.set(__self__, "state", state)
-
-    @property
-    @pulumi.getter
-    def image(self) -> pulumi.Input[str]:
-        """
-        The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
-        """
-        return pulumi.get(self, "image")
-
-    @image.setter
-    def image(self, value: pulumi.Input[str]):
-        pulumi.set(self, "image", value)
-
-    @property
-    @pulumi.getter(name="imageID")
-    def image_id(self) -> pulumi.Input[str]:
-        """
-        ImageID of the container's image.
-        """
-        return pulumi.get(self, "image_id")
-
-    @image_id.setter
-    def image_id(self, value: pulumi.Input[str]):
-        pulumi.set(self, "image_id", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def ready(self) -> pulumi.Input[bool]:
-        """
-        Specifies whether the container has passed its readiness probe.
-        """
-        return pulumi.get(self, "ready")
-
-    @ready.setter
-    def ready(self, value: pulumi.Input[bool]):
-        pulumi.set(self, "ready", value)
-
-    @property
-    @pulumi.getter(name="restartCount")
-    def restart_count(self) -> pulumi.Input[int]:
-        """
-        The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
-        """
-        return pulumi.get(self, "restart_count")
-
-    @restart_count.setter
-    def restart_count(self, value: pulumi.Input[int]):
-        pulumi.set(self, "restart_count", value)
-
-    @property
-    @pulumi.getter(name="containerID")
-    def container_id(self) -> Optional[pulumi.Input[str]]:
-        """
-        Container's ID in the format 'docker://<container_id>'.
-        """
-        return pulumi.get(self, "container_id")
-
-    @container_id.setter
-    def container_id(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "container_id", value)
-
-    @property
-    @pulumi.getter(name="lastState")
-    def last_state(self) -> Optional[pulumi.Input['ContainerStateArgs']]:
-        """
-        Details about the container's last termination condition.
-        """
-        return pulumi.get(self, "last_state")
-
-    @last_state.setter
-    def last_state(self, value: Optional[pulumi.Input['ContainerStateArgs']]):
-        pulumi.set(self, "last_state", value)
-
-    @property
-    @pulumi.getter
-    def started(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-        """
-        return pulumi.get(self, "started")
-
-    @started.setter
-    def started(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "started", value)
-
-    @property
-    @pulumi.getter
-    def state(self) -> Optional[pulumi.Input['ContainerStateArgs']]:
-        """
-        Details about the container's current condition.
-        """
-        return pulumi.get(self, "state")
-
-    @state.setter
-    def state(self, value: Optional[pulumi.Input['ContainerStateArgs']]):
-        pulumi.set(self, "state", value)
 
 
 @pulumi.input_type
@@ -3056,61 +3056,6 @@ class EnvFromSourceArgs:
 
 
 @pulumi.input_type
-class EnvVarArgs:
-    def __init__(__self__, *,
-                 name: pulumi.Input[str],
-                 value: Optional[pulumi.Input[str]] = None,
-                 value_from: Optional[pulumi.Input['EnvVarSourceArgs']] = None):
-        """
-        EnvVar represents an environment variable present in a Container.
-        :param pulumi.Input[str] name: Name of the environment variable. Must be a C_IDENTIFIER.
-        :param pulumi.Input[str] value: Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
-        :param pulumi.Input['EnvVarSourceArgs'] value_from: Source for the environment variable's value. Cannot be used if value is not empty.
-        """
-        pulumi.set(__self__, "name", name)
-        if value is not None:
-            pulumi.set(__self__, "value", value)
-        if value_from is not None:
-            pulumi.set(__self__, "value_from", value_from)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Name of the environment variable. Must be a C_IDENTIFIER.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def value(self) -> Optional[pulumi.Input[str]]:
-        """
-        Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
-        """
-        return pulumi.get(self, "value")
-
-    @value.setter
-    def value(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "value", value)
-
-    @property
-    @pulumi.getter(name="valueFrom")
-    def value_from(self) -> Optional[pulumi.Input['EnvVarSourceArgs']]:
-        """
-        Source for the environment variable's value. Cannot be used if value is not empty.
-        """
-        return pulumi.get(self, "value_from")
-
-    @value_from.setter
-    def value_from(self, value: Optional[pulumi.Input['EnvVarSourceArgs']]):
-        pulumi.set(self, "value_from", value)
-
-
-@pulumi.input_type
 class EnvVarSourceArgs:
     def __init__(__self__, *,
                  config_map_key_ref: Optional[pulumi.Input['ConfigMapKeySelectorArgs']] = None,
@@ -3180,6 +3125,61 @@ class EnvVarSourceArgs:
     @secret_key_ref.setter
     def secret_key_ref(self, value: Optional[pulumi.Input['SecretKeySelectorArgs']]):
         pulumi.set(self, "secret_key_ref", value)
+
+
+@pulumi.input_type
+class EnvVarArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: Optional[pulumi.Input[str]] = None,
+                 value_from: Optional[pulumi.Input['EnvVarSourceArgs']] = None):
+        """
+        EnvVar represents an environment variable present in a Container.
+        :param pulumi.Input[str] name: Name of the environment variable. Must be a C_IDENTIFIER.
+        :param pulumi.Input[str] value: Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+        :param pulumi.Input['EnvVarSourceArgs'] value_from: Source for the environment variable's value. Cannot be used if value is not empty.
+        """
+        pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+        if value_from is not None:
+            pulumi.set(__self__, "value_from", value_from)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Name of the environment variable. Must be a C_IDENTIFIER.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        """
+        Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+        """
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
+
+    @property
+    @pulumi.getter(name="valueFrom")
+    def value_from(self) -> Optional[pulumi.Input['EnvVarSourceArgs']]:
+        """
+        Source for the environment variable's value. Cannot be used if value is not empty.
+        """
+        return pulumi.get(self, "value_from")
+
+    @value_from.setter
+    def value_from(self, value: Optional[pulumi.Input['EnvVarSourceArgs']]):
+        pulumi.set(self, "value_from", value)
 
 
 @pulumi.input_type
@@ -3594,6 +3594,102 @@ class EphemeralVolumeSourceArgs:
 
 
 @pulumi.input_type
+class EventSeriesArgs:
+    def __init__(__self__, *,
+                 count: Optional[pulumi.Input[int]] = None,
+                 last_observed_time: Optional[pulumi.Input[str]] = None,
+                 state: Optional[pulumi.Input[str]] = None):
+        """
+        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+        :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
+        :param pulumi.Input[str] last_observed_time: Time of the last occurrence observed
+        :param pulumi.Input[str] state: State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
+        """
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if last_observed_time is not None:
+            pulumi.set(__self__, "last_observed_time", last_observed_time)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of occurrences in this series up to the last heartbeat time
+        """
+        return pulumi.get(self, "count")
+
+    @count.setter
+    def count(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "count", value)
+
+    @property
+    @pulumi.getter(name="lastObservedTime")
+    def last_observed_time(self) -> Optional[pulumi.Input[str]]:
+        """
+        Time of the last occurrence observed
+        """
+        return pulumi.get(self, "last_observed_time")
+
+    @last_observed_time.setter
+    def last_observed_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "last_observed_time", value)
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[pulumi.Input[str]]:
+        """
+        State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
+        """
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "state", value)
+
+
+@pulumi.input_type
+class EventSourceArgs:
+    def __init__(__self__, *,
+                 component: Optional[pulumi.Input[str]] = None,
+                 host: Optional[pulumi.Input[str]] = None):
+        """
+        EventSource contains information for an event.
+        :param pulumi.Input[str] component: Component from which the event is generated.
+        :param pulumi.Input[str] host: Node name on which the event is generated.
+        """
+        if component is not None:
+            pulumi.set(__self__, "component", component)
+        if host is not None:
+            pulumi.set(__self__, "host", host)
+
+    @property
+    @pulumi.getter
+    def component(self) -> Optional[pulumi.Input[str]]:
+        """
+        Component from which the event is generated.
+        """
+        return pulumi.get(self, "component")
+
+    @component.setter
+    def component(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "component", value)
+
+    @property
+    @pulumi.getter
+    def host(self) -> Optional[pulumi.Input[str]]:
+        """
+        Node name on which the event is generated.
+        """
+        return pulumi.get(self, "host")
+
+    @host.setter
+    def host(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "host", value)
+
+
+@pulumi.input_type
 class EventArgs:
     def __init__(__self__, *,
                  involved_object: pulumi.Input['ObjectReferenceArgs'],
@@ -3869,102 +3965,6 @@ class EventArgs:
     @type.setter
     def type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "type", value)
-
-
-@pulumi.input_type
-class EventSeriesArgs:
-    def __init__(__self__, *,
-                 count: Optional[pulumi.Input[int]] = None,
-                 last_observed_time: Optional[pulumi.Input[str]] = None,
-                 state: Optional[pulumi.Input[str]] = None):
-        """
-        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
-        :param pulumi.Input[str] last_observed_time: Time of the last occurrence observed
-        :param pulumi.Input[str] state: State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
-        """
-        if count is not None:
-            pulumi.set(__self__, "count", count)
-        if last_observed_time is not None:
-            pulumi.set(__self__, "last_observed_time", last_observed_time)
-        if state is not None:
-            pulumi.set(__self__, "state", state)
-
-    @property
-    @pulumi.getter
-    def count(self) -> Optional[pulumi.Input[int]]:
-        """
-        Number of occurrences in this series up to the last heartbeat time
-        """
-        return pulumi.get(self, "count")
-
-    @count.setter
-    def count(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "count", value)
-
-    @property
-    @pulumi.getter(name="lastObservedTime")
-    def last_observed_time(self) -> Optional[pulumi.Input[str]]:
-        """
-        Time of the last occurrence observed
-        """
-        return pulumi.get(self, "last_observed_time")
-
-    @last_observed_time.setter
-    def last_observed_time(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "last_observed_time", value)
-
-    @property
-    @pulumi.getter
-    def state(self) -> Optional[pulumi.Input[str]]:
-        """
-        State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
-        """
-        return pulumi.get(self, "state")
-
-    @state.setter
-    def state(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "state", value)
-
-
-@pulumi.input_type
-class EventSourceArgs:
-    def __init__(__self__, *,
-                 component: Optional[pulumi.Input[str]] = None,
-                 host: Optional[pulumi.Input[str]] = None):
-        """
-        EventSource contains information for an event.
-        :param pulumi.Input[str] component: Component from which the event is generated.
-        :param pulumi.Input[str] host: Node name on which the event is generated.
-        """
-        if component is not None:
-            pulumi.set(__self__, "component", component)
-        if host is not None:
-            pulumi.set(__self__, "host", host)
-
-    @property
-    @pulumi.getter
-    def component(self) -> Optional[pulumi.Input[str]]:
-        """
-        Component from which the event is generated.
-        """
-        return pulumi.get(self, "component")
-
-    @component.setter
-    def component(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "component", value)
-
-    @property
-    @pulumi.getter
-    def host(self) -> Optional[pulumi.Input[str]]:
-        """
-        Node name on which the event is generated.
-        """
-        return pulumi.get(self, "host")
-
-    @host.setter
-    def host(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "host", value)
 
 
 @pulumi.input_type
@@ -5264,78 +5264,6 @@ class LifecycleArgs:
 
 
 @pulumi.input_type
-class LimitRangeArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['LimitRangeSpecArgs']] = None):
-        """
-        LimitRange sets resource usage limits for each kind of resource in a Namespace.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['LimitRangeSpecArgs'] spec: Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'LimitRange')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['LimitRangeSpecArgs']]:
-        """
-        Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['LimitRangeSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-
-@pulumi.input_type
 class LimitRangeItemArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[str],
@@ -5459,6 +5387,78 @@ class LimitRangeSpecArgs:
     @limits.setter
     def limits(self, value: pulumi.Input[Sequence[pulumi.Input['LimitRangeItemArgs']]]):
         pulumi.set(self, "limits", value)
+
+
+@pulumi.input_type
+class LimitRangeArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['LimitRangeSpecArgs']] = None):
+        """
+        LimitRange sets resource usage limits for each kind of resource in a Namespace.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['LimitRangeSpecArgs'] spec: Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'LimitRange')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['LimitRangeSpecArgs']]:
+        """
+        Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['LimitRangeSpecArgs']]):
+        pulumi.set(self, "spec", value)
 
 
 @pulumi.input_type
@@ -5659,94 +5659,6 @@ class NFSVolumeSourceArgs:
 
 
 @pulumi.input_type
-class NamespaceArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['NamespaceSpecArgs']] = None,
-                 status: Optional[pulumi.Input['NamespaceStatusArgs']] = None):
-        """
-        Namespace provides a scope for Names. Use of multiple namespaces is optional.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['NamespaceSpecArgs'] spec: Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['NamespaceStatusArgs'] status: Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'Namespace')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['NamespaceSpecArgs']]:
-        """
-        Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['NamespaceSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['NamespaceStatusArgs']]:
-        """
-        Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['NamespaceStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-@pulumi.input_type
 class NamespaceConditionArgs:
     def __init__(__self__, *,
                  status: pulumi.Input[str],
@@ -5885,25 +5797,25 @@ class NamespaceStatusArgs:
 
 
 @pulumi.input_type
-class NodeArgs:
+class NamespaceArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['NodeSpecArgs']] = None,
-                 status: Optional[pulumi.Input['NodeStatusArgs']] = None):
+                 spec: Optional[pulumi.Input['NamespaceSpecArgs']] = None,
+                 status: Optional[pulumi.Input['NamespaceStatusArgs']] = None):
         """
-        Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+        Namespace provides a scope for Names. Use of multiple namespaces is optional.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['NodeSpecArgs'] spec: Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['NodeStatusArgs'] status: Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['NamespaceSpecArgs'] spec: Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['NamespaceStatusArgs'] status: Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Node')
+            pulumi.set(__self__, "kind", 'Namespace')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
@@ -5949,26 +5861,26 @@ class NodeArgs:
 
     @property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['NodeSpecArgs']]:
+    def spec(self) -> Optional[pulumi.Input['NamespaceSpecArgs']]:
         """
-        Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['NodeSpecArgs']]):
+    def spec(self, value: Optional[pulumi.Input['NamespaceSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['NodeStatusArgs']]:
+    def status(self) -> Optional[pulumi.Input['NamespaceStatusArgs']]:
         """
-        Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['NodeStatusArgs']]):
+    def status(self, value: Optional[pulumi.Input['NamespaceStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
@@ -6273,29 +6185,6 @@ class NodeDaemonEndpointsArgs:
 
 
 @pulumi.input_type
-class NodeSelectorArgs:
-    def __init__(__self__, *,
-                 node_selector_terms: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]):
-        """
-        A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
-        :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]] node_selector_terms: Required. A list of node selector terms. The terms are ORed.
-        """
-        pulumi.set(__self__, "node_selector_terms", node_selector_terms)
-
-    @property
-    @pulumi.getter(name="nodeSelectorTerms")
-    def node_selector_terms(self) -> pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]:
-        """
-        Required. A list of node selector terms. The terms are ORed.
-        """
-        return pulumi.get(self, "node_selector_terms")
-
-    @node_selector_terms.setter
-    def node_selector_terms(self, value: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]):
-        pulumi.set(self, "node_selector_terms", value)
-
-
-@pulumi.input_type
 class NodeSelectorRequirementArgs:
     def __init__(__self__, *,
                  key: pulumi.Input[str],
@@ -6387,6 +6276,29 @@ class NodeSelectorTermArgs:
     @match_fields.setter
     def match_fields(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]]]):
         pulumi.set(self, "match_fields", value)
+
+
+@pulumi.input_type
+class NodeSelectorArgs:
+    def __init__(__self__, *,
+                 node_selector_terms: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]):
+        """
+        A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+        :param pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]] node_selector_terms: Required. A list of node selector terms. The terms are ORed.
+        """
+        pulumi.set(__self__, "node_selector_terms", node_selector_terms)
+
+    @property
+    @pulumi.getter(name="nodeSelectorTerms")
+    def node_selector_terms(self) -> pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]:
+        """
+        Required. A list of node selector terms. The terms are ORed.
+        """
+        return pulumi.get(self, "node_selector_terms")
+
+    @node_selector_terms.setter
+    def node_selector_terms(self, value: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]):
+        pulumi.set(self, "node_selector_terms", value)
 
 
 @pulumi.input_type
@@ -6852,6 +6764,94 @@ class NodeSystemInfoArgs:
 
 
 @pulumi.input_type
+class NodeArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['NodeSpecArgs']] = None,
+                 status: Optional[pulumi.Input['NodeStatusArgs']] = None):
+        """
+        Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['NodeSpecArgs'] spec: Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['NodeStatusArgs'] status: Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'Node')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['NodeSpecArgs']]:
+        """
+        Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['NodeSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['NodeStatusArgs']]:
+        """
+        Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['NodeStatusArgs']]):
+        pulumi.set(self, "status", value)
+
+
+@pulumi.input_type
 class ObjectFieldSelectorArgs:
     def __init__(__self__, *,
                  field_path: pulumi.Input[str],
@@ -7008,182 +7008,6 @@ class ObjectReferenceArgs:
     @uid.setter
     def uid(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "uid", value)
-
-
-@pulumi.input_type
-class PersistentVolumeArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PersistentVolumeSpecArgs']] = None,
-                 status: Optional[pulumi.Input['PersistentVolumeStatusArgs']] = None):
-        """
-        PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PersistentVolumeSpecArgs'] spec: Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-        :param pulumi.Input['PersistentVolumeStatusArgs'] status: Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'PersistentVolume')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PersistentVolumeSpecArgs']]:
-        """
-        Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PersistentVolumeSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PersistentVolumeStatusArgs']]:
-        """
-        Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['PersistentVolumeStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-@pulumi.input_type
-class PersistentVolumeClaimArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']] = None,
-                 status: Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']] = None):
-        """
-        PersistentVolumeClaim is a user's request for and claim to a persistent volume
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PersistentVolumeClaimSpecArgs'] spec: Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        :param pulumi.Input['PersistentVolumeClaimStatusArgs'] status: Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'PersistentVolumeClaim')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']]:
-        """
-        Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']]:
-        """
-        Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']]):
-        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -7548,6 +7372,94 @@ class PersistentVolumeClaimVolumeSourceArgs:
     @read_only.setter
     def read_only(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "read_only", value)
+
+
+@pulumi.input_type
+class PersistentVolumeClaimArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']] = None,
+                 status: Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']] = None):
+        """
+        PersistentVolumeClaim is a user's request for and claim to a persistent volume
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PersistentVolumeClaimSpecArgs'] spec: Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param pulumi.Input['PersistentVolumeClaimStatusArgs'] status: Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PersistentVolumeClaim')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']]:
+        """
+        Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']]:
+        """
+        Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -8095,79 +8007,25 @@ class PersistentVolumeStatusArgs:
 
 
 @pulumi.input_type
-class PhotonPersistentDiskVolumeSourceArgs:
-    def __init__(__self__, *,
-                 pd_id: pulumi.Input[str],
-                 fs_type: Optional[pulumi.Input[str]] = None):
-        """
-        Represents a Photon Controller persistent disk resource.
-        :param pulumi.Input[str] pd_id: ID that identifies Photon Controller persistent disk
-        :param pulumi.Input[str] fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        """
-        pulumi.set(__self__, "pd_id", pd_id)
-        if fs_type is not None:
-            pulumi.set(__self__, "fs_type", fs_type)
-
-    @property
-    @pulumi.getter(name="pdID")
-    def pd_id(self) -> pulumi.Input[str]:
-        """
-        ID that identifies Photon Controller persistent disk
-        """
-        return pulumi.get(self, "pd_id")
-
-    @pd_id.setter
-    def pd_id(self, value: pulumi.Input[str]):
-        pulumi.set(self, "pd_id", value)
-
-    @property
-    @pulumi.getter(name="fsType")
-    def fs_type(self) -> Optional[pulumi.Input[str]]:
-        """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        """
-        return pulumi.get(self, "fs_type")
-
-    @fs_type.setter
-    def fs_type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "fs_type", value)
-
-
-@pulumi.input_type
-class PodArgs:
+class PersistentVolumeArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PodSpecArgs']] = None,
-                 status: Optional[pulumi.Input['PodStatusArgs']] = None):
+                 spec: Optional[pulumi.Input['PersistentVolumeSpecArgs']] = None,
+                 status: Optional[pulumi.Input['PersistentVolumeStatusArgs']] = None):
         """
-        Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
-
-        This resource waits until its status is ready before registering success
-        for create/update, and populating output properties from the current state of the resource.
-        The following conditions are used to determine whether the resource creation has
-        succeeded or failed:
-
-        1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-        2. The Pod is initialized ("Initialized" '.status.condition' is true).
-        3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-           set to "Running".
-        Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
-
-        If the Pod has not reached a Ready state after 10 minutes, it will
-        time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
+        PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PodSpecArgs'] spec: Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['PodStatusArgs'] status: Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['PersistentVolumeSpecArgs'] spec: Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        :param pulumi.Input['PersistentVolumeStatusArgs'] status: Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Pod')
+            pulumi.set(__self__, "kind", 'PersistentVolume')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
@@ -8213,67 +8071,66 @@ class PodArgs:
 
     @property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PodSpecArgs']]:
+    def spec(self) -> Optional[pulumi.Input['PersistentVolumeSpecArgs']]:
         """
-        Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PodSpecArgs']]):
+    def spec(self, value: Optional[pulumi.Input['PersistentVolumeSpecArgs']]):
         pulumi.set(self, "spec", value)
 
     @property
     @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PodStatusArgs']]:
+    def status(self) -> Optional[pulumi.Input['PersistentVolumeStatusArgs']]:
         """
-        Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         """
         return pulumi.get(self, "status")
 
     @status.setter
-    def status(self, value: Optional[pulumi.Input['PodStatusArgs']]):
+    def status(self, value: Optional[pulumi.Input['PersistentVolumeStatusArgs']]):
         pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
-class PodAffinityArgs:
+class PhotonPersistentDiskVolumeSourceArgs:
     def __init__(__self__, *,
-                 preferred_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]] = None,
-                 required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None):
+                 pd_id: pulumi.Input[str],
+                 fs_type: Optional[pulumi.Input[str]] = None):
         """
-        Pod affinity is a group of inter pod affinity scheduling rules.
-        :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
-        :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        Represents a Photon Controller persistent disk resource.
+        :param pulumi.Input[str] pd_id: ID that identifies Photon Controller persistent disk
+        :param pulumi.Input[str] fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
-        if preferred_during_scheduling_ignored_during_execution is not None:
-            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_execution", preferred_during_scheduling_ignored_during_execution)
-        if required_during_scheduling_ignored_during_execution is not None:
-            pulumi.set(__self__, "required_during_scheduling_ignored_during_execution", required_during_scheduling_ignored_during_execution)
+        pulumi.set(__self__, "pd_id", pd_id)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
 
     @property
-    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
-    def preferred_during_scheduling_ignored_during_execution(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]:
+    @pulumi.getter(name="pdID")
+    def pd_id(self) -> pulumi.Input[str]:
         """
-        The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        ID that identifies Photon Controller persistent disk
         """
-        return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
+        return pulumi.get(self, "pd_id")
 
-    @preferred_during_scheduling_ignored_during_execution.setter
-    def preferred_during_scheduling_ignored_during_execution(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]):
-        pulumi.set(self, "preferred_during_scheduling_ignored_during_execution", value)
+    @pd_id.setter
+    def pd_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "pd_id", value)
 
     @property
-    @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
-    def required_during_scheduling_ignored_during_execution(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]]:
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[pulumi.Input[str]]:
         """
-        If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
-        return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
+        return pulumi.get(self, "fs_type")
 
-    @required_during_scheduling_ignored_during_execution.setter
-    def required_during_scheduling_ignored_during_execution(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]]):
-        pulumi.set(self, "required_during_scheduling_ignored_during_execution", value)
+    @fs_type.setter
+    def fs_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "fs_type", value)
 
 
 @pulumi.input_type
@@ -8345,6 +8202,46 @@ class PodAffinityTermArgs:
     @namespaces.setter
     def namespaces(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "namespaces", value)
+
+
+@pulumi.input_type
+class PodAffinityArgs:
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]] = None,
+                 required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None):
+        """
+        Pod affinity is a group of inter pod affinity scheduling rules.
+        :param pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        :param pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        """
+        if preferred_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_execution", preferred_during_scheduling_ignored_during_execution)
+        if required_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "required_during_scheduling_ignored_during_execution", required_during_scheduling_ignored_during_execution)
+
+    @property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
+    def preferred_during_scheduling_ignored_during_execution(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]:
+        """
+        The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        """
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
+
+    @preferred_during_scheduling_ignored_during_execution.setter
+    def preferred_during_scheduling_ignored_during_execution(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['WeightedPodAffinityTermArgs']]]]):
+        pulumi.set(self, "preferred_during_scheduling_ignored_during_execution", value)
+
+    @property
+    @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
+    def required_during_scheduling_ignored_during_execution(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]]:
+        """
+        If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        """
+        return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
+
+    @required_during_scheduling_ignored_during_execution.setter
+    def required_during_scheduling_ignored_during_execution(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]]):
+        pulumi.set(self, "required_during_scheduling_ignored_during_execution", value)
 
 
 @pulumi.input_type
@@ -8490,6 +8387,42 @@ class PodConditionArgs:
 
 
 @pulumi.input_type
+class PodDNSConfigOptionArgs:
+    def __init__(__self__, *,
+                 name: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        """
+        PodDNSConfigOption defines DNS resolver options of a pod.
+        :param pulumi.Input[str] name: Required.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Required.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
 class PodDNSConfigArgs:
     def __init__(__self__, *,
                  nameservers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -8543,42 +8476,6 @@ class PodDNSConfigArgs:
     @searches.setter
     def searches(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "searches", value)
-
-
-@pulumi.input_type
-class PodDNSConfigOptionArgs:
-    def __init__(__self__, *,
-                 name: Optional[pulumi.Input[str]] = None,
-                 value: Optional[pulumi.Input[str]] = None):
-        """
-        PodDNSConfigOption defines DNS resolver options of a pod.
-        :param pulumi.Input[str] name: Required.
-        """
-        if name is not None:
-            pulumi.set(__self__, "name", name)
-        if value is not None:
-            pulumi.set(__self__, "value", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> Optional[pulumi.Input[str]]:
-        """
-        Required.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def value(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "value")
-
-    @value.setter
-    def value(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "value", value)
 
 
 @pulumi.input_type
@@ -9597,6 +9494,46 @@ class PodStatusArgs:
 
 
 @pulumi.input_type
+class PodTemplateSpecArgs:
+    def __init__(__self__, *,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['PodSpecArgs']] = None):
+        """
+        PodTemplateSpec describes the data a pod should have when created from a template
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PodSpecArgs'] spec: Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['PodSpecArgs']]:
+        """
+        Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['PodSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+
+@pulumi.input_type
 class PodTemplateArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
@@ -9669,19 +9606,70 @@ class PodTemplateArgs:
 
 
 @pulumi.input_type
-class PodTemplateSpecArgs:
+class PodArgs:
     def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PodSpecArgs']] = None):
+                 spec: Optional[pulumi.Input['PodSpecArgs']] = None,
+                 status: Optional[pulumi.Input['PodStatusArgs']] = None):
         """
-        PodTemplateSpec describes the data a pod should have when created from a template
+        Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.
+
+        This resource waits until its status is ready before registering success
+        for create/update, and populating output properties from the current state of the resource.
+        The following conditions are used to determine whether the resource creation has
+        succeeded or failed:
+
+        1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+        2. The Pod is initialized ("Initialized" '.status.condition' is true).
+        3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+           set to "Running".
+        Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+
+        If the Pod has not reached a Ready state after 10 minutes, it will
+        time out and mark the resource update as Failed. You can override the default timeout value
+        by setting the 'customTimeouts' option on the resource.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['PodSpecArgs'] spec: Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['PodStatusArgs'] status: Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'Pod')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
 
     @property
     @pulumi.getter
@@ -9706,6 +9694,18 @@ class PodTemplateSpecArgs:
     @spec.setter
     def spec(self, value: Optional[pulumi.Input['PodSpecArgs']]):
         pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['PodStatusArgs']]:
+        """
+        Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['PodStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -10422,94 +10422,6 @@ class RBDVolumeSourceArgs:
 
 
 @pulumi.input_type
-class ReplicationControllerArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ReplicationControllerSpecArgs']] = None,
-                 status: Optional[pulumi.Input['ReplicationControllerStatusArgs']] = None):
-        """
-        ReplicationController represents the configuration of a replication controller.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['ReplicationControllerSpecArgs'] spec: Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['ReplicationControllerStatusArgs'] status: Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'ReplicationController')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ReplicationControllerSpecArgs']]:
-        """
-        Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ReplicationControllerSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['ReplicationControllerStatusArgs']]:
-        """
-        Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['ReplicationControllerStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-@pulumi.input_type
 class ReplicationControllerConditionArgs:
     def __init__(__self__, *,
                  status: pulumi.Input[str],
@@ -10771,6 +10683,94 @@ class ReplicationControllerStatusArgs:
 
 
 @pulumi.input_type
+class ReplicationControllerArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['ReplicationControllerSpecArgs']] = None,
+                 status: Optional[pulumi.Input['ReplicationControllerStatusArgs']] = None):
+        """
+        ReplicationController represents the configuration of a replication controller.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['ReplicationControllerSpecArgs'] spec: Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['ReplicationControllerStatusArgs'] status: Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ReplicationController')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['ReplicationControllerSpecArgs']]:
+        """
+        Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['ReplicationControllerSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['ReplicationControllerStatusArgs']]:
+        """
+        Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['ReplicationControllerStatusArgs']]):
+        pulumi.set(self, "status", value)
+
+
+@pulumi.input_type
 class ResourceFieldSelectorArgs:
     def __init__(__self__, *,
                  resource: pulumi.Input[str],
@@ -10823,94 +10823,6 @@ class ResourceFieldSelectorArgs:
     @divisor.setter
     def divisor(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "divisor", value)
-
-
-@pulumi.input_type
-class ResourceQuotaArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ResourceQuotaSpecArgs']] = None,
-                 status: Optional[pulumi.Input['ResourceQuotaStatusArgs']] = None):
-        """
-        ResourceQuota sets aggregate quota restrictions enforced per namespace
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['ResourceQuotaSpecArgs'] spec: Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['ResourceQuotaStatusArgs'] status: Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'ResourceQuota')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ResourceQuotaSpecArgs']]:
-        """
-        Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ResourceQuotaSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['ResourceQuotaStatusArgs']]:
-        """
-        Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['ResourceQuotaStatusArgs']]):
-        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -11007,6 +10919,94 @@ class ResourceQuotaStatusArgs:
     @used.setter
     def used(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
         pulumi.set(self, "used", value)
+
+
+@pulumi.input_type
+class ResourceQuotaArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['ResourceQuotaSpecArgs']] = None,
+                 status: Optional[pulumi.Input['ResourceQuotaStatusArgs']] = None):
+        """
+        ResourceQuota sets aggregate quota restrictions enforced per namespace
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['ResourceQuotaSpecArgs'] spec: Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['ResourceQuotaStatusArgs'] status: Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'ResourceQuota')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['ResourceQuotaSpecArgs']]:
+        """
+        Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['ResourceQuotaSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['ResourceQuotaStatusArgs']]:
+        """
+        Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['ResourceQuotaStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -11573,136 +11573,6 @@ class SeccompProfileArgs:
 
 
 @pulumi.input_type
-class SecretArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 immutable: Optional[pulumi.Input[bool]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 type: Optional[pulumi.Input[str]] = None):
-        """
-        Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
-
-        Note: While Pulumi automatically encrypts the 'data' and 'stringData'
-        fields, this encryption only applies to Pulumi's context, including the state file, 
-        the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
-        and the contents are visible to users with access to the Secret in Kubernetes using
-        tools like 'kubectl'.
-
-        For more information on securing Kubernetes Secrets, see the following links:
-        https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
-        https://kubernetes.io/docs/concepts/configuration/secret/#risks
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] data: Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
-        :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] string_data: stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
-        :param pulumi.Input[str] type: Used to facilitate programmatic handling of secret data.
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if data is not None:
-            pulumi.set(__self__, "data", data)
-        if immutable is not None:
-            pulumi.set(__self__, "immutable", immutable)
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'Secret')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if string_data is not None:
-            pulumi.set(__self__, "string_data", string_data)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        """
-        Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
-        """
-        return pulumi.get(self, "data")
-
-    @data.setter
-    def data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "data", value)
-
-    @property
-    @pulumi.getter
-    def immutable(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
-        """
-        return pulumi.get(self, "immutable")
-
-    @immutable.setter
-    def immutable(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "immutable", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter(name="stringData")
-    def string_data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        """
-        stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
-        """
-        return pulumi.get(self, "string_data")
-
-    @string_data.setter
-    def string_data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "string_data", value)
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[str]]:
-        """
-        Used to facilitate programmatic handling of secret data.
-        """
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "type", value)
-
-
-@pulumi.input_type
 class SecretEnvSourceArgs:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[str]] = None,
@@ -11972,6 +11842,136 @@ class SecretVolumeSourceArgs:
 
 
 @pulumi.input_type
+class SecretArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 immutable: Optional[pulumi.Input[bool]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 type: Optional[pulumi.Input[str]] = None):
+        """
+        Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
+
+        Note: While Pulumi automatically encrypts the 'data' and 'stringData'
+        fields, this encryption only applies to Pulumi's context, including the state file, 
+        the Service, the CLI, etc. Kubernetes does not encrypt Secret resources by default,
+        and the contents are visible to users with access to the Secret in Kubernetes using
+        tools like 'kubectl'.
+
+        For more information on securing Kubernetes Secrets, see the following links:
+        https://kubernetes.io/docs/concepts/configuration/secret/#security-properties
+        https://kubernetes.io/docs/concepts/configuration/secret/#risks
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] data: Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+        :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] string_data: stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
+        :param pulumi.Input[str] type: Used to facilitate programmatic handling of secret data.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if data is not None:
+            pulumi.set(__self__, "data", data)
+        if immutable is not None:
+            pulumi.set(__self__, "immutable", immutable)
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'Secret')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if string_data is not None:
+            pulumi.set(__self__, "string_data", string_data)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
+        """
+        return pulumi.get(self, "data")
+
+    @data.setter
+    def data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "data", value)
+
+    @property
+    @pulumi.getter
+    def immutable(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
+        """
+        return pulumi.get(self, "immutable")
+
+    @immutable.setter
+    def immutable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "immutable", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter(name="stringData")
+    def string_data(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
+        """
+        return pulumi.get(self, "string_data")
+
+    @string_data.setter
+    def string_data(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "string_data", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Used to facilitate programmatic handling of secret data.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
 class SecurityContextArgs:
     def __init__(__self__, *,
                  allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
@@ -12156,116 +12156,58 @@ class SecurityContextArgs:
 
 
 @pulumi.input_type
-class ServiceArgs:
+class ServiceAccountTokenProjectionArgs:
     def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['ServiceSpecArgs']] = None,
-                 status: Optional[pulumi.Input['ServiceStatusArgs']] = None):
+                 path: pulumi.Input[str],
+                 audience: Optional[pulumi.Input[str]] = None,
+                 expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
-        Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
-
-        This resource waits until its status is ready before registering success
-        for create/update, and populating output properties from the current state of the resource.
-        The following conditions are used to determine whether the resource creation has
-        succeeded or failed:
-
-        1. Service object exists.
-        2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-           for any stragglers.
-        3. The endpoints objects target some number of living objects (unless the Service is
-           an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-        4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
-
-        Known limitations: 
-        Services targeting ReplicaSets (and, by extension, Deployments,
-        StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
-        out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
-        '.metadata.annotations' for the Service. Work to handle this case is in progress [2].
-
-        [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
-        [2] https://github.com/pulumi/pulumi-kubernetes/pull/703
-
-        If the Service has not reached a Ready state after 10 minutes, it will
-        time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['ServiceSpecArgs'] spec: Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['ServiceStatusArgs'] status: Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+        :param pulumi.Input[str] path: Path is the path relative to the mount point of the file to project the token into.
+        :param pulumi.Input[str] audience: Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+        :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'Service')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
+        pulumi.set(__self__, "path", path)
+        if audience is not None:
+            pulumi.set(__self__, "audience", audience)
+        if expiration_seconds is not None:
+            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
 
     @property
     @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
+    def path(self) -> pulumi.Input[str]:
         """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        Path is the path relative to the mount point of the file to project the token into.
         """
-        return pulumi.get(self, "kind")
+        return pulumi.get(self, "path")
 
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
+    @path.setter
+    def path(self, value: pulumi.Input[str]):
+        pulumi.set(self, "path", value)
 
     @property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['ServiceSpecArgs']]:
+    def audience(self) -> Optional[pulumi.Input[str]]:
         """
-        Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
         """
-        return pulumi.get(self, "spec")
+        return pulumi.get(self, "audience")
 
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['ServiceSpecArgs']]):
-        pulumi.set(self, "spec", value)
+    @audience.setter
+    def audience(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "audience", value)
 
     @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['ServiceStatusArgs']]:
+    @pulumi.getter(name="expirationSeconds")
+    def expiration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
-        Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
-        return pulumi.get(self, "status")
+        return pulumi.get(self, "expiration_seconds")
 
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['ServiceStatusArgs']]):
-        pulumi.set(self, "status", value)
+    @expiration_seconds.setter
+    def expiration_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "expiration_seconds", value)
 
 
 @pulumi.input_type
@@ -12370,61 +12312,6 @@ class ServiceAccountArgs:
     @secrets.setter
     def secrets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]]]):
         pulumi.set(self, "secrets", value)
-
-
-@pulumi.input_type
-class ServiceAccountTokenProjectionArgs:
-    def __init__(__self__, *,
-                 path: pulumi.Input[str],
-                 audience: Optional[pulumi.Input[str]] = None,
-                 expiration_seconds: Optional[pulumi.Input[int]] = None):
-        """
-        ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
-        :param pulumi.Input[str] path: Path is the path relative to the mount point of the file to project the token into.
-        :param pulumi.Input[str] audience: Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
-        :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
-        """
-        pulumi.set(__self__, "path", path)
-        if audience is not None:
-            pulumi.set(__self__, "audience", audience)
-        if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
-
-    @property
-    @pulumi.getter
-    def path(self) -> pulumi.Input[str]:
-        """
-        Path is the path relative to the mount point of the file to project the token into.
-        """
-        return pulumi.get(self, "path")
-
-    @path.setter
-    def path(self, value: pulumi.Input[str]):
-        pulumi.set(self, "path", value)
-
-    @property
-    @pulumi.getter
-    def audience(self) -> Optional[pulumi.Input[str]]:
-        """
-        Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
-        """
-        return pulumi.get(self, "audience")
-
-    @audience.setter
-    def audience(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "audience", value)
-
-    @property
-    @pulumi.getter(name="expirationSeconds")
-    def expiration_seconds(self) -> Optional[pulumi.Input[int]]:
-        """
-        ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
-        """
-        return pulumi.get(self, "expiration_seconds")
-
-    @expiration_seconds.setter
-    def expiration_seconds(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "expiration_seconds", value)
 
 
 @pulumi.input_type
@@ -12920,6 +12807,119 @@ class ServiceStatusArgs:
     @load_balancer.setter
     def load_balancer(self, value: Optional[pulumi.Input['LoadBalancerStatusArgs']]):
         pulumi.set(self, "load_balancer", value)
+
+
+@pulumi.input_type
+class ServiceArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['ServiceSpecArgs']] = None,
+                 status: Optional[pulumi.Input['ServiceStatusArgs']] = None):
+        """
+        Service is a named abstraction of software service (for example, mysql) consisting of local port (for example 3306) that the proxy listens on, and the selector that determines which pods will answer requests sent through the proxy.
+
+        This resource waits until its status is ready before registering success
+        for create/update, and populating output properties from the current state of the resource.
+        The following conditions are used to determine whether the resource creation has
+        succeeded or failed:
+
+        1. Service object exists.
+        2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+           for any stragglers.
+        3. The endpoints objects target some number of living objects (unless the Service is
+           an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+        4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+
+        Known limitations: 
+        Services targeting ReplicaSets (and, by extension, Deployments,
+        StatefulSets, etc.) with '.spec.replicas' set to 0 are not handled, and will time
+        out. To work around this limitation, set 'pulumi.com/skipAwait: "true"' on
+        '.metadata.annotations' for the Service. Work to handle this case is in progress [2].
+
+        [1] https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
+        [2] https://github.com/pulumi/pulumi-kubernetes/pull/703
+
+        If the Service has not reached a Ready state after 10 minutes, it will
+        time out and mark the resource update as Failed. You can override the default timeout value
+        by setting the 'customTimeouts' option on the resource.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['ServiceSpecArgs'] spec: Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['ServiceStatusArgs'] status: Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'Service')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['ServiceSpecArgs']]:
+        """
+        Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['ServiceSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['ServiceStatusArgs']]:
+        """
+        Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['ServiceStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -13549,6 +13549,242 @@ class TypedLocalObjectReferenceArgs:
 
 
 @pulumi.input_type
+class VolumeDeviceArgs:
+    def __init__(__self__, *,
+                 device_path: pulumi.Input[str],
+                 name: pulumi.Input[str]):
+        """
+        volumeDevice describes a mapping of a raw block device within a container.
+        :param pulumi.Input[str] device_path: devicePath is the path inside of the container that the device will be mapped to.
+        :param pulumi.Input[str] name: name must match the name of a persistentVolumeClaim in the pod
+        """
+        pulumi.set(__self__, "device_path", device_path)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="devicePath")
+    def device_path(self) -> pulumi.Input[str]:
+        """
+        devicePath is the path inside of the container that the device will be mapped to.
+        """
+        return pulumi.get(self, "device_path")
+
+    @device_path.setter
+    def device_path(self, value: pulumi.Input[str]):
+        pulumi.set(self, "device_path", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        name must match the name of a persistentVolumeClaim in the pod
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
+class VolumeMountArgs:
+    def __init__(__self__, *,
+                 mount_path: pulumi.Input[str],
+                 name: pulumi.Input[str],
+                 mount_propagation: Optional[pulumi.Input[str]] = None,
+                 read_only: Optional[pulumi.Input[bool]] = None,
+                 sub_path: Optional[pulumi.Input[str]] = None,
+                 sub_path_expr: Optional[pulumi.Input[str]] = None):
+        """
+        VolumeMount describes a mounting of a Volume within a container.
+        :param pulumi.Input[str] mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
+        :param pulumi.Input[str] name: This must match the Name of a Volume.
+        :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        :param pulumi.Input[bool] read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+        :param pulumi.Input[str] sub_path: Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+        :param pulumi.Input[str] sub_path_expr: Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
+        """
+        pulumi.set(__self__, "mount_path", mount_path)
+        pulumi.set(__self__, "name", name)
+        if mount_propagation is not None:
+            pulumi.set(__self__, "mount_propagation", mount_propagation)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if sub_path is not None:
+            pulumi.set(__self__, "sub_path", sub_path)
+        if sub_path_expr is not None:
+            pulumi.set(__self__, "sub_path_expr", sub_path_expr)
+
+    @property
+    @pulumi.getter(name="mountPath")
+    def mount_path(self) -> pulumi.Input[str]:
+        """
+        Path within the container at which the volume should be mounted.  Must not contain ':'.
+        """
+        return pulumi.get(self, "mount_path")
+
+    @mount_path.setter
+    def mount_path(self, value: pulumi.Input[str]):
+        pulumi.set(self, "mount_path", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        This must match the Name of a Volume.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="mountPropagation")
+    def mount_propagation(self) -> Optional[pulumi.Input[str]]:
+        """
+        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        """
+        return pulumi.get(self, "mount_propagation")
+
+    @mount_propagation.setter
+    def mount_propagation(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mount_propagation", value)
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+        """
+        return pulumi.get(self, "read_only")
+
+    @read_only.setter
+    def read_only(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "read_only", value)
+
+    @property
+    @pulumi.getter(name="subPath")
+    def sub_path(self) -> Optional[pulumi.Input[str]]:
+        """
+        Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+        """
+        return pulumi.get(self, "sub_path")
+
+    @sub_path.setter
+    def sub_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "sub_path", value)
+
+    @property
+    @pulumi.getter(name="subPathExpr")
+    def sub_path_expr(self) -> Optional[pulumi.Input[str]]:
+        """
+        Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
+        """
+        return pulumi.get(self, "sub_path_expr")
+
+    @sub_path_expr.setter
+    def sub_path_expr(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "sub_path_expr", value)
+
+
+@pulumi.input_type
+class VolumeNodeAffinityArgs:
+    def __init__(__self__, *,
+                 required: Optional[pulumi.Input['NodeSelectorArgs']] = None):
+        """
+        VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+        :param pulumi.Input['NodeSelectorArgs'] required: Required specifies hard node constraints that must be met.
+        """
+        if required is not None:
+            pulumi.set(__self__, "required", required)
+
+    @property
+    @pulumi.getter
+    def required(self) -> Optional[pulumi.Input['NodeSelectorArgs']]:
+        """
+        Required specifies hard node constraints that must be met.
+        """
+        return pulumi.get(self, "required")
+
+    @required.setter
+    def required(self, value: Optional[pulumi.Input['NodeSelectorArgs']]):
+        pulumi.set(self, "required", value)
+
+
+@pulumi.input_type
+class VolumeProjectionArgs:
+    def __init__(__self__, *,
+                 config_map: Optional[pulumi.Input['ConfigMapProjectionArgs']] = None,
+                 downward_api: Optional[pulumi.Input['DownwardAPIProjectionArgs']] = None,
+                 secret: Optional[pulumi.Input['SecretProjectionArgs']] = None,
+                 service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']] = None):
+        """
+        Projection that may be projected along with other supported volume types
+        :param pulumi.Input['ConfigMapProjectionArgs'] config_map: information about the configMap data to project
+        :param pulumi.Input['DownwardAPIProjectionArgs'] downward_api: information about the downwardAPI data to project
+        :param pulumi.Input['SecretProjectionArgs'] secret: information about the secret data to project
+        :param pulumi.Input['ServiceAccountTokenProjectionArgs'] service_account_token: information about the serviceAccountToken data to project
+        """
+        if config_map is not None:
+            pulumi.set(__self__, "config_map", config_map)
+        if downward_api is not None:
+            pulumi.set(__self__, "downward_api", downward_api)
+        if secret is not None:
+            pulumi.set(__self__, "secret", secret)
+        if service_account_token is not None:
+            pulumi.set(__self__, "service_account_token", service_account_token)
+
+    @property
+    @pulumi.getter(name="configMap")
+    def config_map(self) -> Optional[pulumi.Input['ConfigMapProjectionArgs']]:
+        """
+        information about the configMap data to project
+        """
+        return pulumi.get(self, "config_map")
+
+    @config_map.setter
+    def config_map(self, value: Optional[pulumi.Input['ConfigMapProjectionArgs']]):
+        pulumi.set(self, "config_map", value)
+
+    @property
+    @pulumi.getter(name="downwardAPI")
+    def downward_api(self) -> Optional[pulumi.Input['DownwardAPIProjectionArgs']]:
+        """
+        information about the downwardAPI data to project
+        """
+        return pulumi.get(self, "downward_api")
+
+    @downward_api.setter
+    def downward_api(self, value: Optional[pulumi.Input['DownwardAPIProjectionArgs']]):
+        pulumi.set(self, "downward_api", value)
+
+    @property
+    @pulumi.getter
+    def secret(self) -> Optional[pulumi.Input['SecretProjectionArgs']]:
+        """
+        information about the secret data to project
+        """
+        return pulumi.get(self, "secret")
+
+    @secret.setter
+    def secret(self, value: Optional[pulumi.Input['SecretProjectionArgs']]):
+        pulumi.set(self, "secret", value)
+
+    @property
+    @pulumi.getter(name="serviceAccountToken")
+    def service_account_token(self) -> Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']]:
+        """
+        information about the serviceAccountToken data to project
+        """
+        return pulumi.get(self, "service_account_token")
+
+    @service_account_token.setter
+    def service_account_token(self, value: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']]):
+        pulumi.set(self, "service_account_token", value)
+
+
+@pulumi.input_type
 class VolumeArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[str],
@@ -14063,242 +14299,6 @@ class VolumeArgs:
     @vsphere_volume.setter
     def vsphere_volume(self, value: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']]):
         pulumi.set(self, "vsphere_volume", value)
-
-
-@pulumi.input_type
-class VolumeDeviceArgs:
-    def __init__(__self__, *,
-                 device_path: pulumi.Input[str],
-                 name: pulumi.Input[str]):
-        """
-        volumeDevice describes a mapping of a raw block device within a container.
-        :param pulumi.Input[str] device_path: devicePath is the path inside of the container that the device will be mapped to.
-        :param pulumi.Input[str] name: name must match the name of a persistentVolumeClaim in the pod
-        """
-        pulumi.set(__self__, "device_path", device_path)
-        pulumi.set(__self__, "name", name)
-
-    @property
-    @pulumi.getter(name="devicePath")
-    def device_path(self) -> pulumi.Input[str]:
-        """
-        devicePath is the path inside of the container that the device will be mapped to.
-        """
-        return pulumi.get(self, "device_path")
-
-    @device_path.setter
-    def device_path(self, value: pulumi.Input[str]):
-        pulumi.set(self, "device_path", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        name must match the name of a persistentVolumeClaim in the pod
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-
-@pulumi.input_type
-class VolumeMountArgs:
-    def __init__(__self__, *,
-                 mount_path: pulumi.Input[str],
-                 name: pulumi.Input[str],
-                 mount_propagation: Optional[pulumi.Input[str]] = None,
-                 read_only: Optional[pulumi.Input[bool]] = None,
-                 sub_path: Optional[pulumi.Input[str]] = None,
-                 sub_path_expr: Optional[pulumi.Input[str]] = None):
-        """
-        VolumeMount describes a mounting of a Volume within a container.
-        :param pulumi.Input[str] mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
-        :param pulumi.Input[str] name: This must match the Name of a Volume.
-        :param pulumi.Input[str] mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
-        :param pulumi.Input[bool] read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
-        :param pulumi.Input[str] sub_path: Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
-        :param pulumi.Input[str] sub_path_expr: Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
-        """
-        pulumi.set(__self__, "mount_path", mount_path)
-        pulumi.set(__self__, "name", name)
-        if mount_propagation is not None:
-            pulumi.set(__self__, "mount_propagation", mount_propagation)
-        if read_only is not None:
-            pulumi.set(__self__, "read_only", read_only)
-        if sub_path is not None:
-            pulumi.set(__self__, "sub_path", sub_path)
-        if sub_path_expr is not None:
-            pulumi.set(__self__, "sub_path_expr", sub_path_expr)
-
-    @property
-    @pulumi.getter(name="mountPath")
-    def mount_path(self) -> pulumi.Input[str]:
-        """
-        Path within the container at which the volume should be mounted.  Must not contain ':'.
-        """
-        return pulumi.get(self, "mount_path")
-
-    @mount_path.setter
-    def mount_path(self, value: pulumi.Input[str]):
-        pulumi.set(self, "mount_path", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        This must match the Name of a Volume.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter(name="mountPropagation")
-    def mount_propagation(self) -> Optional[pulumi.Input[str]]:
-        """
-        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
-        """
-        return pulumi.get(self, "mount_propagation")
-
-    @mount_propagation.setter
-    def mount_propagation(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "mount_propagation", value)
-
-    @property
-    @pulumi.getter(name="readOnly")
-    def read_only(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
-        """
-        return pulumi.get(self, "read_only")
-
-    @read_only.setter
-    def read_only(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "read_only", value)
-
-    @property
-    @pulumi.getter(name="subPath")
-    def sub_path(self) -> Optional[pulumi.Input[str]]:
-        """
-        Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
-        """
-        return pulumi.get(self, "sub_path")
-
-    @sub_path.setter
-    def sub_path(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "sub_path", value)
-
-    @property
-    @pulumi.getter(name="subPathExpr")
-    def sub_path_expr(self) -> Optional[pulumi.Input[str]]:
-        """
-        Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
-        """
-        return pulumi.get(self, "sub_path_expr")
-
-    @sub_path_expr.setter
-    def sub_path_expr(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "sub_path_expr", value)
-
-
-@pulumi.input_type
-class VolumeNodeAffinityArgs:
-    def __init__(__self__, *,
-                 required: Optional[pulumi.Input['NodeSelectorArgs']] = None):
-        """
-        VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
-        :param pulumi.Input['NodeSelectorArgs'] required: Required specifies hard node constraints that must be met.
-        """
-        if required is not None:
-            pulumi.set(__self__, "required", required)
-
-    @property
-    @pulumi.getter
-    def required(self) -> Optional[pulumi.Input['NodeSelectorArgs']]:
-        """
-        Required specifies hard node constraints that must be met.
-        """
-        return pulumi.get(self, "required")
-
-    @required.setter
-    def required(self, value: Optional[pulumi.Input['NodeSelectorArgs']]):
-        pulumi.set(self, "required", value)
-
-
-@pulumi.input_type
-class VolumeProjectionArgs:
-    def __init__(__self__, *,
-                 config_map: Optional[pulumi.Input['ConfigMapProjectionArgs']] = None,
-                 downward_api: Optional[pulumi.Input['DownwardAPIProjectionArgs']] = None,
-                 secret: Optional[pulumi.Input['SecretProjectionArgs']] = None,
-                 service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']] = None):
-        """
-        Projection that may be projected along with other supported volume types
-        :param pulumi.Input['ConfigMapProjectionArgs'] config_map: information about the configMap data to project
-        :param pulumi.Input['DownwardAPIProjectionArgs'] downward_api: information about the downwardAPI data to project
-        :param pulumi.Input['SecretProjectionArgs'] secret: information about the secret data to project
-        :param pulumi.Input['ServiceAccountTokenProjectionArgs'] service_account_token: information about the serviceAccountToken data to project
-        """
-        if config_map is not None:
-            pulumi.set(__self__, "config_map", config_map)
-        if downward_api is not None:
-            pulumi.set(__self__, "downward_api", downward_api)
-        if secret is not None:
-            pulumi.set(__self__, "secret", secret)
-        if service_account_token is not None:
-            pulumi.set(__self__, "service_account_token", service_account_token)
-
-    @property
-    @pulumi.getter(name="configMap")
-    def config_map(self) -> Optional[pulumi.Input['ConfigMapProjectionArgs']]:
-        """
-        information about the configMap data to project
-        """
-        return pulumi.get(self, "config_map")
-
-    @config_map.setter
-    def config_map(self, value: Optional[pulumi.Input['ConfigMapProjectionArgs']]):
-        pulumi.set(self, "config_map", value)
-
-    @property
-    @pulumi.getter(name="downwardAPI")
-    def downward_api(self) -> Optional[pulumi.Input['DownwardAPIProjectionArgs']]:
-        """
-        information about the downwardAPI data to project
-        """
-        return pulumi.get(self, "downward_api")
-
-    @downward_api.setter
-    def downward_api(self, value: Optional[pulumi.Input['DownwardAPIProjectionArgs']]):
-        pulumi.set(self, "downward_api", value)
-
-    @property
-    @pulumi.getter
-    def secret(self) -> Optional[pulumi.Input['SecretProjectionArgs']]:
-        """
-        information about the secret data to project
-        """
-        return pulumi.get(self, "secret")
-
-    @secret.setter
-    def secret(self, value: Optional[pulumi.Input['SecretProjectionArgs']]):
-        pulumi.set(self, "secret", value)
-
-    @property
-    @pulumi.getter(name="serviceAccountToken")
-    def service_account_token(self) -> Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']]:
-        """
-        information about the serviceAccountToken data to project
-        """
-        return pulumi.get(self, "service_account_token")
-
-    @service_account_token.setter
-    def service_account_token(self, value: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']]):
-        pulumi.set(self, "service_account_token", value)
 
 
 @pulumi.input_type

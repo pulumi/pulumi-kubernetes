@@ -311,7 +311,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="allowVolumeExpansion")
-    def allow_volume_expansion(self) -> pulumi.Output[Optional[bool]]:
+    def allow_volume_expansion(self) -> pulumi.Output[bool]:
         """
         AllowVolumeExpansion shows whether the storage class allow volume expand
         """
@@ -319,7 +319,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="allowedTopologies")
-    def allowed_topologies(self) -> pulumi.Output[Optional[Sequence['_core.v1.outputs.TopologySelectorTerm']]]:
+    def allowed_topologies(self) -> pulumi.Output[Sequence['_core.v1.outputs.TopologySelectorTerm']]:
         """
         Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         """
@@ -327,7 +327,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -335,7 +335,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -343,7 +343,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
@@ -351,7 +351,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="mountOptions")
-    def mount_options(self) -> pulumi.Output[Optional[Sequence[str]]]:
+    def mount_options(self) -> pulumi.Output[Sequence[str]]:
         """
         Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         """
@@ -359,7 +359,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def parameters(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
+    def parameters(self) -> pulumi.Output[Mapping[str, str]]:
         """
         Parameters holds the parameters for the provisioner that should create volumes of this storage class.
         """
@@ -375,7 +375,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="reclaimPolicy")
-    def reclaim_policy(self) -> pulumi.Output[Optional[str]]:
+    def reclaim_policy(self) -> pulumi.Output[str]:
         """
         Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
         """
@@ -383,7 +383,7 @@ class StorageClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="volumeBindingMode")
-    def volume_binding_mode(self) -> pulumi.Output[Optional[str]]:
+    def volume_binding_mode(self) -> pulumi.Output[str]:
         """
         VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """

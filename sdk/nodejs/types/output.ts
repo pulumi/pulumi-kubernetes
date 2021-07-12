@@ -307,6 +307,7 @@ export namespace admissionregistration {
              */
             url: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -611,6 +612,7 @@ export namespace admissionregistration {
              */
             url: string;
         }
+
     }
 }
 
@@ -1049,6 +1051,7 @@ export namespace apiextensions {
              */
             conversionReviewVersions: string[];
         }
+
     }
 
     export namespace v1beta1 {
@@ -1491,6 +1494,7 @@ export namespace apiextensions {
              */
             url: string;
         }
+
     }
 }
 
@@ -1606,6 +1610,7 @@ export namespace apiregistration {
              */
             port: number;
         }
+
     }
 
     export namespace v1beta1 {
@@ -1719,6 +1724,7 @@ export namespace apiregistration {
              */
             port: number;
         }
+
     }
 }
 
@@ -3380,6 +3386,7 @@ export namespace apps {
              */
             type: string;
         }
+
     }
 }
 
@@ -3511,6 +3518,7 @@ export namespace auditregistration {
              */
             qps: number;
         }
+
     }
 }
 
@@ -3627,6 +3635,7 @@ export namespace authentication {
              */
             username: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -3687,6 +3696,7 @@ export namespace authentication {
              */
             username: string;
         }
+
     }
 }
 
@@ -3871,6 +3881,7 @@ export namespace authorization {
              */
             resourceRules: outputs.authorization.v1.ResourceRule[];
         }
+
     }
 
     export namespace v1beta1 {
@@ -4053,6 +4064,7 @@ export namespace authorization {
              */
             resourceRules: outputs.authorization.v1beta1.ResourceRule[];
         }
+
     }
 }
 
@@ -4546,6 +4558,7 @@ export namespace autoscaling {
              */
             name: string;
         }
+
     }
 
     export namespace v2beta2 {
@@ -4991,6 +5004,7 @@ export namespace autoscaling {
              */
             name: string;
         }
+
     }
 }
 
@@ -5249,6 +5263,7 @@ export namespace batch {
              */
             spec: outputs.batch.v1.JobSpec;
         }
+
     }
 
     export namespace v1beta1 {
@@ -5343,6 +5358,7 @@ export namespace batch {
              */
             spec: outputs.batch.v1.JobSpec;
         }
+
     }
 
     export namespace v2alpha1 {
@@ -5433,6 +5449,7 @@ export namespace batch {
              */
             spec: outputs.batch.v1.JobSpec;
         }
+
     }
 }
 
@@ -5608,6 +5625,7 @@ export namespace certificates {
              */
             conditions: outputs.certificates.v1.CertificateSigningRequestCondition[];
         }
+
     }
 
     export namespace v1beta1 {
@@ -5736,6 +5754,7 @@ export namespace certificates {
              */
             conditions: outputs.certificates.v1beta1.CertificateSigningRequestCondition[];
         }
+
     }
 }
 
@@ -5788,6 +5807,7 @@ export namespace coordination {
              */
             renewTime: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -5838,6 +5858,7 @@ export namespace coordination {
              */
             renewTime: string;
         }
+
     }
 }
 
@@ -10195,6 +10216,7 @@ export namespace core {
              */
             runAsUserName: string;
         }
+
     }
 }
 
@@ -10327,6 +10349,7 @@ export namespace discovery {
              */
             name: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -10460,6 +10483,7 @@ export namespace discovery {
              */
             name: string;
         }
+
     }
 }
 
@@ -10552,6 +10576,7 @@ export namespace events {
              */
             lastObservedTime: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -10646,6 +10671,7 @@ export namespace events {
              */
             state: string;
         }
+
     }
 }
 
@@ -11657,6 +11683,7 @@ export namespace extensions {
              */
             rule: string;
         }
+
     }
 }
 
@@ -12004,6 +12031,7 @@ export namespace flowcontrol {
              */
             name: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -12349,6 +12377,7 @@ export namespace flowcontrol {
              */
             name: string;
         }
+
     }
 }
 
@@ -13238,6 +13267,7 @@ export namespace networking {
              */
             secretName: string;
         }
+
     }
 }
 
@@ -13298,6 +13328,7 @@ export namespace node {
              */
             tolerations: outputs.core.v1.Toleration[];
         }
+
     }
 
     export namespace v1alpha1 {
@@ -13364,6 +13395,7 @@ export namespace node {
              */
             tolerations: outputs.core.v1.Toleration[];
         }
+
     }
 
     export namespace v1beta1 {
@@ -13420,6 +13452,7 @@ export namespace node {
              */
             tolerations: outputs.core.v1.Toleration[];
         }
+
     }
 }
 
@@ -13515,6 +13548,7 @@ export namespace policy {
              */
             observedGeneration: number;
         }
+
     }
 
     export namespace v1beta1 {
@@ -13876,6 +13910,7 @@ export namespace policy {
              */
             rule: string;
         }
+
     }
 }
 
@@ -14056,6 +14091,7 @@ export namespace rbac {
              */
             namespace: string;
         }
+
     }
 
     export namespace v1alpha1 {
@@ -14234,6 +14270,7 @@ export namespace rbac {
              */
             namespace: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -14412,6 +14449,7 @@ export namespace rbac {
              */
             namespace: string;
         }
+
     }
 }
 
@@ -14571,6 +14609,7 @@ export namespace settings {
              */
             volumes: outputs.core.v1.Volume[];
         }
+
     }
 }
 
@@ -14886,6 +14925,7 @@ export namespace storage {
              */
             count: number;
         }
+
     }
 
     export namespace v1alpha1 {
@@ -15034,6 +15074,7 @@ export namespace storage {
              */
             time: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -15397,5 +15438,6 @@ export namespace storage {
              */
             count: number;
         }
+
     }
 }

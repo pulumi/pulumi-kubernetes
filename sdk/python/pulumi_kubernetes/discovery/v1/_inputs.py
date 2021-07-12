@@ -11,148 +11,13 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'EndpointArgs',
     'EndpointConditionsArgs',
     'EndpointHintsArgs',
     'EndpointPortArgs',
     'EndpointSliceArgs',
+    'EndpointArgs',
     'ForZoneArgs',
 ]
-
-@pulumi.input_type
-class EndpointArgs:
-    def __init__(__self__, *,
-                 addresses: pulumi.Input[Sequence[pulumi.Input[str]]],
-                 conditions: Optional[pulumi.Input['EndpointConditionsArgs']] = None,
-                 deprecated_topology: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-                 hints: Optional[pulumi.Input['EndpointHintsArgs']] = None,
-                 hostname: Optional[pulumi.Input[str]] = None,
-                 node_name: Optional[pulumi.Input[str]] = None,
-                 target_ref: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
-                 zone: Optional[pulumi.Input[str]] = None):
-        """
-        Endpoint represents a single logical "backend" implementing a service.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
-        :param pulumi.Input['EndpointConditionsArgs'] conditions: conditions contains information about the current status of the endpoint.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] deprecated_topology: deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
-        :param pulumi.Input['EndpointHintsArgs'] hints: hints contains information associated with how an endpoint should be consumed.
-        :param pulumi.Input[str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
-        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
-        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
-        :param pulumi.Input[str] zone: zone is the name of the Zone this endpoint exists in.
-        """
-        pulumi.set(__self__, "addresses", addresses)
-        if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
-        if deprecated_topology is not None:
-            pulumi.set(__self__, "deprecated_topology", deprecated_topology)
-        if hints is not None:
-            pulumi.set(__self__, "hints", hints)
-        if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
-        if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
-        if target_ref is not None:
-            pulumi.set(__self__, "target_ref", target_ref)
-        if zone is not None:
-            pulumi.set(__self__, "zone", zone)
-
-    @property
-    @pulumi.getter
-    def addresses(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        """
-        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
-        """
-        return pulumi.get(self, "addresses")
-
-    @addresses.setter
-    def addresses(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "addresses", value)
-
-    @property
-    @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input['EndpointConditionsArgs']]:
-        """
-        conditions contains information about the current status of the endpoint.
-        """
-        return pulumi.get(self, "conditions")
-
-    @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input['EndpointConditionsArgs']]):
-        pulumi.set(self, "conditions", value)
-
-    @property
-    @pulumi.getter(name="deprecatedTopology")
-    def deprecated_topology(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
-        """
-        deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
-        """
-        return pulumi.get(self, "deprecated_topology")
-
-    @deprecated_topology.setter
-    def deprecated_topology(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
-        pulumi.set(self, "deprecated_topology", value)
-
-    @property
-    @pulumi.getter
-    def hints(self) -> Optional[pulumi.Input['EndpointHintsArgs']]:
-        """
-        hints contains information associated with how an endpoint should be consumed.
-        """
-        return pulumi.get(self, "hints")
-
-    @hints.setter
-    def hints(self, value: Optional[pulumi.Input['EndpointHintsArgs']]):
-        pulumi.set(self, "hints", value)
-
-    @property
-    @pulumi.getter
-    def hostname(self) -> Optional[pulumi.Input[str]]:
-        """
-        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
-        """
-        return pulumi.get(self, "hostname")
-
-    @hostname.setter
-    def hostname(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "hostname", value)
-
-    @property
-    @pulumi.getter(name="nodeName")
-    def node_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
-        """
-        return pulumi.get(self, "node_name")
-
-    @node_name.setter
-    def node_name(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "node_name", value)
-
-    @property
-    @pulumi.getter(name="targetRef")
-    def target_ref(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
-        """
-        targetRef is a reference to a Kubernetes object that represents this endpoint.
-        """
-        return pulumi.get(self, "target_ref")
-
-    @target_ref.setter
-    def target_ref(self, value: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]):
-        pulumi.set(self, "target_ref", value)
-
-    @property
-    @pulumi.getter
-    def zone(self) -> Optional[pulumi.Input[str]]:
-        """
-        zone is the name of the Zone this endpoint exists in.
-        """
-        return pulumi.get(self, "zone")
-
-    @zone.setter
-    def zone(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "zone", value)
-
 
 @pulumi.input_type
 class EndpointConditionsArgs:
@@ -406,6 +271,141 @@ class EndpointSliceArgs:
     @ports.setter
     def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]]):
         pulumi.set(self, "ports", value)
+
+
+@pulumi.input_type
+class EndpointArgs:
+    def __init__(__self__, *,
+                 addresses: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 conditions: Optional[pulumi.Input['EndpointConditionsArgs']] = None,
+                 deprecated_topology: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 hints: Optional[pulumi.Input['EndpointHintsArgs']] = None,
+                 hostname: Optional[pulumi.Input[str]] = None,
+                 node_name: Optional[pulumi.Input[str]] = None,
+                 target_ref: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
+                 zone: Optional[pulumi.Input[str]] = None):
+        """
+        Endpoint represents a single logical "backend" implementing a service.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        :param pulumi.Input['EndpointConditionsArgs'] conditions: conditions contains information about the current status of the endpoint.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] deprecated_topology: deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
+        :param pulumi.Input['EndpointHintsArgs'] hints: hints contains information associated with how an endpoint should be consumed.
+        :param pulumi.Input[str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
+        :param pulumi.Input[str] zone: zone is the name of the Zone this endpoint exists in.
+        """
+        pulumi.set(__self__, "addresses", addresses)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if deprecated_topology is not None:
+            pulumi.set(__self__, "deprecated_topology", deprecated_topology)
+        if hints is not None:
+            pulumi.set(__self__, "hints", hints)
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if target_ref is not None:
+            pulumi.set(__self__, "target_ref", target_ref)
+        if zone is not None:
+            pulumi.set(__self__, "zone", zone)
+
+    @property
+    @pulumi.getter
+    def addresses(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        """
+        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        """
+        return pulumi.get(self, "addresses")
+
+    @addresses.setter
+    def addresses(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "addresses", value)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input['EndpointConditionsArgs']]:
+        """
+        conditions contains information about the current status of the endpoint.
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input['EndpointConditionsArgs']]):
+        pulumi.set(self, "conditions", value)
+
+    @property
+    @pulumi.getter(name="deprecatedTopology")
+    def deprecated_topology(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
+        """
+        return pulumi.get(self, "deprecated_topology")
+
+    @deprecated_topology.setter
+    def deprecated_topology(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "deprecated_topology", value)
+
+    @property
+    @pulumi.getter
+    def hints(self) -> Optional[pulumi.Input['EndpointHintsArgs']]:
+        """
+        hints contains information associated with how an endpoint should be consumed.
+        """
+        return pulumi.get(self, "hints")
+
+    @hints.setter
+    def hints(self, value: Optional[pulumi.Input['EndpointHintsArgs']]):
+        pulumi.set(self, "hints", value)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[pulumi.Input[str]]:
+        """
+        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "hostname", value)
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        """
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "node_name", value)
+
+    @property
+    @pulumi.getter(name="targetRef")
+    def target_ref(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
+        """
+        targetRef is a reference to a Kubernetes object that represents this endpoint.
+        """
+        return pulumi.get(self, "target_ref")
+
+    @target_ref.setter
+    def target_ref(self, value: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]):
+        pulumi.set(self, "target_ref", value)
+
+    @property
+    @pulumi.getter
+    def zone(self) -> Optional[pulumi.Input[str]]:
+        """
+        zone is the name of the Zone this endpoint exists in.
+        """
+        return pulumi.get(self, "zone")
+
+    @zone.setter
+    def zone(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "zone", value)
 
 
 @pulumi.input_type

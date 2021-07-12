@@ -16,14 +16,14 @@ type CertificateSigningRequest struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Kind     pulumi.StringOutput     `pulumi:"kind"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// The certificate request itself and any additional information.
-	Spec CertificateSigningRequestSpecPtrOutput `pulumi:"spec"`
+	Spec CertificateSigningRequestSpecOutput `pulumi:"spec"`
 	// Derived information about the request.
-	Status CertificateSigningRequestStatusPtrOutput `pulumi:"status"`
+	Status CertificateSigningRequestStatusOutput `pulumi:"status"`
 }
 
 // NewCertificateSigningRequest registers a new resource with the given unique name, arguments, and options.
@@ -63,27 +63,9 @@ func GetCertificateSigningRequest(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering CertificateSigningRequest resources.
 type certificateSigningRequestState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// The certificate request itself and any additional information.
-	Spec *CertificateSigningRequestSpec `pulumi:"spec"`
-	// Derived information about the request.
-	Status *CertificateSigningRequestStatus `pulumi:"status"`
 }
 
 type CertificateSigningRequestState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
-	Metadata metav1.ObjectMetaPtrInput
-	// The certificate request itself and any additional information.
-	Spec CertificateSigningRequestSpecPtrInput
-	// Derived information about the request.
-	Status CertificateSigningRequestStatusPtrInput
 }
 
 func (CertificateSigningRequestState) ElementType() reflect.Type {

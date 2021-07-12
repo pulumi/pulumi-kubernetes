@@ -17,12 +17,12 @@ type CustomResourceDefinitionList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// items list individual CustomResourceDefinition objects
 	Items CustomResourceDefinitionTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput   `pulumi:"kind"`
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Kind     pulumi.StringOutput   `pulumi:"kind"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewCustomResourceDefinitionList registers a new resource with the given unique name, arguments, and options.
@@ -59,23 +59,9 @@ func GetCustomResourceDefinitionList(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering CustomResourceDefinitionList resources.
 type customResourceDefinitionListState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// items list individual CustomResourceDefinition objects
-	Items []CustomResourceDefinitionType `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
-	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
 type CustomResourceDefinitionListState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput
-	// items list individual CustomResourceDefinition objects
-	Items CustomResourceDefinitionTypeArrayInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
-	Metadata metav1.ListMetaPtrInput
 }
 
 func (CustomResourceDefinitionListState) ElementType() reflect.Type {
