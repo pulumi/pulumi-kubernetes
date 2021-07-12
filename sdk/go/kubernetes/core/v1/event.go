@@ -17,39 +17,39 @@ type Event struct {
 	pulumi.CustomResourceState
 
 	// What action was taken/failed regarding to the Regarding object.
-	Action pulumi.StringPtrOutput `pulumi:"action"`
+	Action pulumi.StringOutput `pulumi:"action"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// The number of times this event has occurred.
-	Count pulumi.IntPtrOutput `pulumi:"count"`
+	Count pulumi.IntOutput `pulumi:"count"`
 	// Time when this Event was first observed.
-	EventTime pulumi.StringPtrOutput `pulumi:"eventTime"`
+	EventTime pulumi.StringOutput `pulumi:"eventTime"`
 	// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
-	FirstTimestamp pulumi.StringPtrOutput `pulumi:"firstTimestamp"`
+	FirstTimestamp pulumi.StringOutput `pulumi:"firstTimestamp"`
 	// The object that this event is about.
 	InvolvedObject ObjectReferenceOutput `pulumi:"involvedObject"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// The time at which the most recent occurrence of this event was recorded.
-	LastTimestamp pulumi.StringPtrOutput `pulumi:"lastTimestamp"`
+	LastTimestamp pulumi.StringOutput `pulumi:"lastTimestamp"`
 	// A human-readable description of the status of this operation.
-	Message pulumi.StringPtrOutput `pulumi:"message"`
+	Message pulumi.StringOutput `pulumi:"message"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
-	Reason pulumi.StringPtrOutput `pulumi:"reason"`
+	Reason pulumi.StringOutput `pulumi:"reason"`
 	// Optional secondary object for more complex actions.
-	Related ObjectReferencePtrOutput `pulumi:"related"`
+	Related ObjectReferenceOutput `pulumi:"related"`
 	// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
-	ReportingComponent pulumi.StringPtrOutput `pulumi:"reportingComponent"`
+	ReportingComponent pulumi.StringOutput `pulumi:"reportingComponent"`
 	// ID of the controller instance, e.g. `kubelet-xyzf`.
-	ReportingInstance pulumi.StringPtrOutput `pulumi:"reportingInstance"`
+	ReportingInstance pulumi.StringOutput `pulumi:"reportingInstance"`
 	// Data about the Event series this event represents or nil if it's a singleton Event.
-	Series EventSeriesPtrOutput `pulumi:"series"`
+	Series EventSeriesOutput `pulumi:"series"`
 	// The component reporting this event. Should be a short machine understandable string.
-	Source EventSourcePtrOutput `pulumi:"source"`
+	Source EventSourceOutput `pulumi:"source"`
 	// Type of this event (Normal, Warning), new types could be added in the future
-	Type pulumi.StringPtrOutput `pulumi:"type"`
+	Type pulumi.StringOutput `pulumi:"type"`
 }
 
 // NewEvent registers a new resource with the given unique name, arguments, and options.

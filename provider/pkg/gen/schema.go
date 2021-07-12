@@ -86,7 +86,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						},
 					},
 					Description: "The contents of a kubeconfig file or the path to a kubeconfig file.",
-					TypeSpec: pschema.TypeSpec{Type: "string"},
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
 					Language: map[string]json.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
 							"name": "KubeConfig",
@@ -211,6 +211,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				for _, p := range kind.OptionalInputProperties() {
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
 				}
+				resourceSpec.Required = propNames
 
 				for _, t := range kind.Aliases() {
 					aliasedType := t
@@ -250,8 +251,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
 		"packageReferences": map[string]string{
-			"Glob":                         "1.1.5",
-			"Pulumi":                       "3.*",
+			"Glob":   "1.1.5",
+			"Pulumi": "3.*",
 		},
 		"namespaces":             csharpNamespaces,
 		"compatibility":          kubernetes20,

@@ -231,7 +231,7 @@ class RuntimeClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -247,7 +247,7 @@ class RuntimeClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -255,7 +255,7 @@ class RuntimeClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
@@ -263,7 +263,7 @@ class RuntimeClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def overhead(self) -> pulumi.Output[Optional['outputs.Overhead']]:
+    def overhead(self) -> pulumi.Output['outputs.Overhead']:
         """
         Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
          https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
@@ -273,7 +273,7 @@ class RuntimeClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def scheduling(self) -> pulumi.Output[Optional['outputs.Scheduling']]:
+    def scheduling(self) -> pulumi.Output['outputs.Scheduling']:
         """
         Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
