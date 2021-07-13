@@ -216,7 +216,7 @@ func (sia *serviceInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (sia *serviceInitAwaiter) await(
-	serviceEvents <-chan watch.Event,
+	serviceEvents,
 	endpointsEvents <-chan watch.Event,
 	timeout <-chan time.Time,
 	settled chan struct{},
