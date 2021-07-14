@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Update pulumi dependencies v3.7.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1651)
+
 ## 3.5.1 (July 14, 2021)
 
 - Use shared informer for await logic for all resources (https://github.com/pulumi/pulumi-kubernetes/pull/1647)
