@@ -133,8 +133,9 @@ func TestAccIngress(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(getCwd(t), "ingress"),
-			Quick: true,
+			Dir:         filepath.Join(getCwd(t), "ingress"),
+			Quick:       true,
+			SkipRefresh: true, // ingress may have changes during refresh.
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
