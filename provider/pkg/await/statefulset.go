@@ -7,8 +7,10 @@ import (
 	"time"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -141,34 +143,36 @@ func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 //      and `.status.readyReplicas`.
 //   2. The value of `.status.updateRevision` matches `.status.currentRevision`.
 func (sia *statefulsetInitAwaiter) Await() error {
+	stopper := make(chan struct{})
+	defer close(stopper)
 
-	statefulSetClient, podClient, err := sia.makeClients()
+	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
+		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
+	informerFactory.Start(stopper)
+
+	statefulSetEvents := make(chan watch.Event)
+	statefulSetInformer, err := informers.New(informerFactory, informers.ForGVR(schema.GroupVersionResource{
+		Group:    "apps",
+		Version:  "v1",
+		Resource: "statefulsets",
+	}), informers.WithEventChannel(statefulSetEvents))
 	if err != nil {
 		return err
 	}
+	go statefulSetInformer.Informer().Run(stopper)
 
-	// Create Deployment watcher.
-	statefulSetWatcher, err := statefulSetClient.Watch(context.TODO(), metav1.ListOptions{})
+	podEvents := make(chan watch.Event)
+	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
 	if err != nil {
-		return errors.Wrapf(err, "Could not set up watch for StatefulSet object %q",
-			sia.config.currentInputs.GetName())
+		return err
 	}
-	defer statefulSetWatcher.Stop()
-
-	// Create Pod watcher.
-	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Pods objects associated with StatefulSet %q",
-			sia.config.currentInputs.GetName())
-	}
-	defer podWatcher.Stop()
+	go podInformer.Informer().Run(stopper)
 
 	aggregateErrorTicker := time.NewTicker(10 * time.Second)
 	defer aggregateErrorTicker.Stop()
 
 	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultStatefulSetTimeoutMins*60)
-	return sia.await(statefulSetWatcher, podWatcher, time.After(timeout), aggregateErrorTicker.C)
+	return sia.await(statefulSetEvents, podEvents, time.After(timeout), aggregateErrorTicker.C)
 }
 
 func (sia *statefulsetInitAwaiter) Read() error {
@@ -231,7 +235,7 @@ func (sia *statefulsetInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (sia *statefulsetInitAwaiter) await(
-	statefulsetWatcher, podWatcher watch.Interface,
+	statefulsetEvents, podEvents <-chan watch.Event,
 	timeout, aggregateErrorTicker <-chan time.Time,
 ) error {
 	for {
@@ -256,9 +260,9 @@ func (sia *statefulsetInitAwaiter) await(
 			for _, message := range messages {
 				sia.config.logMessage(message)
 			}
-		case event := <-statefulsetWatcher.ResultChan():
+		case event := <-statefulsetEvents:
 			sia.processStatefulSetEvent(event)
-		case event := <-podWatcher.ResultChan():
+		case event := <-podEvents:
 			sia.processPodEvent(event)
 		}
 	}

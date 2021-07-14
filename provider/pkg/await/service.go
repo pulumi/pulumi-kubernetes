@@ -14,6 +14,7 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -120,32 +121,31 @@ func (sia *serviceInitAwaiter) Await() error {
 	//   4. External IP address is allocated (if we're type `LoadBalancer`).
 	//
 
-	serviceClient, endpointsClient, err := sia.makeClients()
+	stopper := make(chan struct{})
+	defer close(stopper)
+
+	informerFactory := informers.NewInformerFactory(sia.config.clientSet,
+		informers.WithNamespaceOrDefault(sia.config.currentInputs.GetNamespace()))
+	informerFactory.Start(stopper)
+
+	serviceEvents := make(chan watch.Event)
+	serviceInformer, err := informers.New(informerFactory, informers.ForServices(), informers.WithEventChannel(serviceEvents))
 	if err != nil {
 		return err
 	}
+	go serviceInformer.Informer().Run(stopper)
 
-	// Create service watcher.
-	serviceWatcher, err := serviceClient.Watch(context.TODO(), metav1.ListOptions{})
+	endpointsEvents := make(chan watch.Event)
+	endpointsInformer, err := informers.New(informerFactory, informers.ForEndpoints(), informers.WithEventChannel(endpointsEvents))
 	if err != nil {
-		return errors.Wrapf(err, "Could set up watch for Service object '%s'",
-			sia.config.currentInputs.GetName())
+		return err
 	}
-	defer serviceWatcher.Stop()
-
-	// Create endpoint watcher.
-	endpointWatcher, err := endpointsClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not create watcher for Endpoint objects associated with Service %q",
-			sia.config.currentInputs.GetName())
-	}
-	defer endpointWatcher.Stop()
+	go endpointsInformer.Informer().Run(stopper)
 
 	version := cluster.TryGetServerVersion(sia.config.clientSet.DiscoveryClientCached)
 
 	timeout := metadata.TimeoutDuration(sia.config.timeout, sia.config.currentInputs, DefaultServiceTimeoutMins*60)
-	return sia.await(serviceWatcher, endpointWatcher, time.After(timeout), make(chan struct{}), version)
+	return sia.await(serviceEvents, endpointsEvents, time.After(timeout), make(chan struct{}), version)
 }
 
 func (sia *serviceInitAwaiter) Read() error {
@@ -216,7 +216,8 @@ func (sia *serviceInitAwaiter) read(
 
 // await is a helper companion to `Await` designed to make it easy to test this module.
 func (sia *serviceInitAwaiter) await(
-	serviceWatcher, endpointWatcher watch.Interface,
+	serviceEvents,
+	endpointsEvents <-chan watch.Event,
 	timeout <-chan time.Time,
 	settled chan struct{},
 	version cluster.ServerVersion,
@@ -251,9 +252,9 @@ func (sia *serviceInitAwaiter) await(
 			}
 		case <-settled:
 			sia.endpointsSettled = true
-		case event := <-serviceWatcher.ResultChan():
+		case event := <-serviceEvents:
 			sia.processServiceEvent(event)
-		case event := <-endpointWatcher.ResultChan():
+		case event := <-endpointsEvents:
 			sia.processEndpointEvent(event, settled)
 		}
 	}
@@ -452,14 +453,14 @@ func (sia *serviceInitAwaiter) makeClients() (
 		kinds.Service, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Service %q",
+			"Could not make client to read Service %q",
 			sia.config.currentOutputs.GetName())
 	}
 	endpointClient, err = clients.ResourceClient(
 		kinds.Endpoints, sia.config.currentOutputs.GetNamespace(), sia.config.clientSet)
 	if err != nil {
 		return nil, nil, errors.Wrapf(err,
-			"Could not make client to watch Endpoints associated with Service %q",
+			"Could not make client to read Endpoints associated with Service %q",
 			sia.config.currentOutputs.GetName())
 	}
 

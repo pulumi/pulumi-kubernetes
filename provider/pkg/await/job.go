@@ -19,7 +19,10 @@ import (
 	"strings"
 	"time"
 
+	"k8s.io/client-go/dynamic/dynamicinformer"
+
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -94,23 +97,29 @@ func makeJobInitAwaiter(c createAwaitConfig) *jobInitAwaiter {
 }
 
 func (jia *jobInitAwaiter) Await() error {
-	jobClient, err := clients.ResourceClient(kinds.Job, jia.config.currentInputs.GetNamespace(), jia.config.clientSet)
-	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to watch Job %q",
-			jia.config.currentInputs.GetName())
-	}
-	jobWatcher, err := jobClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err, "Couldn't set up watch for Job object %q",
-			jia.config.currentInputs.GetName())
-	}
-	defer jobWatcher.Stop()
+	stopper := make(chan struct{})
+	defer close(stopper)
 
-	podAggregator, err := NewPodAggregator(ResourceIDFromUnstructured(jia.job), jia.config.clientSet)
+	informerFactory := informers.NewInformerFactory(jia.config.clientSet,
+		informers.WithNamespaceOrDefault(jia.config.currentInputs.GetNamespace()))
+	informerFactory.Start(stopper)
+
+	jobEvents := make(chan watch.Event)
+	jobInformer, err := informers.New(informerFactory, informers.ForJobs(), informers.WithEventChannel(jobEvents))
 	if err != nil {
-		return errors.Wrapf(err, "Could not create PodAggregator for %s", jia.resource.GVKString())
+		return err
 	}
+	go jobInformer.Informer().Run(stopper)
+
+	podEvents := make(chan watch.Event)
+	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
+	if err != nil {
+		return err
+	}
+	go podInformer.Informer().Run(stopper)
+
+	podAggregator := NewPodAggregator(ResourceIDFromUnstructured(jia.job), podInformer.Lister())
+	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
 	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentInputs, DefaultJobTimeoutMins*60)
@@ -131,7 +140,7 @@ func (jia *jobInitAwaiter) Await() error {
 				object:    jia.job,
 				subErrors: jia.errorMessages(),
 			}
-		case event := <-jobWatcher.ResultChan():
+		case event := <-jobEvents:
 			err := jia.processJobEvent(event)
 			if err != nil {
 				return err
@@ -143,6 +152,13 @@ func (jia *jobInitAwaiter) Await() error {
 }
 
 func (jia *jobInitAwaiter) Read() error {
+	stopper := make(chan struct{})
+	defer close(stopper)
+
+	namespace := jia.config.currentInputs.GetNamespace()
+	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(jia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
+	informerFactory.Start(stopper)
+
 	jobClient, err := clients.ResourceClient(kinds.Job, jia.config.currentInputs.GetNamespace(), jia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err,
@@ -164,10 +180,13 @@ func (jia *jobInitAwaiter) Read() error {
 		return nil
 	}
 
-	podAggregator, err := NewPodAggregator(ResourceIDFromUnstructured(jia.job), jia.config.clientSet)
+	podInformer, err := informers.New(informerFactory, informers.ForPods())
 	if err != nil {
-		return errors.Wrapf(err, "Could not create PodAggregator for %s", jia.resource.GVKString())
+		return err
 	}
+	go podInformer.Informer().Run(stopper)
+
+	podAggregator := NewPodAggregator(ResourceIDFromUnstructured(jia.job), podInformer.Lister())
 	messages := podAggregator.Read()
 	for _, message := range messages {
 		jia.errors.Add(message)

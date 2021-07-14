@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -129,19 +130,19 @@ func awaitPodUpdate(u updateAwaitConfig) error {
 }
 
 func (pia *podInitAwaiter) Await() error {
-	podClient, err := clients.ResourceClient(
-		kinds.Pod, pia.config.currentInputs.GetNamespace(), pia.config.clientSet)
+	stopper := make(chan struct{})
+	defer close(stopper)
+
+	informerFactory := informers.NewInformerFactory(pia.config.clientSet,
+		informers.WithNamespaceOrDefault(pia.config.currentInputs.GetNamespace()))
+	informerFactory.Start(stopper)
+
+	podEvents := make(chan watch.Event)
+	podInformer, err := informers.New(informerFactory, informers.ForPods(), informers.WithEventChannel(podEvents))
 	if err != nil {
-		return errors.Wrapf(err,
-			"Could not make client to watch Pod %q",
-			pia.config.currentInputs.GetName())
+		return err
 	}
-	podWatcher, err := podClient.Watch(context.TODO(), metav1.ListOptions{})
-	if err != nil {
-		return errors.Wrapf(err, "Couldn't set up watch for Pod object %q",
-			pia.config.currentInputs.GetName())
-	}
-	defer podWatcher.Stop()
+	go podInformer.Informer().Run(stopper)
 
 	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentInputs, DefaultPodTimeoutMins*60)
 	for {
@@ -162,7 +163,7 @@ func (pia *podInitAwaiter) Await() error {
 				object:    pia.pod,
 				subErrors: pia.errorMessages(),
 			}
-		case event := <-podWatcher.ResultChan():
+		case event := <-podEvents:
 			pia.processPodEvent(event)
 		}
 	}
