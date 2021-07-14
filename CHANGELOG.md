@@ -1,4 +1,7 @@
 ## HEAD (Unreleased)
+
+## 3.5.1 (July 14, 2021)
+
 - Use shared informer for await logic for all resources (https://github.com/pulumi/pulumi-kubernetes/pull/1647)
 
 ## 3.5.0 (June 30, 2021)
