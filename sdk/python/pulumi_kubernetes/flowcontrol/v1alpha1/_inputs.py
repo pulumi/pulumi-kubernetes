@@ -11,20 +11,20 @@ from ... import meta as _meta
 
 __all__ = [
     'FlowDistinguisherMethodArgs',
-    'FlowSchemaArgs',
     'FlowSchemaConditionArgs',
     'FlowSchemaSpecArgs',
     'FlowSchemaStatusArgs',
+    'FlowSchemaArgs',
     'GroupSubjectArgs',
     'LimitResponseArgs',
     'LimitedPriorityLevelConfigurationArgs',
     'NonResourcePolicyRuleArgs',
     'PolicyRulesWithSubjectsArgs',
-    'PriorityLevelConfigurationArgs',
     'PriorityLevelConfigurationConditionArgs',
     'PriorityLevelConfigurationReferenceArgs',
     'PriorityLevelConfigurationSpecArgs',
     'PriorityLevelConfigurationStatusArgs',
+    'PriorityLevelConfigurationArgs',
     'QueuingConfigurationArgs',
     'ResourcePolicyRuleArgs',
     'ServiceAccountSubjectArgs',
@@ -53,94 +53,6 @@ class FlowDistinguisherMethodArgs:
     @type.setter
     def type(self, value: pulumi.Input[str]):
         pulumi.set(self, "type", value)
-
-
-@pulumi.input_type
-class FlowSchemaArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['FlowSchemaSpecArgs']] = None,
-                 status: Optional[pulumi.Input['FlowSchemaStatusArgs']] = None):
-        """
-        FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['FlowSchemaSpecArgs'] spec: `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['FlowSchemaStatusArgs'] status: `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1alpha1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'FlowSchema')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['FlowSchemaSpecArgs']]:
-        """
-        `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['FlowSchemaSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['FlowSchemaStatusArgs']]:
-        """
-        `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['FlowSchemaStatusArgs']]):
-        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -324,6 +236,94 @@ class FlowSchemaStatusArgs:
     @conditions.setter
     def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['FlowSchemaConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
+
+
+@pulumi.input_type
+class FlowSchemaArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['FlowSchemaSpecArgs']] = None,
+                 status: Optional[pulumi.Input['FlowSchemaStatusArgs']] = None):
+        """
+        FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['FlowSchemaSpecArgs'] spec: `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['FlowSchemaStatusArgs'] status: `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'FlowSchema')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['FlowSchemaSpecArgs']]:
+        """
+        `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['FlowSchemaSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['FlowSchemaStatusArgs']]:
+        """
+        `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['FlowSchemaStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -544,94 +544,6 @@ class PolicyRulesWithSubjectsArgs:
 
 
 @pulumi.input_type
-class PriorityLevelConfigurationArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PriorityLevelConfigurationSpecArgs']] = None,
-                 status: Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']] = None):
-        """
-        PriorityLevelConfiguration represents the configuration of a priority level.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PriorityLevelConfigurationSpecArgs'] spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        :param pulumi.Input['PriorityLevelConfigurationStatusArgs'] status: `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1alpha1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'PriorityLevelConfiguration')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PriorityLevelConfigurationSpecArgs']]:
-        """
-        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PriorityLevelConfigurationSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']]:
-        """
-        `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-@pulumi.input_type
 class PriorityLevelConfigurationConditionArgs:
     def __init__(__self__, *,
                  last_transition_time: Optional[pulumi.Input[str]] = None,
@@ -803,6 +715,94 @@ class PriorityLevelConfigurationStatusArgs:
     @conditions.setter
     def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PriorityLevelConfigurationConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
+
+
+@pulumi.input_type
+class PriorityLevelConfigurationArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['PriorityLevelConfigurationSpecArgs']] = None,
+                 status: Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']] = None):
+        """
+        PriorityLevelConfiguration represents the configuration of a priority level.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PriorityLevelConfigurationSpecArgs'] spec: `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['PriorityLevelConfigurationStatusArgs'] status: `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'flowcontrol.apiserver.k8s.io/v1alpha1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PriorityLevelConfiguration')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['PriorityLevelConfigurationSpecArgs']]:
+        """
+        `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['PriorityLevelConfigurationSpecArgs']]):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']]:
+        """
+        `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type

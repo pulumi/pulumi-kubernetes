@@ -11,9 +11,63 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
-    'EventArgs',
     'EventSeriesArgs',
+    'EventArgs',
 ]
+
+@pulumi.input_type
+class EventSeriesArgs:
+    def __init__(__self__, *,
+                 count: pulumi.Input[int],
+                 last_observed_time: pulumi.Input[str],
+                 state: Optional[pulumi.Input[str]] = None):
+        """
+        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+        :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
+        :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+        """
+        pulumi.set(__self__, "count", count)
+        pulumi.set(__self__, "last_observed_time", last_observed_time)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def count(self) -> pulumi.Input[int]:
+        """
+        count is the number of occurrences in this series up to the last heartbeat time.
+        """
+        return pulumi.get(self, "count")
+
+    @count.setter
+    def count(self, value: pulumi.Input[int]):
+        pulumi.set(self, "count", value)
+
+    @property
+    @pulumi.getter(name="lastObservedTime")
+    def last_observed_time(self) -> pulumi.Input[str]:
+        """
+        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        """
+        return pulumi.get(self, "last_observed_time")
+
+    @last_observed_time.setter
+    def last_observed_time(self, value: pulumi.Input[str]):
+        pulumi.set(self, "last_observed_time", value)
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[pulumi.Input[str]]:
+        """
+        Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+        """
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "state", value)
+
 
 @pulumi.input_type
 class EventArgs:
@@ -292,59 +346,5 @@ class EventArgs:
     @type.setter
     def type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "type", value)
-
-
-@pulumi.input_type
-class EventSeriesArgs:
-    def __init__(__self__, *,
-                 count: pulumi.Input[int],
-                 last_observed_time: pulumi.Input[str],
-                 state: Optional[pulumi.Input[str]] = None):
-        """
-        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-        :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-        """
-        pulumi.set(__self__, "count", count)
-        pulumi.set(__self__, "last_observed_time", last_observed_time)
-        if state is not None:
-            pulumi.set(__self__, "state", state)
-
-    @property
-    @pulumi.getter
-    def count(self) -> pulumi.Input[int]:
-        """
-        count is the number of occurrences in this series up to the last heartbeat time.
-        """
-        return pulumi.get(self, "count")
-
-    @count.setter
-    def count(self, value: pulumi.Input[int]):
-        pulumi.set(self, "count", value)
-
-    @property
-    @pulumi.getter(name="lastObservedTime")
-    def last_observed_time(self) -> pulumi.Input[str]:
-        """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
-        """
-        return pulumi.get(self, "last_observed_time")
-
-    @last_observed_time.setter
-    def last_observed_time(self, value: pulumi.Input[str]):
-        pulumi.set(self, "last_observed_time", value)
-
-    @property
-    @pulumi.getter
-    def state(self) -> Optional[pulumi.Input[str]]:
-        """
-        Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
-        """
-        return pulumi.get(self, "state")
-
-    @state.setter
-    def state(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "state", value)
 
 

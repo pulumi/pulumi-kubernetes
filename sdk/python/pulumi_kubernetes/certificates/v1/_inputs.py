@@ -10,100 +10,11 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'CertificateSigningRequestArgs',
     'CertificateSigningRequestConditionArgs',
     'CertificateSigningRequestSpecArgs',
     'CertificateSigningRequestStatusArgs',
+    'CertificateSigningRequestArgs',
 ]
-
-@pulumi.input_type
-class CertificateSigningRequestArgs:
-    def __init__(__self__, *,
-                 spec: pulumi.Input['CertificateSigningRequestSpecArgs'],
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None):
-        """
-        CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
-
-        Kubelets use this API to obtain:
-         1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
-         2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
-
-        This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
-        :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['CertificateSigningRequestStatusArgs'] status: status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
-        """
-        pulumi.set(__self__, "spec", spec)
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'CertificateSigningRequest')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> pulumi.Input['CertificateSigningRequestSpecArgs']:
-        """
-        spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: pulumi.Input['CertificateSigningRequestSpecArgs']):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]:
-        """
-        status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]):
-        pulumi.set(self, "status", value)
-
 
 @pulumi.input_type
 class CertificateSigningRequestConditionArgs:
@@ -491,5 +402,94 @@ class CertificateSigningRequestStatusArgs:
     @conditions.setter
     def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]]):
         pulumi.set(self, "conditions", value)
+
+
+@pulumi.input_type
+class CertificateSigningRequestArgs:
+    def __init__(__self__, *,
+                 spec: pulumi.Input['CertificateSigningRequestSpecArgs'],
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None):
+        """
+        CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
+
+        Kubelets use this API to obtain:
+         1. client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client-kubelet" signerName).
+         2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
+
+        This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
+        :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['CertificateSigningRequestStatusArgs'] status: status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
+        """
+        pulumi.set(__self__, "spec", spec)
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'CertificateSigningRequest')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> pulumi.Input['CertificateSigningRequestSpecArgs']:
+        """
+        spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: pulumi.Input['CertificateSigningRequestSpecArgs']):
+        pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]:
+        """
+        status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 

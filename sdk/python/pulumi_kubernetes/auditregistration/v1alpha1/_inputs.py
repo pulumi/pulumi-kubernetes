@@ -10,14 +10,52 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
-    'AuditSinkArgs',
     'AuditSinkSpecArgs',
+    'AuditSinkArgs',
     'PolicyArgs',
     'ServiceReferenceArgs',
-    'WebhookArgs',
     'WebhookClientConfigArgs',
     'WebhookThrottleConfigArgs',
+    'WebhookArgs',
 ]
+
+@pulumi.input_type
+class AuditSinkSpecArgs:
+    def __init__(__self__, *,
+                 policy: pulumi.Input['PolicyArgs'],
+                 webhook: pulumi.Input['WebhookArgs']):
+        """
+        AuditSinkSpec holds the spec for the audit sink
+        :param pulumi.Input['PolicyArgs'] policy: Policy defines the policy for selecting which events should be sent to the webhook required
+        :param pulumi.Input['WebhookArgs'] webhook: Webhook to send events required
+        """
+        pulumi.set(__self__, "policy", policy)
+        pulumi.set(__self__, "webhook", webhook)
+
+    @property
+    @pulumi.getter
+    def policy(self) -> pulumi.Input['PolicyArgs']:
+        """
+        Policy defines the policy for selecting which events should be sent to the webhook required
+        """
+        return pulumi.get(self, "policy")
+
+    @policy.setter
+    def policy(self, value: pulumi.Input['PolicyArgs']):
+        pulumi.set(self, "policy", value)
+
+    @property
+    @pulumi.getter
+    def webhook(self) -> pulumi.Input['WebhookArgs']:
+        """
+        Webhook to send events required
+        """
+        return pulumi.get(self, "webhook")
+
+    @webhook.setter
+    def webhook(self, value: pulumi.Input['WebhookArgs']):
+        pulumi.set(self, "webhook", value)
+
 
 @pulumi.input_type
 class AuditSinkArgs:
@@ -85,44 +123,6 @@ class AuditSinkArgs:
     @spec.setter
     def spec(self, value: Optional[pulumi.Input['AuditSinkSpecArgs']]):
         pulumi.set(self, "spec", value)
-
-
-@pulumi.input_type
-class AuditSinkSpecArgs:
-    def __init__(__self__, *,
-                 policy: pulumi.Input['PolicyArgs'],
-                 webhook: pulumi.Input['WebhookArgs']):
-        """
-        AuditSinkSpec holds the spec for the audit sink
-        :param pulumi.Input['PolicyArgs'] policy: Policy defines the policy for selecting which events should be sent to the webhook required
-        :param pulumi.Input['WebhookArgs'] webhook: Webhook to send events required
-        """
-        pulumi.set(__self__, "policy", policy)
-        pulumi.set(__self__, "webhook", webhook)
-
-    @property
-    @pulumi.getter
-    def policy(self) -> pulumi.Input['PolicyArgs']:
-        """
-        Policy defines the policy for selecting which events should be sent to the webhook required
-        """
-        return pulumi.get(self, "policy")
-
-    @policy.setter
-    def policy(self, value: pulumi.Input['PolicyArgs']):
-        pulumi.set(self, "policy", value)
-
-    @property
-    @pulumi.getter
-    def webhook(self) -> pulumi.Input['WebhookArgs']:
-        """
-        Webhook to send events required
-        """
-        return pulumi.get(self, "webhook")
-
-    @webhook.setter
-    def webhook(self, value: pulumi.Input['WebhookArgs']):
-        pulumi.set(self, "webhook", value)
 
 
 @pulumi.input_type
@@ -232,45 +232,6 @@ class ServiceReferenceArgs:
     @port.setter
     def port(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "port", value)
-
-
-@pulumi.input_type
-class WebhookArgs:
-    def __init__(__self__, *,
-                 client_config: pulumi.Input['WebhookClientConfigArgs'],
-                 throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None):
-        """
-        Webhook holds the configuration of the webhook
-        :param pulumi.Input['WebhookClientConfigArgs'] client_config: ClientConfig holds the connection parameters for the webhook required
-        :param pulumi.Input['WebhookThrottleConfigArgs'] throttle: Throttle holds the options for throttling the webhook
-        """
-        pulumi.set(__self__, "client_config", client_config)
-        if throttle is not None:
-            pulumi.set(__self__, "throttle", throttle)
-
-    @property
-    @pulumi.getter(name="clientConfig")
-    def client_config(self) -> pulumi.Input['WebhookClientConfigArgs']:
-        """
-        ClientConfig holds the connection parameters for the webhook required
-        """
-        return pulumi.get(self, "client_config")
-
-    @client_config.setter
-    def client_config(self, value: pulumi.Input['WebhookClientConfigArgs']):
-        pulumi.set(self, "client_config", value)
-
-    @property
-    @pulumi.getter
-    def throttle(self) -> Optional[pulumi.Input['WebhookThrottleConfigArgs']]:
-        """
-        Throttle holds the options for throttling the webhook
-        """
-        return pulumi.get(self, "throttle")
-
-    @throttle.setter
-    def throttle(self, value: Optional[pulumi.Input['WebhookThrottleConfigArgs']]):
-        pulumi.set(self, "throttle", value)
 
 
 @pulumi.input_type
@@ -391,5 +352,44 @@ class WebhookThrottleConfigArgs:
     @qps.setter
     def qps(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "qps", value)
+
+
+@pulumi.input_type
+class WebhookArgs:
+    def __init__(__self__, *,
+                 client_config: pulumi.Input['WebhookClientConfigArgs'],
+                 throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None):
+        """
+        Webhook holds the configuration of the webhook
+        :param pulumi.Input['WebhookClientConfigArgs'] client_config: ClientConfig holds the connection parameters for the webhook required
+        :param pulumi.Input['WebhookThrottleConfigArgs'] throttle: Throttle holds the options for throttling the webhook
+        """
+        pulumi.set(__self__, "client_config", client_config)
+        if throttle is not None:
+            pulumi.set(__self__, "throttle", throttle)
+
+    @property
+    @pulumi.getter(name="clientConfig")
+    def client_config(self) -> pulumi.Input['WebhookClientConfigArgs']:
+        """
+        ClientConfig holds the connection parameters for the webhook required
+        """
+        return pulumi.get(self, "client_config")
+
+    @client_config.setter
+    def client_config(self, value: pulumi.Input['WebhookClientConfigArgs']):
+        pulumi.set(self, "client_config", value)
+
+    @property
+    @pulumi.getter
+    def throttle(self) -> Optional[pulumi.Input['WebhookThrottleConfigArgs']]:
+        """
+        Throttle holds the options for throttling the webhook
+        """
+        return pulumi.get(self, "throttle")
+
+    @throttle.setter
+    def throttle(self, value: Optional[pulumi.Input['WebhookThrottleConfigArgs']]):
+        pulumi.set(self, "throttle", value)
 
 

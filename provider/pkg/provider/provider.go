@@ -178,6 +178,11 @@ func (k *kubeProvider) invalidateResources() {
 	k.resources = nil
 }
 
+// Call dynamically executes a method in the provider associated with a component resource.
+func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*pulumirpc.CallResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
+}
+
 // Construct creates a new instance of the provided component resource and returns its state.
 func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")

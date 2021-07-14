@@ -17,11 +17,11 @@ __all__ = [
     'FSGroupStrategyOptionsArgs',
     'HostPortRangeArgs',
     'IDRangeArgs',
-    'PodDisruptionBudgetArgs',
     'PodDisruptionBudgetSpecArgs',
     'PodDisruptionBudgetStatusArgs',
-    'PodSecurityPolicyArgs',
+    'PodDisruptionBudgetArgs',
     'PodSecurityPolicySpecArgs',
+    'PodSecurityPolicyArgs',
     'RunAsGroupStrategyOptionsArgs',
     'RunAsUserStrategyOptionsArgs',
     'RuntimeClassStrategyOptionsArgs',
@@ -236,90 +236,6 @@ class IDRangeArgs:
 
 
 @pulumi.input_type
-class PodDisruptionBudgetArgs:
-    def __init__(__self__, *,
-                 api_version: Optional[pulumi.Input[str]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']] = None,
-                 status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None):
-        """
-        PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
-        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
-        :param pulumi.Input['PodDisruptionBudgetStatusArgs'] status: Most recently observed status of the PodDisruptionBudget.
-        """
-        if api_version is not None:
-            pulumi.set(__self__, "api_version", 'policy/v1beta1')
-        if kind is not None:
-            pulumi.set(__self__, "kind", 'PodDisruptionBudget')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
-        if spec is not None:
-            pulumi.set(__self__, "spec", spec)
-        if status is not None:
-            pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter(name="apiVersion")
-    def api_version(self) -> Optional[pulumi.Input[str]]:
-        """
-        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        """
-        return pulumi.get(self, "api_version")
-
-    @api_version.setter
-    def api_version(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "api_version", value)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> Optional[pulumi.Input[str]]:
-        """
-        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "kind")
-
-    @kind.setter
-    def kind(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']]:
-        """
-        Specification of the desired behavior of the PodDisruptionBudget.
-        """
-        return pulumi.get(self, "spec")
-
-    @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']]):
-        pulumi.set(self, "spec", value)
-
-    @property
-    @pulumi.getter
-    def status(self) -> Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']]:
-        """
-        Most recently observed status of the PodDisruptionBudget.
-        """
-        return pulumi.get(self, "status")
-
-    @status.setter
-    def status(self, value: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']]):
-        pulumi.set(self, "status", value)
-
-
-@pulumi.input_type
 class PodDisruptionBudgetSpecArgs:
     def __init__(__self__, *,
                  max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
@@ -508,27 +424,30 @@ class PodDisruptionBudgetStatusArgs:
 
 
 @pulumi.input_type
-class PodSecurityPolicyArgs:
+class PodDisruptionBudgetArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None):
+                 spec: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']] = None,
+                 status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None):
         """
-        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+        PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['PodSecurityPolicySpecArgs'] spec: spec defines the policy enforced.
+        :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
+        :param pulumi.Input['PodDisruptionBudgetStatusArgs'] status: Most recently observed status of the PodDisruptionBudget.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'policy/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodSecurityPolicy')
+            pulumi.set(__self__, "kind", 'PodDisruptionBudget')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -557,9 +476,6 @@ class PodSecurityPolicyArgs:
     @property
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
@@ -568,15 +484,27 @@ class PodSecurityPolicyArgs:
 
     @property
     @pulumi.getter
-    def spec(self) -> Optional[pulumi.Input['PodSecurityPolicySpecArgs']]:
+    def spec(self) -> Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']]:
         """
-        spec defines the policy enforced.
+        Specification of the desired behavior of the PodDisruptionBudget.
         """
         return pulumi.get(self, "spec")
 
     @spec.setter
-    def spec(self, value: Optional[pulumi.Input['PodSecurityPolicySpecArgs']]):
+    def spec(self, value: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']]):
         pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']]:
+        """
+        Most recently observed status of the PodDisruptionBudget.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -973,6 +901,78 @@ class PodSecurityPolicySpecArgs:
     @volumes.setter
     def volumes(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "volumes", value)
+
+
+@pulumi.input_type
+class PodSecurityPolicyArgs:
+    def __init__(__self__, *,
+                 api_version: Optional[pulumi.Input[str]] = None,
+                 kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None):
+        """
+        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input['PodSecurityPolicySpecArgs'] spec: spec defines the policy enforced.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'policy/v1beta1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PodSecurityPolicy')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[pulumi.Input['PodSecurityPolicySpecArgs']]:
+        """
+        spec defines the policy enforced.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[pulumi.Input['PodSecurityPolicySpecArgs']]):
+        pulumi.set(self, "spec", value)
 
 
 @pulumi.input_type
