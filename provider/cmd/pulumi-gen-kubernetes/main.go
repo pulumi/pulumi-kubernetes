@@ -178,10 +178,14 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 			Token:   resource.Token,
 		}
 		for _, property := range resource.Properties {
+			// hack(levi): manually remove `| undefined` from the ConstValue and Package until https://github.com/pulumi/pulumi-kubernetes/issues/1650 is resolved.
+			cv := strings.TrimSuffix(property.ConstValue, " | undefined")
+			pkg := strings.TrimSuffix(property.Package, " | undefined")
+
 			tp := gen.TemplateProperty{
-				ConstValue: property.ConstValue,
+				ConstValue: cv,
 				Name:       property.Name,
-				Package:    property.Package,
+				Package:    pkg,
 			}
 			tr.Properties = append(tr.Properties, tp)
 		}
