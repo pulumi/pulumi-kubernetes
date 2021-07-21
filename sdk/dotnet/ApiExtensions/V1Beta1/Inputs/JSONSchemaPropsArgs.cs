@@ -100,7 +100,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public Input<string>? Id { get; set; }
 
         [Input("items")]
-        public InputUnion<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1.JSONSchemaPropsArgs, ImmutableArray<InputJson>>? Items { get; set; }
+        public InputUnion<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1.JSONSchemaPropsArgs, ImmutableArray<System.Text.Json.JsonElement>>? Items { get; set; }
 
         [Input("maxItems")]
         public Input<int>? MaxItems { get; set; }
