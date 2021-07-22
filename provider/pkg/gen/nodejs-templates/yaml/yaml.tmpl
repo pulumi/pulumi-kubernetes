@@ -535,9 +535,9 @@ export interface ConfigOpts {
         throw new Error(`YAML object does not have a .metadata.name: ${obj.apiVersion}/${obj.kind} ${JSON.stringify(obj.metadata)}`)
     }
 
-    const meta = obj["metadata"];
-    let id: pulumi.Output<any> = pulumi.output(meta["name"]);
-    const namespace = meta["namespace"] || undefined;
+    const metadata = obj["metadata"];
+    let id: pulumi.Output<any> = pulumi.output(metadata["name"]);
+    const namespace = metadata["namespace"] || undefined;
     if (namespace !== undefined) {
         id = pulumi.concat(namespace, "/", id);
     }

@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -40,7 +40,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set," +
 						" this config will be used instead of $KUBECONFIG.",
 					TypeSpec: pschema.TypeSpec{Type: "string"},
-					Language: map[string]json.RawMessage{
+					Language: map[string]pschema.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
 							"name": "KubeConfig",
 						}),
@@ -86,8 +86,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						},
 					},
 					Description: "The contents of a kubeconfig file or the path to a kubeconfig file.",
-					TypeSpec: pschema.TypeSpec{Type: "string"},
-					Language: map[string]json.RawMessage{
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+					Language: map[string]pschema.RawMessage{
 						"csharp": rawMessage(map[string]interface{}{
 							"name": "KubeConfig",
 						}),
@@ -133,7 +133,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		Types:     map[string]pschema.ComplexTypeSpec{},
 		Resources: map[string]pschema.ResourceSpec{},
 		Functions: map[string]pschema.FunctionSpec{},
-		Language:  map[string]json.RawMessage{},
+		Language:  map[string]pschema.RawMessage{},
 	}
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
@@ -162,7 +162,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: kind.Comment() + kind.PulumiComment(),
 					Type:        "object",
 					Properties:  map[string]pschema.PropertySpec{},
-					Language:    map[string]json.RawMessage{},
+					Language:    map[string]pschema.RawMessage{},
 				}
 
 				var propNames []string
@@ -250,8 +250,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
 		"packageReferences": map[string]string{
-			"Glob":                         "1.1.5",
-			"Pulumi":                       "3.*",
+			"Glob":   "1.1.5",
+			"Pulumi": "3.*",
 		},
 		"namespaces":             csharpNamespaces,
 		"compatibility":          kubernetes20,
@@ -357,7 +357,7 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	languageName := strings.ToUpper(p.name[:1]) + p.name[1:]
 	if languageName == resourceKind {
 		// .NET does not allow properties to be the same as the enclosing class - so special case these
-		propertySpec.Language = map[string]json.RawMessage{
+		propertySpec.Language = map[string]pschema.RawMessage{
 			"csharp": rawMessage(map[string]interface{}{
 				"name": languageName + "Value",
 			}),
@@ -366,7 +366,7 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	// JSONSchema type includes `$ref` and `$schema` properties, and $ is an invalid character in
 	// the generated names. Replace them with `Ref` and `Schema`.
 	if strings.HasPrefix(p.name, "$") {
-		propertySpec.Language = map[string]json.RawMessage{
+		propertySpec.Language = map[string]pschema.RawMessage{
 			"csharp": rawMessage(map[string]interface{}{
 				"name": strings.ToUpper(p.name[1:2]) + p.name[2:],
 			}),
@@ -381,7 +381,7 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	return propertySpec
 }
 
-func rawMessage(v interface{}) json.RawMessage {
+func rawMessage(v interface{}) pschema.RawMessage {
 	bytes, err := json.Marshal(v)
 	contract.Assert(err == nil)
 	return bytes

@@ -67,27 +67,9 @@ func GetSelfSubjectRulesReview(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering SelfSubjectRulesReview resources.
 type selfSubjectRulesReviewState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec holds information about the request being evaluated.
-	Spec *SelfSubjectRulesReviewSpec `pulumi:"spec"`
-	// Status is filled in by the server and indicates the set of actions a user can perform.
-	Status *SubjectRulesReviewStatus `pulumi:"status"`
 }
 
 type SelfSubjectRulesReviewState struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
-	Metadata metav1.ObjectMetaPtrInput
-	// Spec holds information about the request being evaluated.
-	Spec SelfSubjectRulesReviewSpecPtrInput
-	// Status is filled in by the server and indicates the set of actions a user can perform.
-	Status SubjectRulesReviewStatusPtrInput
 }
 
 func (SelfSubjectRulesReviewState) ElementType() reflect.Type {

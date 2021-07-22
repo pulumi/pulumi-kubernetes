@@ -36,7 +36,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
 			Type: "string",
 		},
-		Enum: []*pschema.EnumValueSpec{
+		Enum: []pschema.EnumValueSpec{
 			{Value: "ExternalName"},
 			{Value: "ClusterIP"},
 			{Value: "NodePort"},
