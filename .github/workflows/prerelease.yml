@@ -9,7 +9,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GOLANGCI_LINT_VERSION: v1.31
   GOLANGCI_LINT_TIMEOUT: 10m
-  GOOGLE_PROJECT: pulumi-development
+  GOOGLE_PROJECT: pulumi-k8s-provider
   GOOGLE_REGION: us-central1
   GOOGLE_ZONE: us-central1-a
   GOOGLE_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
