@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 {
 
+    /// <summary>
+    /// PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+    /// </summary>
     [OutputType]
     public sealed class PodDisruptionBudgetStatus
     {

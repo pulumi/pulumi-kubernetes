@@ -158,7 +158,7 @@ type JobListArrayInput interface {
 type JobListArray []JobListInput
 
 func (JobListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*JobList)(nil))
+	return reflect.TypeOf((*[]*JobList)(nil)).Elem()
 }
 
 func (i JobListArray) ToJobListArrayOutput() JobListArrayOutput {
@@ -183,7 +183,7 @@ type JobListMapInput interface {
 type JobListMap map[string]JobListInput
 
 func (JobListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*JobList)(nil))
+	return reflect.TypeOf((*map[string]*JobList)(nil)).Elem()
 }
 
 func (i JobListMap) ToJobListMapOutput() JobListMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
 {
 
+    /// <summary>
+    /// CustomResourceDefinitionVersion describes a version for CRD.
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceDefinitionVersion
     {

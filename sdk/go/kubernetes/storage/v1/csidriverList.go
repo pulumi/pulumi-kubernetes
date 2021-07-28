@@ -158,7 +158,7 @@ type CSIDriverListArrayInput interface {
 type CSIDriverListArray []CSIDriverListInput
 
 func (CSIDriverListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CSIDriverList)(nil))
+	return reflect.TypeOf((*[]*CSIDriverList)(nil)).Elem()
 }
 
 func (i CSIDriverListArray) ToCSIDriverListArrayOutput() CSIDriverListArrayOutput {
@@ -183,7 +183,7 @@ type CSIDriverListMapInput interface {
 type CSIDriverListMap map[string]CSIDriverListInput
 
 func (CSIDriverListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CSIDriverList)(nil))
+	return reflect.TypeOf((*map[string]*CSIDriverList)(nil)).Elem()
 }
 
 func (i CSIDriverListMap) ToCSIDriverListMapOutput() CSIDriverListMapOutput {

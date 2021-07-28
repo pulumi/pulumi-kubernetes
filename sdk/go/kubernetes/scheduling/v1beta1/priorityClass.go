@@ -185,7 +185,7 @@ type PriorityClassArrayInput interface {
 type PriorityClassArray []PriorityClassInput
 
 func (PriorityClassArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PriorityClass)(nil))
+	return reflect.TypeOf((*[]*PriorityClass)(nil)).Elem()
 }
 
 func (i PriorityClassArray) ToPriorityClassArrayOutput() PriorityClassArrayOutput {
@@ -210,7 +210,7 @@ type PriorityClassMapInput interface {
 type PriorityClassMap map[string]PriorityClassInput
 
 func (PriorityClassMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PriorityClass)(nil))
+	return reflect.TypeOf((*map[string]*PriorityClass)(nil)).Elem()
 }
 
 func (i PriorityClassMap) ToPriorityClassMapOutput() PriorityClassMapOutput {

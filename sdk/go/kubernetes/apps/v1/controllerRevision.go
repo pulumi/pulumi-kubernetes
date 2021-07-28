@@ -173,7 +173,7 @@ type ControllerRevisionArrayInput interface {
 type ControllerRevisionArray []ControllerRevisionInput
 
 func (ControllerRevisionArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ControllerRevision)(nil))
+	return reflect.TypeOf((*[]*ControllerRevision)(nil)).Elem()
 }
 
 func (i ControllerRevisionArray) ToControllerRevisionArrayOutput() ControllerRevisionArrayOutput {
@@ -198,7 +198,7 @@ type ControllerRevisionMapInput interface {
 type ControllerRevisionMap map[string]ControllerRevisionInput
 
 func (ControllerRevisionMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ControllerRevision)(nil))
+	return reflect.TypeOf((*map[string]*ControllerRevision)(nil)).Elem()
 }
 
 func (i ControllerRevisionMap) ToControllerRevisionMapOutput() ControllerRevisionMapOutput {

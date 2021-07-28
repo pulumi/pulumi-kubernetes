@@ -246,7 +246,7 @@ type EventArrayInput interface {
 type EventArray []EventInput
 
 func (EventArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Event)(nil))
+	return reflect.TypeOf((*[]*Event)(nil)).Elem()
 }
 
 func (i EventArray) ToEventArrayOutput() EventArrayOutput {
@@ -271,7 +271,7 @@ type EventMapInput interface {
 type EventMap map[string]EventInput
 
 func (EventMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Event)(nil))
+	return reflect.TypeOf((*map[string]*Event)(nil)).Elem()
 }
 
 func (i EventMap) ToEventMapOutput() EventMapOutput {

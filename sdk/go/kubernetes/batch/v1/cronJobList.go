@@ -158,7 +158,7 @@ type CronJobListArrayInput interface {
 type CronJobListArray []CronJobListInput
 
 func (CronJobListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CronJobList)(nil))
+	return reflect.TypeOf((*[]*CronJobList)(nil)).Elem()
 }
 
 func (i CronJobListArray) ToCronJobListArrayOutput() CronJobListArrayOutput {
@@ -183,7 +183,7 @@ type CronJobListMapInput interface {
 type CronJobListMap map[string]CronJobListInput
 
 func (CronJobListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CronJobList)(nil))
+	return reflect.TypeOf((*map[string]*CronJobList)(nil)).Elem()
 }
 
 func (i CronJobListMap) ToCronJobListMapOutput() CronJobListMapOutput {

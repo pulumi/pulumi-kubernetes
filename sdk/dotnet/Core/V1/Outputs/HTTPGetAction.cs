@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// HTTPGetAction describes an action based on HTTP Get requests.
+    /// </summary>
     [OutputType]
     public sealed class HTTPGetAction
     {

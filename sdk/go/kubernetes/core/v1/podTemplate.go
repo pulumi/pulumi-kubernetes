@@ -154,7 +154,7 @@ type PodTemplateArrayInput interface {
 type PodTemplateArray []PodTemplateInput
 
 func (PodTemplateArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PodTemplate)(nil))
+	return reflect.TypeOf((*[]*PodTemplate)(nil)).Elem()
 }
 
 func (i PodTemplateArray) ToPodTemplateArrayOutput() PodTemplateArrayOutput {
@@ -179,7 +179,7 @@ type PodTemplateMapInput interface {
 type PodTemplateMap map[string]PodTemplateInput
 
 func (PodTemplateMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PodTemplate)(nil))
+	return reflect.TypeOf((*map[string]*PodTemplate)(nil)).Elem()
 }
 
 func (i PodTemplateMap) ToPodTemplateMapOutput() PodTemplateMapOutput {

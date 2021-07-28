@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Beta1
 {
 
+    /// <summary>
+    /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
+    /// </summary>
     [OutputType]
     public sealed class CSINodeSpec
     {

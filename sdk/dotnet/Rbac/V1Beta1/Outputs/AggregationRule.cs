@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1Beta1
 {
 
+    /// <summary>
+    /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
+    /// </summary>
     [OutputType]
     public sealed class AggregationRule
     {

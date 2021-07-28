@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+    /// </summary>
     [OutputType]
     public sealed class TopologySelectorLabelRequirement
     {

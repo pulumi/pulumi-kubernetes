@@ -158,7 +158,7 @@ type NetworkPolicyListArrayInput interface {
 type NetworkPolicyListArray []NetworkPolicyListInput
 
 func (NetworkPolicyListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*NetworkPolicyList)(nil))
+	return reflect.TypeOf((*[]*NetworkPolicyList)(nil)).Elem()
 }
 
 func (i NetworkPolicyListArray) ToNetworkPolicyListArrayOutput() NetworkPolicyListArrayOutput {
@@ -183,7 +183,7 @@ type NetworkPolicyListMapInput interface {
 type NetworkPolicyListMap map[string]NetworkPolicyListInput
 
 func (NetworkPolicyListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*NetworkPolicyList)(nil))
+	return reflect.TypeOf((*map[string]*NetworkPolicyList)(nil)).Elem()
 }
 
 func (i NetworkPolicyListMap) ToNetworkPolicyListMapOutput() NetworkPolicyListMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// EnvVarSource represents a source for the value of an EnvVar.
+    /// </summary>
     [OutputType]
     public sealed class EnvVarSource
     {

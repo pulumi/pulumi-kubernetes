@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+    /// </summary>
     [OutputType]
     public sealed class HostPathVolumeSource
     {

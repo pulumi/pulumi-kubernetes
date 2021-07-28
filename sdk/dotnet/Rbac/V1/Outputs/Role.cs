@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
 {
 
+    /// <summary>
+    /// Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
+    /// </summary>
     [OutputType]
     public sealed class Role
     {

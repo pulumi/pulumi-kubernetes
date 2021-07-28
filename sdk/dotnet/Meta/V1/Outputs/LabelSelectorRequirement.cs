@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 {
 
+    /// <summary>
+    /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+    /// </summary>
     [OutputType]
     public sealed class LabelSelectorRequirement
     {

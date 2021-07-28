@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+    /// </summary>
     [OutputType]
     public sealed class Node
     {

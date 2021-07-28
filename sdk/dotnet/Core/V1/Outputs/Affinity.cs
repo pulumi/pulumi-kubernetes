@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Affinity is a group of affinity scheduling rules.
+    /// </summary>
     [OutputType]
     public sealed class Affinity
     {

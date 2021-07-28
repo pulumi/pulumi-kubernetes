@@ -160,7 +160,7 @@ type ValidatingWebhookConfigurationArrayInput interface {
 type ValidatingWebhookConfigurationArray []ValidatingWebhookConfigurationInput
 
 func (ValidatingWebhookConfigurationArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ValidatingWebhookConfiguration)(nil))
+	return reflect.TypeOf((*[]*ValidatingWebhookConfiguration)(nil)).Elem()
 }
 
 func (i ValidatingWebhookConfigurationArray) ToValidatingWebhookConfigurationArrayOutput() ValidatingWebhookConfigurationArrayOutput {
@@ -185,7 +185,7 @@ type ValidatingWebhookConfigurationMapInput interface {
 type ValidatingWebhookConfigurationMap map[string]ValidatingWebhookConfigurationInput
 
 func (ValidatingWebhookConfigurationMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ValidatingWebhookConfiguration)(nil))
+	return reflect.TypeOf((*map[string]*ValidatingWebhookConfiguration)(nil)).Elem()
 }
 
 func (i ValidatingWebhookConfigurationMap) ToValidatingWebhookConfigurationMapOutput() ValidatingWebhookConfigurationMapOutput {

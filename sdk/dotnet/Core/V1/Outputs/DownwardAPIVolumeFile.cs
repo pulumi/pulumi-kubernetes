@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// DownwardAPIVolumeFile represents information to create the file containing the pod field
+    /// </summary>
     [OutputType]
     public sealed class DownwardAPIVolumeFile
     {

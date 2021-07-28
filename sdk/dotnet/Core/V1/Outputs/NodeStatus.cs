@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NodeStatus is information about the current status of a node.
+    /// </summary>
     [OutputType]
     public sealed class NodeStatus
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
 {
 
+    /// <summary>
+    /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceSubresources
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Settings.V1Alpha1
 {
 
+    /// <summary>
+    /// PodPresetSpec is a description of a pod preset.
+    /// </summary>
     [OutputType]
     public sealed class PodPresetSpec
     {

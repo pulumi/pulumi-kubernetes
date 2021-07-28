@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta2
 {
 
+    /// <summary>
+    /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+    /// </summary>
     [OutputType]
     public sealed class DaemonSetUpdateStrategy
     {

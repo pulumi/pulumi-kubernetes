@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Scheduling.V1
 {
 
+    /// <summary>
+    /// PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+    /// </summary>
     [OutputType]
     public sealed class PriorityClass
     {

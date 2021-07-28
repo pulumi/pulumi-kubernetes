@@ -163,7 +163,7 @@ type RoleArrayInput interface {
 type RoleArray []RoleInput
 
 func (RoleArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Role)(nil))
+	return reflect.TypeOf((*[]*Role)(nil)).Elem()
 }
 
 func (i RoleArray) ToRoleArrayOutput() RoleArrayOutput {
@@ -188,7 +188,7 @@ type RoleMapInput interface {
 type RoleMap map[string]RoleInput
 
 func (RoleMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Role)(nil))
+	return reflect.TypeOf((*map[string]*Role)(nil)).Elem()
 }
 
 func (i RoleMap) ToRoleMapOutput() RoleMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// WindowsSecurityContextOptions contain Windows-specific options and credentials.
+    /// </summary>
     [OutputType]
     public sealed class WindowsSecurityContextOptions
     {

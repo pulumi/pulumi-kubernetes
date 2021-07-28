@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 {
 
+    /// <summary>
+    /// JobSpec describes how the job execution will look like.
+    /// </summary>
     [OutputType]
     public sealed class JobSpec
     {

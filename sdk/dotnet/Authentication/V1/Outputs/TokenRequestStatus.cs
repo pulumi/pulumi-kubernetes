@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authentication.V1
 {
 
+    /// <summary>
+    /// TokenRequestStatus is the result of a token request.
+    /// </summary>
     [OutputType]
     public sealed class TokenRequestStatus
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// Spec to control the desired behavior of rolling update.
+    /// </summary>
     [OutputType]
     public sealed class RollingUpdateDeployment
     {

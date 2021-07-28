@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// EndpointAddress is a tuple that describes single IP address.
+    /// </summary>
     [OutputType]
     public sealed class EndpointAddress
     {

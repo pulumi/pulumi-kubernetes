@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 {
 
+    /// <summary>
+    /// CronJobSpec describes how the job execution will look like and when it will actually run.
+    /// </summary>
     [OutputType]
     public sealed class CronJobSpec
     {

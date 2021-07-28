@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1Beta1
 {
 
+    /// <summary>
+    /// APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
+    /// </summary>
     [OutputType]
     public sealed class APIServiceSpec
     {

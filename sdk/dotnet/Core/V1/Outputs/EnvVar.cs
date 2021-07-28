@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// EnvVar represents an environment variable present in a Container.
+    /// </summary>
     [OutputType]
     public sealed class EnvVar
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Node.V1
 {
 
+    /// <summary>
+    /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+    /// </summary>
     [OutputType]
     public sealed class Scheduling
     {

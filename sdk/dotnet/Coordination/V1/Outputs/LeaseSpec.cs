@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
 {
 
+    /// <summary>
+    /// LeaseSpec is a specification of a Lease.
+    /// </summary>
     [OutputType]
     public sealed class LeaseSpec
     {

@@ -155,7 +155,7 @@ type EphemeralContainersArrayInput interface {
 type EphemeralContainersArray []EphemeralContainersInput
 
 func (EphemeralContainersArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*EphemeralContainers)(nil))
+	return reflect.TypeOf((*[]*EphemeralContainers)(nil)).Elem()
 }
 
 func (i EphemeralContainersArray) ToEphemeralContainersArrayOutput() EphemeralContainersArrayOutput {
@@ -180,7 +180,7 @@ type EphemeralContainersMapInput interface {
 type EphemeralContainersMap map[string]EphemeralContainersInput
 
 func (EphemeralContainersMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*EphemeralContainers)(nil))
+	return reflect.TypeOf((*map[string]*EphemeralContainers)(nil)).Elem()
 }
 
 func (i EphemeralContainersMap) ToEphemeralContainersMapOutput() EphemeralContainersMapOutput {

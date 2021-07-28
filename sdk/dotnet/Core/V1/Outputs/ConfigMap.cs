@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ConfigMap holds configuration data for pods to consume.
+    /// </summary>
     [OutputType]
     public sealed class ConfigMap
     {

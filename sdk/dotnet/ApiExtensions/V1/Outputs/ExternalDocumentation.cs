@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 {
 
+    /// <summary>
+    /// ExternalDocumentation allows referencing an external resource for extended documentation.
+    /// </summary>
     [OutputType]
     public sealed class ExternalDocumentation
     {

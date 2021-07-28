@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NamespaceCondition contains details about state of namespace.
+    /// </summary>
     [OutputType]
     public sealed class NamespaceCondition
     {

@@ -165,7 +165,7 @@ type DaemonSetArrayInput interface {
 type DaemonSetArray []DaemonSetInput
 
 func (DaemonSetArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*DaemonSet)(nil))
+	return reflect.TypeOf((*[]*DaemonSet)(nil)).Elem()
 }
 
 func (i DaemonSetArray) ToDaemonSetArrayOutput() DaemonSetArrayOutput {
@@ -190,7 +190,7 @@ type DaemonSetMapInput interface {
 type DaemonSetMap map[string]DaemonSetInput
 
 func (DaemonSetMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*DaemonSet)(nil))
+	return reflect.TypeOf((*map[string]*DaemonSet)(nil)).Elem()
 }
 
 func (i DaemonSetMap) ToDaemonSetMapOutput() DaemonSetMapOutput {

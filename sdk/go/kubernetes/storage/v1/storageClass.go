@@ -203,7 +203,7 @@ type StorageClassArrayInput interface {
 type StorageClassArray []StorageClassInput
 
 func (StorageClassArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*StorageClass)(nil))
+	return reflect.TypeOf((*[]*StorageClass)(nil)).Elem()
 }
 
 func (i StorageClassArray) ToStorageClassArrayOutput() StorageClassArrayOutput {
@@ -228,7 +228,7 @@ type StorageClassMapInput interface {
 type StorageClassMap map[string]StorageClassInput
 
 func (StorageClassMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*StorageClass)(nil))
+	return reflect.TypeOf((*map[string]*StorageClass)(nil)).Elem()
 }
 
 func (i StorageClassMap) ToStorageClassMapOutput() StorageClassMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+    /// </summary>
     [OutputType]
     public sealed class LimitRangeItem
     {

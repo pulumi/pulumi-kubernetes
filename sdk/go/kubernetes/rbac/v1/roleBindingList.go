@@ -158,7 +158,7 @@ type RoleBindingListArrayInput interface {
 type RoleBindingListArray []RoleBindingListInput
 
 func (RoleBindingListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*RoleBindingList)(nil))
+	return reflect.TypeOf((*[]*RoleBindingList)(nil)).Elem()
 }
 
 func (i RoleBindingListArray) ToRoleBindingListArrayOutput() RoleBindingListArrayOutput {
@@ -183,7 +183,7 @@ type RoleBindingListMapInput interface {
 type RoleBindingListMap map[string]RoleBindingListInput
 
 func (RoleBindingListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*RoleBindingList)(nil))
+	return reflect.TypeOf((*map[string]*RoleBindingList)(nil)).Elem()
 }
 
 func (i RoleBindingListMap) ToRoleBindingListMapOutput() RoleBindingListMapOutput {

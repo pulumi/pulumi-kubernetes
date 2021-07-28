@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Alpha1
 {
 
+    /// <summary>
+    /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
+    /// </summary>
     [OutputType]
     public sealed class VolumeAttachmentStatus
     {

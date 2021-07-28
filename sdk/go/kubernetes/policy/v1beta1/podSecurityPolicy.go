@@ -160,7 +160,7 @@ type PodSecurityPolicyArrayInput interface {
 type PodSecurityPolicyArray []PodSecurityPolicyInput
 
 func (PodSecurityPolicyArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PodSecurityPolicy)(nil))
+	return reflect.TypeOf((*[]*PodSecurityPolicy)(nil)).Elem()
 }
 
 func (i PodSecurityPolicyArray) ToPodSecurityPolicyArrayOutput() PodSecurityPolicyArrayOutput {
@@ -185,7 +185,7 @@ type PodSecurityPolicyMapInput interface {
 type PodSecurityPolicyMap map[string]PodSecurityPolicyInput
 
 func (PodSecurityPolicyMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PodSecurityPolicy)(nil))
+	return reflect.TypeOf((*map[string]*PodSecurityPolicy)(nil)).Elem()
 }
 
 func (i PodSecurityPolicyMap) ToPodSecurityPolicyMapOutput() PodSecurityPolicyMapOutput {

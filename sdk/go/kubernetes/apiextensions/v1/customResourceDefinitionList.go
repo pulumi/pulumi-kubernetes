@@ -155,7 +155,7 @@ type CustomResourceDefinitionListArrayInput interface {
 type CustomResourceDefinitionListArray []CustomResourceDefinitionListInput
 
 func (CustomResourceDefinitionListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CustomResourceDefinitionList)(nil))
+	return reflect.TypeOf((*[]*CustomResourceDefinitionList)(nil)).Elem()
 }
 
 func (i CustomResourceDefinitionListArray) ToCustomResourceDefinitionListArrayOutput() CustomResourceDefinitionListArrayOutput {
@@ -180,7 +180,7 @@ type CustomResourceDefinitionListMapInput interface {
 type CustomResourceDefinitionListMap map[string]CustomResourceDefinitionListInput
 
 func (CustomResourceDefinitionListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CustomResourceDefinitionList)(nil))
+	return reflect.TypeOf((*map[string]*CustomResourceDefinitionList)(nil)).Elem()
 }
 
 func (i CustomResourceDefinitionListMap) ToCustomResourceDefinitionListMapOutput() CustomResourceDefinitionListMapOutput {

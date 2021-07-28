@@ -158,7 +158,7 @@ type IngressListArrayInput interface {
 type IngressListArray []IngressListInput
 
 func (IngressListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*IngressList)(nil))
+	return reflect.TypeOf((*[]*IngressList)(nil)).Elem()
 }
 
 func (i IngressListArray) ToIngressListArrayOutput() IngressListArrayOutput {
@@ -183,7 +183,7 @@ type IngressListMapInput interface {
 type IngressListMap map[string]IngressListInput
 
 func (IngressListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*IngressList)(nil))
+	return reflect.TypeOf((*map[string]*IngressList)(nil)).Elem()
 }
 
 func (i IngressListMap) ToIngressListMapOutput() IngressListMapOutput {

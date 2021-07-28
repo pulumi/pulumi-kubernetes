@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Sysctl defines a kernel parameter to be set
+    /// </summary>
     [OutputType]
     public sealed class Sysctl
     {

@@ -158,7 +158,7 @@ type LeaseListArrayInput interface {
 type LeaseListArray []LeaseListInput
 
 func (LeaseListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*LeaseList)(nil))
+	return reflect.TypeOf((*[]*LeaseList)(nil)).Elem()
 }
 
 func (i LeaseListArray) ToLeaseListArrayOutput() LeaseListArrayOutput {
@@ -183,7 +183,7 @@ type LeaseListMapInput interface {
 type LeaseListMap map[string]LeaseListInput
 
 func (LeaseListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*LeaseList)(nil))
+	return reflect.TypeOf((*map[string]*LeaseList)(nil)).Elem()
 }
 
 func (i LeaseListMap) ToLeaseListMapOutput() LeaseListMapOutput {

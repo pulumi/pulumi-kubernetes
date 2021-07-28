@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1
 {
 
+    /// <summary>
+    /// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
+    /// </summary>
     [OutputType]
     public sealed class NonResourceAttributes
     {

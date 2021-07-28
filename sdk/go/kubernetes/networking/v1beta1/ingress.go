@@ -179,7 +179,7 @@ type IngressArrayInput interface {
 type IngressArray []IngressInput
 
 func (IngressArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Ingress)(nil))
+	return reflect.TypeOf((*[]*Ingress)(nil)).Elem()
 }
 
 func (i IngressArray) ToIngressArrayOutput() IngressArrayOutput {
@@ -204,7 +204,7 @@ type IngressMapInput interface {
 type IngressMap map[string]IngressInput
 
 func (IngressMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Ingress)(nil))
+	return reflect.TypeOf((*map[string]*Ingress)(nil)).Elem()
 }
 
 func (i IngressMap) ToIngressMapOutput() IngressMapOutput {

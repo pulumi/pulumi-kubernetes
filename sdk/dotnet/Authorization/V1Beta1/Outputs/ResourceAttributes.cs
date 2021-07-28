@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1Beta1
 {
 
+    /// <summary>
+    /// ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
+    /// </summary>
     [OutputType]
     public sealed class ResourceAttributes
     {

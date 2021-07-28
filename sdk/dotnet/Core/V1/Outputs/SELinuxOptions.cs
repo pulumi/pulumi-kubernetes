@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// SELinuxOptions are the labels to be applied to the container
+    /// </summary>
     [OutputType]
     public sealed class SELinuxOptions
     {

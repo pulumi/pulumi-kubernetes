@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+    /// </summary>
     [OutputType]
     public sealed class AzureDiskVolumeSource
     {

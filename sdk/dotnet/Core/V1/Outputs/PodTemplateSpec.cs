@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PodTemplateSpec describes the data a pod should have when created from a template
+    /// </summary>
     [OutputType]
     public sealed class PodTemplateSpec
     {

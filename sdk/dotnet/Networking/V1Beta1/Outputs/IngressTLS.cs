@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1Beta1
 {
 
+    /// <summary>
+    /// IngressTLS describes the transport layer security associated with an Ingress.
+    /// </summary>
     [OutputType]
     public sealed class IngressTLS
     {

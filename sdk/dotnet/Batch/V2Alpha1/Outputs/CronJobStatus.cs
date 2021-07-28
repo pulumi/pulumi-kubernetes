@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V2Alpha1
 {
 
+    /// <summary>
+    /// CronJobStatus represents the current state of a cron job.
+    /// </summary>
     [OutputType]
     public sealed class CronJobStatus
     {

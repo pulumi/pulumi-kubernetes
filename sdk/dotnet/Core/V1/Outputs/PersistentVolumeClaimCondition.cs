@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PersistentVolumeClaimCondition contails details about state of pvc
+    /// </summary>
     [OutputType]
     public sealed class PersistentVolumeClaimCondition
     {

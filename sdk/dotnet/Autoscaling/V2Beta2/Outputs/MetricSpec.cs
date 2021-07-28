@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
+    /// </summary>
     [OutputType]
     public sealed class MetricSpec
     {

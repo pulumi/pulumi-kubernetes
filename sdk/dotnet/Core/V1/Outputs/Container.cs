@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// A single application container that you want to run within a pod.
+    /// </summary>
     [OutputType]
     public sealed class Container
     {

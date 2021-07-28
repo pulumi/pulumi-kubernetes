@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
 {
 
+    /// <summary>
+    /// ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
+    /// </summary>
     [OutputType]
     public sealed class ValidatingWebhookConfiguration
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Adds and removes POSIX capabilities from running containers.
+    /// </summary>
     [OutputType]
     public sealed class Capabilities
     {

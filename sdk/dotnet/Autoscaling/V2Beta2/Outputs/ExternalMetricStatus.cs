@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
+    /// </summary>
     [OutputType]
     public sealed class ExternalMetricStatus
     {

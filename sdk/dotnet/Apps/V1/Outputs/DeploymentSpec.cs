@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// DeploymentSpec is the specification of the desired behavior of the Deployment.
+    /// </summary>
     [OutputType]
     public sealed class DeploymentSpec
     {

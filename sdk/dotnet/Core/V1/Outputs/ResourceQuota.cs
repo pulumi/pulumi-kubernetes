@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ResourceQuota sets aggregate quota restrictions enforced per namespace
+    /// </summary>
     [OutputType]
     public sealed class ResourceQuota
     {

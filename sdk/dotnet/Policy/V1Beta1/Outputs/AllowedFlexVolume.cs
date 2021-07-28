@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 {
 
+    /// <summary>
+    /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
+    /// </summary>
     [OutputType]
     public sealed class AllowedFlexVolume
     {

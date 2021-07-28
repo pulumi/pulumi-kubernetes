@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 {
 
+    /// <summary>
+    /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceDefinitionStatus
     {

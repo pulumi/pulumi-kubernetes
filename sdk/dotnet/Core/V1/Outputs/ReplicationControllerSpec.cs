@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ReplicationControllerSpec is the specification of a replication controller.
+    /// </summary>
     [OutputType]
     public sealed class ReplicationControllerSpec
     {

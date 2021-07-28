@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta2
 {
 
+    /// <summary>
+    /// Spec to control the desired behavior of daemon set rolling update.
+    /// </summary>
     [OutputType]
     public sealed class RollingUpdateDaemonSet
     {

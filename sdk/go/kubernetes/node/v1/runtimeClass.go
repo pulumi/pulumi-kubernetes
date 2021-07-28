@@ -185,7 +185,7 @@ type RuntimeClassArrayInput interface {
 type RuntimeClassArray []RuntimeClassInput
 
 func (RuntimeClassArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*RuntimeClass)(nil))
+	return reflect.TypeOf((*[]*RuntimeClass)(nil)).Elem()
 }
 
 func (i RuntimeClassArray) ToRuntimeClassArrayOutput() RuntimeClassArrayOutput {
@@ -210,7 +210,7 @@ type RuntimeClassMapInput interface {
 type RuntimeClassMap map[string]RuntimeClassInput
 
 func (RuntimeClassMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*RuntimeClass)(nil))
+	return reflect.TypeOf((*map[string]*RuntimeClass)(nil)).Elem()
 }
 
 func (i RuntimeClassMap) ToRuntimeClassMapOutput() RuntimeClassMapOutput {

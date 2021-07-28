@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
 {
 
+    /// <summary>
+    /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceDefinitionNames
     {

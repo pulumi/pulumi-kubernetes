@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ObjectReference contains enough information to let you inspect or modify the referred object.
+    /// </summary>
     [OutputType]
     public sealed class ObjectReference
     {

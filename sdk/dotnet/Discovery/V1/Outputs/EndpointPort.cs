@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
 {
 
+    /// <summary>
+    /// EndpointPort represents a Port used by an EndpointSlice
+    /// </summary>
     [OutputType]
     public sealed class EndpointPort
     {

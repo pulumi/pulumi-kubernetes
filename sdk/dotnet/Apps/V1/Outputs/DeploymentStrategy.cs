@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// DeploymentStrategy describes how to replace existing pods with new ones.
+    /// </summary>
     [OutputType]
     public sealed class DeploymentStrategy
     {

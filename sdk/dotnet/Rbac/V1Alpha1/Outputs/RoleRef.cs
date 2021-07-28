@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1Alpha1
 {
 
+    /// <summary>
+    /// RoleRef contains information that points to the role being used
+    /// </summary>
     [OutputType]
     public sealed class RoleRef
     {

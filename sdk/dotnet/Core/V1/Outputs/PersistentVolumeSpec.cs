@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PersistentVolumeSpec is the specification of a persistent volume.
+    /// </summary>
     [OutputType]
     public sealed class PersistentVolumeSpec
     {

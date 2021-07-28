@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NodeDaemonEndpoints lists ports opened by daemons running on the Node.
+    /// </summary>
     [OutputType]
     public sealed class NodeDaemonEndpoints
     {

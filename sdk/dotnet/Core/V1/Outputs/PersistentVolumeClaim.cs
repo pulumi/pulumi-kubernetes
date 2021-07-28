@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PersistentVolumeClaim is a user's request for and claim to a persistent volume
+    /// </summary>
     [OutputType]
     public sealed class PersistentVolumeClaim
     {

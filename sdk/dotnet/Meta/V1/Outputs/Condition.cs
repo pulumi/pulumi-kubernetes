@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 {
 
+    /// <summary>
+    /// Condition contains details for one aspect of the current state of this API Resource.
+    /// </summary>
     [OutputType]
     public sealed class Condition
     {

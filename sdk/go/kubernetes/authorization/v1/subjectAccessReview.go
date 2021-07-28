@@ -163,7 +163,7 @@ type SubjectAccessReviewArrayInput interface {
 type SubjectAccessReviewArray []SubjectAccessReviewInput
 
 func (SubjectAccessReviewArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*SubjectAccessReview)(nil))
+	return reflect.TypeOf((*[]*SubjectAccessReview)(nil)).Elem()
 }
 
 func (i SubjectAccessReviewArray) ToSubjectAccessReviewArrayOutput() SubjectAccessReviewArrayOutput {
@@ -188,7 +188,7 @@ type SubjectAccessReviewMapInput interface {
 type SubjectAccessReviewMap map[string]SubjectAccessReviewInput
 
 func (SubjectAccessReviewMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*SubjectAccessReview)(nil))
+	return reflect.TypeOf((*map[string]*SubjectAccessReview)(nil)).Elem()
 }
 
 func (i SubjectAccessReviewMap) ToSubjectAccessReviewMapOutput() SubjectAccessReviewMapOutput {

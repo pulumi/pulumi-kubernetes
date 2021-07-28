@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1Beta1
 {
 
+    /// <summary>
+    /// ServiceReference holds a reference to Service.legacy.k8s.io
+    /// </summary>
     [OutputType]
     public sealed class ServiceReference
     {

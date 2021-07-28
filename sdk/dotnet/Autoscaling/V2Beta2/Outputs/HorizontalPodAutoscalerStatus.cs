@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+    /// </summary>
     [OutputType]
     public sealed class HorizontalPodAutoscalerStatus
     {

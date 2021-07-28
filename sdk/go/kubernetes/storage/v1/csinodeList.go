@@ -158,7 +158,7 @@ type CSINodeListArrayInput interface {
 type CSINodeListArray []CSINodeListInput
 
 func (CSINodeListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CSINodeList)(nil))
+	return reflect.TypeOf((*[]*CSINodeList)(nil)).Elem()
 }
 
 func (i CSINodeListArray) ToCSINodeListArrayOutput() CSINodeListArrayOutput {
@@ -183,7 +183,7 @@ type CSINodeListMapInput interface {
 type CSINodeListMap map[string]CSINodeListInput
 
 func (CSINodeListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CSINodeList)(nil))
+	return reflect.TypeOf((*map[string]*CSINodeList)(nil)).Elem()
 }
 
 func (i CSINodeListMap) ToCSINodeListMapOutput() CSINodeListMapOutput {

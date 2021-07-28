@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.
+    /// </summary>
     [OutputType]
     public sealed class IDRange
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Namespace provides a scope for Names. Use of multiple namespaces is optional.
+    /// </summary>
     [OutputType]
     public sealed class Namespace
     {

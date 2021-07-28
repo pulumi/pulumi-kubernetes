@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1
 {
 
+    /// <summary>
+    /// PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+    /// </summary>
     [OutputType]
     public sealed class PodDisruptionBudgetSpec
     {

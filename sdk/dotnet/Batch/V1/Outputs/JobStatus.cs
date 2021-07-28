@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 {
 
+    /// <summary>
+    /// JobStatus represents the current state of a Job.
+    /// </summary>
     [OutputType]
     public sealed class JobStatus
     {

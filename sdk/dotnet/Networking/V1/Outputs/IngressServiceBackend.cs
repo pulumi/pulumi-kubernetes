@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// IngressServiceBackend references a Kubernetes Service as a Backend.
+    /// </summary>
     [OutputType]
     public sealed class IngressServiceBackend
     {

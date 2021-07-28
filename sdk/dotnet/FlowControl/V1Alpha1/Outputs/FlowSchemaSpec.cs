@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// FlowSchemaSpec describes how the FlowSchema's specification looks like.
+    /// </summary>
     [OutputType]
     public sealed class FlowSchemaSpec
     {

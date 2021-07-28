@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// DaemonEndpoint contains information about a single Daemon endpoint.
+    /// </summary>
     [OutputType]
     public sealed class DaemonEndpoint
     {

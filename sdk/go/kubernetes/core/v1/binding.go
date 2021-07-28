@@ -158,7 +158,7 @@ type BindingArrayInput interface {
 type BindingArray []BindingInput
 
 func (BindingArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Binding)(nil))
+	return reflect.TypeOf((*[]*Binding)(nil)).Elem()
 }
 
 func (i BindingArray) ToBindingArrayOutput() BindingArrayOutput {
@@ -183,7 +183,7 @@ type BindingMapInput interface {
 type BindingMap map[string]BindingInput
 
 func (BindingMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Binding)(nil))
+	return reflect.TypeOf((*map[string]*Binding)(nil)).Elem()
 }
 
 func (i BindingMap) ToBindingMapOutput() BindingMapOutput {

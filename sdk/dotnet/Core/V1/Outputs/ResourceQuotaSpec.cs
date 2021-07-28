@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+    /// </summary>
     [OutputType]
     public sealed class ResourceQuotaSpec
     {

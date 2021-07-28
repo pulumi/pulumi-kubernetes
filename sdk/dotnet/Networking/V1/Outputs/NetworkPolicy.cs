@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// NetworkPolicy describes what network traffic is allowed for a set of Pods
+    /// </summary>
     [OutputType]
     public sealed class NetworkPolicy
     {

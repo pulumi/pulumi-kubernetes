@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
 {
 
+    /// <summary>
+    /// ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
+    /// </summary>
     [OutputType]
     public sealed class ClusterRole
     {

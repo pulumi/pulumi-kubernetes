@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1
 {
 
+    /// <summary>
+    /// ServiceAccountSubject holds detailed information for service-account-kind subject.
+    /// </summary>
     [OutputType]
     public sealed class ServiceAccountSubject
     {

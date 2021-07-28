@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Represents a vSphere volume resource.
+    /// </summary>
     [OutputType]
     public sealed class VsphereVirtualDiskVolumeSource
     {

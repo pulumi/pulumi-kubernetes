@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
 {
 
+    /// <summary>
+    /// Endpoint represents a single logical "backend" implementing a service.
+    /// </summary>
     [OutputType]
     public sealed class Endpoint
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
 {
 
+    /// <summary>
+    /// CustomResourceColumnDefinition specifies a column for server side printing.
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceColumnDefinition
     {

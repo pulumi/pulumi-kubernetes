@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// AttachedVolume describes a volume attached to a node
+    /// </summary>
     [OutputType]
     public sealed class AttachedVolume
     {

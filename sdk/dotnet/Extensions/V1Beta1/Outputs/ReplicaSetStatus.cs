@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// ReplicaSetStatus represents the current status of a ReplicaSet.
+    /// </summary>
     [OutputType]
     public sealed class ReplicaSetStatus
     {

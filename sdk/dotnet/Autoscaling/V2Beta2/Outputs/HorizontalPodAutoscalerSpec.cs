@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
+    /// </summary>
     [OutputType]
     public sealed class HorizontalPodAutoscalerSpec
     {

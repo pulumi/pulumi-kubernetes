@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 {
 
+    /// <summary>
+    /// PodSecurityPolicySpec defines the policy enforced.
+    /// </summary>
     [OutputType]
     public sealed class PodSecurityPolicySpec
     {

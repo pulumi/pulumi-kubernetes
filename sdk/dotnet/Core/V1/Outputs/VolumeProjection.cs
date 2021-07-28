@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Projection that may be projected along with other supported volume types
+    /// </summary>
     [OutputType]
     public sealed class VolumeProjection
     {

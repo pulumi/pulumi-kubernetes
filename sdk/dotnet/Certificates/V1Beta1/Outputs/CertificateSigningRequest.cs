@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1Beta1
 {
 
+    /// <summary>
+    /// Describes a certificate signing request
+    /// </summary>
     [OutputType]
     public sealed class CertificateSigningRequest
     {

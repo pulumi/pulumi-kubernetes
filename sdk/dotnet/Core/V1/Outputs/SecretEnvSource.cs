@@ -10,6 +10,11 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// SecretEnvSource selects a Secret to populate the environment variables with.
+    /// 
+    /// The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+    /// </summary>
     [OutputType]
     public sealed class SecretEnvSource
     {

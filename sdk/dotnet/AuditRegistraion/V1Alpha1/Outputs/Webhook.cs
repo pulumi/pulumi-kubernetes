@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion.V1Alpha1
 {
 
+    /// <summary>
+    /// Webhook holds the configuration of the webhook
+    /// </summary>
     [OutputType]
     public sealed class Webhook
     {

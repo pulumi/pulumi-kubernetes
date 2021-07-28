@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ResourceQuotaStatus defines the enforced hard limits and observed use.
+    /// </summary>
     [OutputType]
     public sealed class ResourceQuotaStatus
     {

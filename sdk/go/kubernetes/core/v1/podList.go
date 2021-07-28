@@ -158,7 +158,7 @@ type PodListArrayInput interface {
 type PodListArray []PodListInput
 
 func (PodListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PodList)(nil))
+	return reflect.TypeOf((*[]*PodList)(nil)).Elem()
 }
 
 func (i PodListArray) ToPodListArrayOutput() PodListArrayOutput {
@@ -183,7 +183,7 @@ type PodListMapInput interface {
 type PodListMap map[string]PodListInput
 
 func (PodListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PodList)(nil))
+	return reflect.TypeOf((*map[string]*PodList)(nil)).Elem()
 }
 
 func (i PodListMap) ToPodListMapOutput() PodListMapOutput {

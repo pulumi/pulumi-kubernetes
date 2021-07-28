@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ScaleIOVolumeSource represents a persistent ScaleIO volume
+    /// </summary>
     [OutputType]
     public sealed class ScaleIOVolumeSource
     {

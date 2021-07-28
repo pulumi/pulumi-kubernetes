@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// DaemonSetStatus represents the current status of a daemon set.
+    /// </summary>
     [OutputType]
     public sealed class DaemonSetStatus
     {

@@ -163,7 +163,7 @@ type LocalSubjectAccessReviewArrayInput interface {
 type LocalSubjectAccessReviewArray []LocalSubjectAccessReviewInput
 
 func (LocalSubjectAccessReviewArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*LocalSubjectAccessReview)(nil))
+	return reflect.TypeOf((*[]*LocalSubjectAccessReview)(nil)).Elem()
 }
 
 func (i LocalSubjectAccessReviewArray) ToLocalSubjectAccessReviewArrayOutput() LocalSubjectAccessReviewArrayOutput {
@@ -188,7 +188,7 @@ type LocalSubjectAccessReviewMapInput interface {
 type LocalSubjectAccessReviewMap map[string]LocalSubjectAccessReviewInput
 
 func (LocalSubjectAccessReviewMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*LocalSubjectAccessReview)(nil))
+	return reflect.TypeOf((*map[string]*LocalSubjectAccessReview)(nil)).Elem()
 }
 
 func (i LocalSubjectAccessReviewMap) ToLocalSubjectAccessReviewMapOutput() LocalSubjectAccessReviewMapOutput {

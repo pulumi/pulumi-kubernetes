@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ExecAction describes a "run in container" action.
+    /// </summary>
     [OutputType]
     public sealed class ExecAction
     {

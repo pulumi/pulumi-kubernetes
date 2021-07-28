@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// ServiceBackendPort is the service port being referenced.
+    /// </summary>
     [OutputType]
     public sealed class ServiceBackendPort
     {

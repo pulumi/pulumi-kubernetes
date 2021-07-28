@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1
 {
 
+    /// <summary>
+    /// APIService represents a server for a particular GroupVersion. Name must be "version.group".
+    /// </summary>
     [OutputType]
     public sealed class APIService
     {

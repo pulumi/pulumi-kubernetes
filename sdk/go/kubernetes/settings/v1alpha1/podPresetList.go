@@ -158,7 +158,7 @@ type PodPresetListArrayInput interface {
 type PodPresetListArray []PodPresetListInput
 
 func (PodPresetListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PodPresetList)(nil))
+	return reflect.TypeOf((*[]*PodPresetList)(nil)).Elem()
 }
 
 func (i PodPresetListArray) ToPodPresetListArrayOutput() PodPresetListArrayOutput {
@@ -183,7 +183,7 @@ type PodPresetListMapInput interface {
 type PodPresetListMap map[string]PodPresetListInput
 
 func (PodPresetListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PodPresetList)(nil))
+	return reflect.TypeOf((*map[string]*PodPresetList)(nil)).Elem()
 }
 
 func (i PodPresetListMap) ToPodPresetListMapOutput() PodPresetListMapOutput {

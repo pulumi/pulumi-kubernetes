@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V2Alpha1
 {
 
+    /// <summary>
+    /// JobTemplateSpec describes the data a Job should have when created from a template
+    /// </summary>
     [OutputType]
     public sealed class JobTemplateSpec
     {

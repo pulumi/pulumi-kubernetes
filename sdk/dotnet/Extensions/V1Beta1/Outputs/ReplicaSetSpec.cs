@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// ReplicaSetSpec is the specification of a ReplicaSet.
+    /// </summary>
     [OutputType]
     public sealed class ReplicaSetSpec
     {

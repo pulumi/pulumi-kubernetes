@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// DaemonSet represents the configuration of a daemon set.
+    /// </summary>
     [OutputType]
     public sealed class DaemonSet
     {

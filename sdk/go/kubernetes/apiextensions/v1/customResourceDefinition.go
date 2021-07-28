@@ -163,7 +163,7 @@ type CustomResourceDefinitionArrayInput interface {
 type CustomResourceDefinitionArray []CustomResourceDefinitionInput
 
 func (CustomResourceDefinitionArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CustomResourceDefinition)(nil))
+	return reflect.TypeOf((*[]*CustomResourceDefinition)(nil)).Elem()
 }
 
 func (i CustomResourceDefinitionArray) ToCustomResourceDefinitionArrayOutput() CustomResourceDefinitionArrayOutput {
@@ -188,7 +188,7 @@ type CustomResourceDefinitionMapInput interface {
 type CustomResourceDefinitionMap map[string]CustomResourceDefinitionInput
 
 func (CustomResourceDefinitionMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CustomResourceDefinition)(nil))
+	return reflect.TypeOf((*map[string]*CustomResourceDefinition)(nil)).Elem()
 }
 
 func (i CustomResourceDefinitionMap) ToCustomResourceDefinitionMapOutput() CustomResourceDefinitionMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ContainerStatus contains details for the current status of this container.
+    /// </summary>
     [OutputType]
     public sealed class ContainerStatus
     {

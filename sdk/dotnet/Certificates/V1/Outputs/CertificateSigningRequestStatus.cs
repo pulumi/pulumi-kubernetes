@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1
 {
 
+    /// <summary>
+    /// CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
+    /// </summary>
     [OutputType]
     public sealed class CertificateSigningRequestStatus
     {

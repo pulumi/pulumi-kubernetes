@@ -156,7 +156,7 @@ type PersistentVolumeClaimArrayInput interface {
 type PersistentVolumeClaimArray []PersistentVolumeClaimInput
 
 func (PersistentVolumeClaimArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PersistentVolumeClaim)(nil))
+	return reflect.TypeOf((*[]*PersistentVolumeClaim)(nil)).Elem()
 }
 
 func (i PersistentVolumeClaimArray) ToPersistentVolumeClaimArrayOutput() PersistentVolumeClaimArrayOutput {
@@ -181,7 +181,7 @@ type PersistentVolumeClaimMapInput interface {
 type PersistentVolumeClaimMap map[string]PersistentVolumeClaimInput
 
 func (PersistentVolumeClaimMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PersistentVolumeClaim)(nil))
+	return reflect.TypeOf((*map[string]*PersistentVolumeClaim)(nil)).Elem()
 }
 
 func (i PersistentVolumeClaimMap) ToPersistentVolumeClaimMapOutput() PersistentVolumeClaimMapOutput {

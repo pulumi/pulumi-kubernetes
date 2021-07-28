@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+    /// </summary>
     [OutputType]
     public sealed class FlexVolumeSource
     {

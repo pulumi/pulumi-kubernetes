@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// volumeDevice describes a mapping of a raw block device within a container.
+    /// </summary>
     [OutputType]
     public sealed class VolumeDevice
     {

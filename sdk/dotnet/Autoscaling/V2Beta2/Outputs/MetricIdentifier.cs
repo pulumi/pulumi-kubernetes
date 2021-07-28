@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// MetricIdentifier defines the name and optionally selector for a metric
+    /// </summary>
     [OutputType]
     public sealed class MetricIdentifier
     {

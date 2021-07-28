@@ -158,7 +158,7 @@ type PodTemplateListArrayInput interface {
 type PodTemplateListArray []PodTemplateListInput
 
 func (PodTemplateListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PodTemplateList)(nil))
+	return reflect.TypeOf((*[]*PodTemplateList)(nil)).Elem()
 }
 
 func (i PodTemplateListArray) ToPodTemplateListArrayOutput() PodTemplateListArrayOutput {
@@ -183,7 +183,7 @@ type PodTemplateListMapInput interface {
 type PodTemplateListMap map[string]PodTemplateListInput
 
 func (PodTemplateListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PodTemplateList)(nil))
+	return reflect.TypeOf((*map[string]*PodTemplateList)(nil)).Elem()
 }
 
 func (i PodTemplateListMap) ToPodTemplateListMapOutput() PodTemplateListMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Maps a string key to a path within a volume.
+    /// </summary>
     [OutputType]
     public sealed class KeyToPath
     {

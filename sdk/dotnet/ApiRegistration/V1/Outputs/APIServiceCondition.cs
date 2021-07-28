@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1
 {
 
+    /// <summary>
+    /// APIServiceCondition describes the state of an APIService at a particular point
+    /// </summary>
     [OutputType]
     public sealed class APIServiceCondition
     {

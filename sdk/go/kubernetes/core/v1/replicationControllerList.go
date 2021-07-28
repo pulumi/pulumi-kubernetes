@@ -158,7 +158,7 @@ type ReplicationControllerListArrayInput interface {
 type ReplicationControllerListArray []ReplicationControllerListInput
 
 func (ReplicationControllerListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ReplicationControllerList)(nil))
+	return reflect.TypeOf((*[]*ReplicationControllerList)(nil)).Elem()
 }
 
 func (i ReplicationControllerListArray) ToReplicationControllerListArrayOutput() ReplicationControllerListArrayOutput {
@@ -183,7 +183,7 @@ type ReplicationControllerListMapInput interface {
 type ReplicationControllerListMap map[string]ReplicationControllerListInput
 
 func (ReplicationControllerListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ReplicationControllerList)(nil))
+	return reflect.TypeOf((*map[string]*ReplicationControllerList)(nil)).Elem()
 }
 
 func (i ReplicationControllerListMap) ToReplicationControllerListMapOutput() ReplicationControllerListMapOutput {

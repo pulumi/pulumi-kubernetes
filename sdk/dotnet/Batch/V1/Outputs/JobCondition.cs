@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 {
 
+    /// <summary>
+    /// JobCondition describes current state of a job.
+    /// </summary>
     [OutputType]
     public sealed class JobCondition
     {

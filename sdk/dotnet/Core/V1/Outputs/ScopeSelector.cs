@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+    /// </summary>
     [OutputType]
     public sealed class ScopeSelector
     {

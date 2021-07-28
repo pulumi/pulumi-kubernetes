@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 {
 
+    /// <summary>
+    /// AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
+    /// </summary>
     [OutputType]
     public sealed class AllowedCSIDriver
     {

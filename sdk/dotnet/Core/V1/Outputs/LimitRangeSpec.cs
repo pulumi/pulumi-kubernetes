@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+    /// </summary>
     [OutputType]
     public sealed class LimitRangeSpec
     {
