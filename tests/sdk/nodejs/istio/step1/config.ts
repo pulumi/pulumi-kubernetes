@@ -21,7 +21,7 @@ const config = new Config();
 
 export const appName = "test-ci-istio";
 
-export const gcpProject = "pulumi-development";
+export const gcpProject = "pulumi-k8s-provider";
 
 export const gcpRegion = "us-west1";
 export const gcpZone = "a";
@@ -46,6 +46,6 @@ export const masterPassword =
 
 // username is the admin username for the cluster.
 export const gcpUsername =
-    config.get("gcpUsername") || "test-ci@pulumi-development.iam.gserviceaccount.com";
+    config.get("gcpUsername") || "gha-ci@pulumi-k8s-provider.iam.gserviceaccount.com";
 
 export const kubeconfigPath = config.get("kubeconfigPath") || path.join(os.homedir(), ".kube", "config");

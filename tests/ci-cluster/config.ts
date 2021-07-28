@@ -16,7 +16,7 @@ import { Config } from "@pulumi/pulumi";
 
 const config = new Config();
 
-export const gcpProject = "pulumi-development";
+export const gcpProject = "pulumi-k8s-provider";
 export const gcpZone = "a";
 export const gcpLocation = "us-west1-a";
 
