@@ -360,6 +360,9 @@ jobs:
     runs-on: ${{ matrix.platform }}
     if: ${{ always() }} && github.event.pull_request.head.repo.full_name == github.repository
     steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Install DotNet ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
         with:
@@ -394,9 +397,6 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ env.PR_COMMIT_SHA }}
       - name: Destroy test infra
         run: |
           ./scripts/ci-cluster-destroy.sh ${{needs.build-test-cluster.outputs.stack-name}}

@@ -56,6 +56,7 @@ jobs:
     outputs:
       stack-name: ${{ steps.vars.outputs.stack-name }}
     steps:
+      - uses: actions/checkout@v2
       - name: Install DotNet ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
         with:
@@ -90,7 +91,6 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - uses: actions/checkout@v2
       - id: vars
         run: echo "::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-$(date +%s)"
       - name: Create test infra
@@ -360,6 +360,7 @@ jobs:
         dotnet-version: [ '3.1.100' ]
     runs-on: ${{ matrix.platform }}
     steps:
+      - uses: actions/checkout@v2
       - name: Install DotNet ${{ matrix.dotnet-version }}
         uses: actions/setup-dotnet@v1
         with:
@@ -394,7 +395,6 @@ jobs:
           gcloud --quiet auth configure-docker
       - name: Install Pulumi CLI
         uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - uses: actions/checkout@v2
       - name: Destroy test infra
         run: |
           ./scripts/ci-cluster-destroy.sh ${{needs.build-test-cluster.outputs.stack-name}}
