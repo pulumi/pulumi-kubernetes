@@ -11,9 +11,6 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GOLANGCI_LINT_VERSION: v1.31
   GOLANGCI_LINT_TIMEOUT: 10m
-  GOOGLE_PROJECT: pulumi-k8s-provider
-  GOOGLE_REGION: us-central1
-  GOOGLE_ZONE: us-central1-a
   PROVIDER: kubernetes
   PULUMI_TEST_OWNER: moolumi
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
@@ -316,10 +313,8 @@ jobs:
           path: "~/.kube/"
       - uses: google-github-actions/setup-gcloud@master
         with:
-          version: '285.0.0'
-          project_id: ${{ env.GOOGLE_PROJECT }}
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
       - name: Install Kubectl
         run: |
           curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -392,10 +387,8 @@ jobs:
           sudo mv kubectl /usr/local/bin
       - uses: google-github-actions/setup-gcloud@master
         with:
-          version: '285.0.0'
-          project_id: ${{ env.GOOGLE_PROJECT }}
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
       - name: Login to Google Cloud Registry
         run: |
           gcloud --quiet auth configure-docker
