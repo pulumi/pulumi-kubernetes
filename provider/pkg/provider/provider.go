@@ -19,6 +19,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"net/url"
+	"os"
+	"os/user"
+	"path/filepath"
+	"reflect"
+	"regexp"
+	"strings"
+	"sync"
+
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
@@ -42,27 +53,18 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"io/ioutil"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/sets"
+	k8sresource "k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
-	"net/http"
-	"net/url"
-	"os"
-	"os/user"
-	"path/filepath"
-	"reflect"
-	"regexp"
 	"sigs.k8s.io/yaml"
-	"strings"
-	"sync"
 )
 
 // --------------------------------------------------------------------------
@@ -125,9 +127,10 @@ type kubeProvider struct {
 
 	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
 
-	clientSet  *clients.DynamicClientSet
-	logClient  *clients.LogClient
-	k8sVersion cluster.ServerVersion
+	clientSet      *clients.DynamicClientSet
+	dryRunVerifier *k8sresource.DryRunVerifier
+	logClient      *clients.LogClient
+	k8sVersion     cluster.ServerVersion
 
 	resources      k8sopenapi.Resources
 	resourcesMutex sync.RWMutex
@@ -520,6 +523,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, err
 		}
 		k.clientSet = cs
+		k.dryRunVerifier = k8sresource.NewDryRunVerifier(cs.GenericClient, cs.DiscoveryClientCached)
 		lc, err := clients.NewLogClient(k.config)
 		if err != nil {
 			return nil, err
@@ -2278,7 +2282,7 @@ func (k *kubeProvider) supportsDryRun(gvk schema.GroupVersionKind) bool {
 		return false
 	}
 	// Ensure that the cluster is reachable and supports the server-side diff feature.
-	if k.clusterUnreachable || !openapi.SupportsDryRun(k.clientSet.DiscoveryClientCached, k.clientSet.GenericClient, gvk) {
+	if k.clusterUnreachable || !openapi.SupportsDryRun(k.dryRunVerifier, gvk) {
 		logger.V(9).Infof("server cannot dry run %v", gvk)
 		return false
 	}

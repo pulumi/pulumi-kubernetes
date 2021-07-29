@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,7 +26,6 @@ import (
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
 	"k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/discovery"
-	"k8s.io/client-go/dynamic"
 	"k8s.io/kube-openapi/pkg/util/proto"
 	"k8s.io/kubectl/pkg/scheme"
 	"k8s.io/kubectl/pkg/util/openapi"
@@ -149,10 +148,9 @@ func MergePatch(
 }
 
 // SupportsDryRun returns true if the given GVK supports dry-run applies.
-func SupportsDryRun(client discovery.CachedDiscoveryInterface, dynamicClient dynamic.Interface,
-	gvk schema.GroupVersionKind) bool {
+func SupportsDryRun(dryRunVerifier *resource.DryRunVerifier, gvk schema.GroupVersionKind) bool {
 	// If an error is returned, DryRun is not supported.
-	if err := resource.VerifyDryRun(gvk, dynamicClient, client); err != nil {
+	if err := dryRunVerifier.HasSupport(gvk); err != nil {
 		return false
 	}
 	return true
