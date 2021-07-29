@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -55,9 +55,9 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 		DoPrune:              false,
 	}
 
-	k := krusty.MakeKustomizer(fSys, opts)
+	k := krusty.MakeKustomizer(opts)
 
-	rm, err := k.Run(path)
+	rm, err := k.Run(fSys, path)
 	if err != nil {
 		return nil, errors.Wrapf(err, "kustomize failed for directory %q", path)
 	}
