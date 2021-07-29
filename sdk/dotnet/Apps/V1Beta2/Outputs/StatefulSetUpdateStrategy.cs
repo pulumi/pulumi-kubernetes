@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta2
 {
 
+    /// <summary>
+    /// StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+    /// </summary>
     [OutputType]
     public sealed class StatefulSetUpdateStrategy
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta1
 {
 
+    /// <summary>
+    /// PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
+    /// </summary>
     [OutputType]
     public sealed class PodsMetricSource
     {

@@ -152,7 +152,7 @@ type StatefulSetListArrayInput interface {
 type StatefulSetListArray []StatefulSetListInput
 
 func (StatefulSetListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*StatefulSetList)(nil))
+	return reflect.TypeOf((*[]*StatefulSetList)(nil)).Elem()
 }
 
 func (i StatefulSetListArray) ToStatefulSetListArrayOutput() StatefulSetListArrayOutput {
@@ -177,7 +177,7 @@ type StatefulSetListMapInput interface {
 type StatefulSetListMap map[string]StatefulSetListInput
 
 func (StatefulSetListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*StatefulSetList)(nil))
+	return reflect.TypeOf((*map[string]*StatefulSetList)(nil)).Elem()
 }
 
 func (i StatefulSetListMap) ToStatefulSetListMapOutput() StatefulSetListMapOutput {

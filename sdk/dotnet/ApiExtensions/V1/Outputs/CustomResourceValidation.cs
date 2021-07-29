@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 {
 
+    /// <summary>
+    /// CustomResourceValidation is a list of validation methods for CustomResources.
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceValidation
     {

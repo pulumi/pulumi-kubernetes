@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authentication.V1
 {
 
+    /// <summary>
+    /// UserInfo holds the information about the user needed to implement the user.Info interface.
+    /// </summary>
     [OutputType]
     public sealed class UserInfo
     {

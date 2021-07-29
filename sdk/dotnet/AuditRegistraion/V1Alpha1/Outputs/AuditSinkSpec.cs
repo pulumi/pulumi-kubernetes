@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion.V1Alpha1
 {
 
+    /// <summary>
+    /// AuditSinkSpec holds the spec for the audit sink
+    /// </summary>
     [OutputType]
     public sealed class AuditSinkSpec
     {

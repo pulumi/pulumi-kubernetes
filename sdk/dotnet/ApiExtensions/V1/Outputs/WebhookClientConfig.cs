@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 {
 
+    /// <summary>
+    /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
+    /// </summary>
     [OutputType]
     public sealed class WebhookClientConfig
     {

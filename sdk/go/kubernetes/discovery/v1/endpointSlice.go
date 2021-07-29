@@ -179,7 +179,7 @@ type EndpointSliceArrayInput interface {
 type EndpointSliceArray []EndpointSliceInput
 
 func (EndpointSliceArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*EndpointSlice)(nil))
+	return reflect.TypeOf((*[]*EndpointSlice)(nil)).Elem()
 }
 
 func (i EndpointSliceArray) ToEndpointSliceArrayOutput() EndpointSliceArrayOutput {
@@ -204,7 +204,7 @@ type EndpointSliceMapInput interface {
 type EndpointSliceMap map[string]EndpointSliceInput
 
 func (EndpointSliceMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*EndpointSlice)(nil))
+	return reflect.TypeOf((*map[string]*EndpointSlice)(nil)).Elem()
 }
 
 func (i EndpointSliceMap) ToEndpointSliceMapOutput() EndpointSliceMapOutput {

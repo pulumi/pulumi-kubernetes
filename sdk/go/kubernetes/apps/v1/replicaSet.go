@@ -165,7 +165,7 @@ type ReplicaSetArrayInput interface {
 type ReplicaSetArray []ReplicaSetInput
 
 func (ReplicaSetArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ReplicaSet)(nil))
+	return reflect.TypeOf((*[]*ReplicaSet)(nil)).Elem()
 }
 
 func (i ReplicaSetArray) ToReplicaSetArrayOutput() ReplicaSetArrayOutput {
@@ -190,7 +190,7 @@ type ReplicaSetMapInput interface {
 type ReplicaSetMap map[string]ReplicaSetInput
 
 func (ReplicaSetMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ReplicaSet)(nil))
+	return reflect.TypeOf((*map[string]*ReplicaSet)(nil)).Elem()
 }
 
 func (i ReplicaSetMap) ToReplicaSetMapOutput() ReplicaSetMapOutput {

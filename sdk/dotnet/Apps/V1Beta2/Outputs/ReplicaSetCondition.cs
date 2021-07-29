@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta2
 {
 
+    /// <summary>
+    /// ReplicaSetCondition describes the state of a replica set at a certain point.
+    /// </summary>
     [OutputType]
     public sealed class ReplicaSetCondition
     {

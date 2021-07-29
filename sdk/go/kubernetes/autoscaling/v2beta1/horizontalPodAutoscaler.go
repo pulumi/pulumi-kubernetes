@@ -165,7 +165,7 @@ type HorizontalPodAutoscalerArrayInput interface {
 type HorizontalPodAutoscalerArray []HorizontalPodAutoscalerInput
 
 func (HorizontalPodAutoscalerArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*HorizontalPodAutoscaler)(nil))
+	return reflect.TypeOf((*[]*HorizontalPodAutoscaler)(nil)).Elem()
 }
 
 func (i HorizontalPodAutoscalerArray) ToHorizontalPodAutoscalerArrayOutput() HorizontalPodAutoscalerArrayOutput {
@@ -190,7 +190,7 @@ type HorizontalPodAutoscalerMapInput interface {
 type HorizontalPodAutoscalerMap map[string]HorizontalPodAutoscalerInput
 
 func (HorizontalPodAutoscalerMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*HorizontalPodAutoscaler)(nil))
+	return reflect.TypeOf((*map[string]*HorizontalPodAutoscaler)(nil)).Elem()
 }
 
 func (i HorizontalPodAutoscalerMap) ToHorizontalPodAutoscalerMapOutput() HorizontalPodAutoscalerMapOutput {

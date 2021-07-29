@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// QueuingConfiguration holds the configuration parameters for queuing
+    /// </summary>
     [OutputType]
     public sealed class QueuingConfiguration
     {

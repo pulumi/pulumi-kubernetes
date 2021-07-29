@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PodSpec is a description of a pod.
+    /// </summary>
     [OutputType]
     public sealed class PodSpec
     {

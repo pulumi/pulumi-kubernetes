@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
+    /// </summary>
     [OutputType]
     public sealed class NetworkPolicyPort
     {

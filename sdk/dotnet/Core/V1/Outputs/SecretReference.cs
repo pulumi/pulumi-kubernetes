@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+    /// </summary>
     [OutputType]
     public sealed class SecretReference
     {

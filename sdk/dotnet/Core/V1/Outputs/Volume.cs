@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
+    /// </summary>
     [OutputType]
     public sealed class Volume
     {

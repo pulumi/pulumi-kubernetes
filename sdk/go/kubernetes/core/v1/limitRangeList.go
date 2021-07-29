@@ -158,7 +158,7 @@ type LimitRangeListArrayInput interface {
 type LimitRangeListArray []LimitRangeListInput
 
 func (LimitRangeListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*LimitRangeList)(nil))
+	return reflect.TypeOf((*[]*LimitRangeList)(nil)).Elem()
 }
 
 func (i LimitRangeListArray) ToLimitRangeListArrayOutput() LimitRangeListArrayOutput {
@@ -183,7 +183,7 @@ type LimitRangeListMapInput interface {
 type LimitRangeListMap map[string]LimitRangeListInput
 
 func (LimitRangeListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*LimitRangeList)(nil))
+	return reflect.TypeOf((*map[string]*LimitRangeList)(nil)).Elem()
 }
 
 func (i LimitRangeListMap) ToLimitRangeListMapOutput() LimitRangeListMapOutput {

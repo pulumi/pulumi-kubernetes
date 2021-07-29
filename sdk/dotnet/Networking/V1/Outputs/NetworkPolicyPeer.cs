@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
+    /// </summary>
     [OutputType]
     public sealed class NetworkPolicyPeer
     {

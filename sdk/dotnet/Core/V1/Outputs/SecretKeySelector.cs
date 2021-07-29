@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// SecretKeySelector selects a key of a Secret.
+    /// </summary>
     [OutputType]
     public sealed class SecretKeySelector
     {

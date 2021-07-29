@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 {
 
+    /// <summary>
+    /// RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
+    /// </summary>
     [OutputType]
     public sealed class RuntimeClassStrategyOptions
     {

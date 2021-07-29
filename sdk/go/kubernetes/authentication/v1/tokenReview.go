@@ -163,7 +163,7 @@ type TokenReviewArrayInput interface {
 type TokenReviewArray []TokenReviewInput
 
 func (TokenReviewArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*TokenReview)(nil))
+	return reflect.TypeOf((*[]*TokenReview)(nil)).Elem()
 }
 
 func (i TokenReviewArray) ToTokenReviewArrayOutput() TokenReviewArrayOutput {
@@ -188,7 +188,7 @@ type TokenReviewMapInput interface {
 type TokenReviewMap map[string]TokenReviewInput
 
 func (TokenReviewMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*TokenReview)(nil))
+	return reflect.TypeOf((*map[string]*TokenReview)(nil)).Elem()
 }
 
 func (i TokenReviewMap) ToTokenReviewMapOutput() TokenReviewMapOutput {

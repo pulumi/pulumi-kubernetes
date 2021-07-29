@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// LimitRange sets resource usage limits for each kind of resource in a Namespace.
+    /// </summary>
     [OutputType]
     public sealed class LimitRange
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+    /// </summary>
     [OutputType]
     public sealed class WeightedPodAffinityTerm
     {

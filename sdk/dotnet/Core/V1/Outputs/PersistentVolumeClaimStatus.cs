@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+    /// </summary>
     [OutputType]
     public sealed class PersistentVolumeClaimStatus
     {

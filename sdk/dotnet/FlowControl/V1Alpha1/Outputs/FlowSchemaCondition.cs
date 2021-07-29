@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// FlowSchemaCondition describes conditions for a FlowSchema.
+    /// </summary>
     [OutputType]
     public sealed class FlowSchemaCondition
     {

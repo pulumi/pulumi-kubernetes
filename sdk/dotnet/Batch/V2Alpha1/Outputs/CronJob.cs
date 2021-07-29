@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Batch.V2Alpha1
 {
 
+    /// <summary>
+    /// CronJob represents the configuration of a single cron job.
+    /// </summary>
     [OutputType]
     public sealed class CronJob
     {

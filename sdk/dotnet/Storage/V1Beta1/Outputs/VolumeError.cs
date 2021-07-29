@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Beta1
 {
 
+    /// <summary>
+    /// VolumeError captures an error encountered during a volume operation.
+    /// </summary>
     [OutputType]
     public sealed class VolumeError
     {

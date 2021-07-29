@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// MetricTarget defines the target value, average value, or average utilization of a specific metric
+    /// </summary>
     [OutputType]
     public sealed class MetricTarget
     {

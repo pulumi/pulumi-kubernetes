@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// RunAsUserStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsUserStrategyOptions from policy API Group instead.
+    /// </summary>
     [OutputType]
     public sealed class RunAsUserStrategyOptions
     {

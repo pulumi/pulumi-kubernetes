@@ -158,7 +158,7 @@ type ServiceListArrayInput interface {
 type ServiceListArray []ServiceListInput
 
 func (ServiceListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ServiceList)(nil))
+	return reflect.TypeOf((*[]*ServiceList)(nil)).Elem()
 }
 
 func (i ServiceListArray) ToServiceListArrayOutput() ServiceListArrayOutput {
@@ -183,7 +183,7 @@ type ServiceListMapInput interface {
 type ServiceListMap map[string]ServiceListInput
 
 func (ServiceListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ServiceList)(nil))
+	return reflect.TypeOf((*map[string]*ServiceList)(nil)).Elem()
 }
 
 func (i ServiceListMap) ToServiceListMapOutput() ServiceListMapOutput {

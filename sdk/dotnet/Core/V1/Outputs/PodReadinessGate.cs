@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PodReadinessGate contains the reference to a pod condition
+    /// </summary>
     [OutputType]
     public sealed class PodReadinessGate
     {

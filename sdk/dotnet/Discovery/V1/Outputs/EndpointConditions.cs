@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
 {
 
+    /// <summary>
+    /// EndpointConditions represents the current condition of an endpoint.
+    /// </summary>
     [OutputType]
     public sealed class EndpointConditions
     {

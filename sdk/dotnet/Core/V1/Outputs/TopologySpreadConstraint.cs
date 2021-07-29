@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+    /// </summary>
     [OutputType]
     public sealed class TopologySpreadConstraint
     {

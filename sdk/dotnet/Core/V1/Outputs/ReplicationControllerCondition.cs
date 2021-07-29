@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ReplicationControllerCondition describes the state of a replication controller at a certain point.
+    /// </summary>
     [OutputType]
     public sealed class ReplicationControllerCondition
     {

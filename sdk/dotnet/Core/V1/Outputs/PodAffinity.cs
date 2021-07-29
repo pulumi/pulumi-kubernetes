@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Pod affinity is a group of inter pod affinity scheduling rules.
+    /// </summary>
     [OutputType]
     public sealed class PodAffinity
     {

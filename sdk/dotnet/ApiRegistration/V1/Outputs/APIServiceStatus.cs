@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1
 {
 
+    /// <summary>
+    /// APIServiceStatus contains derived information about an API server
+    /// </summary>
     [OutputType]
     public sealed class APIServiceStatus
     {

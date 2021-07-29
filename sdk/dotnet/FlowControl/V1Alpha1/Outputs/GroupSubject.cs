@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// GroupSubject holds detailed information for group-kind subject.
+    /// </summary>
     [OutputType]
     public sealed class GroupSubject
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
+    /// </summary>
     [OutputType]
     public sealed class NodeSystemInfo
     {

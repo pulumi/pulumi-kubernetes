@@ -158,7 +158,7 @@ type ReplicaSetListArrayInput interface {
 type ReplicaSetListArray []ReplicaSetListInput
 
 func (ReplicaSetListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ReplicaSetList)(nil))
+	return reflect.TypeOf((*[]*ReplicaSetList)(nil)).Elem()
 }
 
 func (i ReplicaSetListArray) ToReplicaSetListArrayOutput() ReplicaSetListArrayOutput {
@@ -183,7 +183,7 @@ type ReplicaSetListMapInput interface {
 type ReplicaSetListMap map[string]ReplicaSetListInput
 
 func (ReplicaSetListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ReplicaSetList)(nil))
+	return reflect.TypeOf((*map[string]*ReplicaSetList)(nil)).Elem()
 }
 
 func (i ReplicaSetListMap) ToReplicaSetListMapOutput() ReplicaSetListMapOutput {

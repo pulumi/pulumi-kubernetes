@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
 {
 
+    /// <summary>
+    /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceDefinitionCondition
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 {
 
+    /// <summary>
+    /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
+    /// </summary>
     [OutputType]
     public sealed class JSONSchemaProps
     {

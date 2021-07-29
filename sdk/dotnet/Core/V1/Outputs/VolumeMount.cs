@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// VolumeMount describes a mounting of a Volume within a container.
+    /// </summary>
     [OutputType]
     public sealed class VolumeMount
     {

@@ -173,7 +173,7 @@ type RoleBindingArrayInput interface {
 type RoleBindingArray []RoleBindingInput
 
 func (RoleBindingArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*RoleBinding)(nil))
+	return reflect.TypeOf((*[]*RoleBinding)(nil)).Elem()
 }
 
 func (i RoleBindingArray) ToRoleBindingArrayOutput() RoleBindingArrayOutput {
@@ -198,7 +198,7 @@ type RoleBindingMapInput interface {
 type RoleBindingMap map[string]RoleBindingInput
 
 func (RoleBindingMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*RoleBinding)(nil))
+	return reflect.TypeOf((*map[string]*RoleBinding)(nil)).Elem()
 }
 
 func (i RoleBindingMap) ToRoleBindingMapOutput() RoleBindingMapOutput {

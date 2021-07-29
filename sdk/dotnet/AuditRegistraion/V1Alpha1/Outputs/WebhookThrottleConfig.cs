@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion.V1Alpha1
 {
 
+    /// <summary>
+    /// WebhookThrottleConfig holds the configuration for throttling events
+    /// </summary>
     [OutputType]
     public sealed class WebhookThrottleConfig
     {

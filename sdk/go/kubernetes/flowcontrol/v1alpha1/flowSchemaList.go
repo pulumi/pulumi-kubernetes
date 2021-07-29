@@ -158,7 +158,7 @@ type FlowSchemaListArrayInput interface {
 type FlowSchemaListArray []FlowSchemaListInput
 
 func (FlowSchemaListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*FlowSchemaList)(nil))
+	return reflect.TypeOf((*[]*FlowSchemaList)(nil)).Elem()
 }
 
 func (i FlowSchemaListArray) ToFlowSchemaListArrayOutput() FlowSchemaListArrayOutput {
@@ -183,7 +183,7 @@ type FlowSchemaListMapInput interface {
 type FlowSchemaListMap map[string]FlowSchemaListInput
 
 func (FlowSchemaListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*FlowSchemaList)(nil))
+	return reflect.TypeOf((*map[string]*FlowSchemaList)(nil)).Elem()
 }
 
 func (i FlowSchemaListMap) ToFlowSchemaListMapOutput() FlowSchemaListMapOutput {

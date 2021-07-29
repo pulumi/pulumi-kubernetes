@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
+    /// </summary>
     [OutputType]
     public sealed class HTTPIngressPath
     {

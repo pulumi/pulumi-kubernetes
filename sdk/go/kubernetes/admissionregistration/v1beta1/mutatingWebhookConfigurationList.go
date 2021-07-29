@@ -158,7 +158,7 @@ type MutatingWebhookConfigurationListArrayInput interface {
 type MutatingWebhookConfigurationListArray []MutatingWebhookConfigurationListInput
 
 func (MutatingWebhookConfigurationListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*MutatingWebhookConfigurationList)(nil))
+	return reflect.TypeOf((*[]*MutatingWebhookConfigurationList)(nil)).Elem()
 }
 
 func (i MutatingWebhookConfigurationListArray) ToMutatingWebhookConfigurationListArrayOutput() MutatingWebhookConfigurationListArrayOutput {
@@ -183,7 +183,7 @@ type MutatingWebhookConfigurationListMapInput interface {
 type MutatingWebhookConfigurationListMap map[string]MutatingWebhookConfigurationListInput
 
 func (MutatingWebhookConfigurationListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*MutatingWebhookConfigurationList)(nil))
+	return reflect.TypeOf((*map[string]*MutatingWebhookConfigurationList)(nil)).Elem()
 }
 
 func (i MutatingWebhookConfigurationListMap) ToMutatingWebhookConfigurationListMapOutput() MutatingWebhookConfigurationListMapOutput {

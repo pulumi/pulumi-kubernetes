@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Beta1
 {
 
+    /// <summary>
+    /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
+    /// </summary>
     [OutputType]
     public sealed class RuleWithOperations
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 {
 
+    /// <summary>
+    /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
+    /// </summary>
     [OutputType]
     public sealed class FSGroupStrategyOptions
     {

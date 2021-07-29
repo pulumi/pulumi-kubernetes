@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// MetricValueStatus holds the current value for a metric
+    /// </summary>
     [OutputType]
     public sealed class MetricValueStatus
     {

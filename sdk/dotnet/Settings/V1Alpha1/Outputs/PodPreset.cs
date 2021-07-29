@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Settings.V1Alpha1
 {
 
+    /// <summary>
+    /// PodPreset is a policy resource that defines additional runtime requirements for a Pod.
+    /// </summary>
     [OutputType]
     public sealed class PodPreset
     {

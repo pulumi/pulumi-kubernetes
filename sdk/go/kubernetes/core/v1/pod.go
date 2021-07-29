@@ -171,7 +171,7 @@ type PodArrayInput interface {
 type PodArray []PodInput
 
 func (PodArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Pod)(nil))
+	return reflect.TypeOf((*[]*Pod)(nil)).Elem()
 }
 
 func (i PodArray) ToPodArrayOutput() PodArrayOutput {
@@ -196,7 +196,7 @@ type PodMapInput interface {
 type PodMap map[string]PodInput
 
 func (PodMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Pod)(nil))
+	return reflect.TypeOf((*map[string]*Pod)(nil)).Elem()
 }
 
 func (i PodMap) ToPodMapOutput() PodMapOutput {

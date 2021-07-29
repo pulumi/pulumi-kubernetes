@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+    /// </summary>
     [OutputType]
     public sealed class PodDNSConfig
     {

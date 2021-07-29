@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+    /// </summary>
     [OutputType]
     public sealed class AzureFileVolumeSource
     {

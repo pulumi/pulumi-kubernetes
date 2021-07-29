@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
 {
 
+    /// <summary>
+    /// EndpointHints provides hints describing how an endpoint should be consumed.
+    /// </summary>
     [OutputType]
     public sealed class EndpointHints
     {

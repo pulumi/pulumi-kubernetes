@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Alpha1
 {
 
+    /// <summary>
+    /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+    /// </summary>
     [OutputType]
     public sealed class VolumeAttachmentSpec
     {

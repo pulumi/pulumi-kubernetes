@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Node affinity is a group of node affinity scheduling rules.
+    /// </summary>
     [OutputType]
     public sealed class NodeAffinity
     {

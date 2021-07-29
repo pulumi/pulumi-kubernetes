@@ -156,7 +156,7 @@ type ResourceQuotaArrayInput interface {
 type ResourceQuotaArray []ResourceQuotaInput
 
 func (ResourceQuotaArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ResourceQuota)(nil))
+	return reflect.TypeOf((*[]*ResourceQuota)(nil)).Elem()
 }
 
 func (i ResourceQuotaArray) ToResourceQuotaArrayOutput() ResourceQuotaArrayOutput {
@@ -181,7 +181,7 @@ type ResourceQuotaMapInput interface {
 type ResourceQuotaMap map[string]ResourceQuotaInput
 
 func (ResourceQuotaMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ResourceQuota)(nil))
+	return reflect.TypeOf((*map[string]*ResourceQuota)(nil)).Elem()
 }
 
 func (i ResourceQuotaMap) ToResourceQuotaMapOutput() ResourceQuotaMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1Beta1
 {
 
+    /// <summary>
+    /// This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+    /// </summary>
     [OutputType]
     public sealed class CertificateSigningRequestSpec
     {

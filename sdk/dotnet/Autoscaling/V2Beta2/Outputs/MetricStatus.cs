@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// MetricStatus describes the last-read state of a single metric.
+    /// </summary>
     [OutputType]
     public sealed class MetricStatus
     {

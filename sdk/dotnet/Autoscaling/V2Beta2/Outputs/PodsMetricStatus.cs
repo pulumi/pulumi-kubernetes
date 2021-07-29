@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
+    /// </summary>
     [OutputType]
     public sealed class PodsMetricStatus
     {

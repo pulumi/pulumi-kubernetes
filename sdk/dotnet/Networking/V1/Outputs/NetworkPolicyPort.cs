@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// NetworkPolicyPort describes a port to allow traffic on
+    /// </summary>
     [OutputType]
     public sealed class NetworkPolicyPort
     {

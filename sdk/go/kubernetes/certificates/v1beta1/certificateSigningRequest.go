@@ -159,7 +159,7 @@ type CertificateSigningRequestArrayInput interface {
 type CertificateSigningRequestArray []CertificateSigningRequestInput
 
 func (CertificateSigningRequestArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CertificateSigningRequest)(nil))
+	return reflect.TypeOf((*[]*CertificateSigningRequest)(nil)).Elem()
 }
 
 func (i CertificateSigningRequestArray) ToCertificateSigningRequestArrayOutput() CertificateSigningRequestArrayOutput {
@@ -184,7 +184,7 @@ type CertificateSigningRequestMapInput interface {
 type CertificateSigningRequestMap map[string]CertificateSigningRequestInput
 
 func (CertificateSigningRequestMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CertificateSigningRequest)(nil))
+	return reflect.TypeOf((*map[string]*CertificateSigningRequest)(nil)).Elem()
 }
 
 func (i CertificateSigningRequestMap) ToCertificateSigningRequestMapOutput() CertificateSigningRequestMapOutput {

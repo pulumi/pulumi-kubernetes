@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+    /// </summary>
     [OutputType]
     public sealed class EmptyDirVolumeSource
     {

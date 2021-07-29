@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Represents a source location of a volume to mount, managed by an external CSI driver
+    /// </summary>
     [OutputType]
     public sealed class CSIVolumeSource
     {

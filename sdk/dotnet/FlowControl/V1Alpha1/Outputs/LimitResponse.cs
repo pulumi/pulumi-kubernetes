@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// LimitResponse defines how to handle requests that can not be executed right now.
+    /// </summary>
     [OutputType]
     public sealed class LimitResponse
     {

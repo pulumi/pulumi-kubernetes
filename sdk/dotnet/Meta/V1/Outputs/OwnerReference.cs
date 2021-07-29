@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 {
 
+    /// <summary>
+    /// OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
+    /// </summary>
     [OutputType]
     public sealed class OwnerReference
     {

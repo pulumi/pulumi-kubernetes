@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// IngressSpec describes the Ingress the user wishes to exist.
+    /// </summary>
     [OutputType]
     public sealed class IngressSpec
     {

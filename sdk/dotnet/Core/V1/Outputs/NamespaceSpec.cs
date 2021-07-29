@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NamespaceSpec describes the attributes on a Namespace.
+    /// </summary>
     [OutputType]
     public sealed class NamespaceSpec
     {

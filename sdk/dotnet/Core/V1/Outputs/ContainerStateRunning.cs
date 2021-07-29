@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ContainerStateRunning is a running state of a container.
+    /// </summary>
     [OutputType]
     public sealed class ContainerStateRunning
     {

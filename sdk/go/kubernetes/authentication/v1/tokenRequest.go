@@ -153,7 +153,7 @@ type TokenRequestArrayInput interface {
 type TokenRequestArray []TokenRequestInput
 
 func (TokenRequestArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*TokenRequest)(nil))
+	return reflect.TypeOf((*[]*TokenRequest)(nil)).Elem()
 }
 
 func (i TokenRequestArray) ToTokenRequestArrayOutput() TokenRequestArrayOutput {
@@ -178,7 +178,7 @@ type TokenRequestMapInput interface {
 type TokenRequestMap map[string]TokenRequestInput
 
 func (TokenRequestMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*TokenRequest)(nil))
+	return reflect.TypeOf((*map[string]*TokenRequest)(nil)).Elem()
 }
 
 func (i TokenRequestMap) ToTokenRequestMapOutput() TokenRequestMapOutput {

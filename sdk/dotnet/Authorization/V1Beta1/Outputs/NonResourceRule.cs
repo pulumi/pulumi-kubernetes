@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1Beta1
 {
 
+    /// <summary>
+    /// NonResourceRule holds information that describes a rule for the non-resource
+    /// </summary>
     [OutputType]
     public sealed class NonResourceRule
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
 {
 
+    /// <summary>
+    /// ForZone provides information about which zones should consume this endpoint.
+    /// </summary>
     [OutputType]
     public sealed class ForZone
     {

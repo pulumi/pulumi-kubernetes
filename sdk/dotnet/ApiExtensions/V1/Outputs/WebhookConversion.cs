@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 {
 
+    /// <summary>
+    /// WebhookConversion describes how to call a conversion webhook
+    /// </summary>
     [OutputType]
     public sealed class WebhookConversion
     {

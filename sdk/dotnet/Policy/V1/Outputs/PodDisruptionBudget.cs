@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1
 {
 
+    /// <summary>
+    /// PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
+    /// </summary>
     [OutputType]
     public sealed class PodDisruptionBudget
     {

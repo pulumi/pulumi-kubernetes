@@ -162,7 +162,7 @@ type PodDisruptionBudgetArrayInput interface {
 type PodDisruptionBudgetArray []PodDisruptionBudgetInput
 
 func (PodDisruptionBudgetArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PodDisruptionBudget)(nil))
+	return reflect.TypeOf((*[]*PodDisruptionBudget)(nil)).Elem()
 }
 
 func (i PodDisruptionBudgetArray) ToPodDisruptionBudgetArrayOutput() PodDisruptionBudgetArrayOutput {
@@ -187,7 +187,7 @@ type PodDisruptionBudgetMapInput interface {
 type PodDisruptionBudgetMap map[string]PodDisruptionBudgetInput
 
 func (PodDisruptionBudgetMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PodDisruptionBudget)(nil))
+	return reflect.TypeOf((*map[string]*PodDisruptionBudget)(nil)).Elem()
 }
 
 func (i PodDisruptionBudgetMap) ToPodDisruptionBudgetMapOutput() PodDisruptionBudgetMapOutput {

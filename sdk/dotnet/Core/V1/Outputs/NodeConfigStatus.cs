@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
+    /// </summary>
     [OutputType]
     public sealed class NodeConfigStatus
     {

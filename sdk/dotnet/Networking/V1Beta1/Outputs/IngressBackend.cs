@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1Beta1
 {
 
+    /// <summary>
+    /// IngressBackend describes all endpoints for a given service and port.
+    /// </summary>
     [OutputType]
     public sealed class IngressBackend
     {

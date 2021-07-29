@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta1
 {
 
+    /// <summary>
+    /// CrossVersionObjectReference contains enough information to let you identify the referred resource.
+    /// </summary>
     [OutputType]
     public sealed class CrossVersionObjectReference
     {

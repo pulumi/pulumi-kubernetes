@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1
 {
 
+    /// <summary>
+    /// FlowSchemaStatus represents the current state of a FlowSchema.
+    /// </summary>
     [OutputType]
     public sealed class FlowSchemaStatus
     {

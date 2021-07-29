@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1
 {
 
+    /// <summary>
+    /// SubjectAccessReviewStatus
+    /// </summary>
     [OutputType]
     public sealed class SubjectAccessReviewStatus
     {

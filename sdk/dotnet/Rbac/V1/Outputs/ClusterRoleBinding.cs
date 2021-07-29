@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
 {
 
+    /// <summary>
+    /// ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
+    /// </summary>
     [OutputType]
     public sealed class ClusterRoleBinding
     {

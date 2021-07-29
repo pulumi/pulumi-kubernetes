@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// SessionAffinityConfig represents the configurations of session affinity.
+    /// </summary>
     [OutputType]
     public sealed class SessionAffinityConfig
     {

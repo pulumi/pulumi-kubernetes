@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
+    /// </summary>
     [OutputType]
     public sealed class IngressClassParametersReference
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ServicePort contains information on service's port.
+    /// </summary>
     [OutputType]
     public sealed class ServicePort
     {

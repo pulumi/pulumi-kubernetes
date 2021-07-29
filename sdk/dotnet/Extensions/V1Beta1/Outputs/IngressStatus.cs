@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// IngressStatus describe the current state of the Ingress.
+    /// </summary>
     [OutputType]
     public sealed class IngressStatus
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+    /// </summary>
     [OutputType]
     public sealed class PodAntiAffinity
     {

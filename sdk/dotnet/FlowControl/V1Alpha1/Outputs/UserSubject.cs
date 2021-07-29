@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// UserSubject holds detailed information for user-kind subject.
+    /// </summary>
     [OutputType]
     public sealed class UserSubject
     {

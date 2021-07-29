@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 {
 
+    /// <summary>
+    /// ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
+    /// </summary>
     [OutputType]
     public sealed class ObjectMeta
     {

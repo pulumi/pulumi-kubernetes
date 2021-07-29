@@ -10,6 +10,11 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
+    ///  * How are requests for this priority level limited?
+    ///  * What should be done with requests that exceed the limit?
+    /// </summary>
     [OutputType]
     public sealed class LimitedPriorityLevelConfiguration
     {

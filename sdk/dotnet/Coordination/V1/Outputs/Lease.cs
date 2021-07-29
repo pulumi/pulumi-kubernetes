@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
 {
 
+    /// <summary>
+    /// Lease defines a lease concept.
+    /// </summary>
     [OutputType]
     public sealed class Lease
     {

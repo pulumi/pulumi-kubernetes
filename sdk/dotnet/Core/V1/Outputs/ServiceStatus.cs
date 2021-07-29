@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ServiceStatus represents the current status of a service.
+    /// </summary>
     [OutputType]
     public sealed class ServiceStatus
     {

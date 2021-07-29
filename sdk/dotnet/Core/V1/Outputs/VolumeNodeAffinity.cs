@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+    /// </summary>
     [OutputType]
     public sealed class VolumeNodeAffinity
     {

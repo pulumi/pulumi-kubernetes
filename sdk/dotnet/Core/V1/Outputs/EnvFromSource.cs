@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// EnvFromSource represents the source of a set of ConfigMaps
+    /// </summary>
     [OutputType]
     public sealed class EnvFromSource
     {

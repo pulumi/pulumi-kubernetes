@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
 {
 
+    /// <summary>
+    /// CustomResourceConversion describes how to convert different versions of a CR.
+    /// </summary>
     [OutputType]
     public sealed class CustomResourceConversion
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2Beta2
 {
 
+    /// <summary>
+    /// HPAScalingPolicy is a single policy which must hold true for a specified past interval.
+    /// </summary>
     [OutputType]
     public sealed class HPAScalingPolicy
     {

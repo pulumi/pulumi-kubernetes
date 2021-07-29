@@ -156,7 +156,7 @@ type NodeArrayInput interface {
 type NodeArray []NodeInput
 
 func (NodeArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Node)(nil))
+	return reflect.TypeOf((*[]*Node)(nil)).Elem()
 }
 
 func (i NodeArray) ToNodeArrayOutput() NodeArrayOutput {
@@ -181,7 +181,7 @@ type NodeMapInput interface {
 type NodeMap map[string]NodeInput
 
 func (NodeMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Node)(nil))
+	return reflect.TypeOf((*map[string]*Node)(nil)).Elem()
 }
 
 func (i NodeMap) ToNodeMapOutput() NodeMapOutput {

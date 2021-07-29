@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ServiceSpec describes the attributes that a user creates on a service.
+    /// </summary>
     [OutputType]
     public sealed class ServiceSpec
     {

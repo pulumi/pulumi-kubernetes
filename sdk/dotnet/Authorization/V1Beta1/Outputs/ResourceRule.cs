@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1Beta1
 {
 
+    /// <summary>
+    /// ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
+    /// </summary>
     [OutputType]
     public sealed class ResourceRule
     {

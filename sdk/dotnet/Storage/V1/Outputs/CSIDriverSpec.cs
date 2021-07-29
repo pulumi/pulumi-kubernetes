@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
 {
 
+    /// <summary>
+    /// CSIDriverSpec is the specification of a CSIDriver.
+    /// </summary>
     [OutputType]
     public sealed class CSIDriverSpec
     {

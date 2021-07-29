@@ -214,7 +214,7 @@ type CSIStorageCapacityArrayInput interface {
 type CSIStorageCapacityArray []CSIStorageCapacityInput
 
 func (CSIStorageCapacityArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*CSIStorageCapacity)(nil))
+	return reflect.TypeOf((*[]*CSIStorageCapacity)(nil)).Elem()
 }
 
 func (i CSIStorageCapacityArray) ToCSIStorageCapacityArrayOutput() CSIStorageCapacityArrayOutput {
@@ -239,7 +239,7 @@ type CSIStorageCapacityMapInput interface {
 type CSIStorageCapacityMap map[string]CSIStorageCapacityInput
 
 func (CSIStorageCapacityMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*CSIStorageCapacity)(nil))
+	return reflect.TypeOf((*map[string]*CSIStorageCapacity)(nil)).Elem()
 }
 
 func (i CSIStorageCapacityMap) ToCSIStorageCapacityMapOutput() CSIStorageCapacityMapOutput {

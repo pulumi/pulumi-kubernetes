@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// TCPSocketAction describes an action based on opening a socket
+    /// </summary>
     [OutputType]
     public sealed class TCPSocketAction
     {

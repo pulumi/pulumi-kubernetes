@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
 {
 
+    /// <summary>
+    /// TokenRequest contains parameters of a service account token.
+    /// </summary>
     [OutputType]
     public sealed class TokenRequest
     {

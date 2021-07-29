@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authentication.V1
 {
 
+    /// <summary>
+    /// TokenRequestSpec contains client provided parameters of a token request.
+    /// </summary>
     [OutputType]
     public sealed class TokenRequestSpec
     {

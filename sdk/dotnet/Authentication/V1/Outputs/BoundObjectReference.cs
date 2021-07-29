@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authentication.V1
 {
 
+    /// <summary>
+    /// BoundObjectReference is a reference to an object that a token is bound to.
+    /// </summary>
     [OutputType]
     public sealed class BoundObjectReference
     {

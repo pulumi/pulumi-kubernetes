@@ -151,7 +151,7 @@ type AuditSinkArrayInput interface {
 type AuditSinkArray []AuditSinkInput
 
 func (AuditSinkArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*AuditSink)(nil))
+	return reflect.TypeOf((*[]*AuditSink)(nil)).Elem()
 }
 
 func (i AuditSinkArray) ToAuditSinkArrayOutput() AuditSinkArrayOutput {
@@ -176,7 +176,7 @@ type AuditSinkMapInput interface {
 type AuditSinkMap map[string]AuditSinkInput
 
 func (AuditSinkMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*AuditSink)(nil))
+	return reflect.TypeOf((*map[string]*AuditSink)(nil)).Elem()
 }
 
 func (i AuditSinkMap) ToAuditSinkMapOutput() AuditSinkMapOutput {

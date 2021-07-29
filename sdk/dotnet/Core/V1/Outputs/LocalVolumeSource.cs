@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Local represents directly-attached storage with node affinity (Beta feature)
+    /// </summary>
     [OutputType]
     public sealed class LocalVolumeSource
     {

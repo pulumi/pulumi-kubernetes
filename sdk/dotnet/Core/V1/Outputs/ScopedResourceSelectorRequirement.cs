@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+    /// </summary>
     [OutputType]
     public sealed class ScopedResourceSelectorRequirement
     {

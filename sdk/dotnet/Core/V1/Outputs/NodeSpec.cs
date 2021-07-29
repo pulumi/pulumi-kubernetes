@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// NodeSpec describes the attributes that a node is created with.
+    /// </summary>
     [OutputType]
     public sealed class NodeSpec
     {

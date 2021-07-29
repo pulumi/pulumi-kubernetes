@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Represents storage that is managed by an external CSI volume driver (Beta feature)
+    /// </summary>
     [OutputType]
     public sealed class CSIPersistentVolumeSource
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta2
 {
 
+    /// <summary>
+    /// ReplicaSet ensures that a specified number of pod replicas are running at any given time.
+    /// </summary>
     [OutputType]
     public sealed class ReplicaSet
     {

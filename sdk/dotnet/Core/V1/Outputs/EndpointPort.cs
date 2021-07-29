@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// EndpointPort is a tuple that describes a single port.
+    /// </summary>
     [OutputType]
     public sealed class EndpointPort
     {

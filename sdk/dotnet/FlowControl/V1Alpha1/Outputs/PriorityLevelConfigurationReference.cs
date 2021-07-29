@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+    /// </summary>
     [OutputType]
     public sealed class PriorityLevelConfigurationReference
     {

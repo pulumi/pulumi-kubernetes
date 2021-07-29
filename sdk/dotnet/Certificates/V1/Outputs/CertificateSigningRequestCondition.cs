@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Certificates.V1
 {
 
+    /// <summary>
+    /// CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
+    /// </summary>
     [OutputType]
     public sealed class CertificateSigningRequestCondition
     {

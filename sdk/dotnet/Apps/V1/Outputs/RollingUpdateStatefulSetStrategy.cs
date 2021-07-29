@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+    /// </summary>
     [OutputType]
     public sealed class RollingUpdateStatefulSetStrategy
     {

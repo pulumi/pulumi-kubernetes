@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
 {
 
+    /// <summary>
+    /// MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
+    /// </summary>
     [OutputType]
     public sealed class MutatingWebhookConfiguration
     {

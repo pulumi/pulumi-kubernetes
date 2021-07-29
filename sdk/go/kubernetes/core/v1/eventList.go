@@ -158,7 +158,7 @@ type EventListArrayInput interface {
 type EventListArray []EventListInput
 
 func (EventListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*EventList)(nil))
+	return reflect.TypeOf((*[]*EventList)(nil)).Elem()
 }
 
 func (i EventListArray) ToEventListArrayOutput() EventListArrayOutput {
@@ -183,7 +183,7 @@ type EventListMapInput interface {
 type EventListMap map[string]EventListInput
 
 func (EventListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*EventList)(nil))
+	return reflect.TypeOf((*map[string]*EventList)(nil)).Elem()
 }
 
 func (i EventListMap) ToEventListMapOutput() EventListMapOutput {

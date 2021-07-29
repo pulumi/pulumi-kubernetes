@@ -163,7 +163,7 @@ type SelfSubjectRulesReviewArrayInput interface {
 type SelfSubjectRulesReviewArray []SelfSubjectRulesReviewInput
 
 func (SelfSubjectRulesReviewArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*SelfSubjectRulesReview)(nil))
+	return reflect.TypeOf((*[]*SelfSubjectRulesReview)(nil)).Elem()
 }
 
 func (i SelfSubjectRulesReviewArray) ToSelfSubjectRulesReviewArrayOutput() SelfSubjectRulesReviewArrayOutput {
@@ -188,7 +188,7 @@ type SelfSubjectRulesReviewMapInput interface {
 type SelfSubjectRulesReviewMap map[string]SelfSubjectRulesReviewInput
 
 func (SelfSubjectRulesReviewMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*SelfSubjectRulesReview)(nil))
+	return reflect.TypeOf((*map[string]*SelfSubjectRulesReview)(nil)).Elem()
 }
 
 func (i SelfSubjectRulesReviewMap) ToSelfSubjectRulesReviewMapOutput() SelfSubjectRulesReviewMapOutput {

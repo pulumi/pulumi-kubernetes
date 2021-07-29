@@ -10,6 +10,11 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
 {
 
+    /// <summary>
+    /// VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
+    /// 
+    /// VolumeAttachment objects are non-namespaced.
+    /// </summary>
     [OutputType]
     public sealed class VolumeAttachment
     {

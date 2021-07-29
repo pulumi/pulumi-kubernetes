@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 {
 
+    /// <summary>
+    /// ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
+    /// </summary>
     [OutputType]
     public sealed class ListMeta
     {

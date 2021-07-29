@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// HTTPHeader describes a custom header to be used in HTTP probes
+    /// </summary>
     [OutputType]
     public sealed class HTTPHeader
     {

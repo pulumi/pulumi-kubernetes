@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
 {
 
+    /// <summary>
+    /// StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
+    /// </summary>
     [OutputType]
     public sealed class StatusCause
     {

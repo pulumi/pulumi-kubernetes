@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+    /// </summary>
     [OutputType]
     public sealed class EventSeries
     {

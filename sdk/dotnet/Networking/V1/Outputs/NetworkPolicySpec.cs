@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
+    /// <summary>
+    /// NetworkPolicySpec provides the specification of a NetworkPolicy
+    /// </summary>
     [OutputType]
     public sealed class NetworkPolicySpec
     {

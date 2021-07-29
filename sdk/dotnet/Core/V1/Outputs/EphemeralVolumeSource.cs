@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// Represents an ephemeral volume that is handled by a normal storage driver.
+    /// </summary>
     [OutputType]
     public sealed class EphemeralVolumeSource
     {

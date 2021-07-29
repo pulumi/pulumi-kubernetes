@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// DeploymentCondition describes the state of a deployment at a certain point.
+    /// </summary>
     [OutputType]
     public sealed class DeploymentCondition
     {

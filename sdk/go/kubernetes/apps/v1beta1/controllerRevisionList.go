@@ -158,7 +158,7 @@ type ControllerRevisionListArrayInput interface {
 type ControllerRevisionListArray []ControllerRevisionListInput
 
 func (ControllerRevisionListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ControllerRevisionList)(nil))
+	return reflect.TypeOf((*[]*ControllerRevisionList)(nil)).Elem()
 }
 
 func (i ControllerRevisionListArray) ToControllerRevisionListArrayOutput() ControllerRevisionListArrayOutput {
@@ -183,7 +183,7 @@ type ControllerRevisionListMapInput interface {
 type ControllerRevisionListMap map[string]ControllerRevisionListInput
 
 func (ControllerRevisionListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ControllerRevisionList)(nil))
+	return reflect.TypeOf((*map[string]*ControllerRevisionList)(nil)).Elem()
 }
 
 func (i ControllerRevisionListMap) ToControllerRevisionListMapOutput() ControllerRevisionListMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Node.V1Beta1
 {
 
+    /// <summary>
+    /// Overhead structure represents the resource overhead associated with running a pod.
+    /// </summary>
     [OutputType]
     public sealed class Overhead
     {

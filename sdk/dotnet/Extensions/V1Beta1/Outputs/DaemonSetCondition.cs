@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
+    /// </summary>
     [OutputType]
     public sealed class DaemonSetCondition
     {

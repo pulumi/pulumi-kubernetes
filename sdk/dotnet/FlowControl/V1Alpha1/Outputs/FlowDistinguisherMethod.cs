@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Alpha1
 {
 
+    /// <summary>
+    /// FlowDistinguisherMethod specifies the method of a flow distinguisher.
+    /// </summary>
     [OutputType]
     public sealed class FlowDistinguisherMethod
     {

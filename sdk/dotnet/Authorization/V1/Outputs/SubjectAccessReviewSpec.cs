@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authorization.V1
 {
 
+    /// <summary>
+    /// SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
+    /// </summary>
     [OutputType]
     public sealed class SubjectAccessReviewSpec
     {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.AuditRegistraion.V1Alpha1
 {
 
+    /// <summary>
+    /// Policy defines the configuration of how audit events are logged
+    /// </summary>
     [OutputType]
     public sealed class Policy
     {

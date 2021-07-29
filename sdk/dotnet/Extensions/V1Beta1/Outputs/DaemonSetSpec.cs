@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Extensions.V1Beta1
 {
 
+    /// <summary>
+    /// DaemonSetSpec is the specification of a daemon set.
+    /// </summary>
     [OutputType]
     public sealed class DaemonSetSpec
     {

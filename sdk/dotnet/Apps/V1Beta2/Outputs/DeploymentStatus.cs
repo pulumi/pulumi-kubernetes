@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta2
 {
 
+    /// <summary>
+    /// DeploymentStatus is the most recently observed status of the Deployment.
+    /// </summary>
     [OutputType]
     public sealed class DeploymentStatus
     {

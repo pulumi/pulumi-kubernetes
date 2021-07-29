@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ReplicationControllerStatus represents the current status of a replication controller.
+    /// </summary>
     [OutputType]
     public sealed class ReplicationControllerStatus
     {

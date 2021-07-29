@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Beta1
 {
 
+    /// <summary>
+    /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
+    /// </summary>
     [OutputType]
     public sealed class VolumeNodeResources
     {

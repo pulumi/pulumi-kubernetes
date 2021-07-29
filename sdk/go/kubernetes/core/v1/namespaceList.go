@@ -158,7 +158,7 @@ type NamespaceListArrayInput interface {
 type NamespaceListArray []NamespaceListInput
 
 func (NamespaceListArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*NamespaceList)(nil))
+	return reflect.TypeOf((*[]*NamespaceList)(nil)).Elem()
 }
 
 func (i NamespaceListArray) ToNamespaceListArrayOutput() NamespaceListArrayOutput {
@@ -183,7 +183,7 @@ type NamespaceListMapInput interface {
 type NamespaceListMap map[string]NamespaceListInput
 
 func (NamespaceListMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*NamespaceList)(nil))
+	return reflect.TypeOf((*map[string]*NamespaceList)(nil)).Elem()
 }
 
 func (i NamespaceListMap) ToNamespaceListMapOutput() NamespaceListMapOutput {

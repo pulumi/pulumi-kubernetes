@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+    /// </summary>
     [OutputType]
     public sealed class SeccompProfile
     {

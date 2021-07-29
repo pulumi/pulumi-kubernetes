@@ -173,7 +173,7 @@ type ClusterRoleBindingArrayInput interface {
 type ClusterRoleBindingArray []ClusterRoleBindingInput
 
 func (ClusterRoleBindingArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ClusterRoleBinding)(nil))
+	return reflect.TypeOf((*[]*ClusterRoleBinding)(nil)).Elem()
 }
 
 func (i ClusterRoleBindingArray) ToClusterRoleBindingArrayOutput() ClusterRoleBindingArrayOutput {
@@ -198,7 +198,7 @@ type ClusterRoleBindingMapInput interface {
 type ClusterRoleBindingMap map[string]ClusterRoleBindingInput
 
 func (ClusterRoleBindingMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ClusterRoleBinding)(nil))
+	return reflect.TypeOf((*map[string]*ClusterRoleBinding)(nil)).Elem()
 }
 
 func (i ClusterRoleBindingMap) ToClusterRoleBindingMapOutput() ClusterRoleBindingMapOutput {

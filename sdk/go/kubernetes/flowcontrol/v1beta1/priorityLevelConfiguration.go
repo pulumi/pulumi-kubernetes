@@ -162,7 +162,7 @@ type PriorityLevelConfigurationArrayInput interface {
 type PriorityLevelConfigurationArray []PriorityLevelConfigurationInput
 
 func (PriorityLevelConfigurationArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*PriorityLevelConfiguration)(nil))
+	return reflect.TypeOf((*[]*PriorityLevelConfiguration)(nil)).Elem()
 }
 
 func (i PriorityLevelConfigurationArray) ToPriorityLevelConfigurationArrayOutput() PriorityLevelConfigurationArrayOutput {
@@ -187,7 +187,7 @@ type PriorityLevelConfigurationMapInput interface {
 type PriorityLevelConfigurationMap map[string]PriorityLevelConfigurationInput
 
 func (PriorityLevelConfigurationMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*PriorityLevelConfiguration)(nil))
+	return reflect.TypeOf((*map[string]*PriorityLevelConfiguration)(nil)).Elem()
 }
 
 func (i PriorityLevelConfigurationMap) ToPriorityLevelConfigurationMapOutput() PriorityLevelConfigurationMapOutput {

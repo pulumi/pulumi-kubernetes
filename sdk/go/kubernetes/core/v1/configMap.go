@@ -166,7 +166,7 @@ type ConfigMapArrayInput interface {
 type ConfigMapArray []ConfigMapInput
 
 func (ConfigMapArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*ConfigMap)(nil))
+	return reflect.TypeOf((*[]*ConfigMap)(nil)).Elem()
 }
 
 func (i ConfigMapArray) ToConfigMapArrayOutput() ConfigMapArrayOutput {
@@ -191,7 +191,7 @@ type ConfigMapMapInput interface {
 type ConfigMapMap map[string]ConfigMapInput
 
 func (ConfigMapMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*ConfigMap)(nil))
+	return reflect.TypeOf((*map[string]*ConfigMap)(nil)).Elem()
 }
 
 func (i ConfigMapMap) ToConfigMapMapOutput() ConfigMapMapOutput {

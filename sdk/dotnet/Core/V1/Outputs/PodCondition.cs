@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// PodCondition contains details for the current condition of this pod.
+    /// </summary>
     [OutputType]
     public sealed class PodCondition
     {

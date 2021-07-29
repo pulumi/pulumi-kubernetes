@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+    /// </summary>
     [OutputType]
     public sealed class LocalObjectReference
     {

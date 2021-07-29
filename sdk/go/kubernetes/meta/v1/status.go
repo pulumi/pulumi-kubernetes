@@ -173,7 +173,7 @@ type StatusArrayInput interface {
 type StatusArray []StatusInput
 
 func (StatusArray) ElementType() reflect.Type {
-	return reflect.TypeOf(([]*Status)(nil))
+	return reflect.TypeOf((*[]*Status)(nil)).Elem()
 }
 
 func (i StatusArray) ToStatusArrayOutput() StatusArrayOutput {
@@ -198,7 +198,7 @@ type StatusMapInput interface {
 type StatusMap map[string]StatusInput
 
 func (StatusMap) ElementType() reflect.Type {
-	return reflect.TypeOf((map[string]*Status)(nil))
+	return reflect.TypeOf((*map[string]*Status)(nil)).Elem()
 }
 
 func (i StatusMap) ToStatusMapOutput() StatusMapOutput {

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ObjectFieldSelector selects an APIVersioned field of an object.
+    /// </summary>
     [OutputType]
     public sealed class ObjectFieldSelector
     {

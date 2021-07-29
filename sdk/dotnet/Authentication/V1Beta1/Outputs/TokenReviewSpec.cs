@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Authentication.V1Beta1
 {
 
+    /// <summary>
+    /// TokenReviewSpec is a description of the token authentication request.
+    /// </summary>
     [OutputType]
     public sealed class TokenReviewSpec
     {

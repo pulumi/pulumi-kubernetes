@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1Beta1
 {
 
+    /// <summary>
+    /// A StatefulSetSpec is the specification of a StatefulSet.
+    /// </summary>
     [OutputType]
     public sealed class StatefulSetSpec
     {

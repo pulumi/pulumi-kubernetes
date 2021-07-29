@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.
+    /// </summary>
     [OutputType]
     public sealed class ConfigMapNodeConfigSource
     {

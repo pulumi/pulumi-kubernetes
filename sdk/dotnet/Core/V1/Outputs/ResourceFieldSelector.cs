@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 {
 
+    /// <summary>
+    /// ResourceFieldSelector represents container resources (cpu, memory) and their output format
+    /// </summary>
     [OutputType]
     public sealed class ResourceFieldSelector
     {
