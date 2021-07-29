@@ -1,6 +1,6 @@
 ## HEAD (Unreleased)
 
-## 3.5.2 (July 28, 2021)
+## 3.5.2 (July 29, 2021)
 
 - Update pulumi dependencies v3.7.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1651)
 - Update pulumi dependencies v3.9.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1660)
