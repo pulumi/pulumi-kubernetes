@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
-	"sigs.k8s.io/kustomize/api/filesys"
 	"sigs.k8s.io/kustomize/api/krusty"
 	"sigs.k8s.io/kustomize/api/types"
+	"sigs.k8s.io/kustomize/kyaml/filesys"
 )
 
 // kustomizeDirectory takes a path to a kustomization directory, either a local directory or a folder in a git repo,
@@ -55,9 +55,9 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 		DoPrune:              false,
 	}
 
-	k := krusty.MakeKustomizer(fSys, opts)
+	k := krusty.MakeKustomizer(opts)
 
-	rm, err := k.Run(path)
+	rm, err := k.Run(fSys, path)
 	if err != nil {
 		return nil, errors.Wrapf(err, "kustomize failed for directory %q", path)
 	}
