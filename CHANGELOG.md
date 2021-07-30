@@ -1,5 +1,11 @@
 ## HEAD (Unreleased)
 
+## 3.6.0 (Auguest 4, 2021)
+
+The following breaking changes are part of the Kubernetes v1.22 update:
+- The alpha `EphemeralContainers` kind [has been removed](https://github.com/kubernetes/kubernetes/pull/101034)
+- [.NET SDK] `Networking.V1Beta1.IngressClassParametersReferenceArgs` -> `Core.V1.TypedLocalObjectReferenceArgs`
+
 - Update Helm and client-go deps (https://github.com/pulumi/pulumi-kubernetes/pull/1662)
 - Add support for k8s v1.22.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1551)
 
