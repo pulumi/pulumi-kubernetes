@@ -14,7 +14,10 @@
 
 package gen
 
-import pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+import (
+	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	v1 "k8s.io/api/core/v1"
+)
 
 // typeOverlays augment the types defined by the kubernetes schema.
 var typeOverlays = map[string]pschema.ComplexTypeSpec{
@@ -37,10 +40,10 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			Type: "string",
 		},
 		Enum: []pschema.EnumValueSpec{
-			{Value: "ExternalName"},
-			{Value: "ClusterIP"},
-			{Value: "NodePort"},
-			{Value: "LoadBalancer"},
+			{Value: v1.ServiceTypeExternalName},
+			{Value: v1.ServiceTypeClusterIP},
+			{Value: v1.ServiceTypeNodePort},
+			{Value: v1.ServiceTypeLoadBalancer},
 		},
 	},
 }
