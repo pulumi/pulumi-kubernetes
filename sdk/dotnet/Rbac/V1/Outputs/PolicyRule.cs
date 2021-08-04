@@ -29,11 +29,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Rbac.V1
         /// </summary>
         public readonly ImmutableArray<string> ResourceNames;
         /// <summary>
-        /// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+        /// Resources is a list of resources this rule applies to. '*' represents all resources.
         /// </summary>
         public readonly ImmutableArray<string> Resources;
         /// <summary>
-        /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+        /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
         /// </summary>
         public readonly ImmutableArray<string> Verbs;
 

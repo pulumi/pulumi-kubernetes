@@ -658,6 +658,7 @@ class CustomResourceDefinitionArgs:
         :param pulumi.Input['CustomResourceDefinitionSpecArgs'] spec: spec describes how the user wants the resources to appear
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['CustomResourceDefinitionStatusArgs'] status: status indicates the actual state of the CustomResourceDefinition
         """
         pulumi.set(__self__, "spec", spec)
@@ -709,6 +710,9 @@ class CustomResourceDefinitionArgs:
     @property
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
         return pulumi.get(self, "metadata")
 
     @metadata.setter

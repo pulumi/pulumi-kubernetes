@@ -44,6 +44,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// The number of pods which reached phase Succeeded.
         /// </summary>
         public readonly int Succeeded;
+        /// <summary>
+        /// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+        /// 
+        /// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+        ///     counter.
+        /// 
+        /// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Batch.V1.UncountedTerminatedPods UncountedTerminatedPods;
 
         [OutputConstructor]
         private JobStatus(
@@ -59,7 +68,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 
             string startTime,
 
-            int succeeded)
+            int succeeded,
+
+            Pulumi.Kubernetes.Types.Outputs.Batch.V1.UncountedTerminatedPods uncountedTerminatedPods)
         {
             Active = active;
             CompletedIndexes = completedIndexes;
@@ -68,6 +79,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
             Failed = failed;
             StartTime = startTime;
             Succeeded = succeeded;
+            UncountedTerminatedPods = uncountedTerminatedPods;
         }
     }
 }

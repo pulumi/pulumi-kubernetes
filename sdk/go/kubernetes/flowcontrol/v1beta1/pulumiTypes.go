@@ -2769,11 +2769,14 @@ func (o ServiceAccountSubjectPtrOutput) Namespace() pulumi.StringPtrOutput {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type Subject struct {
+	// `group` matches based on user group name.
 	Group *GroupSubject `pulumi:"group"`
-	// Required
-	Kind           string                 `pulumi:"kind"`
+	// `kind` indicates which one of the other fields is non-empty. Required
+	Kind string `pulumi:"kind"`
+	// `serviceAccount` matches ServiceAccounts.
 	ServiceAccount *ServiceAccountSubject `pulumi:"serviceAccount"`
-	User           *UserSubject           `pulumi:"user"`
+	// `user` matches based on username.
+	User *UserSubject `pulumi:"user"`
 }
 
 // SubjectInput is an input type that accepts SubjectArgs and SubjectOutput values.
@@ -2789,11 +2792,14 @@ type SubjectInput interface {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectArgs struct {
+	// `group` matches based on user group name.
 	Group GroupSubjectPtrInput `pulumi:"group"`
-	// Required
-	Kind           pulumi.StringInput            `pulumi:"kind"`
+	// `kind` indicates which one of the other fields is non-empty. Required
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// `serviceAccount` matches ServiceAccounts.
 	ServiceAccount ServiceAccountSubjectPtrInput `pulumi:"serviceAccount"`
-	User           UserSubjectPtrInput           `pulumi:"user"`
+	// `user` matches based on username.
+	User UserSubjectPtrInput `pulumi:"user"`
 }
 
 func (SubjectArgs) ElementType() reflect.Type {
@@ -2848,19 +2854,22 @@ func (o SubjectOutput) ToSubjectOutputWithContext(ctx context.Context) SubjectOu
 	return o
 }
 
+// `group` matches based on user group name.
 func (o SubjectOutput) Group() GroupSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *GroupSubject { return v.Group }).(GroupSubjectPtrOutput)
 }
 
-// Required
+// `kind` indicates which one of the other fields is non-empty. Required
 func (o SubjectOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v Subject) string { return v.Kind }).(pulumi.StringOutput)
 }
 
+// `serviceAccount` matches ServiceAccounts.
 func (o SubjectOutput) ServiceAccount() ServiceAccountSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *ServiceAccountSubject { return v.ServiceAccount }).(ServiceAccountSubjectPtrOutput)
 }
 
+// `user` matches based on username.
 func (o SubjectOutput) User() UserSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *UserSubject { return v.User }).(UserSubjectPtrOutput)
 }

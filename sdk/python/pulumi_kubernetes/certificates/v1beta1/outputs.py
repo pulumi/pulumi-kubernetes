@@ -130,7 +130,7 @@ class CertificateSigningRequestCondition(dict):
                  reason: Optional[str] = None,
                  status: Optional[str] = None):
         """
-        :param str type: type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+        :param str type: request approval state, currently Approved or Denied.
         :param str last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         :param str last_update_time: timestamp for the last update to this condition
         :param str message: human readable message with details about the request state
@@ -153,7 +153,7 @@ class CertificateSigningRequestCondition(dict):
     @pulumi.getter
     def type(self) -> str:
         """
-        type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+        request approval state, currently Approved or Denied.
         """
         return pulumi.get(self, "type")
 
@@ -243,30 +243,6 @@ class CertificateSigningRequestSpec(dict):
         :param str uid: UID information about the requesting user. See user.Info interface for details.
         :param Sequence[str] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
                     https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-               Valid values are:
-                "signing",
-                "digital signature",
-                "content commitment",
-                "key encipherment",
-                "key agreement",
-                "data encipherment",
-                "cert sign",
-                "crl sign",
-                "encipher only",
-                "decipher only",
-                "any",
-                "server auth",
-                "client auth",
-                "code signing",
-                "email protection",
-                "s/mime",
-                "ipsec end system",
-                "ipsec tunnel",
-                "ipsec user",
-                "timestamping",
-                "ocsp signing",
-                "microsoft sgc",
-                "netscape sgc"
         :param str username: Information about the requesting user. See user.Info interface for details.
         """
         pulumi.set(__self__, "request", request)
@@ -335,30 +311,6 @@ class CertificateSigningRequestSpec(dict):
         """
         allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
              https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-        Valid values are:
-         "signing",
-         "digital signature",
-         "content commitment",
-         "key encipherment",
-         "key agreement",
-         "data encipherment",
-         "cert sign",
-         "crl sign",
-         "encipher only",
-         "decipher only",
-         "any",
-         "server auth",
-         "client auth",
-         "code signing",
-         "email protection",
-         "s/mime",
-         "ipsec end system",
-         "ipsec tunnel",
-         "ipsec user",
-         "timestamping",
-         "ocsp signing",
-         "microsoft sgc",
-         "netscape sgc"
         """
         return pulumi.get(self, "usages")
 

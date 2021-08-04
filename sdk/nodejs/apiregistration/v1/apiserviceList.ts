@@ -39,11 +39,17 @@ export class APIServiceList extends pulumi.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     public readonly apiVersion!: pulumi.Output<"apiregistration.k8s.io/v1">;
+    /**
+     * Items is the list of APIService
+     */
     public readonly items!: pulumi.Output<outputs.apiregistration.v1.APIService[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     public readonly kind!: pulumi.Output<"APIServiceList">;
+    /**
+     * Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ListMeta>;
 
     /**
@@ -87,10 +93,16 @@ export interface APIServiceListArgs {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     apiVersion?: pulumi.Input<"apiregistration.k8s.io/v1">;
+    /**
+     * Items is the list of APIService
+     */
     items: pulumi.Input<pulumi.Input<inputs.apiregistration.v1.APIService>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind?: pulumi.Input<"APIServiceList">;
+    /**
+     * Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+     */
     metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }

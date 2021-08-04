@@ -785,7 +785,8 @@ type PodDisruptionBudgetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpec `pulumi:"spec"`
@@ -809,7 +810,8 @@ type PodDisruptionBudgetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPtrInput `pulumi:"spec"`
@@ -879,6 +881,7 @@ func (o PodDisruptionBudgetTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -916,10 +919,12 @@ func (o PodDisruptionBudgetTypeArrayOutput) Index(i pulumi.IntInput) PodDisrupti
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string                   `pulumi:"apiVersion"`
-	Items      []PodDisruptionBudgetType `pulumi:"items"`
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items list individual PodDisruptionBudget objects
+	Items []PodDisruptionBudgetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -937,10 +942,12 @@ type PodDisruptionBudgetListTypeInput interface {
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput             `pulumi:"apiVersion"`
-	Items      PodDisruptionBudgetTypeArrayInput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items list individual PodDisruptionBudget objects
+	Items PodDisruptionBudgetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -976,6 +983,7 @@ func (o PodDisruptionBudgetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
+// items list individual PodDisruptionBudget objects
 func (o PodDisruptionBudgetListTypeOutput) Items() PodDisruptionBudgetTypeArrayOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) []PodDisruptionBudgetType { return v.Items }).(PodDisruptionBudgetTypeArrayOutput)
 }
@@ -985,6 +993,7 @@ func (o PodDisruptionBudgetListTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }

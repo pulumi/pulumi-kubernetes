@@ -31,8 +31,6 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Endpoints{}
 	case "kubernetes:core/v1:EndpointsList":
 		r = &EndpointsList{}
-	case "kubernetes:core/v1:EphemeralContainers":
-		r = &EphemeralContainers{}
 	case "kubernetes:core/v1:Event":
 		r = &Event{}
 	case "kubernetes:core/v1:EventList":

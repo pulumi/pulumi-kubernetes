@@ -21,6 +21,9 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
         [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
 
+        /// <summary>
+        /// Items is the list of APIService
+        /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiRegistration.V1.APIService>> Items { get; private set; } = null!;
 
@@ -30,6 +33,9 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
         [Output("kind")]
         public Output<string> Kind { get; private set; } = null!;
 
+        /// <summary>
+        /// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
@@ -105,6 +111,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
 
         [Input("items", required: true)]
         private InputList<Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1.APIServiceArgs>? _items;
+
+        /// <summary>
+        /// Items is the list of APIService
+        /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1.APIServiceArgs> Items
         {
             get => _items ?? (_items = new InputList<Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1.APIServiceArgs>());
@@ -117,6 +127,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
+        /// <summary>
+        /// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ListMetaArgs>? Metadata { get; set; }
 

@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
 {
 
+    /// <summary>
+    /// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
+    /// </summary>
     public class SelfSubjectRulesReviewSpecArgs : Pulumi.ResourceArgs
     {
         /// <summary>

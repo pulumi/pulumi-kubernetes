@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs>? LabelSelector { get; set; }
 
         /// <summary>
-        /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+        /// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
         /// </summary>
         [Input("namespaceSelector")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs>? NamespaceSelector { get; set; }

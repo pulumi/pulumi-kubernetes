@@ -19,10 +19,13 @@ type TokenRequest struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput      `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrOutput  `pulumi:"metadata"`
-	Spec     TokenRequestSpecOutput      `pulumi:"spec"`
-	Status   TokenRequestStatusPtrOutput `pulumi:"status"`
+	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	// Spec holds information about the request being evaluated
+	Spec TokenRequestSpecOutput `pulumi:"spec"`
+	// Status is filled in by the server and indicates whether the token can be authenticated.
+	Status TokenRequestStatusPtrOutput `pulumi:"status"`
 }
 
 // NewTokenRequest registers a new resource with the given unique name, arguments, and options.
@@ -72,9 +75,11 @@ type tokenRequestArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	Spec     TokenRequestSpec   `pulumi:"spec"`
+	// Spec holds information about the request being evaluated
+	Spec TokenRequestSpec `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a TokenRequest resource.
@@ -82,9 +87,11 @@ type TokenRequestArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
+	Kind pulumi.StringPtrInput
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
-	Spec     TokenRequestSpecInput
+	// Spec holds information about the request being evaluated
+	Spec TokenRequestSpecInput
 }
 
 func (TokenRequestArgs) ElementType() reflect.Type {

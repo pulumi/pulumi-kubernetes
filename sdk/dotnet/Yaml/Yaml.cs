@@ -138,7 +138,6 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Core.V1.ConfigMapList) ? "v1/ConfigMapList" :
                 type == typeof(Core.V1.Endpoints) ? "v1/Endpoints" :
                 type == typeof(Core.V1.EndpointsList) ? "v1/EndpointsList" :
-                type == typeof(Core.V1.EphemeralContainers) ? "v1/EphemeralContainers" :
                 type == typeof(Core.V1.Event) ? "v1/Event" :
                 type == typeof(Core.V1.EventList) ? "v1/EventList" :
                 type == typeof(Core.V1.LimitRange) ? "v1/LimitRange" :
@@ -888,12 +887,6 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"v1/Endpoints::{id}",
                                 new Core.V1.Endpoints(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "v1/EphemeralContainers":
-                        return new[]
-                        {
-                            id.Apply(id => ($"v1/EphemeralContainers::{id}",
-                                new Core.V1.EphemeralContainers(id, obj!, opts) as KubernetesResource))
                         };
                     case "v1/Event":
                         return new[]

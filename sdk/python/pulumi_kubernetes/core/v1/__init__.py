@@ -11,7 +11,6 @@ from .ConfigMap import *
 from .ConfigMapList import *
 from .Endpoints import *
 from .EndpointsList import *
-from .EphemeralContainers import *
 from .Event import *
 from .EventList import *
 from .LimitRange import *

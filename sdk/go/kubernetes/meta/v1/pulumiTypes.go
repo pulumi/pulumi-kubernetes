@@ -1691,6 +1691,8 @@ type ManagedFieldsEntry struct {
 	Manager *string `pulumi:"manager"`
 	// Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
 	Operation *string `pulumi:"operation"`
+	// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+	Subresource *string `pulumi:"subresource"`
 	// Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
 	Time *string `pulumi:"time"`
 }
@@ -1718,6 +1720,8 @@ type ManagedFieldsEntryArgs struct {
 	Manager pulumi.StringPtrInput `pulumi:"manager"`
 	// Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
 	Operation pulumi.StringPtrInput `pulumi:"operation"`
+	// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+	Subresource pulumi.StringPtrInput `pulumi:"subresource"`
 	// Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
 	Time pulumi.StringPtrInput `pulumi:"time"`
 }
@@ -1797,6 +1801,11 @@ func (o ManagedFieldsEntryOutput) Manager() pulumi.StringPtrOutput {
 // Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
 func (o ManagedFieldsEntryOutput) Operation() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ManagedFieldsEntry) *string { return v.Operation }).(pulumi.StringPtrOutput)
+}
+
+// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+func (o ManagedFieldsEntryOutput) Subresource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ManagedFieldsEntry) *string { return v.Subresource }).(pulumi.StringPtrOutput)
 }
 
 // Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'

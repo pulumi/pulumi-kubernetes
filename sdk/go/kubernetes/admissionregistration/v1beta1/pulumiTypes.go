@@ -73,7 +73,7 @@ type MutatingWebhook struct {
 	ReinvocationPolicy *string `pulumi:"reinvocationPolicy"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules []RuleWithOperations `pulumi:"rules"`
-	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
+	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 	SideEffects *string `pulumi:"sideEffects"`
 	// TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 	TimeoutSeconds *int `pulumi:"timeoutSeconds"`
@@ -152,7 +152,7 @@ type MutatingWebhookArgs struct {
 	ReinvocationPolicy pulumi.StringPtrInput `pulumi:"reinvocationPolicy"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules RuleWithOperationsArrayInput `pulumi:"rules"`
-	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
+	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 	SideEffects pulumi.StringPtrInput `pulumi:"sideEffects"`
 	// TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 	TimeoutSeconds pulumi.IntPtrInput `pulumi:"timeoutSeconds"`
@@ -297,7 +297,7 @@ func (o MutatingWebhookOutput) Rules() RuleWithOperationsArrayOutput {
 	return o.ApplyT(func(v MutatingWebhook) []RuleWithOperations { return v.Rules }).(RuleWithOperationsArrayOutput)
 }
 
-// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
+// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 func (o MutatingWebhookOutput) SideEffects() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MutatingWebhook) *string { return v.SideEffects }).(pulumi.StringPtrOutput)
 }
@@ -542,7 +542,7 @@ type RuleWithOperations struct {
 	ApiGroups []string `pulumi:"apiGroups"`
 	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions []string `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+	// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
 	Operations []string `pulumi:"operations"`
 	// Resources is a list of resources this rule applies to.
 	//
@@ -573,7 +573,7 @@ type RuleWithOperationsArgs struct {
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
 	// APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 	ApiVersions pulumi.StringArrayInput `pulumi:"apiVersions"`
-	// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+	// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
 	Operations pulumi.StringArrayInput `pulumi:"operations"`
 	// Resources is a list of resources this rule applies to.
 	//
@@ -649,7 +649,7 @@ func (o RuleWithOperationsOutput) ApiVersions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuleWithOperations) []string { return v.ApiVersions }).(pulumi.StringArrayOutput)
 }
 
-// Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+// Operations is the operations the admission hook cares about - CREATE, UPDATE, or * for all operations. If '*' is present, the length of the slice must be one. Required.
 func (o RuleWithOperationsOutput) Operations() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuleWithOperations) []string { return v.Operations }).(pulumi.StringArrayOutput)
 }
@@ -935,7 +935,7 @@ type ValidatingWebhook struct {
 	ObjectSelector *metav1.LabelSelector `pulumi:"objectSelector"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules []RuleWithOperations `pulumi:"rules"`
-	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
+	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 	SideEffects *string `pulumi:"sideEffects"`
 	// TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 	TimeoutSeconds *int `pulumi:"timeoutSeconds"`
@@ -1006,7 +1006,7 @@ type ValidatingWebhookArgs struct {
 	ObjectSelector metav1.LabelSelectorPtrInput `pulumi:"objectSelector"`
 	// Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
 	Rules RuleWithOperationsArrayInput `pulumi:"rules"`
-	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
+	// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 	SideEffects pulumi.StringPtrInput `pulumi:"sideEffects"`
 	// TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 30 seconds.
 	TimeoutSeconds pulumi.IntPtrInput `pulumi:"timeoutSeconds"`
@@ -1140,7 +1140,7 @@ func (o ValidatingWebhookOutput) Rules() RuleWithOperationsArrayOutput {
 	return o.ApplyT(func(v ValidatingWebhook) []RuleWithOperations { return v.Rules }).(RuleWithOperationsArrayOutput)
 }
 
-// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
+// SideEffects states whether this webhook has side effects. Acceptable values are: Unknown, None, Some, NoneOnDryRun Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission change and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some. Defaults to Unknown.
 func (o ValidatingWebhookOutput) SideEffects() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingWebhook) *string { return v.SideEffects }).(pulumi.StringPtrOutput)
 }

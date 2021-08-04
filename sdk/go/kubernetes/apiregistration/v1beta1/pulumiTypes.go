@@ -366,8 +366,8 @@ type APIServiceSpec struct {
 	GroupPriorityMinimum int `pulumi:"groupPriorityMinimum"`
 	// InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
 	InsecureSkipTLSVerify *bool `pulumi:"insecureSkipTLSVerify"`
-	// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-	Service *ServiceReference `pulumi:"service"`
+	// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+	Service ServiceReference `pulumi:"service"`
 	// Version is the API version this server hosts.  For example, "v1"
 	Version *string `pulumi:"version"`
 	// VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
@@ -395,8 +395,8 @@ type APIServiceSpecArgs struct {
 	GroupPriorityMinimum pulumi.IntInput `pulumi:"groupPriorityMinimum"`
 	// InsecureSkipTLSVerify disables TLS certificate verification when communicating with this server. This is strongly discouraged.  You should use the CABundle instead.
 	InsecureSkipTLSVerify pulumi.BoolPtrInput `pulumi:"insecureSkipTLSVerify"`
-	// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-	Service ServiceReferencePtrInput `pulumi:"service"`
+	// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+	Service ServiceReferenceInput `pulumi:"service"`
 	// Version is the API version this server hosts.  For example, "v1"
 	Version pulumi.StringPtrInput `pulumi:"version"`
 	// VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
@@ -501,9 +501,9 @@ func (o APIServiceSpecOutput) InsecureSkipTLSVerify() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v APIServiceSpec) *bool { return v.InsecureSkipTLSVerify }).(pulumi.BoolPtrOutput)
 }
 
-// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
-func (o APIServiceSpecOutput) Service() ServiceReferencePtrOutput {
-	return o.ApplyT(func(v APIServiceSpec) *ServiceReference { return v.Service }).(ServiceReferencePtrOutput)
+// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+func (o APIServiceSpecOutput) Service() ServiceReferenceOutput {
+	return o.ApplyT(func(v APIServiceSpec) ServiceReference { return v.Service }).(ServiceReferenceOutput)
 }
 
 // Version is the API version this server hosts.  For example, "v1"
@@ -574,13 +574,13 @@ func (o APIServiceSpecPtrOutput) InsecureSkipTLSVerify() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
+// Service is a reference to the service for this API server.  It must communicate on port 443 If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
 func (o APIServiceSpecPtrOutput) Service() ServiceReferencePtrOutput {
 	return o.ApplyT(func(v *APIServiceSpec) *ServiceReference {
 		if v == nil {
 			return nil
 		}
-		return v.Service
+		return &v.Service
 	}).(ServiceReferencePtrOutput)
 }
 

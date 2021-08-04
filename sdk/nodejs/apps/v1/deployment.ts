@@ -66,7 +66,7 @@ export class Deployment extends pulumi.CustomResource {
      */
     public readonly kind!: pulumi.Output<"Deployment">;
     /**
-     * Standard object metadata.
+     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
@@ -123,7 +123,7 @@ export interface DeploymentArgs {
      */
     kind?: pulumi.Input<"Deployment">;
     /**
-     * Standard object metadata.
+     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**

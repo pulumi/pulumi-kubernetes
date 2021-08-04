@@ -297,6 +297,7 @@ class ManagedFieldsEntryArgs:
                  fields_v1: Optional[Any] = None,
                  manager: Optional[pulumi.Input[str]] = None,
                  operation: Optional[pulumi.Input[str]] = None,
+                 subresource: Optional[pulumi.Input[str]] = None,
                  time: Optional[pulumi.Input[str]] = None):
         """
         ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
@@ -305,6 +306,7 @@ class ManagedFieldsEntryArgs:
         :param Any fields_v1: FieldsV1 holds the first JSON version format as described in the "FieldsV1" type.
         :param pulumi.Input[str] manager: Manager is an identifier of the workflow managing these fields.
         :param pulumi.Input[str] operation: Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
+        :param pulumi.Input[str] subresource: Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
         :param pulumi.Input[str] time: Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
         """
         if api_version is not None:
@@ -317,6 +319,8 @@ class ManagedFieldsEntryArgs:
             pulumi.set(__self__, "manager", manager)
         if operation is not None:
             pulumi.set(__self__, "operation", operation)
+        if subresource is not None:
+            pulumi.set(__self__, "subresource", subresource)
         if time is not None:
             pulumi.set(__self__, "time", time)
 
@@ -379,6 +383,18 @@ class ManagedFieldsEntryArgs:
     @operation.setter
     def operation(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "operation", value)
+
+    @property
+    @pulumi.getter
+    def subresource(self) -> Optional[pulumi.Input[str]]:
+        """
+        Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+        """
+        return pulumi.get(self, "subresource")
+
+    @subresource.setter
+    def subresource(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "subresource", value)
 
     @property
     @pulumi.getter

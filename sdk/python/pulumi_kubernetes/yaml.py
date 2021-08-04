@@ -979,12 +979,6 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/EndpointsList:{x}",
                        EndpointsList(f"{x}", opts, **obj)))]
-    if gvk == "v1/EphemeralContainers":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.core.v1 import EphemeralContainers
-        return [identifier.apply(
-            lambda x: (f"v1/EphemeralContainers:{x}",
-                       EphemeralContainers(f"{x}", opts, **obj)))]
     if gvk == "v1/Event":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.core.v1 import Event

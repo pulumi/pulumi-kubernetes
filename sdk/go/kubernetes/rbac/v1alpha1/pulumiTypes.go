@@ -589,9 +589,9 @@ type PolicyRule struct {
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
 	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames []string `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+	// Resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources []string `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 	Verbs []string `pulumi:"verbs"`
 }
 
@@ -614,9 +614,9 @@ type PolicyRuleArgs struct {
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
 	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+	// Resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources pulumi.StringArrayInput `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
 }
 
@@ -687,12 +687,12 @@ func (o PolicyRuleOutput) ResourceNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.ResourceNames }).(pulumi.StringArrayOutput)
 }
 
-// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+// Resources is a list of resources this rule applies to. '*' represents all resources.
 func (o PolicyRuleOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
 
-// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 func (o PolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }

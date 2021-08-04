@@ -155,7 +155,7 @@ type CertificateSigningRequestCondition struct {
 	Reason *string `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
 	Status *string `pulumi:"status"`
-	// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+	// request approval state, currently Approved or Denied.
 	Type string `pulumi:"type"`
 }
 
@@ -181,7 +181,7 @@ type CertificateSigningRequestConditionArgs struct {
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	// Status of the condition, one of True, False, Unknown. Approved, Denied, and Failed conditions may not be "False" or "Unknown". Defaults to "True". If unset, should be treated as "True".
 	Status pulumi.StringPtrInput `pulumi:"status"`
-	// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+	// request approval state, currently Approved or Denied.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -261,7 +261,7 @@ func (o CertificateSigningRequestConditionOutput) Status() pulumi.StringPtrOutpu
 	return o.ApplyT(func(v CertificateSigningRequestCondition) *string { return v.Status }).(pulumi.StringPtrOutput)
 }
 
-// type of the condition. Known conditions include "Approved", "Denied", and "Failed".
+// request approval state, currently Approved or Denied.
 func (o CertificateSigningRequestConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v CertificateSigningRequestCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -379,30 +379,6 @@ type CertificateSigningRequestSpec struct {
 	Uid *string `pulumi:"uid"`
 	// allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 	//      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-	// Valid values are:
-	//  "signing",
-	//  "digital signature",
-	//  "content commitment",
-	//  "key encipherment",
-	//  "key agreement",
-	//  "data encipherment",
-	//  "cert sign",
-	//  "crl sign",
-	//  "encipher only",
-	//  "decipher only",
-	//  "any",
-	//  "server auth",
-	//  "client auth",
-	//  "code signing",
-	//  "email protection",
-	//  "s/mime",
-	//  "ipsec end system",
-	//  "ipsec tunnel",
-	//  "ipsec user",
-	//  "timestamping",
-	//  "ocsp signing",
-	//  "microsoft sgc",
-	//  "netscape sgc"
 	Usages []string `pulumi:"usages"`
 	// Information about the requesting user. See user.Info interface for details.
 	Username *string `pulumi:"username"`
@@ -439,30 +415,6 @@ type CertificateSigningRequestSpecArgs struct {
 	Uid pulumi.StringPtrInput `pulumi:"uid"`
 	// allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 	//      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-	// Valid values are:
-	//  "signing",
-	//  "digital signature",
-	//  "content commitment",
-	//  "key encipherment",
-	//  "key agreement",
-	//  "data encipherment",
-	//  "cert sign",
-	//  "crl sign",
-	//  "encipher only",
-	//  "decipher only",
-	//  "any",
-	//  "server auth",
-	//  "client auth",
-	//  "code signing",
-	//  "email protection",
-	//  "s/mime",
-	//  "ipsec end system",
-	//  "ipsec tunnel",
-	//  "ipsec user",
-	//  "timestamping",
-	//  "ocsp signing",
-	//  "microsoft sgc",
-	//  "netscape sgc"
 	Usages pulumi.StringArrayInput `pulumi:"usages"`
 	// Information about the requesting user. See user.Info interface for details.
 	Username pulumi.StringPtrInput `pulumi:"username"`
@@ -579,30 +531,6 @@ func (o CertificateSigningRequestSpecOutput) Uid() pulumi.StringPtrOutput {
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 //      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-// Valid values are:
-//  "signing",
-//  "digital signature",
-//  "content commitment",
-//  "key encipherment",
-//  "key agreement",
-//  "data encipherment",
-//  "cert sign",
-//  "crl sign",
-//  "encipher only",
-//  "decipher only",
-//  "any",
-//  "server auth",
-//  "client auth",
-//  "code signing",
-//  "email protection",
-//  "s/mime",
-//  "ipsec end system",
-//  "ipsec tunnel",
-//  "ipsec user",
-//  "timestamping",
-//  "ocsp signing",
-//  "microsoft sgc",
-//  "netscape sgc"
 func (o CertificateSigningRequestSpecOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
@@ -688,30 +616,6 @@ func (o CertificateSigningRequestSpecPtrOutput) Uid() pulumi.StringPtrOutput {
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
 //      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
-// Valid values are:
-//  "signing",
-//  "digital signature",
-//  "content commitment",
-//  "key encipherment",
-//  "key agreement",
-//  "data encipherment",
-//  "cert sign",
-//  "crl sign",
-//  "encipher only",
-//  "decipher only",
-//  "any",
-//  "server auth",
-//  "client auth",
-//  "code signing",
-//  "email protection",
-//  "s/mime",
-//  "ipsec end system",
-//  "ipsec tunnel",
-//  "ipsec user",
-//  "timestamping",
-//  "ocsp signing",
-//  "microsoft sgc",
-//  "netscape sgc"
 func (o CertificateSigningRequestSpecPtrOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestSpec) []string {
 		if v == nil {

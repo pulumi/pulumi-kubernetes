@@ -337,9 +337,13 @@ class SelfSubjectAccessReviewSpec(dict):
 
 @pulumi.output_type
 class SelfSubjectRulesReviewSpec(dict):
+    """
+    SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
+    """
     def __init__(__self__, *,
                  namespace: Optional[str] = None):
         """
+        SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
         :param str namespace: Namespace to evaluate rules for. Required.
         """
         if namespace is not None:

@@ -20,6 +20,7 @@ __all__ = [
     'JobSpec',
     'JobStatus',
     'JobTemplateSpec',
+    'UncountedTerminatedPods',
 ]
 
 @pulumi.output_type
@@ -572,14 +573,16 @@ class JobSpec(dict):
                
                `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
                
-               `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+               `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
                
-               This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+               This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
         :param int completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param bool manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param int parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param '_meta.v1.LabelSelectorArgs' selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param bool suspend: Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+        :param bool suspend: Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+               
+               This field is beta-level, gated by SuspendJob feature flag (enabled by default).
         :param int ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
         """
         pulumi.set(__self__, "template", template)
@@ -634,9 +637,9 @@ class JobSpec(dict):
 
         `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 
-        `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+        `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
 
-        This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+        This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
         """
         return pulumi.get(self, "completion_mode")
 
@@ -676,7 +679,9 @@ class JobSpec(dict):
     @pulumi.getter
     def suspend(self) -> Optional[bool]:
         """
-        Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+        Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+
+        This field is beta-level, gated by SuspendJob feature flag (enabled by default).
         """
         return pulumi.get(self, "suspend")
 
@@ -703,6 +708,8 @@ class JobStatus(dict):
             suggest = "completion_time"
         elif key == "startTime":
             suggest = "start_time"
+        elif key == "uncountedTerminatedPods":
+            suggest = "uncounted_terminated_pods"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in JobStatus. Access the value via the '{suggest}' property getter instead.")
@@ -722,7 +729,8 @@ class JobStatus(dict):
                  conditions: Optional[Sequence['outputs.JobCondition']] = None,
                  failed: Optional[int] = None,
                  start_time: Optional[str] = None,
-                 succeeded: Optional[int] = None):
+                 succeeded: Optional[int] = None,
+                 uncounted_terminated_pods: Optional['outputs.UncountedTerminatedPods'] = None):
         """
         JobStatus represents the current state of a Job.
         :param int active: The number of actively running pods.
@@ -732,6 +740,12 @@ class JobStatus(dict):
         :param int failed: The number of pods which reached phase Failed.
         :param str start_time: Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
         :param int succeeded: The number of pods which reached phase Succeeded.
+        :param 'UncountedTerminatedPodsArgs' uncounted_terminated_pods: UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+               
+               The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+                   counter.
+               
+               This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -747,6 +761,8 @@ class JobStatus(dict):
             pulumi.set(__self__, "start_time", start_time)
         if succeeded is not None:
             pulumi.set(__self__, "succeeded", succeeded)
+        if uncounted_terminated_pods is not None:
+            pulumi.set(__self__, "uncounted_terminated_pods", uncounted_terminated_pods)
 
     @property
     @pulumi.getter
@@ -804,6 +820,19 @@ class JobStatus(dict):
         """
         return pulumi.get(self, "succeeded")
 
+    @property
+    @pulumi.getter(name="uncountedTerminatedPods")
+    def uncounted_terminated_pods(self) -> Optional['outputs.UncountedTerminatedPods']:
+        """
+        UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+
+        The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+            counter.
+
+        This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+        """
+        return pulumi.get(self, "uncounted_terminated_pods")
+
 
 @pulumi.output_type
 class JobTemplateSpec(dict):
@@ -838,5 +867,40 @@ class JobTemplateSpec(dict):
         Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
+
+
+@pulumi.output_type
+class UncountedTerminatedPods(dict):
+    """
+    UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+    """
+    def __init__(__self__, *,
+                 failed: Optional[Sequence[str]] = None,
+                 succeeded: Optional[Sequence[str]] = None):
+        """
+        UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+        :param Sequence[str] failed: Failed holds UIDs of failed Pods.
+        :param Sequence[str] succeeded: Succeeded holds UIDs of succeeded Pods.
+        """
+        if failed is not None:
+            pulumi.set(__self__, "failed", failed)
+        if succeeded is not None:
+            pulumi.set(__self__, "succeeded", succeeded)
+
+    @property
+    @pulumi.getter
+    def failed(self) -> Optional[Sequence[str]]:
+        """
+        Failed holds UIDs of failed Pods.
+        """
+        return pulumi.get(self, "failed")
+
+    @property
+    @pulumi.getter
+    def succeeded(self) -> Optional[Sequence[str]]:
+        """
+        Succeeded holds UIDs of succeeded Pods.
+        """
+        return pulumi.get(self, "succeeded")
 
 

@@ -318,7 +318,8 @@ type CustomResourceDefinitionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
 	Spec CustomResourceDefinitionSpec `pulumi:"spec"`
@@ -342,7 +343,8 @@ type CustomResourceDefinitionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
 	Spec CustomResourceDefinitionSpecInput `pulumi:"spec"`
@@ -412,6 +414,7 @@ func (o CustomResourceDefinitionTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o CustomResourceDefinitionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -589,7 +592,8 @@ type CustomResourceDefinitionListType struct {
 	// items list individual CustomResourceDefinition objects
 	Items []CustomResourceDefinitionType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -611,7 +615,8 @@ type CustomResourceDefinitionListTypeArgs struct {
 	// items list individual CustomResourceDefinition objects
 	Items CustomResourceDefinitionTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -657,6 +662,7 @@ func (o CustomResourceDefinitionListTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
