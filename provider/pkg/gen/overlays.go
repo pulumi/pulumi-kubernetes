@@ -45,6 +45,44 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			{Value: "LoadBalancer"},
 		},
 	},
+	"kubernetes:helm.sh/v3:Release": {
+		ObjectTypeSpec: pschema.ObjectTypeSpec{
+			Description: "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
+			Properties: map[string]pschema.PropertySpec{
+				"releaseSpec": {
+					TypeSpec: pschema.TypeSpec{
+						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseSpec",
+					},
+				},
+				// HACK - workaround compat breakage in C# codegen
+				"compat": {
+					TypeSpec: pschema.TypeSpec{
+						Type: "string",
+					},
+					Const: "true",
+				},
+				"status": {
+					TypeSpec: pschema.TypeSpec{
+						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
+					},
+					Description: "Status of the deployed release.",
+				},
+			},
+			Type: "object",
+			Required: []string{
+				"releaseSpec",
+				"status",
+			},
+			Language: map[string]pschema.RawMessage{
+				"nodejs": rawMessage(map[string][]string{
+					"requiredOutputs": {
+						"releaseSpec",
+						"status",
+					},
+				}),
+			},
+		},
+	},
 	"kubernetes:helm.sh/v3:RepositorySpec": {
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
 			Description: "Specification defining the Helm chart repository to use.",
@@ -87,6 +125,18 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					Description: "Password for HTTP basic authentication",
 				},
 			},
+			Language: map[string]pschema.RawMessage{
+				"nodejs": rawMessage(map[string][]string{
+					"requiredOutputs": {
+						"repository",
+						"repositoryKeyFile",
+						"repositoryCertFile",
+						"repositoryCAFile",
+						"repositoryUsername",
+						"repositoryPassword",
+					}}),
+			},
+			Type: "object",
 		},
 	},
 	"kubernetes:helm.sh/v3:ReleaseStatus": {
@@ -143,6 +193,20 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					Description: "Status of the release.",
 				},
 			},
+			Language: map[string]pschema.RawMessage{
+				"nodejs": rawMessage(map[string][]string{
+					"requiredOutputs": {
+						"name",
+						"revision",
+						"namespace",
+						"chart",
+						"version",
+						"appVersion",
+						"values",
+						"status",
+					}}),
+			},
+			Type: "object",
 		},
 	},
 	"kubernetes:helm.sh/v3:SetValue": {
@@ -171,6 +235,15 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					//}, false),
 				},
 			},
+			Language: map[string]pschema.RawMessage{
+				"nodejs": rawMessage(map[string][]string{
+					"requiredOutputs": {
+						"name",
+						"value",
+						"type",
+					}}),
+			},
+			Type: "object",
 		},
 	},
 	"kubernetes:helm.sh/v3:ReleaseSpec": {
@@ -180,6 +253,8 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			Required: []string{
 				"name",
 				"chart",
+				"repositorySpec",
+				"set",
 			},
 			Properties: map[string]pschema.PropertySpec{
 				"name": {
@@ -209,7 +284,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"devel": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored",
 					//DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -242,7 +317,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"verify": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Verify the package before installing it.",
 				},
@@ -264,43 +339,43 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"disableWebhooks": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Prevent hooks from running.",
 				},
 				"disableCRDHooks": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook",
 				},
 				"reuseValues": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored",
 				},
 				"resetValues": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "When upgrading, reset the values to the ones built into the chart",
 				},
 				"forceUpdate": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Force resource update through delete/recreate if needed.",
 				},
 				"recreatePods": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Perform pods restart during upgrade/rollback",
 				},
 				"cleanupOnFail": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Allow deletion of new resources created in this upgrade when upgrade fails",
 				},
@@ -312,55 +387,55 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"atomic": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used",
 				},
 				"skipCrds": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present",
 				},
 				"renderSubchartNotes": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "If set, render subchart notes along with the parent",
 				},
 				"disableOpenapiValidation": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema",
 				},
 				"wait": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Will wait until all resources are in a ready state before marking the release as successful.",
 				},
 				"waitForJobs": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.",
 				},
 				"dependencyUpdate": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Run helm dependency update before installing the chart",
 				},
 				"replace": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Re-use the given name, even if that name is already used. This is unsafe in production",
 				},
 				"description": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Add a custom description",
 					//DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -369,7 +444,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"createNamespace": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Create the namespace if it does not exist",
 				},
@@ -381,26 +456,49 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"lint": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "bool",
+						Type: "boolean",
 					},
 					Description: "Run helm lint when planning",
 				},
 			},
 			Type: "object",
 			// TODO: Do we need this?
-			//Language:map[string]pschema.RawMessage{
-			//"nodejs": rawMessage(map[string][]string{
-			//	"requiredOutputs": {
-			//	"minReadySeconds",
-			//	"podManagementPolicy",
-			//	"replicas",
-			//	"revisionHistoryLimit",
-			//	"selector",
-			//	"serviceName",
-			//	"template",
-			//	"updateStrategy",
-			//	"volumeClaimTemplates",
-			//}}),
+			Language: map[string]pschema.RawMessage{
+				"nodejs": rawMessage(map[string][]string{
+					"requiredOutputs": {
+						"name",
+						"repositorySpec",
+						"chart",
+						"version",
+						"devel",
+						"values",
+						"set",
+						"namespace",
+						"verify",
+						"keyring",
+						"timeout",
+						"disableWebhooks",
+						"disableCRDHooks",
+						"reuseValues",
+						"resetValues",
+						"forceUpdate",
+						"recreatePods",
+						"cleanupOnFail",
+						"maxHistory",
+						"atomic",
+						"skipCrds",
+						"renderSubchartNotes",
+						"disableOpenapiValidation",
+						"wait",
+						"waitForJobs",
+						"dependencyUpdate",
+						"replace",
+						"description",
+						"createNamespace",
+						"postrender",
+						"lint",
+					}}),
+			},
 		},
 	},
 }
@@ -416,6 +514,13 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseSpec",
 					},
 				},
+				// HACK - workaround compat breakage in C# codegen
+				"compat": {
+					TypeSpec: pschema.TypeSpec{
+						Type: "string",
+					},
+					Const: "true",
+				},
 				"status": {
 					TypeSpec: pschema.TypeSpec{
 						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
@@ -426,10 +531,12 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 			Type: "object",
 			Required: []string{
 				"releaseSpec",
+				"status",
 			},
 			Language: map[string]pschema.RawMessage{
 				"nodejs": rawMessage(map[string][]string{
 					"requiredOutputs": {
+						"releaseSpec",
 						"status",
 					},
 				}),
@@ -440,6 +547,12 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Ref: "#/types/kubernetes:helm.sh/v3:ReleaseSpec",
 				},
+			},
+			"compat": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Const: "true",
 			},
 		},
 		RequiredInputs: []string{

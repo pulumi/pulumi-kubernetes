@@ -138,9 +138,15 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
 
-	csharpNamespaces := map[string]string{}
-	modToPkg := map[string]string{}
-	pkgImportAliases := map[string]string{}
+	csharpNamespaces := map[string]string{
+		"helm.sh/v3": "Helm.V3",
+	}
+	modToPkg := map[string]string{
+		"helm.sh/v3": "helm/v3",
+	}
+	pkgImportAliases := map[string]string{
+		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",
+	}
 
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions)
@@ -241,6 +247,13 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		for tok, overlayType := range typeOverlays {
 			if _, typeExists := pkg.Types[tok]; !typeExists {
 				pkg.Types[tok] = overlayType
+			}
+		}
+
+		// Finally, add overlay resources that weren't in the schema.
+		for tok := range resourceOverlays {
+			if _, resourceExists := pkg.Resources[tok]; !resourceExists {
+				pkg.Resources[tok] = resourceOverlays[tok]
 			}
 		}
 	}
