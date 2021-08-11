@@ -12440,6 +12440,212 @@ export namespace flowcontrol {
     }
 }
 
+export namespace helm {
+    export namespace v3 {
+        /**
+         * Specification defining the Helm Release to install.
+         */
+        export interface ReleaseSpec {
+            /**
+             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+             */
+            atomic: boolean;
+            /**
+             * Chart name to be installed. A path may be used.
+             */
+            chart: string;
+            /**
+             * Allow deletion of new resources created in this upgrade when upgrade fails
+             */
+            cleanupOnFail: boolean;
+            /**
+             * Create the namespace if it does not exist
+             */
+            createNamespace: boolean;
+            /**
+             * Run helm dependency update before installing the chart
+             */
+            dependencyUpdate: boolean;
+            /**
+             * Add a custom description
+             */
+            description: boolean;
+            /**
+             * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+             */
+            devel: boolean;
+            /**
+             * Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+             */
+            disableCRDHooks: boolean;
+            /**
+             * If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
+             */
+            disableOpenapiValidation: boolean;
+            /**
+             * Prevent hooks from running.
+             */
+            disableWebhooks: boolean;
+            /**
+             * Force resource update through delete/recreate if needed.
+             */
+            forceUpdate: boolean;
+            /**
+             * Location of public keys used for verification. Used only if `verify` is true
+             */
+            keyring: string;
+            /**
+             * Run helm lint when planning
+             */
+            lint: boolean;
+            /**
+             * Limit the maximum number of revisions saved per release. Use 0 for no limit
+             */
+            maxHistory: number;
+            /**
+             * Release name.
+             */
+            name: string;
+            /**
+             * Namespace to install the release into.
+             */
+            namespace: string;
+            /**
+             * Postrender command to run.
+             */
+            postrender: string;
+            /**
+             * Perform pods restart during upgrade/rollback
+             */
+            recreatePods: boolean;
+            /**
+             * If set, render subchart notes along with the parent
+             */
+            renderSubchartNotes: boolean;
+            /**
+             * Re-use the given name, even if that name is already used. This is unsafe in production
+             */
+            replace: boolean;
+            /**
+             * Specification defining the Helm chart repository to use.
+             */
+            repositorySpec: outputs.helm.v3.RepositorySpec;
+            /**
+             * When upgrading, reset the values to the ones built into the chart
+             */
+            resetValues: boolean;
+            /**
+             * When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+             */
+            reuseValues: boolean;
+            /**
+             * Custom values to be merged with the values.
+             */
+            set: {[key: string]: outputs.helm.v3.SetValue};
+            /**
+             * If set, no CRDs will be installed. By default, CRDs are installed if not already present
+             */
+            skipCrds: boolean;
+            /**
+             * Time in seconds to wait for any individual kubernetes operation.
+             */
+            timeout: number;
+            /**
+             * List of values in raw yaml format to pass to helm.
+             */
+            values: string[];
+            /**
+             * Verify the package before installing it.
+             */
+            verify: boolean;
+            /**
+             * Specify the exact chart version to install. If this is not specified, the latest version is installed.
+             */
+            version: string;
+            /**
+             * Will wait until all resources are in a ready state before marking the release as successful.
+             */
+            wait: boolean;
+            /**
+             * If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+             */
+            waitForJobs: boolean;
+        }
+
+        export interface ReleaseStatus {
+            /**
+             * The version number of the application being deployed.
+             */
+            appVersion: string;
+            /**
+             * The name of the chart.
+             */
+            chart: string;
+            /**
+             * Name is the name of the release.
+             */
+            name: string;
+            /**
+             * Namespace is the kubernetes namespace of the release.
+             */
+            namespace: string;
+            /**
+             * Version is an int32 which represents the version of the release.
+             */
+            revision: number;
+            /**
+             * Status of the release.
+             */
+            status: string;
+            /**
+             * Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
+             */
+            values: string;
+            /**
+             * A SemVer 2 conformant version string of the chart.
+             */
+            version: string;
+        }
+
+        /**
+         * Specification defining the Helm chart repository to use.
+         */
+        export interface RepositorySpec {
+            /**
+             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             */
+            repository: string;
+            /**
+             * The Repositories CA File
+             */
+            repositoryCAFile: string;
+            /**
+             * The repositories cert file
+             */
+            repositoryCertFile: string;
+            /**
+             * The repositories cert key file
+             */
+            repositoryKeyFile: string;
+            /**
+             * Password for HTTP basic authentication
+             */
+            repositoryPassword: string;
+            /**
+             * Username for HTTP basic authentication
+             */
+            repositoryUsername: string;
+        }
+
+        export interface SetValue {
+            name: string;
+            type: string;
+            value: string;
+        }
+
+    }
+}
+
 export namespace meta {
     export namespace v1 {
         /**
