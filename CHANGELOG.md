@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- [sdk/python] Fix wait for metadata in `yaml._parse_yaml_object`. (https://github.com/pulumi/pulumi-kubernetes/pull/1675)
+
 ## 3.6.0 (Auguest 4, 2021)
 
 The following breaking changes are part of the Kubernetes v1.22 update:
