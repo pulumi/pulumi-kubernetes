@@ -22,6 +22,26 @@
                 "type": "boolean",
                 "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable."
             },
+            "helmDriver": {
+                "type": "string",
+                "description": "The backend storage driver. Values are: configmap, secret, memory, sql"
+            },
+            "helmPluginsPath": {
+                "type": "string",
+                "description": "The path to the helm plugins directory"
+            },
+            "helmRegistryConfigPath": {
+                "type": "string",
+                "description": "The path to the registry config file"
+            },
+            "helmRepositoryCache": {
+                "type": "string",
+                "description": "The path to the file containing cached repository indexes"
+            },
+            "helmRepositoryConfigPath": {
+                "type": "string",
+                "description": "The path to the file containing repository names and URLs"
+            },
             "kubeconfig": {
                 "type": "string",
                 "description": "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
@@ -22762,6 +22782,344 @@
                 }
             }
         },
+        "kubernetes:helm.sh/v3:Release": {
+            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
+            "properties": {
+                "releaseSpec": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
+                },
+                "resourceType": {
+                    "type": "string",
+                    "const": "true",
+                    "default": "kubernetes:helm.sh/v3:Release"
+                },
+                "status": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
+                    "description": "Status of the deployed release."
+                }
+            },
+            "type": "object",
+            "required": [
+                "releaseSpec",
+                "status"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "releaseSpec",
+                        "status"
+                    ]
+                }
+            }
+        },
+        "kubernetes:helm.sh/v3:ReleaseSpec": {
+            "description": "Specification defining the Helm Release to install.",
+            "properties": {
+                "atomic": {
+                    "type": "boolean",
+                    "description": "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used"
+                },
+                "chart": {
+                    "type": "string",
+                    "description": "Chart name to be installed. A path may be used."
+                },
+                "cleanupOnFail": {
+                    "type": "boolean",
+                    "description": "Allow deletion of new resources created in this upgrade when upgrade fails"
+                },
+                "createNamespace": {
+                    "type": "boolean",
+                    "description": "Create the namespace if it does not exist"
+                },
+                "dependencyUpdate": {
+                    "type": "boolean",
+                    "description": "Run helm dependency update before installing the chart"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Add a custom description"
+                },
+                "devel": {
+                    "type": "boolean",
+                    "description": "Use chart development versions, too. Equivalent to version '\u003e0.0.0-0'. If `version` is set, this is ignored"
+                },
+                "disableCRDHooks": {
+                    "type": "boolean",
+                    "description": "Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook"
+                },
+                "disableOpenapiValidation": {
+                    "type": "boolean",
+                    "description": "If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema"
+                },
+                "disableWebhooks": {
+                    "type": "boolean",
+                    "description": "Prevent hooks from running."
+                },
+                "forceUpdate": {
+                    "type": "boolean",
+                    "description": "Force resource update through delete/recreate if needed."
+                },
+                "keyring": {
+                    "type": "string",
+                    "description": "Location of public keys used for verification. Used only if `verify` is true"
+                },
+                "lint": {
+                    "type": "boolean",
+                    "description": "Run helm lint when planning"
+                },
+                "maxHistory": {
+                    "type": "integer",
+                    "description": "Limit the maximum number of revisions saved per release. Use 0 for no limit"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Release name."
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace to install the release into."
+                },
+                "postrender": {
+                    "type": "string",
+                    "description": "Postrender command to run."
+                },
+                "recreatePods": {
+                    "type": "boolean",
+                    "description": "Perform pods restart during upgrade/rollback"
+                },
+                "renderSubchartNotes": {
+                    "type": "boolean",
+                    "description": "If set, render subchart notes along with the parent"
+                },
+                "replace": {
+                    "type": "boolean",
+                    "description": "Re-use the given name, even if that name is already used. This is unsafe in production"
+                },
+                "repositorySpec": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+                    "description": "Specification defining the Helm chart repository to use."
+                },
+                "resetValues": {
+                    "type": "boolean",
+                    "description": "When upgrading, reset the values to the ones built into the chart"
+                },
+                "reuseValues": {
+                    "type": "boolean",
+                    "description": "When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored"
+                },
+                "set": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/types/kubernetes:helm.sh/v3:SetValue"
+                    },
+                    "description": "Custom values to be merged with the values."
+                },
+                "skipCrds": {
+                    "type": "boolean",
+                    "description": "If set, no CRDs will be installed. By default, CRDs are installed if not already present"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "description": "Time in seconds to wait for any individual kubernetes operation."
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of values in raw yaml format to pass to helm."
+                },
+                "verify": {
+                    "type": "boolean",
+                    "description": "Verify the package before installing it."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Specify the exact chart version to install. If this is not specified, the latest version is installed."
+                },
+                "wait": {
+                    "type": "boolean",
+                    "description": "Will wait until all resources are in a ready state before marking the release as successful."
+                },
+                "waitForJobs": {
+                    "type": "boolean",
+                    "description": "If wait is enabled, will wait until all Jobs have been completed before marking the release as successful."
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "chart",
+                "repositorySpec",
+                "set"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name",
+                        "repositorySpec",
+                        "chart",
+                        "version",
+                        "devel",
+                        "values",
+                        "set",
+                        "namespace",
+                        "verify",
+                        "keyring",
+                        "timeout",
+                        "disableWebhooks",
+                        "disableCRDHooks",
+                        "reuseValues",
+                        "resetValues",
+                        "forceUpdate",
+                        "recreatePods",
+                        "cleanupOnFail",
+                        "maxHistory",
+                        "atomic",
+                        "skipCrds",
+                        "renderSubchartNotes",
+                        "disableOpenapiValidation",
+                        "wait",
+                        "waitForJobs",
+                        "dependencyUpdate",
+                        "replace",
+                        "description",
+                        "createNamespace",
+                        "postrender",
+                        "lint"
+                    ]
+                }
+            }
+        },
+        "kubernetes:helm.sh/v3:ReleaseStatus": {
+            "properties": {
+                "appVersion": {
+                    "type": "string",
+                    "description": "The version number of the application being deployed."
+                },
+                "chart": {
+                    "type": "string",
+                    "description": "The name of the chart."
+                },
+                "manifest": {
+                    "type": "string",
+                    "description": "The rendered manifest as JSON."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name is the name of the release."
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "Namespace is the kubernetes namespace of the release."
+                },
+                "revision": {
+                    "type": "integer",
+                    "description": "Version is an int32 which represents the version of the release."
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Status of the release."
+                },
+                "values": {
+                    "type": "string",
+                    "description": "Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "A SemVer 2 conformant version string of the chart."
+                }
+            },
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name",
+                        "revision",
+                        "namespace",
+                        "chart",
+                        "version",
+                        "appVersion",
+                        "values",
+                        "status"
+                    ]
+                }
+            }
+        },
+        "kubernetes:helm.sh/v3:RepositorySpec": {
+            "description": "Specification defining the Helm chart repository to use.",
+            "properties": {
+                "repository": {
+                    "type": "string",
+                    "description": "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository."
+                },
+                "repositoryCAFile": {
+                    "type": "string",
+                    "description": "The Repositories CA File"
+                },
+                "repositoryCertFile": {
+                    "type": "string",
+                    "description": "The repositories cert file"
+                },
+                "repositoryKeyFile": {
+                    "type": "string",
+                    "description": "The repositories cert key file"
+                },
+                "repositoryPassword": {
+                    "type": "string",
+                    "description": "Password for HTTP basic authentication",
+                    "secret": true
+                },
+                "repositoryUsername": {
+                    "type": "string",
+                    "description": "Username for HTTP basic authentication"
+                }
+            },
+            "type": "object",
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "repository",
+                        "repositoryKeyFile",
+                        "repositoryCertFile",
+                        "repositoryCAFile",
+                        "repositoryUsername",
+                        "repositoryPassword"
+                    ]
+                }
+            }
+        },
+        "kubernetes:helm.sh/v3:SetValue": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string",
+                    "secret": true
+                }
+            },
+            "type": "object",
+            "required": [
+                "name",
+                "value"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "name",
+                        "value",
+                        "type"
+                    ]
+                }
+            }
+        },
         "kubernetes:meta/v1:APIGroup": {
             "description": "APIGroup contains the name, the supported versions, and the preferred version of a group.",
             "properties": {
@@ -39038,6 +39396,48 @@
                 "items"
             ]
         },
+        "kubernetes:helm.sh/v3:Release": {
+            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
+            "properties": {
+                "releaseSpec": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
+                },
+                "resourceType": {
+                    "type": "string",
+                    "const": "true",
+                    "default": "kubernetes:helm.sh/v3:Release"
+                },
+                "status": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
+                    "description": "Status of the deployed release."
+                }
+            },
+            "type": "object",
+            "required": [
+                "releaseSpec",
+                "status"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": [
+                        "releaseSpec",
+                        "status"
+                    ]
+                }
+            },
+            "inputProperties": {
+                "compat": {
+                    "type": "string",
+                    "const": "true"
+                },
+                "releaseSpec": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
+                }
+            },
+            "requiredInputs": [
+                "releaseSpec"
+            ]
+        },
         "kubernetes:meta/v1:Status": {
             "description": "Status is a return value for calls that don't return other objects.",
             "properties": {
@@ -44619,6 +45019,7 @@
                 "extensions/v1beta1": "Extensions.V1Beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "FlowControl.V1Alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "FlowControl.V1Beta1",
+                "helm.sh/v3": "Helm.V3",
                 "meta/v1": "Meta.V1",
                 "networking.k8s.io/v1": "Networking.V1",
                 "networking.k8s.io/v1beta1": "Networking.V1Beta1",
@@ -44680,6 +45081,7 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
+                "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
@@ -44733,6 +45135,7 @@
                 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/extensions/v1beta1": "extensionsv1beta1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1alpha1": "flowcontrolv1alpha1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta1": "flowcontrolv1beta1",
+                "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1": "metav1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1": "networkingv1",
                 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1beta1": "networkingv1beta1",
@@ -44804,6 +45207,7 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
+                "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
@@ -44861,6 +45265,7 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
+                "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
