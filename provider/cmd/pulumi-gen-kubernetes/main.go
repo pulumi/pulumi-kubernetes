@@ -166,6 +166,9 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	return gen.PulumiSchema(schemaMap)
 }
 
+// This is to mostly filter resources from the spec.
+var resourcesToFilterFromTemplate = codegen.NewStringSet("kubernetes:helm.sh/v3:Release")
+
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources(pkg)
 	if err != nil {
@@ -174,7 +177,10 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 
 	templateResources := gen.TemplateResources{}
 	packages := codegen.StringSet{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		if resource.Package == "" {
 			continue
 		}
@@ -230,7 +236,10 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -265,7 +274,10 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -322,7 +334,10 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	}
 
 	templateResources := gen.GoTemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Alias:   resource.Alias,
 			Name:    resource.Name,
@@ -340,7 +355,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
 	files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
 	files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
-	files["kubernetes/helm/v3/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
+	files["kubernetes/helm/v3/pulumiTypesChart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypesChart.go"))
 	files["kubernetes/kustomize/directory.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "directory.go"))
 	files["kubernetes/kustomize/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "pulumiTypes.go"))
 	files["kubernetes/yaml/configFile.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configFile.go"))
