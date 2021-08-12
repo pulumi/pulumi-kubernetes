@@ -40,7 +40,7 @@ func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.Pr
 	}
 
 	if obj.GetName() == "" {
-		obj.SetName(fmt.Sprintf("%s-%s", base, randString(8)))
+		obj.SetName(fmt.Sprintf("%s-%s", base, RandString(8)))
 		SetAnnotationTrue(obj, AnnotationAutonamed)
 	}
 }
@@ -59,7 +59,7 @@ func IsAutonamed(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationAutonamed)
 }
 
-func randString(n int) string {
+func RandString(n int) string {
 	b := make([]rune, n)
 	for i := range b {
 		// nolint:gosec
