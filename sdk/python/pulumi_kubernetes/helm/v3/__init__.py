@@ -6,3 +6,6 @@ from ... import _utilities
 import typing
 # Export this package's modules as members:
 from .helm import *
+from .Release import *
+from ._inputs import *
+from . import outputs

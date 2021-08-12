@@ -428,6 +428,14 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "helm.sh/v3",
+  "fqn": "pulumi_kubernetes.helm.v3",
+  "classes": {
+   "kubernetes:helm.sh/v3:Release": "Release"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "meta/v1",
   "fqn": "pulumi_kubernetes.meta.v1",
   "classes": {
