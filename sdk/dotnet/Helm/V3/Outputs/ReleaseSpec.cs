@@ -39,7 +39,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// <summary>
         /// Add a custom description
         /// </summary>
-        public readonly bool Description;
+        public readonly string Description;
         /// <summary>
         /// Use chart development versions, too. Equivalent to version '&gt;0.0.0-0'. If `version` is set, this is ignored
         /// </summary>
@@ -111,7 +111,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// <summary>
         /// Custom values to be merged with the values.
         /// </summary>
-        public readonly ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> Set;
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> Set;
         /// <summary>
         /// If set, no CRDs will be installed. By default, CRDs are installed if not already present
         /// </summary>
@@ -153,7 +153,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             bool dependencyUpdate,
 
-            bool description,
+            string description,
 
             bool devel,
 
@@ -189,7 +189,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             bool reuseValues,
 
-            ImmutableDictionary<string, Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> set,
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> set,
 
             bool skipCrds,
 

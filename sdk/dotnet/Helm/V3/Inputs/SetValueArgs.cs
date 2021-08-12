@@ -19,7 +19,16 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<string>? Type { get; set; }
 
         [Input("value", required: true)]
-        public Input<string> Value { get; set; } = null!;
+        private Input<string>? _value;
+        public Input<string>? Value
+        {
+            get => _value;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _value = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
 
         public SetValueArgs()
         {

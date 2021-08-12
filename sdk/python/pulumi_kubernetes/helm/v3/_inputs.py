@@ -20,12 +20,12 @@ class ReleaseSpecArgs:
                  chart: pulumi.Input[str],
                  name: pulumi.Input[str],
                  repository_spec: pulumi.Input['RepositorySpecArgs'],
-                 set: pulumi.Input[Mapping[str, pulumi.Input['SetValueArgs']]],
+                 set: pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]],
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  create_namespace: Optional[pulumi.Input[bool]] = None,
                  dependency_update: Optional[pulumi.Input[bool]] = None,
-                 description: Optional[pulumi.Input[bool]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
                  devel: Optional[pulumi.Input[bool]] = None,
                  disable_crd_hooks: Optional[pulumi.Input[bool]] = None,
                  disable_openapi_validation: Optional[pulumi.Input[bool]] = None,
@@ -53,12 +53,12 @@ class ReleaseSpecArgs:
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[str] name: Release name.
         :param pulumi.Input['RepositorySpecArgs'] repository_spec: Specification defining the Helm chart repository to use.
-        :param pulumi.Input[Mapping[str, pulumi.Input['SetValueArgs']]] set: Custom values to be merged with the values.
+        :param pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]] set: Custom values to be merged with the values.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist
         :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart
-        :param pulumi.Input[bool] description: Add a custom description
+        :param pulumi.Input[str] description: Add a custom description
         :param pulumi.Input[bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
         :param pulumi.Input[bool] disable_crd_hooks: Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
         :param pulumi.Input[bool] disable_openapi_validation: If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
@@ -179,14 +179,14 @@ class ReleaseSpecArgs:
 
     @property
     @pulumi.getter
-    def set(self) -> pulumi.Input[Mapping[str, pulumi.Input['SetValueArgs']]]:
+    def set(self) -> pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]]:
         """
         Custom values to be merged with the values.
         """
         return pulumi.get(self, "set")
 
     @set.setter
-    def set(self, value: pulumi.Input[Mapping[str, pulumi.Input['SetValueArgs']]]):
+    def set(self, value: pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]]):
         pulumi.set(self, "set", value)
 
     @property
@@ -239,14 +239,14 @@ class ReleaseSpecArgs:
 
     @property
     @pulumi.getter
-    def description(self) -> Optional[pulumi.Input[bool]]:
+    def description(self) -> Optional[pulumi.Input[str]]:
         """
         Add a custom description
         """
         return pulumi.get(self, "description")
 
     @description.setter
-    def description(self, value: Optional[pulumi.Input[bool]]):
+    def description(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "description", value)
 
     @property

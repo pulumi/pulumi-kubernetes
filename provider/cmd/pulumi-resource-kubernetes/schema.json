@@ -22765,12 +22765,13 @@
         "kubernetes:helm.sh/v3:Release": {
             "description": "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
             "properties": {
-                "compat": {
-                    "type": "string",
-                    "const": "true"
-                },
                 "releaseSpec": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
+                },
+                "resourceType": {
+                    "type": "string",
+                    "const": "true",
+                    "default": "kubernetes:helm.sh/v3:Release"
                 },
                 "status": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
@@ -22815,7 +22816,7 @@
                     "description": "Run helm dependency update before installing the chart"
                 },
                 "description": {
-                    "type": "boolean",
+                    "type": "string",
                     "description": "Add a custom description"
                 },
                 "devel": {
@@ -22887,8 +22888,8 @@
                     "description": "When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored"
                 },
                 "set": {
-                    "type": "object",
-                    "additionalProperties": {
+                    "type": "array",
+                    "items": {
                         "$ref": "#/types/kubernetes:helm.sh/v3:SetValue"
                     },
                     "description": "Custom values to be merged with the values."
@@ -22979,6 +22980,10 @@
                 "chart": {
                     "type": "string",
                     "description": "The name of the chart."
+                },
+                "manifest": {
+                    "type": "string",
+                    "description": "The rendered manifest as JSON."
                 },
                 "name": {
                     "type": "string",
@@ -23076,7 +23081,8 @@
                     "type": "string"
                 },
                 "value": {
-                    "type": "string"
+                    "type": "string",
+                    "secret": true
                 }
             },
             "type": "object",
@@ -39373,12 +39379,13 @@
         "kubernetes:helm.sh/v3:Release": {
             "description": "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
             "properties": {
-                "compat": {
-                    "type": "string",
-                    "const": "true"
-                },
                 "releaseSpec": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
+                },
+                "resourceType": {
+                    "type": "string",
+                    "const": "true",
+                    "default": "kubernetes:helm.sh/v3:Release"
                 },
                 "status": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",

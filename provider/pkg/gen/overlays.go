@@ -55,11 +55,12 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 				},
 				// HACK - workaround compat breakage in C# codegen
-				"compat": {
+				"resourceType": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
 					Const: "true",
+					Default: "kubernetes:helm.sh/v3:Release",
 				},
 				"status": {
 					TypeSpec: pschema.TypeSpec{
@@ -192,6 +193,12 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "Status of the release.",
 				},
+				"manifest": {
+					TypeSpec: pschema.TypeSpec{
+						Type: "string",
+					},
+					Description: "The rendered manifest as JSON.",
+				},
 			},
 			Language: map[string]pschema.RawMessage{
 				"nodejs": rawMessage(map[string][]string{
@@ -225,6 +232,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
+					Secret: true,
 				},
 				"type": {
 					TypeSpec: pschema.TypeSpec{
@@ -302,13 +310,14 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"set": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "object",
-						AdditionalProperties: &pschema.TypeSpec{
+						Type: "array",
+						Items: &pschema.TypeSpec{
 							Ref: "#/types/kubernetes:helm.sh/v3:SetValue",
 						},
 					},
 					Description: "Custom values to be merged with the values.",
 				},
+				// TODO: setSensitiveValues needs to be modeled.
 				"namespace": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
@@ -435,7 +444,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				},
 				"description": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "boolean",
+						Type: "string",
 					},
 					Description: "Add a custom description",
 					//DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
@@ -515,11 +524,12 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 					},
 				},
 				// HACK - workaround compat breakage in C# codegen
-				"compat": {
+				"resourceType": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
 					Const: "true",
+					Default: "kubernetes:helm.sh/v3:Release",
 				},
 				"status": {
 					TypeSpec: pschema.TypeSpec{

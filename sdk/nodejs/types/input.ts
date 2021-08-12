@@ -12183,7 +12183,7 @@ export namespace helm {
             /**
              * Add a custom description
              */
-            description?: pulumi.Input<boolean>;
+            description?: pulumi.Input<string>;
             /**
              * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
              */
@@ -12255,7 +12255,7 @@ export namespace helm {
             /**
              * Custom values to be merged with the values.
              */
-            set: pulumi.Input<{[key: string]: pulumi.Input<inputs.helm.v3.SetValue>}>;
+            set: pulumi.Input<pulumi.Input<inputs.helm.v3.SetValue>[]>;
             /**
              * If set, no CRDs will be installed. By default, CRDs are installed if not already present
              */

@@ -49,7 +49,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// Add a custom description
         /// </summary>
         [Input("description")]
-        public Input<bool>? Description { get; set; }
+        public Input<string>? Description { get; set; }
 
         /// <summary>
         /// Use chart development versions, too. Equivalent to version '&gt;0.0.0-0'. If `version` is set, this is ignored
@@ -154,14 +154,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<bool>? ReuseValues { get; set; }
 
         [Input("set", required: true)]
-        private InputMap<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs>? _set;
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs>? _set;
 
         /// <summary>
         /// Custom values to be merged with the values.
         /// </summary>
-        public InputMap<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs> Set
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs> Set
         {
-            get => _set ?? (_set = new InputMap<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs>());
+            get => _set ?? (_set = new InputList<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs>());
             set => _set = value;
         }
 

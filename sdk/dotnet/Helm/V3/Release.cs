@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Helm.V3
     [KubernetesResourceType("kubernetes:helm.sh/v3:Release")]
     public partial class Release : KubernetesResource
     {
-        [Output("compat")]
-        public Output<string> Compat { get; private set; } = null!;
-
         [Output("releaseSpec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Helm.V3.ReleaseSpec> ReleaseSpec { get; private set; } = null!;
+
+        [Output("resourceType")]
+        public Output<string> ResourceType { get; private set; } = null!;
 
         /// <summary>
         /// Status of the deployed release.

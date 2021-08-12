@@ -70,12 +70,12 @@ class ReleaseSpec(dict):
                  chart: str,
                  name: str,
                  repository_spec: 'outputs.RepositorySpec',
-                 set: Mapping[str, 'outputs.SetValue'],
+                 set: Sequence['outputs.SetValue'],
                  atomic: Optional[bool] = None,
                  cleanup_on_fail: Optional[bool] = None,
                  create_namespace: Optional[bool] = None,
                  dependency_update: Optional[bool] = None,
-                 description: Optional[bool] = None,
+                 description: Optional[str] = None,
                  devel: Optional[bool] = None,
                  disable_crd_hooks: Optional[bool] = None,
                  disable_openapi_validation: Optional[bool] = None,
@@ -103,12 +103,12 @@ class ReleaseSpec(dict):
         :param str chart: Chart name to be installed. A path may be used.
         :param str name: Release name.
         :param 'RepositorySpecArgs' repository_spec: Specification defining the Helm chart repository to use.
-        :param Mapping[str, 'SetValueArgs'] set: Custom values to be merged with the values.
+        :param Sequence['SetValueArgs'] set: Custom values to be merged with the values.
         :param bool atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
         :param bool cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails
         :param bool create_namespace: Create the namespace if it does not exist
         :param bool dependency_update: Run helm dependency update before installing the chart
-        :param bool description: Add a custom description
+        :param str description: Add a custom description
         :param bool devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
         :param bool disable_crd_hooks: Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
         :param bool disable_openapi_validation: If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
@@ -217,7 +217,7 @@ class ReleaseSpec(dict):
 
     @property
     @pulumi.getter
-    def set(self) -> Mapping[str, 'outputs.SetValue']:
+    def set(self) -> Sequence['outputs.SetValue']:
         """
         Custom values to be merged with the values.
         """
@@ -257,7 +257,7 @@ class ReleaseSpec(dict):
 
     @property
     @pulumi.getter
-    def description(self) -> Optional[bool]:
+    def description(self) -> Optional[str]:
         """
         Add a custom description
         """
@@ -463,6 +463,7 @@ class ReleaseStatus(dict):
                  status: str,
                  app_version: Optional[str] = None,
                  chart: Optional[str] = None,
+                 manifest: Optional[str] = None,
                  name: Optional[str] = None,
                  namespace: Optional[str] = None,
                  revision: Optional[int] = None,
@@ -472,6 +473,7 @@ class ReleaseStatus(dict):
         :param str status: Status of the release.
         :param str app_version: The version number of the application being deployed.
         :param str chart: The name of the chart.
+        :param str manifest: The rendered manifest as JSON.
         :param str name: Name is the name of the release.
         :param str namespace: Namespace is the kubernetes namespace of the release.
         :param int revision: Version is an int32 which represents the version of the release.
@@ -483,6 +485,8 @@ class ReleaseStatus(dict):
             pulumi.set(__self__, "app_version", app_version)
         if chart is not None:
             pulumi.set(__self__, "chart", chart)
+        if manifest is not None:
+            pulumi.set(__self__, "manifest", manifest)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if namespace is not None:
@@ -517,6 +521,14 @@ class ReleaseStatus(dict):
         The name of the chart.
         """
         return pulumi.get(self, "chart")
+
+    @property
+    @pulumi.getter
+    def manifest(self) -> Optional[str]:
+        """
+        The rendered manifest as JSON.
+        """
+        return pulumi.get(self, "manifest")
 
     @property
     @pulumi.getter

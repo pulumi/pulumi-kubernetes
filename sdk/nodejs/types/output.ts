@@ -12469,7 +12469,7 @@ export namespace helm {
             /**
              * Add a custom description
              */
-            description: boolean;
+            description: string;
             /**
              * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
              */
@@ -12541,7 +12541,7 @@ export namespace helm {
             /**
              * Custom values to be merged with the values.
              */
-            set: {[key: string]: outputs.helm.v3.SetValue};
+            set: outputs.helm.v3.SetValue[];
             /**
              * If set, no CRDs will be installed. By default, CRDs are installed if not already present
              */
@@ -12581,6 +12581,10 @@ export namespace helm {
              * The name of the chart.
              */
             chart: string;
+            /**
+             * The rendered manifest as JSON.
+             */
+            manifest?: string;
             /**
              * Name is the name of the release.
              */

@@ -17,8 +17,8 @@ import (
 type Release struct {
 	pulumi.CustomResourceState
 
-	Compat      pulumi.StringPtrOutput `pulumi:"compat"`
-	ReleaseSpec ReleaseSpecOutput      `pulumi:"releaseSpec"`
+	ReleaseSpec  ReleaseSpecOutput      `pulumi:"releaseSpec"`
+	ResourceType pulumi.StringPtrOutput `pulumi:"resourceType"`
 	// Status of the deployed release.
 	Status ReleaseStatusOutput `pulumi:"status"`
 }

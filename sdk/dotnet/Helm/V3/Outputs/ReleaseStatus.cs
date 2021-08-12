@@ -22,6 +22,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Chart;
         /// <summary>
+        /// The rendered manifest as JSON.
+        /// </summary>
+        public readonly string Manifest;
+        /// <summary>
         /// Name is the name of the release.
         /// </summary>
         public readonly string Name;
@@ -52,6 +56,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             string chart,
 
+            string manifest,
+
             string name,
 
             string @namespace,
@@ -66,6 +72,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         {
             AppVersion = appVersion;
             Chart = chart;
+            Manifest = manifest;
             Name = name;
             Namespace = @namespace;
             Revision = revision;
