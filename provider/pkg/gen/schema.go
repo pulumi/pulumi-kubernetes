@@ -70,6 +70,26 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"helmDriver": {
+					Description: "The backend storage driver. Values are: configmap, secret, memory, sql",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmPluginsPath": {
+					Description: "The path to the helm plugins directory",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmRegistryConfigPath": {
+					Description: "The path to the registry config file",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmRepositoryConfigPath": {
+					Description: "The path to the file containing repository names and URLs",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmRepositoryCache": {
+					Description: "The path to the file containing cached repository indexes",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
 			},
 		},
 

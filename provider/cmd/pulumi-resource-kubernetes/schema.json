@@ -22,6 +22,26 @@
                 "type": "boolean",
                 "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable."
             },
+            "helmDriver": {
+                "type": "string",
+                "description": "The backend storage driver. Values are: configmap, secret, memory, sql"
+            },
+            "helmPluginsPath": {
+                "type": "string",
+                "description": "The path to the helm plugins directory"
+            },
+            "helmRegistryConfigPath": {
+                "type": "string",
+                "description": "The path to the registry config file"
+            },
+            "helmRepositoryCache": {
+                "type": "string",
+                "description": "The path to the file containing cached repository indexes"
+            },
+            "helmRepositoryConfigPath": {
+                "type": "string",
+                "description": "The path to the file containing repository names and URLs"
+            },
             "kubeconfig": {
                 "type": "string",
                 "description": "The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.",
