@@ -28,6 +28,31 @@ func GetEnableDryRun(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableDryRun")
 }
 
+// The backend storage driver. Values are: configmap, secret, memory, sql
+func GetHelmDriver(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmDriver")
+}
+
+// The path to the helm plugins directory
+func GetHelmPluginsPath(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmPluginsPath")
+}
+
+// The path to the registry config file
+func GetHelmRegistryConfigPath(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmRegistryConfigPath")
+}
+
+// The path to the file containing cached repository indexes
+func GetHelmRepositoryCache(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmRepositoryCache")
+}
+
+// The path to the file containing repository names and URLs
+func GetHelmRepositoryConfigPath(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmRepositoryConfigPath")
+}
+
 // The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
 func GetKubeconfig(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:kubeconfig")
