@@ -1329,7 +1329,6 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -1342,7 +1341,30 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
 	}
+
+	if isHelmRelease(urn) {
+		namespace := "default"
+		if k.defaultNamespace != "" {
+			namespace = k.defaultNamespace
+		}
+		helmReleaseProvider, err := newHelmReleaseProvider(
+			k.config,
+			k.kubeconfig,
+			k.helmDriver,
+			namespace,
+			k.enableSecrets,
+			k.helmPluginsPath,
+			k.helmRegistryConfigPath,
+			k.helmRepositoryConfigPath,
+			k.helmRepositoryCache)
+		if err != nil {
+			return nil, err
+		}
+		return helmReleaseProvider.Diff(ctx, req, oldState, newResInputs)
+	}
+
 	newInputs := propMapToUnstructured(newResInputs)
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
@@ -1419,7 +1441,6 @@ func (k *kubeProvider) Diff(
 
 	if isClientSidePatch {
 		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-
 	} else {
 		logger.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
 	}
@@ -1449,7 +1470,7 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, forceNewProperties(gvk)...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -2646,14 +2667,14 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
 func convertPatchToDiff(
-	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, gvk schema.GroupVersionKind,
+	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
 
 	contract.Require(len(patch) != 0, "len(patch) != 0")
 	contract.Require(oldLiveState != nil, "oldLiveState != nil")
 
 	pc := &patchConverter{
-		forceNew: forceNewProperties(gvk),
+		forceNew: forceNewFields,
 		diff:     map[string]*pulumirpc.PropertyDiff{},
 	}
 	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, newInputs, oldInputs, false)

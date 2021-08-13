@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	jsonpatch "github.com/evanphx/json-patch"
+	pkgerrors "github.com/pkg/errors"
 	"log"
 	"net/url"
 	"os"
@@ -284,21 +286,224 @@ func assignNameIfAutonammable(release *Release, pm resource.PropertyMap, base to
 	}
 }
 
-func (r *helmReleaseProvider) Diff(ctx context.Context, request *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
-	panic("implement me")
+func (r *helmReleaseProvider) Diff(
+	ctx context.Context,
+	request *pulumirpc.DiffRequest,
+	olds,
+	news resource.PropertyMap,
+) (*pulumirpc.DiffResponse, error) {
+	// Extract old inputs from the `__inputs` field of the old state.
+	oldInputs := parseCheckpointRelease(olds)
+	diff := oldInputs.Diff(news)
+	if diff == nil {
+		return &pulumirpc.DiffResponse{Changes: pulumirpc.DiffResponse_DIFF_NONE}, nil
+	}
+
+	oldRelease, err := decodeRelease(olds)
+	if err != nil {
+		return nil, err
+	}
+	newRelease, err := decodeRelease(news)
+	if err != nil {
+		return nil, err
+	}
+
+	// Always set desired state to DEPLOYED
+	// TODO: This could be done in Check instead?
+	newRelease.Status.Status = release.StatusDeployed.String()
+
+	cpo, chartName, err := chartPathOptions(newRelease.ReleaseSpec)
+	if err != nil {
+		return nil, err
+	}
+
+	// Get Chart metadata, if we fail - we're done
+	chart, _, err := getChart(chartName, r.settings, cpo)
+	if err != nil {
+		return nil, err
+	}
+
+	if newRelease.ReleaseSpec.Lint {
+		if err := resourceReleaseValidate(newRelease.ReleaseSpec, r.settings, cpo); err != nil {
+			return nil, err
+		}
+	}
+
+	actionConfig, err := r.getActionConfig(oldRelease.ReleaseSpec.Namespace)
+	if err != nil {
+		return nil, err
+	}
+
+	client := action.NewUpgrade(actionConfig)
+	client.ChartPathOptions = *cpo
+	client.Devel = newRelease.ReleaseSpec.Devel
+	client.Namespace = newRelease.ReleaseSpec.Namespace
+	client.Timeout = time.Duration(newRelease.ReleaseSpec.Timeout) * time.Second
+	client.Wait = newRelease.ReleaseSpec.Wait
+	client.DryRun = true // do not apply changes
+	client.DisableHooks = newRelease.ReleaseSpec.DisableCRDHooks
+	client.Atomic = newRelease.ReleaseSpec.Atomic
+	client.SubNotes = newRelease.ReleaseSpec.RenderSubchartNotes
+	client.WaitForJobs = newRelease.ReleaseSpec.WaitForJobs
+	client.Force = newRelease.ReleaseSpec.ForceUpdate
+	client.ResetValues = newRelease.ReleaseSpec.ResetValues
+	client.ReuseValues = newRelease.ReleaseSpec.ReuseValues
+	client.Recreate = newRelease.ReleaseSpec.RecreatePods
+	client.MaxHistory = 0
+	if newRelease.ReleaseSpec.MaxHistory != nil {
+		client.MaxHistory = *newRelease.ReleaseSpec.MaxHistory
+	}
+	client.CleanupOnFail = newRelease.ReleaseSpec.CleanupOnFail
+	client.Description = newRelease.ReleaseSpec.Description
+
+	if cmd := newRelease.ReleaseSpec.Postrender; cmd != "" {
+		pr, err := postrender.NewExec(cmd)
+		if err != nil {
+			return nil, err
+		}
+		client.PostRenderer = pr
+	}
+
+	values, err := getValues(newRelease.ReleaseSpec)
+	if err != nil {
+		return nil, fmt.Errorf("error getting values for a diff: %v", err)
+	}
+
+	dry, err := client.Run(newRelease.ReleaseSpec.Name, chart, values)
+	if err != nil && strings.Contains(err.Error(), "has no deployed releases") {
+		return nil, err
+	} else if err != nil {
+		return nil, fmt.Errorf("error running dry run for a diff: %v", err)
+	}
+
+	jsonManifest, err := convertYAMLManifestToJSON(dry.Manifest)
+	if err != nil {
+		return nil, err
+	}
+	newRelease.Status.Manifest = jsonManifest
+
+	oldInputsJSON, err := json.Marshal(oldInputs)
+	if err != nil {
+		return nil, err
+	}
+	newInputsJSON, err  := json.Marshal(news.Mappable())
+	if err != nil {
+		return nil, err
+	}
+
+	patch, err := jsonpatch.CreateMergePatch(oldInputsJSON, newInputsJSON)
+	if err != nil {
+		return nil, err
+	}
+	patchObj := map[string]interface{}{}
+	if err = json.Unmarshal(patch, &patchObj); err != nil {
+		return nil, pkgerrors.Wrapf(
+			err, "Failed to check for changes in Helm release %s because of an error serializing "+
+				"the JSON patch describing resource changes",
+			newRelease.ReleaseSpec.Name)
+	}
+
+	// Pack up PB, ship response back.
+	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
+
+	var changes, replaces []string
+	var detailedDiff map[string]*pulumirpc.PropertyDiff
+	if len(patchObj) != 0 {
+		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+
+		for k := range patchObj {
+			changes = append(changes, k)
+		}
+
+		if detailedDiff, err = convertPatchToDiff(patchObj, oldInputs.Mappable(), news.Mappable(), oldInputs.Mappable(), ".releaseSpec.name", ".releaseSpec.namespace"); err != nil {
+			return nil, pkgerrors.Wrapf(
+				err, "Failed to check for changes in helm release %s/%s because of an error "+
+					"converting JSON patch describing resource changes to a diff",
+				newRelease.ReleaseSpec.Namespace, newRelease.ReleaseSpec.Name)
+		}
+		for _, v := range detailedDiff {
+			v.InputDiff = true
+		}
+
+		for k, v := range detailedDiff {
+			switch v.Kind {
+			case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+				replaces = append(replaces, k)
+			}
+		}
+	}
+
+	return &pulumirpc.DiffResponse{
+		Changes:             hasChanges,
+		Replaces:            replaces,
+		Stables:             []string{},
+		DeleteBeforeReplace: false, // TODO: revisit this.
+		Diffs:               changes,
+		DetailedDiff:        detailedDiff,
+		HasDetailedDiff:     true,
+	}, nil
+}
+
+func resourceReleaseValidate(releaseSpec *ReleaseSpec, settings *cli.EnvSettings, cpo *action.ChartPathOptions) error {
+	cpo, name, err := chartPathOptions(releaseSpec)
+	if err != nil {
+		return fmt.Errorf("malformed values: \n\t%s", err)
+	}
+
+	values, err := getValues(releaseSpec)
+	if err != nil {
+		return err
+	}
+
+	return lintChart(settings, name, cpo, values)
+}
+
+func lintChart(settings *cli.EnvSettings, name string, cpo *action.ChartPathOptions, values map[string]interface{}) (err error) {
+	path, err := cpo.LocateChart(name, settings)
+	if err != nil {
+		return err
+	}
+
+	l := action.NewLint()
+	result := l.Run([]string{path}, values)
+
+	return resultToError(result)
+}
+
+func resultToError(r *action.LintResult) error {
+	if len(r.Errors) == 0 {
+		return nil
+	}
+
+	messages := []string{}
+	for _, msg := range r.Messages {
+		for _, err := range r.Errors {
+			if err == msg.Err {
+				messages = append(messages, fmt.Sprintf("%s: %s", msg.Path, msg.Err))
+				break
+			}
+		}
+	}
+
+	return fmt.Errorf("malformed chart or values: \n\t%s", strings.Join(messages, "\n\t"))
 }
 
 func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateRequest, news resource.PropertyMap) (*pulumirpc.CreateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Create(%s)", r.name, urn)
 
+	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
+	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
+	// dry run, return the inputs as-is.
+	if req.GetPreview() && news.ContainsUnknowns() {
+		logger.V(9).Infof("cannot preview Create(%v)", urn)
+		return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
+	}
+
 	newRelease, err := decodeRelease(news)
 	if err != nil {
 		return nil, err
 	}
-	// Freeze inputs to track the actual inputs for checkpointing.
-	inputs, err := decodeRelease(news)
-	contract.AssertNoError(err)
 
 	conf, err := r.getActionConfig(newRelease.ReleaseSpec.Namespace)
 	if err != nil {
@@ -313,7 +518,12 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	}
 
 	// check and update the chart's dependencies if needed
-	updated, err := checkChartDependencies(c, path, newRelease.ReleaseSpec.Keyring, r.settings, newRelease.ReleaseSpec.DependencyUpdate)
+	updated, err := checkChartDependencies(
+		c,
+		path,
+		newRelease.ReleaseSpec.Keyring,
+		r.settings,
+		newRelease.ReleaseSpec.DependencyUpdate)
 	if err != nil {
 		return nil, err
 	} else if updated {
@@ -412,7 +622,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 
-	obj := checkpointRelease(inputs, newRelease, news)
+	obj := checkpointRelease(news, newRelease)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -431,16 +641,31 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	return &pulumirpc.CreateResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
-func checkpointRelease(inputs, live *Release, fromInputs resource.PropertyMap) resource.PropertyMap {
-	object := resource.NewPropertyMap(live)
-	inputsPM := resource.NewPropertyMap(inputs)
+func (r *helmReleaseProvider) Read(ctx context.Context, request *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
+	panic("implement me")
+}
 
-	annotateSecrets(object, fromInputs)
-	annotateSecrets(inputsPM, fromInputs)
+func (r *helmReleaseProvider) Update(ctx context.Context, request *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
+	panic("implement me")
+}
 
-	object["__inputs"] = resource.NewObjectProperty(inputsPM)
+func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.DeleteRequest) (*empty.Empty, error) {
+	panic("implement me")
+}
 
+func checkpointRelease(inputs resource.PropertyMap, outputs *Release) resource.PropertyMap {
+	object := resource.NewPropertyMap(outputs)
+	object["__inputs"] = resource.MakeSecret(resource.NewObjectProperty(inputs))
 	return object
+}
+
+// parseCheckpointRelease returns inputs that are saved in the `__inputs` field of the state.
+func parseCheckpointRelease(obj resource.PropertyMap) resource.PropertyMap {
+	if inputs, ok := obj["__inputs"]; ok {
+		return inputs.SecretValue().Element.ObjectValue()
+	}
+
+	return nil
 }
 
 func setReleaseAttributes(release *Release, news resource.PropertyMap, r *release.Release) error {
@@ -742,18 +967,6 @@ func resolveChartName(repository, name string) (string, string, error) {
 	}
 
 	return "", name, nil
-}
-
-func (r *helmReleaseProvider) Read(ctx context.Context, request *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
-	panic("implement me")
-}
-
-func (r *helmReleaseProvider) Update(ctx context.Context, request *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
-	panic("implement me")
-}
-
-func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.DeleteRequest) (*empty.Empty, error) {
-	panic("implement me")
 }
 
 func isHelmRelease(urn resource.URN) bool {

@@ -20,7 +20,7 @@ type customResourceProvider interface{
 	// the end-user experience, as the provider inputs are using for detecting and rendering diffs.
 	Check(ctx context.Context, req *pulumirpc.CheckRequest, olds, news resource.PropertyMap) (*pulumirpc.CheckResponse, error)
 	// Diff checks what impacts a hypothetical update will have on the resource's properties.
-	Diff(context.Context, *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error)
+	Diff(ctx context.Context, req *pulumirpc.DiffRequest, olds, news resource.PropertyMap) (*pulumirpc.DiffResponse, error)
 	// Create allocates a new instance of the provided resource and returns its unique ID afterwards.  (The input ID
 	// must be blank.)  If this call fails, the resource must not have been created (i.e., it is "transactional").
 	Create(context.Context, *pulumirpc.CreateRequest, resource.PropertyMap) (*pulumirpc.CreateResponse, error)
