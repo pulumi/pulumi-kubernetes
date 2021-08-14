@@ -733,6 +733,10 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.Del
 func checkpointRelease(inputs resource.PropertyMap, outputs *Release) resource.PropertyMap {
 	object := resource.NewPropertyMap(outputs)
 	object["__inputs"] = resource.MakeSecret(resource.NewObjectProperty(inputs))
+
+	// Make sure parts of the inputs which are marked as secrets in the inputs are retained as
+	// secrets in the outputs.
+	annotateSecrets(object, inputs)
 	return object
 }
 
