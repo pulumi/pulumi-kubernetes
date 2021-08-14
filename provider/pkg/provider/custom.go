@@ -18,7 +18,7 @@ type customResourceProvider interface{
 	// identify the resource; this is typically just the resource ID, but may also include some properties.
 	Read(ctx context.Context, req *pulumirpc.ReadRequest, oldState, oldInputs resource.PropertyMap) (*pulumirpc.ReadResponse, error)
 	// Update updates an existing resource with new values.
-	Update(context.Context, *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error)
+	Update(ctx context.Context, req *pulumirpc.UpdateRequest, oldState, newInputs resource.PropertyMap) (*pulumirpc.UpdateResponse, error)
 	// Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed to still exist.
 	Delete(context.Context, *pulumirpc.DeleteRequest, resource.PropertyMap) (*empty.Empty, error)
 }

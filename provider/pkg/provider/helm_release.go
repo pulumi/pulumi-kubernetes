@@ -701,8 +701,108 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
-func (r *helmReleaseProvider) Update(ctx context.Context, request *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
-	panic("implement me")
+func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest, oldState, newResInputs resource.PropertyMap) (*pulumirpc.UpdateResponse, error) {
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("Provider[%s].Update(%s)", r.name, urn)
+	logger.V(9).Infof("%s executing", label)
+
+	newRelease, err := decodeRelease(newResInputs)
+	if err != nil {
+		return nil, err
+	}
+	actionConfig, err := r.getActionConfig(newRelease.ReleaseSpec.Namespace)
+	if err != nil {
+		return nil, err
+	}
+
+	cpo, chartName, err := chartPathOptions(newRelease.ReleaseSpec)
+	if err != nil {
+		return nil, err
+	}
+
+	c, path, err := getChart(chartName, r.settings, cpo)
+	if err != nil {
+		return nil, err
+	}
+
+	// check and update the chart's dependencies if needed
+	updated, err := checkChartDependencies(
+		c,
+		path,
+		newRelease.ReleaseSpec.Keyring,
+		r.settings,
+		newRelease.ReleaseSpec.DependencyUpdate)
+	if err != nil {
+		return nil, err
+	} else if updated {
+		// load the chart again if its dependencies have been updated
+		c, err = loader.Load(path)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	client := action.NewUpgrade(actionConfig)
+	client.ChartPathOptions = *cpo
+	client.Devel = newRelease.ReleaseSpec.Devel
+	client.Namespace = newRelease.ReleaseSpec.Namespace
+	client.Timeout = time.Duration(newRelease.ReleaseSpec.Timeout) * time.Second
+	client.Wait = newRelease.ReleaseSpec.Wait
+	client.WaitForJobs = newRelease.ReleaseSpec.WaitForJobs
+	client.DryRun = false
+	client.DisableHooks = newRelease.ReleaseSpec.DisableWebhooks
+	client.Atomic = newRelease.ReleaseSpec.Atomic
+	client.SkipCRDs = newRelease.ReleaseSpec.SkipCrds
+	client.SubNotes = newRelease.ReleaseSpec.RenderSubchartNotes
+	client.Force = newRelease.ReleaseSpec.ForceUpdate
+	client.ResetValues = newRelease.ReleaseSpec.ResetValues
+	client.ReuseValues = newRelease.ReleaseSpec.ReuseValues
+	client.Recreate = newRelease.ReleaseSpec.RecreatePods
+	client.MaxHistory = 0
+	if newRelease.ReleaseSpec.MaxHistory != nil {
+		client.MaxHistory = *newRelease.ReleaseSpec.MaxHistory
+	}
+	client.CleanupOnFail = newRelease.ReleaseSpec.CleanupOnFail
+	client.Description = newRelease.ReleaseSpec.Description
+
+	if cmd := newRelease.ReleaseSpec.Postrender; cmd != "" {
+		pr, err := postrender.NewExec(cmd)
+
+		if err != nil {
+			return nil, err
+		}
+
+		client.PostRenderer = pr
+	}
+
+	values, err := getValues(newRelease.ReleaseSpec)
+	if err != nil {
+		return nil, err
+	}
+
+	name := newRelease.ReleaseSpec.Name
+	updatedRelease, err := client.Run(name, c, values)
+	if err != nil {
+		return nil, err
+	}
+
+	err = setReleaseAttributes(newRelease, updatedRelease)
+	if err != nil {
+		return nil, err
+	}
+
+	checkpointed := checkpointRelease(newResInputs, newRelease)
+	inputsAndComputed, err := plugin.MarshalProperties(
+		checkpointed, plugin.MarshalOptions{
+			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
+			KeepUnknowns: true,
+			SkipNulls:    true,
+			KeepSecrets:  r.enableSecrets,
+		})
+	if err != nil {
+		return nil, err
+	}
+	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 }
 
 func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.DeleteRequest, olds resource.PropertyMap) (*empty.Empty, error) {

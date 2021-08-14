@@ -1993,8 +1993,6 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, err
 	}
-	// Ignore old state; we'll get it from Kubernetes later.
-	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -2008,6 +2006,14 @@ func (k *kubeProvider) Update(
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Update(ctx, req, oldState, newResInputs)
+		}
+	}
+	// Ignore old state; we'll get it from Kubernetes later.
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
 	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
