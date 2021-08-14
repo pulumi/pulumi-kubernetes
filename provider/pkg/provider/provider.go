@@ -124,6 +124,7 @@ type kubeProvider struct {
 	helmRegistryConfigPath string
 	helmRepositoryConfigPath string
 	helmRepositoryCache      string
+	helmReleaseProvider customResourceProvider
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -581,6 +582,25 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			warningConfig.WarningHandler = rest.NoWarnings{}
 			k.config = warningConfig
 			k.kubeconfig = kubeconfig
+
+			namespace := "default"
+			if k.defaultNamespace != "" {
+				namespace = k.defaultNamespace
+			}
+			k.helmReleaseProvider, err = newHelmReleaseProvider(
+				k.host,
+				k.config,
+				kubeconfig,
+				k.helmDriver,
+				namespace,
+				k.enableSecrets,
+				k.helmPluginsPath,
+				k.helmRegistryConfigPath,
+				k.helmRepositoryConfigPath,
+				k.helmRepositoryCache)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -1111,24 +1131,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
-			namespace := "default"
-			if k.defaultNamespace != "" {
-				namespace = k.defaultNamespace
-			}
-			helmReleaseProvider, err := newHelmReleaseProvider(
-				k.config,
-				k.kubeconfig,
-				k.helmDriver,
-				namespace,
-				k.enableSecrets,
-				k.helmPluginsPath,
-				k.helmRegistryConfigPath,
-				k.helmRepositoryConfigPath,
-				k.helmRepositoryCache)
-			if err != nil {
-				return nil, err
-			}
-			return helmReleaseProvider.Check(ctx, req, olds, news)
+			return k.helmReleaseProvider.Check(ctx, req, olds, news)
 		}
 		// TODO: what when cluster is unreachable?
 	}
@@ -1343,24 +1346,9 @@ func (k *kubeProvider) Diff(
 	}
 
 	if isHelmRelease(urn) {
-		namespace := "default"
-		if k.defaultNamespace != "" {
-			namespace = k.defaultNamespace
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Diff(ctx, req, oldState, newResInputs)
 		}
-		helmReleaseProvider, err := newHelmReleaseProvider(
-			k.config,
-			k.kubeconfig,
-			k.helmDriver,
-			namespace,
-			k.enableSecrets,
-			k.helmPluginsPath,
-			k.helmRegistryConfigPath,
-			k.helmRepositoryConfigPath,
-			k.helmRepositoryCache)
-		if err != nil {
-			return nil, err
-		}
-		return helmReleaseProvider.Diff(ctx, req, oldState, newResInputs)
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
@@ -1577,24 +1565,7 @@ func (k *kubeProvider) Create(
 
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
-			defaultNamespace := "default"
-			if k.defaultNamespace != "" {
-				defaultNamespace = k.defaultNamespace
-			}
-			helmReleaseProvider, err := newHelmReleaseProvider(
-				k.config,
-				k.kubeconfig,
-				k.helmDriver,
-				defaultNamespace,
-				k.enableSecrets,
-				k.helmPluginsPath,
-				k.helmRegistryConfigPath,
-				k.helmRepositoryConfigPath,
-				k.helmRepositoryCache)
-			if err != nil {
-				return nil, err
-			}
-			return helmReleaseProvider.Create(ctx, req, newResInputs)
+			return k.helmReleaseProvider.Create(ctx, req, newResInputs)
 		}
 	}
 
@@ -1790,17 +1761,23 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
-	oldInputs, newInputs := parseCheckpointObject(oldState)
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Read(ctx, req, oldState, oldInputsPM)
+		}
+	}
+
+	oldInputs, oldLive := parseCheckpointObject(oldState)
 
 	if oldInputs.GroupVersionKind().Empty() {
-		if newInputs.GroupVersionKind().Empty() {
+		if oldLive.GroupVersionKind().Empty() {
 			gvk, err := k.gvkFromURN(urn)
 			if err != nil {
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
 		} else {
-			oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
+			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
 	}
 
@@ -1825,7 +1802,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
 		state, err := plugin.MarshalProperties(
-			checkpointObject(oldInputs, newInputs, oldState, initialAPIVersion), plugin.MarshalOptions{
+			checkpointObject(oldInputs, oldLive, oldState, initialAPIVersion), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.state", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -2179,6 +2156,14 @@ func (k *kubeProvider) Delete(
 	if err != nil {
 		return nil, err
 	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Delete(ctx, req, oldState)
+		}
+		// TODO: what when cluster is unreachable?
+	}
+
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
 

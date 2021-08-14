@@ -3,7 +3,6 @@ package provider
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"strings"
 
 	"golang.org/x/crypto/sha3"
@@ -85,19 +84,16 @@ func hashSensitiveValue(v string) string {
 	return fmt.Sprintf("(sensitive value %x)", hash)
 }
 
+// TODO:
 // redactSensitiveValues removes values that appear in `set` blocks marked as secrets
 // from the manifest JSON
-func redactSensitiveValues(text string, pm resource.PropertyMap) string {
+func redactSensitiveValues(text string, values []string) string {
 	masked := text
 
-	//for _, v := range d.Get("set_sensitive").(*schema.Set).List() {
-	//	vv := v.(map[string]interface{})
-	//
-	//	if sensitiveValue, ok := vv["value"].(string); ok {
-	//		h := hashSensitiveValue(sensitiveValue)
-	//		masked = strings.ReplaceAll(masked, sensitiveValue, h)
-	//	}
-	//}
+	for _, v := range values {
+		h := hashSensitiveValue(v)
+		masked = strings.ReplaceAll(masked, v, h)
+	}
 
 	return masked
 }

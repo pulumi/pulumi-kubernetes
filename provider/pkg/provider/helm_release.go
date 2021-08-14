@@ -6,7 +6,10 @@ import (
 	"errors"
 	"fmt"
 	jsonpatch "github.com/evanphx/json-patch"
+	pbempty "github.com/golang/protobuf/ptypes/empty"
 	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"log"
 	"net/url"
 	"os"
@@ -155,6 +158,7 @@ type ReleaseStatus struct {
 }
 
 type helmReleaseProvider struct {
+	host             *provider.HostClient
 	helmDriver       string
 	kubeConfig       *KubeConfig
 	defaultNamespace string
@@ -164,6 +168,7 @@ type helmReleaseProvider struct {
 }
 
 func newHelmReleaseProvider(
+	host *provider.HostClient,
 	config *rest.Config,
 	clientConfig clientcmd.ClientConfig,
 	helmDriver,
@@ -182,6 +187,7 @@ func newHelmReleaseProvider(
 	settings.RepositoryCache = repositoryCache
 
 	return &helmReleaseProvider{
+		host:             host,
 		kubeConfig:       kc,
 		helmDriver:       helmDriver,
 		defaultNamespace: namespace,
@@ -201,14 +207,6 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 		return nil, err
 	}
 	return conf, nil
-}
-
-func (r *helmReleaseProvider) Invoke(ctx context.Context, request *pulumirpc.InvokeRequest) (*pulumirpc.InvokeResponse, error) {
-	panic("implement me")
-}
-
-func (r *helmReleaseProvider) StreamInvoke(request *pulumirpc.InvokeRequest, server pulumirpc.ResourceProvider_StreamInvokeServer) error {
-	panic("implement me")
 }
 
 func decodeRelease(pm resource.PropertyMap) (*Release, error) {
@@ -386,7 +384,7 @@ func (r *helmReleaseProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	newInputsJSON, err  := json.Marshal(news.Mappable())
+	newInputsJSON, err := json.Marshal(news.Mappable())
 	if err != nil {
 		return nil, err
 	}
@@ -598,7 +596,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 		//debug("%s Release was created but returned an error", logID)
 
-		if err := setReleaseAttributes(newRelease, news, rel); err != nil {
+		if err := setReleaseAttributes(newRelease, rel); err != nil {
 			return nil, err
 		}
 
@@ -617,7 +615,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 	}
 
-	err = setReleaseAttributes(newRelease, news, rel)
+	err = setReleaseAttributes(newRelease, rel)
 	if err != nil {
 		return nil, err
 	}
@@ -636,21 +634,100 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 	id := ""
 	if !req.GetPreview() {
-		id = newRelease.ReleaseSpec.Name
+		id = fqName(newRelease.ReleaseSpec.Namespace, newRelease.ReleaseSpec.Name)
 	}
 	return &pulumirpc.CreateResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
-func (r *helmReleaseProvider) Read(ctx context.Context, request *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
-	panic("implement me")
+func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest, oldState, oldInputs resource.PropertyMap) (*pulumirpc.ReadResponse, error) {
+	urn := resource.URN(req.GetUrn())
+	label := fmt.Sprintf("Provider[%s].Read(%s)", r.name, urn)
+
+	existingRelease, err := decodeRelease(oldState)
+	if err != nil {
+		return nil, err
+	}
+	actionConfig, err := r.getActionConfig(existingRelease.ReleaseSpec.Namespace)
+	if err != nil {
+		return nil, err
+	}
+	exists, err := resourceReleaseExists(existingRelease.ReleaseSpec, actionConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	if !exists {
+		// If not found, this resource was probably deleted.
+		return deleteResponse, nil
+	}
+
+	name := existingRelease.ReleaseSpec.Name
+	liveObj, err := getRelease(actionConfig, name)
+	if err != nil {
+		return nil, err
+	}
+
+	err = setReleaseAttributes(existingRelease, liveObj)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return a new "checkpoint object".
+	state, err := plugin.MarshalProperties(
+		checkpointRelease(oldInputs, existingRelease), plugin.MarshalOptions{
+			Label:        fmt.Sprintf("%s.state", label),
+			KeepUnknowns: true,
+			SkipNulls:    true,
+			KeepSecrets:  r.enableSecrets,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	liveInputsPM := resource.NewPropertyMap(existingRelease)
+
+	inputs, err := plugin.MarshalProperties(liveInputsPM, plugin.MarshalOptions{
+		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: r.enableSecrets,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	id := fqName(existingRelease.ReleaseSpec.Namespace, existingRelease.ReleaseSpec.Name)
+	if reqID := req.GetId(); len(reqID) > 0 {
+		id = reqID
+	}
+
+	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
 func (r *helmReleaseProvider) Update(ctx context.Context, request *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	panic("implement me")
 }
 
-func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.DeleteRequest) (*empty.Empty, error) {
-	panic("implement me")
+func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.DeleteRequest, olds resource.PropertyMap) (*empty.Empty, error) {
+	release, err := decodeRelease(olds)
+	if err != nil {
+		return nil, err
+	}
+
+	namespace := release.ReleaseSpec.Namespace
+	actionConfig, err := r.getActionConfig(namespace)
+	if err != nil {
+		return nil, err
+	}
+
+	name := release.ReleaseSpec.Name
+
+	res, err := action.NewUninstall(actionConfig).Run(name)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.Info != "" {
+		r.host.Log(context.Background(), diag.Warning, "Helm uninstall returned information: %q", res.Info)
+	}
+	return &pbempty.Empty{}, nil
 }
 
 func checkpointRelease(inputs resource.PropertyMap, outputs *Release) resource.PropertyMap {
@@ -668,13 +745,13 @@ func parseCheckpointRelease(obj resource.PropertyMap) resource.PropertyMap {
 	return nil
 }
 
-func setReleaseAttributes(release *Release, news resource.PropertyMap, r *release.Release) error {
+func setReleaseAttributes(release *Release, r *release.Release) error {
 	release.Status.Version = r.Chart.Metadata.Version
 	release.Status.Namespace = r.Namespace
 	release.Status.Name = r.Name
 	release.Status.Status = r.Info.Status.String()
 
-	cloakSetValues(r.Config, news)
+	//cloakSetValues(r.Config, news)
 	values, err := json.Marshal(r.Config)
 	if err != nil {
 		return err
@@ -684,8 +761,8 @@ func setReleaseAttributes(release *Release, news resource.PropertyMap, r *releas
 	if err != nil {
 		return err
 	}
-	manifest := redactSensitiveValues(jsonManifest, news)
-	release.Status.Manifest = manifest
+	//manifest := redactSensitiveValues(jsonManifest, release.ReleaseSpec.Values)
+	release.Status.Manifest = jsonManifest
 
 	release.Status.Name = r.Name
 	release.Status.Namespace = r.Namespace
