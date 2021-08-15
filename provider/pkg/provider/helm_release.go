@@ -149,11 +149,9 @@ type ReleaseStatus struct {
 	Revision *int `json:"revision,omitempty"`
 	// Status of the release.
 	Status string `json:"status,omitempty"`
-	// Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-	Values string `json:"values,omitempty"`
 	// A SemVer 2 conformant version string of the chart.
 	Version string `json:"version,omitempty"`
-	// The rendered manifest as JSON.
+	// The rendered manifest as JSON. This will be overwritten by the provider with the current rendered manifests.
 	Manifest string `json:"manifest,omitempty"`
 }
 
@@ -212,14 +210,8 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 func decodeRelease(pm resource.PropertyMap) (*Release, error) {
 	var release Release
 	stripped := pm.MapRepl(nil, mapReplStripSecrets)
-	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		Result:  &release,
-		TagName: "json",
-	})
-	if err != nil {
-		return nil, err
-	}
-	if err := decoder.Decode(stripped); err != nil {
+	logger.V(9).Infof("Decoding release: %#v", stripped)
+	if err := mapstructure.Decode(stripped, &release); err != nil {
 		return nil, err
 	}
 	return &release, nil
@@ -240,10 +232,6 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 		adoptOldNameIfUnnamed(new, old)
-
-		if new.ReleaseSpec.Namespace == "" {
-			new.ReleaseSpec.Namespace = old.ReleaseSpec.Namespace
-		}
 	} else {
 		assignNameIfAutonammable(new, news, "release")
 	}
@@ -274,13 +262,15 @@ func adoptOldNameIfUnnamed(new, old *Release) {
 }
 
 func assignNameIfAutonammable(release *Release, pm resource.PropertyMap, base tokens.QName) {
-	if rs, ok := pm["resourceSpec"].V.(resource.PropertyMap); ok {
+	if rs, ok := pm["releaseSpec"].V.(resource.PropertyMap); ok {
 		if name, ok := rs["name"]; ok && name.IsComputed() {
 			return
 		}
 		if name, ok := rs["name"]; !ok || name.StringValue() == "" {
 			release.ReleaseSpec.Name = fmt.Sprintf("%s-%s", base, metadata.RandString(8))
 		}
+	} else {
+		contract.Failf("release %#v has releaseSpec with unexpected type: %T", pm, pm["releaseSpec"].V)
 	}
 }
 
@@ -291,9 +281,10 @@ func (r *helmReleaseProvider) Diff(
 	news resource.PropertyMap,
 ) (*pulumirpc.DiffResponse, error) {
 	// Extract old inputs from the `__inputs` field of the old state.
-	oldInputs := parseCheckpointRelease(olds)
+	oldInputs, _ := parseCheckpointRelease(olds)
 	diff := oldInputs.Diff(news)
 	if diff == nil {
+		logger.V(9).Infof("No diff found for %q", request.GetUrn())
 		return &pulumirpc.DiffResponse{Changes: pulumirpc.DiffResponse_DIFF_NONE}, nil
 	}
 
@@ -306,8 +297,14 @@ func (r *helmReleaseProvider) Diff(
 		return nil, err
 	}
 
+	logger.V(9).Infof("Diff: Old release: %#v", oldRelease)
+	logger.V(9).Infof("Diff: New release: %#v", newRelease)
+
 	// Always set desired state to DEPLOYED
 	// TODO: This could be done in Check instead?
+	if newRelease.Status == nil {
+		newRelease.Status = &ReleaseStatus{}
+	}
 	newRelease.Status.Status = release.StatusDeployed.String()
 
 	cpo, chartName, err := chartPathOptions(newRelease.ReleaseSpec)
@@ -332,6 +329,21 @@ func (r *helmReleaseProvider) Diff(
 		return nil, err
 	}
 
+	var pr postrender.PostRenderer
+	if cmd := newRelease.ReleaseSpec.Postrender; cmd != "" {
+		pr, err = postrender.NewExec(cmd)
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	values, err := getValues(newRelease.ReleaseSpec)
+	if err != nil {
+		return nil, fmt.Errorf("error getting values for a diff: %v", err)
+	}
+
+	var dry *release.Release
 	client := action.NewUpgrade(actionConfig)
 	client.ChartPathOptions = *cpo
 	client.Devel = newRelease.ReleaseSpec.Devel
@@ -353,22 +365,11 @@ func (r *helmReleaseProvider) Diff(
 	}
 	client.CleanupOnFail = newRelease.ReleaseSpec.CleanupOnFail
 	client.Description = newRelease.ReleaseSpec.Description
+	client.PostRenderer = pr
 
-	if cmd := newRelease.ReleaseSpec.Postrender; cmd != "" {
-		pr, err := postrender.NewExec(cmd)
-		if err != nil {
-			return nil, err
-		}
-		client.PostRenderer = pr
-	}
-
-	values, err := getValues(newRelease.ReleaseSpec)
-	if err != nil {
-		return nil, fmt.Errorf("error getting values for a diff: %v", err)
-	}
-
-	dry, err := client.Run(newRelease.ReleaseSpec.Name, chart, values)
+	dry, err = client.Run(newRelease.ReleaseSpec.Name, chart, values)
 	if err != nil && strings.Contains(err.Error(), "has no deployed releases") {
+		logger.V(9).Infof("No existing ")
 		return nil, err
 	} else if err != nil {
 		return nil, fmt.Errorf("error running dry run for a diff: %v", err)
@@ -380,7 +381,7 @@ func (r *helmReleaseProvider) Diff(
 	}
 	newRelease.Status.Manifest = jsonManifest
 
-	oldInputsJSON, err := json.Marshal(oldInputs)
+	oldInputsJSON, err := json.Marshal(oldInputs.Mappable())
 	if err != nil {
 		return nil, err
 	}
@@ -389,6 +390,8 @@ func (r *helmReleaseProvider) Diff(
 		return nil, err
 	}
 
+	logger.V(9).Infof("oldInputsJSON: %+v", string(oldInputsJSON))
+	logger.V(9).Infof("newInputsJSON: %+v", string(newInputsJSON))
 	patch, err := jsonpatch.CreateMergePatch(oldInputsJSON, newInputsJSON)
 	if err != nil {
 		return nil, err
@@ -413,7 +416,12 @@ func (r *helmReleaseProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, oldInputs.Mappable(), news.Mappable(), oldInputs.Mappable(), ".releaseSpec.name", ".releaseSpec.namespace"); err != nil {
+		logger.V(9).Infof("patchObj: %+v", patchObj)
+		logger.V(9).Infof("oldLiveState: %+v", olds.Mappable())
+		logger.V(9).Infof("news: %+v", news.Mappable())
+		logger.V(9).Infof("oldInputs: %+v", oldInputs.Mappable())
+
+		if detailedDiff, err = convertPatchToDiff(patchObj, olds.Mappable(), news.Mappable(), oldInputs.Mappable(), ".releaseSpec.name", ".releaseSpec.namespace"); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in helm release %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -493,10 +501,10 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
 	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
 	// dry run, return the inputs as-is.
-	if req.GetPreview() && news.ContainsUnknowns() {
-		logger.V(9).Infof("cannot preview Create(%v)", urn)
-		return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
-	}
+	//if req.GetPreview() {
+	//	logger.V(9).Infof("cannot preview Create(%v)", urn)
+	//	return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
+	//}
 
 	newRelease, err := decodeRelease(news)
 	if err != nil {
@@ -508,13 +516,20 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 	client := action.NewInstall(conf)
+	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.ReleaseSpec)
 	cpo, chartName, err := chartPathOptions(newRelease.ReleaseSpec)
-
-	c, path, err := getChart(chartName, r.settings, cpo)
 	if err != nil {
 		return nil, err
 	}
 
+	logger.V(9).Infof("getChart: %q settings: %#v, cpo: %+v", chartName, r.settings, cpo)
+	c, path, err := getChart(chartName, r.settings, cpo)
+	if err != nil {
+		logger.V(9).Infof("getChart failed: %+v", err)
+		return nil, err
+	}
+
+	logger.V(9).Infof("Checking chart dependencies for chart: %q with path: %q", chartName, path)
 	// check and update the chart's dependencies if needed
 	updated, err := checkChartDependencies(
 		c,
@@ -532,10 +547,13 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		}
 	}
 
+	logger.V(9).Infof("Fetching values for release: %q", newRelease.ReleaseSpec.Name)
 	values, err := getValues(newRelease.ReleaseSpec)
 	if err != nil {
 		return nil, err
 	}
+
+	logger.V(9).Infof("Values: %+v", values)
 
 	err = isChartInstallable(c)
 	if err != nil {
@@ -544,7 +562,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 	client.ChartPathOptions = *cpo
 	client.ClientOnly = false
-	client.DryRun = false
+	client.DryRun = req.GetPreview() // Dry-run == preview.
 	client.DisableHooks = newRelease.ReleaseSpec.DisableWebhooks
 	client.Wait = newRelease.ReleaseSpec.Wait
 	client.WaitForJobs = newRelease.ReleaseSpec.WaitForJobs
@@ -574,6 +592,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		client.PostRenderer = pr
 	}
 
+	logger.V(9).Info("install helm chart")
 	rel, err := client.Run(c, values)
 	if err != nil && rel == nil {
 		return nil, err
@@ -636,6 +655,8 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	if !req.GetPreview() {
 		id = fqName(newRelease.ReleaseSpec.Namespace, newRelease.ReleaseSpec.Name)
 	}
+
+	logger.V(9).Infof("Create: [id: %q] properties: %#v", id, inputsAndComputed)
 	return &pulumirpc.CreateResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
@@ -747,9 +768,9 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 	client.Devel = newRelease.ReleaseSpec.Devel
 	client.Namespace = newRelease.ReleaseSpec.Namespace
 	client.Timeout = time.Duration(newRelease.ReleaseSpec.Timeout) * time.Second
-	client.Wait = newRelease.ReleaseSpec.Wait
-	client.WaitForJobs = newRelease.ReleaseSpec.WaitForJobs
-	client.DryRun = false
+	client.Wait = !req.GetPreview() && newRelease.ReleaseSpec.Wait
+	client.WaitForJobs = !req.GetPreview() && newRelease.ReleaseSpec.WaitForJobs
+	client.DryRun = req.GetPreview()
 	client.DisableHooks = newRelease.ReleaseSpec.DisableWebhooks
 	client.Atomic = newRelease.ReleaseSpec.Atomic
 	client.SkipCRDs = newRelease.ReleaseSpec.SkipCrds
@@ -841,25 +862,25 @@ func checkpointRelease(inputs resource.PropertyMap, outputs *Release) resource.P
 }
 
 // parseCheckpointRelease returns inputs that are saved in the `__inputs` field of the state.
-func parseCheckpointRelease(obj resource.PropertyMap) resource.PropertyMap {
+func parseCheckpointRelease(obj resource.PropertyMap) (resource.PropertyMap, resource.PropertyMap) {
+	state := obj.Copy()
 	if inputs, ok := obj["__inputs"]; ok {
-		return inputs.SecretValue().Element.ObjectValue()
+		delete(state, "__inputs")
+		return inputs.SecretValue().Element.ObjectValue(), state
 	}
 
-	return nil
+	return nil, state
 }
 
 func setReleaseAttributes(release *Release, r *release.Release) error {
+	logger.V(9).Infof("Will populate dest: %#v with data from release: %+v", release, r)
+	if release.Status == nil {
+		release.Status = &ReleaseStatus{}
+	}
 	release.Status.Version = r.Chart.Metadata.Version
 	release.Status.Namespace = r.Namespace
 	release.Status.Name = r.Name
 	release.Status.Status = r.Info.Status.String()
-
-	//cloakSetValues(r.Config, news)
-	values, err := json.Marshal(r.Config)
-	if err != nil {
-		return err
-	}
 
 	jsonManifest, err := convertYAMLManifestToJSON(r.Manifest)
 	if err != nil {
@@ -874,7 +895,6 @@ func setReleaseAttributes(release *Release, r *release.Release) error {
 	release.Status.Chart = r.Chart.Metadata.Name
 	release.Status.Version = r.Chart.Metadata.Version
 	release.Status.AppVersion = r.Chart.Metadata.AppVersion
-	release.Status.Values = string(values)
 	return nil
 }
 
@@ -956,7 +976,7 @@ func getValues(spec *ReleaseSpec) (map[string]interface{}, error) {
 	//	}
 	//}
 
-	return base, logValues(base, spec)
+	return base, logValues(base)
 }
 
 func getValue(base map[string]interface{}, set *SetValue) error {
@@ -980,26 +1000,26 @@ func getValue(base map[string]interface{}, set *SetValue) error {
 	return nil
 }
 
-func logValues(values map[string]interface{}, spec *ReleaseSpec) error {
+func logValues(values map[string]interface{}) error {
 	// copy array to avoid change values by the cloak function.
-	//asJSON, _ := json.Marshal(values)
-	//var c map[string]interface{}
-	//err := json.Unmarshal(asJSON, &c)
-	//if err != nil {
-	//	return err
-	//}
-	//
+	asJSON, _ := json.Marshal(values)
+	var c map[string]interface{}
+	err := json.Unmarshal(asJSON, &c)
+	if err != nil {
+		return err
+	}
+
 	//cloakSetValues(c, spec)
-	//
-	//y, err := yaml.Marshal(c)
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//log.Printf(
-	//	"---[ values.yaml ]-----------------------------------\n%s\n",
-	//	string(y),
-	//)
+
+	y, err := yaml.Marshal(c)
+	if err != nil {
+		return err
+	}
+
+	logger.V(9).Infof(
+		"---[ values.yaml ]-----------------------------------\n%s\n",
+		string(y),
+	)
 
 	return nil
 }
@@ -1064,6 +1084,7 @@ func getChart(name string, settings *cli.EnvSettings, cpo *action.ChartPathOptio
 		return nil, "", err
 	}
 
+	logger.V(9).Infof("Trying to load chart: %q from path: %q", name, path)
 	c, err := loader.Load(path)
 	if err != nil {
 		return nil, "", err
@@ -1105,7 +1126,6 @@ func chartPathOptions(releaseSpec *ReleaseSpec) (*action.ChartPathOptions, strin
 
 	repository := releaseSpec.RepositorySpec.Repository
 	repositoryURL, chartName, err := resolveChartName(repository, strings.TrimSpace(chartName))
-
 	if err != nil {
 		return nil, "", err
 	}

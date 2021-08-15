@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -466,7 +467,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if pluginsPath, exists := os.LookupEnv("PULUMI_K8S_HELM_PLUGINS_PATH"); exists {
 			return pluginsPath
 		}
-		return ""
+		return helmpath.DataPath("plugins")
 	}
 	k.helmPluginsPath = helmPluginsPath()
 
@@ -478,7 +479,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if registryPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); exists {
 			return registryPath
 		}
-		return ""
+		return helmpath.ConfigPath("registry.json")
 	}
 	k.helmRegistryConfigPath = helmRegistryConfigPath()
 
@@ -490,7 +491,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if repositoryConfigPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); exists {
 			return repositoryConfigPath
 		}
-		return ""
+		return helmpath.ConfigPath("repositories.yaml")
 	}
 	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
 
@@ -502,7 +503,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if repositoryCache, exists := os.LookupEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE"); exists {
 			return repositoryCache
 		}
-		return ""
+		return helmpath.CachePath("repository")
 	}
 	k.helmRepositoryCache = helmRepositoryCache()
 
