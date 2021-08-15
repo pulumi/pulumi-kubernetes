@@ -18,7 +18,6 @@ __all__ = [
 class ReleaseSpecArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
-                 name: pulumi.Input[str],
                  repository_spec: pulumi.Input['RepositorySpecArgs'],
                  set: pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]],
                  atomic: Optional[pulumi.Input[bool]] = None,
@@ -33,7 +32,9 @@ class ReleaseSpecArgs:
                  force_update: Optional[pulumi.Input[bool]] = None,
                  keyring: Optional[pulumi.Input[str]] = None,
                  lint: Optional[pulumi.Input[bool]] = None,
+                 manifest: Optional[pulumi.Input[str]] = None,
                  max_history: Optional[pulumi.Input[int]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  postrender: Optional[pulumi.Input[str]] = None,
                  recreate_pods: Optional[pulumi.Input[bool]] = None,
@@ -51,7 +52,6 @@ class ReleaseSpecArgs:
         """
         Specification defining the Helm Release to install.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
-        :param pulumi.Input[str] name: Release name.
         :param pulumi.Input['RepositorySpecArgs'] repository_spec: Specification defining the Helm chart repository to use.
         :param pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]] set: Custom values to be merged with the values.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
@@ -66,7 +66,9 @@ class ReleaseSpecArgs:
         :param pulumi.Input[bool] force_update: Force resource update through delete/recreate if needed.
         :param pulumi.Input[str] keyring: Location of public keys used for verification. Used only if `verify` is true
         :param pulumi.Input[bool] lint: Run helm lint when planning
+        :param pulumi.Input[str] manifest: The rendered manifest as JSON.
         :param pulumi.Input[int] max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit
+        :param pulumi.Input[str] name: Release name.
         :param pulumi.Input[str] namespace: Namespace to install the release into.
         :param pulumi.Input[str] postrender: Postrender command to run.
         :param pulumi.Input[bool] recreate_pods: Perform pods restart during upgrade/rollback
@@ -83,7 +85,6 @@ class ReleaseSpecArgs:
         :param pulumi.Input[bool] wait_for_jobs: If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
         """
         pulumi.set(__self__, "chart", chart)
-        pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "repository_spec", repository_spec)
         pulumi.set(__self__, "set", set)
         if atomic is not None:
@@ -110,8 +111,12 @@ class ReleaseSpecArgs:
             pulumi.set(__self__, "keyring", keyring)
         if lint is not None:
             pulumi.set(__self__, "lint", lint)
+        if manifest is not None:
+            pulumi.set(__self__, "manifest", manifest)
         if max_history is not None:
             pulumi.set(__self__, "max_history", max_history)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
         if postrender is not None:
@@ -152,18 +157,6 @@ class ReleaseSpecArgs:
     @chart.setter
     def chart(self, value: pulumi.Input[str]):
         pulumi.set(self, "chart", value)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        """
-        Release name.
-        """
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter(name="repositorySpec")
@@ -334,6 +327,18 @@ class ReleaseSpecArgs:
         pulumi.set(self, "lint", value)
 
     @property
+    @pulumi.getter
+    def manifest(self) -> Optional[pulumi.Input[str]]:
+        """
+        The rendered manifest as JSON.
+        """
+        return pulumi.get(self, "manifest")
+
+    @manifest.setter
+    def manifest(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "manifest", value)
+
+    @property
     @pulumi.getter(name="maxHistory")
     def max_history(self) -> Optional[pulumi.Input[int]]:
         """
@@ -344,6 +349,18 @@ class ReleaseSpecArgs:
     @max_history.setter
     def max_history(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "max_history", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Release name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter

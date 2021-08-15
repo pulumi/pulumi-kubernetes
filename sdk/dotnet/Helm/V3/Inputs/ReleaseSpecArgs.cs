@@ -94,6 +94,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<bool>? Lint { get; set; }
 
         /// <summary>
+        /// The rendered manifest as JSON.
+        /// </summary>
+        [Input("manifest")]
+        public Input<string>? Manifest { get; set; }
+
+        /// <summary>
         /// Limit the maximum number of revisions saved per release. Use 0 for no limit
         /// </summary>
         [Input("maxHistory")]
@@ -102,8 +108,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// <summary>
         /// Release name.
         /// </summary>
-        [Input("name", required: true)]
-        public Input<string> Name { get; set; } = null!;
+        [Input("name")]
+        public Input<string>? Name { get; set; }
 
         /// <summary>
         /// Namespace to install the release into.

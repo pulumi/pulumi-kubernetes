@@ -12499,6 +12499,10 @@ export namespace helm {
              */
             lint: boolean;
             /**
+             * The rendered manifest as JSON.
+             */
+            manifest?: string;
+            /**
              * Limit the maximum number of revisions saved per release. Use 0 for no limit
              */
             maxHistory: number;
@@ -12582,10 +12586,6 @@ export namespace helm {
              */
             chart: string;
             /**
-             * The rendered manifest as JSON.
-             */
-            manifest?: string;
-            /**
              * Name is the name of the release.
              */
             name: string;
@@ -12601,10 +12601,6 @@ export namespace helm {
              * Status of the release.
              */
             status: string;
-            /**
-             * Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-             */
-            values: string;
             /**
              * A SemVer 2 conformant version string of the chart.
              */

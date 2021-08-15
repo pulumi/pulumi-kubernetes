@@ -22867,6 +22867,10 @@
                     "type": "boolean",
                     "description": "Run helm lint when planning"
                 },
+                "manifest": {
+                    "type": "string",
+                    "description": "The rendered manifest as JSON."
+                },
                 "maxHistory": {
                     "type": "integer",
                     "description": "Limit the maximum number of revisions saved per release. Use 0 for no limit"
@@ -22948,7 +22952,6 @@
             },
             "type": "object",
             "required": [
-                "name",
                 "chart",
                 "repositorySpec",
                 "set"
@@ -23001,10 +23004,6 @@
                     "type": "string",
                     "description": "The name of the chart."
                 },
-                "manifest": {
-                    "type": "string",
-                    "description": "The rendered manifest as JSON."
-                },
                 "name": {
                     "type": "string",
                     "description": "Name is the name of the release."
@@ -23020,10 +23019,6 @@
                 "status": {
                     "type": "string",
                     "description": "Status of the release."
-                },
-                "values": {
-                    "type": "string",
-                    "description": "Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded."
                 },
                 "version": {
                     "type": "string",

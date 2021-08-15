@@ -180,24 +180,12 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "The version number of the application being deployed.",
 				},
-				"values": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					Description: "Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.",
-				},
 				// TODO: ^^^ supposed to be in a list??
 				"status": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
 					Description: "Status of the release.",
-				},
-				"manifest": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					Description: "The rendered manifest as JSON.",
 				},
 			},
 			Language: map[string]pschema.RawMessage{
@@ -259,7 +247,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			Description: "Specification defining the Helm Release to install.",
 
 			Required: []string{
-				"name",
 				"chart",
 				"repositorySpec",
 				"set",
@@ -468,6 +455,12 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						Type: "boolean",
 					},
 					Description: "Run helm lint when planning",
+				},
+				"manifest": {
+					TypeSpec: pschema.TypeSpec{
+						Type: "string",
+					},
+					Description: "The rendered manifest as JSON.",
 				},
 			},
 			Type: "object",

@@ -12213,13 +12213,17 @@ export namespace helm {
              */
             lint?: pulumi.Input<boolean>;
             /**
+             * The rendered manifest as JSON.
+             */
+            manifest?: pulumi.Input<string>;
+            /**
              * Limit the maximum number of revisions saved per release. Use 0 for no limit
              */
             maxHistory?: pulumi.Input<number>;
             /**
              * Release name.
              */
-            name: pulumi.Input<string>;
+            name?: pulumi.Input<string>;
             /**
              * Namespace to install the release into.
              */

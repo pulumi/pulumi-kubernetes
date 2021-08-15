@@ -22,10 +22,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Chart;
         /// <summary>
-        /// The rendered manifest as JSON.
-        /// </summary>
-        public readonly string Manifest;
-        /// <summary>
         /// Name is the name of the release.
         /// </summary>
         public readonly string Name;
@@ -42,10 +38,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Status;
         /// <summary>
-        /// Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-        /// </summary>
-        public readonly string Values;
-        /// <summary>
         /// A SemVer 2 conformant version string of the chart.
         /// </summary>
         public readonly string Version;
@@ -56,8 +48,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             string chart,
 
-            string manifest,
-
             string name,
 
             string @namespace,
@@ -66,18 +56,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             string status,
 
-            string values,
-
             string version)
         {
             AppVersion = appVersion;
             Chart = chart;
-            Manifest = manifest;
             Name = name;
             Namespace = @namespace;
             Revision = revision;
             Status = status;
-            Values = values;
             Version = version;
         }
     }
