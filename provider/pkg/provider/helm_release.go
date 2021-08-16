@@ -615,7 +615,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 		//debug("%s Release was created but returned an error", logID)
 
-		if err := setReleaseAttributes(newRelease, rel); err != nil {
+		if err := setReleaseAttributes(newRelease, rel, req.GetPreview()); err != nil {
 			return nil, err
 		}
 
@@ -634,7 +634,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 	}
 
-	err = setReleaseAttributes(newRelease, rel)
+	err = setReleaseAttributes(newRelease, rel, req.GetPreview())
 	if err != nil {
 		return nil, err
 	}
@@ -688,7 +688,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 
-	err = setReleaseAttributes(existingRelease, liveObj)
+	err = setReleaseAttributes(existingRelease, liveObj, false)
 	if err != nil {
 		return nil, err
 	}
@@ -807,7 +807,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 
-	err = setReleaseAttributes(newRelease, updatedRelease)
+	err = setReleaseAttributes(newRelease, updatedRelease, req.GetPreview())
 	if err != nil {
 		return nil, err
 	}
@@ -872,8 +872,11 @@ func parseCheckpointRelease(obj resource.PropertyMap) (resource.PropertyMap, res
 	return nil, state
 }
 
-func setReleaseAttributes(release *Release, r *release.Release) error {
+func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) error {
 	logger.V(9).Infof("Will populate dest: %#v with data from release: %+v", release, r)
+	if isPreview {
+		return nil
+	}
 	if release.Status == nil {
 		release.Status = &ReleaseStatus{}
 	}
