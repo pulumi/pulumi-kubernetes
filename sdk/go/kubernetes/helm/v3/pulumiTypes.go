@@ -111,10 +111,12 @@ type ReleaseSpec struct {
 	Keyring *string `pulumi:"keyring"`
 	// Run helm lint when planning
 	Lint *bool `pulumi:"lint"`
+	// The rendered manifest as JSON.
+	Manifest *string `pulumi:"manifest"`
 	// Limit the maximum number of revisions saved per release. Use 0 for no limit
 	MaxHistory *int `pulumi:"maxHistory"`
 	// Release name.
-	Name string `pulumi:"name"`
+	Name *string `pulumi:"name"`
 	// Namespace to install the release into.
 	Namespace *string `pulumi:"namespace"`
 	// Postrender command to run.
@@ -188,10 +190,12 @@ type ReleaseSpecArgs struct {
 	Keyring pulumi.StringPtrInput `pulumi:"keyring"`
 	// Run helm lint when planning
 	Lint pulumi.BoolPtrInput `pulumi:"lint"`
+	// The rendered manifest as JSON.
+	Manifest pulumi.StringPtrInput `pulumi:"manifest"`
 	// Limit the maximum number of revisions saved per release. Use 0 for no limit
 	MaxHistory pulumi.IntPtrInput `pulumi:"maxHistory"`
 	// Release name.
-	Name pulumi.StringInput `pulumi:"name"`
+	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Namespace to install the release into.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 	// Postrender command to run.
@@ -369,14 +373,19 @@ func (o ReleaseSpecOutput) Lint() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Lint }).(pulumi.BoolPtrOutput)
 }
 
+// The rendered manifest as JSON.
+func (o ReleaseSpecOutput) Manifest() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseSpec) *string { return v.Manifest }).(pulumi.StringPtrOutput)
+}
+
 // Limit the maximum number of revisions saved per release. Use 0 for no limit
 func (o ReleaseSpecOutput) MaxHistory() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *int { return v.MaxHistory }).(pulumi.IntPtrOutput)
 }
 
 // Release name.
-func (o ReleaseSpecOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v ReleaseSpec) string { return v.Name }).(pulumi.StringOutput)
+func (o ReleaseSpecOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseSpec) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // Namespace to install the release into.
@@ -607,6 +616,16 @@ func (o ReleaseSpecPtrOutput) Lint() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+// The rendered manifest as JSON.
+func (o ReleaseSpecPtrOutput) Manifest() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ReleaseSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Manifest
+	}).(pulumi.StringPtrOutput)
+}
+
 // Limit the maximum number of revisions saved per release. Use 0 for no limit
 func (o ReleaseSpecPtrOutput) MaxHistory() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *int {
@@ -623,7 +642,7 @@ func (o ReleaseSpecPtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return &v.Name
+		return v.Name
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -792,8 +811,6 @@ type ReleaseStatus struct {
 	AppVersion *string `pulumi:"appVersion"`
 	// The name of the chart.
 	Chart *string `pulumi:"chart"`
-	// The rendered manifest as JSON.
-	Manifest *string `pulumi:"manifest"`
 	// Name is the name of the release.
 	Name *string `pulumi:"name"`
 	// Namespace is the kubernetes namespace of the release.
@@ -802,8 +819,6 @@ type ReleaseStatus struct {
 	Revision *int `pulumi:"revision"`
 	// Status of the release.
 	Status string `pulumi:"status"`
-	// Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-	Values *string `pulumi:"values"`
 	// A SemVer 2 conformant version string of the chart.
 	Version *string `pulumi:"version"`
 }
@@ -824,8 +839,6 @@ type ReleaseStatusArgs struct {
 	AppVersion pulumi.StringPtrInput `pulumi:"appVersion"`
 	// The name of the chart.
 	Chart pulumi.StringPtrInput `pulumi:"chart"`
-	// The rendered manifest as JSON.
-	Manifest pulumi.StringPtrInput `pulumi:"manifest"`
 	// Name is the name of the release.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Namespace is the kubernetes namespace of the release.
@@ -834,8 +847,6 @@ type ReleaseStatusArgs struct {
 	Revision pulumi.IntPtrInput `pulumi:"revision"`
 	// Status of the release.
 	Status pulumi.StringInput `pulumi:"status"`
-	// Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-	Values pulumi.StringPtrInput `pulumi:"values"`
 	// A SemVer 2 conformant version string of the chart.
 	Version pulumi.StringPtrInput `pulumi:"version"`
 }
@@ -927,11 +938,6 @@ func (o ReleaseStatusOutput) Chart() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseStatus) *string { return v.Chart }).(pulumi.StringPtrOutput)
 }
 
-// The rendered manifest as JSON.
-func (o ReleaseStatusOutput) Manifest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseStatus) *string { return v.Manifest }).(pulumi.StringPtrOutput)
-}
-
 // Name is the name of the release.
 func (o ReleaseStatusOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseStatus) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -950,11 +956,6 @@ func (o ReleaseStatusOutput) Revision() pulumi.IntPtrOutput {
 // Status of the release.
 func (o ReleaseStatusOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v ReleaseStatus) string { return v.Status }).(pulumi.StringOutput)
-}
-
-// Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-func (o ReleaseStatusOutput) Values() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseStatus) *string { return v.Values }).(pulumi.StringPtrOutput)
 }
 
 // A SemVer 2 conformant version string of the chart.
@@ -1000,16 +1001,6 @@ func (o ReleaseStatusPtrOutput) Chart() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The rendered manifest as JSON.
-func (o ReleaseStatusPtrOutput) Manifest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Manifest
-	}).(pulumi.StringPtrOutput)
-}
-
 // Name is the name of the release.
 func (o ReleaseStatusPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ReleaseStatus) *string {
@@ -1047,16 +1038,6 @@ func (o ReleaseStatusPtrOutput) Status() pulumi.StringPtrOutput {
 			return nil
 		}
 		return &v.Status
-	}).(pulumi.StringPtrOutput)
-}
-
-// Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-func (o ReleaseStatusPtrOutput) Values() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Values
 	}).(pulumi.StringPtrOutput)
 }
 

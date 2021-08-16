@@ -189,7 +189,7 @@ func TestPatchToDiff(t *testing.T) {
 				Version: tt.version,
 				Kind:    tt.kind,
 			}
-			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, gvk)
+			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, forceNewProperties(gvk)...)
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expected, diff)

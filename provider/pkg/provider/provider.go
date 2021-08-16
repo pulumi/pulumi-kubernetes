@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -119,21 +120,28 @@ type kubeProvider struct {
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
 
+	helmDriver               string
+	helmPluginsPath          string
+	helmRegistryConfigPath string
+	helmRepositoryConfigPath string
+	helmRepositoryCache      string
+	helmReleaseProvider customResourceProvider
+
 	yamlRenderMode bool
 	yamlDirectory  string
 
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
-
+	config         *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
+	kubeconfig     clientcmd.ClientConfig
 	clientSet      *clients.DynamicClientSet
 	dryRunVerifier *k8sresource.DryRunVerifier
 	logClient      *clients.LogClient
 	k8sVersion     cluster.ServerVersion
 
-	resources      k8sopenapi.Resources
-	resourcesMutex sync.RWMutex
+	resources              k8sopenapi.Resources
+	resourcesMutex         sync.RWMutex
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -438,6 +446,67 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.yamlDirectory = renderYamlToDirectory()
 	k.yamlRenderMode = len(k.yamlDirectory) > 0
 
+	helmDriver := func() string {
+		if driver, exists := vars["kubernetes:config:helmDriver"]; exists {
+			return driver
+ 		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if driver, exists := os.LookupEnv("PULUMI_K8S_HELM_DRIVER"); exists {
+			return driver
+		}
+
+		return "secret"
+	}
+	k.helmDriver = helmDriver() // TODO: Make sure this is in provider state
+
+	helmPluginsPath := func() string {
+		if pluginsPath, exists := vars["kubernetes:config:helmPluginsPath"]; exists {
+			return pluginsPath
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if pluginsPath, exists := os.LookupEnv("PULUMI_K8S_HELM_PLUGINS_PATH"); exists {
+			return pluginsPath
+		}
+		return helmpath.DataPath("plugins")
+	}
+	k.helmPluginsPath = helmPluginsPath()
+
+	helmRegistryConfigPath := func() string {
+		if registryPath, exists := vars["kubernetes:config:helmRegistryConfigPath"]; exists {
+			return registryPath
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if registryPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); exists {
+			return registryPath
+		}
+		return helmpath.ConfigPath("registry.json")
+	}
+	k.helmRegistryConfigPath = helmRegistryConfigPath()
+
+	helmRepositoryConfigPath := func() string {
+		if repositoryConfigPath, exists := vars["kubernetes:config:helmRepositoryConfigPath"]; exists {
+			return repositoryConfigPath
+		}
+
+		if repositoryConfigPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); exists {
+			return repositoryConfigPath
+		}
+		return helmpath.ConfigPath("repositories.yaml")
+	}
+	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
+
+	helmRepositoryCache := func() string {
+		if repositoryCache, exists := vars["kubernetes:config:helmRepositoryCache"]; exists {
+			return repositoryCache
+		}
+
+		if repositoryCache, exists := os.LookupEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE"); exists {
+			return repositoryCache
+		}
+		return helmpath.CachePath("repository")
+	}
+	k.helmRepositoryCache = helmRepositoryCache()
+
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
 	// provider.
@@ -513,6 +582,26 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			warningConfig := rest.CopyConfig(config)
 			warningConfig.WarningHandler = rest.NoWarnings{}
 			k.config = warningConfig
+			k.kubeconfig = kubeconfig
+
+			namespace := "default"
+			if k.defaultNamespace != "" {
+				namespace = k.defaultNamespace
+			}
+			k.helmReleaseProvider, err = newHelmReleaseProvider(
+				k.host,
+				k.config,
+				kubeconfig,
+				k.helmDriver,
+				namespace,
+				k.enableSecrets,
+				k.helmPluginsPath,
+				k.helmRegistryConfigPath,
+				k.helmRepositoryConfigPath,
+				k.helmRepositoryCache)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -1026,7 +1115,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if err != nil {
 		return nil, err
 	}
-	oldInputs := propMapToUnstructured(olds)
 
 	// Obtain new resource inputs. This is the new version of the resource(s) supplied by the user as
 	// an update.
@@ -1041,6 +1129,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs")
 	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Check(ctx, req, olds, news)
+		}
+		// TODO: what when cluster is unreachable?
+	}
+
+	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
 	var failures []*pulumirpc.CheckFailure
@@ -1236,7 +1333,6 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -1249,7 +1345,15 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
 	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Diff(ctx, req, oldState, newResInputs)
+		}
+	}
+
 	newInputs := propMapToUnstructured(newResInputs)
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
@@ -1326,7 +1430,6 @@ func (k *kubeProvider) Diff(
 
 	if isClientSidePatch {
 		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-
 	} else {
 		logger.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
 	}
@@ -1356,7 +1459,7 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, forceNewProperties(gvk)...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -1459,6 +1562,12 @@ func (k *kubeProvider) Create(
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
+	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Create(ctx, req, newResInputs)
+		}
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
@@ -1653,17 +1762,23 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
-	oldInputs, newInputs := parseCheckpointObject(oldState)
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Read(ctx, req, oldState, oldInputsPM)
+		}
+	}
+
+	oldInputs, oldLive := parseCheckpointObject(oldState)
 
 	if oldInputs.GroupVersionKind().Empty() {
-		if newInputs.GroupVersionKind().Empty() {
+		if oldLive.GroupVersionKind().Empty() {
 			gvk, err := k.gvkFromURN(urn)
 			if err != nil {
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
 		} else {
-			oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
+			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
 	}
 
@@ -1688,7 +1803,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
 		state, err := plugin.MarshalProperties(
-			checkpointObject(oldInputs, newInputs, oldState, initialAPIVersion), plugin.MarshalOptions{
+			checkpointObject(oldInputs, oldLive, oldState, initialAPIVersion), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.state", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -1879,8 +1994,6 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, err
 	}
-	// Ignore old state; we'll get it from Kubernetes later.
-	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -1894,6 +2007,14 @@ func (k *kubeProvider) Update(
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Update(ctx, req, oldState, newResInputs)
+		}
+	}
+	// Ignore old state; we'll get it from Kubernetes later.
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
 	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
@@ -2042,6 +2163,14 @@ func (k *kubeProvider) Delete(
 	if err != nil {
 		return nil, err
 	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Delete(ctx, req, oldState)
+		}
+		// TODO: what when cluster is unreachable?
+	}
+
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
 
@@ -2530,14 +2659,14 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
 func convertPatchToDiff(
-	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, gvk schema.GroupVersionKind,
+	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
 
 	contract.Require(len(patch) != 0, "len(patch) != 0")
 	contract.Require(oldLiveState != nil, "oldLiveState != nil")
 
 	pc := &patchConverter{
-		forceNew: forceNewProperties(gvk),
+		forceNew: forceNewFields,
 		diff:     map[string]*pulumirpc.PropertyDiff{},
 	}
 	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, newInputs, oldInputs, false)

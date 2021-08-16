@@ -69,6 +69,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly bool Lint;
         /// <summary>
+        /// The rendered manifest as JSON.
+        /// </summary>
+        public readonly string Manifest;
+        /// <summary>
         /// Limit the maximum number of revisions saved per release. Use 0 for no limit
         /// </summary>
         public readonly int MaxHistory;
@@ -169,6 +173,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             bool lint,
 
+            string manifest,
+
             int maxHistory,
 
             string name,
@@ -218,6 +224,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
             ForceUpdate = forceUpdate;
             Keyring = keyring;
             Lint = lint;
+            Manifest = manifest;
             MaxHistory = maxHistory;
             Name = name;
             Namespace = @namespace;

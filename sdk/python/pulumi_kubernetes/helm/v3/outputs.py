@@ -68,7 +68,6 @@ class ReleaseSpec(dict):
 
     def __init__(__self__, *,
                  chart: str,
-                 name: str,
                  repository_spec: 'outputs.RepositorySpec',
                  set: Sequence['outputs.SetValue'],
                  atomic: Optional[bool] = None,
@@ -83,7 +82,9 @@ class ReleaseSpec(dict):
                  force_update: Optional[bool] = None,
                  keyring: Optional[str] = None,
                  lint: Optional[bool] = None,
+                 manifest: Optional[str] = None,
                  max_history: Optional[int] = None,
+                 name: Optional[str] = None,
                  namespace: Optional[str] = None,
                  postrender: Optional[str] = None,
                  recreate_pods: Optional[bool] = None,
@@ -101,7 +102,6 @@ class ReleaseSpec(dict):
         """
         Specification defining the Helm Release to install.
         :param str chart: Chart name to be installed. A path may be used.
-        :param str name: Release name.
         :param 'RepositorySpecArgs' repository_spec: Specification defining the Helm chart repository to use.
         :param Sequence['SetValueArgs'] set: Custom values to be merged with the values.
         :param bool atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
@@ -116,7 +116,9 @@ class ReleaseSpec(dict):
         :param bool force_update: Force resource update through delete/recreate if needed.
         :param str keyring: Location of public keys used for verification. Used only if `verify` is true
         :param bool lint: Run helm lint when planning
+        :param str manifest: The rendered manifest as JSON.
         :param int max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit
+        :param str name: Release name.
         :param str namespace: Namespace to install the release into.
         :param str postrender: Postrender command to run.
         :param bool recreate_pods: Perform pods restart during upgrade/rollback
@@ -133,7 +135,6 @@ class ReleaseSpec(dict):
         :param bool wait_for_jobs: If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
         """
         pulumi.set(__self__, "chart", chart)
-        pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "repository_spec", repository_spec)
         pulumi.set(__self__, "set", set)
         if atomic is not None:
@@ -160,8 +161,12 @@ class ReleaseSpec(dict):
             pulumi.set(__self__, "keyring", keyring)
         if lint is not None:
             pulumi.set(__self__, "lint", lint)
+        if manifest is not None:
+            pulumi.set(__self__, "manifest", manifest)
         if max_history is not None:
             pulumi.set(__self__, "max_history", max_history)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
         if postrender is not None:
@@ -198,14 +203,6 @@ class ReleaseSpec(dict):
         Chart name to be installed. A path may be used.
         """
         return pulumi.get(self, "chart")
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        """
-        Release name.
-        """
-        return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="repositorySpec")
@@ -320,12 +317,28 @@ class ReleaseSpec(dict):
         return pulumi.get(self, "lint")
 
     @property
+    @pulumi.getter
+    def manifest(self) -> Optional[str]:
+        """
+        The rendered manifest as JSON.
+        """
+        return pulumi.get(self, "manifest")
+
+    @property
     @pulumi.getter(name="maxHistory")
     def max_history(self) -> Optional[int]:
         """
         Limit the maximum number of revisions saved per release. Use 0 for no limit
         """
         return pulumi.get(self, "max_history")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Release name.
+        """
+        return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
@@ -463,21 +476,17 @@ class ReleaseStatus(dict):
                  status: str,
                  app_version: Optional[str] = None,
                  chart: Optional[str] = None,
-                 manifest: Optional[str] = None,
                  name: Optional[str] = None,
                  namespace: Optional[str] = None,
                  revision: Optional[int] = None,
-                 values: Optional[str] = None,
                  version: Optional[str] = None):
         """
         :param str status: Status of the release.
         :param str app_version: The version number of the application being deployed.
         :param str chart: The name of the chart.
-        :param str manifest: The rendered manifest as JSON.
         :param str name: Name is the name of the release.
         :param str namespace: Namespace is the kubernetes namespace of the release.
         :param int revision: Version is an int32 which represents the version of the release.
-        :param str values: Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
         :param str version: A SemVer 2 conformant version string of the chart.
         """
         pulumi.set(__self__, "status", status)
@@ -485,16 +494,12 @@ class ReleaseStatus(dict):
             pulumi.set(__self__, "app_version", app_version)
         if chart is not None:
             pulumi.set(__self__, "chart", chart)
-        if manifest is not None:
-            pulumi.set(__self__, "manifest", manifest)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
         if revision is not None:
             pulumi.set(__self__, "revision", revision)
-        if values is not None:
-            pulumi.set(__self__, "values", values)
         if version is not None:
             pulumi.set(__self__, "version", version)
 
@@ -524,14 +529,6 @@ class ReleaseStatus(dict):
 
     @property
     @pulumi.getter
-    def manifest(self) -> Optional[str]:
-        """
-        The rendered manifest as JSON.
-        """
-        return pulumi.get(self, "manifest")
-
-    @property
-    @pulumi.getter
     def name(self) -> Optional[str]:
         """
         Name is the name of the release.
@@ -553,14 +550,6 @@ class ReleaseStatus(dict):
         Version is an int32 which represents the version of the release.
         """
         return pulumi.get(self, "revision")
-
-    @property
-    @pulumi.getter
-    def values(self) -> Optional[str]:
-        """
-        Set of extra values, added to the chart. The sensitive data is cloaked. JSON encoded.
-        """
-        return pulumi.get(self, "values")
 
     @property
     @pulumi.getter
