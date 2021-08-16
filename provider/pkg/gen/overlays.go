@@ -59,7 +59,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
-					Const: "true",
+					Const:   "true",
 					Default: "kubernetes:helm.sh/v3:Release",
 				},
 				"status": {
@@ -521,7 +521,7 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
-					Const: "true",
+					Const:   "true",
 					Default: "kubernetes:helm.sh/v3:Release",
 				},
 				"status": {
