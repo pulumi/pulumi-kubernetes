@@ -1,3 +1,5 @@
+// Copyright 2021, Pulumi Corporation.  All rights reserved.
+
 package provider
 
 import (
@@ -516,7 +518,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 	client := action.NewInstall(conf)
-	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.ReleaseSpec)
+	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.ReleaseSpec.Name)
 	cpo, chartName, err := chartPathOptions(newRelease.ReleaseSpec)
 	if err != nil {
 		return nil, err
