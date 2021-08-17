@@ -409,6 +409,9 @@ func mustRenderGoTemplate(path string, resources interface{}) []byte {
 func genK8sResourceTypes(pkg *schema.Package) {
 	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
 	for _, resource := range pkg.Resources {
+		if resourcesToFilterFromTemplate.Has(resource.Token) {
+			continue
+		}
 		parts := strings.Split(resource.Token, ":")
 		contract.Assert(len(parts) == 3)
 
