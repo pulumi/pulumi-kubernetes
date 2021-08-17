@@ -33,6 +33,7 @@ import (
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
+	"github.com/imdario/mergo"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
@@ -1283,65 +1284,49 @@ func (k *kubeProvider) Diff(
 	}
 
 	var patch []byte
-	var isClientSidePatch bool
-	var patchBase *unstructured.Unstructured
+	var patchBase map[string]interface{}
 
-	// Try to compute a server-side patch. Returns true iff the operation succeeded.
-	tryServerSidePatch := func() bool {
-		// If the resource's GVK changed, so compute patch using inputs.
-		if oldInputs.GroupVersionKind().String() != gvk.String() {
-			return false
-		}
-		// If we can't dry-run the new GVK, computed the patch using inputs.
-		if !k.supportsDryRun(gvk) {
-			return false
-		}
-		// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
-		// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
-		// bug.
-		if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
-			return false
-		}
-
-		patch, patchBase, err = k.serverSidePatch(oldInputs, newInputs)
-		if k.isDryRunDisabledError(err) {
-			return false
-		}
-		if se, isStatusError := err.(*errors.StatusError); isStatusError {
-			// If the resource field is immutable.
-			if se.Status().Code == http.StatusUnprocessableEntity ||
-				strings.Contains(se.ErrStatus.Message, "field is immutable") {
-				return false
-			}
-		}
-
-		// The server-side patch succeeded.
-		return true
-	}
-	if !tryServerSidePatch() {
-		isClientSidePatch = true
-		patch, err = k.inputPatch(oldInputs, newInputs)
-		patchBase = oldInputs
-	}
-
-	if isClientSidePatch {
-		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-
-	} else {
-		logger.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
-	}
+	// Always compute a client-side patch.
+	patch, err = k.inputPatch(oldInputs, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+
-				"describing the resource changes",
-			newInputs.GetNamespace(), newInputs.GetName())
+			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
 	}
+	patchBase = oldInputs.Object
+
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes",
 			newInputs.GetNamespace(), newInputs.GetName())
+	}
+
+	// Try to compute a server-side patch.
+	ssPatch, ssPatchBase, ssPatchOk := k.tryServerSidePatch(oldInputs, newInputs, gvk)
+
+	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
+	// with the server-side values.
+	if ssPatchOk {
+		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
+		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverride)
+		if err != nil {
+			return nil, err
+		}
+
+		ssPatchObj := map[string]interface{}{}
+		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
+			return nil, pkgerrors.Wrapf(
+				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
+					"the JSON patch describing resource changes",
+				newInputs.GetNamespace(), newInputs.GetName())
+		}
+		err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 	}
 
 	// Pack up PB, ship response back.
@@ -1356,16 +1341,14 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, gvk); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
-		if isClientSidePatch {
-			for _, v := range detailedDiff {
-				v.InputDiff = true
-			}
+		for _, v := range detailedDiff {
+			v.InputDiff = true
 		}
 
 		for k, v := range detailedDiff {
@@ -2188,9 +2171,8 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(context.TODO(), obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) serverSidePatch(
-	oldInputs, newInputs *unstructured.Unstructured,
-) ([]byte, *unstructured.Unstructured, error) {
+func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured,
+) ([]byte, map[string]interface{}, error) {
 
 	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
 	if err != nil {
@@ -2256,7 +2238,7 @@ func (k *kubeProvider) serverSidePatch(
 		return nil, nil, err
 	}
 
-	return patch, liveObject, nil
+	return patch, liveObject.Object, nil
 }
 
 // inputPatch calculates a patch on the client-side by comparing old inputs to the current inputs.
@@ -2299,6 +2281,40 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 		(se.Status().Message == "the dryRun alpha feature is disabled" ||
 			se.Status().Message == "the dryRun beta feature is disabled" ||
 			strings.Contains(se.Status().Message, "does not support dry run"))
+}
+
+// tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
+func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Unstructured, gvk schema.GroupVersionKind,
+) ([]byte, map[string]interface{}, bool) {
+	// If the resource's GVK changed, so compute patch using inputs.
+	if oldInputs.GroupVersionKind().String() != gvk.String() {
+		return nil, nil, false
+	}
+	// If we can't dry-run the new GVK, computed the patch using inputs.
+	if !k.supportsDryRun(gvk) {
+		return nil, nil, false
+	}
+	// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
+	// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
+	// bug.
+	if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
+		return nil, nil, false
+	}
+
+	ssPatch, ssPatchBase, err := k.serverSidePatch(oldInputs, newInputs)
+	if k.isDryRunDisabledError(err) {
+		return nil, nil, false
+	}
+	if se, isStatusError := err.(*errors.StatusError); isStatusError {
+		// If the resource field is immutable.
+		if se.Status().Code == http.StatusUnprocessableEntity ||
+			strings.Contains(se.ErrStatus.Message, "field is immutable") {
+			return nil, nil, false
+		}
+	}
+
+	// The server-side patch succeeded.
+	return ssPatch, ssPatchBase, true
 }
 
 func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
