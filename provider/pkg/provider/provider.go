@@ -448,7 +448,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	renderYamlToDirectory := func() string {
 		// Read the config from the Provider.
-		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists {
+		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists && directory != "" {
 			return directory
 		}
 		return ""
