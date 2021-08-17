@@ -122,10 +122,10 @@ type kubeProvider struct {
 
 	helmDriver               string
 	helmPluginsPath          string
-	helmRegistryConfigPath string
+	helmRegistryConfigPath   string
 	helmRepositoryConfigPath string
 	helmRepositoryCache      string
-	helmReleaseProvider customResourceProvider
+	helmReleaseProvider      customResourceProvider
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -140,8 +140,8 @@ type kubeProvider struct {
 	logClient      *clients.LogClient
 	k8sVersion     cluster.ServerVersion
 
-	resources              k8sopenapi.Resources
-	resourcesMutex         sync.RWMutex
+	resources      k8sopenapi.Resources
+	resourcesMutex sync.RWMutex
 }
 
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
@@ -449,7 +449,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	helmDriver := func() string {
 		if driver, exists := vars["kubernetes:config:helmDriver"]; exists {
 			return driver
- 		}
+		}
 		// If the provider flag is not set, fall back to the ENV var.
 		if driver, exists := os.LookupEnv("PULUMI_K8S_HELM_DRIVER"); exists {
 			return driver

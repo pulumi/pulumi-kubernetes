@@ -7,7 +7,7 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 )
 
-type customResourceProvider interface{
+type customResourceProvider interface {
 	Check(ctx context.Context, req *pulumirpc.CheckRequest, olds, news resource.PropertyMap) (*pulumirpc.CheckResponse, error)
 	// Diff checks what impacts a hypothetical update will have on the resource's properties.
 	Diff(ctx context.Context, req *pulumirpc.DiffRequest, olds, news resource.PropertyMap) (*pulumirpc.DiffResponse, error)
@@ -22,4 +22,3 @@ type customResourceProvider interface{
 	// Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed to still exist.
 	Delete(context.Context, *pulumirpc.DeleteRequest, resource.PropertyMap) (*empty.Empty, error)
 }
-

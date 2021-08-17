@@ -75,7 +75,7 @@ func convertYAMLManifestToJSON(manifest string) (string, error) {
 
 // hashSensitiveValue creates a hash of a sensitive value and returns the string
 // "(sensitive value xxxxxxxx)". We have to do this because Terraform's sensitive
-// value feature can't reach inside a text string and would supress the entire
+// value feature can't reach inside a text string and would suppress the entire
 // manifest if we marked it as sensitive. This allows us to redact the value while
 // still being able to surface that something has changed so it appears in the diff.
 func hashSensitiveValue(v string) string {

@@ -76,6 +76,8 @@ type ReleaseSpec struct {
 	Keyring string `json:"keyring,omitempty"`
 	// Run helm lint when planning
 	Lint bool `json:"lint,omitempty"`
+	// The rendered manifest as JSON. This will be overwritten by the provider with the current rendered manifests.
+	Manifest string `json:"manifest,omitempty"`
 	// Limit the maximum number of revisions saved per release. Use 0 for no limit
 	MaxHistory *int `json:"maxHistory,omitempty"`
 	// Release name.
@@ -151,8 +153,6 @@ type ReleaseStatus struct {
 	Status string `json:"status,omitempty"`
 	// A SemVer 2 conformant version string of the chart.
 	Version string `json:"version,omitempty"`
-	// The rendered manifest as JSON. This will be overwritten by the provider with the current rendered manifests.
-	Manifest string `json:"manifest,omitempty"`
 }
 
 type helmReleaseProvider struct {
@@ -233,7 +233,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		}
 		adoptOldNameIfUnnamed(new, old)
 	} else {
-		assignNameIfAutonammable(new, news, "release")
+		assignNameIfAutonameable(new, news, "release")
 	}
 
 	if new.ReleaseSpec.Namespace == "" {
@@ -261,7 +261,7 @@ func adoptOldNameIfUnnamed(new, old *Release) {
 	new.ReleaseSpec.Name = old.ReleaseSpec.Name
 }
 
-func assignNameIfAutonammable(release *Release, pm resource.PropertyMap, base tokens.QName) {
+func assignNameIfAutonameable(release *Release, pm resource.PropertyMap, base tokens.QName) {
 	if rs, ok := pm["releaseSpec"].V.(resource.PropertyMap); ok {
 		if name, ok := rs["name"]; ok && name.IsComputed() {
 			return
@@ -379,7 +379,7 @@ func (r *helmReleaseProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	newRelease.Status.Manifest = jsonManifest
+	newRelease.ReleaseSpec.Manifest = redactSensitiveValues(jsonManifest, newRelease.ReleaseSpec.Values)
 
 	oldInputsJSON, err := json.Marshal(oldInputs.Mappable())
 	if err != nil {
@@ -639,7 +639,12 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 
-	obj := checkpointRelease(news, newRelease)
+	updatedInputs, err := addManifestToInputs(news, newRelease, rel)
+	if err != nil {
+		return nil, err
+	}
+
+	obj := checkpointRelease(updatedInputs, newRelease)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -656,7 +661,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		id = fqName(newRelease.ReleaseSpec.Namespace, newRelease.ReleaseSpec.Name)
 	}
 
-	logger.V(9).Infof("Create: [id: %q] properties: %#v", id, inputsAndComputed)
+	logger.V(9).Infof("Create: [id: %q] properties: %+v", id, inputsAndComputed)
 	return &pulumirpc.CreateResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
@@ -812,7 +817,12 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 
-	checkpointed := checkpointRelease(newResInputs, newRelease)
+	updatedInputs, err := addManifestToInputs(newResInputs, newRelease, updatedRelease)
+	if err != nil {
+		return nil, err
+	}
+
+	checkpointed := checkpointRelease(updatedInputs, newRelease)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		checkpointed, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -824,6 +834,20 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
+}
+
+func addManifestToInputs(resInputs resource.PropertyMap, rel *Release, r *release.Release) (resource.PropertyMap, error) {
+	jsonManifest, err := convertYAMLManifestToJSON(r.Manifest)
+	if err != nil {
+		return nil, err
+	}
+	if resInputs.HasValue("releaseSpec") {
+		releaseSpec := resInputs["releaseSpec"]
+		if releaseSpec.IsObject() {
+			releaseSpec.ObjectValue()["manifest"] = resource.NewStringProperty(redactSensitiveValues(jsonManifest, rel.ReleaseSpec.Values))
+		}
+	}
+	return resInputs, nil
 }
 
 func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.DeleteRequest, olds resource.PropertyMap) (*empty.Empty, error) {
@@ -846,7 +870,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, request *pulumirpc.Del
 	}
 
 	if res.Info != "" {
-		r.host.Log(context.Background(), diag.Warning, "Helm uninstall returned information: %q", res.Info)
+		_ = r.host.Log(context.Background(), diag.Warning, "Helm uninstall returned information: %q", res.Info)
 	}
 	return &pbempty.Empty{}, nil
 }
@@ -874,9 +898,18 @@ func parseCheckpointRelease(obj resource.PropertyMap) (resource.PropertyMap, res
 
 func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) error {
 	logger.V(9).Infof("Will populate dest: %#v with data from release: %+v", release, r)
+
+	jsonManifest, err := convertYAMLManifestToJSON(r.Manifest)
+	if err != nil {
+		return err
+	}
+
+	release.ReleaseSpec.Manifest = redactSensitiveValues(jsonManifest, release.ReleaseSpec.Values)
+
 	if isPreview {
 		return nil
 	}
+
 	if release.Status == nil {
 		release.Status = &ReleaseStatus{}
 	}
@@ -884,13 +917,6 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	release.Status.Namespace = r.Namespace
 	release.Status.Name = r.Name
 	release.Status.Status = r.Info.Status.String()
-
-	jsonManifest, err := convertYAMLManifestToJSON(r.Manifest)
-	if err != nil {
-		return err
-	}
-	//manifest := redactSensitiveValues(jsonManifest, release.ReleaseSpec.Values)
-	release.Status.Manifest = jsonManifest
 
 	release.Status.Name = r.Name
 	release.Status.Namespace = r.Namespace
@@ -1027,37 +1053,38 @@ func logValues(values map[string]interface{}) error {
 	return nil
 }
 
-func cloakSetValues(config map[string]interface{}, pm resource.PropertyMap) {
-	//if rs, ok := pm["resourceSpec"].V.(resource.PropertyMap); ok {
-	//	if set, ok := rs["set"]; ok && set.ContainsSecrets() {
-	//		set.SecretValue().Element
-	//	}
-	//}
-	//
-	//for _, raw := range d.Get("set_sensitive").(*schema.Set).List() {
-	//	set := raw.(map[string]interface{})
-	//	cloakSetValue(config, set["name"].(string))
-	//}
-}
+// TODO:
+//func cloakSetValues(config map[string]interface{}, pm resource.PropertyMap) {
+//	if rs, ok := pm["resourceSpec"].V.(resource.PropertyMap); ok {
+//		if set, ok := rs["set"]; ok && set.ContainsSecrets() {
+//			set.SecretValue().Element
+//		}
+//	}
+//
+//	for _, raw := range d.Get("set_sensitive").(*schema.Set).List() {
+//		set := raw.(map[string]interface{})
+//		cloakSetValue(config, set["name"].(string))
+//	}
+//}
 
-const sensitiveContentValue = "(sensitive value)"
+//const sensitiveContentValue = "(sensitive value)"
 
-func cloakSetValue(values map[string]interface{}, valuePath string) {
-	pathKeys := strings.Split(valuePath, ".")
-	sensitiveKey := pathKeys[len(pathKeys)-1]
-	parentPathKeys := pathKeys[:len(pathKeys)-1]
-
-	m := values
-	for _, key := range parentPathKeys {
-		v, ok := m[key].(map[string]interface{})
-		if !ok {
-			return
-		}
-		m = v
-	}
-
-	m[sensitiveKey] = sensitiveContentValue
-}
+//func cloakSetValue(values map[string]interface{}, valuePath string) {
+//	pathKeys := strings.Split(valuePath, ".")
+//	sensitiveKey := pathKeys[len(pathKeys)-1]
+//	parentPathKeys := pathKeys[:len(pathKeys)-1]
+//
+//	m := values
+//	for _, key := range parentPathKeys {
+//		v, ok := m[key].(map[string]interface{})
+//		if !ok {
+//			return
+//		}
+//		m = v
+//	}
+//
+//	m[sensitiveKey] = sensitiveContentValue
+//}
 
 // Merges source and destination map, preferring values from the source map
 // Taken from github.com/helm/pkg/cli/values/options.go
@@ -1175,19 +1202,4 @@ func resolveChartName(repository, name string) (string, string, error) {
 
 func isHelmRelease(urn resource.URN) bool {
 	return urn.Type() == "kubernetes:helm.sh/v3:Release"
-}
-
-func asHelmRelease(pm resource.PropertyMap) (*Release, error) {
-	obj := pm.MapRepl(nil, mapReplStripSecrets)
-	var release Release
-	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
-		Result:  &release,
-		TagName: "json",
-	})
-	contract.AssertNoError(err)
-	if err := decoder.Decode(obj); err != nil {
-		return nil, err
-	}
-
-	return &release, nil
 }
