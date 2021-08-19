@@ -1,11 +1,13 @@
 ## HEAD (Unreleased)
 
+## 3.6.1 (August 19, 2021)
+
 - [sdk/python] Fix wait for metadata in `yaml._parse_yaml_object`. (https://github.com/pulumi/pulumi-kubernetes/pull/1675)
 - Fix diff logic for server-side apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/1679)
 - Add option to disable Helm hook warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1682)
 - For renderToYamlDirectory, treat an empty directory as unset (https://github.com/pulumi/pulumi-kubernetes/pull/1678)
 
-## 3.6.0 (Auguest 4, 2021)
+## 3.6.0 (August 4, 2021)
 
 The following breaking changes are part of the Kubernetes v1.22 update:
 - The alpha `EphemeralContainers` kind [has been removed](https://github.com/kubernetes/kubernetes/pull/101034)
