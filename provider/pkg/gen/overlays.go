@@ -180,7 +180,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "The version number of the application being deployed.",
 				},
-				// TODO: ^^^ supposed to be in a list??
 				"status": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
@@ -199,44 +198,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						"appVersion",
 						"values",
 						"status",
-					}}),
-			},
-			Type: "object",
-		},
-	},
-	"kubernetes:helm.sh/v3:SetValue": {
-		ObjectTypeSpec: pschema.ObjectTypeSpec{
-			Required: []string{
-				"name",
-				"value",
-			},
-			Properties: map[string]pschema.PropertySpec{
-				"name": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-				},
-				"value": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					Secret: true,
-				},
-				"type": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					//ValidateFunc: validation.StringInSlice([]string{
-					//	"auto", "string",
-					//}, false),
-				},
-			},
-			Language: map[string]pschema.RawMessage{
-				"nodejs": rawMessage(map[string][]string{
-					"requiredOutputs": {
-						"name",
-						"value",
-						"type",
 					}}),
 			},
 			Type: "object",
@@ -282,29 +243,36 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						Type: "boolean",
 					},
 					Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored",
-					//DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					//	return d.Get("version").(string) != ""
-					//},
 				},
 				"values": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "array",
 						Items: &pschema.TypeSpec{
-							Type: "string",
+							Ref: "pulumi.json#/Asset",
 						},
 					},
-					Description: "List of values in raw yaml format to pass to helm.",
+					Description: "List of assets (raw yaml files) to pass to helm.",
 				},
 				"set": {
 					TypeSpec: pschema.TypeSpec{
-						Type: "array",
-						Items: &pschema.TypeSpec{
-							Ref: "#/types/kubernetes:helm.sh/v3:SetValue",
+						Type: "object",
+						AdditionalProperties: &pschema.TypeSpec{
+							Ref: "pulumi.json#/Any",
 						},
 					},
-					Description: "Custom values to be merged with the values.",
+					Description: "Custom values to be merged with items loaded from values.",
 				},
-				// TODO: setSensitiveValues needs to be modeled.
+				// TODO?
+				//"setSensitive": {
+				//	TypeSpec: pschema.TypeSpec{
+				//		Type: "object",
+				//		AdditionalProperties: &pschema.TypeSpec{
+				//			Type: "string",
+				//		},
+				//	},
+				//	Description: "Custom sensitive values to be merged with items loaded from values.",
+				//	Secret: true,
+				//},
 				"namespace": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
@@ -349,7 +317,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored",
+					Description: "When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored",
 				},
 				"resetValues": {
 					TypeSpec: pschema.TypeSpec{
@@ -434,9 +402,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						Type: "string",
 					},
 					Description: "Add a custom description",
-					//DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					//	return new == ""
-					//},
 				},
 				"createNamespace": {
 					TypeSpec: pschema.TypeSpec{

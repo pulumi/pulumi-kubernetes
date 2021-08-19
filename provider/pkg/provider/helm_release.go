@@ -12,6 +12,8 @@ import (
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"io"
 	"log"
 	"net/url"
 	"os"
@@ -36,7 +38,6 @@ import (
 	"helm.sh/helm/v3/pkg/getter"
 	"helm.sh/helm/v3/pkg/postrender"
 	"helm.sh/helm/v3/pkg/release"
-	"helm.sh/helm/v3/pkg/strvals"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 )
@@ -101,14 +102,14 @@ type ReleaseSpec struct {
 	ResetValues bool `json:"resetValues,omitempty"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
 	ReuseValues bool `json:"reuseValues,omitempty"`
-	// Custom values to be merged with the values.
-	Set []*SetValue `json:"set,omitempty"`
+	// Custom values to be merged with items loaded from values.
+	Set map[string]interface{} `pulumi:"set"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds bool `json:"skipCrds,omitempty"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout int `json:"timeout,omitempty"`
-	// List of values in raw yaml format to pass to helm.
-	Values []string `json:"values,omitempty"`
+	// List of assets (raw yaml files) to pass to helm.
+	Values []pulumi.AssetOrArchive `json:"values,omitempty"`
 	// Verify the package before installing it.
 	Verify bool `json:"verify,omitempty"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -382,7 +383,8 @@ func (r *helmReleaseProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	newRelease.ReleaseSpec.Manifest = redactSensitiveValues(jsonManifest, newRelease.ReleaseSpec.Values)
+	// TODO: solve redaction
+	newRelease.ReleaseSpec.Manifest = redactSensitiveValues(jsonManifest, nil)
 
 	oldInputsJSON, err := json.Marshal(oldInputs.Mappable())
 	if err != nil {
@@ -847,7 +849,8 @@ func addManifestToInputs(resInputs resource.PropertyMap, rel *Release, r *releas
 	if resInputs.HasValue("releaseSpec") {
 		releaseSpec := resInputs["releaseSpec"]
 		if releaseSpec.IsObject() {
-			releaseSpec.ObjectValue()["manifest"] = resource.NewStringProperty(redactSensitiveValues(jsonManifest, rel.ReleaseSpec.Values))
+			// TODO: solve redaction
+			releaseSpec.ObjectValue()["manifest"] = resource.NewStringProperty(redactSensitiveValues(jsonManifest, nil))
 		}
 	}
 	return resInputs, nil
@@ -907,7 +910,8 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 		return err
 	}
 
-	release.ReleaseSpec.Manifest = redactSensitiveValues(jsonManifest, release.ReleaseSpec.Values)
+	// TODO
+	release.ReleaseSpec.Manifest = redactSensitiveValues(jsonManifest, nil)
 
 	if isPreview {
 		return nil
@@ -984,23 +988,34 @@ func getValues(spec *ReleaseSpec) (map[string]interface{}, error) {
 	base := map[string]interface{}{}
 
 	for _, value := range spec.Values {
-		if value == "" {
-			continue
+		var readCloser io.ReadCloser
+		if asAsset, ok := value.(pulumi.Asset); ok {
+			switch {
+			case asAsset.Text() != "":
+				readCloser = io.NopCloser(strings.NewReader(asAsset.Text()))
+			case asAsset.Path() != "":
+				f, err := os.Open(asAsset.Path())
+				if err != nil {
+					return nil, err
+				}
+				readCloser = f
+			case asAsset.URI() != "":
+				return nil, fmt.Errorf("value asset as URI not supported")
+			default:
+				return nil, fmt.Errorf("unsupported value asset type")
+			}
+		} else {
+			return nil, fmt.Errorf("expected value to be an Asset type, received: %T", value)
 		}
-
 		currentMap := map[string]interface{}{}
-		if err := yaml.Unmarshal([]byte(value), &currentMap); err != nil {
-			return nil, fmt.Errorf("---> %v %s", err, value)
-		}
-
-		base = mergeMaps(base, currentMap)
-	}
-
-	for _, set := range spec.Set {
-		if err := getValue(base, set); err != nil {
+		if err := yaml.NewDecoder(readCloser).Decode(&currentMap); err != nil {
 			return nil, err
 		}
+		base = mergeMaps(base, currentMap)
+		_ = readCloser.Close()
 	}
+
+	base = mergeMaps(base, spec.Set)
 
 	//for _, set := range spec.SetSensitive {
 	//	if err := getValue(base, set); err != nil {
@@ -1011,26 +1026,26 @@ func getValues(spec *ReleaseSpec) (map[string]interface{}, error) {
 	return base, logValues(base)
 }
 
-func getValue(base map[string]interface{}, set *SetValue) error {
-	name := set.Name
-	value := set.Value
-	valueType := set.Type
-
-	switch valueType {
-	case "auto", "":
-		if err := strvals.ParseInto(fmt.Sprintf("%s=%s", name, value), base); err != nil {
-			return fmt.Errorf("failed parsing key %q with value %s, %s", name, value, err)
-		}
-	case "string":
-		if err := strvals.ParseIntoString(fmt.Sprintf("%s=%s", name, value), base); err != nil {
-			return fmt.Errorf("failed parsing key %q with value %s, %s", name, value, err)
-		}
-	default:
-		return fmt.Errorf("unexpected type: %s", valueType)
-	}
-
-	return nil
-}
+//func getValue(base map[string]interface{}, set *SetValue) error {
+//	name := set.Name
+//	value := set.Value
+//	valueType := set.Type
+//
+//	switch valueType {
+//	case "auto", "":
+//		if err := strvals.ParseInto(fmt.Sprintf("%s=%s", name, value), base); err != nil {
+//			return fmt.Errorf("failed parsing key %q with value %s, %s", name, value, err)
+//		}
+//	case "string":
+//		if err := strvals.ParseIntoString(fmt.Sprintf("%s=%s", name, value), base); err != nil {
+//			return fmt.Errorf("failed parsing key %q with value %s, %s", name, value, err)
+//		}
+//	default:
+//		return fmt.Errorf("unexpected type: %s", valueType)
+//	}
+//
+//	return nil
+//}
 
 func logValues(values map[string]interface{}) error {
 	// copy array to avoid change values by the cloak function.

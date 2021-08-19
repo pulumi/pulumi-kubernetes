@@ -22909,14 +22909,14 @@
                 },
                 "reuseValues": {
                     "type": "boolean",
-                    "description": "When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored"
+                    "description": "When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored"
                 },
                 "set": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/types/kubernetes:helm.sh/v3:SetValue"
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
                     },
-                    "description": "Custom values to be merged with the values."
+                    "description": "Custom values to be merged with items loaded from values."
                 },
                 "skipAwait": {
                     "type": "boolean",
@@ -22933,9 +22933,9 @@
                 "values": {
                     "type": "array",
                     "items": {
-                        "type": "string"
+                        "$ref": "pulumi.json#/Asset"
                     },
-                    "description": "List of values in raw yaml format to pass to helm."
+                    "description": "List of assets (raw yaml files) to pass to helm."
                 },
                 "verify": {
                     "type": "boolean",
@@ -23083,34 +23083,6 @@
                         "repositoryCAFile",
                         "repositoryUsername",
                         "repositoryPassword"
-                    ]
-                }
-            }
-        },
-        "kubernetes:helm.sh/v3:SetValue": {
-            "properties": {
-                "name": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "value": {
-                    "type": "string",
-                    "secret": true
-                }
-            },
-            "type": "object",
-            "required": [
-                "name",
-                "value"
-            ],
-            "language": {
-                "nodejs": {
-                    "requiredOutputs": [
-                        "name",
-                        "value",
-                        "type"
                     ]
                 }
             }
