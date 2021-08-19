@@ -1203,7 +1203,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 }
 
 // helmHookWarning logs a warning if a Chart contains unsupported hooks. The warning can be disabled by setting
-// the PULUMI_DISABLE_HELM_HOOK_WARNING environment variable.
+// the suppressHelmHookWarnings provider flag or related ENV var.
 func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructured.Unstructured, urn resource.URN) {
 	hasHelmHook := false
 	for key, value := range newInputs.GetAnnotations() {
