@@ -154,20 +154,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<bool>? ResetValues { get; set; }
 
         /// <summary>
-        /// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        /// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         /// </summary>
         [Input("reuseValues")]
         public Input<bool>? ReuseValues { get; set; }
 
         [Input("set", required: true)]
-        private InputList<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs>? _set;
+        private InputMap<object>? _set;
 
         /// <summary>
-        /// Custom values to be merged with the values.
+        /// Custom values to be merged with items loaded from values.
         /// </summary>
-        public InputList<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs> Set
+        public InputMap<object> Set
         {
-            get => _set ?? (_set = new InputList<Pulumi.Kubernetes.Types.Inputs.Helm.V3.SetValueArgs>());
+            get => _set ?? (_set = new InputMap<object>());
             set => _set = value;
         }
 
@@ -190,14 +190,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<int>? Timeout { get; set; }
 
         [Input("values")]
-        private InputList<string>? _values;
+        private InputList<AssetOrArchive>? _values;
 
         /// <summary>
-        /// List of values in raw yaml format to pass to helm.
+        /// List of assets (raw yaml files) to pass to helm.
         /// </summary>
-        public InputList<string> Values
+        public InputList<AssetOrArchive> Values
         {
-            get => _values ?? (_values = new InputList<string>());
+            get => _values ?? (_values = new InputList<AssetOrArchive>());
             set => _values = value;
         }
 

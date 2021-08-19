@@ -13,7 +13,6 @@ __all__ = [
     'ReleaseSpec',
     'ReleaseStatus',
     'RepositorySpec',
-    'SetValue',
 ]
 
 @pulumi.output_type
@@ -71,7 +70,7 @@ class ReleaseSpec(dict):
     def __init__(__self__, *,
                  chart: str,
                  repository_spec: 'outputs.RepositorySpec',
-                 set: Sequence['outputs.SetValue'],
+                 set: Mapping[str, Any],
                  atomic: Optional[bool] = None,
                  cleanup_on_fail: Optional[bool] = None,
                  create_namespace: Optional[bool] = None,
@@ -97,7 +96,7 @@ class ReleaseSpec(dict):
                  skip_await: Optional[bool] = None,
                  skip_crds: Optional[bool] = None,
                  timeout: Optional[int] = None,
-                 values: Optional[Sequence[str]] = None,
+                 values: Optional[Sequence[Union[pulumi.Asset, pulumi.Archive]]] = None,
                  verify: Optional[bool] = None,
                  version: Optional[str] = None,
                  wait_for_jobs: Optional[bool] = None):
@@ -105,7 +104,7 @@ class ReleaseSpec(dict):
         Specification defining the Helm Release to install.
         :param str chart: Chart name to be installed. A path may be used.
         :param 'RepositorySpecArgs' repository_spec: Specification defining the Helm chart repository to use.
-        :param Sequence['SetValueArgs'] set: Custom values to be merged with the values.
+        :param Mapping[str, Any] set: Custom values to be merged with items loaded from values.
         :param bool atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
         :param bool cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails
         :param bool create_namespace: Create the namespace if it does not exist
@@ -127,11 +126,11 @@ class ReleaseSpec(dict):
         :param bool render_subchart_notes: If set, render subchart notes along with the parent
         :param bool replace: Re-use the given name, even if that name is already used. This is unsafe in production
         :param bool reset_values: When upgrading, reset the values to the ones built into the chart
-        :param bool reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        :param bool reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         :param bool skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param bool skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present
         :param int timeout: Time in seconds to wait for any individual kubernetes operation.
-        :param Sequence[str] values: List of values in raw yaml format to pass to helm.
+        :param Sequence[Union[pulumi.Asset, pulumi.Archive]] values: List of assets (raw yaml files) to pass to helm.
         :param bool verify: Verify the package before installing it.
         :param str version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
         :param bool wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
@@ -216,9 +215,9 @@ class ReleaseSpec(dict):
 
     @property
     @pulumi.getter
-    def set(self) -> Sequence['outputs.SetValue']:
+    def set(self) -> Mapping[str, Any]:
         """
-        Custom values to be merged with the values.
+        Custom values to be merged with items loaded from values.
         """
         return pulumi.get(self, "set")
 
@@ -394,7 +393,7 @@ class ReleaseSpec(dict):
     @pulumi.getter(name="reuseValues")
     def reuse_values(self) -> Optional[bool]:
         """
-        When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         """
         return pulumi.get(self, "reuse_values")
 
@@ -424,9 +423,9 @@ class ReleaseSpec(dict):
 
     @property
     @pulumi.getter
-    def values(self) -> Optional[Sequence[str]]:
+    def values(self) -> Optional[Sequence[Union[pulumi.Asset, pulumi.Archive]]]:
         """
-        List of values in raw yaml format to pass to helm.
+        List of assets (raw yaml files) to pass to helm.
         """
         return pulumi.get(self, "values")
 
@@ -668,32 +667,5 @@ class RepositorySpec(dict):
         Username for HTTP basic authentication
         """
         return pulumi.get(self, "repository_username")
-
-
-@pulumi.output_type
-class SetValue(dict):
-    def __init__(__self__, *,
-                 name: str,
-                 value: str,
-                 type: Optional[str] = None):
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "value", value)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter
-    def value(self) -> str:
-        return pulumi.get(self, "value")
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[str]:
-        return pulumi.get(self, "type")
 
 

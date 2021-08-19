@@ -131,18 +131,18 @@ type ReleaseSpec struct {
 	RepositorySpec RepositorySpec `pulumi:"repositorySpec"`
 	// When upgrading, reset the values to the ones built into the chart
 	ResetValues *bool `pulumi:"resetValues"`
-	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+	// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 	ReuseValues *bool `pulumi:"reuseValues"`
-	// Custom values to be merged with the values.
-	Set []SetValue `pulumi:"set"`
+	// Custom values to be merged with items loaded from values.
+	Set map[string]interface{} `pulumi:"set"`
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 	SkipAwait *bool `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds *bool `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout *int `pulumi:"timeout"`
-	// List of values in raw yaml format to pass to helm.
-	Values []string `pulumi:"values"`
+	// List of assets (raw yaml files) to pass to helm.
+	Values []pulumi.AssetOrArchive `pulumi:"values"`
 	// Verify the package before installing it.
 	Verify *bool `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -210,18 +210,18 @@ type ReleaseSpecArgs struct {
 	RepositorySpec RepositorySpecInput `pulumi:"repositorySpec"`
 	// When upgrading, reset the values to the ones built into the chart
 	ResetValues pulumi.BoolPtrInput `pulumi:"resetValues"`
-	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+	// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 	ReuseValues pulumi.BoolPtrInput `pulumi:"reuseValues"`
-	// Custom values to be merged with the values.
-	Set SetValueArrayInput `pulumi:"set"`
+	// Custom values to be merged with items loaded from values.
+	Set pulumi.MapInput `pulumi:"set"`
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 	SkipAwait pulumi.BoolPtrInput `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds pulumi.BoolPtrInput `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
-	// List of values in raw yaml format to pass to helm.
-	Values pulumi.StringArrayInput `pulumi:"values"`
+	// List of assets (raw yaml files) to pass to helm.
+	Values pulumi.AssetOrArchiveArrayInput `pulumi:"values"`
 	// Verify the package before installing it.
 	Verify pulumi.BoolPtrInput `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -423,14 +423,14 @@ func (o ReleaseSpecOutput) ResetValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ResetValues }).(pulumi.BoolPtrOutput)
 }
 
-// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 func (o ReleaseSpecOutput) ReuseValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ReuseValues }).(pulumi.BoolPtrOutput)
 }
 
-// Custom values to be merged with the values.
-func (o ReleaseSpecOutput) Set() SetValueArrayOutput {
-	return o.ApplyT(func(v ReleaseSpec) []SetValue { return v.Set }).(SetValueArrayOutput)
+// Custom values to be merged with items loaded from values.
+func (o ReleaseSpecOutput) Set() pulumi.MapOutput {
+	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Set }).(pulumi.MapOutput)
 }
 
 // By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
@@ -448,9 +448,9 @@ func (o ReleaseSpecOutput) Timeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *int { return v.Timeout }).(pulumi.IntPtrOutput)
 }
 
-// List of values in raw yaml format to pass to helm.
-func (o ReleaseSpecOutput) Values() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v ReleaseSpec) []string { return v.Values }).(pulumi.StringArrayOutput)
+// List of assets (raw yaml files) to pass to helm.
+func (o ReleaseSpecOutput) Values() pulumi.AssetOrArchiveArrayOutput {
+	return o.ApplyT(func(v ReleaseSpec) []pulumi.AssetOrArchive { return v.Values }).(pulumi.AssetOrArchiveArrayOutput)
 }
 
 // Verify the package before installing it.
@@ -716,7 +716,7 @@ func (o ReleaseSpecPtrOutput) ResetValues() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 func (o ReleaseSpecPtrOutput) ReuseValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -726,14 +726,14 @@ func (o ReleaseSpecPtrOutput) ReuseValues() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Custom values to be merged with the values.
-func (o ReleaseSpecPtrOutput) Set() SetValueArrayOutput {
-	return o.ApplyT(func(v *ReleaseSpec) []SetValue {
+// Custom values to be merged with items loaded from values.
+func (o ReleaseSpecPtrOutput) Set() pulumi.MapOutput {
+	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
 		if v == nil {
 			return nil
 		}
 		return v.Set
-	}).(SetValueArrayOutput)
+	}).(pulumi.MapOutput)
 }
 
 // By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
@@ -766,14 +766,14 @@ func (o ReleaseSpecPtrOutput) Timeout() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// List of values in raw yaml format to pass to helm.
-func (o ReleaseSpecPtrOutput) Values() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *ReleaseSpec) []string {
+// List of assets (raw yaml files) to pass to helm.
+func (o ReleaseSpecPtrOutput) Values() pulumi.AssetOrArchiveArrayOutput {
+	return o.ApplyT(func(v *ReleaseSpec) []pulumi.AssetOrArchive {
 		if v == nil {
 			return nil
 		}
 		return v.Values
-	}).(pulumi.StringArrayOutput)
+	}).(pulumi.AssetOrArchiveArrayOutput)
 }
 
 // Verify the package before installing it.
@@ -1280,112 +1280,6 @@ func (o RepositorySpecPtrOutput) RepositoryUsername() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-type SetValue struct {
-	Name  string  `pulumi:"name"`
-	Type  *string `pulumi:"type"`
-	Value string  `pulumi:"value"`
-}
-
-// SetValueInput is an input type that accepts SetValueArgs and SetValueOutput values.
-// You can construct a concrete instance of `SetValueInput` via:
-//
-//          SetValueArgs{...}
-type SetValueInput interface {
-	pulumi.Input
-
-	ToSetValueOutput() SetValueOutput
-	ToSetValueOutputWithContext(context.Context) SetValueOutput
-}
-
-type SetValueArgs struct {
-	Name  pulumi.StringInput    `pulumi:"name"`
-	Type  pulumi.StringPtrInput `pulumi:"type"`
-	Value pulumi.StringInput    `pulumi:"value"`
-}
-
-func (SetValueArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SetValue)(nil)).Elem()
-}
-
-func (i SetValueArgs) ToSetValueOutput() SetValueOutput {
-	return i.ToSetValueOutputWithContext(context.Background())
-}
-
-func (i SetValueArgs) ToSetValueOutputWithContext(ctx context.Context) SetValueOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SetValueOutput)
-}
-
-// SetValueArrayInput is an input type that accepts SetValueArray and SetValueArrayOutput values.
-// You can construct a concrete instance of `SetValueArrayInput` via:
-//
-//          SetValueArray{ SetValueArgs{...} }
-type SetValueArrayInput interface {
-	pulumi.Input
-
-	ToSetValueArrayOutput() SetValueArrayOutput
-	ToSetValueArrayOutputWithContext(context.Context) SetValueArrayOutput
-}
-
-type SetValueArray []SetValueInput
-
-func (SetValueArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SetValue)(nil)).Elem()
-}
-
-func (i SetValueArray) ToSetValueArrayOutput() SetValueArrayOutput {
-	return i.ToSetValueArrayOutputWithContext(context.Background())
-}
-
-func (i SetValueArray) ToSetValueArrayOutputWithContext(ctx context.Context) SetValueArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SetValueArrayOutput)
-}
-
-type SetValueOutput struct{ *pulumi.OutputState }
-
-func (SetValueOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SetValue)(nil)).Elem()
-}
-
-func (o SetValueOutput) ToSetValueOutput() SetValueOutput {
-	return o
-}
-
-func (o SetValueOutput) ToSetValueOutputWithContext(ctx context.Context) SetValueOutput {
-	return o
-}
-
-func (o SetValueOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v SetValue) string { return v.Name }).(pulumi.StringOutput)
-}
-
-func (o SetValueOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SetValue) *string { return v.Type }).(pulumi.StringPtrOutput)
-}
-
-func (o SetValueOutput) Value() pulumi.StringOutput {
-	return o.ApplyT(func(v SetValue) string { return v.Value }).(pulumi.StringOutput)
-}
-
-type SetValueArrayOutput struct{ *pulumi.OutputState }
-
-func (SetValueArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SetValue)(nil)).Elem()
-}
-
-func (o SetValueArrayOutput) ToSetValueArrayOutput() SetValueArrayOutput {
-	return o
-}
-
-func (o SetValueArrayOutput) ToSetValueArrayOutputWithContext(ctx context.Context) SetValueArrayOutput {
-	return o
-}
-
-func (o SetValueArrayOutput) Index(i pulumi.IntInput) SetValueOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SetValue {
-		return vs[0].([]SetValue)[vs[1].(int)]
-	}).(SetValueOutput)
-}
-
 func init() {
 	pulumi.RegisterOutputType(ReleaseTypeOutput{})
 	pulumi.RegisterOutputType(ReleaseSpecOutput{})
@@ -1394,6 +1288,4 @@ func init() {
 	pulumi.RegisterOutputType(ReleaseStatusPtrOutput{})
 	pulumi.RegisterOutputType(RepositorySpecOutput{})
 	pulumi.RegisterOutputType(RepositorySpecPtrOutput{})
-	pulumi.RegisterOutputType(SetValueOutput{})
-	pulumi.RegisterOutputType(SetValueArrayOutput{})
 }

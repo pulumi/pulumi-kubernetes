@@ -11,7 +11,6 @@ from ... import _utilities
 __all__ = [
     'ReleaseSpecArgs',
     'RepositorySpecArgs',
-    'SetValueArgs',
 ]
 
 @pulumi.input_type
@@ -19,7 +18,7 @@ class ReleaseSpecArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
                  repository_spec: pulumi.Input['RepositorySpecArgs'],
-                 set: pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]],
+                 set: pulumi.Input[Mapping[str, Any]],
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  create_namespace: Optional[pulumi.Input[bool]] = None,
@@ -45,7 +44,7 @@ class ReleaseSpecArgs:
                  skip_await: Optional[pulumi.Input[bool]] = None,
                  skip_crds: Optional[pulumi.Input[bool]] = None,
                  timeout: Optional[pulumi.Input[int]] = None,
-                 values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  verify: Optional[pulumi.Input[bool]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  wait_for_jobs: Optional[pulumi.Input[bool]] = None):
@@ -53,7 +52,7 @@ class ReleaseSpecArgs:
         Specification defining the Helm Release to install.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input['RepositorySpecArgs'] repository_spec: Specification defining the Helm chart repository to use.
-        :param pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]] set: Custom values to be merged with the values.
+        :param pulumi.Input[Mapping[str, Any]] set: Custom values to be merged with items loaded from values.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist
@@ -75,11 +74,11 @@ class ReleaseSpecArgs:
         :param pulumi.Input[bool] render_subchart_notes: If set, render subchart notes along with the parent
         :param pulumi.Input[bool] replace: Re-use the given name, even if that name is already used. This is unsafe in production
         :param pulumi.Input[bool] reset_values: When upgrading, reset the values to the ones built into the chart
-        :param pulumi.Input[bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        :param pulumi.Input[bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         :param pulumi.Input[bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present
         :param pulumi.Input[int] timeout: Time in seconds to wait for any individual kubernetes operation.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] values: List of values in raw yaml format to pass to helm.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] values: List of assets (raw yaml files) to pass to helm.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
         :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
@@ -172,14 +171,14 @@ class ReleaseSpecArgs:
 
     @property
     @pulumi.getter
-    def set(self) -> pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]]:
+    def set(self) -> pulumi.Input[Mapping[str, Any]]:
         """
-        Custom values to be merged with the values.
+        Custom values to be merged with items loaded from values.
         """
         return pulumi.get(self, "set")
 
     @set.setter
-    def set(self, value: pulumi.Input[Sequence[pulumi.Input['SetValueArgs']]]):
+    def set(self, value: pulumi.Input[Mapping[str, Any]]):
         pulumi.set(self, "set", value)
 
     @property
@@ -438,7 +437,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="reuseValues")
     def reuse_values(self) -> Optional[pulumi.Input[bool]]:
         """
-        When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         """
         return pulumi.get(self, "reuse_values")
 
@@ -484,14 +483,14 @@ class ReleaseSpecArgs:
 
     @property
     @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
         """
-        List of values in raw yaml format to pass to helm.
+        List of assets (raw yaml files) to pass to helm.
         """
         return pulumi.get(self, "values")
 
     @values.setter
-    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]):
         pulumi.set(self, "values", value)
 
     @property
@@ -633,44 +632,5 @@ class RepositorySpecArgs:
     @repository_username.setter
     def repository_username(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "repository_username", value)
-
-
-@pulumi.input_type
-class SetValueArgs:
-    def __init__(__self__, *,
-                 name: pulumi.Input[str],
-                 value: pulumi.Input[str],
-                 type: Optional[pulumi.Input[str]] = None):
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "value", value)
-        if type is not None:
-            pulumi.set(__self__, "type", type)
-
-    @property
-    @pulumi.getter
-    def name(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "name")
-
-    @name.setter
-    def name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "name", value)
-
-    @property
-    @pulumi.getter
-    def value(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "value")
-
-    @value.setter
-    def value(self, value: pulumi.Input[str]):
-        pulumi.set(self, "value", value)
-
-    @property
-    @pulumi.getter
-    def type(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "type")
-
-    @type.setter
-    def type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "type", value)
 
 

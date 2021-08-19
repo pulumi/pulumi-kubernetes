@@ -109,13 +109,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly bool ResetValues;
         /// <summary>
-        /// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        /// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         /// </summary>
         public readonly bool ReuseValues;
         /// <summary>
-        /// Custom values to be merged with the values.
+        /// Custom values to be merged with items loaded from values.
         /// </summary>
-        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> Set;
+        public readonly ImmutableDictionary<string, object> Set;
         /// <summary>
         /// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         /// </summary>
@@ -129,9 +129,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly int Timeout;
         /// <summary>
-        /// List of values in raw yaml format to pass to helm.
+        /// List of assets (raw yaml files) to pass to helm.
         /// </summary>
-        public readonly ImmutableArray<string> Values;
+        public readonly ImmutableArray<AssetOrArchive> Values;
         /// <summary>
         /// Verify the package before installing it.
         /// </summary>
@@ -195,7 +195,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             bool reuseValues,
 
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> set,
+            ImmutableDictionary<string, object> set,
 
             bool skipAwait,
 
@@ -203,7 +203,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             int timeout,
 
-            ImmutableArray<string> values,
+            ImmutableArray<AssetOrArchive> values,
 
             bool verify,
 

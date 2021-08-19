@@ -12253,13 +12253,13 @@ export namespace helm {
              */
             resetValues?: pulumi.Input<boolean>;
             /**
-             * When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+             * When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
              */
             reuseValues?: pulumi.Input<boolean>;
             /**
-             * Custom values to be merged with the values.
+             * Custom values to be merged with items loaded from values.
              */
-            set: pulumi.Input<pulumi.Input<inputs.helm.v3.SetValue>[]>;
+            set: pulumi.Input<{[key: string]: any}>;
             /**
              * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
              */
@@ -12273,9 +12273,9 @@ export namespace helm {
              */
             timeout?: pulumi.Input<number>;
             /**
-             * List of values in raw yaml format to pass to helm.
+             * List of assets (raw yaml files) to pass to helm.
              */
-            values?: pulumi.Input<pulumi.Input<string>[]>;
+            values?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
             /**
              * Verify the package before installing it.
              */
@@ -12318,12 +12318,6 @@ export namespace helm {
              * Username for HTTP basic authentication
              */
             repositoryUsername?: pulumi.Input<string>;
-        }
-
-        export interface SetValue {
-            name: pulumi.Input<string>;
-            type?: pulumi.Input<string>;
-            value: pulumi.Input<string>;
         }
     }
 }
