@@ -119,6 +119,7 @@ type kubeProvider struct {
 	enableDryRun                bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
+	suppressHelmHookWarnings    bool
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -427,6 +428,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if suppressDeprecationWarnings() {
 		k.suppressDeprecationWarnings = true
+	}
+
+	suppressHelmHookWarnings := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:suppressHelmHookWarnings"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if suppressHelmHookWarnings() {
+		k.suppressHelmHookWarnings = true
 	}
 
 	renderYamlToDirectory := func() string {
@@ -1046,28 +1063,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	var failures []*pulumirpc.CheckFailure
 
-	hasHelmHook := false
-	for key, value := range newInputs.GetAnnotations() {
-		// If annotations with a reserved internal prefix exist, ignore them.
-		if metadata.IsInternalAnnotation(key) {
-			_ = k.host.Log(ctx, diag.Warning, urn,
-				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
-		}
-
-		// If the Helm hook annotation is found, set the hasHelmHook flag.
-		if has := metadata.IsHelmHookAnnotation(key); has {
-			// Test hooks are handled, so ignore this one.
-			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
-				hasHelmHook = hasHelmHook || has
-			}
-		}
-	}
-	if hasHelmHook {
-		_ = k.host.Log(ctx, diag.Warning, urn,
-			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
-				"be created, but any hooks will not be executed. Hooks support is tracked at "+
-				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
-	}
+	k.helmHookWarning(ctx, newInputs, urn)
 
 	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
 	if err != nil {
@@ -1204,6 +1200,34 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	// Return new, possibly-autonamed inputs.
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
+}
+
+// helmHookWarning logs a warning if a Chart contains unsupported hooks. The warning can be disabled by setting
+// the suppressHelmHookWarnings provider flag or related ENV var.
+func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructured.Unstructured, urn resource.URN) {
+	hasHelmHook := false
+	for key, value := range newInputs.GetAnnotations() {
+		// If annotations with a reserved internal prefix exist, ignore them.
+		if metadata.IsInternalAnnotation(key) {
+			_ = k.host.Log(ctx, diag.Warning, urn,
+				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
+		}
+
+		// If the Helm hook annotation is found, set the hasHelmHook flag.
+		if has := metadata.IsHelmHookAnnotation(key); has {
+			// Test hooks are handled, so ignore this one.
+			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
+				hasHelmHook = hasHelmHook || has
+			}
+		}
+	}
+	if hasHelmHook && !k.suppressHelmHookWarnings {
+		_ = k.host.Log(ctx, diag.Warning, urn,
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
+				"be created, but any hooks will not be executed. Hooks support is tracked at "+
+				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- This warning can be disabled by setting "+
+				"the PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING environment variable")
+	}
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.

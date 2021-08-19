@@ -123,5 +123,19 @@ namespace Pulumi.Kubernetes
             set => _suppressDeprecationWarnings.Set(value);
         }
 
+        private static readonly __Value<bool?> _suppressHelmHookWarnings = new __Value<bool?>(() => __config.GetBoolean("suppressHelmHookWarnings"));
+        /// <summary>
+        /// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+        /// 
+        /// This config can be specified in the following ways, using this precedence:
+        /// 1. This `suppressHelmHookWarnings` parameter.
+        /// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+        /// </summary>
+        public static bool? SuppressHelmHookWarnings
+        {
+            get => _suppressHelmHookWarnings.Get();
+            set => _suppressHelmHookWarnings.Set(value);
+        }
+
     }
 }

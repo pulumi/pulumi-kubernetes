@@ -31,6 +31,9 @@ func NewProvider(ctx *pulumi.Context,
 	if args.SuppressDeprecationWarnings == nil {
 		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
 	}
+	if args.SuppressHelmHookWarnings == nil {
+		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
+	}
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:kubernetes", name, args, &resource, opts...)
 	if err != nil {
@@ -67,6 +70,12 @@ type providerArgs struct {
 	RenderYamlToDirectory *string `pulumi:"renderYamlToDirectory"`
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
+	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+	//
+	// This config can be specified in the following ways, using this precedence:
+	// 1. This `suppressHelmHookWarnings` parameter.
+	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+	SuppressHelmHookWarnings *bool `pulumi:"suppressHelmHookWarnings"`
 }
 
 // The set of arguments for constructing a Provider resource.
@@ -98,6 +107,12 @@ type ProviderArgs struct {
 	RenderYamlToDirectory pulumi.StringPtrInput
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
+	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+	//
+	// This config can be specified in the following ways, using this precedence:
+	// 1. This `suppressHelmHookWarnings` parameter.
+	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+	SuppressHelmHookWarnings pulumi.BoolPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {

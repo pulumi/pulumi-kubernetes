@@ -41,6 +41,7 @@ export class Provider extends pulumi.ProviderResource {
             inputs["namespace"] = args ? args.namespace : undefined;
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
             inputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
+            inputs["suppressHelmHookWarnings"] = pulumi.output((args ? args.suppressHelmHookWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
@@ -94,4 +95,12 @@ export interface ProviderArgs {
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */
     suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    /**
+     * If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+     *
+     * This config can be specified in the following ways, using this precedence:
+     * 1. This `suppressHelmHookWarnings` parameter.
+     * 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+     */
+    suppressHelmHookWarnings?: pulumi.Input<boolean>;
 }
