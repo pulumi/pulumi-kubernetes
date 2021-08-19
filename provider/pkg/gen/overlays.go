@@ -405,17 +405,17 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema",
 				},
-				"wait": {
+				"skipAwait": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Will wait until all resources are in a ready state before marking the release as successful.",
+					Description: "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.",
 				},
 				"waitForJobs": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.",
+					Description: "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.",
 				},
 				"dependencyUpdate": {
 					TypeSpec: pschema.TypeSpec{

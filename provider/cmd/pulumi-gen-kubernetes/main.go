@@ -400,9 +400,7 @@ func mustRenderGoTemplate(path string, resources interface{}) []byte {
 	bytes := mustRenderTemplate(path, resources)
 
 	formattedSource, err := format.Source(bytes)
-	if err != nil {
-		panic(err)
-	}
+	contract.AssertNoErrorf(err, "err: %+v path: %q source:\n%s", err, path, string(bytes))
 	return formattedSource
 }
 

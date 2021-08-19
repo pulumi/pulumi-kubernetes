@@ -162,7 +162,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"helm.sh/v3": "Helm.V3",
 	}
 	modToPkg := map[string]string{
-		"helm.sh/v3": "helm",
+		"helm.sh/v3": "helm/v3",
 	}
 	pkgImportAliases := map[string]string{
 		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",
@@ -290,9 +290,16 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"compatibility":          kubernetes20,
 		"dictionaryConstructors": true,
 	})
+
+	goModToPkg := map[string]string{}
+	for k,v := range modToPkg {
+		goModToPkg[k] = v
+	}
+	goModToPkg["helm.sh/v3"] =  "helm" // Map to helm to avoid package conflict with existing helm templates.
+
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
 		"importBasePath":                 goImportPath,
-		"moduleToPackage":                modToPkg,
+		"moduleToPackage":                goModToPkg,
 		"packageImportAliases":           pkgImportAliases,
 		"generateResourceContainerTypes": true,
 	})

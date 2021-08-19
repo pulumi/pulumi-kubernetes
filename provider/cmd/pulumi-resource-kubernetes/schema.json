@@ -22918,6 +22918,10 @@
                     },
                     "description": "Custom values to be merged with the values."
                 },
+                "skipAwait": {
+                    "type": "boolean",
+                    "description": "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic."
+                },
                 "skipCrds": {
                     "type": "boolean",
                     "description": "If set, no CRDs will be installed. By default, CRDs are installed if not already present"
@@ -22941,13 +22945,9 @@
                     "type": "string",
                     "description": "Specify the exact chart version to install. If this is not specified, the latest version is installed."
                 },
-                "wait": {
-                    "type": "boolean",
-                    "description": "Will wait until all resources are in a ready state before marking the release as successful."
-                },
                 "waitForJobs": {
                     "type": "boolean",
-                    "description": "If wait is enabled, will wait until all Jobs have been completed before marking the release as successful."
+                    "description": "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled."
                 }
             },
             "type": "object",
@@ -45202,7 +45202,7 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
-                "helm.sh/v3": "helm",
+                "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",
@@ -45260,7 +45260,7 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
-                "helm.sh/v3": "helm",
+                "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",

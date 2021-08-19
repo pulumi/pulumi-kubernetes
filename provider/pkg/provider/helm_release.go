@@ -44,6 +44,7 @@ import (
 // errReleaseNotFound is the error when a Helm release is not found
 var errReleaseNotFound = errors.New("release not found")
 
+// Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
 	ResourceType string       `json:"resourceType,omitempty"`
 	ReleaseSpec  *ReleaseSpec `json:"releaseSpec,omitempty"`
@@ -112,9 +113,9 @@ type ReleaseSpec struct {
 	Verify bool `json:"verify,omitempty"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
 	Version string `json:"version,omitempty"`
-	// Will wait until all resources are in a ready state before marking the release as successful.
-	Wait bool `json:"wait,omitempty"`
-	// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+	SkipAwait bool `json:"skipAwait,omitempty"`
+	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
 	WaitForJobs bool `json:"waitForJobs,omitempty"`
 }
 
@@ -351,12 +352,12 @@ func (r *helmReleaseProvider) Diff(
 	client.Devel = newRelease.ReleaseSpec.Devel
 	client.Namespace = newRelease.ReleaseSpec.Namespace
 	client.Timeout = time.Duration(newRelease.ReleaseSpec.Timeout) * time.Second
-	client.Wait = newRelease.ReleaseSpec.Wait
+	client.Wait = !newRelease.ReleaseSpec.SkipAwait
 	client.DryRun = true // do not apply changes
 	client.DisableHooks = newRelease.ReleaseSpec.DisableCRDHooks
 	client.Atomic = newRelease.ReleaseSpec.Atomic
 	client.SubNotes = newRelease.ReleaseSpec.RenderSubchartNotes
-	client.WaitForJobs = newRelease.ReleaseSpec.WaitForJobs
+	client.WaitForJobs = !newRelease.ReleaseSpec.SkipAwait && newRelease.ReleaseSpec.WaitForJobs
 	client.Force = newRelease.ReleaseSpec.ForceUpdate
 	client.ResetValues = newRelease.ReleaseSpec.ResetValues
 	client.ReuseValues = newRelease.ReleaseSpec.ReuseValues
@@ -566,8 +567,8 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	client.ClientOnly = false
 	client.DryRun = req.GetPreview() // Dry-run == preview.
 	client.DisableHooks = newRelease.ReleaseSpec.DisableWebhooks
-	client.Wait = newRelease.ReleaseSpec.Wait
-	client.WaitForJobs = newRelease.ReleaseSpec.WaitForJobs
+	client.Wait = !newRelease.ReleaseSpec.SkipAwait
+	client.WaitForJobs = !newRelease.ReleaseSpec.SkipAwait && newRelease.ReleaseSpec.WaitForJobs
 	client.Devel = newRelease.ReleaseSpec.Devel
 	client.DependencyUpdate = newRelease.ReleaseSpec.DependencyUpdate
 	client.Timeout = time.Duration(newRelease.ReleaseSpec.Timeout) * time.Second
@@ -775,8 +776,8 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 	client.Devel = newRelease.ReleaseSpec.Devel
 	client.Namespace = newRelease.ReleaseSpec.Namespace
 	client.Timeout = time.Duration(newRelease.ReleaseSpec.Timeout) * time.Second
-	client.Wait = !req.GetPreview() && newRelease.ReleaseSpec.Wait
-	client.WaitForJobs = !req.GetPreview() && newRelease.ReleaseSpec.WaitForJobs
+	client.Wait = !newRelease.ReleaseSpec.SkipAwait
+	client.WaitForJobs = !newRelease.ReleaseSpec.SkipAwait && newRelease.ReleaseSpec.WaitForJobs
 	client.DryRun = req.GetPreview()
 	client.DisableHooks = newRelease.ReleaseSpec.DisableWebhooks
 	client.Atomic = newRelease.ReleaseSpec.Atomic
