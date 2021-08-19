@@ -119,6 +119,7 @@ type kubeProvider struct {
 	enableDryRun                bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
+	suppressHelmHookWarnings    bool
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -427,6 +428,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if suppressDeprecationWarnings() {
 		k.suppressDeprecationWarnings = true
+	}
+
+	suppressHelmHookWarnings := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:suppressHelmHookWarnings"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if suppressHelmHookWarnings() {
+		k.suppressHelmHookWarnings = true
 	}
 
 	renderYamlToDirectory := func() string {
@@ -1204,19 +1221,12 @@ func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructu
 			}
 		}
 	}
-	disableHelmHookWarning := false
-	if v, ok := os.LookupEnv("PULUMI_DISABLE_HELM_HOOK_WARNING"); ok {
-		lower := strings.ToLower(v)
-		if lower != "false" && lower != "0" {
-			disableHelmHookWarning = true
-		}
-	}
-	if hasHelmHook && !disableHelmHookWarning {
+	if hasHelmHook && !k.suppressHelmHookWarnings {
 		_ = k.host.Log(ctx, diag.Warning, urn,
 			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
 				"be created, but any hooks will not be executed. Hooks support is tracked at "+
-				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- "+
-				"This warning can be disabled by setting the PULUMI_DISABLE_HELM_HOOK_WARNING environment variable")
+				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- This warning can be disabled by setting "+
+				"the PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING environment variable")
 	}
 }
 

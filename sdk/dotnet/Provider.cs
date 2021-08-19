@@ -101,11 +101,22 @@ namespace Pulumi.Kubernetes
         [Input("suppressDeprecationWarnings", json: true)]
         public Input<bool>? SuppressDeprecationWarnings { get; set; }
 
+        /// <summary>
+        /// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+        /// 
+        /// This config can be specified in the following ways, using this precedence:
+        /// 1. This `suppressHelmHookWarnings` parameter.
+        /// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+        /// </summary>
+        [Input("suppressHelmHookWarnings", json: true)]
+        public Input<bool>? SuppressHelmHookWarnings { get; set; }
+
         public ProviderArgs()
         {
             EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
+            SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");
         }
     }
 }
