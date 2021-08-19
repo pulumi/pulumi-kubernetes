@@ -1046,28 +1046,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	var failures []*pulumirpc.CheckFailure
 
-	hasHelmHook := false
-	for key, value := range newInputs.GetAnnotations() {
-		// If annotations with a reserved internal prefix exist, ignore them.
-		if metadata.IsInternalAnnotation(key) {
-			_ = k.host.Log(ctx, diag.Warning, urn,
-				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
-		}
-
-		// If the Helm hook annotation is found, set the hasHelmHook flag.
-		if has := metadata.IsHelmHookAnnotation(key); has {
-			// Test hooks are handled, so ignore this one.
-			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
-				hasHelmHook = hasHelmHook || has
-			}
-		}
-	}
-	if hasHelmHook {
-		_ = k.host.Log(ctx, diag.Warning, urn,
-			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
-				"be created, but any hooks will not be executed. Hooks support is tracked at "+
-				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
-	}
+	k.helmHookWarning(ctx, newInputs, urn)
 
 	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
 	if err != nil {
@@ -1204,6 +1183,41 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	// Return new, possibly-autonamed inputs.
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
+}
+
+// helmHookWarning logs a warning if a Chart contains unsupported hooks. The warning can be disabled by setting
+// the PULUMI_DISABLE_HELM_HOOK_WARNING environment variable.
+func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructured.Unstructured, urn resource.URN) {
+	hasHelmHook := false
+	for key, value := range newInputs.GetAnnotations() {
+		// If annotations with a reserved internal prefix exist, ignore them.
+		if metadata.IsInternalAnnotation(key) {
+			_ = k.host.Log(ctx, diag.Warning, urn,
+				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
+		}
+
+		// If the Helm hook annotation is found, set the hasHelmHook flag.
+		if has := metadata.IsHelmHookAnnotation(key); has {
+			// Test hooks are handled, so ignore this one.
+			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
+				hasHelmHook = hasHelmHook || has
+			}
+		}
+	}
+	disableHelmHookWarning := false
+	if v, ok := os.LookupEnv("PULUMI_DISABLE_HELM_HOOK_WARNING"); ok {
+		lower := strings.ToLower(v)
+		if lower != "false" && lower != "0" {
+			disableHelmHookWarning = true
+		}
+	}
+	if hasHelmHook && !disableHelmHookWarning {
+		_ = k.host.Log(ctx, diag.Warning, urn,
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
+				"be created, but any hooks will not be executed. Hooks support is tracked at "+
+				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- "+
+				"This warning can be disabled by setting the PULUMI_DISABLE_HELM_HOOK_WARNING environment variable")
+	}
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.

@@ -2,6 +2,7 @@
 
 - [sdk/python] Fix wait for metadata in `yaml._parse_yaml_object`. (https://github.com/pulumi/pulumi-kubernetes/pull/1675)
 - Fix diff logic for server-side apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/1679)
+- Add option to disable Helm hook warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1682)
 
 ## 3.6.0 (Auguest 4, 2021)
 
