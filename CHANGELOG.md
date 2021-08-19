@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - [sdk/python] Fix wait for metadata in `yaml._parse_yaml_object`. (https://github.com/pulumi/pulumi-kubernetes/pull/1675)
+- Fix diff logic for server-side apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/1679)
 
 ## 3.6.0 (Auguest 4, 2021)
 
