@@ -222,6 +222,7 @@ const (
 	AuthorizationV1           groupVersion = "authorization.k8s.io/v1"
 	AuthorizationV1B1         groupVersion = "authorization.k8s.io/v1beta1"
 	AutoscalingV1             groupVersion = "autoscaling/v1"
+	AutoscalingV2             groupVersion = "autoscaling/v2"
 	AutoscalingV2B1           groupVersion = "autoscaling/v2beta1"
 	AutoscalingV2B2           groupVersion = "autoscaling/v2beta2"
 	BatchV1                   groupVersion = "batch/v1"
@@ -239,6 +240,7 @@ const (
 	ExtensionsV1B1            groupVersion = "extensions/v1beta1"
 	FlowcontrolV1A1           groupVersion = "flowcontrol.apiserver.k8s.io/v1alpha1"
 	FlowcontrolV1B1           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta1"
+	FlowcontrolV1B2           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta2"
 	MetaV1                    groupVersion = "meta/v1"
 	NetworkingV1              groupVersion = "networking.k8s.io/v1"
 	NetworkingV1B1            groupVersion = "networking.k8s.io/v1beta1"
@@ -288,6 +290,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"authorization.k8s.io/v1",
 	"authorization.k8s.io/v1beta1",
 	"autoscaling/v1",
+	"autoscaling/v2",
 	"autoscaling/v2beta1",
 	"autoscaling/v2beta2",
 	"batch/v1",
@@ -305,6 +308,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"extensions/v1beta1",
 	"flowcontrol.apiserver.k8s.io/v1alpha1",
 	"flowcontrol.apiserver.k8s.io/v1beta1",
+	"flowcontrol.apiserver.k8s.io/v1beta2",
 	"meta/v1",
 	"networking.k8s.io/v1",
 	"networking.k8s.io/v1beta1",

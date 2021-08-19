@@ -601,42 +601,31 @@ class HorizontalPodAutoscalerSpecArgs:
 @pulumi.input_type
 class HorizontalPodAutoscalerStatusArgs:
     def __init__(__self__, *,
-                 conditions: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]],
                  current_replicas: pulumi.Input[int],
                  desired_replicas: pulumi.Input[int],
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]] = None,
                  current_metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]] = None,
                  last_scale_time: Optional[pulumi.Input[str]] = None,
                  observed_generation: Optional[pulumi.Input[int]] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
-        :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param pulumi.Input[int] current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param pulumi.Input[int] desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+        :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param pulumi.Input[str] last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param pulumi.Input[int] observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
-        pulumi.set(__self__, "conditions", conditions)
         pulumi.set(__self__, "current_replicas", current_replicas)
         pulumi.set(__self__, "desired_replicas", desired_replicas)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
         if current_metrics is not None:
             pulumi.set(__self__, "current_metrics", current_metrics)
         if last_scale_time is not None:
             pulumi.set(__self__, "last_scale_time", last_scale_time)
         if observed_generation is not None:
             pulumi.set(__self__, "observed_generation", observed_generation)
-
-    @property
-    @pulumi.getter
-    def conditions(self) -> pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]:
-        """
-        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-        """
-        return pulumi.get(self, "conditions")
-
-    @conditions.setter
-    def conditions(self, value: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]):
-        pulumi.set(self, "conditions", value)
 
     @property
     @pulumi.getter(name="currentReplicas")
@@ -661,6 +650,18 @@ class HorizontalPodAutoscalerStatusArgs:
     @desired_replicas.setter
     def desired_replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "desired_replicas", value)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]]:
+        """
+        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
 
     @property
     @pulumi.getter(name="currentMetrics")

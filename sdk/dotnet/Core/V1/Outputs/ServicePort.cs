@@ -34,6 +34,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         public readonly int Port;
         /// <summary>
         /// The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+        /// 
+        /// Possible enum values:
+        ///  - `"SCTP"` is the SCTP protocol.
+        ///  - `"TCP"` is the TCP protocol.
+        ///  - `"UDP"` is the UDP protocol.
         /// </summary>
         public readonly string Protocol;
         /// <summary>

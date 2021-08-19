@@ -16,10 +16,10 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     public class StatefulSetStatusArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+        /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
         /// </summary>
-        [Input("availableReplicas")]
-        public Input<int>? AvailableReplicas { get; set; }
+        [Input("availableReplicas", required: true)]
+        public Input<int> AvailableReplicas { get; set; } = null!;
 
         /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? ObservedGeneration { get; set; }
 
         /// <summary>
-        /// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+        /// readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
         /// </summary>
         [Input("readyReplicas")]
         public Input<int>? ReadyReplicas { get; set; }

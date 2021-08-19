@@ -37,7 +37,7 @@ type Secret struct {
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 	StringData pulumi.StringMapOutput `pulumi:"stringData"`
-	// Used to facilitate programmatic handling of secret data.
+	// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 	Type pulumi.StringPtrOutput `pulumi:"type"`
 }
 
@@ -105,7 +105,7 @@ type secretArgs struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 	StringData map[string]string `pulumi:"stringData"`
-	// Used to facilitate programmatic handling of secret data.
+	// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 	Type *string `pulumi:"type"`
 }
 
@@ -123,7 +123,7 @@ type SecretArgs struct {
 	Metadata metav1.ObjectMetaPtrInput
 	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 	StringData pulumi.StringMapInput
-	// Used to facilitate programmatic handling of secret data.
+	// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 	Type pulumi.StringPtrInput
 }
 

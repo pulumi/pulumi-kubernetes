@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int> NumberMisscheduled { get; set; } = null!;
 
         /// <summary>
-        /// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+        /// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
         /// </summary>
         [Input("numberReady", required: true)]
         public Input<int> NumberReady { get; set; } = null!;

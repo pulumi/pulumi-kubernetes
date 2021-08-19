@@ -2202,6 +2202,8 @@ type JSONSchemaProps struct {
 	X_kubernetes_map_type *string `pulumi:"x_kubernetes_map_type"`
 	// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 	X_kubernetes_preserve_unknown_fields *bool `pulumi:"x_kubernetes_preserve_unknown_fields"`
+	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+	X_kubernetes_validations []ValidationRule `pulumi:"x_kubernetes_validations"`
 }
 
 // JSONSchemaPropsInput is an input type that accepts JSONSchemaPropsArgs and JSONSchemaPropsOutput values.
@@ -2303,6 +2305,8 @@ type JSONSchemaPropsArgs struct {
 	X_kubernetes_map_type pulumi.StringPtrInput `pulumi:"x_kubernetes_map_type"`
 	// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 	X_kubernetes_preserve_unknown_fields pulumi.BoolPtrInput `pulumi:"x_kubernetes_preserve_unknown_fields"`
+	// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+	X_kubernetes_validations ValidationRuleArrayInput `pulumi:"x_kubernetes_validations"`
 }
 
 func (JSONSchemaPropsArgs) ElementType() reflect.Type {
@@ -2646,6 +2650,11 @@ func (o JSONSchemaPropsOutput) X_kubernetes_map_type() pulumi.StringPtrOutput {
 // x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
 func (o JSONSchemaPropsOutput) X_kubernetes_preserve_unknown_fields() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *bool { return v.X_kubernetes_preserve_unknown_fields }).(pulumi.BoolPtrOutput)
+}
+
+// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+func (o JSONSchemaPropsOutput) X_kubernetes_validations() ValidationRuleArrayOutput {
+	return o.ApplyT(func(v JSONSchemaProps) []ValidationRule { return v.X_kubernetes_validations }).(ValidationRuleArrayOutput)
 }
 
 type JSONSchemaPropsPtrOutput struct{ *pulumi.OutputState }
@@ -3102,6 +3111,16 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_preserve_unknown_fields() pulumi.
 	}).(pulumi.BoolPtrOutput)
 }
 
+// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+func (o JSONSchemaPropsPtrOutput) X_kubernetes_validations() ValidationRuleArrayOutput {
+	return o.ApplyT(func(v *JSONSchemaProps) []ValidationRule {
+		if v == nil {
+			return nil
+		}
+		return v.X_kubernetes_validations
+	}).(ValidationRuleArrayOutput)
+}
+
 type JSONSchemaPropsArrayOutput struct{ *pulumi.OutputState }
 
 func (JSONSchemaPropsArrayOutput) ElementType() reflect.Type {
@@ -3337,6 +3356,187 @@ func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 		}
 		return v.Port
 	}).(pulumi.IntPtrOutput)
+}
+
+// ValidationRule describes a validation rule written in the CEL expression language.
+type ValidationRule struct {
+	// Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+	Message *string `pulumi:"message"`
+	// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+	//
+	// If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+	//
+	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+	//
+	// Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+	//   - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+	//   - An array where the items schema is of an "unknown type"
+	//   - An object where the additionalProperties schema is of an "unknown type"
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+	// 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+	// 	  "import", "let", "loop", "package", "namespace", "return".
+	// Examples:
+	//   - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
+	//   - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
+	//   - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+	//
+	// Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+	//   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+	//     non-intersecting elements in `Y` are appended, retaining their partial order.
+	//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+	//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+	//     non-intersecting keys are appended, retaining their partial order.
+	Rule string `pulumi:"rule"`
+}
+
+// ValidationRuleInput is an input type that accepts ValidationRuleArgs and ValidationRuleOutput values.
+// You can construct a concrete instance of `ValidationRuleInput` via:
+//
+//          ValidationRuleArgs{...}
+type ValidationRuleInput interface {
+	pulumi.Input
+
+	ToValidationRuleOutput() ValidationRuleOutput
+	ToValidationRuleOutputWithContext(context.Context) ValidationRuleOutput
+}
+
+// ValidationRule describes a validation rule written in the CEL expression language.
+type ValidationRuleArgs struct {
+	// Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+	Message pulumi.StringPtrInput `pulumi:"message"`
+	// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+	//
+	// If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+	//
+	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+	//
+	// Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+	//   - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+	//   - An array where the items schema is of an "unknown type"
+	//   - An object where the additionalProperties schema is of an "unknown type"
+	//
+	// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+	// 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+	// 	  "import", "let", "loop", "package", "namespace", "return".
+	// Examples:
+	//   - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
+	//   - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
+	//   - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+	//
+	// Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+	//   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+	//     non-intersecting elements in `Y` are appended, retaining their partial order.
+	//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+	//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+	//     non-intersecting keys are appended, retaining their partial order.
+	Rule pulumi.StringInput `pulumi:"rule"`
+}
+
+func (ValidationRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidationRule)(nil)).Elem()
+}
+
+func (i ValidationRuleArgs) ToValidationRuleOutput() ValidationRuleOutput {
+	return i.ToValidationRuleOutputWithContext(context.Background())
+}
+
+func (i ValidationRuleArgs) ToValidationRuleOutputWithContext(ctx context.Context) ValidationRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidationRuleOutput)
+}
+
+// ValidationRuleArrayInput is an input type that accepts ValidationRuleArray and ValidationRuleArrayOutput values.
+// You can construct a concrete instance of `ValidationRuleArrayInput` via:
+//
+//          ValidationRuleArray{ ValidationRuleArgs{...} }
+type ValidationRuleArrayInput interface {
+	pulumi.Input
+
+	ToValidationRuleArrayOutput() ValidationRuleArrayOutput
+	ToValidationRuleArrayOutputWithContext(context.Context) ValidationRuleArrayOutput
+}
+
+type ValidationRuleArray []ValidationRuleInput
+
+func (ValidationRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ValidationRule)(nil)).Elem()
+}
+
+func (i ValidationRuleArray) ToValidationRuleArrayOutput() ValidationRuleArrayOutput {
+	return i.ToValidationRuleArrayOutputWithContext(context.Background())
+}
+
+func (i ValidationRuleArray) ToValidationRuleArrayOutputWithContext(ctx context.Context) ValidationRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidationRuleArrayOutput)
+}
+
+// ValidationRule describes a validation rule written in the CEL expression language.
+type ValidationRuleOutput struct{ *pulumi.OutputState }
+
+func (ValidationRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidationRule)(nil)).Elem()
+}
+
+func (o ValidationRuleOutput) ToValidationRuleOutput() ValidationRuleOutput {
+	return o
+}
+
+func (o ValidationRuleOutput) ToValidationRuleOutputWithContext(ctx context.Context) ValidationRuleOutput {
+	return o
+}
+
+// Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+func (o ValidationRuleOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidationRule) *string { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
+//
+// If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
+//
+// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
+//
+// Unknown data preserved in custom resources via x-kubernetes-preserve-unknown-fields is not accessible in CEL expressions. This includes: - Unknown field values that are preserved by object schemas with x-kubernetes-preserve-unknown-fields. - Object properties where the property schema is of an "unknown type". An "unknown type" is recursively defined as:
+//   - A schema with no type and x-kubernetes-preserve-unknown-fields set to true
+//   - An array where the items schema is of an "unknown type"
+//   - An object where the additionalProperties schema is of an "unknown type"
+//
+// Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+// 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+// 	  "import", "let", "loop", "package", "namespace", "return".
+// Examples:
+//   - Rule accessing a property named "namespace": {"rule": "self.__namespace__ > 0"}
+//   - Rule accessing a property named "x-prop": {"rule": "self.x__dash__prop > 0"}
+//   - Rule accessing a property named "redact__d": {"rule": "self.redact__underscores__d > 0"}
+//
+// Equality on arrays with x-kubernetes-list-type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+//   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+//     non-intersecting elements in `Y` are appended, retaining their partial order.
+//   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+//     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+//     non-intersecting keys are appended, retaining their partial order.
+func (o ValidationRuleOutput) Rule() pulumi.StringOutput {
+	return o.ApplyT(func(v ValidationRule) string { return v.Rule }).(pulumi.StringOutput)
+}
+
+type ValidationRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (ValidationRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ValidationRule)(nil)).Elem()
+}
+
+func (o ValidationRuleArrayOutput) ToValidationRuleArrayOutput() ValidationRuleArrayOutput {
+	return o
+}
+
+func (o ValidationRuleArrayOutput) ToValidationRuleArrayOutputWithContext(ctx context.Context) ValidationRuleArrayOutput {
+	return o
+}
+
+func (o ValidationRuleArrayOutput) Index(i pulumi.IntInput) ValidationRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidationRule {
+		return vs[0].([]ValidationRule)[vs[1].(int)]
+	}).(ValidationRuleOutput)
 }
 
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
@@ -3756,6 +3956,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsMapInput)(nil)).Elem(), JSONSchemaPropsMap{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidationRuleInput)(nil)).Elem(), ValidationRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidationRuleArrayInput)(nil)).Elem(), ValidationRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigPtrInput)(nil)).Elem(), WebhookClientConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookConversionInput)(nil)).Elem(), WebhookConversionArgs{})
@@ -3791,6 +3993,8 @@ func init() {
 	pulumi.RegisterOutputType(JSONSchemaPropsMapOutput{})
 	pulumi.RegisterOutputType(ServiceReferenceOutput{})
 	pulumi.RegisterOutputType(ServiceReferencePtrOutput{})
+	pulumi.RegisterOutputType(ValidationRuleOutput{})
+	pulumi.RegisterOutputType(ValidationRuleArrayOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigOutput{})
 	pulumi.RegisterOutputType(WebhookClientConfigPtrOutput{})
 	pulumi.RegisterOutputType(WebhookConversionOutput{})

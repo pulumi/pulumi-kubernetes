@@ -33,7 +33,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly int ObservedGeneration;
         /// <summary>
-        /// Total number of ready pods targeted by this deployment.
+        /// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
         /// </summary>
         public readonly int ReadyReplicas;
         /// <summary>

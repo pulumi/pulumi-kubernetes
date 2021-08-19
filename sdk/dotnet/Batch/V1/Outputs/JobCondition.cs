@@ -38,6 +38,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         public readonly string Status;
         /// <summary>
         /// Type of job condition, Complete or Failed.
+        /// 
+        /// Possible enum values:
+        ///  - `"Complete"` means the job has completed its execution.
+        ///  - `"Failed"` means the job has failed its execution.
+        ///  - `"Suspended"` means the job has been suspended.
         /// </summary>
         public readonly string Type;
 

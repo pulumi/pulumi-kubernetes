@@ -260,6 +260,15 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "autoscaling/v2",
+  "fqn": "pulumi_kubernetes.autoscaling.v2",
+  "classes": {
+   "kubernetes:autoscaling/v2:HorizontalPodAutoscaler": "HorizontalPodAutoscaler",
+   "kubernetes:autoscaling/v2:HorizontalPodAutoscalerList": "HorizontalPodAutoscalerList"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "autoscaling/v2beta1",
   "fqn": "pulumi_kubernetes.autoscaling.v2beta1",
   "classes": {
@@ -454,6 +463,17 @@ _utilities.register(
    "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaList": "FlowSchemaList",
    "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration": "PriorityLevelConfiguration",
    "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationList": "PriorityLevelConfigurationList"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "flowcontrol.apiserver.k8s.io/v1beta2",
+  "fqn": "pulumi_kubernetes.flowcontrol.v1beta2",
+  "classes": {
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema": "FlowSchema",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaList": "FlowSchemaList",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration": "PriorityLevelConfiguration",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationList": "PriorityLevelConfigurationList"
   }
  },
  {

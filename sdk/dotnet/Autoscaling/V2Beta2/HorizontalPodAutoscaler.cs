@@ -83,6 +83,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta2
                 Aliases =
                 {
                     new Pulumi.Alias { Type = "kubernetes:autoscaling/v1:HorizontalPodAutoscaler"},
+                    new Pulumi.Alias { Type = "kubernetes:autoscaling/v2:HorizontalPodAutoscaler"},
                     new Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler"},
                 },
             };

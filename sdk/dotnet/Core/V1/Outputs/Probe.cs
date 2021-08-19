@@ -17,13 +17,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class Probe
     {
         /// <summary>
-        /// One and only one of the following should be specified. Exec specifies the action to take.
+        /// Exec specifies the action to take.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ExecAction Exec;
         /// <summary>
         /// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
         /// </summary>
         public readonly int FailureThreshold;
+        /// <summary>
+        /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction GRPC;
         /// <summary>
         /// HTTPGet specifies the http request to perform.
         /// </summary>
@@ -41,7 +45,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly int SuccessThreshold;
         /// <summary>
-        /// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+        /// TCPSocket specifies an action involving a TCP port.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.TCPSocketAction TcpSocket;
         /// <summary>
@@ -59,6 +63,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             int failureThreshold,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction gRPC,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.HTTPGetAction httpGet,
 
             int initialDelaySeconds,
@@ -75,6 +81,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         {
             Exec = exec;
             FailureThreshold = failureThreshold;
+            GRPC = gRPC;
             HttpGet = httpGet;
             InitialDelaySeconds = initialDelaySeconds;
             PeriodSeconds = periodSeconds;

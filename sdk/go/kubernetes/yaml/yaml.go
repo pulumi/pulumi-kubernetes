@@ -42,6 +42,7 @@ import (
 	authorizationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1"
 	authorizationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1beta1"
 	autoscalingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v1"
+	autoscalingv2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2"
 	autoscalingv2beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2beta1"
 	autoscalingv2beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2beta2"
 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
@@ -59,6 +60,7 @@ import (
 	extensionsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/extensions/v1beta1"
 	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1alpha1"
 	flowcontrolv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta1"
+	flowcontrolv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta2"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
 	networkingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1beta1"
@@ -262,6 +264,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"apps/v1beta2/StatefulSetList",
 		"auditregistration.k8s.io/v1alpha1/AuditSinkList",
 		"autoscaling/v1/HorizontalPodAutoscalerList",
+		"autoscaling/v2/HorizontalPodAutoscalerList",
 		"autoscaling/v2beta1/HorizontalPodAutoscalerList",
 		"autoscaling/v2beta2/HorizontalPodAutoscalerList",
 		"batch/v1/CronJobList",
@@ -301,6 +304,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList",
+		"flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList",
+		"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList",
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
 		"networking.k8s.io/v1/NetworkPolicyList",
@@ -632,6 +637,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "autoscaling/v2/HorizontalPodAutoscaler":
+		var res autoscalingv2.HorizontalPodAutoscaler
+		err := ctx.RegisterResource("kubernetes:autoscaling/v2:HorizontalPodAutoscaler", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "autoscaling/v2beta1/HorizontalPodAutoscaler":
 		var res autoscalingv2beta1.HorizontalPodAutoscaler
 		err := ctx.RegisterResource("kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -908,6 +920,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration":
 		var res flowcontrolv1beta1.PriorityLevelConfiguration
 		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchema":
+		var res flowcontrolv1beta2.FlowSchema
+		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration":
+		var res flowcontrolv1beta2.PriorityLevelConfiguration
+		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

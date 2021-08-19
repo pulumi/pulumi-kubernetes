@@ -41,6 +41,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+        /// 
+        /// Possible enum values:
+        ///  - `"SCTP"` is the SCTP protocol.
+        ///  - `"TCP"` is the TCP protocol.
+        ///  - `"UDP"` is the UDP protocol.
         /// </summary>
         [Input("protocol")]
         public Input<string>? Protocol { get; set; }

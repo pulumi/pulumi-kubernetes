@@ -40,6 +40,9 @@ func NewPriorityLevelConfiguration(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfiguration"),
 		},
+		{
+			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration"),
+		},
 	})
 	opts = append(opts, aliases)
 	var resource PriorityLevelConfiguration

@@ -67,8 +67,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
         /// 
         /// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-        /// 
-        /// This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.EphemeralVolumeSource Ephemeral;
         /// <summary>

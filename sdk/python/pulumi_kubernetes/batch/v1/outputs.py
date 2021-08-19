@@ -154,6 +154,11 @@ class CronJobSpec(dict):
         :param 'JobTemplateSpecArgs' job_template: Specifies the job that will be created when executing a CronJob.
         :param str schedule: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
         :param str concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+               
+               Possible enum values:
+                - `"Allow"` allows CronJobs to run concurrently.
+                - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+                - `"Replace"` cancels currently running job and replaces it with a new one.
         :param int failed_jobs_history_limit: The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
         :param int starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param int successful_jobs_history_limit: The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
@@ -193,6 +198,11 @@ class CronJobSpec(dict):
     def concurrency_policy(self) -> Optional[str]:
         """
         Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+
+        Possible enum values:
+         - `"Allow"` allows CronJobs to run concurrently.
+         - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+         - `"Replace"` cancels currently running job and replaces it with a new one.
         """
         return pulumi.get(self, "concurrency_policy")
 
@@ -458,6 +468,11 @@ class JobCondition(dict):
         JobCondition describes current state of a job.
         :param str status: Status of the condition, one of True, False, Unknown.
         :param str type: Type of job condition, Complete or Failed.
+               
+               Possible enum values:
+                - `"Complete"` means the job has completed its execution.
+                - `"Failed"` means the job has failed its execution.
+                - `"Suspended"` means the job has been suspended.
         :param str last_probe_time: Last time the condition was checked.
         :param str last_transition_time: Last time the condition transit from one status to another.
         :param str message: Human readable message indicating details about last transition.
@@ -487,6 +502,11 @@ class JobCondition(dict):
     def type(self) -> str:
         """
         Type of job condition, Complete or Failed.
+
+        Possible enum values:
+         - `"Complete"` means the job has completed its execution.
+         - `"Failed"` means the job has failed its execution.
+         - `"Suspended"` means the job has been suspended.
         """
         return pulumi.get(self, "type")
 
@@ -583,7 +603,7 @@ class JobSpec(dict):
         :param bool suspend: Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
                
                This field is beta-level, gated by SuspendJob feature flag (enabled by default).
-        :param int ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+        :param int ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
         pulumi.set(__self__, "template", template)
         if active_deadline_seconds is not None:
@@ -689,7 +709,7 @@ class JobSpec(dict):
     @pulumi.getter(name="ttlSecondsAfterFinished")
     def ttl_seconds_after_finished(self) -> Optional[int]:
         """
-        ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+        ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
         return pulumi.get(self, "ttl_seconds_after_finished")
 
@@ -728,16 +748,20 @@ class JobStatus(dict):
                  completion_time: Optional[str] = None,
                  conditions: Optional[Sequence['outputs.JobCondition']] = None,
                  failed: Optional[int] = None,
+                 ready: Optional[int] = None,
                  start_time: Optional[str] = None,
                  succeeded: Optional[int] = None,
                  uncounted_terminated_pods: Optional['outputs.UncountedTerminatedPods'] = None):
         """
         JobStatus represents the current state of a Job.
-        :param int active: The number of actively running pods.
+        :param int active: The number of pending and running pods.
         :param str completed_indexes: CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
         :param str completion_time: Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
         :param Sequence['JobConditionArgs'] conditions: The latest available observations of an object's current state. When a Job fails, one of the conditions will have type "Failed" and status true. When a Job is suspended, one of the conditions will have type "Suspended" and status true; when the Job is resumed, the status of this condition will become false. When a Job is completed, one of the conditions will have type "Complete" and status true. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param int failed: The number of pods which reached phase Failed.
+        :param int ready: The number of pods which have a Ready condition.
+               
+               This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
         :param str start_time: Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
         :param int succeeded: The number of pods which reached phase Succeeded.
         :param 'UncountedTerminatedPodsArgs' uncounted_terminated_pods: UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
@@ -745,7 +769,7 @@ class JobStatus(dict):
                The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
                    counter.
                
-               This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+               This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
@@ -757,6 +781,8 @@ class JobStatus(dict):
             pulumi.set(__self__, "conditions", conditions)
         if failed is not None:
             pulumi.set(__self__, "failed", failed)
+        if ready is not None:
+            pulumi.set(__self__, "ready", ready)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
         if succeeded is not None:
@@ -768,7 +794,7 @@ class JobStatus(dict):
     @pulumi.getter
     def active(self) -> Optional[int]:
         """
-        The number of actively running pods.
+        The number of pending and running pods.
         """
         return pulumi.get(self, "active")
 
@@ -805,6 +831,16 @@ class JobStatus(dict):
         return pulumi.get(self, "failed")
 
     @property
+    @pulumi.getter
+    def ready(self) -> Optional[int]:
+        """
+        The number of pods which have a Ready condition.
+
+        This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+        """
+        return pulumi.get(self, "ready")
+
+    @property
     @pulumi.getter(name="startTime")
     def start_time(self) -> Optional[str]:
         """
@@ -829,7 +865,7 @@ class JobStatus(dict):
         The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
             counter.
 
-        This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+        This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
         """
         return pulumi.get(self, "uncounted_terminated_pods")
 

@@ -62,7 +62,7 @@ namespace Pulumi.Kubernetes.Core.V1
         public Output<ImmutableDictionary<string, string>> StringData { get; private set; } = null!;
 
         /// <summary>
-        /// Used to facilitate programmatic handling of secret data.
+        /// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -189,7 +189,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// Used to facilitate programmatic handling of secret data.
+        /// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

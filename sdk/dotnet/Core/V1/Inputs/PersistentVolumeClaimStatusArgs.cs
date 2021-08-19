@@ -27,6 +27,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
             set => _accessModes = value;
         }
 
+        [Input("allocatedResources")]
+        private InputMap<string>? _allocatedResources;
+
+        /// <summary>
+        /// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        /// </summary>
+        public InputMap<string> AllocatedResources
+        {
+            get => _allocatedResources ?? (_allocatedResources = new InputMap<string>());
+            set => _allocatedResources = value;
+        }
+
         [Input("capacity")]
         private InputMap<string>? _capacity;
 
@@ -53,9 +65,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Phase represents the current phase of PersistentVolumeClaim.
+        /// 
+        /// Possible enum values:
+        ///  - `"Bound"` used for PersistentVolumeClaims that are bound
+        ///  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+        ///  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
         /// </summary>
         [Input("phase")]
         public Input<string>? Phase { get; set; }
+
+        /// <summary>
+        /// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        /// </summary>
+        [Input("resizeStatus")]
+        public Input<string>? ResizeStatus { get; set; }
 
         public PersistentVolumeClaimStatusArgs()
         {

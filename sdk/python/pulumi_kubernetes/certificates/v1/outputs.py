@@ -157,6 +157,11 @@ class CertificateSigningRequestCondition(dict):
                Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
                
                Only one condition of a given type is allowed.
+               
+               Possible enum values:
+                - `"Approved"` Approved indicates the request was approved and should be issued by the signer.
+                - `"Denied"` Denied indicates the request was denied and should not be issued by the signer.
+                - `"Failed"` Failed indicates the signer failed to issue the certificate.
         :param str last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         :param str last_update_time: lastUpdateTime is the time of the last update to this condition
         :param str message: message contains a human readable message with details about the request state
@@ -196,6 +201,11 @@ class CertificateSigningRequestCondition(dict):
         Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
 
         Only one condition of a given type is allowed.
+
+        Possible enum values:
+         - `"Approved"` Approved indicates the request was approved and should be issued by the signer.
+         - `"Denied"` Denied indicates the request was denied and should not be issued by the signer.
+         - `"Failed"` Failed indicates the signer failed to issue the certificate.
         """
         return pulumi.get(self, "type")
 

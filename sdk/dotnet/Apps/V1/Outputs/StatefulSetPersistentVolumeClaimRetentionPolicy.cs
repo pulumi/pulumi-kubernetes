@@ -10,6 +10,9 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
 {
 
+    /// <summary>
+    /// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+    /// </summary>
     [OutputType]
     public sealed class StatefulSetPersistentVolumeClaimRetentionPolicy
     {

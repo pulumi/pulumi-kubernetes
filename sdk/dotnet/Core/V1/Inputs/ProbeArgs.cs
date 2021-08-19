@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class ProbeArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// One and only one of the following should be specified. Exec specifies the action to take.
+        /// Exec specifies the action to take.
         /// </summary>
         [Input("exec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ExecActionArgs>? Exec { get; set; }
@@ -26,6 +26,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("failureThreshold")]
         public Input<int>? FailureThreshold { get; set; }
+
+        /// <summary>
+        /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+        /// </summary>
+        [Input("gRPC")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GRPCActionArgs>? GRPC { get; set; }
 
         /// <summary>
         /// HTTPGet specifies the http request to perform.
@@ -52,7 +58,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<int>? SuccessThreshold { get; set; }
 
         /// <summary>
-        /// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+        /// TCPSocket specifies an action involving a TCP port.
         /// </summary>
         [Input("tcpSocket")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.TCPSocketActionArgs>? TcpSocket { get; set; }

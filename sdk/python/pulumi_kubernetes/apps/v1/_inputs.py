@@ -30,6 +30,7 @@ __all__ = [
     'RollingUpdateDeploymentArgs',
     'RollingUpdateStatefulSetStrategyArgs',
     'StatefulSetConditionArgs',
+    'StatefulSetPersistentVolumeClaimRetentionPolicyArgs',
     'StatefulSetSpecArgs',
     'StatefulSetStatusArgs',
     'StatefulSetUpdateStrategyArgs',
@@ -313,7 +314,7 @@ class DaemonSetStatusArgs:
         :param pulumi.Input[int] current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param pulumi.Input[int] desired_number_scheduled: The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
         :param pulumi.Input[int] number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
-        :param pulumi.Input[int] number_ready: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+        :param pulumi.Input[int] number_ready: numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
         :param pulumi.Input[int] collision_count: Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         :param pulumi.Input[Sequence[pulumi.Input['DaemonSetConditionArgs']]] conditions: Represents the latest available observations of a DaemonSet's current state.
         :param pulumi.Input[int] number_available: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
@@ -378,7 +379,7 @@ class DaemonSetStatusArgs:
     @pulumi.getter(name="numberReady")
     def number_ready(self) -> pulumi.Input[int]:
         """
-        The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+        numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
         """
         return pulumi.get(self, "number_ready")
 
@@ -468,6 +469,10 @@ class DaemonSetUpdateStrategyArgs:
         DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
         :param pulumi.Input['RollingUpdateDaemonSetArgs'] rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param pulumi.Input[str] type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+               
+               Possible enum values:
+                - `"OnDelete"` Replace the old daemons only when it's killed
+                - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
         """
         if rolling_update is not None:
             pulumi.set(__self__, "rolling_update", rolling_update)
@@ -491,6 +496,10 @@ class DaemonSetUpdateStrategyArgs:
     def type(self) -> Optional[pulumi.Input[str]]:
         """
         Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+
+        Possible enum values:
+         - `"OnDelete"` Replace the old daemons only when it's killed
+         - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
         """
         return pulumi.get(self, "type")
 
@@ -840,7 +849,7 @@ class DeploymentStatusArgs:
         :param pulumi.Input[int] collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
         :param pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]] conditions: Represents the latest available observations of a deployment's current state.
         :param pulumi.Input[int] observed_generation: The generation observed by the deployment controller.
-        :param pulumi.Input[int] ready_replicas: Total number of ready pods targeted by this deployment.
+        :param pulumi.Input[int] ready_replicas: readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
         :param pulumi.Input[int] replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
         :param pulumi.Input[int] unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
         :param pulumi.Input[int] updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
@@ -914,7 +923,7 @@ class DeploymentStatusArgs:
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[pulumi.Input[int]]:
         """
-        Total number of ready pods targeted by this deployment.
+        readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
 
@@ -968,6 +977,10 @@ class DeploymentStrategyArgs:
         DeploymentStrategy describes how to replace existing pods with new ones.
         :param pulumi.Input['RollingUpdateDeploymentArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param pulumi.Input[str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+               
+               Possible enum values:
+                - `"Recreate"` Kill all existing pods before creating new ones.
+                - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
         """
         if rolling_update is not None:
             pulumi.set(__self__, "rolling_update", rolling_update)
@@ -991,6 +1004,10 @@ class DeploymentStrategyArgs:
     def type(self) -> Optional[pulumi.Input[str]]:
         """
         Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+
+        Possible enum values:
+         - `"Recreate"` Kill all existing pods before creating new ones.
+         - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
         """
         return pulumi.get(self, "type")
 
@@ -1282,7 +1299,7 @@ class ReplicaSetStatusArgs:
         :param pulumi.Input[Sequence[pulumi.Input['ReplicaSetConditionArgs']]] conditions: Represents the latest available observations of a replica set's current state.
         :param pulumi.Input[int] fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
         :param pulumi.Input[int] observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
-        :param pulumi.Input[int] ready_replicas: The number of ready replicas for this replica set.
+        :param pulumi.Input[int] ready_replicas: readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
         """
         pulumi.set(__self__, "replicas", replicas)
         if available_replicas is not None:
@@ -1360,7 +1377,7 @@ class ReplicaSetStatusArgs:
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[pulumi.Input[int]]:
         """
-        The number of ready replicas for this replica set.
+        readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
 
@@ -1648,12 +1665,53 @@ class StatefulSetConditionArgs:
 
 
 @pulumi.input_type
+class StatefulSetPersistentVolumeClaimRetentionPolicyArgs:
+    def __init__(__self__, *,
+                 when_deleted: Optional[pulumi.Input[str]] = None,
+                 when_scaled: Optional[pulumi.Input[str]] = None):
+        """
+        StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+        :param pulumi.Input[str] when_deleted: WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+        :param pulumi.Input[str] when_scaled: WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+        """
+        if when_deleted is not None:
+            pulumi.set(__self__, "when_deleted", when_deleted)
+        if when_scaled is not None:
+            pulumi.set(__self__, "when_scaled", when_scaled)
+
+    @property
+    @pulumi.getter(name="whenDeleted")
+    def when_deleted(self) -> Optional[pulumi.Input[str]]:
+        """
+        WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+        """
+        return pulumi.get(self, "when_deleted")
+
+    @when_deleted.setter
+    def when_deleted(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "when_deleted", value)
+
+    @property
+    @pulumi.getter(name="whenScaled")
+    def when_scaled(self) -> Optional[pulumi.Input[str]]:
+        """
+        WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+        """
+        return pulumi.get(self, "when_scaled")
+
+    @when_scaled.setter
+    def when_scaled(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "when_scaled", value)
+
+
+@pulumi.input_type
 class StatefulSetSpecArgs:
     def __init__(__self__, *,
                  selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
                  service_name: pulumi.Input[str],
                  template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
                  min_ready_seconds: Optional[pulumi.Input[int]] = None,
+                 persistent_volume_claim_retention_policy: Optional[pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']] = None,
                  pod_management_policy: Optional[pulumi.Input[str]] = None,
                  replicas: Optional[pulumi.Input[int]] = None,
                  revision_history_limit: Optional[pulumi.Input[int]] = None,
@@ -1665,7 +1723,12 @@ class StatefulSetSpecArgs:
         :param pulumi.Input[str] service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
         :param pulumi.Input['_core.v1.PodTemplateSpecArgs'] template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
         :param pulumi.Input[int] min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+        :param pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs'] persistent_volume_claim_retention_policy: persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
         :param pulumi.Input[str] pod_management_policy: podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+               
+               Possible enum values:
+                - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+                - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
         :param pulumi.Input[int] replicas: replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
         :param pulumi.Input[int] revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
         :param pulumi.Input['StatefulSetUpdateStrategyArgs'] update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
@@ -1676,6 +1739,8 @@ class StatefulSetSpecArgs:
         pulumi.set(__self__, "template", template)
         if min_ready_seconds is not None:
             pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if persistent_volume_claim_retention_policy is not None:
+            pulumi.set(__self__, "persistent_volume_claim_retention_policy", persistent_volume_claim_retention_policy)
         if pod_management_policy is not None:
             pulumi.set(__self__, "pod_management_policy", pod_management_policy)
         if replicas is not None:
@@ -1736,10 +1801,26 @@ class StatefulSetSpecArgs:
         pulumi.set(self, "min_ready_seconds", value)
 
     @property
+    @pulumi.getter(name="persistentVolumeClaimRetentionPolicy")
+    def persistent_volume_claim_retention_policy(self) -> Optional[pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']]:
+        """
+        persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+        """
+        return pulumi.get(self, "persistent_volume_claim_retention_policy")
+
+    @persistent_volume_claim_retention_policy.setter
+    def persistent_volume_claim_retention_policy(self, value: Optional[pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']]):
+        pulumi.set(self, "persistent_volume_claim_retention_policy", value)
+
+    @property
     @pulumi.getter(name="podManagementPolicy")
     def pod_management_policy(self) -> Optional[pulumi.Input[str]]:
         """
         podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+
+        Possible enum values:
+         - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+         - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
         """
         return pulumi.get(self, "pod_management_policy")
 
@@ -1799,8 +1880,8 @@ class StatefulSetSpecArgs:
 @pulumi.input_type
 class StatefulSetStatusArgs:
     def __init__(__self__, *,
+                 available_replicas: pulumi.Input[int],
                  replicas: pulumi.Input[int],
-                 available_replicas: Optional[pulumi.Input[int]] = None,
                  collision_count: Optional[pulumi.Input[int]] = None,
                  conditions: Optional[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]]] = None,
                  current_replicas: Optional[pulumi.Input[int]] = None,
@@ -1811,20 +1892,19 @@ class StatefulSetStatusArgs:
                  updated_replicas: Optional[pulumi.Input[int]] = None):
         """
         StatefulSetStatus represents the current state of a StatefulSet.
+        :param pulumi.Input[int] available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
         :param pulumi.Input[int] replicas: replicas is the number of Pods created by the StatefulSet controller.
-        :param pulumi.Input[int] available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
         :param pulumi.Input[int] collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
         :param pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]] conditions: Represents the latest available observations of a statefulset's current state.
         :param pulumi.Input[int] current_replicas: currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
         :param pulumi.Input[str] current_revision: currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
         :param pulumi.Input[int] observed_generation: observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
-        :param pulumi.Input[int] ready_replicas: readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+        :param pulumi.Input[int] ready_replicas: readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
         :param pulumi.Input[str] update_revision: updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
         :param pulumi.Input[int] updated_replicas: updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
         """
+        pulumi.set(__self__, "available_replicas", available_replicas)
         pulumi.set(__self__, "replicas", replicas)
-        if available_replicas is not None:
-            pulumi.set(__self__, "available_replicas", available_replicas)
         if collision_count is not None:
             pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
@@ -1843,6 +1923,18 @@ class StatefulSetStatusArgs:
             pulumi.set(__self__, "updated_replicas", updated_replicas)
 
     @property
+    @pulumi.getter(name="availableReplicas")
+    def available_replicas(self) -> pulumi.Input[int]:
+        """
+        Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+        """
+        return pulumi.get(self, "available_replicas")
+
+    @available_replicas.setter
+    def available_replicas(self, value: pulumi.Input[int]):
+        pulumi.set(self, "available_replicas", value)
+
+    @property
     @pulumi.getter
     def replicas(self) -> pulumi.Input[int]:
         """
@@ -1853,18 +1945,6 @@ class StatefulSetStatusArgs:
     @replicas.setter
     def replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "replicas", value)
-
-    @property
-    @pulumi.getter(name="availableReplicas")
-    def available_replicas(self) -> Optional[pulumi.Input[int]]:
-        """
-        Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
-        """
-        return pulumi.get(self, "available_replicas")
-
-    @available_replicas.setter
-    def available_replicas(self, value: Optional[pulumi.Input[int]]):
-        pulumi.set(self, "available_replicas", value)
 
     @property
     @pulumi.getter(name="collisionCount")
@@ -1930,7 +2010,7 @@ class StatefulSetStatusArgs:
     @pulumi.getter(name="readyReplicas")
     def ready_replicas(self) -> Optional[pulumi.Input[int]]:
         """
-        readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+        readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
         """
         return pulumi.get(self, "ready_replicas")
 
@@ -1972,6 +2052,10 @@ class StatefulSetUpdateStrategyArgs:
         StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
         :param pulumi.Input['RollingUpdateStatefulSetStrategyArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[str] type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+               
+               Possible enum values:
+                - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+                - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
         """
         if rolling_update is not None:
             pulumi.set(__self__, "rolling_update", rolling_update)
@@ -1995,6 +2079,10 @@ class StatefulSetUpdateStrategyArgs:
     def type(self) -> Optional[pulumi.Input[str]]:
         """
         Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+
+        Possible enum values:
+         - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+         - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
         """
         return pulumi.get(self, "type")
 

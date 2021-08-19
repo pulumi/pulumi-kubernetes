@@ -734,38 +734,31 @@ class HorizontalPodAutoscalerStatus(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 conditions: Sequence['outputs.HorizontalPodAutoscalerCondition'],
                  current_replicas: int,
                  desired_replicas: int,
+                 conditions: Optional[Sequence['outputs.HorizontalPodAutoscalerCondition']] = None,
                  current_metrics: Optional[Sequence['outputs.MetricStatus']] = None,
                  last_scale_time: Optional[str] = None,
                  observed_generation: Optional[int] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
-        :param Sequence['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param int current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param int desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
+        :param Sequence['HorizontalPodAutoscalerConditionArgs'] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param Sequence['MetricStatusArgs'] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param str last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param int observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
-        pulumi.set(__self__, "conditions", conditions)
         pulumi.set(__self__, "current_replicas", current_replicas)
         pulumi.set(__self__, "desired_replicas", desired_replicas)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
         if current_metrics is not None:
             pulumi.set(__self__, "current_metrics", current_metrics)
         if last_scale_time is not None:
             pulumi.set(__self__, "last_scale_time", last_scale_time)
         if observed_generation is not None:
             pulumi.set(__self__, "observed_generation", observed_generation)
-
-    @property
-    @pulumi.getter
-    def conditions(self) -> Sequence['outputs.HorizontalPodAutoscalerCondition']:
-        """
-        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-        """
-        return pulumi.get(self, "conditions")
 
     @property
     @pulumi.getter(name="currentReplicas")
@@ -782,6 +775,14 @@ class HorizontalPodAutoscalerStatus(dict):
         desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
         """
         return pulumi.get(self, "desired_replicas")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.HorizontalPodAutoscalerCondition']]:
+        """
+        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+        """
+        return pulumi.get(self, "conditions")
 
     @property
     @pulumi.getter(name="currentMetrics")

@@ -38,6 +38,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         public readonly string Status;
         /// <summary>
         /// Type of node condition.
+        /// 
+        /// Possible enum values:
+        ///  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
+        ///  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
+        ///  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
+        ///  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
+        ///  - `"Ready"` means kubelet is healthy and ready to accept pods.
         /// </summary>
         public readonly string Type;
 
