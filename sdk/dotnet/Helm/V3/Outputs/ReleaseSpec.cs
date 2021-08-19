@@ -117,6 +117,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> Set;
         /// <summary>
+        /// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+        /// </summary>
+        public readonly bool SkipAwait;
+        /// <summary>
         /// If set, no CRDs will be installed. By default, CRDs are installed if not already present
         /// </summary>
         public readonly bool SkipCrds;
@@ -137,11 +141,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Version;
         /// <summary>
-        /// Will wait until all resources are in a ready state before marking the release as successful.
-        /// </summary>
-        public readonly bool Wait;
-        /// <summary>
-        /// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+        /// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
         /// </summary>
         public readonly bool WaitForJobs;
 
@@ -197,6 +197,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Helm.V3.SetValue> set,
 
+            bool skipAwait,
+
             bool skipCrds,
 
             int timeout,
@@ -206,8 +208,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
             bool verify,
 
             string version,
-
-            bool wait,
 
             bool waitForJobs)
         {
@@ -236,12 +236,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
             ResetValues = resetValues;
             ReuseValues = reuseValues;
             Set = set;
+            SkipAwait = skipAwait;
             SkipCrds = skipCrds;
             Timeout = timeout;
             Values = values;
             Verify = verify;
             Version = version;
-            Wait = wait;
             WaitForJobs = waitForJobs;
         }
     }

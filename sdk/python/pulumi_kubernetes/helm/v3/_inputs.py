@@ -42,12 +42,12 @@ class ReleaseSpecArgs:
                  replace: Optional[pulumi.Input[bool]] = None,
                  reset_values: Optional[pulumi.Input[bool]] = None,
                  reuse_values: Optional[pulumi.Input[bool]] = None,
+                 skip_await: Optional[pulumi.Input[bool]] = None,
                  skip_crds: Optional[pulumi.Input[bool]] = None,
                  timeout: Optional[pulumi.Input[int]] = None,
                  values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  verify: Optional[pulumi.Input[bool]] = None,
                  version: Optional[pulumi.Input[str]] = None,
-                 wait: Optional[pulumi.Input[bool]] = None,
                  wait_for_jobs: Optional[pulumi.Input[bool]] = None):
         """
         Specification defining the Helm Release to install.
@@ -76,13 +76,13 @@ class ReleaseSpecArgs:
         :param pulumi.Input[bool] replace: Re-use the given name, even if that name is already used. This is unsafe in production
         :param pulumi.Input[bool] reset_values: When upgrading, reset the values to the ones built into the chart
         :param pulumi.Input[bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
+        :param pulumi.Input[bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present
         :param pulumi.Input[int] timeout: Time in seconds to wait for any individual kubernetes operation.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] values: List of values in raw yaml format to pass to helm.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
-        :param pulumi.Input[bool] wait: Will wait until all resources are in a ready state before marking the release as successful.
-        :param pulumi.Input[bool] wait_for_jobs: If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+        :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
         pulumi.set(__self__, "repository_spec", repository_spec)
@@ -131,6 +131,8 @@ class ReleaseSpecArgs:
             pulumi.set(__self__, "reset_values", reset_values)
         if reuse_values is not None:
             pulumi.set(__self__, "reuse_values", reuse_values)
+        if skip_await is not None:
+            pulumi.set(__self__, "skip_await", skip_await)
         if skip_crds is not None:
             pulumi.set(__self__, "skip_crds", skip_crds)
         if timeout is not None:
@@ -141,8 +143,6 @@ class ReleaseSpecArgs:
             pulumi.set(__self__, "verify", verify)
         if version is not None:
             pulumi.set(__self__, "version", version)
-        if wait is not None:
-            pulumi.set(__self__, "wait", wait)
         if wait_for_jobs is not None:
             pulumi.set(__self__, "wait_for_jobs", wait_for_jobs)
 
@@ -447,6 +447,18 @@ class ReleaseSpecArgs:
         pulumi.set(self, "reuse_values", value)
 
     @property
+    @pulumi.getter(name="skipAwait")
+    def skip_await(self) -> Optional[pulumi.Input[bool]]:
+        """
+        By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+        """
+        return pulumi.get(self, "skip_await")
+
+    @skip_await.setter
+    def skip_await(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_await", value)
+
+    @property
     @pulumi.getter(name="skipCrds")
     def skip_crds(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -507,22 +519,10 @@ class ReleaseSpecArgs:
         pulumi.set(self, "version", value)
 
     @property
-    @pulumi.getter
-    def wait(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Will wait until all resources are in a ready state before marking the release as successful.
-        """
-        return pulumi.get(self, "wait")
-
-    @wait.setter
-    def wait(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "wait", value)
-
-    @property
     @pulumi.getter(name="waitForJobs")
     def wait_for_jobs(self) -> Optional[pulumi.Input[bool]]:
         """
-        If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+        Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
         """
         return pulumi.get(self, "wait_for_jobs")
 

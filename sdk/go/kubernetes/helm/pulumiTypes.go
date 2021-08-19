@@ -135,6 +135,8 @@ type ReleaseSpec struct {
 	ReuseValues *bool `pulumi:"reuseValues"`
 	// Custom values to be merged with the values.
 	Set []SetValue `pulumi:"set"`
+	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+	SkipAwait *bool `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds *bool `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
@@ -145,9 +147,7 @@ type ReleaseSpec struct {
 	Verify *bool `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
 	Version *string `pulumi:"version"`
-	// Will wait until all resources are in a ready state before marking the release as successful.
-	Wait *bool `pulumi:"wait"`
-	// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
 	WaitForJobs *bool `pulumi:"waitForJobs"`
 }
 
@@ -214,6 +214,8 @@ type ReleaseSpecArgs struct {
 	ReuseValues pulumi.BoolPtrInput `pulumi:"reuseValues"`
 	// Custom values to be merged with the values.
 	Set SetValueArrayInput `pulumi:"set"`
+	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+	SkipAwait pulumi.BoolPtrInput `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds pulumi.BoolPtrInput `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
@@ -224,9 +226,7 @@ type ReleaseSpecArgs struct {
 	Verify pulumi.BoolPtrInput `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
 	Version pulumi.StringPtrInput `pulumi:"version"`
-	// Will wait until all resources are in a ready state before marking the release as successful.
-	Wait pulumi.BoolPtrInput `pulumi:"wait"`
-	// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
 	WaitForJobs pulumi.BoolPtrInput `pulumi:"waitForJobs"`
 }
 
@@ -433,6 +433,11 @@ func (o ReleaseSpecOutput) Set() SetValueArrayOutput {
 	return o.ApplyT(func(v ReleaseSpec) []SetValue { return v.Set }).(SetValueArrayOutput)
 }
 
+// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+func (o ReleaseSpecOutput) SkipAwait() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseSpec) *bool { return v.SkipAwait }).(pulumi.BoolPtrOutput)
+}
+
 // If set, no CRDs will be installed. By default, CRDs are installed if not already present
 func (o ReleaseSpecOutput) SkipCrds() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.SkipCrds }).(pulumi.BoolPtrOutput)
@@ -458,12 +463,7 @@ func (o ReleaseSpecOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
-// Will wait until all resources are in a ready state before marking the release as successful.
-func (o ReleaseSpecOutput) Wait() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Wait }).(pulumi.BoolPtrOutput)
-}
-
-// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
 func (o ReleaseSpecOutput) WaitForJobs() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.WaitForJobs }).(pulumi.BoolPtrOutput)
 }
@@ -736,6 +736,16 @@ func (o ReleaseSpecPtrOutput) Set() SetValueArrayOutput {
 	}).(SetValueArrayOutput)
 }
 
+// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+func (o ReleaseSpecPtrOutput) SkipAwait() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ReleaseSpec) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SkipAwait
+	}).(pulumi.BoolPtrOutput)
+}
+
 // If set, no CRDs will be installed. By default, CRDs are installed if not already present
 func (o ReleaseSpecPtrOutput) SkipCrds() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
@@ -786,17 +796,7 @@ func (o ReleaseSpecPtrOutput) Version() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Will wait until all resources are in a ready state before marking the release as successful.
-func (o ReleaseSpecPtrOutput) Wait() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Wait
-	}).(pulumi.BoolPtrOutput)
-}
-
-// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
 func (o ReleaseSpecPtrOutput) WaitForJobs() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {

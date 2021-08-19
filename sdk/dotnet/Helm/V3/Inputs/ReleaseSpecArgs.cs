@@ -172,6 +172,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         }
 
         /// <summary>
+        /// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+        /// </summary>
+        [Input("skipAwait")]
+        public Input<bool>? SkipAwait { get; set; }
+
+        /// <summary>
         /// If set, no CRDs will be installed. By default, CRDs are installed if not already present
         /// </summary>
         [Input("skipCrds")]
@@ -208,13 +214,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<string>? Version { get; set; }
 
         /// <summary>
-        /// Will wait until all resources are in a ready state before marking the release as successful.
-        /// </summary>
-        [Input("wait")]
-        public Input<bool>? Wait { get; set; }
-
-        /// <summary>
-        /// If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+        /// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
         /// </summary>
         [Input("waitForJobs")]
         public Input<bool>? WaitForJobs { get; set; }

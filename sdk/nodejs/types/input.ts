@@ -12261,6 +12261,10 @@ export namespace helm {
              */
             set: pulumi.Input<pulumi.Input<inputs.helm.v3.SetValue>[]>;
             /**
+             * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
+             */
+            skipAwait?: pulumi.Input<boolean>;
+            /**
              * If set, no CRDs will be installed. By default, CRDs are installed if not already present
              */
             skipCrds?: pulumi.Input<boolean>;
@@ -12281,11 +12285,7 @@ export namespace helm {
              */
             version?: pulumi.Input<string>;
             /**
-             * Will wait until all resources are in a ready state before marking the release as successful.
-             */
-            wait?: pulumi.Input<boolean>;
-            /**
-             * If wait is enabled, will wait until all Jobs have been completed before marking the release as successful.
+             * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
              */
             waitForJobs?: pulumi.Input<boolean>;
         }
