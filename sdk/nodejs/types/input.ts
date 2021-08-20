@@ -12213,9 +12213,9 @@ export namespace helm {
              */
             lint?: pulumi.Input<boolean>;
             /**
-             * The rendered manifest as JSON.
+             * The rendered manifests as JSON.
              */
-            manifest?: pulumi.Input<string>;
+            manifest?: pulumi.Input<{[key: string]: any}>;
             /**
              * Limit the maximum number of revisions saved per release. Use 0 for no limit
              */
@@ -12252,6 +12252,10 @@ export namespace helm {
              * When upgrading, reset the values to the ones built into the chart
              */
             resetValues?: pulumi.Input<boolean>;
+            /**
+             * Names of resources created by the release grouped by "kind/version".
+             */
+            resourceNames?: pulumi.Input<{[key: string]: pulumi.Input<pulumi.Input<string>[]>}>;
             /**
              * When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
              */

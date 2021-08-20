@@ -69,7 +69,7 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<string?> _helmDriver = new __Value<string?>(() => __config.Get("helmDriver"));
         /// <summary>
-        /// The backend storage driver. Values are: configmap, secret, memory, sql
+        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
         /// </summary>
         public static string? HelmDriver
         {
@@ -79,7 +79,7 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<string?> _helmPluginsPath = new __Value<string?>(() => __config.Get("helmPluginsPath"));
         /// <summary>
-        /// The path to the helm plugins directory
+        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.
         /// </summary>
         public static string? HelmPluginsPath
         {
@@ -89,7 +89,7 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<string?> _helmRegistryConfigPath = new __Value<string?>(() => __config.Get("helmRegistryConfigPath"));
         /// <summary>
-        /// The path to the registry config file
+        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
         /// </summary>
         public static string? HelmRegistryConfigPath
         {
@@ -99,7 +99,7 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<string?> _helmRepositoryCache = new __Value<string?>(() => __config.Get("helmRepositoryCache"));
         /// <summary>
-        /// The path to the file containing cached repository indexes
+        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
         /// </summary>
         public static string? HelmRepositoryCache
         {
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<string?> _helmRepositoryConfigPath = new __Value<string?>(() => __config.Get("helmRepositoryConfigPath"));
         /// <summary>
-        /// The path to the file containing repository names and URLs
+        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
         /// </summary>
         public static string? HelmRepositoryConfigPath
         {
@@ -171,6 +171,16 @@ namespace Pulumi.Kubernetes
         {
             get => _suppressDeprecationWarnings.Get();
             set => _suppressDeprecationWarnings.Set(value);
+        }
+
+        private static readonly __Value<bool?> _suppressHelmReleaseBetaWarning = new __Value<bool?>(() => __config.GetBoolean("suppressHelmReleaseBetaWarning"));
+        /// <summary>
+        /// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to true, this warning is omitted.
+        /// </summary>
+        public static bool? SuppressHelmReleaseBetaWarning
+        {
+            get => _suppressHelmReleaseBetaWarning.Get();
+            set => _suppressHelmReleaseBetaWarning.Set(value);
         }
 
     }

@@ -47,6 +47,8 @@ class ReleaseSpec(dict):
             suggest = "render_subchart_notes"
         elif key == "resetValues":
             suggest = "reset_values"
+        elif key == "resourceNames":
+            suggest = "resource_names"
         elif key == "reuseValues":
             suggest = "reuse_values"
         elif key == "skipAwait":
@@ -83,7 +85,7 @@ class ReleaseSpec(dict):
                  force_update: Optional[bool] = None,
                  keyring: Optional[str] = None,
                  lint: Optional[bool] = None,
-                 manifest: Optional[str] = None,
+                 manifest: Optional[Mapping[str, Any]] = None,
                  max_history: Optional[int] = None,
                  name: Optional[str] = None,
                  namespace: Optional[str] = None,
@@ -92,6 +94,7 @@ class ReleaseSpec(dict):
                  render_subchart_notes: Optional[bool] = None,
                  replace: Optional[bool] = None,
                  reset_values: Optional[bool] = None,
+                 resource_names: Optional[Mapping[str, Sequence[str]]] = None,
                  reuse_values: Optional[bool] = None,
                  skip_await: Optional[bool] = None,
                  skip_crds: Optional[bool] = None,
@@ -117,7 +120,7 @@ class ReleaseSpec(dict):
         :param bool force_update: Force resource update through delete/recreate if needed.
         :param str keyring: Location of public keys used for verification. Used only if `verify` is true
         :param bool lint: Run helm lint when planning
-        :param str manifest: The rendered manifest as JSON.
+        :param Mapping[str, Any] manifest: The rendered manifests as JSON.
         :param int max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit
         :param str name: Release name.
         :param str namespace: Namespace to install the release into.
@@ -126,6 +129,7 @@ class ReleaseSpec(dict):
         :param bool render_subchart_notes: If set, render subchart notes along with the parent
         :param bool replace: Re-use the given name, even if that name is already used. This is unsafe in production
         :param bool reset_values: When upgrading, reset the values to the ones built into the chart
+        :param Mapping[str, Sequence[str]] resource_names: Names of resources created by the release grouped by "kind/version".
         :param bool reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         :param bool skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param bool skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present
@@ -180,6 +184,8 @@ class ReleaseSpec(dict):
             pulumi.set(__self__, "replace", replace)
         if reset_values is not None:
             pulumi.set(__self__, "reset_values", reset_values)
+        if resource_names is not None:
+            pulumi.set(__self__, "resource_names", resource_names)
         if reuse_values is not None:
             pulumi.set(__self__, "reuse_values", reuse_values)
         if skip_await is not None:
@@ -319,9 +325,9 @@ class ReleaseSpec(dict):
 
     @property
     @pulumi.getter
-    def manifest(self) -> Optional[str]:
+    def manifest(self) -> Optional[Mapping[str, Any]]:
         """
-        The rendered manifest as JSON.
+        The rendered manifests as JSON.
         """
         return pulumi.get(self, "manifest")
 
@@ -388,6 +394,14 @@ class ReleaseSpec(dict):
         When upgrading, reset the values to the ones built into the chart
         """
         return pulumi.get(self, "reset_values")
+
+    @property
+    @pulumi.getter(name="resourceNames")
+    def resource_names(self) -> Optional[Mapping[str, Sequence[str]]]:
+        """
+        Names of resources created by the release grouped by "kind/version".
+        """
+        return pulumi.get(self, "resource_names")
 
     @property
     @pulumi.getter(name="reuseValues")

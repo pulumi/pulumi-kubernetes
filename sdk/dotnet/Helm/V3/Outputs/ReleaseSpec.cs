@@ -69,9 +69,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly bool Lint;
         /// <summary>
-        /// The rendered manifest as JSON.
+        /// The rendered manifests as JSON.
         /// </summary>
-        public readonly string Manifest;
+        public readonly ImmutableDictionary<string, object> Manifest;
         /// <summary>
         /// Limit the maximum number of revisions saved per release. Use 0 for no limit
         /// </summary>
@@ -108,6 +108,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// When upgrading, reset the values to the ones built into the chart
         /// </summary>
         public readonly bool ResetValues;
+        /// <summary>
+        /// Names of resources created by the release grouped by "kind/version".
+        /// </summary>
+        public readonly ImmutableDictionary<string, ImmutableArray<string>> ResourceNames;
         /// <summary>
         /// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         /// </summary>
@@ -173,7 +177,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             bool lint,
 
-            string manifest,
+            ImmutableDictionary<string, object> manifest,
 
             int maxHistory,
 
@@ -192,6 +196,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
             Pulumi.Kubernetes.Types.Outputs.Helm.V3.RepositorySpec repositorySpec,
 
             bool resetValues,
+
+            ImmutableDictionary<string, ImmutableArray<string>> resourceNames,
 
             bool reuseValues,
 
@@ -234,6 +240,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
             Replace = replace;
             RepositorySpec = repositorySpec;
             ResetValues = resetValues;
+            ResourceNames = resourceNames;
             ReuseValues = reuseValues;
             Set = set;
             SkipAwait = skipAwait;

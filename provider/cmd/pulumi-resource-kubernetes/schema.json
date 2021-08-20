@@ -24,23 +24,23 @@
             },
             "helmDriver": {
                 "type": "string",
-                "description": "The backend storage driver. Values are: configmap, secret, memory, sql"
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql."
             },
             "helmPluginsPath": {
                 "type": "string",
-                "description": "The path to the helm plugins directory"
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory."
             },
             "helmRegistryConfigPath": {
                 "type": "string",
-                "description": "The path to the registry config file"
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file."
             },
             "helmRepositoryCache": {
                 "type": "string",
-                "description": "The path to the file containing cached repository indexes"
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes."
             },
             "helmRepositoryConfigPath": {
                 "type": "string",
-                "description": "The path to the file containing repository names and URLs"
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs."
             },
             "kubeconfig": {
                 "type": "string",
@@ -62,6 +62,10 @@
             "suppressDeprecationWarnings": {
                 "type": "boolean",
                 "description": "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable."
+            },
+            "suppressHelmReleaseBetaWarning": {
+                "type": "boolean",
+                "description": "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to true, this warning is omitted."
             }
         }
     },
@@ -29927,6 +29931,51 @@
                     ]
                 }
             },
+            "helmDriver": {
+                "type": "string",
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_HELM_DRIVER"
+                    ]
+                }
+            },
+            "helmPluginsPath": {
+                "type": "string",
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_HELM_PLUGINS_PATH"
+                    ]
+                }
+            },
+            "helmRegistryConfigPath": {
+                "type": "string",
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"
+                    ]
+                }
+            },
+            "helmRepositoryCache": {
+                "type": "string",
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8s_HELM_REPOSITORY_CACHE"
+                    ]
+                }
+            },
+            "helmRepositoryConfigPath": {
+                "type": "string",
+                "description": "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"
+                    ]
+                }
+            },
             "kubeconfig": {
                 "type": "string",
                 "description": "The contents of a kubeconfig file or the path to a kubeconfig file.",
@@ -29955,6 +30004,15 @@
                 "defaultInfo": {
                     "environment": [
                         "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"
+                    ]
+                }
+            },
+            "suppressHelmReleaseBetaWarning": {
+                "type": "boolean",
+                "description": "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to \"true\", this warning is omitted.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"
                     ]
                 }
             }

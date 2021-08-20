@@ -37,10 +37,16 @@ export class Provider extends pulumi.ProviderResource {
             inputs["cluster"] = args ? args.cluster : undefined;
             inputs["context"] = args ? args.context : undefined;
             inputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
+            inputs["helmDriver"] = (args ? args.helmDriver : undefined) ?? utilities.getEnv("PULUMI_K8S_HELM_DRIVER");
+            inputs["helmPluginsPath"] = (args ? args.helmPluginsPath : undefined) ?? utilities.getEnv("PULUMI_K8S_HELM_PLUGINS_PATH");
+            inputs["helmRegistryConfigPath"] = (args ? args.helmRegistryConfigPath : undefined) ?? utilities.getEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH");
+            inputs["helmRepositoryCache"] = (args ? args.helmRepositoryCache : undefined) ?? utilities.getEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE");
+            inputs["helmRepositoryConfigPath"] = (args ? args.helmRepositoryConfigPath : undefined) ?? utilities.getEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH");
             inputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
             inputs["namespace"] = args ? args.namespace : undefined;
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
             inputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
+            inputs["suppressHelmReleaseBetaWarning"] = pulumi.output((args ? args.suppressHelmReleaseBetaWarning : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING")).apply(JSON.stringify);
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
@@ -66,6 +72,26 @@ export interface ProviderArgs {
      * This feature is in developer preview, and is disabled by default.
      */
     enableDryRun?: pulumi.Input<boolean>;
+    /**
+     * BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+     */
+    helmDriver?: pulumi.Input<string>;
+    /**
+     * BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.
+     */
+    helmPluginsPath?: pulumi.Input<string>;
+    /**
+     * BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
+     */
+    helmRegistryConfigPath?: pulumi.Input<string>;
+    /**
+     * BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
+     */
+    helmRepositoryCache?: pulumi.Input<string>;
+    /**
+     * BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
+     */
+    helmRepositoryConfigPath?: pulumi.Input<string>;
     /**
      * The contents of a kubeconfig file or the path to a kubeconfig file.
      */
@@ -94,4 +120,8 @@ export interface ProviderArgs {
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */
     suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    /**
+     * While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+     */
+    suppressHelmReleaseBetaWarning?: pulumi.Input<boolean>;
 }

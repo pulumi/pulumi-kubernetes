@@ -111,8 +111,8 @@ type ReleaseSpec struct {
 	Keyring *string `pulumi:"keyring"`
 	// Run helm lint when planning
 	Lint *bool `pulumi:"lint"`
-	// The rendered manifest as JSON.
-	Manifest *string `pulumi:"manifest"`
+	// The rendered manifests as JSON.
+	Manifest map[string]interface{} `pulumi:"manifest"`
 	// Limit the maximum number of revisions saved per release. Use 0 for no limit
 	MaxHistory *int `pulumi:"maxHistory"`
 	// Release name.
@@ -131,6 +131,8 @@ type ReleaseSpec struct {
 	RepositorySpec RepositorySpec `pulumi:"repositorySpec"`
 	// When upgrading, reset the values to the ones built into the chart
 	ResetValues *bool `pulumi:"resetValues"`
+	// Names of resources created by the release grouped by "kind/version".
+	ResourceNames map[string][]string `pulumi:"resourceNames"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 	ReuseValues *bool `pulumi:"reuseValues"`
 	// Custom values to be merged with items loaded from values.
@@ -190,8 +192,8 @@ type ReleaseSpecArgs struct {
 	Keyring pulumi.StringPtrInput `pulumi:"keyring"`
 	// Run helm lint when planning
 	Lint pulumi.BoolPtrInput `pulumi:"lint"`
-	// The rendered manifest as JSON.
-	Manifest pulumi.StringPtrInput `pulumi:"manifest"`
+	// The rendered manifests as JSON.
+	Manifest pulumi.MapInput `pulumi:"manifest"`
 	// Limit the maximum number of revisions saved per release. Use 0 for no limit
 	MaxHistory pulumi.IntPtrInput `pulumi:"maxHistory"`
 	// Release name.
@@ -210,6 +212,8 @@ type ReleaseSpecArgs struct {
 	RepositorySpec RepositorySpecInput `pulumi:"repositorySpec"`
 	// When upgrading, reset the values to the ones built into the chart
 	ResetValues pulumi.BoolPtrInput `pulumi:"resetValues"`
+	// Names of resources created by the release grouped by "kind/version".
+	ResourceNames pulumi.StringArrayMapInput `pulumi:"resourceNames"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 	ReuseValues pulumi.BoolPtrInput `pulumi:"reuseValues"`
 	// Custom values to be merged with items loaded from values.
@@ -373,9 +377,9 @@ func (o ReleaseSpecOutput) Lint() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Lint }).(pulumi.BoolPtrOutput)
 }
 
-// The rendered manifest as JSON.
-func (o ReleaseSpecOutput) Manifest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Manifest }).(pulumi.StringPtrOutput)
+// The rendered manifests as JSON.
+func (o ReleaseSpecOutput) Manifest() pulumi.MapOutput {
+	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Manifest }).(pulumi.MapOutput)
 }
 
 // Limit the maximum number of revisions saved per release. Use 0 for no limit
@@ -421,6 +425,11 @@ func (o ReleaseSpecOutput) RepositorySpec() RepositorySpecOutput {
 // When upgrading, reset the values to the ones built into the chart
 func (o ReleaseSpecOutput) ResetValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ResetValues }).(pulumi.BoolPtrOutput)
+}
+
+// Names of resources created by the release grouped by "kind/version".
+func (o ReleaseSpecOutput) ResourceNames() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v ReleaseSpec) map[string][]string { return v.ResourceNames }).(pulumi.StringArrayMapOutput)
 }
 
 // When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
@@ -616,14 +625,14 @@ func (o ReleaseSpecPtrOutput) Lint() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The rendered manifest as JSON.
-func (o ReleaseSpecPtrOutput) Manifest() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
+// The rendered manifests as JSON.
+func (o ReleaseSpecPtrOutput) Manifest() pulumi.MapOutput {
+	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
 		if v == nil {
 			return nil
 		}
 		return v.Manifest
-	}).(pulumi.StringPtrOutput)
+	}).(pulumi.MapOutput)
 }
 
 // Limit the maximum number of revisions saved per release. Use 0 for no limit
@@ -714,6 +723,16 @@ func (o ReleaseSpecPtrOutput) ResetValues() pulumi.BoolPtrOutput {
 		}
 		return v.ResetValues
 	}).(pulumi.BoolPtrOutput)
+}
+
+// Names of resources created by the release grouped by "kind/version".
+func (o ReleaseSpecPtrOutput) ResourceNames() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v *ReleaseSpec) map[string][]string {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceNames
+	}).(pulumi.StringArrayMapOutput)
 }
 
 // When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored

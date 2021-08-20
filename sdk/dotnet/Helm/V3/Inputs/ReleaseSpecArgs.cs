@@ -93,11 +93,17 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         [Input("lint")]
         public Input<bool>? Lint { get; set; }
 
-        /// <summary>
-        /// The rendered manifest as JSON.
-        /// </summary>
         [Input("manifest")]
-        public Input<string>? Manifest { get; set; }
+        private InputMap<object>? _manifest;
+
+        /// <summary>
+        /// The rendered manifests as JSON.
+        /// </summary>
+        public InputMap<object> Manifest
+        {
+            get => _manifest ?? (_manifest = new InputMap<object>());
+            set => _manifest = value;
+        }
 
         /// <summary>
         /// Limit the maximum number of revisions saved per release. Use 0 for no limit
@@ -152,6 +158,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// </summary>
         [Input("resetValues")]
         public Input<bool>? ResetValues { get; set; }
+
+        [Input("resourceNames")]
+        private InputMap<ImmutableArray<string>>? _resourceNames;
+
+        /// <summary>
+        /// Names of resources created by the release grouped by "kind/version".
+        /// </summary>
+        public InputMap<ImmutableArray<string>> ResourceNames
+        {
+            get => _resourceNames ?? (_resourceNames = new InputMap<ImmutableArray<string>>());
+            set => _resourceNames = value;
+        }
 
         /// <summary>
         /// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
