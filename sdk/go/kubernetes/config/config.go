@@ -68,7 +68,7 @@ func GetSuppressDeprecationWarnings(ctx *pulumi.Context) bool {
 //
 // This config can be specified in the following ways, using this precedence:
 // 1. This `suppressHelmHookWarnings` parameter.
-// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
 func GetSuppressHelmHookWarnings(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:suppressHelmHookWarnings")
 }

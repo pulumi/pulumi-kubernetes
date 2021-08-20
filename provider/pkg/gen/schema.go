@@ -71,7 +71,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"suppressHelmHookWarnings": {
-					Description: "If present and set to true, suppress unsupported Helm hook warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressHelmHookWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.",
+					Description: "If present and set to true, suppress unsupported Helm hook warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressHelmHookWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 			},
@@ -137,7 +137,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS",
 						},
 					},
-					Description: "If present and set to true, suppress unsupported Helm hook warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressHelmHookWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.",
+					Description: "If present and set to true, suppress unsupported Helm hook warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressHelmHookWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 			},
