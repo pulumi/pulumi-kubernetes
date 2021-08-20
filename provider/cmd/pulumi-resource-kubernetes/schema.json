@@ -22787,7 +22787,7 @@
             }
         },
         "kubernetes:helm.sh/v3:Release": {
-            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
+            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.\nNote - Helm Release is currently in BETA and may change. Use in production environment is discouraged.",
             "properties": {
                 "releaseSpec": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
@@ -45120,7 +45120,7 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
-                "helm.sh/v3": "helm",
+                "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
                 "networking.k8s.io/v1beta1": "networking/v1beta1",

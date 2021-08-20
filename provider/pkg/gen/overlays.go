@@ -47,7 +47,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 	},
 	"kubernetes:helm.sh/v3:Release": {
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
-			Description: "BETA FEATURE - A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
+			Description: "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.\nNote - Helm Release is currently in BETA and may change. Use in production environment is discouraged.",
 			Properties: map[string]pschema.PropertySpec{
 				"releaseSpec": {
 					TypeSpec: pschema.TypeSpec{

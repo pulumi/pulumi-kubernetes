@@ -349,15 +349,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"dictionaryConstructors": true,
 	})
 
-	goModToPkg := map[string]string{}
-	for k,v := range modToPkg {
-		goModToPkg[k] = v
-	}
-	goModToPkg["helm.sh/v3"] =  "helm" // Map to helm to avoid package conflict with existing helm templates.
-
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
 		"importBasePath":                 goImportPath,
-		"moduleToPackage":                goModToPkg,
+		"moduleToPackage":                modToPkg,
 		"packageImportAliases":           pkgImportAliases,
 		"generateResourceContainerTypes": true,
 	})
