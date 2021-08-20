@@ -122,11 +122,11 @@ type kubeProvider struct {
 
 	suppressHelmReleaseBetaWarning bool
 	helmDriver                     string
-	helmPluginsPath          string
-	helmRegistryConfigPath   string
-	helmRepositoryConfigPath string
-	helmRepositoryCache      string
-	helmReleaseProvider      customResourceProvider
+	helmPluginsPath                string
+	helmRegistryConfigPath         string
+	helmRepositoryConfigPath       string
+	helmRepositoryCache            string
+	helmReleaseProvider            customResourceProvider
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -1100,9 +1100,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
-		} else {
-			return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	// Utilities for determining whether a resource's GVK exists.
@@ -1318,7 +1317,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 }
 
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
-func (k *kubeProvider) Diff( ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
+func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	//
 	// Behavior as of v0.12.x: We take 2 inputs:
 	//
@@ -1337,9 +1336,8 @@ func (k *kubeProvider) Diff( ctx context.Context, req *pulumirpc.DiffRequest) (*
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Diff(ctx, req)
-		} else {
-			return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
@@ -1561,9 +1559,8 @@ func (k *kubeProvider) Create(
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Create(ctx, req)
-		} else {
-			return nil, fmt.Errorf("can't create Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
+		return nil, fmt.Errorf("can't create Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
@@ -1782,9 +1779,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Read(ctx, req)
-		} else {
-			return nil, fmt.Errorf("can't read Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
+		return nil, fmt.Errorf("can't read Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)
@@ -2030,9 +2026,8 @@ func (k *kubeProvider) Update(
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Update(ctx, req)
-		} else {
-			return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
+		return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, _ := parseCheckpointObject(oldState)
@@ -2167,7 +2162,7 @@ func (k *kubeProvider) Update(
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
 // to still exist.
-func (k *kubeProvider) Delete( ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
+func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -2185,9 +2180,8 @@ func (k *kubeProvider) Delete( ctx context.Context, req *pulumirpc.DeleteRequest
 	if isHelmRelease(urn) {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Delete(ctx, req)
-		} else {
-			return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
+		return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	_, current := parseCheckpointObject(oldState)

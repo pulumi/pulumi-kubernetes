@@ -288,7 +288,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs}, nil
 }
 
-func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN,  news resource.PropertyMap, newRelease *Release, dryrun bool) error {
+func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease *Release, dryrun bool) error {
 	conf, err := r.getActionConfig(newRelease.ReleaseSpec.Namespace)
 	if err != nil {
 		return err
@@ -847,21 +847,6 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
-}
-
-func addManifestToInputs(resInputs resource.PropertyMap, r *release.Release) error {
-	jsonManifest, _, err := convertYAMLManifestToJSON(r.Manifest)
-	if err != nil {
-		return err
-	}
-	if resInputs.HasValue("releaseSpec") {
-		releaseSpec := resInputs["releaseSpec"]
-		if releaseSpec.IsObject() && !releaseSpec.ObjectValue().HasValue("manifest"){
-			// TODO: solve redaction
-			releaseSpec.ObjectValue()["manifest"] = resource.NewPropertyValue(jsonManifest)
-		}
-	}
-	return nil
 }
 
 func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*empty.Empty, error) {

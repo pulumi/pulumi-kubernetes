@@ -73,7 +73,7 @@ func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[str
 	logger.V(9).Infof("Manifest: %#v", m)
 
 	releaseResourcesGrouping := map[string][]string{}
-	for k,v := range releaseResources {
+	for k, v := range releaseResources {
 		releaseResourcesGrouping[k] = v.SortedValues()
 	}
 	return m, releaseResourcesGrouping, nil
@@ -88,10 +88,4 @@ func hashSensitiveValue(v string) string {
 	hash := make([]byte, 8)
 	sha3.ShakeSum256(hash, []byte(v))
 	return fmt.Sprintf("(sensitive value %x)", hash)
-}
-
-// TODO:
-// redactSensitiveValues removes values that appear in `set` blocks marked as secrets
-// from the manifest JSON
-func redactSensitiveValues(source map[string]interface{}, values []string) {
 }
