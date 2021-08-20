@@ -1226,7 +1226,7 @@ func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructu
 			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
 				"be created, but any hooks will not be executed. Hooks support is tracked at "+
 				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- This warning can be disabled by setting "+
-				"the PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING environment variable")
+				"the PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS environment variable")
 	}
 }
 

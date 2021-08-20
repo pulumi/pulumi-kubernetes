@@ -47,7 +47,7 @@ class ProviderArgs:
                
                This config can be specified in the following ways, using this precedence:
                1. This `suppressHelmHookWarnings` parameter.
-               2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+               2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
         """
         if cluster is not None:
             pulumi.set(__self__, "cluster", cluster)
@@ -179,7 +179,7 @@ class ProviderArgs:
 
         This config can be specified in the following ways, using this precedence:
         1. This `suppressHelmHookWarnings` parameter.
-        2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+        2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
         """
         return pulumi.get(self, "suppress_helm_hook_warnings")
 
@@ -231,7 +231,7 @@ class Provider(pulumi.ProviderResource):
                
                This config can be specified in the following ways, using this precedence:
                1. This `suppressHelmHookWarnings` parameter.
-               2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+               2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
         """
         ...
     @overload

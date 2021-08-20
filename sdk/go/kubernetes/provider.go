@@ -74,7 +74,7 @@ type providerArgs struct {
 	//
 	// This config can be specified in the following ways, using this precedence:
 	// 1. This `suppressHelmHookWarnings` parameter.
-	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
 	SuppressHelmHookWarnings *bool `pulumi:"suppressHelmHookWarnings"`
 }
 
@@ -111,7 +111,7 @@ type ProviderArgs struct {
 	//
 	// This config can be specified in the following ways, using this precedence:
 	// 1. This `suppressHelmHookWarnings` parameter.
-	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNING` environment variable.
+	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
 	SuppressHelmHookWarnings pulumi.BoolPtrInput
 }
 
