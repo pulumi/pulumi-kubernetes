@@ -1,6 +1,6 @@
 ## HEAD (Unreleased)
 
-## 3.6.2 (August 19, 2021)
+## 3.6.2 (August 20, 2021)
 
 - Fix environment variable name in disable Helm hook warnings message (https://github.com/pulumi/pulumi-kubernetes/pull/1683)
 
