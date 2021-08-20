@@ -12161,7 +12161,7 @@ export namespace helm {
          */
         export interface ReleaseSpec {
             /**
-             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
              */
             atomic?: pulumi.Input<boolean>;
             /**
@@ -12169,15 +12169,15 @@ export namespace helm {
              */
             chart: pulumi.Input<string>;
             /**
-             * Allow deletion of new resources created in this upgrade when upgrade fails
+             * Allow deletion of new resources created in this upgrade when upgrade fails.
              */
             cleanupOnFail?: pulumi.Input<boolean>;
             /**
-             * Create the namespace if it does not exist
+             * Create the namespace if it does not exist.
              */
             createNamespace?: pulumi.Input<boolean>;
             /**
-             * Run helm dependency update before installing the chart
+             * Run helm dependency update before installing the chart.
              */
             dependencyUpdate?: pulumi.Input<boolean>;
             /**
@@ -12185,7 +12185,7 @@ export namespace helm {
              */
             description?: pulumi.Input<string>;
             /**
-             * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+             * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
              */
             devel?: pulumi.Input<boolean>;
             /**
@@ -12209,15 +12209,15 @@ export namespace helm {
              */
             keyring?: pulumi.Input<string>;
             /**
-             * Run helm lint when planning
+             * Run helm lint when planning.
              */
             lint?: pulumi.Input<boolean>;
             /**
-             * The rendered manifests as JSON.
+             * The rendered manifests as JSON. Not yet supported.
              */
             manifest?: pulumi.Input<{[key: string]: any}>;
             /**
-             * Limit the maximum number of revisions saved per release. Use 0 for no limit
+             * Limit the maximum number of revisions saved per release. Use 0 for no limit.
              */
             maxHistory?: pulumi.Input<number>;
             /**
@@ -12233,11 +12233,11 @@ export namespace helm {
              */
             postrender?: pulumi.Input<string>;
             /**
-             * Perform pods restart during upgrade/rollback
+             * Perform pods restart during upgrade/rollback.
              */
             recreatePods?: pulumi.Input<boolean>;
             /**
-             * If set, render subchart notes along with the parent
+             * If set, render subchart notes along with the parent.
              */
             renderSubchartNotes?: pulumi.Input<boolean>;
             /**
@@ -12249,7 +12249,7 @@ export namespace helm {
              */
             repositorySpec: pulumi.Input<inputs.helm.v3.RepositorySpec>;
             /**
-             * When upgrading, reset the values to the ones built into the chart
+             * When upgrading, reset the values to the ones built into the chart.
              */
             resetValues?: pulumi.Input<boolean>;
             /**
@@ -12261,15 +12261,11 @@ export namespace helm {
              */
             reuseValues?: pulumi.Input<boolean>;
             /**
-             * Custom values to be merged with items loaded from values.
-             */
-            set: pulumi.Input<{[key: string]: any}>;
-            /**
              * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
              */
             skipAwait?: pulumi.Input<boolean>;
             /**
-             * If set, no CRDs will be installed. By default, CRDs are installed if not already present
+             * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
              */
             skipCrds?: pulumi.Input<boolean>;
             /**
@@ -12277,9 +12273,13 @@ export namespace helm {
              */
             timeout?: pulumi.Input<number>;
             /**
-             * List of assets (raw yaml files) to pass to helm.
+             * List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
              */
-            values?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
+            valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
+            /**
+             * Custom values set for the release.
+             */
+            values: pulumi.Input<{[key: string]: any}>;
             /**
              * Verify the package before installing it.
              */

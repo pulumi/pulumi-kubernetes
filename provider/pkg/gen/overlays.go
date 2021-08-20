@@ -47,7 +47,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 	},
 	"kubernetes:helm.sh/v3:Release": {
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
-			Description: "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
+			Description: "BETA FEATURE - A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
 			Properties: map[string]pschema.PropertySpec{
 				"releaseSpec": {
 					TypeSpec: pschema.TypeSpec{
@@ -210,7 +210,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			Required: []string{
 				"chart",
 				"repositorySpec",
-				"set",
+				"values",
 			},
 			Properties: map[string]pschema.PropertySpec{
 				"name": {
@@ -242,25 +242,25 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored",
+					Description: "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.",
 				},
-				"values": {
+				"valueYamlFiles": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "array",
 						Items: &pschema.TypeSpec{
 							Ref: "pulumi.json#/Asset",
 						},
 					},
-					Description: "List of assets (raw yaml files) to pass to helm.",
+					Description: "List of assets (raw yaml files). Content is read and merged with values. Not yet supported.",
 				},
-				"set": {
+				"values": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "object",
 						AdditionalProperties: &pschema.TypeSpec{
 							Ref: "pulumi.json#/Any",
 						},
 					},
-					Description: "Custom values to be merged with items loaded from values.",
+					Description: "Custom values set for the release.",
 				},
 				"manifest": {
 					TypeSpec: pschema.TypeSpec{
@@ -269,7 +269,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 							Ref: "pulumi.json#/Any",
 						},
 					},
-					Description: "The rendered manifests as JSON.",
+					Description: "The rendered manifests as JSON. Not yet supported.",
 				},
 				"resourceNames": {
 					TypeSpec: pschema.TypeSpec{
@@ -283,17 +283,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "Names of resources created by the release grouped by \"kind/version\".",
 				},
-				// TODO?
-				//"setSensitive": {
-				//	TypeSpec: pschema.TypeSpec{
-				//		Type: "object",
-				//		AdditionalProperties: &pschema.TypeSpec{
-				//			Type: "string",
-				//		},
-				//	},
-				//	Description: "Custom sensitive values to be merged with items loaded from values.",
-				//	Secret: true,
-				//},
 				"namespace": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
@@ -344,7 +333,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "When upgrading, reset the values to the ones built into the chart",
+					Description: "When upgrading, reset the values to the ones built into the chart.",
 				},
 				"forceUpdate": {
 					TypeSpec: pschema.TypeSpec{
@@ -356,37 +345,37 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Perform pods restart during upgrade/rollback",
+					Description: "Perform pods restart during upgrade/rollback.",
 				},
 				"cleanupOnFail": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Allow deletion of new resources created in this upgrade when upgrade fails",
+					Description: "Allow deletion of new resources created in this upgrade when upgrade fails.",
 				},
 				"maxHistory": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "integer",
 					},
-					Description: "Limit the maximum number of revisions saved per release. Use 0 for no limit",
+					Description: "Limit the maximum number of revisions saved per release. Use 0 for no limit.",
 				},
 				"atomic": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used",
+					Description: "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.",
 				},
 				"skipCrds": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present",
+					Description: "If set, no CRDs will be installed. By default, CRDs are installed if not already present.",
 				},
 				"renderSubchartNotes": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "If set, render subchart notes along with the parent",
+					Description: "If set, render subchart notes along with the parent.",
 				},
 				"disableOpenapiValidation": {
 					TypeSpec: pschema.TypeSpec{
@@ -410,7 +399,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Run helm dependency update before installing the chart",
+					Description: "Run helm dependency update before installing the chart.",
 				},
 				"replace": {
 					TypeSpec: pschema.TypeSpec{
@@ -428,7 +417,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Create the namespace if it does not exist",
+					Description: "Create the namespace if it does not exist.",
 				},
 				"postrender": {
 					TypeSpec: pschema.TypeSpec{
@@ -440,7 +429,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Run helm lint when planning",
+					Description: "Run helm lint when planning.",
 				},
 			},
 			Type: "object",

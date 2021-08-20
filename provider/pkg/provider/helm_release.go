@@ -12,7 +12,6 @@ import (
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	"io"
 	"log"
 	"net/url"
 	"os"
@@ -100,14 +99,13 @@ type ReleaseSpec struct {
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
 	ReuseValues bool `json:"reuseValues,omitempty"`
 	// Custom values to be merged with items loaded from values.
-	Set map[string]interface{} `pulumi:"set"`
+	Values map[string]interface{} `json:"values,omitempty"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds bool `json:"skipCrds,omitempty"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout int `json:"timeout,omitempty"`
-	// List of assets (raw yaml files) to pass to helm.
-	// Values doesn't serialize well for some reason.
-	//Values []*resource.Asset `json:"values,omitempty"`
+	// ValueYamlFiles List of assets (raw yaml files) to pass to helm.
+	//ValueYamlFiles []*resource.Asset `json:"valueYamlFiles,omitempty"`
 	// Verify the package before installing it.
 	Verify bool `json:"verify,omitempty"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -117,7 +115,7 @@ type ReleaseSpec struct {
 	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
 	WaitForJobs bool `json:"waitForJobs,omitempty"`
 	// The rendered manifests.
-	Manifest map[string]interface{} `json:"manifest,omitempty"`
+	// Manifest map[string]interface{} `json:"manifest,omitempty"`
 	// Names of resources created by the release grouped by "kind/version".
 	ResourceNames map[string][]string `json:"resourceNames,omitempty"`
 }
@@ -326,7 +324,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	}
 
 	logger.V(9).Infof("Fetching values for release: %q", newRelease.ReleaseSpec.Name)
-	values, err := getValues(newRelease.ReleaseSpec, news)
+	values, err := getValues(newRelease.ReleaseSpec)
 	if err != nil {
 		return err
 	}
@@ -397,11 +395,6 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	}
 
 	err = setReleaseAttributes(newRelease, rel, dryrun)
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//err = addManifestToInputs(news, rel)
 	return err
 }
 
@@ -445,7 +438,7 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		return err
 	}
 
-	values, err := getValues(newRelease.ReleaseSpec, news)
+	values, err := getValues(newRelease.ReleaseSpec)
 	if err != nil {
 		return fmt.Errorf("error getting values for a diff: %w", err)
 	}
@@ -489,9 +482,6 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		return fmt.Errorf("error running dry run for a diff: %w", err)
 	}
 
-	//if err = addManifestToInputs(news, rel); err != nil {
-	//	return err
-	//}
 	err = setReleaseAttributes(newRelease, rel, dryrun)
 	return err
 }
@@ -645,7 +635,7 @@ func resourceReleaseValidate(releaseSpec *ReleaseSpec, pm resource.PropertyMap, 
 		return fmt.Errorf("malformed values: \n\t%s", err)
 	}
 
-	values, err := getValues(releaseSpec, pm)
+	values, err := getValues(releaseSpec)
 	if err != nil {
 		return err
 	}
@@ -696,14 +686,6 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
 	}
-
-	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
-	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
-	// dry run, return the inputs as-is.
-	//if req.GetPreview() {
-	//	logger.V(9).Infof("cannot preview Create(%v)", urn)
-	//	return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
-	//}
 
 	newRelease, err := decodeRelease(news)
 	if err != nil {
@@ -990,74 +972,11 @@ func isChartInstallable(ch *helmchart.Chart) error {
 	return fmt.Errorf("%s charts are not installable", ch.Metadata.Type)
 }
 
-func getValues(spec *ReleaseSpec, pm resource.PropertyMap) (map[string]interface{}, error) {
+func getValues(spec *ReleaseSpec) (map[string]interface{}, error) {
 	base := map[string]interface{}{}
-
-	logger.V(9).Infof("getting values for spec: %+v propertymap: %+v", spec, pm)
-
-	if pm.HasValue("values") {
-		values := pm["values"]
-		if !values.IsArray() {
-			return nil, errors.New("'values' are not an array")
-		}
-		for _, arrVal := range values.ArrayValue() {
-			var readCloser io.ReadCloser
-			if arrVal.IsAsset() {
-				asAsset := arrVal.AssetValue()
-				switch {
-				case asAsset.IsText():
-					readCloser = io.NopCloser(strings.NewReader(asAsset.Text))
-				case asAsset.IsPath():
-					f, err := os.Open(asAsset.Path)
-					if err != nil {
-						return nil, err
-					}
-					readCloser = f
-				case asAsset.IsURI():
-					return nil, fmt.Errorf("value asset as URI not supported")
-				default:
-					return nil, fmt.Errorf("unsupported value asset type")
-				}
-			}
-			currentMap := map[string]interface{}{}
-			if err := yaml.NewDecoder(readCloser).Decode(&currentMap); err != nil {
-				return nil, err
-			}
-			base = mergeMaps(base, currentMap)
-			_ = readCloser.Close()
-		}
-
-		base = mergeMaps(base, spec.Set)
-	}
-	//for _, set := range spec.SetSensitive {
-	//	if err := getValue(base, set); err != nil {
-	//		return nil, err
-	//	}
-	//}
-
+	base = mergeMaps(base, spec.Values)
 	return base, logValues(base)
 }
-
-//func getValue(base map[string]interface{}, set *SetValue) error {
-//	name := set.Name
-//	value := set.Value
-//	valueType := set.Type
-//
-//	switch valueType {
-//	case "auto", "":
-//		if err := strvals.ParseInto(fmt.Sprintf("%s=%s", name, value), base); err != nil {
-//			return fmt.Errorf("failed parsing key %q with value %s, %s", name, value, err)
-//		}
-//	case "string":
-//		if err := strvals.ParseIntoString(fmt.Sprintf("%s=%s", name, value), base); err != nil {
-//			return fmt.Errorf("failed parsing key %q with value %s, %s", name, value, err)
-//		}
-//	default:
-//		return fmt.Errorf("unexpected type: %s", valueType)
-//	}
-//
-//	return nil
-//}
 
 func logValues(values map[string]interface{}) error {
 	// copy array to avoid change values by the cloak function.
@@ -1067,8 +986,6 @@ func logValues(values map[string]interface{}) error {
 	if err != nil {
 		return err
 	}
-
-	//cloakSetValues(c, spec)
 
 	y, err := yaml.Marshal(c)
 	if err != nil {
@@ -1082,39 +999,6 @@ func logValues(values map[string]interface{}) error {
 
 	return nil
 }
-
-// TODO:
-//func cloakSetValues(config map[string]interface{}, pm resource.PropertyMap) {
-//	if rs, ok := pm["resourceSpec"].V.(resource.PropertyMap); ok {
-//		if set, ok := rs["set"]; ok && set.ContainsSecrets() {
-//			set.SecretValue().Element
-//		}
-//	}
-//
-//	for _, raw := range d.Get("set_sensitive").(*schema.Set).List() {
-//		set := raw.(map[string]interface{})
-//		cloakSetValue(config, set["name"].(string))
-//	}
-//}
-
-//const sensitiveContentValue = "(sensitive value)"
-
-//func cloakSetValue(values map[string]interface{}, valuePath string) {
-//	pathKeys := strings.Split(valuePath, ".")
-//	sensitiveKey := pathKeys[len(pathKeys)-1]
-//	parentPathKeys := pathKeys[:len(pathKeys)-1]
-//
-//	m := values
-//	for _, key := range parentPathKeys {
-//		v, ok := m[key].(map[string]interface{})
-//		if !ok {
-//			return
-//		}
-//		m = v
-//	}
-//
-//	m[sensitiveKey] = sensitiveContentValue
-//}
 
 // Merges source and destination map, preferring values from the source map
 // Taken from github.com/helm/pkg/cli/values/options.go

@@ -18,7 +18,7 @@ class ReleaseSpecArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
                  repository_spec: pulumi.Input['RepositorySpecArgs'],
-                 set: pulumi.Input[Mapping[str, Any]],
+                 values: pulumi.Input[Mapping[str, Any]],
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  create_namespace: Optional[pulumi.Input[bool]] = None,
@@ -45,7 +45,7 @@ class ReleaseSpecArgs:
                  skip_await: Optional[pulumi.Input[bool]] = None,
                  skip_crds: Optional[pulumi.Input[bool]] = None,
                  timeout: Optional[pulumi.Input[int]] = None,
-                 values: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
+                 value_yaml_files: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
                  verify: Optional[pulumi.Input[bool]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  wait_for_jobs: Optional[pulumi.Input[bool]] = None):
@@ -53,41 +53,41 @@ class ReleaseSpecArgs:
         Specification defining the Helm Release to install.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input['RepositorySpecArgs'] repository_spec: Specification defining the Helm chart repository to use.
-        :param pulumi.Input[Mapping[str, Any]] set: Custom values to be merged with items loaded from values.
-        :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
-        :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails
-        :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist
-        :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart
+        :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
+        :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+        :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
+        :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist.
+        :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart.
         :param pulumi.Input[str] description: Add a custom description
-        :param pulumi.Input[bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+        :param pulumi.Input[bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
         :param pulumi.Input[bool] disable_crd_hooks: Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
         :param pulumi.Input[bool] disable_openapi_validation: If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
         :param pulumi.Input[bool] disable_webhooks: Prevent hooks from running.
         :param pulumi.Input[bool] force_update: Force resource update through delete/recreate if needed.
         :param pulumi.Input[str] keyring: Location of public keys used for verification. Used only if `verify` is true
-        :param pulumi.Input[bool] lint: Run helm lint when planning
-        :param pulumi.Input[Mapping[str, Any]] manifest: The rendered manifests as JSON.
-        :param pulumi.Input[int] max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit
+        :param pulumi.Input[bool] lint: Run helm lint when planning.
+        :param pulumi.Input[Mapping[str, Any]] manifest: The rendered manifests as JSON. Not yet supported.
+        :param pulumi.Input[int] max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit.
         :param pulumi.Input[str] name: Release name.
         :param pulumi.Input[str] namespace: Namespace to install the release into.
         :param pulumi.Input[str] postrender: Postrender command to run.
-        :param pulumi.Input[bool] recreate_pods: Perform pods restart during upgrade/rollback
-        :param pulumi.Input[bool] render_subchart_notes: If set, render subchart notes along with the parent
+        :param pulumi.Input[bool] recreate_pods: Perform pods restart during upgrade/rollback.
+        :param pulumi.Input[bool] render_subchart_notes: If set, render subchart notes along with the parent.
         :param pulumi.Input[bool] replace: Re-use the given name, even if that name is already used. This is unsafe in production
-        :param pulumi.Input[bool] reset_values: When upgrading, reset the values to the ones built into the chart
+        :param pulumi.Input[bool] reset_values: When upgrading, reset the values to the ones built into the chart.
         :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] resource_names: Names of resources created by the release grouped by "kind/version".
         :param pulumi.Input[bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
         :param pulumi.Input[bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
-        :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present
+        :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         :param pulumi.Input[int] timeout: Time in seconds to wait for any individual kubernetes operation.
-        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] values: List of assets (raw yaml files) to pass to helm.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
         :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
         pulumi.set(__self__, "repository_spec", repository_spec)
-        pulumi.set(__self__, "set", set)
+        pulumi.set(__self__, "values", values)
         if atomic is not None:
             pulumi.set(__self__, "atomic", atomic)
         if cleanup_on_fail is not None:
@@ -140,8 +140,8 @@ class ReleaseSpecArgs:
             pulumi.set(__self__, "skip_crds", skip_crds)
         if timeout is not None:
             pulumi.set(__self__, "timeout", timeout)
-        if values is not None:
-            pulumi.set(__self__, "values", values)
+        if value_yaml_files is not None:
+            pulumi.set(__self__, "value_yaml_files", value_yaml_files)
         if verify is not None:
             pulumi.set(__self__, "verify", verify)
         if version is not None:
@@ -175,21 +175,21 @@ class ReleaseSpecArgs:
 
     @property
     @pulumi.getter
-    def set(self) -> pulumi.Input[Mapping[str, Any]]:
+    def values(self) -> pulumi.Input[Mapping[str, Any]]:
         """
-        Custom values to be merged with items loaded from values.
+        Custom values set for the release.
         """
-        return pulumi.get(self, "set")
+        return pulumi.get(self, "values")
 
-    @set.setter
-    def set(self, value: pulumi.Input[Mapping[str, Any]]):
-        pulumi.set(self, "set", value)
+    @values.setter
+    def values(self, value: pulumi.Input[Mapping[str, Any]]):
+        pulumi.set(self, "values", value)
 
     @property
     @pulumi.getter
     def atomic(self) -> Optional[pulumi.Input[bool]]:
         """
-        If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+        If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
         """
         return pulumi.get(self, "atomic")
 
@@ -201,7 +201,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="cleanupOnFail")
     def cleanup_on_fail(self) -> Optional[pulumi.Input[bool]]:
         """
-        Allow deletion of new resources created in this upgrade when upgrade fails
+        Allow deletion of new resources created in this upgrade when upgrade fails.
         """
         return pulumi.get(self, "cleanup_on_fail")
 
@@ -213,7 +213,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="createNamespace")
     def create_namespace(self) -> Optional[pulumi.Input[bool]]:
         """
-        Create the namespace if it does not exist
+        Create the namespace if it does not exist.
         """
         return pulumi.get(self, "create_namespace")
 
@@ -225,7 +225,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="dependencyUpdate")
     def dependency_update(self) -> Optional[pulumi.Input[bool]]:
         """
-        Run helm dependency update before installing the chart
+        Run helm dependency update before installing the chart.
         """
         return pulumi.get(self, "dependency_update")
 
@@ -249,7 +249,7 @@ class ReleaseSpecArgs:
     @pulumi.getter
     def devel(self) -> Optional[pulumi.Input[bool]]:
         """
-        Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+        Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
         """
         return pulumi.get(self, "devel")
 
@@ -321,7 +321,7 @@ class ReleaseSpecArgs:
     @pulumi.getter
     def lint(self) -> Optional[pulumi.Input[bool]]:
         """
-        Run helm lint when planning
+        Run helm lint when planning.
         """
         return pulumi.get(self, "lint")
 
@@ -333,7 +333,7 @@ class ReleaseSpecArgs:
     @pulumi.getter
     def manifest(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
         """
-        The rendered manifests as JSON.
+        The rendered manifests as JSON. Not yet supported.
         """
         return pulumi.get(self, "manifest")
 
@@ -345,7 +345,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="maxHistory")
     def max_history(self) -> Optional[pulumi.Input[int]]:
         """
-        Limit the maximum number of revisions saved per release. Use 0 for no limit
+        Limit the maximum number of revisions saved per release. Use 0 for no limit.
         """
         return pulumi.get(self, "max_history")
 
@@ -393,7 +393,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="recreatePods")
     def recreate_pods(self) -> Optional[pulumi.Input[bool]]:
         """
-        Perform pods restart during upgrade/rollback
+        Perform pods restart during upgrade/rollback.
         """
         return pulumi.get(self, "recreate_pods")
 
@@ -405,7 +405,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="renderSubchartNotes")
     def render_subchart_notes(self) -> Optional[pulumi.Input[bool]]:
         """
-        If set, render subchart notes along with the parent
+        If set, render subchart notes along with the parent.
         """
         return pulumi.get(self, "render_subchart_notes")
 
@@ -429,7 +429,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="resetValues")
     def reset_values(self) -> Optional[pulumi.Input[bool]]:
         """
-        When upgrading, reset the values to the ones built into the chart
+        When upgrading, reset the values to the ones built into the chart.
         """
         return pulumi.get(self, "reset_values")
 
@@ -477,7 +477,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="skipCrds")
     def skip_crds(self) -> Optional[pulumi.Input[bool]]:
         """
-        If set, no CRDs will be installed. By default, CRDs are installed if not already present
+        If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         """
         return pulumi.get(self, "skip_crds")
 
@@ -498,16 +498,16 @@ class ReleaseSpecArgs:
         pulumi.set(self, "timeout", value)
 
     @property
-    @pulumi.getter
-    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
+    @pulumi.getter(name="valueYamlFiles")
+    def value_yaml_files(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
         """
-        List of assets (raw yaml files) to pass to helm.
+        List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
         """
-        return pulumi.get(self, "values")
+        return pulumi.get(self, "value_yaml_files")
 
-    @values.setter
-    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]):
-        pulumi.set(self, "values", value)
+    @value_yaml_files.setter
+    def value_yaml_files(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]):
+        pulumi.set(self, "value_yaml_files", value)
 
     @property
     @pulumi.getter

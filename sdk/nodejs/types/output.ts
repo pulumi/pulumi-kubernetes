@@ -12447,7 +12447,7 @@ export namespace helm {
          */
         export interface ReleaseSpec {
             /**
-             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
              */
             atomic: boolean;
             /**
@@ -12455,15 +12455,15 @@ export namespace helm {
              */
             chart: string;
             /**
-             * Allow deletion of new resources created in this upgrade when upgrade fails
+             * Allow deletion of new resources created in this upgrade when upgrade fails.
              */
             cleanupOnFail: boolean;
             /**
-             * Create the namespace if it does not exist
+             * Create the namespace if it does not exist.
              */
             createNamespace: boolean;
             /**
-             * Run helm dependency update before installing the chart
+             * Run helm dependency update before installing the chart.
              */
             dependencyUpdate: boolean;
             /**
@@ -12471,7 +12471,7 @@ export namespace helm {
              */
             description: string;
             /**
-             * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+             * Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
              */
             devel: boolean;
             /**
@@ -12495,15 +12495,15 @@ export namespace helm {
              */
             keyring: string;
             /**
-             * Run helm lint when planning
+             * Run helm lint when planning.
              */
             lint: boolean;
             /**
-             * The rendered manifests as JSON.
+             * The rendered manifests as JSON. Not yet supported.
              */
             manifest: {[key: string]: any};
             /**
-             * Limit the maximum number of revisions saved per release. Use 0 for no limit
+             * Limit the maximum number of revisions saved per release. Use 0 for no limit.
              */
             maxHistory: number;
             /**
@@ -12519,11 +12519,11 @@ export namespace helm {
              */
             postrender: string;
             /**
-             * Perform pods restart during upgrade/rollback
+             * Perform pods restart during upgrade/rollback.
              */
             recreatePods: boolean;
             /**
-             * If set, render subchart notes along with the parent
+             * If set, render subchart notes along with the parent.
              */
             renderSubchartNotes: boolean;
             /**
@@ -12535,7 +12535,7 @@ export namespace helm {
              */
             repositorySpec: outputs.helm.v3.RepositorySpec;
             /**
-             * When upgrading, reset the values to the ones built into the chart
+             * When upgrading, reset the values to the ones built into the chart.
              */
             resetValues: boolean;
             /**
@@ -12547,15 +12547,11 @@ export namespace helm {
              */
             reuseValues: boolean;
             /**
-             * Custom values to be merged with items loaded from values.
-             */
-            set: {[key: string]: any};
-            /**
              * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
              */
             skipAwait?: boolean;
             /**
-             * If set, no CRDs will be installed. By default, CRDs are installed if not already present
+             * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
              */
             skipCrds: boolean;
             /**
@@ -12563,9 +12559,13 @@ export namespace helm {
              */
             timeout: number;
             /**
-             * List of assets (raw yaml files) to pass to helm.
+             * List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
              */
-            values: pulumi.asset.Asset | pulumi.asset.Archive[];
+            valueYamlFiles?: pulumi.asset.Asset | pulumi.asset.Archive[];
+            /**
+             * Custom values set for the release.
+             */
+            values: {[key: string]: any};
             /**
              * Verify the package before installing it.
              */

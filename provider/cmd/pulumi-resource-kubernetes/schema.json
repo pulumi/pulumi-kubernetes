@@ -22821,7 +22821,7 @@
             "properties": {
                 "atomic": {
                     "type": "boolean",
-                    "description": "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used"
+                    "description": "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used."
                 },
                 "chart": {
                     "type": "string",
@@ -22829,15 +22829,15 @@
                 },
                 "cleanupOnFail": {
                     "type": "boolean",
-                    "description": "Allow deletion of new resources created in this upgrade when upgrade fails"
+                    "description": "Allow deletion of new resources created in this upgrade when upgrade fails."
                 },
                 "createNamespace": {
                     "type": "boolean",
-                    "description": "Create the namespace if it does not exist"
+                    "description": "Create the namespace if it does not exist."
                 },
                 "dependencyUpdate": {
                     "type": "boolean",
-                    "description": "Run helm dependency update before installing the chart"
+                    "description": "Run helm dependency update before installing the chart."
                 },
                 "description": {
                     "type": "string",
@@ -22845,7 +22845,7 @@
                 },
                 "devel": {
                     "type": "boolean",
-                    "description": "Use chart development versions, too. Equivalent to version '\u003e0.0.0-0'. If `version` is set, this is ignored"
+                    "description": "Use chart development versions, too. Equivalent to version '\u003e0.0.0-0'. If `version` is set, this is ignored."
                 },
                 "disableCRDHooks": {
                     "type": "boolean",
@@ -22869,18 +22869,18 @@
                 },
                 "lint": {
                     "type": "boolean",
-                    "description": "Run helm lint when planning"
+                    "description": "Run helm lint when planning."
                 },
                 "manifest": {
                     "type": "object",
                     "additionalProperties": {
                         "$ref": "pulumi.json#/Any"
                     },
-                    "description": "The rendered manifests as JSON."
+                    "description": "The rendered manifests as JSON. Not yet supported."
                 },
                 "maxHistory": {
                     "type": "integer",
-                    "description": "Limit the maximum number of revisions saved per release. Use 0 for no limit"
+                    "description": "Limit the maximum number of revisions saved per release. Use 0 for no limit."
                 },
                 "name": {
                     "type": "string",
@@ -22896,11 +22896,11 @@
                 },
                 "recreatePods": {
                     "type": "boolean",
-                    "description": "Perform pods restart during upgrade/rollback"
+                    "description": "Perform pods restart during upgrade/rollback."
                 },
                 "renderSubchartNotes": {
                     "type": "boolean",
-                    "description": "If set, render subchart notes along with the parent"
+                    "description": "If set, render subchart notes along with the parent."
                 },
                 "replace": {
                     "type": "boolean",
@@ -22912,7 +22912,7 @@
                 },
                 "resetValues": {
                     "type": "boolean",
-                    "description": "When upgrading, reset the values to the ones built into the chart"
+                    "description": "When upgrading, reset the values to the ones built into the chart."
                 },
                 "resourceNames": {
                     "type": "object",
@@ -22928,31 +22928,31 @@
                     "type": "boolean",
                     "description": "When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored"
                 },
-                "set": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "pulumi.json#/Any"
-                    },
-                    "description": "Custom values to be merged with items loaded from values."
-                },
                 "skipAwait": {
                     "type": "boolean",
                     "description": "By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic."
                 },
                 "skipCrds": {
                     "type": "boolean",
-                    "description": "If set, no CRDs will be installed. By default, CRDs are installed if not already present"
+                    "description": "If set, no CRDs will be installed. By default, CRDs are installed if not already present."
                 },
                 "timeout": {
                     "type": "integer",
                     "description": "Time in seconds to wait for any individual kubernetes operation."
                 },
-                "values": {
+                "valueYamlFiles": {
                     "type": "array",
                     "items": {
                         "$ref": "pulumi.json#/Asset"
                     },
-                    "description": "List of assets (raw yaml files) to pass to helm."
+                    "description": "List of assets (raw yaml files). Content is read and merged with values. Not yet supported."
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Custom values set for the release."
                 },
                 "verify": {
                     "type": "boolean",
@@ -22971,7 +22971,7 @@
             "required": [
                 "chart",
                 "repositorySpec",
-                "set"
+                "values"
             ],
             "language": {
                 "nodejs": {

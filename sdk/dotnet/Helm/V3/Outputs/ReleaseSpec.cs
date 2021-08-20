@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
     public sealed class ReleaseSpec
     {
         /// <summary>
-        /// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+        /// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
         /// </summary>
         public readonly bool Atomic;
         /// <summary>
@@ -25,15 +25,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Chart;
         /// <summary>
-        /// Allow deletion of new resources created in this upgrade when upgrade fails
+        /// Allow deletion of new resources created in this upgrade when upgrade fails.
         /// </summary>
         public readonly bool CleanupOnFail;
         /// <summary>
-        /// Create the namespace if it does not exist
+        /// Create the namespace if it does not exist.
         /// </summary>
         public readonly bool CreateNamespace;
         /// <summary>
-        /// Run helm dependency update before installing the chart
+        /// Run helm dependency update before installing the chart.
         /// </summary>
         public readonly bool DependencyUpdate;
         /// <summary>
@@ -41,7 +41,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Description;
         /// <summary>
-        /// Use chart development versions, too. Equivalent to version '&gt;0.0.0-0'. If `version` is set, this is ignored
+        /// Use chart development versions, too. Equivalent to version '&gt;0.0.0-0'. If `version` is set, this is ignored.
         /// </summary>
         public readonly bool Devel;
         /// <summary>
@@ -65,15 +65,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Keyring;
         /// <summary>
-        /// Run helm lint when planning
+        /// Run helm lint when planning.
         /// </summary>
         public readonly bool Lint;
         /// <summary>
-        /// The rendered manifests as JSON.
+        /// The rendered manifests as JSON. Not yet supported.
         /// </summary>
         public readonly ImmutableDictionary<string, object> Manifest;
         /// <summary>
-        /// Limit the maximum number of revisions saved per release. Use 0 for no limit
+        /// Limit the maximum number of revisions saved per release. Use 0 for no limit.
         /// </summary>
         public readonly int MaxHistory;
         /// <summary>
@@ -89,11 +89,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Postrender;
         /// <summary>
-        /// Perform pods restart during upgrade/rollback
+        /// Perform pods restart during upgrade/rollback.
         /// </summary>
         public readonly bool RecreatePods;
         /// <summary>
-        /// If set, render subchart notes along with the parent
+        /// If set, render subchart notes along with the parent.
         /// </summary>
         public readonly bool RenderSubchartNotes;
         /// <summary>
@@ -105,7 +105,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Helm.V3.RepositorySpec RepositorySpec;
         /// <summary>
-        /// When upgrading, reset the values to the ones built into the chart
+        /// When upgrading, reset the values to the ones built into the chart.
         /// </summary>
         public readonly bool ResetValues;
         /// <summary>
@@ -117,15 +117,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly bool ReuseValues;
         /// <summary>
-        /// Custom values to be merged with items loaded from values.
-        /// </summary>
-        public readonly ImmutableDictionary<string, object> Set;
-        /// <summary>
         /// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         /// </summary>
         public readonly bool SkipAwait;
         /// <summary>
-        /// If set, no CRDs will be installed. By default, CRDs are installed if not already present
+        /// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         /// </summary>
         public readonly bool SkipCrds;
         /// <summary>
@@ -133,9 +129,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly int Timeout;
         /// <summary>
-        /// List of assets (raw yaml files) to pass to helm.
+        /// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
         /// </summary>
-        public readonly ImmutableArray<AssetOrArchive> Values;
+        public readonly ImmutableArray<AssetOrArchive> ValueYamlFiles;
+        /// <summary>
+        /// Custom values set for the release.
+        /// </summary>
+        public readonly ImmutableDictionary<string, object> Values;
         /// <summary>
         /// Verify the package before installing it.
         /// </summary>
@@ -201,15 +201,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
 
             bool reuseValues,
 
-            ImmutableDictionary<string, object> set,
-
             bool skipAwait,
 
             bool skipCrds,
 
             int timeout,
 
-            ImmutableArray<AssetOrArchive> values,
+            ImmutableArray<AssetOrArchive> valueYamlFiles,
+
+            ImmutableDictionary<string, object> values,
 
             bool verify,
 
@@ -242,10 +242,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
             ResetValues = resetValues;
             ResourceNames = resourceNames;
             ReuseValues = reuseValues;
-            Set = set;
             SkipAwait = skipAwait;
             SkipCrds = skipCrds;
             Timeout = timeout;
+            ValueYamlFiles = valueYamlFiles;
             Values = values;
             Verify = verify;
             Version = version;

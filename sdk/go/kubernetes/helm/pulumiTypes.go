@@ -85,19 +85,19 @@ func (o ReleaseTypeOutput) Status() ReleaseStatusOutput {
 
 // Specification defining the Helm Release to install.
 type ReleaseSpec struct {
-	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
 	Atomic *bool `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
 	Chart string `pulumi:"chart"`
-	// Allow deletion of new resources created in this upgrade when upgrade fails
+	// Allow deletion of new resources created in this upgrade when upgrade fails.
 	CleanupOnFail *bool `pulumi:"cleanupOnFail"`
-	// Create the namespace if it does not exist
+	// Create the namespace if it does not exist.
 	CreateNamespace *bool `pulumi:"createNamespace"`
-	// Run helm dependency update before installing the chart
+	// Run helm dependency update before installing the chart.
 	DependencyUpdate *bool `pulumi:"dependencyUpdate"`
 	// Add a custom description
 	Description *string `pulumi:"description"`
-	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel *bool `pulumi:"devel"`
 	// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
 	DisableCRDHooks *bool `pulumi:"disableCRDHooks"`
@@ -109,11 +109,11 @@ type ReleaseSpec struct {
 	ForceUpdate *bool `pulumi:"forceUpdate"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring *string `pulumi:"keyring"`
-	// Run helm lint when planning
+	// Run helm lint when planning.
 	Lint *bool `pulumi:"lint"`
-	// The rendered manifests as JSON.
+	// The rendered manifests as JSON. Not yet supported.
 	Manifest map[string]interface{} `pulumi:"manifest"`
-	// Limit the maximum number of revisions saved per release. Use 0 for no limit
+	// Limit the maximum number of revisions saved per release. Use 0 for no limit.
 	MaxHistory *int `pulumi:"maxHistory"`
 	// Release name.
 	Name *string `pulumi:"name"`
@@ -121,30 +121,30 @@ type ReleaseSpec struct {
 	Namespace *string `pulumi:"namespace"`
 	// Postrender command to run.
 	Postrender *string `pulumi:"postrender"`
-	// Perform pods restart during upgrade/rollback
+	// Perform pods restart during upgrade/rollback.
 	RecreatePods *bool `pulumi:"recreatePods"`
-	// If set, render subchart notes along with the parent
+	// If set, render subchart notes along with the parent.
 	RenderSubchartNotes *bool `pulumi:"renderSubchartNotes"`
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace *bool `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
 	RepositorySpec RepositorySpec `pulumi:"repositorySpec"`
-	// When upgrading, reset the values to the ones built into the chart
+	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues *bool `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
 	ResourceNames map[string][]string `pulumi:"resourceNames"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 	ReuseValues *bool `pulumi:"reuseValues"`
-	// Custom values to be merged with items loaded from values.
-	Set map[string]interface{} `pulumi:"set"`
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 	SkipAwait *bool `pulumi:"skipAwait"`
-	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
+	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds *bool `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout *int `pulumi:"timeout"`
-	// List of assets (raw yaml files) to pass to helm.
-	Values []pulumi.AssetOrArchive `pulumi:"values"`
+	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+	ValueYamlFiles []pulumi.AssetOrArchive `pulumi:"valueYamlFiles"`
+	// Custom values set for the release.
+	Values map[string]interface{} `pulumi:"values"`
 	// Verify the package before installing it.
 	Verify *bool `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -166,19 +166,19 @@ type ReleaseSpecInput interface {
 
 // Specification defining the Helm Release to install.
 type ReleaseSpecArgs struct {
-	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
 	Atomic pulumi.BoolPtrInput `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
 	Chart pulumi.StringInput `pulumi:"chart"`
-	// Allow deletion of new resources created in this upgrade when upgrade fails
+	// Allow deletion of new resources created in this upgrade when upgrade fails.
 	CleanupOnFail pulumi.BoolPtrInput `pulumi:"cleanupOnFail"`
-	// Create the namespace if it does not exist
+	// Create the namespace if it does not exist.
 	CreateNamespace pulumi.BoolPtrInput `pulumi:"createNamespace"`
-	// Run helm dependency update before installing the chart
+	// Run helm dependency update before installing the chart.
 	DependencyUpdate pulumi.BoolPtrInput `pulumi:"dependencyUpdate"`
 	// Add a custom description
 	Description pulumi.StringPtrInput `pulumi:"description"`
-	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel pulumi.BoolPtrInput `pulumi:"devel"`
 	// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
 	DisableCRDHooks pulumi.BoolPtrInput `pulumi:"disableCRDHooks"`
@@ -190,11 +190,11 @@ type ReleaseSpecArgs struct {
 	ForceUpdate pulumi.BoolPtrInput `pulumi:"forceUpdate"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.StringPtrInput `pulumi:"keyring"`
-	// Run helm lint when planning
+	// Run helm lint when planning.
 	Lint pulumi.BoolPtrInput `pulumi:"lint"`
-	// The rendered manifests as JSON.
+	// The rendered manifests as JSON. Not yet supported.
 	Manifest pulumi.MapInput `pulumi:"manifest"`
-	// Limit the maximum number of revisions saved per release. Use 0 for no limit
+	// Limit the maximum number of revisions saved per release. Use 0 for no limit.
 	MaxHistory pulumi.IntPtrInput `pulumi:"maxHistory"`
 	// Release name.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -202,30 +202,30 @@ type ReleaseSpecArgs struct {
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 	// Postrender command to run.
 	Postrender pulumi.StringPtrInput `pulumi:"postrender"`
-	// Perform pods restart during upgrade/rollback
+	// Perform pods restart during upgrade/rollback.
 	RecreatePods pulumi.BoolPtrInput `pulumi:"recreatePods"`
-	// If set, render subchart notes along with the parent
+	// If set, render subchart notes along with the parent.
 	RenderSubchartNotes pulumi.BoolPtrInput `pulumi:"renderSubchartNotes"`
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace pulumi.BoolPtrInput `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
 	RepositorySpec RepositorySpecInput `pulumi:"repositorySpec"`
-	// When upgrading, reset the values to the ones built into the chart
+	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues pulumi.BoolPtrInput `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
 	ResourceNames pulumi.StringArrayMapInput `pulumi:"resourceNames"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
 	ReuseValues pulumi.BoolPtrInput `pulumi:"reuseValues"`
-	// Custom values to be merged with items loaded from values.
-	Set pulumi.MapInput `pulumi:"set"`
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 	SkipAwait pulumi.BoolPtrInput `pulumi:"skipAwait"`
-	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
+	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds pulumi.BoolPtrInput `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
-	// List of assets (raw yaml files) to pass to helm.
-	Values pulumi.AssetOrArchiveArrayInput `pulumi:"values"`
+	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+	ValueYamlFiles pulumi.AssetOrArchiveArrayInput `pulumi:"valueYamlFiles"`
+	// Custom values set for the release.
+	Values pulumi.MapInput `pulumi:"values"`
 	// Verify the package before installing it.
 	Verify pulumi.BoolPtrInput `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -312,7 +312,7 @@ func (o ReleaseSpecOutput) ToReleaseSpecPtrOutputWithContext(ctx context.Context
 	}).(ReleaseSpecPtrOutput)
 }
 
-// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
 func (o ReleaseSpecOutput) Atomic() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Atomic }).(pulumi.BoolPtrOutput)
 }
@@ -322,17 +322,17 @@ func (o ReleaseSpecOutput) Chart() pulumi.StringOutput {
 	return o.ApplyT(func(v ReleaseSpec) string { return v.Chart }).(pulumi.StringOutput)
 }
 
-// Allow deletion of new resources created in this upgrade when upgrade fails
+// Allow deletion of new resources created in this upgrade when upgrade fails.
 func (o ReleaseSpecOutput) CleanupOnFail() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.CleanupOnFail }).(pulumi.BoolPtrOutput)
 }
 
-// Create the namespace if it does not exist
+// Create the namespace if it does not exist.
 func (o ReleaseSpecOutput) CreateNamespace() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.CreateNamespace }).(pulumi.BoolPtrOutput)
 }
 
-// Run helm dependency update before installing the chart
+// Run helm dependency update before installing the chart.
 func (o ReleaseSpecOutput) DependencyUpdate() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.DependencyUpdate }).(pulumi.BoolPtrOutput)
 }
@@ -342,7 +342,7 @@ func (o ReleaseSpecOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
-// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 func (o ReleaseSpecOutput) Devel() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Devel }).(pulumi.BoolPtrOutput)
 }
@@ -372,17 +372,17 @@ func (o ReleaseSpecOutput) Keyring() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *string { return v.Keyring }).(pulumi.StringPtrOutput)
 }
 
-// Run helm lint when planning
+// Run helm lint when planning.
 func (o ReleaseSpecOutput) Lint() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Lint }).(pulumi.BoolPtrOutput)
 }
 
-// The rendered manifests as JSON.
+// The rendered manifests as JSON. Not yet supported.
 func (o ReleaseSpecOutput) Manifest() pulumi.MapOutput {
 	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Manifest }).(pulumi.MapOutput)
 }
 
-// Limit the maximum number of revisions saved per release. Use 0 for no limit
+// Limit the maximum number of revisions saved per release. Use 0 for no limit.
 func (o ReleaseSpecOutput) MaxHistory() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *int { return v.MaxHistory }).(pulumi.IntPtrOutput)
 }
@@ -402,12 +402,12 @@ func (o ReleaseSpecOutput) Postrender() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *string { return v.Postrender }).(pulumi.StringPtrOutput)
 }
 
-// Perform pods restart during upgrade/rollback
+// Perform pods restart during upgrade/rollback.
 func (o ReleaseSpecOutput) RecreatePods() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.RecreatePods }).(pulumi.BoolPtrOutput)
 }
 
-// If set, render subchart notes along with the parent
+// If set, render subchart notes along with the parent.
 func (o ReleaseSpecOutput) RenderSubchartNotes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.RenderSubchartNotes }).(pulumi.BoolPtrOutput)
 }
@@ -422,7 +422,7 @@ func (o ReleaseSpecOutput) RepositorySpec() RepositorySpecOutput {
 	return o.ApplyT(func(v ReleaseSpec) RepositorySpec { return v.RepositorySpec }).(RepositorySpecOutput)
 }
 
-// When upgrading, reset the values to the ones built into the chart
+// When upgrading, reset the values to the ones built into the chart.
 func (o ReleaseSpecOutput) ResetValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ResetValues }).(pulumi.BoolPtrOutput)
 }
@@ -437,17 +437,12 @@ func (o ReleaseSpecOutput) ReuseValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ReuseValues }).(pulumi.BoolPtrOutput)
 }
 
-// Custom values to be merged with items loaded from values.
-func (o ReleaseSpecOutput) Set() pulumi.MapOutput {
-	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Set }).(pulumi.MapOutput)
-}
-
 // By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 func (o ReleaseSpecOutput) SkipAwait() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.SkipAwait }).(pulumi.BoolPtrOutput)
 }
 
-// If set, no CRDs will be installed. By default, CRDs are installed if not already present
+// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 func (o ReleaseSpecOutput) SkipCrds() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.SkipCrds }).(pulumi.BoolPtrOutput)
 }
@@ -457,9 +452,14 @@ func (o ReleaseSpecOutput) Timeout() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *int { return v.Timeout }).(pulumi.IntPtrOutput)
 }
 
-// List of assets (raw yaml files) to pass to helm.
-func (o ReleaseSpecOutput) Values() pulumi.AssetOrArchiveArrayOutput {
-	return o.ApplyT(func(v ReleaseSpec) []pulumi.AssetOrArchive { return v.Values }).(pulumi.AssetOrArchiveArrayOutput)
+// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+func (o ReleaseSpecOutput) ValueYamlFiles() pulumi.AssetOrArchiveArrayOutput {
+	return o.ApplyT(func(v ReleaseSpec) []pulumi.AssetOrArchive { return v.ValueYamlFiles }).(pulumi.AssetOrArchiveArrayOutput)
+}
+
+// Custom values set for the release.
+func (o ReleaseSpecOutput) Values() pulumi.MapOutput {
+	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Values }).(pulumi.MapOutput)
 }
 
 // Verify the package before installing it.
@@ -495,7 +495,7 @@ func (o ReleaseSpecPtrOutput) Elem() ReleaseSpecOutput {
 	return o.ApplyT(func(v *ReleaseSpec) ReleaseSpec { return *v }).(ReleaseSpecOutput)
 }
 
-// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
 func (o ReleaseSpecPtrOutput) Atomic() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -515,7 +515,7 @@ func (o ReleaseSpecPtrOutput) Chart() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Allow deletion of new resources created in this upgrade when upgrade fails
+// Allow deletion of new resources created in this upgrade when upgrade fails.
 func (o ReleaseSpecPtrOutput) CleanupOnFail() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -525,7 +525,7 @@ func (o ReleaseSpecPtrOutput) CleanupOnFail() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Create the namespace if it does not exist
+// Create the namespace if it does not exist.
 func (o ReleaseSpecPtrOutput) CreateNamespace() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -535,7 +535,7 @@ func (o ReleaseSpecPtrOutput) CreateNamespace() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Run helm dependency update before installing the chart
+// Run helm dependency update before installing the chart.
 func (o ReleaseSpecPtrOutput) DependencyUpdate() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -555,7 +555,7 @@ func (o ReleaseSpecPtrOutput) Description() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
+// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 func (o ReleaseSpecPtrOutput) Devel() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -615,7 +615,7 @@ func (o ReleaseSpecPtrOutput) Keyring() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Run helm lint when planning
+// Run helm lint when planning.
 func (o ReleaseSpecPtrOutput) Lint() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -625,7 +625,7 @@ func (o ReleaseSpecPtrOutput) Lint() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The rendered manifests as JSON.
+// The rendered manifests as JSON. Not yet supported.
 func (o ReleaseSpecPtrOutput) Manifest() pulumi.MapOutput {
 	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
 		if v == nil {
@@ -635,7 +635,7 @@ func (o ReleaseSpecPtrOutput) Manifest() pulumi.MapOutput {
 	}).(pulumi.MapOutput)
 }
 
-// Limit the maximum number of revisions saved per release. Use 0 for no limit
+// Limit the maximum number of revisions saved per release. Use 0 for no limit.
 func (o ReleaseSpecPtrOutput) MaxHistory() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *int {
 		if v == nil {
@@ -675,7 +675,7 @@ func (o ReleaseSpecPtrOutput) Postrender() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Perform pods restart during upgrade/rollback
+// Perform pods restart during upgrade/rollback.
 func (o ReleaseSpecPtrOutput) RecreatePods() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -685,7 +685,7 @@ func (o ReleaseSpecPtrOutput) RecreatePods() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// If set, render subchart notes along with the parent
+// If set, render subchart notes along with the parent.
 func (o ReleaseSpecPtrOutput) RenderSubchartNotes() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -715,7 +715,7 @@ func (o ReleaseSpecPtrOutput) RepositorySpec() RepositorySpecPtrOutput {
 	}).(RepositorySpecPtrOutput)
 }
 
-// When upgrading, reset the values to the ones built into the chart
+// When upgrading, reset the values to the ones built into the chart.
 func (o ReleaseSpecPtrOutput) ResetValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -745,16 +745,6 @@ func (o ReleaseSpecPtrOutput) ReuseValues() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Custom values to be merged with items loaded from values.
-func (o ReleaseSpecPtrOutput) Set() pulumi.MapOutput {
-	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
-		if v == nil {
-			return nil
-		}
-		return v.Set
-	}).(pulumi.MapOutput)
-}
-
 // By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 func (o ReleaseSpecPtrOutput) SkipAwait() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
@@ -765,7 +755,7 @@ func (o ReleaseSpecPtrOutput) SkipAwait() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// If set, no CRDs will be installed. By default, CRDs are installed if not already present
+// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 func (o ReleaseSpecPtrOutput) SkipCrds() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -785,14 +775,24 @@ func (o ReleaseSpecPtrOutput) Timeout() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// List of assets (raw yaml files) to pass to helm.
-func (o ReleaseSpecPtrOutput) Values() pulumi.AssetOrArchiveArrayOutput {
+// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+func (o ReleaseSpecPtrOutput) ValueYamlFiles() pulumi.AssetOrArchiveArrayOutput {
 	return o.ApplyT(func(v *ReleaseSpec) []pulumi.AssetOrArchive {
 		if v == nil {
 			return nil
 		}
-		return v.Values
+		return v.ValueYamlFiles
 	}).(pulumi.AssetOrArchiveArrayOutput)
+}
+
+// Custom values set for the release.
+func (o ReleaseSpecPtrOutput) Values() pulumi.MapOutput {
+	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Values
+	}).(pulumi.MapOutput)
 }
 
 // Verify the package before installing it.

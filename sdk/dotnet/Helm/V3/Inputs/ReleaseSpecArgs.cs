@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
     public class ReleaseSpecArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
+        /// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
         /// </summary>
         [Input("atomic")]
         public Input<bool>? Atomic { get; set; }
@@ -28,19 +28,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<string> Chart { get; set; } = null!;
 
         /// <summary>
-        /// Allow deletion of new resources created in this upgrade when upgrade fails
+        /// Allow deletion of new resources created in this upgrade when upgrade fails.
         /// </summary>
         [Input("cleanupOnFail")]
         public Input<bool>? CleanupOnFail { get; set; }
 
         /// <summary>
-        /// Create the namespace if it does not exist
+        /// Create the namespace if it does not exist.
         /// </summary>
         [Input("createNamespace")]
         public Input<bool>? CreateNamespace { get; set; }
 
         /// <summary>
-        /// Run helm dependency update before installing the chart
+        /// Run helm dependency update before installing the chart.
         /// </summary>
         [Input("dependencyUpdate")]
         public Input<bool>? DependencyUpdate { get; set; }
@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<string>? Description { get; set; }
 
         /// <summary>
-        /// Use chart development versions, too. Equivalent to version '&gt;0.0.0-0'. If `version` is set, this is ignored
+        /// Use chart development versions, too. Equivalent to version '&gt;0.0.0-0'. If `version` is set, this is ignored.
         /// </summary>
         [Input("devel")]
         public Input<bool>? Devel { get; set; }
@@ -88,7 +88,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<string>? Keyring { get; set; }
 
         /// <summary>
-        /// Run helm lint when planning
+        /// Run helm lint when planning.
         /// </summary>
         [Input("lint")]
         public Input<bool>? Lint { get; set; }
@@ -97,7 +97,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         private InputMap<object>? _manifest;
 
         /// <summary>
-        /// The rendered manifests as JSON.
+        /// The rendered manifests as JSON. Not yet supported.
         /// </summary>
         public InputMap<object> Manifest
         {
@@ -106,7 +106,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         }
 
         /// <summary>
-        /// Limit the maximum number of revisions saved per release. Use 0 for no limit
+        /// Limit the maximum number of revisions saved per release. Use 0 for no limit.
         /// </summary>
         [Input("maxHistory")]
         public Input<int>? MaxHistory { get; set; }
@@ -130,13 +130,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<string>? Postrender { get; set; }
 
         /// <summary>
-        /// Perform pods restart during upgrade/rollback
+        /// Perform pods restart during upgrade/rollback.
         /// </summary>
         [Input("recreatePods")]
         public Input<bool>? RecreatePods { get; set; }
 
         /// <summary>
-        /// If set, render subchart notes along with the parent
+        /// If set, render subchart notes along with the parent.
         /// </summary>
         [Input("renderSubchartNotes")]
         public Input<bool>? RenderSubchartNotes { get; set; }
@@ -154,7 +154,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<Pulumi.Kubernetes.Types.Inputs.Helm.V3.RepositorySpecArgs> RepositorySpec { get; set; } = null!;
 
         /// <summary>
-        /// When upgrading, reset the values to the ones built into the chart
+        /// When upgrading, reset the values to the ones built into the chart.
         /// </summary>
         [Input("resetValues")]
         public Input<bool>? ResetValues { get; set; }
@@ -177,18 +177,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         [Input("reuseValues")]
         public Input<bool>? ReuseValues { get; set; }
 
-        [Input("set", required: true)]
-        private InputMap<object>? _set;
-
-        /// <summary>
-        /// Custom values to be merged with items loaded from values.
-        /// </summary>
-        public InputMap<object> Set
-        {
-            get => _set ?? (_set = new InputMap<object>());
-            set => _set = value;
-        }
-
         /// <summary>
         /// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         /// </summary>
@@ -196,7 +184,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<bool>? SkipAwait { get; set; }
 
         /// <summary>
-        /// If set, no CRDs will be installed. By default, CRDs are installed if not already present
+        /// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         /// </summary>
         [Input("skipCrds")]
         public Input<bool>? SkipCrds { get; set; }
@@ -207,15 +195,27 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         [Input("timeout")]
         public Input<int>? Timeout { get; set; }
 
-        [Input("values")]
-        private InputList<AssetOrArchive>? _values;
+        [Input("valueYamlFiles")]
+        private InputList<AssetOrArchive>? _valueYamlFiles;
 
         /// <summary>
-        /// List of assets (raw yaml files) to pass to helm.
+        /// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
         /// </summary>
-        public InputList<AssetOrArchive> Values
+        public InputList<AssetOrArchive> ValueYamlFiles
         {
-            get => _values ?? (_values = new InputList<AssetOrArchive>());
+            get => _valueYamlFiles ?? (_valueYamlFiles = new InputList<AssetOrArchive>());
+            set => _valueYamlFiles = value;
+        }
+
+        [Input("values", required: true)]
+        private InputMap<object>? _values;
+
+        /// <summary>
+        /// Custom values set for the release.
+        /// </summary>
+        public InputMap<object> Values
+        {
+            get => _values ?? (_values = new InputMap<object>());
             set => _values = value;
         }
 
