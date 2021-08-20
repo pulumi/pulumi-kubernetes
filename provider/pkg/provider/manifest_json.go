@@ -3,76 +3,80 @@
 package provider
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/pulumi/pulumi/pkg/v3/codegen"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"strings"
 
 	"golang.org/x/crypto/sha3"
-
-	corev1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
-
 	"helm.sh/helm/v3/pkg/releaseutil"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/serializer/yaml"
 )
 
-type resourceMeta struct {
-	metav1.TypeMeta
-	Metadata metav1.ObjectMeta
-}
-
-func convertYAMLManifestToJSON(manifest string) (string, error) {
-	m := map[string]json.RawMessage{}
+func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[string][]string, error) {
+	releaseResources := map[string]codegen.StringSet{}
+	m := map[string]interface{}{}
 
 	resources := releaseutil.SplitManifests(manifest)
 	for _, resource := range resources {
-		jsonbytes, err := yaml.YAMLToJSON([]byte(resource))
+		obj := new(unstructured.Unstructured)
+		// decode YAML into unstructured.Unstructured
+		dec := yaml.NewDecodingSerializer(unstructured.UnstructuredJSONScheme)
+		_, gvk, err := dec.Decode([]byte(resource), nil, obj)
 		if err != nil {
-			return "", fmt.Errorf("could not convert manifest to JSON: %v", err)
+			return nil, nil, err
 		}
 
-		resourceMeta := resourceMeta{}
-		err = yaml.Unmarshal([]byte(resource), &resourceMeta)
-		if err != nil {
-			return "", err
+		resKey := fmt.Sprintf("%s/%s", gvk.GroupKind().String(), obj.GetAPIVersion())
+		resVal, has := releaseResources[resKey]
+		if !has {
+			resVal = codegen.NewStringSet()
 		}
-
-		gvk := resourceMeta.GetObjectKind().GroupVersionKind()
+		resName := obj.GetName()
+		if namespace := obj.GetNamespace(); namespace != "" {
+			resName = fmt.Sprintf("%s/%s", namespace, resName)
+		}
+		resVal.Add(resName)
+		releaseResources[resKey] = resVal
 		key := fmt.Sprintf("%s/%s/%s", strings.ToLower(gvk.GroupKind().String()),
-			resourceMeta.APIVersion,
-			resourceMeta.Metadata.Name)
+			obj.GetAPIVersion(),
+			obj.GetName())
 
-		if namespace := resourceMeta.Metadata.Namespace; namespace != "" {
+		if namespace := obj.GetNamespace(); namespace != "" {
 			key = fmt.Sprintf("%s/%s", namespace, key)
 		}
 
+		var o interface{} = &obj.Object
 		if gvk.Kind == "Secret" {
-			secret := corev1.Secret{}
-			err = yaml.Unmarshal([]byte(resource), &secret)
+			var secret corev1.Secret
+			err = runtime.DefaultUnstructuredConverter.FromUnstructured(obj.Object, &secret)
 			if err != nil {
-				return "", err
+				return nil, nil, err
 			}
 
 			for k, v := range secret.Data {
 				h := hashSensitiveValue(string(v))
 				secret.Data[k] = []byte(h)
 			}
-
-			jsonbytes, err = json.Marshal(secret)
-			if err != nil {
-				return "", err
-			}
+			o = &secret
 		}
-
-		m[key] = jsonbytes
+		unstructured, err := runtime.DefaultUnstructuredConverter.ToUnstructured(o)
+		if err != nil {
+			return nil, nil, err
+		}
+		m[key] = unstructured
 	}
 
-	b, err := json.Marshal(m)
-	if err != nil {
-		return "", err
-	}
+	logger.V(9).Infof("Manifest: %#v", m)
 
-	return string(b), nil
+	releaseResourcesGrouping := map[string][]string{}
+	for k,v := range releaseResources {
+		releaseResourcesGrouping[k] = v.SortedValues()
+	}
+	return m, releaseResourcesGrouping, nil
 }
 
 // hashSensitiveValue creates a hash of a sensitive value and returns the string
@@ -89,13 +93,5 @@ func hashSensitiveValue(v string) string {
 // TODO:
 // redactSensitiveValues removes values that appear in `set` blocks marked as secrets
 // from the manifest JSON
-func redactSensitiveValues(text string, values []string) string {
-	masked := text
-
-	for _, v := range values {
-		h := hashSensitiveValue(v)
-		masked = strings.ReplaceAll(masked, v, h)
-	}
-
-	return masked
+func redactSensitiveValues(source map[string]interface{}, values []string) {
 }

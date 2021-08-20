@@ -22868,8 +22868,11 @@
                     "description": "Run helm lint when planning"
                 },
                 "manifest": {
-                    "type": "string",
-                    "description": "The rendered manifest as JSON."
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "The rendered manifests as JSON."
                 },
                 "maxHistory": {
                     "type": "integer",
@@ -22906,6 +22909,16 @@
                 "resetValues": {
                     "type": "boolean",
                     "description": "When upgrading, reset the values to the ones built into the chart"
+                },
+                "resourceNames": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "description": "Names of resources created by the release grouped by \"kind/version\"."
                 },
                 "reuseValues": {
                     "type": "boolean",
@@ -22966,6 +22979,7 @@
                         "devel",
                         "values",
                         "set",
+                        "manifest",
                         "namespace",
                         "verify",
                         "keyring",

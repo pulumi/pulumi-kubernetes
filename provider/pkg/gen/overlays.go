@@ -262,6 +262,27 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "Custom values to be merged with items loaded from values.",
 				},
+				"manifest": {
+					TypeSpec: pschema.TypeSpec{
+						Type: "object",
+						AdditionalProperties: &pschema.TypeSpec{
+							Ref: "pulumi.json#/Any",
+						},
+					},
+					Description: "The rendered manifests as JSON.",
+				},
+				"resourceNames": {
+					TypeSpec: pschema.TypeSpec{
+						Type: "object",
+						AdditionalProperties: &pschema.TypeSpec{
+							Type: "array",
+							Items: &pschema.TypeSpec{
+								Type: "string",
+							},
+						},
+					},
+					Description: "Names of resources created by the release grouped by \"kind/version\".",
+				},
 				// TODO?
 				//"setSensitive": {
 				//	TypeSpec: pschema.TypeSpec{
@@ -421,12 +442,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "Run helm lint when planning",
 				},
-				"manifest": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					Description: "The rendered manifest as JSON.",
-				},
 			},
 			Type: "object",
 			// TODO: Do we need this?
@@ -440,6 +455,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						"devel",
 						"values",
 						"set",
+						"manifest",
 						"namespace",
 						"verify",
 						"keyring",

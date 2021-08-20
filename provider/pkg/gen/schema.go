@@ -70,24 +70,28 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"suppressHelmReleaseBetaWarning": {
+					Description: "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to true, this warning is omitted.",
+					TypeSpec: pschema.TypeSpec{Type: "boolean"},
+				},
 				"helmDriver": {
-					Description: "The backend storage driver. Values are: configmap, secret, memory, sql",
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 				"helmPluginsPath": {
-					Description: "The path to the helm plugins directory",
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 				"helmRegistryConfigPath": {
-					Description: "The path to the registry config file",
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 				"helmRepositoryConfigPath": {
-					Description: "The path to the file containing repository names and URLs",
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 				"helmRepositoryCache": {
-					Description: "The path to the file containing cached repository indexes",
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 			},
@@ -146,6 +150,60 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					},
 					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"suppressHelmReleaseBetaWarning": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING",
+						},
+					},
+					Description: "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to \"true\", this warning is omitted.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"helmDriver": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_HELM_DRIVER",
+						},
+					},
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmPluginsPath": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_HELM_PLUGINS_PATH",
+						},
+					},
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmRegistryConfigPath": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH",
+						},
+					},
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmRepositoryConfigPath": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH",
+						},
+					},
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"helmRepositoryCache": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8s_HELM_REPOSITORY_CACHE",
+						},
+					},
+					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.",
+					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
 			},
 		},
