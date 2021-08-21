@@ -1761,6 +1761,12 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			"If the cluster has been deleted, you can edit the pulumi state to remove this resource")
 	}
 
+	if isHelmRelease(urn) {
+		logger.V(9).Infof("Calling read on helmReleaseProvider", label)
+		contract.Assertf(k.helmReleaseProvider != nil, "helmReleaseProvider not initialized.")
+		return k.helmReleaseProvider.Read(ctx, req)
+	}
+
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
@@ -1774,13 +1780,6 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	})
 	if err != nil {
 		return nil, err
-	}
-
-	if isHelmRelease(urn) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Read(ctx, req)
-		}
-		return nil, fmt.Errorf("can't read Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)

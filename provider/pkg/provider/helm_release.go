@@ -7,16 +7,18 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	jsonpatch "github.com/evanphx/json-patch"
-	pbempty "github.com/golang/protobuf/ptypes/empty"
-	pkgerrors "github.com/pkg/errors"
-	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"log"
 	"net/url"
 	"os"
 	"strings"
 	"time"
+
+	jsonpatch "github.com/evanphx/json-patch"
+	pbempty "github.com/golang/protobuf/ptypes/empty"
+	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/mitchellh/mapstructure"
@@ -25,7 +27,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"gopkg.in/yaml.v3"
 	"helm.sh/helm/v3/pkg/action"
@@ -245,7 +246,14 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
 	}
 
+	logger.V(9).Infof("Decoding new release.")
 	new, err := decodeRelease(news)
+	if err != nil {
+		return nil, err
+	}
+
+	logger.V(9).Infof("Decoding old release.")
+	old, err := decodeRelease(olds)
 	if err != nil {
 		return nil, err
 	}
@@ -255,19 +263,28 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	if len(olds.Mappable()) > 0 {
-		old, err := decodeRelease(olds)
-		if err != nil {
-			return nil, err
-		}
 		adoptOldNameIfUnnamed(new, old)
-		if err = r.helmUpdate(ctx, urn, news, new, true); err != nil {
-			return nil, err
+		if err = r.helmUpdate(ctx, urn, news, new, old, true); err != nil {
+			if !strings.Contains(err.Error(), "failed to download") {
+				return nil, err
+			}
 		}
 	} else {
 		assignNameIfAutonameable(new, news, "release")
-		if err = r.helmCreate(ctx, urn, news, new, true); err != nil {
+		conf, err := r.getActionConfig(new.ReleaseSpec.Namespace)
+		if err != nil {
 			return nil, err
 		}
+		exists, err := resourceReleaseExists(new.ReleaseSpec.Name, conf)
+		if err != nil {
+			return nil, err
+		}
+		if !exists {
+			if err = r.helmCreate(ctx, urn, news, new, true); err != nil {
+				return nil, err
+			}
+		}
+		// If resource exists, we are likely doing an import. We will just pass the inputs through.
 	}
 
 	autonamed := resource.NewPropertyMap(new)
@@ -368,14 +385,14 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 		client.PostRenderer = pr
 	}
 
-	logger.V(9).Info("install helm chart")
+	logger.V(9).Infof("install helm chart")
 	rel, err := client.Run(c, values)
 	if err != nil && rel == nil {
 		return err
 	}
 
 	if err != nil && rel != nil {
-		exists, existsErr := resourceReleaseExists(newRelease.ReleaseSpec, conf)
+		exists, existsErr := resourceReleaseExists(newRelease.ReleaseSpec.Name, conf)
 
 		if existsErr != nil {
 			return err
@@ -398,12 +415,13 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	return err
 }
 
-func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease *Release, dryrun bool) error {
+func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release, dryrun bool) error {
 	cpo, chartName, err := chartPathOptions(newRelease.ReleaseSpec)
 	if err != nil {
 		return err
 	}
 
+	logger.V(9).Infof("getChart: %q settings: %#v, cpo: %+v", chartName, r.settings, cpo)
 	// Get Chart metadata, if we fail - we're done
 	chart, path, err := getChart(chartName, r.settings, cpo)
 	if err != nil {
@@ -433,7 +451,7 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		}
 	}
 
-	actionConfig, err := r.getActionConfig(newRelease.ReleaseSpec.Namespace)
+	actionConfig, err := r.getActionConfig(oldRelease.ReleaseSpec.Namespace)
 	if err != nil {
 		return err
 	}
@@ -476,10 +494,10 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 
 	rel, err := client.Run(newRelease.ReleaseSpec.Name, chart, values)
 	if err != nil && strings.Contains(err.Error(), "has no deployed releases") {
-		logger.V(9).Infof("No existing ")
+		logger.V(9).Infof("No existing release found.")
 		return err
 	} else if err != nil {
-		return fmt.Errorf("error running dry run for a diff: %w", err)
+		return fmt.Errorf("error running dry run update: %w", err)
 	}
 
 	err = setReleaseAttributes(newRelease, rel, dryrun)
@@ -556,7 +574,7 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	}
 	newRelease.Status.Status = release.StatusDeployed.String()
 
-	if err = r.helmUpdate(ctx, urn, news, newRelease, true); err != nil {
+	if err = r.helmUpdate(ctx, urn, news, newRelease, oldRelease, true); err != nil {
 		return nil, err
 	}
 
@@ -720,6 +738,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Read(%s)", r.name, urn)
+	logger.V(9).Infof("%s Starting", label)
 
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
@@ -738,11 +757,23 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if err != nil {
 		return nil, err
 	}
-	actionConfig, err := r.getActionConfig(existingRelease.ReleaseSpec.Namespace)
+	logger.V(9).Infof("%s decoded release: %#v", label, existingRelease)
+
+	var namespace, name string
+	if len(oldState.Mappable()) == 0 {
+		namespace, name = parseFqName(req.GetId())
+	} else {
+		name = existingRelease.ReleaseSpec.Name
+		namespace = existingRelease.ReleaseSpec.Namespace
+	}
+
+	logger.V(9).Infof("%s Starting import for %s/%s: %#v", label, namespace, name)
+
+	actionConfig, err := r.getActionConfig(namespace)
 	if err != nil {
 		return nil, err
 	}
-	exists, err := resourceReleaseExists(existingRelease.ReleaseSpec, actionConfig)
+	exists, err := resourceReleaseExists(name, actionConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -752,7 +783,6 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return deleteResponse, nil
 	}
 
-	name := existingRelease.ReleaseSpec.Name
 	liveObj, err := getRelease(actionConfig, name)
 	if err != nil {
 		return nil, err
@@ -762,6 +792,22 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if err != nil {
 		return nil, err
 	}
+
+	cpo, chartName, err := chartPathOptions(existingRelease.ReleaseSpec)
+	if err != nil {
+		return nil, err
+	}
+
+	logger.V(9).Infof("Trying to get chart: %q, settings: %#v", chartName, r.settings)
+
+	// Helm itself doesn't store any information about where the Chart was downloaded from.
+	// We need the user to ensure the chart is downloadable by using `helm repo add` etc.
+	_, _, err = getChart(chartName, r.settings, cpo)
+	if err != nil {
+		return nil, err
+	}
+
+	logger.V(9).Infof("%s Found release %s/%s", label, namespace, name)
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
@@ -795,7 +841,15 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Update(%s)", r.name, urn)
-	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
+	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.olds", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		KeepSecrets:  true,
+	})
+	if err != nil {
+		return nil, err
+	}
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
@@ -813,7 +867,12 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 
-	if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, req.GetPreview()); err != nil {
+	oldRelease, err := decodeRelease(oldState)
+	if err != nil {
+		return nil, err
+	}
+
+	if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease, req.GetPreview()); err != nil {
 		return nil, err
 	}
 
@@ -891,6 +950,18 @@ func parseCheckpointRelease(obj resource.PropertyMap) (resource.PropertyMap, res
 func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) error {
 	logger.V(9).Infof("Will populate dest: %#v with data from release: %+v", release, r)
 
+	// import
+	if release.ReleaseSpec == nil {
+		release.ReleaseSpec = &ReleaseSpec{
+			Chart:       r.Chart.Metadata.Name,
+			Description: r.Info.Description,
+			Name:        r.Name,
+			Namespace:   r.Namespace,
+			Values:      r.Config,
+			Version:     r.Chart.Metadata.Version,
+		}
+	}
+
 	_, resources, err := convertYAMLManifestToJSON(r.Manifest)
 	if err != nil {
 		return err
@@ -922,12 +993,11 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	return nil
 }
 
-func resourceReleaseExists(releaseSpec *ReleaseSpec, actionConfig *action.Configuration) (bool, error) {
-	logger.V(9).Infof("[resourceReleaseExists: %s]", releaseSpec.Name)
-	name := releaseSpec.Name
+func resourceReleaseExists(name string, actionConfig *action.Configuration) (bool, error) {
+	logger.V(9).Infof("[resourceReleaseExists: %s]", name)
 	_, err := getRelease(actionConfig, name)
 
-	logger.V(9).Infof("[resourceReleaseExists: %s] Done", releaseSpec.Name)
+	logger.V(9).Infof("[resourceReleaseExists: %s] Done", name)
 
 	if err == nil {
 		return true, nil
@@ -942,24 +1012,24 @@ func resourceReleaseExists(releaseSpec *ReleaseSpec, actionConfig *action.Config
 
 func getRelease(cfg *action.Configuration, name string) (*release.Release, error) {
 	get := action.NewGet(cfg)
-	debug("%s getRelease post action created", name)
+	logger.V(9).Infof("%s getRelease post action created", name)
 
 	res, err := get.Run(name)
-	debug("%s getRelease post run", name)
+	logger.V(9).Infof("%s getRelease post run", name)
 
 	if err != nil {
-		debug("getRelease for %s errored", name)
-		debug("%v", err)
+		logger.V(9).Infof("getRelease for %s errored", name)
+		logger.V(9).Infof("%v", err)
 		if strings.Contains(err.Error(), "release: not found") {
 			return nil, errReleaseNotFound
 		}
 
-		debug("could not get release %s", err)
+		logger.V(9).Infof("could not get release %s", err)
 
 		return nil, err
 	}
 
-	debug("%s getRelease done", name)
+	logger.V(9).Infof("%s getRelease done", name)
 
 	return res, nil
 }
@@ -1092,7 +1162,7 @@ func getVersion(releaseSpec *ReleaseSpec) (version string) {
 	version = releaseSpec.Version
 
 	if version == "" && releaseSpec.Devel {
-		debug("setting version to >0.0.0-0")
+		logger.V(9).Infof("setting version to >0.0.0-0")
 		version = ">0.0.0-0"
 	} else {
 		version = strings.TrimSpace(version)
