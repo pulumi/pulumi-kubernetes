@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Add initial support for a Helm release resource - `kubernetes:helm.sh/v3:Release`. Currently available in Beta (https://github.com/pulumi/pulumi-kubernetes/pull/1677)
 
 ## 3.6.2 (August 20, 2021)
 
