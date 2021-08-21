@@ -7,7 +7,7 @@ require (
 	github.com/evanphx/json-patch v4.11.0+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/googleapis/gnostic v0.5.1
-	github.com/imdario/mergo v0.3.11
+	github.com/imdario/mergo v0.3.12
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect

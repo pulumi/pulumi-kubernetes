@@ -25,6 +25,7 @@ class ProviderArgs:
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
                  suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
+                 suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
                  suppress_helm_release_beta_warning: Optional[pulumi.Input[bool]] = None):
         """
         The set of arguments for constructing a Provider resource.
@@ -53,6 +54,7 @@ class ProviderArgs:
                and may result in an error if they are referenced by other resources. Also note that any secret values
                used in these resources will be rendered in plaintext to the resulting YAML.
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
+        :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_release_beta_warning: While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
         """
         if cluster is not None:
@@ -95,6 +97,10 @@ class ProviderArgs:
             suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
         if suppress_deprecation_warnings is not None:
             pulumi.set(__self__, "suppress_deprecation_warnings", suppress_deprecation_warnings)
+        if suppress_helm_hook_warnings is None:
+            suppress_helm_hook_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS')
+        if suppress_helm_hook_warnings is not None:
+            pulumi.set(__self__, "suppress_helm_hook_warnings", suppress_helm_hook_warnings)
         if suppress_helm_release_beta_warning is None:
             suppress_helm_release_beta_warning = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING')
         if suppress_helm_release_beta_warning is not None:
@@ -258,6 +264,18 @@ class ProviderArgs:
         pulumi.set(self, "suppress_deprecation_warnings", value)
 
     @property
+    @pulumi.getter(name="suppressHelmHookWarnings")
+    def suppress_helm_hook_warnings(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+        """
+        return pulumi.get(self, "suppress_helm_hook_warnings")
+
+    @suppress_helm_hook_warnings.setter
+    def suppress_helm_hook_warnings(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "suppress_helm_hook_warnings", value)
+
+    @property
     @pulumi.getter(name="suppressHelmReleaseBetaWarning")
     def suppress_helm_release_beta_warning(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -287,6 +305,7 @@ class Provider(pulumi.ProviderResource):
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
                  suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
+                 suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
                  suppress_helm_release_beta_warning: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
@@ -319,6 +338,7 @@ class Provider(pulumi.ProviderResource):
                and may result in an error if they are referenced by other resources. Also note that any secret values
                used in these resources will be rendered in plaintext to the resulting YAML.
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
+        :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_release_beta_warning: While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
         """
         ...
@@ -357,6 +377,7 @@ class Provider(pulumi.ProviderResource):
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
                  suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
+                 suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
                  suppress_helm_release_beta_warning: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         if opts is None:
@@ -398,6 +419,9 @@ class Provider(pulumi.ProviderResource):
             if suppress_deprecation_warnings is None:
                 suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
             __props__.__dict__["suppress_deprecation_warnings"] = pulumi.Output.from_input(suppress_deprecation_warnings).apply(pulumi.runtime.to_json) if suppress_deprecation_warnings is not None else None
+            if suppress_helm_hook_warnings is None:
+                suppress_helm_hook_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS')
+            __props__.__dict__["suppress_helm_hook_warnings"] = pulumi.Output.from_input(suppress_helm_hook_warnings).apply(pulumi.runtime.to_json) if suppress_helm_hook_warnings is not None else None
             if suppress_helm_release_beta_warning is None:
                 suppress_helm_release_beta_warning = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING')
             __props__.__dict__["suppress_helm_release_beta_warning"] = pulumi.Output.from_input(suppress_helm_release_beta_warning).apply(pulumi.runtime.to_json) if suppress_helm_release_beta_warning is not None else None

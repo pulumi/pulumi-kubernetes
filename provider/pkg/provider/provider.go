@@ -34,6 +34,7 @@ import (
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
+	"github.com/imdario/mergo"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
@@ -119,6 +120,7 @@ type kubeProvider struct {
 	enableDryRun                bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
+	suppressHelmHookWarnings    bool
 
 	suppressHelmReleaseBetaWarning bool
 	helmDriver                     string
@@ -437,9 +439,25 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.suppressDeprecationWarnings = true
 	}
 
+	suppressHelmHookWarnings := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:suppressHelmHookWarnings"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if suppressHelmHookWarnings() {
+		k.suppressHelmHookWarnings = true
+	}
+
 	renderYamlToDirectory := func() string {
 		// Read the config from the Provider.
-		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists {
+		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists && directory != "" {
 			return directory
 		}
 		return ""
@@ -1156,28 +1174,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	var failures []*pulumirpc.CheckFailure
 
-	hasHelmHook := false
-	for key, value := range newInputs.GetAnnotations() {
-		// If annotations with a reserved internal prefix exist, ignore them.
-		if metadata.IsInternalAnnotation(key) {
-			_ = k.host.Log(ctx, diag.Warning, urn,
-				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
-		}
-
-		// If the Helm hook annotation is found, set the hasHelmHook flag.
-		if has := metadata.IsHelmHookAnnotation(key); has {
-			// Test hooks are handled, so ignore this one.
-			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
-				hasHelmHook = hasHelmHook || has
-			}
-		}
-	}
-	if hasHelmHook {
-		_ = k.host.Log(ctx, diag.Warning, urn,
-			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
-				"be created, but any hooks will not be executed. Hooks support is tracked at "+
-				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
-	}
+	k.helmHookWarning(ctx, newInputs, urn)
 
 	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
 	if err != nil {
@@ -1316,6 +1313,34 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
 
+// helmHookWarning logs a warning if a Chart contains unsupported hooks. The warning can be disabled by setting
+// the suppressHelmHookWarnings provider flag or related ENV var.
+func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructured.Unstructured, urn resource.URN) {
+	hasHelmHook := false
+	for key, value := range newInputs.GetAnnotations() {
+		// If annotations with a reserved internal prefix exist, ignore them.
+		if metadata.IsInternalAnnotation(key) {
+			_ = k.host.Log(ctx, diag.Warning, urn,
+				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
+		}
+
+		// If the Helm hook annotation is found, set the hasHelmHook flag.
+		if has := metadata.IsHelmHookAnnotation(key); has {
+			// Test hooks are handled, so ignore this one.
+			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
+				hasHelmHook = hasHelmHook || has
+			}
+		}
+	}
+	if hasHelmHook && !k.suppressHelmHookWarnings {
+		_ = k.host.Log(ctx, diag.Warning, urn,
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
+				"be created, but any hooks will not be executed. Hooks support is tracked at "+
+				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- This warning can be disabled by setting "+
+				"the PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS environment variable")
+	}
+}
+
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
 func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	//
@@ -1400,64 +1425,49 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	var patch []byte
-	var isClientSidePatch bool
-	var patchBase *unstructured.Unstructured
+	var patchBase map[string]interface{}
 
-	// Try to compute a server-side patch. Returns true iff the operation succeeded.
-	tryServerSidePatch := func() bool {
-		// If the resource's GVK changed, so compute patch using inputs.
-		if oldInputs.GroupVersionKind().String() != gvk.String() {
-			return false
-		}
-		// If we can't dry-run the new GVK, computed the patch using inputs.
-		if !k.supportsDryRun(gvk) {
-			return false
-		}
-		// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
-		// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
-		// bug.
-		if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
-			return false
-		}
-
-		patch, patchBase, err = k.serverSidePatch(oldInputs, newInputs)
-		if k.isDryRunDisabledError(err) {
-			return false
-		}
-		if se, isStatusError := err.(*errors.StatusError); isStatusError {
-			// If the resource field is immutable.
-			if se.Status().Code == http.StatusUnprocessableEntity ||
-				strings.Contains(se.ErrStatus.Message, "field is immutable") {
-				return false
-			}
-		}
-
-		// The server-side patch succeeded.
-		return true
-	}
-	if !tryServerSidePatch() {
-		isClientSidePatch = true
-		patch, err = k.inputPatch(oldInputs, newInputs)
-		patchBase = oldInputs
-	}
-
-	if isClientSidePatch {
-		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-	} else {
-		logger.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
-	}
+	// Always compute a client-side patch.
+	patch, err = k.inputPatch(oldInputs, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+
-				"describing the resource changes",
-			newInputs.GetNamespace(), newInputs.GetName())
+			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
 	}
+	patchBase = oldInputs.Object
+
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes",
 			newInputs.GetNamespace(), newInputs.GetName())
+	}
+
+	// Try to compute a server-side patch.
+	ssPatch, ssPatchBase, ssPatchOk := k.tryServerSidePatch(oldInputs, newInputs, gvk)
+
+	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
+	// with the server-side values.
+	if ssPatchOk {
+		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
+		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverride)
+		if err != nil {
+			return nil, err
+		}
+
+		ssPatchObj := map[string]interface{}{}
+		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
+			return nil, pkgerrors.Wrapf(
+				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
+					"the JSON patch describing resource changes",
+				newInputs.GetNamespace(), newInputs.GetName())
+		}
+		err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 	}
 
 	// Pack up PB, ship response back.
@@ -1472,16 +1482,15 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, forceNewProperties(gvk)...); err != nil {
+		forceNewFields := forceNewProperties(gvk)
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
-		if isClientSidePatch {
-			for _, v := range detailedDiff {
-				v.InputDiff = true
-			}
+		for _, v := range detailedDiff {
+			v.InputDiff = true
 		}
 
 		for k, v := range detailedDiff {
@@ -2329,9 +2338,8 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(context.TODO(), obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) serverSidePatch(
-	oldInputs, newInputs *unstructured.Unstructured,
-) ([]byte, *unstructured.Unstructured, error) {
+func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured,
+) ([]byte, map[string]interface{}, error) {
 
 	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
 	if err != nil {
@@ -2397,7 +2405,7 @@ func (k *kubeProvider) serverSidePatch(
 		return nil, nil, err
 	}
 
-	return patch, liveObject, nil
+	return patch, liveObject.Object, nil
 }
 
 // inputPatch calculates a patch on the client-side by comparing old inputs to the current inputs.
@@ -2440,6 +2448,40 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 		(se.Status().Message == "the dryRun alpha feature is disabled" ||
 			se.Status().Message == "the dryRun beta feature is disabled" ||
 			strings.Contains(se.Status().Message, "does not support dry run"))
+}
+
+// tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
+func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Unstructured, gvk schema.GroupVersionKind,
+) ([]byte, map[string]interface{}, bool) {
+	// If the resource's GVK changed, so compute patch using inputs.
+	if oldInputs.GroupVersionKind().String() != gvk.String() {
+		return nil, nil, false
+	}
+	// If we can't dry-run the new GVK, computed the patch using inputs.
+	if !k.supportsDryRun(gvk) {
+		return nil, nil, false
+	}
+	// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
+	// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
+	// bug.
+	if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
+		return nil, nil, false
+	}
+
+	ssPatch, ssPatchBase, err := k.serverSidePatch(oldInputs, newInputs)
+	if k.isDryRunDisabledError(err) {
+		return nil, nil, false
+	}
+	if se, isStatusError := err.(*errors.StatusError); isStatusError {
+		// If the resource field is immutable.
+		if se.Status().Code == http.StatusUnprocessableEntity ||
+			strings.Contains(se.ErrStatus.Message, "field is immutable") {
+			return nil, nil, false
+		}
+	}
+
+	// The server-side patch succeeded.
+	return ssPatch, ssPatchBase, true
 }
 
 func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {

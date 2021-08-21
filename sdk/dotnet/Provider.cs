@@ -132,6 +132,12 @@ namespace Pulumi.Kubernetes
         public Input<bool>? SuppressDeprecationWarnings { get; set; }
 
         /// <summary>
+        /// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+        /// </summary>
+        [Input("suppressHelmHookWarnings", json: true)]
+        public Input<bool>? SuppressHelmHookWarnings { get; set; }
+
+        /// <summary>
         /// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
         /// </summary>
         [Input("suppressHelmReleaseBetaWarning", json: true)]
@@ -147,6 +153,7 @@ namespace Pulumi.Kubernetes
             HelmRepositoryConfigPath = Utilities.GetEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
+            SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");
             SuppressHelmReleaseBetaWarning = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING");
         }
     }

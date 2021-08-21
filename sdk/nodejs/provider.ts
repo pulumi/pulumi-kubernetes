@@ -46,6 +46,7 @@ export class Provider extends pulumi.ProviderResource {
             inputs["namespace"] = args ? args.namespace : undefined;
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
             inputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
+            inputs["suppressHelmHookWarnings"] = pulumi.output((args ? args.suppressHelmHookWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
             inputs["suppressHelmReleaseBetaWarning"] = pulumi.output((args ? args.suppressHelmReleaseBetaWarning : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING")).apply(JSON.stringify);
         }
         if (!opts.version) {
@@ -120,6 +121,10 @@ export interface ProviderArgs {
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */
     suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    /**
+     * If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+     */
+    suppressHelmHookWarnings?: pulumi.Input<boolean>;
     /**
      * While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
      */

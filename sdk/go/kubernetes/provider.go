@@ -46,6 +46,9 @@ func NewProvider(ctx *pulumi.Context,
 	if args.SuppressDeprecationWarnings == nil {
 		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
 	}
+	if args.SuppressHelmHookWarnings == nil {
+		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
+	}
 	if args.SuppressHelmReleaseBetaWarning == nil {
 		args.SuppressHelmReleaseBetaWarning = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING").(bool))
 	}
@@ -95,6 +98,8 @@ type providerArgs struct {
 	RenderYamlToDirectory *string `pulumi:"renderYamlToDirectory"`
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
+	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+	SuppressHelmHookWarnings *bool `pulumi:"suppressHelmHookWarnings"`
 	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
 	SuppressHelmReleaseBetaWarning *bool `pulumi:"suppressHelmReleaseBetaWarning"`
 }
@@ -138,6 +143,8 @@ type ProviderArgs struct {
 	RenderYamlToDirectory pulumi.StringPtrInput
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
+	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+	SuppressHelmHookWarnings pulumi.BoolPtrInput
 	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
 	SuppressHelmReleaseBetaWarning pulumi.BoolPtrInput
 }
