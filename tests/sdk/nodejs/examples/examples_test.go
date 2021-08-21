@@ -400,6 +400,45 @@ func TestAccProvider(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestHelmRelease(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
+				assert.Equal(t, stackInfo.Outputs["status"], "deployed")
+				for _, res := range stackInfo.Deployment.Resources {
+					if res.Type == "kubernetes:helm.sh/v3:Release" {
+						relSpec, has := res.Inputs["releaseSpec"]
+						assert.True(t, has)
+						relSpecMap, is := relSpec.(map[string]interface{})
+						assert.True(t, is)
+						version, has := relSpecMap["version"]
+						assert.True(t, has)
+						spec, has := res.Outputs["status"]
+						assert.True(t, has)
+						specMap, is := spec.(map[string]interface{})
+						assert.True(t, is)
+						versionOut, has := specMap["version"]
+						assert.True(t, has)
+						assert.Equal(t, version , versionOut)
+					}
+				}
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(getCwd(t), "helm-release", "step2"),
+					Additive:        true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func skipIfShort(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")

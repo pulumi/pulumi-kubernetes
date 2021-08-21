@@ -262,6 +262,10 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		new.ReleaseSpec.Namespace = r.defaultNamespace
 	}
 
+	if !new.ReleaseSpec.SkipAwait && new.ReleaseSpec.Timeout == 0 {
+		new.ReleaseSpec.Timeout = 300
+	}
+
 	if len(olds.Mappable()) > 0 {
 		adoptOldNameIfUnnamed(new, old)
 		if err = r.helmUpdate(ctx, urn, news, new, old, true); err != nil {

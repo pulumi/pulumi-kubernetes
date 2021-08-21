@@ -335,6 +335,25 @@ func TestHelm(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
+func TestHelmRelease(t *testing.T) {
+	t.Skip("Temp skipping")
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "helm-release", "step1"),
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join(cwd, "helm-release", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
+
 func TestHelmLocal(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
