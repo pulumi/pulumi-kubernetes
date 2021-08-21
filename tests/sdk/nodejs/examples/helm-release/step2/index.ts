@@ -36,7 +36,6 @@ const release = new k8s.helm.v3.Release("release", {
                 create: true,
             }
         },
-        timeout: 120,
     },
 });
 
