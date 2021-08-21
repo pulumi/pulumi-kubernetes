@@ -347,8 +347,8 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		"kubernetes/helm/v3/init.go",
 		"kubernetes/helm/v3/release.go",
 	},
-	"package v3",
-	"package helm")
+		"package v3",
+		"package helm")
 
 	resources, err := gogen.LanguageResources("pulumigen", pkg)
 	if err != nil {

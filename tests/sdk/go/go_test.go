@@ -104,7 +104,6 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
-
 	t.Run("Helm API Versions", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-api-versions", "step1"),

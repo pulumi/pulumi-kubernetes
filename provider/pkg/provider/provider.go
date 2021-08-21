@@ -1771,7 +1771,6 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 
 	if isHelmRelease(urn) {
-		logger.V(9).Infof("Calling read on helmReleaseProvider", label)
 		contract.Assertf(k.helmReleaseProvider != nil, "helmReleaseProvider not initialized.")
 		return k.helmReleaseProvider.Read(ctx, req)
 	}

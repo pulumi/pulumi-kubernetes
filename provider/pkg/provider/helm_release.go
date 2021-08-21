@@ -771,7 +771,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		namespace = existingRelease.ReleaseSpec.Namespace
 	}
 
-	logger.V(9).Infof("%s Starting import for %s/%s: %#v", label, namespace, name)
+	logger.V(9).Infof("%s Starting import for %s/%s", label, namespace, name)
 
 	actionConfig, err := r.getActionConfig(namespace)
 	if err != nil {
