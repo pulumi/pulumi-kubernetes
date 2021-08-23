@@ -71,10 +71,6 @@ type providerArgs struct {
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
 	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
-	//
-	// This config can be specified in the following ways, using this precedence:
-	// 1. This `suppressHelmHookWarnings` parameter.
-	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
 	SuppressHelmHookWarnings *bool `pulumi:"suppressHelmHookWarnings"`
 }
 
@@ -108,10 +104,6 @@ type ProviderArgs struct {
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
 	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
-	//
-	// This config can be specified in the following ways, using this precedence:
-	// 1. This `suppressHelmHookWarnings` parameter.
-	// 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
 	SuppressHelmHookWarnings pulumi.BoolPtrInput
 }
 
