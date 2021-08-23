@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.6.3 (August 23, 2021)
+
 - [sdk/go] Re-add deprecated Provider file (https://github.com/pulumi/pulumi-kubernetes/pull/1687)
 
 ## 3.6.2 (August 20, 2021)
