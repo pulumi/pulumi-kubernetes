@@ -11,11 +11,13 @@ import (
 )
 
 // The provider type for the kubernetes package.
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type Provider struct {
 	pulumi.ProviderResourceState
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func NewProvider(ctx *pulumi.Context,
 	name string, args *ProviderArgs, opts ...pulumi.ResourceOption) (*Provider, error) {
 	if args == nil {
@@ -42,6 +44,7 @@ func NewProvider(ctx *pulumi.Context,
 	return &resource, nil
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type providerArgs struct {
 	// If present, the name of the kubeconfig cluster to use.
 	Cluster *string `pulumi:"cluster"`
@@ -75,6 +78,7 @@ type providerArgs struct {
 }
 
 // The set of arguments for constructing a Provider resource.
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type ProviderArgs struct {
 	// If present, the name of the kubeconfig cluster to use.
 	Cluster pulumi.StringPtrInput
@@ -107,10 +111,12 @@ type ProviderArgs struct {
 	SuppressHelmHookWarnings pulumi.BoolPtrInput
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (ProviderArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*providerArgs)(nil)).Elem()
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type ProviderInput interface {
 	pulumi.Input
 
@@ -118,26 +124,32 @@ type ProviderInput interface {
 	ToProviderOutputWithContext(ctx context.Context) ProviderOutput
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (*Provider) ElementType() reflect.Type {
 	return reflect.TypeOf((*Provider)(nil))
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (i *Provider) ToProviderOutput() ProviderOutput {
 	return i.ToProviderOutputWithContext(context.Background())
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (i *Provider) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderOutput)
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (i *Provider) ToProviderPtrOutput() ProviderPtrOutput {
 	return i.ToProviderPtrOutputWithContext(context.Background())
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (i *Provider) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderPtrOutput)
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type ProviderPtrInput interface {
 	pulumi.Input
 
@@ -145,62 +157,77 @@ type ProviderPtrInput interface {
 	ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type providerPtrType ProviderArgs
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (*providerPtrType) ElementType() reflect.Type {
 	return reflect.TypeOf((**Provider)(nil))
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (i *providerPtrType) ToProviderPtrOutput() ProviderPtrOutput {
 	return i.ToProviderPtrOutputWithContext(context.Background())
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (i *providerPtrType) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderPtrOutput)
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type ProviderOutput struct {
 	*pulumi.OutputState
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (ProviderOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Provider)(nil))
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (o ProviderOutput) ToProviderOutput() ProviderOutput {
 	return o
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return o
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (o ProviderOutput) ToProviderPtrOutput() ProviderPtrOutput {
 	return o.ToProviderPtrOutputWithContext(context.Background())
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (o ProviderOutput) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
 	return o.ApplyT(func(v Provider) *Provider {
 		return &v
 	}).(ProviderPtrOutput)
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 type ProviderPtrOutput struct {
 	*pulumi.OutputState
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (ProviderPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Provider)(nil))
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (o ProviderPtrOutput) ToProviderPtrOutput() ProviderPtrOutput {
 	return o
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func (o ProviderPtrOutput) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
 	return o
 }
 
+// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func init() {
 	pulumi.RegisterOutputType(ProviderOutput{})
 	pulumi.RegisterOutputType(ProviderPtrOutput{})

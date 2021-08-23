@@ -44,10 +44,6 @@ class ProviderArgs:
                used in these resources will be rendered in plaintext to the resulting YAML.
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
-               
-               This config can be specified in the following ways, using this precedence:
-               1. This `suppressHelmHookWarnings` parameter.
-               2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
         """
         if cluster is not None:
             pulumi.set(__self__, "cluster", cluster)
@@ -176,10 +172,6 @@ class ProviderArgs:
     def suppress_helm_hook_warnings(self) -> Optional[pulumi.Input[bool]]:
         """
         If present and set to true, suppress unsupported Helm hook warnings from the CLI.
-
-        This config can be specified in the following ways, using this precedence:
-        1. This `suppressHelmHookWarnings` parameter.
-        2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
         """
         return pulumi.get(self, "suppress_helm_hook_warnings")
 
@@ -228,10 +220,6 @@ class Provider(pulumi.ProviderResource):
                used in these resources will be rendered in plaintext to the resulting YAML.
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
-               
-               This config can be specified in the following ways, using this precedence:
-               1. This `suppressHelmHookWarnings` parameter.
-               2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
         """
         ...
     @overload
