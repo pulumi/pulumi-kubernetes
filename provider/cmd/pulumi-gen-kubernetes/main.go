@@ -372,6 +372,15 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
+	// We mistakenly included an older version of the Go Provider at
+	// `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/providers` that was later removed in v3.6.0.
+	// Re-add this file with deprecation notices in preparation for future removal.
+	deprecatedComment := "// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead"
+	deprecatedProviderFile := string(files["kubernetes/provider.go"])
+	deprecatedProviderFile = strings.ReplaceAll(deprecatedProviderFile, "\nfunc", fmt.Sprintf("\n%s\nfunc", deprecatedComment))
+	deprecatedProviderFile = strings.ReplaceAll(deprecatedProviderFile, "\ntype", fmt.Sprintf("\n%s\ntype", deprecatedComment))
+	files["kubernetes/providers/provider.go"] = []byte(deprecatedProviderFile)
+
 	files["kubernetes/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "pulumiTypes.go"))
 	files["kubernetes/apiextensions/customResource.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResource.go"))
 	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))

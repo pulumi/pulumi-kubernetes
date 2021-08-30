@@ -1,6 +1,10 @@
 ## HEAD (Unreleased)
 - Add initial support for a Helm release resource - `kubernetes:helm.sh/v3:Release`. Currently available in Beta (https://github.com/pulumi/pulumi-kubernetes/pull/1677)
 
+## 3.6.3 (August 23, 2021)
+
+- [sdk/go] Re-add deprecated Provider file (https://github.com/pulumi/pulumi-kubernetes/pull/1687)
+
 ## 3.6.2 (August 20, 2021)
 
 - Fix environment variable name in disable Helm hook warnings message (https://github.com/pulumi/pulumi-kubernetes/pull/1683)
