@@ -222,7 +222,7 @@ export class Chart extends yaml.CollectionComponentResource {
                             stdio: ['pipe', 'pipe', 'ignore'], // Suppress tiller version error
                         },
                     ).toString();
-                } catch (e) {
+                } catch (e: any) {
                     helmVer = e.stdout.toString();
                 }
 
@@ -245,7 +245,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 ).toString();
                 return this.parseTemplate(
                     yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps, cfg.namespace);
-            } catch (e) {
+            } catch (e: any) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
             } finally {
@@ -253,6 +253,9 @@ export class Chart extends yaml.CollectionComponentResource {
                 chartDir.removeCallback();
                 overrides.removeCallback();
             }
+
+            // Without this block, the TS compiler adds `| undefined` even though execution won't get here.
+            return pulumi.output<{[key: string]: pulumi.CustomResource}>({});
         });
 
         this.ready = this.resources.apply(m => Object.values(m));
