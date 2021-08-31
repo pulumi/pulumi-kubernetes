@@ -103,7 +103,6 @@ class Release(pulumi.CustomResource):
             if release_spec is None and not opts.urn:
                 raise TypeError("Missing required property 'release_spec'")
             __props__.__dict__["release_spec"] = release_spec
-            __props__.__dict__["resource_type"] = None
             __props__.__dict__["status"] = None
         super(Release, __self__).__init__(
             'kubernetes:helm.sh/v3:Release',
@@ -128,7 +127,6 @@ class Release(pulumi.CustomResource):
         __props__ = ReleaseArgs.__new__(ReleaseArgs)
 
         __props__.__dict__["release_spec"] = None
-        __props__.__dict__["resource_type"] = None
         __props__.__dict__["status"] = None
         return Release(resource_name, opts=opts, __props__=__props__)
 
@@ -136,11 +134,6 @@ class Release(pulumi.CustomResource):
     @pulumi.getter(name="releaseSpec")
     def release_spec(self) -> pulumi.Output['outputs.ReleaseSpec']:
         return pulumi.get(self, "release_spec")
-
-    @property
-    @pulumi.getter(name="resourceType")
-    def resource_type(self) -> pulumi.Output[Optional[str]]:
-        return pulumi.get(self, "resource_type")
 
     @property
     @pulumi.getter

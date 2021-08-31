@@ -54,14 +54,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseSpec",
 					},
 				},
-				// HACK - workaround compat breakage in C# codegen
-				"resourceType": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					Const:   "true",
-					Default: "kubernetes:helm.sh/v3:Release",
-				},
 				"status": {
 					TypeSpec: pschema.TypeSpec{
 						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
@@ -485,14 +477,6 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 					TypeSpec: pschema.TypeSpec{
 						Ref: "#/types/kubernetes:helm.sh/v3:ReleaseSpec",
 					},
-				},
-				// HACK - workaround compat breakage in C# codegen
-				"resourceType": {
-					TypeSpec: pschema.TypeSpec{
-						Type: "string",
-					},
-					Const:   "true",
-					Default: "kubernetes:helm.sh/v3:Release",
 				},
 				"status": {
 					TypeSpec: pschema.TypeSpec{

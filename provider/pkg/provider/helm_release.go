@@ -46,7 +46,6 @@ var errReleaseNotFound = errors.New("release not found")
 
 // Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
-	ResourceType string       `json:"resourceType,omitempty"`
 	ReleaseSpec  *ReleaseSpec `json:"releaseSpec,omitempty"`
 	// Status of the deployed release.
 	Status *ReleaseStatus `json:"status,omitempty"`

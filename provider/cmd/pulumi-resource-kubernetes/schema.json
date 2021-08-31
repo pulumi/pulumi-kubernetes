@@ -22796,11 +22796,6 @@
                 "releaseSpec": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
                 },
-                "resourceType": {
-                    "type": "string",
-                    "const": "true",
-                    "default": "kubernetes:helm.sh/v3:Release"
-                },
                 "status": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
                     "description": "Status of the deployed release."
@@ -39453,11 +39448,6 @@
             "properties": {
                 "releaseSpec": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseSpec"
-                },
-                "resourceType": {
-                    "type": "string",
-                    "const": "true",
-                    "default": "kubernetes:helm.sh/v3:Release"
                 },
                 "status": {
                     "$ref": "#/types/kubernetes:helm.sh/v3:ReleaseStatus",

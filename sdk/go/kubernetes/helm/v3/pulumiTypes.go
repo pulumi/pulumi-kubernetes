@@ -14,8 +14,7 @@ import (
 // A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
 // Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 type ReleaseType struct {
-	ReleaseSpec  ReleaseSpec `pulumi:"releaseSpec"`
-	ResourceType *string     `pulumi:"resourceType"`
+	ReleaseSpec ReleaseSpec `pulumi:"releaseSpec"`
 	// Status of the deployed release.
 	Status ReleaseStatus `pulumi:"status"`
 }
@@ -35,8 +34,7 @@ type ReleaseTypeInput interface {
 // A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
 // Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 type ReleaseTypeArgs struct {
-	ReleaseSpec  ReleaseSpecInput      `pulumi:"releaseSpec"`
-	ResourceType pulumi.StringPtrInput `pulumi:"resourceType"`
+	ReleaseSpec ReleaseSpecInput `pulumi:"releaseSpec"`
 	// Status of the deployed release.
 	Status ReleaseStatusInput `pulumi:"status"`
 }
@@ -72,10 +70,6 @@ func (o ReleaseTypeOutput) ToReleaseTypeOutputWithContext(ctx context.Context) R
 
 func (o ReleaseTypeOutput) ReleaseSpec() ReleaseSpecOutput {
 	return o.ApplyT(func(v ReleaseType) ReleaseSpec { return v.ReleaseSpec }).(ReleaseSpecOutput)
-}
-
-func (o ReleaseTypeOutput) ResourceType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseType) *string { return v.ResourceType }).(pulumi.StringPtrOutput)
 }
 
 // Status of the deployed release.

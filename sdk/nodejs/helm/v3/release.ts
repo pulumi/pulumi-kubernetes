@@ -38,7 +38,6 @@ export class Release extends pulumi.CustomResource {
     }
 
     public readonly releaseSpec!: pulumi.Output<outputs.helm.v3.ReleaseSpec>;
-    public /*out*/ readonly resourceType!: pulumi.Output<"true">;
     /**
      * Status of the deployed release.
      */
@@ -60,11 +59,9 @@ export class Release extends pulumi.CustomResource {
             }
             inputs["compat"] = "true";
             inputs["releaseSpec"] = args ? args.releaseSpec : undefined;
-            inputs["resourceType"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         } else {
             inputs["releaseSpec"] = undefined /*out*/;
-            inputs["resourceType"] = undefined /*out*/;
             inputs["status"] = undefined /*out*/;
         }
         if (!opts.version) {
