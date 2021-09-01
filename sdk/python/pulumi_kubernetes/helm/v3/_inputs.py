@@ -54,7 +54,7 @@ class ReleaseSpecArgs:
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input['RepositorySpecArgs'] repository_spec: Specification defining the Helm chart repository to use.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
-        :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+        :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist.
         :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart.
@@ -83,7 +83,7 @@ class ReleaseSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
-        :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+        :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
         pulumi.set(__self__, "repository_spec", repository_spec)
@@ -189,7 +189,7 @@ class ReleaseSpecArgs:
     @pulumi.getter
     def atomic(self) -> Optional[pulumi.Input[bool]]:
         """
-        If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+        If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         """
         return pulumi.get(self, "atomic")
 
@@ -537,7 +537,7 @@ class ReleaseSpecArgs:
     @pulumi.getter(name="waitForJobs")
     def wait_for_jobs(self) -> Optional[pulumi.Input[bool]]:
         """
-        Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+        Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         return pulumi.get(self, "wait_for_jobs")
 

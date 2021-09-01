@@ -22820,7 +22820,7 @@
             "properties": {
                 "atomic": {
                     "type": "boolean",
-                    "description": "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used."
+                    "description": "If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used."
                 },
                 "chart": {
                     "type": "string",
@@ -22963,7 +22963,7 @@
                 },
                 "waitForJobs": {
                     "type": "boolean",
-                    "description": "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled."
+                    "description": "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled."
                 }
             },
             "type": "object",
@@ -22999,7 +22999,7 @@
                         "skipCrds",
                         "renderSubchartNotes",
                         "disableOpenapiValidation",
-                        "wait",
+                        "skipAwait",
                         "waitForJobs",
                         "dependencyUpdate",
                         "replace",

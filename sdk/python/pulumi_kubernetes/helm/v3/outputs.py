@@ -110,7 +110,7 @@ class ReleaseSpec(dict):
         :param str chart: Chart name to be installed. A path may be used.
         :param 'RepositorySpecArgs' repository_spec: Specification defining the Helm chart repository to use.
         :param Mapping[str, Any] values: Custom values set for the release.
-        :param bool atomic: If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+        :param bool atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param bool cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
         :param bool create_namespace: Create the namespace if it does not exist.
         :param bool dependency_update: Run helm dependency update before installing the chart.
@@ -139,7 +139,7 @@ class ReleaseSpec(dict):
         :param Sequence[Union[pulumi.Asset, pulumi.Archive]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
         :param bool verify: Verify the package before installing it.
         :param str version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
-        :param bool wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+        :param bool wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
         pulumi.set(__self__, "repository_spec", repository_spec)
@@ -233,7 +233,7 @@ class ReleaseSpec(dict):
     @pulumi.getter
     def atomic(self) -> Optional[bool]:
         """
-        If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+        If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         """
         return pulumi.get(self, "atomic")
 
@@ -465,7 +465,7 @@ class ReleaseSpec(dict):
     @pulumi.getter(name="waitForJobs")
     def wait_for_jobs(self) -> Optional[bool]:
         """
-        Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+        Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         return pulumi.get(self, "wait_for_jobs")
 

@@ -79,7 +79,7 @@ func (o ReleaseTypeOutput) Status() ReleaseStatusOutput {
 
 // Specification defining the Helm Release to install.
 type ReleaseSpec struct {
-	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic *bool `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
 	Chart string `pulumi:"chart"`
@@ -143,7 +143,7 @@ type ReleaseSpec struct {
 	Verify *bool `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
 	Version *string `pulumi:"version"`
-	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
 	WaitForJobs *bool `pulumi:"waitForJobs"`
 }
 
@@ -160,7 +160,7 @@ type ReleaseSpecInput interface {
 
 // Specification defining the Helm Release to install.
 type ReleaseSpecArgs struct {
-	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrInput `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
 	Chart pulumi.StringInput `pulumi:"chart"`
@@ -224,7 +224,7 @@ type ReleaseSpecArgs struct {
 	Verify pulumi.BoolPtrInput `pulumi:"verify"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
 	Version pulumi.StringPtrInput `pulumi:"version"`
-	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
 	WaitForJobs pulumi.BoolPtrInput `pulumi:"waitForJobs"`
 }
 
@@ -306,7 +306,7 @@ func (o ReleaseSpecOutput) ToReleaseSpecPtrOutputWithContext(ctx context.Context
 	}).(ReleaseSpecPtrOutput)
 }
 
-// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 func (o ReleaseSpecOutput) Atomic() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Atomic }).(pulumi.BoolPtrOutput)
 }
@@ -466,7 +466,7 @@ func (o ReleaseSpecOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
-// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
 func (o ReleaseSpecOutput) WaitForJobs() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ReleaseSpec) *bool { return v.WaitForJobs }).(pulumi.BoolPtrOutput)
 }
@@ -489,7 +489,7 @@ func (o ReleaseSpecPtrOutput) Elem() ReleaseSpecOutput {
 	return o.ApplyT(func(v *ReleaseSpec) ReleaseSpec { return *v }).(ReleaseSpecOutput)
 }
 
-// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 func (o ReleaseSpecPtrOutput) Atomic() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {
@@ -809,7 +809,7 @@ func (o ReleaseSpecPtrOutput) Version() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
 func (o ReleaseSpecPtrOutput) WaitForJobs() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ReleaseSpec) *bool {
 		if v == nil {

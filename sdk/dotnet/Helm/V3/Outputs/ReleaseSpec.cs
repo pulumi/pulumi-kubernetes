@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
     public sealed class ReleaseSpec
     {
         /// <summary>
-        /// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+        /// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         /// </summary>
         public readonly bool Atomic;
         /// <summary>
@@ -145,7 +145,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly string Version;
         /// <summary>
-        /// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+        /// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         /// </summary>
         public readonly bool WaitForJobs;
 

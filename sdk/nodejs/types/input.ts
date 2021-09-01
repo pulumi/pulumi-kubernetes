@@ -12161,7 +12161,7 @@ export namespace helm {
          */
         export interface ReleaseSpec {
             /**
-             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+             * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
              */
             atomic?: pulumi.Input<boolean>;
             /**
@@ -12289,7 +12289,7 @@ export namespace helm {
              */
             version?: pulumi.Input<string>;
             /**
-             * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+             * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
              */
             waitForJobs?: pulumi.Input<boolean>;
         }

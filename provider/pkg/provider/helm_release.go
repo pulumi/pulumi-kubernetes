@@ -1099,7 +1099,6 @@ func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
 }
 
 func getChart(name string, settings *cli.EnvSettings, cpo *action.ChartPathOptions) (*helmchart.Chart, string, error) {
-	// Load function blows up if accessed concurrently
 	path, err := cpo.LocateChart(name, settings)
 	if err != nil {
 		return nil, "", err

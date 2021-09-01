@@ -12447,7 +12447,7 @@ export namespace helm {
          */
         export interface ReleaseSpec {
             /**
-             * If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.
+             * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
              */
             atomic: boolean;
             /**
@@ -12549,7 +12549,7 @@ export namespace helm {
             /**
              * By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
              */
-            skipAwait?: boolean;
+            skipAwait: boolean;
             /**
              * If set, no CRDs will be installed. By default, CRDs are installed if not already present.
              */
@@ -12575,7 +12575,7 @@ export namespace helm {
              */
             version: string;
             /**
-             * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+             * Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
              */
             waitForJobs: boolean;
         }
