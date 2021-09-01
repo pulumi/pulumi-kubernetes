@@ -16,6 +16,13 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/serializer/yaml"
 )
 
+// This file is a modified version of
+// https://github.com/hashicorp/terraform-provider-helm/blob/main/helm/manifest_json.go
+
+// convertYAMLManifestToJSON converts manifests provided s a string and returns
+// a deserialized map representation of the manifest (with secrets masked), a map
+// grouping resource names in the manifests by group version and any error encountered.
+// Not, currently only kubernetes secret data is masked.
 func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[string][]string, error) {
 	releaseResources := map[string]codegen.StringSet{}
 	m := map[string]interface{}{}
@@ -80,10 +87,9 @@ func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[str
 }
 
 // hashSensitiveValue creates a hash of a sensitive value and returns the string
-// "(sensitive value xxxxxxxx)". We have to do this because Terraform's sensitive
-// value feature can't reach inside a text string and would suppress the entire
-// manifest if we marked it as sensitive. This allows us to redact the value while
-// still being able to surface that something has changed so it appears in the diff.
+// "(sensitive value xxxxxxxx)". We have to do this because helm release manifests
+// may end up embedding secrets. This allows us to try and render the manifests
+// while avoiding the possibility of leaking sensitive values.
 func hashSensitiveValue(v string) string {
 	hash := make([]byte, 8)
 	sha3.ShakeSum256(hash, []byte(v))

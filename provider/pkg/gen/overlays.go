@@ -292,10 +292,6 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						Type: "string",
 					},
 					Description: "Location of public keys used for verification. Used only if `verify` is true",
-					//// Suppress changes of this attribute if `verify` is false
-					//DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
-					//	return !d.Get("verify").(bool)
-					//},
 				},
 				"timeout": {
 					TypeSpec: pschema.TypeSpec{
@@ -355,7 +351,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used.",
+					Description: "If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.",
 				},
 				"skipCrds": {
 					TypeSpec: pschema.TypeSpec{
@@ -385,7 +381,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					TypeSpec: pschema.TypeSpec{
 						Type: "boolean",
 					},
-					Description: "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.",
+					Description: "Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.",
 				},
 				"dependencyUpdate": {
 					TypeSpec: pschema.TypeSpec{
@@ -453,7 +449,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 						"skipCrds",
 						"renderSubchartNotes",
 						"disableOpenapiValidation",
-						"wait",
+						"skipAwait",
 						"waitForJobs",
 						"dependencyUpdate",
 						"replace",

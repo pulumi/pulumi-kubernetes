@@ -46,7 +46,7 @@ var errReleaseNotFound = errors.New("release not found")
 
 // Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
-	ReleaseSpec  *ReleaseSpec `json:"releaseSpec,omitempty"`
+	ReleaseSpec *ReleaseSpec `json:"releaseSpec,omitempty"`
 	// Status of the deployed release.
 	Status *ReleaseStatus `json:"status,omitempty"`
 }
@@ -112,7 +112,7 @@ type ReleaseSpec struct {
 	Version string `json:"version,omitempty"`
 	// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
 	SkipAwait bool `json:"skipAwait,omitempty"`
-	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipWait` is enabled.
+	// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
 	WaitForJobs bool `json:"waitForJobs,omitempty"`
 	// The rendered manifests.
 	// Manifest map[string]interface{} `json:"manifest,omitempty"`
@@ -263,6 +263,10 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 
 	if !new.ReleaseSpec.SkipAwait && new.ReleaseSpec.Timeout == 0 {
 		new.ReleaseSpec.Timeout = 300
+	}
+
+	if new.ReleaseSpec.Keyring == "" {
+		new.ReleaseSpec.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
 	}
 
 	if len(olds.Mappable()) > 0 {
@@ -1095,7 +1099,7 @@ func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
 }
 
 func getChart(name string, settings *cli.EnvSettings, cpo *action.ChartPathOptions) (*helmchart.Chart, string, error) {
-	//Load function blows up if accessed concurrently
+	// Load function blows up if accessed concurrently
 	path, err := cpo.LocateChart(name, settings)
 	if err != nil {
 		return nil, "", err
@@ -1152,7 +1156,7 @@ func chartPathOptions(releaseSpec *ReleaseSpec) (*action.ChartPathOptions, strin
 		CaFile:   releaseSpec.RepositorySpec.RepositoryCAFile,
 		CertFile: releaseSpec.RepositorySpec.RepositoryCertFile,
 		KeyFile:  releaseSpec.RepositorySpec.RepositoryKeyFile,
-		//Keyring:  d.Get("keyring").(string),
+		Keyring:  releaseSpec.Keyring,
 		RepoURL:  repositoryURL,
 		Verify:   releaseSpec.Verify,
 		Version:  version,
