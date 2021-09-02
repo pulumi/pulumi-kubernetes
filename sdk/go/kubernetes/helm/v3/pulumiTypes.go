@@ -14,71 +14,6 @@ import (
 // A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
 // Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 type ReleaseType struct {
-	ReleaseSpec ReleaseSpec `pulumi:"releaseSpec"`
-	// Status of the deployed release.
-	Status ReleaseStatus `pulumi:"status"`
-}
-
-// ReleaseTypeInput is an input type that accepts ReleaseTypeArgs and ReleaseTypeOutput values.
-// You can construct a concrete instance of `ReleaseTypeInput` via:
-//
-//          ReleaseTypeArgs{...}
-type ReleaseTypeInput interface {
-	pulumi.Input
-
-	ToReleaseTypeOutput() ReleaseTypeOutput
-	ToReleaseTypeOutputWithContext(context.Context) ReleaseTypeOutput
-}
-
-// A Release is an instance of a chart running in a Kubernetes cluster.
-// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
-// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
-type ReleaseTypeArgs struct {
-	ReleaseSpec ReleaseSpecInput `pulumi:"releaseSpec"`
-	// Status of the deployed release.
-	Status ReleaseStatusInput `pulumi:"status"`
-}
-
-func (ReleaseTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReleaseType)(nil)).Elem()
-}
-
-func (i ReleaseTypeArgs) ToReleaseTypeOutput() ReleaseTypeOutput {
-	return i.ToReleaseTypeOutputWithContext(context.Background())
-}
-
-func (i ReleaseTypeArgs) ToReleaseTypeOutputWithContext(ctx context.Context) ReleaseTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleaseTypeOutput)
-}
-
-// A Release is an instance of a chart running in a Kubernetes cluster.
-// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
-// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
-type ReleaseTypeOutput struct{ *pulumi.OutputState }
-
-func (ReleaseTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReleaseType)(nil)).Elem()
-}
-
-func (o ReleaseTypeOutput) ToReleaseTypeOutput() ReleaseTypeOutput {
-	return o
-}
-
-func (o ReleaseTypeOutput) ToReleaseTypeOutputWithContext(ctx context.Context) ReleaseTypeOutput {
-	return o
-}
-
-func (o ReleaseTypeOutput) ReleaseSpec() ReleaseSpecOutput {
-	return o.ApplyT(func(v ReleaseType) ReleaseSpec { return v.ReleaseSpec }).(ReleaseSpecOutput)
-}
-
-// Status of the deployed release.
-func (o ReleaseTypeOutput) Status() ReleaseStatusOutput {
-	return o.ApplyT(func(v ReleaseType) ReleaseStatus { return v.Status }).(ReleaseStatusOutput)
-}
-
-// Specification defining the Helm Release to install.
-type ReleaseSpec struct {
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic *bool `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
@@ -133,6 +68,8 @@ type ReleaseSpec struct {
 	SkipAwait *bool `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds *bool `pulumi:"skipCrds"`
+	// Status of the deployed release.
+	Status ReleaseStatus `pulumi:"status"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout *int `pulumi:"timeout"`
 	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
@@ -147,19 +84,21 @@ type ReleaseSpec struct {
 	WaitForJobs *bool `pulumi:"waitForJobs"`
 }
 
-// ReleaseSpecInput is an input type that accepts ReleaseSpecArgs and ReleaseSpecOutput values.
-// You can construct a concrete instance of `ReleaseSpecInput` via:
+// ReleaseTypeInput is an input type that accepts ReleaseTypeArgs and ReleaseTypeOutput values.
+// You can construct a concrete instance of `ReleaseTypeInput` via:
 //
-//          ReleaseSpecArgs{...}
-type ReleaseSpecInput interface {
+//          ReleaseTypeArgs{...}
+type ReleaseTypeInput interface {
 	pulumi.Input
 
-	ToReleaseSpecOutput() ReleaseSpecOutput
-	ToReleaseSpecOutputWithContext(context.Context) ReleaseSpecOutput
+	ToReleaseTypeOutput() ReleaseTypeOutput
+	ToReleaseTypeOutputWithContext(context.Context) ReleaseTypeOutput
 }
 
-// Specification defining the Helm Release to install.
-type ReleaseSpecArgs struct {
+// A Release is an instance of a chart running in a Kubernetes cluster.
+// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
+// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
+type ReleaseTypeArgs struct {
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrInput `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
@@ -214,6 +153,8 @@ type ReleaseSpecArgs struct {
 	SkipAwait pulumi.BoolPtrInput `pulumi:"skipAwait"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
 	SkipCrds pulumi.BoolPtrInput `pulumi:"skipCrds"`
+	// Status of the deployed release.
+	Status ReleaseStatusInput `pulumi:"status"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
 	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
@@ -228,595 +169,203 @@ type ReleaseSpecArgs struct {
 	WaitForJobs pulumi.BoolPtrInput `pulumi:"waitForJobs"`
 }
 
-func (ReleaseSpecArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReleaseSpec)(nil)).Elem()
+func (ReleaseTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReleaseType)(nil)).Elem()
 }
 
-func (i ReleaseSpecArgs) ToReleaseSpecOutput() ReleaseSpecOutput {
-	return i.ToReleaseSpecOutputWithContext(context.Background())
+func (i ReleaseTypeArgs) ToReleaseTypeOutput() ReleaseTypeOutput {
+	return i.ToReleaseTypeOutputWithContext(context.Background())
 }
 
-func (i ReleaseSpecArgs) ToReleaseSpecOutputWithContext(ctx context.Context) ReleaseSpecOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleaseSpecOutput)
+func (i ReleaseTypeArgs) ToReleaseTypeOutputWithContext(ctx context.Context) ReleaseTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReleaseTypeOutput)
 }
 
-func (i ReleaseSpecArgs) ToReleaseSpecPtrOutput() ReleaseSpecPtrOutput {
-	return i.ToReleaseSpecPtrOutputWithContext(context.Background())
+// A Release is an instance of a chart running in a Kubernetes cluster.
+// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
+// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
+type ReleaseTypeOutput struct{ *pulumi.OutputState }
+
+func (ReleaseTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReleaseType)(nil)).Elem()
 }
 
-func (i ReleaseSpecArgs) ToReleaseSpecPtrOutputWithContext(ctx context.Context) ReleaseSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleaseSpecOutput).ToReleaseSpecPtrOutputWithContext(ctx)
-}
-
-// ReleaseSpecPtrInput is an input type that accepts ReleaseSpecArgs, ReleaseSpecPtr and ReleaseSpecPtrOutput values.
-// You can construct a concrete instance of `ReleaseSpecPtrInput` via:
-//
-//          ReleaseSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type ReleaseSpecPtrInput interface {
-	pulumi.Input
-
-	ToReleaseSpecPtrOutput() ReleaseSpecPtrOutput
-	ToReleaseSpecPtrOutputWithContext(context.Context) ReleaseSpecPtrOutput
-}
-
-type releaseSpecPtrType ReleaseSpecArgs
-
-func ReleaseSpecPtr(v *ReleaseSpecArgs) ReleaseSpecPtrInput {
-	return (*releaseSpecPtrType)(v)
-}
-
-func (*releaseSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReleaseSpec)(nil)).Elem()
-}
-
-func (i *releaseSpecPtrType) ToReleaseSpecPtrOutput() ReleaseSpecPtrOutput {
-	return i.ToReleaseSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *releaseSpecPtrType) ToReleaseSpecPtrOutputWithContext(ctx context.Context) ReleaseSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleaseSpecPtrOutput)
-}
-
-// Specification defining the Helm Release to install.
-type ReleaseSpecOutput struct{ *pulumi.OutputState }
-
-func (ReleaseSpecOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReleaseSpec)(nil)).Elem()
-}
-
-func (o ReleaseSpecOutput) ToReleaseSpecOutput() ReleaseSpecOutput {
+func (o ReleaseTypeOutput) ToReleaseTypeOutput() ReleaseTypeOutput {
 	return o
 }
 
-func (o ReleaseSpecOutput) ToReleaseSpecOutputWithContext(ctx context.Context) ReleaseSpecOutput {
+func (o ReleaseTypeOutput) ToReleaseTypeOutputWithContext(ctx context.Context) ReleaseTypeOutput {
 	return o
-}
-
-func (o ReleaseSpecOutput) ToReleaseSpecPtrOutput() ReleaseSpecPtrOutput {
-	return o.ToReleaseSpecPtrOutputWithContext(context.Background())
-}
-
-func (o ReleaseSpecOutput) ToReleaseSpecPtrOutputWithContext(ctx context.Context) ReleaseSpecPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *ReleaseSpec {
-		return &v
-	}).(ReleaseSpecPtrOutput)
 }
 
 // If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
-func (o ReleaseSpecOutput) Atomic() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Atomic }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) Atomic() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.Atomic }).(pulumi.BoolPtrOutput)
 }
 
 // Chart name to be installed. A path may be used.
-func (o ReleaseSpecOutput) Chart() pulumi.StringOutput {
-	return o.ApplyT(func(v ReleaseSpec) string { return v.Chart }).(pulumi.StringOutput)
+func (o ReleaseTypeOutput) Chart() pulumi.StringOutput {
+	return o.ApplyT(func(v ReleaseType) string { return v.Chart }).(pulumi.StringOutput)
 }
 
 // Allow deletion of new resources created in this upgrade when upgrade fails.
-func (o ReleaseSpecOutput) CleanupOnFail() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.CleanupOnFail }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) CleanupOnFail() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.CleanupOnFail }).(pulumi.BoolPtrOutput)
 }
 
 // Create the namespace if it does not exist.
-func (o ReleaseSpecOutput) CreateNamespace() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.CreateNamespace }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) CreateNamespace() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.CreateNamespace }).(pulumi.BoolPtrOutput)
 }
 
 // Run helm dependency update before installing the chart.
-func (o ReleaseSpecOutput) DependencyUpdate() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.DependencyUpdate }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) DependencyUpdate() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.DependencyUpdate }).(pulumi.BoolPtrOutput)
 }
 
 // Add a custom description
-func (o ReleaseSpecOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Description }).(pulumi.StringPtrOutput)
+func (o ReleaseTypeOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
 
 // Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
-func (o ReleaseSpecOutput) Devel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Devel }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) Devel() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.Devel }).(pulumi.BoolPtrOutput)
 }
 
 // Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
-func (o ReleaseSpecOutput) DisableCRDHooks() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.DisableCRDHooks }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) DisableCRDHooks() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.DisableCRDHooks }).(pulumi.BoolPtrOutput)
 }
 
 // If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
-func (o ReleaseSpecOutput) DisableOpenapiValidation() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.DisableOpenapiValidation }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) DisableOpenapiValidation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.DisableOpenapiValidation }).(pulumi.BoolPtrOutput)
 }
 
 // Prevent hooks from running.
-func (o ReleaseSpecOutput) DisableWebhooks() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.DisableWebhooks }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) DisableWebhooks() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.DisableWebhooks }).(pulumi.BoolPtrOutput)
 }
 
 // Force resource update through delete/recreate if needed.
-func (o ReleaseSpecOutput) ForceUpdate() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ForceUpdate }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) ForceUpdate() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.ForceUpdate }).(pulumi.BoolPtrOutput)
 }
 
 // Location of public keys used for verification. Used only if `verify` is true
-func (o ReleaseSpecOutput) Keyring() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Keyring }).(pulumi.StringPtrOutput)
+func (o ReleaseTypeOutput) Keyring() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *string { return v.Keyring }).(pulumi.StringPtrOutput)
 }
 
 // Run helm lint when planning.
-func (o ReleaseSpecOutput) Lint() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Lint }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) Lint() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.Lint }).(pulumi.BoolPtrOutput)
 }
 
 // The rendered manifests as JSON. Not yet supported.
-func (o ReleaseSpecOutput) Manifest() pulumi.MapOutput {
-	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Manifest }).(pulumi.MapOutput)
+func (o ReleaseTypeOutput) Manifest() pulumi.MapOutput {
+	return o.ApplyT(func(v ReleaseType) map[string]interface{} { return v.Manifest }).(pulumi.MapOutput)
 }
 
 // Limit the maximum number of revisions saved per release. Use 0 for no limit.
-func (o ReleaseSpecOutput) MaxHistory() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *int { return v.MaxHistory }).(pulumi.IntPtrOutput)
+func (o ReleaseTypeOutput) MaxHistory() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *int { return v.MaxHistory }).(pulumi.IntPtrOutput)
 }
 
 // Release name.
-func (o ReleaseSpecOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Name }).(pulumi.StringPtrOutput)
+func (o ReleaseTypeOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // Namespace to install the release into.
-func (o ReleaseSpecOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+func (o ReleaseTypeOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
 // Postrender command to run.
-func (o ReleaseSpecOutput) Postrender() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Postrender }).(pulumi.StringPtrOutput)
+func (o ReleaseTypeOutput) Postrender() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *string { return v.Postrender }).(pulumi.StringPtrOutput)
 }
 
 // Perform pods restart during upgrade/rollback.
-func (o ReleaseSpecOutput) RecreatePods() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.RecreatePods }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) RecreatePods() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.RecreatePods }).(pulumi.BoolPtrOutput)
 }
 
 // If set, render subchart notes along with the parent.
-func (o ReleaseSpecOutput) RenderSubchartNotes() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.RenderSubchartNotes }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) RenderSubchartNotes() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.RenderSubchartNotes }).(pulumi.BoolPtrOutput)
 }
 
 // Re-use the given name, even if that name is already used. This is unsafe in production
-func (o ReleaseSpecOutput) Replace() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Replace }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) Replace() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.Replace }).(pulumi.BoolPtrOutput)
 }
 
 // Specification defining the Helm chart repository to use.
-func (o ReleaseSpecOutput) RepositorySpec() RepositorySpecOutput {
-	return o.ApplyT(func(v ReleaseSpec) RepositorySpec { return v.RepositorySpec }).(RepositorySpecOutput)
+func (o ReleaseTypeOutput) RepositorySpec() RepositorySpecOutput {
+	return o.ApplyT(func(v ReleaseType) RepositorySpec { return v.RepositorySpec }).(RepositorySpecOutput)
 }
 
 // When upgrading, reset the values to the ones built into the chart.
-func (o ReleaseSpecOutput) ResetValues() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ResetValues }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) ResetValues() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.ResetValues }).(pulumi.BoolPtrOutput)
 }
 
 // Names of resources created by the release grouped by "kind/version".
-func (o ReleaseSpecOutput) ResourceNames() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func(v ReleaseSpec) map[string][]string { return v.ResourceNames }).(pulumi.StringArrayMapOutput)
+func (o ReleaseTypeOutput) ResourceNames() pulumi.StringArrayMapOutput {
+	return o.ApplyT(func(v ReleaseType) map[string][]string { return v.ResourceNames }).(pulumi.StringArrayMapOutput)
 }
 
 // When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
-func (o ReleaseSpecOutput) ReuseValues() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.ReuseValues }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) ReuseValues() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.ReuseValues }).(pulumi.BoolPtrOutput)
 }
 
 // By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
-func (o ReleaseSpecOutput) SkipAwait() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.SkipAwait }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) SkipAwait() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.SkipAwait }).(pulumi.BoolPtrOutput)
 }
 
 // If set, no CRDs will be installed. By default, CRDs are installed if not already present.
-func (o ReleaseSpecOutput) SkipCrds() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.SkipCrds }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) SkipCrds() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.SkipCrds }).(pulumi.BoolPtrOutput)
+}
+
+// Status of the deployed release.
+func (o ReleaseTypeOutput) Status() ReleaseStatusOutput {
+	return o.ApplyT(func(v ReleaseType) ReleaseStatus { return v.Status }).(ReleaseStatusOutput)
 }
 
 // Time in seconds to wait for any individual kubernetes operation.
-func (o ReleaseSpecOutput) Timeout() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *int { return v.Timeout }).(pulumi.IntPtrOutput)
+func (o ReleaseTypeOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *int { return v.Timeout }).(pulumi.IntPtrOutput)
 }
 
 // List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
-func (o ReleaseSpecOutput) ValueYamlFiles() pulumi.AssetOrArchiveArrayOutput {
-	return o.ApplyT(func(v ReleaseSpec) []pulumi.AssetOrArchive { return v.ValueYamlFiles }).(pulumi.AssetOrArchiveArrayOutput)
+func (o ReleaseTypeOutput) ValueYamlFiles() pulumi.AssetOrArchiveArrayOutput {
+	return o.ApplyT(func(v ReleaseType) []pulumi.AssetOrArchive { return v.ValueYamlFiles }).(pulumi.AssetOrArchiveArrayOutput)
 }
 
 // Custom values set for the release.
-func (o ReleaseSpecOutput) Values() pulumi.MapOutput {
-	return o.ApplyT(func(v ReleaseSpec) map[string]interface{} { return v.Values }).(pulumi.MapOutput)
+func (o ReleaseTypeOutput) Values() pulumi.MapOutput {
+	return o.ApplyT(func(v ReleaseType) map[string]interface{} { return v.Values }).(pulumi.MapOutput)
 }
 
 // Verify the package before installing it.
-func (o ReleaseSpecOutput) Verify() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.Verify }).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) Verify() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.Verify }).(pulumi.BoolPtrOutput)
 }
 
 // Specify the exact chart version to install. If this is not specified, the latest version is installed.
-func (o ReleaseSpecOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *string { return v.Version }).(pulumi.StringPtrOutput)
+func (o ReleaseTypeOutput) Version() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *string { return v.Version }).(pulumi.StringPtrOutput)
 }
 
 // Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
-func (o ReleaseSpecOutput) WaitForJobs() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v ReleaseSpec) *bool { return v.WaitForJobs }).(pulumi.BoolPtrOutput)
-}
-
-type ReleaseSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (ReleaseSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReleaseSpec)(nil)).Elem()
-}
-
-func (o ReleaseSpecPtrOutput) ToReleaseSpecPtrOutput() ReleaseSpecPtrOutput {
-	return o
-}
-
-func (o ReleaseSpecPtrOutput) ToReleaseSpecPtrOutputWithContext(ctx context.Context) ReleaseSpecPtrOutput {
-	return o
-}
-
-func (o ReleaseSpecPtrOutput) Elem() ReleaseSpecOutput {
-	return o.ApplyT(func(v *ReleaseSpec) ReleaseSpec { return *v }).(ReleaseSpecOutput)
-}
-
-// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
-func (o ReleaseSpecPtrOutput) Atomic() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Atomic
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Chart name to be installed. A path may be used.
-func (o ReleaseSpecPtrOutput) Chart() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Chart
-	}).(pulumi.StringPtrOutput)
-}
-
-// Allow deletion of new resources created in this upgrade when upgrade fails.
-func (o ReleaseSpecPtrOutput) CleanupOnFail() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.CleanupOnFail
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Create the namespace if it does not exist.
-func (o ReleaseSpecPtrOutput) CreateNamespace() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.CreateNamespace
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Run helm dependency update before installing the chart.
-func (o ReleaseSpecPtrOutput) DependencyUpdate() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.DependencyUpdate
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Add a custom description
-func (o ReleaseSpecPtrOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Description
-	}).(pulumi.StringPtrOutput)
-}
-
-// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
-func (o ReleaseSpecPtrOutput) Devel() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Devel
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
-func (o ReleaseSpecPtrOutput) DisableCRDHooks() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.DisableCRDHooks
-	}).(pulumi.BoolPtrOutput)
-}
-
-// If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
-func (o ReleaseSpecPtrOutput) DisableOpenapiValidation() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.DisableOpenapiValidation
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Prevent hooks from running.
-func (o ReleaseSpecPtrOutput) DisableWebhooks() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.DisableWebhooks
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Force resource update through delete/recreate if needed.
-func (o ReleaseSpecPtrOutput) ForceUpdate() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.ForceUpdate
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Location of public keys used for verification. Used only if `verify` is true
-func (o ReleaseSpecPtrOutput) Keyring() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Keyring
-	}).(pulumi.StringPtrOutput)
-}
-
-// Run helm lint when planning.
-func (o ReleaseSpecPtrOutput) Lint() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Lint
-	}).(pulumi.BoolPtrOutput)
-}
-
-// The rendered manifests as JSON. Not yet supported.
-func (o ReleaseSpecPtrOutput) Manifest() pulumi.MapOutput {
-	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
-		if v == nil {
-			return nil
-		}
-		return v.Manifest
-	}).(pulumi.MapOutput)
-}
-
-// Limit the maximum number of revisions saved per release. Use 0 for no limit.
-func (o ReleaseSpecPtrOutput) MaxHistory() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.MaxHistory
-	}).(pulumi.IntPtrOutput)
-}
-
-// Release name.
-func (o ReleaseSpecPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// Namespace to install the release into.
-func (o ReleaseSpecPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Namespace
-	}).(pulumi.StringPtrOutput)
-}
-
-// Postrender command to run.
-func (o ReleaseSpecPtrOutput) Postrender() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Postrender
-	}).(pulumi.StringPtrOutput)
-}
-
-// Perform pods restart during upgrade/rollback.
-func (o ReleaseSpecPtrOutput) RecreatePods() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.RecreatePods
-	}).(pulumi.BoolPtrOutput)
-}
-
-// If set, render subchart notes along with the parent.
-func (o ReleaseSpecPtrOutput) RenderSubchartNotes() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.RenderSubchartNotes
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Re-use the given name, even if that name is already used. This is unsafe in production
-func (o ReleaseSpecPtrOutput) Replace() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Replace
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Specification defining the Helm chart repository to use.
-func (o ReleaseSpecPtrOutput) RepositorySpec() RepositorySpecPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *RepositorySpec {
-		if v == nil {
-			return nil
-		}
-		return &v.RepositorySpec
-	}).(RepositorySpecPtrOutput)
-}
-
-// When upgrading, reset the values to the ones built into the chart.
-func (o ReleaseSpecPtrOutput) ResetValues() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.ResetValues
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Names of resources created by the release grouped by "kind/version".
-func (o ReleaseSpecPtrOutput) ResourceNames() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func(v *ReleaseSpec) map[string][]string {
-		if v == nil {
-			return nil
-		}
-		return v.ResourceNames
-	}).(pulumi.StringArrayMapOutput)
-}
-
-// When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
-func (o ReleaseSpecPtrOutput) ReuseValues() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.ReuseValues
-	}).(pulumi.BoolPtrOutput)
-}
-
-// By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
-func (o ReleaseSpecPtrOutput) SkipAwait() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.SkipAwait
-	}).(pulumi.BoolPtrOutput)
-}
-
-// If set, no CRDs will be installed. By default, CRDs are installed if not already present.
-func (o ReleaseSpecPtrOutput) SkipCrds() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.SkipCrds
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Time in seconds to wait for any individual kubernetes operation.
-func (o ReleaseSpecPtrOutput) Timeout() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Timeout
-	}).(pulumi.IntPtrOutput)
-}
-
-// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
-func (o ReleaseSpecPtrOutput) ValueYamlFiles() pulumi.AssetOrArchiveArrayOutput {
-	return o.ApplyT(func(v *ReleaseSpec) []pulumi.AssetOrArchive {
-		if v == nil {
-			return nil
-		}
-		return v.ValueYamlFiles
-	}).(pulumi.AssetOrArchiveArrayOutput)
-}
-
-// Custom values set for the release.
-func (o ReleaseSpecPtrOutput) Values() pulumi.MapOutput {
-	return o.ApplyT(func(v *ReleaseSpec) map[string]interface{} {
-		if v == nil {
-			return nil
-		}
-		return v.Values
-	}).(pulumi.MapOutput)
-}
-
-// Verify the package before installing it.
-func (o ReleaseSpecPtrOutput) Verify() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.Verify
-	}).(pulumi.BoolPtrOutput)
-}
-
-// Specify the exact chart version to install. If this is not specified, the latest version is installed.
-func (o ReleaseSpecPtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Version
-	}).(pulumi.StringPtrOutput)
-}
-
-// Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
-func (o ReleaseSpecPtrOutput) WaitForJobs() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *ReleaseSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.WaitForJobs
-	}).(pulumi.BoolPtrOutput)
+func (o ReleaseTypeOutput) WaitForJobs() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ReleaseType) *bool { return v.WaitForJobs }).(pulumi.BoolPtrOutput)
 }
 
 type ReleaseStatus struct {
@@ -1295,8 +844,6 @@ func (o RepositorySpecPtrOutput) RepositoryUsername() pulumi.StringPtrOutput {
 
 func init() {
 	pulumi.RegisterOutputType(ReleaseTypeOutput{})
-	pulumi.RegisterOutputType(ReleaseSpecOutput{})
-	pulumi.RegisterOutputType(ReleaseSpecPtrOutput{})
 	pulumi.RegisterOutputType(ReleaseStatusOutput{})
 	pulumi.RegisterOutputType(ReleaseStatusPtrOutput{})
 	pulumi.RegisterOutputType(RepositorySpecOutput{})
