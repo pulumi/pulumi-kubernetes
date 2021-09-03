@@ -84,7 +84,7 @@ python_sdk::
 		cd ./bin && python3 setup.py build sdist
 
 .PHONY: build
-build:: k8sgen openapi_file schema k8sprovider dotnet_sdk go_sdk nodejs_sdk python_sdk
+build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk
 
 # Required for the codegen action that runs in pulumi/pulumi
 only_build:: build

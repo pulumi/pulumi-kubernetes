@@ -24,6 +24,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"text/template"
@@ -166,6 +167,9 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 	return gen.PulumiSchema(schemaMap)
 }
 
+// This is to mostly filter resources from the spec.
+var resourcesToFilterFromTemplate = codegen.NewStringSet("kubernetes:helm.sh/v3:Release")
+
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources(pkg)
 	if err != nil {
@@ -174,7 +178,10 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 
 	templateResources := gen.TemplateResources{}
 	packages := codegen.StringSet{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		if resource.Package == "" {
 			continue
 		}
@@ -230,7 +237,10 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -265,7 +275,10 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -315,6 +328,27 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
+	renamePackage := func(fileNames []string, sourcePackage, renameTo string) {
+		re := regexp.MustCompile(fmt.Sprintf(`(%s)`, sourcePackage))
+
+		for _, f := range fileNames {
+			content, ok := files[f]
+			if !ok {
+				contract.Failf("Expected file: %q but not found.", f)
+			}
+			files[f] = re.ReplaceAll(content, []byte(renameTo))
+		}
+	}
+
+	// Go codegen maps package to "v3" for Helm Release. Manually rename to
+	// helm to avoid conflict with existing templates.
+	renamePackage([]string{
+		"kubernetes/helm/v3/pulumiTypes.go",
+		"kubernetes/helm/v3/init.go",
+		"kubernetes/helm/v3/release.go",
+	},
+		"package v3",
+		"package helm")
 
 	resources, err := gogen.LanguageResources("pulumigen", pkg)
 	if err != nil {
@@ -322,7 +356,10 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	}
 
 	templateResources := gen.GoTemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Alias:   resource.Alias,
 			Name:    resource.Name,
@@ -349,7 +386,8 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
 	files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
 	files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
-	files["kubernetes/helm/v3/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
+	// Rename pulumiTypes.go to avoid conflict with schema generated Helm Release types.
+	files["kubernetes/helm/v3/chartPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
 	files["kubernetes/kustomize/directory.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "directory.go"))
 	files["kubernetes/kustomize/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "pulumiTypes.go"))
 	files["kubernetes/yaml/configFile.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configFile.go"))
@@ -394,15 +432,16 @@ func mustRenderGoTemplate(path string, resources interface{}) []byte {
 	bytes := mustRenderTemplate(path, resources)
 
 	formattedSource, err := format.Source(bytes)
-	if err != nil {
-		panic(err)
-	}
+	contract.AssertNoErrorf(err, "err: %+v path: %q source:\n%s", err, path, string(bytes))
 	return formattedSource
 }
 
 func genK8sResourceTypes(pkg *schema.Package) {
 	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
 	for _, resource := range pkg.Resources {
+		if resourcesToFilterFromTemplate.Has(resource.Token) {
+			continue
+		}
 		parts := strings.Split(resource.Token, ":")
 		contract.Assert(len(parts) == 3)
 

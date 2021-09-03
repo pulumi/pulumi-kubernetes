@@ -8,13 +8,16 @@ require (
 	github.com/golang/protobuf v1.5.2
 	github.com/googleapis/gnostic v0.5.1
 	github.com/imdario/mergo v0.3.12
+	github.com/mitchellh/mapstructure v1.4.1
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/pulumi/pkg/v3 v3.9.0
 	github.com/pulumi/pulumi/sdk/v3 v3.9.0
 	github.com/stretchr/testify v1.7.0
+	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf
 	google.golang.org/grpc v1.37.0
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
 	helm.sh/helm/v3 v3.6.3
 	k8s.io/api v0.21.0
 	k8s.io/apimachinery v0.21.0

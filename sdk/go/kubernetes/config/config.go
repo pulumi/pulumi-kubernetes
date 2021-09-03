@@ -28,6 +28,31 @@ func GetEnableDryRun(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableDryRun")
 }
 
+// BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+func GetHelmDriver(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmDriver")
+}
+
+// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.
+func GetHelmPluginsPath(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmPluginsPath")
+}
+
+// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
+func GetHelmRegistryConfigPath(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmRegistryConfigPath")
+}
+
+// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
+func GetHelmRepositoryCache(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmRepositoryCache")
+}
+
+// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
+func GetHelmRepositoryConfigPath(ctx *pulumi.Context) string {
+	return config.Get(ctx, "kubernetes:helmRepositoryConfigPath")
+}
+
 // The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
 func GetKubeconfig(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:kubeconfig")
@@ -71,4 +96,9 @@ func GetSuppressDeprecationWarnings(ctx *pulumi.Context) bool {
 // 2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.
 func GetSuppressHelmHookWarnings(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:suppressHelmHookWarnings")
+}
+
+// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to true, this warning is omitted.
+func GetSuppressHelmReleaseBetaWarning(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:suppressHelmReleaseBetaWarning")
 }

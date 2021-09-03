@@ -61,6 +61,7 @@ func main() {
 			b := make([]rune, 5)
 			letters := []rune("abcdefghijklmnopqrstuvwxyz")
 			for i := range b {
+				//nolint:gosec
 				b[i] = letters[rand.Intn(len(letters))]
 			}
 			return string(b)

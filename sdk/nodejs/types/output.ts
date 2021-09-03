@@ -12440,6 +12440,72 @@ export namespace flowcontrol {
     }
 }
 
+export namespace helm {
+    export namespace v3 {
+        export interface ReleaseStatus {
+            /**
+             * The version number of the application being deployed.
+             */
+            appVersion: string;
+            /**
+             * The name of the chart.
+             */
+            chart: string;
+            /**
+             * Name is the name of the release.
+             */
+            name: string;
+            /**
+             * Namespace is the kubernetes namespace of the release.
+             */
+            namespace: string;
+            /**
+             * Version is an int32 which represents the version of the release.
+             */
+            revision: number;
+            /**
+             * Status of the release.
+             */
+            status: string;
+            /**
+             * A SemVer 2 conformant version string of the chart.
+             */
+            version: string;
+        }
+
+        /**
+         * Specification defining the Helm chart repository to use.
+         */
+        export interface RepositoryOpts {
+            /**
+             * The Repository's CA File
+             */
+            caFile: string;
+            /**
+             * The repository's cert file
+             */
+            certFile: string;
+            /**
+             * The repository's cert key file
+             */
+            keyFile: string;
+            /**
+             * Password for HTTP basic authentication
+             */
+            password: string;
+            /**
+             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             */
+            repo: string;
+            /**
+             * Username for HTTP basic authentication
+             */
+            username: string;
+        }
+
+    }
+}
+
 export namespace meta {
     export namespace v1 {
         /**

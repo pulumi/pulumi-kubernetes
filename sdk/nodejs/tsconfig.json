@@ -203,6 +203,7 @@
         "helm/v2/index.ts",
         "helm/v3/helm.ts",
         "helm/v3/index.ts",
+        "helm/v3/release.ts",
         "index.ts",
         "kustomize/index.ts",
         "kustomize/kustomize.ts",
