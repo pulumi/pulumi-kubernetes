@@ -9,110 +9,110 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 
 __all__ = [
-    'RepositorySpecArgs',
+    'RepositoryOptsArgs',
 ]
 
 @pulumi.input_type
-class RepositorySpecArgs:
+class RepositoryOptsArgs:
     def __init__(__self__, *,
-                 repository: Optional[pulumi.Input[str]] = None,
-                 repository_ca_file: Optional[pulumi.Input[str]] = None,
-                 repository_cert_file: Optional[pulumi.Input[str]] = None,
-                 repository_key_file: Optional[pulumi.Input[str]] = None,
-                 repository_password: Optional[pulumi.Input[str]] = None,
-                 repository_username: Optional[pulumi.Input[str]] = None):
+                 ca_file: Optional[pulumi.Input[str]] = None,
+                 cert_file: Optional[pulumi.Input[str]] = None,
+                 key_file: Optional[pulumi.Input[str]] = None,
+                 password: Optional[pulumi.Input[str]] = None,
+                 repo: Optional[pulumi.Input[str]] = None,
+                 username: Optional[pulumi.Input[str]] = None):
         """
         Specification defining the Helm chart repository to use.
-        :param pulumi.Input[str] repository: Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-        :param pulumi.Input[str] repository_ca_file: The Repositories CA File
-        :param pulumi.Input[str] repository_cert_file: The repositories cert file
-        :param pulumi.Input[str] repository_key_file: The repositories cert key file
-        :param pulumi.Input[str] repository_password: Password for HTTP basic authentication
-        :param pulumi.Input[str] repository_username: Username for HTTP basic authentication
+        :param pulumi.Input[str] ca_file: The Repository's CA File
+        :param pulumi.Input[str] cert_file: The repository's cert file
+        :param pulumi.Input[str] key_file: The repository's cert key file
+        :param pulumi.Input[str] password: Password for HTTP basic authentication
+        :param pulumi.Input[str] repo: Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        :param pulumi.Input[str] username: Username for HTTP basic authentication
         """
-        if repository is not None:
-            pulumi.set(__self__, "repository", repository)
-        if repository_ca_file is not None:
-            pulumi.set(__self__, "repository_ca_file", repository_ca_file)
-        if repository_cert_file is not None:
-            pulumi.set(__self__, "repository_cert_file", repository_cert_file)
-        if repository_key_file is not None:
-            pulumi.set(__self__, "repository_key_file", repository_key_file)
-        if repository_password is not None:
-            pulumi.set(__self__, "repository_password", repository_password)
-        if repository_username is not None:
-            pulumi.set(__self__, "repository_username", repository_username)
+        if ca_file is not None:
+            pulumi.set(__self__, "ca_file", ca_file)
+        if cert_file is not None:
+            pulumi.set(__self__, "cert_file", cert_file)
+        if key_file is not None:
+            pulumi.set(__self__, "key_file", key_file)
+        if password is not None:
+            pulumi.set(__self__, "password", password)
+        if repo is not None:
+            pulumi.set(__self__, "repo", repo)
+        if username is not None:
+            pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter(name="caFile")
+    def ca_file(self) -> Optional[pulumi.Input[str]]:
+        """
+        The Repository's CA File
+        """
+        return pulumi.get(self, "ca_file")
+
+    @ca_file.setter
+    def ca_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ca_file", value)
+
+    @property
+    @pulumi.getter(name="certFile")
+    def cert_file(self) -> Optional[pulumi.Input[str]]:
+        """
+        The repository's cert file
+        """
+        return pulumi.get(self, "cert_file")
+
+    @cert_file.setter
+    def cert_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cert_file", value)
+
+    @property
+    @pulumi.getter(name="keyFile")
+    def key_file(self) -> Optional[pulumi.Input[str]]:
+        """
+        The repository's cert key file
+        """
+        return pulumi.get(self, "key_file")
+
+    @key_file.setter
+    def key_file(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key_file", value)
 
     @property
     @pulumi.getter
-    def repository(self) -> Optional[pulumi.Input[str]]:
-        """
-        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-        """
-        return pulumi.get(self, "repository")
-
-    @repository.setter
-    def repository(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository", value)
-
-    @property
-    @pulumi.getter(name="repositoryCAFile")
-    def repository_ca_file(self) -> Optional[pulumi.Input[str]]:
-        """
-        The Repositories CA File
-        """
-        return pulumi.get(self, "repository_ca_file")
-
-    @repository_ca_file.setter
-    def repository_ca_file(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository_ca_file", value)
-
-    @property
-    @pulumi.getter(name="repositoryCertFile")
-    def repository_cert_file(self) -> Optional[pulumi.Input[str]]:
-        """
-        The repositories cert file
-        """
-        return pulumi.get(self, "repository_cert_file")
-
-    @repository_cert_file.setter
-    def repository_cert_file(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository_cert_file", value)
-
-    @property
-    @pulumi.getter(name="repositoryKeyFile")
-    def repository_key_file(self) -> Optional[pulumi.Input[str]]:
-        """
-        The repositories cert key file
-        """
-        return pulumi.get(self, "repository_key_file")
-
-    @repository_key_file.setter
-    def repository_key_file(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository_key_file", value)
-
-    @property
-    @pulumi.getter(name="repositoryPassword")
-    def repository_password(self) -> Optional[pulumi.Input[str]]:
+    def password(self) -> Optional[pulumi.Input[str]]:
         """
         Password for HTTP basic authentication
         """
-        return pulumi.get(self, "repository_password")
+        return pulumi.get(self, "password")
 
-    @repository_password.setter
-    def repository_password(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository_password", value)
+    @password.setter
+    def password(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "password", value)
 
     @property
-    @pulumi.getter(name="repositoryUsername")
-    def repository_username(self) -> Optional[pulumi.Input[str]]:
+    @pulumi.getter
+    def repo(self) -> Optional[pulumi.Input[str]]:
+        """
+        Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+        """
+        return pulumi.get(self, "repo")
+
+    @repo.setter
+    def repo(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "repo", value)
+
+    @property
+    @pulumi.getter
+    def username(self) -> Optional[pulumi.Input[str]]:
         """
         Username for HTTP basic authentication
         """
-        return pulumi.get(self, "repository_username")
+        return pulumi.get(self, "username")
 
-    @repository_username.setter
-    def repository_username(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "repository_username", value)
+    @username.setter
+    def username(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "username", value)
 
 

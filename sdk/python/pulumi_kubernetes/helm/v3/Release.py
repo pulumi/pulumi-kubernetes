@@ -16,7 +16,7 @@ __all__ = ['ReleaseArgs', 'Release']
 class ReleaseArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
-                 repository_spec: pulumi.Input['RepositorySpecArgs'],
+                 repository_opts: pulumi.Input['RepositoryOptsArgs'],
                  values: pulumi.Input[Mapping[str, Any]],
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
@@ -52,7 +52,7 @@ class ReleaseArgs:
         """
         The set of arguments for constructing a Release resource.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
-        :param pulumi.Input['RepositorySpecArgs'] repository_spec: Specification defining the Helm chart repository to use.
+        :param pulumi.Input['RepositoryOptsArgs'] repository_opts: Specification defining the Helm chart repository to use.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
@@ -86,7 +86,7 @@ class ReleaseArgs:
         :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
-        pulumi.set(__self__, "repository_spec", repository_spec)
+        pulumi.set(__self__, "repository_opts", repository_opts)
         pulumi.set(__self__, "values", values)
         if atomic is not None:
             pulumi.set(__self__, "atomic", atomic)
@@ -164,16 +164,16 @@ class ReleaseArgs:
         pulumi.set(self, "chart", value)
 
     @property
-    @pulumi.getter(name="repositorySpec")
-    def repository_spec(self) -> pulumi.Input['RepositorySpecArgs']:
+    @pulumi.getter(name="repositoryOpts")
+    def repository_opts(self) -> pulumi.Input['RepositoryOptsArgs']:
         """
         Specification defining the Helm chart repository to use.
         """
-        return pulumi.get(self, "repository_spec")
+        return pulumi.get(self, "repository_opts")
 
-    @repository_spec.setter
-    def repository_spec(self, value: pulumi.Input['RepositorySpecArgs']):
-        pulumi.set(self, "repository_spec", value)
+    @repository_opts.setter
+    def repository_opts(self, value: pulumi.Input['RepositoryOptsArgs']):
+        pulumi.set(self, "repository_opts", value)
 
     @property
     @pulumi.getter
@@ -584,7 +584,7 @@ class Release(pulumi.CustomResource):
                  recreate_pods: Optional[pulumi.Input[bool]] = None,
                  render_subchart_notes: Optional[pulumi.Input[bool]] = None,
                  replace: Optional[pulumi.Input[bool]] = None,
-                 repository_spec: Optional[pulumi.Input[pulumi.InputType['RepositorySpecArgs']]] = None,
+                 repository_opts: Optional[pulumi.Input[pulumi.InputType['RepositoryOptsArgs']]] = None,
                  reset_values: Optional[pulumi.Input[bool]] = None,
                  resource_names: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
                  reuse_values: Optional[pulumi.Input[bool]] = None,
@@ -625,7 +625,7 @@ class Release(pulumi.CustomResource):
         :param pulumi.Input[bool] recreate_pods: Perform pods restart during upgrade/rollback.
         :param pulumi.Input[bool] render_subchart_notes: If set, render subchart notes along with the parent.
         :param pulumi.Input[bool] replace: Re-use the given name, even if that name is already used. This is unsafe in production
-        :param pulumi.Input[pulumi.InputType['RepositorySpecArgs']] repository_spec: Specification defining the Helm chart repository to use.
+        :param pulumi.Input[pulumi.InputType['RepositoryOptsArgs']] repository_opts: Specification defining the Helm chart repository to use.
         :param pulumi.Input[bool] reset_values: When upgrading, reset the values to the ones built into the chart.
         :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] resource_names: Names of resources created by the release grouped by "kind/version".
         :param pulumi.Input[bool] reuse_values: When upgrading, reuse the last release's values and merge in any overrides. If 'resetValues' is specified, this is ignored
@@ -686,7 +686,7 @@ class Release(pulumi.CustomResource):
                  recreate_pods: Optional[pulumi.Input[bool]] = None,
                  render_subchart_notes: Optional[pulumi.Input[bool]] = None,
                  replace: Optional[pulumi.Input[bool]] = None,
-                 repository_spec: Optional[pulumi.Input[pulumi.InputType['RepositorySpecArgs']]] = None,
+                 repository_opts: Optional[pulumi.Input[pulumi.InputType['RepositoryOptsArgs']]] = None,
                  reset_values: Optional[pulumi.Input[bool]] = None,
                  resource_names: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
                  reuse_values: Optional[pulumi.Input[bool]] = None,
@@ -734,9 +734,9 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["recreate_pods"] = recreate_pods
             __props__.__dict__["render_subchart_notes"] = render_subchart_notes
             __props__.__dict__["replace"] = replace
-            if repository_spec is None and not opts.urn:
-                raise TypeError("Missing required property 'repository_spec'")
-            __props__.__dict__["repository_spec"] = repository_spec
+            if repository_opts is None and not opts.urn:
+                raise TypeError("Missing required property 'repository_opts'")
+            __props__.__dict__["repository_opts"] = repository_opts
             __props__.__dict__["reset_values"] = reset_values
             __props__.__dict__["resource_names"] = resource_names
             __props__.__dict__["reuse_values"] = reuse_values
@@ -794,7 +794,7 @@ class Release(pulumi.CustomResource):
         __props__.__dict__["recreate_pods"] = None
         __props__.__dict__["render_subchart_notes"] = None
         __props__.__dict__["replace"] = None
-        __props__.__dict__["repository_spec"] = None
+        __props__.__dict__["repository_opts"] = None
         __props__.__dict__["reset_values"] = None
         __props__.__dict__["resource_names"] = None
         __props__.__dict__["reuse_values"] = None
@@ -978,12 +978,12 @@ class Release(pulumi.CustomResource):
         return pulumi.get(self, "replace")
 
     @property
-    @pulumi.getter(name="repositorySpec")
-    def repository_spec(self) -> pulumi.Output['outputs.RepositorySpec']:
+    @pulumi.getter(name="repositoryOpts")
+    def repository_opts(self) -> pulumi.Output['outputs.RepositoryOpts']:
         """
         Specification defining the Helm chart repository to use.
         """
-        return pulumi.get(self, "repository_spec")
+        return pulumi.get(self, "repository_opts")
 
     @property
     @pulumi.getter(name="resetValues")

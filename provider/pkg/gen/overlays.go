@@ -55,9 +55,9 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 					},
 					Description: "Release name.",
 				},
-				"repositorySpec": {
+				"repositoryOpts": {
 					TypeSpec: pschema.TypeSpec{
-						Ref: "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+						Ref: "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
 					},
 					Description: "Specification defining the Helm chart repository to use.",
 				},
@@ -272,7 +272,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			Type: "object",
 			Required: []string{
 				"chart",
-				"repositorySpec",
+				"repositoryOpts",
 				"values",
 				"status",
 			},
@@ -280,7 +280,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 				"nodejs": rawMessage(map[string][]string{
 					"requiredOutputs": {
 						"name",
-						"repositorySpec",
+						"repositoryOpts",
 						"chart",
 						"version",
 						"devel",
@@ -317,41 +317,41 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			},
 		},
 	},
-	"kubernetes:helm.sh/v3:RepositorySpec": {
+	"kubernetes:helm.sh/v3:RepositoryOpts": {
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
 			Description: "Specification defining the Helm chart repository to use.",
 			Properties: map[string]pschema.PropertySpec{
-				"repository": {
+				"repo": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
 					Description: "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.",
 				},
-				"repositoryKeyFile": { // TODO: Content or file
+				"keyFile": { // TODO: Content or file
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
-					Description: "The repositories cert key file",
+					Description: "The repository's cert key file",
 				},
-				"repositoryCertFile": { // TODO: Content or file
+				"certFile": { // TODO: Content or file
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
-					Description: "The repositories cert file",
+					Description: "The repository's cert file",
 				},
-				"repositoryCAFile": {
+				"caFile": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
-					Description: "The Repositories CA File",
+					Description: "The Repository's CA File",
 				},
-				"repositoryUsername": {
+				"username": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
 					Description: "Username for HTTP basic authentication",
 				},
-				"repositoryPassword": {
+				"password": {
 					TypeSpec: pschema.TypeSpec{
 						Type: "string",
 					},
@@ -362,12 +362,12 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{
 			Language: map[string]pschema.RawMessage{
 				"nodejs": rawMessage(map[string][]string{
 					"requiredOutputs": {
-						"repository",
-						"repositoryKeyFile",
-						"repositoryCertFile",
-						"repositoryCAFile",
-						"repositoryUsername",
-						"repositoryPassword",
+						"repo",
+						"keyFile",
+						"certFile",
+						"caFile",
+						"username",
+						"password",
 					}}),
 			},
 			Type: "object",
@@ -450,9 +450,9 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 					},
 					Description: "Release name.",
 				},
-				"repositorySpec": {
+				"repositoryOpts": {
 					TypeSpec: pschema.TypeSpec{
-						Ref: "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+						Ref: "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
 					},
 					Description: "Specification defining the Helm chart repository to use.",
 				},
@@ -668,7 +668,7 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 			Type: "object",
 			Required: []string{
 				"chart",
-				"repositorySpec",
+				"repositoryOpts",
 				"values",
 				"status",
 			},
@@ -676,7 +676,7 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 				"nodejs": rawMessage(map[string][]string{
 					"requiredOutputs": {
 						"name",
-						"repositorySpec",
+						"repositoryOpts",
 						"chart",
 						"version",
 						"devel",
@@ -719,9 +719,9 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 				},
 				Description: "Release name.",
 			},
-			"repositorySpec": {
+			"repositoryOpts": {
 				TypeSpec: pschema.TypeSpec{
-					Ref: "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+					Ref: "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
 				},
 				Description: "Specification defining the Helm chart repository to use.",
 			},
@@ -936,7 +936,7 @@ var resourceOverlays = map[string]pschema.ResourceSpec{
 		},
 		RequiredInputs: []string{
 			"chart",
-			"repositorySpec",
+			"repositoryOpts",
 			"values",
 		},
 	},

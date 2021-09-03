@@ -87,7 +87,7 @@ type Release struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace bool `json:"replace,omitempty"`
 	// Specification defining the Helm chart repository to use.
-	RepositorySpec RepositorySpec `json:"repositorySpec,omitempty"`
+	RepositoryOpts RepositoryOpts `json:"repositoryOpts,omitempty"`
 	// When upgrading, reset the values to the ones built into the chart
 	ResetValues bool `json:"resetValues,omitempty"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
@@ -120,19 +120,19 @@ type ReleaseSpec struct {
 }
 
 // Specification defining the Helm chart repository to use.
-type RepositorySpec struct {
+type RepositoryOpts struct {
 	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-	Repository string `json:"repository,omitempty"`
+	Repo string `json:"repo,omitempty"`
 	// The Repositories CA File
-	RepositoryCAFile string `json:"repositoryCAFile,omitempty"`
+	CAFile string `json:"caFile,omitempty"`
 	// The repositories cert file
-	RepositoryCertFile string `json:"repositoryCertFile,omitempty"`
+	CertFile string `json:"certFile,omitempty"`
 	// The repositories cert key file
-	RepositoryKeyFile string `json:"repositoryKeyFile,omitempty"`
+	KeyFile string `json:"keyFile,omitempty"`
 	// Password for HTTP basic authentication
-	RepositoryPassword string `json:"repositoryPassword,omitempty"`
+	Password string `json:"password,omitempty"`
 	// Username for HTTP basic authentication
-	RepositoryUsername string `json:"repositoryUsername,omitempty"`
+	Username string `json:"username,omitempty"`
 }
 
 type ReleaseStatus struct {
@@ -1147,7 +1147,7 @@ func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *
 func chartPathOptions(release *Release) (*action.ChartPathOptions, string, error) {
 	chartName := release.Chart
 
-	repository := release.RepositorySpec.Repository
+	repository := release.RepositoryOpts.Repo
 	repositoryURL, chartName, err := resolveChartName(repository, strings.TrimSpace(chartName))
 	if err != nil {
 		return nil, "", err
@@ -1155,15 +1155,15 @@ func chartPathOptions(release *Release) (*action.ChartPathOptions, string, error
 	version := getVersion(release)
 
 	return &action.ChartPathOptions{
-		CaFile:   release.RepositorySpec.RepositoryCAFile,
-		CertFile: release.RepositorySpec.RepositoryCertFile,
-		KeyFile:  release.RepositorySpec.RepositoryKeyFile,
+		CaFile:   release.RepositoryOpts.CAFile,
+		CertFile: release.RepositoryOpts.CertFile,
+		KeyFile:  release.RepositoryOpts.KeyFile,
 		Keyring:  release.Keyring,
 		RepoURL:  repositoryURL,
 		Verify:   release.Verify,
 		Version:  version,
-		Username: release.RepositorySpec.RepositoryUsername,
-		Password: release.RepositorySpec.RepositoryPassword, // TODO: This should already be resolved.
+		Username: release.RepositoryOpts.Username,
+		Password: release.RepositoryOpts.Password, // TODO: This should already be resolved.
 	}, chartName, nil
 }
 

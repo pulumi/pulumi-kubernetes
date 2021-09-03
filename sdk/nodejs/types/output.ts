@@ -12476,31 +12476,31 @@ export namespace helm {
         /**
          * Specification defining the Helm chart repository to use.
          */
-        export interface RepositorySpec {
+        export interface RepositoryOpts {
             /**
-             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             * The Repository's CA File
              */
-            repository: string;
+            caFile: string;
             /**
-             * The Repositories CA File
+             * The repository's cert file
              */
-            repositoryCAFile: string;
+            certFile: string;
             /**
-             * The repositories cert file
+             * The repository's cert key file
              */
-            repositoryCertFile: string;
-            /**
-             * The repositories cert key file
-             */
-            repositoryKeyFile: string;
+            keyFile: string;
             /**
              * Password for HTTP basic authentication
              */
-            repositoryPassword: string;
+            password: string;
+            /**
+             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             */
+            repo: string;
             /**
              * Username for HTTP basic authentication
              */
-            repositoryUsername: string;
+            username: string;
         }
 
     }

@@ -13,8 +13,8 @@ func main() {
 		rel, err := helm.NewRelease(ctx, "test", &helm.ReleaseArgs{
 			Chart:   pulumi.String("nginx"),
 			Version: pulumi.String("6.0.4"),
-			RepositorySpec: helm.RepositorySpecArgs{
-				Repository: pulumi.String("https://charts.bitnami.com/bitnami"),
+			RepositoryOpts: helm.RepositoryOptsArgs{
+				Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
 			},
 			Values:  pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
 			Timeout: pulumi.Int(300),

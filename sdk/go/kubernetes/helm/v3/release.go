@@ -60,7 +60,7 @@ type Release struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace pulumi.BoolPtrOutput `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
-	RepositorySpec RepositorySpecOutput `pulumi:"repositorySpec"`
+	RepositoryOpts RepositoryOptsOutput `pulumi:"repositoryOpts"`
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues pulumi.BoolPtrOutput `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
@@ -97,8 +97,8 @@ func NewRelease(ctx *pulumi.Context,
 	if args.Chart == nil {
 		return nil, errors.New("invalid value for required argument 'Chart'")
 	}
-	if args.RepositorySpec == nil {
-		return nil, errors.New("invalid value for required argument 'RepositorySpec'")
+	if args.RepositoryOpts == nil {
+		return nil, errors.New("invalid value for required argument 'RepositoryOpts'")
 	}
 	if args.Values == nil {
 		return nil, errors.New("invalid value for required argument 'Values'")
@@ -180,7 +180,7 @@ type releaseArgs struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace *bool `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
-	RepositorySpec RepositorySpec `pulumi:"repositorySpec"`
+	RepositoryOpts RepositoryOpts `pulumi:"repositoryOpts"`
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues *bool `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
@@ -251,7 +251,7 @@ type ReleaseArgs struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace pulumi.BoolPtrInput
 	// Specification defining the Helm chart repository to use.
-	RepositorySpec RepositorySpecInput
+	RepositoryOpts RepositoryOptsInput
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues pulumi.BoolPtrInput
 	// Names of resources created by the release grouped by "kind/version".

@@ -12159,31 +12159,31 @@ export namespace helm {
         /**
          * Specification defining the Helm chart repository to use.
          */
-        export interface RepositorySpec {
+        export interface RepositoryOpts {
             /**
-             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             * The Repository's CA File
              */
-            repository?: pulumi.Input<string>;
+            caFile?: pulumi.Input<string>;
             /**
-             * The Repositories CA File
+             * The repository's cert file
              */
-            repositoryCAFile?: pulumi.Input<string>;
+            certFile?: pulumi.Input<string>;
             /**
-             * The repositories cert file
+             * The repository's cert key file
              */
-            repositoryCertFile?: pulumi.Input<string>;
-            /**
-             * The repositories cert key file
-             */
-            repositoryKeyFile?: pulumi.Input<string>;
+            keyFile?: pulumi.Input<string>;
             /**
              * Password for HTTP basic authentication
              */
-            repositoryPassword?: pulumi.Input<string>;
+            password?: pulumi.Input<string>;
+            /**
+             * Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+             */
+            repo?: pulumi.Input<string>;
             /**
              * Username for HTTP basic authentication
              */
-            repositoryUsername?: pulumi.Input<string>;
+            username?: pulumi.Input<string>;
         }
     }
 }

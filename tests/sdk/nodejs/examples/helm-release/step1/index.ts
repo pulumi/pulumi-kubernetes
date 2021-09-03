@@ -8,8 +8,8 @@ const namespace = new k8s.core.v1.Namespace("release-ns");
 
 const release = new k8s.helm.v3.Release("release", {
     chart: "redis",
-    repositorySpec: {
-        repository: "https://charts.bitnami.com/bitnami",
+    repositoryOpts: {
+        repo: "https://charts.bitnami.com/bitnami",
     },
     version: "13.0.0",
     namespace: namespace.metadata.name,

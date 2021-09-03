@@ -124,7 +124,7 @@ export class Release extends pulumi.CustomResource {
     /**
      * Specification defining the Helm chart repository to use.
      */
-    public readonly repositorySpec!: pulumi.Output<outputs.helm.v3.RepositorySpec>;
+    public readonly repositoryOpts!: pulumi.Output<outputs.helm.v3.RepositoryOpts>;
     /**
      * When upgrading, reset the values to the ones built into the chart.
      */
@@ -188,8 +188,8 @@ export class Release extends pulumi.CustomResource {
             if ((!args || args.chart === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'chart'");
             }
-            if ((!args || args.repositorySpec === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'repositorySpec'");
+            if ((!args || args.repositoryOpts === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'repositoryOpts'");
             }
             if ((!args || args.values === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'values'");
@@ -216,7 +216,7 @@ export class Release extends pulumi.CustomResource {
             inputs["recreatePods"] = args ? args.recreatePods : undefined;
             inputs["renderSubchartNotes"] = args ? args.renderSubchartNotes : undefined;
             inputs["replace"] = args ? args.replace : undefined;
-            inputs["repositorySpec"] = args ? args.repositorySpec : undefined;
+            inputs["repositoryOpts"] = args ? args.repositoryOpts : undefined;
             inputs["resetValues"] = args ? args.resetValues : undefined;
             inputs["resourceNames"] = args ? args.resourceNames : undefined;
             inputs["reuseValues"] = args ? args.reuseValues : undefined;
@@ -251,7 +251,7 @@ export class Release extends pulumi.CustomResource {
             inputs["recreatePods"] = undefined /*out*/;
             inputs["renderSubchartNotes"] = undefined /*out*/;
             inputs["replace"] = undefined /*out*/;
-            inputs["repositorySpec"] = undefined /*out*/;
+            inputs["repositoryOpts"] = undefined /*out*/;
             inputs["resetValues"] = undefined /*out*/;
             inputs["resourceNames"] = undefined /*out*/;
             inputs["reuseValues"] = undefined /*out*/;
@@ -364,7 +364,7 @@ export interface ReleaseArgs {
     /**
      * Specification defining the Helm chart repository to use.
      */
-    repositorySpec: pulumi.Input<inputs.helm.v3.RepositorySpec>;
+    repositoryOpts: pulumi.Input<inputs.helm.v3.RepositoryOpts>;
     /**
      * When upgrading, reset the values to the ones built into the chart.
      */

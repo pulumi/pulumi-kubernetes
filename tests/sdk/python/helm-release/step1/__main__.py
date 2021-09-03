@@ -1,7 +1,7 @@
 """A Kubernetes Python Pulumi program"""
 
 from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositorySpecArgs
+from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
 
 app_labels = {"app": "nginx"}
 
@@ -10,8 +10,8 @@ namespace = Namespace("test")
 Release("release1",
         args=ReleaseArgs(
                 chart="nginx",
-                repository_spec=RepositorySpecArgs(
-                    repository="https://charts.bitnami.com/bitnami"
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.bitnami.com/bitnami"
                 ),
                 namespace=namespace.metadata["name"],
                 values={"service": {"type": "ClusterIP"}},
@@ -23,8 +23,8 @@ Release("release1",
 Release("release2",
         args=ReleaseArgs(
                 chart="nginx",
-                repository_spec=RepositorySpecArgs(
-                    repository="https://charts.bitnami.com/bitnami"
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.bitnami.com/bitnami"
                 ),
                 namespace=namespace.metadata["name"],
                 values={"service": {"type": "ClusterIP"}},

@@ -22880,8 +22880,8 @@
                     "type": "boolean",
                     "description": "Re-use the given name, even if that name is already used. This is unsafe in production"
                 },
-                "repositorySpec": {
-                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+                "repositoryOpts": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
                     "description": "Specification defining the Helm chart repository to use."
                 },
                 "resetValues": {
@@ -22948,7 +22948,7 @@
             "type": "object",
             "required": [
                 "chart",
-                "repositorySpec",
+                "repositoryOpts",
                 "values",
                 "status"
             ],
@@ -22956,7 +22956,7 @@
                 "nodejs": {
                     "requiredOutputs": [
                         "name",
-                        "repositorySpec",
+                        "repositoryOpts",
                         "chart",
                         "version",
                         "devel",
@@ -23042,31 +23042,31 @@
                 }
             }
         },
-        "kubernetes:helm.sh/v3:RepositorySpec": {
+        "kubernetes:helm.sh/v3:RepositoryOpts": {
             "description": "Specification defining the Helm chart repository to use.",
             "properties": {
-                "repository": {
+                "caFile": {
                     "type": "string",
-                    "description": "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository."
+                    "description": "The Repository's CA File"
                 },
-                "repositoryCAFile": {
+                "certFile": {
                     "type": "string",
-                    "description": "The Repositories CA File"
+                    "description": "The repository's cert file"
                 },
-                "repositoryCertFile": {
+                "keyFile": {
                     "type": "string",
-                    "description": "The repositories cert file"
+                    "description": "The repository's cert key file"
                 },
-                "repositoryKeyFile": {
-                    "type": "string",
-                    "description": "The repositories cert key file"
-                },
-                "repositoryPassword": {
+                "password": {
                     "type": "string",
                     "description": "Password for HTTP basic authentication",
                     "secret": true
                 },
-                "repositoryUsername": {
+                "repo": {
+                    "type": "string",
+                    "description": "Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository."
+                },
+                "username": {
                     "type": "string",
                     "description": "Username for HTTP basic authentication"
                 }
@@ -23075,12 +23075,12 @@
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
-                        "repository",
-                        "repositoryKeyFile",
-                        "repositoryCertFile",
-                        "repositoryCAFile",
-                        "repositoryUsername",
-                        "repositoryPassword"
+                        "repo",
+                        "keyFile",
+                        "certFile",
+                        "caFile",
+                        "username",
+                        "password"
                     ]
                 }
             }
@@ -39514,8 +39514,8 @@
                     "type": "boolean",
                     "description": "Re-use the given name, even if that name is already used. This is unsafe in production"
                 },
-                "repositorySpec": {
-                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+                "repositoryOpts": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
                     "description": "Specification defining the Helm chart repository to use."
                 },
                 "resetValues": {
@@ -39582,7 +39582,7 @@
             "type": "object",
             "required": [
                 "chart",
-                "repositorySpec",
+                "repositoryOpts",
                 "values",
                 "status"
             ],
@@ -39590,7 +39590,7 @@
                 "nodejs": {
                     "requiredOutputs": [
                         "name",
-                        "repositorySpec",
+                        "repositoryOpts",
                         "chart",
                         "version",
                         "devel",
@@ -39717,8 +39717,8 @@
                     "type": "boolean",
                     "description": "Re-use the given name, even if that name is already used. This is unsafe in production"
                 },
-                "repositorySpec": {
-                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositorySpec",
+                "repositoryOpts": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:RepositoryOpts",
                     "description": "Specification defining the Helm chart repository to use."
                 },
                 "resetValues": {
@@ -39780,7 +39780,7 @@
             },
             "requiredInputs": [
                 "chart",
-                "repositorySpec",
+                "repositoryOpts",
                 "values"
             ]
         },

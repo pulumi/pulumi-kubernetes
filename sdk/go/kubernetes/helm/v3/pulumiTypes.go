@@ -57,7 +57,7 @@ type ReleaseType struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace *bool `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
-	RepositorySpec RepositorySpec `pulumi:"repositorySpec"`
+	RepositoryOpts RepositoryOpts `pulumi:"repositoryOpts"`
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues *bool `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
@@ -142,7 +142,7 @@ type ReleaseTypeArgs struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace pulumi.BoolPtrInput `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
-	RepositorySpec RepositorySpecInput `pulumi:"repositorySpec"`
+	RepositoryOpts RepositoryOptsInput `pulumi:"repositoryOpts"`
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues pulumi.BoolPtrInput `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
@@ -304,8 +304,8 @@ func (o ReleaseTypeOutput) Replace() pulumi.BoolPtrOutput {
 }
 
 // Specification defining the Helm chart repository to use.
-func (o ReleaseTypeOutput) RepositorySpec() RepositorySpecOutput {
-	return o.ApplyT(func(v ReleaseType) RepositorySpec { return v.RepositorySpec }).(RepositorySpecOutput)
+func (o ReleaseTypeOutput) RepositoryOpts() RepositoryOptsOutput {
+	return o.ApplyT(func(v ReleaseType) RepositoryOpts { return v.RepositoryOpts }).(RepositoryOptsOutput)
 }
 
 // When upgrading, reset the values to the ones built into the chart.
@@ -614,231 +614,231 @@ func (o ReleaseStatusPtrOutput) Version() pulumi.StringPtrOutput {
 }
 
 // Specification defining the Helm chart repository to use.
-type RepositorySpec struct {
-	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-	Repository *string `pulumi:"repository"`
-	// The Repositories CA File
-	RepositoryCAFile *string `pulumi:"repositoryCAFile"`
-	// The repositories cert file
-	RepositoryCertFile *string `pulumi:"repositoryCertFile"`
-	// The repositories cert key file
-	RepositoryKeyFile *string `pulumi:"repositoryKeyFile"`
+type RepositoryOpts struct {
+	// The Repository's CA File
+	CaFile *string `pulumi:"caFile"`
+	// The repository's cert file
+	CertFile *string `pulumi:"certFile"`
+	// The repository's cert key file
+	KeyFile *string `pulumi:"keyFile"`
 	// Password for HTTP basic authentication
-	RepositoryPassword *string `pulumi:"repositoryPassword"`
+	Password *string `pulumi:"password"`
+	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+	Repo *string `pulumi:"repo"`
 	// Username for HTTP basic authentication
-	RepositoryUsername *string `pulumi:"repositoryUsername"`
+	Username *string `pulumi:"username"`
 }
 
-// RepositorySpecInput is an input type that accepts RepositorySpecArgs and RepositorySpecOutput values.
-// You can construct a concrete instance of `RepositorySpecInput` via:
+// RepositoryOptsInput is an input type that accepts RepositoryOptsArgs and RepositoryOptsOutput values.
+// You can construct a concrete instance of `RepositoryOptsInput` via:
 //
-//          RepositorySpecArgs{...}
-type RepositorySpecInput interface {
+//          RepositoryOptsArgs{...}
+type RepositoryOptsInput interface {
 	pulumi.Input
 
-	ToRepositorySpecOutput() RepositorySpecOutput
-	ToRepositorySpecOutputWithContext(context.Context) RepositorySpecOutput
+	ToRepositoryOptsOutput() RepositoryOptsOutput
+	ToRepositoryOptsOutputWithContext(context.Context) RepositoryOptsOutput
 }
 
 // Specification defining the Helm chart repository to use.
-type RepositorySpecArgs struct {
-	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-	Repository pulumi.StringPtrInput `pulumi:"repository"`
-	// The Repositories CA File
-	RepositoryCAFile pulumi.StringPtrInput `pulumi:"repositoryCAFile"`
-	// The repositories cert file
-	RepositoryCertFile pulumi.StringPtrInput `pulumi:"repositoryCertFile"`
-	// The repositories cert key file
-	RepositoryKeyFile pulumi.StringPtrInput `pulumi:"repositoryKeyFile"`
+type RepositoryOptsArgs struct {
+	// The Repository's CA File
+	CaFile pulumi.StringPtrInput `pulumi:"caFile"`
+	// The repository's cert file
+	CertFile pulumi.StringPtrInput `pulumi:"certFile"`
+	// The repository's cert key file
+	KeyFile pulumi.StringPtrInput `pulumi:"keyFile"`
 	// Password for HTTP basic authentication
-	RepositoryPassword pulumi.StringPtrInput `pulumi:"repositoryPassword"`
+	Password pulumi.StringPtrInput `pulumi:"password"`
+	// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+	Repo pulumi.StringPtrInput `pulumi:"repo"`
 	// Username for HTTP basic authentication
-	RepositoryUsername pulumi.StringPtrInput `pulumi:"repositoryUsername"`
+	Username pulumi.StringPtrInput `pulumi:"username"`
 }
 
-func (RepositorySpecArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*RepositorySpec)(nil)).Elem()
+func (RepositoryOptsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RepositoryOpts)(nil)).Elem()
 }
 
-func (i RepositorySpecArgs) ToRepositorySpecOutput() RepositorySpecOutput {
-	return i.ToRepositorySpecOutputWithContext(context.Background())
+func (i RepositoryOptsArgs) ToRepositoryOptsOutput() RepositoryOptsOutput {
+	return i.ToRepositoryOptsOutputWithContext(context.Background())
 }
 
-func (i RepositorySpecArgs) ToRepositorySpecOutputWithContext(ctx context.Context) RepositorySpecOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RepositorySpecOutput)
+func (i RepositoryOptsArgs) ToRepositoryOptsOutputWithContext(ctx context.Context) RepositoryOptsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RepositoryOptsOutput)
 }
 
-func (i RepositorySpecArgs) ToRepositorySpecPtrOutput() RepositorySpecPtrOutput {
-	return i.ToRepositorySpecPtrOutputWithContext(context.Background())
+func (i RepositoryOptsArgs) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutput {
+	return i.ToRepositoryOptsPtrOutputWithContext(context.Background())
 }
 
-func (i RepositorySpecArgs) ToRepositorySpecPtrOutputWithContext(ctx context.Context) RepositorySpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RepositorySpecOutput).ToRepositorySpecPtrOutputWithContext(ctx)
+func (i RepositoryOptsArgs) ToRepositoryOptsPtrOutputWithContext(ctx context.Context) RepositoryOptsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RepositoryOptsOutput).ToRepositoryOptsPtrOutputWithContext(ctx)
 }
 
-// RepositorySpecPtrInput is an input type that accepts RepositorySpecArgs, RepositorySpecPtr and RepositorySpecPtrOutput values.
-// You can construct a concrete instance of `RepositorySpecPtrInput` via:
+// RepositoryOptsPtrInput is an input type that accepts RepositoryOptsArgs, RepositoryOptsPtr and RepositoryOptsPtrOutput values.
+// You can construct a concrete instance of `RepositoryOptsPtrInput` via:
 //
-//          RepositorySpecArgs{...}
+//          RepositoryOptsArgs{...}
 //
 //  or:
 //
 //          nil
-type RepositorySpecPtrInput interface {
+type RepositoryOptsPtrInput interface {
 	pulumi.Input
 
-	ToRepositorySpecPtrOutput() RepositorySpecPtrOutput
-	ToRepositorySpecPtrOutputWithContext(context.Context) RepositorySpecPtrOutput
+	ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutput
+	ToRepositoryOptsPtrOutputWithContext(context.Context) RepositoryOptsPtrOutput
 }
 
-type repositorySpecPtrType RepositorySpecArgs
+type repositoryOptsPtrType RepositoryOptsArgs
 
-func RepositorySpecPtr(v *RepositorySpecArgs) RepositorySpecPtrInput {
-	return (*repositorySpecPtrType)(v)
+func RepositoryOptsPtr(v *RepositoryOptsArgs) RepositoryOptsPtrInput {
+	return (*repositoryOptsPtrType)(v)
 }
 
-func (*repositorySpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**RepositorySpec)(nil)).Elem()
+func (*repositoryOptsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RepositoryOpts)(nil)).Elem()
 }
 
-func (i *repositorySpecPtrType) ToRepositorySpecPtrOutput() RepositorySpecPtrOutput {
-	return i.ToRepositorySpecPtrOutputWithContext(context.Background())
+func (i *repositoryOptsPtrType) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutput {
+	return i.ToRepositoryOptsPtrOutputWithContext(context.Background())
 }
 
-func (i *repositorySpecPtrType) ToRepositorySpecPtrOutputWithContext(ctx context.Context) RepositorySpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RepositorySpecPtrOutput)
+func (i *repositoryOptsPtrType) ToRepositoryOptsPtrOutputWithContext(ctx context.Context) RepositoryOptsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RepositoryOptsPtrOutput)
 }
 
 // Specification defining the Helm chart repository to use.
-type RepositorySpecOutput struct{ *pulumi.OutputState }
+type RepositoryOptsOutput struct{ *pulumi.OutputState }
 
-func (RepositorySpecOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RepositorySpec)(nil)).Elem()
+func (RepositoryOptsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RepositoryOpts)(nil)).Elem()
 }
 
-func (o RepositorySpecOutput) ToRepositorySpecOutput() RepositorySpecOutput {
+func (o RepositoryOptsOutput) ToRepositoryOptsOutput() RepositoryOptsOutput {
 	return o
 }
 
-func (o RepositorySpecOutput) ToRepositorySpecOutputWithContext(ctx context.Context) RepositorySpecOutput {
+func (o RepositoryOptsOutput) ToRepositoryOptsOutputWithContext(ctx context.Context) RepositoryOptsOutput {
 	return o
 }
 
-func (o RepositorySpecOutput) ToRepositorySpecPtrOutput() RepositorySpecPtrOutput {
-	return o.ToRepositorySpecPtrOutputWithContext(context.Background())
+func (o RepositoryOptsOutput) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutput {
+	return o.ToRepositoryOptsPtrOutputWithContext(context.Background())
 }
 
-func (o RepositorySpecOutput) ToRepositorySpecPtrOutputWithContext(ctx context.Context) RepositorySpecPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *RepositorySpec {
+func (o RepositoryOptsOutput) ToRepositoryOptsPtrOutputWithContext(ctx context.Context) RepositoryOptsPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *RepositoryOpts {
 		return &v
-	}).(RepositorySpecPtrOutput)
+	}).(RepositoryOptsPtrOutput)
 }
 
-// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-func (o RepositorySpecOutput) Repository() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *string { return v.Repository }).(pulumi.StringPtrOutput)
+// The Repository's CA File
+func (o RepositoryOptsOutput) CaFile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *string { return v.CaFile }).(pulumi.StringPtrOutput)
 }
 
-// The Repositories CA File
-func (o RepositorySpecOutput) RepositoryCAFile() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *string { return v.RepositoryCAFile }).(pulumi.StringPtrOutput)
+// The repository's cert file
+func (o RepositoryOptsOutput) CertFile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *string { return v.CertFile }).(pulumi.StringPtrOutput)
 }
 
-// The repositories cert file
-func (o RepositorySpecOutput) RepositoryCertFile() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *string { return v.RepositoryCertFile }).(pulumi.StringPtrOutput)
-}
-
-// The repositories cert key file
-func (o RepositorySpecOutput) RepositoryKeyFile() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *string { return v.RepositoryKeyFile }).(pulumi.StringPtrOutput)
+// The repository's cert key file
+func (o RepositoryOptsOutput) KeyFile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *string { return v.KeyFile }).(pulumi.StringPtrOutput)
 }
 
 // Password for HTTP basic authentication
-func (o RepositorySpecOutput) RepositoryPassword() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *string { return v.RepositoryPassword }).(pulumi.StringPtrOutput)
-}
-
-// Username for HTTP basic authentication
-func (o RepositorySpecOutput) RepositoryUsername() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RepositorySpec) *string { return v.RepositoryUsername }).(pulumi.StringPtrOutput)
-}
-
-type RepositorySpecPtrOutput struct{ *pulumi.OutputState }
-
-func (RepositorySpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**RepositorySpec)(nil)).Elem()
-}
-
-func (o RepositorySpecPtrOutput) ToRepositorySpecPtrOutput() RepositorySpecPtrOutput {
-	return o
-}
-
-func (o RepositorySpecPtrOutput) ToRepositorySpecPtrOutputWithContext(ctx context.Context) RepositorySpecPtrOutput {
-	return o
-}
-
-func (o RepositorySpecPtrOutput) Elem() RepositorySpecOutput {
-	return o.ApplyT(func(v *RepositorySpec) RepositorySpec { return *v }).(RepositorySpecOutput)
+func (o RepositoryOptsOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *string { return v.Password }).(pulumi.StringPtrOutput)
 }
 
 // Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
-func (o RepositorySpecPtrOutput) Repository() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RepositorySpec) *string {
+func (o RepositoryOptsOutput) Repo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *string { return v.Repo }).(pulumi.StringPtrOutput)
+}
+
+// Username for HTTP basic authentication
+func (o RepositoryOptsOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RepositoryOpts) *string { return v.Username }).(pulumi.StringPtrOutput)
+}
+
+type RepositoryOptsPtrOutput struct{ *pulumi.OutputState }
+
+func (RepositoryOptsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RepositoryOpts)(nil)).Elem()
+}
+
+func (o RepositoryOptsPtrOutput) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutput {
+	return o
+}
+
+func (o RepositoryOptsPtrOutput) ToRepositoryOptsPtrOutputWithContext(ctx context.Context) RepositoryOptsPtrOutput {
+	return o
+}
+
+func (o RepositoryOptsPtrOutput) Elem() RepositoryOptsOutput {
+	return o.ApplyT(func(v *RepositoryOpts) RepositoryOpts { return *v }).(RepositoryOptsOutput)
+}
+
+// The Repository's CA File
+func (o RepositoryOptsPtrOutput) CaFile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RepositoryOpts) *string {
 		if v == nil {
 			return nil
 		}
-		return v.Repository
+		return v.CaFile
 	}).(pulumi.StringPtrOutput)
 }
 
-// The Repositories CA File
-func (o RepositorySpecPtrOutput) RepositoryCAFile() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RepositorySpec) *string {
+// The repository's cert file
+func (o RepositoryOptsPtrOutput) CertFile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RepositoryOpts) *string {
 		if v == nil {
 			return nil
 		}
-		return v.RepositoryCAFile
+		return v.CertFile
 	}).(pulumi.StringPtrOutput)
 }
 
-// The repositories cert file
-func (o RepositorySpecPtrOutput) RepositoryCertFile() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RepositorySpec) *string {
+// The repository's cert key file
+func (o RepositoryOptsPtrOutput) KeyFile() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RepositoryOpts) *string {
 		if v == nil {
 			return nil
 		}
-		return v.RepositoryCertFile
-	}).(pulumi.StringPtrOutput)
-}
-
-// The repositories cert key file
-func (o RepositorySpecPtrOutput) RepositoryKeyFile() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RepositorySpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.RepositoryKeyFile
+		return v.KeyFile
 	}).(pulumi.StringPtrOutput)
 }
 
 // Password for HTTP basic authentication
-func (o RepositorySpecPtrOutput) RepositoryPassword() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RepositorySpec) *string {
+func (o RepositoryOptsPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RepositoryOpts) *string {
 		if v == nil {
 			return nil
 		}
-		return v.RepositoryPassword
+		return v.Password
+	}).(pulumi.StringPtrOutput)
+}
+
+// Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
+func (o RepositoryOptsPtrOutput) Repo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RepositoryOpts) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Repo
 	}).(pulumi.StringPtrOutput)
 }
 
 // Username for HTTP basic authentication
-func (o RepositorySpecPtrOutput) RepositoryUsername() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RepositorySpec) *string {
+func (o RepositoryOptsPtrOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RepositoryOpts) *string {
 		if v == nil {
 			return nil
 		}
-		return v.RepositoryUsername
+		return v.Username
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -846,6 +846,6 @@ func init() {
 	pulumi.RegisterOutputType(ReleaseTypeOutput{})
 	pulumi.RegisterOutputType(ReleaseStatusOutput{})
 	pulumi.RegisterOutputType(ReleaseStatusPtrOutput{})
-	pulumi.RegisterOutputType(RepositorySpecOutput{})
-	pulumi.RegisterOutputType(RepositorySpecPtrOutput{})
+	pulumi.RegisterOutputType(RepositoryOptsOutput{})
+	pulumi.RegisterOutputType(RepositoryOptsPtrOutput{})
 }
