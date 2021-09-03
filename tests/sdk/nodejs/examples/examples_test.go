@@ -412,15 +412,11 @@ func TestHelmRelease(t *testing.T) {
 				assert.Equal(t, stackInfo.Outputs["status"], "deployed")
 				for _, res := range stackInfo.Deployment.Resources {
 					if res.Type == "kubernetes:helm.sh/v3:Release" {
-						relSpec, has := res.Inputs["releaseSpec"]
+						version, has := res.Inputs["version"]
 						assert.True(t, has)
-						relSpecMap, is := relSpec.(map[string]interface{})
-						assert.True(t, is)
-						version, has := relSpecMap["version"]
+						stat, has := res.Outputs["status"]
 						assert.True(t, has)
-						spec, has := res.Outputs["status"]
-						assert.True(t, has)
-						specMap, is := spec.(map[string]interface{})
+						specMap, is := stat.(map[string]interface{})
 						assert.True(t, is)
 						versionOut, has := specMap["version"]
 						assert.True(t, has)

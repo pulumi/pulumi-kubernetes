@@ -11,15 +11,13 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		rel, err := helm.NewRelease(ctx, "test", &helm.ReleaseArgs{
-			ReleaseSpec: helm.ReleaseSpecArgs{
-				Chart:   pulumi.String("nginx"),
-				Version: pulumi.String("6.0.4"),
-				RepositorySpec: helm.RepositorySpecArgs{
-					Repository: pulumi.String("https://charts.bitnami.com/bitnami"),
-				},
-				Values:  pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
-				Timeout: pulumi.Int(300),
+			Chart:   pulumi.String("nginx"),
+			Version: pulumi.String("6.0.4"),
+			RepositorySpec: helm.RepositorySpecArgs{
+				Repository: pulumi.String("https://charts.bitnami.com/bitnami"),
 			},
+			Values:  pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
+			Timeout: pulumi.Int(300),
 		})
 		if err != nil {
 			return err

@@ -7,35 +7,33 @@ const redisPassword = pulumi.secret("$053cr3t!");
 const namespace = new k8s.core.v1.Namespace("release-ns");
 
 const release = new k8s.helm.v3.Release("release", {
-    releaseSpec: {
-        chart: "redis",
-        repositorySpec: {
-            repository: "https://charts.bitnami.com/bitnami",
+    chart: "redis",
+    repositorySpec: {
+        repository: "https://charts.bitnami.com/bitnami",
+    },
+    version: "13.0.1", // <--- change
+    namespace: namespace.metadata.name,
+    values: {
+        cluster: {
+            enabled: true,
+            slaveCount: 3,
         },
-        version: "13.0.1", // <--- change
-        namespace: namespace.metadata.name,
-        values: {
-            cluster: {
-                enabled: true,
-                slaveCount: 3,
-            },
-            metrics: {
-                enabled: true,
-                service: {
-                    annotations: {
-                        "prometheus.io/port": "9127",
-                    }
-                },
-            },
-            global: {
-                redis: {
-                    password: redisPassword,
+        metrics: {
+            enabled: true,
+            service: {
+                annotations: {
+                    "prometheus.io/port": "9127",
                 }
             },
-            rbac: {
-                create: true,
+        },
+        global: {
+            redis: {
+                password: redisPassword,
             }
         },
+        rbac: {
+            create: true,
+        }
     },
 });
 

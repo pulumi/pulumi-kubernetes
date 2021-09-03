@@ -516,15 +516,11 @@ func adoptOldNameIfUnnamed(new, old *Release) {
 }
 
 func assignNameIfAutonameable(release *Release, pm resource.PropertyMap, base tokens.QName) {
-	if rs, ok := pm["releaseSpec"].V.(resource.PropertyMap); ok {
-		if name, ok := rs["name"]; ok && name.IsComputed() {
-			return
-		}
-		if name, ok := rs["name"]; !ok || name.StringValue() == "" {
-			release.Name = fmt.Sprintf("%s-%s", base, metadata.RandString(8))
-		}
-	} else {
-		contract.Failf("release %#v has releaseSpec with unexpected type: %T", pm, pm["releaseSpec"].V)
+	if name, ok := pm["name"]; ok && name.IsComputed() {
+		return
+	}
+	if name, ok := pm["name"]; !ok || name.StringValue() == "" {
+		release.Name = fmt.Sprintf("%s-%s", base, metadata.RandString(8))
 	}
 }
 

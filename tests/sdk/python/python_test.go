@@ -336,7 +336,6 @@ func TestHelm(t *testing.T) {
 }
 
 func TestHelmRelease(t *testing.T) {
-	t.Skip("Temp skipping")
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
