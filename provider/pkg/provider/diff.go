@@ -109,7 +109,6 @@ var core = _versions{
 				".spec.accessModes",
 				".spec.resources",
 				".spec.resources.limits",
-				".spec.resources.requests",
 				".spec.selector",
 				".spec.storageClassName",
 				".spec.volumeName",
