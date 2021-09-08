@@ -164,7 +164,7 @@ func TestPatchToDiff(t *testing.T) {
 			old: object{"spec": object{"resources": object{"requests": object{"storage": "10Gi"}}}},
 			new: object{"spec": object{"resources": object{"requests": object{"storage": "20Gi"}}}},
 			expected: expected{
-				"spec.resources.requests.storage": UR,
+				"spec.resources.requests.storage": U,
 			},
 		},
 	}

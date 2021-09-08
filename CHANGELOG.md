@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
-(None)
+
+- Don't replace PVC on .spec.resources.requests change. (https://github.com/pulumi/pulumi-kubernetes/pull/1705)
 
 ## 3.7.0 (September 3, 2021)
 - Add initial support for a Helm release resource - `kubernetes:helm.sh/v3:Release. Currently available in Beta (https://github.com/pulumi/pulumi-kubernetes/pull/1677)
