@@ -28,6 +28,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -88,6 +89,9 @@ const (
 	invokeKustomize      = "kubernetes:kustomize:directory"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialAPIVersionKey = "__initialApiVersion"
+
+	envKubeClientQPS   = "PULUMI_KUBE_CLIENT_QPS"
+	envKubeClientBurst = "PULUMI_KUBE_CLIENT_BURST"
 )
 
 type cancellationContext struct {
@@ -605,7 +609,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
-		config, err := kubeconfig.ClientConfig()
+		config, err := RestConfig(kubeconfig)
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
@@ -664,6 +668,26 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		AcceptSecrets:   true,
 		SupportsPreview: true,
 	}, nil
+}
+
+func RestConfig(kubeconfig clientcmd.ClientConfig) (*rest.Config, error) {
+	config, err := kubeconfig.ClientConfig()
+
+	qpsValue := os.Getenv(envKubeClientQPS)
+	burstValue := os.Getenv(envKubeClientBurst)
+
+	qps, errQps := strconv.ParseFloat(qpsValue, 32)
+
+	burst, errBurst := strconv.ParseInt(burstValue, 10, 32)
+
+	if errQps == nil {
+		config.QPS = float32(qps)
+	}
+	if errBurst == nil {
+		config.Burst = int(burst)
+	}
+
+	return config, err
 }
 
 // Invoke dynamically executes a built-in function in the provider.
