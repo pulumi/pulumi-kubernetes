@@ -105,11 +105,7 @@ var core = _versions{
 			}),
 		"PersistentVolumeClaim": append(
 			properties{
-				".spec",
 				".spec.accessModes",
-				".spec.resources",
-				".spec.resources.limits",
-				".spec.resources.requests",
 				".spec.selector",
 				".spec.storageClassName",
 				".spec.volumeName",
