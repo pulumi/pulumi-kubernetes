@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
+(None)
 
+## 3.7.1 (September 10, 2021)
 - Don't replace PVC on .spec.resources.requests or .limits change. (https://github.com/pulumi/pulumi-kubernetes/pull/1705)
     - *NOTE*: User's will now need to use the `replaceOnChanges` resource option for PVCs if modifying requests or limits to trigger replacement
 
