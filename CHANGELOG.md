@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Don't replace PVC on .spec.resources.requests change. (https://github.com/pulumi/pulumi-kubernetes/pull/1705)
+    - *NOTE*: User's will now need to use need to use the `replaceOnChanges` resource option for PVCs if modifying the size
 
 ## 3.7.0 (September 3, 2021)
 - Add initial support for a Helm release resource - `kubernetes:helm.sh/v3:Release. Currently available in Beta (https://github.com/pulumi/pulumi-kubernetes/pull/1677)
