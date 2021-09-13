@@ -485,7 +485,7 @@ func (o ReleaseStatusOutput) ToReleaseStatusPtrOutput() ReleaseStatusPtrOutput {
 }
 
 func (o ReleaseStatusOutput) ToReleaseStatusPtrOutputWithContext(ctx context.Context) ReleaseStatusPtrOutput {
-	return o.ApplyT(func(v ReleaseStatus) *ReleaseStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReleaseStatus) *ReleaseStatus {
 		return &v
 	}).(ReleaseStatusPtrOutput)
 }
@@ -540,7 +540,13 @@ func (o ReleaseStatusPtrOutput) ToReleaseStatusPtrOutputWithContext(ctx context.
 }
 
 func (o ReleaseStatusPtrOutput) Elem() ReleaseStatusOutput {
-	return o.ApplyT(func(v *ReleaseStatus) ReleaseStatus { return *v }).(ReleaseStatusOutput)
+	return o.ApplyT(func(v *ReleaseStatus) ReleaseStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ReleaseStatus
+		return ret
+	}).(ReleaseStatusOutput)
 }
 
 // The version number of the application being deployed.
@@ -729,7 +735,7 @@ func (o RepositoryOptsOutput) ToRepositoryOptsPtrOutput() RepositoryOptsPtrOutpu
 }
 
 func (o RepositoryOptsOutput) ToRepositoryOptsPtrOutputWithContext(ctx context.Context) RepositoryOptsPtrOutput {
-	return o.ApplyT(func(v RepositoryOpts) *RepositoryOpts {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RepositoryOpts) *RepositoryOpts {
 		return &v
 	}).(RepositoryOptsPtrOutput)
 }
@@ -779,7 +785,13 @@ func (o RepositoryOptsPtrOutput) ToRepositoryOptsPtrOutputWithContext(ctx contex
 }
 
 func (o RepositoryOptsPtrOutput) Elem() RepositoryOptsOutput {
-	return o.ApplyT(func(v *RepositoryOpts) RepositoryOpts { return *v }).(RepositoryOptsOutput)
+	return o.ApplyT(func(v *RepositoryOpts) RepositoryOpts {
+		if v != nil {
+			return *v
+		}
+		var ret RepositoryOpts
+		return ret
+	}).(RepositoryOptsOutput)
 }
 
 // The Repository's CA File

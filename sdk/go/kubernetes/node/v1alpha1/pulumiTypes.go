@@ -108,7 +108,7 @@ func (o OverheadOutput) ToOverheadPtrOutput() OverheadPtrOutput {
 }
 
 func (o OverheadOutput) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
-	return o.ApplyT(func(v Overhead) *Overhead {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Overhead) *Overhead {
 		return &v
 	}).(OverheadPtrOutput)
 }
@@ -133,7 +133,13 @@ func (o OverheadPtrOutput) ToOverheadPtrOutputWithContext(ctx context.Context) O
 }
 
 func (o OverheadPtrOutput) Elem() OverheadOutput {
-	return o.ApplyT(func(v *Overhead) Overhead { return *v }).(OverheadOutput)
+	return o.ApplyT(func(v *Overhead) Overhead {
+		if v != nil {
+			return *v
+		}
+		var ret Overhead
+		return ret
+	}).(OverheadOutput)
 }
 
 // PodFixed represents the fixed resource overhead associated with running a pod.
@@ -459,7 +465,7 @@ func (o RuntimeClassSpecOutput) ToRuntimeClassSpecPtrOutput() RuntimeClassSpecPt
 }
 
 func (o RuntimeClassSpecOutput) ToRuntimeClassSpecPtrOutputWithContext(ctx context.Context) RuntimeClassSpecPtrOutput {
-	return o.ApplyT(func(v RuntimeClassSpec) *RuntimeClassSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClassSpec) *RuntimeClassSpec {
 		return &v
 	}).(RuntimeClassSpecPtrOutput)
 }
@@ -494,7 +500,13 @@ func (o RuntimeClassSpecPtrOutput) ToRuntimeClassSpecPtrOutputWithContext(ctx co
 }
 
 func (o RuntimeClassSpecPtrOutput) Elem() RuntimeClassSpecOutput {
-	return o.ApplyT(func(v *RuntimeClassSpec) RuntimeClassSpec { return *v }).(RuntimeClassSpecOutput)
+	return o.ApplyT(func(v *RuntimeClassSpec) RuntimeClassSpec {
+		if v != nil {
+			return *v
+		}
+		var ret RuntimeClassSpec
+		return ret
+	}).(RuntimeClassSpecOutput)
 }
 
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
@@ -627,7 +639,7 @@ func (o SchedulingOutput) ToSchedulingPtrOutput() SchedulingPtrOutput {
 }
 
 func (o SchedulingOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
-	return o.ApplyT(func(v Scheduling) *Scheduling {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Scheduling) *Scheduling {
 		return &v
 	}).(SchedulingPtrOutput)
 }
@@ -657,7 +669,13 @@ func (o SchedulingPtrOutput) ToSchedulingPtrOutputWithContext(ctx context.Contex
 }
 
 func (o SchedulingPtrOutput) Elem() SchedulingOutput {
-	return o.ApplyT(func(v *Scheduling) Scheduling { return *v }).(SchedulingOutput)
+	return o.ApplyT(func(v *Scheduling) Scheduling {
+		if v != nil {
+			return *v
+		}
+		var ret Scheduling
+		return ret
+	}).(SchedulingOutput)
 }
 
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.

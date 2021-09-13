@@ -256,7 +256,7 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutput() HTTPIngres
 }
 
 func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(ctx context.Context) HTTPIngressRuleValuePtrOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) *HTTPIngressRuleValue {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HTTPIngressRuleValue) *HTTPIngressRuleValue {
 		return &v
 	}).(HTTPIngressRuleValuePtrOutput)
 }
@@ -281,7 +281,13 @@ func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutputWithContex
 }
 
 func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
-	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue { return *v }).(HTTPIngressRuleValueOutput)
+	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue {
+		if v != nil {
+			return *v
+		}
+		var ret HTTPIngressRuleValue
+		return ret
+	}).(HTTPIngressRuleValueOutput)
 }
 
 // A collection of paths that map requests to backends.
@@ -394,7 +400,7 @@ func (o IPBlockOutput) ToIPBlockPtrOutput() IPBlockPtrOutput {
 }
 
 func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBlockPtrOutput {
-	return o.ApplyT(func(v IPBlock) *IPBlock {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPBlock) *IPBlock {
 		return &v
 	}).(IPBlockPtrOutput)
 }
@@ -424,7 +430,13 @@ func (o IPBlockPtrOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPB
 }
 
 func (o IPBlockPtrOutput) Elem() IPBlockOutput {
-	return o.ApplyT(func(v *IPBlock) IPBlock { return *v }).(IPBlockOutput)
+	return o.ApplyT(func(v *IPBlock) IPBlock {
+		if v != nil {
+			return *v
+		}
+		var ret IPBlock
+		return ret
+	}).(IPBlockOutput)
 }
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
@@ -725,7 +737,7 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutput() IngressBackendPtrOutpu
 }
 
 func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.Context) IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *IngressBackend {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressBackend) *IngressBackend {
 		return &v
 	}).(IngressBackendPtrOutput)
 }
@@ -755,7 +767,13 @@ func (o IngressBackendPtrOutput) ToIngressBackendPtrOutputWithContext(ctx contex
 }
 
 func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
-	return o.ApplyT(func(v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
+	return o.ApplyT(func(v *IngressBackend) IngressBackend {
+		if v != nil {
+			return *v
+		}
+		var ret IngressBackend
+		return ret
+	}).(IngressBackendOutput)
 }
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
@@ -1099,7 +1117,7 @@ func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReference
 }
 
 func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
-	return o.ApplyT(func(v IngressClassParametersReference) *IngressClassParametersReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClassParametersReference) *IngressClassParametersReference {
 		return &v
 	}).(IngressClassParametersReferencePtrOutput)
 }
@@ -1144,7 +1162,13 @@ func (o IngressClassParametersReferencePtrOutput) ToIngressClassParametersRefere
 }
 
 func (o IngressClassParametersReferencePtrOutput) Elem() IngressClassParametersReferenceOutput {
-	return o.ApplyT(func(v *IngressClassParametersReference) IngressClassParametersReference { return *v }).(IngressClassParametersReferenceOutput)
+	return o.ApplyT(func(v *IngressClassParametersReference) IngressClassParametersReference {
+		if v != nil {
+			return *v
+		}
+		var ret IngressClassParametersReference
+		return ret
+	}).(IngressClassParametersReferenceOutput)
 }
 
 // APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -1297,7 +1321,7 @@ func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutput() IngressClassSpecPt
 }
 
 func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
-	return o.ApplyT(func(v IngressClassSpec) *IngressClassSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClassSpec) *IngressClassSpec {
 		return &v
 	}).(IngressClassSpecPtrOutput)
 }
@@ -1327,7 +1351,13 @@ func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutputWithContext(ctx co
 }
 
 func (o IngressClassSpecPtrOutput) Elem() IngressClassSpecOutput {
-	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec { return *v }).(IngressClassSpecOutput)
+	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressClassSpec
+		return ret
+	}).(IngressClassSpecOutput)
 }
 
 // Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
@@ -1659,7 +1689,7 @@ func (o IngressServiceBackendOutput) ToIngressServiceBackendPtrOutput() IngressS
 }
 
 func (o IngressServiceBackendOutput) ToIngressServiceBackendPtrOutputWithContext(ctx context.Context) IngressServiceBackendPtrOutput {
-	return o.ApplyT(func(v IngressServiceBackend) *IngressServiceBackend {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressServiceBackend) *IngressServiceBackend {
 		return &v
 	}).(IngressServiceBackendPtrOutput)
 }
@@ -1689,7 +1719,13 @@ func (o IngressServiceBackendPtrOutput) ToIngressServiceBackendPtrOutputWithCont
 }
 
 func (o IngressServiceBackendPtrOutput) Elem() IngressServiceBackendOutput {
-	return o.ApplyT(func(v *IngressServiceBackend) IngressServiceBackend { return *v }).(IngressServiceBackendOutput)
+	return o.ApplyT(func(v *IngressServiceBackend) IngressServiceBackend {
+		if v != nil {
+			return *v
+		}
+		var ret IngressServiceBackend
+		return ret
+	}).(IngressServiceBackendOutput)
 }
 
 // Name is the referenced service. The service must exist in the same namespace as the Ingress object.
@@ -1820,7 +1856,7 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutput() IngressSpecPtrOutput {
 }
 
 func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context) IngressSpecPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressSpec) *IngressSpec {
 		return &v
 	}).(IngressSpecPtrOutput)
 }
@@ -1860,7 +1896,13 @@ func (o IngressSpecPtrOutput) ToIngressSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
-	return o.ApplyT(func(v *IngressSpec) IngressSpec { return *v }).(IngressSpecOutput)
+	return o.ApplyT(func(v *IngressSpec) IngressSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressSpec
+		return ret
+	}).(IngressSpecOutput)
 }
 
 // DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
@@ -1999,7 +2041,7 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutput() IngressStatusPtrOutput {
 }
 
 func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Context) IngressStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *IngressStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressStatus) *IngressStatus {
 		return &v
 	}).(IngressStatusPtrOutput)
 }
@@ -2024,7 +2066,13 @@ func (o IngressStatusPtrOutput) ToIngressStatusPtrOutputWithContext(ctx context.
 }
 
 func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
-	return o.ApplyT(func(v *IngressStatus) IngressStatus { return *v }).(IngressStatusOutput)
+	return o.ApplyT(func(v *IngressStatus) IngressStatus {
+		if v != nil {
+			return *v
+		}
+		var ret IngressStatus
+		return ret
+	}).(IngressStatusOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer.
@@ -2929,7 +2977,7 @@ func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutput() NetworkPolicySpe
 }
 
 func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx context.Context) NetworkPolicySpecPtrOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) *NetworkPolicySpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkPolicySpec) *NetworkPolicySpec {
 		return &v
 	}).(NetworkPolicySpecPtrOutput)
 }
@@ -2969,7 +3017,13 @@ func (o NetworkPolicySpecPtrOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx 
 }
 
 func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
-	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec { return *v }).(NetworkPolicySpecOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkPolicySpec
+		return ret
+	}).(NetworkPolicySpecOutput)
 }
 
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
@@ -3112,7 +3166,7 @@ func (o ServiceBackendPortOutput) ToServiceBackendPortPtrOutput() ServiceBackend
 }
 
 func (o ServiceBackendPortOutput) ToServiceBackendPortPtrOutputWithContext(ctx context.Context) ServiceBackendPortPtrOutput {
-	return o.ApplyT(func(v ServiceBackendPort) *ServiceBackendPort {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceBackendPort) *ServiceBackendPort {
 		return &v
 	}).(ServiceBackendPortPtrOutput)
 }
@@ -3142,7 +3196,13 @@ func (o ServiceBackendPortPtrOutput) ToServiceBackendPortPtrOutputWithContext(ct
 }
 
 func (o ServiceBackendPortPtrOutput) Elem() ServiceBackendPortOutput {
-	return o.ApplyT(func(v *ServiceBackendPort) ServiceBackendPort { return *v }).(ServiceBackendPortOutput)
+	return o.ApplyT(func(v *ServiceBackendPort) ServiceBackendPort {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceBackendPort
+		return ret
+	}).(ServiceBackendPortOutput)
 }
 
 // Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".

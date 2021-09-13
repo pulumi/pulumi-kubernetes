@@ -415,7 +415,7 @@ func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutput() PodD
 }
 
 func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetSpecPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetSpec) *PodDisruptionBudgetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetSpec) *PodDisruptionBudgetSpec {
 		return &v
 	}).(PodDisruptionBudgetSpecPtrOutput)
 }
@@ -450,7 +450,13 @@ func (o PodDisruptionBudgetSpecPtrOutput) ToPodDisruptionBudgetSpecPtrOutputWith
 }
 
 func (o PodDisruptionBudgetSpecPtrOutput) Elem() PodDisruptionBudgetSpecOutput {
-	return o.ApplyT(func(v *PodDisruptionBudgetSpec) PodDisruptionBudgetSpec { return *v }).(PodDisruptionBudgetSpecOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetSpec) PodDisruptionBudgetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodDisruptionBudgetSpec
+		return ret
+	}).(PodDisruptionBudgetSpecOutput)
 }
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -619,7 +625,7 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutput() 
 }
 
 func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetStatusPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *PodDisruptionBudgetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetStatus) *PodDisruptionBudgetStatus {
 		return &v
 	}).(PodDisruptionBudgetStatusPtrOutput)
 }
@@ -682,7 +688,13 @@ func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutput
 }
 
 func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutput {
-	return o.ApplyT(func(v *PodDisruptionBudgetStatus) PodDisruptionBudgetStatus { return *v }).(PodDisruptionBudgetStatusOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) PodDisruptionBudgetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodDisruptionBudgetStatus
+		return ret
+	}).(PodDisruptionBudgetStatusOutput)
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute

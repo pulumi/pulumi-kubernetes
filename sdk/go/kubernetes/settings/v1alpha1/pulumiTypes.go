@@ -327,7 +327,7 @@ func (o PodPresetSpecOutput) ToPodPresetSpecPtrOutput() PodPresetSpecPtrOutput {
 }
 
 func (o PodPresetSpecOutput) ToPodPresetSpecPtrOutputWithContext(ctx context.Context) PodPresetSpecPtrOutput {
-	return o.ApplyT(func(v PodPresetSpec) *PodPresetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodPresetSpec) *PodPresetSpec {
 		return &v
 	}).(PodPresetSpecPtrOutput)
 }
@@ -372,7 +372,13 @@ func (o PodPresetSpecPtrOutput) ToPodPresetSpecPtrOutputWithContext(ctx context.
 }
 
 func (o PodPresetSpecPtrOutput) Elem() PodPresetSpecOutput {
-	return o.ApplyT(func(v *PodPresetSpec) PodPresetSpec { return *v }).(PodPresetSpecOutput)
+	return o.ApplyT(func(v *PodPresetSpec) PodPresetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodPresetSpec
+		return ret
+	}).(PodPresetSpecOutput)
 }
 
 // Env defines the collection of EnvVar to inject into containers.

@@ -103,7 +103,7 @@ func (o ServiceSpecTypeOutput) ToStringPtrOutputWithContext(ctx context.Context)
 type ServiceSpecTypePtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceSpecTypePtrOutput) ElementType() reflect.Type {
-	return serviceSpecTypePtrType
+	return reflect.TypeOf((**ServiceSpecType)(nil)).Elem()
 }
 
 func (o ServiceSpecTypePtrOutput) ToServiceSpecTypePtrOutput() ServiceSpecTypePtrOutput {
@@ -112,6 +112,16 @@ func (o ServiceSpecTypePtrOutput) ToServiceSpecTypePtrOutput() ServiceSpecTypePt
 
 func (o ServiceSpecTypePtrOutput) ToServiceSpecTypePtrOutputWithContext(ctx context.Context) ServiceSpecTypePtrOutput {
 	return o
+}
+
+func (o ServiceSpecTypePtrOutput) Elem() ServiceSpecTypeOutput {
+	return o.ApplyT(func(v *ServiceSpecType) ServiceSpecType {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceSpecType
+		return ret
+	}).(ServiceSpecTypeOutput)
 }
 
 func (o ServiceSpecTypePtrOutput) ToStringPtrOutput() pulumi.StringPtrOutput {
@@ -126,16 +136,6 @@ func (o ServiceSpecTypePtrOutput) ToStringPtrOutputWithContext(ctx context.Conte
 		v := string(*e)
 		return &v
 	}).(pulumi.StringPtrOutput)
-}
-
-func (o ServiceSpecTypePtrOutput) Elem() ServiceSpecTypeOutput {
-	return o.ApplyT(func(v *ServiceSpecType) ServiceSpecType {
-		var ret ServiceSpecType
-		if v != nil {
-			ret = *v
-		}
-		return ret
-	}).(ServiceSpecTypeOutput)
 }
 
 // ServiceSpecTypeInput is an input type that accepts ServiceSpecTypeArgs and ServiceSpecTypeOutput values.

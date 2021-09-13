@@ -194,9 +194,7 @@ func (i StatefulSetListMap) ToStatefulSetListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListMapOutput)
 }
 
-type StatefulSetListOutput struct {
-	*pulumi.OutputState
-}
+type StatefulSetListOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSetList)(nil))
@@ -215,14 +213,12 @@ func (o StatefulSetListOutput) ToStatefulSetListPtrOutput() StatefulSetListPtrOu
 }
 
 func (o StatefulSetListOutput) ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput {
-	return o.ApplyT(func(v StatefulSetList) *StatefulSetList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetList) *StatefulSetList {
 		return &v
 	}).(StatefulSetListPtrOutput)
 }
 
-type StatefulSetListPtrOutput struct {
-	*pulumi.OutputState
-}
+type StatefulSetListPtrOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSetList)(nil))
@@ -234,6 +230,16 @@ func (o StatefulSetListPtrOutput) ToStatefulSetListPtrOutput() StatefulSetListPt
 
 func (o StatefulSetListPtrOutput) ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput {
 	return o
+}
+
+func (o StatefulSetListPtrOutput) Elem() StatefulSetListOutput {
+	return o.ApplyT(func(v *StatefulSetList) StatefulSetList {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetList
+		return ret
+	}).(StatefulSetListOutput)
 }
 
 type StatefulSetListArrayOutput struct{ *pulumi.OutputState }

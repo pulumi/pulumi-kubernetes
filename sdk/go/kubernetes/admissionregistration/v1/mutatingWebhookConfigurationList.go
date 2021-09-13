@@ -194,9 +194,7 @@ func (i MutatingWebhookConfigurationListMap) ToMutatingWebhookConfigurationListM
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListMapOutput)
 }
 
-type MutatingWebhookConfigurationListOutput struct {
-	*pulumi.OutputState
-}
+type MutatingWebhookConfigurationListOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*MutatingWebhookConfigurationList)(nil))
@@ -215,14 +213,12 @@ func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationLi
 }
 
 func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListPtrOutput {
-	return o.ApplyT(func(v MutatingWebhookConfigurationList) *MutatingWebhookConfigurationList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MutatingWebhookConfigurationList) *MutatingWebhookConfigurationList {
 		return &v
 	}).(MutatingWebhookConfigurationListPtrOutput)
 }
 
-type MutatingWebhookConfigurationListPtrOutput struct {
-	*pulumi.OutputState
-}
+type MutatingWebhookConfigurationListPtrOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**MutatingWebhookConfigurationList)(nil))
@@ -234,6 +230,16 @@ func (o MutatingWebhookConfigurationListPtrOutput) ToMutatingWebhookConfiguratio
 
 func (o MutatingWebhookConfigurationListPtrOutput) ToMutatingWebhookConfigurationListPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListPtrOutput {
 	return o
+}
+
+func (o MutatingWebhookConfigurationListPtrOutput) Elem() MutatingWebhookConfigurationListOutput {
+	return o.ApplyT(func(v *MutatingWebhookConfigurationList) MutatingWebhookConfigurationList {
+		if v != nil {
+			return *v
+		}
+		var ret MutatingWebhookConfigurationList
+		return ret
+	}).(MutatingWebhookConfigurationListOutput)
 }
 
 type MutatingWebhookConfigurationListArrayOutput struct{ *pulumi.OutputState }

@@ -119,7 +119,7 @@ func (o BoundObjectReferenceOutput) ToBoundObjectReferencePtrOutput() BoundObjec
 }
 
 func (o BoundObjectReferenceOutput) ToBoundObjectReferencePtrOutputWithContext(ctx context.Context) BoundObjectReferencePtrOutput {
-	return o.ApplyT(func(v BoundObjectReference) *BoundObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BoundObjectReference) *BoundObjectReference {
 		return &v
 	}).(BoundObjectReferencePtrOutput)
 }
@@ -159,7 +159,13 @@ func (o BoundObjectReferencePtrOutput) ToBoundObjectReferencePtrOutputWithContex
 }
 
 func (o BoundObjectReferencePtrOutput) Elem() BoundObjectReferenceOutput {
-	return o.ApplyT(func(v *BoundObjectReference) BoundObjectReference { return *v }).(BoundObjectReferenceOutput)
+	return o.ApplyT(func(v *BoundObjectReference) BoundObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret BoundObjectReference
+		return ret
+	}).(BoundObjectReferenceOutput)
 }
 
 // API version of the referent.
@@ -397,7 +403,7 @@ func (o TokenRequestSpecOutput) ToTokenRequestSpecPtrOutput() TokenRequestSpecPt
 }
 
 func (o TokenRequestSpecOutput) ToTokenRequestSpecPtrOutputWithContext(ctx context.Context) TokenRequestSpecPtrOutput {
-	return o.ApplyT(func(v TokenRequestSpec) *TokenRequestSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequestSpec) *TokenRequestSpec {
 		return &v
 	}).(TokenRequestSpecPtrOutput)
 }
@@ -432,7 +438,13 @@ func (o TokenRequestSpecPtrOutput) ToTokenRequestSpecPtrOutputWithContext(ctx co
 }
 
 func (o TokenRequestSpecPtrOutput) Elem() TokenRequestSpecOutput {
-	return o.ApplyT(func(v *TokenRequestSpec) TokenRequestSpec { return *v }).(TokenRequestSpecOutput)
+	return o.ApplyT(func(v *TokenRequestSpec) TokenRequestSpec {
+		if v != nil {
+			return *v
+		}
+		var ret TokenRequestSpec
+		return ret
+	}).(TokenRequestSpecOutput)
 }
 
 // Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
@@ -565,7 +577,7 @@ func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutput() TokenRequestSt
 }
 
 func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
-	return o.ApplyT(func(v TokenRequestStatus) *TokenRequestStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequestStatus) *TokenRequestStatus {
 		return &v
 	}).(TokenRequestStatusPtrOutput)
 }
@@ -595,7 +607,13 @@ func (o TokenRequestStatusPtrOutput) ToTokenRequestStatusPtrOutputWithContext(ct
 }
 
 func (o TokenRequestStatusPtrOutput) Elem() TokenRequestStatusOutput {
-	return o.ApplyT(func(v *TokenRequestStatus) TokenRequestStatus { return *v }).(TokenRequestStatusOutput)
+	return o.ApplyT(func(v *TokenRequestStatus) TokenRequestStatus {
+		if v != nil {
+			return *v
+		}
+		var ret TokenRequestStatus
+		return ret
+	}).(TokenRequestStatusOutput)
 }
 
 // ExpirationTimestamp is the time of expiration of the returned token.
@@ -809,7 +827,7 @@ func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOu
 }
 
 func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return o.ApplyT(func(v TokenReviewSpec) *TokenReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewSpec) *TokenReviewSpec {
 		return &v
 	}).(TokenReviewSpecPtrOutput)
 }
@@ -839,7 +857,13 @@ func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutputWithContext(ctx cont
 }
 
 func (o TokenReviewSpecPtrOutput) Elem() TokenReviewSpecOutput {
-	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec { return *v }).(TokenReviewSpecOutput)
+	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReviewSpec
+		return ret
+	}).(TokenReviewSpecOutput)
 }
 
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
@@ -970,7 +994,7 @@ func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutput() TokenReviewStatu
 }
 
 func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
-	return o.ApplyT(func(v TokenReviewStatus) *TokenReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewStatus) *TokenReviewStatus {
 		return &v
 	}).(TokenReviewStatusPtrOutput)
 }
@@ -1010,7 +1034,13 @@ func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutputWithContext(ctx 
 }
 
 func (o TokenReviewStatusPtrOutput) Elem() TokenReviewStatusOutput {
-	return o.ApplyT(func(v *TokenReviewStatus) TokenReviewStatus { return *v }).(TokenReviewStatusOutput)
+	return o.ApplyT(func(v *TokenReviewStatus) TokenReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReviewStatus
+		return ret
+	}).(TokenReviewStatusOutput)
 }
 
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
@@ -1161,7 +1191,7 @@ func (o UserInfoOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
 }
 
 func (o UserInfoOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
-	return o.ApplyT(func(v UserInfo) *UserInfo {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserInfo) *UserInfo {
 		return &v
 	}).(UserInfoPtrOutput)
 }
@@ -1201,7 +1231,13 @@ func (o UserInfoPtrOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) U
 }
 
 func (o UserInfoPtrOutput) Elem() UserInfoOutput {
-	return o.ApplyT(func(v *UserInfo) UserInfo { return *v }).(UserInfoOutput)
+	return o.ApplyT(func(v *UserInfo) UserInfo {
+		if v != nil {
+			return *v
+		}
+		var ret UserInfo
+		return ret
+	}).(UserInfoOutput)
 }
 
 // Any additional information provided by the authenticator.

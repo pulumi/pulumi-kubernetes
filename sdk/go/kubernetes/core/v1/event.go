@@ -284,9 +284,7 @@ func (i EventMap) ToEventMapOutputWithContext(ctx context.Context) EventMapOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(EventMapOutput)
 }
 
-type EventOutput struct {
-	*pulumi.OutputState
-}
+type EventOutput struct{ *pulumi.OutputState }
 
 func (EventOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Event)(nil))
@@ -305,14 +303,12 @@ func (o EventOutput) ToEventPtrOutput() EventPtrOutput {
 }
 
 func (o EventOutput) ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput {
-	return o.ApplyT(func(v Event) *Event {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Event) *Event {
 		return &v
 	}).(EventPtrOutput)
 }
 
-type EventPtrOutput struct {
-	*pulumi.OutputState
-}
+type EventPtrOutput struct{ *pulumi.OutputState }
 
 func (EventPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Event)(nil))
@@ -324,6 +320,16 @@ func (o EventPtrOutput) ToEventPtrOutput() EventPtrOutput {
 
 func (o EventPtrOutput) ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput {
 	return o
+}
+
+func (o EventPtrOutput) Elem() EventOutput {
+	return o.ApplyT(func(v *Event) Event {
+		if v != nil {
+			return *v
+		}
+		var ret Event
+		return ret
+	}).(EventOutput)
 }
 
 type EventArrayOutput struct{ *pulumi.OutputState }

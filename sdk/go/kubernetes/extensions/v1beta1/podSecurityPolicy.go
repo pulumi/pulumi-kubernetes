@@ -196,9 +196,7 @@ func (i PodSecurityPolicyMap) ToPodSecurityPolicyMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyMapOutput)
 }
 
-type PodSecurityPolicyOutput struct {
-	*pulumi.OutputState
-}
+type PodSecurityPolicyOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodSecurityPolicy)(nil))
@@ -217,14 +215,12 @@ func (o PodSecurityPolicyOutput) ToPodSecurityPolicyPtrOutput() PodSecurityPolic
 }
 
 func (o PodSecurityPolicyOutput) ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicy) *PodSecurityPolicy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityPolicy) *PodSecurityPolicy {
 		return &v
 	}).(PodSecurityPolicyPtrOutput)
 }
 
-type PodSecurityPolicyPtrOutput struct {
-	*pulumi.OutputState
-}
+type PodSecurityPolicyPtrOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodSecurityPolicy)(nil))
@@ -236,6 +232,16 @@ func (o PodSecurityPolicyPtrOutput) ToPodSecurityPolicyPtrOutput() PodSecurityPo
 
 func (o PodSecurityPolicyPtrOutput) ToPodSecurityPolicyPtrOutputWithContext(ctx context.Context) PodSecurityPolicyPtrOutput {
 	return o
+}
+
+func (o PodSecurityPolicyPtrOutput) Elem() PodSecurityPolicyOutput {
+	return o.ApplyT(func(v *PodSecurityPolicy) PodSecurityPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret PodSecurityPolicy
+		return ret
+	}).(PodSecurityPolicyOutput)
 }
 
 type PodSecurityPolicyArrayOutput struct{ *pulumi.OutputState }

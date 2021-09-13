@@ -194,9 +194,7 @@ func (i RoleListMap) ToRoleListMapOutputWithContext(ctx context.Context) RoleLis
 	return pulumi.ToOutputWithContext(ctx, i).(RoleListMapOutput)
 }
 
-type RoleListOutput struct {
-	*pulumi.OutputState
-}
+type RoleListOutput struct{ *pulumi.OutputState }
 
 func (RoleListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RoleList)(nil))
@@ -215,14 +213,12 @@ func (o RoleListOutput) ToRoleListPtrOutput() RoleListPtrOutput {
 }
 
 func (o RoleListOutput) ToRoleListPtrOutputWithContext(ctx context.Context) RoleListPtrOutput {
-	return o.ApplyT(func(v RoleList) *RoleList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleList) *RoleList {
 		return &v
 	}).(RoleListPtrOutput)
 }
 
-type RoleListPtrOutput struct {
-	*pulumi.OutputState
-}
+type RoleListPtrOutput struct{ *pulumi.OutputState }
 
 func (RoleListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RoleList)(nil))
@@ -234,6 +230,16 @@ func (o RoleListPtrOutput) ToRoleListPtrOutput() RoleListPtrOutput {
 
 func (o RoleListPtrOutput) ToRoleListPtrOutputWithContext(ctx context.Context) RoleListPtrOutput {
 	return o
+}
+
+func (o RoleListPtrOutput) Elem() RoleListOutput {
+	return o.ApplyT(func(v *RoleList) RoleList {
+		if v != nil {
+			return *v
+		}
+		var ret RoleList
+		return ret
+	}).(RoleListOutput)
 }
 
 type RoleListArrayOutput struct{ *pulumi.OutputState }

@@ -202,9 +202,7 @@ func (i ServiceAccountMap) ToServiceAccountMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountMapOutput)
 }
 
-type ServiceAccountOutput struct {
-	*pulumi.OutputState
-}
+type ServiceAccountOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ServiceAccount)(nil))
@@ -223,14 +221,12 @@ func (o ServiceAccountOutput) ToServiceAccountPtrOutput() ServiceAccountPtrOutpu
 }
 
 func (o ServiceAccountOutput) ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput {
-	return o.ApplyT(func(v ServiceAccount) *ServiceAccount {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceAccount) *ServiceAccount {
 		return &v
 	}).(ServiceAccountPtrOutput)
 }
 
-type ServiceAccountPtrOutput struct {
-	*pulumi.OutputState
-}
+type ServiceAccountPtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceAccount)(nil))
@@ -242,6 +238,16 @@ func (o ServiceAccountPtrOutput) ToServiceAccountPtrOutput() ServiceAccountPtrOu
 
 func (o ServiceAccountPtrOutput) ToServiceAccountPtrOutputWithContext(ctx context.Context) ServiceAccountPtrOutput {
 	return o
+}
+
+func (o ServiceAccountPtrOutput) Elem() ServiceAccountOutput {
+	return o.ApplyT(func(v *ServiceAccount) ServiceAccount {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceAccount
+		return ret
+	}).(ServiceAccountOutput)
 }
 
 type ServiceAccountArrayOutput struct{ *pulumi.OutputState }

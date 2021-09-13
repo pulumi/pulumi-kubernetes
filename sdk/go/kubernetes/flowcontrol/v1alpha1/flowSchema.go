@@ -198,9 +198,7 @@ func (i FlowSchemaMap) ToFlowSchemaMapOutputWithContext(ctx context.Context) Flo
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaMapOutput)
 }
 
-type FlowSchemaOutput struct {
-	*pulumi.OutputState
-}
+type FlowSchemaOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*FlowSchema)(nil))
@@ -219,14 +217,12 @@ func (o FlowSchemaOutput) ToFlowSchemaPtrOutput() FlowSchemaPtrOutput {
 }
 
 func (o FlowSchemaOutput) ToFlowSchemaPtrOutputWithContext(ctx context.Context) FlowSchemaPtrOutput {
-	return o.ApplyT(func(v FlowSchema) *FlowSchema {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowSchema) *FlowSchema {
 		return &v
 	}).(FlowSchemaPtrOutput)
 }
 
-type FlowSchemaPtrOutput struct {
-	*pulumi.OutputState
-}
+type FlowSchemaPtrOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**FlowSchema)(nil))
@@ -238,6 +234,16 @@ func (o FlowSchemaPtrOutput) ToFlowSchemaPtrOutput() FlowSchemaPtrOutput {
 
 func (o FlowSchemaPtrOutput) ToFlowSchemaPtrOutputWithContext(ctx context.Context) FlowSchemaPtrOutput {
 	return o
+}
+
+func (o FlowSchemaPtrOutput) Elem() FlowSchemaOutput {
+	return o.ApplyT(func(v *FlowSchema) FlowSchema {
+		if v != nil {
+			return *v
+		}
+		var ret FlowSchema
+		return ret
+	}).(FlowSchemaOutput)
 }
 
 type FlowSchemaArrayOutput struct{ *pulumi.OutputState }

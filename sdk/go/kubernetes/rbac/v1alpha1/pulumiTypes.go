@@ -107,7 +107,7 @@ func (o AggregationRuleOutput) ToAggregationRulePtrOutput() AggregationRulePtrOu
 }
 
 func (o AggregationRuleOutput) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
-	return o.ApplyT(func(v AggregationRule) *AggregationRule {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AggregationRule) *AggregationRule {
 		return &v
 	}).(AggregationRulePtrOutput)
 }
@@ -132,7 +132,13 @@ func (o AggregationRulePtrOutput) ToAggregationRulePtrOutputWithContext(ctx cont
 }
 
 func (o AggregationRulePtrOutput) Elem() AggregationRuleOutput {
-	return o.ApplyT(func(v *AggregationRule) AggregationRule { return *v }).(AggregationRuleOutput)
+	return o.ApplyT(func(v *AggregationRule) AggregationRule {
+		if v != nil {
+			return *v
+		}
+		var ret AggregationRule
+		return ret
+	}).(AggregationRuleOutput)
 }
 
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
@@ -1248,7 +1254,7 @@ func (o RoleRefOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
 }
 
 func (o RoleRefOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return o.ApplyT(func(v RoleRef) *RoleRef {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleRef) *RoleRef {
 		return &v
 	}).(RoleRefPtrOutput)
 }
@@ -1283,7 +1289,13 @@ func (o RoleRefPtrOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) Rol
 }
 
 func (o RoleRefPtrOutput) Elem() RoleRefOutput {
-	return o.ApplyT(func(v *RoleRef) RoleRef { return *v }).(RoleRefOutput)
+	return o.ApplyT(func(v *RoleRef) RoleRef {
+		if v != nil {
+			return *v
+		}
+		var ret RoleRef
+		return ret
+	}).(RoleRefOutput)
 }
 
 // APIGroup is the group for the resource being referenced

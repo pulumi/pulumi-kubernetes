@@ -199,9 +199,7 @@ func (i LocalSubjectAccessReviewMap) ToLocalSubjectAccessReviewMapOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewMapOutput)
 }
 
-type LocalSubjectAccessReviewOutput struct {
-	*pulumi.OutputState
-}
+type LocalSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*LocalSubjectAccessReview)(nil))
@@ -220,14 +218,12 @@ func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewPtrOutput() Lo
 }
 
 func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReview) *LocalSubjectAccessReview {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LocalSubjectAccessReview) *LocalSubjectAccessReview {
 		return &v
 	}).(LocalSubjectAccessReviewPtrOutput)
 }
 
-type LocalSubjectAccessReviewPtrOutput struct {
-	*pulumi.OutputState
-}
+type LocalSubjectAccessReviewPtrOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LocalSubjectAccessReview)(nil))
@@ -239,6 +235,16 @@ func (o LocalSubjectAccessReviewPtrOutput) ToLocalSubjectAccessReviewPtrOutput()
 
 func (o LocalSubjectAccessReviewPtrOutput) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
 	return o
+}
+
+func (o LocalSubjectAccessReviewPtrOutput) Elem() LocalSubjectAccessReviewOutput {
+	return o.ApplyT(func(v *LocalSubjectAccessReview) LocalSubjectAccessReview {
+		if v != nil {
+			return *v
+		}
+		var ret LocalSubjectAccessReview
+		return ret
+	}).(LocalSubjectAccessReviewOutput)
 }
 
 type LocalSubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }

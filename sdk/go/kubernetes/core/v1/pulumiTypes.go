@@ -125,7 +125,7 @@ func (o AWSElasticBlockStoreVolumeSourceOutput) ToAWSElasticBlockStoreVolumeSour
 }
 
 func (o AWSElasticBlockStoreVolumeSourceOutput) ToAWSElasticBlockStoreVolumeSourcePtrOutputWithContext(ctx context.Context) AWSElasticBlockStoreVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AWSElasticBlockStoreVolumeSource) *AWSElasticBlockStoreVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AWSElasticBlockStoreVolumeSource) *AWSElasticBlockStoreVolumeSource {
 		return &v
 	}).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
@@ -165,7 +165,13 @@ func (o AWSElasticBlockStoreVolumeSourcePtrOutput) ToAWSElasticBlockStoreVolumeS
 }
 
 func (o AWSElasticBlockStoreVolumeSourcePtrOutput) Elem() AWSElasticBlockStoreVolumeSourceOutput {
-	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) AWSElasticBlockStoreVolumeSource { return *v }).(AWSElasticBlockStoreVolumeSourceOutput)
+	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) AWSElasticBlockStoreVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AWSElasticBlockStoreVolumeSource
+		return ret
+	}).(AWSElasticBlockStoreVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
@@ -312,7 +318,7 @@ func (o AffinityOutput) ToAffinityPtrOutput() AffinityPtrOutput {
 }
 
 func (o AffinityOutput) ToAffinityPtrOutputWithContext(ctx context.Context) AffinityPtrOutput {
-	return o.ApplyT(func(v Affinity) *Affinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Affinity) *Affinity {
 		return &v
 	}).(AffinityPtrOutput)
 }
@@ -347,7 +353,13 @@ func (o AffinityPtrOutput) ToAffinityPtrOutputWithContext(ctx context.Context) A
 }
 
 func (o AffinityPtrOutput) Elem() AffinityOutput {
-	return o.ApplyT(func(v *Affinity) Affinity { return *v }).(AffinityOutput)
+	return o.ApplyT(func(v *Affinity) Affinity {
+		if v != nil {
+			return *v
+		}
+		var ret Affinity
+		return ret
+	}).(AffinityOutput)
 }
 
 // Describes node affinity scheduling rules for the pod.
@@ -605,7 +617,7 @@ func (o AzureDiskVolumeSourceOutput) ToAzureDiskVolumeSourcePtrOutput() AzureDis
 }
 
 func (o AzureDiskVolumeSourceOutput) ToAzureDiskVolumeSourcePtrOutputWithContext(ctx context.Context) AzureDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AzureDiskVolumeSource) *AzureDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AzureDiskVolumeSource) *AzureDiskVolumeSource {
 		return &v
 	}).(AzureDiskVolumeSourcePtrOutput)
 }
@@ -655,7 +667,13 @@ func (o AzureDiskVolumeSourcePtrOutput) ToAzureDiskVolumeSourcePtrOutputWithCont
 }
 
 func (o AzureDiskVolumeSourcePtrOutput) Elem() AzureDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *AzureDiskVolumeSource) AzureDiskVolumeSource { return *v }).(AzureDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *AzureDiskVolumeSource) AzureDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AzureDiskVolumeSource
+		return ret
+	}).(AzureDiskVolumeSourceOutput)
 }
 
 // Host Caching mode: None, Read Only, Read Write.
@@ -826,7 +844,7 @@ func (o AzureFilePersistentVolumeSourceOutput) ToAzureFilePersistentVolumeSource
 }
 
 func (o AzureFilePersistentVolumeSourceOutput) ToAzureFilePersistentVolumeSourcePtrOutputWithContext(ctx context.Context) AzureFilePersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AzureFilePersistentVolumeSource) *AzureFilePersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AzureFilePersistentVolumeSource) *AzureFilePersistentVolumeSource {
 		return &v
 	}).(AzureFilePersistentVolumeSourcePtrOutput)
 }
@@ -866,7 +884,13 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) ToAzureFilePersistentVolumeSou
 }
 
 func (o AzureFilePersistentVolumeSourcePtrOutput) Elem() AzureFilePersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) AzureFilePersistentVolumeSource { return *v }).(AzureFilePersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) AzureFilePersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AzureFilePersistentVolumeSource
+		return ret
+	}).(AzureFilePersistentVolumeSourceOutput)
 }
 
 // Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -1013,7 +1037,7 @@ func (o AzureFileVolumeSourceOutput) ToAzureFileVolumeSourcePtrOutput() AzureFil
 }
 
 func (o AzureFileVolumeSourceOutput) ToAzureFileVolumeSourcePtrOutputWithContext(ctx context.Context) AzureFileVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AzureFileVolumeSource) *AzureFileVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AzureFileVolumeSource) *AzureFileVolumeSource {
 		return &v
 	}).(AzureFileVolumeSourcePtrOutput)
 }
@@ -1048,7 +1072,13 @@ func (o AzureFileVolumeSourcePtrOutput) ToAzureFileVolumeSourcePtrOutputWithCont
 }
 
 func (o AzureFileVolumeSourcePtrOutput) Elem() AzureFileVolumeSourceOutput {
-	return o.ApplyT(func(v *AzureFileVolumeSource) AzureFileVolumeSource { return *v }).(AzureFileVolumeSourceOutput)
+	return o.ApplyT(func(v *AzureFileVolumeSource) AzureFileVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AzureFileVolumeSource
+		return ret
+	}).(AzureFileVolumeSourceOutput)
 }
 
 // Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -1291,7 +1321,7 @@ func (o CSIPersistentVolumeSourceOutput) ToCSIPersistentVolumeSourcePtrOutput() 
 }
 
 func (o CSIPersistentVolumeSourceOutput) ToCSIPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) CSIPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CSIPersistentVolumeSource) *CSIPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIPersistentVolumeSource) *CSIPersistentVolumeSource {
 		return &v
 	}).(CSIPersistentVolumeSourcePtrOutput)
 }
@@ -1356,7 +1386,13 @@ func (o CSIPersistentVolumeSourcePtrOutput) ToCSIPersistentVolumeSourcePtrOutput
 }
 
 func (o CSIPersistentVolumeSourcePtrOutput) Elem() CSIPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *CSIPersistentVolumeSource) CSIPersistentVolumeSource { return *v }).(CSIPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *CSIPersistentVolumeSource) CSIPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CSIPersistentVolumeSource
+		return ret
+	}).(CSIPersistentVolumeSourceOutput)
 }
 
 // ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -1561,7 +1597,7 @@ func (o CSIVolumeSourceOutput) ToCSIVolumeSourcePtrOutput() CSIVolumeSourcePtrOu
 }
 
 func (o CSIVolumeSourceOutput) ToCSIVolumeSourcePtrOutputWithContext(ctx context.Context) CSIVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CSIVolumeSource) *CSIVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIVolumeSource) *CSIVolumeSource {
 		return &v
 	}).(CSIVolumeSourcePtrOutput)
 }
@@ -1606,7 +1642,13 @@ func (o CSIVolumeSourcePtrOutput) ToCSIVolumeSourcePtrOutputWithContext(ctx cont
 }
 
 func (o CSIVolumeSourcePtrOutput) Elem() CSIVolumeSourceOutput {
-	return o.ApplyT(func(v *CSIVolumeSource) CSIVolumeSource { return *v }).(CSIVolumeSourceOutput)
+	return o.ApplyT(func(v *CSIVolumeSource) CSIVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CSIVolumeSource
+		return ret
+	}).(CSIVolumeSourceOutput)
 }
 
 // Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
@@ -1759,7 +1801,7 @@ func (o CapabilitiesOutput) ToCapabilitiesPtrOutput() CapabilitiesPtrOutput {
 }
 
 func (o CapabilitiesOutput) ToCapabilitiesPtrOutputWithContext(ctx context.Context) CapabilitiesPtrOutput {
-	return o.ApplyT(func(v Capabilities) *Capabilities {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Capabilities) *Capabilities {
 		return &v
 	}).(CapabilitiesPtrOutput)
 }
@@ -1789,7 +1831,13 @@ func (o CapabilitiesPtrOutput) ToCapabilitiesPtrOutputWithContext(ctx context.Co
 }
 
 func (o CapabilitiesPtrOutput) Elem() CapabilitiesOutput {
-	return o.ApplyT(func(v *Capabilities) Capabilities { return *v }).(CapabilitiesOutput)
+	return o.ApplyT(func(v *Capabilities) Capabilities {
+		if v != nil {
+			return *v
+		}
+		var ret Capabilities
+		return ret
+	}).(CapabilitiesOutput)
 }
 
 // Added capabilities
@@ -1928,7 +1976,7 @@ func (o CephFSPersistentVolumeSourceOutput) ToCephFSPersistentVolumeSourcePtrOut
 }
 
 func (o CephFSPersistentVolumeSourceOutput) ToCephFSPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) CephFSPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CephFSPersistentVolumeSource) *CephFSPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CephFSPersistentVolumeSource) *CephFSPersistentVolumeSource {
 		return &v
 	}).(CephFSPersistentVolumeSourcePtrOutput)
 }
@@ -1978,7 +2026,13 @@ func (o CephFSPersistentVolumeSourcePtrOutput) ToCephFSPersistentVolumeSourcePtr
 }
 
 func (o CephFSPersistentVolumeSourcePtrOutput) Elem() CephFSPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *CephFSPersistentVolumeSource) CephFSPersistentVolumeSource { return *v }).(CephFSPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *CephFSPersistentVolumeSource) CephFSPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CephFSPersistentVolumeSource
+		return ret
+	}).(CephFSPersistentVolumeSourceOutput)
 }
 
 // Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -2157,7 +2211,7 @@ func (o CephFSVolumeSourceOutput) ToCephFSVolumeSourcePtrOutput() CephFSVolumeSo
 }
 
 func (o CephFSVolumeSourceOutput) ToCephFSVolumeSourcePtrOutputWithContext(ctx context.Context) CephFSVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CephFSVolumeSource) *CephFSVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CephFSVolumeSource) *CephFSVolumeSource {
 		return &v
 	}).(CephFSVolumeSourcePtrOutput)
 }
@@ -2207,7 +2261,13 @@ func (o CephFSVolumeSourcePtrOutput) ToCephFSVolumeSourcePtrOutputWithContext(ct
 }
 
 func (o CephFSVolumeSourcePtrOutput) Elem() CephFSVolumeSourceOutput {
-	return o.ApplyT(func(v *CephFSVolumeSource) CephFSVolumeSource { return *v }).(CephFSVolumeSourceOutput)
+	return o.ApplyT(func(v *CephFSVolumeSource) CephFSVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CephFSVolumeSource
+		return ret
+	}).(CephFSVolumeSourceOutput)
 }
 
 // Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -2378,7 +2438,7 @@ func (o CinderPersistentVolumeSourceOutput) ToCinderPersistentVolumeSourcePtrOut
 }
 
 func (o CinderPersistentVolumeSourceOutput) ToCinderPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) CinderPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CinderPersistentVolumeSource) *CinderPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CinderPersistentVolumeSource) *CinderPersistentVolumeSource {
 		return &v
 	}).(CinderPersistentVolumeSourcePtrOutput)
 }
@@ -2418,7 +2478,13 @@ func (o CinderPersistentVolumeSourcePtrOutput) ToCinderPersistentVolumeSourcePtr
 }
 
 func (o CinderPersistentVolumeSourcePtrOutput) Elem() CinderPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *CinderPersistentVolumeSource) CinderPersistentVolumeSource { return *v }).(CinderPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *CinderPersistentVolumeSource) CinderPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CinderPersistentVolumeSource
+		return ret
+	}).(CinderPersistentVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
@@ -2569,7 +2635,7 @@ func (o CinderVolumeSourceOutput) ToCinderVolumeSourcePtrOutput() CinderVolumeSo
 }
 
 func (o CinderVolumeSourceOutput) ToCinderVolumeSourcePtrOutputWithContext(ctx context.Context) CinderVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CinderVolumeSource) *CinderVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CinderVolumeSource) *CinderVolumeSource {
 		return &v
 	}).(CinderVolumeSourcePtrOutput)
 }
@@ -2609,7 +2675,13 @@ func (o CinderVolumeSourcePtrOutput) ToCinderVolumeSourcePtrOutputWithContext(ct
 }
 
 func (o CinderVolumeSourcePtrOutput) Elem() CinderVolumeSourceOutput {
-	return o.ApplyT(func(v *CinderVolumeSource) CinderVolumeSource { return *v }).(CinderVolumeSourceOutput)
+	return o.ApplyT(func(v *CinderVolumeSource) CinderVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CinderVolumeSource
+		return ret
+	}).(CinderVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
@@ -2748,7 +2820,7 @@ func (o ClientIPConfigOutput) ToClientIPConfigPtrOutput() ClientIPConfigPtrOutpu
 }
 
 func (o ClientIPConfigOutput) ToClientIPConfigPtrOutputWithContext(ctx context.Context) ClientIPConfigPtrOutput {
-	return o.ApplyT(func(v ClientIPConfig) *ClientIPConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClientIPConfig) *ClientIPConfig {
 		return &v
 	}).(ClientIPConfigPtrOutput)
 }
@@ -2773,7 +2845,13 @@ func (o ClientIPConfigPtrOutput) ToClientIPConfigPtrOutputWithContext(ctx contex
 }
 
 func (o ClientIPConfigPtrOutput) Elem() ClientIPConfigOutput {
-	return o.ApplyT(func(v *ClientIPConfig) ClientIPConfig { return *v }).(ClientIPConfigOutput)
+	return o.ApplyT(func(v *ClientIPConfig) ClientIPConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ClientIPConfig
+		return ret
+	}).(ClientIPConfigOutput)
 }
 
 // timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
@@ -3373,7 +3451,7 @@ func (o ConfigMapEnvSourceOutput) ToConfigMapEnvSourcePtrOutput() ConfigMapEnvSo
 }
 
 func (o ConfigMapEnvSourceOutput) ToConfigMapEnvSourcePtrOutputWithContext(ctx context.Context) ConfigMapEnvSourcePtrOutput {
-	return o.ApplyT(func(v ConfigMapEnvSource) *ConfigMapEnvSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapEnvSource) *ConfigMapEnvSource {
 		return &v
 	}).(ConfigMapEnvSourcePtrOutput)
 }
@@ -3403,7 +3481,13 @@ func (o ConfigMapEnvSourcePtrOutput) ToConfigMapEnvSourcePtrOutputWithContext(ct
 }
 
 func (o ConfigMapEnvSourcePtrOutput) Elem() ConfigMapEnvSourceOutput {
-	return o.ApplyT(func(v *ConfigMapEnvSource) ConfigMapEnvSource { return *v }).(ConfigMapEnvSourceOutput)
+	return o.ApplyT(func(v *ConfigMapEnvSource) ConfigMapEnvSource {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapEnvSource
+		return ret
+	}).(ConfigMapEnvSourceOutput)
 }
 
 // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -3530,7 +3614,7 @@ func (o ConfigMapKeySelectorOutput) ToConfigMapKeySelectorPtrOutput() ConfigMapK
 }
 
 func (o ConfigMapKeySelectorOutput) ToConfigMapKeySelectorPtrOutputWithContext(ctx context.Context) ConfigMapKeySelectorPtrOutput {
-	return o.ApplyT(func(v ConfigMapKeySelector) *ConfigMapKeySelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapKeySelector) *ConfigMapKeySelector {
 		return &v
 	}).(ConfigMapKeySelectorPtrOutput)
 }
@@ -3565,7 +3649,13 @@ func (o ConfigMapKeySelectorPtrOutput) ToConfigMapKeySelectorPtrOutputWithContex
 }
 
 func (o ConfigMapKeySelectorPtrOutput) Elem() ConfigMapKeySelectorOutput {
-	return o.ApplyT(func(v *ConfigMapKeySelector) ConfigMapKeySelector { return *v }).(ConfigMapKeySelectorOutput)
+	return o.ApplyT(func(v *ConfigMapKeySelector) ConfigMapKeySelector {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapKeySelector
+		return ret
+	}).(ConfigMapKeySelectorOutput)
 }
 
 // The key to select.
@@ -3792,7 +3882,7 @@ func (o ConfigMapNodeConfigSourceOutput) ToConfigMapNodeConfigSourcePtrOutput() 
 }
 
 func (o ConfigMapNodeConfigSourceOutput) ToConfigMapNodeConfigSourcePtrOutputWithContext(ctx context.Context) ConfigMapNodeConfigSourcePtrOutput {
-	return o.ApplyT(func(v ConfigMapNodeConfigSource) *ConfigMapNodeConfigSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapNodeConfigSource) *ConfigMapNodeConfigSource {
 		return &v
 	}).(ConfigMapNodeConfigSourcePtrOutput)
 }
@@ -3837,7 +3927,13 @@ func (o ConfigMapNodeConfigSourcePtrOutput) ToConfigMapNodeConfigSourcePtrOutput
 }
 
 func (o ConfigMapNodeConfigSourcePtrOutput) Elem() ConfigMapNodeConfigSourceOutput {
-	return o.ApplyT(func(v *ConfigMapNodeConfigSource) ConfigMapNodeConfigSource { return *v }).(ConfigMapNodeConfigSourceOutput)
+	return o.ApplyT(func(v *ConfigMapNodeConfigSource) ConfigMapNodeConfigSource {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapNodeConfigSource
+		return ret
+	}).(ConfigMapNodeConfigSourceOutput)
 }
 
 // KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
@@ -4000,7 +4096,7 @@ func (o ConfigMapProjectionOutput) ToConfigMapProjectionPtrOutput() ConfigMapPro
 }
 
 func (o ConfigMapProjectionOutput) ToConfigMapProjectionPtrOutputWithContext(ctx context.Context) ConfigMapProjectionPtrOutput {
-	return o.ApplyT(func(v ConfigMapProjection) *ConfigMapProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapProjection) *ConfigMapProjection {
 		return &v
 	}).(ConfigMapProjectionPtrOutput)
 }
@@ -4035,7 +4131,13 @@ func (o ConfigMapProjectionPtrOutput) ToConfigMapProjectionPtrOutputWithContext(
 }
 
 func (o ConfigMapProjectionPtrOutput) Elem() ConfigMapProjectionOutput {
-	return o.ApplyT(func(v *ConfigMapProjection) ConfigMapProjection { return *v }).(ConfigMapProjectionOutput)
+	return o.ApplyT(func(v *ConfigMapProjection) ConfigMapProjection {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapProjection
+		return ret
+	}).(ConfigMapProjectionOutput)
 }
 
 // If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
@@ -4182,7 +4284,7 @@ func (o ConfigMapVolumeSourceOutput) ToConfigMapVolumeSourcePtrOutput() ConfigMa
 }
 
 func (o ConfigMapVolumeSourceOutput) ToConfigMapVolumeSourcePtrOutputWithContext(ctx context.Context) ConfigMapVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ConfigMapVolumeSource) *ConfigMapVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapVolumeSource) *ConfigMapVolumeSource {
 		return &v
 	}).(ConfigMapVolumeSourcePtrOutput)
 }
@@ -4222,7 +4324,13 @@ func (o ConfigMapVolumeSourcePtrOutput) ToConfigMapVolumeSourcePtrOutputWithCont
 }
 
 func (o ConfigMapVolumeSourcePtrOutput) Elem() ConfigMapVolumeSourceOutput {
-	return o.ApplyT(func(v *ConfigMapVolumeSource) ConfigMapVolumeSource { return *v }).(ConfigMapVolumeSourceOutput)
+	return o.ApplyT(func(v *ConfigMapVolumeSource) ConfigMapVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapVolumeSource
+		return ret
+	}).(ConfigMapVolumeSourceOutput)
 }
 
 // Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -4903,7 +5011,7 @@ func (o ContainerStateOutput) ToContainerStatePtrOutput() ContainerStatePtrOutpu
 }
 
 func (o ContainerStateOutput) ToContainerStatePtrOutputWithContext(ctx context.Context) ContainerStatePtrOutput {
-	return o.ApplyT(func(v ContainerState) *ContainerState {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerState) *ContainerState {
 		return &v
 	}).(ContainerStatePtrOutput)
 }
@@ -4938,7 +5046,13 @@ func (o ContainerStatePtrOutput) ToContainerStatePtrOutputWithContext(ctx contex
 }
 
 func (o ContainerStatePtrOutput) Elem() ContainerStateOutput {
-	return o.ApplyT(func(v *ContainerState) ContainerState { return *v }).(ContainerStateOutput)
+	return o.ApplyT(func(v *ContainerState) ContainerState {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerState
+		return ret
+	}).(ContainerStateOutput)
 }
 
 // Details about a running container
@@ -5067,7 +5181,7 @@ func (o ContainerStateRunningOutput) ToContainerStateRunningPtrOutput() Containe
 }
 
 func (o ContainerStateRunningOutput) ToContainerStateRunningPtrOutputWithContext(ctx context.Context) ContainerStateRunningPtrOutput {
-	return o.ApplyT(func(v ContainerStateRunning) *ContainerStateRunning {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerStateRunning) *ContainerStateRunning {
 		return &v
 	}).(ContainerStateRunningPtrOutput)
 }
@@ -5092,7 +5206,13 @@ func (o ContainerStateRunningPtrOutput) ToContainerStateRunningPtrOutputWithCont
 }
 
 func (o ContainerStateRunningPtrOutput) Elem() ContainerStateRunningOutput {
-	return o.ApplyT(func(v *ContainerStateRunning) ContainerStateRunning { return *v }).(ContainerStateRunningOutput)
+	return o.ApplyT(func(v *ContainerStateRunning) ContainerStateRunning {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerStateRunning
+		return ret
+	}).(ContainerStateRunningOutput)
 }
 
 // Time at which the container was last (re-)started
@@ -5225,7 +5345,7 @@ func (o ContainerStateTerminatedOutput) ToContainerStateTerminatedPtrOutput() Co
 }
 
 func (o ContainerStateTerminatedOutput) ToContainerStateTerminatedPtrOutputWithContext(ctx context.Context) ContainerStateTerminatedPtrOutput {
-	return o.ApplyT(func(v ContainerStateTerminated) *ContainerStateTerminated {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerStateTerminated) *ContainerStateTerminated {
 		return &v
 	}).(ContainerStateTerminatedPtrOutput)
 }
@@ -5280,7 +5400,13 @@ func (o ContainerStateTerminatedPtrOutput) ToContainerStateTerminatedPtrOutputWi
 }
 
 func (o ContainerStateTerminatedPtrOutput) Elem() ContainerStateTerminatedOutput {
-	return o.ApplyT(func(v *ContainerStateTerminated) ContainerStateTerminated { return *v }).(ContainerStateTerminatedOutput)
+	return o.ApplyT(func(v *ContainerStateTerminated) ContainerStateTerminated {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerStateTerminated
+		return ret
+	}).(ContainerStateTerminatedOutput)
 }
 
 // Container's ID in the format 'docker://<container_id>'
@@ -5453,7 +5579,7 @@ func (o ContainerStateWaitingOutput) ToContainerStateWaitingPtrOutput() Containe
 }
 
 func (o ContainerStateWaitingOutput) ToContainerStateWaitingPtrOutputWithContext(ctx context.Context) ContainerStateWaitingPtrOutput {
-	return o.ApplyT(func(v ContainerStateWaiting) *ContainerStateWaiting {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerStateWaiting) *ContainerStateWaiting {
 		return &v
 	}).(ContainerStateWaitingPtrOutput)
 }
@@ -5483,7 +5609,13 @@ func (o ContainerStateWaitingPtrOutput) ToContainerStateWaitingPtrOutputWithCont
 }
 
 func (o ContainerStateWaitingPtrOutput) Elem() ContainerStateWaitingOutput {
-	return o.ApplyT(func(v *ContainerStateWaiting) ContainerStateWaiting { return *v }).(ContainerStateWaitingOutput)
+	return o.ApplyT(func(v *ContainerStateWaiting) ContainerStateWaiting {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerStateWaiting
+		return ret
+	}).(ContainerStateWaitingOutput)
 }
 
 // Message regarding why the container is not yet running.
@@ -5774,7 +5906,7 @@ func (o DaemonEndpointOutput) ToDaemonEndpointPtrOutput() DaemonEndpointPtrOutpu
 }
 
 func (o DaemonEndpointOutput) ToDaemonEndpointPtrOutputWithContext(ctx context.Context) DaemonEndpointPtrOutput {
-	return o.ApplyT(func(v DaemonEndpoint) *DaemonEndpoint {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonEndpoint) *DaemonEndpoint {
 		return &v
 	}).(DaemonEndpointPtrOutput)
 }
@@ -5799,7 +5931,13 @@ func (o DaemonEndpointPtrOutput) ToDaemonEndpointPtrOutputWithContext(ctx contex
 }
 
 func (o DaemonEndpointPtrOutput) Elem() DaemonEndpointOutput {
-	return o.ApplyT(func(v *DaemonEndpoint) DaemonEndpoint { return *v }).(DaemonEndpointOutput)
+	return o.ApplyT(func(v *DaemonEndpoint) DaemonEndpoint {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonEndpoint
+		return ret
+	}).(DaemonEndpointOutput)
 }
 
 // Port number of the given endpoint.
@@ -5908,7 +6046,7 @@ func (o DownwardAPIProjectionOutput) ToDownwardAPIProjectionPtrOutput() Downward
 }
 
 func (o DownwardAPIProjectionOutput) ToDownwardAPIProjectionPtrOutputWithContext(ctx context.Context) DownwardAPIProjectionPtrOutput {
-	return o.ApplyT(func(v DownwardAPIProjection) *DownwardAPIProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DownwardAPIProjection) *DownwardAPIProjection {
 		return &v
 	}).(DownwardAPIProjectionPtrOutput)
 }
@@ -5933,7 +6071,13 @@ func (o DownwardAPIProjectionPtrOutput) ToDownwardAPIProjectionPtrOutputWithCont
 }
 
 func (o DownwardAPIProjectionPtrOutput) Elem() DownwardAPIProjectionOutput {
-	return o.ApplyT(func(v *DownwardAPIProjection) DownwardAPIProjection { return *v }).(DownwardAPIProjectionOutput)
+	return o.ApplyT(func(v *DownwardAPIProjection) DownwardAPIProjection {
+		if v != nil {
+			return *v
+		}
+		var ret DownwardAPIProjection
+		return ret
+	}).(DownwardAPIProjectionOutput)
 }
 
 // Items is a list of DownwardAPIVolume file
@@ -6173,7 +6317,7 @@ func (o DownwardAPIVolumeSourceOutput) ToDownwardAPIVolumeSourcePtrOutput() Down
 }
 
 func (o DownwardAPIVolumeSourceOutput) ToDownwardAPIVolumeSourcePtrOutputWithContext(ctx context.Context) DownwardAPIVolumeSourcePtrOutput {
-	return o.ApplyT(func(v DownwardAPIVolumeSource) *DownwardAPIVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DownwardAPIVolumeSource) *DownwardAPIVolumeSource {
 		return &v
 	}).(DownwardAPIVolumeSourcePtrOutput)
 }
@@ -6203,7 +6347,13 @@ func (o DownwardAPIVolumeSourcePtrOutput) ToDownwardAPIVolumeSourcePtrOutputWith
 }
 
 func (o DownwardAPIVolumeSourcePtrOutput) Elem() DownwardAPIVolumeSourceOutput {
-	return o.ApplyT(func(v *DownwardAPIVolumeSource) DownwardAPIVolumeSource { return *v }).(DownwardAPIVolumeSourceOutput)
+	return o.ApplyT(func(v *DownwardAPIVolumeSource) DownwardAPIVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret DownwardAPIVolumeSource
+		return ret
+	}).(DownwardAPIVolumeSourceOutput)
 }
 
 // Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -6326,7 +6476,7 @@ func (o EmptyDirVolumeSourceOutput) ToEmptyDirVolumeSourcePtrOutput() EmptyDirVo
 }
 
 func (o EmptyDirVolumeSourceOutput) ToEmptyDirVolumeSourcePtrOutputWithContext(ctx context.Context) EmptyDirVolumeSourcePtrOutput {
-	return o.ApplyT(func(v EmptyDirVolumeSource) *EmptyDirVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EmptyDirVolumeSource) *EmptyDirVolumeSource {
 		return &v
 	}).(EmptyDirVolumeSourcePtrOutput)
 }
@@ -6356,7 +6506,13 @@ func (o EmptyDirVolumeSourcePtrOutput) ToEmptyDirVolumeSourcePtrOutputWithContex
 }
 
 func (o EmptyDirVolumeSourcePtrOutput) Elem() EmptyDirVolumeSourceOutput {
-	return o.ApplyT(func(v *EmptyDirVolumeSource) EmptyDirVolumeSource { return *v }).(EmptyDirVolumeSourceOutput)
+	return o.ApplyT(func(v *EmptyDirVolumeSource) EmptyDirVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret EmptyDirVolumeSource
+		return ret
+	}).(EmptyDirVolumeSourceOutput)
 }
 
 // What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
@@ -7358,7 +7514,7 @@ func (o EnvVarSourceOutput) ToEnvVarSourcePtrOutput() EnvVarSourcePtrOutput {
 }
 
 func (o EnvVarSourceOutput) ToEnvVarSourcePtrOutputWithContext(ctx context.Context) EnvVarSourcePtrOutput {
-	return o.ApplyT(func(v EnvVarSource) *EnvVarSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EnvVarSource) *EnvVarSource {
 		return &v
 	}).(EnvVarSourcePtrOutput)
 }
@@ -7398,7 +7554,13 @@ func (o EnvVarSourcePtrOutput) ToEnvVarSourcePtrOutputWithContext(ctx context.Co
 }
 
 func (o EnvVarSourcePtrOutput) Elem() EnvVarSourceOutput {
-	return o.ApplyT(func(v *EnvVarSource) EnvVarSource { return *v }).(EnvVarSourceOutput)
+	return o.ApplyT(func(v *EnvVarSource) EnvVarSource {
+		if v != nil {
+			return *v
+		}
+		var ret EnvVarSource
+		return ret
+	}).(EnvVarSourceOutput)
 }
 
 // Selects a key of a ConfigMap.
@@ -7851,7 +8013,7 @@ func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourcePtrOutput() Ephemera
 }
 
 func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourcePtrOutputWithContext(ctx context.Context) EphemeralVolumeSourcePtrOutput {
-	return o.ApplyT(func(v EphemeralVolumeSource) *EphemeralVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EphemeralVolumeSource) *EphemeralVolumeSource {
 		return &v
 	}).(EphemeralVolumeSourcePtrOutput)
 }
@@ -7887,7 +8049,13 @@ func (o EphemeralVolumeSourcePtrOutput) ToEphemeralVolumeSourcePtrOutputWithCont
 }
 
 func (o EphemeralVolumeSourcePtrOutput) Elem() EphemeralVolumeSourceOutput {
-	return o.ApplyT(func(v *EphemeralVolumeSource) EphemeralVolumeSource { return *v }).(EphemeralVolumeSourceOutput)
+	return o.ApplyT(func(v *EphemeralVolumeSource) EphemeralVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret EphemeralVolumeSource
+		return ret
+	}).(EphemeralVolumeSourceOutput)
 }
 
 // Specifies a read-only configuration for the volume. Defaults to false (read/write).
@@ -8346,7 +8514,7 @@ func (o EventSeriesOutput) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
 }
 
 func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
-	return o.ApplyT(func(v EventSeries) *EventSeries {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSeries) *EventSeries {
 		return &v
 	}).(EventSeriesPtrOutput)
 }
@@ -8381,7 +8549,13 @@ func (o EventSeriesPtrOutput) ToEventSeriesPtrOutputWithContext(ctx context.Cont
 }
 
 func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
-	return o.ApplyT(func(v *EventSeries) EventSeries { return *v }).(EventSeriesOutput)
+	return o.ApplyT(func(v *EventSeries) EventSeries {
+		if v != nil {
+			return *v
+		}
+		var ret EventSeries
+		return ret
+	}).(EventSeriesOutput)
 }
 
 // Number of occurrences in this series up to the last heartbeat time
@@ -8514,7 +8688,7 @@ func (o EventSourceOutput) ToEventSourcePtrOutput() EventSourcePtrOutput {
 }
 
 func (o EventSourceOutput) ToEventSourcePtrOutputWithContext(ctx context.Context) EventSourcePtrOutput {
-	return o.ApplyT(func(v EventSource) *EventSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSource) *EventSource {
 		return &v
 	}).(EventSourcePtrOutput)
 }
@@ -8544,7 +8718,13 @@ func (o EventSourcePtrOutput) ToEventSourcePtrOutputWithContext(ctx context.Cont
 }
 
 func (o EventSourcePtrOutput) Elem() EventSourceOutput {
-	return o.ApplyT(func(v *EventSource) EventSource { return *v }).(EventSourceOutput)
+	return o.ApplyT(func(v *EventSource) EventSource {
+		if v != nil {
+			return *v
+		}
+		var ret EventSource
+		return ret
+	}).(EventSourceOutput)
 }
 
 // Component from which the event is generated.
@@ -8663,7 +8843,7 @@ func (o ExecActionOutput) ToExecActionPtrOutput() ExecActionPtrOutput {
 }
 
 func (o ExecActionOutput) ToExecActionPtrOutputWithContext(ctx context.Context) ExecActionPtrOutput {
-	return o.ApplyT(func(v ExecAction) *ExecAction {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExecAction) *ExecAction {
 		return &v
 	}).(ExecActionPtrOutput)
 }
@@ -8688,7 +8868,13 @@ func (o ExecActionPtrOutput) ToExecActionPtrOutputWithContext(ctx context.Contex
 }
 
 func (o ExecActionPtrOutput) Elem() ExecActionOutput {
-	return o.ApplyT(func(v *ExecAction) ExecAction { return *v }).(ExecActionOutput)
+	return o.ApplyT(func(v *ExecAction) ExecAction {
+		if v != nil {
+			return *v
+		}
+		var ret ExecAction
+		return ret
+	}).(ExecActionOutput)
 }
 
 // Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
@@ -8813,7 +8999,7 @@ func (o FCVolumeSourceOutput) ToFCVolumeSourcePtrOutput() FCVolumeSourcePtrOutpu
 }
 
 func (o FCVolumeSourceOutput) ToFCVolumeSourcePtrOutputWithContext(ctx context.Context) FCVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FCVolumeSource) *FCVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FCVolumeSource) *FCVolumeSource {
 		return &v
 	}).(FCVolumeSourcePtrOutput)
 }
@@ -8858,7 +9044,13 @@ func (o FCVolumeSourcePtrOutput) ToFCVolumeSourcePtrOutputWithContext(ctx contex
 }
 
 func (o FCVolumeSourcePtrOutput) Elem() FCVolumeSourceOutput {
-	return o.ApplyT(func(v *FCVolumeSource) FCVolumeSource { return *v }).(FCVolumeSourceOutput)
+	return o.ApplyT(func(v *FCVolumeSource) FCVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FCVolumeSource
+		return ret
+	}).(FCVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -9023,7 +9215,7 @@ func (o FlexPersistentVolumeSourceOutput) ToFlexPersistentVolumeSourcePtrOutput(
 }
 
 func (o FlexPersistentVolumeSourceOutput) ToFlexPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) FlexPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FlexPersistentVolumeSource) *FlexPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlexPersistentVolumeSource) *FlexPersistentVolumeSource {
 		return &v
 	}).(FlexPersistentVolumeSourcePtrOutput)
 }
@@ -9068,7 +9260,13 @@ func (o FlexPersistentVolumeSourcePtrOutput) ToFlexPersistentVolumeSourcePtrOutp
 }
 
 func (o FlexPersistentVolumeSourcePtrOutput) Elem() FlexPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *FlexPersistentVolumeSource) FlexPersistentVolumeSource { return *v }).(FlexPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *FlexPersistentVolumeSource) FlexPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FlexPersistentVolumeSource
+		return ret
+	}).(FlexPersistentVolumeSourceOutput)
 }
 
 // Driver is the name of the driver to use for this volume.
@@ -9233,7 +9431,7 @@ func (o FlexVolumeSourceOutput) ToFlexVolumeSourcePtrOutput() FlexVolumeSourcePt
 }
 
 func (o FlexVolumeSourceOutput) ToFlexVolumeSourcePtrOutputWithContext(ctx context.Context) FlexVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FlexVolumeSource) *FlexVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlexVolumeSource) *FlexVolumeSource {
 		return &v
 	}).(FlexVolumeSourcePtrOutput)
 }
@@ -9278,7 +9476,13 @@ func (o FlexVolumeSourcePtrOutput) ToFlexVolumeSourcePtrOutputWithContext(ctx co
 }
 
 func (o FlexVolumeSourcePtrOutput) Elem() FlexVolumeSourceOutput {
-	return o.ApplyT(func(v *FlexVolumeSource) FlexVolumeSource { return *v }).(FlexVolumeSourceOutput)
+	return o.ApplyT(func(v *FlexVolumeSource) FlexVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FlexVolumeSource
+		return ret
+	}).(FlexVolumeSourceOutput)
 }
 
 // Driver is the name of the driver to use for this volume.
@@ -9431,7 +9635,7 @@ func (o FlockerVolumeSourceOutput) ToFlockerVolumeSourcePtrOutput() FlockerVolum
 }
 
 func (o FlockerVolumeSourceOutput) ToFlockerVolumeSourcePtrOutputWithContext(ctx context.Context) FlockerVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FlockerVolumeSource) *FlockerVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlockerVolumeSource) *FlockerVolumeSource {
 		return &v
 	}).(FlockerVolumeSourcePtrOutput)
 }
@@ -9461,7 +9665,13 @@ func (o FlockerVolumeSourcePtrOutput) ToFlockerVolumeSourcePtrOutputWithContext(
 }
 
 func (o FlockerVolumeSourcePtrOutput) Elem() FlockerVolumeSourceOutput {
-	return o.ApplyT(func(v *FlockerVolumeSource) FlockerVolumeSource { return *v }).(FlockerVolumeSourceOutput)
+	return o.ApplyT(func(v *FlockerVolumeSource) FlockerVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FlockerVolumeSource
+		return ret
+	}).(FlockerVolumeSourceOutput)
 }
 
 // Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
@@ -9598,7 +9808,7 @@ func (o GCEPersistentDiskVolumeSourceOutput) ToGCEPersistentDiskVolumeSourcePtrO
 }
 
 func (o GCEPersistentDiskVolumeSourceOutput) ToGCEPersistentDiskVolumeSourcePtrOutputWithContext(ctx context.Context) GCEPersistentDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GCEPersistentDiskVolumeSource) *GCEPersistentDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GCEPersistentDiskVolumeSource) *GCEPersistentDiskVolumeSource {
 		return &v
 	}).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
@@ -9638,7 +9848,13 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) ToGCEPersistentDiskVolumeSourceP
 }
 
 func (o GCEPersistentDiskVolumeSourcePtrOutput) Elem() GCEPersistentDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) GCEPersistentDiskVolumeSource { return *v }).(GCEPersistentDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) GCEPersistentDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GCEPersistentDiskVolumeSource
+		return ret
+	}).(GCEPersistentDiskVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
@@ -9791,7 +10007,7 @@ func (o GitRepoVolumeSourceOutput) ToGitRepoVolumeSourcePtrOutput() GitRepoVolum
 }
 
 func (o GitRepoVolumeSourceOutput) ToGitRepoVolumeSourcePtrOutputWithContext(ctx context.Context) GitRepoVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GitRepoVolumeSource) *GitRepoVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GitRepoVolumeSource) *GitRepoVolumeSource {
 		return &v
 	}).(GitRepoVolumeSourcePtrOutput)
 }
@@ -9826,7 +10042,13 @@ func (o GitRepoVolumeSourcePtrOutput) ToGitRepoVolumeSourcePtrOutputWithContext(
 }
 
 func (o GitRepoVolumeSourcePtrOutput) Elem() GitRepoVolumeSourceOutput {
-	return o.ApplyT(func(v *GitRepoVolumeSource) GitRepoVolumeSource { return *v }).(GitRepoVolumeSourceOutput)
+	return o.ApplyT(func(v *GitRepoVolumeSource) GitRepoVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GitRepoVolumeSource
+		return ret
+	}).(GitRepoVolumeSourceOutput)
 }
 
 // Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
@@ -9967,7 +10189,7 @@ func (o GlusterfsPersistentVolumeSourceOutput) ToGlusterfsPersistentVolumeSource
 }
 
 func (o GlusterfsPersistentVolumeSourceOutput) ToGlusterfsPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) GlusterfsPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GlusterfsPersistentVolumeSource) *GlusterfsPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GlusterfsPersistentVolumeSource) *GlusterfsPersistentVolumeSource {
 		return &v
 	}).(GlusterfsPersistentVolumeSourcePtrOutput)
 }
@@ -10007,7 +10229,13 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) ToGlusterfsPersistentVolumeSou
 }
 
 func (o GlusterfsPersistentVolumeSourcePtrOutput) Elem() GlusterfsPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) GlusterfsPersistentVolumeSource { return *v }).(GlusterfsPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) GlusterfsPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GlusterfsPersistentVolumeSource
+		return ret
+	}).(GlusterfsPersistentVolumeSourceOutput)
 }
 
 // EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -10154,7 +10382,7 @@ func (o GlusterfsVolumeSourceOutput) ToGlusterfsVolumeSourcePtrOutput() Glusterf
 }
 
 func (o GlusterfsVolumeSourceOutput) ToGlusterfsVolumeSourcePtrOutputWithContext(ctx context.Context) GlusterfsVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GlusterfsVolumeSource) *GlusterfsVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GlusterfsVolumeSource) *GlusterfsVolumeSource {
 		return &v
 	}).(GlusterfsVolumeSourcePtrOutput)
 }
@@ -10189,7 +10417,13 @@ func (o GlusterfsVolumeSourcePtrOutput) ToGlusterfsVolumeSourcePtrOutputWithCont
 }
 
 func (o GlusterfsVolumeSourcePtrOutput) Elem() GlusterfsVolumeSourceOutput {
-	return o.ApplyT(func(v *GlusterfsVolumeSource) GlusterfsVolumeSource { return *v }).(GlusterfsVolumeSourceOutput)
+	return o.ApplyT(func(v *GlusterfsVolumeSource) GlusterfsVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GlusterfsVolumeSource
+		return ret
+	}).(GlusterfsVolumeSourceOutput)
 }
 
 // EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -10334,7 +10568,7 @@ func (o HTTPGetActionOutput) ToHTTPGetActionPtrOutput() HTTPGetActionPtrOutput {
 }
 
 func (o HTTPGetActionOutput) ToHTTPGetActionPtrOutputWithContext(ctx context.Context) HTTPGetActionPtrOutput {
-	return o.ApplyT(func(v HTTPGetAction) *HTTPGetAction {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HTTPGetAction) *HTTPGetAction {
 		return &v
 	}).(HTTPGetActionPtrOutput)
 }
@@ -10379,7 +10613,13 @@ func (o HTTPGetActionPtrOutput) ToHTTPGetActionPtrOutputWithContext(ctx context.
 }
 
 func (o HTTPGetActionPtrOutput) Elem() HTTPGetActionOutput {
-	return o.ApplyT(func(v *HTTPGetAction) HTTPGetAction { return *v }).(HTTPGetActionOutput)
+	return o.ApplyT(func(v *HTTPGetAction) HTTPGetAction {
+		if v != nil {
+			return *v
+		}
+		var ret HTTPGetAction
+		return ret
+	}).(HTTPGetActionOutput)
 }
 
 // Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
@@ -10645,7 +10885,7 @@ func (o HandlerOutput) ToHandlerPtrOutput() HandlerPtrOutput {
 }
 
 func (o HandlerOutput) ToHandlerPtrOutputWithContext(ctx context.Context) HandlerPtrOutput {
-	return o.ApplyT(func(v Handler) *Handler {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Handler) *Handler {
 		return &v
 	}).(HandlerPtrOutput)
 }
@@ -10680,7 +10920,13 @@ func (o HandlerPtrOutput) ToHandlerPtrOutputWithContext(ctx context.Context) Han
 }
 
 func (o HandlerPtrOutput) Elem() HandlerOutput {
-	return o.ApplyT(func(v *Handler) Handler { return *v }).(HandlerOutput)
+	return o.ApplyT(func(v *Handler) Handler {
+		if v != nil {
+			return *v
+		}
+		var ret Handler
+		return ret
+	}).(HandlerOutput)
 }
 
 // One and only one of the following should be specified. Exec specifies the action to take.
@@ -10922,7 +11168,7 @@ func (o HostPathVolumeSourceOutput) ToHostPathVolumeSourcePtrOutput() HostPathVo
 }
 
 func (o HostPathVolumeSourceOutput) ToHostPathVolumeSourcePtrOutputWithContext(ctx context.Context) HostPathVolumeSourcePtrOutput {
-	return o.ApplyT(func(v HostPathVolumeSource) *HostPathVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HostPathVolumeSource) *HostPathVolumeSource {
 		return &v
 	}).(HostPathVolumeSourcePtrOutput)
 }
@@ -10952,7 +11198,13 @@ func (o HostPathVolumeSourcePtrOutput) ToHostPathVolumeSourcePtrOutputWithContex
 }
 
 func (o HostPathVolumeSourcePtrOutput) Elem() HostPathVolumeSourceOutput {
-	return o.ApplyT(func(v *HostPathVolumeSource) HostPathVolumeSource { return *v }).(HostPathVolumeSourceOutput)
+	return o.ApplyT(func(v *HostPathVolumeSource) HostPathVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret HostPathVolumeSource
+		return ret
+	}).(HostPathVolumeSourceOutput)
 }
 
 // Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
@@ -11111,7 +11363,7 @@ func (o ISCSIPersistentVolumeSourceOutput) ToISCSIPersistentVolumeSourcePtrOutpu
 }
 
 func (o ISCSIPersistentVolumeSourceOutput) ToISCSIPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) ISCSIPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *ISCSIPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ISCSIPersistentVolumeSource) *ISCSIPersistentVolumeSource {
 		return &v
 	}).(ISCSIPersistentVolumeSourcePtrOutput)
 }
@@ -11186,7 +11438,13 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) ToISCSIPersistentVolumeSourcePtrOu
 }
 
 func (o ISCSIPersistentVolumeSourcePtrOutput) Elem() ISCSIPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) ISCSIPersistentVolumeSource { return *v }).(ISCSIPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) ISCSIPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ISCSIPersistentVolumeSource
+		return ret
+	}).(ISCSIPersistentVolumeSourceOutput)
 }
 
 // whether support iSCSI Discovery CHAP authentication
@@ -11435,7 +11693,7 @@ func (o ISCSIVolumeSourceOutput) ToISCSIVolumeSourcePtrOutput() ISCSIVolumeSourc
 }
 
 func (o ISCSIVolumeSourceOutput) ToISCSIVolumeSourcePtrOutputWithContext(ctx context.Context) ISCSIVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ISCSIVolumeSource) *ISCSIVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ISCSIVolumeSource) *ISCSIVolumeSource {
 		return &v
 	}).(ISCSIVolumeSourcePtrOutput)
 }
@@ -11510,7 +11768,13 @@ func (o ISCSIVolumeSourcePtrOutput) ToISCSIVolumeSourcePtrOutputWithContext(ctx 
 }
 
 func (o ISCSIVolumeSourcePtrOutput) Elem() ISCSIVolumeSourceOutput {
-	return o.ApplyT(func(v *ISCSIVolumeSource) ISCSIVolumeSource { return *v }).(ISCSIVolumeSourceOutput)
+	return o.ApplyT(func(v *ISCSIVolumeSource) ISCSIVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ISCSIVolumeSource
+		return ret
+	}).(ISCSIVolumeSourceOutput)
 }
 
 // whether support iSCSI Discovery CHAP authentication
@@ -11841,7 +12105,7 @@ func (o LifecycleOutput) ToLifecyclePtrOutput() LifecyclePtrOutput {
 }
 
 func (o LifecycleOutput) ToLifecyclePtrOutputWithContext(ctx context.Context) LifecyclePtrOutput {
-	return o.ApplyT(func(v Lifecycle) *Lifecycle {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Lifecycle) *Lifecycle {
 		return &v
 	}).(LifecyclePtrOutput)
 }
@@ -11871,7 +12135,13 @@ func (o LifecyclePtrOutput) ToLifecyclePtrOutputWithContext(ctx context.Context)
 }
 
 func (o LifecyclePtrOutput) Elem() LifecycleOutput {
-	return o.ApplyT(func(v *Lifecycle) Lifecycle { return *v }).(LifecycleOutput)
+	return o.ApplyT(func(v *Lifecycle) Lifecycle {
+		if v != nil {
+			return *v
+		}
+		var ret Lifecycle
+		return ret
+	}).(LifecycleOutput)
 }
 
 // PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
@@ -12344,7 +12614,7 @@ func (o LimitRangeSpecOutput) ToLimitRangeSpecPtrOutput() LimitRangeSpecPtrOutpu
 }
 
 func (o LimitRangeSpecOutput) ToLimitRangeSpecPtrOutputWithContext(ctx context.Context) LimitRangeSpecPtrOutput {
-	return o.ApplyT(func(v LimitRangeSpec) *LimitRangeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitRangeSpec) *LimitRangeSpec {
 		return &v
 	}).(LimitRangeSpecPtrOutput)
 }
@@ -12369,7 +12639,13 @@ func (o LimitRangeSpecPtrOutput) ToLimitRangeSpecPtrOutputWithContext(ctx contex
 }
 
 func (o LimitRangeSpecPtrOutput) Elem() LimitRangeSpecOutput {
-	return o.ApplyT(func(v *LimitRangeSpec) LimitRangeSpec { return *v }).(LimitRangeSpecOutput)
+	return o.ApplyT(func(v *LimitRangeSpec) LimitRangeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret LimitRangeSpec
+		return ret
+	}).(LimitRangeSpecOutput)
 }
 
 // Limits is the list of LimitRangeItem objects that are enforced.
@@ -12596,7 +12872,7 @@ func (o LoadBalancerStatusOutput) ToLoadBalancerStatusPtrOutput() LoadBalancerSt
 }
 
 func (o LoadBalancerStatusOutput) ToLoadBalancerStatusPtrOutputWithContext(ctx context.Context) LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v LoadBalancerStatus) *LoadBalancerStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LoadBalancerStatus) *LoadBalancerStatus {
 		return &v
 	}).(LoadBalancerStatusPtrOutput)
 }
@@ -12621,7 +12897,13 @@ func (o LoadBalancerStatusPtrOutput) ToLoadBalancerStatusPtrOutputWithContext(ct
 }
 
 func (o LoadBalancerStatusPtrOutput) Elem() LoadBalancerStatusOutput {
-	return o.ApplyT(func(v *LoadBalancerStatus) LoadBalancerStatus { return *v }).(LoadBalancerStatusOutput)
+	return o.ApplyT(func(v *LoadBalancerStatus) LoadBalancerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret LoadBalancerStatus
+		return ret
+	}).(LoadBalancerStatusOutput)
 }
 
 // Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
@@ -12755,7 +13037,7 @@ func (o LocalObjectReferenceOutput) ToLocalObjectReferencePtrOutput() LocalObjec
 }
 
 func (o LocalObjectReferenceOutput) ToLocalObjectReferencePtrOutputWithContext(ctx context.Context) LocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v LocalObjectReference) *LocalObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LocalObjectReference) *LocalObjectReference {
 		return &v
 	}).(LocalObjectReferencePtrOutput)
 }
@@ -12780,7 +13062,13 @@ func (o LocalObjectReferencePtrOutput) ToLocalObjectReferencePtrOutputWithContex
 }
 
 func (o LocalObjectReferencePtrOutput) Elem() LocalObjectReferenceOutput {
-	return o.ApplyT(func(v *LocalObjectReference) LocalObjectReference { return *v }).(LocalObjectReferenceOutput)
+	return o.ApplyT(func(v *LocalObjectReference) LocalObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret LocalObjectReference
+		return ret
+	}).(LocalObjectReferenceOutput)
 }
 
 // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -12913,7 +13201,7 @@ func (o LocalVolumeSourceOutput) ToLocalVolumeSourcePtrOutput() LocalVolumeSourc
 }
 
 func (o LocalVolumeSourceOutput) ToLocalVolumeSourcePtrOutputWithContext(ctx context.Context) LocalVolumeSourcePtrOutput {
-	return o.ApplyT(func(v LocalVolumeSource) *LocalVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LocalVolumeSource) *LocalVolumeSource {
 		return &v
 	}).(LocalVolumeSourcePtrOutput)
 }
@@ -12943,7 +13231,13 @@ func (o LocalVolumeSourcePtrOutput) ToLocalVolumeSourcePtrOutputWithContext(ctx 
 }
 
 func (o LocalVolumeSourcePtrOutput) Elem() LocalVolumeSourceOutput {
-	return o.ApplyT(func(v *LocalVolumeSource) LocalVolumeSource { return *v }).(LocalVolumeSourceOutput)
+	return o.ApplyT(func(v *LocalVolumeSource) LocalVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret LocalVolumeSource
+		return ret
+	}).(LocalVolumeSourceOutput)
 }
 
 // Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
@@ -13070,7 +13364,7 @@ func (o NFSVolumeSourceOutput) ToNFSVolumeSourcePtrOutput() NFSVolumeSourcePtrOu
 }
 
 func (o NFSVolumeSourceOutput) ToNFSVolumeSourcePtrOutputWithContext(ctx context.Context) NFSVolumeSourcePtrOutput {
-	return o.ApplyT(func(v NFSVolumeSource) *NFSVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NFSVolumeSource) *NFSVolumeSource {
 		return &v
 	}).(NFSVolumeSourcePtrOutput)
 }
@@ -13105,7 +13399,13 @@ func (o NFSVolumeSourcePtrOutput) ToNFSVolumeSourcePtrOutputWithContext(ctx cont
 }
 
 func (o NFSVolumeSourcePtrOutput) Elem() NFSVolumeSourceOutput {
-	return o.ApplyT(func(v *NFSVolumeSource) NFSVolumeSource { return *v }).(NFSVolumeSourceOutput)
+	return o.ApplyT(func(v *NFSVolumeSource) NFSVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret NFSVolumeSource
+		return ret
+	}).(NFSVolumeSourceOutput)
 }
 
 // Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -13579,7 +13879,7 @@ func (o NamespaceSpecOutput) ToNamespaceSpecPtrOutput() NamespaceSpecPtrOutput {
 }
 
 func (o NamespaceSpecOutput) ToNamespaceSpecPtrOutputWithContext(ctx context.Context) NamespaceSpecPtrOutput {
-	return o.ApplyT(func(v NamespaceSpec) *NamespaceSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamespaceSpec) *NamespaceSpec {
 		return &v
 	}).(NamespaceSpecPtrOutput)
 }
@@ -13604,7 +13904,13 @@ func (o NamespaceSpecPtrOutput) ToNamespaceSpecPtrOutputWithContext(ctx context.
 }
 
 func (o NamespaceSpecPtrOutput) Elem() NamespaceSpecOutput {
-	return o.ApplyT(func(v *NamespaceSpec) NamespaceSpec { return *v }).(NamespaceSpecOutput)
+	return o.ApplyT(func(v *NamespaceSpec) NamespaceSpec {
+		if v != nil {
+			return *v
+		}
+		var ret NamespaceSpec
+		return ret
+	}).(NamespaceSpecOutput)
 }
 
 // Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
@@ -13717,7 +14023,7 @@ func (o NamespaceStatusOutput) ToNamespaceStatusPtrOutput() NamespaceStatusPtrOu
 }
 
 func (o NamespaceStatusOutput) ToNamespaceStatusPtrOutputWithContext(ctx context.Context) NamespaceStatusPtrOutput {
-	return o.ApplyT(func(v NamespaceStatus) *NamespaceStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamespaceStatus) *NamespaceStatus {
 		return &v
 	}).(NamespaceStatusPtrOutput)
 }
@@ -13747,7 +14053,13 @@ func (o NamespaceStatusPtrOutput) ToNamespaceStatusPtrOutputWithContext(ctx cont
 }
 
 func (o NamespaceStatusPtrOutput) Elem() NamespaceStatusOutput {
-	return o.ApplyT(func(v *NamespaceStatus) NamespaceStatus { return *v }).(NamespaceStatusOutput)
+	return o.ApplyT(func(v *NamespaceStatus) NamespaceStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NamespaceStatus
+		return ret
+	}).(NamespaceStatusOutput)
 }
 
 // Represents the latest available observations of a namespace's current state.
@@ -14115,7 +14427,7 @@ func (o NodeAffinityOutput) ToNodeAffinityPtrOutput() NodeAffinityPtrOutput {
 }
 
 func (o NodeAffinityOutput) ToNodeAffinityPtrOutputWithContext(ctx context.Context) NodeAffinityPtrOutput {
-	return o.ApplyT(func(v NodeAffinity) *NodeAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeAffinity) *NodeAffinity {
 		return &v
 	}).(NodeAffinityPtrOutput)
 }
@@ -14147,7 +14459,13 @@ func (o NodeAffinityPtrOutput) ToNodeAffinityPtrOutputWithContext(ctx context.Co
 }
 
 func (o NodeAffinityPtrOutput) Elem() NodeAffinityOutput {
-	return o.ApplyT(func(v *NodeAffinity) NodeAffinity { return *v }).(NodeAffinityOutput)
+	return o.ApplyT(func(v *NodeAffinity) NodeAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret NodeAffinity
+		return ret
+	}).(NodeAffinityOutput)
 }
 
 // The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
@@ -14411,7 +14729,7 @@ func (o NodeConfigSourceOutput) ToNodeConfigSourcePtrOutput() NodeConfigSourcePt
 }
 
 func (o NodeConfigSourceOutput) ToNodeConfigSourcePtrOutputWithContext(ctx context.Context) NodeConfigSourcePtrOutput {
-	return o.ApplyT(func(v NodeConfigSource) *NodeConfigSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeConfigSource) *NodeConfigSource {
 		return &v
 	}).(NodeConfigSourcePtrOutput)
 }
@@ -14436,7 +14754,13 @@ func (o NodeConfigSourcePtrOutput) ToNodeConfigSourcePtrOutputWithContext(ctx co
 }
 
 func (o NodeConfigSourcePtrOutput) Elem() NodeConfigSourceOutput {
-	return o.ApplyT(func(v *NodeConfigSource) NodeConfigSource { return *v }).(NodeConfigSourceOutput)
+	return o.ApplyT(func(v *NodeConfigSource) NodeConfigSource {
+		if v != nil {
+			return *v
+		}
+		var ret NodeConfigSource
+		return ret
+	}).(NodeConfigSourceOutput)
 }
 
 // ConfigMap is a reference to a Node's ConfigMap
@@ -14557,7 +14881,7 @@ func (o NodeConfigStatusOutput) ToNodeConfigStatusPtrOutput() NodeConfigStatusPt
 }
 
 func (o NodeConfigStatusOutput) ToNodeConfigStatusPtrOutputWithContext(ctx context.Context) NodeConfigStatusPtrOutput {
-	return o.ApplyT(func(v NodeConfigStatus) *NodeConfigStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeConfigStatus) *NodeConfigStatus {
 		return &v
 	}).(NodeConfigStatusPtrOutput)
 }
@@ -14597,7 +14921,13 @@ func (o NodeConfigStatusPtrOutput) ToNodeConfigStatusPtrOutputWithContext(ctx co
 }
 
 func (o NodeConfigStatusPtrOutput) Elem() NodeConfigStatusOutput {
-	return o.ApplyT(func(v *NodeConfigStatus) NodeConfigStatus { return *v }).(NodeConfigStatusOutput)
+	return o.ApplyT(func(v *NodeConfigStatus) NodeConfigStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NodeConfigStatus
+		return ret
+	}).(NodeConfigStatusOutput)
 }
 
 // Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
@@ -14736,7 +15066,7 @@ func (o NodeDaemonEndpointsOutput) ToNodeDaemonEndpointsPtrOutput() NodeDaemonEn
 }
 
 func (o NodeDaemonEndpointsOutput) ToNodeDaemonEndpointsPtrOutputWithContext(ctx context.Context) NodeDaemonEndpointsPtrOutput {
-	return o.ApplyT(func(v NodeDaemonEndpoints) *NodeDaemonEndpoints {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeDaemonEndpoints) *NodeDaemonEndpoints {
 		return &v
 	}).(NodeDaemonEndpointsPtrOutput)
 }
@@ -14761,7 +15091,13 @@ func (o NodeDaemonEndpointsPtrOutput) ToNodeDaemonEndpointsPtrOutputWithContext(
 }
 
 func (o NodeDaemonEndpointsPtrOutput) Elem() NodeDaemonEndpointsOutput {
-	return o.ApplyT(func(v *NodeDaemonEndpoints) NodeDaemonEndpoints { return *v }).(NodeDaemonEndpointsOutput)
+	return o.ApplyT(func(v *NodeDaemonEndpoints) NodeDaemonEndpoints {
+		if v != nil {
+			return *v
+		}
+		var ret NodeDaemonEndpoints
+		return ret
+	}).(NodeDaemonEndpointsOutput)
 }
 
 // Endpoint on which Kubelet is listening.
@@ -14952,7 +15288,7 @@ func (o NodeSelectorOutput) ToNodeSelectorPtrOutput() NodeSelectorPtrOutput {
 }
 
 func (o NodeSelectorOutput) ToNodeSelectorPtrOutputWithContext(ctx context.Context) NodeSelectorPtrOutput {
-	return o.ApplyT(func(v NodeSelector) *NodeSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSelector) *NodeSelector {
 		return &v
 	}).(NodeSelectorPtrOutput)
 }
@@ -14977,7 +15313,13 @@ func (o NodeSelectorPtrOutput) ToNodeSelectorPtrOutputWithContext(ctx context.Co
 }
 
 func (o NodeSelectorPtrOutput) Elem() NodeSelectorOutput {
-	return o.ApplyT(func(v *NodeSelector) NodeSelector { return *v }).(NodeSelectorOutput)
+	return o.ApplyT(func(v *NodeSelector) NodeSelector {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSelector
+		return ret
+	}).(NodeSelectorOutput)
 }
 
 // Required. A list of node selector terms. The terms are ORed.
@@ -15337,7 +15679,7 @@ func (o NodeSpecOutput) ToNodeSpecPtrOutput() NodeSpecPtrOutput {
 }
 
 func (o NodeSpecOutput) ToNodeSpecPtrOutputWithContext(ctx context.Context) NodeSpecPtrOutput {
-	return o.ApplyT(func(v NodeSpec) *NodeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSpec) *NodeSpec {
 		return &v
 	}).(NodeSpecPtrOutput)
 }
@@ -15392,7 +15734,13 @@ func (o NodeSpecPtrOutput) ToNodeSpecPtrOutputWithContext(ctx context.Context) N
 }
 
 func (o NodeSpecPtrOutput) Elem() NodeSpecOutput {
-	return o.ApplyT(func(v *NodeSpec) NodeSpec { return *v }).(NodeSpecOutput)
+	return o.ApplyT(func(v *NodeSpec) NodeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSpec
+		return ret
+	}).(NodeSpecOutput)
 }
 
 // Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
@@ -15601,7 +15949,7 @@ func (o NodeStatusOutput) ToNodeStatusPtrOutput() NodeStatusPtrOutput {
 }
 
 func (o NodeStatusOutput) ToNodeStatusPtrOutputWithContext(ctx context.Context) NodeStatusPtrOutput {
-	return o.ApplyT(func(v NodeStatus) *NodeStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeStatus) *NodeStatus {
 		return &v
 	}).(NodeStatusPtrOutput)
 }
@@ -15676,7 +16024,13 @@ func (o NodeStatusPtrOutput) ToNodeStatusPtrOutputWithContext(ctx context.Contex
 }
 
 func (o NodeStatusPtrOutput) Elem() NodeStatusOutput {
-	return o.ApplyT(func(v *NodeStatus) NodeStatus { return *v }).(NodeStatusOutput)
+	return o.ApplyT(func(v *NodeStatus) NodeStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NodeStatus
+		return ret
+	}).(NodeStatusOutput)
 }
 
 // List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
@@ -15921,7 +16275,7 @@ func (o NodeSystemInfoOutput) ToNodeSystemInfoPtrOutput() NodeSystemInfoPtrOutpu
 }
 
 func (o NodeSystemInfoOutput) ToNodeSystemInfoPtrOutputWithContext(ctx context.Context) NodeSystemInfoPtrOutput {
-	return o.ApplyT(func(v NodeSystemInfo) *NodeSystemInfo {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSystemInfo) *NodeSystemInfo {
 		return &v
 	}).(NodeSystemInfoPtrOutput)
 }
@@ -15991,7 +16345,13 @@ func (o NodeSystemInfoPtrOutput) ToNodeSystemInfoPtrOutputWithContext(ctx contex
 }
 
 func (o NodeSystemInfoPtrOutput) Elem() NodeSystemInfoOutput {
-	return o.ApplyT(func(v *NodeSystemInfo) NodeSystemInfo { return *v }).(NodeSystemInfoOutput)
+	return o.ApplyT(func(v *NodeSystemInfo) NodeSystemInfo {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSystemInfo
+		return ret
+	}).(NodeSystemInfoOutput)
 }
 
 // The Architecture reported by the node
@@ -16194,7 +16554,7 @@ func (o ObjectFieldSelectorOutput) ToObjectFieldSelectorPtrOutput() ObjectFieldS
 }
 
 func (o ObjectFieldSelectorOutput) ToObjectFieldSelectorPtrOutputWithContext(ctx context.Context) ObjectFieldSelectorPtrOutput {
-	return o.ApplyT(func(v ObjectFieldSelector) *ObjectFieldSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectFieldSelector) *ObjectFieldSelector {
 		return &v
 	}).(ObjectFieldSelectorPtrOutput)
 }
@@ -16224,7 +16584,13 @@ func (o ObjectFieldSelectorPtrOutput) ToObjectFieldSelectorPtrOutputWithContext(
 }
 
 func (o ObjectFieldSelectorPtrOutput) Elem() ObjectFieldSelectorOutput {
-	return o.ApplyT(func(v *ObjectFieldSelector) ObjectFieldSelector { return *v }).(ObjectFieldSelectorOutput)
+	return o.ApplyT(func(v *ObjectFieldSelector) ObjectFieldSelector {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectFieldSelector
+		return ret
+	}).(ObjectFieldSelectorOutput)
 }
 
 // Version of the schema the FieldPath is written in terms of, defaults to "v1".
@@ -16392,7 +16758,7 @@ func (o ObjectReferenceOutput) ToObjectReferencePtrOutput() ObjectReferencePtrOu
 }
 
 func (o ObjectReferenceOutput) ToObjectReferencePtrOutputWithContext(ctx context.Context) ObjectReferencePtrOutput {
-	return o.ApplyT(func(v ObjectReference) *ObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectReference) *ObjectReference {
 		return &v
 	}).(ObjectReferencePtrOutput)
 }
@@ -16447,7 +16813,13 @@ func (o ObjectReferencePtrOutput) ToObjectReferencePtrOutputWithContext(ctx cont
 }
 
 func (o ObjectReferencePtrOutput) Elem() ObjectReferenceOutput {
-	return o.ApplyT(func(v *ObjectReference) ObjectReference { return *v }).(ObjectReferenceOutput)
+	return o.ApplyT(func(v *ObjectReference) ObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectReference
+		return ret
+	}).(ObjectReferenceOutput)
 }
 
 // API version of the referent.
@@ -17167,7 +17539,7 @@ func (o PersistentVolumeClaimSpecOutput) ToPersistentVolumeClaimSpecPtrOutput() 
 }
 
 func (o PersistentVolumeClaimSpecOutput) ToPersistentVolumeClaimSpecPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimSpecPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimSpec) *PersistentVolumeClaimSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimSpec) *PersistentVolumeClaimSpec {
 		return &v
 	}).(PersistentVolumeClaimSpecPtrOutput)
 }
@@ -17232,7 +17604,13 @@ func (o PersistentVolumeClaimSpecPtrOutput) ToPersistentVolumeClaimSpecPtrOutput
 }
 
 func (o PersistentVolumeClaimSpecPtrOutput) Elem() PersistentVolumeClaimSpecOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimSpec) PersistentVolumeClaimSpec { return *v }).(PersistentVolumeClaimSpecOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimSpec) PersistentVolumeClaimSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimSpec
+		return ret
+	}).(PersistentVolumeClaimSpecOutput)
 }
 
 // AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -17428,7 +17806,7 @@ func (o PersistentVolumeClaimStatusOutput) ToPersistentVolumeClaimStatusPtrOutpu
 }
 
 func (o PersistentVolumeClaimStatusOutput) ToPersistentVolumeClaimStatusPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimStatusPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimStatus) *PersistentVolumeClaimStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimStatus) *PersistentVolumeClaimStatus {
 		return &v
 	}).(PersistentVolumeClaimStatusPtrOutput)
 }
@@ -17468,7 +17846,13 @@ func (o PersistentVolumeClaimStatusPtrOutput) ToPersistentVolumeClaimStatusPtrOu
 }
 
 func (o PersistentVolumeClaimStatusPtrOutput) Elem() PersistentVolumeClaimStatusOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimStatus) PersistentVolumeClaimStatus { return *v }).(PersistentVolumeClaimStatusOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) PersistentVolumeClaimStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimStatus
+		return ret
+	}).(PersistentVolumeClaimStatusOutput)
 }
 
 // AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -17611,7 +17995,7 @@ func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplatePtrO
 }
 
 func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplatePtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimTemplate) *PersistentVolumeClaimTemplate {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimTemplate) *PersistentVolumeClaimTemplate {
 		return &v
 	}).(PersistentVolumeClaimTemplatePtrOutput)
 }
@@ -17641,7 +18025,13 @@ func (o PersistentVolumeClaimTemplatePtrOutput) ToPersistentVolumeClaimTemplateP
 }
 
 func (o PersistentVolumeClaimTemplatePtrOutput) Elem() PersistentVolumeClaimTemplateOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) PersistentVolumeClaimTemplate { return *v }).(PersistentVolumeClaimTemplateOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) PersistentVolumeClaimTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimTemplate
+		return ret
+	}).(PersistentVolumeClaimTemplateOutput)
 }
 
 // May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
@@ -17764,7 +18154,7 @@ func (o PersistentVolumeClaimVolumeSourceOutput) ToPersistentVolumeClaimVolumeSo
 }
 
 func (o PersistentVolumeClaimVolumeSourceOutput) ToPersistentVolumeClaimVolumeSourcePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimVolumeSourcePtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimVolumeSource) *PersistentVolumeClaimVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimVolumeSource) *PersistentVolumeClaimVolumeSource {
 		return &v
 	}).(PersistentVolumeClaimVolumeSourcePtrOutput)
 }
@@ -17794,7 +18184,13 @@ func (o PersistentVolumeClaimVolumeSourcePtrOutput) ToPersistentVolumeClaimVolum
 }
 
 func (o PersistentVolumeClaimVolumeSourcePtrOutput) Elem() PersistentVolumeClaimVolumeSourceOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimVolumeSource) PersistentVolumeClaimVolumeSource { return *v }).(PersistentVolumeClaimVolumeSourceOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimVolumeSource) PersistentVolumeClaimVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimVolumeSource
+		return ret
+	}).(PersistentVolumeClaimVolumeSourceOutput)
 }
 
 // ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
@@ -18111,7 +18507,7 @@ func (o PersistentVolumeSpecOutput) ToPersistentVolumeSpecPtrOutput() Persistent
 }
 
 func (o PersistentVolumeSpecOutput) ToPersistentVolumeSpecPtrOutputWithContext(ctx context.Context) PersistentVolumeSpecPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeSpec) *PersistentVolumeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeSpec) *PersistentVolumeSpec {
 		return &v
 	}).(PersistentVolumeSpecPtrOutput)
 }
@@ -18281,7 +18677,13 @@ func (o PersistentVolumeSpecPtrOutput) ToPersistentVolumeSpecPtrOutputWithContex
 }
 
 func (o PersistentVolumeSpecPtrOutput) Elem() PersistentVolumeSpecOutput {
-	return o.ApplyT(func(v *PersistentVolumeSpec) PersistentVolumeSpec { return *v }).(PersistentVolumeSpecOutput)
+	return o.ApplyT(func(v *PersistentVolumeSpec) PersistentVolumeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeSpec
+		return ret
+	}).(PersistentVolumeSpecOutput)
 }
 
 // AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
@@ -18688,7 +19090,7 @@ func (o PersistentVolumeStatusOutput) ToPersistentVolumeStatusPtrOutput() Persis
 }
 
 func (o PersistentVolumeStatusOutput) ToPersistentVolumeStatusPtrOutputWithContext(ctx context.Context) PersistentVolumeStatusPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeStatus) *PersistentVolumeStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeStatus) *PersistentVolumeStatus {
 		return &v
 	}).(PersistentVolumeStatusPtrOutput)
 }
@@ -18723,7 +19125,13 @@ func (o PersistentVolumeStatusPtrOutput) ToPersistentVolumeStatusPtrOutputWithCo
 }
 
 func (o PersistentVolumeStatusPtrOutput) Elem() PersistentVolumeStatusOutput {
-	return o.ApplyT(func(v *PersistentVolumeStatus) PersistentVolumeStatus { return *v }).(PersistentVolumeStatusOutput)
+	return o.ApplyT(func(v *PersistentVolumeStatus) PersistentVolumeStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeStatus
+		return ret
+	}).(PersistentVolumeStatusOutput)
 }
 
 // A human-readable message indicating details about why the volume is in this state.
@@ -18856,7 +19264,7 @@ func (o PhotonPersistentDiskVolumeSourceOutput) ToPhotonPersistentDiskVolumeSour
 }
 
 func (o PhotonPersistentDiskVolumeSourceOutput) ToPhotonPersistentDiskVolumeSourcePtrOutputWithContext(ctx context.Context) PhotonPersistentDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v PhotonPersistentDiskVolumeSource) *PhotonPersistentDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PhotonPersistentDiskVolumeSource) *PhotonPersistentDiskVolumeSource {
 		return &v
 	}).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
@@ -18886,7 +19294,13 @@ func (o PhotonPersistentDiskVolumeSourcePtrOutput) ToPhotonPersistentDiskVolumeS
 }
 
 func (o PhotonPersistentDiskVolumeSourcePtrOutput) Elem() PhotonPersistentDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *PhotonPersistentDiskVolumeSource) PhotonPersistentDiskVolumeSource { return *v }).(PhotonPersistentDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *PhotonPersistentDiskVolumeSource) PhotonPersistentDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret PhotonPersistentDiskVolumeSource
+		return ret
+	}).(PhotonPersistentDiskVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -19190,7 +19604,7 @@ func (o PodAffinityOutput) ToPodAffinityPtrOutput() PodAffinityPtrOutput {
 }
 
 func (o PodAffinityOutput) ToPodAffinityPtrOutputWithContext(ctx context.Context) PodAffinityPtrOutput {
-	return o.ApplyT(func(v PodAffinity) *PodAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodAffinity) *PodAffinity {
 		return &v
 	}).(PodAffinityPtrOutput)
 }
@@ -19222,7 +19636,13 @@ func (o PodAffinityPtrOutput) ToPodAffinityPtrOutputWithContext(ctx context.Cont
 }
 
 func (o PodAffinityPtrOutput) Elem() PodAffinityOutput {
-	return o.ApplyT(func(v *PodAffinity) PodAffinity { return *v }).(PodAffinityOutput)
+	return o.ApplyT(func(v *PodAffinity) PodAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodAffinity
+		return ret
+	}).(PodAffinityOutput)
 }
 
 // The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
@@ -19472,7 +19892,7 @@ func (o PodAntiAffinityOutput) ToPodAntiAffinityPtrOutput() PodAntiAffinityPtrOu
 }
 
 func (o PodAntiAffinityOutput) ToPodAntiAffinityPtrOutputWithContext(ctx context.Context) PodAntiAffinityPtrOutput {
-	return o.ApplyT(func(v PodAntiAffinity) *PodAntiAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodAntiAffinity) *PodAntiAffinity {
 		return &v
 	}).(PodAntiAffinityPtrOutput)
 }
@@ -19504,7 +19924,13 @@ func (o PodAntiAffinityPtrOutput) ToPodAntiAffinityPtrOutputWithContext(ctx cont
 }
 
 func (o PodAntiAffinityPtrOutput) Elem() PodAntiAffinityOutput {
-	return o.ApplyT(func(v *PodAntiAffinity) PodAntiAffinity { return *v }).(PodAntiAffinityOutput)
+	return o.ApplyT(func(v *PodAntiAffinity) PodAntiAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodAntiAffinity
+		return ret
+	}).(PodAntiAffinityOutput)
 }
 
 // The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
@@ -19776,7 +20202,7 @@ func (o PodDNSConfigOutput) ToPodDNSConfigPtrOutput() PodDNSConfigPtrOutput {
 }
 
 func (o PodDNSConfigOutput) ToPodDNSConfigPtrOutputWithContext(ctx context.Context) PodDNSConfigPtrOutput {
-	return o.ApplyT(func(v PodDNSConfig) *PodDNSConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDNSConfig) *PodDNSConfig {
 		return &v
 	}).(PodDNSConfigPtrOutput)
 }
@@ -19811,7 +20237,13 @@ func (o PodDNSConfigPtrOutput) ToPodDNSConfigPtrOutputWithContext(ctx context.Co
 }
 
 func (o PodDNSConfigPtrOutput) Elem() PodDNSConfigOutput {
-	return o.ApplyT(func(v *PodDNSConfig) PodDNSConfig { return *v }).(PodDNSConfigOutput)
+	return o.ApplyT(func(v *PodDNSConfig) PodDNSConfig {
+		if v != nil {
+			return *v
+		}
+		var ret PodDNSConfig
+		return ret
+	}).(PodDNSConfigOutput)
 }
 
 // A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
@@ -20375,7 +20807,7 @@ func (o PodSecurityContextOutput) ToPodSecurityContextPtrOutput() PodSecurityCon
 }
 
 func (o PodSecurityContextOutput) ToPodSecurityContextPtrOutputWithContext(ctx context.Context) PodSecurityContextPtrOutput {
-	return o.ApplyT(func(v PodSecurityContext) *PodSecurityContext {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityContext) *PodSecurityContext {
 		return &v
 	}).(PodSecurityContextPtrOutput)
 }
@@ -20449,7 +20881,13 @@ func (o PodSecurityContextPtrOutput) ToPodSecurityContextPtrOutputWithContext(ct
 }
 
 func (o PodSecurityContextPtrOutput) Elem() PodSecurityContextOutput {
-	return o.ApplyT(func(v *PodSecurityContext) PodSecurityContext { return *v }).(PodSecurityContextOutput)
+	return o.ApplyT(func(v *PodSecurityContext) PodSecurityContext {
+		if v != nil {
+			return *v
+		}
+		var ret PodSecurityContext
+		return ret
+	}).(PodSecurityContextOutput)
 }
 
 // A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
@@ -20788,7 +21226,7 @@ func (o PodSpecOutput) ToPodSpecPtrOutput() PodSpecPtrOutput {
 }
 
 func (o PodSpecOutput) ToPodSpecPtrOutputWithContext(ctx context.Context) PodSpecPtrOutput {
-	return o.ApplyT(func(v PodSpec) *PodSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSpec) *PodSpec {
 		return &v
 	}).(PodSpecPtrOutput)
 }
@@ -20983,7 +21421,13 @@ func (o PodSpecPtrOutput) ToPodSpecPtrOutputWithContext(ctx context.Context) Pod
 }
 
 func (o PodSpecPtrOutput) Elem() PodSpecOutput {
-	return o.ApplyT(func(v *PodSpec) PodSpec { return *v }).(PodSpecOutput)
+	return o.ApplyT(func(v *PodSpec) PodSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodSpec
+		return ret
+	}).(PodSpecOutput)
 }
 
 // Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
@@ -21488,7 +21932,7 @@ func (o PodStatusOutput) ToPodStatusPtrOutput() PodStatusPtrOutput {
 }
 
 func (o PodStatusOutput) ToPodStatusPtrOutputWithContext(ctx context.Context) PodStatusPtrOutput {
-	return o.ApplyT(func(v PodStatus) *PodStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodStatus) *PodStatus {
 		return &v
 	}).(PodStatusPtrOutput)
 }
@@ -21577,7 +22021,13 @@ func (o PodStatusPtrOutput) ToPodStatusPtrOutputWithContext(ctx context.Context)
 }
 
 func (o PodStatusPtrOutput) Elem() PodStatusOutput {
-	return o.ApplyT(func(v *PodStatus) PodStatus { return *v }).(PodStatusOutput)
+	return o.ApplyT(func(v *PodStatus) PodStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodStatus
+		return ret
+	}).(PodStatusOutput)
 }
 
 // Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -22023,7 +22473,7 @@ func (o PodTemplateSpecOutput) ToPodTemplateSpecPtrOutput() PodTemplateSpecPtrOu
 }
 
 func (o PodTemplateSpecOutput) ToPodTemplateSpecPtrOutputWithContext(ctx context.Context) PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v PodTemplateSpec) *PodTemplateSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodTemplateSpec) *PodTemplateSpec {
 		return &v
 	}).(PodTemplateSpecPtrOutput)
 }
@@ -22053,7 +22503,13 @@ func (o PodTemplateSpecPtrOutput) ToPodTemplateSpecPtrOutputWithContext(ctx cont
 }
 
 func (o PodTemplateSpecPtrOutput) Elem() PodTemplateSpecOutput {
-	return o.ApplyT(func(v *PodTemplateSpec) PodTemplateSpec { return *v }).(PodTemplateSpecOutput)
+	return o.ApplyT(func(v *PodTemplateSpec) PodTemplateSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodTemplateSpec
+		return ret
+	}).(PodTemplateSpecOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -22304,7 +22760,7 @@ func (o PortworxVolumeSourceOutput) ToPortworxVolumeSourcePtrOutput() PortworxVo
 }
 
 func (o PortworxVolumeSourceOutput) ToPortworxVolumeSourcePtrOutputWithContext(ctx context.Context) PortworxVolumeSourcePtrOutput {
-	return o.ApplyT(func(v PortworxVolumeSource) *PortworxVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PortworxVolumeSource) *PortworxVolumeSource {
 		return &v
 	}).(PortworxVolumeSourcePtrOutput)
 }
@@ -22339,7 +22795,13 @@ func (o PortworxVolumeSourcePtrOutput) ToPortworxVolumeSourcePtrOutputWithContex
 }
 
 func (o PortworxVolumeSourcePtrOutput) Elem() PortworxVolumeSourceOutput {
-	return o.ApplyT(func(v *PortworxVolumeSource) PortworxVolumeSource { return *v }).(PortworxVolumeSourceOutput)
+	return o.ApplyT(func(v *PortworxVolumeSource) PortworxVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret PortworxVolumeSource
+		return ret
+	}).(PortworxVolumeSourceOutput)
 }
 
 // FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
@@ -22609,7 +23071,7 @@ func (o ProbeOutput) ToProbePtrOutput() ProbePtrOutput {
 }
 
 func (o ProbeOutput) ToProbePtrOutputWithContext(ctx context.Context) ProbePtrOutput {
-	return o.ApplyT(func(v Probe) *Probe {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Probe) *Probe {
 		return &v
 	}).(ProbePtrOutput)
 }
@@ -22674,7 +23136,13 @@ func (o ProbePtrOutput) ToProbePtrOutputWithContext(ctx context.Context) ProbePt
 }
 
 func (o ProbePtrOutput) Elem() ProbeOutput {
-	return o.ApplyT(func(v *Probe) Probe { return *v }).(ProbeOutput)
+	return o.ApplyT(func(v *Probe) Probe {
+		if v != nil {
+			return *v
+		}
+		var ret Probe
+		return ret
+	}).(ProbeOutput)
 }
 
 // One and only one of the following should be specified. Exec specifies the action to take.
@@ -22867,7 +23335,7 @@ func (o ProjectedVolumeSourceOutput) ToProjectedVolumeSourcePtrOutput() Projecte
 }
 
 func (o ProjectedVolumeSourceOutput) ToProjectedVolumeSourcePtrOutputWithContext(ctx context.Context) ProjectedVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ProjectedVolumeSource) *ProjectedVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectedVolumeSource) *ProjectedVolumeSource {
 		return &v
 	}).(ProjectedVolumeSourcePtrOutput)
 }
@@ -22897,7 +23365,13 @@ func (o ProjectedVolumeSourcePtrOutput) ToProjectedVolumeSourcePtrOutputWithCont
 }
 
 func (o ProjectedVolumeSourcePtrOutput) Elem() ProjectedVolumeSourceOutput {
-	return o.ApplyT(func(v *ProjectedVolumeSource) ProjectedVolumeSource { return *v }).(ProjectedVolumeSourceOutput)
+	return o.ApplyT(func(v *ProjectedVolumeSource) ProjectedVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectedVolumeSource
+		return ret
+	}).(ProjectedVolumeSourceOutput)
 }
 
 // Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -23036,7 +23510,7 @@ func (o QuobyteVolumeSourceOutput) ToQuobyteVolumeSourcePtrOutput() QuobyteVolum
 }
 
 func (o QuobyteVolumeSourceOutput) ToQuobyteVolumeSourcePtrOutputWithContext(ctx context.Context) QuobyteVolumeSourcePtrOutput {
-	return o.ApplyT(func(v QuobyteVolumeSource) *QuobyteVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v QuobyteVolumeSource) *QuobyteVolumeSource {
 		return &v
 	}).(QuobyteVolumeSourcePtrOutput)
 }
@@ -23086,7 +23560,13 @@ func (o QuobyteVolumeSourcePtrOutput) ToQuobyteVolumeSourcePtrOutputWithContext(
 }
 
 func (o QuobyteVolumeSourcePtrOutput) Elem() QuobyteVolumeSourceOutput {
-	return o.ApplyT(func(v *QuobyteVolumeSource) QuobyteVolumeSource { return *v }).(QuobyteVolumeSourceOutput)
+	return o.ApplyT(func(v *QuobyteVolumeSource) QuobyteVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret QuobyteVolumeSource
+		return ret
+	}).(QuobyteVolumeSourceOutput)
 }
 
 // Group to map volume access to Default is no group
@@ -23273,7 +23753,7 @@ func (o RBDPersistentVolumeSourceOutput) ToRBDPersistentVolumeSourcePtrOutput() 
 }
 
 func (o RBDPersistentVolumeSourceOutput) ToRBDPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) RBDPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v RBDPersistentVolumeSource) *RBDPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RBDPersistentVolumeSource) *RBDPersistentVolumeSource {
 		return &v
 	}).(RBDPersistentVolumeSourcePtrOutput)
 }
@@ -23333,7 +23813,13 @@ func (o RBDPersistentVolumeSourcePtrOutput) ToRBDPersistentVolumeSourcePtrOutput
 }
 
 func (o RBDPersistentVolumeSourcePtrOutput) Elem() RBDPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *RBDPersistentVolumeSource) RBDPersistentVolumeSource { return *v }).(RBDPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *RBDPersistentVolumeSource) RBDPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret RBDPersistentVolumeSource
+		return ret
+	}).(RBDPersistentVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
@@ -23540,7 +24026,7 @@ func (o RBDVolumeSourceOutput) ToRBDVolumeSourcePtrOutput() RBDVolumeSourcePtrOu
 }
 
 func (o RBDVolumeSourceOutput) ToRBDVolumeSourcePtrOutputWithContext(ctx context.Context) RBDVolumeSourcePtrOutput {
-	return o.ApplyT(func(v RBDVolumeSource) *RBDVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RBDVolumeSource) *RBDVolumeSource {
 		return &v
 	}).(RBDVolumeSourcePtrOutput)
 }
@@ -23600,7 +24086,13 @@ func (o RBDVolumeSourcePtrOutput) ToRBDVolumeSourcePtrOutputWithContext(ctx cont
 }
 
 func (o RBDVolumeSourcePtrOutput) Elem() RBDVolumeSourceOutput {
-	return o.ApplyT(func(v *RBDVolumeSource) RBDVolumeSource { return *v }).(RBDVolumeSourceOutput)
+	return o.ApplyT(func(v *RBDVolumeSource) RBDVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret RBDVolumeSource
+		return ret
+	}).(RBDVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
@@ -24145,7 +24637,7 @@ func (o ReplicationControllerSpecOutput) ToReplicationControllerSpecPtrOutput() 
 }
 
 func (o ReplicationControllerSpecOutput) ToReplicationControllerSpecPtrOutputWithContext(ctx context.Context) ReplicationControllerSpecPtrOutput {
-	return o.ApplyT(func(v ReplicationControllerSpec) *ReplicationControllerSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicationControllerSpec) *ReplicationControllerSpec {
 		return &v
 	}).(ReplicationControllerSpecPtrOutput)
 }
@@ -24185,7 +24677,13 @@ func (o ReplicationControllerSpecPtrOutput) ToReplicationControllerSpecPtrOutput
 }
 
 func (o ReplicationControllerSpecPtrOutput) Elem() ReplicationControllerSpecOutput {
-	return o.ApplyT(func(v *ReplicationControllerSpec) ReplicationControllerSpec { return *v }).(ReplicationControllerSpecOutput)
+	return o.ApplyT(func(v *ReplicationControllerSpec) ReplicationControllerSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicationControllerSpec
+		return ret
+	}).(ReplicationControllerSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -24344,7 +24842,7 @@ func (o ReplicationControllerStatusOutput) ToReplicationControllerStatusPtrOutpu
 }
 
 func (o ReplicationControllerStatusOutput) ToReplicationControllerStatusPtrOutputWithContext(ctx context.Context) ReplicationControllerStatusPtrOutput {
-	return o.ApplyT(func(v ReplicationControllerStatus) *ReplicationControllerStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicationControllerStatus) *ReplicationControllerStatus {
 		return &v
 	}).(ReplicationControllerStatusPtrOutput)
 }
@@ -24394,7 +24892,13 @@ func (o ReplicationControllerStatusPtrOutput) ToReplicationControllerStatusPtrOu
 }
 
 func (o ReplicationControllerStatusPtrOutput) Elem() ReplicationControllerStatusOutput {
-	return o.ApplyT(func(v *ReplicationControllerStatus) ReplicationControllerStatus { return *v }).(ReplicationControllerStatusOutput)
+	return o.ApplyT(func(v *ReplicationControllerStatus) ReplicationControllerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicationControllerStatus
+		return ret
+	}).(ReplicationControllerStatusOutput)
 }
 
 // The number of available replicas (ready for at least minReadySeconds) for this replication controller.
@@ -24561,7 +25065,7 @@ func (o ResourceFieldSelectorOutput) ToResourceFieldSelectorPtrOutput() Resource
 }
 
 func (o ResourceFieldSelectorOutput) ToResourceFieldSelectorPtrOutputWithContext(ctx context.Context) ResourceFieldSelectorPtrOutput {
-	return o.ApplyT(func(v ResourceFieldSelector) *ResourceFieldSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceFieldSelector) *ResourceFieldSelector {
 		return &v
 	}).(ResourceFieldSelectorPtrOutput)
 }
@@ -24596,7 +25100,13 @@ func (o ResourceFieldSelectorPtrOutput) ToResourceFieldSelectorPtrOutputWithCont
 }
 
 func (o ResourceFieldSelectorPtrOutput) Elem() ResourceFieldSelectorOutput {
-	return o.ApplyT(func(v *ResourceFieldSelector) ResourceFieldSelector { return *v }).(ResourceFieldSelectorOutput)
+	return o.ApplyT(func(v *ResourceFieldSelector) ResourceFieldSelector {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceFieldSelector
+		return ret
+	}).(ResourceFieldSelectorOutput)
 }
 
 // Container name: required for volumes, optional for env vars
@@ -24951,7 +25461,7 @@ func (o ResourceQuotaSpecOutput) ToResourceQuotaSpecPtrOutput() ResourceQuotaSpe
 }
 
 func (o ResourceQuotaSpecOutput) ToResourceQuotaSpecPtrOutputWithContext(ctx context.Context) ResourceQuotaSpecPtrOutput {
-	return o.ApplyT(func(v ResourceQuotaSpec) *ResourceQuotaSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceQuotaSpec) *ResourceQuotaSpec {
 		return &v
 	}).(ResourceQuotaSpecPtrOutput)
 }
@@ -24986,7 +25496,13 @@ func (o ResourceQuotaSpecPtrOutput) ToResourceQuotaSpecPtrOutputWithContext(ctx 
 }
 
 func (o ResourceQuotaSpecPtrOutput) Elem() ResourceQuotaSpecOutput {
-	return o.ApplyT(func(v *ResourceQuotaSpec) ResourceQuotaSpec { return *v }).(ResourceQuotaSpecOutput)
+	return o.ApplyT(func(v *ResourceQuotaSpec) ResourceQuotaSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceQuotaSpec
+		return ret
+	}).(ResourceQuotaSpecOutput)
 }
 
 // hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -25119,7 +25635,7 @@ func (o ResourceQuotaStatusOutput) ToResourceQuotaStatusPtrOutput() ResourceQuot
 }
 
 func (o ResourceQuotaStatusOutput) ToResourceQuotaStatusPtrOutputWithContext(ctx context.Context) ResourceQuotaStatusPtrOutput {
-	return o.ApplyT(func(v ResourceQuotaStatus) *ResourceQuotaStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceQuotaStatus) *ResourceQuotaStatus {
 		return &v
 	}).(ResourceQuotaStatusPtrOutput)
 }
@@ -25149,7 +25665,13 @@ func (o ResourceQuotaStatusPtrOutput) ToResourceQuotaStatusPtrOutputWithContext(
 }
 
 func (o ResourceQuotaStatusPtrOutput) Elem() ResourceQuotaStatusOutput {
-	return o.ApplyT(func(v *ResourceQuotaStatus) ResourceQuotaStatus { return *v }).(ResourceQuotaStatusOutput)
+	return o.ApplyT(func(v *ResourceQuotaStatus) ResourceQuotaStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceQuotaStatus
+		return ret
+	}).(ResourceQuotaStatusOutput)
 }
 
 // Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -25272,7 +25794,7 @@ func (o ResourceRequirementsOutput) ToResourceRequirementsPtrOutput() ResourceRe
 }
 
 func (o ResourceRequirementsOutput) ToResourceRequirementsPtrOutputWithContext(ctx context.Context) ResourceRequirementsPtrOutput {
-	return o.ApplyT(func(v ResourceRequirements) *ResourceRequirements {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceRequirements) *ResourceRequirements {
 		return &v
 	}).(ResourceRequirementsPtrOutput)
 }
@@ -25302,7 +25824,13 @@ func (o ResourceRequirementsPtrOutput) ToResourceRequirementsPtrOutputWithContex
 }
 
 func (o ResourceRequirementsPtrOutput) Elem() ResourceRequirementsOutput {
-	return o.ApplyT(func(v *ResourceRequirements) ResourceRequirements { return *v }).(ResourceRequirementsOutput)
+	return o.ApplyT(func(v *ResourceRequirements) ResourceRequirements {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceRequirements
+		return ret
+	}).(ResourceRequirementsOutput)
 }
 
 // Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -25433,7 +25961,7 @@ func (o SELinuxOptionsOutput) ToSELinuxOptionsPtrOutput() SELinuxOptionsPtrOutpu
 }
 
 func (o SELinuxOptionsOutput) ToSELinuxOptionsPtrOutputWithContext(ctx context.Context) SELinuxOptionsPtrOutput {
-	return o.ApplyT(func(v SELinuxOptions) *SELinuxOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SELinuxOptions) *SELinuxOptions {
 		return &v
 	}).(SELinuxOptionsPtrOutput)
 }
@@ -25473,7 +26001,13 @@ func (o SELinuxOptionsPtrOutput) ToSELinuxOptionsPtrOutputWithContext(ctx contex
 }
 
 func (o SELinuxOptionsPtrOutput) Elem() SELinuxOptionsOutput {
-	return o.ApplyT(func(v *SELinuxOptions) SELinuxOptions { return *v }).(SELinuxOptionsOutput)
+	return o.ApplyT(func(v *SELinuxOptions) SELinuxOptions {
+		if v != nil {
+			return *v
+		}
+		var ret SELinuxOptions
+		return ret
+	}).(SELinuxOptionsOutput)
 }
 
 // Level is SELinux level label that applies to the container.
@@ -25648,7 +26182,7 @@ func (o ScaleIOPersistentVolumeSourceOutput) ToScaleIOPersistentVolumeSourcePtrO
 }
 
 func (o ScaleIOPersistentVolumeSourceOutput) ToScaleIOPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) ScaleIOPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *ScaleIOPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleIOPersistentVolumeSource) *ScaleIOPersistentVolumeSource {
 		return &v
 	}).(ScaleIOPersistentVolumeSourcePtrOutput)
 }
@@ -25718,7 +26252,13 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) ToScaleIOPersistentVolumeSourceP
 }
 
 func (o ScaleIOPersistentVolumeSourcePtrOutput) Elem() ScaleIOPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) ScaleIOPersistentVolumeSource { return *v }).(ScaleIOPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) ScaleIOPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleIOPersistentVolumeSource
+		return ret
+	}).(ScaleIOPersistentVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
@@ -25953,7 +26493,7 @@ func (o ScaleIOVolumeSourceOutput) ToScaleIOVolumeSourcePtrOutput() ScaleIOVolum
 }
 
 func (o ScaleIOVolumeSourceOutput) ToScaleIOVolumeSourcePtrOutputWithContext(ctx context.Context) ScaleIOVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ScaleIOVolumeSource) *ScaleIOVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleIOVolumeSource) *ScaleIOVolumeSource {
 		return &v
 	}).(ScaleIOVolumeSourcePtrOutput)
 }
@@ -26023,7 +26563,13 @@ func (o ScaleIOVolumeSourcePtrOutput) ToScaleIOVolumeSourcePtrOutputWithContext(
 }
 
 func (o ScaleIOVolumeSourcePtrOutput) Elem() ScaleIOVolumeSourceOutput {
-	return o.ApplyT(func(v *ScaleIOVolumeSource) ScaleIOVolumeSource { return *v }).(ScaleIOVolumeSourceOutput)
+	return o.ApplyT(func(v *ScaleIOVolumeSource) ScaleIOVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleIOVolumeSource
+		return ret
+	}).(ScaleIOVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
@@ -26222,7 +26768,7 @@ func (o ScopeSelectorOutput) ToScopeSelectorPtrOutput() ScopeSelectorPtrOutput {
 }
 
 func (o ScopeSelectorOutput) ToScopeSelectorPtrOutputWithContext(ctx context.Context) ScopeSelectorPtrOutput {
-	return o.ApplyT(func(v ScopeSelector) *ScopeSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScopeSelector) *ScopeSelector {
 		return &v
 	}).(ScopeSelectorPtrOutput)
 }
@@ -26247,7 +26793,13 @@ func (o ScopeSelectorPtrOutput) ToScopeSelectorPtrOutputWithContext(ctx context.
 }
 
 func (o ScopeSelectorPtrOutput) Elem() ScopeSelectorOutput {
-	return o.ApplyT(func(v *ScopeSelector) ScopeSelector { return *v }).(ScopeSelectorOutput)
+	return o.ApplyT(func(v *ScopeSelector) ScopeSelector {
+		if v != nil {
+			return *v
+		}
+		var ret ScopeSelector
+		return ret
+	}).(ScopeSelectorOutput)
 }
 
 // A list of scope selector requirements by scope of the resources.
@@ -26482,7 +27034,7 @@ func (o SeccompProfileOutput) ToSeccompProfilePtrOutput() SeccompProfilePtrOutpu
 }
 
 func (o SeccompProfileOutput) ToSeccompProfilePtrOutputWithContext(ctx context.Context) SeccompProfilePtrOutput {
-	return o.ApplyT(func(v SeccompProfile) *SeccompProfile {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SeccompProfile) *SeccompProfile {
 		return &v
 	}).(SeccompProfilePtrOutput)
 }
@@ -26514,7 +27066,13 @@ func (o SeccompProfilePtrOutput) ToSeccompProfilePtrOutputWithContext(ctx contex
 }
 
 func (o SeccompProfilePtrOutput) Elem() SeccompProfileOutput {
-	return o.ApplyT(func(v *SeccompProfile) SeccompProfile { return *v }).(SeccompProfileOutput)
+	return o.ApplyT(func(v *SeccompProfile) SeccompProfile {
+		if v != nil {
+			return *v
+		}
+		var ret SeccompProfile
+		return ret
+	}).(SeccompProfileOutput)
 }
 
 // localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
@@ -26829,7 +27387,7 @@ func (o SecretEnvSourceOutput) ToSecretEnvSourcePtrOutput() SecretEnvSourcePtrOu
 }
 
 func (o SecretEnvSourceOutput) ToSecretEnvSourcePtrOutputWithContext(ctx context.Context) SecretEnvSourcePtrOutput {
-	return o.ApplyT(func(v SecretEnvSource) *SecretEnvSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretEnvSource) *SecretEnvSource {
 		return &v
 	}).(SecretEnvSourcePtrOutput)
 }
@@ -26859,7 +27417,13 @@ func (o SecretEnvSourcePtrOutput) ToSecretEnvSourcePtrOutputWithContext(ctx cont
 }
 
 func (o SecretEnvSourcePtrOutput) Elem() SecretEnvSourceOutput {
-	return o.ApplyT(func(v *SecretEnvSource) SecretEnvSource { return *v }).(SecretEnvSourceOutput)
+	return o.ApplyT(func(v *SecretEnvSource) SecretEnvSource {
+		if v != nil {
+			return *v
+		}
+		var ret SecretEnvSource
+		return ret
+	}).(SecretEnvSourceOutput)
 }
 
 // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -26986,7 +27550,7 @@ func (o SecretKeySelectorOutput) ToSecretKeySelectorPtrOutput() SecretKeySelecto
 }
 
 func (o SecretKeySelectorOutput) ToSecretKeySelectorPtrOutputWithContext(ctx context.Context) SecretKeySelectorPtrOutput {
-	return o.ApplyT(func(v SecretKeySelector) *SecretKeySelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretKeySelector) *SecretKeySelector {
 		return &v
 	}).(SecretKeySelectorPtrOutput)
 }
@@ -27021,7 +27585,13 @@ func (o SecretKeySelectorPtrOutput) ToSecretKeySelectorPtrOutputWithContext(ctx 
 }
 
 func (o SecretKeySelectorPtrOutput) Elem() SecretKeySelectorOutput {
-	return o.ApplyT(func(v *SecretKeySelector) SecretKeySelector { return *v }).(SecretKeySelectorOutput)
+	return o.ApplyT(func(v *SecretKeySelector) SecretKeySelector {
+		if v != nil {
+			return *v
+		}
+		var ret SecretKeySelector
+		return ret
+	}).(SecretKeySelectorOutput)
 }
 
 // The key of the secret to select from.  Must be a valid secret key.
@@ -27246,7 +27816,7 @@ func (o SecretProjectionOutput) ToSecretProjectionPtrOutput() SecretProjectionPt
 }
 
 func (o SecretProjectionOutput) ToSecretProjectionPtrOutputWithContext(ctx context.Context) SecretProjectionPtrOutput {
-	return o.ApplyT(func(v SecretProjection) *SecretProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretProjection) *SecretProjection {
 		return &v
 	}).(SecretProjectionPtrOutput)
 }
@@ -27281,7 +27851,13 @@ func (o SecretProjectionPtrOutput) ToSecretProjectionPtrOutputWithContext(ctx co
 }
 
 func (o SecretProjectionPtrOutput) Elem() SecretProjectionOutput {
-	return o.ApplyT(func(v *SecretProjection) SecretProjection { return *v }).(SecretProjectionOutput)
+	return o.ApplyT(func(v *SecretProjection) SecretProjection {
+		if v != nil {
+			return *v
+		}
+		var ret SecretProjection
+		return ret
+	}).(SecretProjectionOutput)
 }
 
 // If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
@@ -27414,7 +27990,7 @@ func (o SecretReferenceOutput) ToSecretReferencePtrOutput() SecretReferencePtrOu
 }
 
 func (o SecretReferenceOutput) ToSecretReferencePtrOutputWithContext(ctx context.Context) SecretReferencePtrOutput {
-	return o.ApplyT(func(v SecretReference) *SecretReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretReference) *SecretReference {
 		return &v
 	}).(SecretReferencePtrOutput)
 }
@@ -27444,7 +28020,13 @@ func (o SecretReferencePtrOutput) ToSecretReferencePtrOutputWithContext(ctx cont
 }
 
 func (o SecretReferencePtrOutput) Elem() SecretReferenceOutput {
-	return o.ApplyT(func(v *SecretReference) SecretReference { return *v }).(SecretReferenceOutput)
+	return o.ApplyT(func(v *SecretReference) SecretReference {
+		if v != nil {
+			return *v
+		}
+		var ret SecretReference
+		return ret
+	}).(SecretReferenceOutput)
 }
 
 // Name is unique within a namespace to reference a secret resource.
@@ -27581,7 +28163,7 @@ func (o SecretVolumeSourceOutput) ToSecretVolumeSourcePtrOutput() SecretVolumeSo
 }
 
 func (o SecretVolumeSourceOutput) ToSecretVolumeSourcePtrOutputWithContext(ctx context.Context) SecretVolumeSourcePtrOutput {
-	return o.ApplyT(func(v SecretVolumeSource) *SecretVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretVolumeSource) *SecretVolumeSource {
 		return &v
 	}).(SecretVolumeSourcePtrOutput)
 }
@@ -27621,7 +28203,13 @@ func (o SecretVolumeSourcePtrOutput) ToSecretVolumeSourcePtrOutputWithContext(ct
 }
 
 func (o SecretVolumeSourcePtrOutput) Elem() SecretVolumeSourceOutput {
-	return o.ApplyT(func(v *SecretVolumeSource) SecretVolumeSource { return *v }).(SecretVolumeSourceOutput)
+	return o.ApplyT(func(v *SecretVolumeSource) SecretVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret SecretVolumeSource
+		return ret
+	}).(SecretVolumeSourceOutput)
 }
 
 // Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -27800,7 +28388,7 @@ func (o SecurityContextOutput) ToSecurityContextPtrOutput() SecurityContextPtrOu
 }
 
 func (o SecurityContextOutput) ToSecurityContextPtrOutputWithContext(ctx context.Context) SecurityContextPtrOutput {
-	return o.ApplyT(func(v SecurityContext) *SecurityContext {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecurityContext) *SecurityContext {
 		return &v
 	}).(SecurityContextPtrOutput)
 }
@@ -27875,7 +28463,13 @@ func (o SecurityContextPtrOutput) ToSecurityContextPtrOutputWithContext(ctx cont
 }
 
 func (o SecurityContextPtrOutput) Elem() SecurityContextOutput {
-	return o.ApplyT(func(v *SecurityContext) SecurityContext { return *v }).(SecurityContextOutput)
+	return o.ApplyT(func(v *SecurityContext) SecurityContext {
+		if v != nil {
+			return *v
+		}
+		var ret SecurityContext
+		return ret
+	}).(SecurityContextOutput)
 }
 
 // AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
@@ -28530,7 +29124,7 @@ func (o ServiceAccountTokenProjectionOutput) ToServiceAccountTokenProjectionPtrO
 }
 
 func (o ServiceAccountTokenProjectionOutput) ToServiceAccountTokenProjectionPtrOutputWithContext(ctx context.Context) ServiceAccountTokenProjectionPtrOutput {
-	return o.ApplyT(func(v ServiceAccountTokenProjection) *ServiceAccountTokenProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceAccountTokenProjection) *ServiceAccountTokenProjection {
 		return &v
 	}).(ServiceAccountTokenProjectionPtrOutput)
 }
@@ -28565,7 +29159,13 @@ func (o ServiceAccountTokenProjectionPtrOutput) ToServiceAccountTokenProjectionP
 }
 
 func (o ServiceAccountTokenProjectionPtrOutput) Elem() ServiceAccountTokenProjectionOutput {
-	return o.ApplyT(func(v *ServiceAccountTokenProjection) ServiceAccountTokenProjection { return *v }).(ServiceAccountTokenProjectionOutput)
+	return o.ApplyT(func(v *ServiceAccountTokenProjection) ServiceAccountTokenProjection {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceAccountTokenProjection
+		return ret
+	}).(ServiceAccountTokenProjectionOutput)
 }
 
 // Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
@@ -29009,7 +29609,7 @@ func (o ServiceSpecOutput) ToServiceSpecPtrOutput() ServiceSpecPtrOutput {
 }
 
 func (o ServiceSpecOutput) ToServiceSpecPtrOutputWithContext(ctx context.Context) ServiceSpecPtrOutput {
-	return o.ApplyT(func(v ServiceSpec) *ServiceSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceSpec) *ServiceSpec {
 		return &v
 	}).(ServiceSpecPtrOutput)
 }
@@ -29138,7 +29738,13 @@ func (o ServiceSpecPtrOutput) ToServiceSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o ServiceSpecPtrOutput) Elem() ServiceSpecOutput {
-	return o.ApplyT(func(v *ServiceSpec) ServiceSpec { return *v }).(ServiceSpecOutput)
+	return o.ApplyT(func(v *ServiceSpec) ServiceSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceSpec
+		return ret
+	}).(ServiceSpecOutput)
 }
 
 // allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
@@ -29455,7 +30061,7 @@ func (o ServiceStatusOutput) ToServiceStatusPtrOutput() ServiceStatusPtrOutput {
 }
 
 func (o ServiceStatusOutput) ToServiceStatusPtrOutputWithContext(ctx context.Context) ServiceStatusPtrOutput {
-	return o.ApplyT(func(v ServiceStatus) *ServiceStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceStatus) *ServiceStatus {
 		return &v
 	}).(ServiceStatusPtrOutput)
 }
@@ -29485,7 +30091,13 @@ func (o ServiceStatusPtrOutput) ToServiceStatusPtrOutputWithContext(ctx context.
 }
 
 func (o ServiceStatusPtrOutput) Elem() ServiceStatusOutput {
-	return o.ApplyT(func(v *ServiceStatus) ServiceStatus { return *v }).(ServiceStatusOutput)
+	return o.ApplyT(func(v *ServiceStatus) ServiceStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceStatus
+		return ret
+	}).(ServiceStatusOutput)
 }
 
 // Current service state
@@ -29604,7 +30216,7 @@ func (o SessionAffinityConfigOutput) ToSessionAffinityConfigPtrOutput() SessionA
 }
 
 func (o SessionAffinityConfigOutput) ToSessionAffinityConfigPtrOutputWithContext(ctx context.Context) SessionAffinityConfigPtrOutput {
-	return o.ApplyT(func(v SessionAffinityConfig) *SessionAffinityConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SessionAffinityConfig) *SessionAffinityConfig {
 		return &v
 	}).(SessionAffinityConfigPtrOutput)
 }
@@ -29629,7 +30241,13 @@ func (o SessionAffinityConfigPtrOutput) ToSessionAffinityConfigPtrOutputWithCont
 }
 
 func (o SessionAffinityConfigPtrOutput) Elem() SessionAffinityConfigOutput {
-	return o.ApplyT(func(v *SessionAffinityConfig) SessionAffinityConfig { return *v }).(SessionAffinityConfigOutput)
+	return o.ApplyT(func(v *SessionAffinityConfig) SessionAffinityConfig {
+		if v != nil {
+			return *v
+		}
+		var ret SessionAffinityConfig
+		return ret
+	}).(SessionAffinityConfigOutput)
 }
 
 // clientIP contains the configurations of Client IP based session affinity.
@@ -29754,7 +30372,7 @@ func (o StorageOSPersistentVolumeSourceOutput) ToStorageOSPersistentVolumeSource
 }
 
 func (o StorageOSPersistentVolumeSourceOutput) ToStorageOSPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) StorageOSPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *StorageOSPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StorageOSPersistentVolumeSource) *StorageOSPersistentVolumeSource {
 		return &v
 	}).(StorageOSPersistentVolumeSourcePtrOutput)
 }
@@ -29799,7 +30417,13 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) ToStorageOSPersistentVolumeSou
 }
 
 func (o StorageOSPersistentVolumeSourcePtrOutput) Elem() StorageOSPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) StorageOSPersistentVolumeSource { return *v }).(StorageOSPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) StorageOSPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret StorageOSPersistentVolumeSource
+		return ret
+	}).(StorageOSPersistentVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -29964,7 +30588,7 @@ func (o StorageOSVolumeSourceOutput) ToStorageOSVolumeSourcePtrOutput() StorageO
 }
 
 func (o StorageOSVolumeSourceOutput) ToStorageOSVolumeSourcePtrOutputWithContext(ctx context.Context) StorageOSVolumeSourcePtrOutput {
-	return o.ApplyT(func(v StorageOSVolumeSource) *StorageOSVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StorageOSVolumeSource) *StorageOSVolumeSource {
 		return &v
 	}).(StorageOSVolumeSourcePtrOutput)
 }
@@ -30009,7 +30633,13 @@ func (o StorageOSVolumeSourcePtrOutput) ToStorageOSVolumeSourcePtrOutputWithCont
 }
 
 func (o StorageOSVolumeSourcePtrOutput) Elem() StorageOSVolumeSourceOutput {
-	return o.ApplyT(func(v *StorageOSVolumeSource) StorageOSVolumeSource { return *v }).(StorageOSVolumeSourceOutput)
+	return o.ApplyT(func(v *StorageOSVolumeSource) StorageOSVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret StorageOSVolumeSource
+		return ret
+	}).(StorageOSVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -30271,7 +30901,7 @@ func (o TCPSocketActionOutput) ToTCPSocketActionPtrOutput() TCPSocketActionPtrOu
 }
 
 func (o TCPSocketActionOutput) ToTCPSocketActionPtrOutputWithContext(ctx context.Context) TCPSocketActionPtrOutput {
-	return o.ApplyT(func(v TCPSocketAction) *TCPSocketAction {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TCPSocketAction) *TCPSocketAction {
 		return &v
 	}).(TCPSocketActionPtrOutput)
 }
@@ -30301,7 +30931,13 @@ func (o TCPSocketActionPtrOutput) ToTCPSocketActionPtrOutputWithContext(ctx cont
 }
 
 func (o TCPSocketActionPtrOutput) Elem() TCPSocketActionOutput {
-	return o.ApplyT(func(v *TCPSocketAction) TCPSocketAction { return *v }).(TCPSocketActionOutput)
+	return o.ApplyT(func(v *TCPSocketAction) TCPSocketAction {
+		if v != nil {
+			return *v
+		}
+		var ret TCPSocketAction
+		return ret
+	}).(TCPSocketActionOutput)
 }
 
 // Optional: Host name to connect to, defaults to the pod IP.
@@ -31036,7 +31672,7 @@ func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutput() 
 }
 
 func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v TypedLocalObjectReference) *TypedLocalObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypedLocalObjectReference) *TypedLocalObjectReference {
 		return &v
 	}).(TypedLocalObjectReferencePtrOutput)
 }
@@ -31071,7 +31707,13 @@ func (o TypedLocalObjectReferencePtrOutput) ToTypedLocalObjectReferencePtrOutput
 }
 
 func (o TypedLocalObjectReferencePtrOutput) Elem() TypedLocalObjectReferenceOutput {
-	return o.ApplyT(func(v *TypedLocalObjectReference) TypedLocalObjectReference { return *v }).(TypedLocalObjectReferenceOutput)
+	return o.ApplyT(func(v *TypedLocalObjectReference) TypedLocalObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret TypedLocalObjectReference
+		return ret
+	}).(TypedLocalObjectReferenceOutput)
 }
 
 // APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -31860,7 +32502,7 @@ func (o VolumeNodeAffinityOutput) ToVolumeNodeAffinityPtrOutput() VolumeNodeAffi
 }
 
 func (o VolumeNodeAffinityOutput) ToVolumeNodeAffinityPtrOutputWithContext(ctx context.Context) VolumeNodeAffinityPtrOutput {
-	return o.ApplyT(func(v VolumeNodeAffinity) *VolumeNodeAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeNodeAffinity) *VolumeNodeAffinity {
 		return &v
 	}).(VolumeNodeAffinityPtrOutput)
 }
@@ -31885,7 +32527,13 @@ func (o VolumeNodeAffinityPtrOutput) ToVolumeNodeAffinityPtrOutputWithContext(ct
 }
 
 func (o VolumeNodeAffinityPtrOutput) Elem() VolumeNodeAffinityOutput {
-	return o.ApplyT(func(v *VolumeNodeAffinity) VolumeNodeAffinity { return *v }).(VolumeNodeAffinityOutput)
+	return o.ApplyT(func(v *VolumeNodeAffinity) VolumeNodeAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeNodeAffinity
+		return ret
+	}).(VolumeNodeAffinityOutput)
 }
 
 // Required specifies hard node constraints that must be met.
@@ -32133,7 +32781,7 @@ func (o VsphereVirtualDiskVolumeSourceOutput) ToVsphereVirtualDiskVolumeSourcePt
 }
 
 func (o VsphereVirtualDiskVolumeSourceOutput) ToVsphereVirtualDiskVolumeSourcePtrOutputWithContext(ctx context.Context) VsphereVirtualDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v VsphereVirtualDiskVolumeSource) *VsphereVirtualDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VsphereVirtualDiskVolumeSource) *VsphereVirtualDiskVolumeSource {
 		return &v
 	}).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
@@ -32173,7 +32821,13 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) ToVsphereVirtualDiskVolumeSourc
 }
 
 func (o VsphereVirtualDiskVolumeSourcePtrOutput) Elem() VsphereVirtualDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) VsphereVirtualDiskVolumeSource { return *v }).(VsphereVirtualDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) VsphereVirtualDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret VsphereVirtualDiskVolumeSource
+		return ret
+	}).(VsphereVirtualDiskVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -32433,7 +33087,7 @@ func (o WindowsSecurityContextOptionsOutput) ToWindowsSecurityContextOptionsPtrO
 }
 
 func (o WindowsSecurityContextOptionsOutput) ToWindowsSecurityContextOptionsPtrOutputWithContext(ctx context.Context) WindowsSecurityContextOptionsPtrOutput {
-	return o.ApplyT(func(v WindowsSecurityContextOptions) *WindowsSecurityContextOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WindowsSecurityContextOptions) *WindowsSecurityContextOptions {
 		return &v
 	}).(WindowsSecurityContextOptionsPtrOutput)
 }
@@ -32473,7 +33127,13 @@ func (o WindowsSecurityContextOptionsPtrOutput) ToWindowsSecurityContextOptionsP
 }
 
 func (o WindowsSecurityContextOptionsPtrOutput) Elem() WindowsSecurityContextOptionsOutput {
-	return o.ApplyT(func(v *WindowsSecurityContextOptions) WindowsSecurityContextOptions { return *v }).(WindowsSecurityContextOptionsOutput)
+	return o.ApplyT(func(v *WindowsSecurityContextOptions) WindowsSecurityContextOptions {
+		if v != nil {
+			return *v
+		}
+		var ret WindowsSecurityContextOptions
+		return ret
+	}).(WindowsSecurityContextOptionsOutput)
 }
 
 // GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.

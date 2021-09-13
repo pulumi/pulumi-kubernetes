@@ -351,7 +351,7 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 }
 
 func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *CronJobSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpec) *CronJobSpec {
 		return &v
 	}).(CronJobSpecPtrOutput)
 }
@@ -406,7 +406,13 @@ func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
-	return o.ApplyT(func(v *CronJobSpec) CronJobSpec { return *v }).(CronJobSpecOutput)
+	return o.ApplyT(func(v *CronJobSpec) CronJobSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobSpec
+		return ret
+	}).(CronJobSpecOutput)
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -583,7 +589,7 @@ func (o CronJobStatusOutput) ToCronJobStatusPtrOutput() CronJobStatusPtrOutput {
 }
 
 func (o CronJobStatusOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Context) CronJobStatusPtrOutput {
-	return o.ApplyT(func(v CronJobStatus) *CronJobStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobStatus) *CronJobStatus {
 		return &v
 	}).(CronJobStatusPtrOutput)
 }
@@ -618,7 +624,13 @@ func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutputWithContext(ctx context.
 }
 
 func (o CronJobStatusPtrOutput) Elem() CronJobStatusOutput {
-	return o.ApplyT(func(v *CronJobStatus) CronJobStatus { return *v }).(CronJobStatusOutput)
+	return o.ApplyT(func(v *CronJobStatus) CronJobStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobStatus
+		return ret
+	}).(CronJobStatusOutput)
 }
 
 // A list of pointers to currently running jobs.
@@ -751,7 +763,7 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOu
 }
 
 func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v JobTemplateSpec) *JobTemplateSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobTemplateSpec) *JobTemplateSpec {
 		return &v
 	}).(JobTemplateSpecPtrOutput)
 }
@@ -781,7 +793,13 @@ func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutputWithContext(ctx cont
 }
 
 func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
-	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec { return *v }).(JobTemplateSpecOutput)
+	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec {
+		if v != nil {
+			return *v
+		}
+		var ret JobTemplateSpec
+		return ret
+	}).(JobTemplateSpecOutput)
 }
 
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata

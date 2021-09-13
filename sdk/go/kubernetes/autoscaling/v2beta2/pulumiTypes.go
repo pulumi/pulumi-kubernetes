@@ -115,7 +115,7 @@ func (o ContainerResourceMetricSourceOutput) ToContainerResourceMetricSourcePtrO
 }
 
 func (o ContainerResourceMetricSourceOutput) ToContainerResourceMetricSourcePtrOutputWithContext(ctx context.Context) ContainerResourceMetricSourcePtrOutput {
-	return o.ApplyT(func(v ContainerResourceMetricSource) *ContainerResourceMetricSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerResourceMetricSource) *ContainerResourceMetricSource {
 		return &v
 	}).(ContainerResourceMetricSourcePtrOutput)
 }
@@ -150,7 +150,13 @@ func (o ContainerResourceMetricSourcePtrOutput) ToContainerResourceMetricSourceP
 }
 
 func (o ContainerResourceMetricSourcePtrOutput) Elem() ContainerResourceMetricSourceOutput {
-	return o.ApplyT(func(v *ContainerResourceMetricSource) ContainerResourceMetricSource { return *v }).(ContainerResourceMetricSourceOutput)
+	return o.ApplyT(func(v *ContainerResourceMetricSource) ContainerResourceMetricSource {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerResourceMetricSource
+		return ret
+	}).(ContainerResourceMetricSourceOutput)
 }
 
 // container is the name of the container in the pods of the scaling target
@@ -287,7 +293,7 @@ func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusPtrO
 }
 
 func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusPtrOutputWithContext(ctx context.Context) ContainerResourceMetricStatusPtrOutput {
-	return o.ApplyT(func(v ContainerResourceMetricStatus) *ContainerResourceMetricStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerResourceMetricStatus) *ContainerResourceMetricStatus {
 		return &v
 	}).(ContainerResourceMetricStatusPtrOutput)
 }
@@ -322,7 +328,13 @@ func (o ContainerResourceMetricStatusPtrOutput) ToContainerResourceMetricStatusP
 }
 
 func (o ContainerResourceMetricStatusPtrOutput) Elem() ContainerResourceMetricStatusOutput {
-	return o.ApplyT(func(v *ContainerResourceMetricStatus) ContainerResourceMetricStatus { return *v }).(ContainerResourceMetricStatusOutput)
+	return o.ApplyT(func(v *ContainerResourceMetricStatus) ContainerResourceMetricStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerResourceMetricStatus
+		return ret
+	}).(ContainerResourceMetricStatusOutput)
 }
 
 // Container is the name of the container in the pods of the scaling target
@@ -459,7 +471,7 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutpu
 }
 
 func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutputWithContext(ctx context.Context) CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func(v CrossVersionObjectReference) *CrossVersionObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CrossVersionObjectReference) *CrossVersionObjectReference {
 		return &v
 	}).(CrossVersionObjectReferencePtrOutput)
 }
@@ -494,7 +506,13 @@ func (o CrossVersionObjectReferencePtrOutput) ToCrossVersionObjectReferencePtrOu
 }
 
 func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReferenceOutput {
-	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference { return *v }).(CrossVersionObjectReferenceOutput)
+	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret CrossVersionObjectReference
+		return ret
+	}).(CrossVersionObjectReferenceOutput)
 }
 
 // API version of the referent
@@ -627,7 +645,7 @@ func (o ExternalMetricSourceOutput) ToExternalMetricSourcePtrOutput() ExternalMe
 }
 
 func (o ExternalMetricSourceOutput) ToExternalMetricSourcePtrOutputWithContext(ctx context.Context) ExternalMetricSourcePtrOutput {
-	return o.ApplyT(func(v ExternalMetricSource) *ExternalMetricSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExternalMetricSource) *ExternalMetricSource {
 		return &v
 	}).(ExternalMetricSourcePtrOutput)
 }
@@ -657,7 +675,13 @@ func (o ExternalMetricSourcePtrOutput) ToExternalMetricSourcePtrOutputWithContex
 }
 
 func (o ExternalMetricSourcePtrOutput) Elem() ExternalMetricSourceOutput {
-	return o.ApplyT(func(v *ExternalMetricSource) ExternalMetricSource { return *v }).(ExternalMetricSourceOutput)
+	return o.ApplyT(func(v *ExternalMetricSource) ExternalMetricSource {
+		if v != nil {
+			return *v
+		}
+		var ret ExternalMetricSource
+		return ret
+	}).(ExternalMetricSourceOutput)
 }
 
 // metric identifies the target metric by name and selector
@@ -780,7 +804,7 @@ func (o ExternalMetricStatusOutput) ToExternalMetricStatusPtrOutput() ExternalMe
 }
 
 func (o ExternalMetricStatusOutput) ToExternalMetricStatusPtrOutputWithContext(ctx context.Context) ExternalMetricStatusPtrOutput {
-	return o.ApplyT(func(v ExternalMetricStatus) *ExternalMetricStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExternalMetricStatus) *ExternalMetricStatus {
 		return &v
 	}).(ExternalMetricStatusPtrOutput)
 }
@@ -810,7 +834,13 @@ func (o ExternalMetricStatusPtrOutput) ToExternalMetricStatusPtrOutputWithContex
 }
 
 func (o ExternalMetricStatusPtrOutput) Elem() ExternalMetricStatusOutput {
-	return o.ApplyT(func(v *ExternalMetricStatus) ExternalMetricStatus { return *v }).(ExternalMetricStatusOutput)
+	return o.ApplyT(func(v *ExternalMetricStatus) ExternalMetricStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ExternalMetricStatus
+		return ret
+	}).(ExternalMetricStatusOutput)
 }
 
 // current contains the current value for the given metric
@@ -1055,7 +1085,7 @@ func (o HPAScalingRulesOutput) ToHPAScalingRulesPtrOutput() HPAScalingRulesPtrOu
 }
 
 func (o HPAScalingRulesOutput) ToHPAScalingRulesPtrOutputWithContext(ctx context.Context) HPAScalingRulesPtrOutput {
-	return o.ApplyT(func(v HPAScalingRules) *HPAScalingRules {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HPAScalingRules) *HPAScalingRules {
 		return &v
 	}).(HPAScalingRulesPtrOutput)
 }
@@ -1090,7 +1120,13 @@ func (o HPAScalingRulesPtrOutput) ToHPAScalingRulesPtrOutputWithContext(ctx cont
 }
 
 func (o HPAScalingRulesPtrOutput) Elem() HPAScalingRulesOutput {
-	return o.ApplyT(func(v *HPAScalingRules) HPAScalingRules { return *v }).(HPAScalingRulesOutput)
+	return o.ApplyT(func(v *HPAScalingRules) HPAScalingRules {
+		if v != nil {
+			return *v
+		}
+		var ret HPAScalingRules
+		return ret
+	}).(HPAScalingRulesOutput)
 }
 
 // policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
@@ -1365,7 +1401,7 @@ func (o HorizontalPodAutoscalerBehaviorOutput) ToHorizontalPodAutoscalerBehavior
 }
 
 func (o HorizontalPodAutoscalerBehaviorOutput) ToHorizontalPodAutoscalerBehaviorPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerBehaviorPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HorizontalPodAutoscalerBehavior {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerBehavior) *HorizontalPodAutoscalerBehavior {
 		return &v
 	}).(HorizontalPodAutoscalerBehaviorPtrOutput)
 }
@@ -1398,7 +1434,13 @@ func (o HorizontalPodAutoscalerBehaviorPtrOutput) ToHorizontalPodAutoscalerBehav
 }
 
 func (o HorizontalPodAutoscalerBehaviorPtrOutput) Elem() HorizontalPodAutoscalerBehaviorOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerBehavior) HorizontalPodAutoscalerBehavior { return *v }).(HorizontalPodAutoscalerBehaviorOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerBehavior) HorizontalPodAutoscalerBehavior {
+		if v != nil {
+			return *v
+		}
+		var ret HorizontalPodAutoscalerBehavior
+		return ret
+	}).(HorizontalPodAutoscalerBehaviorOutput)
 }
 
 // scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
@@ -1754,7 +1796,7 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutpu
 }
 
 func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerSpec {
 		return &v
 	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
@@ -1799,7 +1841,13 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOu
 }
 
 func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec {
+		if v != nil {
+			return *v
+		}
+		var ret HorizontalPodAutoscalerSpec
+		return ret
+	}).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
@@ -1968,7 +2016,7 @@ func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrO
 }
 
 func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerStatusPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *HorizontalPodAutoscalerStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerStatus) *HorizontalPodAutoscalerStatus {
 		return &v
 	}).(HorizontalPodAutoscalerStatusPtrOutput)
 }
@@ -2018,7 +2066,13 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ToHorizontalPodAutoscalerStatusP
 }
 
 func (o HorizontalPodAutoscalerStatusPtrOutput) Elem() HorizontalPodAutoscalerStatusOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus { return *v }).(HorizontalPodAutoscalerStatusOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret HorizontalPodAutoscalerStatus
+		return ret
+	}).(HorizontalPodAutoscalerStatusOutput)
 }
 
 // conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
@@ -2181,7 +2235,7 @@ func (o MetricIdentifierOutput) ToMetricIdentifierPtrOutput() MetricIdentifierPt
 }
 
 func (o MetricIdentifierOutput) ToMetricIdentifierPtrOutputWithContext(ctx context.Context) MetricIdentifierPtrOutput {
-	return o.ApplyT(func(v MetricIdentifier) *MetricIdentifier {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MetricIdentifier) *MetricIdentifier {
 		return &v
 	}).(MetricIdentifierPtrOutput)
 }
@@ -2211,7 +2265,13 @@ func (o MetricIdentifierPtrOutput) ToMetricIdentifierPtrOutputWithContext(ctx co
 }
 
 func (o MetricIdentifierPtrOutput) Elem() MetricIdentifierOutput {
-	return o.ApplyT(func(v *MetricIdentifier) MetricIdentifier { return *v }).(MetricIdentifierOutput)
+	return o.ApplyT(func(v *MetricIdentifier) MetricIdentifier {
+		if v != nil {
+			return *v
+		}
+		var ret MetricIdentifier
+		return ret
+	}).(MetricIdentifierOutput)
 }
 
 // name is the name of the given metric
@@ -2632,7 +2692,7 @@ func (o MetricTargetOutput) ToMetricTargetPtrOutput() MetricTargetPtrOutput {
 }
 
 func (o MetricTargetOutput) ToMetricTargetPtrOutputWithContext(ctx context.Context) MetricTargetPtrOutput {
-	return o.ApplyT(func(v MetricTarget) *MetricTarget {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MetricTarget) *MetricTarget {
 		return &v
 	}).(MetricTargetPtrOutput)
 }
@@ -2672,7 +2732,13 @@ func (o MetricTargetPtrOutput) ToMetricTargetPtrOutputWithContext(ctx context.Co
 }
 
 func (o MetricTargetPtrOutput) Elem() MetricTargetOutput {
-	return o.ApplyT(func(v *MetricTarget) MetricTarget { return *v }).(MetricTargetOutput)
+	return o.ApplyT(func(v *MetricTarget) MetricTarget {
+		if v != nil {
+			return *v
+		}
+		var ret MetricTarget
+		return ret
+	}).(MetricTargetOutput)
 }
 
 // averageUtilization is the target value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods. Currently only valid for Resource metric source type
@@ -2819,7 +2885,7 @@ func (o MetricValueStatusOutput) ToMetricValueStatusPtrOutput() MetricValueStatu
 }
 
 func (o MetricValueStatusOutput) ToMetricValueStatusPtrOutputWithContext(ctx context.Context) MetricValueStatusPtrOutput {
-	return o.ApplyT(func(v MetricValueStatus) *MetricValueStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MetricValueStatus) *MetricValueStatus {
 		return &v
 	}).(MetricValueStatusPtrOutput)
 }
@@ -2854,7 +2920,13 @@ func (o MetricValueStatusPtrOutput) ToMetricValueStatusPtrOutputWithContext(ctx 
 }
 
 func (o MetricValueStatusPtrOutput) Elem() MetricValueStatusOutput {
-	return o.ApplyT(func(v *MetricValueStatus) MetricValueStatus { return *v }).(MetricValueStatusOutput)
+	return o.ApplyT(func(v *MetricValueStatus) MetricValueStatus {
+		if v != nil {
+			return *v
+		}
+		var ret MetricValueStatus
+		return ret
+	}).(MetricValueStatusOutput)
 }
 
 // currentAverageUtilization is the current value of the average of the resource metric across all relevant pods, represented as a percentage of the requested value of the resource for the pods.
@@ -2989,10 +3061,11 @@ func (o ObjectMetricSourceOutput) ToObjectMetricSourcePtrOutput() ObjectMetricSo
 }
 
 func (o ObjectMetricSourceOutput) ToObjectMetricSourcePtrOutputWithContext(ctx context.Context) ObjectMetricSourcePtrOutput {
-	return o.ApplyT(func(v ObjectMetricSource) *ObjectMetricSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectMetricSource) *ObjectMetricSource {
 		return &v
 	}).(ObjectMetricSourcePtrOutput)
 }
+
 func (o ObjectMetricSourceOutput) DescribedObject() CrossVersionObjectReferenceOutput {
 	return o.ApplyT(func(v ObjectMetricSource) CrossVersionObjectReference { return v.DescribedObject }).(CrossVersionObjectReferenceOutput)
 }
@@ -3022,7 +3095,13 @@ func (o ObjectMetricSourcePtrOutput) ToObjectMetricSourcePtrOutputWithContext(ct
 }
 
 func (o ObjectMetricSourcePtrOutput) Elem() ObjectMetricSourceOutput {
-	return o.ApplyT(func(v *ObjectMetricSource) ObjectMetricSource { return *v }).(ObjectMetricSourceOutput)
+	return o.ApplyT(func(v *ObjectMetricSource) ObjectMetricSource {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectMetricSource
+		return ret
+	}).(ObjectMetricSourceOutput)
 }
 
 func (o ObjectMetricSourcePtrOutput) DescribedObject() CrossVersionObjectReferencePtrOutput {
@@ -3156,7 +3235,7 @@ func (o ObjectMetricStatusOutput) ToObjectMetricStatusPtrOutput() ObjectMetricSt
 }
 
 func (o ObjectMetricStatusOutput) ToObjectMetricStatusPtrOutputWithContext(ctx context.Context) ObjectMetricStatusPtrOutput {
-	return o.ApplyT(func(v ObjectMetricStatus) *ObjectMetricStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectMetricStatus) *ObjectMetricStatus {
 		return &v
 	}).(ObjectMetricStatusPtrOutput)
 }
@@ -3190,7 +3269,13 @@ func (o ObjectMetricStatusPtrOutput) ToObjectMetricStatusPtrOutputWithContext(ct
 }
 
 func (o ObjectMetricStatusPtrOutput) Elem() ObjectMetricStatusOutput {
-	return o.ApplyT(func(v *ObjectMetricStatus) ObjectMetricStatus { return *v }).(ObjectMetricStatusOutput)
+	return o.ApplyT(func(v *ObjectMetricStatus) ObjectMetricStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectMetricStatus
+		return ret
+	}).(ObjectMetricStatusOutput)
 }
 
 // current contains the current value for the given metric
@@ -3322,7 +3407,7 @@ func (o PodsMetricSourceOutput) ToPodsMetricSourcePtrOutput() PodsMetricSourcePt
 }
 
 func (o PodsMetricSourceOutput) ToPodsMetricSourcePtrOutputWithContext(ctx context.Context) PodsMetricSourcePtrOutput {
-	return o.ApplyT(func(v PodsMetricSource) *PodsMetricSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodsMetricSource) *PodsMetricSource {
 		return &v
 	}).(PodsMetricSourcePtrOutput)
 }
@@ -3352,7 +3437,13 @@ func (o PodsMetricSourcePtrOutput) ToPodsMetricSourcePtrOutputWithContext(ctx co
 }
 
 func (o PodsMetricSourcePtrOutput) Elem() PodsMetricSourceOutput {
-	return o.ApplyT(func(v *PodsMetricSource) PodsMetricSource { return *v }).(PodsMetricSourceOutput)
+	return o.ApplyT(func(v *PodsMetricSource) PodsMetricSource {
+		if v != nil {
+			return *v
+		}
+		var ret PodsMetricSource
+		return ret
+	}).(PodsMetricSourceOutput)
 }
 
 // metric identifies the target metric by name and selector
@@ -3475,7 +3566,7 @@ func (o PodsMetricStatusOutput) ToPodsMetricStatusPtrOutput() PodsMetricStatusPt
 }
 
 func (o PodsMetricStatusOutput) ToPodsMetricStatusPtrOutputWithContext(ctx context.Context) PodsMetricStatusPtrOutput {
-	return o.ApplyT(func(v PodsMetricStatus) *PodsMetricStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodsMetricStatus) *PodsMetricStatus {
 		return &v
 	}).(PodsMetricStatusPtrOutput)
 }
@@ -3505,7 +3596,13 @@ func (o PodsMetricStatusPtrOutput) ToPodsMetricStatusPtrOutputWithContext(ctx co
 }
 
 func (o PodsMetricStatusPtrOutput) Elem() PodsMetricStatusOutput {
-	return o.ApplyT(func(v *PodsMetricStatus) PodsMetricStatus { return *v }).(PodsMetricStatusOutput)
+	return o.ApplyT(func(v *PodsMetricStatus) PodsMetricStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodsMetricStatus
+		return ret
+	}).(PodsMetricStatusOutput)
 }
 
 // current contains the current value for the given metric
@@ -3628,7 +3725,7 @@ func (o ResourceMetricSourceOutput) ToResourceMetricSourcePtrOutput() ResourceMe
 }
 
 func (o ResourceMetricSourceOutput) ToResourceMetricSourcePtrOutputWithContext(ctx context.Context) ResourceMetricSourcePtrOutput {
-	return o.ApplyT(func(v ResourceMetricSource) *ResourceMetricSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceMetricSource) *ResourceMetricSource {
 		return &v
 	}).(ResourceMetricSourcePtrOutput)
 }
@@ -3658,7 +3755,13 @@ func (o ResourceMetricSourcePtrOutput) ToResourceMetricSourcePtrOutputWithContex
 }
 
 func (o ResourceMetricSourcePtrOutput) Elem() ResourceMetricSourceOutput {
-	return o.ApplyT(func(v *ResourceMetricSource) ResourceMetricSource { return *v }).(ResourceMetricSourceOutput)
+	return o.ApplyT(func(v *ResourceMetricSource) ResourceMetricSource {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceMetricSource
+		return ret
+	}).(ResourceMetricSourceOutput)
 }
 
 // name is the name of the resource in question.
@@ -3781,7 +3884,7 @@ func (o ResourceMetricStatusOutput) ToResourceMetricStatusPtrOutput() ResourceMe
 }
 
 func (o ResourceMetricStatusOutput) ToResourceMetricStatusPtrOutputWithContext(ctx context.Context) ResourceMetricStatusPtrOutput {
-	return o.ApplyT(func(v ResourceMetricStatus) *ResourceMetricStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceMetricStatus) *ResourceMetricStatus {
 		return &v
 	}).(ResourceMetricStatusPtrOutput)
 }
@@ -3811,7 +3914,13 @@ func (o ResourceMetricStatusPtrOutput) ToResourceMetricStatusPtrOutputWithContex
 }
 
 func (o ResourceMetricStatusPtrOutput) Elem() ResourceMetricStatusOutput {
-	return o.ApplyT(func(v *ResourceMetricStatus) ResourceMetricStatus { return *v }).(ResourceMetricStatusOutput)
+	return o.ApplyT(func(v *ResourceMetricStatus) ResourceMetricStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceMetricStatus
+		return ret
+	}).(ResourceMetricStatusOutput)
 }
 
 // current contains the current value for the given metric

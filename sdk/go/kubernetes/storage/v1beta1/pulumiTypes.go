@@ -387,7 +387,7 @@ func (o CSIDriverSpecOutput) ToCSIDriverSpecPtrOutput() CSIDriverSpecPtrOutput {
 }
 
 func (o CSIDriverSpecOutput) ToCSIDriverSpecPtrOutputWithContext(ctx context.Context) CSIDriverSpecPtrOutput {
-	return o.ApplyT(func(v CSIDriverSpec) *CSIDriverSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIDriverSpec) *CSIDriverSpec {
 		return &v
 	}).(CSIDriverSpecPtrOutput)
 }
@@ -465,7 +465,13 @@ func (o CSIDriverSpecPtrOutput) ToCSIDriverSpecPtrOutputWithContext(ctx context.
 }
 
 func (o CSIDriverSpecPtrOutput) Elem() CSIDriverSpecOutput {
-	return o.ApplyT(func(v *CSIDriverSpec) CSIDriverSpec { return *v }).(CSIDriverSpecOutput)
+	return o.ApplyT(func(v *CSIDriverSpec) CSIDriverSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CSIDriverSpec
+		return ret
+	}).(CSIDriverSpecOutput)
 }
 
 // attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
@@ -993,7 +999,7 @@ func (o CSINodeSpecOutput) ToCSINodeSpecPtrOutput() CSINodeSpecPtrOutput {
 }
 
 func (o CSINodeSpecOutput) ToCSINodeSpecPtrOutputWithContext(ctx context.Context) CSINodeSpecPtrOutput {
-	return o.ApplyT(func(v CSINodeSpec) *CSINodeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSINodeSpec) *CSINodeSpec {
 		return &v
 	}).(CSINodeSpecPtrOutput)
 }
@@ -1018,7 +1024,13 @@ func (o CSINodeSpecPtrOutput) ToCSINodeSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o CSINodeSpecPtrOutput) Elem() CSINodeSpecOutput {
-	return o.ApplyT(func(v *CSINodeSpec) CSINodeSpec { return *v }).(CSINodeSpecOutput)
+	return o.ApplyT(func(v *CSINodeSpec) CSINodeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CSINodeSpec
+		return ret
+	}).(CSINodeSpecOutput)
 }
 
 // drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
@@ -2017,7 +2029,7 @@ func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutput() Volume
 }
 
 func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSource) *VolumeAttachmentSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentSource) *VolumeAttachmentSource {
 		return &v
 	}).(VolumeAttachmentSourcePtrOutput)
 }
@@ -2047,7 +2059,13 @@ func (o VolumeAttachmentSourcePtrOutput) ToVolumeAttachmentSourcePtrOutputWithCo
 }
 
 func (o VolumeAttachmentSourcePtrOutput) Elem() VolumeAttachmentSourceOutput {
-	return o.ApplyT(func(v *VolumeAttachmentSource) VolumeAttachmentSource { return *v }).(VolumeAttachmentSourceOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSource) VolumeAttachmentSource {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentSource
+		return ret
+	}).(VolumeAttachmentSourceOutput)
 }
 
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
@@ -2174,7 +2192,7 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutput() VolumeAtta
 }
 
 func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentSpec) *VolumeAttachmentSpec {
 		return &v
 	}).(VolumeAttachmentSpecPtrOutput)
 }
@@ -2209,7 +2227,13 @@ func (o VolumeAttachmentSpecPtrOutput) ToVolumeAttachmentSpecPtrOutputWithContex
 }
 
 func (o VolumeAttachmentSpecPtrOutput) Elem() VolumeAttachmentSpecOutput {
-	return o.ApplyT(func(v *VolumeAttachmentSpec) VolumeAttachmentSpec { return *v }).(VolumeAttachmentSpecOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSpec) VolumeAttachmentSpec {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentSpec
+		return ret
+	}).(VolumeAttachmentSpecOutput)
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
@@ -2350,7 +2374,7 @@ func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutput() Volume
 }
 
 func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeAttachmentStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentStatus) *VolumeAttachmentStatus {
 		return &v
 	}).(VolumeAttachmentStatusPtrOutput)
 }
@@ -2390,7 +2414,13 @@ func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutputWithCo
 }
 
 func (o VolumeAttachmentStatusPtrOutput) Elem() VolumeAttachmentStatusOutput {
-	return o.ApplyT(func(v *VolumeAttachmentStatus) VolumeAttachmentStatus { return *v }).(VolumeAttachmentStatusOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) VolumeAttachmentStatus {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentStatus
+		return ret
+	}).(VolumeAttachmentStatusOutput)
 }
 
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -2533,7 +2563,7 @@ func (o VolumeErrorOutput) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
 }
 
 func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
-	return o.ApplyT(func(v VolumeError) *VolumeError {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeError) *VolumeError {
 		return &v
 	}).(VolumeErrorPtrOutput)
 }
@@ -2563,7 +2593,13 @@ func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Cont
 }
 
 func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
-	return o.ApplyT(func(v *VolumeError) VolumeError { return *v }).(VolumeErrorOutput)
+	return o.ApplyT(func(v *VolumeError) VolumeError {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeError
+		return ret
+	}).(VolumeErrorOutput)
 }
 
 // String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
@@ -2682,7 +2718,7 @@ func (o VolumeNodeResourcesOutput) ToVolumeNodeResourcesPtrOutput() VolumeNodeRe
 }
 
 func (o VolumeNodeResourcesOutput) ToVolumeNodeResourcesPtrOutputWithContext(ctx context.Context) VolumeNodeResourcesPtrOutput {
-	return o.ApplyT(func(v VolumeNodeResources) *VolumeNodeResources {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeNodeResources) *VolumeNodeResources {
 		return &v
 	}).(VolumeNodeResourcesPtrOutput)
 }
@@ -2707,7 +2743,13 @@ func (o VolumeNodeResourcesPtrOutput) ToVolumeNodeResourcesPtrOutputWithContext(
 }
 
 func (o VolumeNodeResourcesPtrOutput) Elem() VolumeNodeResourcesOutput {
-	return o.ApplyT(func(v *VolumeNodeResources) VolumeNodeResources { return *v }).(VolumeNodeResourcesOutput)
+	return o.ApplyT(func(v *VolumeNodeResources) VolumeNodeResources {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeNodeResources
+		return ret
+	}).(VolumeNodeResourcesOutput)
 }
 
 // Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is nil, then the supported number of volumes on this node is unbounded.

@@ -203,9 +203,7 @@ func (i DaemonSetMap) ToDaemonSetMapOutputWithContext(ctx context.Context) Daemo
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetMapOutput)
 }
 
-type DaemonSetOutput struct {
-	*pulumi.OutputState
-}
+type DaemonSetOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DaemonSet)(nil))
@@ -224,14 +222,12 @@ func (o DaemonSetOutput) ToDaemonSetPtrOutput() DaemonSetPtrOutput {
 }
 
 func (o DaemonSetOutput) ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput {
-	return o.ApplyT(func(v DaemonSet) *DaemonSet {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSet) *DaemonSet {
 		return &v
 	}).(DaemonSetPtrOutput)
 }
 
-type DaemonSetPtrOutput struct {
-	*pulumi.OutputState
-}
+type DaemonSetPtrOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DaemonSet)(nil))
@@ -243,6 +239,16 @@ func (o DaemonSetPtrOutput) ToDaemonSetPtrOutput() DaemonSetPtrOutput {
 
 func (o DaemonSetPtrOutput) ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput {
 	return o
+}
+
+func (o DaemonSetPtrOutput) Elem() DaemonSetOutput {
+	return o.ApplyT(func(v *DaemonSet) DaemonSet {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSet
+		return ret
+	}).(DaemonSetOutput)
 }
 
 type DaemonSetArrayOutput struct{ *pulumi.OutputState }

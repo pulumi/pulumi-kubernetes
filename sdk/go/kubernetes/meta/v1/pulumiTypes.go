@@ -838,7 +838,7 @@ func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
 }
 
 func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *DeleteOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeleteOptions) *DeleteOptions {
 		return &v
 	}).(DeleteOptionsPtrOutput)
 }
@@ -893,7 +893,13 @@ func (o DeleteOptionsPtrOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.
 }
 
 func (o DeleteOptionsPtrOutput) Elem() DeleteOptionsOutput {
-	return o.ApplyT(func(v *DeleteOptions) DeleteOptions { return *v }).(DeleteOptionsOutput)
+	return o.ApplyT(func(v *DeleteOptions) DeleteOptions {
+		if v != nil {
+			return *v
+		}
+		var ret DeleteOptions
+		return ret
+	}).(DeleteOptionsOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1091,7 +1097,7 @@ func (o GroupVersionForDiscoveryOutput) ToGroupVersionForDiscoveryPtrOutput() Gr
 }
 
 func (o GroupVersionForDiscoveryOutput) ToGroupVersionForDiscoveryPtrOutputWithContext(ctx context.Context) GroupVersionForDiscoveryPtrOutput {
-	return o.ApplyT(func(v GroupVersionForDiscovery) *GroupVersionForDiscovery {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GroupVersionForDiscovery) *GroupVersionForDiscovery {
 		return &v
 	}).(GroupVersionForDiscoveryPtrOutput)
 }
@@ -1121,7 +1127,13 @@ func (o GroupVersionForDiscoveryPtrOutput) ToGroupVersionForDiscoveryPtrOutputWi
 }
 
 func (o GroupVersionForDiscoveryPtrOutput) Elem() GroupVersionForDiscoveryOutput {
-	return o.ApplyT(func(v *GroupVersionForDiscovery) GroupVersionForDiscovery { return *v }).(GroupVersionForDiscoveryOutput)
+	return o.ApplyT(func(v *GroupVersionForDiscovery) GroupVersionForDiscovery {
+		if v != nil {
+			return *v
+		}
+		var ret GroupVersionForDiscovery
+		return ret
+	}).(GroupVersionForDiscoveryOutput)
 }
 
 // groupVersion specifies the API group and version in the form "group/version"
@@ -1289,7 +1301,7 @@ func (o LabelSelectorOutput) ToLabelSelectorPtrOutput() LabelSelectorPtrOutput {
 }
 
 func (o LabelSelectorOutput) ToLabelSelectorPtrOutputWithContext(ctx context.Context) LabelSelectorPtrOutput {
-	return o.ApplyT(func(v LabelSelector) *LabelSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LabelSelector) *LabelSelector {
 		return &v
 	}).(LabelSelectorPtrOutput)
 }
@@ -1319,7 +1331,13 @@ func (o LabelSelectorPtrOutput) ToLabelSelectorPtrOutputWithContext(ctx context.
 }
 
 func (o LabelSelectorPtrOutput) Elem() LabelSelectorOutput {
-	return o.ApplyT(func(v *LabelSelector) LabelSelector { return *v }).(LabelSelectorOutput)
+	return o.ApplyT(func(v *LabelSelector) LabelSelector {
+		if v != nil {
+			return *v
+		}
+		var ret LabelSelector
+		return ret
+	}).(LabelSelectorOutput)
 }
 
 // matchExpressions is a list of label selector requirements. The requirements are ANDed.
@@ -1592,7 +1610,7 @@ func (o ListMetaOutput) ToListMetaPtrOutput() ListMetaPtrOutput {
 }
 
 func (o ListMetaOutput) ToListMetaPtrOutputWithContext(ctx context.Context) ListMetaPtrOutput {
-	return o.ApplyT(func(v ListMeta) *ListMeta {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMeta) *ListMeta {
 		return &v
 	}).(ListMetaPtrOutput)
 }
@@ -1634,7 +1652,13 @@ func (o ListMetaPtrOutput) ToListMetaPtrOutputWithContext(ctx context.Context) L
 }
 
 func (o ListMetaPtrOutput) Elem() ListMetaOutput {
-	return o.ApplyT(func(v *ListMeta) ListMeta { return *v }).(ListMetaOutput)
+	return o.ApplyT(func(v *ListMeta) ListMeta {
+		if v != nil {
+			return *v
+		}
+		var ret ListMeta
+		return ret
+	}).(ListMetaOutput)
 }
 
 // continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
@@ -2021,7 +2045,7 @@ func (o ObjectMetaOutput) ToObjectMetaPtrOutput() ObjectMetaPtrOutput {
 }
 
 func (o ObjectMetaOutput) ToObjectMetaPtrOutputWithContext(ctx context.Context) ObjectMetaPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *ObjectMeta {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectMeta) *ObjectMeta {
 		return &v
 	}).(ObjectMetaPtrOutput)
 }
@@ -2137,7 +2161,13 @@ func (o ObjectMetaPtrOutput) ToObjectMetaPtrOutputWithContext(ctx context.Contex
 }
 
 func (o ObjectMetaPtrOutput) Elem() ObjectMetaOutput {
-	return o.ApplyT(func(v *ObjectMeta) ObjectMeta { return *v }).(ObjectMetaOutput)
+	return o.ApplyT(func(v *ObjectMeta) ObjectMeta {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectMeta
+		return ret
+	}).(ObjectMetaOutput)
 }
 
 // Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
@@ -2561,7 +2591,7 @@ func (o PreconditionsOutput) ToPreconditionsPtrOutput() PreconditionsPtrOutput {
 }
 
 func (o PreconditionsOutput) ToPreconditionsPtrOutputWithContext(ctx context.Context) PreconditionsPtrOutput {
-	return o.ApplyT(func(v Preconditions) *Preconditions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Preconditions) *Preconditions {
 		return &v
 	}).(PreconditionsPtrOutput)
 }
@@ -2591,7 +2621,13 @@ func (o PreconditionsPtrOutput) ToPreconditionsPtrOutputWithContext(ctx context.
 }
 
 func (o PreconditionsPtrOutput) Elem() PreconditionsOutput {
-	return o.ApplyT(func(v *Preconditions) Preconditions { return *v }).(PreconditionsOutput)
+	return o.ApplyT(func(v *Preconditions) Preconditions {
+		if v != nil {
+			return *v
+		}
+		var ret Preconditions
+		return ret
+	}).(PreconditionsOutput)
 }
 
 // Specifies the target ResourceVersion
@@ -3087,7 +3123,7 @@ func (o StatusDetailsOutput) ToStatusDetailsPtrOutput() StatusDetailsPtrOutput {
 }
 
 func (o StatusDetailsOutput) ToStatusDetailsPtrOutputWithContext(ctx context.Context) StatusDetailsPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *StatusDetails {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusDetails) *StatusDetails {
 		return &v
 	}).(StatusDetailsPtrOutput)
 }
@@ -3137,7 +3173,13 @@ func (o StatusDetailsPtrOutput) ToStatusDetailsPtrOutputWithContext(ctx context.
 }
 
 func (o StatusDetailsPtrOutput) Elem() StatusDetailsOutput {
-	return o.ApplyT(func(v *StatusDetails) StatusDetails { return *v }).(StatusDetailsOutput)
+	return o.ApplyT(func(v *StatusDetails) StatusDetails {
+		if v != nil {
+			return *v
+		}
+		var ret StatusDetails
+		return ret
+	}).(StatusDetailsOutput)
 }
 
 // The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.

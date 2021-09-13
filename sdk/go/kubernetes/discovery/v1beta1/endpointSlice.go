@@ -215,9 +215,7 @@ func (i EndpointSliceMap) ToEndpointSliceMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceMapOutput)
 }
 
-type EndpointSliceOutput struct {
-	*pulumi.OutputState
-}
+type EndpointSliceOutput struct{ *pulumi.OutputState }
 
 func (EndpointSliceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EndpointSlice)(nil))
@@ -236,14 +234,12 @@ func (o EndpointSliceOutput) ToEndpointSlicePtrOutput() EndpointSlicePtrOutput {
 }
 
 func (o EndpointSliceOutput) ToEndpointSlicePtrOutputWithContext(ctx context.Context) EndpointSlicePtrOutput {
-	return o.ApplyT(func(v EndpointSlice) *EndpointSlice {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointSlice) *EndpointSlice {
 		return &v
 	}).(EndpointSlicePtrOutput)
 }
 
-type EndpointSlicePtrOutput struct {
-	*pulumi.OutputState
-}
+type EndpointSlicePtrOutput struct{ *pulumi.OutputState }
 
 func (EndpointSlicePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EndpointSlice)(nil))
@@ -255,6 +251,16 @@ func (o EndpointSlicePtrOutput) ToEndpointSlicePtrOutput() EndpointSlicePtrOutpu
 
 func (o EndpointSlicePtrOutput) ToEndpointSlicePtrOutputWithContext(ctx context.Context) EndpointSlicePtrOutput {
 	return o
+}
+
+func (o EndpointSlicePtrOutput) Elem() EndpointSliceOutput {
+	return o.ApplyT(func(v *EndpointSlice) EndpointSlice {
+		if v != nil {
+			return *v
+		}
+		var ret EndpointSlice
+		return ret
+	}).(EndpointSliceOutput)
 }
 
 type EndpointSliceArrayOutput struct{ *pulumi.OutputState }

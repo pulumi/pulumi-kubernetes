@@ -196,9 +196,7 @@ func (i ValidatingWebhookConfigurationMap) ToValidatingWebhookConfigurationMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationMapOutput)
 }
 
-type ValidatingWebhookConfigurationOutput struct {
-	*pulumi.OutputState
-}
+type ValidatingWebhookConfigurationOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ValidatingWebhookConfiguration)(nil))
@@ -217,14 +215,12 @@ func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationPt
 }
 
 func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput {
-	return o.ApplyT(func(v ValidatingWebhookConfiguration) *ValidatingWebhookConfiguration {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingWebhookConfiguration) *ValidatingWebhookConfiguration {
 		return &v
 	}).(ValidatingWebhookConfigurationPtrOutput)
 }
 
-type ValidatingWebhookConfigurationPtrOutput struct {
-	*pulumi.OutputState
-}
+type ValidatingWebhookConfigurationPtrOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ValidatingWebhookConfiguration)(nil))
@@ -236,6 +232,16 @@ func (o ValidatingWebhookConfigurationPtrOutput) ToValidatingWebhookConfiguratio
 
 func (o ValidatingWebhookConfigurationPtrOutput) ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput {
 	return o
+}
+
+func (o ValidatingWebhookConfigurationPtrOutput) Elem() ValidatingWebhookConfigurationOutput {
+	return o.ApplyT(func(v *ValidatingWebhookConfiguration) ValidatingWebhookConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret ValidatingWebhookConfiguration
+		return ret
+	}).(ValidatingWebhookConfigurationOutput)
 }
 
 type ValidatingWebhookConfigurationArrayOutput struct{ *pulumi.OutputState }

@@ -196,9 +196,7 @@ func (i MutatingWebhookConfigurationMap) ToMutatingWebhookConfigurationMapOutput
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationMapOutput)
 }
 
-type MutatingWebhookConfigurationOutput struct {
-	*pulumi.OutputState
-}
+type MutatingWebhookConfigurationOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*MutatingWebhookConfiguration)(nil))
@@ -217,14 +215,12 @@ func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationPtrOut
 }
 
 func (o MutatingWebhookConfigurationOutput) ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput {
-	return o.ApplyT(func(v MutatingWebhookConfiguration) *MutatingWebhookConfiguration {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v MutatingWebhookConfiguration) *MutatingWebhookConfiguration {
 		return &v
 	}).(MutatingWebhookConfigurationPtrOutput)
 }
 
-type MutatingWebhookConfigurationPtrOutput struct {
-	*pulumi.OutputState
-}
+type MutatingWebhookConfigurationPtrOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**MutatingWebhookConfiguration)(nil))
@@ -236,6 +232,16 @@ func (o MutatingWebhookConfigurationPtrOutput) ToMutatingWebhookConfigurationPtr
 
 func (o MutatingWebhookConfigurationPtrOutput) ToMutatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPtrOutput {
 	return o
+}
+
+func (o MutatingWebhookConfigurationPtrOutput) Elem() MutatingWebhookConfigurationOutput {
+	return o.ApplyT(func(v *MutatingWebhookConfiguration) MutatingWebhookConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret MutatingWebhookConfiguration
+		return ret
+	}).(MutatingWebhookConfigurationOutput)
 }
 
 type MutatingWebhookConfigurationArrayOutput struct{ *pulumi.OutputState }

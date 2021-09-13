@@ -202,9 +202,7 @@ func (i SelfSubjectRulesReviewMap) ToSelfSubjectRulesReviewMapOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewMapOutput)
 }
 
-type SelfSubjectRulesReviewOutput struct {
-	*pulumi.OutputState
-}
+type SelfSubjectRulesReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SelfSubjectRulesReview)(nil))
@@ -223,14 +221,12 @@ func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewPtrOutput() SelfSu
 }
 
 func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReview) *SelfSubjectRulesReview {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReview) *SelfSubjectRulesReview {
 		return &v
 	}).(SelfSubjectRulesReviewPtrOutput)
 }
 
-type SelfSubjectRulesReviewPtrOutput struct {
-	*pulumi.OutputState
-}
+type SelfSubjectRulesReviewPtrOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SelfSubjectRulesReview)(nil))
@@ -242,6 +238,16 @@ func (o SelfSubjectRulesReviewPtrOutput) ToSelfSubjectRulesReviewPtrOutput() Sel
 
 func (o SelfSubjectRulesReviewPtrOutput) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
 	return o
+}
+
+func (o SelfSubjectRulesReviewPtrOutput) Elem() SelfSubjectRulesReviewOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) SelfSubjectRulesReview {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectRulesReview
+		return ret
+	}).(SelfSubjectRulesReviewOutput)
 }
 
 type SelfSubjectRulesReviewArrayOutput struct{ *pulumi.OutputState }

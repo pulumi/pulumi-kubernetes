@@ -332,7 +332,7 @@ func (o LeaseSpecOutput) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
 }
 
 func (o LeaseSpecOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *LeaseSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseSpec) *LeaseSpec {
 		return &v
 	}).(LeaseSpecPtrOutput)
 }
@@ -377,7 +377,13 @@ func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o LeaseSpecPtrOutput) Elem() LeaseSpecOutput {
-	return o.ApplyT(func(v *LeaseSpec) LeaseSpec { return *v }).(LeaseSpecOutput)
+	return o.ApplyT(func(v *LeaseSpec) LeaseSpec {
+		if v != nil {
+			return *v
+		}
+		var ret LeaseSpec
+		return ret
+	}).(LeaseSpecOutput)
 }
 
 // acquireTime is a time when the current lease was acquired.

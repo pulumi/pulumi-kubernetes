@@ -198,9 +198,7 @@ func (i PriorityLevelConfigurationMap) ToPriorityLevelConfigurationMapOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationMapOutput)
 }
 
-type PriorityLevelConfigurationOutput struct {
-	*pulumi.OutputState
-}
+type PriorityLevelConfigurationOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PriorityLevelConfiguration)(nil))
@@ -219,14 +217,12 @@ func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationPtrOutput(
 }
 
 func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfiguration) *PriorityLevelConfiguration {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfiguration) *PriorityLevelConfiguration {
 		return &v
 	}).(PriorityLevelConfigurationPtrOutput)
 }
 
-type PriorityLevelConfigurationPtrOutput struct {
-	*pulumi.OutputState
-}
+type PriorityLevelConfigurationPtrOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PriorityLevelConfiguration)(nil))
@@ -238,6 +234,16 @@ func (o PriorityLevelConfigurationPtrOutput) ToPriorityLevelConfigurationPtrOutp
 
 func (o PriorityLevelConfigurationPtrOutput) ToPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationPtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationPtrOutput) Elem() PriorityLevelConfigurationOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) PriorityLevelConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret PriorityLevelConfiguration
+		return ret
+	}).(PriorityLevelConfigurationOutput)
 }
 
 type PriorityLevelConfigurationArrayOutput struct{ *pulumi.OutputState }

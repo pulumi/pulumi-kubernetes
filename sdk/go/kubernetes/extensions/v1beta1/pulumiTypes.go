@@ -797,7 +797,7 @@ func (o DaemonSetSpecOutput) ToDaemonSetSpecPtrOutput() DaemonSetSpecPtrOutput {
 }
 
 func (o DaemonSetSpecOutput) ToDaemonSetSpecPtrOutputWithContext(ctx context.Context) DaemonSetSpecPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *DaemonSetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSetSpec) *DaemonSetSpec {
 		return &v
 	}).(DaemonSetSpecPtrOutput)
 }
@@ -847,7 +847,13 @@ func (o DaemonSetSpecPtrOutput) ToDaemonSetSpecPtrOutputWithContext(ctx context.
 }
 
 func (o DaemonSetSpecPtrOutput) Elem() DaemonSetSpecOutput {
-	return o.ApplyT(func(v *DaemonSetSpec) DaemonSetSpec { return *v }).(DaemonSetSpecOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) DaemonSetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSetSpec
+		return ret
+	}).(DaemonSetSpecOutput)
 }
 
 // The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
@@ -1042,7 +1048,7 @@ func (o DaemonSetStatusOutput) ToDaemonSetStatusPtrOutput() DaemonSetStatusPtrOu
 }
 
 func (o DaemonSetStatusOutput) ToDaemonSetStatusPtrOutputWithContext(ctx context.Context) DaemonSetStatusPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *DaemonSetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSetStatus) *DaemonSetStatus {
 		return &v
 	}).(DaemonSetStatusPtrOutput)
 }
@@ -1112,7 +1118,13 @@ func (o DaemonSetStatusPtrOutput) ToDaemonSetStatusPtrOutputWithContext(ctx cont
 }
 
 func (o DaemonSetStatusPtrOutput) Elem() DaemonSetStatusOutput {
-	return o.ApplyT(func(v *DaemonSetStatus) DaemonSetStatus { return *v }).(DaemonSetStatusOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) DaemonSetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSetStatus
+		return ret
+	}).(DaemonSetStatusOutput)
 }
 
 // Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -1312,7 +1324,7 @@ func (o DaemonSetUpdateStrategyOutput) ToDaemonSetUpdateStrategyPtrOutput() Daem
 }
 
 func (o DaemonSetUpdateStrategyOutput) ToDaemonSetUpdateStrategyPtrOutputWithContext(ctx context.Context) DaemonSetUpdateStrategyPtrOutput {
-	return o.ApplyT(func(v DaemonSetUpdateStrategy) *DaemonSetUpdateStrategy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSetUpdateStrategy) *DaemonSetUpdateStrategy {
 		return &v
 	}).(DaemonSetUpdateStrategyPtrOutput)
 }
@@ -1342,7 +1354,13 @@ func (o DaemonSetUpdateStrategyPtrOutput) ToDaemonSetUpdateStrategyPtrOutputWith
 }
 
 func (o DaemonSetUpdateStrategyPtrOutput) Elem() DaemonSetUpdateStrategyOutput {
-	return o.ApplyT(func(v *DaemonSetUpdateStrategy) DaemonSetUpdateStrategy { return *v }).(DaemonSetUpdateStrategyOutput)
+	return o.ApplyT(func(v *DaemonSetUpdateStrategy) DaemonSetUpdateStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSetUpdateStrategy
+		return ret
+	}).(DaemonSetUpdateStrategyOutput)
 }
 
 // Rolling update config params. Present only if type = "RollingUpdate".
@@ -2013,7 +2031,7 @@ func (o DeploymentSpecOutput) ToDeploymentSpecPtrOutput() DeploymentSpecPtrOutpu
 }
 
 func (o DeploymentSpecOutput) ToDeploymentSpecPtrOutputWithContext(ctx context.Context) DeploymentSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *DeploymentSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentSpec) *DeploymentSpec {
 		return &v
 	}).(DeploymentSpecPtrOutput)
 }
@@ -2078,7 +2096,13 @@ func (o DeploymentSpecPtrOutput) ToDeploymentSpecPtrOutputWithContext(ctx contex
 }
 
 func (o DeploymentSpecPtrOutput) Elem() DeploymentSpecOutput {
-	return o.ApplyT(func(v *DeploymentSpec) DeploymentSpec { return *v }).(DeploymentSpecOutput)
+	return o.ApplyT(func(v *DeploymentSpec) DeploymentSpec {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentSpec
+		return ret
+	}).(DeploymentSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -2295,7 +2319,7 @@ func (o DeploymentStatusOutput) ToDeploymentStatusPtrOutput() DeploymentStatusPt
 }
 
 func (o DeploymentStatusOutput) ToDeploymentStatusPtrOutputWithContext(ctx context.Context) DeploymentStatusPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *DeploymentStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentStatus) *DeploymentStatus {
 		return &v
 	}).(DeploymentStatusPtrOutput)
 }
@@ -2355,7 +2379,13 @@ func (o DeploymentStatusPtrOutput) ToDeploymentStatusPtrOutputWithContext(ctx co
 }
 
 func (o DeploymentStatusPtrOutput) Elem() DeploymentStatusOutput {
-	return o.ApplyT(func(v *DeploymentStatus) DeploymentStatus { return *v }).(DeploymentStatusOutput)
+	return o.ApplyT(func(v *DeploymentStatus) DeploymentStatus {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentStatus
+		return ret
+	}).(DeploymentStatusOutput)
 }
 
 // Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
@@ -2538,7 +2568,7 @@ func (o DeploymentStrategyOutput) ToDeploymentStrategyPtrOutput() DeploymentStra
 }
 
 func (o DeploymentStrategyOutput) ToDeploymentStrategyPtrOutputWithContext(ctx context.Context) DeploymentStrategyPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *DeploymentStrategy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentStrategy) *DeploymentStrategy {
 		return &v
 	}).(DeploymentStrategyPtrOutput)
 }
@@ -2568,7 +2598,13 @@ func (o DeploymentStrategyPtrOutput) ToDeploymentStrategyPtrOutputWithContext(ct
 }
 
 func (o DeploymentStrategyPtrOutput) Elem() DeploymentStrategyOutput {
-	return o.ApplyT(func(v *DeploymentStrategy) DeploymentStrategy { return *v }).(DeploymentStrategyOutput)
+	return o.ApplyT(func(v *DeploymentStrategy) DeploymentStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentStrategy
+		return ret
+	}).(DeploymentStrategyOutput)
 }
 
 // Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -2691,7 +2727,7 @@ func (o FSGroupStrategyOptionsOutput) ToFSGroupStrategyOptionsPtrOutput() FSGrou
 }
 
 func (o FSGroupStrategyOptionsOutput) ToFSGroupStrategyOptionsPtrOutputWithContext(ctx context.Context) FSGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v FSGroupStrategyOptions) *FSGroupStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FSGroupStrategyOptions) *FSGroupStrategyOptions {
 		return &v
 	}).(FSGroupStrategyOptionsPtrOutput)
 }
@@ -2721,7 +2757,13 @@ func (o FSGroupStrategyOptionsPtrOutput) ToFSGroupStrategyOptionsPtrOutputWithCo
 }
 
 func (o FSGroupStrategyOptionsPtrOutput) Elem() FSGroupStrategyOptionsOutput {
-	return o.ApplyT(func(v *FSGroupStrategyOptions) FSGroupStrategyOptions { return *v }).(FSGroupStrategyOptionsOutput)
+	return o.ApplyT(func(v *FSGroupStrategyOptions) FSGroupStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret FSGroupStrategyOptions
+		return ret
+	}).(FSGroupStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
@@ -2988,7 +3030,7 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutput() HTTPIngres
 }
 
 func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(ctx context.Context) HTTPIngressRuleValuePtrOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) *HTTPIngressRuleValue {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HTTPIngressRuleValue) *HTTPIngressRuleValue {
 		return &v
 	}).(HTTPIngressRuleValuePtrOutput)
 }
@@ -3013,7 +3055,13 @@ func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutputWithContex
 }
 
 func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
-	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue { return *v }).(HTTPIngressRuleValueOutput)
+	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue {
+		if v != nil {
+			return *v
+		}
+		var ret HTTPIngressRuleValue
+		return ret
+	}).(HTTPIngressRuleValueOutput)
 }
 
 // A collection of paths that map requests to backends.
@@ -3344,7 +3392,7 @@ func (o IPBlockOutput) ToIPBlockPtrOutput() IPBlockPtrOutput {
 }
 
 func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBlockPtrOutput {
-	return o.ApplyT(func(v IPBlock) *IPBlock {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPBlock) *IPBlock {
 		return &v
 	}).(IPBlockPtrOutput)
 }
@@ -3374,7 +3422,13 @@ func (o IPBlockPtrOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPB
 }
 
 func (o IPBlockPtrOutput) Elem() IPBlockOutput {
-	return o.ApplyT(func(v *IPBlock) IPBlock { return *v }).(IPBlockOutput)
+	return o.ApplyT(func(v *IPBlock) IPBlock {
+		if v != nil {
+			return *v
+		}
+		var ret IPBlock
+		return ret
+	}).(IPBlockOutput)
 }
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
@@ -3679,7 +3733,7 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutput() IngressBackendPtrOutpu
 }
 
 func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.Context) IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *IngressBackend {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressBackend) *IngressBackend {
 		return &v
 	}).(IngressBackendPtrOutput)
 }
@@ -3714,7 +3768,13 @@ func (o IngressBackendPtrOutput) ToIngressBackendPtrOutputWithContext(ctx contex
 }
 
 func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
-	return o.ApplyT(func(v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
+	return o.ApplyT(func(v *IngressBackend) IngressBackend {
+		if v != nil {
+			return *v
+		}
+		var ret IngressBackend
+		return ret
+	}).(IngressBackendOutput)
 }
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
@@ -4058,7 +4118,7 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutput() IngressSpecPtrOutput {
 }
 
 func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context) IngressSpecPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressSpec) *IngressSpec {
 		return &v
 	}).(IngressSpecPtrOutput)
 }
@@ -4098,7 +4158,13 @@ func (o IngressSpecPtrOutput) ToIngressSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
-	return o.ApplyT(func(v *IngressSpec) IngressSpec { return *v }).(IngressSpecOutput)
+	return o.ApplyT(func(v *IngressSpec) IngressSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressSpec
+		return ret
+	}).(IngressSpecOutput)
 }
 
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
@@ -4237,7 +4303,7 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutput() IngressStatusPtrOutput {
 }
 
 func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Context) IngressStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *IngressStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressStatus) *IngressStatus {
 		return &v
 	}).(IngressStatusPtrOutput)
 }
@@ -4262,7 +4328,13 @@ func (o IngressStatusPtrOutput) ToIngressStatusPtrOutputWithContext(ctx context.
 }
 
 func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
-	return o.ApplyT(func(v *IngressStatus) IngressStatus { return *v }).(IngressStatusOutput)
+	return o.ApplyT(func(v *IngressStatus) IngressStatus {
+		if v != nil {
+			return *v
+		}
+		var ret IngressStatus
+		return ret
+	}).(IngressStatusOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer.
@@ -5158,7 +5230,7 @@ func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutput() NetworkPolicySpe
 }
 
 func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx context.Context) NetworkPolicySpecPtrOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) *NetworkPolicySpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkPolicySpec) *NetworkPolicySpec {
 		return &v
 	}).(NetworkPolicySpecPtrOutput)
 }
@@ -5198,7 +5270,13 @@ func (o NetworkPolicySpecPtrOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx 
 }
 
 func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
-	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec { return *v }).(NetworkPolicySpecOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkPolicySpec
+		return ret
+	}).(NetworkPolicySpecOutput)
 }
 
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
@@ -5646,7 +5724,7 @@ func (o PodSecurityPolicySpecOutput) ToPodSecurityPolicySpecPtrOutput() PodSecur
 }
 
 func (o PodSecurityPolicySpecOutput) ToPodSecurityPolicySpecPtrOutputWithContext(ctx context.Context) PodSecurityPolicySpecPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *PodSecurityPolicySpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityPolicySpec) *PodSecurityPolicySpec {
 		return &v
 	}).(PodSecurityPolicySpecPtrOutput)
 }
@@ -5790,7 +5868,13 @@ func (o PodSecurityPolicySpecPtrOutput) ToPodSecurityPolicySpecPtrOutputWithCont
 }
 
 func (o PodSecurityPolicySpecPtrOutput) Elem() PodSecurityPolicySpecOutput {
-	return o.ApplyT(func(v *PodSecurityPolicySpec) PodSecurityPolicySpec { return *v }).(PodSecurityPolicySpecOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) PodSecurityPolicySpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodSecurityPolicySpec
+		return ret
+	}).(PodSecurityPolicySpecOutput)
 }
 
 // allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
@@ -6499,7 +6583,7 @@ func (o ReplicaSetSpecOutput) ToReplicaSetSpecPtrOutput() ReplicaSetSpecPtrOutpu
 }
 
 func (o ReplicaSetSpecOutput) ToReplicaSetSpecPtrOutputWithContext(ctx context.Context) ReplicaSetSpecPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *ReplicaSetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicaSetSpec) *ReplicaSetSpec {
 		return &v
 	}).(ReplicaSetSpecPtrOutput)
 }
@@ -6539,7 +6623,13 @@ func (o ReplicaSetSpecPtrOutput) ToReplicaSetSpecPtrOutputWithContext(ctx contex
 }
 
 func (o ReplicaSetSpecPtrOutput) Elem() ReplicaSetSpecOutput {
-	return o.ApplyT(func(v *ReplicaSetSpec) ReplicaSetSpec { return *v }).(ReplicaSetSpecOutput)
+	return o.ApplyT(func(v *ReplicaSetSpec) ReplicaSetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicaSetSpec
+		return ret
+	}).(ReplicaSetSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -6698,7 +6788,7 @@ func (o ReplicaSetStatusOutput) ToReplicaSetStatusPtrOutput() ReplicaSetStatusPt
 }
 
 func (o ReplicaSetStatusOutput) ToReplicaSetStatusPtrOutputWithContext(ctx context.Context) ReplicaSetStatusPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *ReplicaSetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicaSetStatus) *ReplicaSetStatus {
 		return &v
 	}).(ReplicaSetStatusPtrOutput)
 }
@@ -6748,7 +6838,13 @@ func (o ReplicaSetStatusPtrOutput) ToReplicaSetStatusPtrOutputWithContext(ctx co
 }
 
 func (o ReplicaSetStatusPtrOutput) Elem() ReplicaSetStatusOutput {
-	return o.ApplyT(func(v *ReplicaSetStatus) ReplicaSetStatus { return *v }).(ReplicaSetStatusOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) ReplicaSetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicaSetStatus
+		return ret
+	}).(ReplicaSetStatusOutput)
 }
 
 // The number of available replicas (ready for at least minReadySeconds) for this replica set.
@@ -6907,7 +7003,7 @@ func (o RollbackConfigOutput) ToRollbackConfigPtrOutput() RollbackConfigPtrOutpu
 }
 
 func (o RollbackConfigOutput) ToRollbackConfigPtrOutputWithContext(ctx context.Context) RollbackConfigPtrOutput {
-	return o.ApplyT(func(v RollbackConfig) *RollbackConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RollbackConfig) *RollbackConfig {
 		return &v
 	}).(RollbackConfigPtrOutput)
 }
@@ -6932,7 +7028,13 @@ func (o RollbackConfigPtrOutput) ToRollbackConfigPtrOutputWithContext(ctx contex
 }
 
 func (o RollbackConfigPtrOutput) Elem() RollbackConfigOutput {
-	return o.ApplyT(func(v *RollbackConfig) RollbackConfig { return *v }).(RollbackConfigOutput)
+	return o.ApplyT(func(v *RollbackConfig) RollbackConfig {
+		if v != nil {
+			return *v
+		}
+		var ret RollbackConfig
+		return ret
+	}).(RollbackConfigOutput)
 }
 
 // The revision to rollback to. If set to 0, rollback to the last revision.
@@ -7041,7 +7143,7 @@ func (o RollingUpdateDaemonSetOutput) ToRollingUpdateDaemonSetPtrOutput() Rollin
 }
 
 func (o RollingUpdateDaemonSetOutput) ToRollingUpdateDaemonSetPtrOutputWithContext(ctx context.Context) RollingUpdateDaemonSetPtrOutput {
-	return o.ApplyT(func(v RollingUpdateDaemonSet) *RollingUpdateDaemonSet {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RollingUpdateDaemonSet) *RollingUpdateDaemonSet {
 		return &v
 	}).(RollingUpdateDaemonSetPtrOutput)
 }
@@ -7066,7 +7168,13 @@ func (o RollingUpdateDaemonSetPtrOutput) ToRollingUpdateDaemonSetPtrOutputWithCo
 }
 
 func (o RollingUpdateDaemonSetPtrOutput) Elem() RollingUpdateDaemonSetOutput {
-	return o.ApplyT(func(v *RollingUpdateDaemonSet) RollingUpdateDaemonSet { return *v }).(RollingUpdateDaemonSetOutput)
+	return o.ApplyT(func(v *RollingUpdateDaemonSet) RollingUpdateDaemonSet {
+		if v != nil {
+			return *v
+		}
+		var ret RollingUpdateDaemonSet
+		return ret
+	}).(RollingUpdateDaemonSetOutput)
 }
 
 // The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
@@ -7179,7 +7287,7 @@ func (o RollingUpdateDeploymentOutput) ToRollingUpdateDeploymentPtrOutput() Roll
 }
 
 func (o RollingUpdateDeploymentOutput) ToRollingUpdateDeploymentPtrOutputWithContext(ctx context.Context) RollingUpdateDeploymentPtrOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) *RollingUpdateDeployment {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RollingUpdateDeployment) *RollingUpdateDeployment {
 		return &v
 	}).(RollingUpdateDeploymentPtrOutput)
 }
@@ -7209,7 +7317,13 @@ func (o RollingUpdateDeploymentPtrOutput) ToRollingUpdateDeploymentPtrOutputWith
 }
 
 func (o RollingUpdateDeploymentPtrOutput) Elem() RollingUpdateDeploymentOutput {
-	return o.ApplyT(func(v *RollingUpdateDeployment) RollingUpdateDeployment { return *v }).(RollingUpdateDeploymentOutput)
+	return o.ApplyT(func(v *RollingUpdateDeployment) RollingUpdateDeployment {
+		if v != nil {
+			return *v
+		}
+		var ret RollingUpdateDeployment
+		return ret
+	}).(RollingUpdateDeploymentOutput)
 }
 
 // The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
@@ -7332,7 +7446,7 @@ func (o RunAsGroupStrategyOptionsOutput) ToRunAsGroupStrategyOptionsPtrOutput() 
 }
 
 func (o RunAsGroupStrategyOptionsOutput) ToRunAsGroupStrategyOptionsPtrOutputWithContext(ctx context.Context) RunAsGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) *RunAsGroupStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RunAsGroupStrategyOptions) *RunAsGroupStrategyOptions {
 		return &v
 	}).(RunAsGroupStrategyOptionsPtrOutput)
 }
@@ -7362,7 +7476,13 @@ func (o RunAsGroupStrategyOptionsPtrOutput) ToRunAsGroupStrategyOptionsPtrOutput
 }
 
 func (o RunAsGroupStrategyOptionsPtrOutput) Elem() RunAsGroupStrategyOptionsOutput {
-	return o.ApplyT(func(v *RunAsGroupStrategyOptions) RunAsGroupStrategyOptions { return *v }).(RunAsGroupStrategyOptionsOutput)
+	return o.ApplyT(func(v *RunAsGroupStrategyOptions) RunAsGroupStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret RunAsGroupStrategyOptions
+		return ret
+	}).(RunAsGroupStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
@@ -7485,7 +7605,7 @@ func (o RunAsUserStrategyOptionsOutput) ToRunAsUserStrategyOptionsPtrOutput() Ru
 }
 
 func (o RunAsUserStrategyOptionsOutput) ToRunAsUserStrategyOptionsPtrOutputWithContext(ctx context.Context) RunAsUserStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) *RunAsUserStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RunAsUserStrategyOptions) *RunAsUserStrategyOptions {
 		return &v
 	}).(RunAsUserStrategyOptionsPtrOutput)
 }
@@ -7515,7 +7635,13 @@ func (o RunAsUserStrategyOptionsPtrOutput) ToRunAsUserStrategyOptionsPtrOutputWi
 }
 
 func (o RunAsUserStrategyOptionsPtrOutput) Elem() RunAsUserStrategyOptionsOutput {
-	return o.ApplyT(func(v *RunAsUserStrategyOptions) RunAsUserStrategyOptions { return *v }).(RunAsUserStrategyOptionsOutput)
+	return o.ApplyT(func(v *RunAsUserStrategyOptions) RunAsUserStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret RunAsUserStrategyOptions
+		return ret
+	}).(RunAsUserStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
@@ -7638,7 +7764,7 @@ func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutpu
 }
 
 func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutputWithContext(ctx context.Context) RuntimeClassStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v RuntimeClassStrategyOptions) *RuntimeClassStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClassStrategyOptions) *RuntimeClassStrategyOptions {
 		return &v
 	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
@@ -7668,7 +7794,13 @@ func (o RuntimeClassStrategyOptionsPtrOutput) ToRuntimeClassStrategyOptionsPtrOu
 }
 
 func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptionsOutput {
-	return o.ApplyT(func(v *RuntimeClassStrategyOptions) RuntimeClassStrategyOptions { return *v }).(RuntimeClassStrategyOptionsOutput)
+	return o.ApplyT(func(v *RuntimeClassStrategyOptions) RuntimeClassStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret RuntimeClassStrategyOptions
+		return ret
+	}).(RuntimeClassStrategyOptionsOutput)
 }
 
 // allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
@@ -7791,7 +7923,7 @@ func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutput() SELinu
 }
 
 func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutputWithContext(ctx context.Context) SELinuxStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *SELinuxStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SELinuxStrategyOptions) *SELinuxStrategyOptions {
 		return &v
 	}).(SELinuxStrategyOptionsPtrOutput)
 }
@@ -7821,7 +7953,13 @@ func (o SELinuxStrategyOptionsPtrOutput) ToSELinuxStrategyOptionsPtrOutputWithCo
 }
 
 func (o SELinuxStrategyOptionsPtrOutput) Elem() SELinuxStrategyOptionsOutput {
-	return o.ApplyT(func(v *SELinuxStrategyOptions) SELinuxStrategyOptions { return *v }).(SELinuxStrategyOptionsOutput)
+	return o.ApplyT(func(v *SELinuxStrategyOptions) SELinuxStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret SELinuxStrategyOptions
+		return ret
+	}).(SELinuxStrategyOptionsOutput)
 }
 
 // rule is the strategy that will dictate the allowable labels that may be set.
@@ -8031,7 +8169,7 @@ func (o ScaleSpecOutput) ToScaleSpecPtrOutput() ScaleSpecPtrOutput {
 }
 
 func (o ScaleSpecOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context) ScaleSpecPtrOutput {
-	return o.ApplyT(func(v ScaleSpec) *ScaleSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleSpec) *ScaleSpec {
 		return &v
 	}).(ScaleSpecPtrOutput)
 }
@@ -8056,7 +8194,13 @@ func (o ScaleSpecPtrOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o ScaleSpecPtrOutput) Elem() ScaleSpecOutput {
-	return o.ApplyT(func(v *ScaleSpec) ScaleSpec { return *v }).(ScaleSpecOutput)
+	return o.ApplyT(func(v *ScaleSpec) ScaleSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleSpec
+		return ret
+	}).(ScaleSpecOutput)
 }
 
 // desired number of instances for the scaled object.
@@ -8173,7 +8317,7 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutput() ScaleStatusPtrOutput {
 }
 
 func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context) ScaleStatusPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *ScaleStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleStatus) *ScaleStatus {
 		return &v
 	}).(ScaleStatusPtrOutput)
 }
@@ -8208,7 +8352,13 @@ func (o ScaleStatusPtrOutput) ToScaleStatusPtrOutputWithContext(ctx context.Cont
 }
 
 func (o ScaleStatusPtrOutput) Elem() ScaleStatusOutput {
-	return o.ApplyT(func(v *ScaleStatus) ScaleStatus { return *v }).(ScaleStatusOutput)
+	return o.ApplyT(func(v *ScaleStatus) ScaleStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleStatus
+		return ret
+	}).(ScaleStatusOutput)
 }
 
 // actual number of observed instances of the scaled object.
@@ -8341,7 +8491,7 @@ func (o SupplementalGroupsStrategyOptionsOutput) ToSupplementalGroupsStrategyOpt
 }
 
 func (o SupplementalGroupsStrategyOptionsOutput) ToSupplementalGroupsStrategyOptionsPtrOutputWithContext(ctx context.Context) SupplementalGroupsStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) *SupplementalGroupsStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SupplementalGroupsStrategyOptions) *SupplementalGroupsStrategyOptions {
 		return &v
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
@@ -8371,7 +8521,13 @@ func (o SupplementalGroupsStrategyOptionsPtrOutput) ToSupplementalGroupsStrategy
 }
 
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Elem() SupplementalGroupsStrategyOptionsOutput {
-	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) SupplementalGroupsStrategyOptions { return *v }).(SupplementalGroupsStrategyOptionsOutput)
+	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) SupplementalGroupsStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret SupplementalGroupsStrategyOptions
+		return ret
+	}).(SupplementalGroupsStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
