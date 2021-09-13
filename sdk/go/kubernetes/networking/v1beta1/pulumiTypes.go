@@ -256,7 +256,7 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutput() HTTPIngres
 }
 
 func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(ctx context.Context) HTTPIngressRuleValuePtrOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) *HTTPIngressRuleValue {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HTTPIngressRuleValue) *HTTPIngressRuleValue {
 		return &v
 	}).(HTTPIngressRuleValuePtrOutput)
 }
@@ -281,7 +281,13 @@ func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutputWithContex
 }
 
 func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
-	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue { return *v }).(HTTPIngressRuleValueOutput)
+	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue {
+		if v != nil {
+			return *v
+		}
+		var ret HTTPIngressRuleValue
+		return ret
+	}).(HTTPIngressRuleValueOutput)
 }
 
 // A collection of paths that map requests to backends.
@@ -576,7 +582,7 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutput() IngressBackendPtrOutpu
 }
 
 func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.Context) IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *IngressBackend {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressBackend) *IngressBackend {
 		return &v
 	}).(IngressBackendPtrOutput)
 }
@@ -611,7 +617,13 @@ func (o IngressBackendPtrOutput) ToIngressBackendPtrOutputWithContext(ctx contex
 }
 
 func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
-	return o.ApplyT(func(v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
+	return o.ApplyT(func(v *IngressBackend) IngressBackend {
+		if v != nil {
+			return *v
+		}
+		var ret IngressBackend
+		return ret
+	}).(IngressBackendOutput)
 }
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
@@ -953,7 +965,7 @@ func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutput() IngressClassSpecPt
 }
 
 func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
-	return o.ApplyT(func(v IngressClassSpec) *IngressClassSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClassSpec) *IngressClassSpec {
 		return &v
 	}).(IngressClassSpecPtrOutput)
 }
@@ -983,7 +995,13 @@ func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutputWithContext(ctx co
 }
 
 func (o IngressClassSpecPtrOutput) Elem() IngressClassSpecOutput {
-	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec { return *v }).(IngressClassSpecOutput)
+	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressClassSpec
+		return ret
+	}).(IngressClassSpecOutput)
 }
 
 // Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
@@ -1317,7 +1335,7 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutput() IngressSpecPtrOutput {
 }
 
 func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context) IngressSpecPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressSpec) *IngressSpec {
 		return &v
 	}).(IngressSpecPtrOutput)
 }
@@ -1357,7 +1375,13 @@ func (o IngressSpecPtrOutput) ToIngressSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
-	return o.ApplyT(func(v *IngressSpec) IngressSpec { return *v }).(IngressSpecOutput)
+	return o.ApplyT(func(v *IngressSpec) IngressSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressSpec
+		return ret
+	}).(IngressSpecOutput)
 }
 
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
@@ -1496,7 +1520,7 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutput() IngressStatusPtrOutput {
 }
 
 func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Context) IngressStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *IngressStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressStatus) *IngressStatus {
 		return &v
 	}).(IngressStatusPtrOutput)
 }
@@ -1521,7 +1545,13 @@ func (o IngressStatusPtrOutput) ToIngressStatusPtrOutputWithContext(ctx context.
 }
 
 func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
-	return o.ApplyT(func(v *IngressStatus) IngressStatus { return *v }).(IngressStatusOutput)
+	return o.ApplyT(func(v *IngressStatus) IngressStatus {
+		if v != nil {
+			return *v
+		}
+		var ret IngressStatus
+		return ret
+	}).(IngressStatusOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer.

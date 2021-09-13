@@ -202,9 +202,7 @@ func (i CustomResourceDefinitionMap) ToCustomResourceDefinitionMapOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionMapOutput)
 }
 
-type CustomResourceDefinitionOutput struct {
-	*pulumi.OutputState
-}
+type CustomResourceDefinitionOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CustomResourceDefinition)(nil))
@@ -223,14 +221,12 @@ func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionPtrOutput() Cu
 }
 
 func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinition) *CustomResourceDefinition {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinition) *CustomResourceDefinition {
 		return &v
 	}).(CustomResourceDefinitionPtrOutput)
 }
 
-type CustomResourceDefinitionPtrOutput struct {
-	*pulumi.OutputState
-}
+type CustomResourceDefinitionPtrOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceDefinition)(nil))
@@ -242,6 +238,16 @@ func (o CustomResourceDefinitionPtrOutput) ToCustomResourceDefinitionPtrOutput()
 
 func (o CustomResourceDefinitionPtrOutput) ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput {
 	return o
+}
+
+func (o CustomResourceDefinitionPtrOutput) Elem() CustomResourceDefinitionOutput {
+	return o.ApplyT(func(v *CustomResourceDefinition) CustomResourceDefinition {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinition
+		return ret
+	}).(CustomResourceDefinitionOutput)
 }
 
 type CustomResourceDefinitionArrayOutput struct{ *pulumi.OutputState }

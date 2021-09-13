@@ -509,7 +509,7 @@ func (o FSGroupStrategyOptionsOutput) ToFSGroupStrategyOptionsPtrOutput() FSGrou
 }
 
 func (o FSGroupStrategyOptionsOutput) ToFSGroupStrategyOptionsPtrOutputWithContext(ctx context.Context) FSGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v FSGroupStrategyOptions) *FSGroupStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FSGroupStrategyOptions) *FSGroupStrategyOptions {
 		return &v
 	}).(FSGroupStrategyOptionsPtrOutput)
 }
@@ -539,7 +539,13 @@ func (o FSGroupStrategyOptionsPtrOutput) ToFSGroupStrategyOptionsPtrOutputWithCo
 }
 
 func (o FSGroupStrategyOptionsPtrOutput) Elem() FSGroupStrategyOptionsOutput {
-	return o.ApplyT(func(v *FSGroupStrategyOptions) FSGroupStrategyOptions { return *v }).(FSGroupStrategyOptionsOutput)
+	return o.ApplyT(func(v *FSGroupStrategyOptions) FSGroupStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret FSGroupStrategyOptions
+		return ret
+	}).(FSGroupStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
@@ -1102,7 +1108,7 @@ func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutput() PodD
 }
 
 func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetSpecPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetSpec) *PodDisruptionBudgetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetSpec) *PodDisruptionBudgetSpec {
 		return &v
 	}).(PodDisruptionBudgetSpecPtrOutput)
 }
@@ -1137,7 +1143,13 @@ func (o PodDisruptionBudgetSpecPtrOutput) ToPodDisruptionBudgetSpecPtrOutputWith
 }
 
 func (o PodDisruptionBudgetSpecPtrOutput) Elem() PodDisruptionBudgetSpecOutput {
-	return o.ApplyT(func(v *PodDisruptionBudgetSpec) PodDisruptionBudgetSpec { return *v }).(PodDisruptionBudgetSpecOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetSpec) PodDisruptionBudgetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodDisruptionBudgetSpec
+		return ret
+	}).(PodDisruptionBudgetSpecOutput)
 }
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -1306,7 +1318,7 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutput() 
 }
 
 func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetStatusPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) *PodDisruptionBudgetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetStatus) *PodDisruptionBudgetStatus {
 		return &v
 	}).(PodDisruptionBudgetStatusPtrOutput)
 }
@@ -1369,7 +1381,13 @@ func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutput
 }
 
 func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutput {
-	return o.ApplyT(func(v *PodDisruptionBudgetStatus) PodDisruptionBudgetStatus { return *v }).(PodDisruptionBudgetStatusOutput)
+	return o.ApplyT(func(v *PodDisruptionBudgetStatus) PodDisruptionBudgetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodDisruptionBudgetStatus
+		return ret
+	}).(PodDisruptionBudgetStatusOutput)
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
@@ -1855,7 +1873,7 @@ func (o PodSecurityPolicySpecOutput) ToPodSecurityPolicySpecPtrOutput() PodSecur
 }
 
 func (o PodSecurityPolicySpecOutput) ToPodSecurityPolicySpecPtrOutputWithContext(ctx context.Context) PodSecurityPolicySpecPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicySpec) *PodSecurityPolicySpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityPolicySpec) *PodSecurityPolicySpec {
 		return &v
 	}).(PodSecurityPolicySpecPtrOutput)
 }
@@ -1999,7 +2017,13 @@ func (o PodSecurityPolicySpecPtrOutput) ToPodSecurityPolicySpecPtrOutputWithCont
 }
 
 func (o PodSecurityPolicySpecPtrOutput) Elem() PodSecurityPolicySpecOutput {
-	return o.ApplyT(func(v *PodSecurityPolicySpec) PodSecurityPolicySpec { return *v }).(PodSecurityPolicySpecOutput)
+	return o.ApplyT(func(v *PodSecurityPolicySpec) PodSecurityPolicySpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodSecurityPolicySpec
+		return ret
+	}).(PodSecurityPolicySpecOutput)
 }
 
 // allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
@@ -2346,7 +2370,7 @@ func (o RunAsGroupStrategyOptionsOutput) ToRunAsGroupStrategyOptionsPtrOutput() 
 }
 
 func (o RunAsGroupStrategyOptionsOutput) ToRunAsGroupStrategyOptionsPtrOutputWithContext(ctx context.Context) RunAsGroupStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v RunAsGroupStrategyOptions) *RunAsGroupStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RunAsGroupStrategyOptions) *RunAsGroupStrategyOptions {
 		return &v
 	}).(RunAsGroupStrategyOptionsPtrOutput)
 }
@@ -2376,7 +2400,13 @@ func (o RunAsGroupStrategyOptionsPtrOutput) ToRunAsGroupStrategyOptionsPtrOutput
 }
 
 func (o RunAsGroupStrategyOptionsPtrOutput) Elem() RunAsGroupStrategyOptionsOutput {
-	return o.ApplyT(func(v *RunAsGroupStrategyOptions) RunAsGroupStrategyOptions { return *v }).(RunAsGroupStrategyOptionsOutput)
+	return o.ApplyT(func(v *RunAsGroupStrategyOptions) RunAsGroupStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret RunAsGroupStrategyOptions
+		return ret
+	}).(RunAsGroupStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
@@ -2499,7 +2529,7 @@ func (o RunAsUserStrategyOptionsOutput) ToRunAsUserStrategyOptionsPtrOutput() Ru
 }
 
 func (o RunAsUserStrategyOptionsOutput) ToRunAsUserStrategyOptionsPtrOutputWithContext(ctx context.Context) RunAsUserStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v RunAsUserStrategyOptions) *RunAsUserStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RunAsUserStrategyOptions) *RunAsUserStrategyOptions {
 		return &v
 	}).(RunAsUserStrategyOptionsPtrOutput)
 }
@@ -2529,7 +2559,13 @@ func (o RunAsUserStrategyOptionsPtrOutput) ToRunAsUserStrategyOptionsPtrOutputWi
 }
 
 func (o RunAsUserStrategyOptionsPtrOutput) Elem() RunAsUserStrategyOptionsOutput {
-	return o.ApplyT(func(v *RunAsUserStrategyOptions) RunAsUserStrategyOptions { return *v }).(RunAsUserStrategyOptionsOutput)
+	return o.ApplyT(func(v *RunAsUserStrategyOptions) RunAsUserStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret RunAsUserStrategyOptions
+		return ret
+	}).(RunAsUserStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
@@ -2652,7 +2688,7 @@ func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutpu
 }
 
 func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutputWithContext(ctx context.Context) RuntimeClassStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v RuntimeClassStrategyOptions) *RuntimeClassStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClassStrategyOptions) *RuntimeClassStrategyOptions {
 		return &v
 	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
@@ -2682,7 +2718,13 @@ func (o RuntimeClassStrategyOptionsPtrOutput) ToRuntimeClassStrategyOptionsPtrOu
 }
 
 func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptionsOutput {
-	return o.ApplyT(func(v *RuntimeClassStrategyOptions) RuntimeClassStrategyOptions { return *v }).(RuntimeClassStrategyOptionsOutput)
+	return o.ApplyT(func(v *RuntimeClassStrategyOptions) RuntimeClassStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret RuntimeClassStrategyOptions
+		return ret
+	}).(RuntimeClassStrategyOptionsOutput)
 }
 
 // allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
@@ -2805,7 +2847,7 @@ func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutput() SELinu
 }
 
 func (o SELinuxStrategyOptionsOutput) ToSELinuxStrategyOptionsPtrOutputWithContext(ctx context.Context) SELinuxStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v SELinuxStrategyOptions) *SELinuxStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SELinuxStrategyOptions) *SELinuxStrategyOptions {
 		return &v
 	}).(SELinuxStrategyOptionsPtrOutput)
 }
@@ -2835,7 +2877,13 @@ func (o SELinuxStrategyOptionsPtrOutput) ToSELinuxStrategyOptionsPtrOutputWithCo
 }
 
 func (o SELinuxStrategyOptionsPtrOutput) Elem() SELinuxStrategyOptionsOutput {
-	return o.ApplyT(func(v *SELinuxStrategyOptions) SELinuxStrategyOptions { return *v }).(SELinuxStrategyOptionsOutput)
+	return o.ApplyT(func(v *SELinuxStrategyOptions) SELinuxStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret SELinuxStrategyOptions
+		return ret
+	}).(SELinuxStrategyOptionsOutput)
 }
 
 // rule is the strategy that will dictate the allowable labels that may be set.
@@ -2958,7 +3006,7 @@ func (o SupplementalGroupsStrategyOptionsOutput) ToSupplementalGroupsStrategyOpt
 }
 
 func (o SupplementalGroupsStrategyOptionsOutput) ToSupplementalGroupsStrategyOptionsPtrOutputWithContext(ctx context.Context) SupplementalGroupsStrategyOptionsPtrOutput {
-	return o.ApplyT(func(v SupplementalGroupsStrategyOptions) *SupplementalGroupsStrategyOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SupplementalGroupsStrategyOptions) *SupplementalGroupsStrategyOptions {
 		return &v
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
@@ -2988,7 +3036,13 @@ func (o SupplementalGroupsStrategyOptionsPtrOutput) ToSupplementalGroupsStrategy
 }
 
 func (o SupplementalGroupsStrategyOptionsPtrOutput) Elem() SupplementalGroupsStrategyOptionsOutput {
-	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) SupplementalGroupsStrategyOptions { return *v }).(SupplementalGroupsStrategyOptionsOutput)
+	return o.ApplyT(func(v *SupplementalGroupsStrategyOptions) SupplementalGroupsStrategyOptions {
+		if v != nil {
+			return *v
+		}
+		var ret SupplementalGroupsStrategyOptions
+		return ret
+	}).(SupplementalGroupsStrategyOptionsOutput)
 }
 
 // ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.

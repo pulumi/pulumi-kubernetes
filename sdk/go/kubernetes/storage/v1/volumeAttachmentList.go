@@ -194,9 +194,7 @@ func (i VolumeAttachmentListMap) ToVolumeAttachmentListMapOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListMapOutput)
 }
 
-type VolumeAttachmentListOutput struct {
-	*pulumi.OutputState
-}
+type VolumeAttachmentListOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*VolumeAttachmentList)(nil))
@@ -215,14 +213,12 @@ func (o VolumeAttachmentListOutput) ToVolumeAttachmentListPtrOutput() VolumeAtta
 }
 
 func (o VolumeAttachmentListOutput) ToVolumeAttachmentListPtrOutputWithContext(ctx context.Context) VolumeAttachmentListPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentList) *VolumeAttachmentList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentList) *VolumeAttachmentList {
 		return &v
 	}).(VolumeAttachmentListPtrOutput)
 }
 
-type VolumeAttachmentListPtrOutput struct {
-	*pulumi.OutputState
-}
+type VolumeAttachmentListPtrOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**VolumeAttachmentList)(nil))
@@ -234,6 +230,16 @@ func (o VolumeAttachmentListPtrOutput) ToVolumeAttachmentListPtrOutput() VolumeA
 
 func (o VolumeAttachmentListPtrOutput) ToVolumeAttachmentListPtrOutputWithContext(ctx context.Context) VolumeAttachmentListPtrOutput {
 	return o
+}
+
+func (o VolumeAttachmentListPtrOutput) Elem() VolumeAttachmentListOutput {
+	return o.ApplyT(func(v *VolumeAttachmentList) VolumeAttachmentList {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentList
+		return ret
+	}).(VolumeAttachmentListOutput)
 }
 
 type VolumeAttachmentListArrayOutput struct{ *pulumi.OutputState }

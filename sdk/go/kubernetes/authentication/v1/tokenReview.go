@@ -202,9 +202,7 @@ func (i TokenReviewMap) ToTokenReviewMapOutputWithContext(ctx context.Context) T
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewMapOutput)
 }
 
-type TokenReviewOutput struct {
-	*pulumi.OutputState
-}
+type TokenReviewOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*TokenReview)(nil))
@@ -223,14 +221,12 @@ func (o TokenReviewOutput) ToTokenReviewPtrOutput() TokenReviewPtrOutput {
 }
 
 func (o TokenReviewOutput) ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput {
-	return o.ApplyT(func(v TokenReview) *TokenReview {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReview) *TokenReview {
 		return &v
 	}).(TokenReviewPtrOutput)
 }
 
-type TokenReviewPtrOutput struct {
-	*pulumi.OutputState
-}
+type TokenReviewPtrOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TokenReview)(nil))
@@ -242,6 +238,16 @@ func (o TokenReviewPtrOutput) ToTokenReviewPtrOutput() TokenReviewPtrOutput {
 
 func (o TokenReviewPtrOutput) ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput {
 	return o
+}
+
+func (o TokenReviewPtrOutput) Elem() TokenReviewOutput {
+	return o.ApplyT(func(v *TokenReview) TokenReview {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReview
+		return ret
+	}).(TokenReviewOutput)
 }
 
 type TokenReviewArrayOutput struct{ *pulumi.OutputState }

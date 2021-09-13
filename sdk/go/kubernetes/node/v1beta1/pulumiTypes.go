@@ -108,7 +108,7 @@ func (o OverheadOutput) ToOverheadPtrOutput() OverheadPtrOutput {
 }
 
 func (o OverheadOutput) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
-	return o.ApplyT(func(v Overhead) *Overhead {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Overhead) *Overhead {
 		return &v
 	}).(OverheadPtrOutput)
 }
@@ -133,7 +133,13 @@ func (o OverheadPtrOutput) ToOverheadPtrOutputWithContext(ctx context.Context) O
 }
 
 func (o OverheadPtrOutput) Elem() OverheadOutput {
-	return o.ApplyT(func(v *Overhead) Overhead { return *v }).(OverheadOutput)
+	return o.ApplyT(func(v *Overhead) Overhead {
+		if v != nil {
+			return *v
+		}
+		var ret Overhead
+		return ret
+	}).(OverheadOutput)
 }
 
 // PodFixed represents the fixed resource overhead associated with running a pod.
@@ -473,7 +479,7 @@ func (o SchedulingOutput) ToSchedulingPtrOutput() SchedulingPtrOutput {
 }
 
 func (o SchedulingOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
-	return o.ApplyT(func(v Scheduling) *Scheduling {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Scheduling) *Scheduling {
 		return &v
 	}).(SchedulingPtrOutput)
 }
@@ -503,7 +509,13 @@ func (o SchedulingPtrOutput) ToSchedulingPtrOutputWithContext(ctx context.Contex
 }
 
 func (o SchedulingPtrOutput) Elem() SchedulingOutput {
-	return o.ApplyT(func(v *Scheduling) Scheduling { return *v }).(SchedulingOutput)
+	return o.ApplyT(func(v *Scheduling) Scheduling {
+		if v != nil {
+			return *v
+		}
+		var ret Scheduling
+		return ret
+	}).(SchedulingOutput)
 }
 
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.

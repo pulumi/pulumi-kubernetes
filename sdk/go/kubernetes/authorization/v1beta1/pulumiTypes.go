@@ -199,7 +199,7 @@ func (o NonResourceAttributesOutput) ToNonResourceAttributesPtrOutput() NonResou
 }
 
 func (o NonResourceAttributesOutput) ToNonResourceAttributesPtrOutputWithContext(ctx context.Context) NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v NonResourceAttributes) *NonResourceAttributes {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NonResourceAttributes) *NonResourceAttributes {
 		return &v
 	}).(NonResourceAttributesPtrOutput)
 }
@@ -229,7 +229,13 @@ func (o NonResourceAttributesPtrOutput) ToNonResourceAttributesPtrOutputWithCont
 }
 
 func (o NonResourceAttributesPtrOutput) Elem() NonResourceAttributesOutput {
-	return o.ApplyT(func(v *NonResourceAttributes) NonResourceAttributes { return *v }).(NonResourceAttributesOutput)
+	return o.ApplyT(func(v *NonResourceAttributes) NonResourceAttributes {
+		if v != nil {
+			return *v
+		}
+		var ret NonResourceAttributes
+		return ret
+	}).(NonResourceAttributesOutput)
 }
 
 // Path is the URL path of the request
@@ -481,7 +487,7 @@ func (o ResourceAttributesOutput) ToResourceAttributesPtrOutput() ResourceAttrib
 }
 
 func (o ResourceAttributesOutput) ToResourceAttributesPtrOutputWithContext(ctx context.Context) ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *ResourceAttributes {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceAttributes) *ResourceAttributes {
 		return &v
 	}).(ResourceAttributesPtrOutput)
 }
@@ -536,7 +542,13 @@ func (o ResourceAttributesPtrOutput) ToResourceAttributesPtrOutputWithContext(ct
 }
 
 func (o ResourceAttributesPtrOutput) Elem() ResourceAttributesOutput {
-	return o.ApplyT(func(v *ResourceAttributes) ResourceAttributes { return *v }).(ResourceAttributesOutput)
+	return o.ApplyT(func(v *ResourceAttributes) ResourceAttributes {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceAttributes
+		return ret
+	}).(ResourceAttributesOutput)
 }
 
 // Group is the API Group of the Resource.  "*" means all.
@@ -927,7 +939,7 @@ func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutpu
 }
 
 func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *SelfSubjectAccessReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectAccessReviewSpec) *SelfSubjectAccessReviewSpec {
 		return &v
 	}).(SelfSubjectAccessReviewSpecPtrOutput)
 }
@@ -957,7 +969,13 @@ func (o SelfSubjectAccessReviewSpecPtrOutput) ToSelfSubjectAccessReviewSpecPtrOu
 }
 
 func (o SelfSubjectAccessReviewSpecPtrOutput) Elem() SelfSubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) SelfSubjectAccessReviewSpec { return *v }).(SelfSubjectAccessReviewSpecOutput)
+	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) SelfSubjectAccessReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectAccessReviewSpec
+		return ret
+	}).(SelfSubjectAccessReviewSpecOutput)
 }
 
 // NonResourceAttributes describes information for a non-resource access request
@@ -1161,7 +1179,7 @@ func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutput(
 }
 
 func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewSpec) *SelfSubjectRulesReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReviewSpec) *SelfSubjectRulesReviewSpec {
 		return &v
 	}).(SelfSubjectRulesReviewSpecPtrOutput)
 }
@@ -1186,7 +1204,13 @@ func (o SelfSubjectRulesReviewSpecPtrOutput) ToSelfSubjectRulesReviewSpecPtrOutp
 }
 
 func (o SelfSubjectRulesReviewSpecPtrOutput) Elem() SelfSubjectRulesReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) SelfSubjectRulesReviewSpec { return *v }).(SelfSubjectRulesReviewSpecOutput)
+	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) SelfSubjectRulesReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectRulesReviewSpec
+		return ret
+	}).(SelfSubjectRulesReviewSpecOutput)
 }
 
 // Namespace to evaluate rules for. Required.
@@ -1403,7 +1427,7 @@ func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutput() Subj
 }
 
 func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) *SubjectAccessReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewSpec) *SubjectAccessReviewSpec {
 		return &v
 	}).(SubjectAccessReviewSpecPtrOutput)
 }
@@ -1453,7 +1477,13 @@ func (o SubjectAccessReviewSpecPtrOutput) ToSubjectAccessReviewSpecPtrOutputWith
 }
 
 func (o SubjectAccessReviewSpecPtrOutput) Elem() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) SubjectAccessReviewSpec { return *v }).(SubjectAccessReviewSpecOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) SubjectAccessReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectAccessReviewSpec
+		return ret
+	}).(SubjectAccessReviewSpecOutput)
 }
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
@@ -1624,7 +1654,7 @@ func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutput() 
 }
 
 func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *SubjectAccessReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewStatus) *SubjectAccessReviewStatus {
 		return &v
 	}).(SubjectAccessReviewStatusPtrOutput)
 }
@@ -1664,7 +1694,13 @@ func (o SubjectAccessReviewStatusPtrOutput) ToSubjectAccessReviewStatusPtrOutput
 }
 
 func (o SubjectAccessReviewStatusPtrOutput) Elem() SubjectAccessReviewStatusOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewStatus) SubjectAccessReviewStatus { return *v }).(SubjectAccessReviewStatusOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewStatus) SubjectAccessReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectAccessReviewStatus
+		return ret
+	}).(SubjectAccessReviewStatusOutput)
 }
 
 // Allowed is required. True if the action would be allowed, false otherwise.
@@ -1815,7 +1851,7 @@ func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutput() Su
 }
 
 func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPtrOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) *SubjectRulesReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectRulesReviewStatus) *SubjectRulesReviewStatus {
 		return &v
 	}).(SubjectRulesReviewStatusPtrOutput)
 }
@@ -1855,7 +1891,13 @@ func (o SubjectRulesReviewStatusPtrOutput) ToSubjectRulesReviewStatusPtrOutputWi
 }
 
 func (o SubjectRulesReviewStatusPtrOutput) Elem() SubjectRulesReviewStatusOutput {
-	return o.ApplyT(func(v *SubjectRulesReviewStatus) SubjectRulesReviewStatus { return *v }).(SubjectRulesReviewStatusOutput)
+	return o.ApplyT(func(v *SubjectRulesReviewStatus) SubjectRulesReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectRulesReviewStatus
+		return ret
+	}).(SubjectRulesReviewStatusOutput)
 }
 
 // EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.

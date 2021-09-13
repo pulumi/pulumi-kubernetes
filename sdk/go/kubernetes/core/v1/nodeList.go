@@ -194,9 +194,7 @@ func (i NodeListMap) ToNodeListMapOutputWithContext(ctx context.Context) NodeLis
 	return pulumi.ToOutputWithContext(ctx, i).(NodeListMapOutput)
 }
 
-type NodeListOutput struct {
-	*pulumi.OutputState
-}
+type NodeListOutput struct{ *pulumi.OutputState }
 
 func (NodeListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NodeList)(nil))
@@ -215,14 +213,12 @@ func (o NodeListOutput) ToNodeListPtrOutput() NodeListPtrOutput {
 }
 
 func (o NodeListOutput) ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput {
-	return o.ApplyT(func(v NodeList) *NodeList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeList) *NodeList {
 		return &v
 	}).(NodeListPtrOutput)
 }
 
-type NodeListPtrOutput struct {
-	*pulumi.OutputState
-}
+type NodeListPtrOutput struct{ *pulumi.OutputState }
 
 func (NodeListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NodeList)(nil))
@@ -234,6 +230,16 @@ func (o NodeListPtrOutput) ToNodeListPtrOutput() NodeListPtrOutput {
 
 func (o NodeListPtrOutput) ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput {
 	return o
+}
+
+func (o NodeListPtrOutput) Elem() NodeListOutput {
+	return o.ApplyT(func(v *NodeList) NodeList {
+		if v != nil {
+			return *v
+		}
+		var ret NodeList
+		return ret
+	}).(NodeListOutput)
 }
 
 type NodeListArrayOutput struct{ *pulumi.OutputState }

@@ -11,31 +11,56 @@ from .yaml import *
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_kubernetes.admissionregistration as admissionregistration
-    import pulumi_kubernetes.apiextensions as apiextensions
-    import pulumi_kubernetes.apiregistration as apiregistration
-    import pulumi_kubernetes.apps as apps
-    import pulumi_kubernetes.auditregistration as auditregistration
-    import pulumi_kubernetes.authentication as authentication
-    import pulumi_kubernetes.authorization as authorization
-    import pulumi_kubernetes.autoscaling as autoscaling
-    import pulumi_kubernetes.batch as batch
-    import pulumi_kubernetes.certificates as certificates
-    import pulumi_kubernetes.coordination as coordination
-    import pulumi_kubernetes.core as core
-    import pulumi_kubernetes.discovery as discovery
-    import pulumi_kubernetes.events as events
-    import pulumi_kubernetes.extensions as extensions
-    import pulumi_kubernetes.flowcontrol as flowcontrol
-    import pulumi_kubernetes.helm as helm
-    import pulumi_kubernetes.meta as meta
-    import pulumi_kubernetes.networking as networking
-    import pulumi_kubernetes.node as node
-    import pulumi_kubernetes.policy as policy
-    import pulumi_kubernetes.rbac as rbac
-    import pulumi_kubernetes.scheduling as scheduling
-    import pulumi_kubernetes.settings as settings
-    import pulumi_kubernetes.storage as storage
+    import pulumi_kubernetes.admissionregistration as __admissionregistration
+    admissionregistration = __admissionregistration
+    import pulumi_kubernetes.apiextensions as __apiextensions
+    apiextensions = __apiextensions
+    import pulumi_kubernetes.apiregistration as __apiregistration
+    apiregistration = __apiregistration
+    import pulumi_kubernetes.apps as __apps
+    apps = __apps
+    import pulumi_kubernetes.auditregistration as __auditregistration
+    auditregistration = __auditregistration
+    import pulumi_kubernetes.authentication as __authentication
+    authentication = __authentication
+    import pulumi_kubernetes.authorization as __authorization
+    authorization = __authorization
+    import pulumi_kubernetes.autoscaling as __autoscaling
+    autoscaling = __autoscaling
+    import pulumi_kubernetes.batch as __batch
+    batch = __batch
+    import pulumi_kubernetes.certificates as __certificates
+    certificates = __certificates
+    import pulumi_kubernetes.coordination as __coordination
+    coordination = __coordination
+    import pulumi_kubernetes.core as __core
+    core = __core
+    import pulumi_kubernetes.discovery as __discovery
+    discovery = __discovery
+    import pulumi_kubernetes.events as __events
+    events = __events
+    import pulumi_kubernetes.extensions as __extensions
+    extensions = __extensions
+    import pulumi_kubernetes.flowcontrol as __flowcontrol
+    flowcontrol = __flowcontrol
+    import pulumi_kubernetes.helm as __helm
+    helm = __helm
+    import pulumi_kubernetes.meta as __meta
+    meta = __meta
+    import pulumi_kubernetes.networking as __networking
+    networking = __networking
+    import pulumi_kubernetes.node as __node
+    node = __node
+    import pulumi_kubernetes.policy as __policy
+    policy = __policy
+    import pulumi_kubernetes.rbac as __rbac
+    rbac = __rbac
+    import pulumi_kubernetes.scheduling as __scheduling
+    scheduling = __scheduling
+    import pulumi_kubernetes.settings as __settings
+    settings = __settings
+    import pulumi_kubernetes.storage as __storage
+    storage = __storage
 else:
     admissionregistration = _utilities.lazy_import('pulumi_kubernetes.admissionregistration')
     apiextensions = _utilities.lazy_import('pulumi_kubernetes.apiextensions')

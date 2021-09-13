@@ -378,9 +378,7 @@ func (i ReleaseMap) ToReleaseMapOutputWithContext(ctx context.Context) ReleaseMa
 	return pulumi.ToOutputWithContext(ctx, i).(ReleaseMapOutput)
 }
 
-type ReleaseOutput struct {
-	*pulumi.OutputState
-}
+type ReleaseOutput struct{ *pulumi.OutputState }
 
 func (ReleaseOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Release)(nil))
@@ -399,14 +397,12 @@ func (o ReleaseOutput) ToReleasePtrOutput() ReleasePtrOutput {
 }
 
 func (o ReleaseOutput) ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput {
-	return o.ApplyT(func(v Release) *Release {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Release) *Release {
 		return &v
 	}).(ReleasePtrOutput)
 }
 
-type ReleasePtrOutput struct {
-	*pulumi.OutputState
-}
+type ReleasePtrOutput struct{ *pulumi.OutputState }
 
 func (ReleasePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Release)(nil))
@@ -418,6 +414,16 @@ func (o ReleasePtrOutput) ToReleasePtrOutput() ReleasePtrOutput {
 
 func (o ReleasePtrOutput) ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput {
 	return o
+}
+
+func (o ReleasePtrOutput) Elem() ReleaseOutput {
+	return o.ApplyT(func(v *Release) Release {
+		if v != nil {
+			return *v
+		}
+		var ret Release
+		return ret
+	}).(ReleaseOutput)
 }
 
 type ReleaseArrayOutput struct{ *pulumi.OutputState }

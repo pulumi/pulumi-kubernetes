@@ -632,7 +632,7 @@ func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrO
 }
 
 func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrOutputWithContext(ctx context.Context) CertificateSigningRequestSpecPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *CertificateSigningRequestSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestSpec) *CertificateSigningRequestSpec {
 		return &v
 	}).(CertificateSigningRequestSpecPtrOutput)
 }
@@ -738,7 +738,13 @@ func (o CertificateSigningRequestSpecPtrOutput) ToCertificateSigningRequestSpecP
 }
 
 func (o CertificateSigningRequestSpecPtrOutput) Elem() CertificateSigningRequestSpecOutput {
-	return o.ApplyT(func(v *CertificateSigningRequestSpec) CertificateSigningRequestSpec { return *v }).(CertificateSigningRequestSpecOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) CertificateSigningRequestSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CertificateSigningRequestSpec
+		return ret
+	}).(CertificateSigningRequestSpecOutput)
 }
 
 // expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
@@ -1009,7 +1015,7 @@ func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatus
 }
 
 func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatusPtrOutputWithContext(ctx context.Context) CertificateSigningRequestStatusPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestStatus) *CertificateSigningRequestStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestStatus) *CertificateSigningRequestStatus {
 		return &v
 	}).(CertificateSigningRequestStatusPtrOutput)
 }
@@ -1060,7 +1066,13 @@ func (o CertificateSigningRequestStatusPtrOutput) ToCertificateSigningRequestSta
 }
 
 func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningRequestStatusOutput {
-	return o.ApplyT(func(v *CertificateSigningRequestStatus) CertificateSigningRequestStatus { return *v }).(CertificateSigningRequestStatusOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestStatus) CertificateSigningRequestStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CertificateSigningRequestStatus
+		return ret
+	}).(CertificateSigningRequestStatusOutput)
 }
 
 // certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.

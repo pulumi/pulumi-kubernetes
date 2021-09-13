@@ -7,8 +7,10 @@ import typing
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_kubernetes.helm.v2 as v2
-    import pulumi_kubernetes.helm.v3 as v3
+    import pulumi_kubernetes.helm.v2 as __v2
+    v2 = __v2
+    import pulumi_kubernetes.helm.v3 as __v3
+    v3 = __v3
 else:
     v2 = _utilities.lazy_import('pulumi_kubernetes.helm.v2')
     v3 = _utilities.lazy_import('pulumi_kubernetes.helm.v3')

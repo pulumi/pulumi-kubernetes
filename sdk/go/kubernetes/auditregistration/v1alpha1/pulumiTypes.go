@@ -314,7 +314,7 @@ func (o AuditSinkSpecOutput) ToAuditSinkSpecPtrOutput() AuditSinkSpecPtrOutput {
 }
 
 func (o AuditSinkSpecOutput) ToAuditSinkSpecPtrOutputWithContext(ctx context.Context) AuditSinkSpecPtrOutput {
-	return o.ApplyT(func(v AuditSinkSpec) *AuditSinkSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AuditSinkSpec) *AuditSinkSpec {
 		return &v
 	}).(AuditSinkSpecPtrOutput)
 }
@@ -344,7 +344,13 @@ func (o AuditSinkSpecPtrOutput) ToAuditSinkSpecPtrOutputWithContext(ctx context.
 }
 
 func (o AuditSinkSpecPtrOutput) Elem() AuditSinkSpecOutput {
-	return o.ApplyT(func(v *AuditSinkSpec) AuditSinkSpec { return *v }).(AuditSinkSpecOutput)
+	return o.ApplyT(func(v *AuditSinkSpec) AuditSinkSpec {
+		if v != nil {
+			return *v
+		}
+		var ret AuditSinkSpec
+		return ret
+	}).(AuditSinkSpecOutput)
 }
 
 // Policy defines the policy for selecting which events should be sent to the webhook required
@@ -467,7 +473,7 @@ func (o PolicyOutput) ToPolicyPtrOutput() PolicyPtrOutput {
 }
 
 func (o PolicyOutput) ToPolicyPtrOutputWithContext(ctx context.Context) PolicyPtrOutput {
-	return o.ApplyT(func(v Policy) *Policy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Policy) *Policy {
 		return &v
 	}).(PolicyPtrOutput)
 }
@@ -497,7 +503,13 @@ func (o PolicyPtrOutput) ToPolicyPtrOutputWithContext(ctx context.Context) Polic
 }
 
 func (o PolicyPtrOutput) Elem() PolicyOutput {
-	return o.ApplyT(func(v *Policy) Policy { return *v }).(PolicyOutput)
+	return o.ApplyT(func(v *Policy) Policy {
+		if v != nil {
+			return *v
+		}
+		var ret Policy
+		return ret
+	}).(PolicyOutput)
 }
 
 // The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
@@ -628,7 +640,7 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutput() ServiceReferencePt
 }
 
 func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o.ApplyT(func(v ServiceReference) *ServiceReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
@@ -668,7 +680,13 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceReference
+		return ret
+	}).(ServiceReferenceOutput)
 }
 
 // `name` is the name of the service. Required
@@ -811,7 +829,7 @@ func (o WebhookOutput) ToWebhookPtrOutput() WebhookPtrOutput {
 }
 
 func (o WebhookOutput) ToWebhookPtrOutputWithContext(ctx context.Context) WebhookPtrOutput {
-	return o.ApplyT(func(v Webhook) *Webhook {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Webhook) *Webhook {
 		return &v
 	}).(WebhookPtrOutput)
 }
@@ -841,7 +859,13 @@ func (o WebhookPtrOutput) ToWebhookPtrOutputWithContext(ctx context.Context) Web
 }
 
 func (o WebhookPtrOutput) Elem() WebhookOutput {
-	return o.ApplyT(func(v *Webhook) Webhook { return *v }).(WebhookOutput)
+	return o.ApplyT(func(v *Webhook) Webhook {
+		if v != nil {
+			return *v
+		}
+		var ret Webhook
+		return ret
+	}).(WebhookOutput)
 }
 
 // ClientConfig holds the connection parameters for the webhook required
@@ -992,7 +1016,7 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutput() WebhookClien
 }
 
 func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *WebhookClientConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfig) *WebhookClientConfig {
 		return &v
 	}).(WebhookClientConfigPtrOutput)
 }
@@ -1039,7 +1063,13 @@ func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(
 }
 
 func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
-	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig { return *v }).(WebhookClientConfigOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig {
+		if v != nil {
+			return *v
+		}
+		var ret WebhookClientConfig
+		return ret
+	}).(WebhookClientConfigOutput)
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -1184,7 +1214,7 @@ func (o WebhookThrottleConfigOutput) ToWebhookThrottleConfigPtrOutput() WebhookT
 }
 
 func (o WebhookThrottleConfigOutput) ToWebhookThrottleConfigPtrOutputWithContext(ctx context.Context) WebhookThrottleConfigPtrOutput {
-	return o.ApplyT(func(v WebhookThrottleConfig) *WebhookThrottleConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookThrottleConfig) *WebhookThrottleConfig {
 		return &v
 	}).(WebhookThrottleConfigPtrOutput)
 }
@@ -1214,7 +1244,13 @@ func (o WebhookThrottleConfigPtrOutput) ToWebhookThrottleConfigPtrOutputWithCont
 }
 
 func (o WebhookThrottleConfigPtrOutput) Elem() WebhookThrottleConfigOutput {
-	return o.ApplyT(func(v *WebhookThrottleConfig) WebhookThrottleConfig { return *v }).(WebhookThrottleConfigOutput)
+	return o.ApplyT(func(v *WebhookThrottleConfig) WebhookThrottleConfig {
+		if v != nil {
+			return *v
+		}
+		var ret WebhookThrottleConfig
+		return ret
+	}).(WebhookThrottleConfigOutput)
 }
 
 // ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS

@@ -209,9 +209,7 @@ func (i RoleBindingMap) ToRoleBindingMapOutputWithContext(ctx context.Context) R
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingMapOutput)
 }
 
-type RoleBindingOutput struct {
-	*pulumi.OutputState
-}
+type RoleBindingOutput struct{ *pulumi.OutputState }
 
 func (RoleBindingOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RoleBinding)(nil))
@@ -230,14 +228,12 @@ func (o RoleBindingOutput) ToRoleBindingPtrOutput() RoleBindingPtrOutput {
 }
 
 func (o RoleBindingOutput) ToRoleBindingPtrOutputWithContext(ctx context.Context) RoleBindingPtrOutput {
-	return o.ApplyT(func(v RoleBinding) *RoleBinding {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleBinding) *RoleBinding {
 		return &v
 	}).(RoleBindingPtrOutput)
 }
 
-type RoleBindingPtrOutput struct {
-	*pulumi.OutputState
-}
+type RoleBindingPtrOutput struct{ *pulumi.OutputState }
 
 func (RoleBindingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RoleBinding)(nil))
@@ -249,6 +245,16 @@ func (o RoleBindingPtrOutput) ToRoleBindingPtrOutput() RoleBindingPtrOutput {
 
 func (o RoleBindingPtrOutput) ToRoleBindingPtrOutputWithContext(ctx context.Context) RoleBindingPtrOutput {
 	return o
+}
+
+func (o RoleBindingPtrOutput) Elem() RoleBindingOutput {
+	return o.ApplyT(func(v *RoleBinding) RoleBinding {
+		if v != nil {
+			return *v
+		}
+		var ret RoleBinding
+		return ret
+	}).(RoleBindingOutput)
 }
 
 type RoleBindingArrayOutput struct{ *pulumi.OutputState }

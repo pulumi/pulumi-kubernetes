@@ -187,9 +187,7 @@ func (i CertificateSigningRequestListMap) ToCertificateSigningRequestListMapOutp
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListMapOutput)
 }
 
-type CertificateSigningRequestListOutput struct {
-	*pulumi.OutputState
-}
+type CertificateSigningRequestListOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CertificateSigningRequestList)(nil))
@@ -208,14 +206,12 @@ func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListPtrO
 }
 
 func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestList) *CertificateSigningRequestList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestList) *CertificateSigningRequestList {
 		return &v
 	}).(CertificateSigningRequestListPtrOutput)
 }
 
-type CertificateSigningRequestListPtrOutput struct {
-	*pulumi.OutputState
-}
+type CertificateSigningRequestListPtrOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CertificateSigningRequestList)(nil))
@@ -227,6 +223,16 @@ func (o CertificateSigningRequestListPtrOutput) ToCertificateSigningRequestListP
 
 func (o CertificateSigningRequestListPtrOutput) ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput {
 	return o
+}
+
+func (o CertificateSigningRequestListPtrOutput) Elem() CertificateSigningRequestListOutput {
+	return o.ApplyT(func(v *CertificateSigningRequestList) CertificateSigningRequestList {
+		if v != nil {
+			return *v
+		}
+		var ret CertificateSigningRequestList
+		return ret
+	}).(CertificateSigningRequestListOutput)
 }
 
 type CertificateSigningRequestListArrayOutput struct{ *pulumi.OutputState }

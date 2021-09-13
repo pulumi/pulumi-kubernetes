@@ -196,9 +196,7 @@ func (i TokenRequestMap) ToTokenRequestMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestMapOutput)
 }
 
-type TokenRequestOutput struct {
-	*pulumi.OutputState
-}
+type TokenRequestOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*TokenRequest)(nil))
@@ -217,14 +215,12 @@ func (o TokenRequestOutput) ToTokenRequestPtrOutput() TokenRequestPtrOutput {
 }
 
 func (o TokenRequestOutput) ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput {
-	return o.ApplyT(func(v TokenRequest) *TokenRequest {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequest) *TokenRequest {
 		return &v
 	}).(TokenRequestPtrOutput)
 }
 
-type TokenRequestPtrOutput struct {
-	*pulumi.OutputState
-}
+type TokenRequestPtrOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**TokenRequest)(nil))
@@ -236,6 +232,16 @@ func (o TokenRequestPtrOutput) ToTokenRequestPtrOutput() TokenRequestPtrOutput {
 
 func (o TokenRequestPtrOutput) ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput {
 	return o
+}
+
+func (o TokenRequestPtrOutput) Elem() TokenRequestOutput {
+	return o.ApplyT(func(v *TokenRequest) TokenRequest {
+		if v != nil {
+			return *v
+		}
+		var ret TokenRequest
+		return ret
+	}).(TokenRequestOutput)
 }
 
 type TokenRequestArrayOutput struct{ *pulumi.OutputState }

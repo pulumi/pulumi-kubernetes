@@ -350,7 +350,7 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 }
 
 func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *CronJobSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpec) *CronJobSpec {
 		return &v
 	}).(CronJobSpecPtrOutput)
 }
@@ -405,7 +405,13 @@ func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
-	return o.ApplyT(func(v *CronJobSpec) CronJobSpec { return *v }).(CronJobSpecOutput)
+	return o.ApplyT(func(v *CronJobSpec) CronJobSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobSpec
+		return ret
+	}).(CronJobSpecOutput)
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -582,7 +588,7 @@ func (o CronJobStatusOutput) ToCronJobStatusPtrOutput() CronJobStatusPtrOutput {
 }
 
 func (o CronJobStatusOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Context) CronJobStatusPtrOutput {
-	return o.ApplyT(func(v CronJobStatus) *CronJobStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobStatus) *CronJobStatus {
 		return &v
 	}).(CronJobStatusPtrOutput)
 }
@@ -617,7 +623,13 @@ func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutputWithContext(ctx context.
 }
 
 func (o CronJobStatusPtrOutput) Elem() CronJobStatusOutput {
-	return o.ApplyT(func(v *CronJobStatus) CronJobStatus { return *v }).(CronJobStatusOutput)
+	return o.ApplyT(func(v *CronJobStatus) CronJobStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobStatus
+		return ret
+	}).(CronJobStatusOutput)
 }
 
 // A list of pointers to currently running jobs.
@@ -1221,7 +1233,7 @@ func (o JobSpecOutput) ToJobSpecPtrOutput() JobSpecPtrOutput {
 }
 
 func (o JobSpecOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpecPtrOutput {
-	return o.ApplyT(func(v JobSpec) *JobSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobSpec) *JobSpec {
 		return &v
 	}).(JobSpecPtrOutput)
 }
@@ -1299,7 +1311,13 @@ func (o JobSpecPtrOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) Job
 }
 
 func (o JobSpecPtrOutput) Elem() JobSpecOutput {
-	return o.ApplyT(func(v *JobSpec) JobSpec { return *v }).(JobSpecOutput)
+	return o.ApplyT(func(v *JobSpec) JobSpec {
+		if v != nil {
+			return *v
+		}
+		var ret JobSpec
+		return ret
+	}).(JobSpecOutput)
 }
 
 // Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
@@ -1544,7 +1562,7 @@ func (o JobStatusOutput) ToJobStatusPtrOutput() JobStatusPtrOutput {
 }
 
 func (o JobStatusOutput) ToJobStatusPtrOutputWithContext(ctx context.Context) JobStatusPtrOutput {
-	return o.ApplyT(func(v JobStatus) *JobStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobStatus) *JobStatus {
 		return &v
 	}).(JobStatusPtrOutput)
 }
@@ -1609,7 +1627,13 @@ func (o JobStatusPtrOutput) ToJobStatusPtrOutputWithContext(ctx context.Context)
 }
 
 func (o JobStatusPtrOutput) Elem() JobStatusOutput {
-	return o.ApplyT(func(v *JobStatus) JobStatus { return *v }).(JobStatusOutput)
+	return o.ApplyT(func(v *JobStatus) JobStatus {
+		if v != nil {
+			return *v
+		}
+		var ret JobStatus
+		return ret
+	}).(JobStatusOutput)
 }
 
 // The number of actively running pods.
@@ -1797,7 +1821,7 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOu
 }
 
 func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v JobTemplateSpec) *JobTemplateSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobTemplateSpec) *JobTemplateSpec {
 		return &v
 	}).(JobTemplateSpecPtrOutput)
 }
@@ -1827,7 +1851,13 @@ func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutputWithContext(ctx cont
 }
 
 func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
-	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec { return *v }).(JobTemplateSpecOutput)
+	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec {
+		if v != nil {
+			return *v
+		}
+		var ret JobTemplateSpec
+		return ret
+	}).(JobTemplateSpecOutput)
 }
 
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1950,7 +1980,7 @@ func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsPtrOutput() Unco
 }
 
 func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPtrOutput {
-	return o.ApplyT(func(v UncountedTerminatedPods) *UncountedTerminatedPods {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UncountedTerminatedPods) *UncountedTerminatedPods {
 		return &v
 	}).(UncountedTerminatedPodsPtrOutput)
 }
@@ -1980,7 +2010,13 @@ func (o UncountedTerminatedPodsPtrOutput) ToUncountedTerminatedPodsPtrOutputWith
 }
 
 func (o UncountedTerminatedPodsPtrOutput) Elem() UncountedTerminatedPodsOutput {
-	return o.ApplyT(func(v *UncountedTerminatedPods) UncountedTerminatedPods { return *v }).(UncountedTerminatedPodsOutput)
+	return o.ApplyT(func(v *UncountedTerminatedPods) UncountedTerminatedPods {
+		if v != nil {
+			return *v
+		}
+		var ret UncountedTerminatedPods
+		return ret
+	}).(UncountedTerminatedPodsOutput)
 }
 
 // Failed holds UIDs of failed Pods.

@@ -194,9 +194,7 @@ func (i ConfigMapListMap) ToConfigMapListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListMapOutput)
 }
 
-type ConfigMapListOutput struct {
-	*pulumi.OutputState
-}
+type ConfigMapListOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ConfigMapList)(nil))
@@ -215,14 +213,12 @@ func (o ConfigMapListOutput) ToConfigMapListPtrOutput() ConfigMapListPtrOutput {
 }
 
 func (o ConfigMapListOutput) ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput {
-	return o.ApplyT(func(v ConfigMapList) *ConfigMapList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapList) *ConfigMapList {
 		return &v
 	}).(ConfigMapListPtrOutput)
 }
 
-type ConfigMapListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ConfigMapListPtrOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ConfigMapList)(nil))
@@ -234,6 +230,16 @@ func (o ConfigMapListPtrOutput) ToConfigMapListPtrOutput() ConfigMapListPtrOutpu
 
 func (o ConfigMapListPtrOutput) ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput {
 	return o
+}
+
+func (o ConfigMapListPtrOutput) Elem() ConfigMapListOutput {
+	return o.ApplyT(func(v *ConfigMapList) ConfigMapList {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapList
+		return ret
+	}).(ConfigMapListOutput)
 }
 
 type ConfigMapListArrayOutput struct{ *pulumi.OutputState }

@@ -194,9 +194,7 @@ func (i ServiceListMap) ToServiceListMapOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceListMapOutput)
 }
 
-type ServiceListOutput struct {
-	*pulumi.OutputState
-}
+type ServiceListOutput struct{ *pulumi.OutputState }
 
 func (ServiceListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ServiceList)(nil))
@@ -215,14 +213,12 @@ func (o ServiceListOutput) ToServiceListPtrOutput() ServiceListPtrOutput {
 }
 
 func (o ServiceListOutput) ToServiceListPtrOutputWithContext(ctx context.Context) ServiceListPtrOutput {
-	return o.ApplyT(func(v ServiceList) *ServiceList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceList) *ServiceList {
 		return &v
 	}).(ServiceListPtrOutput)
 }
 
-type ServiceListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ServiceListPtrOutput struct{ *pulumi.OutputState }
 
 func (ServiceListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ServiceList)(nil))
@@ -234,6 +230,16 @@ func (o ServiceListPtrOutput) ToServiceListPtrOutput() ServiceListPtrOutput {
 
 func (o ServiceListPtrOutput) ToServiceListPtrOutputWithContext(ctx context.Context) ServiceListPtrOutput {
 	return o
+}
+
+func (o ServiceListPtrOutput) Elem() ServiceListOutput {
+	return o.ApplyT(func(v *ServiceList) ServiceList {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceList
+		return ret
+	}).(ServiceListOutput)
 }
 
 type ServiceListArrayOutput struct{ *pulumi.OutputState }

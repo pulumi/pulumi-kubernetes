@@ -493,7 +493,7 @@ func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrO
 }
 
 func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrOutputWithContext(ctx context.Context) CertificateSigningRequestSpecPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestSpec) *CertificateSigningRequestSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestSpec) *CertificateSigningRequestSpec {
 		return &v
 	}).(CertificateSigningRequestSpecPtrOutput)
 }
@@ -555,7 +555,13 @@ func (o CertificateSigningRequestSpecPtrOutput) ToCertificateSigningRequestSpecP
 }
 
 func (o CertificateSigningRequestSpecPtrOutput) Elem() CertificateSigningRequestSpecOutput {
-	return o.ApplyT(func(v *CertificateSigningRequestSpec) CertificateSigningRequestSpec { return *v }).(CertificateSigningRequestSpecOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestSpec) CertificateSigningRequestSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CertificateSigningRequestSpec
+		return ret
+	}).(CertificateSigningRequestSpecOutput)
 }
 
 // Extra information about the requesting user. See user.Info interface for details.
@@ -732,7 +738,7 @@ func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatus
 }
 
 func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatusPtrOutputWithContext(ctx context.Context) CertificateSigningRequestStatusPtrOutput {
-	return o.ApplyT(func(v CertificateSigningRequestStatus) *CertificateSigningRequestStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestStatus) *CertificateSigningRequestStatus {
 		return &v
 	}).(CertificateSigningRequestStatusPtrOutput)
 }
@@ -762,7 +768,13 @@ func (o CertificateSigningRequestStatusPtrOutput) ToCertificateSigningRequestSta
 }
 
 func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningRequestStatusOutput {
-	return o.ApplyT(func(v *CertificateSigningRequestStatus) CertificateSigningRequestStatus { return *v }).(CertificateSigningRequestStatusOutput)
+	return o.ApplyT(func(v *CertificateSigningRequestStatus) CertificateSigningRequestStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CertificateSigningRequestStatus
+		return ret
+	}).(CertificateSigningRequestStatusOutput)
 }
 
 // If request was approved, the controller will place the issued certificate here.

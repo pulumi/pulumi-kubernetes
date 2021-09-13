@@ -201,9 +201,7 @@ func (i APIServiceMap) ToAPIServiceMapOutputWithContext(ctx context.Context) API
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceMapOutput)
 }
 
-type APIServiceOutput struct {
-	*pulumi.OutputState
-}
+type APIServiceOutput struct{ *pulumi.OutputState }
 
 func (APIServiceOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*APIService)(nil))
@@ -222,14 +220,12 @@ func (o APIServiceOutput) ToAPIServicePtrOutput() APIServicePtrOutput {
 }
 
 func (o APIServiceOutput) ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput {
-	return o.ApplyT(func(v APIService) *APIService {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v APIService) *APIService {
 		return &v
 	}).(APIServicePtrOutput)
 }
 
-type APIServicePtrOutput struct {
-	*pulumi.OutputState
-}
+type APIServicePtrOutput struct{ *pulumi.OutputState }
 
 func (APIServicePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**APIService)(nil))
@@ -241,6 +237,16 @@ func (o APIServicePtrOutput) ToAPIServicePtrOutput() APIServicePtrOutput {
 
 func (o APIServicePtrOutput) ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput {
 	return o
+}
+
+func (o APIServicePtrOutput) Elem() APIServiceOutput {
+	return o.ApplyT(func(v *APIService) APIService {
+		if v != nil {
+			return *v
+		}
+		var ret APIService
+		return ret
+	}).(APIServiceOutput)
 }
 
 type APIServiceArrayOutput struct{ *pulumi.OutputState }

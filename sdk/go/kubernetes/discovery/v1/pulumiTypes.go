@@ -279,7 +279,7 @@ func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutput() EndpointCondit
 }
 
 func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutputWithContext(ctx context.Context) EndpointConditionsPtrOutput {
-	return o.ApplyT(func(v EndpointConditions) *EndpointConditions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointConditions) *EndpointConditions {
 		return &v
 	}).(EndpointConditionsPtrOutput)
 }
@@ -314,7 +314,13 @@ func (o EndpointConditionsPtrOutput) ToEndpointConditionsPtrOutputWithContext(ct
 }
 
 func (o EndpointConditionsPtrOutput) Elem() EndpointConditionsOutput {
-	return o.ApplyT(func(v *EndpointConditions) EndpointConditions { return *v }).(EndpointConditionsOutput)
+	return o.ApplyT(func(v *EndpointConditions) EndpointConditions {
+		if v != nil {
+			return *v
+		}
+		var ret EndpointConditions
+		return ret
+	}).(EndpointConditionsOutput)
 }
 
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
@@ -443,7 +449,7 @@ func (o EndpointHintsOutput) ToEndpointHintsPtrOutput() EndpointHintsPtrOutput {
 }
 
 func (o EndpointHintsOutput) ToEndpointHintsPtrOutputWithContext(ctx context.Context) EndpointHintsPtrOutput {
-	return o.ApplyT(func(v EndpointHints) *EndpointHints {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointHints) *EndpointHints {
 		return &v
 	}).(EndpointHintsPtrOutput)
 }
@@ -468,7 +474,13 @@ func (o EndpointHintsPtrOutput) ToEndpointHintsPtrOutputWithContext(ctx context.
 }
 
 func (o EndpointHintsPtrOutput) Elem() EndpointHintsOutput {
-	return o.ApplyT(func(v *EndpointHints) EndpointHints { return *v }).(EndpointHintsOutput)
+	return o.ApplyT(func(v *EndpointHints) EndpointHints {
+		if v != nil {
+			return *v
+		}
+		var ret EndpointHints
+		return ret
+	}).(EndpointHintsOutput)
 }
 
 // forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.

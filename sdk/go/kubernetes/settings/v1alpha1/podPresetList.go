@@ -194,9 +194,7 @@ func (i PodPresetListMap) ToPodPresetListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListMapOutput)
 }
 
-type PodPresetListOutput struct {
-	*pulumi.OutputState
-}
+type PodPresetListOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodPresetList)(nil))
@@ -215,14 +213,12 @@ func (o PodPresetListOutput) ToPodPresetListPtrOutput() PodPresetListPtrOutput {
 }
 
 func (o PodPresetListOutput) ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput {
-	return o.ApplyT(func(v PodPresetList) *PodPresetList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodPresetList) *PodPresetList {
 		return &v
 	}).(PodPresetListPtrOutput)
 }
 
-type PodPresetListPtrOutput struct {
-	*pulumi.OutputState
-}
+type PodPresetListPtrOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodPresetList)(nil))
@@ -234,6 +230,16 @@ func (o PodPresetListPtrOutput) ToPodPresetListPtrOutput() PodPresetListPtrOutpu
 
 func (o PodPresetListPtrOutput) ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput {
 	return o
+}
+
+func (o PodPresetListPtrOutput) Elem() PodPresetListOutput {
+	return o.ApplyT(func(v *PodPresetList) PodPresetList {
+		if v != nil {
+			return *v
+		}
+		var ret PodPresetList
+		return ret
+	}).(PodPresetListOutput)
 }
 
 type PodPresetListArrayOutput struct{ *pulumi.OutputState }

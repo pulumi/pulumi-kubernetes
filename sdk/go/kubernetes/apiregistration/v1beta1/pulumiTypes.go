@@ -476,7 +476,7 @@ func (o APIServiceSpecOutput) ToAPIServiceSpecPtrOutput() APIServiceSpecPtrOutpu
 }
 
 func (o APIServiceSpecOutput) ToAPIServiceSpecPtrOutputWithContext(ctx context.Context) APIServiceSpecPtrOutput {
-	return o.ApplyT(func(v APIServiceSpec) *APIServiceSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v APIServiceSpec) *APIServiceSpec {
 		return &v
 	}).(APIServiceSpecPtrOutput)
 }
@@ -531,7 +531,13 @@ func (o APIServiceSpecPtrOutput) ToAPIServiceSpecPtrOutputWithContext(ctx contex
 }
 
 func (o APIServiceSpecPtrOutput) Elem() APIServiceSpecOutput {
-	return o.ApplyT(func(v *APIServiceSpec) APIServiceSpec { return *v }).(APIServiceSpecOutput)
+	return o.ApplyT(func(v *APIServiceSpec) APIServiceSpec {
+		if v != nil {
+			return *v
+		}
+		var ret APIServiceSpec
+		return ret
+	}).(APIServiceSpecOutput)
 }
 
 // CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -700,7 +706,7 @@ func (o APIServiceStatusOutput) ToAPIServiceStatusPtrOutput() APIServiceStatusPt
 }
 
 func (o APIServiceStatusOutput) ToAPIServiceStatusPtrOutputWithContext(ctx context.Context) APIServiceStatusPtrOutput {
-	return o.ApplyT(func(v APIServiceStatus) *APIServiceStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v APIServiceStatus) *APIServiceStatus {
 		return &v
 	}).(APIServiceStatusPtrOutput)
 }
@@ -725,7 +731,13 @@ func (o APIServiceStatusPtrOutput) ToAPIServiceStatusPtrOutputWithContext(ctx co
 }
 
 func (o APIServiceStatusPtrOutput) Elem() APIServiceStatusOutput {
-	return o.ApplyT(func(v *APIServiceStatus) APIServiceStatus { return *v }).(APIServiceStatusOutput)
+	return o.ApplyT(func(v *APIServiceStatus) APIServiceStatus {
+		if v != nil {
+			return *v
+		}
+		var ret APIServiceStatus
+		return ret
+	}).(APIServiceStatusOutput)
 }
 
 // Current service state of apiService.
@@ -842,7 +854,7 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutput() ServiceReferencePt
 }
 
 func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o.ApplyT(func(v ServiceReference) *ServiceReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
@@ -877,7 +889,13 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceReference
+		return ret
+	}).(ServiceReferenceOutput)
 }
 
 // Name is the name of the service

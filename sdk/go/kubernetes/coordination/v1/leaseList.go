@@ -194,9 +194,7 @@ func (i LeaseListMap) ToLeaseListMapOutputWithContext(ctx context.Context) Lease
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseListMapOutput)
 }
 
-type LeaseListOutput struct {
-	*pulumi.OutputState
-}
+type LeaseListOutput struct{ *pulumi.OutputState }
 
 func (LeaseListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*LeaseList)(nil))
@@ -215,14 +213,12 @@ func (o LeaseListOutput) ToLeaseListPtrOutput() LeaseListPtrOutput {
 }
 
 func (o LeaseListOutput) ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput {
-	return o.ApplyT(func(v LeaseList) *LeaseList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseList) *LeaseList {
 		return &v
 	}).(LeaseListPtrOutput)
 }
 
-type LeaseListPtrOutput struct {
-	*pulumi.OutputState
-}
+type LeaseListPtrOutput struct{ *pulumi.OutputState }
 
 func (LeaseListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**LeaseList)(nil))
@@ -234,6 +230,16 @@ func (o LeaseListPtrOutput) ToLeaseListPtrOutput() LeaseListPtrOutput {
 
 func (o LeaseListPtrOutput) ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput {
 	return o
+}
+
+func (o LeaseListPtrOutput) Elem() LeaseListOutput {
+	return o.ApplyT(func(v *LeaseList) LeaseList {
+		if v != nil {
+			return *v
+		}
+		var ret LeaseList
+		return ret
+	}).(LeaseListOutput)
 }
 
 type LeaseListArrayOutput struct{ *pulumi.OutputState }

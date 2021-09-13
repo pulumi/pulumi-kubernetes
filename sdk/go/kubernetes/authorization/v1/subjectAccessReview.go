@@ -202,9 +202,7 @@ func (i SubjectAccessReviewMap) ToSubjectAccessReviewMapOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewMapOutput)
 }
 
-type SubjectAccessReviewOutput struct {
-	*pulumi.OutputState
-}
+type SubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SubjectAccessReview)(nil))
@@ -223,14 +221,12 @@ func (o SubjectAccessReviewOutput) ToSubjectAccessReviewPtrOutput() SubjectAcces
 }
 
 func (o SubjectAccessReviewOutput) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReview) *SubjectAccessReview {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReview) *SubjectAccessReview {
 		return &v
 	}).(SubjectAccessReviewPtrOutput)
 }
 
-type SubjectAccessReviewPtrOutput struct {
-	*pulumi.OutputState
-}
+type SubjectAccessReviewPtrOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SubjectAccessReview)(nil))
@@ -242,6 +238,16 @@ func (o SubjectAccessReviewPtrOutput) ToSubjectAccessReviewPtrOutput() SubjectAc
 
 func (o SubjectAccessReviewPtrOutput) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
 	return o
+}
+
+func (o SubjectAccessReviewPtrOutput) Elem() SubjectAccessReviewOutput {
+	return o.ApplyT(func(v *SubjectAccessReview) SubjectAccessReview {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectAccessReview
+		return ret
+	}).(SubjectAccessReviewOutput)
 }
 
 type SubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }

@@ -194,9 +194,7 @@ func (i ValidatingWebhookConfigurationListMap) ToValidatingWebhookConfigurationL
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListMapOutput)
 }
 
-type ValidatingWebhookConfigurationListOutput struct {
-	*pulumi.OutputState
-}
+type ValidatingWebhookConfigurationListOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ValidatingWebhookConfigurationList)(nil))
@@ -215,14 +213,12 @@ func (o ValidatingWebhookConfigurationListOutput) ToValidatingWebhookConfigurati
 }
 
 func (o ValidatingWebhookConfigurationListOutput) ToValidatingWebhookConfigurationListPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListPtrOutput {
-	return o.ApplyT(func(v ValidatingWebhookConfigurationList) *ValidatingWebhookConfigurationList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingWebhookConfigurationList) *ValidatingWebhookConfigurationList {
 		return &v
 	}).(ValidatingWebhookConfigurationListPtrOutput)
 }
 
-type ValidatingWebhookConfigurationListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ValidatingWebhookConfigurationListPtrOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ValidatingWebhookConfigurationList)(nil))
@@ -234,6 +230,16 @@ func (o ValidatingWebhookConfigurationListPtrOutput) ToValidatingWebhookConfigur
 
 func (o ValidatingWebhookConfigurationListPtrOutput) ToValidatingWebhookConfigurationListPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListPtrOutput {
 	return o
+}
+
+func (o ValidatingWebhookConfigurationListPtrOutput) Elem() ValidatingWebhookConfigurationListOutput {
+	return o.ApplyT(func(v *ValidatingWebhookConfigurationList) ValidatingWebhookConfigurationList {
+		if v != nil {
+			return *v
+		}
+		var ret ValidatingWebhookConfigurationList
+		return ret
+	}).(ValidatingWebhookConfigurationListOutput)
 }
 
 type ValidatingWebhookConfigurationListArrayOutput struct{ *pulumi.OutputState }

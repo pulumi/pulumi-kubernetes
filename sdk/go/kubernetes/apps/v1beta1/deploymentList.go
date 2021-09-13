@@ -194,9 +194,7 @@ func (i DeploymentListMap) ToDeploymentListMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentListMapOutput)
 }
 
-type DeploymentListOutput struct {
-	*pulumi.OutputState
-}
+type DeploymentListOutput struct{ *pulumi.OutputState }
 
 func (DeploymentListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*DeploymentList)(nil))
@@ -215,14 +213,12 @@ func (o DeploymentListOutput) ToDeploymentListPtrOutput() DeploymentListPtrOutpu
 }
 
 func (o DeploymentListOutput) ToDeploymentListPtrOutputWithContext(ctx context.Context) DeploymentListPtrOutput {
-	return o.ApplyT(func(v DeploymentList) *DeploymentList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentList) *DeploymentList {
 		return &v
 	}).(DeploymentListPtrOutput)
 }
 
-type DeploymentListPtrOutput struct {
-	*pulumi.OutputState
-}
+type DeploymentListPtrOutput struct{ *pulumi.OutputState }
 
 func (DeploymentListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**DeploymentList)(nil))
@@ -234,6 +230,16 @@ func (o DeploymentListPtrOutput) ToDeploymentListPtrOutput() DeploymentListPtrOu
 
 func (o DeploymentListPtrOutput) ToDeploymentListPtrOutputWithContext(ctx context.Context) DeploymentListPtrOutput {
 	return o
+}
+
+func (o DeploymentListPtrOutput) Elem() DeploymentListOutput {
+	return o.ApplyT(func(v *DeploymentList) DeploymentList {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentList
+		return ret
+	}).(DeploymentListOutput)
 }
 
 type DeploymentListArrayOutput struct{ *pulumi.OutputState }

@@ -194,9 +194,7 @@ func (i PersistentVolumeListMap) ToPersistentVolumeListMapOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeListMapOutput)
 }
 
-type PersistentVolumeListOutput struct {
-	*pulumi.OutputState
-}
+type PersistentVolumeListOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PersistentVolumeList)(nil))
@@ -215,14 +213,12 @@ func (o PersistentVolumeListOutput) ToPersistentVolumeListPtrOutput() Persistent
 }
 
 func (o PersistentVolumeListOutput) ToPersistentVolumeListPtrOutputWithContext(ctx context.Context) PersistentVolumeListPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeList) *PersistentVolumeList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeList) *PersistentVolumeList {
 		return &v
 	}).(PersistentVolumeListPtrOutput)
 }
 
-type PersistentVolumeListPtrOutput struct {
-	*pulumi.OutputState
-}
+type PersistentVolumeListPtrOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PersistentVolumeList)(nil))
@@ -234,6 +230,16 @@ func (o PersistentVolumeListPtrOutput) ToPersistentVolumeListPtrOutput() Persist
 
 func (o PersistentVolumeListPtrOutput) ToPersistentVolumeListPtrOutputWithContext(ctx context.Context) PersistentVolumeListPtrOutput {
 	return o
+}
+
+func (o PersistentVolumeListPtrOutput) Elem() PersistentVolumeListOutput {
+	return o.ApplyT(func(v *PersistentVolumeList) PersistentVolumeList {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeList
+		return ret
+	}).(PersistentVolumeListOutput)
 }
 
 type PersistentVolumeListArrayOutput struct{ *pulumi.OutputState }

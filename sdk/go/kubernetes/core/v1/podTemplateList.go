@@ -194,9 +194,7 @@ func (i PodTemplateListMap) ToPodTemplateListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListMapOutput)
 }
 
-type PodTemplateListOutput struct {
-	*pulumi.OutputState
-}
+type PodTemplateListOutput struct{ *pulumi.OutputState }
 
 func (PodTemplateListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodTemplateList)(nil))
@@ -215,14 +213,12 @@ func (o PodTemplateListOutput) ToPodTemplateListPtrOutput() PodTemplateListPtrOu
 }
 
 func (o PodTemplateListOutput) ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput {
-	return o.ApplyT(func(v PodTemplateList) *PodTemplateList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodTemplateList) *PodTemplateList {
 		return &v
 	}).(PodTemplateListPtrOutput)
 }
 
-type PodTemplateListPtrOutput struct {
-	*pulumi.OutputState
-}
+type PodTemplateListPtrOutput struct{ *pulumi.OutputState }
 
 func (PodTemplateListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodTemplateList)(nil))
@@ -234,6 +230,16 @@ func (o PodTemplateListPtrOutput) ToPodTemplateListPtrOutput() PodTemplateListPt
 
 func (o PodTemplateListPtrOutput) ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput {
 	return o
+}
+
+func (o PodTemplateListPtrOutput) Elem() PodTemplateListOutput {
+	return o.ApplyT(func(v *PodTemplateList) PodTemplateList {
+		if v != nil {
+			return *v
+		}
+		var ret PodTemplateList
+		return ret
+	}).(PodTemplateListOutput)
 }
 
 type PodTemplateListArrayOutput struct{ *pulumi.OutputState }
