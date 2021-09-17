@@ -3,9 +3,9 @@
 package provider
 
 import (
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/client-go/discovery"
-	memcached "k8s.io/client-go/discovery/cached/memory"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/restmapper"
 	"k8s.io/client-go/tools/clientcmd"
@@ -24,7 +24,7 @@ func (k *KubeConfig) ToDiscoveryClient() (discovery.CachedDiscoveryInterface, er
 	// double it just so we don't end up here again for a while.  This config is only used for discovery.
 	k.restConfig.Burst = 100
 
-	return memcached.NewMemCacheClient(discovery.NewDiscoveryClientForConfigOrDie(k.restConfig)), nil
+	return clients.NewMemCacheClient(discovery.NewDiscoveryClientForConfigOrDie(k.restConfig)), nil
 }
 
 // ToRESTConfig implemented interface method
