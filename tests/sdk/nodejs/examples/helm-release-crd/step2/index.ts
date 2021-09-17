@@ -8,7 +8,7 @@ const prometheusRelease = new k8s.helm.v3.Release("prometheus", {
     },
     values: {
         commonLabels: {
-            "test": "true",
+            "test": "true", // Add an additional label to pods
         }
     },
 });

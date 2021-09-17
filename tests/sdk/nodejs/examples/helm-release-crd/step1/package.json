@@ -1,5 +1,5 @@
 {
-    "name": "helm-release-ts",
+    "name": "helm-release-crd",
     "devDependencies": {
         "@types/node": "^10.0.0"
     },
