@@ -34,6 +34,10 @@ func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[str
 		dec := yaml.NewDecodingSerializer(unstructured.UnstructuredJSONScheme)
 		_, gvk, err := dec.Decode([]byte(resource), nil, obj)
 		if err != nil {
+			if runtime.IsMissingKind(err) {
+				// Likely empty/nil resource. Ignore.
+				continue
+			}
 			return nil, nil, err
 		}
 
