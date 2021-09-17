@@ -1,5 +1,5 @@
 ## HEAD (Unreleased)
-(None)
+- Fix handling of charts with empty manifests (https://github.com/pulumi/pulumi-kubernetes/pull/1717)
 
 ## 3.7.1 (September 10, 2021)
 - Don't replace PVC on .spec.resources.requests or .limits change. (https://github.com/pulumi/pulumi-kubernetes/pull/1705)
