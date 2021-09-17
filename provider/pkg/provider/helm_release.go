@@ -268,13 +268,11 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		new.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
 	}
 
+	var templateRelease bool
 	if len(olds.Mappable()) > 0 {
 		adoptOldNameIfUnnamed(new, old)
-		if err = r.helmUpdate(ctx, urn, news, new, old, true); err != nil {
-			if !strings.Contains(err.Error(), "failed to download") {
-				return nil, err
-			}
-		}
+
+		templateRelease = true
 	} else {
 		assignNameIfAutonameable(new, news, "release")
 		conf, err := r.getActionConfig(new.Namespace)
@@ -286,11 +284,48 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 		if !exists {
-			if err = r.helmCreate(ctx, urn, news, new, true); err != nil {
-				return nil, err
-			}
+			templateRelease = true
 		}
 		// If resource exists, we are likely doing an import. We will just pass the inputs through.
+	}
+
+	if templateRelease {
+		helmHome := os.Getenv("HELM_HOME")
+
+		helmChartOpts := HelmChartOpts{
+			HelmFetchOpts: HelmFetchOpts{
+				CAFile:   new.RepositoryOpts.CAFile,
+				CertFile: new.RepositoryOpts.CertFile,
+				Devel:    new.Devel,
+				Home:     helmHome,
+				KeyFile:  new.RepositoryOpts.KeyFile,
+				Keyring:  new.Keyring,
+				Password: new.RepositoryOpts.Password,
+				Repo:     new.RepositoryOpts.Repo,
+				Username: new.RepositoryOpts.Password,
+				Version:  new.Version,
+			},
+			APIVersions:              nil,
+			Chart:                    new.Chart,
+			IncludeTestHookResources: true,
+			SkipCRDRendering:         new.SkipCrds,
+			Namespace:                new.Namespace,
+			Path:                     "",
+			ReleaseName:              new.Name,
+			Values:                   new.Values,
+			Version:                  new.Version,
+		}
+		templ, err := helmTemplate(helmChartOpts)
+		if err != nil {
+			return nil, err
+		}
+
+		_, resources, err := convertYAMLManifestToJSON(templ)
+		if err != nil {
+			return nil, err
+		}
+
+		new.ResourceNames = resources
 	}
 
 	autonamed := resource.NewPropertyMap(new)
@@ -309,7 +344,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs}, nil
 }
 
-func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease *Release, dryrun bool) error {
+func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease *Release) error {
 	conf, err := r.getActionConfig(newRelease.Namespace)
 	if err != nil {
 		return err
@@ -361,7 +396,6 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 
 	client.ChartPathOptions = *cpo
 	client.ClientOnly = false
-	client.DryRun = dryrun // Dry-run == preview.
 	client.DisableHooks = newRelease.DisableWebhooks
 	client.Wait = !newRelease.SkipAwait
 	client.WaitForJobs = !newRelease.SkipAwait && newRelease.WaitForJobs
@@ -381,7 +415,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	client.Description = newRelease.Description
 	client.CreateNamespace = newRelease.CreateNamespace
 
-	if cmd := newRelease.Postrender; cmd != "" && !dryrun {
+	if cmd := newRelease.Postrender; cmd != "" {
 		pr, err := postrender.NewExec(cmd)
 
 		if err != nil {
@@ -408,7 +442,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 			return err
 		}
 
-		if err := setReleaseAttributes(newRelease, rel, dryrun); err != nil {
+		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
 			return err
 		}
 
@@ -417,11 +451,11 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 
 	}
 
-	err = setReleaseAttributes(newRelease, rel, dryrun)
+	err = setReleaseAttributes(newRelease, rel, false)
 	return err
 }
 
-func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release, dryrun bool) error {
+func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release) error {
 	cpo, chartName, err := chartPathOptions(newRelease)
 	if err != nil {
 		return err
@@ -473,7 +507,6 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 	client.Namespace = newRelease.Namespace
 	client.Timeout = time.Duration(newRelease.Timeout) * time.Second
 	client.Wait = !newRelease.SkipAwait
-	client.DryRun = dryrun // do not apply changes
 	client.DisableHooks = newRelease.DisableCRDHooks
 	client.Atomic = newRelease.Atomic
 	client.SubNotes = newRelease.RenderSubchartNotes
@@ -489,7 +522,7 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 	client.CleanupOnFail = newRelease.CleanupOnFail
 	client.Description = newRelease.Description
 
-	if cmd := newRelease.Postrender; cmd != "" && !dryrun {
+	if cmd := newRelease.Postrender; cmd != "" {
 		pr, err := postrender.NewExec(cmd)
 
 		if err != nil {
@@ -503,10 +536,10 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		logger.V(9).Infof("No existing release found.")
 		return err
 	} else if err != nil {
-		return fmt.Errorf("error running dry run update: %w", err)
+		return fmt.Errorf("error running update: %w", err)
 	}
 
-	err = setReleaseAttributes(newRelease, rel, dryrun)
+	err = setReleaseAttributes(newRelease, rel, false)
 	return err
 }
 
@@ -575,10 +608,6 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		newRelease.Status = &ReleaseStatus{}
 	}
 	newRelease.Status.Status = release.StatusDeployed.String()
-
-	if err = r.helmUpdate(ctx, urn, news, newRelease, oldRelease, true); err != nil {
-		return nil, err
-	}
 
 	oldInputsJSON, err := json.Marshal(oldInputs.Mappable())
 	if err != nil {
@@ -712,8 +741,10 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 
-	if err = r.helmCreate(ctx, urn, news, newRelease, req.GetPreview()); err != nil {
-		return nil, err
+	if !req.GetPreview() {
+		if err = r.helmCreate(ctx, urn, news, newRelease); err != nil {
+			return nil, err
+		}
 	}
 
 	obj := checkpointRelease(news, newRelease)
@@ -874,8 +905,10 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 
-	if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease, req.GetPreview()); err != nil {
-		return nil, err
+	if !req.GetPreview() {
+		if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease); err != nil {
+			return nil, err
+		}
 	}
 
 	checkpointed := checkpointRelease(newResInputs, newRelease)

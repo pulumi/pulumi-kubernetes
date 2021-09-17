@@ -435,6 +435,27 @@ func TestHelmRelease(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestHelmReleaseCRD(t *testing.T) {
+	// Validate that Helm charts with CRDs work across create/update/refresh/delete cycles.
+	// https://github.com/pulumi/pulumi-kubernetes/issues/1712
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-crd", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(getCwd(t), "helm-release-crd", "step2"),
+					Additive:        true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+
 func skipIfShort(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")
