@@ -293,17 +293,17 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		helmHome := os.Getenv("HELM_HOME")
 
 		helmChartOpts := HelmChartOpts{
-			HelmFetchOpts:            HelmFetchOpts{
-				CAFile:      new.RepositoryOpts.CAFile,
-				CertFile:    new.RepositoryOpts.CertFile,
-				Devel:       new.Devel,
-				Home:        helmHome,
-				KeyFile:     new.RepositoryOpts.KeyFile,
-				Keyring:     new.Keyring,
-				Password:    new.RepositoryOpts.Password,
-				Repo:        new.RepositoryOpts.Repo,
-				Username:    new.RepositoryOpts.Password,
-				Version:     new.Version,
+			HelmFetchOpts: HelmFetchOpts{
+				CAFile:   new.RepositoryOpts.CAFile,
+				CertFile: new.RepositoryOpts.CertFile,
+				Devel:    new.Devel,
+				Home:     helmHome,
+				KeyFile:  new.RepositoryOpts.KeyFile,
+				Keyring:  new.Keyring,
+				Password: new.RepositoryOpts.Password,
+				Repo:     new.RepositoryOpts.Repo,
+				Username: new.RepositoryOpts.Password,
+				Version:  new.Version,
 			},
 			APIVersions:              nil,
 			Chart:                    new.Chart,
