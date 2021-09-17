@@ -1,6 +1,6 @@
 ## HEAD (Unreleased)
 - Fix handling of charts with empty manifests (https://github.com/pulumi/pulumi-kubernetes/pull/1717)
-- Use existing helm template equivalent logic to populate manifests instead of relying on `dry-run` support (https://github.com/pulumi/pulumi-kubernetes/pull/1718)
+- Use existing helm template logic to populate manifests instead of relying on `dry-run` support (https://github.com/pulumi/pulumi-kubernetes/pull/1718)
 
 ## 3.7.1 (September 10, 2021)
 - Don't replace PVC on .spec.resources.requests or .limits change. (https://github.com/pulumi/pulumi-kubernetes/pull/1705)
