@@ -435,6 +435,25 @@ func TestHelmRelease(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestHelmReleaseCRD(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-crd", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join(getCwd(t), "helm-release-crd", "step2"),
+					Additive:        true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+
 func skipIfShort(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping long-running test in short mode")

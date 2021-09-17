@@ -6,6 +6,10 @@ const prometheusRelease = new k8s.helm.v3.Release("prometheus", {
     repositoryOpts: {
         repo: "https://prometheus-community.github.io/helm-charts",
     },
-    values: {},
+    values: {
+        commonLabels: {
+            "test": "true",
+        }
+    },
 });
 
