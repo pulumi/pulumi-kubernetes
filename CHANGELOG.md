@@ -1,4 +1,7 @@
 ## HEAD (Unreleased)
+(None)
+
+## 3.7.2 (September 17, 2021)
 - Fix handling of charts with empty manifests (https://github.com/pulumi/pulumi-kubernetes/pull/1717)
 - Use existing helm template logic to populate manifests instead of relying on `dry-run` support (https://github.com/pulumi/pulumi-kubernetes/pull/1718)
 
