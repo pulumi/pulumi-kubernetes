@@ -1,12 +1,11 @@
 import * as k8s from "@pulumi/kubernetes";
 
-const dapr = new k8s.helm.v3.Release("dapr", {
-    name: "dapr",
-    chart: "dapr",
-    version: "1.4.0",
+const postgresOperator = new k8s.helm.v3.Release("postgres-operator", {
+    name: "postgres-operator",
+    chart: "postgres-operator",
+    version: "1.7.0",
     repositoryOpts: {
-        repo: "https://dapr.github.io/helm-charts/",
+        repo: "https://opensource.zalando.com/postgres-operator/charts/postgres-operator/",
     },
     values: {},
 });
-
