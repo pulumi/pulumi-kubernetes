@@ -549,6 +549,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
+	var apiConfig *clientapi.Config
 	homeDir := func() string {
 		// Ignore errors. The filepath will be checked later, so we can handle failures there.
 		usr, _ := user.Current()
@@ -567,7 +568,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		if _, err := os.Stat(pathOrContents); err == nil {
+		_, err := os.Stat(pathOrContents)
+		if err == nil {
 			b, err := ioutil.ReadFile(pathOrContents)
 			if err != nil {
 				unreachableCluster(err)
@@ -579,11 +581,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 
 		// Load the contents of the k8s config.
-		config, err := clientcmd.Load([]byte(contents))
+		apiConfig, err = clientcmd.Load([]byte(contents))
 		if err != nil {
 			unreachableCluster(err)
 		} else {
-			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
+			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
 			if err == nil {
 				k.defaultNamespace = configurationNamespace
@@ -622,8 +624,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			}
 			k.helmReleaseProvider, err = newHelmReleaseProvider(
 				k.host,
+				apiConfig,
+				overrides,
 				k.config,
-				kubeconfig,
 				k.helmDriver,
 				namespace,
 				k.enableSecrets,

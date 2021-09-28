@@ -455,6 +455,19 @@ func TestHelmReleaseCRD(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestHelmReleasePrometheus(t *testing.T) {
+	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1710
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-prometheus"),
+			SkipRefresh: false,
+			Verbose:     true,
+		})
+	// TODO validate the returned metadata for the prometheus rule in output.
+	integration.ProgramTest(t, &test)
+}
+
 
 func skipIfShort(t *testing.T) {
 	if testing.Short() {
