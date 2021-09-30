@@ -15,7 +15,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
-
 const namespace = new k8s.core.v1.Namespace("release-ns");
 
 const alertManager = new k8s.helm.v3.Release("alertmanager", {
@@ -30,4 +29,6 @@ const alertManager = new k8s.helm.v3.Release("alertmanager", {
 });
 
 // Ensure we get the expected namespace for the stateful set.
-export const alertManagerNamespace = k8s.apps.v1.StatefulSet.get("alertmanager-statefulset", pulumi.interpolate `${alertManager.status.namespace}/alertmanager`).metadata.namespace;
+export const alertManagerNamespace = k8s.apps.v1.StatefulSet.get(
+    "alertmanager-statefulset",
+    pulumi.interpolate`${alertManager.status.namespace}/alertmanager`).metadata.namespace;
