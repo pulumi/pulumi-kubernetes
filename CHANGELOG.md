@@ -1,5 +1,5 @@
 ## HEAD (Unreleased)
-(None)
+- Use helm release's namespace on templates where namespace is left unspecified (https://github.com/pulumi/pulumi-kubernetes/pull/1733)
 
 ## 3.7.2 (September 17, 2021)
 - Fix handling of charts with empty manifests (https://github.com/pulumi/pulumi-kubernetes/pull/1717)
