@@ -455,17 +455,17 @@ func TestHelmReleaseCRD(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestHelmReleasePrometheus(t *testing.T) {
+func TestHelmReleaseNamespace(t *testing.T) {
 	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1710
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release-prometheus"),
+			Dir:         filepath.Join(getCwd(t), "helm-release-namespace"),
 			SkipRefresh: false,
 			Verbose:     true,
 			// Ensure that the rule was found in the release's namespace.
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				assert.NotEmpty(t, stackInfo.Outputs["ruleUrn"].(string))
+				assert.NotEmpty(t, stackInfo.Outputs["alertManagerNamespace"].(string))
 			},
 		})
 

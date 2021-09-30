@@ -18,22 +18,16 @@ import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("release-ns");
 
-const prometheusOperator = new k8s.helm.v3.Release("prometheus", {
-    name: "prometheus-operator",
+const alertManager = new k8s.helm.v3.Release("alertmanager", {
+    name: "alertmanager",
     namespace: namespace.metadata.name,
-    chart: "prometheus-operator",
-    version: "8.5.2",
+    chart: "alertmanager",
+    version: "0.12.2",
     repositoryOpts: {
-        repo: "https://charts.helm.sh/stable",
+        repo: "https://prometheus-community.github.io/helm-charts",
     },
     values: {},
 });
 
-export const namespaceName = namespace.metadata.name
-// Explicitly look for the rule in the release's namespace.
-export const ruleUrn = k8s.apiextensions.CustomResource.get("prom-rule",
-    {
-        apiVersion: "monitoring.coreos.com/v1",
-        kind: "PrometheusRule",
-        id: pulumi.interpolate`${prometheusOperator.status.namespace}/${prometheusOperator.status.name}-prometheus-operator`
-    }).urn;
+// Ensure we get the expected namespace for the stateful set.
+export const alertManagerNamespace = k8s.apps.v1.StatefulSet.get("alertmanager-statefulset", pulumi.interpolate `${alertManager.status.namespace}/alertmanager`).metadata.namespace;

@@ -1,5 +1,5 @@
 {
-    "name": "helm-release-prometheus",
+    "name": "helm-release-namespace",
     "devDependencies": {
         "@types/node": "^10.0.0"
     },
