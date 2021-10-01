@@ -7,6 +7,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from ._inputs import *
 
 __all__ = ['ProviderArgs', 'Provider']
 
@@ -21,6 +22,7 @@ class ProviderArgs:
                  helm_registry_config_path: Optional[pulumi.Input[str]] = None,
                  helm_repository_cache: Optional[pulumi.Input[str]] = None,
                  helm_repository_config_path: Optional[pulumi.Input[str]] = None,
+                 kube_client_settings: Optional[pulumi.Input['KubeClientSettingsArgs']] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
@@ -38,6 +40,7 @@ class ProviderArgs:
         :param pulumi.Input[str] helm_registry_config_path: BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
         :param pulumi.Input[str] helm_repository_cache: BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
         :param pulumi.Input[str] helm_repository_config_path: BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
+        :param pulumi.Input['KubeClientSettingsArgs'] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
                
@@ -85,6 +88,8 @@ class ProviderArgs:
             helm_repository_config_path = _utilities.get_env('PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH')
         if helm_repository_config_path is not None:
             pulumi.set(__self__, "helm_repository_config_path", helm_repository_config_path)
+        if kube_client_settings is not None:
+            pulumi.set(__self__, "kube_client_settings", kube_client_settings)
         if kubeconfig is None:
             kubeconfig = _utilities.get_env('KUBECONFIG')
         if kubeconfig is not None:
@@ -204,6 +209,18 @@ class ProviderArgs:
         pulumi.set(self, "helm_repository_config_path", value)
 
     @property
+    @pulumi.getter(name="kubeClientSettings")
+    def kube_client_settings(self) -> Optional[pulumi.Input['KubeClientSettingsArgs']]:
+        """
+        Options for tuning the Kubernetes client used by a Provider.
+        """
+        return pulumi.get(self, "kube_client_settings")
+
+    @kube_client_settings.setter
+    def kube_client_settings(self, value: Optional[pulumi.Input['KubeClientSettingsArgs']]):
+        pulumi.set(self, "kube_client_settings", value)
+
+    @property
     @pulumi.getter
     def kubeconfig(self) -> Optional[pulumi.Input[str]]:
         """
@@ -301,6 +318,7 @@ class Provider(pulumi.ProviderResource):
                  helm_registry_config_path: Optional[pulumi.Input[str]] = None,
                  helm_repository_cache: Optional[pulumi.Input[str]] = None,
                  helm_repository_config_path: Optional[pulumi.Input[str]] = None,
+                 kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
@@ -322,6 +340,7 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.Input[str] helm_registry_config_path: BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
         :param pulumi.Input[str] helm_repository_cache: BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
         :param pulumi.Input[str] helm_repository_config_path: BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
+        :param pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
                
@@ -373,6 +392,7 @@ class Provider(pulumi.ProviderResource):
                  helm_registry_config_path: Optional[pulumi.Input[str]] = None,
                  helm_repository_cache: Optional[pulumi.Input[str]] = None,
                  helm_repository_config_path: Optional[pulumi.Input[str]] = None,
+                 kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
@@ -411,6 +431,7 @@ class Provider(pulumi.ProviderResource):
             if helm_repository_config_path is None:
                 helm_repository_config_path = _utilities.get_env('PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH')
             __props__.__dict__["helm_repository_config_path"] = helm_repository_config_path
+            __props__.__dict__["kube_client_settings"] = pulumi.Output.from_input(kube_client_settings).apply(pulumi.runtime.to_json) if kube_client_settings is not None else None
             if kubeconfig is None:
                 kubeconfig = _utilities.get_env('KUBECONFIG')
             __props__.__dict__["kubeconfig"] = kubeconfig

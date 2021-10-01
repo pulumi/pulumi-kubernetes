@@ -19,7 +19,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"helm.sh/helm/v3/pkg/helmpath"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -55,6 +54,7 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -605,9 +605,27 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.defaultNamespace = defaultNamespace
 	}
 
+	var kubeClientSettings KubeClientSettings
+	if obj, ok := vars["kubernetes:config:kubeClientSettings"]; ok {
+		err := json.Unmarshal([]byte(obj), &kubeClientSettings)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal kubeClientSettings option: %w", err)
+		}
+	}
+
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
 		config, err := kubeconfig.ClientConfig()
+
+		if kubeClientSettings.Burst != nil {
+			config.Burst = *kubeClientSettings.Burst
+			logger.V(9).Infof("kube client burst set to %v", config.Burst)
+		}
+		if kubeClientSettings.Qps != nil {
+			config.QPS = float32(*kubeClientSettings.Qps)
+			logger.V(9).Infof("kube client QPS set to %v", config.QPS)
+		}
+
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(

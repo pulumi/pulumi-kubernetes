@@ -24,6 +24,12 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
+// typeOverlays augment the types defined by the kubernetes schema.
+var typeOverlays = map[string]pschema.ComplexTypeSpec{}
+
+// resourceOverlays augment the resources defined by the kubernetes schema.
+var resourceOverlays = map[string]pschema.ResourceSpec{}
+
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
 func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg := pschema.PackageSpec{
@@ -72,7 +78,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				},
 				"suppressHelmReleaseBetaWarning": {
 					Description: "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to true, this warning is omitted.",
-					TypeSpec: pschema.TypeSpec{Type: "boolean"},
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"helmDriver": {
 					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.",
@@ -209,6 +215,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
+				"kubeClientSettings": {
+					Description: "Options for tuning the Kubernetes client used by a Provider.",
+					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:KubeClientSettings"},
+				},
 				"suppressHelmHookWarnings": {
 					DefaultInfo: &pschema.DefaultSpec{
 						Environment: []string{
@@ -231,6 +241,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	csharpNamespaces := map[string]string{
 		"helm.sh/v3": "Helm.V3",
+		"":           "Provider",
 	}
 	modToPkg := map[string]string{
 		"helm.sh/v3": "helm/v3",
