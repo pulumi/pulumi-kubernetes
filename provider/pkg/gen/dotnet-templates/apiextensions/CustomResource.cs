@@ -67,23 +67,15 @@ namespace Pulumi.Kubernetes.ApiExtensions
         }
 
         internal CustomResource(string name, ImmutableDictionary<string, object?> dictionary, CustomResourceOptions? options = null)
-            : this(name, DictionaryCustomResourceArgs.Create(dictionary), options)
+            : base(GetType(dictionary), name, new DictionaryResourceArgs(dictionary), options)
         {
         }
 
-        class DictionaryCustomResourceArgs : CustomResourceArgs
+        static string GetType(ImmutableDictionary<string, object?> dictionary)
         {
-            private DictionaryCustomResourceArgs(string apiVersion, string kind) : base(apiVersion, kind)
-            {
-            }
-
-            public static DictionaryCustomResourceArgs Create(ImmutableDictionary<string, object?> dictionary)
-            {
-                return new DictionaryCustomResourceArgs(
-                    (string)dictionary["apiVersion"]!,
-                    (string)dictionary["kind"]!
-                );
-            }
+            var apiVersion = (string)dictionary["apiVersion"]!;
+            var kind = (string)dictionary["kind"]!;
+            return $"kubernetes:{apiVersion}:{kind}";
         }
     }
     
