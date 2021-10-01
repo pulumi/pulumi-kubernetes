@@ -973,7 +973,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	}
 
 	namespace := release.Namespace
-	actionConfig, err := r.getActionConfig(namespace, true)
+	actionConfig, err := r.getActionConfig(namespace)
 	if err != nil {
 		return nil, err
 	}
