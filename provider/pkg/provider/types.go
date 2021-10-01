@@ -22,5 +22,5 @@ type KubeClientSettings struct {
 	// Maximum burst for throttle. Default value is 10.
 	Burst *int `json:"burst"`
 	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
-	Qps *float64 `json:"qps"`
+	QPS *float64 `json:"qps"`
 }

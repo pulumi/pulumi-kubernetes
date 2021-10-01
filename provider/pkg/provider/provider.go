@@ -621,8 +621,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			config.Burst = *kubeClientSettings.Burst
 			logger.V(9).Infof("kube client burst set to %v", config.Burst)
 		}
-		if kubeClientSettings.Qps != nil {
-			config.QPS = float32(*kubeClientSettings.Qps)
+		if kubeClientSettings.QPS != nil {
+			config.QPS = float32(*kubeClientSettings.QPS)
 			logger.V(9).Infof("kube client QPS set to %v", config.QPS)
 		}
 
