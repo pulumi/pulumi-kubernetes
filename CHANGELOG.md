@@ -1,4 +1,7 @@
 ## HEAD (Unreleased)
+(None)
+
+## 3.7.3 (September 30, 2021)
 - Use helm release's namespace on templates where namespace is left unspecified (https://github.com/pulumi/pulumi-kubernetes/pull/1733)
 
 ## 3.7.2 (September 17, 2021)
