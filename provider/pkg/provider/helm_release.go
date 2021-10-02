@@ -202,20 +202,18 @@ func debug(format string, a ...interface{}) {
 	logger.V(9).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
 }
 
-func (r *helmReleaseProvider) getActionConfig(namespace string, override bool) (*action.Configuration, error) {
+func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
 	conf := new(action.Configuration)
 	var overrides clientcmd.ConfigOverrides
 	if r.defaultOverrides != nil {
 		overrides = *r.defaultOverrides
 	}
 
-	if override {
-		// This essentially points the client to use the specified namespace when a namespaced
-		// object doesn't have the namespace specified. This allows us to interpolate the
-		// release's namespace as the default namespace on charts with templates that don't
-		// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
-		overrides.Context.Namespace = namespace
-	}
+	// This essentially points the client to use the specified namespace when a namespaced
+	// object doesn't have the namespace specified. This allows us to interpolate the
+	// release's namespace as the default namespace on charts with templates that don't
+	// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
+	overrides.Context.Namespace = namespace
 
 	var clientConfig clientcmd.ClientConfig
 	if r.apiConfig != nil {
@@ -307,7 +305,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		templateRelease = true
 	} else {
 		assignNameIfAutonameable(new, news, "release")
-		conf, err := r.getActionConfig(new.Namespace, false)
+		conf, err := r.getActionConfig(new.Namespace)
 		if err != nil {
 			return nil, err
 		}
@@ -377,7 +375,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 }
 
 func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease *Release) error {
-	conf, err := r.getActionConfig(newRelease.Namespace, true)
+	conf, err := r.getActionConfig(newRelease.Namespace)
 	if err != nil {
 		return err
 	}
@@ -523,7 +521,7 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		}
 	}
 
-	actionConfig, err := r.getActionConfig(oldRelease.Namespace, true)
+	actionConfig, err := r.getActionConfig(oldRelease.Namespace)
 	if err != nil {
 		return err
 	}
@@ -834,7 +832,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 
 	logger.V(9).Infof("%s Starting import for %s/%s", label, namespace, name)
 
-	actionConfig, err := r.getActionConfig(namespace, false)
+	actionConfig, err := r.getActionConfig(namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -975,7 +973,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	}
 
 	namespace := release.Namespace
-	actionConfig, err := r.getActionConfig(namespace, false)
+	actionConfig, err := r.getActionConfig(namespace)
 	if err != nil {
 		return nil, err
 	}

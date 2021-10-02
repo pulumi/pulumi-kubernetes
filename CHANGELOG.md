@@ -1,5 +1,5 @@
 ## HEAD (Unreleased)
-(None)
+- Always override namespace for helm release operations (https://github.com/pulumi/pulumi-kubernetes/pull/1747)
 
 ## 3.7.3 (September 30, 2021)
 - Use helm release's namespace on templates where namespace is left unspecified (https://github.com/pulumi/pulumi-kubernetes/pull/1733)
