@@ -8,6 +8,7 @@ import typing
 from .kustomize import *
 from .provider import *
 from .yaml import *
+from ._inputs import *
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:

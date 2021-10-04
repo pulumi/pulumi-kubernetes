@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -42,6 +43,7 @@ export class Provider extends pulumi.ProviderResource {
             inputs["helmRegistryConfigPath"] = (args ? args.helmRegistryConfigPath : undefined) ?? utilities.getEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH");
             inputs["helmRepositoryCache"] = (args ? args.helmRepositoryCache : undefined) ?? utilities.getEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE");
             inputs["helmRepositoryConfigPath"] = (args ? args.helmRepositoryConfigPath : undefined) ?? utilities.getEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH");
+            inputs["kubeClientSettings"] = pulumi.output(args ? args.kubeClientSettings : undefined).apply(JSON.stringify);
             inputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
             inputs["namespace"] = args ? args.namespace : undefined;
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
@@ -93,6 +95,10 @@ export interface ProviderArgs {
      * BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
      */
     helmRepositoryConfigPath?: pulumi.Input<string>;
+    /**
+     * Options for tuning the Kubernetes client used by a Provider.
+     */
+    kubeClientSettings?: pulumi.Input<inputs.KubeClientSettings>;
     /**
      * The contents of a kubeconfig file or the path to a kubeconfig file.
      */
