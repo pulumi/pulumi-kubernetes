@@ -4,6 +4,19 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "../types";
 
+/**
+ * Options for tuning the Kubernetes client used by a Provider.
+ */
+export interface KubeClientSettings {
+    /**
+     * Maximum burst for throttle. Default value is 10.
+     */
+    burst?: pulumi.Input<number>;
+    /**
+     * Maximum queries per second (QPS) to the API server from this client. Default value is 5.
+     */
+    qps?: pulumi.Input<number>;
+}
 export namespace admissionregistration {
     export namespace v1 {
         /**

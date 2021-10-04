@@ -19,7 +19,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"helm.sh/helm/v3/pkg/helmpath"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -55,6 +54,7 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -549,6 +549,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
+	var apiConfig *clientapi.Config
 	homeDir := func() string {
 		// Ignore errors. The filepath will be checked later, so we can handle failures there.
 		usr, _ := user.Current()
@@ -567,7 +568,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		if _, err := os.Stat(pathOrContents); err == nil {
+		_, err := os.Stat(pathOrContents)
+		if err == nil {
 			b, err := ioutil.ReadFile(pathOrContents)
 			if err != nil {
 				unreachableCluster(err)
@@ -579,11 +581,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 
 		// Load the contents of the k8s config.
-		config, err := clientcmd.Load([]byte(contents))
+		apiConfig, err = clientcmd.Load([]byte(contents))
 		if err != nil {
 			unreachableCluster(err)
 		} else {
-			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
+			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
 			if err == nil {
 				k.defaultNamespace = configurationNamespace
@@ -603,9 +605,27 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.defaultNamespace = defaultNamespace
 	}
 
+	var kubeClientSettings KubeClientSettings
+	if obj, ok := vars["kubernetes:config:kubeClientSettings"]; ok {
+		err := json.Unmarshal([]byte(obj), &kubeClientSettings)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal kubeClientSettings option: %w", err)
+		}
+	}
+
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
 		config, err := kubeconfig.ClientConfig()
+
+		if kubeClientSettings.Burst != nil {
+			config.Burst = *kubeClientSettings.Burst
+			logger.V(9).Infof("kube client burst set to %v", config.Burst)
+		}
+		if kubeClientSettings.QPS != nil {
+			config.QPS = float32(*kubeClientSettings.QPS)
+			logger.V(9).Infof("kube client QPS set to %v", config.QPS)
+		}
+
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
@@ -622,8 +642,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			}
 			k.helmReleaseProvider, err = newHelmReleaseProvider(
 				k.host,
+				apiConfig,
+				overrides,
 				k.config,
-				kubeconfig,
 				k.helmDriver,
 				namespace,
 				k.enableSecrets,

@@ -78,6 +78,8 @@ type providerArgs struct {
 	HelmRepositoryCache *string `pulumi:"helmRepositoryCache"`
 	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
 	HelmRepositoryConfigPath *string `pulumi:"helmRepositoryConfigPath"`
+	// Options for tuning the Kubernetes client used by a Provider.
+	KubeClientSettings *KubeClientSettings `pulumi:"kubeClientSettings"`
 	// The contents of a kubeconfig file or the path to a kubeconfig file.
 	Kubeconfig *string `pulumi:"kubeconfig"`
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
@@ -123,6 +125,8 @@ type ProviderArgs struct {
 	HelmRepositoryCache pulumi.StringPtrInput
 	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
 	HelmRepositoryConfigPath pulumi.StringPtrInput
+	// Options for tuning the Kubernetes client used by a Provider.
+	KubeClientSettings KubeClientSettingsPtrInput
 	// The contents of a kubeconfig file or the path to a kubeconfig file.
 	Kubeconfig pulumi.StringPtrInput
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.

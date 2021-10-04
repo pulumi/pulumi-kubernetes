@@ -13,6 +13,8 @@ import (
 	"strings"
 	"time"
 
+	"k8s.io/client-go/tools/clientcmd/api"
+
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	pkgerrors "github.com/pkg/errors"
@@ -155,7 +157,9 @@ type ReleaseStatus struct {
 type helmReleaseProvider struct {
 	host             *provider.HostClient
 	helmDriver       string
-	kubeConfig       *KubeConfig
+	apiConfig        *api.Config
+	defaultOverrides *clientcmd.ConfigOverrides
+	restConfig       *rest.Config
 	defaultNamespace string
 	enableSecrets    bool
 	name             string
@@ -164,8 +168,9 @@ type helmReleaseProvider struct {
 
 func newHelmReleaseProvider(
 	host *provider.HostClient,
-	config *rest.Config,
-	clientConfig clientcmd.ClientConfig,
+	apiConfig *api.Config,
+	defaultOverrides *clientcmd.ConfigOverrides,
+	restConfig *rest.Config,
 	helmDriver,
 	namespace string,
 	enableSecrets bool,
@@ -174,7 +179,6 @@ func newHelmReleaseProvider(
 	repositoryConfigPath,
 	repositoryCache string,
 ) (customResourceProvider, error) {
-	kc := newKubeConfig(config, clientConfig)
 	settings := cli.New()
 	settings.PluginsDirectory = pluginsDirectory
 	settings.RegistryConfig = registryConfigPath
@@ -183,7 +187,9 @@ func newHelmReleaseProvider(
 
 	return &helmReleaseProvider{
 		host:             host,
-		kubeConfig:       kc,
+		apiConfig:        apiConfig,
+		defaultOverrides: defaultOverrides,
+		restConfig:       restConfig,
 		helmDriver:       helmDriver,
 		defaultNamespace: namespace,
 		enableSecrets:    enableSecrets,
@@ -198,7 +204,31 @@ func debug(format string, a ...interface{}) {
 
 func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
 	conf := new(action.Configuration)
-	if err := conf.Init(r.kubeConfig, namespace, r.helmDriver, debug); err != nil {
+	var overrides clientcmd.ConfigOverrides
+	if r.defaultOverrides != nil {
+		overrides = *r.defaultOverrides
+	}
+
+	// This essentially points the client to use the specified namespace when a namespaced
+	// object doesn't have the namespace specified. This allows us to interpolate the
+	// release's namespace as the default namespace on charts with templates that don't
+	// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
+	overrides.Context.Namespace = namespace
+
+	var clientConfig clientcmd.ClientConfig
+	if r.apiConfig != nil {
+		clientConfig = clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
+	} else {
+		// Use client-go to resolve the final configuration values for the client. Typically these
+		// values would would reside in the $KUBECONFIG file, but can also be altered in several
+		// places, including in env variables, client-go default values, and (if we allowed it) CLI
+		// flags.
+		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
+	}
+	kc := newKubeConfig(r.restConfig, clientConfig)
+	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {
 		return nil, err
 	}
 	return conf, nil

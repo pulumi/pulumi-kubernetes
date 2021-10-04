@@ -96,6 +96,12 @@ namespace Pulumi.Kubernetes
         public Input<string>? HelmRepositoryConfigPath { get; set; }
 
         /// <summary>
+        /// Options for tuning the Kubernetes client used by a Provider.
+        /// </summary>
+        [Input("kubeClientSettings", json: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Provider.KubeClientSettingsArgs>? KubeClientSettings { get; set; }
+
+        /// <summary>
         /// The contents of a kubeconfig file or the path to a kubeconfig file.
         /// </summary>
         [Input("kubeconfig")]
