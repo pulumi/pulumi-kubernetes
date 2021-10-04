@@ -10,6 +10,241 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// BETA FEATURE - Options to configure the Helm Release resource.
+type HelmReleaseSettings struct {
+	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+	Driver *string `pulumi:"driver"`
+	// The path to the helm plugins directory.
+	PluginsPath *string `pulumi:"pluginsPath"`
+	// The path to the registry config file.
+	RegistryConfigPath *string `pulumi:"registryConfigPath"`
+	// The path to the file containing cached repository indexes.
+	RepositoryCache *string `pulumi:"repositoryCache"`
+	// The path to the file containing repository names and URLs.
+	RepositoryConfigPath *string `pulumi:"repositoryConfigPath"`
+	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+	SuppressBetaWarning *bool `pulumi:"suppressBetaWarning"`
+}
+
+// HelmReleaseSettingsInput is an input type that accepts HelmReleaseSettingsArgs and HelmReleaseSettingsOutput values.
+// You can construct a concrete instance of `HelmReleaseSettingsInput` via:
+//
+//          HelmReleaseSettingsArgs{...}
+type HelmReleaseSettingsInput interface {
+	pulumi.Input
+
+	ToHelmReleaseSettingsOutput() HelmReleaseSettingsOutput
+	ToHelmReleaseSettingsOutputWithContext(context.Context) HelmReleaseSettingsOutput
+}
+
+// BETA FEATURE - Options to configure the Helm Release resource.
+type HelmReleaseSettingsArgs struct {
+	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+	Driver pulumi.StringPtrInput `pulumi:"driver"`
+	// The path to the helm plugins directory.
+	PluginsPath pulumi.StringPtrInput `pulumi:"pluginsPath"`
+	// The path to the registry config file.
+	RegistryConfigPath pulumi.StringPtrInput `pulumi:"registryConfigPath"`
+	// The path to the file containing cached repository indexes.
+	RepositoryCache pulumi.StringPtrInput `pulumi:"repositoryCache"`
+	// The path to the file containing repository names and URLs.
+	RepositoryConfigPath pulumi.StringPtrInput `pulumi:"repositoryConfigPath"`
+	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+	SuppressBetaWarning pulumi.BoolPtrInput `pulumi:"suppressBetaWarning"`
+}
+
+func (HelmReleaseSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HelmReleaseSettings)(nil)).Elem()
+}
+
+func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsOutput() HelmReleaseSettingsOutput {
+	return i.ToHelmReleaseSettingsOutputWithContext(context.Background())
+}
+
+func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsOutputWithContext(ctx context.Context) HelmReleaseSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsOutput)
+}
+
+func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsPtrOutput() HelmReleaseSettingsPtrOutput {
+	return i.ToHelmReleaseSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsPtrOutputWithContext(ctx context.Context) HelmReleaseSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsOutput).ToHelmReleaseSettingsPtrOutputWithContext(ctx)
+}
+
+// HelmReleaseSettingsPtrInput is an input type that accepts HelmReleaseSettingsArgs, HelmReleaseSettingsPtr and HelmReleaseSettingsPtrOutput values.
+// You can construct a concrete instance of `HelmReleaseSettingsPtrInput` via:
+//
+//          HelmReleaseSettingsArgs{...}
+//
+//  or:
+//
+//          nil
+type HelmReleaseSettingsPtrInput interface {
+	pulumi.Input
+
+	ToHelmReleaseSettingsPtrOutput() HelmReleaseSettingsPtrOutput
+	ToHelmReleaseSettingsPtrOutputWithContext(context.Context) HelmReleaseSettingsPtrOutput
+}
+
+type helmReleaseSettingsPtrType HelmReleaseSettingsArgs
+
+func HelmReleaseSettingsPtr(v *HelmReleaseSettingsArgs) HelmReleaseSettingsPtrInput {
+	return (*helmReleaseSettingsPtrType)(v)
+}
+
+func (*helmReleaseSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**HelmReleaseSettings)(nil)).Elem()
+}
+
+func (i *helmReleaseSettingsPtrType) ToHelmReleaseSettingsPtrOutput() HelmReleaseSettingsPtrOutput {
+	return i.ToHelmReleaseSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *helmReleaseSettingsPtrType) ToHelmReleaseSettingsPtrOutputWithContext(ctx context.Context) HelmReleaseSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsPtrOutput)
+}
+
+// BETA FEATURE - Options to configure the Helm Release resource.
+type HelmReleaseSettingsOutput struct{ *pulumi.OutputState }
+
+func (HelmReleaseSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HelmReleaseSettings)(nil)).Elem()
+}
+
+func (o HelmReleaseSettingsOutput) ToHelmReleaseSettingsOutput() HelmReleaseSettingsOutput {
+	return o
+}
+
+func (o HelmReleaseSettingsOutput) ToHelmReleaseSettingsOutputWithContext(ctx context.Context) HelmReleaseSettingsOutput {
+	return o
+}
+
+func (o HelmReleaseSettingsOutput) ToHelmReleaseSettingsPtrOutput() HelmReleaseSettingsPtrOutput {
+	return o.ToHelmReleaseSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o HelmReleaseSettingsOutput) ToHelmReleaseSettingsPtrOutputWithContext(ctx context.Context) HelmReleaseSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HelmReleaseSettings) *HelmReleaseSettings {
+		return &v
+	}).(HelmReleaseSettingsPtrOutput)
+}
+
+// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+func (o HelmReleaseSettingsOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.Driver }).(pulumi.StringPtrOutput)
+}
+
+// The path to the helm plugins directory.
+func (o HelmReleaseSettingsOutput) PluginsPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.PluginsPath }).(pulumi.StringPtrOutput)
+}
+
+// The path to the registry config file.
+func (o HelmReleaseSettingsOutput) RegistryConfigPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.RegistryConfigPath }).(pulumi.StringPtrOutput)
+}
+
+// The path to the file containing cached repository indexes.
+func (o HelmReleaseSettingsOutput) RepositoryCache() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.RepositoryCache }).(pulumi.StringPtrOutput)
+}
+
+// The path to the file containing repository names and URLs.
+func (o HelmReleaseSettingsOutput) RepositoryConfigPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.RepositoryConfigPath }).(pulumi.StringPtrOutput)
+}
+
+// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+func (o HelmReleaseSettingsOutput) SuppressBetaWarning() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v HelmReleaseSettings) *bool { return v.SuppressBetaWarning }).(pulumi.BoolPtrOutput)
+}
+
+type HelmReleaseSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (HelmReleaseSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**HelmReleaseSettings)(nil)).Elem()
+}
+
+func (o HelmReleaseSettingsPtrOutput) ToHelmReleaseSettingsPtrOutput() HelmReleaseSettingsPtrOutput {
+	return o
+}
+
+func (o HelmReleaseSettingsPtrOutput) ToHelmReleaseSettingsPtrOutputWithContext(ctx context.Context) HelmReleaseSettingsPtrOutput {
+	return o
+}
+
+func (o HelmReleaseSettingsPtrOutput) Elem() HelmReleaseSettingsOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) HelmReleaseSettings {
+		if v != nil {
+			return *v
+		}
+		var ret HelmReleaseSettings
+		return ret
+	}).(HelmReleaseSettingsOutput)
+}
+
+// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+func (o HelmReleaseSettingsPtrOutput) Driver() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Driver
+	}).(pulumi.StringPtrOutput)
+}
+
+// The path to the helm plugins directory.
+func (o HelmReleaseSettingsPtrOutput) PluginsPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PluginsPath
+	}).(pulumi.StringPtrOutput)
+}
+
+// The path to the registry config file.
+func (o HelmReleaseSettingsPtrOutput) RegistryConfigPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RegistryConfigPath
+	}).(pulumi.StringPtrOutput)
+}
+
+// The path to the file containing cached repository indexes.
+func (o HelmReleaseSettingsPtrOutput) RepositoryCache() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RepositoryCache
+	}).(pulumi.StringPtrOutput)
+}
+
+// The path to the file containing repository names and URLs.
+func (o HelmReleaseSettingsPtrOutput) RepositoryConfigPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RepositoryConfigPath
+	}).(pulumi.StringPtrOutput)
+}
+
+// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+func (o HelmReleaseSettingsPtrOutput) SuppressBetaWarning() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *HelmReleaseSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.SuppressBetaWarning
+	}).(pulumi.BoolPtrOutput)
+}
+
 // Options for tuning the Kubernetes client used by a Provider.
 type KubeClientSettings struct {
 	// Maximum burst for throttle. Default value is 10.
@@ -170,6 +405,8 @@ func (o KubeClientSettingsPtrOutput) Qps() pulumi.Float64PtrOutput {
 }
 
 func init() {
+	pulumi.RegisterOutputType(HelmReleaseSettingsOutput{})
+	pulumi.RegisterOutputType(HelmReleaseSettingsPtrOutput{})
 	pulumi.RegisterOutputType(KubeClientSettingsOutput{})
 	pulumi.RegisterOutputType(KubeClientSettingsPtrOutput{})
 }
