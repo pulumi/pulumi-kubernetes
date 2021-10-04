@@ -465,79 +465,41 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.yamlDirectory = renderYamlToDirectory()
 	k.yamlRenderMode = len(k.yamlDirectory) > 0
 
-	suppressHelmReleaseBetaWarning := func() bool {
-		if disabled, exists := vars["kubernetes:config:suppressHelmReleaseBetaWarning"]; exists {
-			return disabled == trueStr
+	var helmReleaseSettings HelmReleaseSettings
+	if obj, ok := vars["kubernetes:config:helmReleaseSettings"]; ok {
+		err := json.Unmarshal([]byte(obj), &helmReleaseSettings)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal helmReleaseSettings option: %w", err)
 		}
-
-		// If the provider flag is not set, fall back to the ENV var.
-		if disabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"); exists {
-			return disabled == trueStr
-		}
-		return false
 	}
-	k.suppressHelmReleaseBetaWarning = suppressHelmReleaseBetaWarning()
-
-	helmDriver := func() string {
-		if driver, exists := vars["kubernetes:config:helmDriver"]; exists {
-			return driver
-		}
-		// If the provider flag is not set, fall back to the ENV var.
-		if driver, exists := os.LookupEnv("PULUMI_K8S_HELM_DRIVER"); exists {
-			return driver
-		}
-
-		return "secret"
+	if helmReleaseSettings.Driver != nil {
+		k.helmDriver = *helmReleaseSettings.Driver
+	} else {
+		k.helmDriver = "secret"
 	}
-	k.helmDriver = helmDriver() // TODO: Make sure this is in provider state
-
-	helmPluginsPath := func() string {
-		if pluginsPath, exists := vars["kubernetes:config:helmPluginsPath"]; exists {
-			return pluginsPath
-		}
-		// If the provider flag is not set, fall back to the ENV var.
-		if pluginsPath, exists := os.LookupEnv("PULUMI_K8S_HELM_PLUGINS_PATH"); exists {
-			return pluginsPath
-		}
-		return helmpath.DataPath("plugins")
+	if helmReleaseSettings.PluginsPath != nil {
+		k.helmPluginsPath = *helmReleaseSettings.PluginsPath
+	} else {
+		k.helmPluginsPath = helmpath.DataPath("plugins")
 	}
-	k.helmPluginsPath = helmPluginsPath()
-
-	helmRegistryConfigPath := func() string {
-		if registryPath, exists := vars["kubernetes:config:helmRegistryConfigPath"]; exists {
-			return registryPath
-		}
-		// If the provider flag is not set, fall back to the ENV var.
-		if registryPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); exists {
-			return registryPath
-		}
-		return helmpath.ConfigPath("registry.json")
+	if helmReleaseSettings.RegistryConfigPath != nil {
+		k.helmRegistryConfigPath = *helmReleaseSettings.RegistryConfigPath
+	} else {
+		k.helmRegistryConfigPath = helmpath.ConfigPath("registry.json")
 	}
-	k.helmRegistryConfigPath = helmRegistryConfigPath()
-
-	helmRepositoryConfigPath := func() string {
-		if repositoryConfigPath, exists := vars["kubernetes:config:helmRepositoryConfigPath"]; exists {
-			return repositoryConfigPath
-		}
-
-		if repositoryConfigPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); exists {
-			return repositoryConfigPath
-		}
-		return helmpath.ConfigPath("repositories.yaml")
+	if helmReleaseSettings.RepositoryCache != nil {
+		k.helmRepositoryCache = *helmReleaseSettings.RepositoryCache
+	} else {
+		k.helmRepositoryCache = helmpath.CachePath("repository")
 	}
-	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
-
-	helmRepositoryCache := func() string {
-		if repositoryCache, exists := vars["kubernetes:config:helmRepositoryCache"]; exists {
-			return repositoryCache
-		}
-
-		if repositoryCache, exists := os.LookupEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE"); exists {
-			return repositoryCache
-		}
-		return helmpath.CachePath("repository")
+	if helmReleaseSettings.RepositoryConfigPath != nil {
+		k.helmRepositoryConfigPath = *helmReleaseSettings.RepositoryConfigPath
+	} else {
+		k.helmRepositoryConfigPath = helmpath.ConfigPath("repositories.yaml")
 	}
-	k.helmRepositoryCache = helmRepositoryCache()
+	if helmReleaseSettings.SuppressBetaWarning != nil {
+		k.suppressHelmReleaseBetaWarning = *helmReleaseSettings.SuppressBetaWarning
+	}
 
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default

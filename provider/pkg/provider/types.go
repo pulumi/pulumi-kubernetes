@@ -17,6 +17,22 @@ package provider
 // Note: These types must match the types defined in the Go SDK (sdk/go/kubernetes/config/pulumiTypes.go).
 // Copying the types avoids having the provider depend on the SDK.
 
+// BETA FEATURE - Options to configure the Helm Release resource.
+type HelmReleaseSettings struct {
+	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+	Driver *string `json:"driver"`
+	// The path to the helm plugins directory.
+	PluginsPath *string `json:"pluginsPath"`
+	// The path to the registry config file.
+	RegistryConfigPath *string `json:"registryConfigPath"`
+	// The path to the file containing cached repository indexes.
+	RepositoryCache *string `json:"repositoryCache"`
+	// The path to the file containing repository names and URLs.
+	RepositoryConfigPath *string `json:"repositoryConfigPath"`
+	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+	SuppressBetaWarning *bool `json:"suppressBetaWarning"`
+}
+
 // Options for tuning the Kubernetes client used by a Provider.
 type KubeClientSettings struct {
 	// Maximum burst for throttle. Default value is 10.
