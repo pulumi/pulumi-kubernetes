@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package await
 import (
 	"context"
 	"fmt"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -353,7 +354,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// - [ ] Support server-side apply, when it comes out.
 	//
 
-	client, err := c.ClientSet.ResourceClient(c.Previous.GroupVersionKind(), c.Previous.GetNamespace())
+	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
 	if err != nil {
 		return nil, err
 	}
