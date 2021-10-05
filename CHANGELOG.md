@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
 
+- [sdk/dotnet] Fix creation of CustomResources (https://github.com/pulumi/pulumi-kubernetes/pull/1741)
 - Always override namespace for helm release operations (https://github.com/pulumi/pulumi-kubernetes/pull/1747)
 - Add k8s client tuning settings to Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1748)
 
