@@ -1288,7 +1288,7 @@ namespace Pulumi.Kubernetes.Yaml
                     return new[]
                     {
                         id.Apply(id => ($"{apiVersion}/{kind}::{id}",
-                            new ApiExtensions.V1.CustomResourceDefinition(id, obj!, opts) as KubernetesResource))
+                            new ApiExtensions.CustomResource(id, obj!, opts) as KubernetesResource))
                     };
             }
         }

@@ -12,8 +12,8 @@ require (
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v3 v3.12.0
-	github.com/pulumi/pulumi/sdk/v3 v3.12.0
+	github.com/pulumi/pulumi/pkg/v3 v3.13.2
+	github.com/pulumi/pulumi/sdk/v3 v3.13.2
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20210506145944-38f3c27a63bf
 	google.golang.org/grpc v1.37.0
@@ -31,6 +31,7 @@ require (
 )
 
 replace (
+	github.com/containerd/containerd => github.com/containerd/containerd v1.4.11 // Work around https://github.com/advisories/GHSA-c2h3-6mxw-7mvq
 	github.com/docker/distribution => github.com/docker/distribution v0.0.0-20191216044856-a8371794149d
 	github.com/docker/docker => github.com/moby/moby v17.12.0-ce-rc1.0.20200618181300-9dc6525e6118+incompatible
 	github.com/evanphx/json-patch => github.com/evanphx/json-patch v4.11.0+incompatible

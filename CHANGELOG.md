@@ -1,8 +1,10 @@
 ## HEAD (Unreleased)
 
+- [sdk/dotnet] Fix creation of CustomResources (https://github.com/pulumi/pulumi-kubernetes/pull/1741)
 - Always override namespace for helm release operations (https://github.com/pulumi/pulumi-kubernetes/pull/1747)
 - Add k8s client tuning settings to Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1748)
 - Nest helm.Release Provider settings (https://github.com/pulumi/pulumi-kubernetes/pull/1751)
+- Change await logic client to use target apiVersion on updates (https://github.com/pulumi/pulumi-kubernetes/pull/1758)
 
 ## 3.7.3 (September 30, 2021)
 - Use helm release's namespace on templates where namespace is left unspecified (https://github.com/pulumi/pulumi-kubernetes/pull/1733)
