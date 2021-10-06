@@ -7,6 +7,8 @@
 
 ## 3.7.3 (September 30, 2021)
 - Use helm release's namespace on templates where namespace is left unspecified (https://github.com/pulumi/pulumi-kubernetes/pull/1733)
+- Upgrade Helm dependency to v3.7.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1742)
+- Helm Release: Await deletion if skipAwait is unset or atomic is specific (https://github.com/pulumi/pulumi-kubernetes/pull/1742)
 
 ## 3.7.2 (September 17, 2021)
 - Fix handling of charts with empty manifests (https://github.com/pulumi/pulumi-kubernetes/pull/1717)

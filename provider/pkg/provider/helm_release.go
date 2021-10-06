@@ -43,6 +43,9 @@ import (
 	"k8s.io/client-go/tools/clientcmd"
 )
 
+// Default timeout for awaited install and uninstall operations
+const defaultTimeoutSeconds = 300
+
 // errReleaseNotFound is the error when a Helm release is not found
 var errReleaseNotFound = errors.New("release not found")
 
@@ -291,7 +294,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	if !new.SkipAwait && new.Timeout == 0 {
-		new.Timeout = 300
+		new.Timeout = defaultTimeoutSeconds
 	}
 
 	if new.Keyring == "" {
@@ -980,7 +983,16 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 
 	name := release.Name
 
-	res, err := action.NewUninstall(actionConfig).Run(name)
+	uninstall := action.NewUninstall(actionConfig)
+	if release.Atomic || !release.SkipAwait { // If the release was atomic or skipAwait was not set, block on deletion
+		uninstall.Wait = true
+		timeout := release.Timeout
+		if timeout == 0 {
+			timeout = defaultTimeoutSeconds
+		}
+		uninstall.Timeout = time.Duration(timeout) * time.Second
+	}
+	res, err := uninstall.Run(name)
 	if err != nil {
 		return nil, err
 	}
