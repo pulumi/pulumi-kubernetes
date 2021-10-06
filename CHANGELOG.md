@@ -1,9 +1,11 @@
 ## HEAD (Unreleased)
 
+## 3.8.0 (October 6, 2021)
+
 Breaking change note:
 
-#1751 moved the Helm Release (beta) Provider options into a complex type called `helmReleaseSettings`. Following this
-change, you can set these options in the following ways:
+[#1751](https://github.com/pulumi/pulumi-kubernetes/pull/1751) moved the Helm Release (beta) Provider options into a
+complex type called `helmReleaseSettings`. Following this change, you can set these options in the following ways:
 
 1. As arguments to a first-class Provider
    ```typescript
