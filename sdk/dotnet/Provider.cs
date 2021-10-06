@@ -66,34 +66,10 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
-        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+        /// BETA FEATURE - Options to configure the Helm Release resource.
         /// </summary>
-        [Input("helmDriver")]
-        public Input<string>? HelmDriver { get; set; }
-
-        /// <summary>
-        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.
-        /// </summary>
-        [Input("helmPluginsPath")]
-        public Input<string>? HelmPluginsPath { get; set; }
-
-        /// <summary>
-        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
-        /// </summary>
-        [Input("helmRegistryConfigPath")]
-        public Input<string>? HelmRegistryConfigPath { get; set; }
-
-        /// <summary>
-        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
-        /// </summary>
-        [Input("helmRepositoryCache")]
-        public Input<string>? HelmRepositoryCache { get; set; }
-
-        /// <summary>
-        /// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
-        /// </summary>
-        [Input("helmRepositoryConfigPath")]
-        public Input<string>? HelmRepositoryConfigPath { get; set; }
+        [Input("helmReleaseSettings", json: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Provider.HelmReleaseSettingsArgs>? HelmReleaseSettings { get; set; }
 
         /// <summary>
         /// Options for tuning the Kubernetes client used by a Provider.
@@ -143,24 +119,12 @@ namespace Pulumi.Kubernetes
         [Input("suppressHelmHookWarnings", json: true)]
         public Input<bool>? SuppressHelmHookWarnings { get; set; }
 
-        /// <summary>
-        /// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-        /// </summary>
-        [Input("suppressHelmReleaseBetaWarning", json: true)]
-        public Input<bool>? SuppressHelmReleaseBetaWarning { get; set; }
-
         public ProviderArgs()
         {
             EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
-            HelmDriver = Utilities.GetEnv("PULUMI_K8S_HELM_DRIVER");
-            HelmPluginsPath = Utilities.GetEnv("PULUMI_K8S_HELM_PLUGINS_PATH");
-            HelmRegistryConfigPath = Utilities.GetEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH");
-            HelmRepositoryCache = Utilities.GetEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE");
-            HelmRepositoryConfigPath = Utilities.GetEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
             SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");
-            SuppressHelmReleaseBetaWarning = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING");
         }
     }
 }

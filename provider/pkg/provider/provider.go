@@ -465,36 +465,34 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.yamlDirectory = renderYamlToDirectory()
 	k.yamlRenderMode = len(k.yamlDirectory) > 0
 
-	suppressHelmReleaseBetaWarning := func() bool {
-		if disabled, exists := vars["kubernetes:config:suppressHelmReleaseBetaWarning"]; exists {
-			return disabled == trueStr
+	var helmReleaseSettings HelmReleaseSettings
+	if obj, ok := vars["kubernetes:config:helmReleaseSettings"]; ok {
+		err := json.Unmarshal([]byte(obj), &helmReleaseSettings)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal helmReleaseSettings option: %w", err)
 		}
-
-		// If the provider flag is not set, fall back to the ENV var.
-		if disabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"); exists {
-			return disabled == trueStr
-		}
-		return false
 	}
-	k.suppressHelmReleaseBetaWarning = suppressHelmReleaseBetaWarning()
+
+	// TODO: Once https://github.com/pulumi/pulumi/issues/8132 is fixed, we can drop the env var handling logic.
 
 	helmDriver := func() string {
-		if driver, exists := vars["kubernetes:config:helmDriver"]; exists {
-			return driver
+		if helmReleaseSettings.Driver != nil {
+			return *helmReleaseSettings.Driver
 		}
+
 		// If the provider flag is not set, fall back to the ENV var.
 		if driver, exists := os.LookupEnv("PULUMI_K8S_HELM_DRIVER"); exists {
 			return driver
 		}
-
 		return "secret"
 	}
 	k.helmDriver = helmDriver() // TODO: Make sure this is in provider state
 
 	helmPluginsPath := func() string {
-		if pluginsPath, exists := vars["kubernetes:config:helmPluginsPath"]; exists {
-			return pluginsPath
+		if helmReleaseSettings.PluginsPath != nil {
+			return *helmReleaseSettings.PluginsPath
 		}
+
 		// If the provider flag is not set, fall back to the ENV var.
 		if pluginsPath, exists := os.LookupEnv("PULUMI_K8S_HELM_PLUGINS_PATH"); exists {
 			return pluginsPath
@@ -504,9 +502,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.helmPluginsPath = helmPluginsPath()
 
 	helmRegistryConfigPath := func() string {
-		if registryPath, exists := vars["kubernetes:config:helmRegistryConfigPath"]; exists {
-			return registryPath
+		if helmReleaseSettings.RegistryConfigPath != nil {
+			return *helmReleaseSettings.RegistryConfigPath
 		}
+
 		// If the provider flag is not set, fall back to the ENV var.
 		if registryPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); exists {
 			return registryPath
@@ -516,8 +515,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.helmRegistryConfigPath = helmRegistryConfigPath()
 
 	helmRepositoryConfigPath := func() string {
-		if repositoryConfigPath, exists := vars["kubernetes:config:helmRepositoryConfigPath"]; exists {
-			return repositoryConfigPath
+		if helmReleaseSettings.RepositoryConfigPath != nil {
+			return *helmReleaseSettings.RepositoryConfigPath
 		}
 
 		if repositoryConfigPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); exists {
@@ -528,16 +527,29 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
 
 	helmRepositoryCache := func() string {
-		if repositoryCache, exists := vars["kubernetes:config:helmRepositoryCache"]; exists {
-			return repositoryCache
+		if helmReleaseSettings.RepositoryCache != nil {
+			return *helmReleaseSettings.RepositoryCache
 		}
 
-		if repositoryCache, exists := os.LookupEnv("PULUMI_K8s_HELM_REPOSITORY_CACHE"); exists {
+		if repositoryCache, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CACHE"); exists {
 			return repositoryCache
 		}
 		return helmpath.CachePath("repository")
 	}
 	k.helmRepositoryCache = helmRepositoryCache()
+
+	suppressHelmReleaseBetaWarning := func() bool {
+		if helmReleaseSettings.SuppressBetaWarning != nil {
+			return *helmReleaseSettings.SuppressBetaWarning
+		}
+
+		// If the provider flag is not set, fall back to the ENV var.
+		if disabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"); exists {
+			return disabled == trueStr
+		}
+		return false
+	}
+	k.suppressHelmReleaseBetaWarning = suppressHelmReleaseBetaWarning()
 
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default

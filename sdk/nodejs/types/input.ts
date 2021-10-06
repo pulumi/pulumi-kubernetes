@@ -5,6 +5,36 @@ import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "../types";
 
 /**
+ * BETA FEATURE - Options to configure the Helm Release resource.
+ */
+export interface HelmReleaseSettings {
+    /**
+     * The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
+     */
+    driver?: pulumi.Input<string>;
+    /**
+     * The path to the helm plugins directory.
+     */
+    pluginsPath?: pulumi.Input<string>;
+    /**
+     * The path to the registry config file.
+     */
+    registryConfigPath?: pulumi.Input<string>;
+    /**
+     * The path to the file containing cached repository indexes.
+     */
+    repositoryCache?: pulumi.Input<string>;
+    /**
+     * The path to the file containing repository names and URLs.
+     */
+    repositoryConfigPath?: pulumi.Input<string>;
+    /**
+     * While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
+     */
+    suppressBetaWarning?: pulumi.Input<boolean>;
+}
+
+/**
  * Options for tuning the Kubernetes client used by a Provider.
  */
 export interface KubeClientSettings {

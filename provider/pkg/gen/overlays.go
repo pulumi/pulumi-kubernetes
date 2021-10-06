@@ -466,6 +466,69 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 	},
 }
 
+var helmReleaseSettings = pschema.ComplexTypeSpec{
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		Description: "BETA FEATURE - Options to configure the Helm Release resource.",
+		Properties: map[string]pschema.PropertySpec{
+			"driver": {
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_HELM_DRIVER",
+					},
+				},
+				Description: "The backend storage driver for Helm. Values are: configmap, secret, memory, sql.",
+				TypeSpec:    pschema.TypeSpec{Type: "string"},
+			},
+			"pluginsPath": {
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_HELM_PLUGINS_PATH",
+					},
+				},
+				Description: "The path to the helm plugins directory.",
+				TypeSpec:    pschema.TypeSpec{Type: "string"},
+			},
+			"registryConfigPath": {
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH",
+					},
+				},
+				Description: "The path to the registry config file.",
+				TypeSpec:    pschema.TypeSpec{Type: "string"},
+			},
+			"repositoryConfigPath": {
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH",
+					},
+				},
+				Description: "The path to the file containing repository names and URLs.",
+				TypeSpec:    pschema.TypeSpec{Type: "string"},
+			},
+			"repositoryCache": {
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_HELM_REPOSITORY_CACHE",
+					},
+				},
+				Description: "The path to the file containing cached repository indexes.",
+				TypeSpec:    pschema.TypeSpec{Type: "string"},
+			},
+			"suppressBetaWarning": {
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING",
+					},
+				},
+				Description: "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to \"true\", this warning is omitted.",
+				TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+			},
+		},
+		Type: "object",
+	},
+}
+
 var helmV3ReleaseResource = pschema.ResourceSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		Description: "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
@@ -974,6 +1037,7 @@ func init() {
 	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
 	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
+	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
 
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 }

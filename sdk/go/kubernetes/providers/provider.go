@@ -27,21 +27,6 @@ func NewProvider(ctx *pulumi.Context,
 	if args.EnableDryRun == nil {
 		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
 	}
-	if args.HelmDriver == nil {
-		args.HelmDriver = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string))
-	}
-	if args.HelmPluginsPath == nil {
-		args.HelmPluginsPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string))
-	}
-	if args.HelmRegistryConfigPath == nil {
-		args.HelmRegistryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string))
-	}
-	if args.HelmRepositoryCache == nil {
-		args.HelmRepositoryCache = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8s_HELM_REPOSITORY_CACHE").(string))
-	}
-	if args.HelmRepositoryConfigPath == nil {
-		args.HelmRepositoryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string))
-	}
 	if args.Kubeconfig == nil {
 		args.Kubeconfig = pulumi.StringPtr(getEnvOrDefault("", nil, "KUBECONFIG").(string))
 	}
@@ -50,9 +35,6 @@ func NewProvider(ctx *pulumi.Context,
 	}
 	if args.SuppressHelmHookWarnings == nil {
 		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
-	}
-	if args.SuppressHelmReleaseBetaWarning == nil {
-		args.SuppressHelmReleaseBetaWarning = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING").(bool))
 	}
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:kubernetes", name, args, &resource, opts...)
@@ -71,16 +53,8 @@ type providerArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
-	HelmDriver *string `pulumi:"helmDriver"`
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.
-	HelmPluginsPath *string `pulumi:"helmPluginsPath"`
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
-	HelmRegistryConfigPath *string `pulumi:"helmRegistryConfigPath"`
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
-	HelmRepositoryCache *string `pulumi:"helmRepositoryCache"`
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
-	HelmRepositoryConfigPath *string `pulumi:"helmRepositoryConfigPath"`
+	// BETA FEATURE - Options to configure the Helm Release resource.
+	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
 	// Options for tuning the Kubernetes client used by a Provider.
 	KubeClientSettings *KubeClientSettings `pulumi:"kubeClientSettings"`
 	// The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -105,8 +79,6 @@ type providerArgs struct {
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
 	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
 	SuppressHelmHookWarnings *bool `pulumi:"suppressHelmHookWarnings"`
-	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-	SuppressHelmReleaseBetaWarning *bool `pulumi:"suppressHelmReleaseBetaWarning"`
 }
 
 // The set of arguments for constructing a Provider resource.
@@ -119,16 +91,8 @@ type ProviderArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun pulumi.BoolPtrInput
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
-	HelmDriver pulumi.StringPtrInput
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the helm plugins directory.
-	HelmPluginsPath pulumi.StringPtrInput
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the registry config file.
-	HelmRegistryConfigPath pulumi.StringPtrInput
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing cached repository indexes.
-	HelmRepositoryCache pulumi.StringPtrInput
-	// BETA FEATURE - Used for supporting Helm Release resource (Beta). The path to the file containing repository names and URLs.
-	HelmRepositoryConfigPath pulumi.StringPtrInput
+	// BETA FEATURE - Options to configure the Helm Release resource.
+	HelmReleaseSettings HelmReleaseSettingsPtrInput
 	// Options for tuning the Kubernetes client used by a Provider.
 	KubeClientSettings KubeClientSettingsPtrInput
 	// The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -153,8 +117,6 @@ type ProviderArgs struct {
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
 	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
 	SuppressHelmHookWarnings pulumi.BoolPtrInput
-	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-	SuppressHelmReleaseBetaWarning pulumi.BoolPtrInput
 }
 
 // Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead

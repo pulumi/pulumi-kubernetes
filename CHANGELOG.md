@@ -1,8 +1,29 @@
 ## HEAD (Unreleased)
 
+Breaking change note:
+
+#1751 moved the Helm Release (beta) Provider options into a complex type called `helmReleaseSettings`. Following this
+change, you can set these options in the following ways:
+
+1. As arguments to a first-class Provider
+   ```typescript
+   new k8s.Provider("test", { helmReleaseSettings: { driver: "secret" } });
+   ```
+
+1. Stack configuration for the default Provider
+   ```
+   pulumi config set --path kubernetes:helmReleaseSettings.driver "secret"
+   ```
+
+1. As environment variables
+   ```
+   EXPORT PULUMI_K8S_HELM_DRIVER="secret"
+   ```
+
 - [sdk/dotnet] Fix creation of CustomResources (https://github.com/pulumi/pulumi-kubernetes/pull/1741)
 - Always override namespace for helm release operations (https://github.com/pulumi/pulumi-kubernetes/pull/1747)
 - Add k8s client tuning settings to Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1748)
+- Nest helm.Release Provider settings (https://github.com/pulumi/pulumi-kubernetes/pull/1751)
 - Change await logic client to use target apiVersion on updates (https://github.com/pulumi/pulumi-kubernetes/pull/1758)
 
 ## 3.7.3 (September 30, 2021)
