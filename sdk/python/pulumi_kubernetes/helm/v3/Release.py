@@ -17,7 +17,6 @@ class ReleaseArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
                  repository_opts: pulumi.Input['RepositoryOptsArgs'],
-                 values: pulumi.Input[Mapping[str, Any]],
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  compat: Optional[pulumi.Input[str]] = None,
@@ -46,6 +45,7 @@ class ReleaseArgs:
                  skip_crds: Optional[pulumi.Input[bool]] = None,
                  timeout: Optional[pulumi.Input[int]] = None,
                  value_yaml_files: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
+                 values: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  verify: Optional[pulumi.Input[bool]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  wait_for_jobs: Optional[pulumi.Input[bool]] = None):
@@ -53,7 +53,6 @@ class ReleaseArgs:
         The set of arguments for constructing a Release resource.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input['RepositoryOptsArgs'] repository_opts: Specification defining the Helm chart repository to use.
-        :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist.
@@ -81,13 +80,13 @@ class ReleaseArgs:
         :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         :param pulumi.Input[int] timeout: Time in seconds to wait for any individual kubernetes operation.
         :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
         :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
         pulumi.set(__self__, "repository_opts", repository_opts)
-        pulumi.set(__self__, "values", values)
         if atomic is not None:
             pulumi.set(__self__, "atomic", atomic)
         if cleanup_on_fail is not None:
@@ -144,6 +143,8 @@ class ReleaseArgs:
             pulumi.set(__self__, "timeout", timeout)
         if value_yaml_files is not None:
             pulumi.set(__self__, "value_yaml_files", value_yaml_files)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
         if verify is not None:
             pulumi.set(__self__, "verify", verify)
         if version is not None:
@@ -174,18 +175,6 @@ class ReleaseArgs:
     @repository_opts.setter
     def repository_opts(self, value: pulumi.Input['RepositoryOptsArgs']):
         pulumi.set(self, "repository_opts", value)
-
-    @property
-    @pulumi.getter
-    def values(self) -> pulumi.Input[Mapping[str, Any]]:
-        """
-        Custom values set for the release.
-        """
-        return pulumi.get(self, "values")
-
-    @values.setter
-    def values(self, value: pulumi.Input[Mapping[str, Any]]):
-        pulumi.set(self, "values", value)
 
     @property
     @pulumi.getter
@@ -522,6 +511,18 @@ class ReleaseArgs:
 
     @property
     @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        """
+        Custom values set for the release.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "values", value)
+
+    @property
+    @pulumi.getter
     def verify(self) -> Optional[pulumi.Input[bool]]:
         """
         Verify the package before installing it.
@@ -744,8 +745,6 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["skip_crds"] = skip_crds
             __props__.__dict__["timeout"] = timeout
             __props__.__dict__["value_yaml_files"] = value_yaml_files
-            if values is None and not opts.urn:
-                raise TypeError("Missing required property 'values'")
             __props__.__dict__["values"] = values
             __props__.__dict__["verify"] = verify
             __props__.__dict__["version"] = version
@@ -1051,7 +1050,7 @@ class Release(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def values(self) -> pulumi.Output[Mapping[str, Any]]:
+    def values(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
         """
         Custom values set for the release.
         """

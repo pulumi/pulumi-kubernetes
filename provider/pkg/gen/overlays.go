@@ -758,7 +758,6 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 		Required: []string{
 			"chart",
 			"repositoryOpts",
-			"values",
 			"status",
 		},
 		Language: map[string]pschema.RawMessage{
@@ -1026,7 +1025,6 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 	RequiredInputs: []string{
 		"chart",
 		"repositoryOpts",
-		"values",
 	},
 }
 

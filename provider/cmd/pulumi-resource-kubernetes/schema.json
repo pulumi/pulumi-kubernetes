@@ -39597,7 +39597,6 @@
             "required": [
                 "chart",
                 "repositoryOpts",
-                "values",
                 "status"
             ],
             "language": {
@@ -39794,8 +39793,7 @@
             },
             "requiredInputs": [
                 "chart",
-                "repositoryOpts",
-                "values"
+                "repositoryOpts"
             ]
         },
         "kubernetes:meta/v1:Status": {
