@@ -1148,12 +1148,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	//
 
 	urn := resource.URN(req.GetUrn())
-	if isHelmRelease(urn) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
-		}
-		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
-	}
 
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
@@ -1342,6 +1336,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
+	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
+		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+	}
+
 	// Return new, possibly-autonamed inputs.
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
@@ -1391,12 +1392,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	//
 
 	urn := resource.URN(req.GetUrn())
-	if isHelmRelease(urn) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Diff(ctx, req)
-		}
-		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
-	}
 
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -1429,6 +1424,13 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
+	}
+
+	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Diff(ctx, req)
+		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
@@ -1598,7 +1600,8 @@ func (k *kubeProvider) Create(
 	//   comments in those methods for details.
 	//
 	urn := resource.URN(req.GetUrn())
-	if isHelmRelease(urn) {
+
+	if isHelmRelease(urn) && !req.GetPreview() {
 		if !k.clusterUnreachable {
 			return k.helmReleaseProvider.Create(ctx, req)
 		}
@@ -2063,15 +2066,6 @@ func (k *kubeProvider) Update(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	if isHelmRelease(urn) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Update(ctx, req)
-		}
-		return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
-	}
-	// Ignore old state; we'll get it from Kubernetes later.
-	oldInputs, _ := parseCheckpointObject(oldState)
-
 	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
 	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
 	// dry run, return the inputs as-is.
@@ -2081,6 +2075,15 @@ func (k *kubeProvider) Update(
 		logger.V(9).Infof("cannot preview Update(%v)", urn)
 		return &pulumirpc.UpdateResponse{Properties: req.News}, nil
 	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Update(ctx, req)
+		}
+		return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+	}
+	// Ignore old state; we'll get it from Kubernetes later.
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
 	if err != nil {
