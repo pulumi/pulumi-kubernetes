@@ -156,7 +156,7 @@ export class Release extends pulumi.CustomResource {
     /**
      * List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
      */
-    public readonly valueYamlFiles!: pulumi.Output<pulumi.asset.Asset | pulumi.asset.Archive[]>;
+    public readonly valueYamlFiles!: pulumi.Output<(pulumi.asset.Asset | pulumi.asset.Archive)[]>;
     /**
      * Custom values set for the release.
      */
