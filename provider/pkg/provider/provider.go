@@ -1212,6 +1212,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	}
 	newInputs = annotatedInputs
 
+	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
+		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+	}
+
 	// Adopt name from old object if appropriate.
 	//
 	// If the user HAS NOT assigned a name in the new inputs, we autoname it and mark the object as
@@ -1334,13 +1341,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		if checkedInputs.ContainsSecrets() {
 			_ = k.host.Log(ctx, diag.Warning, urn, "rendered YAML will contain a secret value in plaintext")
 		}
-	}
-
-	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
-		}
-		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	// Return new, possibly-autonamed inputs.
