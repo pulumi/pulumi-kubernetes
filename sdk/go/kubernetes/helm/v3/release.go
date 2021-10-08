@@ -100,9 +100,6 @@ func NewRelease(ctx *pulumi.Context,
 	if args.RepositoryOpts == nil {
 		return nil, errors.New("invalid value for required argument 'RepositoryOpts'")
 	}
-	if args.Values == nil {
-		return nil, errors.New("invalid value for required argument 'Values'")
-	}
 	args.Compat = pulumi.StringPtr("true")
 	var resource Release
 	err := ctx.RegisterResource("kubernetes:helm.sh/v3:Release", name, args, &resource, opts...)

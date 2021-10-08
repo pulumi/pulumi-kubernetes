@@ -191,9 +191,6 @@ export class Release extends pulumi.CustomResource {
             if ((!args || args.repositoryOpts === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'repositoryOpts'");
             }
-            if ((!args || args.values === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'values'");
-            }
             inputs["atomic"] = args ? args.atomic : undefined;
             inputs["chart"] = args ? args.chart : undefined;
             inputs["cleanupOnFail"] = args ? args.cleanupOnFail : undefined;
@@ -396,7 +393,7 @@ export interface ReleaseArgs {
     /**
      * Custom values set for the release.
      */
-    values: pulumi.Input<{[key: string]: any}>;
+    values?: pulumi.Input<{[key: string]: any}>;
     /**
      * Verify the package before installing it.
      */

@@ -475,7 +475,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
             set => _valueYamlFiles = value;
         }
 
-        [Input("values", required: true)]
+        [Input("values")]
         private InputMap<object>? _values;
 
         /// <summary>

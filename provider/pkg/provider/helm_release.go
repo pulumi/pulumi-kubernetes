@@ -13,22 +13,19 @@ import (
 	"strings"
 	"time"
 
-	"k8s.io/client-go/tools/clientcmd/api"
-
 	jsonpatch "github.com/evanphx/json-patch"
+	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
+	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-
-	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/mitchellh/mapstructure"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"gopkg.in/yaml.v3"
 	"helm.sh/helm/v3/pkg/action"
@@ -41,6 +38,7 @@ import (
 	"helm.sh/helm/v3/pkg/release"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
+	"k8s.io/client-go/tools/clientcmd/api"
 )
 
 // Default timeout for awaited install and uninstall operations

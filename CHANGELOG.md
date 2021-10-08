@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Fix error for helm.Release previews with computed values (https://github.com/pulumi/pulumi-kubernetes/pull/1760)
+- Don't require values for helm.Release (https://github.com/pulumi/pulumi-kubernetes/pull/1761)
 
 ## 3.8.0 (October 6, 2021)
 
