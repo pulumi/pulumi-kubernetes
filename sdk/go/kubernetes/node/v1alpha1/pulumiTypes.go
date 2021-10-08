@@ -699,6 +699,15 @@ func (o SchedulingPtrOutput) Tolerations() corev1.TolerationArrayOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*OverheadInput)(nil)).Elem(), OverheadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OverheadPtrInput)(nil)).Elem(), OverheadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassTypeInput)(nil)).Elem(), RuntimeClassTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassTypeArrayInput)(nil)).Elem(), RuntimeClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassListTypeInput)(nil)).Elem(), RuntimeClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassSpecInput)(nil)).Elem(), RuntimeClassSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassSpecPtrInput)(nil)).Elem(), RuntimeClassSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SchedulingInput)(nil)).Elem(), SchedulingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SchedulingPtrInput)(nil)).Elem(), SchedulingArgs{})
 	pulumi.RegisterOutputType(OverheadOutput{})
 	pulumi.RegisterOutputType(OverheadPtrOutput{})
 	pulumi.RegisterOutputType(RuntimeClassTypeOutput{})

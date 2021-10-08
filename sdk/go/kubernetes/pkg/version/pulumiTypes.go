@@ -111,5 +111,6 @@ func (o InfoOutput) Platform() pulumi.StringOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*InfoInput)(nil)).Elem(), InfoArgs{})
 	pulumi.RegisterOutputType(InfoOutput{})
 }

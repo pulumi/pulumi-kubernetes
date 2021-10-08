@@ -855,6 +855,11 @@ func (o RepositoryOptsPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseTypeInput)(nil)).Elem(), ReleaseTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseStatusInput)(nil)).Elem(), ReleaseStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseStatusPtrInput)(nil)).Elem(), ReleaseStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RepositoryOptsInput)(nil)).Elem(), RepositoryOptsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RepositoryOptsPtrInput)(nil)).Elem(), RepositoryOptsArgs{})
 	pulumi.RegisterOutputType(ReleaseTypeOutput{})
 	pulumi.RegisterOutputType(ReleaseStatusOutput{})
 	pulumi.RegisterOutputType(ReleaseStatusPtrOutput{})

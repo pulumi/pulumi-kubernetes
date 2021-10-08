@@ -517,6 +517,11 @@ func (o EventSeriesPtrOutput) State() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeInput)(nil)).Elem(), EventTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeArrayInput)(nil)).Elem(), EventTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListTypeInput)(nil)).Elem(), EventListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesInput)(nil)).Elem(), EventSeriesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesPtrInput)(nil)).Elem(), EventSeriesArgs{})
 	pulumi.RegisterOutputType(EventTypeOutput{})
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
 	pulumi.RegisterOutputType(EventListTypeOutput{})
