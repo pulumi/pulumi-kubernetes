@@ -1274,6 +1274,21 @@ func (o WebhookThrottleConfigPtrOutput) Qps() pulumi.IntPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkTypeInput)(nil)).Elem(), AuditSinkTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkTypeArrayInput)(nil)).Elem(), AuditSinkTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkListTypeInput)(nil)).Elem(), AuditSinkListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkSpecInput)(nil)).Elem(), AuditSinkSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkSpecPtrInput)(nil)).Elem(), AuditSinkSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PolicyInput)(nil)).Elem(), PolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PolicyPtrInput)(nil)).Elem(), PolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookInput)(nil)).Elem(), WebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookPtrInput)(nil)).Elem(), WebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigPtrInput)(nil)).Elem(), WebhookClientConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookThrottleConfigInput)(nil)).Elem(), WebhookThrottleConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookThrottleConfigPtrInput)(nil)).Elem(), WebhookThrottleConfigArgs{})
 	pulumi.RegisterOutputType(AuditSinkTypeOutput{})
 	pulumi.RegisterOutputType(AuditSinkTypeArrayOutput{})
 	pulumi.RegisterOutputType(AuditSinkListTypeOutput{})

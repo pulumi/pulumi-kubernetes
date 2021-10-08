@@ -776,6 +776,14 @@ func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOu
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EvictionInput)(nil)).Elem(), EvictionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetTypeInput)(nil)).Elem(), PodDisruptionBudgetTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetTypeArrayInput)(nil)).Elem(), PodDisruptionBudgetTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetListTypeInput)(nil)).Elem(), PodDisruptionBudgetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetSpecInput)(nil)).Elem(), PodDisruptionBudgetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetSpecPtrInput)(nil)).Elem(), PodDisruptionBudgetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetStatusInput)(nil)).Elem(), PodDisruptionBudgetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetStatusPtrInput)(nil)).Elem(), PodDisruptionBudgetStatusArgs{})
 	pulumi.RegisterOutputType(EvictionOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetTypeOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetTypeArrayOutput{})

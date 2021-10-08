@@ -432,6 +432,11 @@ func (o PodPresetSpecPtrOutput) Volumes() corev1.VolumeArrayOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetTypeInput)(nil)).Elem(), PodPresetTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetTypeArrayInput)(nil)).Elem(), PodPresetTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetListTypeInput)(nil)).Elem(), PodPresetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetSpecInput)(nil)).Elem(), PodPresetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetSpecPtrInput)(nil)).Elem(), PodPresetSpecArgs{})
 	pulumi.RegisterOutputType(PodPresetTypeOutput{})
 	pulumi.RegisterOutputType(PodPresetTypeArrayOutput{})
 	pulumi.RegisterOutputType(PodPresetListTypeOutput{})
