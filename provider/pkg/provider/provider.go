@@ -2077,10 +2077,11 @@ func (k *kubeProvider) Update(
 	}
 
 	if isHelmRelease(urn) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Update(ctx, req)
+		if k.clusterUnreachable {
+			return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
-		return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+
+		return k.helmReleaseProvider.Update(ctx, req)
 	}
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, _ := parseCheckpointObject(oldState)
