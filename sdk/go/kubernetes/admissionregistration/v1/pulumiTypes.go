@@ -1495,6 +1495,21 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookInput)(nil)).Elem(), MutatingWebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookArrayInput)(nil)).Elem(), MutatingWebhookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationTypeInput)(nil)).Elem(), MutatingWebhookConfigurationTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationTypeArrayInput)(nil)).Elem(), MutatingWebhookConfigurationTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationListTypeInput)(nil)).Elem(), MutatingWebhookConfigurationListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuleWithOperationsInput)(nil)).Elem(), RuleWithOperationsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuleWithOperationsArrayInput)(nil)).Elem(), RuleWithOperationsArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookInput)(nil)).Elem(), ValidatingWebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookArrayInput)(nil)).Elem(), ValidatingWebhookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationTypeInput)(nil)).Elem(), ValidatingWebhookConfigurationTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationTypeArrayInput)(nil)).Elem(), ValidatingWebhookConfigurationTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationListTypeInput)(nil)).Elem(), ValidatingWebhookConfigurationListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
 	pulumi.RegisterOutputType(MutatingWebhookOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookArrayOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeOutput{})

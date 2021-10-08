@@ -929,6 +929,17 @@ func (o ServiceReferencePtrOutput) Port() pulumi.IntPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceTypeInput)(nil)).Elem(), APIServiceTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceTypeArrayInput)(nil)).Elem(), APIServiceTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceConditionInput)(nil)).Elem(), APIServiceConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceConditionArrayInput)(nil)).Elem(), APIServiceConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceListTypeInput)(nil)).Elem(), APIServiceListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceSpecInput)(nil)).Elem(), APIServiceSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceSpecPtrInput)(nil)).Elem(), APIServiceSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceStatusInput)(nil)).Elem(), APIServiceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceStatusPtrInput)(nil)).Elem(), APIServiceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
 	pulumi.RegisterOutputType(APIServiceTypeOutput{})
 	pulumi.RegisterOutputType(APIServiceTypeArrayOutput{})
 	pulumi.RegisterOutputType(APIServiceConditionOutput{})

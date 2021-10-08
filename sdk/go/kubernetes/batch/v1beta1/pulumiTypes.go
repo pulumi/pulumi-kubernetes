@@ -823,6 +823,15 @@ func (o JobTemplateSpecPtrOutput) Spec() batchv1.JobSpecPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobTypeInput)(nil)).Elem(), CronJobTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobTypeArrayInput)(nil)).Elem(), CronJobTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListTypeInput)(nil)).Elem(), CronJobListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecInput)(nil)).Elem(), CronJobSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecPtrInput)(nil)).Elem(), CronJobSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobStatusInput)(nil)).Elem(), CronJobStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobStatusPtrInput)(nil)).Elem(), CronJobStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecInput)(nil)).Elem(), JobTemplateSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPtrInput)(nil)).Elem(), JobTemplateSpecArgs{})
 	pulumi.RegisterOutputType(CronJobTypeOutput{})
 	pulumi.RegisterOutputType(CronJobTypeArrayOutput{})
 	pulumi.RegisterOutputType(CronJobListTypeOutput{})

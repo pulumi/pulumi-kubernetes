@@ -653,6 +653,13 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewTypeInput)(nil)).Elem(), TokenReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecPtrInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusPtrInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoInput)(nil)).Elem(), UserInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoPtrInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterOutputType(TokenReviewTypeOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecPtrOutput{})

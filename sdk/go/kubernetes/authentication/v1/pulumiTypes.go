@@ -1281,6 +1281,20 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*BoundObjectReferenceInput)(nil)).Elem(), BoundObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BoundObjectReferencePtrInput)(nil)).Elem(), BoundObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestTypeInput)(nil)).Elem(), TokenRequestTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestSpecInput)(nil)).Elem(), TokenRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestSpecPtrInput)(nil)).Elem(), TokenRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestStatusInput)(nil)).Elem(), TokenRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestStatusPtrInput)(nil)).Elem(), TokenRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewTypeInput)(nil)).Elem(), TokenReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecPtrInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusPtrInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoInput)(nil)).Elem(), UserInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoPtrInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterOutputType(BoundObjectReferenceOutput{})
 	pulumi.RegisterOutputType(BoundObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(TokenRequestTypeOutput{})

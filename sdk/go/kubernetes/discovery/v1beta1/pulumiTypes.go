@@ -960,6 +960,19 @@ func (o ForZoneArrayOutput) Index(i pulumi.IntInput) ForZoneOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointInput)(nil)).Elem(), EndpointArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointArrayInput)(nil)).Elem(), EndpointArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointConditionsInput)(nil)).Elem(), EndpointConditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointConditionsPtrInput)(nil)).Elem(), EndpointConditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointHintsInput)(nil)).Elem(), EndpointHintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointHintsPtrInput)(nil)).Elem(), EndpointHintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortInput)(nil)).Elem(), EndpointPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortArrayInput)(nil)).Elem(), EndpointPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceTypeInput)(nil)).Elem(), EndpointSliceTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceTypeArrayInput)(nil)).Elem(), EndpointSliceTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListTypeInput)(nil)).Elem(), EndpointSliceListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ForZoneInput)(nil)).Elem(), ForZoneArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ForZoneArrayInput)(nil)).Elem(), ForZoneArray{})
 	pulumi.RegisterOutputType(EndpointOutput{})
 	pulumi.RegisterOutputType(EndpointArrayOutput{})
 	pulumi.RegisterOutputType(EndpointConditionsOutput{})

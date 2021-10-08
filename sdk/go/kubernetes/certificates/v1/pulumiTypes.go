@@ -1117,6 +1117,15 @@ func (o CertificateSigningRequestStatusPtrOutput) Conditions() CertificateSignin
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestTypeInput)(nil)).Elem(), CertificateSigningRequestTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestTypeArrayInput)(nil)).Elem(), CertificateSigningRequestTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestConditionInput)(nil)).Elem(), CertificateSigningRequestConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestConditionArrayInput)(nil)).Elem(), CertificateSigningRequestConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestListTypeInput)(nil)).Elem(), CertificateSigningRequestListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestSpecInput)(nil)).Elem(), CertificateSigningRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestSpecPtrInput)(nil)).Elem(), CertificateSigningRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestStatusInput)(nil)).Elem(), CertificateSigningRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestStatusPtrInput)(nil)).Elem(), CertificateSigningRequestStatusArgs{})
 	pulumi.RegisterOutputType(CertificateSigningRequestTypeOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestTypeArrayOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestConditionOutput{})

@@ -405,6 +405,10 @@ func (o KubeClientSettingsPtrOutput) Qps() pulumi.Float64PtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*HelmReleaseSettingsInput)(nil)).Elem(), HelmReleaseSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HelmReleaseSettingsPtrInput)(nil)).Elem(), HelmReleaseSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KubeClientSettingsInput)(nil)).Elem(), KubeClientSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KubeClientSettingsPtrInput)(nil)).Elem(), KubeClientSettingsArgs{})
 	pulumi.RegisterOutputType(HelmReleaseSettingsOutput{})
 	pulumi.RegisterOutputType(HelmReleaseSettingsPtrOutput{})
 	pulumi.RegisterOutputType(KubeClientSettingsOutput{})
