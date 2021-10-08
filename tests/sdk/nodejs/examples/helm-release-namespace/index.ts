@@ -25,7 +25,6 @@ const alertManager = new k8s.helm.v3.Release("alertmanager", {
     repositoryOpts: {
         repo: "https://prometheus-community.github.io/helm-charts",
     },
-    values: {},
 });
 
 // Ensure we get the expected namespace for the stateful set.
