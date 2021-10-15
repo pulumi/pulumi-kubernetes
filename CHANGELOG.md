@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- [sdk/python] Relax PyYaml dependency to allow upgrade to PyYaml 6.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1768)
 
 ## 3.8.1 (October 8, 2021)
 
