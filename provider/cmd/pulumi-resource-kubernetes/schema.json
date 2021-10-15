@@ -957,7 +957,7 @@
             }
         },
         "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition": {
-            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \u003c.spec.name\u003e.\u003c.spec.group\u003e.",
+            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -1099,14 +1099,14 @@
                 },
                 "plural": {
                     "type": "string",
-                    "description": "plural is the plural name of the resource to serve. The custom resources are served under `/apis/\u003cgroup\u003e/\u003cversion\u003e/.../\u003cplural\u003e`. Must match the name of the CustomResourceDefinition (in the form `\u003cnames.plural\u003e.\u003cgroup\u003e`). Must be all lowercase."
+                    "description": "plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase."
                 },
                 "shortNames": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \u003cshortname\u003e`. It must be all lowercase."
+                    "description": "shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase."
                 },
                 "singular": {
                     "type": "string",
@@ -1140,7 +1140,7 @@
                 },
                 "group": {
                     "type": "string",
-                    "description": "group is the API group of the defined custom resource. The custom resources are served under `/apis/\u003cgroup\u003e/...`. Must match the name of the CustomResourceDefinition (in the form `\u003cnames.plural\u003e.\u003cgroup\u003e`)."
+                    "description": "group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`)."
                 },
                 "names": {
                     "$ref": "#/types/kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionNames",
@@ -1159,7 +1159,7 @@
                     "items": {
                         "$ref": "#/types/kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionVersion"
                     },
-                    "description": "versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA \u003e beta \u003e alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
+                    "description": "versions is the list of all API versions of the defined custom resource. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
                 }
             },
             "type": "object",
@@ -1239,7 +1239,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/\u003cgroup\u003e/\u003cversion\u003e/...` if `served` is true."
+                    "description": "name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true."
                 },
                 "schema": {
                     "$ref": "#/types/kubernetes:apiextensions.k8s.io/v1:CustomResourceValidation",
@@ -1807,7 +1807,7 @@
             }
         },
         "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition": {
-            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \u003c.spec.name\u003e.\u003c.spec.group\u003e. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
+            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -1947,14 +1947,14 @@
                 },
                 "plural": {
                     "type": "string",
-                    "description": "plural is the plural name of the resource to serve. The custom resources are served under `/apis/\u003cgroup\u003e/\u003cversion\u003e/.../\u003cplural\u003e`. Must match the name of the CustomResourceDefinition (in the form `\u003cnames.plural\u003e.\u003cgroup\u003e`). Must be all lowercase."
+                    "description": "plural is the plural name of the resource to serve. The custom resources are served under `/apis/<group>/<version>/.../<plural>`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`). Must be all lowercase."
                 },
                 "shortNames": {
                     "type": "array",
                     "items": {
                         "type": "string"
                     },
-                    "description": "shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get \u003cshortname\u003e`. It must be all lowercase."
+                    "description": "shortNames are short names for the resource, exposed in API discovery documents, and used by clients to support invocations like `kubectl get <shortname>`. It must be all lowercase."
                 },
                 "singular": {
                     "type": "string",
@@ -1995,7 +1995,7 @@
                 },
                 "group": {
                     "type": "string",
-                    "description": "group is the API group of the defined custom resource. The custom resources are served under `/apis/\u003cgroup\u003e/...`. Must match the name of the CustomResourceDefinition (in the form `\u003cnames.plural\u003e.\u003cgroup\u003e`)."
+                    "description": "group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`)."
                 },
                 "names": {
                     "$ref": "#/types/kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionNames",
@@ -2019,14 +2019,14 @@
                 },
                 "version": {
                     "type": "string",
-                    "description": "version is the API version of the defined custom resource. The custom resources are served under `/apis/\u003cgroup\u003e/\u003cversion\u003e/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead."
+                    "description": "version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead."
                 },
                 "versions": {
                     "type": "array",
                     "items": {
                         "$ref": "#/types/kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionVersion"
                     },
-                    "description": "versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA \u003e beta \u003e alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
+                    "description": "versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
                 }
             },
             "type": "object",
@@ -2109,7 +2109,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "description": "name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/\u003cgroup\u003e/\u003cversion\u003e/...` if `served` is true."
+                    "description": "name is the version name, e.g. “v1”, “v2beta1”, etc. The custom resources are served under this version at `/apis/<group>/<version>/...` if `served` is true."
                 },
                 "schema": {
                     "$ref": "#/types/kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceValidation",
@@ -2717,7 +2717,7 @@
                 },
                 "versionPriority": {
                     "type": "integer",
-                    "description": "VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA \u003e beta \u003e alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
+                    "description": "VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
                 }
             },
             "type": "object",
@@ -2932,7 +2932,7 @@
                 },
                 "versionPriority": {
                     "type": "integer",
-                    "description": "VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA \u003e beta \u003e alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
+                    "description": "VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is \"kube-like\", it will sort above non \"kube-like\" version strings, which are ordered lexicographically. \"Kube-like\" versions start with a \"v\", then are followed by a number (the major version), then optionally the string \"alpha\" or \"beta\" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10."
                 }
             },
             "type": "object",
@@ -3340,7 +3340,7 @@
             }
         },
         "kubernetes:apps/v1:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -4248,7 +4248,7 @@
             }
         },
         "kubernetes:apps/v1beta1:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -5309,7 +5309,7 @@
             }
         },
         "kubernetes:apps/v1beta2:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -9861,7 +9861,7 @@
                 },
                 "parallelism": {
                     "type": "integer",
-                    "description": "Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) \u003c .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/"
+                    "description": "Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/"
                 },
                 "selector": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -11555,7 +11555,7 @@
             "properties": {
                 "timeoutSeconds": {
                     "type": "integer",
-                    "description": "timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be \u003e0 \u0026\u0026 \u003c=86400(for 1 day) if ServiceAffinity == \"ClientIP\". Default value is 10800(for 3 hours)."
+                    "description": "timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == \"ClientIP\". Default value is 10800(for 3 hours)."
                 }
             },
             "type": "object",
@@ -12104,7 +12104,7 @@
             "properties": {
                 "containerPort": {
                     "type": "integer",
-                    "description": "Number of port to expose on the pod's IP address. This must be a valid port number, 0 \u003c x \u003c 65536.",
+                    "description": "Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.",
                     "language": {
                         "csharp": {
                             "name": "ContainerPortValue"
@@ -12117,7 +12117,7 @@
                 },
                 "hostPort": {
                     "type": "integer",
-                    "description": "Number of port to expose on the host. If specified, this must be a valid port number, 0 \u003c x \u003c 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this."
+                    "description": "Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this."
                 },
                 "name": {
                     "type": "string",
@@ -12193,7 +12193,7 @@
             "properties": {
                 "containerID": {
                     "type": "string",
-                    "description": "Container's ID in the format 'docker://\u003ccontainer_id\u003e'"
+                    "description": "Container's ID in the format 'docker://<container_id>'"
                 },
                 "exitCode": {
                     "type": "integer",
@@ -12265,7 +12265,7 @@
             "properties": {
                 "containerID": {
                     "type": "string",
-                    "description": "Container's ID in the format 'docker://\u003ccontainer_id\u003e'."
+                    "description": "Container's ID in the format 'docker://<container_id>'."
                 },
                 "image": {
                     "type": "string",
@@ -12695,7 +12695,7 @@
                 },
                 "fieldRef": {
                     "$ref": "#/types/kubernetes:core/v1:ObjectFieldSelector",
-                    "description": "Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['\u003cKEY\u003e']`, `metadata.annotations['\u003cKEY\u003e']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs."
+                    "description": "Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs."
                 },
                 "resourceFieldRef": {
                     "$ref": "#/types/kubernetes:core/v1:ResourceFieldSelector",
@@ -12878,7 +12878,7 @@
                 },
                 "volumeClaimTemplate": {
                     "$ref": "#/types/kubernetes:core/v1:PersistentVolumeClaimTemplate",
-                    "description": "Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `\u003cpod name\u003e-\u003cvolume name\u003e` where `\u003cvolume name\u003e` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).\n\nAn existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.\n\nThis field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.\n\nRequired, must not be nil."
+                    "description": "Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).\n\nAn existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.\n\nThis field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.\n\nRequired, must not be nil."
                 }
             },
             "type": "object",
@@ -13237,7 +13237,7 @@
             "properties": {
                 "datasetName": {
                     "type": "string",
-                    "description": "Name of the dataset stored as metadata -\u003e name on the dataset for Flocker should be considered as deprecated"
+                    "description": "Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated"
                 },
                 "datasetUUID": {
                     "type": "string",
@@ -13556,7 +13556,7 @@
                 },
                 "initiatorName": {
                     "type": "string",
-                    "description": "Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface \u003ctarget portal\u003e:\u003cvolume name\u003e will be created for the connection."
+                    "description": "Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection."
                 },
                 "iqn": {
                     "type": "string",
@@ -13631,7 +13631,7 @@
                 },
                 "initiatorName": {
                     "type": "string",
-                    "description": "Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface \u003ctarget portal\u003e:\u003cvolume name\u003e will be created for the connection."
+                    "description": "Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection."
                 },
                 "iqn": {
                     "type": "string",
@@ -14535,7 +14535,7 @@
                 },
                 "providerID": {
                     "type": "string",
-                    "description": "ID of the node assigned by the cloud provider in the format: \u003cProviderName\u003e://\u003cProviderSpecificNodeID\u003e"
+                    "description": "ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>"
                 },
                 "taints": {
                     "type": "array",
@@ -15437,7 +15437,7 @@
             }
         },
         "kubernetes:core/v1:PodAffinityTerm": {
-            "description": "Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key \u003ctopologyKey\u003e matches that of any node on which a pod of the set of pods is running",
+            "description": "Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running",
             "properties": {
                 "labelSelector": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -15899,7 +15899,7 @@
                 },
                 "subdomain": {
                     "type": "string",
-                    "description": "If specified, the fully qualified Pod hostname will be \"\u003chostname\u003e.\u003csubdomain\u003e.\u003cpod namespace\u003e.svc.\u003ccluster domain\u003e\". If not specified, the pod will not have a domainname at all."
+                    "description": "If specified, the fully qualified Pod hostname will be \"<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>\". If not specified, the pod will not have a domainname at all."
                 },
                 "terminationGracePeriodSeconds": {
                     "type": "integer",
@@ -17419,7 +17419,7 @@
                 },
                 "seccompProfile": {
                     "$ref": "#/types/kubernetes:core/v1:SeccompProfile",
-                    "description": "The seccomp options to use by this container. If seccomp options are provided at both the pod \u0026 container level, the container options override the pod options."
+                    "description": "The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options."
                 },
                 "windowsOptions": {
                     "$ref": "#/types/kubernetes:core/v1:WindowsSecurityContextOptions",
@@ -18069,7 +18069,7 @@
             }
         },
         "kubernetes:core/v1:Toleration": {
-            "description": "The pod this Toleration is attached to tolerates any taint that matches the triple \u003ckey,value,effect\u003e using the matching operator \u003coperator\u003e.",
+            "description": "The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.",
             "properties": {
                 "effect": {
                     "type": "string",
@@ -18167,7 +18167,7 @@
                 },
                 "topologyKey": {
                     "type": "string",
-                    "description": "TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \u003ckey, value\u003e as a \"bucket\", and try to put balanced number of pods into each bucket. It's a required field."
+                    "description": "TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a \"bucket\", and try to put balanced number of pods into each bucket. It's a required field."
                 },
                 "whenUnsatisfiable": {
                     "type": "string",
@@ -19765,7 +19765,7 @@
             }
         },
         "kubernetes:extensions/v1beta1:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -20126,7 +20126,7 @@
             }
         },
         "kubernetes:extensions/v1beta1:HTTPIngressRuleValue": {
-            "description": "HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://\u003chost\u003e/\u003cpath\u003e?\u003csearchpart\u003e -\u003e backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.",
+            "description": "HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.",
             "properties": {
                 "paths": {
                     "type": "array",
@@ -22795,7 +22795,7 @@
                 },
                 "devel": {
                     "type": "boolean",
-                    "description": "Use chart development versions, too. Equivalent to version '\u003e0.0.0-0'. If `version` is set, this is ignored."
+                    "description": "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored."
                 },
                 "disableCRDHooks": {
                     "type": "boolean",
@@ -24048,7 +24048,7 @@
             }
         },
         "kubernetes:networking.k8s.io/v1:HTTPIngressRuleValue": {
-            "description": "HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://\u003chost\u003e/\u003cpath\u003e?\u003csearchpart\u003e -\u003e backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.",
+            "description": "HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.",
             "properties": {
                 "paths": {
                     "type": "array",
@@ -24750,7 +24750,7 @@
             }
         },
         "kubernetes:networking.k8s.io/v1beta1:HTTPIngressRuleValue": {
-            "description": "HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://\u003chost\u003e/\u003cpath\u003e?\u003csearchpart\u003e -\u003e backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.",
+            "description": "HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.",
             "properties": {
                 "paths": {
                     "type": "array",
@@ -25116,7 +25116,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -25327,7 +25327,7 @@
                 },
                 "runtimeHandler": {
                     "type": "string",
-                    "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "RuntimeHandler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The RuntimeHandler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "scheduling": {
                     "$ref": "#/types/kubernetes:node.k8s.io/v1alpha1:Scheduling",
@@ -25406,7 +25406,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -25571,7 +25571,7 @@
             }
         },
         "kubernetes:policy/v1:Eviction": {
-            "description": "Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/\u003cpod name\u003e/evictions.",
+            "description": "Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -25844,7 +25844,7 @@
             }
         },
         "kubernetes:policy/v1beta1:Eviction": {
-            "description": "Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/\u003cpod name\u003e/evictions.",
+            "description": "Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -28428,7 +28428,7 @@
                     "items": {
                         "$ref": "#/types/kubernetes:storage.k8s.io/v1:TokenRequest"
                     },
-                    "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"\u003caudience\u003e\": {\n    \"token\": \u003ctoken\u003e,\n    \"expirationTimestamp\": \u003cexpiration timestamp in RFC3339\u003e,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically."
+                    "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"<audience>\": {\n    \"token\": <token>,\n    \"expirationTimestamp\": <expiration timestamp in RFC3339>,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically."
                 },
                 "volumeLifecycleModes": {
                     "type": "array",
@@ -28969,7 +28969,7 @@
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\u003cuuid\u003e, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
                 },
                 "nodeTopology": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -29339,7 +29339,7 @@
                     "items": {
                         "$ref": "#/types/kubernetes:storage.k8s.io/v1beta1:TokenRequest"
                     },
-                    "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"\u003caudience\u003e\": {\n    \"token\": \u003ctoken\u003e,\n    \"expirationTimestamp\": \u003cexpiration timestamp in RFC3339\u003e,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled."
+                    "description": "TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: \"csi.storage.k8s.io/serviceAccount.tokens\": {\n  \"<audience>\": {\n    \"token\": <token>,\n    \"expirationTimestamp\": <expiration timestamp in RFC3339>,\n  },\n  ...\n}\n\nNote: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.\n\nThis is an alpha feature and only available when the CSIServiceAccountToken feature is enabled."
                 },
                 "volumeLifecycleModes": {
                     "type": "array",
@@ -29526,7 +29526,7 @@
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\u003cuuid\u003e, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
                 },
                 "nodeTopology": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -30547,7 +30547,7 @@
             ]
         },
         "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition": {
-            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \u003c.spec.name\u003e.\u003c.spec.group\u003e.",
+            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -30683,7 +30683,7 @@
             ]
         },
         "kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition": {
-            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format \u003c.spec.name\u003e.\u003c.spec.group\u003e. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
+            "description": "CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -31369,7 +31369,7 @@
             ]
         },
         "kubernetes:apps/v1:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -31917,7 +31917,7 @@
             ]
         },
         "kubernetes:apps/v1beta1:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -32462,7 +32462,7 @@
             ]
         },
         "kubernetes:apps/v1beta2:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -38264,7 +38264,7 @@
             ]
         },
         "kubernetes:extensions/v1beta1:Deployment": {
-            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is \u003e 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation \u003e 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation \u003c= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
+            "description": "Deployment enables declarative updates for Pods and ReplicaSets.\n\nThis resource waits until its status is ready before registering success\nfor create/update, and populating output properties from the current state of the resource.\nThe following conditions are used to determine whether the resource creation has\nsucceeded or failed:\n\n1. The Deployment has begun to be updated by the Deployment controller. If the current\n   generation of the Deployment is > 1, then this means that the current generation must\n   be different from the generation reported by the last outputs.\n2. There exists a ReplicaSet whose revision is equal to the current revision of the\n   Deployment.\n3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'\n   member is set to 'True'.\n4. If the Deployment has generation > 1, then '.status.conditions' has a status of type\n   'Progressing', whose 'status' member is set to 'True', and whose 'reason' is\n   'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,\n   because it doesn't do a rollout (i.e., it simply creates the Deployment and\n   corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.\n\nIf the Deployment has not reached a Ready state after 10 minutes, it will\ntime out and mark the resource update as Failed. You can override the default timeout value\nby setting the 'customTimeouts' option on the resource.",
             "properties": {
                 "apiVersion": {
                     "type": "string",
@@ -39467,7 +39467,7 @@
                 },
                 "devel": {
                     "type": "boolean",
-                    "description": "Use chart development versions, too. Equivalent to version '\u003e0.0.0-0'. If `version` is set, this is ignored."
+                    "description": "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored."
                 },
                 "disableCRDHooks": {
                     "type": "boolean",
@@ -39669,7 +39669,7 @@
                 },
                 "devel": {
                     "type": "boolean",
-                    "description": "Use chart development versions, too. Equivalent to version '\u003e0.0.0-0'. If `version` is set, this is ignored."
+                    "description": "Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored."
                 },
                 "disableCRDHooks": {
                     "type": "boolean",
@@ -40538,7 +40538,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -40582,7 +40582,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -40824,7 +40824,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -40868,7 +40868,7 @@
                 },
                 "handler": {
                     "type": "string",
-                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node \u0026 CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
+                    "description": "Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called \"runc\" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable."
                 },
                 "kind": {
                     "type": "string",
@@ -44302,7 +44302,7 @@
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\u003cuuid\u003e, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
                 },
                 "nodeTopology": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -44351,7 +44351,7 @@
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\u003cuuid\u003e, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
                 },
                 "nodeTopology": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -44862,7 +44862,7 @@
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\u003cuuid\u003e, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
                 },
                 "nodeTopology": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -44911,7 +44911,7 @@
                 },
                 "metadata": {
                     "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
-                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-\u003cuuid\u003e, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
+                    "description": "Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.\n\nObjects are namespaced.\n\nMore info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata"
                 },
                 "nodeTopology": {
                     "$ref": "#/types/kubernetes:meta/v1:LabelSelector",
@@ -45647,9 +45647,9 @@
             },
             "readme": "The Kubernetes provider package offers support for all Kubernetes resources and their properties.\nResources are exposed as types from modules based on Kubernetes API groups such as 'apps', 'core',\n'rbac', and 'storage', among many others. Additionally, support for deploying Helm charts ('helm')\nand YAML files ('yaml') is available in this package. Using this package allows you to\nprogrammatically declare instances of any Kubernetes resources and any supported resource version\nusing infrastructure as code, which Pulumi then uses to drive the Kubernetes API.\n\nIf this is your first time using this package, these two resources may be helpful:\n\n* [Kubernetes Getting Started Guide](https://www.pulumi.com/docs/quickstart/kubernetes/): Get up and running quickly.\n* [Kubernetes Pulumi Setup Documentation](https://www.pulumi.com/docs/quickstart/kubernetes/configure/): How to configure Pulumi\n    for use with your Kubernetes cluster.\n",
             "requires": {
-                "pulumi": "\u003e=3.0.0,\u003c4.0.0",
-                "pyyaml": "\u003e=5.3.1",
-                "requests": "\u003e=2.21,\u003c3.0"
+                "pulumi": ">=3.0.0,<4.0.0",
+                "pyyaml": ">=5.3.1",
+                "requests": ">=2.21,<3.0"
             },
             "usesIOClasses": true
         }

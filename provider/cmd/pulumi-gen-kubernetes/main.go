@@ -479,8 +479,19 @@ func mustWriteFile(rootDir, filename string, contents []byte) {
 	}
 }
 
+func makeJSONString(v interface{}) ([]byte, error) {
+	var out bytes.Buffer
+	encoder := json.NewEncoder(&out)
+	encoder.SetEscapeHTML(false)
+	encoder.SetIndent("", "    ")
+	if err := encoder.Encode(v); err != nil {
+		return nil, err
+	}
+	return out.Bytes(), nil
+}
+
 func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
-	schemaJSON, err := json.MarshalIndent(pkgSpec, "", "    ")
+	schemaJSON, err := makeJSONString(pkgSpec)
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
@@ -489,7 +500,7 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 
 	versionedPkgSpec := pkgSpec
 	versionedPkgSpec.Version = version
-	versionedSchemaJSON, err := json.MarshalIndent(versionedPkgSpec, "", "    ")
+	versionedSchemaJSON, err := makeJSONString(versionedPkgSpec)
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
