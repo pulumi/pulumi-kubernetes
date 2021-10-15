@@ -16,6 +16,7 @@
 package gen
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -424,7 +425,10 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 }
 
 func rawMessage(v interface{}) pschema.RawMessage {
-	bytes, err := json.Marshal(v)
+	var out bytes.Buffer
+	encoder := json.NewEncoder(&out)
+	encoder.SetEscapeHTML(false)
+	err := encoder.Encode(v)
 	contract.Assert(err == nil)
-	return bytes
+	return out.Bytes()
 }
