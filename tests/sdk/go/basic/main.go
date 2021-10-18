@@ -12,6 +12,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
+		// Make sure both the supported and deprecated Provider resources compile.
 		_, err := kubernetes.NewProvider(ctx, "k8s", &kubernetes.ProviderArgs{})
 		if err != nil {
 			return err
