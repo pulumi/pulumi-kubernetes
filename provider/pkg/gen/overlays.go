@@ -16,6 +16,7 @@ package gen
 
 import (
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	v1 "k8s.io/api/core/v1"
 )
 
 var serviceSpec = pschema.ComplexTypeSpec{
@@ -38,10 +39,10 @@ var serviceSpecType = pschema.ComplexTypeSpec{
 		Type: "string",
 	},
 	Enum: []pschema.EnumValueSpec{
-		{Value: "ExternalName"},
-		{Value: "ClusterIP"},
-		{Value: "NodePort"},
-		{Value: "LoadBalancer"},
+		{Value: v1.ServiceTypeExternalName},
+		{Value: v1.ServiceTypeClusterIP},
+		{Value: v1.ServiceTypeNodePort},
+		{Value: v1.ServiceTypeLoadBalancer},
 	},
 }
 
