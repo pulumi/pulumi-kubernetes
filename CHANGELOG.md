@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.8.2 (October 18, 2021)
+
 - [sdk/python] Relax PyYaml dependency to allow upgrade to PyYaml 6.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1768)
 - [go/sdk] Add missing types for deprecated Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1771)
 
