@@ -380,6 +380,10 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	deprecatedProviderFile = strings.ReplaceAll(deprecatedProviderFile, "\nfunc", fmt.Sprintf("\n%s\nfunc", deprecatedComment))
 	deprecatedProviderFile = strings.ReplaceAll(deprecatedProviderFile, "\ntype", fmt.Sprintf("\n%s\ntype", deprecatedComment))
 	files["kubernetes/providers/provider.go"] = []byte(deprecatedProviderFile)
+	deprecatedTypesFile := string(files["kubernetes/pulumiTypes.go"])
+	deprecatedTypesFile = strings.ReplaceAll(deprecatedTypesFile, "\nfunc", fmt.Sprintf("\n%s\nfunc", deprecatedComment))
+	deprecatedTypesFile = strings.ReplaceAll(deprecatedTypesFile, "\ntype", fmt.Sprintf("\n%s\ntype", deprecatedComment))
+	files["kubernetes/providers/pulumiTypes.go"] = []byte(deprecatedTypesFile)
 
 	files["kubernetes/customPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "customPulumiTypes.go"))
 	files["kubernetes/apiextensions/customResource.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResource.go"))
