@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
 {
 
     /// <summary>
-    /// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
+    /// HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
     /// </summary>
     public class HTTPIngressPathArgs : Pulumi.ResourceArgs
     {
@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1.IngressBackendArgs> Backend { get; set; } = null!;
 
         /// <summary>
-        /// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+        /// Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         /// </summary>
         [Input("path")]
         public Input<string>? Path { get; set; }

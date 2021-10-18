@@ -82,8 +82,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1Beta1
         /// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
         /// 
         /// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-        /// 
-        /// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
         /// </summary>
         public readonly ImmutableArray<string> X_kubernetes_list_map_keys;
         /// <summary>

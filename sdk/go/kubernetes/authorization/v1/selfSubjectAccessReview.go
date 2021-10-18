@@ -19,7 +19,8 @@ type SelfSubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
+	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
 	Spec SelfSubjectAccessReviewSpecOutput `pulumi:"spec"`
@@ -80,7 +81,8 @@ type selfSubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
 	Spec SelfSubjectAccessReviewSpec `pulumi:"spec"`
@@ -91,7 +93,8 @@ type SelfSubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
+	Kind pulumi.StringPtrInput
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Spec holds information about the request being evaluated.  user and groups must be empty
 	Spec SelfSubjectAccessReviewSpecInput
@@ -199,9 +202,7 @@ func (i SelfSubjectAccessReviewMap) ToSelfSubjectAccessReviewMapOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewMapOutput)
 }
 
-type SelfSubjectAccessReviewOutput struct {
-	*pulumi.OutputState
-}
+type SelfSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SelfSubjectAccessReview)(nil))
@@ -220,14 +221,12 @@ func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewPtrOutput() Self
 }
 
 func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReview) *SelfSubjectAccessReview {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectAccessReview) *SelfSubjectAccessReview {
 		return &v
 	}).(SelfSubjectAccessReviewPtrOutput)
 }
 
-type SelfSubjectAccessReviewPtrOutput struct {
-	*pulumi.OutputState
-}
+type SelfSubjectAccessReviewPtrOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SelfSubjectAccessReview)(nil))
@@ -239,6 +238,16 @@ func (o SelfSubjectAccessReviewPtrOutput) ToSelfSubjectAccessReviewPtrOutput() S
 
 func (o SelfSubjectAccessReviewPtrOutput) ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput {
 	return o
+}
+
+func (o SelfSubjectAccessReviewPtrOutput) Elem() SelfSubjectAccessReviewOutput {
+	return o.ApplyT(func(v *SelfSubjectAccessReview) SelfSubjectAccessReview {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectAccessReview
+		return ret
+	}).(SelfSubjectAccessReviewOutput)
 }
 
 type SelfSubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }

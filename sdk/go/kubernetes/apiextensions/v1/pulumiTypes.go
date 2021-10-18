@@ -258,7 +258,7 @@ func (o CustomResourceConversionOutput) ToCustomResourceConversionPtrOutput() Cu
 }
 
 func (o CustomResourceConversionOutput) ToCustomResourceConversionPtrOutputWithContext(ctx context.Context) CustomResourceConversionPtrOutput {
-	return o.ApplyT(func(v CustomResourceConversion) *CustomResourceConversion {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceConversion) *CustomResourceConversion {
 		return &v
 	}).(CustomResourceConversionPtrOutput)
 }
@@ -289,7 +289,13 @@ func (o CustomResourceConversionPtrOutput) ToCustomResourceConversionPtrOutputWi
 }
 
 func (o CustomResourceConversionPtrOutput) Elem() CustomResourceConversionOutput {
-	return o.ApplyT(func(v *CustomResourceConversion) CustomResourceConversion { return *v }).(CustomResourceConversionOutput)
+	return o.ApplyT(func(v *CustomResourceConversion) CustomResourceConversion {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceConversion
+		return ret
+	}).(CustomResourceConversionOutput)
 }
 
 // strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
@@ -318,7 +324,8 @@ type CustomResourceDefinitionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
 	Spec CustomResourceDefinitionSpec `pulumi:"spec"`
@@ -342,7 +349,8 @@ type CustomResourceDefinitionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec describes how the user wants the resources to appear
 	Spec CustomResourceDefinitionSpecInput `pulumi:"spec"`
@@ -412,6 +420,7 @@ func (o CustomResourceDefinitionTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o CustomResourceDefinitionTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -589,7 +598,8 @@ type CustomResourceDefinitionListType struct {
 	// items list individual CustomResourceDefinition objects
 	Items []CustomResourceDefinitionType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -611,7 +621,8 @@ type CustomResourceDefinitionListTypeArgs struct {
 	// items list individual CustomResourceDefinition objects
 	Items CustomResourceDefinitionTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -657,6 +668,7 @@ func (o CustomResourceDefinitionListTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
@@ -777,7 +789,7 @@ func (o CustomResourceDefinitionNamesOutput) ToCustomResourceDefinitionNamesPtrO
 }
 
 func (o CustomResourceDefinitionNamesOutput) ToCustomResourceDefinitionNamesPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionNamesPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionNames) *CustomResourceDefinitionNames {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionNames) *CustomResourceDefinitionNames {
 		return &v
 	}).(CustomResourceDefinitionNamesPtrOutput)
 }
@@ -827,7 +839,13 @@ func (o CustomResourceDefinitionNamesPtrOutput) ToCustomResourceDefinitionNamesP
 }
 
 func (o CustomResourceDefinitionNamesPtrOutput) Elem() CustomResourceDefinitionNamesOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionNames) CustomResourceDefinitionNames { return *v }).(CustomResourceDefinitionNamesOutput)
+	return o.ApplyT(func(v *CustomResourceDefinitionNames) CustomResourceDefinitionNames {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionNames
+		return ret
+	}).(CustomResourceDefinitionNamesOutput)
 }
 
 // categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -1006,7 +1024,7 @@ func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecPtrOut
 }
 
 func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionSpec) *CustomResourceDefinitionSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionSpec) *CustomResourceDefinitionSpec {
 		return &v
 	}).(CustomResourceDefinitionSpecPtrOutput)
 }
@@ -1056,7 +1074,13 @@ func (o CustomResourceDefinitionSpecPtrOutput) ToCustomResourceDefinitionSpecPtr
 }
 
 func (o CustomResourceDefinitionSpecPtrOutput) Elem() CustomResourceDefinitionSpecOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) CustomResourceDefinitionSpec { return *v }).(CustomResourceDefinitionSpecOutput)
+	return o.ApplyT(func(v *CustomResourceDefinitionSpec) CustomResourceDefinitionSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionSpec
+		return ret
+	}).(CustomResourceDefinitionSpecOutput)
 }
 
 // conversion defines conversion settings for the CRD.
@@ -1223,7 +1247,7 @@ func (o CustomResourceDefinitionStatusOutput) ToCustomResourceDefinitionStatusPt
 }
 
 func (o CustomResourceDefinitionStatusOutput) ToCustomResourceDefinitionStatusPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionStatusPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionStatus) *CustomResourceDefinitionStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionStatus) *CustomResourceDefinitionStatus {
 		return &v
 	}).(CustomResourceDefinitionStatusPtrOutput)
 }
@@ -1258,7 +1282,13 @@ func (o CustomResourceDefinitionStatusPtrOutput) ToCustomResourceDefinitionStatu
 }
 
 func (o CustomResourceDefinitionStatusPtrOutput) Elem() CustomResourceDefinitionStatusOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionStatus) CustomResourceDefinitionStatus { return *v }).(CustomResourceDefinitionStatusOutput)
+	return o.ApplyT(func(v *CustomResourceDefinitionStatus) CustomResourceDefinitionStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionStatus
+		return ret
+	}).(CustomResourceDefinitionStatusOutput)
 }
 
 // acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
@@ -1560,7 +1590,7 @@ func (o CustomResourceSubresourceScaleOutput) ToCustomResourceSubresourceScalePt
 }
 
 func (o CustomResourceSubresourceScaleOutput) ToCustomResourceSubresourceScalePtrOutputWithContext(ctx context.Context) CustomResourceSubresourceScalePtrOutput {
-	return o.ApplyT(func(v CustomResourceSubresourceScale) *CustomResourceSubresourceScale {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceSubresourceScale) *CustomResourceSubresourceScale {
 		return &v
 	}).(CustomResourceSubresourceScalePtrOutput)
 }
@@ -1595,7 +1625,13 @@ func (o CustomResourceSubresourceScalePtrOutput) ToCustomResourceSubresourceScal
 }
 
 func (o CustomResourceSubresourceScalePtrOutput) Elem() CustomResourceSubresourceScaleOutput {
-	return o.ApplyT(func(v *CustomResourceSubresourceScale) CustomResourceSubresourceScale { return *v }).(CustomResourceSubresourceScaleOutput)
+	return o.ApplyT(func(v *CustomResourceSubresourceScale) CustomResourceSubresourceScale {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceSubresourceScale
+		return ret
+	}).(CustomResourceSubresourceScaleOutput)
 }
 
 // labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -1728,7 +1764,7 @@ func (o CustomResourceSubresourcesOutput) ToCustomResourceSubresourcesPtrOutput(
 }
 
 func (o CustomResourceSubresourcesOutput) ToCustomResourceSubresourcesPtrOutputWithContext(ctx context.Context) CustomResourceSubresourcesPtrOutput {
-	return o.ApplyT(func(v CustomResourceSubresources) *CustomResourceSubresources {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceSubresources) *CustomResourceSubresources {
 		return &v
 	}).(CustomResourceSubresourcesPtrOutput)
 }
@@ -1758,7 +1794,13 @@ func (o CustomResourceSubresourcesPtrOutput) ToCustomResourceSubresourcesPtrOutp
 }
 
 func (o CustomResourceSubresourcesPtrOutput) Elem() CustomResourceSubresourcesOutput {
-	return o.ApplyT(func(v *CustomResourceSubresources) CustomResourceSubresources { return *v }).(CustomResourceSubresourcesOutput)
+	return o.ApplyT(func(v *CustomResourceSubresources) CustomResourceSubresources {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceSubresources
+		return ret
+	}).(CustomResourceSubresourcesOutput)
 }
 
 // scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
@@ -1877,7 +1919,7 @@ func (o CustomResourceValidationOutput) ToCustomResourceValidationPtrOutput() Cu
 }
 
 func (o CustomResourceValidationOutput) ToCustomResourceValidationPtrOutputWithContext(ctx context.Context) CustomResourceValidationPtrOutput {
-	return o.ApplyT(func(v CustomResourceValidation) *CustomResourceValidation {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceValidation) *CustomResourceValidation {
 		return &v
 	}).(CustomResourceValidationPtrOutput)
 }
@@ -1902,7 +1944,13 @@ func (o CustomResourceValidationPtrOutput) ToCustomResourceValidationPtrOutputWi
 }
 
 func (o CustomResourceValidationPtrOutput) Elem() CustomResourceValidationOutput {
-	return o.ApplyT(func(v *CustomResourceValidation) CustomResourceValidation { return *v }).(CustomResourceValidationOutput)
+	return o.ApplyT(func(v *CustomResourceValidation) CustomResourceValidation {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceValidation
+		return ret
+	}).(CustomResourceValidationOutput)
 }
 
 // openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
@@ -2011,10 +2059,11 @@ func (o ExternalDocumentationOutput) ToExternalDocumentationPtrOutput() External
 }
 
 func (o ExternalDocumentationOutput) ToExternalDocumentationPtrOutputWithContext(ctx context.Context) ExternalDocumentationPtrOutput {
-	return o.ApplyT(func(v ExternalDocumentation) *ExternalDocumentation {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExternalDocumentation) *ExternalDocumentation {
 		return &v
 	}).(ExternalDocumentationPtrOutput)
 }
+
 func (o ExternalDocumentationOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ExternalDocumentation) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -2038,7 +2087,13 @@ func (o ExternalDocumentationPtrOutput) ToExternalDocumentationPtrOutputWithCont
 }
 
 func (o ExternalDocumentationPtrOutput) Elem() ExternalDocumentationOutput {
-	return o.ApplyT(func(v *ExternalDocumentation) ExternalDocumentation { return *v }).(ExternalDocumentationOutput)
+	return o.ApplyT(func(v *ExternalDocumentation) ExternalDocumentation {
+		if v != nil {
+			return *v
+		}
+		var ret ExternalDocumentation
+		return ret
+	}).(ExternalDocumentationOutput)
 }
 
 func (o ExternalDocumentationPtrOutput) Description() pulumi.StringPtrOutput {
@@ -2373,10 +2428,11 @@ func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutput() JSONSchemaPropsPtrOu
 }
 
 func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx context.Context) JSONSchemaPropsPtrOutput {
-	return o.ApplyT(func(v JSONSchemaProps) *JSONSchemaProps {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JSONSchemaProps) *JSONSchemaProps {
 		return &v
 	}).(JSONSchemaPropsPtrOutput)
 }
+
 func (o JSONSchemaPropsOutput) Ref() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *string { return v.Ref }).(pulumi.StringPtrOutput)
 }
@@ -2607,7 +2663,13 @@ func (o JSONSchemaPropsPtrOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx cont
 }
 
 func (o JSONSchemaPropsPtrOutput) Elem() JSONSchemaPropsOutput {
-	return o.ApplyT(func(v *JSONSchemaProps) JSONSchemaProps { return *v }).(JSONSchemaPropsOutput)
+	return o.ApplyT(func(v *JSONSchemaProps) JSONSchemaProps {
+		if v != nil {
+			return *v
+		}
+		var ret JSONSchemaProps
+		return ret
+	}).(JSONSchemaPropsOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) Ref() pulumi.StringPtrOutput {
@@ -3188,7 +3250,7 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutput() ServiceReferencePt
 }
 
 func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o.ApplyT(func(v ServiceReference) *ServiceReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
@@ -3228,7 +3290,13 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceReference
+		return ret
+	}).(ServiceReferenceOutput)
 }
 
 // name is the name of the service. Required
@@ -3399,7 +3467,7 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutput() WebhookClien
 }
 
 func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *WebhookClientConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfig) *WebhookClientConfig {
 		return &v
 	}).(WebhookClientConfigPtrOutput)
 }
@@ -3446,7 +3514,13 @@ func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(
 }
 
 func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
-	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig { return *v }).(WebhookClientConfigOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig {
+		if v != nil {
+			return *v
+		}
+		var ret WebhookClientConfig
+		return ret
+	}).(WebhookClientConfigOutput)
 }
 
 // caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3591,7 +3665,7 @@ func (o WebhookConversionOutput) ToWebhookConversionPtrOutput() WebhookConversio
 }
 
 func (o WebhookConversionOutput) ToWebhookConversionPtrOutputWithContext(ctx context.Context) WebhookConversionPtrOutput {
-	return o.ApplyT(func(v WebhookConversion) *WebhookConversion {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookConversion) *WebhookConversion {
 		return &v
 	}).(WebhookConversionPtrOutput)
 }
@@ -3621,7 +3695,13 @@ func (o WebhookConversionPtrOutput) ToWebhookConversionPtrOutputWithContext(ctx 
 }
 
 func (o WebhookConversionPtrOutput) Elem() WebhookConversionOutput {
-	return o.ApplyT(func(v *WebhookConversion) WebhookConversion { return *v }).(WebhookConversionOutput)
+	return o.ApplyT(func(v *WebhookConversion) WebhookConversion {
+		if v != nil {
+			return *v
+		}
+		var ret WebhookConversion
+		return ret
+	}).(WebhookConversionOutput)
 }
 
 // clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
@@ -3645,6 +3725,41 @@ func (o WebhookConversionPtrOutput) ConversionReviewVersions() pulumi.StringArra
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceColumnDefinitionInput)(nil)).Elem(), CustomResourceColumnDefinitionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceColumnDefinitionArrayInput)(nil)).Elem(), CustomResourceColumnDefinitionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceConversionInput)(nil)).Elem(), CustomResourceConversionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceConversionPtrInput)(nil)).Elem(), CustomResourceConversionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionTypeInput)(nil)).Elem(), CustomResourceDefinitionTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionTypeArrayInput)(nil)).Elem(), CustomResourceDefinitionTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionConditionInput)(nil)).Elem(), CustomResourceDefinitionConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionConditionArrayInput)(nil)).Elem(), CustomResourceDefinitionConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionListTypeInput)(nil)).Elem(), CustomResourceDefinitionListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesPtrInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecPtrInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionStatusInput)(nil)).Elem(), CustomResourceDefinitionStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionStatusPtrInput)(nil)).Elem(), CustomResourceDefinitionStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionVersionInput)(nil)).Elem(), CustomResourceDefinitionVersionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionVersionArrayInput)(nil)).Elem(), CustomResourceDefinitionVersionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScaleInput)(nil)).Elem(), CustomResourceSubresourceScaleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScalePtrInput)(nil)).Elem(), CustomResourceSubresourceScaleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesInput)(nil)).Elem(), CustomResourceSubresourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesPtrInput)(nil)).Elem(), CustomResourceSubresourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceValidationInput)(nil)).Elem(), CustomResourceValidationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceValidationPtrInput)(nil)).Elem(), CustomResourceValidationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationInput)(nil)).Elem(), ExternalDocumentationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationPtrInput)(nil)).Elem(), ExternalDocumentationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsInput)(nil)).Elem(), JSONSchemaPropsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPtrInput)(nil)).Elem(), JSONSchemaPropsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsArrayInput)(nil)).Elem(), JSONSchemaPropsArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsMapInput)(nil)).Elem(), JSONSchemaPropsMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigPtrInput)(nil)).Elem(), WebhookClientConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookConversionInput)(nil)).Elem(), WebhookConversionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookConversionPtrInput)(nil)).Elem(), WebhookConversionArgs{})
 	pulumi.RegisterOutputType(CustomResourceColumnDefinitionOutput{})
 	pulumi.RegisterOutputType(CustomResourceColumnDefinitionArrayOutput{})
 	pulumi.RegisterOutputType(CustomResourceConversionOutput{})

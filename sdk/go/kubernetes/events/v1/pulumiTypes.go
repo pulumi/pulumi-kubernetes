@@ -438,7 +438,7 @@ func (o EventSeriesOutput) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
 }
 
 func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
-	return o.ApplyT(func(v EventSeries) *EventSeries {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSeries) *EventSeries {
 		return &v
 	}).(EventSeriesPtrOutput)
 }
@@ -468,7 +468,13 @@ func (o EventSeriesPtrOutput) ToEventSeriesPtrOutputWithContext(ctx context.Cont
 }
 
 func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
-	return o.ApplyT(func(v *EventSeries) EventSeries { return *v }).(EventSeriesOutput)
+	return o.ApplyT(func(v *EventSeries) EventSeries {
+		if v != nil {
+			return *v
+		}
+		var ret EventSeries
+		return ret
+	}).(EventSeriesOutput)
 }
 
 // count is the number of occurrences in this series up to the last heartbeat time.
@@ -492,6 +498,11 @@ func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeInput)(nil)).Elem(), EventTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeArrayInput)(nil)).Elem(), EventTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListTypeInput)(nil)).Elem(), EventListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesInput)(nil)).Elem(), EventSeriesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesPtrInput)(nil)).Elem(), EventSeriesArgs{})
 	pulumi.RegisterOutputType(EventTypeOutput{})
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
 	pulumi.RegisterOutputType(EventListTypeOutput{})

@@ -480,8 +480,8 @@ def _parse_yaml_object(
     spec = obj.get("spec")
     identifier: pulumi.Output = pulumi.Output.from_input(metadata["name"])
     if "namespace" in metadata:
-        identifier = pulumi.Output.from_input(metadata).apply(
-            lambda metadata: f"{metadata['namespace']}/{metadata['name']}")
+        identifier = pulumi.Output.all(metadata["namespace"], metadata["name"]).apply(
+            lambda x: f"{x[0]}/{x[1]}")
     if resource_prefix:
         identifier = pulumi.Output.from_input(identifier).apply(
             lambda identifier: f"{resource_prefix}-{identifier}")

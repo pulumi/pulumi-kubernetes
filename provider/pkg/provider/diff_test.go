@@ -158,6 +158,15 @@ func TestPatchToDiff(t *testing.T) {
 			oldInputs: object{"spec": object{"containers": list{object{"name": "nginx", "image": "nginx"}}}},
 			expected:  expected{},
 		},
+		{
+			name:  `PVC resources don't trigger a replace.`,
+			group: "core", version: "v1", kind: "PersistentVolumeClaim",
+			old: object{"spec": object{"resources": object{"requests": object{"storage": "10Gi"}}}},
+			new: object{"spec": object{"resources": object{"requests": object{"storage": "20Gi"}}}},
+			expected: expected{
+				"spec.resources.requests.storage": U,
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -189,7 +198,7 @@ func TestPatchToDiff(t *testing.T) {
 				Version: tt.version,
 				Kind:    tt.kind,
 			}
-			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, gvk)
+			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, forceNewProperties(gvk)...)
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expected, diff)

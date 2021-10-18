@@ -168,11 +168,6 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		case Lease, LeaseList:
 			return &v114
 		}
-	case CoreV1:
-		switch k {
-		case EphemeralContainers:
-			return &v121
-		}
 	case DiscoveryV1B1:
 		switch k {
 		case EndpointSlice, EndpointSliceList:

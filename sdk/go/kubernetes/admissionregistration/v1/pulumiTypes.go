@@ -798,7 +798,7 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutput() ServiceReferencePt
 }
 
 func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o.ApplyT(func(v ServiceReference) *ServiceReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
@@ -838,7 +838,13 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceReference
+		return ret
+	}).(ServiceReferenceOutput)
 }
 
 // `name` is the name of the service. Required
@@ -1489,6 +1495,21 @@ func (o WebhookClientConfigOutput) Url() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookInput)(nil)).Elem(), MutatingWebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookArrayInput)(nil)).Elem(), MutatingWebhookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationTypeInput)(nil)).Elem(), MutatingWebhookConfigurationTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationTypeArrayInput)(nil)).Elem(), MutatingWebhookConfigurationTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationListTypeInput)(nil)).Elem(), MutatingWebhookConfigurationListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuleWithOperationsInput)(nil)).Elem(), RuleWithOperationsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuleWithOperationsArrayInput)(nil)).Elem(), RuleWithOperationsArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookInput)(nil)).Elem(), ValidatingWebhookArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookArrayInput)(nil)).Elem(), ValidatingWebhookArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationTypeInput)(nil)).Elem(), ValidatingWebhookConfigurationTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationTypeArrayInput)(nil)).Elem(), ValidatingWebhookConfigurationTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationListTypeInput)(nil)).Elem(), ValidatingWebhookConfigurationListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
 	pulumi.RegisterOutputType(MutatingWebhookOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookArrayOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeOutput{})

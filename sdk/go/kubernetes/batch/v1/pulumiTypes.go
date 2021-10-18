@@ -350,7 +350,7 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 }
 
 func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *CronJobSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpec) *CronJobSpec {
 		return &v
 	}).(CronJobSpecPtrOutput)
 }
@@ -405,7 +405,13 @@ func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
-	return o.ApplyT(func(v *CronJobSpec) CronJobSpec { return *v }).(CronJobSpecOutput)
+	return o.ApplyT(func(v *CronJobSpec) CronJobSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobSpec
+		return ret
+	}).(CronJobSpecOutput)
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -582,7 +588,7 @@ func (o CronJobStatusOutput) ToCronJobStatusPtrOutput() CronJobStatusPtrOutput {
 }
 
 func (o CronJobStatusOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Context) CronJobStatusPtrOutput {
-	return o.ApplyT(func(v CronJobStatus) *CronJobStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobStatus) *CronJobStatus {
 		return &v
 	}).(CronJobStatusPtrOutput)
 }
@@ -617,7 +623,13 @@ func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutputWithContext(ctx context.
 }
 
 func (o CronJobStatusPtrOutput) Elem() CronJobStatusOutput {
-	return o.ApplyT(func(v *CronJobStatus) CronJobStatus { return *v }).(CronJobStatusOutput)
+	return o.ApplyT(func(v *CronJobStatus) CronJobStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobStatus
+		return ret
+	}).(CronJobStatusOutput)
 }
 
 // A list of pointers to currently running jobs.
@@ -1083,9 +1095,9 @@ type JobSpec struct {
 	//
 	// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 	//
-	// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+	// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
 	//
-	// This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+	// This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
 	CompletionMode *string `pulumi:"completionMode"`
 	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions *int `pulumi:"completions"`
@@ -1095,7 +1107,9 @@ type JobSpec struct {
 	Parallelism *int `pulumi:"parallelism"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
-	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+	//
+	// This field is beta-level, gated by SuspendJob feature flag (enabled by default).
 	Suspend *bool `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpec `pulumi:"template"`
@@ -1124,9 +1138,9 @@ type JobSpecArgs struct {
 	//
 	// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 	//
-	// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+	// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
 	//
-	// This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+	// This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
 	CompletionMode pulumi.StringPtrInput `pulumi:"completionMode"`
 	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
@@ -1136,7 +1150,9 @@ type JobSpecArgs struct {
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
-	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+	//
+	// This field is beta-level, gated by SuspendJob feature flag (enabled by default).
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
@@ -1217,7 +1233,7 @@ func (o JobSpecOutput) ToJobSpecPtrOutput() JobSpecPtrOutput {
 }
 
 func (o JobSpecOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpecPtrOutput {
-	return o.ApplyT(func(v JobSpec) *JobSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobSpec) *JobSpec {
 		return &v
 	}).(JobSpecPtrOutput)
 }
@@ -1236,9 +1252,9 @@ func (o JobSpecOutput) BackoffLimit() pulumi.IntPtrOutput {
 //
 // `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 //
-// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
 //
-// This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+// This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
 func (o JobSpecOutput) CompletionMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpec) *string { return v.CompletionMode }).(pulumi.StringPtrOutput)
 }
@@ -1263,7 +1279,9 @@ func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+//
+// This field is beta-level, gated by SuspendJob feature flag (enabled by default).
 func (o JobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
@@ -1293,7 +1311,13 @@ func (o JobSpecPtrOutput) ToJobSpecPtrOutputWithContext(ctx context.Context) Job
 }
 
 func (o JobSpecPtrOutput) Elem() JobSpecOutput {
-	return o.ApplyT(func(v *JobSpec) JobSpec { return *v }).(JobSpecOutput)
+	return o.ApplyT(func(v *JobSpec) JobSpec {
+		if v != nil {
+			return *v
+		}
+		var ret JobSpec
+		return ret
+	}).(JobSpecOutput)
 }
 
 // Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
@@ -1320,9 +1344,9 @@ func (o JobSpecPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 //
 // `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 //
-// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+// `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
 //
-// This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+// This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
 func (o JobSpecPtrOutput) CompletionMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *string {
 		if v == nil {
@@ -1372,7 +1396,9 @@ func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+//
+// This field is beta-level, gated by SuspendJob feature flag (enabled by default).
 func (o JobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *bool {
 		if v == nil {
@@ -1418,6 +1444,13 @@ type JobStatus struct {
 	StartTime *string `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
 	Succeeded *int `pulumi:"succeeded"`
+	// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+	//
+	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+	//     counter.
+	//
+	// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+	UncountedTerminatedPods *UncountedTerminatedPods `pulumi:"uncountedTerminatedPods"`
 }
 
 // JobStatusInput is an input type that accepts JobStatusArgs and JobStatusOutput values.
@@ -1447,6 +1480,13 @@ type JobStatusArgs struct {
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
 	Succeeded pulumi.IntPtrInput `pulumi:"succeeded"`
+	// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+	//
+	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+	//     counter.
+	//
+	// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+	UncountedTerminatedPods UncountedTerminatedPodsPtrInput `pulumi:"uncountedTerminatedPods"`
 }
 
 func (JobStatusArgs) ElementType() reflect.Type {
@@ -1522,7 +1562,7 @@ func (o JobStatusOutput) ToJobStatusPtrOutput() JobStatusPtrOutput {
 }
 
 func (o JobStatusOutput) ToJobStatusPtrOutputWithContext(ctx context.Context) JobStatusPtrOutput {
-	return o.ApplyT(func(v JobStatus) *JobStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobStatus) *JobStatus {
 		return &v
 	}).(JobStatusPtrOutput)
 }
@@ -1562,6 +1602,16 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
 }
 
+// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+//
+// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+//     counter.
+//
+// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+func (o JobStatusOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
+	return o.ApplyT(func(v JobStatus) *UncountedTerminatedPods { return v.UncountedTerminatedPods }).(UncountedTerminatedPodsPtrOutput)
+}
+
 type JobStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (JobStatusPtrOutput) ElementType() reflect.Type {
@@ -1577,7 +1627,13 @@ func (o JobStatusPtrOutput) ToJobStatusPtrOutputWithContext(ctx context.Context)
 }
 
 func (o JobStatusPtrOutput) Elem() JobStatusOutput {
-	return o.ApplyT(func(v *JobStatus) JobStatus { return *v }).(JobStatusOutput)
+	return o.ApplyT(func(v *JobStatus) JobStatus {
+		if v != nil {
+			return *v
+		}
+		var ret JobStatus
+		return ret
+	}).(JobStatusOutput)
 }
 
 // The number of actively running pods.
@@ -1648,6 +1704,21 @@ func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
 		}
 		return v.Succeeded
 	}).(pulumi.IntPtrOutput)
+}
+
+// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+//
+// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+//     counter.
+//
+// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
+	return o.ApplyT(func(v *JobStatus) *UncountedTerminatedPods {
+		if v == nil {
+			return nil
+		}
+		return v.UncountedTerminatedPods
+	}).(UncountedTerminatedPodsPtrOutput)
 }
 
 // JobTemplateSpec describes the data a Job should have when created from a template
@@ -1750,7 +1821,7 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOu
 }
 
 func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
-	return o.ApplyT(func(v JobTemplateSpec) *JobTemplateSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JobTemplateSpec) *JobTemplateSpec {
 		return &v
 	}).(JobTemplateSpecPtrOutput)
 }
@@ -1780,7 +1851,13 @@ func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutputWithContext(ctx cont
 }
 
 func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
-	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec { return *v }).(JobTemplateSpecOutput)
+	return o.ApplyT(func(v *JobTemplateSpec) JobTemplateSpec {
+		if v != nil {
+			return *v
+		}
+		var ret JobTemplateSpec
+		return ret
+	}).(JobTemplateSpecOutput)
 }
 
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1803,7 +1880,186 @@ func (o JobTemplateSpecPtrOutput) Spec() JobSpecPtrOutput {
 	}).(JobSpecPtrOutput)
 }
 
+// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+type UncountedTerminatedPods struct {
+	// Failed holds UIDs of failed Pods.
+	Failed []string `pulumi:"failed"`
+	// Succeeded holds UIDs of succeeded Pods.
+	Succeeded []string `pulumi:"succeeded"`
+}
+
+// UncountedTerminatedPodsInput is an input type that accepts UncountedTerminatedPodsArgs and UncountedTerminatedPodsOutput values.
+// You can construct a concrete instance of `UncountedTerminatedPodsInput` via:
+//
+//          UncountedTerminatedPodsArgs{...}
+type UncountedTerminatedPodsInput interface {
+	pulumi.Input
+
+	ToUncountedTerminatedPodsOutput() UncountedTerminatedPodsOutput
+	ToUncountedTerminatedPodsOutputWithContext(context.Context) UncountedTerminatedPodsOutput
+}
+
+// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+type UncountedTerminatedPodsArgs struct {
+	// Failed holds UIDs of failed Pods.
+	Failed pulumi.StringArrayInput `pulumi:"failed"`
+	// Succeeded holds UIDs of succeeded Pods.
+	Succeeded pulumi.StringArrayInput `pulumi:"succeeded"`
+}
+
+func (UncountedTerminatedPodsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UncountedTerminatedPods)(nil)).Elem()
+}
+
+func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsOutput() UncountedTerminatedPodsOutput {
+	return i.ToUncountedTerminatedPodsOutputWithContext(context.Background())
+}
+
+func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsOutputWithContext(ctx context.Context) UncountedTerminatedPodsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsOutput)
+}
+
+func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsPtrOutput() UncountedTerminatedPodsPtrOutput {
+	return i.ToUncountedTerminatedPodsPtrOutputWithContext(context.Background())
+}
+
+func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsOutput).ToUncountedTerminatedPodsPtrOutputWithContext(ctx)
+}
+
+// UncountedTerminatedPodsPtrInput is an input type that accepts UncountedTerminatedPodsArgs, UncountedTerminatedPodsPtr and UncountedTerminatedPodsPtrOutput values.
+// You can construct a concrete instance of `UncountedTerminatedPodsPtrInput` via:
+//
+//          UncountedTerminatedPodsArgs{...}
+//
+//  or:
+//
+//          nil
+type UncountedTerminatedPodsPtrInput interface {
+	pulumi.Input
+
+	ToUncountedTerminatedPodsPtrOutput() UncountedTerminatedPodsPtrOutput
+	ToUncountedTerminatedPodsPtrOutputWithContext(context.Context) UncountedTerminatedPodsPtrOutput
+}
+
+type uncountedTerminatedPodsPtrType UncountedTerminatedPodsArgs
+
+func UncountedTerminatedPodsPtr(v *UncountedTerminatedPodsArgs) UncountedTerminatedPodsPtrInput {
+	return (*uncountedTerminatedPodsPtrType)(v)
+}
+
+func (*uncountedTerminatedPodsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UncountedTerminatedPods)(nil)).Elem()
+}
+
+func (i *uncountedTerminatedPodsPtrType) ToUncountedTerminatedPodsPtrOutput() UncountedTerminatedPodsPtrOutput {
+	return i.ToUncountedTerminatedPodsPtrOutputWithContext(context.Background())
+}
+
+func (i *uncountedTerminatedPodsPtrType) ToUncountedTerminatedPodsPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UncountedTerminatedPodsPtrOutput)
+}
+
+// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
+type UncountedTerminatedPodsOutput struct{ *pulumi.OutputState }
+
+func (UncountedTerminatedPodsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*UncountedTerminatedPods)(nil)).Elem()
+}
+
+func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsOutput() UncountedTerminatedPodsOutput {
+	return o
+}
+
+func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsOutputWithContext(ctx context.Context) UncountedTerminatedPodsOutput {
+	return o
+}
+
+func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsPtrOutput() UncountedTerminatedPodsPtrOutput {
+	return o.ToUncountedTerminatedPodsPtrOutputWithContext(context.Background())
+}
+
+func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UncountedTerminatedPods) *UncountedTerminatedPods {
+		return &v
+	}).(UncountedTerminatedPodsPtrOutput)
+}
+
+// Failed holds UIDs of failed Pods.
+func (o UncountedTerminatedPodsOutput) Failed() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UncountedTerminatedPods) []string { return v.Failed }).(pulumi.StringArrayOutput)
+}
+
+// Succeeded holds UIDs of succeeded Pods.
+func (o UncountedTerminatedPodsOutput) Succeeded() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v UncountedTerminatedPods) []string { return v.Succeeded }).(pulumi.StringArrayOutput)
+}
+
+type UncountedTerminatedPodsPtrOutput struct{ *pulumi.OutputState }
+
+func (UncountedTerminatedPodsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**UncountedTerminatedPods)(nil)).Elem()
+}
+
+func (o UncountedTerminatedPodsPtrOutput) ToUncountedTerminatedPodsPtrOutput() UncountedTerminatedPodsPtrOutput {
+	return o
+}
+
+func (o UncountedTerminatedPodsPtrOutput) ToUncountedTerminatedPodsPtrOutputWithContext(ctx context.Context) UncountedTerminatedPodsPtrOutput {
+	return o
+}
+
+func (o UncountedTerminatedPodsPtrOutput) Elem() UncountedTerminatedPodsOutput {
+	return o.ApplyT(func(v *UncountedTerminatedPods) UncountedTerminatedPods {
+		if v != nil {
+			return *v
+		}
+		var ret UncountedTerminatedPods
+		return ret
+	}).(UncountedTerminatedPodsOutput)
+}
+
+// Failed holds UIDs of failed Pods.
+func (o UncountedTerminatedPodsPtrOutput) Failed() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *UncountedTerminatedPods) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Failed
+	}).(pulumi.StringArrayOutput)
+}
+
+// Succeeded holds UIDs of succeeded Pods.
+func (o UncountedTerminatedPodsPtrOutput) Succeeded() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *UncountedTerminatedPods) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Succeeded
+	}).(pulumi.StringArrayOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobTypeInput)(nil)).Elem(), CronJobTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobTypeArrayInput)(nil)).Elem(), CronJobTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListTypeInput)(nil)).Elem(), CronJobListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecInput)(nil)).Elem(), CronJobSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecPtrInput)(nil)).Elem(), CronJobSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobStatusInput)(nil)).Elem(), CronJobStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobStatusPtrInput)(nil)).Elem(), CronJobStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobTypeInput)(nil)).Elem(), JobTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobTypeArrayInput)(nil)).Elem(), JobTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobConditionInput)(nil)).Elem(), JobConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobConditionArrayInput)(nil)).Elem(), JobConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobListTypeInput)(nil)).Elem(), JobListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobSpecInput)(nil)).Elem(), JobSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobSpecPtrInput)(nil)).Elem(), JobSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobStatusInput)(nil)).Elem(), JobStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobStatusPtrInput)(nil)).Elem(), JobStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecInput)(nil)).Elem(), JobTemplateSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPtrInput)(nil)).Elem(), JobTemplateSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UncountedTerminatedPodsInput)(nil)).Elem(), UncountedTerminatedPodsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UncountedTerminatedPodsPtrInput)(nil)).Elem(), UncountedTerminatedPodsArgs{})
 	pulumi.RegisterOutputType(CronJobTypeOutput{})
 	pulumi.RegisterOutputType(CronJobTypeArrayOutput{})
 	pulumi.RegisterOutputType(CronJobListTypeOutput{})
@@ -1822,4 +2078,6 @@ func init() {
 	pulumi.RegisterOutputType(JobStatusPtrOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecPtrOutput{})
+	pulumi.RegisterOutputType(UncountedTerminatedPodsOutput{})
+	pulumi.RegisterOutputType(UncountedTerminatedPodsPtrOutput{})
 }

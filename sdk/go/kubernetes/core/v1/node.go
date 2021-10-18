@@ -192,9 +192,7 @@ func (i NodeMap) ToNodeMapOutputWithContext(ctx context.Context) NodeMapOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NodeMapOutput)
 }
 
-type NodeOutput struct {
-	*pulumi.OutputState
-}
+type NodeOutput struct{ *pulumi.OutputState }
 
 func (NodeOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Node)(nil))
@@ -213,14 +211,12 @@ func (o NodeOutput) ToNodePtrOutput() NodePtrOutput {
 }
 
 func (o NodeOutput) ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput {
-	return o.ApplyT(func(v Node) *Node {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Node) *Node {
 		return &v
 	}).(NodePtrOutput)
 }
 
-type NodePtrOutput struct {
-	*pulumi.OutputState
-}
+type NodePtrOutput struct{ *pulumi.OutputState }
 
 func (NodePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Node)(nil))
@@ -232,6 +228,16 @@ func (o NodePtrOutput) ToNodePtrOutput() NodePtrOutput {
 
 func (o NodePtrOutput) ToNodePtrOutputWithContext(ctx context.Context) NodePtrOutput {
 	return o
+}
+
+func (o NodePtrOutput) Elem() NodeOutput {
+	return o.ApplyT(func(v *Node) Node {
+		if v != nil {
+			return *v
+		}
+		var ret Node
+		return ret
+	}).(NodeOutput)
 }
 
 type NodeArrayOutput struct{ *pulumi.OutputState }

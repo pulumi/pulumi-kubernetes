@@ -16,7 +16,8 @@ type LocalSubjectAccessReviewType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
 	Spec SubjectAccessReviewSpec `pulumi:"spec"`
@@ -40,7 +41,8 @@ type LocalSubjectAccessReviewTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
 	Spec SubjectAccessReviewSpecInput `pulumi:"spec"`
@@ -85,6 +87,7 @@ func (o LocalSubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LocalSubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o LocalSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v LocalSubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -199,7 +202,7 @@ func (o NonResourceAttributesOutput) ToNonResourceAttributesPtrOutput() NonResou
 }
 
 func (o NonResourceAttributesOutput) ToNonResourceAttributesPtrOutputWithContext(ctx context.Context) NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v NonResourceAttributes) *NonResourceAttributes {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NonResourceAttributes) *NonResourceAttributes {
 		return &v
 	}).(NonResourceAttributesPtrOutput)
 }
@@ -229,7 +232,13 @@ func (o NonResourceAttributesPtrOutput) ToNonResourceAttributesPtrOutputWithCont
 }
 
 func (o NonResourceAttributesPtrOutput) Elem() NonResourceAttributesOutput {
-	return o.ApplyT(func(v *NonResourceAttributes) NonResourceAttributes { return *v }).(NonResourceAttributesOutput)
+	return o.ApplyT(func(v *NonResourceAttributes) NonResourceAttributes {
+		if v != nil {
+			return *v
+		}
+		var ret NonResourceAttributes
+		return ret
+	}).(NonResourceAttributesOutput)
 }
 
 // Path is the URL path of the request
@@ -481,7 +490,7 @@ func (o ResourceAttributesOutput) ToResourceAttributesPtrOutput() ResourceAttrib
 }
 
 func (o ResourceAttributesOutput) ToResourceAttributesPtrOutputWithContext(ctx context.Context) ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v ResourceAttributes) *ResourceAttributes {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceAttributes) *ResourceAttributes {
 		return &v
 	}).(ResourceAttributesPtrOutput)
 }
@@ -536,7 +545,13 @@ func (o ResourceAttributesPtrOutput) ToResourceAttributesPtrOutputWithContext(ct
 }
 
 func (o ResourceAttributesPtrOutput) Elem() ResourceAttributesOutput {
-	return o.ApplyT(func(v *ResourceAttributes) ResourceAttributes { return *v }).(ResourceAttributesOutput)
+	return o.ApplyT(func(v *ResourceAttributes) ResourceAttributes {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceAttributes
+		return ret
+	}).(ResourceAttributesOutput)
 }
 
 // Group is the API Group of the Resource.  "*" means all.
@@ -744,7 +759,8 @@ type SelfSubjectAccessReviewType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
 	Spec SelfSubjectAccessReviewSpec `pulumi:"spec"`
@@ -768,7 +784,8 @@ type SelfSubjectAccessReviewTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.  user and groups must be empty
 	Spec SelfSubjectAccessReviewSpecInput `pulumi:"spec"`
@@ -813,6 +830,7 @@ func (o SelfSubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o SelfSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -927,7 +945,7 @@ func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutpu
 }
 
 func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *SelfSubjectAccessReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectAccessReviewSpec) *SelfSubjectAccessReviewSpec {
 		return &v
 	}).(SelfSubjectAccessReviewSpecPtrOutput)
 }
@@ -957,7 +975,13 @@ func (o SelfSubjectAccessReviewSpecPtrOutput) ToSelfSubjectAccessReviewSpecPtrOu
 }
 
 func (o SelfSubjectAccessReviewSpecPtrOutput) Elem() SelfSubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) SelfSubjectAccessReviewSpec { return *v }).(SelfSubjectAccessReviewSpecOutput)
+	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) SelfSubjectAccessReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectAccessReviewSpec
+		return ret
+	}).(SelfSubjectAccessReviewSpecOutput)
 }
 
 // NonResourceAttributes describes information for a non-resource access request
@@ -985,7 +1009,8 @@ type SelfSubjectRulesReviewType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
 	Spec SelfSubjectRulesReviewSpec `pulumi:"spec"`
@@ -1009,7 +1034,8 @@ type SelfSubjectRulesReviewTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
 	Spec SelfSubjectRulesReviewSpecInput `pulumi:"spec"`
@@ -1054,6 +1080,7 @@ func (o SelfSubjectRulesReviewTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SelfSubjectRulesReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o SelfSubjectRulesReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v SelfSubjectRulesReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -1068,6 +1095,7 @@ func (o SelfSubjectRulesReviewTypeOutput) Status() SubjectRulesReviewStatusPtrOu
 	return o.ApplyT(func(v SelfSubjectRulesReviewType) *SubjectRulesReviewStatus { return v.Status }).(SubjectRulesReviewStatusPtrOutput)
 }
 
+// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 type SelfSubjectRulesReviewSpec struct {
 	// Namespace to evaluate rules for. Required.
 	Namespace *string `pulumi:"namespace"`
@@ -1084,6 +1112,7 @@ type SelfSubjectRulesReviewSpecInput interface {
 	ToSelfSubjectRulesReviewSpecOutputWithContext(context.Context) SelfSubjectRulesReviewSpecOutput
 }
 
+// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 type SelfSubjectRulesReviewSpecArgs struct {
 	// Namespace to evaluate rules for. Required.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
@@ -1142,6 +1171,7 @@ func (i *selfSubjectRulesReviewSpecPtrType) ToSelfSubjectRulesReviewSpecPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecPtrOutput)
 }
 
+// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 type SelfSubjectRulesReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewSpecOutput) ElementType() reflect.Type {
@@ -1161,7 +1191,7 @@ func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutput(
 }
 
 func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewSpec) *SelfSubjectRulesReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReviewSpec) *SelfSubjectRulesReviewSpec {
 		return &v
 	}).(SelfSubjectRulesReviewSpecPtrOutput)
 }
@@ -1186,7 +1216,13 @@ func (o SelfSubjectRulesReviewSpecPtrOutput) ToSelfSubjectRulesReviewSpecPtrOutp
 }
 
 func (o SelfSubjectRulesReviewSpecPtrOutput) Elem() SelfSubjectRulesReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) SelfSubjectRulesReviewSpec { return *v }).(SelfSubjectRulesReviewSpecOutput)
+	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) SelfSubjectRulesReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectRulesReviewSpec
+		return ret
+	}).(SelfSubjectRulesReviewSpecOutput)
 }
 
 // Namespace to evaluate rules for. Required.
@@ -1204,7 +1240,8 @@ type SubjectAccessReviewType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
 	Spec SubjectAccessReviewSpec `pulumi:"spec"`
@@ -1228,7 +1265,8 @@ type SubjectAccessReviewTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
 	Spec SubjectAccessReviewSpecInput `pulumi:"spec"`
@@ -1273,6 +1311,7 @@ func (o SubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o SubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v SubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -1403,7 +1442,7 @@ func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutput() Subj
 }
 
 func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewSpec) *SubjectAccessReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewSpec) *SubjectAccessReviewSpec {
 		return &v
 	}).(SubjectAccessReviewSpecPtrOutput)
 }
@@ -1453,7 +1492,13 @@ func (o SubjectAccessReviewSpecPtrOutput) ToSubjectAccessReviewSpecPtrOutputWith
 }
 
 func (o SubjectAccessReviewSpecPtrOutput) Elem() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) SubjectAccessReviewSpec { return *v }).(SubjectAccessReviewSpecOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewSpec) SubjectAccessReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectAccessReviewSpec
+		return ret
+	}).(SubjectAccessReviewSpecOutput)
 }
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
@@ -1624,7 +1669,7 @@ func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutput() 
 }
 
 func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewStatus) *SubjectAccessReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewStatus) *SubjectAccessReviewStatus {
 		return &v
 	}).(SubjectAccessReviewStatusPtrOutput)
 }
@@ -1664,7 +1709,13 @@ func (o SubjectAccessReviewStatusPtrOutput) ToSubjectAccessReviewStatusPtrOutput
 }
 
 func (o SubjectAccessReviewStatusPtrOutput) Elem() SubjectAccessReviewStatusOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewStatus) SubjectAccessReviewStatus { return *v }).(SubjectAccessReviewStatusOutput)
+	return o.ApplyT(func(v *SubjectAccessReviewStatus) SubjectAccessReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectAccessReviewStatus
+		return ret
+	}).(SubjectAccessReviewStatusOutput)
 }
 
 // Allowed is required. True if the action would be allowed, false otherwise.
@@ -1815,7 +1866,7 @@ func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutput() Su
 }
 
 func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPtrOutput {
-	return o.ApplyT(func(v SubjectRulesReviewStatus) *SubjectRulesReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectRulesReviewStatus) *SubjectRulesReviewStatus {
 		return &v
 	}).(SubjectRulesReviewStatusPtrOutput)
 }
@@ -1855,7 +1906,13 @@ func (o SubjectRulesReviewStatusPtrOutput) ToSubjectRulesReviewStatusPtrOutputWi
 }
 
 func (o SubjectRulesReviewStatusPtrOutput) Elem() SubjectRulesReviewStatusOutput {
-	return o.ApplyT(func(v *SubjectRulesReviewStatus) SubjectRulesReviewStatus { return *v }).(SubjectRulesReviewStatusOutput)
+	return o.ApplyT(func(v *SubjectRulesReviewStatus) SubjectRulesReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret SubjectRulesReviewStatus
+		return ret
+	}).(SubjectRulesReviewStatusOutput)
 }
 
 // EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
@@ -1899,6 +1956,28 @@ func (o SubjectRulesReviewStatusPtrOutput) ResourceRules() ResourceRuleArrayOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewTypeInput)(nil)).Elem(), LocalSubjectAccessReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesInput)(nil)).Elem(), NonResourceAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesPtrInput)(nil)).Elem(), NonResourceAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceRuleInput)(nil)).Elem(), NonResourceRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceRuleArrayInput)(nil)).Elem(), NonResourceRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceAttributesInput)(nil)).Elem(), ResourceAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceAttributesPtrInput)(nil)).Elem(), ResourceAttributesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRuleInput)(nil)).Elem(), ResourceRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRuleArrayInput)(nil)).Elem(), ResourceRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewTypeInput)(nil)).Elem(), SelfSubjectAccessReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPtrInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewTypeInput)(nil)).Elem(), SelfSubjectRulesReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPtrInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewTypeInput)(nil)).Elem(), SubjectAccessReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecPtrInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewStatusInput)(nil)).Elem(), SubjectAccessReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewStatusPtrInput)(nil)).Elem(), SubjectAccessReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPtrInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewTypeOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesPtrOutput{})

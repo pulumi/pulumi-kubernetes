@@ -125,7 +125,7 @@ func (o AWSElasticBlockStoreVolumeSourceOutput) ToAWSElasticBlockStoreVolumeSour
 }
 
 func (o AWSElasticBlockStoreVolumeSourceOutput) ToAWSElasticBlockStoreVolumeSourcePtrOutputWithContext(ctx context.Context) AWSElasticBlockStoreVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AWSElasticBlockStoreVolumeSource) *AWSElasticBlockStoreVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AWSElasticBlockStoreVolumeSource) *AWSElasticBlockStoreVolumeSource {
 		return &v
 	}).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
@@ -165,7 +165,13 @@ func (o AWSElasticBlockStoreVolumeSourcePtrOutput) ToAWSElasticBlockStoreVolumeS
 }
 
 func (o AWSElasticBlockStoreVolumeSourcePtrOutput) Elem() AWSElasticBlockStoreVolumeSourceOutput {
-	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) AWSElasticBlockStoreVolumeSource { return *v }).(AWSElasticBlockStoreVolumeSourceOutput)
+	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) AWSElasticBlockStoreVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AWSElasticBlockStoreVolumeSource
+		return ret
+	}).(AWSElasticBlockStoreVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
@@ -312,7 +318,7 @@ func (o AffinityOutput) ToAffinityPtrOutput() AffinityPtrOutput {
 }
 
 func (o AffinityOutput) ToAffinityPtrOutputWithContext(ctx context.Context) AffinityPtrOutput {
-	return o.ApplyT(func(v Affinity) *Affinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Affinity) *Affinity {
 		return &v
 	}).(AffinityPtrOutput)
 }
@@ -347,7 +353,13 @@ func (o AffinityPtrOutput) ToAffinityPtrOutputWithContext(ctx context.Context) A
 }
 
 func (o AffinityPtrOutput) Elem() AffinityOutput {
-	return o.ApplyT(func(v *Affinity) Affinity { return *v }).(AffinityOutput)
+	return o.ApplyT(func(v *Affinity) Affinity {
+		if v != nil {
+			return *v
+		}
+		var ret Affinity
+		return ret
+	}).(AffinityOutput)
 }
 
 // Describes node affinity scheduling rules for the pod.
@@ -605,7 +617,7 @@ func (o AzureDiskVolumeSourceOutput) ToAzureDiskVolumeSourcePtrOutput() AzureDis
 }
 
 func (o AzureDiskVolumeSourceOutput) ToAzureDiskVolumeSourcePtrOutputWithContext(ctx context.Context) AzureDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AzureDiskVolumeSource) *AzureDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AzureDiskVolumeSource) *AzureDiskVolumeSource {
 		return &v
 	}).(AzureDiskVolumeSourcePtrOutput)
 }
@@ -655,7 +667,13 @@ func (o AzureDiskVolumeSourcePtrOutput) ToAzureDiskVolumeSourcePtrOutputWithCont
 }
 
 func (o AzureDiskVolumeSourcePtrOutput) Elem() AzureDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *AzureDiskVolumeSource) AzureDiskVolumeSource { return *v }).(AzureDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *AzureDiskVolumeSource) AzureDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AzureDiskVolumeSource
+		return ret
+	}).(AzureDiskVolumeSourceOutput)
 }
 
 // Host Caching mode: None, Read Only, Read Write.
@@ -826,7 +844,7 @@ func (o AzureFilePersistentVolumeSourceOutput) ToAzureFilePersistentVolumeSource
 }
 
 func (o AzureFilePersistentVolumeSourceOutput) ToAzureFilePersistentVolumeSourcePtrOutputWithContext(ctx context.Context) AzureFilePersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AzureFilePersistentVolumeSource) *AzureFilePersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AzureFilePersistentVolumeSource) *AzureFilePersistentVolumeSource {
 		return &v
 	}).(AzureFilePersistentVolumeSourcePtrOutput)
 }
@@ -866,7 +884,13 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) ToAzureFilePersistentVolumeSou
 }
 
 func (o AzureFilePersistentVolumeSourcePtrOutput) Elem() AzureFilePersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) AzureFilePersistentVolumeSource { return *v }).(AzureFilePersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) AzureFilePersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AzureFilePersistentVolumeSource
+		return ret
+	}).(AzureFilePersistentVolumeSourceOutput)
 }
 
 // Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -1013,7 +1037,7 @@ func (o AzureFileVolumeSourceOutput) ToAzureFileVolumeSourcePtrOutput() AzureFil
 }
 
 func (o AzureFileVolumeSourceOutput) ToAzureFileVolumeSourcePtrOutputWithContext(ctx context.Context) AzureFileVolumeSourcePtrOutput {
-	return o.ApplyT(func(v AzureFileVolumeSource) *AzureFileVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AzureFileVolumeSource) *AzureFileVolumeSource {
 		return &v
 	}).(AzureFileVolumeSourcePtrOutput)
 }
@@ -1048,7 +1072,13 @@ func (o AzureFileVolumeSourcePtrOutput) ToAzureFileVolumeSourcePtrOutputWithCont
 }
 
 func (o AzureFileVolumeSourcePtrOutput) Elem() AzureFileVolumeSourceOutput {
-	return o.ApplyT(func(v *AzureFileVolumeSource) AzureFileVolumeSource { return *v }).(AzureFileVolumeSourceOutput)
+	return o.ApplyT(func(v *AzureFileVolumeSource) AzureFileVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret AzureFileVolumeSource
+		return ret
+	}).(AzureFileVolumeSourceOutput)
 }
 
 // Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -1291,7 +1321,7 @@ func (o CSIPersistentVolumeSourceOutput) ToCSIPersistentVolumeSourcePtrOutput() 
 }
 
 func (o CSIPersistentVolumeSourceOutput) ToCSIPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) CSIPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CSIPersistentVolumeSource) *CSIPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIPersistentVolumeSource) *CSIPersistentVolumeSource {
 		return &v
 	}).(CSIPersistentVolumeSourcePtrOutput)
 }
@@ -1356,7 +1386,13 @@ func (o CSIPersistentVolumeSourcePtrOutput) ToCSIPersistentVolumeSourcePtrOutput
 }
 
 func (o CSIPersistentVolumeSourcePtrOutput) Elem() CSIPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *CSIPersistentVolumeSource) CSIPersistentVolumeSource { return *v }).(CSIPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *CSIPersistentVolumeSource) CSIPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CSIPersistentVolumeSource
+		return ret
+	}).(CSIPersistentVolumeSourceOutput)
 }
 
 // ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -1561,7 +1597,7 @@ func (o CSIVolumeSourceOutput) ToCSIVolumeSourcePtrOutput() CSIVolumeSourcePtrOu
 }
 
 func (o CSIVolumeSourceOutput) ToCSIVolumeSourcePtrOutputWithContext(ctx context.Context) CSIVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CSIVolumeSource) *CSIVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIVolumeSource) *CSIVolumeSource {
 		return &v
 	}).(CSIVolumeSourcePtrOutput)
 }
@@ -1606,7 +1642,13 @@ func (o CSIVolumeSourcePtrOutput) ToCSIVolumeSourcePtrOutputWithContext(ctx cont
 }
 
 func (o CSIVolumeSourcePtrOutput) Elem() CSIVolumeSourceOutput {
-	return o.ApplyT(func(v *CSIVolumeSource) CSIVolumeSource { return *v }).(CSIVolumeSourceOutput)
+	return o.ApplyT(func(v *CSIVolumeSource) CSIVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CSIVolumeSource
+		return ret
+	}).(CSIVolumeSourceOutput)
 }
 
 // Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
@@ -1759,7 +1801,7 @@ func (o CapabilitiesOutput) ToCapabilitiesPtrOutput() CapabilitiesPtrOutput {
 }
 
 func (o CapabilitiesOutput) ToCapabilitiesPtrOutputWithContext(ctx context.Context) CapabilitiesPtrOutput {
-	return o.ApplyT(func(v Capabilities) *Capabilities {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Capabilities) *Capabilities {
 		return &v
 	}).(CapabilitiesPtrOutput)
 }
@@ -1789,7 +1831,13 @@ func (o CapabilitiesPtrOutput) ToCapabilitiesPtrOutputWithContext(ctx context.Co
 }
 
 func (o CapabilitiesPtrOutput) Elem() CapabilitiesOutput {
-	return o.ApplyT(func(v *Capabilities) Capabilities { return *v }).(CapabilitiesOutput)
+	return o.ApplyT(func(v *Capabilities) Capabilities {
+		if v != nil {
+			return *v
+		}
+		var ret Capabilities
+		return ret
+	}).(CapabilitiesOutput)
 }
 
 // Added capabilities
@@ -1928,7 +1976,7 @@ func (o CephFSPersistentVolumeSourceOutput) ToCephFSPersistentVolumeSourcePtrOut
 }
 
 func (o CephFSPersistentVolumeSourceOutput) ToCephFSPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) CephFSPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CephFSPersistentVolumeSource) *CephFSPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CephFSPersistentVolumeSource) *CephFSPersistentVolumeSource {
 		return &v
 	}).(CephFSPersistentVolumeSourcePtrOutput)
 }
@@ -1978,7 +2026,13 @@ func (o CephFSPersistentVolumeSourcePtrOutput) ToCephFSPersistentVolumeSourcePtr
 }
 
 func (o CephFSPersistentVolumeSourcePtrOutput) Elem() CephFSPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *CephFSPersistentVolumeSource) CephFSPersistentVolumeSource { return *v }).(CephFSPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *CephFSPersistentVolumeSource) CephFSPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CephFSPersistentVolumeSource
+		return ret
+	}).(CephFSPersistentVolumeSourceOutput)
 }
 
 // Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -2157,7 +2211,7 @@ func (o CephFSVolumeSourceOutput) ToCephFSVolumeSourcePtrOutput() CephFSVolumeSo
 }
 
 func (o CephFSVolumeSourceOutput) ToCephFSVolumeSourcePtrOutputWithContext(ctx context.Context) CephFSVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CephFSVolumeSource) *CephFSVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CephFSVolumeSource) *CephFSVolumeSource {
 		return &v
 	}).(CephFSVolumeSourcePtrOutput)
 }
@@ -2207,7 +2261,13 @@ func (o CephFSVolumeSourcePtrOutput) ToCephFSVolumeSourcePtrOutputWithContext(ct
 }
 
 func (o CephFSVolumeSourcePtrOutput) Elem() CephFSVolumeSourceOutput {
-	return o.ApplyT(func(v *CephFSVolumeSource) CephFSVolumeSource { return *v }).(CephFSVolumeSourceOutput)
+	return o.ApplyT(func(v *CephFSVolumeSource) CephFSVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CephFSVolumeSource
+		return ret
+	}).(CephFSVolumeSourceOutput)
 }
 
 // Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
@@ -2378,7 +2438,7 @@ func (o CinderPersistentVolumeSourceOutput) ToCinderPersistentVolumeSourcePtrOut
 }
 
 func (o CinderPersistentVolumeSourceOutput) ToCinderPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) CinderPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CinderPersistentVolumeSource) *CinderPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CinderPersistentVolumeSource) *CinderPersistentVolumeSource {
 		return &v
 	}).(CinderPersistentVolumeSourcePtrOutput)
 }
@@ -2418,7 +2478,13 @@ func (o CinderPersistentVolumeSourcePtrOutput) ToCinderPersistentVolumeSourcePtr
 }
 
 func (o CinderPersistentVolumeSourcePtrOutput) Elem() CinderPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *CinderPersistentVolumeSource) CinderPersistentVolumeSource { return *v }).(CinderPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *CinderPersistentVolumeSource) CinderPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CinderPersistentVolumeSource
+		return ret
+	}).(CinderPersistentVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
@@ -2569,7 +2635,7 @@ func (o CinderVolumeSourceOutput) ToCinderVolumeSourcePtrOutput() CinderVolumeSo
 }
 
 func (o CinderVolumeSourceOutput) ToCinderVolumeSourcePtrOutputWithContext(ctx context.Context) CinderVolumeSourcePtrOutput {
-	return o.ApplyT(func(v CinderVolumeSource) *CinderVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CinderVolumeSource) *CinderVolumeSource {
 		return &v
 	}).(CinderVolumeSourcePtrOutput)
 }
@@ -2609,7 +2675,13 @@ func (o CinderVolumeSourcePtrOutput) ToCinderVolumeSourcePtrOutputWithContext(ct
 }
 
 func (o CinderVolumeSourcePtrOutput) Elem() CinderVolumeSourceOutput {
-	return o.ApplyT(func(v *CinderVolumeSource) CinderVolumeSource { return *v }).(CinderVolumeSourceOutput)
+	return o.ApplyT(func(v *CinderVolumeSource) CinderVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret CinderVolumeSource
+		return ret
+	}).(CinderVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
@@ -2748,7 +2820,7 @@ func (o ClientIPConfigOutput) ToClientIPConfigPtrOutput() ClientIPConfigPtrOutpu
 }
 
 func (o ClientIPConfigOutput) ToClientIPConfigPtrOutputWithContext(ctx context.Context) ClientIPConfigPtrOutput {
-	return o.ApplyT(func(v ClientIPConfig) *ClientIPConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClientIPConfig) *ClientIPConfig {
 		return &v
 	}).(ClientIPConfigPtrOutput)
 }
@@ -2773,7 +2845,13 @@ func (o ClientIPConfigPtrOutput) ToClientIPConfigPtrOutputWithContext(ctx contex
 }
 
 func (o ClientIPConfigPtrOutput) Elem() ClientIPConfigOutput {
-	return o.ApplyT(func(v *ClientIPConfig) ClientIPConfig { return *v }).(ClientIPConfigOutput)
+	return o.ApplyT(func(v *ClientIPConfig) ClientIPConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ClientIPConfig
+		return ret
+	}).(ClientIPConfigOutput)
 }
 
 // timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
@@ -3373,7 +3451,7 @@ func (o ConfigMapEnvSourceOutput) ToConfigMapEnvSourcePtrOutput() ConfigMapEnvSo
 }
 
 func (o ConfigMapEnvSourceOutput) ToConfigMapEnvSourcePtrOutputWithContext(ctx context.Context) ConfigMapEnvSourcePtrOutput {
-	return o.ApplyT(func(v ConfigMapEnvSource) *ConfigMapEnvSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapEnvSource) *ConfigMapEnvSource {
 		return &v
 	}).(ConfigMapEnvSourcePtrOutput)
 }
@@ -3403,7 +3481,13 @@ func (o ConfigMapEnvSourcePtrOutput) ToConfigMapEnvSourcePtrOutputWithContext(ct
 }
 
 func (o ConfigMapEnvSourcePtrOutput) Elem() ConfigMapEnvSourceOutput {
-	return o.ApplyT(func(v *ConfigMapEnvSource) ConfigMapEnvSource { return *v }).(ConfigMapEnvSourceOutput)
+	return o.ApplyT(func(v *ConfigMapEnvSource) ConfigMapEnvSource {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapEnvSource
+		return ret
+	}).(ConfigMapEnvSourceOutput)
 }
 
 // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -3530,7 +3614,7 @@ func (o ConfigMapKeySelectorOutput) ToConfigMapKeySelectorPtrOutput() ConfigMapK
 }
 
 func (o ConfigMapKeySelectorOutput) ToConfigMapKeySelectorPtrOutputWithContext(ctx context.Context) ConfigMapKeySelectorPtrOutput {
-	return o.ApplyT(func(v ConfigMapKeySelector) *ConfigMapKeySelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapKeySelector) *ConfigMapKeySelector {
 		return &v
 	}).(ConfigMapKeySelectorPtrOutput)
 }
@@ -3565,7 +3649,13 @@ func (o ConfigMapKeySelectorPtrOutput) ToConfigMapKeySelectorPtrOutputWithContex
 }
 
 func (o ConfigMapKeySelectorPtrOutput) Elem() ConfigMapKeySelectorOutput {
-	return o.ApplyT(func(v *ConfigMapKeySelector) ConfigMapKeySelector { return *v }).(ConfigMapKeySelectorOutput)
+	return o.ApplyT(func(v *ConfigMapKeySelector) ConfigMapKeySelector {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapKeySelector
+		return ret
+	}).(ConfigMapKeySelectorOutput)
 }
 
 // The key to select.
@@ -3680,7 +3770,7 @@ func (o ConfigMapListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v ConfigMapListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
-// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.
+// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 type ConfigMapNodeConfigSource struct {
 	// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 	KubeletConfigKey string `pulumi:"kubeletConfigKey"`
@@ -3705,7 +3795,7 @@ type ConfigMapNodeConfigSourceInput interface {
 	ToConfigMapNodeConfigSourceOutputWithContext(context.Context) ConfigMapNodeConfigSourceOutput
 }
 
-// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.
+// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 type ConfigMapNodeConfigSourceArgs struct {
 	// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
 	KubeletConfigKey pulumi.StringInput `pulumi:"kubeletConfigKey"`
@@ -3772,7 +3862,7 @@ func (i *configMapNodeConfigSourcePtrType) ToConfigMapNodeConfigSourcePtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapNodeConfigSourcePtrOutput)
 }
 
-// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.
+// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 type ConfigMapNodeConfigSourceOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapNodeConfigSourceOutput) ElementType() reflect.Type {
@@ -3792,7 +3882,7 @@ func (o ConfigMapNodeConfigSourceOutput) ToConfigMapNodeConfigSourcePtrOutput() 
 }
 
 func (o ConfigMapNodeConfigSourceOutput) ToConfigMapNodeConfigSourcePtrOutputWithContext(ctx context.Context) ConfigMapNodeConfigSourcePtrOutput {
-	return o.ApplyT(func(v ConfigMapNodeConfigSource) *ConfigMapNodeConfigSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapNodeConfigSource) *ConfigMapNodeConfigSource {
 		return &v
 	}).(ConfigMapNodeConfigSourcePtrOutput)
 }
@@ -3837,7 +3927,13 @@ func (o ConfigMapNodeConfigSourcePtrOutput) ToConfigMapNodeConfigSourcePtrOutput
 }
 
 func (o ConfigMapNodeConfigSourcePtrOutput) Elem() ConfigMapNodeConfigSourceOutput {
-	return o.ApplyT(func(v *ConfigMapNodeConfigSource) ConfigMapNodeConfigSource { return *v }).(ConfigMapNodeConfigSourceOutput)
+	return o.ApplyT(func(v *ConfigMapNodeConfigSource) ConfigMapNodeConfigSource {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapNodeConfigSource
+		return ret
+	}).(ConfigMapNodeConfigSourceOutput)
 }
 
 // KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
@@ -4000,7 +4096,7 @@ func (o ConfigMapProjectionOutput) ToConfigMapProjectionPtrOutput() ConfigMapPro
 }
 
 func (o ConfigMapProjectionOutput) ToConfigMapProjectionPtrOutputWithContext(ctx context.Context) ConfigMapProjectionPtrOutput {
-	return o.ApplyT(func(v ConfigMapProjection) *ConfigMapProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapProjection) *ConfigMapProjection {
 		return &v
 	}).(ConfigMapProjectionPtrOutput)
 }
@@ -4035,7 +4131,13 @@ func (o ConfigMapProjectionPtrOutput) ToConfigMapProjectionPtrOutputWithContext(
 }
 
 func (o ConfigMapProjectionPtrOutput) Elem() ConfigMapProjectionOutput {
-	return o.ApplyT(func(v *ConfigMapProjection) ConfigMapProjection { return *v }).(ConfigMapProjectionOutput)
+	return o.ApplyT(func(v *ConfigMapProjection) ConfigMapProjection {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapProjection
+		return ret
+	}).(ConfigMapProjectionOutput)
 }
 
 // If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
@@ -4182,7 +4284,7 @@ func (o ConfigMapVolumeSourceOutput) ToConfigMapVolumeSourcePtrOutput() ConfigMa
 }
 
 func (o ConfigMapVolumeSourceOutput) ToConfigMapVolumeSourcePtrOutputWithContext(ctx context.Context) ConfigMapVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ConfigMapVolumeSource) *ConfigMapVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapVolumeSource) *ConfigMapVolumeSource {
 		return &v
 	}).(ConfigMapVolumeSourcePtrOutput)
 }
@@ -4222,7 +4324,13 @@ func (o ConfigMapVolumeSourcePtrOutput) ToConfigMapVolumeSourcePtrOutputWithCont
 }
 
 func (o ConfigMapVolumeSourcePtrOutput) Elem() ConfigMapVolumeSourceOutput {
-	return o.ApplyT(func(v *ConfigMapVolumeSource) ConfigMapVolumeSource { return *v }).(ConfigMapVolumeSourceOutput)
+	return o.ApplyT(func(v *ConfigMapVolumeSource) ConfigMapVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ConfigMapVolumeSource
+		return ret
+	}).(ConfigMapVolumeSourceOutput)
 }
 
 // Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -4267,9 +4375,9 @@ func (o ConfigMapVolumeSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 
 // A single application container that you want to run within a pod.
 type Container struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args []string `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command []string `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env []EnvVar `pulumi:"env"`
@@ -4291,7 +4399,7 @@ type Container struct {
 	ReadinessProbe *Probe `pulumi:"readinessProbe"`
 	// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Resources *ResourceRequirements `pulumi:"resources"`
-	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+	// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext *SecurityContext `pulumi:"securityContext"`
 	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe *Probe `pulumi:"startupProbe"`
@@ -4326,9 +4434,9 @@ type ContainerInput interface {
 
 // A single application container that you want to run within a pod.
 type ContainerArgs struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args pulumi.StringArrayInput `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command pulumi.StringArrayInput `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env EnvVarArrayInput `pulumi:"env"`
@@ -4350,7 +4458,7 @@ type ContainerArgs struct {
 	ReadinessProbe ProbePtrInput `pulumi:"readinessProbe"`
 	// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
-	// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+	// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 	SecurityContext SecurityContextPtrInput `pulumi:"securityContext"`
 	// StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	StartupProbe ProbePtrInput `pulumi:"startupProbe"`
@@ -4424,12 +4532,12 @@ func (o ContainerOutput) ToContainerOutputWithContext(ctx context.Context) Conta
 	return o
 }
 
-// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o ContainerOutput) Args() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Container) []string { return v.Args }).(pulumi.StringArrayOutput)
 }
 
-// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o ContainerOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Container) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
@@ -4484,7 +4592,7 @@ func (o ContainerOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v Container) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
 }
 
-// Security options the pod should run with. More info: https://kubernetes.io/docs/concepts/policy/security-context/ More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
 func (o ContainerOutput) SecurityContext() SecurityContextPtrOutput {
 	return o.ApplyT(func(v Container) *SecurityContext { return v.SecurityContext }).(SecurityContextPtrOutput)
 }
@@ -4903,7 +5011,7 @@ func (o ContainerStateOutput) ToContainerStatePtrOutput() ContainerStatePtrOutpu
 }
 
 func (o ContainerStateOutput) ToContainerStatePtrOutputWithContext(ctx context.Context) ContainerStatePtrOutput {
-	return o.ApplyT(func(v ContainerState) *ContainerState {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerState) *ContainerState {
 		return &v
 	}).(ContainerStatePtrOutput)
 }
@@ -4938,7 +5046,13 @@ func (o ContainerStatePtrOutput) ToContainerStatePtrOutputWithContext(ctx contex
 }
 
 func (o ContainerStatePtrOutput) Elem() ContainerStateOutput {
-	return o.ApplyT(func(v *ContainerState) ContainerState { return *v }).(ContainerStateOutput)
+	return o.ApplyT(func(v *ContainerState) ContainerState {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerState
+		return ret
+	}).(ContainerStateOutput)
 }
 
 // Details about a running container
@@ -5067,7 +5181,7 @@ func (o ContainerStateRunningOutput) ToContainerStateRunningPtrOutput() Containe
 }
 
 func (o ContainerStateRunningOutput) ToContainerStateRunningPtrOutputWithContext(ctx context.Context) ContainerStateRunningPtrOutput {
-	return o.ApplyT(func(v ContainerStateRunning) *ContainerStateRunning {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerStateRunning) *ContainerStateRunning {
 		return &v
 	}).(ContainerStateRunningPtrOutput)
 }
@@ -5092,7 +5206,13 @@ func (o ContainerStateRunningPtrOutput) ToContainerStateRunningPtrOutputWithCont
 }
 
 func (o ContainerStateRunningPtrOutput) Elem() ContainerStateRunningOutput {
-	return o.ApplyT(func(v *ContainerStateRunning) ContainerStateRunning { return *v }).(ContainerStateRunningOutput)
+	return o.ApplyT(func(v *ContainerStateRunning) ContainerStateRunning {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerStateRunning
+		return ret
+	}).(ContainerStateRunningOutput)
 }
 
 // Time at which the container was last (re-)started
@@ -5225,7 +5345,7 @@ func (o ContainerStateTerminatedOutput) ToContainerStateTerminatedPtrOutput() Co
 }
 
 func (o ContainerStateTerminatedOutput) ToContainerStateTerminatedPtrOutputWithContext(ctx context.Context) ContainerStateTerminatedPtrOutput {
-	return o.ApplyT(func(v ContainerStateTerminated) *ContainerStateTerminated {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerStateTerminated) *ContainerStateTerminated {
 		return &v
 	}).(ContainerStateTerminatedPtrOutput)
 }
@@ -5280,7 +5400,13 @@ func (o ContainerStateTerminatedPtrOutput) ToContainerStateTerminatedPtrOutputWi
 }
 
 func (o ContainerStateTerminatedPtrOutput) Elem() ContainerStateTerminatedOutput {
-	return o.ApplyT(func(v *ContainerStateTerminated) ContainerStateTerminated { return *v }).(ContainerStateTerminatedOutput)
+	return o.ApplyT(func(v *ContainerStateTerminated) ContainerStateTerminated {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerStateTerminated
+		return ret
+	}).(ContainerStateTerminatedOutput)
 }
 
 // Container's ID in the format 'docker://<container_id>'
@@ -5453,7 +5579,7 @@ func (o ContainerStateWaitingOutput) ToContainerStateWaitingPtrOutput() Containe
 }
 
 func (o ContainerStateWaitingOutput) ToContainerStateWaitingPtrOutputWithContext(ctx context.Context) ContainerStateWaitingPtrOutput {
-	return o.ApplyT(func(v ContainerStateWaiting) *ContainerStateWaiting {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ContainerStateWaiting) *ContainerStateWaiting {
 		return &v
 	}).(ContainerStateWaitingPtrOutput)
 }
@@ -5483,7 +5609,13 @@ func (o ContainerStateWaitingPtrOutput) ToContainerStateWaitingPtrOutputWithCont
 }
 
 func (o ContainerStateWaitingPtrOutput) Elem() ContainerStateWaitingOutput {
-	return o.ApplyT(func(v *ContainerStateWaiting) ContainerStateWaiting { return *v }).(ContainerStateWaitingOutput)
+	return o.ApplyT(func(v *ContainerStateWaiting) ContainerStateWaiting {
+		if v != nil {
+			return *v
+		}
+		var ret ContainerStateWaiting
+		return ret
+	}).(ContainerStateWaitingOutput)
 }
 
 // Message regarding why the container is not yet running.
@@ -5774,7 +5906,7 @@ func (o DaemonEndpointOutput) ToDaemonEndpointPtrOutput() DaemonEndpointPtrOutpu
 }
 
 func (o DaemonEndpointOutput) ToDaemonEndpointPtrOutputWithContext(ctx context.Context) DaemonEndpointPtrOutput {
-	return o.ApplyT(func(v DaemonEndpoint) *DaemonEndpoint {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonEndpoint) *DaemonEndpoint {
 		return &v
 	}).(DaemonEndpointPtrOutput)
 }
@@ -5799,7 +5931,13 @@ func (o DaemonEndpointPtrOutput) ToDaemonEndpointPtrOutputWithContext(ctx contex
 }
 
 func (o DaemonEndpointPtrOutput) Elem() DaemonEndpointOutput {
-	return o.ApplyT(func(v *DaemonEndpoint) DaemonEndpoint { return *v }).(DaemonEndpointOutput)
+	return o.ApplyT(func(v *DaemonEndpoint) DaemonEndpoint {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonEndpoint
+		return ret
+	}).(DaemonEndpointOutput)
 }
 
 // Port number of the given endpoint.
@@ -5908,7 +6046,7 @@ func (o DownwardAPIProjectionOutput) ToDownwardAPIProjectionPtrOutput() Downward
 }
 
 func (o DownwardAPIProjectionOutput) ToDownwardAPIProjectionPtrOutputWithContext(ctx context.Context) DownwardAPIProjectionPtrOutput {
-	return o.ApplyT(func(v DownwardAPIProjection) *DownwardAPIProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DownwardAPIProjection) *DownwardAPIProjection {
 		return &v
 	}).(DownwardAPIProjectionPtrOutput)
 }
@@ -5933,7 +6071,13 @@ func (o DownwardAPIProjectionPtrOutput) ToDownwardAPIProjectionPtrOutputWithCont
 }
 
 func (o DownwardAPIProjectionPtrOutput) Elem() DownwardAPIProjectionOutput {
-	return o.ApplyT(func(v *DownwardAPIProjection) DownwardAPIProjection { return *v }).(DownwardAPIProjectionOutput)
+	return o.ApplyT(func(v *DownwardAPIProjection) DownwardAPIProjection {
+		if v != nil {
+			return *v
+		}
+		var ret DownwardAPIProjection
+		return ret
+	}).(DownwardAPIProjectionOutput)
 }
 
 // Items is a list of DownwardAPIVolume file
@@ -6173,7 +6317,7 @@ func (o DownwardAPIVolumeSourceOutput) ToDownwardAPIVolumeSourcePtrOutput() Down
 }
 
 func (o DownwardAPIVolumeSourceOutput) ToDownwardAPIVolumeSourcePtrOutputWithContext(ctx context.Context) DownwardAPIVolumeSourcePtrOutput {
-	return o.ApplyT(func(v DownwardAPIVolumeSource) *DownwardAPIVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DownwardAPIVolumeSource) *DownwardAPIVolumeSource {
 		return &v
 	}).(DownwardAPIVolumeSourcePtrOutput)
 }
@@ -6203,7 +6347,13 @@ func (o DownwardAPIVolumeSourcePtrOutput) ToDownwardAPIVolumeSourcePtrOutputWith
 }
 
 func (o DownwardAPIVolumeSourcePtrOutput) Elem() DownwardAPIVolumeSourceOutput {
-	return o.ApplyT(func(v *DownwardAPIVolumeSource) DownwardAPIVolumeSource { return *v }).(DownwardAPIVolumeSourceOutput)
+	return o.ApplyT(func(v *DownwardAPIVolumeSource) DownwardAPIVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret DownwardAPIVolumeSource
+		return ret
+	}).(DownwardAPIVolumeSourceOutput)
 }
 
 // Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -6326,7 +6476,7 @@ func (o EmptyDirVolumeSourceOutput) ToEmptyDirVolumeSourcePtrOutput() EmptyDirVo
 }
 
 func (o EmptyDirVolumeSourceOutput) ToEmptyDirVolumeSourcePtrOutputWithContext(ctx context.Context) EmptyDirVolumeSourcePtrOutput {
-	return o.ApplyT(func(v EmptyDirVolumeSource) *EmptyDirVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EmptyDirVolumeSource) *EmptyDirVolumeSource {
 		return &v
 	}).(EmptyDirVolumeSourcePtrOutput)
 }
@@ -6356,7 +6506,13 @@ func (o EmptyDirVolumeSourcePtrOutput) ToEmptyDirVolumeSourcePtrOutputWithContex
 }
 
 func (o EmptyDirVolumeSourcePtrOutput) Elem() EmptyDirVolumeSourceOutput {
-	return o.ApplyT(func(v *EmptyDirVolumeSource) EmptyDirVolumeSource { return *v }).(EmptyDirVolumeSourceOutput)
+	return o.ApplyT(func(v *EmptyDirVolumeSource) EmptyDirVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret EmptyDirVolumeSource
+		return ret
+	}).(EmptyDirVolumeSourceOutput)
 }
 
 // What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
@@ -6508,7 +6664,7 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name *string `pulumi:"name"`
@@ -6531,7 +6687,7 @@ type EndpointPortInput interface {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -6593,7 +6749,7 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -7136,7 +7292,7 @@ func (o EnvFromSourceArrayOutput) Index(i pulumi.IntInput) EnvFromSourceOutput {
 type EnvVar struct {
 	// Name of the environment variable. Must be a C_IDENTIFIER.
 	Name string `pulumi:"name"`
-	// Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+	// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
 	Value *string `pulumi:"value"`
 	// Source for the environment variable's value. Cannot be used if value is not empty.
 	ValueFrom *EnvVarSource `pulumi:"valueFrom"`
@@ -7157,7 +7313,7 @@ type EnvVarInput interface {
 type EnvVarArgs struct {
 	// Name of the environment variable. Must be a C_IDENTIFIER.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+	// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
 	Value pulumi.StringPtrInput `pulumi:"value"`
 	// Source for the environment variable's value. Cannot be used if value is not empty.
 	ValueFrom EnvVarSourcePtrInput `pulumi:"valueFrom"`
@@ -7220,7 +7376,7 @@ func (o EnvVarOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v EnvVar) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Variable references $(VAR_NAME) are expanded using the previous defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+// Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
 func (o EnvVarOutput) Value() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EnvVar) *string { return v.Value }).(pulumi.StringPtrOutput)
 }
@@ -7358,7 +7514,7 @@ func (o EnvVarSourceOutput) ToEnvVarSourcePtrOutput() EnvVarSourcePtrOutput {
 }
 
 func (o EnvVarSourceOutput) ToEnvVarSourcePtrOutputWithContext(ctx context.Context) EnvVarSourcePtrOutput {
-	return o.ApplyT(func(v EnvVarSource) *EnvVarSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EnvVarSource) *EnvVarSource {
 		return &v
 	}).(EnvVarSourcePtrOutput)
 }
@@ -7398,7 +7554,13 @@ func (o EnvVarSourcePtrOutput) ToEnvVarSourcePtrOutputWithContext(ctx context.Co
 }
 
 func (o EnvVarSourcePtrOutput) Elem() EnvVarSourceOutput {
-	return o.ApplyT(func(v *EnvVarSource) EnvVarSource { return *v }).(EnvVarSourceOutput)
+	return o.ApplyT(func(v *EnvVarSource) EnvVarSource {
+		if v != nil {
+			return *v
+		}
+		var ret EnvVarSource
+		return ret
+	}).(EnvVarSourceOutput)
 }
 
 // Selects a key of a ConfigMap.
@@ -7443,9 +7605,9 @@ func (o EnvVarSourcePtrOutput) SecretKeyRef() SecretKeySelectorPtrOutput {
 
 // An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
 type EphemeralContainer struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args []string `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command []string `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env []EnvVar `pulumi:"env"`
@@ -7467,7 +7629,7 @@ type EphemeralContainer struct {
 	ReadinessProbe *Probe `pulumi:"readinessProbe"`
 	// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 	Resources *ResourceRequirements `pulumi:"resources"`
-	// SecurityContext is not allowed for ephemeral containers.
+	// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
 	SecurityContext *SecurityContext `pulumi:"securityContext"`
 	// Probes are not allowed for ephemeral containers.
 	StartupProbe *Probe `pulumi:"startupProbe"`
@@ -7504,9 +7666,9 @@ type EphemeralContainerInput interface {
 
 // An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
 type EphemeralContainerArgs struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args pulumi.StringArrayInput `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command pulumi.StringArrayInput `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env EnvVarArrayInput `pulumi:"env"`
@@ -7528,7 +7690,7 @@ type EphemeralContainerArgs struct {
 	ReadinessProbe ProbePtrInput `pulumi:"readinessProbe"`
 	// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
-	// SecurityContext is not allowed for ephemeral containers.
+	// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
 	SecurityContext SecurityContextPtrInput `pulumi:"securityContext"`
 	// Probes are not allowed for ephemeral containers.
 	StartupProbe ProbePtrInput `pulumi:"startupProbe"`
@@ -7604,12 +7766,12 @@ func (o EphemeralContainerOutput) ToEphemeralContainerOutputWithContext(ctx cont
 	return o
 }
 
-// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o EphemeralContainerOutput) Args() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []string { return v.Args }).(pulumi.StringArrayOutput)
 }
 
-// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. The $(VAR_NAME) syntax can be escaped with a double $$, ie: $$(VAR_NAME). Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o EphemeralContainerOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
@@ -7664,7 +7826,7 @@ func (o EphemeralContainerOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
 }
 
-// SecurityContext is not allowed for ephemeral containers.
+// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
 func (o EphemeralContainerOutput) SecurityContext() SecurityContextPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *SecurityContext { return v.SecurityContext }).(SecurityContextPtrOutput)
 }
@@ -7739,87 +7901,10 @@ func (o EphemeralContainerArrayOutput) Index(i pulumi.IntInput) EphemeralContain
 	}).(EphemeralContainerOutput)
 }
 
-// A list of ephemeral containers used with the Pod ephemeralcontainers subresource.
-type EphemeralContainersType struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.
-	EphemeralContainers []EphemeralContainer `pulumi:"ephemeralContainers"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-}
-
-// EphemeralContainersTypeInput is an input type that accepts EphemeralContainersTypeArgs and EphemeralContainersTypeOutput values.
-// You can construct a concrete instance of `EphemeralContainersTypeInput` via:
-//
-//          EphemeralContainersTypeArgs{...}
-type EphemeralContainersTypeInput interface {
-	pulumi.Input
-
-	ToEphemeralContainersTypeOutput() EphemeralContainersTypeOutput
-	ToEphemeralContainersTypeOutputWithContext(context.Context) EphemeralContainersTypeOutput
-}
-
-// A list of ephemeral containers used with the Pod ephemeralcontainers subresource.
-type EphemeralContainersTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.
-	EphemeralContainers EphemeralContainerArrayInput `pulumi:"ephemeralContainers"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-}
-
-func (EphemeralContainersTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*EphemeralContainersType)(nil)).Elem()
-}
-
-func (i EphemeralContainersTypeArgs) ToEphemeralContainersTypeOutput() EphemeralContainersTypeOutput {
-	return i.ToEphemeralContainersTypeOutputWithContext(context.Background())
-}
-
-func (i EphemeralContainersTypeArgs) ToEphemeralContainersTypeOutputWithContext(ctx context.Context) EphemeralContainersTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EphemeralContainersTypeOutput)
-}
-
-// A list of ephemeral containers used with the Pod ephemeralcontainers subresource.
-type EphemeralContainersTypeOutput struct{ *pulumi.OutputState }
-
-func (EphemeralContainersTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EphemeralContainersType)(nil)).Elem()
-}
-
-func (o EphemeralContainersTypeOutput) ToEphemeralContainersTypeOutput() EphemeralContainersTypeOutput {
-	return o
-}
-
-func (o EphemeralContainersTypeOutput) ToEphemeralContainersTypeOutputWithContext(ctx context.Context) EphemeralContainersTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EphemeralContainersTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EphemeralContainersType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// A list of ephemeral containers associated with this pod. New ephemeral containers may be appended to this list, but existing ephemeral containers may not be removed or modified.
-func (o EphemeralContainersTypeOutput) EphemeralContainers() EphemeralContainerArrayOutput {
-	return o.ApplyT(func(v EphemeralContainersType) []EphemeralContainer { return v.EphemeralContainers }).(EphemeralContainerArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EphemeralContainersTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EphemeralContainersType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o EphemeralContainersTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v EphemeralContainersType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
 // Represents an ephemeral volume that is handled by a normal storage driver.
 type EphemeralVolumeSource struct {
+	// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+	ReadOnly *bool `pulumi:"readOnly"`
 	// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
 	//
 	// An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -7843,6 +7928,8 @@ type EphemeralVolumeSourceInput interface {
 
 // Represents an ephemeral volume that is handled by a normal storage driver.
 type EphemeralVolumeSourceArgs struct {
+	// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
 	// Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
 	//
 	// An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
@@ -7926,9 +8013,14 @@ func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourcePtrOutput() Ephemera
 }
 
 func (o EphemeralVolumeSourceOutput) ToEphemeralVolumeSourcePtrOutputWithContext(ctx context.Context) EphemeralVolumeSourcePtrOutput {
-	return o.ApplyT(func(v EphemeralVolumeSource) *EphemeralVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EphemeralVolumeSource) *EphemeralVolumeSource {
 		return &v
 	}).(EphemeralVolumeSourcePtrOutput)
+}
+
+// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+func (o EphemeralVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EphemeralVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
 // Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
@@ -7957,7 +8049,23 @@ func (o EphemeralVolumeSourcePtrOutput) ToEphemeralVolumeSourcePtrOutputWithCont
 }
 
 func (o EphemeralVolumeSourcePtrOutput) Elem() EphemeralVolumeSourceOutput {
-	return o.ApplyT(func(v *EphemeralVolumeSource) EphemeralVolumeSource { return *v }).(EphemeralVolumeSourceOutput)
+	return o.ApplyT(func(v *EphemeralVolumeSource) EphemeralVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret EphemeralVolumeSource
+		return ret
+	}).(EphemeralVolumeSourceOutput)
+}
+
+// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+func (o EphemeralVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EphemeralVolumeSource) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.ReadOnly
+	}).(pulumi.BoolPtrOutput)
 }
 
 // Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
@@ -8406,7 +8514,7 @@ func (o EventSeriesOutput) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
 }
 
 func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
-	return o.ApplyT(func(v EventSeries) *EventSeries {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSeries) *EventSeries {
 		return &v
 	}).(EventSeriesPtrOutput)
 }
@@ -8441,7 +8549,13 @@ func (o EventSeriesPtrOutput) ToEventSeriesPtrOutputWithContext(ctx context.Cont
 }
 
 func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
-	return o.ApplyT(func(v *EventSeries) EventSeries { return *v }).(EventSeriesOutput)
+	return o.ApplyT(func(v *EventSeries) EventSeries {
+		if v != nil {
+			return *v
+		}
+		var ret EventSeries
+		return ret
+	}).(EventSeriesOutput)
 }
 
 // Number of occurrences in this series up to the last heartbeat time
@@ -8574,7 +8688,7 @@ func (o EventSourceOutput) ToEventSourcePtrOutput() EventSourcePtrOutput {
 }
 
 func (o EventSourceOutput) ToEventSourcePtrOutputWithContext(ctx context.Context) EventSourcePtrOutput {
-	return o.ApplyT(func(v EventSource) *EventSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSource) *EventSource {
 		return &v
 	}).(EventSourcePtrOutput)
 }
@@ -8604,7 +8718,13 @@ func (o EventSourcePtrOutput) ToEventSourcePtrOutputWithContext(ctx context.Cont
 }
 
 func (o EventSourcePtrOutput) Elem() EventSourceOutput {
-	return o.ApplyT(func(v *EventSource) EventSource { return *v }).(EventSourceOutput)
+	return o.ApplyT(func(v *EventSource) EventSource {
+		if v != nil {
+			return *v
+		}
+		var ret EventSource
+		return ret
+	}).(EventSourceOutput)
 }
 
 // Component from which the event is generated.
@@ -8723,7 +8843,7 @@ func (o ExecActionOutput) ToExecActionPtrOutput() ExecActionPtrOutput {
 }
 
 func (o ExecActionOutput) ToExecActionPtrOutputWithContext(ctx context.Context) ExecActionPtrOutput {
-	return o.ApplyT(func(v ExecAction) *ExecAction {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExecAction) *ExecAction {
 		return &v
 	}).(ExecActionPtrOutput)
 }
@@ -8748,7 +8868,13 @@ func (o ExecActionPtrOutput) ToExecActionPtrOutputWithContext(ctx context.Contex
 }
 
 func (o ExecActionPtrOutput) Elem() ExecActionOutput {
-	return o.ApplyT(func(v *ExecAction) ExecAction { return *v }).(ExecActionOutput)
+	return o.ApplyT(func(v *ExecAction) ExecAction {
+		if v != nil {
+			return *v
+		}
+		var ret ExecAction
+		return ret
+	}).(ExecActionOutput)
 }
 
 // Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
@@ -8873,7 +8999,7 @@ func (o FCVolumeSourceOutput) ToFCVolumeSourcePtrOutput() FCVolumeSourcePtrOutpu
 }
 
 func (o FCVolumeSourceOutput) ToFCVolumeSourcePtrOutputWithContext(ctx context.Context) FCVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FCVolumeSource) *FCVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FCVolumeSource) *FCVolumeSource {
 		return &v
 	}).(FCVolumeSourcePtrOutput)
 }
@@ -8918,7 +9044,13 @@ func (o FCVolumeSourcePtrOutput) ToFCVolumeSourcePtrOutputWithContext(ctx contex
 }
 
 func (o FCVolumeSourcePtrOutput) Elem() FCVolumeSourceOutput {
-	return o.ApplyT(func(v *FCVolumeSource) FCVolumeSource { return *v }).(FCVolumeSourceOutput)
+	return o.ApplyT(func(v *FCVolumeSource) FCVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FCVolumeSource
+		return ret
+	}).(FCVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -9083,7 +9215,7 @@ func (o FlexPersistentVolumeSourceOutput) ToFlexPersistentVolumeSourcePtrOutput(
 }
 
 func (o FlexPersistentVolumeSourceOutput) ToFlexPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) FlexPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FlexPersistentVolumeSource) *FlexPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlexPersistentVolumeSource) *FlexPersistentVolumeSource {
 		return &v
 	}).(FlexPersistentVolumeSourcePtrOutput)
 }
@@ -9128,7 +9260,13 @@ func (o FlexPersistentVolumeSourcePtrOutput) ToFlexPersistentVolumeSourcePtrOutp
 }
 
 func (o FlexPersistentVolumeSourcePtrOutput) Elem() FlexPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *FlexPersistentVolumeSource) FlexPersistentVolumeSource { return *v }).(FlexPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *FlexPersistentVolumeSource) FlexPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FlexPersistentVolumeSource
+		return ret
+	}).(FlexPersistentVolumeSourceOutput)
 }
 
 // Driver is the name of the driver to use for this volume.
@@ -9293,7 +9431,7 @@ func (o FlexVolumeSourceOutput) ToFlexVolumeSourcePtrOutput() FlexVolumeSourcePt
 }
 
 func (o FlexVolumeSourceOutput) ToFlexVolumeSourcePtrOutputWithContext(ctx context.Context) FlexVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FlexVolumeSource) *FlexVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlexVolumeSource) *FlexVolumeSource {
 		return &v
 	}).(FlexVolumeSourcePtrOutput)
 }
@@ -9338,7 +9476,13 @@ func (o FlexVolumeSourcePtrOutput) ToFlexVolumeSourcePtrOutputWithContext(ctx co
 }
 
 func (o FlexVolumeSourcePtrOutput) Elem() FlexVolumeSourceOutput {
-	return o.ApplyT(func(v *FlexVolumeSource) FlexVolumeSource { return *v }).(FlexVolumeSourceOutput)
+	return o.ApplyT(func(v *FlexVolumeSource) FlexVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FlexVolumeSource
+		return ret
+	}).(FlexVolumeSourceOutput)
 }
 
 // Driver is the name of the driver to use for this volume.
@@ -9491,7 +9635,7 @@ func (o FlockerVolumeSourceOutput) ToFlockerVolumeSourcePtrOutput() FlockerVolum
 }
 
 func (o FlockerVolumeSourceOutput) ToFlockerVolumeSourcePtrOutputWithContext(ctx context.Context) FlockerVolumeSourcePtrOutput {
-	return o.ApplyT(func(v FlockerVolumeSource) *FlockerVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlockerVolumeSource) *FlockerVolumeSource {
 		return &v
 	}).(FlockerVolumeSourcePtrOutput)
 }
@@ -9521,7 +9665,13 @@ func (o FlockerVolumeSourcePtrOutput) ToFlockerVolumeSourcePtrOutputWithContext(
 }
 
 func (o FlockerVolumeSourcePtrOutput) Elem() FlockerVolumeSourceOutput {
-	return o.ApplyT(func(v *FlockerVolumeSource) FlockerVolumeSource { return *v }).(FlockerVolumeSourceOutput)
+	return o.ApplyT(func(v *FlockerVolumeSource) FlockerVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret FlockerVolumeSource
+		return ret
+	}).(FlockerVolumeSourceOutput)
 }
 
 // Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
@@ -9658,7 +9808,7 @@ func (o GCEPersistentDiskVolumeSourceOutput) ToGCEPersistentDiskVolumeSourcePtrO
 }
 
 func (o GCEPersistentDiskVolumeSourceOutput) ToGCEPersistentDiskVolumeSourcePtrOutputWithContext(ctx context.Context) GCEPersistentDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GCEPersistentDiskVolumeSource) *GCEPersistentDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GCEPersistentDiskVolumeSource) *GCEPersistentDiskVolumeSource {
 		return &v
 	}).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
@@ -9698,7 +9848,13 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) ToGCEPersistentDiskVolumeSourceP
 }
 
 func (o GCEPersistentDiskVolumeSourcePtrOutput) Elem() GCEPersistentDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) GCEPersistentDiskVolumeSource { return *v }).(GCEPersistentDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) GCEPersistentDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GCEPersistentDiskVolumeSource
+		return ret
+	}).(GCEPersistentDiskVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
@@ -9851,7 +10007,7 @@ func (o GitRepoVolumeSourceOutput) ToGitRepoVolumeSourcePtrOutput() GitRepoVolum
 }
 
 func (o GitRepoVolumeSourceOutput) ToGitRepoVolumeSourcePtrOutputWithContext(ctx context.Context) GitRepoVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GitRepoVolumeSource) *GitRepoVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GitRepoVolumeSource) *GitRepoVolumeSource {
 		return &v
 	}).(GitRepoVolumeSourcePtrOutput)
 }
@@ -9886,7 +10042,13 @@ func (o GitRepoVolumeSourcePtrOutput) ToGitRepoVolumeSourcePtrOutputWithContext(
 }
 
 func (o GitRepoVolumeSourcePtrOutput) Elem() GitRepoVolumeSourceOutput {
-	return o.ApplyT(func(v *GitRepoVolumeSource) GitRepoVolumeSource { return *v }).(GitRepoVolumeSourceOutput)
+	return o.ApplyT(func(v *GitRepoVolumeSource) GitRepoVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GitRepoVolumeSource
+		return ret
+	}).(GitRepoVolumeSourceOutput)
 }
 
 // Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
@@ -10027,7 +10189,7 @@ func (o GlusterfsPersistentVolumeSourceOutput) ToGlusterfsPersistentVolumeSource
 }
 
 func (o GlusterfsPersistentVolumeSourceOutput) ToGlusterfsPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) GlusterfsPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GlusterfsPersistentVolumeSource) *GlusterfsPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GlusterfsPersistentVolumeSource) *GlusterfsPersistentVolumeSource {
 		return &v
 	}).(GlusterfsPersistentVolumeSourcePtrOutput)
 }
@@ -10067,7 +10229,13 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) ToGlusterfsPersistentVolumeSou
 }
 
 func (o GlusterfsPersistentVolumeSourcePtrOutput) Elem() GlusterfsPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) GlusterfsPersistentVolumeSource { return *v }).(GlusterfsPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) GlusterfsPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GlusterfsPersistentVolumeSource
+		return ret
+	}).(GlusterfsPersistentVolumeSourceOutput)
 }
 
 // EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -10214,7 +10382,7 @@ func (o GlusterfsVolumeSourceOutput) ToGlusterfsVolumeSourcePtrOutput() Glusterf
 }
 
 func (o GlusterfsVolumeSourceOutput) ToGlusterfsVolumeSourcePtrOutputWithContext(ctx context.Context) GlusterfsVolumeSourcePtrOutput {
-	return o.ApplyT(func(v GlusterfsVolumeSource) *GlusterfsVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GlusterfsVolumeSource) *GlusterfsVolumeSource {
 		return &v
 	}).(GlusterfsVolumeSourcePtrOutput)
 }
@@ -10249,7 +10417,13 @@ func (o GlusterfsVolumeSourcePtrOutput) ToGlusterfsVolumeSourcePtrOutputWithCont
 }
 
 func (o GlusterfsVolumeSourcePtrOutput) Elem() GlusterfsVolumeSourceOutput {
-	return o.ApplyT(func(v *GlusterfsVolumeSource) GlusterfsVolumeSource { return *v }).(GlusterfsVolumeSourceOutput)
+	return o.ApplyT(func(v *GlusterfsVolumeSource) GlusterfsVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret GlusterfsVolumeSource
+		return ret
+	}).(GlusterfsVolumeSourceOutput)
 }
 
 // EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -10394,7 +10568,7 @@ func (o HTTPGetActionOutput) ToHTTPGetActionPtrOutput() HTTPGetActionPtrOutput {
 }
 
 func (o HTTPGetActionOutput) ToHTTPGetActionPtrOutputWithContext(ctx context.Context) HTTPGetActionPtrOutput {
-	return o.ApplyT(func(v HTTPGetAction) *HTTPGetAction {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HTTPGetAction) *HTTPGetAction {
 		return &v
 	}).(HTTPGetActionPtrOutput)
 }
@@ -10439,7 +10613,13 @@ func (o HTTPGetActionPtrOutput) ToHTTPGetActionPtrOutputWithContext(ctx context.
 }
 
 func (o HTTPGetActionPtrOutput) Elem() HTTPGetActionOutput {
-	return o.ApplyT(func(v *HTTPGetAction) HTTPGetAction { return *v }).(HTTPGetActionOutput)
+	return o.ApplyT(func(v *HTTPGetAction) HTTPGetAction {
+		if v != nil {
+			return *v
+		}
+		var ret HTTPGetAction
+		return ret
+	}).(HTTPGetActionOutput)
 }
 
 // Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
@@ -10705,7 +10885,7 @@ func (o HandlerOutput) ToHandlerPtrOutput() HandlerPtrOutput {
 }
 
 func (o HandlerOutput) ToHandlerPtrOutputWithContext(ctx context.Context) HandlerPtrOutput {
-	return o.ApplyT(func(v Handler) *Handler {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Handler) *Handler {
 		return &v
 	}).(HandlerPtrOutput)
 }
@@ -10740,7 +10920,13 @@ func (o HandlerPtrOutput) ToHandlerPtrOutputWithContext(ctx context.Context) Han
 }
 
 func (o HandlerPtrOutput) Elem() HandlerOutput {
-	return o.ApplyT(func(v *Handler) Handler { return *v }).(HandlerOutput)
+	return o.ApplyT(func(v *Handler) Handler {
+		if v != nil {
+			return *v
+		}
+		var ret Handler
+		return ret
+	}).(HandlerOutput)
 }
 
 // One and only one of the following should be specified. Exec specifies the action to take.
@@ -10982,7 +11168,7 @@ func (o HostPathVolumeSourceOutput) ToHostPathVolumeSourcePtrOutput() HostPathVo
 }
 
 func (o HostPathVolumeSourceOutput) ToHostPathVolumeSourcePtrOutputWithContext(ctx context.Context) HostPathVolumeSourcePtrOutput {
-	return o.ApplyT(func(v HostPathVolumeSource) *HostPathVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HostPathVolumeSource) *HostPathVolumeSource {
 		return &v
 	}).(HostPathVolumeSourcePtrOutput)
 }
@@ -11012,7 +11198,13 @@ func (o HostPathVolumeSourcePtrOutput) ToHostPathVolumeSourcePtrOutputWithContex
 }
 
 func (o HostPathVolumeSourcePtrOutput) Elem() HostPathVolumeSourceOutput {
-	return o.ApplyT(func(v *HostPathVolumeSource) HostPathVolumeSource { return *v }).(HostPathVolumeSourceOutput)
+	return o.ApplyT(func(v *HostPathVolumeSource) HostPathVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret HostPathVolumeSource
+		return ret
+	}).(HostPathVolumeSourceOutput)
 }
 
 // Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
@@ -11171,7 +11363,7 @@ func (o ISCSIPersistentVolumeSourceOutput) ToISCSIPersistentVolumeSourcePtrOutpu
 }
 
 func (o ISCSIPersistentVolumeSourceOutput) ToISCSIPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) ISCSIPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *ISCSIPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ISCSIPersistentVolumeSource) *ISCSIPersistentVolumeSource {
 		return &v
 	}).(ISCSIPersistentVolumeSourcePtrOutput)
 }
@@ -11246,7 +11438,13 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) ToISCSIPersistentVolumeSourcePtrOu
 }
 
 func (o ISCSIPersistentVolumeSourcePtrOutput) Elem() ISCSIPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) ISCSIPersistentVolumeSource { return *v }).(ISCSIPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) ISCSIPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ISCSIPersistentVolumeSource
+		return ret
+	}).(ISCSIPersistentVolumeSourceOutput)
 }
 
 // whether support iSCSI Discovery CHAP authentication
@@ -11495,7 +11693,7 @@ func (o ISCSIVolumeSourceOutput) ToISCSIVolumeSourcePtrOutput() ISCSIVolumeSourc
 }
 
 func (o ISCSIVolumeSourceOutput) ToISCSIVolumeSourcePtrOutputWithContext(ctx context.Context) ISCSIVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ISCSIVolumeSource) *ISCSIVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ISCSIVolumeSource) *ISCSIVolumeSource {
 		return &v
 	}).(ISCSIVolumeSourcePtrOutput)
 }
@@ -11570,7 +11768,13 @@ func (o ISCSIVolumeSourcePtrOutput) ToISCSIVolumeSourcePtrOutputWithContext(ctx 
 }
 
 func (o ISCSIVolumeSourcePtrOutput) Elem() ISCSIVolumeSourceOutput {
-	return o.ApplyT(func(v *ISCSIVolumeSource) ISCSIVolumeSource { return *v }).(ISCSIVolumeSourceOutput)
+	return o.ApplyT(func(v *ISCSIVolumeSource) ISCSIVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ISCSIVolumeSource
+		return ret
+	}).(ISCSIVolumeSourceOutput)
 }
 
 // whether support iSCSI Discovery CHAP authentication
@@ -11901,7 +12105,7 @@ func (o LifecycleOutput) ToLifecyclePtrOutput() LifecyclePtrOutput {
 }
 
 func (o LifecycleOutput) ToLifecyclePtrOutputWithContext(ctx context.Context) LifecyclePtrOutput {
-	return o.ApplyT(func(v Lifecycle) *Lifecycle {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Lifecycle) *Lifecycle {
 		return &v
 	}).(LifecyclePtrOutput)
 }
@@ -11931,7 +12135,13 @@ func (o LifecyclePtrOutput) ToLifecyclePtrOutputWithContext(ctx context.Context)
 }
 
 func (o LifecyclePtrOutput) Elem() LifecycleOutput {
-	return o.ApplyT(func(v *Lifecycle) Lifecycle { return *v }).(LifecycleOutput)
+	return o.ApplyT(func(v *Lifecycle) Lifecycle {
+		if v != nil {
+			return *v
+		}
+		var ret Lifecycle
+		return ret
+	}).(LifecycleOutput)
 }
 
 // PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
@@ -12404,7 +12614,7 @@ func (o LimitRangeSpecOutput) ToLimitRangeSpecPtrOutput() LimitRangeSpecPtrOutpu
 }
 
 func (o LimitRangeSpecOutput) ToLimitRangeSpecPtrOutputWithContext(ctx context.Context) LimitRangeSpecPtrOutput {
-	return o.ApplyT(func(v LimitRangeSpec) *LimitRangeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitRangeSpec) *LimitRangeSpec {
 		return &v
 	}).(LimitRangeSpecPtrOutput)
 }
@@ -12429,7 +12639,13 @@ func (o LimitRangeSpecPtrOutput) ToLimitRangeSpecPtrOutputWithContext(ctx contex
 }
 
 func (o LimitRangeSpecPtrOutput) Elem() LimitRangeSpecOutput {
-	return o.ApplyT(func(v *LimitRangeSpec) LimitRangeSpec { return *v }).(LimitRangeSpecOutput)
+	return o.ApplyT(func(v *LimitRangeSpec) LimitRangeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret LimitRangeSpec
+		return ret
+	}).(LimitRangeSpecOutput)
 }
 
 // Limits is the list of LimitRangeItem objects that are enforced.
@@ -12656,7 +12872,7 @@ func (o LoadBalancerStatusOutput) ToLoadBalancerStatusPtrOutput() LoadBalancerSt
 }
 
 func (o LoadBalancerStatusOutput) ToLoadBalancerStatusPtrOutputWithContext(ctx context.Context) LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v LoadBalancerStatus) *LoadBalancerStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LoadBalancerStatus) *LoadBalancerStatus {
 		return &v
 	}).(LoadBalancerStatusPtrOutput)
 }
@@ -12681,7 +12897,13 @@ func (o LoadBalancerStatusPtrOutput) ToLoadBalancerStatusPtrOutputWithContext(ct
 }
 
 func (o LoadBalancerStatusPtrOutput) Elem() LoadBalancerStatusOutput {
-	return o.ApplyT(func(v *LoadBalancerStatus) LoadBalancerStatus { return *v }).(LoadBalancerStatusOutput)
+	return o.ApplyT(func(v *LoadBalancerStatus) LoadBalancerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret LoadBalancerStatus
+		return ret
+	}).(LoadBalancerStatusOutput)
 }
 
 // Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
@@ -12815,7 +13037,7 @@ func (o LocalObjectReferenceOutput) ToLocalObjectReferencePtrOutput() LocalObjec
 }
 
 func (o LocalObjectReferenceOutput) ToLocalObjectReferencePtrOutputWithContext(ctx context.Context) LocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v LocalObjectReference) *LocalObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LocalObjectReference) *LocalObjectReference {
 		return &v
 	}).(LocalObjectReferencePtrOutput)
 }
@@ -12840,7 +13062,13 @@ func (o LocalObjectReferencePtrOutput) ToLocalObjectReferencePtrOutputWithContex
 }
 
 func (o LocalObjectReferencePtrOutput) Elem() LocalObjectReferenceOutput {
-	return o.ApplyT(func(v *LocalObjectReference) LocalObjectReference { return *v }).(LocalObjectReferenceOutput)
+	return o.ApplyT(func(v *LocalObjectReference) LocalObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret LocalObjectReference
+		return ret
+	}).(LocalObjectReferenceOutput)
 }
 
 // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -12973,7 +13201,7 @@ func (o LocalVolumeSourceOutput) ToLocalVolumeSourcePtrOutput() LocalVolumeSourc
 }
 
 func (o LocalVolumeSourceOutput) ToLocalVolumeSourcePtrOutputWithContext(ctx context.Context) LocalVolumeSourcePtrOutput {
-	return o.ApplyT(func(v LocalVolumeSource) *LocalVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LocalVolumeSource) *LocalVolumeSource {
 		return &v
 	}).(LocalVolumeSourcePtrOutput)
 }
@@ -13003,7 +13231,13 @@ func (o LocalVolumeSourcePtrOutput) ToLocalVolumeSourcePtrOutputWithContext(ctx 
 }
 
 func (o LocalVolumeSourcePtrOutput) Elem() LocalVolumeSourceOutput {
-	return o.ApplyT(func(v *LocalVolumeSource) LocalVolumeSource { return *v }).(LocalVolumeSourceOutput)
+	return o.ApplyT(func(v *LocalVolumeSource) LocalVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret LocalVolumeSource
+		return ret
+	}).(LocalVolumeSourceOutput)
 }
 
 // Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
@@ -13130,7 +13364,7 @@ func (o NFSVolumeSourceOutput) ToNFSVolumeSourcePtrOutput() NFSVolumeSourcePtrOu
 }
 
 func (o NFSVolumeSourceOutput) ToNFSVolumeSourcePtrOutputWithContext(ctx context.Context) NFSVolumeSourcePtrOutput {
-	return o.ApplyT(func(v NFSVolumeSource) *NFSVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NFSVolumeSource) *NFSVolumeSource {
 		return &v
 	}).(NFSVolumeSourcePtrOutput)
 }
@@ -13165,7 +13399,13 @@ func (o NFSVolumeSourcePtrOutput) ToNFSVolumeSourcePtrOutputWithContext(ctx cont
 }
 
 func (o NFSVolumeSourcePtrOutput) Elem() NFSVolumeSourceOutput {
-	return o.ApplyT(func(v *NFSVolumeSource) NFSVolumeSource { return *v }).(NFSVolumeSourceOutput)
+	return o.ApplyT(func(v *NFSVolumeSource) NFSVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret NFSVolumeSource
+		return ret
+	}).(NFSVolumeSourceOutput)
 }
 
 // Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -13639,7 +13879,7 @@ func (o NamespaceSpecOutput) ToNamespaceSpecPtrOutput() NamespaceSpecPtrOutput {
 }
 
 func (o NamespaceSpecOutput) ToNamespaceSpecPtrOutputWithContext(ctx context.Context) NamespaceSpecPtrOutput {
-	return o.ApplyT(func(v NamespaceSpec) *NamespaceSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamespaceSpec) *NamespaceSpec {
 		return &v
 	}).(NamespaceSpecPtrOutput)
 }
@@ -13664,7 +13904,13 @@ func (o NamespaceSpecPtrOutput) ToNamespaceSpecPtrOutputWithContext(ctx context.
 }
 
 func (o NamespaceSpecPtrOutput) Elem() NamespaceSpecOutput {
-	return o.ApplyT(func(v *NamespaceSpec) NamespaceSpec { return *v }).(NamespaceSpecOutput)
+	return o.ApplyT(func(v *NamespaceSpec) NamespaceSpec {
+		if v != nil {
+			return *v
+		}
+		var ret NamespaceSpec
+		return ret
+	}).(NamespaceSpecOutput)
 }
 
 // Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
@@ -13777,7 +14023,7 @@ func (o NamespaceStatusOutput) ToNamespaceStatusPtrOutput() NamespaceStatusPtrOu
 }
 
 func (o NamespaceStatusOutput) ToNamespaceStatusPtrOutputWithContext(ctx context.Context) NamespaceStatusPtrOutput {
-	return o.ApplyT(func(v NamespaceStatus) *NamespaceStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NamespaceStatus) *NamespaceStatus {
 		return &v
 	}).(NamespaceStatusPtrOutput)
 }
@@ -13807,7 +14053,13 @@ func (o NamespaceStatusPtrOutput) ToNamespaceStatusPtrOutputWithContext(ctx cont
 }
 
 func (o NamespaceStatusPtrOutput) Elem() NamespaceStatusOutput {
-	return o.ApplyT(func(v *NamespaceStatus) NamespaceStatus { return *v }).(NamespaceStatusOutput)
+	return o.ApplyT(func(v *NamespaceStatus) NamespaceStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NamespaceStatus
+		return ret
+	}).(NamespaceStatusOutput)
 }
 
 // Represents the latest available observations of a namespace's current state.
@@ -14175,7 +14427,7 @@ func (o NodeAffinityOutput) ToNodeAffinityPtrOutput() NodeAffinityPtrOutput {
 }
 
 func (o NodeAffinityOutput) ToNodeAffinityPtrOutputWithContext(ctx context.Context) NodeAffinityPtrOutput {
-	return o.ApplyT(func(v NodeAffinity) *NodeAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeAffinity) *NodeAffinity {
 		return &v
 	}).(NodeAffinityPtrOutput)
 }
@@ -14207,7 +14459,13 @@ func (o NodeAffinityPtrOutput) ToNodeAffinityPtrOutputWithContext(ctx context.Co
 }
 
 func (o NodeAffinityPtrOutput) Elem() NodeAffinityOutput {
-	return o.ApplyT(func(v *NodeAffinity) NodeAffinity { return *v }).(NodeAffinityOutput)
+	return o.ApplyT(func(v *NodeAffinity) NodeAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret NodeAffinity
+		return ret
+	}).(NodeAffinityOutput)
 }
 
 // The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
@@ -14375,7 +14633,7 @@ func (o NodeConditionArrayOutput) Index(i pulumi.IntInput) NodeConditionOutput {
 	}).(NodeConditionOutput)
 }
 
-// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.
+// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
 type NodeConfigSource struct {
 	// ConfigMap is a reference to a Node's ConfigMap
 	ConfigMap *ConfigMapNodeConfigSource `pulumi:"configMap"`
@@ -14392,7 +14650,7 @@ type NodeConfigSourceInput interface {
 	ToNodeConfigSourceOutputWithContext(context.Context) NodeConfigSourceOutput
 }
 
-// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.
+// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
 type NodeConfigSourceArgs struct {
 	// ConfigMap is a reference to a Node's ConfigMap
 	ConfigMap ConfigMapNodeConfigSourcePtrInput `pulumi:"configMap"`
@@ -14451,7 +14709,7 @@ func (i *nodeConfigSourcePtrType) ToNodeConfigSourcePtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(NodeConfigSourcePtrOutput)
 }
 
-// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.
+// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
 type NodeConfigSourceOutput struct{ *pulumi.OutputState }
 
 func (NodeConfigSourceOutput) ElementType() reflect.Type {
@@ -14471,7 +14729,7 @@ func (o NodeConfigSourceOutput) ToNodeConfigSourcePtrOutput() NodeConfigSourcePt
 }
 
 func (o NodeConfigSourceOutput) ToNodeConfigSourcePtrOutputWithContext(ctx context.Context) NodeConfigSourcePtrOutput {
-	return o.ApplyT(func(v NodeConfigSource) *NodeConfigSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeConfigSource) *NodeConfigSource {
 		return &v
 	}).(NodeConfigSourcePtrOutput)
 }
@@ -14496,7 +14754,13 @@ func (o NodeConfigSourcePtrOutput) ToNodeConfigSourcePtrOutputWithContext(ctx co
 }
 
 func (o NodeConfigSourcePtrOutput) Elem() NodeConfigSourceOutput {
-	return o.ApplyT(func(v *NodeConfigSource) NodeConfigSource { return *v }).(NodeConfigSourceOutput)
+	return o.ApplyT(func(v *NodeConfigSource) NodeConfigSource {
+		if v != nil {
+			return *v
+		}
+		var ret NodeConfigSource
+		return ret
+	}).(NodeConfigSourceOutput)
 }
 
 // ConfigMap is a reference to a Node's ConfigMap
@@ -14617,7 +14881,7 @@ func (o NodeConfigStatusOutput) ToNodeConfigStatusPtrOutput() NodeConfigStatusPt
 }
 
 func (o NodeConfigStatusOutput) ToNodeConfigStatusPtrOutputWithContext(ctx context.Context) NodeConfigStatusPtrOutput {
-	return o.ApplyT(func(v NodeConfigStatus) *NodeConfigStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeConfigStatus) *NodeConfigStatus {
 		return &v
 	}).(NodeConfigStatusPtrOutput)
 }
@@ -14657,7 +14921,13 @@ func (o NodeConfigStatusPtrOutput) ToNodeConfigStatusPtrOutputWithContext(ctx co
 }
 
 func (o NodeConfigStatusPtrOutput) Elem() NodeConfigStatusOutput {
-	return o.ApplyT(func(v *NodeConfigStatus) NodeConfigStatus { return *v }).(NodeConfigStatusOutput)
+	return o.ApplyT(func(v *NodeConfigStatus) NodeConfigStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NodeConfigStatus
+		return ret
+	}).(NodeConfigStatusOutput)
 }
 
 // Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
@@ -14796,7 +15066,7 @@ func (o NodeDaemonEndpointsOutput) ToNodeDaemonEndpointsPtrOutput() NodeDaemonEn
 }
 
 func (o NodeDaemonEndpointsOutput) ToNodeDaemonEndpointsPtrOutputWithContext(ctx context.Context) NodeDaemonEndpointsPtrOutput {
-	return o.ApplyT(func(v NodeDaemonEndpoints) *NodeDaemonEndpoints {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeDaemonEndpoints) *NodeDaemonEndpoints {
 		return &v
 	}).(NodeDaemonEndpointsPtrOutput)
 }
@@ -14821,7 +15091,13 @@ func (o NodeDaemonEndpointsPtrOutput) ToNodeDaemonEndpointsPtrOutputWithContext(
 }
 
 func (o NodeDaemonEndpointsPtrOutput) Elem() NodeDaemonEndpointsOutput {
-	return o.ApplyT(func(v *NodeDaemonEndpoints) NodeDaemonEndpoints { return *v }).(NodeDaemonEndpointsOutput)
+	return o.ApplyT(func(v *NodeDaemonEndpoints) NodeDaemonEndpoints {
+		if v != nil {
+			return *v
+		}
+		var ret NodeDaemonEndpoints
+		return ret
+	}).(NodeDaemonEndpointsOutput)
 }
 
 // Endpoint on which Kubelet is listening.
@@ -15012,7 +15288,7 @@ func (o NodeSelectorOutput) ToNodeSelectorPtrOutput() NodeSelectorPtrOutput {
 }
 
 func (o NodeSelectorOutput) ToNodeSelectorPtrOutputWithContext(ctx context.Context) NodeSelectorPtrOutput {
-	return o.ApplyT(func(v NodeSelector) *NodeSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSelector) *NodeSelector {
 		return &v
 	}).(NodeSelectorPtrOutput)
 }
@@ -15037,7 +15313,13 @@ func (o NodeSelectorPtrOutput) ToNodeSelectorPtrOutputWithContext(ctx context.Co
 }
 
 func (o NodeSelectorPtrOutput) Elem() NodeSelectorOutput {
-	return o.ApplyT(func(v *NodeSelector) NodeSelector { return *v }).(NodeSelectorOutput)
+	return o.ApplyT(func(v *NodeSelector) NodeSelector {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSelector
+		return ret
+	}).(NodeSelectorOutput)
 }
 
 // Required. A list of node selector terms. The terms are ORed.
@@ -15279,7 +15561,7 @@ func (o NodeSelectorTermArrayOutput) Index(i pulumi.IntInput) NodeSelectorTermOu
 
 // NodeSpec describes the attributes that a node is created with.
 type NodeSpec struct {
-	// If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+	// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 	ConfigSource *NodeConfigSource `pulumi:"configSource"`
 	// Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
 	ExternalID *string `pulumi:"externalID"`
@@ -15308,7 +15590,7 @@ type NodeSpecInput interface {
 
 // NodeSpec describes the attributes that a node is created with.
 type NodeSpecArgs struct {
-	// If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+	// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 	ConfigSource NodeConfigSourcePtrInput `pulumi:"configSource"`
 	// Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
 	ExternalID pulumi.StringPtrInput `pulumi:"externalID"`
@@ -15397,12 +15679,12 @@ func (o NodeSpecOutput) ToNodeSpecPtrOutput() NodeSpecPtrOutput {
 }
 
 func (o NodeSpecOutput) ToNodeSpecPtrOutputWithContext(ctx context.Context) NodeSpecPtrOutput {
-	return o.ApplyT(func(v NodeSpec) *NodeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSpec) *NodeSpec {
 		return &v
 	}).(NodeSpecPtrOutput)
 }
 
-// If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 func (o NodeSpecOutput) ConfigSource() NodeConfigSourcePtrOutput {
 	return o.ApplyT(func(v NodeSpec) *NodeConfigSource { return v.ConfigSource }).(NodeConfigSourcePtrOutput)
 }
@@ -15452,10 +15734,16 @@ func (o NodeSpecPtrOutput) ToNodeSpecPtrOutputWithContext(ctx context.Context) N
 }
 
 func (o NodeSpecPtrOutput) Elem() NodeSpecOutput {
-	return o.ApplyT(func(v *NodeSpec) NodeSpec { return *v }).(NodeSpecOutput)
+	return o.ApplyT(func(v *NodeSpec) NodeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSpec
+		return ret
+	}).(NodeSpecOutput)
 }
 
-// If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
 func (o NodeSpecPtrOutput) ConfigSource() NodeConfigSourcePtrOutput {
 	return o.ApplyT(func(v *NodeSpec) *NodeConfigSource {
 		if v == nil {
@@ -15661,7 +15949,7 @@ func (o NodeStatusOutput) ToNodeStatusPtrOutput() NodeStatusPtrOutput {
 }
 
 func (o NodeStatusOutput) ToNodeStatusPtrOutputWithContext(ctx context.Context) NodeStatusPtrOutput {
-	return o.ApplyT(func(v NodeStatus) *NodeStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeStatus) *NodeStatus {
 		return &v
 	}).(NodeStatusPtrOutput)
 }
@@ -15736,7 +16024,13 @@ func (o NodeStatusPtrOutput) ToNodeStatusPtrOutputWithContext(ctx context.Contex
 }
 
 func (o NodeStatusPtrOutput) Elem() NodeStatusOutput {
-	return o.ApplyT(func(v *NodeStatus) NodeStatus { return *v }).(NodeStatusOutput)
+	return o.ApplyT(func(v *NodeStatus) NodeStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NodeStatus
+		return ret
+	}).(NodeStatusOutput)
 }
 
 // List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
@@ -15981,7 +16275,7 @@ func (o NodeSystemInfoOutput) ToNodeSystemInfoPtrOutput() NodeSystemInfoPtrOutpu
 }
 
 func (o NodeSystemInfoOutput) ToNodeSystemInfoPtrOutputWithContext(ctx context.Context) NodeSystemInfoPtrOutput {
-	return o.ApplyT(func(v NodeSystemInfo) *NodeSystemInfo {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeSystemInfo) *NodeSystemInfo {
 		return &v
 	}).(NodeSystemInfoPtrOutput)
 }
@@ -16051,7 +16345,13 @@ func (o NodeSystemInfoPtrOutput) ToNodeSystemInfoPtrOutputWithContext(ctx contex
 }
 
 func (o NodeSystemInfoPtrOutput) Elem() NodeSystemInfoOutput {
-	return o.ApplyT(func(v *NodeSystemInfo) NodeSystemInfo { return *v }).(NodeSystemInfoOutput)
+	return o.ApplyT(func(v *NodeSystemInfo) NodeSystemInfo {
+		if v != nil {
+			return *v
+		}
+		var ret NodeSystemInfo
+		return ret
+	}).(NodeSystemInfoOutput)
 }
 
 // The Architecture reported by the node
@@ -16254,7 +16554,7 @@ func (o ObjectFieldSelectorOutput) ToObjectFieldSelectorPtrOutput() ObjectFieldS
 }
 
 func (o ObjectFieldSelectorOutput) ToObjectFieldSelectorPtrOutputWithContext(ctx context.Context) ObjectFieldSelectorPtrOutput {
-	return o.ApplyT(func(v ObjectFieldSelector) *ObjectFieldSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectFieldSelector) *ObjectFieldSelector {
 		return &v
 	}).(ObjectFieldSelectorPtrOutput)
 }
@@ -16284,7 +16584,13 @@ func (o ObjectFieldSelectorPtrOutput) ToObjectFieldSelectorPtrOutputWithContext(
 }
 
 func (o ObjectFieldSelectorPtrOutput) Elem() ObjectFieldSelectorOutput {
-	return o.ApplyT(func(v *ObjectFieldSelector) ObjectFieldSelector { return *v }).(ObjectFieldSelectorOutput)
+	return o.ApplyT(func(v *ObjectFieldSelector) ObjectFieldSelector {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectFieldSelector
+		return ret
+	}).(ObjectFieldSelectorOutput)
 }
 
 // Version of the schema the FieldPath is written in terms of, defaults to "v1".
@@ -16452,7 +16758,7 @@ func (o ObjectReferenceOutput) ToObjectReferencePtrOutput() ObjectReferencePtrOu
 }
 
 func (o ObjectReferenceOutput) ToObjectReferencePtrOutputWithContext(ctx context.Context) ObjectReferencePtrOutput {
-	return o.ApplyT(func(v ObjectReference) *ObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectReference) *ObjectReference {
 		return &v
 	}).(ObjectReferencePtrOutput)
 }
@@ -16507,7 +16813,13 @@ func (o ObjectReferencePtrOutput) ToObjectReferencePtrOutputWithContext(ctx cont
 }
 
 func (o ObjectReferencePtrOutput) Elem() ObjectReferenceOutput {
-	return o.ApplyT(func(v *ObjectReference) ObjectReference { return *v }).(ObjectReferenceOutput)
+	return o.ApplyT(func(v *ObjectReference) ObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectReference
+		return ret
+	}).(ObjectReferenceOutput)
 }
 
 // API version of the referent.
@@ -17097,8 +17409,15 @@ func (o PersistentVolumeClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput
 type PersistentVolumeClaimSpec struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 	DataSource *TypedLocalObjectReference `pulumi:"dataSource"`
+	// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+	//   allows any non-core object, as well as PersistentVolumeClaim objects.
+	// * While DataSource ignores disallowed values (dropping them), DataSourceRef
+	//   preserves all values, and generates an error if a disallowed value is
+	//   specified.
+	//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+	DataSourceRef *TypedLocalObjectReference `pulumi:"dataSourceRef"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// A label query over volumes to consider for binding.
@@ -17126,8 +17445,15 @@ type PersistentVolumeClaimSpecInput interface {
 type PersistentVolumeClaimSpecArgs struct {
 	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
+	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 	DataSource TypedLocalObjectReferencePtrInput `pulumi:"dataSource"`
+	// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+	//   allows any non-core object, as well as PersistentVolumeClaim objects.
+	// * While DataSource ignores disallowed values (dropping them), DataSourceRef
+	//   preserves all values, and generates an error if a disallowed value is
+	//   specified.
+	//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+	DataSourceRef TypedLocalObjectReferencePtrInput `pulumi:"dataSourceRef"`
 	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// A label query over volumes to consider for binding.
@@ -17213,7 +17539,7 @@ func (o PersistentVolumeClaimSpecOutput) ToPersistentVolumeClaimSpecPtrOutput() 
 }
 
 func (o PersistentVolumeClaimSpecOutput) ToPersistentVolumeClaimSpecPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimSpecPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimSpec) *PersistentVolumeClaimSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimSpec) *PersistentVolumeClaimSpec {
 		return &v
 	}).(PersistentVolumeClaimSpecPtrOutput)
 }
@@ -17223,9 +17549,19 @@ func (o PersistentVolumeClaimSpecOutput) AccessModes() pulumi.StringArrayOutput 
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
+}
+
+// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+//   allows any non-core object, as well as PersistentVolumeClaim objects.
+// * While DataSource ignores disallowed values (dropping them), DataSourceRef
+//   preserves all values, and generates an error if a disallowed value is
+//   specified.
+//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+func (o PersistentVolumeClaimSpecOutput) DataSourceRef() TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSourceRef }).(TypedLocalObjectReferencePtrOutput)
 }
 
 // Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
@@ -17268,7 +17604,13 @@ func (o PersistentVolumeClaimSpecPtrOutput) ToPersistentVolumeClaimSpecPtrOutput
 }
 
 func (o PersistentVolumeClaimSpecPtrOutput) Elem() PersistentVolumeClaimSpecOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimSpec) PersistentVolumeClaimSpec { return *v }).(PersistentVolumeClaimSpecOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimSpec) PersistentVolumeClaimSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimSpec
+		return ret
+	}).(PersistentVolumeClaimSpecOutput)
 }
 
 // AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -17281,13 +17623,28 @@ func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) * An existing custom resource that implements data population (Alpha) In order to use custom resource types that implement data population, the AnyVolumeDataSource feature gate must be enabled. If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source.
+// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
 			return nil
 		}
 		return v.DataSource
+	}).(TypedLocalObjectReferencePtrOutput)
+}
+
+// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+//   allows any non-core object, as well as PersistentVolumeClaim objects.
+// * While DataSource ignores disallowed values (dropping them), DataSourceRef
+//   preserves all values, and generates an error if a disallowed value is
+//   specified.
+//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedLocalObjectReferencePtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
+		if v == nil {
+			return nil
+		}
+		return v.DataSourceRef
 	}).(TypedLocalObjectReferencePtrOutput)
 }
 
@@ -17449,7 +17806,7 @@ func (o PersistentVolumeClaimStatusOutput) ToPersistentVolumeClaimStatusPtrOutpu
 }
 
 func (o PersistentVolumeClaimStatusOutput) ToPersistentVolumeClaimStatusPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimStatusPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimStatus) *PersistentVolumeClaimStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimStatus) *PersistentVolumeClaimStatus {
 		return &v
 	}).(PersistentVolumeClaimStatusPtrOutput)
 }
@@ -17489,7 +17846,13 @@ func (o PersistentVolumeClaimStatusPtrOutput) ToPersistentVolumeClaimStatusPtrOu
 }
 
 func (o PersistentVolumeClaimStatusPtrOutput) Elem() PersistentVolumeClaimStatusOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimStatus) PersistentVolumeClaimStatus { return *v }).(PersistentVolumeClaimStatusOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) PersistentVolumeClaimStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimStatus
+		return ret
+	}).(PersistentVolumeClaimStatusOutput)
 }
 
 // AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
@@ -17632,7 +17995,7 @@ func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplatePtrO
 }
 
 func (o PersistentVolumeClaimTemplateOutput) ToPersistentVolumeClaimTemplatePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimTemplatePtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimTemplate) *PersistentVolumeClaimTemplate {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimTemplate) *PersistentVolumeClaimTemplate {
 		return &v
 	}).(PersistentVolumeClaimTemplatePtrOutput)
 }
@@ -17662,7 +18025,13 @@ func (o PersistentVolumeClaimTemplatePtrOutput) ToPersistentVolumeClaimTemplateP
 }
 
 func (o PersistentVolumeClaimTemplatePtrOutput) Elem() PersistentVolumeClaimTemplateOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) PersistentVolumeClaimTemplate { return *v }).(PersistentVolumeClaimTemplateOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimTemplate) PersistentVolumeClaimTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimTemplate
+		return ret
+	}).(PersistentVolumeClaimTemplateOutput)
 }
 
 // May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
@@ -17785,7 +18154,7 @@ func (o PersistentVolumeClaimVolumeSourceOutput) ToPersistentVolumeClaimVolumeSo
 }
 
 func (o PersistentVolumeClaimVolumeSourceOutput) ToPersistentVolumeClaimVolumeSourcePtrOutputWithContext(ctx context.Context) PersistentVolumeClaimVolumeSourcePtrOutput {
-	return o.ApplyT(func(v PersistentVolumeClaimVolumeSource) *PersistentVolumeClaimVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimVolumeSource) *PersistentVolumeClaimVolumeSource {
 		return &v
 	}).(PersistentVolumeClaimVolumeSourcePtrOutput)
 }
@@ -17815,7 +18184,13 @@ func (o PersistentVolumeClaimVolumeSourcePtrOutput) ToPersistentVolumeClaimVolum
 }
 
 func (o PersistentVolumeClaimVolumeSourcePtrOutput) Elem() PersistentVolumeClaimVolumeSourceOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimVolumeSource) PersistentVolumeClaimVolumeSource { return *v }).(PersistentVolumeClaimVolumeSourceOutput)
+	return o.ApplyT(func(v *PersistentVolumeClaimVolumeSource) PersistentVolumeClaimVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeClaimVolumeSource
+		return ret
+	}).(PersistentVolumeClaimVolumeSourceOutput)
 }
 
 // ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
@@ -18132,7 +18507,7 @@ func (o PersistentVolumeSpecOutput) ToPersistentVolumeSpecPtrOutput() Persistent
 }
 
 func (o PersistentVolumeSpecOutput) ToPersistentVolumeSpecPtrOutputWithContext(ctx context.Context) PersistentVolumeSpecPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeSpec) *PersistentVolumeSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeSpec) *PersistentVolumeSpec {
 		return &v
 	}).(PersistentVolumeSpecPtrOutput)
 }
@@ -18302,7 +18677,13 @@ func (o PersistentVolumeSpecPtrOutput) ToPersistentVolumeSpecPtrOutputWithContex
 }
 
 func (o PersistentVolumeSpecPtrOutput) Elem() PersistentVolumeSpecOutput {
-	return o.ApplyT(func(v *PersistentVolumeSpec) PersistentVolumeSpec { return *v }).(PersistentVolumeSpecOutput)
+	return o.ApplyT(func(v *PersistentVolumeSpec) PersistentVolumeSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeSpec
+		return ret
+	}).(PersistentVolumeSpecOutput)
 }
 
 // AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
@@ -18709,7 +19090,7 @@ func (o PersistentVolumeStatusOutput) ToPersistentVolumeStatusPtrOutput() Persis
 }
 
 func (o PersistentVolumeStatusOutput) ToPersistentVolumeStatusPtrOutputWithContext(ctx context.Context) PersistentVolumeStatusPtrOutput {
-	return o.ApplyT(func(v PersistentVolumeStatus) *PersistentVolumeStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeStatus) *PersistentVolumeStatus {
 		return &v
 	}).(PersistentVolumeStatusPtrOutput)
 }
@@ -18744,7 +19125,13 @@ func (o PersistentVolumeStatusPtrOutput) ToPersistentVolumeStatusPtrOutputWithCo
 }
 
 func (o PersistentVolumeStatusPtrOutput) Elem() PersistentVolumeStatusOutput {
-	return o.ApplyT(func(v *PersistentVolumeStatus) PersistentVolumeStatus { return *v }).(PersistentVolumeStatusOutput)
+	return o.ApplyT(func(v *PersistentVolumeStatus) PersistentVolumeStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PersistentVolumeStatus
+		return ret
+	}).(PersistentVolumeStatusOutput)
 }
 
 // A human-readable message indicating details about why the volume is in this state.
@@ -18877,7 +19264,7 @@ func (o PhotonPersistentDiskVolumeSourceOutput) ToPhotonPersistentDiskVolumeSour
 }
 
 func (o PhotonPersistentDiskVolumeSourceOutput) ToPhotonPersistentDiskVolumeSourcePtrOutputWithContext(ctx context.Context) PhotonPersistentDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v PhotonPersistentDiskVolumeSource) *PhotonPersistentDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PhotonPersistentDiskVolumeSource) *PhotonPersistentDiskVolumeSource {
 		return &v
 	}).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
@@ -18907,7 +19294,13 @@ func (o PhotonPersistentDiskVolumeSourcePtrOutput) ToPhotonPersistentDiskVolumeS
 }
 
 func (o PhotonPersistentDiskVolumeSourcePtrOutput) Elem() PhotonPersistentDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *PhotonPersistentDiskVolumeSource) PhotonPersistentDiskVolumeSource { return *v }).(PhotonPersistentDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *PhotonPersistentDiskVolumeSource) PhotonPersistentDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret PhotonPersistentDiskVolumeSource
+		return ret
+	}).(PhotonPersistentDiskVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -19211,7 +19604,7 @@ func (o PodAffinityOutput) ToPodAffinityPtrOutput() PodAffinityPtrOutput {
 }
 
 func (o PodAffinityOutput) ToPodAffinityPtrOutputWithContext(ctx context.Context) PodAffinityPtrOutput {
-	return o.ApplyT(func(v PodAffinity) *PodAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodAffinity) *PodAffinity {
 		return &v
 	}).(PodAffinityPtrOutput)
 }
@@ -19243,7 +19636,13 @@ func (o PodAffinityPtrOutput) ToPodAffinityPtrOutputWithContext(ctx context.Cont
 }
 
 func (o PodAffinityPtrOutput) Elem() PodAffinityOutput {
-	return o.ApplyT(func(v *PodAffinity) PodAffinity { return *v }).(PodAffinityOutput)
+	return o.ApplyT(func(v *PodAffinity) PodAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodAffinity
+		return ret
+	}).(PodAffinityOutput)
 }
 
 // The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
@@ -19270,7 +19669,7 @@ func (o PodAffinityPtrOutput) RequiredDuringSchedulingIgnoredDuringExecution() P
 type PodAffinityTerm struct {
 	// A label query over a set of resources, in this case pods.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
 	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
 	Namespaces []string `pulumi:"namespaces"`
@@ -19293,7 +19692,7 @@ type PodAffinityTermInput interface {
 type PodAffinityTermArgs struct {
 	// A label query over a set of resources, in this case pods.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
 	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
 	Namespaces pulumi.StringArrayInput `pulumi:"namespaces"`
@@ -19358,7 +19757,7 @@ func (o PodAffinityTermOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is alpha-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
 func (o PodAffinityTermOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
@@ -19493,7 +19892,7 @@ func (o PodAntiAffinityOutput) ToPodAntiAffinityPtrOutput() PodAntiAffinityPtrOu
 }
 
 func (o PodAntiAffinityOutput) ToPodAntiAffinityPtrOutputWithContext(ctx context.Context) PodAntiAffinityPtrOutput {
-	return o.ApplyT(func(v PodAntiAffinity) *PodAntiAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodAntiAffinity) *PodAntiAffinity {
 		return &v
 	}).(PodAntiAffinityPtrOutput)
 }
@@ -19525,7 +19924,13 @@ func (o PodAntiAffinityPtrOutput) ToPodAntiAffinityPtrOutputWithContext(ctx cont
 }
 
 func (o PodAntiAffinityPtrOutput) Elem() PodAntiAffinityOutput {
-	return o.ApplyT(func(v *PodAntiAffinity) PodAntiAffinity { return *v }).(PodAntiAffinityOutput)
+	return o.ApplyT(func(v *PodAntiAffinity) PodAntiAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret PodAntiAffinity
+		return ret
+	}).(PodAntiAffinityOutput)
 }
 
 // The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
@@ -19797,7 +20202,7 @@ func (o PodDNSConfigOutput) ToPodDNSConfigPtrOutput() PodDNSConfigPtrOutput {
 }
 
 func (o PodDNSConfigOutput) ToPodDNSConfigPtrOutputWithContext(ctx context.Context) PodDNSConfigPtrOutput {
-	return o.ApplyT(func(v PodDNSConfig) *PodDNSConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDNSConfig) *PodDNSConfig {
 		return &v
 	}).(PodDNSConfigPtrOutput)
 }
@@ -19832,7 +20237,13 @@ func (o PodDNSConfigPtrOutput) ToPodDNSConfigPtrOutputWithContext(ctx context.Co
 }
 
 func (o PodDNSConfigPtrOutput) Elem() PodDNSConfigOutput {
-	return o.ApplyT(func(v *PodDNSConfig) PodDNSConfig { return *v }).(PodDNSConfigOutput)
+	return o.ApplyT(func(v *PodDNSConfig) PodDNSConfig {
+		if v != nil {
+			return *v
+		}
+		var ret PodDNSConfig
+		return ret
+	}).(PodDNSConfigOutput)
 }
 
 // A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
@@ -20396,7 +20807,7 @@ func (o PodSecurityContextOutput) ToPodSecurityContextPtrOutput() PodSecurityCon
 }
 
 func (o PodSecurityContextOutput) ToPodSecurityContextPtrOutputWithContext(ctx context.Context) PodSecurityContextPtrOutput {
-	return o.ApplyT(func(v PodSecurityContext) *PodSecurityContext {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSecurityContext) *PodSecurityContext {
 		return &v
 	}).(PodSecurityContextPtrOutput)
 }
@@ -20470,7 +20881,13 @@ func (o PodSecurityContextPtrOutput) ToPodSecurityContextPtrOutputWithContext(ct
 }
 
 func (o PodSecurityContextPtrOutput) Elem() PodSecurityContextOutput {
-	return o.ApplyT(func(v *PodSecurityContext) PodSecurityContext { return *v }).(PodSecurityContextOutput)
+	return o.ApplyT(func(v *PodSecurityContext) PodSecurityContext {
+		if v != nil {
+			return *v
+		}
+		var ret PodSecurityContext
+		return ret
+	}).(PodSecurityContextOutput)
 }
 
 // A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
@@ -20613,7 +21030,7 @@ type PodSpec struct {
 	NodeName *string `pulumi:"nodeName"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 	NodeSelector map[string]string `pulumi:"nodeSelector"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead map[string]string `pulumi:"overhead"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
@@ -20621,11 +21038,11 @@ type PodSpec struct {
 	Priority *int `pulumi:"priority"`
 	// If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
 	PriorityClassName *string `pulumi:"priorityClassName"`
-	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
+	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 	ReadinessGates []PodReadinessGate `pulumi:"readinessGates"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy *string `pulumi:"restartPolicy"`
-	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14.
+	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
 	RuntimeClassName *string `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName *string `pulumi:"schedulerName"`
@@ -20698,7 +21115,7 @@ type PodSpecArgs struct {
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 	NodeSelector pulumi.StringMapInput `pulumi:"nodeSelector"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
@@ -20706,11 +21123,11 @@ type PodSpecArgs struct {
 	Priority pulumi.IntPtrInput `pulumi:"priority"`
 	// If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
 	PriorityClassName pulumi.StringPtrInput `pulumi:"priorityClassName"`
-	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
+	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 	ReadinessGates PodReadinessGateArrayInput `pulumi:"readinessGates"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
-	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14.
+	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
 	RuntimeClassName pulumi.StringPtrInput `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName pulumi.StringPtrInput `pulumi:"schedulerName"`
@@ -20809,7 +21226,7 @@ func (o PodSpecOutput) ToPodSpecPtrOutput() PodSpecPtrOutput {
 }
 
 func (o PodSpecOutput) ToPodSpecPtrOutputWithContext(ctx context.Context) PodSpecPtrOutput {
-	return o.ApplyT(func(v PodSpec) *PodSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSpec) *PodSpec {
 		return &v
 	}).(PodSpecPtrOutput)
 }
@@ -20899,7 +21316,7 @@ func (o PodSpecOutput) NodeSelector() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o PodSpecOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
 }
@@ -20919,7 +21336,7 @@ func (o PodSpecOutput) PriorityClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.PriorityClassName }).(pulumi.StringPtrOutput)
 }
 
-// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
+// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 func (o PodSpecOutput) ReadinessGates() PodReadinessGateArrayOutput {
 	return o.ApplyT(func(v PodSpec) []PodReadinessGate { return v.ReadinessGates }).(PodReadinessGateArrayOutput)
 }
@@ -20929,7 +21346,7 @@ func (o PodSpecOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
 }
 
-// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14.
+// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
 func (o PodSpecOutput) RuntimeClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RuntimeClassName }).(pulumi.StringPtrOutput)
 }
@@ -21004,7 +21421,13 @@ func (o PodSpecPtrOutput) ToPodSpecPtrOutputWithContext(ctx context.Context) Pod
 }
 
 func (o PodSpecPtrOutput) Elem() PodSpecOutput {
-	return o.ApplyT(func(v *PodSpec) PodSpec { return *v }).(PodSpecOutput)
+	return o.ApplyT(func(v *PodSpec) PodSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodSpec
+		return ret
+	}).(PodSpecOutput)
 }
 
 // Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
@@ -21177,7 +21600,7 @@ func (o PodSpecPtrOutput) NodeSelector() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.16, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PodSpec) map[string]string {
 		if v == nil {
@@ -21217,7 +21640,7 @@ func (o PodSpecPtrOutput) PriorityClassName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/0007-pod-ready%2B%2B.md
+// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 func (o PodSpecPtrOutput) ReadinessGates() PodReadinessGateArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []PodReadinessGate {
 		if v == nil {
@@ -21237,7 +21660,7 @@ func (o PodSpecPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a beta feature as of Kubernetes v1.14.
+// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
 func (o PodSpecPtrOutput) RuntimeClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -21509,7 +21932,7 @@ func (o PodStatusOutput) ToPodStatusPtrOutput() PodStatusPtrOutput {
 }
 
 func (o PodStatusOutput) ToPodStatusPtrOutputWithContext(ctx context.Context) PodStatusPtrOutput {
-	return o.ApplyT(func(v PodStatus) *PodStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodStatus) *PodStatus {
 		return &v
 	}).(PodStatusPtrOutput)
 }
@@ -21598,7 +22021,13 @@ func (o PodStatusPtrOutput) ToPodStatusPtrOutputWithContext(ctx context.Context)
 }
 
 func (o PodStatusPtrOutput) Elem() PodStatusOutput {
-	return o.ApplyT(func(v *PodStatus) PodStatus { return *v }).(PodStatusOutput)
+	return o.ApplyT(func(v *PodStatus) PodStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PodStatus
+		return ret
+	}).(PodStatusOutput)
 }
 
 // Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
@@ -22044,7 +22473,7 @@ func (o PodTemplateSpecOutput) ToPodTemplateSpecPtrOutput() PodTemplateSpecPtrOu
 }
 
 func (o PodTemplateSpecOutput) ToPodTemplateSpecPtrOutputWithContext(ctx context.Context) PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v PodTemplateSpec) *PodTemplateSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodTemplateSpec) *PodTemplateSpec {
 		return &v
 	}).(PodTemplateSpecPtrOutput)
 }
@@ -22074,7 +22503,13 @@ func (o PodTemplateSpecPtrOutput) ToPodTemplateSpecPtrOutputWithContext(ctx cont
 }
 
 func (o PodTemplateSpecPtrOutput) Elem() PodTemplateSpecOutput {
-	return o.ApplyT(func(v *PodTemplateSpec) PodTemplateSpec { return *v }).(PodTemplateSpecOutput)
+	return o.ApplyT(func(v *PodTemplateSpec) PodTemplateSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PodTemplateSpec
+		return ret
+	}).(PodTemplateSpecOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -22325,7 +22760,7 @@ func (o PortworxVolumeSourceOutput) ToPortworxVolumeSourcePtrOutput() PortworxVo
 }
 
 func (o PortworxVolumeSourceOutput) ToPortworxVolumeSourcePtrOutputWithContext(ctx context.Context) PortworxVolumeSourcePtrOutput {
-	return o.ApplyT(func(v PortworxVolumeSource) *PortworxVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PortworxVolumeSource) *PortworxVolumeSource {
 		return &v
 	}).(PortworxVolumeSourcePtrOutput)
 }
@@ -22360,7 +22795,13 @@ func (o PortworxVolumeSourcePtrOutput) ToPortworxVolumeSourcePtrOutputWithContex
 }
 
 func (o PortworxVolumeSourcePtrOutput) Elem() PortworxVolumeSourceOutput {
-	return o.ApplyT(func(v *PortworxVolumeSource) PortworxVolumeSource { return *v }).(PortworxVolumeSourceOutput)
+	return o.ApplyT(func(v *PortworxVolumeSource) PortworxVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret PortworxVolumeSource
+		return ret
+	}).(PortworxVolumeSourceOutput)
 }
 
 // FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
@@ -22518,7 +22959,7 @@ type Probe struct {
 	SuccessThreshold *int `pulumi:"successThreshold"`
 	// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
 	TcpSocket *TCPSocketAction `pulumi:"tcpSocket"`
-	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is an alpha field and requires enabling ProbeTerminationGracePeriod feature gate.
+	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds *int `pulumi:"terminationGracePeriodSeconds"`
 	// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	TimeoutSeconds *int `pulumi:"timeoutSeconds"`
@@ -22551,7 +22992,7 @@ type ProbeArgs struct {
 	SuccessThreshold pulumi.IntPtrInput `pulumi:"successThreshold"`
 	// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
 	TcpSocket TCPSocketActionPtrInput `pulumi:"tcpSocket"`
-	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is an alpha field and requires enabling ProbeTerminationGracePeriod feature gate.
+	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds pulumi.IntPtrInput `pulumi:"terminationGracePeriodSeconds"`
 	// Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	TimeoutSeconds pulumi.IntPtrInput `pulumi:"timeoutSeconds"`
@@ -22630,7 +23071,7 @@ func (o ProbeOutput) ToProbePtrOutput() ProbePtrOutput {
 }
 
 func (o ProbeOutput) ToProbePtrOutputWithContext(ctx context.Context) ProbePtrOutput {
-	return o.ApplyT(func(v Probe) *Probe {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Probe) *Probe {
 		return &v
 	}).(ProbePtrOutput)
 }
@@ -22670,7 +23111,7 @@ func (o ProbeOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v Probe) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
 }
 
-// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is an alpha field and requires enabling ProbeTerminationGracePeriod feature gate.
+// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 func (o ProbeOutput) TerminationGracePeriodSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.TerminationGracePeriodSeconds }).(pulumi.IntPtrOutput)
 }
@@ -22695,7 +23136,13 @@ func (o ProbePtrOutput) ToProbePtrOutputWithContext(ctx context.Context) ProbePt
 }
 
 func (o ProbePtrOutput) Elem() ProbeOutput {
-	return o.ApplyT(func(v *Probe) Probe { return *v }).(ProbeOutput)
+	return o.ApplyT(func(v *Probe) Probe {
+		if v != nil {
+			return *v
+		}
+		var ret Probe
+		return ret
+	}).(ProbeOutput)
 }
 
 // One and only one of the following should be specified. Exec specifies the action to take.
@@ -22768,7 +23215,7 @@ func (o ProbePtrOutput) TcpSocket() TCPSocketActionPtrOutput {
 	}).(TCPSocketActionPtrOutput)
 }
 
-// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is an alpha field and requires enabling ProbeTerminationGracePeriod feature gate.
+// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 func (o ProbePtrOutput) TerminationGracePeriodSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Probe) *int {
 		if v == nil {
@@ -22888,7 +23335,7 @@ func (o ProjectedVolumeSourceOutput) ToProjectedVolumeSourcePtrOutput() Projecte
 }
 
 func (o ProjectedVolumeSourceOutput) ToProjectedVolumeSourcePtrOutputWithContext(ctx context.Context) ProjectedVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ProjectedVolumeSource) *ProjectedVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProjectedVolumeSource) *ProjectedVolumeSource {
 		return &v
 	}).(ProjectedVolumeSourcePtrOutput)
 }
@@ -22918,7 +23365,13 @@ func (o ProjectedVolumeSourcePtrOutput) ToProjectedVolumeSourcePtrOutputWithCont
 }
 
 func (o ProjectedVolumeSourcePtrOutput) Elem() ProjectedVolumeSourceOutput {
-	return o.ApplyT(func(v *ProjectedVolumeSource) ProjectedVolumeSource { return *v }).(ProjectedVolumeSourceOutput)
+	return o.ApplyT(func(v *ProjectedVolumeSource) ProjectedVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ProjectedVolumeSource
+		return ret
+	}).(ProjectedVolumeSourceOutput)
 }
 
 // Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -23057,7 +23510,7 @@ func (o QuobyteVolumeSourceOutput) ToQuobyteVolumeSourcePtrOutput() QuobyteVolum
 }
 
 func (o QuobyteVolumeSourceOutput) ToQuobyteVolumeSourcePtrOutputWithContext(ctx context.Context) QuobyteVolumeSourcePtrOutput {
-	return o.ApplyT(func(v QuobyteVolumeSource) *QuobyteVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v QuobyteVolumeSource) *QuobyteVolumeSource {
 		return &v
 	}).(QuobyteVolumeSourcePtrOutput)
 }
@@ -23107,7 +23560,13 @@ func (o QuobyteVolumeSourcePtrOutput) ToQuobyteVolumeSourcePtrOutputWithContext(
 }
 
 func (o QuobyteVolumeSourcePtrOutput) Elem() QuobyteVolumeSourceOutput {
-	return o.ApplyT(func(v *QuobyteVolumeSource) QuobyteVolumeSource { return *v }).(QuobyteVolumeSourceOutput)
+	return o.ApplyT(func(v *QuobyteVolumeSource) QuobyteVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret QuobyteVolumeSource
+		return ret
+	}).(QuobyteVolumeSourceOutput)
 }
 
 // Group to map volume access to Default is no group
@@ -23294,7 +23753,7 @@ func (o RBDPersistentVolumeSourceOutput) ToRBDPersistentVolumeSourcePtrOutput() 
 }
 
 func (o RBDPersistentVolumeSourceOutput) ToRBDPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) RBDPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v RBDPersistentVolumeSource) *RBDPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RBDPersistentVolumeSource) *RBDPersistentVolumeSource {
 		return &v
 	}).(RBDPersistentVolumeSourcePtrOutput)
 }
@@ -23354,7 +23813,13 @@ func (o RBDPersistentVolumeSourcePtrOutput) ToRBDPersistentVolumeSourcePtrOutput
 }
 
 func (o RBDPersistentVolumeSourcePtrOutput) Elem() RBDPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *RBDPersistentVolumeSource) RBDPersistentVolumeSource { return *v }).(RBDPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *RBDPersistentVolumeSource) RBDPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret RBDPersistentVolumeSource
+		return ret
+	}).(RBDPersistentVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
@@ -23561,7 +24026,7 @@ func (o RBDVolumeSourceOutput) ToRBDVolumeSourcePtrOutput() RBDVolumeSourcePtrOu
 }
 
 func (o RBDVolumeSourceOutput) ToRBDVolumeSourcePtrOutputWithContext(ctx context.Context) RBDVolumeSourcePtrOutput {
-	return o.ApplyT(func(v RBDVolumeSource) *RBDVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RBDVolumeSource) *RBDVolumeSource {
 		return &v
 	}).(RBDVolumeSourcePtrOutput)
 }
@@ -23621,7 +24086,13 @@ func (o RBDVolumeSourcePtrOutput) ToRBDVolumeSourcePtrOutputWithContext(ctx cont
 }
 
 func (o RBDVolumeSourcePtrOutput) Elem() RBDVolumeSourceOutput {
-	return o.ApplyT(func(v *RBDVolumeSource) RBDVolumeSource { return *v }).(RBDVolumeSourceOutput)
+	return o.ApplyT(func(v *RBDVolumeSource) RBDVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret RBDVolumeSource
+		return ret
+	}).(RBDVolumeSourceOutput)
 }
 
 // Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
@@ -24166,7 +24637,7 @@ func (o ReplicationControllerSpecOutput) ToReplicationControllerSpecPtrOutput() 
 }
 
 func (o ReplicationControllerSpecOutput) ToReplicationControllerSpecPtrOutputWithContext(ctx context.Context) ReplicationControllerSpecPtrOutput {
-	return o.ApplyT(func(v ReplicationControllerSpec) *ReplicationControllerSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicationControllerSpec) *ReplicationControllerSpec {
 		return &v
 	}).(ReplicationControllerSpecPtrOutput)
 }
@@ -24206,7 +24677,13 @@ func (o ReplicationControllerSpecPtrOutput) ToReplicationControllerSpecPtrOutput
 }
 
 func (o ReplicationControllerSpecPtrOutput) Elem() ReplicationControllerSpecOutput {
-	return o.ApplyT(func(v *ReplicationControllerSpec) ReplicationControllerSpec { return *v }).(ReplicationControllerSpecOutput)
+	return o.ApplyT(func(v *ReplicationControllerSpec) ReplicationControllerSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicationControllerSpec
+		return ret
+	}).(ReplicationControllerSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -24365,7 +24842,7 @@ func (o ReplicationControllerStatusOutput) ToReplicationControllerStatusPtrOutpu
 }
 
 func (o ReplicationControllerStatusOutput) ToReplicationControllerStatusPtrOutputWithContext(ctx context.Context) ReplicationControllerStatusPtrOutput {
-	return o.ApplyT(func(v ReplicationControllerStatus) *ReplicationControllerStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicationControllerStatus) *ReplicationControllerStatus {
 		return &v
 	}).(ReplicationControllerStatusPtrOutput)
 }
@@ -24415,7 +24892,13 @@ func (o ReplicationControllerStatusPtrOutput) ToReplicationControllerStatusPtrOu
 }
 
 func (o ReplicationControllerStatusPtrOutput) Elem() ReplicationControllerStatusOutput {
-	return o.ApplyT(func(v *ReplicationControllerStatus) ReplicationControllerStatus { return *v }).(ReplicationControllerStatusOutput)
+	return o.ApplyT(func(v *ReplicationControllerStatus) ReplicationControllerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicationControllerStatus
+		return ret
+	}).(ReplicationControllerStatusOutput)
 }
 
 // The number of available replicas (ready for at least minReadySeconds) for this replication controller.
@@ -24582,7 +25065,7 @@ func (o ResourceFieldSelectorOutput) ToResourceFieldSelectorPtrOutput() Resource
 }
 
 func (o ResourceFieldSelectorOutput) ToResourceFieldSelectorPtrOutputWithContext(ctx context.Context) ResourceFieldSelectorPtrOutput {
-	return o.ApplyT(func(v ResourceFieldSelector) *ResourceFieldSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceFieldSelector) *ResourceFieldSelector {
 		return &v
 	}).(ResourceFieldSelectorPtrOutput)
 }
@@ -24617,7 +25100,13 @@ func (o ResourceFieldSelectorPtrOutput) ToResourceFieldSelectorPtrOutputWithCont
 }
 
 func (o ResourceFieldSelectorPtrOutput) Elem() ResourceFieldSelectorOutput {
-	return o.ApplyT(func(v *ResourceFieldSelector) ResourceFieldSelector { return *v }).(ResourceFieldSelectorOutput)
+	return o.ApplyT(func(v *ResourceFieldSelector) ResourceFieldSelector {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceFieldSelector
+		return ret
+	}).(ResourceFieldSelectorOutput)
 }
 
 // Container name: required for volumes, optional for env vars
@@ -24972,7 +25461,7 @@ func (o ResourceQuotaSpecOutput) ToResourceQuotaSpecPtrOutput() ResourceQuotaSpe
 }
 
 func (o ResourceQuotaSpecOutput) ToResourceQuotaSpecPtrOutputWithContext(ctx context.Context) ResourceQuotaSpecPtrOutput {
-	return o.ApplyT(func(v ResourceQuotaSpec) *ResourceQuotaSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceQuotaSpec) *ResourceQuotaSpec {
 		return &v
 	}).(ResourceQuotaSpecPtrOutput)
 }
@@ -25007,7 +25496,13 @@ func (o ResourceQuotaSpecPtrOutput) ToResourceQuotaSpecPtrOutputWithContext(ctx 
 }
 
 func (o ResourceQuotaSpecPtrOutput) Elem() ResourceQuotaSpecOutput {
-	return o.ApplyT(func(v *ResourceQuotaSpec) ResourceQuotaSpec { return *v }).(ResourceQuotaSpecOutput)
+	return o.ApplyT(func(v *ResourceQuotaSpec) ResourceQuotaSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceQuotaSpec
+		return ret
+	}).(ResourceQuotaSpecOutput)
 }
 
 // hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -25140,7 +25635,7 @@ func (o ResourceQuotaStatusOutput) ToResourceQuotaStatusPtrOutput() ResourceQuot
 }
 
 func (o ResourceQuotaStatusOutput) ToResourceQuotaStatusPtrOutputWithContext(ctx context.Context) ResourceQuotaStatusPtrOutput {
-	return o.ApplyT(func(v ResourceQuotaStatus) *ResourceQuotaStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceQuotaStatus) *ResourceQuotaStatus {
 		return &v
 	}).(ResourceQuotaStatusPtrOutput)
 }
@@ -25170,7 +25665,13 @@ func (o ResourceQuotaStatusPtrOutput) ToResourceQuotaStatusPtrOutputWithContext(
 }
 
 func (o ResourceQuotaStatusPtrOutput) Elem() ResourceQuotaStatusOutput {
-	return o.ApplyT(func(v *ResourceQuotaStatus) ResourceQuotaStatus { return *v }).(ResourceQuotaStatusOutput)
+	return o.ApplyT(func(v *ResourceQuotaStatus) ResourceQuotaStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceQuotaStatus
+		return ret
+	}).(ResourceQuotaStatusOutput)
 }
 
 // Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -25293,7 +25794,7 @@ func (o ResourceRequirementsOutput) ToResourceRequirementsPtrOutput() ResourceRe
 }
 
 func (o ResourceRequirementsOutput) ToResourceRequirementsPtrOutputWithContext(ctx context.Context) ResourceRequirementsPtrOutput {
-	return o.ApplyT(func(v ResourceRequirements) *ResourceRequirements {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceRequirements) *ResourceRequirements {
 		return &v
 	}).(ResourceRequirementsPtrOutput)
 }
@@ -25323,7 +25824,13 @@ func (o ResourceRequirementsPtrOutput) ToResourceRequirementsPtrOutputWithContex
 }
 
 func (o ResourceRequirementsPtrOutput) Elem() ResourceRequirementsOutput {
-	return o.ApplyT(func(v *ResourceRequirements) ResourceRequirements { return *v }).(ResourceRequirementsOutput)
+	return o.ApplyT(func(v *ResourceRequirements) ResourceRequirements {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceRequirements
+		return ret
+	}).(ResourceRequirementsOutput)
 }
 
 // Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -25454,7 +25961,7 @@ func (o SELinuxOptionsOutput) ToSELinuxOptionsPtrOutput() SELinuxOptionsPtrOutpu
 }
 
 func (o SELinuxOptionsOutput) ToSELinuxOptionsPtrOutputWithContext(ctx context.Context) SELinuxOptionsPtrOutput {
-	return o.ApplyT(func(v SELinuxOptions) *SELinuxOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SELinuxOptions) *SELinuxOptions {
 		return &v
 	}).(SELinuxOptionsPtrOutput)
 }
@@ -25494,7 +26001,13 @@ func (o SELinuxOptionsPtrOutput) ToSELinuxOptionsPtrOutputWithContext(ctx contex
 }
 
 func (o SELinuxOptionsPtrOutput) Elem() SELinuxOptionsOutput {
-	return o.ApplyT(func(v *SELinuxOptions) SELinuxOptions { return *v }).(SELinuxOptionsOutput)
+	return o.ApplyT(func(v *SELinuxOptions) SELinuxOptions {
+		if v != nil {
+			return *v
+		}
+		var ret SELinuxOptions
+		return ret
+	}).(SELinuxOptionsOutput)
 }
 
 // Level is SELinux level label that applies to the container.
@@ -25669,7 +26182,7 @@ func (o ScaleIOPersistentVolumeSourceOutput) ToScaleIOPersistentVolumeSourcePtrO
 }
 
 func (o ScaleIOPersistentVolumeSourceOutput) ToScaleIOPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) ScaleIOPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *ScaleIOPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleIOPersistentVolumeSource) *ScaleIOPersistentVolumeSource {
 		return &v
 	}).(ScaleIOPersistentVolumeSourcePtrOutput)
 }
@@ -25739,7 +26252,13 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) ToScaleIOPersistentVolumeSourceP
 }
 
 func (o ScaleIOPersistentVolumeSourcePtrOutput) Elem() ScaleIOPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) ScaleIOPersistentVolumeSource { return *v }).(ScaleIOPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) ScaleIOPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleIOPersistentVolumeSource
+		return ret
+	}).(ScaleIOPersistentVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
@@ -25974,7 +26493,7 @@ func (o ScaleIOVolumeSourceOutput) ToScaleIOVolumeSourcePtrOutput() ScaleIOVolum
 }
 
 func (o ScaleIOVolumeSourceOutput) ToScaleIOVolumeSourcePtrOutputWithContext(ctx context.Context) ScaleIOVolumeSourcePtrOutput {
-	return o.ApplyT(func(v ScaleIOVolumeSource) *ScaleIOVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleIOVolumeSource) *ScaleIOVolumeSource {
 		return &v
 	}).(ScaleIOVolumeSourcePtrOutput)
 }
@@ -26044,7 +26563,13 @@ func (o ScaleIOVolumeSourcePtrOutput) ToScaleIOVolumeSourcePtrOutputWithContext(
 }
 
 func (o ScaleIOVolumeSourcePtrOutput) Elem() ScaleIOVolumeSourceOutput {
-	return o.ApplyT(func(v *ScaleIOVolumeSource) ScaleIOVolumeSource { return *v }).(ScaleIOVolumeSourceOutput)
+	return o.ApplyT(func(v *ScaleIOVolumeSource) ScaleIOVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleIOVolumeSource
+		return ret
+	}).(ScaleIOVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
@@ -26243,7 +26768,7 @@ func (o ScopeSelectorOutput) ToScopeSelectorPtrOutput() ScopeSelectorPtrOutput {
 }
 
 func (o ScopeSelectorOutput) ToScopeSelectorPtrOutputWithContext(ctx context.Context) ScopeSelectorPtrOutput {
-	return o.ApplyT(func(v ScopeSelector) *ScopeSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScopeSelector) *ScopeSelector {
 		return &v
 	}).(ScopeSelectorPtrOutput)
 }
@@ -26268,7 +26793,13 @@ func (o ScopeSelectorPtrOutput) ToScopeSelectorPtrOutputWithContext(ctx context.
 }
 
 func (o ScopeSelectorPtrOutput) Elem() ScopeSelectorOutput {
-	return o.ApplyT(func(v *ScopeSelector) ScopeSelector { return *v }).(ScopeSelectorOutput)
+	return o.ApplyT(func(v *ScopeSelector) ScopeSelector {
+		if v != nil {
+			return *v
+		}
+		var ret ScopeSelector
+		return ret
+	}).(ScopeSelectorOutput)
 }
 
 // A list of scope selector requirements by scope of the resources.
@@ -26503,7 +27034,7 @@ func (o SeccompProfileOutput) ToSeccompProfilePtrOutput() SeccompProfilePtrOutpu
 }
 
 func (o SeccompProfileOutput) ToSeccompProfilePtrOutputWithContext(ctx context.Context) SeccompProfilePtrOutput {
-	return o.ApplyT(func(v SeccompProfile) *SeccompProfile {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SeccompProfile) *SeccompProfile {
 		return &v
 	}).(SeccompProfilePtrOutput)
 }
@@ -26535,7 +27066,13 @@ func (o SeccompProfilePtrOutput) ToSeccompProfilePtrOutputWithContext(ctx contex
 }
 
 func (o SeccompProfilePtrOutput) Elem() SeccompProfileOutput {
-	return o.ApplyT(func(v *SeccompProfile) SeccompProfile { return *v }).(SeccompProfileOutput)
+	return o.ApplyT(func(v *SeccompProfile) SeccompProfile {
+		if v != nil {
+			return *v
+		}
+		var ret SeccompProfile
+		return ret
+	}).(SeccompProfileOutput)
 }
 
 // localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
@@ -26850,7 +27387,7 @@ func (o SecretEnvSourceOutput) ToSecretEnvSourcePtrOutput() SecretEnvSourcePtrOu
 }
 
 func (o SecretEnvSourceOutput) ToSecretEnvSourcePtrOutputWithContext(ctx context.Context) SecretEnvSourcePtrOutput {
-	return o.ApplyT(func(v SecretEnvSource) *SecretEnvSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretEnvSource) *SecretEnvSource {
 		return &v
 	}).(SecretEnvSourcePtrOutput)
 }
@@ -26880,7 +27417,13 @@ func (o SecretEnvSourcePtrOutput) ToSecretEnvSourcePtrOutputWithContext(ctx cont
 }
 
 func (o SecretEnvSourcePtrOutput) Elem() SecretEnvSourceOutput {
-	return o.ApplyT(func(v *SecretEnvSource) SecretEnvSource { return *v }).(SecretEnvSourceOutput)
+	return o.ApplyT(func(v *SecretEnvSource) SecretEnvSource {
+		if v != nil {
+			return *v
+		}
+		var ret SecretEnvSource
+		return ret
+	}).(SecretEnvSourceOutput)
 }
 
 // Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -27007,7 +27550,7 @@ func (o SecretKeySelectorOutput) ToSecretKeySelectorPtrOutput() SecretKeySelecto
 }
 
 func (o SecretKeySelectorOutput) ToSecretKeySelectorPtrOutputWithContext(ctx context.Context) SecretKeySelectorPtrOutput {
-	return o.ApplyT(func(v SecretKeySelector) *SecretKeySelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretKeySelector) *SecretKeySelector {
 		return &v
 	}).(SecretKeySelectorPtrOutput)
 }
@@ -27042,7 +27585,13 @@ func (o SecretKeySelectorPtrOutput) ToSecretKeySelectorPtrOutputWithContext(ctx 
 }
 
 func (o SecretKeySelectorPtrOutput) Elem() SecretKeySelectorOutput {
-	return o.ApplyT(func(v *SecretKeySelector) SecretKeySelector { return *v }).(SecretKeySelectorOutput)
+	return o.ApplyT(func(v *SecretKeySelector) SecretKeySelector {
+		if v != nil {
+			return *v
+		}
+		var ret SecretKeySelector
+		return ret
+	}).(SecretKeySelectorOutput)
 }
 
 // The key of the secret to select from.  Must be a valid secret key.
@@ -27267,7 +27816,7 @@ func (o SecretProjectionOutput) ToSecretProjectionPtrOutput() SecretProjectionPt
 }
 
 func (o SecretProjectionOutput) ToSecretProjectionPtrOutputWithContext(ctx context.Context) SecretProjectionPtrOutput {
-	return o.ApplyT(func(v SecretProjection) *SecretProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretProjection) *SecretProjection {
 		return &v
 	}).(SecretProjectionPtrOutput)
 }
@@ -27302,7 +27851,13 @@ func (o SecretProjectionPtrOutput) ToSecretProjectionPtrOutputWithContext(ctx co
 }
 
 func (o SecretProjectionPtrOutput) Elem() SecretProjectionOutput {
-	return o.ApplyT(func(v *SecretProjection) SecretProjection { return *v }).(SecretProjectionOutput)
+	return o.ApplyT(func(v *SecretProjection) SecretProjection {
+		if v != nil {
+			return *v
+		}
+		var ret SecretProjection
+		return ret
+	}).(SecretProjectionOutput)
 }
 
 // If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
@@ -27435,7 +27990,7 @@ func (o SecretReferenceOutput) ToSecretReferencePtrOutput() SecretReferencePtrOu
 }
 
 func (o SecretReferenceOutput) ToSecretReferencePtrOutputWithContext(ctx context.Context) SecretReferencePtrOutput {
-	return o.ApplyT(func(v SecretReference) *SecretReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretReference) *SecretReference {
 		return &v
 	}).(SecretReferencePtrOutput)
 }
@@ -27465,7 +28020,13 @@ func (o SecretReferencePtrOutput) ToSecretReferencePtrOutputWithContext(ctx cont
 }
 
 func (o SecretReferencePtrOutput) Elem() SecretReferenceOutput {
-	return o.ApplyT(func(v *SecretReference) SecretReference { return *v }).(SecretReferenceOutput)
+	return o.ApplyT(func(v *SecretReference) SecretReference {
+		if v != nil {
+			return *v
+		}
+		var ret SecretReference
+		return ret
+	}).(SecretReferenceOutput)
 }
 
 // Name is unique within a namespace to reference a secret resource.
@@ -27602,7 +28163,7 @@ func (o SecretVolumeSourceOutput) ToSecretVolumeSourcePtrOutput() SecretVolumeSo
 }
 
 func (o SecretVolumeSourceOutput) ToSecretVolumeSourcePtrOutputWithContext(ctx context.Context) SecretVolumeSourcePtrOutput {
-	return o.ApplyT(func(v SecretVolumeSource) *SecretVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretVolumeSource) *SecretVolumeSource {
 		return &v
 	}).(SecretVolumeSourcePtrOutput)
 }
@@ -27642,7 +28203,13 @@ func (o SecretVolumeSourcePtrOutput) ToSecretVolumeSourcePtrOutputWithContext(ct
 }
 
 func (o SecretVolumeSourcePtrOutput) Elem() SecretVolumeSourceOutput {
-	return o.ApplyT(func(v *SecretVolumeSource) SecretVolumeSource { return *v }).(SecretVolumeSourceOutput)
+	return o.ApplyT(func(v *SecretVolumeSource) SecretVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret SecretVolumeSource
+		return ret
+	}).(SecretVolumeSourceOutput)
 }
 
 // Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -27821,7 +28388,7 @@ func (o SecurityContextOutput) ToSecurityContextPtrOutput() SecurityContextPtrOu
 }
 
 func (o SecurityContextOutput) ToSecurityContextPtrOutputWithContext(ctx context.Context) SecurityContextPtrOutput {
-	return o.ApplyT(func(v SecurityContext) *SecurityContext {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecurityContext) *SecurityContext {
 		return &v
 	}).(SecurityContextPtrOutput)
 }
@@ -27896,7 +28463,13 @@ func (o SecurityContextPtrOutput) ToSecurityContextPtrOutputWithContext(ctx cont
 }
 
 func (o SecurityContextPtrOutput) Elem() SecurityContextOutput {
-	return o.ApplyT(func(v *SecurityContext) SecurityContext { return *v }).(SecurityContextOutput)
+	return o.ApplyT(func(v *SecurityContext) SecurityContext {
+		if v != nil {
+			return *v
+		}
+		var ret SecurityContext
+		return ret
+	}).(SecurityContextOutput)
 }
 
 // AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
@@ -28551,7 +29124,7 @@ func (o ServiceAccountTokenProjectionOutput) ToServiceAccountTokenProjectionPtrO
 }
 
 func (o ServiceAccountTokenProjectionOutput) ToServiceAccountTokenProjectionPtrOutputWithContext(ctx context.Context) ServiceAccountTokenProjectionPtrOutput {
-	return o.ApplyT(func(v ServiceAccountTokenProjection) *ServiceAccountTokenProjection {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceAccountTokenProjection) *ServiceAccountTokenProjection {
 		return &v
 	}).(ServiceAccountTokenProjectionPtrOutput)
 }
@@ -28586,7 +29159,13 @@ func (o ServiceAccountTokenProjectionPtrOutput) ToServiceAccountTokenProjectionP
 }
 
 func (o ServiceAccountTokenProjectionPtrOutput) Elem() ServiceAccountTokenProjectionOutput {
-	return o.ApplyT(func(v *ServiceAccountTokenProjection) ServiceAccountTokenProjection { return *v }).(ServiceAccountTokenProjectionOutput)
+	return o.ApplyT(func(v *ServiceAccountTokenProjection) ServiceAccountTokenProjection {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceAccountTokenProjection
+		return ret
+	}).(ServiceAccountTokenProjectionOutput)
 }
 
 // Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
@@ -28703,7 +29282,7 @@ func (o ServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // ServicePort contains information on service's port.
 type ServicePort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name *string `pulumi:"name"`
@@ -28730,7 +29309,7 @@ type ServicePortInput interface {
 
 // ServicePort contains information on service's port.
 type ServicePortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -28796,7 +29375,7 @@ func (o ServicePortOutput) ToServicePortOutputWithContext(ctx context.Context) S
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol. This is a beta field that is guarded by the ServiceAppProtocol feature gate and enabled by default.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o ServicePortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServicePort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -28848,7 +29427,7 @@ func (o ServicePortArrayOutput) Index(i pulumi.IntInput) ServicePortOutput {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpec struct {
-	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
 	AllocateLoadBalancerNodePorts *bool `pulumi:"allocateLoadBalancerNodePorts"`
 	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP *string `pulumi:"clusterIP"`
@@ -28878,7 +29457,7 @@ type ServiceSpec struct {
 	LoadBalancerClass *string `pulumi:"loadBalancerClass"`
 	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
 	LoadBalancerIP *string `pulumi:"loadBalancerIP"`
-	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 	LoadBalancerSourceRanges []string `pulumi:"loadBalancerSourceRanges"`
 	// The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	Ports []ServicePort `pulumi:"ports"`
@@ -28890,7 +29469,7 @@ type ServiceSpec struct {
 	SessionAffinity *string `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
-	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature. This field is deprecated and will be removed in a future version.
+	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type *string `pulumi:"type"`
@@ -28909,7 +29488,7 @@ type ServiceSpecInput interface {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpecArgs struct {
-	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
 	AllocateLoadBalancerNodePorts pulumi.BoolPtrInput `pulumi:"allocateLoadBalancerNodePorts"`
 	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP pulumi.StringPtrInput `pulumi:"clusterIP"`
@@ -28939,7 +29518,7 @@ type ServiceSpecArgs struct {
 	LoadBalancerClass pulumi.StringPtrInput `pulumi:"loadBalancerClass"`
 	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
 	LoadBalancerIP pulumi.StringPtrInput `pulumi:"loadBalancerIP"`
-	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 	LoadBalancerSourceRanges pulumi.StringArrayInput `pulumi:"loadBalancerSourceRanges"`
 	// The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	Ports ServicePortArrayInput `pulumi:"ports"`
@@ -28951,7 +29530,7 @@ type ServiceSpecArgs struct {
 	SessionAffinity pulumi.StringPtrInput `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
-	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature. This field is deprecated and will be removed in a future version.
+	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
@@ -29030,12 +29609,12 @@ func (o ServiceSpecOutput) ToServiceSpecPtrOutput() ServiceSpecPtrOutput {
 }
 
 func (o ServiceSpecOutput) ToServiceSpecPtrOutputWithContext(ctx context.Context) ServiceSpecPtrOutput {
-	return o.ApplyT(func(v ServiceSpec) *ServiceSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceSpec) *ServiceSpec {
 		return &v
 	}).(ServiceSpecPtrOutput)
 }
 
-// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
 func (o ServiceSpecOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *bool { return v.AllocateLoadBalancerNodePorts }).(pulumi.BoolPtrOutput)
 }
@@ -29104,7 +29683,7 @@ func (o ServiceSpecOutput) LoadBalancerIP() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.LoadBalancerIP }).(pulumi.StringPtrOutput)
 }
 
-// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 func (o ServiceSpecOutput) LoadBalancerSourceRanges() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.LoadBalancerSourceRanges }).(pulumi.StringArrayOutput)
 }
@@ -29134,7 +29713,7 @@ func (o ServiceSpecOutput) SessionAffinityConfig() SessionAffinityConfigPtrOutpu
 	return o.ApplyT(func(v ServiceSpec) *SessionAffinityConfig { return v.SessionAffinityConfig }).(SessionAffinityConfigPtrOutput)
 }
 
-// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature. This field is deprecated and will be removed in a future version.
+// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.TopologyKeys }).(pulumi.StringArrayOutput)
 }
@@ -29159,10 +29738,16 @@ func (o ServiceSpecPtrOutput) ToServiceSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o ServiceSpecPtrOutput) Elem() ServiceSpecOutput {
-	return o.ApplyT(func(v *ServiceSpec) ServiceSpec { return *v }).(ServiceSpecOutput)
+	return o.ApplyT(func(v *ServiceSpec) ServiceSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceSpec
+		return ret
+	}).(ServiceSpecOutput)
 }
 
-// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts. allocateLoadBalancerNodePorts may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is alpha-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
 func (o ServiceSpecPtrOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *bool {
 		if v == nil {
@@ -29296,7 +29881,7 @@ func (o ServiceSpecPtrOutput) LoadBalancerIP() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/
+// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 func (o ServiceSpecPtrOutput) LoadBalancerSourceRanges() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceSpec) []string {
 		if v == nil {
@@ -29356,7 +29941,7 @@ func (o ServiceSpecPtrOutput) SessionAffinityConfig() SessionAffinityConfigPtrOu
 	}).(SessionAffinityConfigPtrOutput)
 }
 
-// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied. This field is alpha-level and is only honored by servers that enable the ServiceTopology feature. This field is deprecated and will be removed in a future version.
+// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceSpec) []string {
 		if v == nil {
@@ -29476,7 +30061,7 @@ func (o ServiceStatusOutput) ToServiceStatusPtrOutput() ServiceStatusPtrOutput {
 }
 
 func (o ServiceStatusOutput) ToServiceStatusPtrOutputWithContext(ctx context.Context) ServiceStatusPtrOutput {
-	return o.ApplyT(func(v ServiceStatus) *ServiceStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceStatus) *ServiceStatus {
 		return &v
 	}).(ServiceStatusPtrOutput)
 }
@@ -29506,7 +30091,13 @@ func (o ServiceStatusPtrOutput) ToServiceStatusPtrOutputWithContext(ctx context.
 }
 
 func (o ServiceStatusPtrOutput) Elem() ServiceStatusOutput {
-	return o.ApplyT(func(v *ServiceStatus) ServiceStatus { return *v }).(ServiceStatusOutput)
+	return o.ApplyT(func(v *ServiceStatus) ServiceStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceStatus
+		return ret
+	}).(ServiceStatusOutput)
 }
 
 // Current service state
@@ -29625,7 +30216,7 @@ func (o SessionAffinityConfigOutput) ToSessionAffinityConfigPtrOutput() SessionA
 }
 
 func (o SessionAffinityConfigOutput) ToSessionAffinityConfigPtrOutputWithContext(ctx context.Context) SessionAffinityConfigPtrOutput {
-	return o.ApplyT(func(v SessionAffinityConfig) *SessionAffinityConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SessionAffinityConfig) *SessionAffinityConfig {
 		return &v
 	}).(SessionAffinityConfigPtrOutput)
 }
@@ -29650,7 +30241,13 @@ func (o SessionAffinityConfigPtrOutput) ToSessionAffinityConfigPtrOutputWithCont
 }
 
 func (o SessionAffinityConfigPtrOutput) Elem() SessionAffinityConfigOutput {
-	return o.ApplyT(func(v *SessionAffinityConfig) SessionAffinityConfig { return *v }).(SessionAffinityConfigOutput)
+	return o.ApplyT(func(v *SessionAffinityConfig) SessionAffinityConfig {
+		if v != nil {
+			return *v
+		}
+		var ret SessionAffinityConfig
+		return ret
+	}).(SessionAffinityConfigOutput)
 }
 
 // clientIP contains the configurations of Client IP based session affinity.
@@ -29775,7 +30372,7 @@ func (o StorageOSPersistentVolumeSourceOutput) ToStorageOSPersistentVolumeSource
 }
 
 func (o StorageOSPersistentVolumeSourceOutput) ToStorageOSPersistentVolumeSourcePtrOutputWithContext(ctx context.Context) StorageOSPersistentVolumeSourcePtrOutput {
-	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *StorageOSPersistentVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StorageOSPersistentVolumeSource) *StorageOSPersistentVolumeSource {
 		return &v
 	}).(StorageOSPersistentVolumeSourcePtrOutput)
 }
@@ -29820,7 +30417,13 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) ToStorageOSPersistentVolumeSou
 }
 
 func (o StorageOSPersistentVolumeSourcePtrOutput) Elem() StorageOSPersistentVolumeSourceOutput {
-	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) StorageOSPersistentVolumeSource { return *v }).(StorageOSPersistentVolumeSourceOutput)
+	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) StorageOSPersistentVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret StorageOSPersistentVolumeSource
+		return ret
+	}).(StorageOSPersistentVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -29985,7 +30588,7 @@ func (o StorageOSVolumeSourceOutput) ToStorageOSVolumeSourcePtrOutput() StorageO
 }
 
 func (o StorageOSVolumeSourceOutput) ToStorageOSVolumeSourcePtrOutputWithContext(ctx context.Context) StorageOSVolumeSourcePtrOutput {
-	return o.ApplyT(func(v StorageOSVolumeSource) *StorageOSVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StorageOSVolumeSource) *StorageOSVolumeSource {
 		return &v
 	}).(StorageOSVolumeSourcePtrOutput)
 }
@@ -30030,7 +30633,13 @@ func (o StorageOSVolumeSourcePtrOutput) ToStorageOSVolumeSourcePtrOutputWithCont
 }
 
 func (o StorageOSVolumeSourcePtrOutput) Elem() StorageOSVolumeSourceOutput {
-	return o.ApplyT(func(v *StorageOSVolumeSource) StorageOSVolumeSource { return *v }).(StorageOSVolumeSourceOutput)
+	return o.ApplyT(func(v *StorageOSVolumeSource) StorageOSVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret StorageOSVolumeSource
+		return ret
+	}).(StorageOSVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -30292,7 +30901,7 @@ func (o TCPSocketActionOutput) ToTCPSocketActionPtrOutput() TCPSocketActionPtrOu
 }
 
 func (o TCPSocketActionOutput) ToTCPSocketActionPtrOutputWithContext(ctx context.Context) TCPSocketActionPtrOutput {
-	return o.ApplyT(func(v TCPSocketAction) *TCPSocketAction {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TCPSocketAction) *TCPSocketAction {
 		return &v
 	}).(TCPSocketActionPtrOutput)
 }
@@ -30322,7 +30931,13 @@ func (o TCPSocketActionPtrOutput) ToTCPSocketActionPtrOutputWithContext(ctx cont
 }
 
 func (o TCPSocketActionPtrOutput) Elem() TCPSocketActionOutput {
-	return o.ApplyT(func(v *TCPSocketAction) TCPSocketAction { return *v }).(TCPSocketActionOutput)
+	return o.ApplyT(func(v *TCPSocketAction) TCPSocketAction {
+		if v != nil {
+			return *v
+		}
+		var ret TCPSocketAction
+		return ret
+	}).(TCPSocketActionOutput)
 }
 
 // Optional: Host name to connect to, defaults to the pod IP.
@@ -31057,7 +31672,7 @@ func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutput() 
 }
 
 func (o TypedLocalObjectReferenceOutput) ToTypedLocalObjectReferencePtrOutputWithContext(ctx context.Context) TypedLocalObjectReferencePtrOutput {
-	return o.ApplyT(func(v TypedLocalObjectReference) *TypedLocalObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypedLocalObjectReference) *TypedLocalObjectReference {
 		return &v
 	}).(TypedLocalObjectReferencePtrOutput)
 }
@@ -31092,7 +31707,13 @@ func (o TypedLocalObjectReferencePtrOutput) ToTypedLocalObjectReferencePtrOutput
 }
 
 func (o TypedLocalObjectReferencePtrOutput) Elem() TypedLocalObjectReferenceOutput {
-	return o.ApplyT(func(v *TypedLocalObjectReference) TypedLocalObjectReference { return *v }).(TypedLocalObjectReferenceOutput)
+	return o.ApplyT(func(v *TypedLocalObjectReference) TypedLocalObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret TypedLocalObjectReference
+		return ret
+	}).(TypedLocalObjectReferenceOutput)
 }
 
 // APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -31881,7 +32502,7 @@ func (o VolumeNodeAffinityOutput) ToVolumeNodeAffinityPtrOutput() VolumeNodeAffi
 }
 
 func (o VolumeNodeAffinityOutput) ToVolumeNodeAffinityPtrOutputWithContext(ctx context.Context) VolumeNodeAffinityPtrOutput {
-	return o.ApplyT(func(v VolumeNodeAffinity) *VolumeNodeAffinity {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeNodeAffinity) *VolumeNodeAffinity {
 		return &v
 	}).(VolumeNodeAffinityPtrOutput)
 }
@@ -31906,7 +32527,13 @@ func (o VolumeNodeAffinityPtrOutput) ToVolumeNodeAffinityPtrOutputWithContext(ct
 }
 
 func (o VolumeNodeAffinityPtrOutput) Elem() VolumeNodeAffinityOutput {
-	return o.ApplyT(func(v *VolumeNodeAffinity) VolumeNodeAffinity { return *v }).(VolumeNodeAffinityOutput)
+	return o.ApplyT(func(v *VolumeNodeAffinity) VolumeNodeAffinity {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeNodeAffinity
+		return ret
+	}).(VolumeNodeAffinityOutput)
 }
 
 // Required specifies hard node constraints that must be met.
@@ -32154,7 +32781,7 @@ func (o VsphereVirtualDiskVolumeSourceOutput) ToVsphereVirtualDiskVolumeSourcePt
 }
 
 func (o VsphereVirtualDiskVolumeSourceOutput) ToVsphereVirtualDiskVolumeSourcePtrOutputWithContext(ctx context.Context) VsphereVirtualDiskVolumeSourcePtrOutput {
-	return o.ApplyT(func(v VsphereVirtualDiskVolumeSource) *VsphereVirtualDiskVolumeSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VsphereVirtualDiskVolumeSource) *VsphereVirtualDiskVolumeSource {
 		return &v
 	}).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
@@ -32194,7 +32821,13 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) ToVsphereVirtualDiskVolumeSourc
 }
 
 func (o VsphereVirtualDiskVolumeSourcePtrOutput) Elem() VsphereVirtualDiskVolumeSourceOutput {
-	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) VsphereVirtualDiskVolumeSource { return *v }).(VsphereVirtualDiskVolumeSourceOutput)
+	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) VsphereVirtualDiskVolumeSource {
+		if v != nil {
+			return *v
+		}
+		var ret VsphereVirtualDiskVolumeSource
+		return ret
+	}).(VsphereVirtualDiskVolumeSourceOutput)
 }
 
 // Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -32352,6 +32985,8 @@ type WindowsSecurityContextOptions struct {
 	GmsaCredentialSpec *string `pulumi:"gmsaCredentialSpec"`
 	// GMSACredentialSpecName is the name of the GMSA credential spec to use.
 	GmsaCredentialSpecName *string `pulumi:"gmsaCredentialSpecName"`
+	// HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+	HostProcess *bool `pulumi:"hostProcess"`
 	// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsUserName *string `pulumi:"runAsUserName"`
 }
@@ -32373,6 +33008,8 @@ type WindowsSecurityContextOptionsArgs struct {
 	GmsaCredentialSpec pulumi.StringPtrInput `pulumi:"gmsaCredentialSpec"`
 	// GMSACredentialSpecName is the name of the GMSA credential spec to use.
 	GmsaCredentialSpecName pulumi.StringPtrInput `pulumi:"gmsaCredentialSpecName"`
+	// HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+	HostProcess pulumi.BoolPtrInput `pulumi:"hostProcess"`
 	// The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsUserName pulumi.StringPtrInput `pulumi:"runAsUserName"`
 }
@@ -32450,7 +33087,7 @@ func (o WindowsSecurityContextOptionsOutput) ToWindowsSecurityContextOptionsPtrO
 }
 
 func (o WindowsSecurityContextOptionsOutput) ToWindowsSecurityContextOptionsPtrOutputWithContext(ctx context.Context) WindowsSecurityContextOptionsPtrOutput {
-	return o.ApplyT(func(v WindowsSecurityContextOptions) *WindowsSecurityContextOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WindowsSecurityContextOptions) *WindowsSecurityContextOptions {
 		return &v
 	}).(WindowsSecurityContextOptionsPtrOutput)
 }
@@ -32463,6 +33100,11 @@ func (o WindowsSecurityContextOptionsOutput) GmsaCredentialSpec() pulumi.StringP
 // GMSACredentialSpecName is the name of the GMSA credential spec to use.
 func (o WindowsSecurityContextOptionsOutput) GmsaCredentialSpecName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v WindowsSecurityContextOptions) *string { return v.GmsaCredentialSpecName }).(pulumi.StringPtrOutput)
+}
+
+// HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+func (o WindowsSecurityContextOptionsOutput) HostProcess() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v WindowsSecurityContextOptions) *bool { return v.HostProcess }).(pulumi.BoolPtrOutput)
 }
 
 // The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
@@ -32485,7 +33127,13 @@ func (o WindowsSecurityContextOptionsPtrOutput) ToWindowsSecurityContextOptionsP
 }
 
 func (o WindowsSecurityContextOptionsPtrOutput) Elem() WindowsSecurityContextOptionsOutput {
-	return o.ApplyT(func(v *WindowsSecurityContextOptions) WindowsSecurityContextOptions { return *v }).(WindowsSecurityContextOptionsOutput)
+	return o.ApplyT(func(v *WindowsSecurityContextOptions) WindowsSecurityContextOptions {
+		if v != nil {
+			return *v
+		}
+		var ret WindowsSecurityContextOptions
+		return ret
+	}).(WindowsSecurityContextOptionsOutput)
 }
 
 // GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
@@ -32508,6 +33156,16 @@ func (o WindowsSecurityContextOptionsPtrOutput) GmsaCredentialSpecName() pulumi.
 	}).(pulumi.StringPtrOutput)
 }
 
+// HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+func (o WindowsSecurityContextOptionsPtrOutput) HostProcess() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *WindowsSecurityContextOptions) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.HostProcess
+	}).(pulumi.BoolPtrOutput)
+}
+
 // The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 func (o WindowsSecurityContextOptionsPtrOutput) RunAsUserName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *WindowsSecurityContextOptions) *string {
@@ -32519,6 +33177,367 @@ func (o WindowsSecurityContextOptionsPtrOutput) RunAsUserName() pulumi.StringPtr
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AWSElasticBlockStoreVolumeSourceInput)(nil)).Elem(), AWSElasticBlockStoreVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AWSElasticBlockStoreVolumeSourcePtrInput)(nil)).Elem(), AWSElasticBlockStoreVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AffinityInput)(nil)).Elem(), AffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AffinityPtrInput)(nil)).Elem(), AffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AttachedVolumeInput)(nil)).Elem(), AttachedVolumeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AttachedVolumeArrayInput)(nil)).Elem(), AttachedVolumeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AzureDiskVolumeSourceInput)(nil)).Elem(), AzureDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AzureDiskVolumeSourcePtrInput)(nil)).Elem(), AzureDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AzureFilePersistentVolumeSourceInput)(nil)).Elem(), AzureFilePersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AzureFilePersistentVolumeSourcePtrInput)(nil)).Elem(), AzureFilePersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AzureFileVolumeSourceInput)(nil)).Elem(), AzureFileVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AzureFileVolumeSourcePtrInput)(nil)).Elem(), AzureFileVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BindingTypeInput)(nil)).Elem(), BindingTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIPersistentVolumeSourceInput)(nil)).Elem(), CSIPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIPersistentVolumeSourcePtrInput)(nil)).Elem(), CSIPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIVolumeSourceInput)(nil)).Elem(), CSIVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIVolumeSourcePtrInput)(nil)).Elem(), CSIVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapabilitiesInput)(nil)).Elem(), CapabilitiesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CapabilitiesPtrInput)(nil)).Elem(), CapabilitiesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CephFSPersistentVolumeSourceInput)(nil)).Elem(), CephFSPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CephFSPersistentVolumeSourcePtrInput)(nil)).Elem(), CephFSPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CephFSVolumeSourceInput)(nil)).Elem(), CephFSVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CephFSVolumeSourcePtrInput)(nil)).Elem(), CephFSVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CinderPersistentVolumeSourceInput)(nil)).Elem(), CinderPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CinderPersistentVolumeSourcePtrInput)(nil)).Elem(), CinderPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CinderVolumeSourceInput)(nil)).Elem(), CinderVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CinderVolumeSourcePtrInput)(nil)).Elem(), CinderVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClientIPConfigInput)(nil)).Elem(), ClientIPConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClientIPConfigPtrInput)(nil)).Elem(), ClientIPConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ComponentConditionInput)(nil)).Elem(), ComponentConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ComponentConditionArrayInput)(nil)).Elem(), ComponentConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ComponentStatusInput)(nil)).Elem(), ComponentStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ComponentStatusArrayInput)(nil)).Elem(), ComponentStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ComponentStatusListInput)(nil)).Elem(), ComponentStatusListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapTypeInput)(nil)).Elem(), ConfigMapTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapTypeArrayInput)(nil)).Elem(), ConfigMapTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapEnvSourceInput)(nil)).Elem(), ConfigMapEnvSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapEnvSourcePtrInput)(nil)).Elem(), ConfigMapEnvSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapKeySelectorInput)(nil)).Elem(), ConfigMapKeySelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapKeySelectorPtrInput)(nil)).Elem(), ConfigMapKeySelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapListTypeInput)(nil)).Elem(), ConfigMapListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapNodeConfigSourceInput)(nil)).Elem(), ConfigMapNodeConfigSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapNodeConfigSourcePtrInput)(nil)).Elem(), ConfigMapNodeConfigSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapProjectionInput)(nil)).Elem(), ConfigMapProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapProjectionPtrInput)(nil)).Elem(), ConfigMapProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapVolumeSourceInput)(nil)).Elem(), ConfigMapVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapVolumeSourcePtrInput)(nil)).Elem(), ConfigMapVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerInput)(nil)).Elem(), ContainerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerArrayInput)(nil)).Elem(), ContainerArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerImageInput)(nil)).Elem(), ContainerImageArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerImageArrayInput)(nil)).Elem(), ContainerImageArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerPortInput)(nil)).Elem(), ContainerPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerPortArrayInput)(nil)).Elem(), ContainerPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateInput)(nil)).Elem(), ContainerStateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStatePtrInput)(nil)).Elem(), ContainerStateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateRunningInput)(nil)).Elem(), ContainerStateRunningArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateRunningPtrInput)(nil)).Elem(), ContainerStateRunningArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateTerminatedInput)(nil)).Elem(), ContainerStateTerminatedArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateTerminatedPtrInput)(nil)).Elem(), ContainerStateTerminatedArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateWaitingInput)(nil)).Elem(), ContainerStateWaitingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateWaitingPtrInput)(nil)).Elem(), ContainerStateWaitingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStatusInput)(nil)).Elem(), ContainerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStatusArrayInput)(nil)).Elem(), ContainerStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonEndpointInput)(nil)).Elem(), DaemonEndpointArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonEndpointPtrInput)(nil)).Elem(), DaemonEndpointArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DownwardAPIProjectionInput)(nil)).Elem(), DownwardAPIProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DownwardAPIProjectionPtrInput)(nil)).Elem(), DownwardAPIProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DownwardAPIVolumeFileInput)(nil)).Elem(), DownwardAPIVolumeFileArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DownwardAPIVolumeFileArrayInput)(nil)).Elem(), DownwardAPIVolumeFileArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DownwardAPIVolumeSourceInput)(nil)).Elem(), DownwardAPIVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DownwardAPIVolumeSourcePtrInput)(nil)).Elem(), DownwardAPIVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EmptyDirVolumeSourceInput)(nil)).Elem(), EmptyDirVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EmptyDirVolumeSourcePtrInput)(nil)).Elem(), EmptyDirVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointAddressInput)(nil)).Elem(), EndpointAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointAddressArrayInput)(nil)).Elem(), EndpointAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortInput)(nil)).Elem(), EndpointPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortArrayInput)(nil)).Elem(), EndpointPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSubsetInput)(nil)).Elem(), EndpointSubsetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSubsetArrayInput)(nil)).Elem(), EndpointSubsetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsTypeInput)(nil)).Elem(), EndpointsTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsTypeArrayInput)(nil)).Elem(), EndpointsTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsListTypeInput)(nil)).Elem(), EndpointsListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvFromSourceInput)(nil)).Elem(), EnvFromSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvFromSourceArrayInput)(nil)).Elem(), EnvFromSourceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvVarInput)(nil)).Elem(), EnvVarArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvVarArrayInput)(nil)).Elem(), EnvVarArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvVarSourceInput)(nil)).Elem(), EnvVarSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EnvVarSourcePtrInput)(nil)).Elem(), EnvVarSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EphemeralContainerInput)(nil)).Elem(), EphemeralContainerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EphemeralContainerArrayInput)(nil)).Elem(), EphemeralContainerArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EphemeralVolumeSourceInput)(nil)).Elem(), EphemeralVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EphemeralVolumeSourcePtrInput)(nil)).Elem(), EphemeralVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeInput)(nil)).Elem(), EventTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeArrayInput)(nil)).Elem(), EventTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListTypeInput)(nil)).Elem(), EventListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesInput)(nil)).Elem(), EventSeriesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesPtrInput)(nil)).Elem(), EventSeriesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSourceInput)(nil)).Elem(), EventSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventSourcePtrInput)(nil)).Elem(), EventSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExecActionInput)(nil)).Elem(), ExecActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExecActionPtrInput)(nil)).Elem(), ExecActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FCVolumeSourceInput)(nil)).Elem(), FCVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FCVolumeSourcePtrInput)(nil)).Elem(), FCVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlexPersistentVolumeSourceInput)(nil)).Elem(), FlexPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlexPersistentVolumeSourcePtrInput)(nil)).Elem(), FlexPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlexVolumeSourceInput)(nil)).Elem(), FlexVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlexVolumeSourcePtrInput)(nil)).Elem(), FlexVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlockerVolumeSourceInput)(nil)).Elem(), FlockerVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlockerVolumeSourcePtrInput)(nil)).Elem(), FlockerVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GCEPersistentDiskVolumeSourceInput)(nil)).Elem(), GCEPersistentDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GCEPersistentDiskVolumeSourcePtrInput)(nil)).Elem(), GCEPersistentDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GitRepoVolumeSourceInput)(nil)).Elem(), GitRepoVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GitRepoVolumeSourcePtrInput)(nil)).Elem(), GitRepoVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GlusterfsPersistentVolumeSourceInput)(nil)).Elem(), GlusterfsPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GlusterfsPersistentVolumeSourcePtrInput)(nil)).Elem(), GlusterfsPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GlusterfsVolumeSourceInput)(nil)).Elem(), GlusterfsVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GlusterfsVolumeSourcePtrInput)(nil)).Elem(), GlusterfsVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPGetActionInput)(nil)).Elem(), HTTPGetActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPGetActionPtrInput)(nil)).Elem(), HTTPGetActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPHeaderInput)(nil)).Elem(), HTTPHeaderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPHeaderArrayInput)(nil)).Elem(), HTTPHeaderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HandlerInput)(nil)).Elem(), HandlerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HandlerPtrInput)(nil)).Elem(), HandlerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HostAliasInput)(nil)).Elem(), HostAliasArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HostAliasArrayInput)(nil)).Elem(), HostAliasArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HostPathVolumeSourceInput)(nil)).Elem(), HostPathVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HostPathVolumeSourcePtrInput)(nil)).Elem(), HostPathVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ISCSIPersistentVolumeSourceInput)(nil)).Elem(), ISCSIPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ISCSIPersistentVolumeSourcePtrInput)(nil)).Elem(), ISCSIPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ISCSIVolumeSourceInput)(nil)).Elem(), ISCSIVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ISCSIVolumeSourcePtrInput)(nil)).Elem(), ISCSIVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KeyToPathInput)(nil)).Elem(), KeyToPathArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KeyToPathArrayInput)(nil)).Elem(), KeyToPathArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LifecycleInput)(nil)).Elem(), LifecycleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LifecyclePtrInput)(nil)).Elem(), LifecycleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeTypeInput)(nil)).Elem(), LimitRangeTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeTypeArrayInput)(nil)).Elem(), LimitRangeTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeItemInput)(nil)).Elem(), LimitRangeItemArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeItemArrayInput)(nil)).Elem(), LimitRangeItemArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeListTypeInput)(nil)).Elem(), LimitRangeListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeSpecInput)(nil)).Elem(), LimitRangeSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeSpecPtrInput)(nil)).Elem(), LimitRangeSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerIngressInput)(nil)).Elem(), LoadBalancerIngressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerIngressArrayInput)(nil)).Elem(), LoadBalancerIngressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerStatusInput)(nil)).Elem(), LoadBalancerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerStatusPtrInput)(nil)).Elem(), LoadBalancerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalObjectReferenceInput)(nil)).Elem(), LocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalObjectReferencePtrInput)(nil)).Elem(), LocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalObjectReferenceArrayInput)(nil)).Elem(), LocalObjectReferenceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalVolumeSourceInput)(nil)).Elem(), LocalVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalVolumeSourcePtrInput)(nil)).Elem(), LocalVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NFSVolumeSourceInput)(nil)).Elem(), NFSVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NFSVolumeSourcePtrInput)(nil)).Elem(), NFSVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceTypeInput)(nil)).Elem(), NamespaceTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceTypeArrayInput)(nil)).Elem(), NamespaceTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceConditionInput)(nil)).Elem(), NamespaceConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceConditionArrayInput)(nil)).Elem(), NamespaceConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceListTypeInput)(nil)).Elem(), NamespaceListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceSpecInput)(nil)).Elem(), NamespaceSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceSpecPtrInput)(nil)).Elem(), NamespaceSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceStatusInput)(nil)).Elem(), NamespaceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceStatusPtrInput)(nil)).Elem(), NamespaceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTypeInput)(nil)).Elem(), NodeTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeTypeArrayInput)(nil)).Elem(), NodeTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAddressInput)(nil)).Elem(), NodeAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAddressArrayInput)(nil)).Elem(), NodeAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAffinityInput)(nil)).Elem(), NodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeAffinityPtrInput)(nil)).Elem(), NodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeConditionInput)(nil)).Elem(), NodeConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeConditionArrayInput)(nil)).Elem(), NodeConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigSourceInput)(nil)).Elem(), NodeConfigSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigSourcePtrInput)(nil)).Elem(), NodeConfigSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigStatusInput)(nil)).Elem(), NodeConfigStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeConfigStatusPtrInput)(nil)).Elem(), NodeConfigStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeDaemonEndpointsInput)(nil)).Elem(), NodeDaemonEndpointsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeDaemonEndpointsPtrInput)(nil)).Elem(), NodeDaemonEndpointsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeListTypeInput)(nil)).Elem(), NodeListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSelectorInput)(nil)).Elem(), NodeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSelectorPtrInput)(nil)).Elem(), NodeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSelectorRequirementInput)(nil)).Elem(), NodeSelectorRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSelectorRequirementArrayInput)(nil)).Elem(), NodeSelectorRequirementArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSelectorTermInput)(nil)).Elem(), NodeSelectorTermArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSelectorTermArrayInput)(nil)).Elem(), NodeSelectorTermArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSpecInput)(nil)).Elem(), NodeSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSpecPtrInput)(nil)).Elem(), NodeSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusInput)(nil)).Elem(), NodeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeStatusPtrInput)(nil)).Elem(), NodeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoInput)(nil)).Elem(), NodeSystemInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeSystemInfoPtrInput)(nil)).Elem(), NodeSystemInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectFieldSelectorInput)(nil)).Elem(), ObjectFieldSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectFieldSelectorPtrInput)(nil)).Elem(), ObjectFieldSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectReferenceInput)(nil)).Elem(), ObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectReferencePtrInput)(nil)).Elem(), ObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectReferenceArrayInput)(nil)).Elem(), ObjectReferenceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeTypeInput)(nil)).Elem(), PersistentVolumeTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeTypeArrayInput)(nil)).Elem(), PersistentVolumeTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimTypeInput)(nil)).Elem(), PersistentVolumeClaimTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimTypeArrayInput)(nil)).Elem(), PersistentVolumeClaimTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimConditionInput)(nil)).Elem(), PersistentVolumeClaimConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimConditionArrayInput)(nil)).Elem(), PersistentVolumeClaimConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimListTypeInput)(nil)).Elem(), PersistentVolumeClaimListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimSpecInput)(nil)).Elem(), PersistentVolumeClaimSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimSpecPtrInput)(nil)).Elem(), PersistentVolumeClaimSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimStatusInput)(nil)).Elem(), PersistentVolumeClaimStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimStatusPtrInput)(nil)).Elem(), PersistentVolumeClaimStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimTemplateInput)(nil)).Elem(), PersistentVolumeClaimTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimTemplatePtrInput)(nil)).Elem(), PersistentVolumeClaimTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimVolumeSourceInput)(nil)).Elem(), PersistentVolumeClaimVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimVolumeSourcePtrInput)(nil)).Elem(), PersistentVolumeClaimVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeListTypeInput)(nil)).Elem(), PersistentVolumeListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeSpecInput)(nil)).Elem(), PersistentVolumeSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeSpecPtrInput)(nil)).Elem(), PersistentVolumeSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeStatusInput)(nil)).Elem(), PersistentVolumeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeStatusPtrInput)(nil)).Elem(), PersistentVolumeStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PhotonPersistentDiskVolumeSourceInput)(nil)).Elem(), PhotonPersistentDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PhotonPersistentDiskVolumeSourcePtrInput)(nil)).Elem(), PhotonPersistentDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTypeInput)(nil)).Elem(), PodTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTypeArrayInput)(nil)).Elem(), PodTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodAffinityInput)(nil)).Elem(), PodAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodAffinityPtrInput)(nil)).Elem(), PodAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodAffinityTermInput)(nil)).Elem(), PodAffinityTermArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodAffinityTermArrayInput)(nil)).Elem(), PodAffinityTermArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodAntiAffinityInput)(nil)).Elem(), PodAntiAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodAntiAffinityPtrInput)(nil)).Elem(), PodAntiAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodConditionInput)(nil)).Elem(), PodConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodConditionArrayInput)(nil)).Elem(), PodConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDNSConfigInput)(nil)).Elem(), PodDNSConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDNSConfigPtrInput)(nil)).Elem(), PodDNSConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDNSConfigOptionInput)(nil)).Elem(), PodDNSConfigOptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDNSConfigOptionArrayInput)(nil)).Elem(), PodDNSConfigOptionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodIPInput)(nil)).Elem(), PodIPArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodIPArrayInput)(nil)).Elem(), PodIPArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodListTypeInput)(nil)).Elem(), PodListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodReadinessGateInput)(nil)).Elem(), PodReadinessGateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodReadinessGateArrayInput)(nil)).Elem(), PodReadinessGateArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityContextInput)(nil)).Elem(), PodSecurityContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityContextPtrInput)(nil)).Elem(), PodSecurityContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSpecInput)(nil)).Elem(), PodSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSpecPtrInput)(nil)).Elem(), PodSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodStatusInput)(nil)).Elem(), PodStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodStatusPtrInput)(nil)).Elem(), PodStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateTypeInput)(nil)).Elem(), PodTemplateTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateTypeArrayInput)(nil)).Elem(), PodTemplateTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateListTypeInput)(nil)).Elem(), PodTemplateListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateSpecInput)(nil)).Elem(), PodTemplateSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateSpecPtrInput)(nil)).Elem(), PodTemplateSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PortStatusInput)(nil)).Elem(), PortStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PortStatusArrayInput)(nil)).Elem(), PortStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PortworxVolumeSourceInput)(nil)).Elem(), PortworxVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PortworxVolumeSourcePtrInput)(nil)).Elem(), PortworxVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PreferredSchedulingTermInput)(nil)).Elem(), PreferredSchedulingTermArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PreferredSchedulingTermArrayInput)(nil)).Elem(), PreferredSchedulingTermArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProbeInput)(nil)).Elem(), ProbeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProbePtrInput)(nil)).Elem(), ProbeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectedVolumeSourceInput)(nil)).Elem(), ProjectedVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProjectedVolumeSourcePtrInput)(nil)).Elem(), ProjectedVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*QuobyteVolumeSourceInput)(nil)).Elem(), QuobyteVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*QuobyteVolumeSourcePtrInput)(nil)).Elem(), QuobyteVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RBDPersistentVolumeSourceInput)(nil)).Elem(), RBDPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RBDPersistentVolumeSourcePtrInput)(nil)).Elem(), RBDPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RBDVolumeSourceInput)(nil)).Elem(), RBDVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RBDVolumeSourcePtrInput)(nil)).Elem(), RBDVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerTypeInput)(nil)).Elem(), ReplicationControllerTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerTypeArrayInput)(nil)).Elem(), ReplicationControllerTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerConditionInput)(nil)).Elem(), ReplicationControllerConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerConditionArrayInput)(nil)).Elem(), ReplicationControllerConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerListTypeInput)(nil)).Elem(), ReplicationControllerListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerSpecInput)(nil)).Elem(), ReplicationControllerSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerSpecPtrInput)(nil)).Elem(), ReplicationControllerSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerStatusInput)(nil)).Elem(), ReplicationControllerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerStatusPtrInput)(nil)).Elem(), ReplicationControllerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceFieldSelectorInput)(nil)).Elem(), ResourceFieldSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceFieldSelectorPtrInput)(nil)).Elem(), ResourceFieldSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaTypeInput)(nil)).Elem(), ResourceQuotaTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaTypeArrayInput)(nil)).Elem(), ResourceQuotaTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaListTypeInput)(nil)).Elem(), ResourceQuotaListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaSpecInput)(nil)).Elem(), ResourceQuotaSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaSpecPtrInput)(nil)).Elem(), ResourceQuotaSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaStatusInput)(nil)).Elem(), ResourceQuotaStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaStatusPtrInput)(nil)).Elem(), ResourceQuotaStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRequirementsInput)(nil)).Elem(), ResourceRequirementsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRequirementsPtrInput)(nil)).Elem(), ResourceRequirementsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SELinuxOptionsInput)(nil)).Elem(), SELinuxOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SELinuxOptionsPtrInput)(nil)).Elem(), SELinuxOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleIOPersistentVolumeSourceInput)(nil)).Elem(), ScaleIOPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleIOPersistentVolumeSourcePtrInput)(nil)).Elem(), ScaleIOPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleIOVolumeSourceInput)(nil)).Elem(), ScaleIOVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleIOVolumeSourcePtrInput)(nil)).Elem(), ScaleIOVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScopeSelectorInput)(nil)).Elem(), ScopeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScopeSelectorPtrInput)(nil)).Elem(), ScopeSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScopedResourceSelectorRequirementInput)(nil)).Elem(), ScopedResourceSelectorRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScopedResourceSelectorRequirementArrayInput)(nil)).Elem(), ScopedResourceSelectorRequirementArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SeccompProfileInput)(nil)).Elem(), SeccompProfileArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SeccompProfilePtrInput)(nil)).Elem(), SeccompProfileArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretTypeInput)(nil)).Elem(), SecretTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretTypeArrayInput)(nil)).Elem(), SecretTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretEnvSourceInput)(nil)).Elem(), SecretEnvSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretEnvSourcePtrInput)(nil)).Elem(), SecretEnvSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretKeySelectorInput)(nil)).Elem(), SecretKeySelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretKeySelectorPtrInput)(nil)).Elem(), SecretKeySelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretListTypeInput)(nil)).Elem(), SecretListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretProjectionInput)(nil)).Elem(), SecretProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretProjectionPtrInput)(nil)).Elem(), SecretProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretReferenceInput)(nil)).Elem(), SecretReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretReferencePtrInput)(nil)).Elem(), SecretReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretVolumeSourceInput)(nil)).Elem(), SecretVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretVolumeSourcePtrInput)(nil)).Elem(), SecretVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecurityContextInput)(nil)).Elem(), SecurityContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecurityContextPtrInput)(nil)).Elem(), SecurityContextArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceTypeInput)(nil)).Elem(), ServiceTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceTypeArrayInput)(nil)).Elem(), ServiceTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountTypeInput)(nil)).Elem(), ServiceAccountTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountTypeArrayInput)(nil)).Elem(), ServiceAccountTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountListTypeInput)(nil)).Elem(), ServiceAccountListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountTokenProjectionInput)(nil)).Elem(), ServiceAccountTokenProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountTokenProjectionPtrInput)(nil)).Elem(), ServiceAccountTokenProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceListTypeInput)(nil)).Elem(), ServiceListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServicePortInput)(nil)).Elem(), ServicePortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServicePortArrayInput)(nil)).Elem(), ServicePortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceSpecInput)(nil)).Elem(), ServiceSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceSpecPtrInput)(nil)).Elem(), ServiceSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceStatusInput)(nil)).Elem(), ServiceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceStatusPtrInput)(nil)).Elem(), ServiceStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SessionAffinityConfigInput)(nil)).Elem(), SessionAffinityConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SessionAffinityConfigPtrInput)(nil)).Elem(), SessionAffinityConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSPersistentVolumeSourceInput)(nil)).Elem(), StorageOSPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSPersistentVolumeSourcePtrInput)(nil)).Elem(), StorageOSPersistentVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSVolumeSourceInput)(nil)).Elem(), StorageOSVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageOSVolumeSourcePtrInput)(nil)).Elem(), StorageOSVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SysctlInput)(nil)).Elem(), SysctlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SysctlArrayInput)(nil)).Elem(), SysctlArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TCPSocketActionInput)(nil)).Elem(), TCPSocketActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TCPSocketActionPtrInput)(nil)).Elem(), TCPSocketActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TaintInput)(nil)).Elem(), TaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TaintArrayInput)(nil)).Elem(), TaintArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TolerationInput)(nil)).Elem(), TolerationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TolerationArrayInput)(nil)).Elem(), TolerationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologySelectorLabelRequirementInput)(nil)).Elem(), TopologySelectorLabelRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologySelectorLabelRequirementArrayInput)(nil)).Elem(), TopologySelectorLabelRequirementArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologySelectorTermInput)(nil)).Elem(), TopologySelectorTermArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologySelectorTermArrayInput)(nil)).Elem(), TopologySelectorTermArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologySpreadConstraintInput)(nil)).Elem(), TopologySpreadConstraintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopologySpreadConstraintArrayInput)(nil)).Elem(), TopologySpreadConstraintArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferenceInput)(nil)).Elem(), TypedLocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypedLocalObjectReferencePtrInput)(nil)).Elem(), TypedLocalObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeInput)(nil)).Elem(), VolumeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeArrayInput)(nil)).Elem(), VolumeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeDeviceInput)(nil)).Elem(), VolumeDeviceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeDeviceArrayInput)(nil)).Elem(), VolumeDeviceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeMountInput)(nil)).Elem(), VolumeMountArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeMountArrayInput)(nil)).Elem(), VolumeMountArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeNodeAffinityInput)(nil)).Elem(), VolumeNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeNodeAffinityPtrInput)(nil)).Elem(), VolumeNodeAffinityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeProjectionInput)(nil)).Elem(), VolumeProjectionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeProjectionArrayInput)(nil)).Elem(), VolumeProjectionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VsphereVirtualDiskVolumeSourceInput)(nil)).Elem(), VsphereVirtualDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VsphereVirtualDiskVolumeSourcePtrInput)(nil)).Elem(), VsphereVirtualDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WeightedPodAffinityTermInput)(nil)).Elem(), WeightedPodAffinityTermArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WeightedPodAffinityTermArrayInput)(nil)).Elem(), WeightedPodAffinityTermArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WindowsSecurityContextOptionsInput)(nil)).Elem(), WindowsSecurityContextOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WindowsSecurityContextOptionsPtrInput)(nil)).Elem(), WindowsSecurityContextOptionsArgs{})
 	pulumi.RegisterOutputType(AWSElasticBlockStoreVolumeSourceOutput{})
 	pulumi.RegisterOutputType(AWSElasticBlockStoreVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(AffinityOutput{})
@@ -32609,7 +33628,6 @@ func init() {
 	pulumi.RegisterOutputType(EnvVarSourcePtrOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerOutput{})
 	pulumi.RegisterOutputType(EphemeralContainerArrayOutput{})
-	pulumi.RegisterOutputType(EphemeralContainersTypeOutput{})
 	pulumi.RegisterOutputType(EphemeralVolumeSourceOutput{})
 	pulumi.RegisterOutputType(EphemeralVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(EventTypeOutput{})

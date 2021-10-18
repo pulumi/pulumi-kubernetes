@@ -16,6 +16,7 @@
 package gen
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -23,6 +24,12 @@ import (
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
+
+// typeOverlays augment the types defined by the kubernetes schema.
+var typeOverlays = map[string]pschema.ComplexTypeSpec{}
+
+// resourceOverlays augment the resources defined by the kubernetes schema.
+var resourceOverlays = map[string]pschema.ResourceSpec{}
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
 func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
@@ -68,6 +75,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				},
 				"suppressDeprecationWarnings": {
 					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressDeprecationWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS` environment variable.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
+				"suppressHelmHookWarnings": {
+					Description: "If present and set to true, suppress unsupported Helm hook warnings from the CLI.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `suppressHelmHookWarnings` parameter.\n2. The `PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 			},
@@ -127,6 +138,23 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "If present and set to true, suppress apiVersion deprecation warnings from the CLI.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"kubeClientSettings": {
+					Description: "Options for tuning the Kubernetes client used by a Provider.",
+					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:KubeClientSettings"},
+				},
+				"helmReleaseSettings": {
+					Description: "BETA FEATURE - Options to configure the Helm Release resource.",
+					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:HelmReleaseSettings"},
+				},
+				"suppressHelmHookWarnings": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS",
+						},
+					},
+					Description: "If present and set to true, suppress unsupported Helm hook warnings from the CLI.",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 			},
 		},
 
@@ -138,9 +166,16 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
 
-	csharpNamespaces := map[string]string{}
-	modToPkg := map[string]string{}
-	pkgImportAliases := map[string]string{}
+	csharpNamespaces := map[string]string{
+		"helm.sh/v3": "Helm.V3",
+		"":           "Provider",
+	}
+	modToPkg := map[string]string{
+		"helm.sh/v3": "helm/v3",
+	}
+	pkgImportAliases := map[string]string{
+		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",
+	}
 
 	definitions := swagger["definitions"].(map[string]interface{})
 	groupsSlice := createGroups(definitions)
@@ -243,6 +278,13 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				pkg.Types[tok] = overlayType
 			}
 		}
+
+		// Finally, add overlay resources that weren't in the schema.
+		for tok := range resourceOverlays {
+			if _, resourceExists := pkg.Resources[tok]; !resourceExists {
+				pkg.Resources[tok] = resourceOverlays[tok]
+			}
+		}
 	}
 
 	// Compatibility mode for Kubernetes 2.0 SDK
@@ -257,6 +299,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"compatibility":          kubernetes20,
 		"dictionaryConstructors": true,
 	})
+
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
 		"importBasePath":                 goImportPath,
 		"moduleToPackage":                modToPkg,
@@ -301,7 +344,7 @@ Use the navigation below to see detailed documentation for each of the supported
 		"requires": map[string]string{
 			"pulumi":   ">=3.0.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
-			"pyyaml":   ">=5.3.1,<6.0",
+			"pyyaml":   ">=5.3.1",
 		},
 		"moduleNameOverrides": modToPkg,
 		"compatibility":       kubernetes20,
@@ -382,7 +425,10 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 }
 
 func rawMessage(v interface{}) pschema.RawMessage {
-	bytes, err := json.Marshal(v)
+	var out bytes.Buffer
+	encoder := json.NewEncoder(&out)
+	encoder.SetEscapeHTML(false)
+	err := encoder.Encode(v)
 	contract.Assert(err == nil)
-	return bytes
+	return out.Bytes()
 }

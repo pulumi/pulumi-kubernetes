@@ -12,7 +12,7 @@ VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider/v3
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
-KUBE_VERSION    ?= v1.21.0
+KUBE_VERSION    ?= v1.22.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
@@ -84,7 +84,7 @@ python_sdk::
 		cd ./bin && python3 setup.py build sdist
 
 .PHONY: build
-build:: k8sgen openapi_file schema k8sprovider dotnet_sdk go_sdk nodejs_sdk python_sdk
+build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk
 
 # Required for the codegen action that runs in pulumi/pulumi
 only_build:: build

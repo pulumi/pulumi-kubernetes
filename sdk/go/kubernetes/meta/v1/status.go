@@ -209,9 +209,7 @@ func (i StatusMap) ToStatusMapOutputWithContext(ctx context.Context) StatusMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(StatusMapOutput)
 }
 
-type StatusOutput struct {
-	*pulumi.OutputState
-}
+type StatusOutput struct{ *pulumi.OutputState }
 
 func (StatusOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Status)(nil))
@@ -230,14 +228,12 @@ func (o StatusOutput) ToStatusPtrOutput() StatusPtrOutput {
 }
 
 func (o StatusOutput) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
-	return o.ApplyT(func(v Status) *Status {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Status) *Status {
 		return &v
 	}).(StatusPtrOutput)
 }
 
-type StatusPtrOutput struct {
-	*pulumi.OutputState
-}
+type StatusPtrOutput struct{ *pulumi.OutputState }
 
 func (StatusPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Status)(nil))
@@ -249,6 +245,16 @@ func (o StatusPtrOutput) ToStatusPtrOutput() StatusPtrOutput {
 
 func (o StatusPtrOutput) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
 	return o
+}
+
+func (o StatusPtrOutput) Elem() StatusOutput {
+	return o.ApplyT(func(v *Status) Status {
+		if v != nil {
+			return *v
+		}
+		var ret Status
+		return ret
+	}).(StatusOutput)
 }
 
 type StatusArrayOutput struct{ *pulumi.OutputState }

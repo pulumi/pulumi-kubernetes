@@ -7,7 +7,8 @@ import typing
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_kubernetes.extensions.v1beta1 as v1beta1
+    import pulumi_kubernetes.extensions.v1beta1 as __v1beta1
+    v1beta1 = __v1beta1
 else:
     v1beta1 = _utilities.lazy_import('pulumi_kubernetes.extensions.v1beta1')
 

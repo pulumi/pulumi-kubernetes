@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 type RuntimeClass struct {
 	pulumi.CustomResourceState
 
@@ -203,9 +203,7 @@ func (i RuntimeClassMap) ToRuntimeClassMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassMapOutput)
 }
 
-type RuntimeClassOutput struct {
-	*pulumi.OutputState
-}
+type RuntimeClassOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RuntimeClass)(nil))
@@ -224,14 +222,12 @@ func (o RuntimeClassOutput) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
 }
 
 func (o RuntimeClassOutput) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
-	return o.ApplyT(func(v RuntimeClass) *RuntimeClass {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClass) *RuntimeClass {
 		return &v
 	}).(RuntimeClassPtrOutput)
 }
 
-type RuntimeClassPtrOutput struct {
-	*pulumi.OutputState
-}
+type RuntimeClassPtrOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RuntimeClass)(nil))
@@ -243,6 +239,16 @@ func (o RuntimeClassPtrOutput) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
 
 func (o RuntimeClassPtrOutput) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
 	return o
+}
+
+func (o RuntimeClassPtrOutput) Elem() RuntimeClassOutput {
+	return o.ApplyT(func(v *RuntimeClass) RuntimeClass {
+		if v != nil {
+			return *v
+		}
+		var ret RuntimeClass
+		return ret
+	}).(RuntimeClassOutput)
 }
 
 type RuntimeClassArrayOutput struct{ *pulumi.OutputState }

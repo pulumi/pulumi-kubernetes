@@ -198,9 +198,7 @@ func (i PodDisruptionBudgetMap) ToPodDisruptionBudgetMapOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetMapOutput)
 }
 
-type PodDisruptionBudgetOutput struct {
-	*pulumi.OutputState
-}
+type PodDisruptionBudgetOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodDisruptionBudget)(nil))
@@ -219,14 +217,12 @@ func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetPtrOutput() PodDisruptio
 }
 
 func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudget) *PodDisruptionBudget {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudget) *PodDisruptionBudget {
 		return &v
 	}).(PodDisruptionBudgetPtrOutput)
 }
 
-type PodDisruptionBudgetPtrOutput struct {
-	*pulumi.OutputState
-}
+type PodDisruptionBudgetPtrOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodDisruptionBudget)(nil))
@@ -238,6 +234,16 @@ func (o PodDisruptionBudgetPtrOutput) ToPodDisruptionBudgetPtrOutput() PodDisrup
 
 func (o PodDisruptionBudgetPtrOutput) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetPtrOutput) Elem() PodDisruptionBudgetOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudget {
+		if v != nil {
+			return *v
+		}
+		var ret PodDisruptionBudget
+		return ret
+	}).(PodDisruptionBudgetOutput)
 }
 
 type PodDisruptionBudgetArrayOutput struct{ *pulumi.OutputState }

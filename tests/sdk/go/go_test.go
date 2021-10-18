@@ -89,6 +89,21 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
+	t.Run("Helm Release", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "helm-release", "step1"),
+			Quick: true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:             filepath.Join("helm-release", "step2"),
+					Additive:        true,
+					ExpectNoChanges: true,
+				},
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
 	t.Run("Helm API Versions", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-api-versions", "step1"),

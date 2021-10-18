@@ -1,3 +1,5 @@
+// Copyright 2021, Pulumi Corporation.  All rights reserved.
+
 /*
 Copyright 2017 The Kubernetes Authors.
 

@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"text/template"
@@ -39,16 +40,6 @@ import (
 	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
-
-// This is the URL for the v1.17.0 swagger spec. This is the last version of the spec containing the following
-// deprecated resources:
-// - extensions/v1beta1/*
-// - apps/v1beta1/*
-// - apps/v1beta2/*
-// Since these resources will continue to be important to users for the foreseeable future, we will merge in
-// newer specs on top of this spec so that these resources continue to be available in our SDKs.
-const Swagger117Url = "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.17.0/api/openapi-spec/swagger.json"
-const Swagger117FileName = "swagger-v1.17.0.json"
 
 // TemplateDir is the path to the base directory for code generator templates.
 var TemplateDir string
@@ -144,21 +135,40 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 
 	swaggerDir := filepath.Dir(swaggerPath)
 
-	legacySwaggerPath := filepath.Join(swaggerDir, Swagger117FileName)
-	err = DownloadFile(legacySwaggerPath, Swagger117Url)
+	// The following APIs have been deprecated and removed in the more recent versions of k8s:
+	// - extensions/v1beta1/*
+	// - apps/v1beta1/*
+	// - apps/v1beta2/*
+	// - networking/v1beta1/IngressClass
+	// Since these resources will continue to be important to users for the foreseeable future, we will merge in
+	// newer specs on top of this spec so that these resources continue to be available in our SDKs.
+	urlFmt := "https://raw.githubusercontent.com/kubernetes/kubernetes/v1.%s.0/api/openapi-spec/swagger.json"
+	filenameFmt := "swagger-v1.%s.0.json"
+	for _, v := range []string{"17", "18", "19", "20"} {
+		legacySwaggerPath := filepath.Join(swaggerDir, fmt.Sprintf(filenameFmt, v))
+		err = DownloadFile(legacySwaggerPath, fmt.Sprintf(urlFmt, v))
+		if err != nil {
+			panic(err)
+		}
+		legacySwagger, err := ioutil.ReadFile(legacySwaggerPath)
+		if err != nil {
+			panic(err)
+		}
+		swagger = mergeSwaggerSpecs(legacySwagger, swagger)
+	}
+
+	var schemaMap map[string]interface{}
+	err = json.Unmarshal(swagger, &schemaMap)
 	if err != nil {
 		panic(err)
 	}
-	legacySwagger, err := ioutil.ReadFile(legacySwaggerPath)
-	if err != nil {
-		panic(err)
-	}
-	mergedSwagger := mergeSwaggerSpecs(legacySwagger, swagger)
-	data := mergedSwagger.(map[string]interface{})
 
 	// Generate schema
-	return gen.PulumiSchema(data)
+	return gen.PulumiSchema(schemaMap)
 }
+
+// This is to mostly filter resources from the spec.
+var resourcesToFilterFromTemplate = codegen.NewStringSet("kubernetes:helm.sh/v3:Release")
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources(pkg)
@@ -168,7 +178,10 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 
 	templateResources := gen.TemplateResources{}
 	packages := codegen.StringSet{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		if resource.Package == "" {
 			continue
 		}
@@ -224,7 +237,10 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -259,7 +275,10 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -309,6 +328,27 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	if err != nil {
 		panic(err)
 	}
+	renamePackage := func(fileNames []string, sourcePackage, renameTo string) {
+		re := regexp.MustCompile(fmt.Sprintf(`(%s)`, sourcePackage))
+
+		for _, f := range fileNames {
+			content, ok := files[f]
+			if !ok {
+				contract.Failf("Expected file: %q but not found.", f)
+			}
+			files[f] = re.ReplaceAll(content, []byte(renameTo))
+		}
+	}
+
+	// Go codegen maps package to "v3" for Helm Release. Manually rename to
+	// helm to avoid conflict with existing templates.
+	renamePackage([]string{
+		"kubernetes/helm/v3/pulumiTypes.go",
+		"kubernetes/helm/v3/init.go",
+		"kubernetes/helm/v3/release.go",
+	},
+		"package v3",
+		"package helm")
 
 	resources, err := gogen.LanguageResources("pulumigen", pkg)
 	if err != nil {
@@ -316,7 +356,10 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	}
 
 	templateResources := gen.GoTemplateResources{}
-	for _, resource := range resources {
+	for tok, resource := range resources {
+		if resourcesToFilterFromTemplate.Has(tok) {
+			continue
+		}
 		r := gen.TemplateResource{
 			Alias:   resource.Alias,
 			Name:    resource.Name,
@@ -329,12 +372,26 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 
-	files["kubernetes/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "pulumiTypes.go"))
+	// We mistakenly included an older version of the Go Provider at
+	// `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/providers` that was later removed in v3.6.0.
+	// Re-add this file with deprecation notices in preparation for future removal.
+	deprecatedComment := "// Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead"
+	deprecatedProviderFile := string(files["kubernetes/provider.go"])
+	deprecatedProviderFile = strings.ReplaceAll(deprecatedProviderFile, "\nfunc", fmt.Sprintf("\n%s\nfunc", deprecatedComment))
+	deprecatedProviderFile = strings.ReplaceAll(deprecatedProviderFile, "\ntype", fmt.Sprintf("\n%s\ntype", deprecatedComment))
+	files["kubernetes/providers/provider.go"] = []byte(deprecatedProviderFile)
+	deprecatedTypesFile := string(files["kubernetes/pulumiTypes.go"])
+	deprecatedTypesFile = strings.ReplaceAll(deprecatedTypesFile, "\nfunc", fmt.Sprintf("\n%s\nfunc", deprecatedComment))
+	deprecatedTypesFile = strings.ReplaceAll(deprecatedTypesFile, "\ntype", fmt.Sprintf("\n%s\ntype", deprecatedComment))
+	files["kubernetes/providers/pulumiTypes.go"] = []byte(deprecatedTypesFile)
+
+	files["kubernetes/customPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "customPulumiTypes.go"))
 	files["kubernetes/apiextensions/customResource.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResource.go"))
 	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
 	files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
 	files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
-	files["kubernetes/helm/v3/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
+	// Rename pulumiTypes.go to avoid conflict with schema generated Helm Release types.
+	files["kubernetes/helm/v3/chartPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
 	files["kubernetes/kustomize/directory.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "directory.go"))
 	files["kubernetes/kustomize/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "pulumiTypes.go"))
 	files["kubernetes/yaml/configFile.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configFile.go"))
@@ -379,15 +436,16 @@ func mustRenderGoTemplate(path string, resources interface{}) []byte {
 	bytes := mustRenderTemplate(path, resources)
 
 	formattedSource, err := format.Source(bytes)
-	if err != nil {
-		panic(err)
-	}
+	contract.AssertNoErrorf(err, "err: %+v path: %q source:\n%s", err, path, string(bytes))
 	return formattedSource
 }
 
 func genK8sResourceTypes(pkg *schema.Package) {
 	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
 	for _, resource := range pkg.Resources {
+		if resourcesToFilterFromTemplate.Has(resource.Token) {
+			continue
+		}
 		parts := strings.Split(resource.Token, ":")
 		contract.Assert(len(parts) == 3)
 
@@ -425,8 +483,19 @@ func mustWriteFile(rootDir, filename string, contents []byte) {
 	}
 }
 
+func makeJSONString(v interface{}) ([]byte, error) {
+	var out bytes.Buffer
+	encoder := json.NewEncoder(&out)
+	encoder.SetEscapeHTML(false)
+	encoder.SetIndent("", "    ")
+	if err := encoder.Encode(v); err != nil {
+		return nil, err
+	}
+	return out.Bytes(), nil
+}
+
 func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
-	schemaJSON, err := json.MarshalIndent(pkgSpec, "", "    ")
+	schemaJSON, err := makeJSONString(pkgSpec)
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
@@ -435,7 +504,7 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 
 	versionedPkgSpec := pkgSpec
 	versionedPkgSpec.Version = version
-	versionedSchemaJSON, err := json.MarshalIndent(versionedPkgSpec, "", "    ")
+	versionedSchemaJSON, err := makeJSONString(versionedPkgSpec)
 	if err != nil {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}

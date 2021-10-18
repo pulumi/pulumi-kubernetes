@@ -26,7 +26,7 @@ type PriorityClass struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 	PreemptionPolicy pulumi.StringPtrOutput `pulumi:"preemptionPolicy"`
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntOutput `pulumi:"value"`
@@ -95,7 +95,7 @@ type priorityClassArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value int `pulumi:"value"`
@@ -113,7 +113,7 @@ type PriorityClassArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
 	PreemptionPolicy pulumi.StringPtrInput
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntInput
@@ -221,9 +221,7 @@ func (i PriorityClassMap) ToPriorityClassMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassMapOutput)
 }
 
-type PriorityClassOutput struct {
-	*pulumi.OutputState
-}
+type PriorityClassOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PriorityClass)(nil))
@@ -242,14 +240,12 @@ func (o PriorityClassOutput) ToPriorityClassPtrOutput() PriorityClassPtrOutput {
 }
 
 func (o PriorityClassOutput) ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput {
-	return o.ApplyT(func(v PriorityClass) *PriorityClass {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityClass) *PriorityClass {
 		return &v
 	}).(PriorityClassPtrOutput)
 }
 
-type PriorityClassPtrOutput struct {
-	*pulumi.OutputState
-}
+type PriorityClassPtrOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PriorityClass)(nil))
@@ -261,6 +257,16 @@ func (o PriorityClassPtrOutput) ToPriorityClassPtrOutput() PriorityClassPtrOutpu
 
 func (o PriorityClassPtrOutput) ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput {
 	return o
+}
+
+func (o PriorityClassPtrOutput) Elem() PriorityClassOutput {
+	return o.ApplyT(func(v *PriorityClass) PriorityClass {
+		if v != nil {
+			return *v
+		}
+		var ret PriorityClass
+		return ret
+	}).(PriorityClassOutput)
 }
 
 type PriorityClassArrayOutput struct{ *pulumi.OutputState }

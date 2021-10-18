@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.22.
+// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.20.
 type ClusterRoleBindingList struct {
 	pulumi.CustomResourceState
 
@@ -194,9 +194,7 @@ func (i ClusterRoleBindingListMap) ToClusterRoleBindingListMapOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingListMapOutput)
 }
 
-type ClusterRoleBindingListOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleBindingListOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleBindingListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ClusterRoleBindingList)(nil))
@@ -215,14 +213,12 @@ func (o ClusterRoleBindingListOutput) ToClusterRoleBindingListPtrOutput() Cluste
 }
 
 func (o ClusterRoleBindingListOutput) ToClusterRoleBindingListPtrOutputWithContext(ctx context.Context) ClusterRoleBindingListPtrOutput {
-	return o.ApplyT(func(v ClusterRoleBindingList) *ClusterRoleBindingList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterRoleBindingList) *ClusterRoleBindingList {
 		return &v
 	}).(ClusterRoleBindingListPtrOutput)
 }
 
-type ClusterRoleBindingListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleBindingListPtrOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleBindingListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ClusterRoleBindingList)(nil))
@@ -234,6 +230,16 @@ func (o ClusterRoleBindingListPtrOutput) ToClusterRoleBindingListPtrOutput() Clu
 
 func (o ClusterRoleBindingListPtrOutput) ToClusterRoleBindingListPtrOutputWithContext(ctx context.Context) ClusterRoleBindingListPtrOutput {
 	return o
+}
+
+func (o ClusterRoleBindingListPtrOutput) Elem() ClusterRoleBindingListOutput {
+	return o.ApplyT(func(v *ClusterRoleBindingList) ClusterRoleBindingList {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterRoleBindingList
+		return ret
+	}).(ClusterRoleBindingListOutput)
 }
 
 type ClusterRoleBindingListArrayOutput struct{ *pulumi.OutputState }

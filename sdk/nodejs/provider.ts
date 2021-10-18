@@ -2,6 +2,7 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import { input as inputs, output as outputs, enums } from "./types";
 import * as utilities from "./utilities";
 
 /**
@@ -37,10 +38,13 @@ export class Provider extends pulumi.ProviderResource {
             inputs["cluster"] = args ? args.cluster : undefined;
             inputs["context"] = args ? args.context : undefined;
             inputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
+            inputs["helmReleaseSettings"] = pulumi.output(args ? args.helmReleaseSettings : undefined).apply(JSON.stringify);
+            inputs["kubeClientSettings"] = pulumi.output(args ? args.kubeClientSettings : undefined).apply(JSON.stringify);
             inputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
             inputs["namespace"] = args ? args.namespace : undefined;
             inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
             inputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
+            inputs["suppressHelmHookWarnings"] = pulumi.output((args ? args.suppressHelmHookWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
@@ -66,6 +70,14 @@ export interface ProviderArgs {
      * This feature is in developer preview, and is disabled by default.
      */
     enableDryRun?: pulumi.Input<boolean>;
+    /**
+     * BETA FEATURE - Options to configure the Helm Release resource.
+     */
+    helmReleaseSettings?: pulumi.Input<inputs.HelmReleaseSettings>;
+    /**
+     * Options for tuning the Kubernetes client used by a Provider.
+     */
+    kubeClientSettings?: pulumi.Input<inputs.KubeClientSettings>;
     /**
      * The contents of a kubeconfig file or the path to a kubeconfig file.
      */
@@ -94,4 +106,8 @@ export interface ProviderArgs {
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */
     suppressDeprecationWarnings?: pulumi.Input<boolean>;
+    /**
+     * If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+     */
+    suppressHelmHookWarnings?: pulumi.Input<boolean>;
 }

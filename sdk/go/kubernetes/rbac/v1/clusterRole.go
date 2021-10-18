@@ -205,9 +205,7 @@ func (i ClusterRoleMap) ToClusterRoleMapOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleMapOutput)
 }
 
-type ClusterRoleOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ClusterRole)(nil))
@@ -226,14 +224,12 @@ func (o ClusterRoleOutput) ToClusterRolePtrOutput() ClusterRolePtrOutput {
 }
 
 func (o ClusterRoleOutput) ToClusterRolePtrOutputWithContext(ctx context.Context) ClusterRolePtrOutput {
-	return o.ApplyT(func(v ClusterRole) *ClusterRole {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterRole) *ClusterRole {
 		return &v
 	}).(ClusterRolePtrOutput)
 }
 
-type ClusterRolePtrOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRolePtrOutput struct{ *pulumi.OutputState }
 
 func (ClusterRolePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ClusterRole)(nil))
@@ -245,6 +241,16 @@ func (o ClusterRolePtrOutput) ToClusterRolePtrOutput() ClusterRolePtrOutput {
 
 func (o ClusterRolePtrOutput) ToClusterRolePtrOutputWithContext(ctx context.Context) ClusterRolePtrOutput {
 	return o
+}
+
+func (o ClusterRolePtrOutput) Elem() ClusterRoleOutput {
+	return o.ApplyT(func(v *ClusterRole) ClusterRole {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterRole
+		return ret
+	}).(ClusterRoleOutput)
 }
 
 type ClusterRoleArrayOutput struct{ *pulumi.OutputState }

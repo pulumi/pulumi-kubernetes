@@ -41,7 +41,7 @@ type Deployment struct {
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
-	// Standard object metadata.
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec DeploymentSpecPtrOutput `pulumi:"spec"`
@@ -106,7 +106,7 @@ type deploymentArgs struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata.
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec *DeploymentSpec `pulumi:"spec"`
@@ -118,7 +118,7 @@ type DeploymentArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
-	// Standard object metadata.
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Specification of the desired behavior of the Deployment.
 	Spec DeploymentSpecPtrInput
@@ -226,9 +226,7 @@ func (i DeploymentMap) ToDeploymentMapOutputWithContext(ctx context.Context) Dep
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentMapOutput)
 }
 
-type DeploymentOutput struct {
-	*pulumi.OutputState
-}
+type DeploymentOutput struct{ *pulumi.OutputState }
 
 func (DeploymentOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Deployment)(nil))
@@ -247,14 +245,12 @@ func (o DeploymentOutput) ToDeploymentPtrOutput() DeploymentPtrOutput {
 }
 
 func (o DeploymentOutput) ToDeploymentPtrOutputWithContext(ctx context.Context) DeploymentPtrOutput {
-	return o.ApplyT(func(v Deployment) *Deployment {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Deployment) *Deployment {
 		return &v
 	}).(DeploymentPtrOutput)
 }
 
-type DeploymentPtrOutput struct {
-	*pulumi.OutputState
-}
+type DeploymentPtrOutput struct{ *pulumi.OutputState }
 
 func (DeploymentPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Deployment)(nil))
@@ -266,6 +262,16 @@ func (o DeploymentPtrOutput) ToDeploymentPtrOutput() DeploymentPtrOutput {
 
 func (o DeploymentPtrOutput) ToDeploymentPtrOutputWithContext(ctx context.Context) DeploymentPtrOutput {
 	return o
+}
+
+func (o DeploymentPtrOutput) Elem() DeploymentOutput {
+	return o.ApplyT(func(v *Deployment) Deployment {
+		if v != nil {
+			return *v
+		}
+		var ret Deployment
+		return ret
+	}).(DeploymentOutput)
 }
 
 type DeploymentArrayOutput struct{ *pulumi.OutputState }

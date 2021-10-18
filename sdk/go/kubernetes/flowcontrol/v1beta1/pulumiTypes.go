@@ -107,7 +107,7 @@ func (o FlowDistinguisherMethodOutput) ToFlowDistinguisherMethodPtrOutput() Flow
 }
 
 func (o FlowDistinguisherMethodOutput) ToFlowDistinguisherMethodPtrOutputWithContext(ctx context.Context) FlowDistinguisherMethodPtrOutput {
-	return o.ApplyT(func(v FlowDistinguisherMethod) *FlowDistinguisherMethod {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowDistinguisherMethod) *FlowDistinguisherMethod {
 		return &v
 	}).(FlowDistinguisherMethodPtrOutput)
 }
@@ -132,7 +132,13 @@ func (o FlowDistinguisherMethodPtrOutput) ToFlowDistinguisherMethodPtrOutputWith
 }
 
 func (o FlowDistinguisherMethodPtrOutput) Elem() FlowDistinguisherMethodOutput {
-	return o.ApplyT(func(v *FlowDistinguisherMethod) FlowDistinguisherMethod { return *v }).(FlowDistinguisherMethodOutput)
+	return o.ApplyT(func(v *FlowDistinguisherMethod) FlowDistinguisherMethod {
+		if v != nil {
+			return *v
+		}
+		var ret FlowDistinguisherMethod
+		return ret
+	}).(FlowDistinguisherMethodOutput)
 }
 
 // `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
@@ -607,7 +613,7 @@ func (o FlowSchemaSpecOutput) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutpu
 }
 
 func (o FlowSchemaSpecOutput) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPtrOutput {
-	return o.ApplyT(func(v FlowSchemaSpec) *FlowSchemaSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowSchemaSpec) *FlowSchemaSpec {
 		return &v
 	}).(FlowSchemaSpecPtrOutput)
 }
@@ -647,7 +653,13 @@ func (o FlowSchemaSpecPtrOutput) ToFlowSchemaSpecPtrOutputWithContext(ctx contex
 }
 
 func (o FlowSchemaSpecPtrOutput) Elem() FlowSchemaSpecOutput {
-	return o.ApplyT(func(v *FlowSchemaSpec) FlowSchemaSpec { return *v }).(FlowSchemaSpecOutput)
+	return o.ApplyT(func(v *FlowSchemaSpec) FlowSchemaSpec {
+		if v != nil {
+			return *v
+		}
+		var ret FlowSchemaSpec
+		return ret
+	}).(FlowSchemaSpecOutput)
 }
 
 // `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
@@ -786,7 +798,7 @@ func (o FlowSchemaStatusOutput) ToFlowSchemaStatusPtrOutput() FlowSchemaStatusPt
 }
 
 func (o FlowSchemaStatusOutput) ToFlowSchemaStatusPtrOutputWithContext(ctx context.Context) FlowSchemaStatusPtrOutput {
-	return o.ApplyT(func(v FlowSchemaStatus) *FlowSchemaStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowSchemaStatus) *FlowSchemaStatus {
 		return &v
 	}).(FlowSchemaStatusPtrOutput)
 }
@@ -811,7 +823,13 @@ func (o FlowSchemaStatusPtrOutput) ToFlowSchemaStatusPtrOutputWithContext(ctx co
 }
 
 func (o FlowSchemaStatusPtrOutput) Elem() FlowSchemaStatusOutput {
-	return o.ApplyT(func(v *FlowSchemaStatus) FlowSchemaStatus { return *v }).(FlowSchemaStatusOutput)
+	return o.ApplyT(func(v *FlowSchemaStatus) FlowSchemaStatus {
+		if v != nil {
+			return *v
+		}
+		var ret FlowSchemaStatus
+		return ret
+	}).(FlowSchemaStatusOutput)
 }
 
 // `conditions` is a list of the current states of FlowSchema.
@@ -920,7 +938,7 @@ func (o GroupSubjectOutput) ToGroupSubjectPtrOutput() GroupSubjectPtrOutput {
 }
 
 func (o GroupSubjectOutput) ToGroupSubjectPtrOutputWithContext(ctx context.Context) GroupSubjectPtrOutput {
-	return o.ApplyT(func(v GroupSubject) *GroupSubject {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GroupSubject) *GroupSubject {
 		return &v
 	}).(GroupSubjectPtrOutput)
 }
@@ -945,7 +963,13 @@ func (o GroupSubjectPtrOutput) ToGroupSubjectPtrOutputWithContext(ctx context.Co
 }
 
 func (o GroupSubjectPtrOutput) Elem() GroupSubjectOutput {
-	return o.ApplyT(func(v *GroupSubject) GroupSubject { return *v }).(GroupSubjectOutput)
+	return o.ApplyT(func(v *GroupSubject) GroupSubject {
+		if v != nil {
+			return *v
+		}
+		var ret GroupSubject
+		return ret
+	}).(GroupSubjectOutput)
 }
 
 // name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
@@ -1058,7 +1082,7 @@ func (o LimitResponseOutput) ToLimitResponsePtrOutput() LimitResponsePtrOutput {
 }
 
 func (o LimitResponseOutput) ToLimitResponsePtrOutputWithContext(ctx context.Context) LimitResponsePtrOutput {
-	return o.ApplyT(func(v LimitResponse) *LimitResponse {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitResponse) *LimitResponse {
 		return &v
 	}).(LimitResponsePtrOutput)
 }
@@ -1088,7 +1112,13 @@ func (o LimitResponsePtrOutput) ToLimitResponsePtrOutputWithContext(ctx context.
 }
 
 func (o LimitResponsePtrOutput) Elem() LimitResponseOutput {
-	return o.ApplyT(func(v *LimitResponse) LimitResponse { return *v }).(LimitResponseOutput)
+	return o.ApplyT(func(v *LimitResponse) LimitResponse {
+		if v != nil {
+			return *v
+		}
+		var ret LimitResponse
+		return ret
+	}).(LimitResponseOutput)
 }
 
 // `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
@@ -1225,7 +1255,7 @@ func (o LimitedPriorityLevelConfigurationOutput) ToLimitedPriorityLevelConfigura
 }
 
 func (o LimitedPriorityLevelConfigurationOutput) ToLimitedPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) LimitedPriorityLevelConfigurationPtrOutput {
-	return o.ApplyT(func(v LimitedPriorityLevelConfiguration) *LimitedPriorityLevelConfiguration {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitedPriorityLevelConfiguration) *LimitedPriorityLevelConfiguration {
 		return &v
 	}).(LimitedPriorityLevelConfigurationPtrOutput)
 }
@@ -1259,7 +1289,13 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) ToLimitedPriorityLevelConfig
 }
 
 func (o LimitedPriorityLevelConfigurationPtrOutput) Elem() LimitedPriorityLevelConfigurationOutput {
-	return o.ApplyT(func(v *LimitedPriorityLevelConfiguration) LimitedPriorityLevelConfiguration { return *v }).(LimitedPriorityLevelConfigurationOutput)
+	return o.ApplyT(func(v *LimitedPriorityLevelConfiguration) LimitedPriorityLevelConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret LimitedPriorityLevelConfiguration
+		return ret
+	}).(LimitedPriorityLevelConfigurationOutput)
 }
 
 // `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
@@ -1981,7 +2017,7 @@ func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationR
 }
 
 func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationReference) *PriorityLevelConfigurationReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationReference) *PriorityLevelConfigurationReference {
 		return &v
 	}).(PriorityLevelConfigurationReferencePtrOutput)
 }
@@ -2006,7 +2042,13 @@ func (o PriorityLevelConfigurationReferencePtrOutput) ToPriorityLevelConfigurati
 }
 
 func (o PriorityLevelConfigurationReferencePtrOutput) Elem() PriorityLevelConfigurationReferenceOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationReference) PriorityLevelConfigurationReference { return *v }).(PriorityLevelConfigurationReferenceOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationReference) PriorityLevelConfigurationReference {
+		if v != nil {
+			return *v
+		}
+		var ret PriorityLevelConfigurationReference
+		return ret
+	}).(PriorityLevelConfigurationReferenceOutput)
 }
 
 // `name` is the name of the priority level configuration being referenced Required.
@@ -2119,7 +2161,7 @@ func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecPt
 }
 
 func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *PriorityLevelConfigurationSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationSpec) *PriorityLevelConfigurationSpec {
 		return &v
 	}).(PriorityLevelConfigurationSpecPtrOutput)
 }
@@ -2149,7 +2191,13 @@ func (o PriorityLevelConfigurationSpecPtrOutput) ToPriorityLevelConfigurationSpe
 }
 
 func (o PriorityLevelConfigurationSpecPtrOutput) Elem() PriorityLevelConfigurationSpecOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) PriorityLevelConfigurationSpec { return *v }).(PriorityLevelConfigurationSpecOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) PriorityLevelConfigurationSpec {
+		if v != nil {
+			return *v
+		}
+		var ret PriorityLevelConfigurationSpec
+		return ret
+	}).(PriorityLevelConfigurationSpecOutput)
 }
 
 // `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
@@ -2268,7 +2316,7 @@ func (o PriorityLevelConfigurationStatusOutput) ToPriorityLevelConfigurationStat
 }
 
 func (o PriorityLevelConfigurationStatusOutput) ToPriorityLevelConfigurationStatusPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationStatusPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationStatus) *PriorityLevelConfigurationStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationStatus) *PriorityLevelConfigurationStatus {
 		return &v
 	}).(PriorityLevelConfigurationStatusPtrOutput)
 }
@@ -2293,7 +2341,13 @@ func (o PriorityLevelConfigurationStatusPtrOutput) ToPriorityLevelConfigurationS
 }
 
 func (o PriorityLevelConfigurationStatusPtrOutput) Elem() PriorityLevelConfigurationStatusOutput {
-	return o.ApplyT(func(v *PriorityLevelConfigurationStatus) PriorityLevelConfigurationStatus { return *v }).(PriorityLevelConfigurationStatusOutput)
+	return o.ApplyT(func(v *PriorityLevelConfigurationStatus) PriorityLevelConfigurationStatus {
+		if v != nil {
+			return *v
+		}
+		var ret PriorityLevelConfigurationStatus
+		return ret
+	}).(PriorityLevelConfigurationStatusOutput)
 }
 
 // `conditions` is the current state of "request-priority".
@@ -2410,7 +2464,7 @@ func (o QueuingConfigurationOutput) ToQueuingConfigurationPtrOutput() QueuingCon
 }
 
 func (o QueuingConfigurationOutput) ToQueuingConfigurationPtrOutputWithContext(ctx context.Context) QueuingConfigurationPtrOutput {
-	return o.ApplyT(func(v QueuingConfiguration) *QueuingConfiguration {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v QueuingConfiguration) *QueuingConfiguration {
 		return &v
 	}).(QueuingConfigurationPtrOutput)
 }
@@ -2445,7 +2499,13 @@ func (o QueuingConfigurationPtrOutput) ToQueuingConfigurationPtrOutputWithContex
 }
 
 func (o QueuingConfigurationPtrOutput) Elem() QueuingConfigurationOutput {
-	return o.ApplyT(func(v *QueuingConfiguration) QueuingConfiguration { return *v }).(QueuingConfigurationOutput)
+	return o.ApplyT(func(v *QueuingConfiguration) QueuingConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret QueuingConfiguration
+		return ret
+	}).(QueuingConfigurationOutput)
 }
 
 // `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
@@ -2714,7 +2774,7 @@ func (o ServiceAccountSubjectOutput) ToServiceAccountSubjectPtrOutput() ServiceA
 }
 
 func (o ServiceAccountSubjectOutput) ToServiceAccountSubjectPtrOutputWithContext(ctx context.Context) ServiceAccountSubjectPtrOutput {
-	return o.ApplyT(func(v ServiceAccountSubject) *ServiceAccountSubject {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceAccountSubject) *ServiceAccountSubject {
 		return &v
 	}).(ServiceAccountSubjectPtrOutput)
 }
@@ -2744,7 +2804,13 @@ func (o ServiceAccountSubjectPtrOutput) ToServiceAccountSubjectPtrOutputWithCont
 }
 
 func (o ServiceAccountSubjectPtrOutput) Elem() ServiceAccountSubjectOutput {
-	return o.ApplyT(func(v *ServiceAccountSubject) ServiceAccountSubject { return *v }).(ServiceAccountSubjectOutput)
+	return o.ApplyT(func(v *ServiceAccountSubject) ServiceAccountSubject {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceAccountSubject
+		return ret
+	}).(ServiceAccountSubjectOutput)
 }
 
 // `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
@@ -2769,11 +2835,14 @@ func (o ServiceAccountSubjectPtrOutput) Namespace() pulumi.StringPtrOutput {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type Subject struct {
+	// `group` matches based on user group name.
 	Group *GroupSubject `pulumi:"group"`
-	// Required
-	Kind           string                 `pulumi:"kind"`
+	// `kind` indicates which one of the other fields is non-empty. Required
+	Kind string `pulumi:"kind"`
+	// `serviceAccount` matches ServiceAccounts.
 	ServiceAccount *ServiceAccountSubject `pulumi:"serviceAccount"`
-	User           *UserSubject           `pulumi:"user"`
+	// `user` matches based on username.
+	User *UserSubject `pulumi:"user"`
 }
 
 // SubjectInput is an input type that accepts SubjectArgs and SubjectOutput values.
@@ -2789,11 +2858,14 @@ type SubjectInput interface {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectArgs struct {
+	// `group` matches based on user group name.
 	Group GroupSubjectPtrInput `pulumi:"group"`
-	// Required
-	Kind           pulumi.StringInput            `pulumi:"kind"`
+	// `kind` indicates which one of the other fields is non-empty. Required
+	Kind pulumi.StringInput `pulumi:"kind"`
+	// `serviceAccount` matches ServiceAccounts.
 	ServiceAccount ServiceAccountSubjectPtrInput `pulumi:"serviceAccount"`
-	User           UserSubjectPtrInput           `pulumi:"user"`
+	// `user` matches based on username.
+	User UserSubjectPtrInput `pulumi:"user"`
 }
 
 func (SubjectArgs) ElementType() reflect.Type {
@@ -2848,19 +2920,22 @@ func (o SubjectOutput) ToSubjectOutputWithContext(ctx context.Context) SubjectOu
 	return o
 }
 
+// `group` matches based on user group name.
 func (o SubjectOutput) Group() GroupSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *GroupSubject { return v.Group }).(GroupSubjectPtrOutput)
 }
 
-// Required
+// `kind` indicates which one of the other fields is non-empty. Required
 func (o SubjectOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v Subject) string { return v.Kind }).(pulumi.StringOutput)
 }
 
+// `serviceAccount` matches ServiceAccounts.
 func (o SubjectOutput) ServiceAccount() ServiceAccountSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *ServiceAccountSubject { return v.ServiceAccount }).(ServiceAccountSubjectPtrOutput)
 }
 
+// `user` matches based on username.
 func (o SubjectOutput) User() UserSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *UserSubject { return v.User }).(UserSubjectPtrOutput)
 }
@@ -2981,7 +3056,7 @@ func (o UserSubjectOutput) ToUserSubjectPtrOutput() UserSubjectPtrOutput {
 }
 
 func (o UserSubjectOutput) ToUserSubjectPtrOutputWithContext(ctx context.Context) UserSubjectPtrOutput {
-	return o.ApplyT(func(v UserSubject) *UserSubject {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserSubject) *UserSubject {
 		return &v
 	}).(UserSubjectPtrOutput)
 }
@@ -3006,7 +3081,13 @@ func (o UserSubjectPtrOutput) ToUserSubjectPtrOutputWithContext(ctx context.Cont
 }
 
 func (o UserSubjectPtrOutput) Elem() UserSubjectOutput {
-	return o.ApplyT(func(v *UserSubject) UserSubject { return *v }).(UserSubjectOutput)
+	return o.ApplyT(func(v *UserSubject) UserSubject {
+		if v != nil {
+			return *v
+		}
+		var ret UserSubject
+		return ret
+	}).(UserSubjectOutput)
 }
 
 // `name` is the username that matches, or "*" to match all usernames. Required.
@@ -3020,6 +3101,48 @@ func (o UserSubjectPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowDistinguisherMethodInput)(nil)).Elem(), FlowDistinguisherMethodArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowDistinguisherMethodPtrInput)(nil)).Elem(), FlowDistinguisherMethodArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaTypeInput)(nil)).Elem(), FlowSchemaTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaTypeArrayInput)(nil)).Elem(), FlowSchemaTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaConditionInput)(nil)).Elem(), FlowSchemaConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaConditionArrayInput)(nil)).Elem(), FlowSchemaConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaListTypeInput)(nil)).Elem(), FlowSchemaListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecInput)(nil)).Elem(), FlowSchemaSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecPtrInput)(nil)).Elem(), FlowSchemaSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaStatusInput)(nil)).Elem(), FlowSchemaStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaStatusPtrInput)(nil)).Elem(), FlowSchemaStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupSubjectInput)(nil)).Elem(), GroupSubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupSubjectPtrInput)(nil)).Elem(), GroupSubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitResponseInput)(nil)).Elem(), LimitResponseArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitResponsePtrInput)(nil)).Elem(), LimitResponseArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitedPriorityLevelConfigurationInput)(nil)).Elem(), LimitedPriorityLevelConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitedPriorityLevelConfigurationPtrInput)(nil)).Elem(), LimitedPriorityLevelConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NonResourcePolicyRuleInput)(nil)).Elem(), NonResourcePolicyRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NonResourcePolicyRuleArrayInput)(nil)).Elem(), NonResourcePolicyRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PolicyRulesWithSubjectsInput)(nil)).Elem(), PolicyRulesWithSubjectsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PolicyRulesWithSubjectsArrayInput)(nil)).Elem(), PolicyRulesWithSubjectsArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationTypeInput)(nil)).Elem(), PriorityLevelConfigurationTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationTypeArrayInput)(nil)).Elem(), PriorityLevelConfigurationTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationConditionInput)(nil)).Elem(), PriorityLevelConfigurationConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationConditionArrayInput)(nil)).Elem(), PriorityLevelConfigurationConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationListTypeInput)(nil)).Elem(), PriorityLevelConfigurationListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferenceInput)(nil)).Elem(), PriorityLevelConfigurationReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferencePtrInput)(nil)).Elem(), PriorityLevelConfigurationReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecInput)(nil)).Elem(), PriorityLevelConfigurationSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecPtrInput)(nil)).Elem(), PriorityLevelConfigurationSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationStatusInput)(nil)).Elem(), PriorityLevelConfigurationStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationStatusPtrInput)(nil)).Elem(), PriorityLevelConfigurationStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*QueuingConfigurationInput)(nil)).Elem(), QueuingConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*QueuingConfigurationPtrInput)(nil)).Elem(), QueuingConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePolicyRuleInput)(nil)).Elem(), ResourcePolicyRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourcePolicyRuleArrayInput)(nil)).Elem(), ResourcePolicyRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountSubjectInput)(nil)).Elem(), ServiceAccountSubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountSubjectPtrInput)(nil)).Elem(), ServiceAccountSubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectInput)(nil)).Elem(), SubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectArrayInput)(nil)).Elem(), SubjectArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserSubjectInput)(nil)).Elem(), UserSubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserSubjectPtrInput)(nil)).Elem(), UserSubjectArgs{})
 	pulumi.RegisterOutputType(FlowDistinguisherMethodOutput{})
 	pulumi.RegisterOutputType(FlowDistinguisherMethodPtrOutput{})
 	pulumi.RegisterOutputType(FlowSchemaTypeOutput{})

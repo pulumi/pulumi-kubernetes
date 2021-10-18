@@ -19,7 +19,8 @@ type SelfSubjectRulesReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
+	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
 	Spec SelfSubjectRulesReviewSpecOutput `pulumi:"spec"`
@@ -80,7 +81,8 @@ type selfSubjectRulesReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated.
 	Spec SelfSubjectRulesReviewSpec `pulumi:"spec"`
@@ -91,7 +93,8 @@ type SelfSubjectRulesReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
+	Kind pulumi.StringPtrInput
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Spec holds information about the request being evaluated.
 	Spec SelfSubjectRulesReviewSpecInput
@@ -199,9 +202,7 @@ func (i SelfSubjectRulesReviewMap) ToSelfSubjectRulesReviewMapOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewMapOutput)
 }
 
-type SelfSubjectRulesReviewOutput struct {
-	*pulumi.OutputState
-}
+type SelfSubjectRulesReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SelfSubjectRulesReview)(nil))
@@ -220,14 +221,12 @@ func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewPtrOutput() SelfSu
 }
 
 func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReview) *SelfSubjectRulesReview {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReview) *SelfSubjectRulesReview {
 		return &v
 	}).(SelfSubjectRulesReviewPtrOutput)
 }
 
-type SelfSubjectRulesReviewPtrOutput struct {
-	*pulumi.OutputState
-}
+type SelfSubjectRulesReviewPtrOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SelfSubjectRulesReview)(nil))
@@ -239,6 +238,16 @@ func (o SelfSubjectRulesReviewPtrOutput) ToSelfSubjectRulesReviewPtrOutput() Sel
 
 func (o SelfSubjectRulesReviewPtrOutput) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
 	return o
+}
+
+func (o SelfSubjectRulesReviewPtrOutput) Elem() SelfSubjectRulesReviewOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) SelfSubjectRulesReview {
+		if v != nil {
+			return *v
+		}
+		var ret SelfSubjectRulesReview
+		return ret
+	}).(SelfSubjectRulesReviewOutput)
 }
 
 type SelfSubjectRulesReviewArrayOutput struct{ *pulumi.OutputState }

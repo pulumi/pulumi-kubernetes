@@ -108,7 +108,7 @@ func (o OverheadOutput) ToOverheadPtrOutput() OverheadPtrOutput {
 }
 
 func (o OverheadOutput) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
-	return o.ApplyT(func(v Overhead) *Overhead {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Overhead) *Overhead {
 		return &v
 	}).(OverheadPtrOutput)
 }
@@ -133,7 +133,13 @@ func (o OverheadPtrOutput) ToOverheadPtrOutputWithContext(ctx context.Context) O
 }
 
 func (o OverheadPtrOutput) Elem() OverheadOutput {
-	return o.ApplyT(func(v *Overhead) Overhead { return *v }).(OverheadOutput)
+	return o.ApplyT(func(v *Overhead) Overhead {
+		if v != nil {
+			return *v
+		}
+		var ret Overhead
+		return ret
+	}).(OverheadOutput)
 }
 
 // PodFixed represents the fixed resource overhead associated with running a pod.
@@ -146,7 +152,7 @@ func (o OverheadPtrOutput) PodFixed() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 type RuntimeClassType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -156,7 +162,7 @@ type RuntimeClassType struct {
 	Kind *string `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead *Overhead `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling *Scheduling `pulumi:"scheduling"`
@@ -173,7 +179,7 @@ type RuntimeClassTypeInput interface {
 	ToRuntimeClassTypeOutputWithContext(context.Context) RuntimeClassTypeOutput
 }
 
-// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 type RuntimeClassTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -183,7 +189,7 @@ type RuntimeClassTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrInput `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrInput `pulumi:"scheduling"`
@@ -226,7 +232,7 @@ func (i RuntimeClassTypeArray) ToRuntimeClassTypeArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassTypeArrayOutput)
 }
 
-// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 type RuntimeClassTypeOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassTypeOutput) ElementType() reflect.Type {
@@ -261,7 +267,7 @@ func (o RuntimeClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v RuntimeClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o RuntimeClassTypeOutput) Overhead() OverheadPtrOutput {
 	return o.ApplyT(func(v RuntimeClassType) *Overhead { return v.Overhead }).(OverheadPtrOutput)
 }
@@ -473,7 +479,7 @@ func (o SchedulingOutput) ToSchedulingPtrOutput() SchedulingPtrOutput {
 }
 
 func (o SchedulingOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
-	return o.ApplyT(func(v Scheduling) *Scheduling {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Scheduling) *Scheduling {
 		return &v
 	}).(SchedulingPtrOutput)
 }
@@ -503,7 +509,13 @@ func (o SchedulingPtrOutput) ToSchedulingPtrOutputWithContext(ctx context.Contex
 }
 
 func (o SchedulingPtrOutput) Elem() SchedulingOutput {
-	return o.ApplyT(func(v *Scheduling) Scheduling { return *v }).(SchedulingOutput)
+	return o.ApplyT(func(v *Scheduling) Scheduling {
+		if v != nil {
+			return *v
+		}
+		var ret Scheduling
+		return ret
+	}).(SchedulingOutput)
 }
 
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
@@ -527,6 +539,13 @@ func (o SchedulingPtrOutput) Tolerations() corev1.TolerationArrayOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*OverheadInput)(nil)).Elem(), OverheadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OverheadPtrInput)(nil)).Elem(), OverheadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassTypeInput)(nil)).Elem(), RuntimeClassTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassTypeArrayInput)(nil)).Elem(), RuntimeClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassListTypeInput)(nil)).Elem(), RuntimeClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SchedulingInput)(nil)).Elem(), SchedulingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SchedulingPtrInput)(nil)).Elem(), SchedulingArgs{})
 	pulumi.RegisterOutputType(OverheadOutput{})
 	pulumi.RegisterOutputType(OverheadPtrOutput{})
 	pulumi.RegisterOutputType(RuntimeClassTypeOutput{})

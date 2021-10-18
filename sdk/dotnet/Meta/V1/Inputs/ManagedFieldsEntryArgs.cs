@@ -46,6 +46,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public Input<string>? Operation { get; set; }
 
         /// <summary>
+        /// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+        /// </summary>
+        [Input("subresource")]
+        public Input<string>? Subresource { get; set; }
+
+        /// <summary>
         /// Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
         /// </summary>
         [Input("time")]

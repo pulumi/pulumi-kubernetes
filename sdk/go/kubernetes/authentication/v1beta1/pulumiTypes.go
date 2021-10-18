@@ -199,7 +199,7 @@ func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOu
 }
 
 func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return o.ApplyT(func(v TokenReviewSpec) *TokenReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewSpec) *TokenReviewSpec {
 		return &v
 	}).(TokenReviewSpecPtrOutput)
 }
@@ -229,7 +229,13 @@ func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutputWithContext(ctx cont
 }
 
 func (o TokenReviewSpecPtrOutput) Elem() TokenReviewSpecOutput {
-	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec { return *v }).(TokenReviewSpecOutput)
+	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReviewSpec
+		return ret
+	}).(TokenReviewSpecOutput)
 }
 
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
@@ -360,7 +366,7 @@ func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutput() TokenReviewStatu
 }
 
 func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
-	return o.ApplyT(func(v TokenReviewStatus) *TokenReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewStatus) *TokenReviewStatus {
 		return &v
 	}).(TokenReviewStatusPtrOutput)
 }
@@ -400,7 +406,13 @@ func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutputWithContext(ctx 
 }
 
 func (o TokenReviewStatusPtrOutput) Elem() TokenReviewStatusOutput {
-	return o.ApplyT(func(v *TokenReviewStatus) TokenReviewStatus { return *v }).(TokenReviewStatusOutput)
+	return o.ApplyT(func(v *TokenReviewStatus) TokenReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReviewStatus
+		return ret
+	}).(TokenReviewStatusOutput)
 }
 
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
@@ -551,7 +563,7 @@ func (o UserInfoOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
 }
 
 func (o UserInfoOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
-	return o.ApplyT(func(v UserInfo) *UserInfo {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserInfo) *UserInfo {
 		return &v
 	}).(UserInfoPtrOutput)
 }
@@ -591,7 +603,13 @@ func (o UserInfoPtrOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) U
 }
 
 func (o UserInfoPtrOutput) Elem() UserInfoOutput {
-	return o.ApplyT(func(v *UserInfo) UserInfo { return *v }).(UserInfoOutput)
+	return o.ApplyT(func(v *UserInfo) UserInfo {
+		if v != nil {
+			return *v
+		}
+		var ret UserInfo
+		return ret
+	}).(UserInfoOutput)
 }
 
 // Any additional information provided by the authenticator.
@@ -635,6 +653,13 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewTypeInput)(nil)).Elem(), TokenReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecPtrInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusPtrInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoInput)(nil)).Elem(), UserInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoPtrInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterOutputType(TokenReviewTypeOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecPtrOutput{})

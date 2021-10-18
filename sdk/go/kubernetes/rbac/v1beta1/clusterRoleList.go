@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.22.
+// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
 type ClusterRoleList struct {
 	pulumi.CustomResourceState
 
@@ -194,9 +194,7 @@ func (i ClusterRoleListMap) ToClusterRoleListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListMapOutput)
 }
 
-type ClusterRoleListOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleListOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ClusterRoleList)(nil))
@@ -215,14 +213,12 @@ func (o ClusterRoleListOutput) ToClusterRoleListPtrOutput() ClusterRoleListPtrOu
 }
 
 func (o ClusterRoleListOutput) ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput {
-	return o.ApplyT(func(v ClusterRoleList) *ClusterRoleList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterRoleList) *ClusterRoleList {
 		return &v
 	}).(ClusterRoleListPtrOutput)
 }
 
-type ClusterRoleListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleListPtrOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ClusterRoleList)(nil))
@@ -234,6 +230,16 @@ func (o ClusterRoleListPtrOutput) ToClusterRoleListPtrOutput() ClusterRoleListPt
 
 func (o ClusterRoleListPtrOutput) ToClusterRoleListPtrOutputWithContext(ctx context.Context) ClusterRoleListPtrOutput {
 	return o
+}
+
+func (o ClusterRoleListPtrOutput) Elem() ClusterRoleListOutput {
+	return o.ApplyT(func(v *ClusterRoleList) ClusterRoleList {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterRoleList
+		return ret
+	}).(ClusterRoleListOutput)
 }
 
 type ClusterRoleListArrayOutput struct{ *pulumi.OutputState }

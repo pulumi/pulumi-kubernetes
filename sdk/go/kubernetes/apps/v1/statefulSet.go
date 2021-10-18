@@ -34,7 +34,8 @@ type StatefulSet struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
+	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
 	Spec StatefulSetSpecPtrOutput `pulumi:"spec"`
@@ -95,7 +96,8 @@ type statefulSetArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
 	Spec *StatefulSetSpec `pulumi:"spec"`
@@ -106,7 +108,8 @@ type StatefulSetArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
+	Kind pulumi.StringPtrInput
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Spec defines the desired identities of pods in this set.
 	Spec StatefulSetSpecPtrInput
@@ -214,9 +217,7 @@ func (i StatefulSetMap) ToStatefulSetMapOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetMapOutput)
 }
 
-type StatefulSetOutput struct {
-	*pulumi.OutputState
-}
+type StatefulSetOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*StatefulSet)(nil))
@@ -235,14 +236,12 @@ func (o StatefulSetOutput) ToStatefulSetPtrOutput() StatefulSetPtrOutput {
 }
 
 func (o StatefulSetOutput) ToStatefulSetPtrOutputWithContext(ctx context.Context) StatefulSetPtrOutput {
-	return o.ApplyT(func(v StatefulSet) *StatefulSet {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSet) *StatefulSet {
 		return &v
 	}).(StatefulSetPtrOutput)
 }
 
-type StatefulSetPtrOutput struct {
-	*pulumi.OutputState
-}
+type StatefulSetPtrOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**StatefulSet)(nil))
@@ -254,6 +253,16 @@ func (o StatefulSetPtrOutput) ToStatefulSetPtrOutput() StatefulSetPtrOutput {
 
 func (o StatefulSetPtrOutput) ToStatefulSetPtrOutputWithContext(ctx context.Context) StatefulSetPtrOutput {
 	return o
+}
+
+func (o StatefulSetPtrOutput) Elem() StatefulSetOutput {
+	return o.ApplyT(func(v *StatefulSet) StatefulSet {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSet
+		return ret
+	}).(StatefulSetOutput)
 }
 
 type StatefulSetArrayOutput struct{ *pulumi.OutputState }

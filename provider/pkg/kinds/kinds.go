@@ -60,7 +60,6 @@ const (
 	EndpointSliceList                  Kind = "EndpointSliceList"
 	Endpoints                          Kind = "Endpoints"
 	EndpointsList                      Kind = "EndpointsList"
-	EphemeralContainers                Kind = "EphemeralContainers"
 	Event                              Kind = "Event"
 	EventList                          Kind = "EventList"
 	FlowSchema                         Kind = "FlowSchema"

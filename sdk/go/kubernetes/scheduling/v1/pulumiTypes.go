@@ -248,6 +248,9 @@ func (o PriorityClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeInput)(nil)).Elem(), PriorityClassTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeArrayInput)(nil)).Elem(), PriorityClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassListTypeInput)(nil)).Elem(), PriorityClassListTypeArgs{})
 	pulumi.RegisterOutputType(PriorityClassTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(PriorityClassListTypeOutput{})

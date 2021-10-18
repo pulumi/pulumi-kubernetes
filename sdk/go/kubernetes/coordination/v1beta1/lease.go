@@ -196,9 +196,7 @@ func (i LeaseMap) ToLeaseMapOutputWithContext(ctx context.Context) LeaseMapOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseMapOutput)
 }
 
-type LeaseOutput struct {
-	*pulumi.OutputState
-}
+type LeaseOutput struct{ *pulumi.OutputState }
 
 func (LeaseOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Lease)(nil))
@@ -217,14 +215,12 @@ func (o LeaseOutput) ToLeasePtrOutput() LeasePtrOutput {
 }
 
 func (o LeaseOutput) ToLeasePtrOutputWithContext(ctx context.Context) LeasePtrOutput {
-	return o.ApplyT(func(v Lease) *Lease {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Lease) *Lease {
 		return &v
 	}).(LeasePtrOutput)
 }
 
-type LeasePtrOutput struct {
-	*pulumi.OutputState
-}
+type LeasePtrOutput struct{ *pulumi.OutputState }
 
 func (LeasePtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Lease)(nil))
@@ -236,6 +232,16 @@ func (o LeasePtrOutput) ToLeasePtrOutput() LeasePtrOutput {
 
 func (o LeasePtrOutput) ToLeasePtrOutputWithContext(ctx context.Context) LeasePtrOutput {
 	return o
+}
+
+func (o LeasePtrOutput) Elem() LeaseOutput {
+	return o.ApplyT(func(v *Lease) Lease {
+		if v != nil {
+			return *v
+		}
+		var ret Lease
+		return ret
+	}).(LeaseOutput)
 }
 
 type LeaseArrayOutput struct{ *pulumi.OutputState }

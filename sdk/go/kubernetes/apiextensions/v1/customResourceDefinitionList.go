@@ -21,7 +21,8 @@ type CustomResourceDefinitionList struct {
 	// items list individual CustomResourceDefinition objects
 	Items CustomResourceDefinitionTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput   `pulumi:"kind"`
+	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
 }
 
@@ -74,7 +75,8 @@ type customResourceDefinitionListArgs struct {
 	// items list individual CustomResourceDefinition objects
 	Items []CustomResourceDefinitionType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -85,7 +87,8 @@ type CustomResourceDefinitionListArgs struct {
 	// items list individual CustomResourceDefinition objects
 	Items CustomResourceDefinitionTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
+	Kind pulumi.StringPtrInput
+	// Standard object's metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput
 }
 
@@ -191,9 +194,7 @@ func (i CustomResourceDefinitionListMap) ToCustomResourceDefinitionListMapOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListMapOutput)
 }
 
-type CustomResourceDefinitionListOutput struct {
-	*pulumi.OutputState
-}
+type CustomResourceDefinitionListOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CustomResourceDefinitionList)(nil))
@@ -212,14 +213,12 @@ func (o CustomResourceDefinitionListOutput) ToCustomResourceDefinitionListPtrOut
 }
 
 func (o CustomResourceDefinitionListOutput) ToCustomResourceDefinitionListPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionListPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionList) *CustomResourceDefinitionList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionList) *CustomResourceDefinitionList {
 		return &v
 	}).(CustomResourceDefinitionListPtrOutput)
 }
 
-type CustomResourceDefinitionListPtrOutput struct {
-	*pulumi.OutputState
-}
+type CustomResourceDefinitionListPtrOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CustomResourceDefinitionList)(nil))
@@ -231,6 +230,16 @@ func (o CustomResourceDefinitionListPtrOutput) ToCustomResourceDefinitionListPtr
 
 func (o CustomResourceDefinitionListPtrOutput) ToCustomResourceDefinitionListPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionListPtrOutput {
 	return o
+}
+
+func (o CustomResourceDefinitionListPtrOutput) Elem() CustomResourceDefinitionListOutput {
+	return o.ApplyT(func(v *CustomResourceDefinitionList) CustomResourceDefinitionList {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionList
+		return ret
+	}).(CustomResourceDefinitionListOutput)
 }
 
 type CustomResourceDefinitionListArrayOutput struct{ *pulumi.OutputState }

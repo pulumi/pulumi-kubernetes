@@ -7,7 +7,8 @@ import typing
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
-    import pulumi_kubernetes.auditregistration.v1alpha1 as v1alpha1
+    import pulumi_kubernetes.auditregistration.v1alpha1 as __v1alpha1
+    v1alpha1 = __v1alpha1
 else:
     v1alpha1 = _utilities.lazy_import('pulumi_kubernetes.auditregistration.v1alpha1')
 

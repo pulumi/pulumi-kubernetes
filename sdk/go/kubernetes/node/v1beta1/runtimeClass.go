@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
+// RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 type RuntimeClass struct {
 	pulumi.CustomResourceState
 
@@ -24,7 +24,7 @@ type RuntimeClass struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrOutput `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrOutput `pulumi:"scheduling"`
@@ -91,7 +91,7 @@ type runtimeClassArgs struct {
 	Kind *string `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead *Overhead `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling *Scheduling `pulumi:"scheduling"`
@@ -107,7 +107,7 @@ type RuntimeClassArgs struct {
 	Kind pulumi.StringPtrInput
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrInput
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrInput
@@ -215,9 +215,7 @@ func (i RuntimeClassMap) ToRuntimeClassMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassMapOutput)
 }
 
-type RuntimeClassOutput struct {
-	*pulumi.OutputState
-}
+type RuntimeClassOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RuntimeClass)(nil))
@@ -236,14 +234,12 @@ func (o RuntimeClassOutput) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
 }
 
 func (o RuntimeClassOutput) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
-	return o.ApplyT(func(v RuntimeClass) *RuntimeClass {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClass) *RuntimeClass {
 		return &v
 	}).(RuntimeClassPtrOutput)
 }
 
-type RuntimeClassPtrOutput struct {
-	*pulumi.OutputState
-}
+type RuntimeClassPtrOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RuntimeClass)(nil))
@@ -255,6 +251,16 @@ func (o RuntimeClassPtrOutput) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
 
 func (o RuntimeClassPtrOutput) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
 	return o
+}
+
+func (o RuntimeClassPtrOutput) Elem() RuntimeClassOutput {
+	return o.ApplyT(func(v *RuntimeClass) RuntimeClass {
+		if v != nil {
+			return *v
+		}
+		var ret RuntimeClass
+		return ret
+	}).(RuntimeClassOutput)
 }
 
 type RuntimeClassArrayOutput struct{ *pulumi.OutputState }

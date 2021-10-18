@@ -194,9 +194,7 @@ func (i RuntimeClassListMap) ToRuntimeClassListMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListMapOutput)
 }
 
-type RuntimeClassListOutput struct {
-	*pulumi.OutputState
-}
+type RuntimeClassListOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RuntimeClassList)(nil))
@@ -215,14 +213,12 @@ func (o RuntimeClassListOutput) ToRuntimeClassListPtrOutput() RuntimeClassListPt
 }
 
 func (o RuntimeClassListOutput) ToRuntimeClassListPtrOutputWithContext(ctx context.Context) RuntimeClassListPtrOutput {
-	return o.ApplyT(func(v RuntimeClassList) *RuntimeClassList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClassList) *RuntimeClassList {
 		return &v
 	}).(RuntimeClassListPtrOutput)
 }
 
-type RuntimeClassListPtrOutput struct {
-	*pulumi.OutputState
-}
+type RuntimeClassListPtrOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RuntimeClassList)(nil))
@@ -234,6 +230,16 @@ func (o RuntimeClassListPtrOutput) ToRuntimeClassListPtrOutput() RuntimeClassLis
 
 func (o RuntimeClassListPtrOutput) ToRuntimeClassListPtrOutputWithContext(ctx context.Context) RuntimeClassListPtrOutput {
 	return o
+}
+
+func (o RuntimeClassListPtrOutput) Elem() RuntimeClassListOutput {
+	return o.ApplyT(func(v *RuntimeClassList) RuntimeClassList {
+		if v != nil {
+			return *v
+		}
+		var ret RuntimeClassList
+		return ret
+	}).(RuntimeClassListOutput)
 }
 
 type RuntimeClassListArrayOutput struct{ *pulumi.OutputState }

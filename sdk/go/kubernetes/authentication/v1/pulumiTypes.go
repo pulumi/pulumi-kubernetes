@@ -119,7 +119,7 @@ func (o BoundObjectReferenceOutput) ToBoundObjectReferencePtrOutput() BoundObjec
 }
 
 func (o BoundObjectReferenceOutput) ToBoundObjectReferencePtrOutputWithContext(ctx context.Context) BoundObjectReferencePtrOutput {
-	return o.ApplyT(func(v BoundObjectReference) *BoundObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BoundObjectReference) *BoundObjectReference {
 		return &v
 	}).(BoundObjectReferencePtrOutput)
 }
@@ -159,7 +159,13 @@ func (o BoundObjectReferencePtrOutput) ToBoundObjectReferencePtrOutputWithContex
 }
 
 func (o BoundObjectReferencePtrOutput) Elem() BoundObjectReferenceOutput {
-	return o.ApplyT(func(v *BoundObjectReference) BoundObjectReference { return *v }).(BoundObjectReferenceOutput)
+	return o.ApplyT(func(v *BoundObjectReference) BoundObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret BoundObjectReference
+		return ret
+	}).(BoundObjectReferenceOutput)
 }
 
 // API version of the referent.
@@ -207,10 +213,13 @@ type TokenRequestType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string             `pulumi:"kind"`
-	Metadata *metav1.ObjectMeta  `pulumi:"metadata"`
-	Spec     TokenRequestSpec    `pulumi:"spec"`
-	Status   *TokenRequestStatus `pulumi:"status"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// Spec holds information about the request being evaluated
+	Spec TokenRequestSpec `pulumi:"spec"`
+	// Status is filled in by the server and indicates whether the token can be authenticated.
+	Status *TokenRequestStatus `pulumi:"status"`
 }
 
 // TokenRequestTypeInput is an input type that accepts TokenRequestTypeArgs and TokenRequestTypeOutput values.
@@ -229,10 +238,13 @@ type TokenRequestTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput      `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput  `pulumi:"metadata"`
-	Spec     TokenRequestSpecInput      `pulumi:"spec"`
-	Status   TokenRequestStatusPtrInput `pulumi:"status"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec holds information about the request being evaluated
+	Spec TokenRequestSpecInput `pulumi:"spec"`
+	// Status is filled in by the server and indicates whether the token can be authenticated.
+	Status TokenRequestStatusPtrInput `pulumi:"status"`
 }
 
 func (TokenRequestTypeArgs) ElementType() reflect.Type {
@@ -272,14 +284,17 @@ func (o TokenRequestTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TokenRequestType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o TokenRequestTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v TokenRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
+// Spec holds information about the request being evaluated
 func (o TokenRequestTypeOutput) Spec() TokenRequestSpecOutput {
 	return o.ApplyT(func(v TokenRequestType) TokenRequestSpec { return v.Spec }).(TokenRequestSpecOutput)
 }
 
+// Status is filled in by the server and indicates whether the token can be authenticated.
 func (o TokenRequestTypeOutput) Status() TokenRequestStatusPtrOutput {
 	return o.ApplyT(func(v TokenRequestType) *TokenRequestStatus { return v.Status }).(TokenRequestStatusPtrOutput)
 }
@@ -388,7 +403,7 @@ func (o TokenRequestSpecOutput) ToTokenRequestSpecPtrOutput() TokenRequestSpecPt
 }
 
 func (o TokenRequestSpecOutput) ToTokenRequestSpecPtrOutputWithContext(ctx context.Context) TokenRequestSpecPtrOutput {
-	return o.ApplyT(func(v TokenRequestSpec) *TokenRequestSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequestSpec) *TokenRequestSpec {
 		return &v
 	}).(TokenRequestSpecPtrOutput)
 }
@@ -423,7 +438,13 @@ func (o TokenRequestSpecPtrOutput) ToTokenRequestSpecPtrOutputWithContext(ctx co
 }
 
 func (o TokenRequestSpecPtrOutput) Elem() TokenRequestSpecOutput {
-	return o.ApplyT(func(v *TokenRequestSpec) TokenRequestSpec { return *v }).(TokenRequestSpecOutput)
+	return o.ApplyT(func(v *TokenRequestSpec) TokenRequestSpec {
+		if v != nil {
+			return *v
+		}
+		var ret TokenRequestSpec
+		return ret
+	}).(TokenRequestSpecOutput)
 }
 
 // Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
@@ -556,7 +577,7 @@ func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutput() TokenRequestSt
 }
 
 func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
-	return o.ApplyT(func(v TokenRequestStatus) *TokenRequestStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequestStatus) *TokenRequestStatus {
 		return &v
 	}).(TokenRequestStatusPtrOutput)
 }
@@ -586,7 +607,13 @@ func (o TokenRequestStatusPtrOutput) ToTokenRequestStatusPtrOutputWithContext(ct
 }
 
 func (o TokenRequestStatusPtrOutput) Elem() TokenRequestStatusOutput {
-	return o.ApplyT(func(v *TokenRequestStatus) TokenRequestStatus { return *v }).(TokenRequestStatusOutput)
+	return o.ApplyT(func(v *TokenRequestStatus) TokenRequestStatus {
+		if v != nil {
+			return *v
+		}
+		var ret TokenRequestStatus
+		return ret
+	}).(TokenRequestStatusOutput)
 }
 
 // ExpirationTimestamp is the time of expiration of the returned token.
@@ -614,7 +641,8 @@ type TokenReviewType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
 	Spec TokenReviewSpec `pulumi:"spec"`
@@ -638,7 +666,8 @@ type TokenReviewTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec holds information about the request being evaluated
 	Spec TokenReviewSpecInput `pulumi:"spec"`
@@ -683,6 +712,7 @@ func (o TokenReviewTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TokenReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o TokenReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v TokenReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -797,7 +827,7 @@ func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOu
 }
 
 func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return o.ApplyT(func(v TokenReviewSpec) *TokenReviewSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewSpec) *TokenReviewSpec {
 		return &v
 	}).(TokenReviewSpecPtrOutput)
 }
@@ -827,7 +857,13 @@ func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutputWithContext(ctx cont
 }
 
 func (o TokenReviewSpecPtrOutput) Elem() TokenReviewSpecOutput {
-	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec { return *v }).(TokenReviewSpecOutput)
+	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReviewSpec
+		return ret
+	}).(TokenReviewSpecOutput)
 }
 
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
@@ -958,7 +994,7 @@ func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutput() TokenReviewStatu
 }
 
 func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
-	return o.ApplyT(func(v TokenReviewStatus) *TokenReviewStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewStatus) *TokenReviewStatus {
 		return &v
 	}).(TokenReviewStatusPtrOutput)
 }
@@ -998,7 +1034,13 @@ func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutputWithContext(ctx 
 }
 
 func (o TokenReviewStatusPtrOutput) Elem() TokenReviewStatusOutput {
-	return o.ApplyT(func(v *TokenReviewStatus) TokenReviewStatus { return *v }).(TokenReviewStatusOutput)
+	return o.ApplyT(func(v *TokenReviewStatus) TokenReviewStatus {
+		if v != nil {
+			return *v
+		}
+		var ret TokenReviewStatus
+		return ret
+	}).(TokenReviewStatusOutput)
 }
 
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
@@ -1149,7 +1191,7 @@ func (o UserInfoOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
 }
 
 func (o UserInfoOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
-	return o.ApplyT(func(v UserInfo) *UserInfo {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserInfo) *UserInfo {
 		return &v
 	}).(UserInfoPtrOutput)
 }
@@ -1189,7 +1231,13 @@ func (o UserInfoPtrOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) U
 }
 
 func (o UserInfoPtrOutput) Elem() UserInfoOutput {
-	return o.ApplyT(func(v *UserInfo) UserInfo { return *v }).(UserInfoOutput)
+	return o.ApplyT(func(v *UserInfo) UserInfo {
+		if v != nil {
+			return *v
+		}
+		var ret UserInfo
+		return ret
+	}).(UserInfoOutput)
 }
 
 // Any additional information provided by the authenticator.
@@ -1233,6 +1281,20 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*BoundObjectReferenceInput)(nil)).Elem(), BoundObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BoundObjectReferencePtrInput)(nil)).Elem(), BoundObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestTypeInput)(nil)).Elem(), TokenRequestTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestSpecInput)(nil)).Elem(), TokenRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestSpecPtrInput)(nil)).Elem(), TokenRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestStatusInput)(nil)).Elem(), TokenRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestStatusPtrInput)(nil)).Elem(), TokenRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewTypeInput)(nil)).Elem(), TokenReviewTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecPtrInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusPtrInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoInput)(nil)).Elem(), UserInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoPtrInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterOutputType(BoundObjectReferenceOutput{})
 	pulumi.RegisterOutputType(BoundObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(TokenRequestTypeOutput{})

@@ -33,6 +33,7 @@ import (
 	jsonpatch "github.com/evanphx/json-patch"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
+	"github.com/imdario/mergo"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
@@ -53,6 +54,7 @@ import (
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -118,6 +120,15 @@ type kubeProvider struct {
 	enableDryRun                bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
+	suppressHelmHookWarnings    bool
+
+	suppressHelmReleaseBetaWarning bool
+	helmDriver                     string
+	helmPluginsPath                string
+	helmRegistryConfigPath         string
+	helmRepositoryConfigPath       string
+	helmRepositoryCache            string
+	helmReleaseProvider            customResourceProvider
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -125,8 +136,8 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	config *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
-
+	config         *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
+	kubeconfig     clientcmd.ClientConfig
 	clientSet      *clients.DynamicClientSet
 	dryRunVerifier *k8sresource.DryRunVerifier
 	logClient      *clients.LogClient
@@ -428,15 +439,117 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.suppressDeprecationWarnings = true
 	}
 
+	suppressHelmHookWarnings := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:suppressHelmHookWarnings"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if suppressHelmHookWarnings() {
+		k.suppressHelmHookWarnings = true
+	}
+
 	renderYamlToDirectory := func() string {
 		// Read the config from the Provider.
-		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists {
+		if directory, exists := vars["kubernetes:config:renderYamlToDirectory"]; exists && directory != "" {
 			return directory
 		}
 		return ""
 	}
 	k.yamlDirectory = renderYamlToDirectory()
 	k.yamlRenderMode = len(k.yamlDirectory) > 0
+
+	var helmReleaseSettings HelmReleaseSettings
+	if obj, ok := vars["kubernetes:config:helmReleaseSettings"]; ok {
+		err := json.Unmarshal([]byte(obj), &helmReleaseSettings)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal helmReleaseSettings option: %w", err)
+		}
+	}
+
+	// TODO: Once https://github.com/pulumi/pulumi/issues/8132 is fixed, we can drop the env var handling logic.
+
+	helmDriver := func() string {
+		if helmReleaseSettings.Driver != nil {
+			return *helmReleaseSettings.Driver
+		}
+
+		// If the provider flag is not set, fall back to the ENV var.
+		if driver, exists := os.LookupEnv("PULUMI_K8S_HELM_DRIVER"); exists {
+			return driver
+		}
+		return "secret"
+	}
+	k.helmDriver = helmDriver() // TODO: Make sure this is in provider state
+
+	helmPluginsPath := func() string {
+		if helmReleaseSettings.PluginsPath != nil {
+			return *helmReleaseSettings.PluginsPath
+		}
+
+		// If the provider flag is not set, fall back to the ENV var.
+		if pluginsPath, exists := os.LookupEnv("PULUMI_K8S_HELM_PLUGINS_PATH"); exists {
+			return pluginsPath
+		}
+		return helmpath.DataPath("plugins")
+	}
+	k.helmPluginsPath = helmPluginsPath()
+
+	helmRegistryConfigPath := func() string {
+		if helmReleaseSettings.RegistryConfigPath != nil {
+			return *helmReleaseSettings.RegistryConfigPath
+		}
+
+		// If the provider flag is not set, fall back to the ENV var.
+		if registryPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); exists {
+			return registryPath
+		}
+		return helmpath.ConfigPath("registry.json")
+	}
+	k.helmRegistryConfigPath = helmRegistryConfigPath()
+
+	helmRepositoryConfigPath := func() string {
+		if helmReleaseSettings.RepositoryConfigPath != nil {
+			return *helmReleaseSettings.RepositoryConfigPath
+		}
+
+		if repositoryConfigPath, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); exists {
+			return repositoryConfigPath
+		}
+		return helmpath.ConfigPath("repositories.yaml")
+	}
+	k.helmRepositoryConfigPath = helmRepositoryConfigPath()
+
+	helmRepositoryCache := func() string {
+		if helmReleaseSettings.RepositoryCache != nil {
+			return *helmReleaseSettings.RepositoryCache
+		}
+
+		if repositoryCache, exists := os.LookupEnv("PULUMI_K8S_HELM_REPOSITORY_CACHE"); exists {
+			return repositoryCache
+		}
+		return helmpath.CachePath("repository")
+	}
+	k.helmRepositoryCache = helmRepositoryCache()
+
+	suppressHelmReleaseBetaWarning := func() bool {
+		if helmReleaseSettings.SuppressBetaWarning != nil {
+			return *helmReleaseSettings.SuppressBetaWarning
+		}
+
+		// If the provider flag is not set, fall back to the ENV var.
+		if disabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"); exists {
+			return disabled == trueStr
+		}
+		return false
+	}
+	k.suppressHelmReleaseBetaWarning = suppressHelmReleaseBetaWarning()
 
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
@@ -448,6 +561,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var kubeconfig clientcmd.ClientConfig
+	var apiConfig *clientapi.Config
 	homeDir := func() string {
 		// Ignore errors. The filepath will be checked later, so we can handle failures there.
 		usr, _ := user.Current()
@@ -466,7 +580,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		if _, err := os.Stat(pathOrContents); err == nil {
+		_, err := os.Stat(pathOrContents)
+		if err == nil {
 			b, err := ioutil.ReadFile(pathOrContents)
 			if err != nil {
 				unreachableCluster(err)
@@ -478,11 +593,11 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		}
 
 		// Load the contents of the k8s config.
-		config, err := clientcmd.Load([]byte(contents))
+		apiConfig, err = clientcmd.Load([]byte(contents))
 		if err != nil {
 			unreachableCluster(err)
 		} else {
-			kubeconfig = clientcmd.NewDefaultClientConfig(*config, overrides)
+			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 			configurationNamespace, _, err := kubeconfig.Namespace()
 			if err == nil {
 				k.defaultNamespace = configurationNamespace
@@ -502,9 +617,27 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.defaultNamespace = defaultNamespace
 	}
 
+	var kubeClientSettings KubeClientSettings
+	if obj, ok := vars["kubernetes:config:kubeClientSettings"]; ok {
+		err := json.Unmarshal([]byte(obj), &kubeClientSettings)
+		if err != nil {
+			return nil, fmt.Errorf("failed to unmarshal kubeClientSettings option: %w", err)
+		}
+	}
+
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
 		config, err := kubeconfig.ClientConfig()
+
+		if kubeClientSettings.Burst != nil {
+			config.Burst = *kubeClientSettings.Burst
+			logger.V(9).Infof("kube client burst set to %v", config.Burst)
+		}
+		if kubeClientSettings.QPS != nil {
+			config.QPS = float32(*kubeClientSettings.QPS)
+			logger.V(9).Infof("kube client QPS set to %v", config.QPS)
+		}
+
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
@@ -513,6 +646,27 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			warningConfig := rest.CopyConfig(config)
 			warningConfig.WarningHandler = rest.NoWarnings{}
 			k.config = warningConfig
+			k.kubeconfig = kubeconfig
+
+			namespace := "default"
+			if k.defaultNamespace != "" {
+				namespace = k.defaultNamespace
+			}
+			k.helmReleaseProvider, err = newHelmReleaseProvider(
+				k.host,
+				apiConfig,
+				overrides,
+				k.config,
+				k.helmDriver,
+				namespace,
+				k.enableSecrets,
+				k.helmPluginsPath,
+				k.helmRegistryConfigPath,
+				k.helmRepositoryConfigPath,
+				k.helmRepositoryCache)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
@@ -993,6 +1147,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// is given to it if it's not already provided.
 	//
 
+	urn := resource.URN(req.GetUrn())
+
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
 		knownGVKs := sets.NewString()
@@ -1013,7 +1169,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return knownGVKs.Has(gvk.String())
 	}
 
-	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Check(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
@@ -1026,7 +1181,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if err != nil {
 		return nil, err
 	}
-	oldInputs := propMapToUnstructured(olds)
 
 	// Obtain new resource inputs. This is the new version of the resource(s) supplied by the user as
 	// an update.
@@ -1039,34 +1193,15 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		KeepSecrets:  true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs")
+		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
 	}
+
+	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
 	var failures []*pulumirpc.CheckFailure
 
-	hasHelmHook := false
-	for key, value := range newInputs.GetAnnotations() {
-		// If annotations with a reserved internal prefix exist, ignore them.
-		if metadata.IsInternalAnnotation(key) {
-			_ = k.host.Log(ctx, diag.Warning, urn,
-				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
-		}
-
-		// If the Helm hook annotation is found, set the hasHelmHook flag.
-		if has := metadata.IsHelmHookAnnotation(key); has {
-			// Test hooks are handled, so ignore this one.
-			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
-				hasHelmHook = hasHelmHook || has
-			}
-		}
-	}
-	if hasHelmHook {
-		_ = k.host.Log(ctx, diag.Warning, urn,
-			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
-				"be created, but any hooks will not be executed. Hooks support is tracked at "+
-				"https://github.com/pulumi/pulumi-kubernetes/issues/555")
-	}
+	k.helmHookWarning(ctx, newInputs, urn)
 
 	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
 	if err != nil {
@@ -1076,6 +1211,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialAPIVersion)
 	}
 	newInputs = annotatedInputs
+
+	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
+		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+	}
 
 	// Adopt name from old object if appropriate.
 	//
@@ -1205,10 +1347,36 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
 
+// helmHookWarning logs a warning if a Chart contains unsupported hooks. The warning can be disabled by setting
+// the suppressHelmHookWarnings provider flag or related ENV var.
+func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructured.Unstructured, urn resource.URN) {
+	hasHelmHook := false
+	for key, value := range newInputs.GetAnnotations() {
+		// If annotations with a reserved internal prefix exist, ignore them.
+		if metadata.IsInternalAnnotation(key) {
+			_ = k.host.Log(ctx, diag.Warning, urn,
+				fmt.Sprintf("ignoring user-specified value for internal annotation %q", key))
+		}
+
+		// If the Helm hook annotation is found, set the hasHelmHook flag.
+		if has := metadata.IsHelmHookAnnotation(key); has {
+			// Test hooks are handled, so ignore this one.
+			if match, _ := regexp.MatchString(`test|test-success|test-failure`, value); !match {
+				hasHelmHook = hasHelmHook || has
+			}
+		}
+	}
+	if hasHelmHook && !k.suppressHelmHookWarnings {
+		_ = k.host.Log(ctx, diag.Warning, urn,
+			"This resource contains Helm hooks that are not currently supported by Pulumi. The resource will "+
+				"be created, but any hooks will not be executed. Hooks support is tracked at "+
+				"https://github.com/pulumi/pulumi-kubernetes/issues/555 -- This warning can be disabled by setting "+
+				"the PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS environment variable")
+	}
+}
+
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
-func (k *kubeProvider) Diff(
-	ctx context.Context, req *pulumirpc.DiffRequest,
-) (*pulumirpc.DiffResponse, error) {
+func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	//
 	// Behavior as of v0.12.x: We take 2 inputs:
 	//
@@ -1224,6 +1392,7 @@ func (k *kubeProvider) Diff(
 	//
 
 	urn := resource.URN(req.GetUrn())
+
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
@@ -1236,7 +1405,6 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Get new resource inputs. The user is submitting these as an update.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -1249,11 +1417,20 @@ func (k *kubeProvider) Diff(
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "diff failed because malformed resource inputs")
 	}
+
 	newInputs := propMapToUnstructured(newResInputs)
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	gvk, err := k.gvkFromURN(urn)
 	if err != nil {
 		return nil, err
+	}
+
+	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Diff(ctx, req)
+		}
+		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
 
 	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
@@ -1283,65 +1460,49 @@ func (k *kubeProvider) Diff(
 	}
 
 	var patch []byte
-	var isClientSidePatch bool
-	var patchBase *unstructured.Unstructured
+	var patchBase map[string]interface{}
 
-	// Try to compute a server-side patch. Returns true iff the operation succeeded.
-	tryServerSidePatch := func() bool {
-		// If the resource's GVK changed, so compute patch using inputs.
-		if oldInputs.GroupVersionKind().String() != gvk.String() {
-			return false
-		}
-		// If we can't dry-run the new GVK, computed the patch using inputs.
-		if !k.supportsDryRun(gvk) {
-			return false
-		}
-		// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
-		// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
-		// bug.
-		if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
-			return false
-		}
-
-		patch, patchBase, err = k.serverSidePatch(oldInputs, newInputs)
-		if k.isDryRunDisabledError(err) {
-			return false
-		}
-		if se, isStatusError := err.(*errors.StatusError); isStatusError {
-			// If the resource field is immutable.
-			if se.Status().Code == http.StatusUnprocessableEntity ||
-				strings.Contains(se.ErrStatus.Message, "field is immutable") {
-				return false
-			}
-		}
-
-		// The server-side patch succeeded.
-		return true
-	}
-	if !tryServerSidePatch() {
-		isClientSidePatch = true
-		patch, err = k.inputPatch(oldInputs, newInputs)
-		patchBase = oldInputs
-	}
-
-	if isClientSidePatch {
-		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-
-	} else {
-		logger.V(1).Infof("calculated diffs for %s/%s using dry-run", newInputs.GetNamespace(), newInputs.GetName())
-	}
+	// Always compute a client-side patch.
+	patch, err = k.inputPatch(oldInputs, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
-			err, "Failed to check for changes in resource %s/%s because of an error computing the JSON patch "+
-				"describing the resource changes",
-			newInputs.GetNamespace(), newInputs.GetName())
+			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
 	}
+	patchBase = oldInputs.Object
+
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes",
 			newInputs.GetNamespace(), newInputs.GetName())
+	}
+
+	// Try to compute a server-side patch.
+	ssPatch, ssPatchBase, ssPatchOk := k.tryServerSidePatch(oldInputs, newInputs, gvk)
+
+	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
+	// with the server-side values.
+	if ssPatchOk {
+		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
+		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverride)
+		if err != nil {
+			return nil, err
+		}
+
+		ssPatchObj := map[string]interface{}{}
+		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
+			return nil, pkgerrors.Wrapf(
+				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
+					"the JSON patch describing resource changes",
+				newInputs.GetNamespace(), newInputs.GetName())
+		}
+		err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 	}
 
 	// Pack up PB, ship response back.
@@ -1356,16 +1517,15 @@ func (k *kubeProvider) Diff(
 			changes = append(changes, k)
 		}
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase.Object, newInputs.Object, oldInputs.Object, gvk); err != nil {
+		forceNewFields := forceNewProperties(gvk)
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
-		if isClientSidePatch {
-			for _, v := range detailedDiff {
-				v.InputDiff = true
-			}
+		for _, v := range detailedDiff {
+			v.InputDiff = true
 		}
 
 		for k, v := range detailedDiff {
@@ -1440,6 +1600,14 @@ func (k *kubeProvider) Create(
 	//   comments in those methods for details.
 	//
 	urn := resource.URN(req.GetUrn())
+
+	if isHelmRelease(urn) && !req.GetPreview() {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Create(ctx, req)
+		}
+		return nil, fmt.Errorf("can't create Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+	}
+
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
@@ -1638,6 +1806,11 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			"If the cluster has been deleted, you can edit the pulumi state to remove this resource")
 	}
 
+	if isHelmRelease(urn) {
+		contract.Assertf(k.helmReleaseProvider != nil, "helmReleaseProvider not initialized.")
+		return k.helmReleaseProvider.Read(ctx, req)
+	}
+
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured` that we can pass to the
 	// validation routines.
 	oldState, err := plugin.UnmarshalProperties(req.GetProperties(), plugin.MarshalOptions{
@@ -1653,17 +1826,17 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
-	oldInputs, newInputs := parseCheckpointObject(oldState)
+	oldInputs, oldLive := parseCheckpointObject(oldState)
 
 	if oldInputs.GroupVersionKind().Empty() {
-		if newInputs.GroupVersionKind().Empty() {
+		if oldLive.GroupVersionKind().Empty() {
 			gvk, err := k.gvkFromURN(urn)
 			if err != nil {
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
 		} else {
-			oldInputs.SetGroupVersionKind(newInputs.GroupVersionKind())
+			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
 	}
 
@@ -1688,7 +1861,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
 		state, err := plugin.MarshalProperties(
-			checkpointObject(oldInputs, newInputs, oldState, initialAPIVersion), plugin.MarshalOptions{
+			checkpointObject(oldInputs, oldLive, oldState, initialAPIVersion), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.state", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -1879,8 +2052,6 @@ func (k *kubeProvider) Update(
 	if err != nil {
 		return nil, err
 	}
-	// Ignore old state; we'll get it from Kubernetes later.
-	oldInputs, _ := parseCheckpointObject(oldState)
 
 	// Obtain new properties, create a Kubernetes `unstructured.Unstructured`.
 	newResInputs, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
@@ -1904,6 +2075,16 @@ func (k *kubeProvider) Update(
 		logger.V(9).Infof("cannot preview Update(%v)", urn)
 		return &pulumirpc.UpdateResponse{Properties: req.News}, nil
 	}
+
+	if isHelmRelease(urn) {
+		if k.clusterUnreachable {
+			return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+		}
+
+		return k.helmReleaseProvider.Update(ctx, req)
+	}
+	// Ignore old state; we'll get it from Kubernetes later.
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	annotatedInputs, err := withLastAppliedConfig(newInputs)
 	if err != nil {
@@ -2025,10 +2206,7 @@ func (k *kubeProvider) Update(
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
 // to still exist.
-func (k *kubeProvider) Delete(
-	ctx context.Context, req *pulumirpc.DeleteRequest,
-) (*pbempty.Empty, error) {
-
+func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Delete(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -2042,6 +2220,14 @@ func (k *kubeProvider) Delete(
 	if err != nil {
 		return nil, err
 	}
+
+	if isHelmRelease(urn) {
+		if !k.clusterUnreachable {
+			return k.helmReleaseProvider.Delete(ctx, req)
+		}
+		return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+	}
+
 	_, current := parseCheckpointObject(oldState)
 	_, name := parseFqName(req.GetId())
 
@@ -2188,9 +2374,8 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(context.TODO(), obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) serverSidePatch(
-	oldInputs, newInputs *unstructured.Unstructured,
-) ([]byte, *unstructured.Unstructured, error) {
+func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured,
+) ([]byte, map[string]interface{}, error) {
 
 	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
 	if err != nil {
@@ -2256,7 +2441,7 @@ func (k *kubeProvider) serverSidePatch(
 		return nil, nil, err
 	}
 
-	return patch, liveObject, nil
+	return patch, liveObject.Object, nil
 }
 
 // inputPatch calculates a patch on the client-side by comparing old inputs to the current inputs.
@@ -2299,6 +2484,40 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 		(se.Status().Message == "the dryRun alpha feature is disabled" ||
 			se.Status().Message == "the dryRun beta feature is disabled" ||
 			strings.Contains(se.Status().Message, "does not support dry run"))
+}
+
+// tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
+func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Unstructured, gvk schema.GroupVersionKind,
+) ([]byte, map[string]interface{}, bool) {
+	// If the resource's GVK changed, so compute patch using inputs.
+	if oldInputs.GroupVersionKind().String() != gvk.String() {
+		return nil, nil, false
+	}
+	// If we can't dry-run the new GVK, computed the patch using inputs.
+	if !k.supportsDryRun(gvk) {
+		return nil, nil, false
+	}
+	// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
+	// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
+	// bug.
+	if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
+		return nil, nil, false
+	}
+
+	ssPatch, ssPatchBase, err := k.serverSidePatch(oldInputs, newInputs)
+	if k.isDryRunDisabledError(err) {
+		return nil, nil, false
+	}
+	if se, isStatusError := err.(*errors.StatusError); isStatusError {
+		// If the resource field is immutable.
+		if se.Status().Code == http.StatusUnprocessableEntity ||
+			strings.Contains(se.ErrStatus.Message, "field is immutable") {
+			return nil, nil, false
+		}
+	}
+
+	// The server-side patch succeeded.
+	return ssPatch, ssPatchBase, true
 }
 
 func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
@@ -2530,14 +2749,14 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
 func convertPatchToDiff(
-	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, gvk schema.GroupVersionKind,
+	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
 
 	contract.Require(len(patch) != 0, "len(patch) != 0")
 	contract.Require(oldLiveState != nil, "oldLiveState != nil")
 
 	pc := &patchConverter{
-		forceNew: forceNewProperties(gvk),
+		forceNew: forceNewFields,
 		diff:     map[string]*pulumirpc.PropertyDiff{},
 	}
 	err := pc.addPatchMapToDiff(nil, patch, oldLiveState, newInputs, oldInputs, false)

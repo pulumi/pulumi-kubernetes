@@ -194,9 +194,7 @@ func (i SecretListMap) ToSecretListMapOutputWithContext(ctx context.Context) Sec
 	return pulumi.ToOutputWithContext(ctx, i).(SecretListMapOutput)
 }
 
-type SecretListOutput struct {
-	*pulumi.OutputState
-}
+type SecretListOutput struct{ *pulumi.OutputState }
 
 func (SecretListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*SecretList)(nil))
@@ -215,14 +213,12 @@ func (o SecretListOutput) ToSecretListPtrOutput() SecretListPtrOutput {
 }
 
 func (o SecretListOutput) ToSecretListPtrOutputWithContext(ctx context.Context) SecretListPtrOutput {
-	return o.ApplyT(func(v SecretList) *SecretList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecretList) *SecretList {
 		return &v
 	}).(SecretListPtrOutput)
 }
 
-type SecretListPtrOutput struct {
-	*pulumi.OutputState
-}
+type SecretListPtrOutput struct{ *pulumi.OutputState }
 
 func (SecretListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**SecretList)(nil))
@@ -234,6 +230,16 @@ func (o SecretListPtrOutput) ToSecretListPtrOutput() SecretListPtrOutput {
 
 func (o SecretListPtrOutput) ToSecretListPtrOutputWithContext(ctx context.Context) SecretListPtrOutput {
 	return o
+}
+
+func (o SecretListPtrOutput) Elem() SecretListOutput {
+	return o.ApplyT(func(v *SecretList) SecretList {
+		if v != nil {
+			return *v
+		}
+		var ret SecretList
+		return ret
+	}).(SecretListOutput)
 }
 
 type SecretListArrayOutput struct{ *pulumi.OutputState }

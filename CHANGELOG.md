@@ -1,6 +1,82 @@
 ## HEAD (Unreleased)
 
+## 3.8.2 (October 18, 2021)
+
+- [sdk/python] Relax PyYaml dependency to allow upgrade to PyYaml 6.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1768)
+- [go/sdk] Add missing types for deprecated Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1771)
+
+## 3.8.1 (October 8, 2021)
+
+- Fix error for helm.Release previews with computed values (https://github.com/pulumi/pulumi-kubernetes/pull/1760)
+- Don't require values for helm.Release (https://github.com/pulumi/pulumi-kubernetes/pull/1761)
+
+## 3.8.0 (October 6, 2021)
+
+Breaking change note:
+
+[#1751](https://github.com/pulumi/pulumi-kubernetes/pull/1751) moved the Helm Release (beta) Provider options into a
+complex type called `helmReleaseSettings`. Following this change, you can set these options in the following ways:
+
+1. As arguments to a first-class Provider
+   ```typescript
+   new k8s.Provider("test", { helmReleaseSettings: { driver: "secret" } });
+   ```
+
+1. Stack configuration for the default Provider
+   ```
+   pulumi config set --path kubernetes:helmReleaseSettings.driver "secret"
+   ```
+
+1. As environment variables
+   ```
+   EXPORT PULUMI_K8S_HELM_DRIVER="secret"
+   ```
+
+- [sdk/dotnet] Fix creation of CustomResources (https://github.com/pulumi/pulumi-kubernetes/pull/1741)
+- Always override namespace for helm release operations (https://github.com/pulumi/pulumi-kubernetes/pull/1747)
+- Add k8s client tuning settings to Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1748)
+- Nest helm.Release Provider settings (https://github.com/pulumi/pulumi-kubernetes/pull/1751)
+- Change await logic client to use target apiVersion on updates (https://github.com/pulumi/pulumi-kubernetes/pull/1758)
+
+## 3.7.3 (September 30, 2021)
+- Use helm release's namespace on templates where namespace is left unspecified (https://github.com/pulumi/pulumi-kubernetes/pull/1733)
+- Upgrade Helm dependency to v3.7.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1742)
+- Helm Release: Await deletion if skipAwait is unset or atomic is specific (https://github.com/pulumi/pulumi-kubernetes/pull/1742)
+
+## 3.7.2 (September 17, 2021)
+- Fix handling of charts with empty manifests (https://github.com/pulumi/pulumi-kubernetes/pull/1717)
+- Use existing helm template logic to populate manifests instead of relying on `dry-run` support (https://github.com/pulumi/pulumi-kubernetes/pull/1718)
+
+## 3.7.1 (September 10, 2021)
+- Don't replace PVC on .spec.resources.requests or .limits change. (https://github.com/pulumi/pulumi-kubernetes/pull/1705)
+    - *NOTE*: User's will now need to use the `replaceOnChanges` resource option for PVCs if modifying requests or limits to trigger replacement
+
+## 3.7.0 (September 3, 2021)
+- Add initial support for a Helm release resource - `kubernetes:helm.sh/v3:Release. Currently available in Beta (https://github.com/pulumi/pulumi-kubernetes/pull/1677)
+
+## 3.6.3 (August 23, 2021)
+
+- [sdk/go] Re-add deprecated Provider file (https://github.com/pulumi/pulumi-kubernetes/pull/1687)
+
+## 3.6.2 (August 20, 2021)
+
+- Fix environment variable name in disable Helm hook warnings message (https://github.com/pulumi/pulumi-kubernetes/pull/1683)
+
+## 3.6.1 (August 19, 2021)
+
+- [sdk/python] Fix wait for metadata in `yaml._parse_yaml_object`. (https://github.com/pulumi/pulumi-kubernetes/pull/1675)
+- Fix diff logic for server-side apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/1679)
+- Add option to disable Helm hook warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1682)
+- For renderToYamlDirectory, treat an empty directory as unset (https://github.com/pulumi/pulumi-kubernetes/pull/1678)
+
+## 3.6.0 (August 4, 2021)
+
+The following breaking changes are part of the Kubernetes v1.22 update:
+- The alpha `EphemeralContainers` kind [has been removed](https://github.com/kubernetes/kubernetes/pull/101034)
+- [.NET SDK] `Networking.V1Beta1.IngressClassParametersReferenceArgs` -> `Core.V1.TypedLocalObjectReferenceArgs`
+
 - Update Helm and client-go deps (https://github.com/pulumi/pulumi-kubernetes/pull/1662)
+- Add support for k8s v1.22.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1551)
 
 ## 3.5.2 (July 29, 2021)
 

@@ -194,9 +194,7 @@ func (i IngressClassListMap) ToIngressClassListMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassListMapOutput)
 }
 
-type IngressClassListOutput struct {
-	*pulumi.OutputState
-}
+type IngressClassListOutput struct{ *pulumi.OutputState }
 
 func (IngressClassListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*IngressClassList)(nil))
@@ -215,14 +213,12 @@ func (o IngressClassListOutput) ToIngressClassListPtrOutput() IngressClassListPt
 }
 
 func (o IngressClassListOutput) ToIngressClassListPtrOutputWithContext(ctx context.Context) IngressClassListPtrOutput {
-	return o.ApplyT(func(v IngressClassList) *IngressClassList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClassList) *IngressClassList {
 		return &v
 	}).(IngressClassListPtrOutput)
 }
 
-type IngressClassListPtrOutput struct {
-	*pulumi.OutputState
-}
+type IngressClassListPtrOutput struct{ *pulumi.OutputState }
 
 func (IngressClassListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**IngressClassList)(nil))
@@ -234,6 +230,16 @@ func (o IngressClassListPtrOutput) ToIngressClassListPtrOutput() IngressClassLis
 
 func (o IngressClassListPtrOutput) ToIngressClassListPtrOutputWithContext(ctx context.Context) IngressClassListPtrOutput {
 	return o
+}
+
+func (o IngressClassListPtrOutput) Elem() IngressClassListOutput {
+	return o.ApplyT(func(v *IngressClassList) IngressClassList {
+		if v != nil {
+			return *v
+		}
+		var ret IngressClassList
+		return ret
+	}).(IngressClassListOutput)
 }
 
 type IngressClassListArrayOutput struct{ *pulumi.OutputState }

@@ -66,6 +66,18 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
+        /// BETA FEATURE - Options to configure the Helm Release resource.
+        /// </summary>
+        [Input("helmReleaseSettings", json: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Provider.HelmReleaseSettingsArgs>? HelmReleaseSettings { get; set; }
+
+        /// <summary>
+        /// Options for tuning the Kubernetes client used by a Provider.
+        /// </summary>
+        [Input("kubeClientSettings", json: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Provider.KubeClientSettingsArgs>? KubeClientSettings { get; set; }
+
+        /// <summary>
         /// The contents of a kubeconfig file or the path to a kubeconfig file.
         /// </summary>
         [Input("kubeconfig")]
@@ -101,11 +113,18 @@ namespace Pulumi.Kubernetes
         [Input("suppressDeprecationWarnings", json: true)]
         public Input<bool>? SuppressDeprecationWarnings { get; set; }
 
+        /// <summary>
+        /// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+        /// </summary>
+        [Input("suppressHelmHookWarnings", json: true)]
+        public Input<bool>? SuppressHelmHookWarnings { get; set; }
+
         public ProviderArgs()
         {
             EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
+            SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");
         }
     }
 }

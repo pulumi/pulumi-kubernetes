@@ -12,7 +12,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.22.
+// RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
 type RoleBinding struct {
 	pulumi.CustomResourceState
 
@@ -209,9 +209,7 @@ func (i RoleBindingMap) ToRoleBindingMapOutputWithContext(ctx context.Context) R
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingMapOutput)
 }
 
-type RoleBindingOutput struct {
-	*pulumi.OutputState
-}
+type RoleBindingOutput struct{ *pulumi.OutputState }
 
 func (RoleBindingOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*RoleBinding)(nil))
@@ -230,14 +228,12 @@ func (o RoleBindingOutput) ToRoleBindingPtrOutput() RoleBindingPtrOutput {
 }
 
 func (o RoleBindingOutput) ToRoleBindingPtrOutputWithContext(ctx context.Context) RoleBindingPtrOutput {
-	return o.ApplyT(func(v RoleBinding) *RoleBinding {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleBinding) *RoleBinding {
 		return &v
 	}).(RoleBindingPtrOutput)
 }
 
-type RoleBindingPtrOutput struct {
-	*pulumi.OutputState
-}
+type RoleBindingPtrOutput struct{ *pulumi.OutputState }
 
 func (RoleBindingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**RoleBinding)(nil))
@@ -249,6 +245,16 @@ func (o RoleBindingPtrOutput) ToRoleBindingPtrOutput() RoleBindingPtrOutput {
 
 func (o RoleBindingPtrOutput) ToRoleBindingPtrOutputWithContext(ctx context.Context) RoleBindingPtrOutput {
 	return o
+}
+
+func (o RoleBindingPtrOutput) Elem() RoleBindingOutput {
+	return o.ApplyT(func(v *RoleBinding) RoleBinding {
+		if v != nil {
+			return *v
+		}
+		var ret RoleBinding
+		return ret
+	}).(RoleBindingOutput)
 }
 
 type RoleBindingArrayOutput struct{ *pulumi.OutputState }

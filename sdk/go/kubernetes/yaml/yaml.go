@@ -723,13 +723,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "v1/EphemeralContainers":
-		var res corev1.EphemeralContainers
-		err := ctx.RegisterResource("kubernetes:core/v1:EphemeralContainers", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "v1/Event":
 		var res corev1.Event
 		err := ctx.RegisterResource("kubernetes:core/v1:Event", metaName, kubernetes.UntypedArgs(obj), &res, opts...)

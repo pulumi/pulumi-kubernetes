@@ -620,7 +620,7 @@ func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutput() Volume
 }
 
 func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourcePtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSource) *VolumeAttachmentSource {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentSource) *VolumeAttachmentSource {
 		return &v
 	}).(VolumeAttachmentSourcePtrOutput)
 }
@@ -650,7 +650,13 @@ func (o VolumeAttachmentSourcePtrOutput) ToVolumeAttachmentSourcePtrOutputWithCo
 }
 
 func (o VolumeAttachmentSourcePtrOutput) Elem() VolumeAttachmentSourceOutput {
-	return o.ApplyT(func(v *VolumeAttachmentSource) VolumeAttachmentSource { return *v }).(VolumeAttachmentSourceOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSource) VolumeAttachmentSource {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentSource
+		return ret
+	}).(VolumeAttachmentSourceOutput)
 }
 
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
@@ -777,7 +783,7 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutput() VolumeAtta
 }
 
 func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentSpec) *VolumeAttachmentSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentSpec) *VolumeAttachmentSpec {
 		return &v
 	}).(VolumeAttachmentSpecPtrOutput)
 }
@@ -812,7 +818,13 @@ func (o VolumeAttachmentSpecPtrOutput) ToVolumeAttachmentSpecPtrOutputWithContex
 }
 
 func (o VolumeAttachmentSpecPtrOutput) Elem() VolumeAttachmentSpecOutput {
-	return o.ApplyT(func(v *VolumeAttachmentSpec) VolumeAttachmentSpec { return *v }).(VolumeAttachmentSpecOutput)
+	return o.ApplyT(func(v *VolumeAttachmentSpec) VolumeAttachmentSpec {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentSpec
+		return ret
+	}).(VolumeAttachmentSpecOutput)
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
@@ -953,7 +965,7 @@ func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutput() Volume
 }
 
 func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
-	return o.ApplyT(func(v VolumeAttachmentStatus) *VolumeAttachmentStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentStatus) *VolumeAttachmentStatus {
 		return &v
 	}).(VolumeAttachmentStatusPtrOutput)
 }
@@ -993,7 +1005,13 @@ func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutputWithCo
 }
 
 func (o VolumeAttachmentStatusPtrOutput) Elem() VolumeAttachmentStatusOutput {
-	return o.ApplyT(func(v *VolumeAttachmentStatus) VolumeAttachmentStatus { return *v }).(VolumeAttachmentStatusOutput)
+	return o.ApplyT(func(v *VolumeAttachmentStatus) VolumeAttachmentStatus {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeAttachmentStatus
+		return ret
+	}).(VolumeAttachmentStatusOutput)
 }
 
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -1136,7 +1154,7 @@ func (o VolumeErrorOutput) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
 }
 
 func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
-	return o.ApplyT(func(v VolumeError) *VolumeError {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeError) *VolumeError {
 		return &v
 	}).(VolumeErrorPtrOutput)
 }
@@ -1166,7 +1184,13 @@ func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Cont
 }
 
 func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
-	return o.ApplyT(func(v *VolumeError) VolumeError { return *v }).(VolumeErrorOutput)
+	return o.ApplyT(func(v *VolumeError) VolumeError {
+		if v != nil {
+			return *v
+		}
+		var ret VolumeError
+		return ret
+	}).(VolumeErrorOutput)
 }
 
 // String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
@@ -1190,6 +1214,20 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityTypeInput)(nil)).Elem(), CSIStorageCapacityTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityTypeArrayInput)(nil)).Elem(), CSIStorageCapacityTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityListTypeInput)(nil)).Elem(), CSIStorageCapacityListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentTypeInput)(nil)).Elem(), VolumeAttachmentTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentTypeArrayInput)(nil)).Elem(), VolumeAttachmentTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentListTypeInput)(nil)).Elem(), VolumeAttachmentListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentSourceInput)(nil)).Elem(), VolumeAttachmentSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentSourcePtrInput)(nil)).Elem(), VolumeAttachmentSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentSpecInput)(nil)).Elem(), VolumeAttachmentSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentSpecPtrInput)(nil)).Elem(), VolumeAttachmentSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusInput)(nil)).Elem(), VolumeAttachmentStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusPtrInput)(nil)).Elem(), VolumeAttachmentStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorInput)(nil)).Elem(), VolumeErrorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorPtrInput)(nil)).Elem(), VolumeErrorArgs{})
 	pulumi.RegisterOutputType(CSIStorageCapacityTypeOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityTypeArrayOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityListTypeOutput{})

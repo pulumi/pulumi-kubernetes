@@ -194,9 +194,7 @@ func (i NetworkPolicyListMap) ToNetworkPolicyListMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyListMapOutput)
 }
 
-type NetworkPolicyListOutput struct {
-	*pulumi.OutputState
-}
+type NetworkPolicyListOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*NetworkPolicyList)(nil))
@@ -215,14 +213,12 @@ func (o NetworkPolicyListOutput) ToNetworkPolicyListPtrOutput() NetworkPolicyLis
 }
 
 func (o NetworkPolicyListOutput) ToNetworkPolicyListPtrOutputWithContext(ctx context.Context) NetworkPolicyListPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyList) *NetworkPolicyList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkPolicyList) *NetworkPolicyList {
 		return &v
 	}).(NetworkPolicyListPtrOutput)
 }
 
-type NetworkPolicyListPtrOutput struct {
-	*pulumi.OutputState
-}
+type NetworkPolicyListPtrOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**NetworkPolicyList)(nil))
@@ -234,6 +230,16 @@ func (o NetworkPolicyListPtrOutput) ToNetworkPolicyListPtrOutput() NetworkPolicy
 
 func (o NetworkPolicyListPtrOutput) ToNetworkPolicyListPtrOutputWithContext(ctx context.Context) NetworkPolicyListPtrOutput {
 	return o
+}
+
+func (o NetworkPolicyListPtrOutput) Elem() NetworkPolicyListOutput {
+	return o.ApplyT(func(v *NetworkPolicyList) NetworkPolicyList {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkPolicyList
+		return ret
+	}).(NetworkPolicyListOutput)
 }
 
 type NetworkPolicyListArrayOutput struct{ *pulumi.OutputState }

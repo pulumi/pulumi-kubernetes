@@ -480,8 +480,8 @@ def _parse_yaml_object(
     spec = obj.get("spec")
     identifier: pulumi.Output = pulumi.Output.from_input(metadata["name"])
     if "namespace" in metadata:
-        identifier = pulumi.Output.from_input(metadata).apply(
-            lambda metadata: f"{metadata['namespace']}/{metadata['name']}")
+        identifier = pulumi.Output.all(metadata["namespace"], metadata["name"]).apply(
+            lambda x: f"{x[0]}/{x[1]}")
     if resource_prefix:
         identifier = pulumi.Output.from_input(identifier).apply(
             lambda identifier: f"{resource_prefix}-{identifier}")
@@ -979,12 +979,6 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"v1/EndpointsList:{x}",
                        EndpointsList(f"{x}", opts, **obj)))]
-    if gvk == "v1/EphemeralContainers":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.core.v1 import EphemeralContainers
-        return [identifier.apply(
-            lambda x: (f"v1/EphemeralContainers:{x}",
-                       EphemeralContainers(f"{x}", opts, **obj)))]
     if gvk == "v1/Event":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.core.v1 import Event

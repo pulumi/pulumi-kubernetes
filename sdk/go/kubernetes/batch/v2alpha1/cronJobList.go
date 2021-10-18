@@ -194,9 +194,7 @@ func (i CronJobListMap) ToCronJobListMapOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListMapOutput)
 }
 
-type CronJobListOutput struct {
-	*pulumi.OutputState
-}
+type CronJobListOutput struct{ *pulumi.OutputState }
 
 func (CronJobListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*CronJobList)(nil))
@@ -215,14 +213,12 @@ func (o CronJobListOutput) ToCronJobListPtrOutput() CronJobListPtrOutput {
 }
 
 func (o CronJobListOutput) ToCronJobListPtrOutputWithContext(ctx context.Context) CronJobListPtrOutput {
-	return o.ApplyT(func(v CronJobList) *CronJobList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobList) *CronJobList {
 		return &v
 	}).(CronJobListPtrOutput)
 }
 
-type CronJobListPtrOutput struct {
-	*pulumi.OutputState
-}
+type CronJobListPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**CronJobList)(nil))
@@ -234,6 +230,16 @@ func (o CronJobListPtrOutput) ToCronJobListPtrOutput() CronJobListPtrOutput {
 
 func (o CronJobListPtrOutput) ToCronJobListPtrOutputWithContext(ctx context.Context) CronJobListPtrOutput {
 	return o
+}
+
+func (o CronJobListPtrOutput) Elem() CronJobListOutput {
+	return o.ApplyT(func(v *CronJobList) CronJobList {
+		if v != nil {
+			return *v
+		}
+		var ret CronJobList
+		return ret
+	}).(CronJobListOutput)
 }
 
 type CronJobListArrayOutput struct{ *pulumi.OutputState }

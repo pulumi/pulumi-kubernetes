@@ -696,7 +696,7 @@ func (o DaemonSetSpecOutput) ToDaemonSetSpecPtrOutput() DaemonSetSpecPtrOutput {
 }
 
 func (o DaemonSetSpecOutput) ToDaemonSetSpecPtrOutputWithContext(ctx context.Context) DaemonSetSpecPtrOutput {
-	return o.ApplyT(func(v DaemonSetSpec) *DaemonSetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSetSpec) *DaemonSetSpec {
 		return &v
 	}).(DaemonSetSpecPtrOutput)
 }
@@ -741,7 +741,13 @@ func (o DaemonSetSpecPtrOutput) ToDaemonSetSpecPtrOutputWithContext(ctx context.
 }
 
 func (o DaemonSetSpecPtrOutput) Elem() DaemonSetSpecOutput {
-	return o.ApplyT(func(v *DaemonSetSpec) DaemonSetSpec { return *v }).(DaemonSetSpecOutput)
+	return o.ApplyT(func(v *DaemonSetSpec) DaemonSetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSetSpec
+		return ret
+	}).(DaemonSetSpecOutput)
 }
 
 // The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
@@ -926,7 +932,7 @@ func (o DaemonSetStatusOutput) ToDaemonSetStatusPtrOutput() DaemonSetStatusPtrOu
 }
 
 func (o DaemonSetStatusOutput) ToDaemonSetStatusPtrOutputWithContext(ctx context.Context) DaemonSetStatusPtrOutput {
-	return o.ApplyT(func(v DaemonSetStatus) *DaemonSetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSetStatus) *DaemonSetStatus {
 		return &v
 	}).(DaemonSetStatusPtrOutput)
 }
@@ -996,7 +1002,13 @@ func (o DaemonSetStatusPtrOutput) ToDaemonSetStatusPtrOutputWithContext(ctx cont
 }
 
 func (o DaemonSetStatusPtrOutput) Elem() DaemonSetStatusOutput {
-	return o.ApplyT(func(v *DaemonSetStatus) DaemonSetStatus { return *v }).(DaemonSetStatusOutput)
+	return o.ApplyT(func(v *DaemonSetStatus) DaemonSetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSetStatus
+		return ret
+	}).(DaemonSetStatusOutput)
 }
 
 // Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -1199,7 +1211,7 @@ func (o DaemonSetUpdateStrategyOutput) ToDaemonSetUpdateStrategyPtrOutput() Daem
 }
 
 func (o DaemonSetUpdateStrategyOutput) ToDaemonSetUpdateStrategyPtrOutputWithContext(ctx context.Context) DaemonSetUpdateStrategyPtrOutput {
-	return o.ApplyT(func(v DaemonSetUpdateStrategy) *DaemonSetUpdateStrategy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSetUpdateStrategy) *DaemonSetUpdateStrategy {
 		return &v
 	}).(DaemonSetUpdateStrategyPtrOutput)
 }
@@ -1229,7 +1241,13 @@ func (o DaemonSetUpdateStrategyPtrOutput) ToDaemonSetUpdateStrategyPtrOutputWith
 }
 
 func (o DaemonSetUpdateStrategyPtrOutput) Elem() DaemonSetUpdateStrategyOutput {
-	return o.ApplyT(func(v *DaemonSetUpdateStrategy) DaemonSetUpdateStrategy { return *v }).(DaemonSetUpdateStrategyOutput)
+	return o.ApplyT(func(v *DaemonSetUpdateStrategy) DaemonSetUpdateStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret DaemonSetUpdateStrategy
+		return ret
+	}).(DaemonSetUpdateStrategyOutput)
 }
 
 // Rolling update config params. Present only if type = "RollingUpdate".
@@ -1280,7 +1298,7 @@ type DeploymentType struct {
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Standard object metadata.
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec *DeploymentSpec `pulumi:"spec"`
@@ -1327,7 +1345,7 @@ type DeploymentTypeArgs struct {
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object metadata.
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the Deployment.
 	Spec DeploymentSpecPtrInput `pulumi:"spec"`
@@ -1419,7 +1437,7 @@ func (o DeploymentTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object metadata.
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o DeploymentTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v DeploymentType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -1805,7 +1823,7 @@ func (o DeploymentSpecOutput) ToDeploymentSpecPtrOutput() DeploymentSpecPtrOutpu
 }
 
 func (o DeploymentSpecOutput) ToDeploymentSpecPtrOutputWithContext(ctx context.Context) DeploymentSpecPtrOutput {
-	return o.ApplyT(func(v DeploymentSpec) *DeploymentSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentSpec) *DeploymentSpec {
 		return &v
 	}).(DeploymentSpecPtrOutput)
 }
@@ -1865,7 +1883,13 @@ func (o DeploymentSpecPtrOutput) ToDeploymentSpecPtrOutputWithContext(ctx contex
 }
 
 func (o DeploymentSpecPtrOutput) Elem() DeploymentSpecOutput {
-	return o.ApplyT(func(v *DeploymentSpec) DeploymentSpec { return *v }).(DeploymentSpecOutput)
+	return o.ApplyT(func(v *DeploymentSpec) DeploymentSpec {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentSpec
+		return ret
+	}).(DeploymentSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -2072,7 +2096,7 @@ func (o DeploymentStatusOutput) ToDeploymentStatusPtrOutput() DeploymentStatusPt
 }
 
 func (o DeploymentStatusOutput) ToDeploymentStatusPtrOutputWithContext(ctx context.Context) DeploymentStatusPtrOutput {
-	return o.ApplyT(func(v DeploymentStatus) *DeploymentStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentStatus) *DeploymentStatus {
 		return &v
 	}).(DeploymentStatusPtrOutput)
 }
@@ -2132,7 +2156,13 @@ func (o DeploymentStatusPtrOutput) ToDeploymentStatusPtrOutputWithContext(ctx co
 }
 
 func (o DeploymentStatusPtrOutput) Elem() DeploymentStatusOutput {
-	return o.ApplyT(func(v *DeploymentStatus) DeploymentStatus { return *v }).(DeploymentStatusOutput)
+	return o.ApplyT(func(v *DeploymentStatus) DeploymentStatus {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentStatus
+		return ret
+	}).(DeploymentStatusOutput)
 }
 
 // Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
@@ -2315,7 +2345,7 @@ func (o DeploymentStrategyOutput) ToDeploymentStrategyPtrOutput() DeploymentStra
 }
 
 func (o DeploymentStrategyOutput) ToDeploymentStrategyPtrOutputWithContext(ctx context.Context) DeploymentStrategyPtrOutput {
-	return o.ApplyT(func(v DeploymentStrategy) *DeploymentStrategy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeploymentStrategy) *DeploymentStrategy {
 		return &v
 	}).(DeploymentStrategyPtrOutput)
 }
@@ -2345,7 +2375,13 @@ func (o DeploymentStrategyPtrOutput) ToDeploymentStrategyPtrOutputWithContext(ct
 }
 
 func (o DeploymentStrategyPtrOutput) Elem() DeploymentStrategyOutput {
-	return o.ApplyT(func(v *DeploymentStrategy) DeploymentStrategy { return *v }).(DeploymentStrategyOutput)
+	return o.ApplyT(func(v *DeploymentStrategy) DeploymentStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret DeploymentStrategy
+		return ret
+	}).(DeploymentStrategyOutput)
 }
 
 // Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -2830,7 +2866,7 @@ func (o ReplicaSetSpecOutput) ToReplicaSetSpecPtrOutput() ReplicaSetSpecPtrOutpu
 }
 
 func (o ReplicaSetSpecOutput) ToReplicaSetSpecPtrOutputWithContext(ctx context.Context) ReplicaSetSpecPtrOutput {
-	return o.ApplyT(func(v ReplicaSetSpec) *ReplicaSetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicaSetSpec) *ReplicaSetSpec {
 		return &v
 	}).(ReplicaSetSpecPtrOutput)
 }
@@ -2870,7 +2906,13 @@ func (o ReplicaSetSpecPtrOutput) ToReplicaSetSpecPtrOutputWithContext(ctx contex
 }
 
 func (o ReplicaSetSpecPtrOutput) Elem() ReplicaSetSpecOutput {
-	return o.ApplyT(func(v *ReplicaSetSpec) ReplicaSetSpec { return *v }).(ReplicaSetSpecOutput)
+	return o.ApplyT(func(v *ReplicaSetSpec) ReplicaSetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicaSetSpec
+		return ret
+	}).(ReplicaSetSpecOutput)
 }
 
 // Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -3029,7 +3071,7 @@ func (o ReplicaSetStatusOutput) ToReplicaSetStatusPtrOutput() ReplicaSetStatusPt
 }
 
 func (o ReplicaSetStatusOutput) ToReplicaSetStatusPtrOutputWithContext(ctx context.Context) ReplicaSetStatusPtrOutput {
-	return o.ApplyT(func(v ReplicaSetStatus) *ReplicaSetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicaSetStatus) *ReplicaSetStatus {
 		return &v
 	}).(ReplicaSetStatusPtrOutput)
 }
@@ -3079,7 +3121,13 @@ func (o ReplicaSetStatusPtrOutput) ToReplicaSetStatusPtrOutputWithContext(ctx co
 }
 
 func (o ReplicaSetStatusPtrOutput) Elem() ReplicaSetStatusOutput {
-	return o.ApplyT(func(v *ReplicaSetStatus) ReplicaSetStatus { return *v }).(ReplicaSetStatusOutput)
+	return o.ApplyT(func(v *ReplicaSetStatus) ReplicaSetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicaSetStatus
+		return ret
+	}).(ReplicaSetStatusOutput)
 }
 
 // The number of available replicas (ready for at least minReadySeconds) for this replica set.
@@ -3144,9 +3192,9 @@ func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSet struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is an alpha field and requires enabling DaemonSetUpdateSurge feature gate.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
 	MaxSurge interface{} `pulumi:"maxSurge"`
-	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding down to a minimum of one. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
 }
 
@@ -3163,9 +3211,9 @@ type RollingUpdateDaemonSetInput interface {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetArgs struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is an alpha field and requires enabling DaemonSetUpdateSurge feature gate.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
-	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding down to a minimum of one. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
 }
 
@@ -3242,17 +3290,17 @@ func (o RollingUpdateDaemonSetOutput) ToRollingUpdateDaemonSetPtrOutput() Rollin
 }
 
 func (o RollingUpdateDaemonSetOutput) ToRollingUpdateDaemonSetPtrOutputWithContext(ctx context.Context) RollingUpdateDaemonSetPtrOutput {
-	return o.ApplyT(func(v RollingUpdateDaemonSet) *RollingUpdateDaemonSet {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RollingUpdateDaemonSet) *RollingUpdateDaemonSet {
 		return &v
 	}).(RollingUpdateDaemonSetPtrOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is an alpha field and requires enabling DaemonSetUpdateSurge feature gate.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
 func (o RollingUpdateDaemonSetOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateDaemonSet) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
 
-// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding down to a minimum of one. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 func (o RollingUpdateDaemonSetOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateDaemonSet) interface{} { return v.MaxUnavailable }).(pulumi.AnyOutput)
 }
@@ -3272,10 +3320,16 @@ func (o RollingUpdateDaemonSetPtrOutput) ToRollingUpdateDaemonSetPtrOutputWithCo
 }
 
 func (o RollingUpdateDaemonSetPtrOutput) Elem() RollingUpdateDaemonSetOutput {
-	return o.ApplyT(func(v *RollingUpdateDaemonSet) RollingUpdateDaemonSet { return *v }).(RollingUpdateDaemonSetOutput)
+	return o.ApplyT(func(v *RollingUpdateDaemonSet) RollingUpdateDaemonSet {
+		if v != nil {
+			return *v
+		}
+		var ret RollingUpdateDaemonSet
+		return ret
+	}).(RollingUpdateDaemonSetOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is an alpha field and requires enabling DaemonSetUpdateSurge feature gate.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
 func (o RollingUpdateDaemonSetPtrOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateDaemonSet) interface{} {
 		if v == nil {
@@ -3285,7 +3339,7 @@ func (o RollingUpdateDaemonSetPtrOutput) MaxSurge() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding down to a minimum of one. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 func (o RollingUpdateDaemonSetPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateDaemonSet) interface{} {
 		if v == nil {
@@ -3395,7 +3449,7 @@ func (o RollingUpdateDeploymentOutput) ToRollingUpdateDeploymentPtrOutput() Roll
 }
 
 func (o RollingUpdateDeploymentOutput) ToRollingUpdateDeploymentPtrOutputWithContext(ctx context.Context) RollingUpdateDeploymentPtrOutput {
-	return o.ApplyT(func(v RollingUpdateDeployment) *RollingUpdateDeployment {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RollingUpdateDeployment) *RollingUpdateDeployment {
 		return &v
 	}).(RollingUpdateDeploymentPtrOutput)
 }
@@ -3425,7 +3479,13 @@ func (o RollingUpdateDeploymentPtrOutput) ToRollingUpdateDeploymentPtrOutputWith
 }
 
 func (o RollingUpdateDeploymentPtrOutput) Elem() RollingUpdateDeploymentOutput {
-	return o.ApplyT(func(v *RollingUpdateDeployment) RollingUpdateDeployment { return *v }).(RollingUpdateDeploymentOutput)
+	return o.ApplyT(func(v *RollingUpdateDeployment) RollingUpdateDeployment {
+		if v != nil {
+			return *v
+		}
+		var ret RollingUpdateDeployment
+		return ret
+	}).(RollingUpdateDeploymentOutput)
 }
 
 // The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
@@ -3544,7 +3604,7 @@ func (o RollingUpdateStatefulSetStrategyOutput) ToRollingUpdateStatefulSetStrate
 }
 
 func (o RollingUpdateStatefulSetStrategyOutput) ToRollingUpdateStatefulSetStrategyPtrOutputWithContext(ctx context.Context) RollingUpdateStatefulSetStrategyPtrOutput {
-	return o.ApplyT(func(v RollingUpdateStatefulSetStrategy) *RollingUpdateStatefulSetStrategy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RollingUpdateStatefulSetStrategy) *RollingUpdateStatefulSetStrategy {
 		return &v
 	}).(RollingUpdateStatefulSetStrategyPtrOutput)
 }
@@ -3569,7 +3629,13 @@ func (o RollingUpdateStatefulSetStrategyPtrOutput) ToRollingUpdateStatefulSetStr
 }
 
 func (o RollingUpdateStatefulSetStrategyPtrOutput) Elem() RollingUpdateStatefulSetStrategyOutput {
-	return o.ApplyT(func(v *RollingUpdateStatefulSetStrategy) RollingUpdateStatefulSetStrategy { return *v }).(RollingUpdateStatefulSetStrategyOutput)
+	return o.ApplyT(func(v *RollingUpdateStatefulSetStrategy) RollingUpdateStatefulSetStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret RollingUpdateStatefulSetStrategy
+		return ret
+	}).(RollingUpdateStatefulSetStrategyOutput)
 }
 
 // Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
@@ -3603,7 +3669,8 @@ type StatefulSetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
 	Spec *StatefulSetSpec `pulumi:"spec"`
@@ -3643,7 +3710,8 @@ type StatefulSetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Spec defines the desired identities of pods in this set.
 	Spec StatefulSetSpecPtrInput `pulumi:"spec"`
@@ -3729,6 +3797,7 @@ func (o StatefulSetTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o StatefulSetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v StatefulSetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -3902,10 +3971,12 @@ func (o StatefulSetConditionArrayOutput) Index(i pulumi.IntInput) StatefulSetCon
 // StatefulSetList is a collection of StatefulSets.
 type StatefulSetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string           `pulumi:"apiVersion"`
-	Items      []StatefulSetType `pulumi:"items"`
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Items is the list of stateful sets.
+	Items []StatefulSetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string          `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -3923,10 +3994,12 @@ type StatefulSetListTypeInput interface {
 // StatefulSetList is a collection of StatefulSets.
 type StatefulSetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput     `pulumi:"apiVersion"`
-	Items      StatefulSetTypeArrayInput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of stateful sets.
+	Items StatefulSetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -3962,6 +4035,7 @@ func (o StatefulSetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
+// Items is the list of stateful sets.
 func (o StatefulSetListTypeOutput) Items() StatefulSetTypeArrayOutput {
 	return o.ApplyT(func(v StatefulSetListType) []StatefulSetType { return v.Items }).(StatefulSetTypeArrayOutput)
 }
@@ -3971,12 +4045,15 @@ func (o StatefulSetListTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
+// Standard list's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o StatefulSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v StatefulSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpec struct {
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+	MinReadySeconds *int `pulumi:"minReadySeconds"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy *string `pulumi:"podManagementPolicy"`
 	// replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
@@ -4008,6 +4085,8 @@ type StatefulSetSpecInput interface {
 
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpecArgs struct {
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
 	PodManagementPolicy pulumi.StringPtrInput `pulumi:"podManagementPolicy"`
 	// replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
@@ -4099,9 +4178,14 @@ func (o StatefulSetSpecOutput) ToStatefulSetSpecPtrOutput() StatefulSetSpecPtrOu
 }
 
 func (o StatefulSetSpecOutput) ToStatefulSetSpecPtrOutputWithContext(ctx context.Context) StatefulSetSpecPtrOutput {
-	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetSpec) *StatefulSetSpec {
 		return &v
 	}).(StatefulSetSpecPtrOutput)
+}
+
+// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+func (o StatefulSetSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v StatefulSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
 // podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
@@ -4159,7 +4243,23 @@ func (o StatefulSetSpecPtrOutput) ToStatefulSetSpecPtrOutputWithContext(ctx cont
 }
 
 func (o StatefulSetSpecPtrOutput) Elem() StatefulSetSpecOutput {
-	return o.ApplyT(func(v *StatefulSetSpec) StatefulSetSpec { return *v }).(StatefulSetSpecOutput)
+	return o.ApplyT(func(v *StatefulSetSpec) StatefulSetSpec {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetSpec
+		return ret
+	}).(StatefulSetSpecOutput)
+}
+
+// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+func (o StatefulSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StatefulSetSpec) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinReadySeconds
+	}).(pulumi.IntPtrOutput)
 }
 
 // podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
@@ -4244,6 +4344,8 @@ func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolume
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatus struct {
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
 	// Represents the latest available observations of a statefulset's current state.
@@ -4277,6 +4379,8 @@ type StatefulSetStatusInput interface {
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatusArgs struct {
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
 	// Represents the latest available observations of a statefulset's current state.
@@ -4370,9 +4474,14 @@ func (o StatefulSetStatusOutput) ToStatefulSetStatusPtrOutput() StatefulSetStatu
 }
 
 func (o StatefulSetStatusOutput) ToStatefulSetStatusPtrOutputWithContext(ctx context.Context) StatefulSetStatusPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *StatefulSetStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetStatus) *StatefulSetStatus {
 		return &v
 	}).(StatefulSetStatusPtrOutput)
+}
+
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+func (o StatefulSetStatusOutput) AvailableReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v StatefulSetStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
 
 // collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -4435,7 +4544,23 @@ func (o StatefulSetStatusPtrOutput) ToStatefulSetStatusPtrOutputWithContext(ctx 
 }
 
 func (o StatefulSetStatusPtrOutput) Elem() StatefulSetStatusOutput {
-	return o.ApplyT(func(v *StatefulSetStatus) StatefulSetStatus { return *v }).(StatefulSetStatusOutput)
+	return o.ApplyT(func(v *StatefulSetStatus) StatefulSetStatus {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetStatus
+		return ret
+	}).(StatefulSetStatusOutput)
+}
+
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+func (o StatefulSetStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StatefulSetStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AvailableReplicas
+	}).(pulumi.IntPtrOutput)
 }
 
 // collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -4628,7 +4753,7 @@ func (o StatefulSetUpdateStrategyOutput) ToStatefulSetUpdateStrategyPtrOutput() 
 }
 
 func (o StatefulSetUpdateStrategyOutput) ToStatefulSetUpdateStrategyPtrOutputWithContext(ctx context.Context) StatefulSetUpdateStrategyPtrOutput {
-	return o.ApplyT(func(v StatefulSetUpdateStrategy) *StatefulSetUpdateStrategy {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetUpdateStrategy) *StatefulSetUpdateStrategy {
 		return &v
 	}).(StatefulSetUpdateStrategyPtrOutput)
 }
@@ -4658,7 +4783,13 @@ func (o StatefulSetUpdateStrategyPtrOutput) ToStatefulSetUpdateStrategyPtrOutput
 }
 
 func (o StatefulSetUpdateStrategyPtrOutput) Elem() StatefulSetUpdateStrategyOutput {
-	return o.ApplyT(func(v *StatefulSetUpdateStrategy) StatefulSetUpdateStrategy { return *v }).(StatefulSetUpdateStrategyOutput)
+	return o.ApplyT(func(v *StatefulSetUpdateStrategy) StatefulSetUpdateStrategy {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetUpdateStrategy
+		return ret
+	}).(StatefulSetUpdateStrategyOutput)
 }
 
 // RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
@@ -4682,6 +4813,57 @@ func (o StatefulSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionTypeInput)(nil)).Elem(), ControllerRevisionTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionTypeArrayInput)(nil)).Elem(), ControllerRevisionTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionListTypeInput)(nil)).Elem(), ControllerRevisionListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetTypeInput)(nil)).Elem(), DaemonSetTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetTypeArrayInput)(nil)).Elem(), DaemonSetTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetConditionInput)(nil)).Elem(), DaemonSetConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetConditionArrayInput)(nil)).Elem(), DaemonSetConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetListTypeInput)(nil)).Elem(), DaemonSetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetSpecInput)(nil)).Elem(), DaemonSetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetSpecPtrInput)(nil)).Elem(), DaemonSetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetStatusInput)(nil)).Elem(), DaemonSetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetStatusPtrInput)(nil)).Elem(), DaemonSetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetUpdateStrategyInput)(nil)).Elem(), DaemonSetUpdateStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetUpdateStrategyPtrInput)(nil)).Elem(), DaemonSetUpdateStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentTypeInput)(nil)).Elem(), DeploymentTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentTypeArrayInput)(nil)).Elem(), DeploymentTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentConditionInput)(nil)).Elem(), DeploymentConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentConditionArrayInput)(nil)).Elem(), DeploymentConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentListTypeInput)(nil)).Elem(), DeploymentListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentSpecInput)(nil)).Elem(), DeploymentSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentSpecPtrInput)(nil)).Elem(), DeploymentSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentStatusInput)(nil)).Elem(), DeploymentStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentStatusPtrInput)(nil)).Elem(), DeploymentStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentStrategyInput)(nil)).Elem(), DeploymentStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeploymentStrategyPtrInput)(nil)).Elem(), DeploymentStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetTypeInput)(nil)).Elem(), ReplicaSetTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetTypeArrayInput)(nil)).Elem(), ReplicaSetTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetConditionInput)(nil)).Elem(), ReplicaSetConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetConditionArrayInput)(nil)).Elem(), ReplicaSetConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListTypeInput)(nil)).Elem(), ReplicaSetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetSpecInput)(nil)).Elem(), ReplicaSetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetSpecPtrInput)(nil)).Elem(), ReplicaSetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetStatusInput)(nil)).Elem(), ReplicaSetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetStatusPtrInput)(nil)).Elem(), ReplicaSetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RollingUpdateDaemonSetInput)(nil)).Elem(), RollingUpdateDaemonSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RollingUpdateDaemonSetPtrInput)(nil)).Elem(), RollingUpdateDaemonSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RollingUpdateDeploymentInput)(nil)).Elem(), RollingUpdateDeploymentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RollingUpdateDeploymentPtrInput)(nil)).Elem(), RollingUpdateDeploymentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RollingUpdateStatefulSetStrategyInput)(nil)).Elem(), RollingUpdateStatefulSetStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RollingUpdateStatefulSetStrategyPtrInput)(nil)).Elem(), RollingUpdateStatefulSetStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetTypeInput)(nil)).Elem(), StatefulSetTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetTypeArrayInput)(nil)).Elem(), StatefulSetTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetConditionInput)(nil)).Elem(), StatefulSetConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetConditionArrayInput)(nil)).Elem(), StatefulSetConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListTypeInput)(nil)).Elem(), StatefulSetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetSpecInput)(nil)).Elem(), StatefulSetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetSpecPtrInput)(nil)).Elem(), StatefulSetSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetStatusInput)(nil)).Elem(), StatefulSetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetStatusPtrInput)(nil)).Elem(), StatefulSetStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetUpdateStrategyInput)(nil)).Elem(), StatefulSetUpdateStrategyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetUpdateStrategyPtrInput)(nil)).Elem(), StatefulSetUpdateStrategyArgs{})
 	pulumi.RegisterOutputType(ControllerRevisionTypeOutput{})
 	pulumi.RegisterOutputType(ControllerRevisionTypeArrayOutput{})
 	pulumi.RegisterOutputType(ControllerRevisionListTypeOutput{})

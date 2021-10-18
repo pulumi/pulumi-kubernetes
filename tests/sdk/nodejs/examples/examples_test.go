@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -395,6 +395,78 @@ func TestAccProvider(t *testing.T) {
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir: filepath.Join(getCwd(t), "provider"),
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+func TestHelmRelease(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
+				assert.Equal(t, stackInfo.Outputs["status"], "deployed")
+				for _, res := range stackInfo.Deployment.Resources {
+					if res.Type == "kubernetes:helm.sh/v3:Release" {
+						version, has := res.Inputs["version"]
+						assert.True(t, has)
+						stat, has := res.Outputs["status"]
+						assert.True(t, has)
+						specMap, is := stat.(map[string]interface{})
+						assert.True(t, is)
+						versionOut, has := specMap["version"]
+						assert.True(t, has)
+						assert.Equal(t, version, versionOut)
+					}
+				}
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "helm-release", "step2"),
+					Additive: true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+func TestHelmReleaseCRD(t *testing.T) {
+	// Validate that Helm charts with CRDs work across create/update/refresh/delete cycles.
+	// https://github.com/pulumi/pulumi-kubernetes/issues/1712
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-crd", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "helm-release-crd", "step2"),
+					Additive: true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+func TestHelmReleaseNamespace(t *testing.T) {
+	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1710
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-namespace"),
+			SkipRefresh: false,
+			Verbose:     true,
+			// Ensure that the rule was found in the release's namespace.
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotEmpty(t, stackInfo.Outputs["alertManagerNamespace"].(string))
+			},
 		})
 
 	integration.ProgramTest(t, &test)

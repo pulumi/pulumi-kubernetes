@@ -194,9 +194,7 @@ func (i EndpointsListMap) ToEndpointsListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListMapOutput)
 }
 
-type EndpointsListOutput struct {
-	*pulumi.OutputState
-}
+type EndpointsListOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*EndpointsList)(nil))
@@ -215,14 +213,12 @@ func (o EndpointsListOutput) ToEndpointsListPtrOutput() EndpointsListPtrOutput {
 }
 
 func (o EndpointsListOutput) ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput {
-	return o.ApplyT(func(v EndpointsList) *EndpointsList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointsList) *EndpointsList {
 		return &v
 	}).(EndpointsListPtrOutput)
 }
 
-type EndpointsListPtrOutput struct {
-	*pulumi.OutputState
-}
+type EndpointsListPtrOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**EndpointsList)(nil))
@@ -234,6 +230,16 @@ func (o EndpointsListPtrOutput) ToEndpointsListPtrOutput() EndpointsListPtrOutpu
 
 func (o EndpointsListPtrOutput) ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput {
 	return o
+}
+
+func (o EndpointsListPtrOutput) Elem() EndpointsListOutput {
+	return o.ApplyT(func(v *EndpointsList) EndpointsList {
+		if v != nil {
+			return *v
+		}
+		var ret EndpointsList
+		return ret
+	}).(EndpointsListOutput)
 }
 
 type EndpointsListArrayOutput struct{ *pulumi.OutputState }

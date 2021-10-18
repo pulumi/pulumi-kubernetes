@@ -18,7 +18,8 @@ type PodDisruptionBudget struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput     `pulumi:"kind"`
+	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPtrOutput `pulumi:"spec"`
@@ -76,7 +77,8 @@ type podDisruptionBudgetArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string            `pulumi:"kind"`
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpec `pulumi:"spec"`
@@ -87,7 +89,8 @@ type PodDisruptionBudgetArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput
+	Kind pulumi.StringPtrInput
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPtrInput
@@ -195,9 +198,7 @@ func (i PodDisruptionBudgetMap) ToPodDisruptionBudgetMapOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetMapOutput)
 }
 
-type PodDisruptionBudgetOutput struct {
-	*pulumi.OutputState
-}
+type PodDisruptionBudgetOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodDisruptionBudget)(nil))
@@ -216,14 +217,12 @@ func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetPtrOutput() PodDisruptio
 }
 
 func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudget) *PodDisruptionBudget {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudget) *PodDisruptionBudget {
 		return &v
 	}).(PodDisruptionBudgetPtrOutput)
 }
 
-type PodDisruptionBudgetPtrOutput struct {
-	*pulumi.OutputState
-}
+type PodDisruptionBudgetPtrOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodDisruptionBudget)(nil))
@@ -235,6 +234,16 @@ func (o PodDisruptionBudgetPtrOutput) ToPodDisruptionBudgetPtrOutput() PodDisrup
 
 func (o PodDisruptionBudgetPtrOutput) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetPtrOutput) Elem() PodDisruptionBudgetOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudget {
+		if v != nil {
+			return *v
+		}
+		var ret PodDisruptionBudget
+		return ret
+	}).(PodDisruptionBudgetOutput)
 }
 
 type PodDisruptionBudgetArrayOutput struct{ *pulumi.OutputState }

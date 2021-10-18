@@ -262,7 +262,7 @@ func (o CustomResourceConversionOutput) ToCustomResourceConversionPtrOutput() Cu
 }
 
 func (o CustomResourceConversionOutput) ToCustomResourceConversionPtrOutputWithContext(ctx context.Context) CustomResourceConversionPtrOutput {
-	return o.ApplyT(func(v CustomResourceConversion) *CustomResourceConversion {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceConversion) *CustomResourceConversion {
 		return &v
 	}).(CustomResourceConversionPtrOutput)
 }
@@ -298,7 +298,13 @@ func (o CustomResourceConversionPtrOutput) ToCustomResourceConversionPtrOutputWi
 }
 
 func (o CustomResourceConversionPtrOutput) Elem() CustomResourceConversionOutput {
-	return o.ApplyT(func(v *CustomResourceConversion) CustomResourceConversion { return *v }).(CustomResourceConversionOutput)
+	return o.ApplyT(func(v *CustomResourceConversion) CustomResourceConversion {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceConversion
+		return ret
+	}).(CustomResourceConversionOutput)
 }
 
 // conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
@@ -332,7 +338,7 @@ func (o CustomResourceConversionPtrOutput) WebhookClientConfig() WebhookClientCo
 	}).(WebhookClientConfigPtrOutput)
 }
 
-// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -356,7 +362,7 @@ type CustomResourceDefinitionTypeInput interface {
 	ToCustomResourceDefinitionTypeOutputWithContext(context.Context) CustomResourceDefinitionTypeOutput
 }
 
-// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -406,7 +412,7 @@ func (i CustomResourceDefinitionTypeArray) ToCustomResourceDefinitionTypeArrayOu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionTypeArrayOutput)
 }
 
-// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.22. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
+// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionTypeOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionTypeOutput) ElementType() reflect.Type {
@@ -796,7 +802,7 @@ func (o CustomResourceDefinitionNamesOutput) ToCustomResourceDefinitionNamesPtrO
 }
 
 func (o CustomResourceDefinitionNamesOutput) ToCustomResourceDefinitionNamesPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionNamesPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionNames) *CustomResourceDefinitionNames {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionNames) *CustomResourceDefinitionNames {
 		return &v
 	}).(CustomResourceDefinitionNamesPtrOutput)
 }
@@ -846,7 +852,13 @@ func (o CustomResourceDefinitionNamesPtrOutput) ToCustomResourceDefinitionNamesP
 }
 
 func (o CustomResourceDefinitionNamesPtrOutput) Elem() CustomResourceDefinitionNamesOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionNames) CustomResourceDefinitionNames { return *v }).(CustomResourceDefinitionNamesOutput)
+	return o.ApplyT(func(v *CustomResourceDefinitionNames) CustomResourceDefinitionNames {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionNames
+		return ret
+	}).(CustomResourceDefinitionNamesOutput)
 }
 
 // categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -1041,7 +1053,7 @@ func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecPtrOut
 }
 
 func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionSpec) *CustomResourceDefinitionSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionSpec) *CustomResourceDefinitionSpec {
 		return &v
 	}).(CustomResourceDefinitionSpecPtrOutput)
 }
@@ -1113,7 +1125,13 @@ func (o CustomResourceDefinitionSpecPtrOutput) ToCustomResourceDefinitionSpecPtr
 }
 
 func (o CustomResourceDefinitionSpecPtrOutput) Elem() CustomResourceDefinitionSpecOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) CustomResourceDefinitionSpec { return *v }).(CustomResourceDefinitionSpecOutput)
+	return o.ApplyT(func(v *CustomResourceDefinitionSpec) CustomResourceDefinitionSpec {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionSpec
+		return ret
+	}).(CustomResourceDefinitionSpecOutput)
 }
 
 // additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
@@ -1320,7 +1338,7 @@ func (o CustomResourceDefinitionStatusOutput) ToCustomResourceDefinitionStatusPt
 }
 
 func (o CustomResourceDefinitionStatusOutput) ToCustomResourceDefinitionStatusPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionStatusPtrOutput {
-	return o.ApplyT(func(v CustomResourceDefinitionStatus) *CustomResourceDefinitionStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionStatus) *CustomResourceDefinitionStatus {
 		return &v
 	}).(CustomResourceDefinitionStatusPtrOutput)
 }
@@ -1355,7 +1373,13 @@ func (o CustomResourceDefinitionStatusPtrOutput) ToCustomResourceDefinitionStatu
 }
 
 func (o CustomResourceDefinitionStatusPtrOutput) Elem() CustomResourceDefinitionStatusOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionStatus) CustomResourceDefinitionStatus { return *v }).(CustomResourceDefinitionStatusOutput)
+	return o.ApplyT(func(v *CustomResourceDefinitionStatus) CustomResourceDefinitionStatus {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceDefinitionStatus
+		return ret
+	}).(CustomResourceDefinitionStatusOutput)
 }
 
 // acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
@@ -1657,7 +1681,7 @@ func (o CustomResourceSubresourceScaleOutput) ToCustomResourceSubresourceScalePt
 }
 
 func (o CustomResourceSubresourceScaleOutput) ToCustomResourceSubresourceScalePtrOutputWithContext(ctx context.Context) CustomResourceSubresourceScalePtrOutput {
-	return o.ApplyT(func(v CustomResourceSubresourceScale) *CustomResourceSubresourceScale {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceSubresourceScale) *CustomResourceSubresourceScale {
 		return &v
 	}).(CustomResourceSubresourceScalePtrOutput)
 }
@@ -1692,7 +1716,13 @@ func (o CustomResourceSubresourceScalePtrOutput) ToCustomResourceSubresourceScal
 }
 
 func (o CustomResourceSubresourceScalePtrOutput) Elem() CustomResourceSubresourceScaleOutput {
-	return o.ApplyT(func(v *CustomResourceSubresourceScale) CustomResourceSubresourceScale { return *v }).(CustomResourceSubresourceScaleOutput)
+	return o.ApplyT(func(v *CustomResourceSubresourceScale) CustomResourceSubresourceScale {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceSubresourceScale
+		return ret
+	}).(CustomResourceSubresourceScaleOutput)
 }
 
 // labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -1825,7 +1855,7 @@ func (o CustomResourceSubresourcesOutput) ToCustomResourceSubresourcesPtrOutput(
 }
 
 func (o CustomResourceSubresourcesOutput) ToCustomResourceSubresourcesPtrOutputWithContext(ctx context.Context) CustomResourceSubresourcesPtrOutput {
-	return o.ApplyT(func(v CustomResourceSubresources) *CustomResourceSubresources {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceSubresources) *CustomResourceSubresources {
 		return &v
 	}).(CustomResourceSubresourcesPtrOutput)
 }
@@ -1855,7 +1885,13 @@ func (o CustomResourceSubresourcesPtrOutput) ToCustomResourceSubresourcesPtrOutp
 }
 
 func (o CustomResourceSubresourcesPtrOutput) Elem() CustomResourceSubresourcesOutput {
-	return o.ApplyT(func(v *CustomResourceSubresources) CustomResourceSubresources { return *v }).(CustomResourceSubresourcesOutput)
+	return o.ApplyT(func(v *CustomResourceSubresources) CustomResourceSubresources {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceSubresources
+		return ret
+	}).(CustomResourceSubresourcesOutput)
 }
 
 // scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
@@ -1974,7 +2010,7 @@ func (o CustomResourceValidationOutput) ToCustomResourceValidationPtrOutput() Cu
 }
 
 func (o CustomResourceValidationOutput) ToCustomResourceValidationPtrOutputWithContext(ctx context.Context) CustomResourceValidationPtrOutput {
-	return o.ApplyT(func(v CustomResourceValidation) *CustomResourceValidation {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceValidation) *CustomResourceValidation {
 		return &v
 	}).(CustomResourceValidationPtrOutput)
 }
@@ -1999,7 +2035,13 @@ func (o CustomResourceValidationPtrOutput) ToCustomResourceValidationPtrOutputWi
 }
 
 func (o CustomResourceValidationPtrOutput) Elem() CustomResourceValidationOutput {
-	return o.ApplyT(func(v *CustomResourceValidation) CustomResourceValidation { return *v }).(CustomResourceValidationOutput)
+	return o.ApplyT(func(v *CustomResourceValidation) CustomResourceValidation {
+		if v != nil {
+			return *v
+		}
+		var ret CustomResourceValidation
+		return ret
+	}).(CustomResourceValidationOutput)
 }
 
 // openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
@@ -2108,10 +2150,11 @@ func (o ExternalDocumentationOutput) ToExternalDocumentationPtrOutput() External
 }
 
 func (o ExternalDocumentationOutput) ToExternalDocumentationPtrOutputWithContext(ctx context.Context) ExternalDocumentationPtrOutput {
-	return o.ApplyT(func(v ExternalDocumentation) *ExternalDocumentation {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExternalDocumentation) *ExternalDocumentation {
 		return &v
 	}).(ExternalDocumentationPtrOutput)
 }
+
 func (o ExternalDocumentationOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ExternalDocumentation) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -2135,7 +2178,13 @@ func (o ExternalDocumentationPtrOutput) ToExternalDocumentationPtrOutputWithCont
 }
 
 func (o ExternalDocumentationPtrOutput) Elem() ExternalDocumentationOutput {
-	return o.ApplyT(func(v *ExternalDocumentation) ExternalDocumentation { return *v }).(ExternalDocumentationOutput)
+	return o.ApplyT(func(v *ExternalDocumentation) ExternalDocumentation {
+		if v != nil {
+			return *v
+		}
+		var ret ExternalDocumentation
+		return ret
+	}).(ExternalDocumentationOutput)
 }
 
 func (o ExternalDocumentationPtrOutput) Description() pulumi.StringPtrOutput {
@@ -2215,8 +2264,6 @@ type JSONSchemaProps struct {
 	// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 	//
 	// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-	//
-	// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 	X_kubernetes_list_map_keys []string `pulumi:"x_kubernetes_list_map_keys"`
 	// x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 	//
@@ -2316,8 +2363,6 @@ type JSONSchemaPropsArgs struct {
 	// x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 	//
 	// This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-	//
-	// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 	X_kubernetes_list_map_keys pulumi.StringArrayInput `pulumi:"x_kubernetes_list_map_keys"`
 	// x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 	//
@@ -2470,10 +2515,11 @@ func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutput() JSONSchemaPropsPtrOu
 }
 
 func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx context.Context) JSONSchemaPropsPtrOutput {
-	return o.ApplyT(func(v JSONSchemaProps) *JSONSchemaProps {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v JSONSchemaProps) *JSONSchemaProps {
 		return &v
 	}).(JSONSchemaPropsPtrOutput)
 }
+
 func (o JSONSchemaPropsOutput) Ref() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *string { return v.Ref }).(pulumi.StringPtrOutput)
 }
@@ -2648,8 +2694,6 @@ func (o JSONSchemaPropsOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput
 // x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 //
 // This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-//
-// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 func (o JSONSchemaPropsOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v JSONSchemaProps) []string { return v.X_kubernetes_list_map_keys }).(pulumi.StringArrayOutput)
 }
@@ -2704,7 +2748,13 @@ func (o JSONSchemaPropsPtrOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx cont
 }
 
 func (o JSONSchemaPropsPtrOutput) Elem() JSONSchemaPropsOutput {
-	return o.ApplyT(func(v *JSONSchemaProps) JSONSchemaProps { return *v }).(JSONSchemaPropsOutput)
+	return o.ApplyT(func(v *JSONSchemaProps) JSONSchemaProps {
+		if v != nil {
+			return *v
+		}
+		var ret JSONSchemaProps
+		return ret
+	}).(JSONSchemaPropsOutput)
 }
 
 func (o JSONSchemaPropsPtrOutput) Ref() pulumi.StringPtrOutput {
@@ -3076,8 +3126,6 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOut
 // x-kubernetes-list-map-keys annotates an array with the x-kubernetes-list-type `map` by specifying the keys used as the index of the map.
 //
 // This tag MUST only be used on lists that have the "x-kubernetes-list-type" extension set to "map". Also, the values specified for this attribute must be a scalar typed field of the child structure (no nesting is supported).
-//
-// The properties specified must either be required or have a default value, to ensure those properties are present for all list items.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) []string {
 		if v == nil {
@@ -3285,7 +3333,7 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutput() ServiceReferencePt
 }
 
 func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
-	return o.ApplyT(func(v ServiceReference) *ServiceReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
 }
@@ -3325,7 +3373,13 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx co
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
-	return o.ApplyT(func(v *ServiceReference) ServiceReference { return *v }).(ServiceReferenceOutput)
+	return o.ApplyT(func(v *ServiceReference) ServiceReference {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceReference
+		return ret
+	}).(ServiceReferenceOutput)
 }
 
 // name is the name of the service. Required
@@ -3496,7 +3550,7 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutput() WebhookClien
 }
 
 func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
-	return o.ApplyT(func(v WebhookClientConfig) *WebhookClientConfig {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfig) *WebhookClientConfig {
 		return &v
 	}).(WebhookClientConfigPtrOutput)
 }
@@ -3543,7 +3597,13 @@ func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(
 }
 
 func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
-	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig { return *v }).(WebhookClientConfigOutput)
+	return o.ApplyT(func(v *WebhookClientConfig) WebhookClientConfig {
+		if v != nil {
+			return *v
+		}
+		var ret WebhookClientConfig
+		return ret
+	}).(WebhookClientConfigOutput)
 }
 
 // caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3589,6 +3649,39 @@ func (o WebhookClientConfigPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceColumnDefinitionInput)(nil)).Elem(), CustomResourceColumnDefinitionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceColumnDefinitionArrayInput)(nil)).Elem(), CustomResourceColumnDefinitionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceConversionInput)(nil)).Elem(), CustomResourceConversionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceConversionPtrInput)(nil)).Elem(), CustomResourceConversionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionTypeInput)(nil)).Elem(), CustomResourceDefinitionTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionTypeArrayInput)(nil)).Elem(), CustomResourceDefinitionTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionConditionInput)(nil)).Elem(), CustomResourceDefinitionConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionConditionArrayInput)(nil)).Elem(), CustomResourceDefinitionConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionListTypeInput)(nil)).Elem(), CustomResourceDefinitionListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesPtrInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecPtrInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionStatusInput)(nil)).Elem(), CustomResourceDefinitionStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionStatusPtrInput)(nil)).Elem(), CustomResourceDefinitionStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionVersionInput)(nil)).Elem(), CustomResourceDefinitionVersionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionVersionArrayInput)(nil)).Elem(), CustomResourceDefinitionVersionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScaleInput)(nil)).Elem(), CustomResourceSubresourceScaleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourceScalePtrInput)(nil)).Elem(), CustomResourceSubresourceScaleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesInput)(nil)).Elem(), CustomResourceSubresourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceSubresourcesPtrInput)(nil)).Elem(), CustomResourceSubresourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceValidationInput)(nil)).Elem(), CustomResourceValidationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceValidationPtrInput)(nil)).Elem(), CustomResourceValidationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationInput)(nil)).Elem(), ExternalDocumentationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExternalDocumentationPtrInput)(nil)).Elem(), ExternalDocumentationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsInput)(nil)).Elem(), JSONSchemaPropsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsPtrInput)(nil)).Elem(), JSONSchemaPropsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsArrayInput)(nil)).Elem(), JSONSchemaPropsArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*JSONSchemaPropsMapInput)(nil)).Elem(), JSONSchemaPropsMap{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferenceInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceReferencePtrInput)(nil)).Elem(), ServiceReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigPtrInput)(nil)).Elem(), WebhookClientConfigArgs{})
 	pulumi.RegisterOutputType(CustomResourceColumnDefinitionOutput{})
 	pulumi.RegisterOutputType(CustomResourceColumnDefinitionArrayOutput{})
 	pulumi.RegisterOutputType(CustomResourceConversionOutput{})

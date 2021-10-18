@@ -194,9 +194,7 @@ func (i BindingMap) ToBindingMapOutputWithContext(ctx context.Context) BindingMa
 	return pulumi.ToOutputWithContext(ctx, i).(BindingMapOutput)
 }
 
-type BindingOutput struct {
-	*pulumi.OutputState
-}
+type BindingOutput struct{ *pulumi.OutputState }
 
 func (BindingOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Binding)(nil))
@@ -215,14 +213,12 @@ func (o BindingOutput) ToBindingPtrOutput() BindingPtrOutput {
 }
 
 func (o BindingOutput) ToBindingPtrOutputWithContext(ctx context.Context) BindingPtrOutput {
-	return o.ApplyT(func(v Binding) *Binding {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Binding) *Binding {
 		return &v
 	}).(BindingPtrOutput)
 }
 
-type BindingPtrOutput struct {
-	*pulumi.OutputState
-}
+type BindingPtrOutput struct{ *pulumi.OutputState }
 
 func (BindingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Binding)(nil))
@@ -234,6 +230,16 @@ func (o BindingPtrOutput) ToBindingPtrOutput() BindingPtrOutput {
 
 func (o BindingPtrOutput) ToBindingPtrOutputWithContext(ctx context.Context) BindingPtrOutput {
 	return o
+}
+
+func (o BindingPtrOutput) Elem() BindingOutput {
+	return o.ApplyT(func(v *Binding) Binding {
+		if v != nil {
+			return *v
+		}
+		var ret Binding
+		return ret
+	}).(BindingOutput)
 }
 
 type BindingArrayOutput struct{ *pulumi.OutputState }

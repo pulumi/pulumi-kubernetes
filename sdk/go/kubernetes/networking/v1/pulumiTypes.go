@@ -16,7 +16,7 @@ import (
 type HTTPIngressPath struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackend `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path *string `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
@@ -29,7 +29,7 @@ type HTTPIngressPath struct {
 	//   the IngressClass. Implementations can treat this as a separate PathType
 	//   or treat it identically to Prefix or Exact path types.
 	//   Implementations are required to support all path types.
-	PathType *string `pulumi:"pathType"`
+	PathType string `pulumi:"pathType"`
 }
 
 // HTTPIngressPathInput is an input type that accepts HTTPIngressPathArgs and HTTPIngressPathOutput values.
@@ -47,7 +47,7 @@ type HTTPIngressPathInput interface {
 type HTTPIngressPathArgs struct {
 	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendInput `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path pulumi.StringPtrInput `pulumi:"path"`
 	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
@@ -60,7 +60,7 @@ type HTTPIngressPathArgs struct {
 	//   the IngressClass. Implementations can treat this as a separate PathType
 	//   or treat it identically to Prefix or Exact path types.
 	//   Implementations are required to support all path types.
-	PathType pulumi.StringPtrInput `pulumi:"pathType"`
+	PathType pulumi.StringInput `pulumi:"pathType"`
 }
 
 func (HTTPIngressPathArgs) ElementType() reflect.Type {
@@ -120,7 +120,7 @@ func (o HTTPIngressPathOutput) Backend() IngressBackendOutput {
 	return o.ApplyT(func(v HTTPIngressPath) IngressBackend { return v.Backend }).(IngressBackendOutput)
 }
 
-// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
@@ -136,8 +136,8 @@ func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 //   the IngressClass. Implementations can treat this as a separate PathType
 //   or treat it identically to Prefix or Exact path types.
 //   Implementations are required to support all path types.
-func (o HTTPIngressPathOutput) PathType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v HTTPIngressPath) *string { return v.PathType }).(pulumi.StringPtrOutput)
+func (o HTTPIngressPathOutput) PathType() pulumi.StringOutput {
+	return o.ApplyT(func(v HTTPIngressPath) string { return v.PathType }).(pulumi.StringOutput)
 }
 
 type HTTPIngressPathArrayOutput struct{ *pulumi.OutputState }
@@ -256,7 +256,7 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutput() HTTPIngres
 }
 
 func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(ctx context.Context) HTTPIngressRuleValuePtrOutput {
-	return o.ApplyT(func(v HTTPIngressRuleValue) *HTTPIngressRuleValue {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HTTPIngressRuleValue) *HTTPIngressRuleValue {
 		return &v
 	}).(HTTPIngressRuleValuePtrOutput)
 }
@@ -281,7 +281,13 @@ func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutputWithContex
 }
 
 func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
-	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue { return *v }).(HTTPIngressRuleValueOutput)
+	return o.ApplyT(func(v *HTTPIngressRuleValue) HTTPIngressRuleValue {
+		if v != nil {
+			return *v
+		}
+		var ret HTTPIngressRuleValue
+		return ret
+	}).(HTTPIngressRuleValueOutput)
 }
 
 // A collection of paths that map requests to backends.
@@ -394,7 +400,7 @@ func (o IPBlockOutput) ToIPBlockPtrOutput() IPBlockPtrOutput {
 }
 
 func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBlockPtrOutput {
-	return o.ApplyT(func(v IPBlock) *IPBlock {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPBlock) *IPBlock {
 		return &v
 	}).(IPBlockPtrOutput)
 }
@@ -424,7 +430,13 @@ func (o IPBlockPtrOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPB
 }
 
 func (o IPBlockPtrOutput) Elem() IPBlockOutput {
-	return o.ApplyT(func(v *IPBlock) IPBlock { return *v }).(IPBlockOutput)
+	return o.ApplyT(func(v *IPBlock) IPBlock {
+		if v != nil {
+			return *v
+		}
+		var ret IPBlock
+		return ret
+	}).(IPBlockOutput)
 }
 
 // CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
@@ -725,7 +737,7 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutput() IngressBackendPtrOutpu
 }
 
 func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.Context) IngressBackendPtrOutput {
-	return o.ApplyT(func(v IngressBackend) *IngressBackend {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressBackend) *IngressBackend {
 		return &v
 	}).(IngressBackendPtrOutput)
 }
@@ -755,7 +767,13 @@ func (o IngressBackendPtrOutput) ToIngressBackendPtrOutputWithContext(ctx contex
 }
 
 func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
-	return o.ApplyT(func(v *IngressBackend) IngressBackend { return *v }).(IngressBackendOutput)
+	return o.ApplyT(func(v *IngressBackend) IngressBackend {
+		if v != nil {
+			return *v
+		}
+		var ret IngressBackend
+		return ret
+	}).(IngressBackendOutput)
 }
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
@@ -1099,7 +1117,7 @@ func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReference
 }
 
 func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReferencePtrOutputWithContext(ctx context.Context) IngressClassParametersReferencePtrOutput {
-	return o.ApplyT(func(v IngressClassParametersReference) *IngressClassParametersReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClassParametersReference) *IngressClassParametersReference {
 		return &v
 	}).(IngressClassParametersReferencePtrOutput)
 }
@@ -1144,7 +1162,13 @@ func (o IngressClassParametersReferencePtrOutput) ToIngressClassParametersRefere
 }
 
 func (o IngressClassParametersReferencePtrOutput) Elem() IngressClassParametersReferenceOutput {
-	return o.ApplyT(func(v *IngressClassParametersReference) IngressClassParametersReference { return *v }).(IngressClassParametersReferenceOutput)
+	return o.ApplyT(func(v *IngressClassParametersReference) IngressClassParametersReference {
+		if v != nil {
+			return *v
+		}
+		var ret IngressClassParametersReference
+		return ret
+	}).(IngressClassParametersReferenceOutput)
 }
 
 // APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -1297,7 +1321,7 @@ func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutput() IngressClassSpecPt
 }
 
 func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
-	return o.ApplyT(func(v IngressClassSpec) *IngressClassSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClassSpec) *IngressClassSpec {
 		return &v
 	}).(IngressClassSpecPtrOutput)
 }
@@ -1327,7 +1351,13 @@ func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutputWithContext(ctx co
 }
 
 func (o IngressClassSpecPtrOutput) Elem() IngressClassSpecOutput {
-	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec { return *v }).(IngressClassSpecOutput)
+	return o.ApplyT(func(v *IngressClassSpec) IngressClassSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressClassSpec
+		return ret
+	}).(IngressClassSpecOutput)
 }
 
 // Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
@@ -1659,7 +1689,7 @@ func (o IngressServiceBackendOutput) ToIngressServiceBackendPtrOutput() IngressS
 }
 
 func (o IngressServiceBackendOutput) ToIngressServiceBackendPtrOutputWithContext(ctx context.Context) IngressServiceBackendPtrOutput {
-	return o.ApplyT(func(v IngressServiceBackend) *IngressServiceBackend {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressServiceBackend) *IngressServiceBackend {
 		return &v
 	}).(IngressServiceBackendPtrOutput)
 }
@@ -1689,7 +1719,13 @@ func (o IngressServiceBackendPtrOutput) ToIngressServiceBackendPtrOutputWithCont
 }
 
 func (o IngressServiceBackendPtrOutput) Elem() IngressServiceBackendOutput {
-	return o.ApplyT(func(v *IngressServiceBackend) IngressServiceBackend { return *v }).(IngressServiceBackendOutput)
+	return o.ApplyT(func(v *IngressServiceBackend) IngressServiceBackend {
+		if v != nil {
+			return *v
+		}
+		var ret IngressServiceBackend
+		return ret
+	}).(IngressServiceBackendOutput)
 }
 
 // Name is the referenced service. The service must exist in the same namespace as the Ingress object.
@@ -1820,7 +1856,7 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutput() IngressSpecPtrOutput {
 }
 
 func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context) IngressSpecPtrOutput {
-	return o.ApplyT(func(v IngressSpec) *IngressSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressSpec) *IngressSpec {
 		return &v
 	}).(IngressSpecPtrOutput)
 }
@@ -1860,7 +1896,13 @@ func (o IngressSpecPtrOutput) ToIngressSpecPtrOutputWithContext(ctx context.Cont
 }
 
 func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
-	return o.ApplyT(func(v *IngressSpec) IngressSpec { return *v }).(IngressSpecOutput)
+	return o.ApplyT(func(v *IngressSpec) IngressSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IngressSpec
+		return ret
+	}).(IngressSpecOutput)
 }
 
 // DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
@@ -1999,7 +2041,7 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutput() IngressStatusPtrOutput {
 }
 
 func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Context) IngressStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *IngressStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressStatus) *IngressStatus {
 		return &v
 	}).(IngressStatusPtrOutput)
 }
@@ -2024,7 +2066,13 @@ func (o IngressStatusPtrOutput) ToIngressStatusPtrOutputWithContext(ctx context.
 }
 
 func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
-	return o.ApplyT(func(v *IngressStatus) IngressStatus { return *v }).(IngressStatusOutput)
+	return o.ApplyT(func(v *IngressStatus) IngressStatus {
+		if v != nil {
+			return *v
+		}
+		var ret IngressStatus
+		return ret
+	}).(IngressStatusOutput)
 }
 
 // LoadBalancer contains the current status of the load-balancer.
@@ -2705,7 +2753,7 @@ func (o NetworkPolicyPeerArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPeer
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPort struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
 	EndPort *int `pulumi:"endPort"`
 	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port interface{} `pulumi:"port"`
@@ -2726,7 +2774,7 @@ type NetworkPolicyPortInput interface {
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPortArgs struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
 	EndPort pulumi.IntPtrInput `pulumi:"endPort"`
 	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port pulumi.Input `pulumi:"port"`
@@ -2786,7 +2834,7 @@ func (o NetworkPolicyPortOutput) ToNetworkPolicyPortOutputWithContext(ctx contex
 	return o
 }
 
-// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Alpha state and should be enabled using the Feature Gate "NetworkPolicyEndPort".
+// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
 func (o NetworkPolicyPortOutput) EndPort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPort) *int { return v.EndPort }).(pulumi.IntPtrOutput)
 }
@@ -2929,7 +2977,7 @@ func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutput() NetworkPolicySpe
 }
 
 func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx context.Context) NetworkPolicySpecPtrOutput {
-	return o.ApplyT(func(v NetworkPolicySpec) *NetworkPolicySpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkPolicySpec) *NetworkPolicySpec {
 		return &v
 	}).(NetworkPolicySpecPtrOutput)
 }
@@ -2969,7 +3017,13 @@ func (o NetworkPolicySpecPtrOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx 
 }
 
 func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
-	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec { return *v }).(NetworkPolicySpecOutput)
+	return o.ApplyT(func(v *NetworkPolicySpec) NetworkPolicySpec {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkPolicySpec
+		return ret
+	}).(NetworkPolicySpecOutput)
 }
 
 // List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
@@ -3112,7 +3166,7 @@ func (o ServiceBackendPortOutput) ToServiceBackendPortPtrOutput() ServiceBackend
 }
 
 func (o ServiceBackendPortOutput) ToServiceBackendPortPtrOutputWithContext(ctx context.Context) ServiceBackendPortPtrOutput {
-	return o.ApplyT(func(v ServiceBackendPort) *ServiceBackendPort {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceBackendPort) *ServiceBackendPort {
 		return &v
 	}).(ServiceBackendPortPtrOutput)
 }
@@ -3142,7 +3196,13 @@ func (o ServiceBackendPortPtrOutput) ToServiceBackendPortPtrOutputWithContext(ct
 }
 
 func (o ServiceBackendPortPtrOutput) Elem() ServiceBackendPortOutput {
-	return o.ApplyT(func(v *ServiceBackendPort) ServiceBackendPort { return *v }).(ServiceBackendPortOutput)
+	return o.ApplyT(func(v *ServiceBackendPort) ServiceBackendPort {
+		if v != nil {
+			return *v
+		}
+		var ret ServiceBackendPort
+		return ret
+	}).(ServiceBackendPortOutput)
 }
 
 // Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
@@ -3166,6 +3226,49 @@ func (o ServiceBackendPortPtrOutput) Number() pulumi.IntPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressPathInput)(nil)).Elem(), HTTPIngressPathArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressPathArrayInput)(nil)).Elem(), HTTPIngressPathArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressRuleValueInput)(nil)).Elem(), HTTPIngressRuleValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HTTPIngressRuleValuePtrInput)(nil)).Elem(), HTTPIngressRuleValueArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPBlockInput)(nil)).Elem(), IPBlockArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPBlockPtrInput)(nil)).Elem(), IPBlockArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressTypeInput)(nil)).Elem(), IngressTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressTypeArrayInput)(nil)).Elem(), IngressTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressBackendInput)(nil)).Elem(), IngressBackendArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressBackendPtrInput)(nil)).Elem(), IngressBackendArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassTypeInput)(nil)).Elem(), IngressClassTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassTypeArrayInput)(nil)).Elem(), IngressClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassListTypeInput)(nil)).Elem(), IngressClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassParametersReferenceInput)(nil)).Elem(), IngressClassParametersReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassParametersReferencePtrInput)(nil)).Elem(), IngressClassParametersReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassSpecInput)(nil)).Elem(), IngressClassSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassSpecPtrInput)(nil)).Elem(), IngressClassSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressListTypeInput)(nil)).Elem(), IngressListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressRuleInput)(nil)).Elem(), IngressRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressRuleArrayInput)(nil)).Elem(), IngressRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressServiceBackendInput)(nil)).Elem(), IngressServiceBackendArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressServiceBackendPtrInput)(nil)).Elem(), IngressServiceBackendArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressSpecInput)(nil)).Elem(), IngressSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressSpecPtrInput)(nil)).Elem(), IngressSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressStatusInput)(nil)).Elem(), IngressStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressStatusPtrInput)(nil)).Elem(), IngressStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressTLSInput)(nil)).Elem(), IngressTLSArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressTLSArrayInput)(nil)).Elem(), IngressTLSArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyTypeInput)(nil)).Elem(), NetworkPolicyTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyTypeArrayInput)(nil)).Elem(), NetworkPolicyTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyEgressRuleInput)(nil)).Elem(), NetworkPolicyEgressRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyEgressRuleArrayInput)(nil)).Elem(), NetworkPolicyEgressRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyIngressRuleInput)(nil)).Elem(), NetworkPolicyIngressRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyIngressRuleArrayInput)(nil)).Elem(), NetworkPolicyIngressRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyListTypeInput)(nil)).Elem(), NetworkPolicyListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPeerInput)(nil)).Elem(), NetworkPolicyPeerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPeerArrayInput)(nil)).Elem(), NetworkPolicyPeerArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPortInput)(nil)).Elem(), NetworkPolicyPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPortArrayInput)(nil)).Elem(), NetworkPolicyPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicySpecInput)(nil)).Elem(), NetworkPolicySpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicySpecPtrInput)(nil)).Elem(), NetworkPolicySpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceBackendPortInput)(nil)).Elem(), ServiceBackendPortArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceBackendPortPtrInput)(nil)).Elem(), ServiceBackendPortArgs{})
 	pulumi.RegisterOutputType(HTTPIngressPathOutput{})
 	pulumi.RegisterOutputType(HTTPIngressPathArrayOutput{})
 	pulumi.RegisterOutputType(HTTPIngressRuleValueOutput{})

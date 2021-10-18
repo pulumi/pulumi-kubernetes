@@ -17,7 +17,6 @@ __all__ = [
     'Ingress',
     'IngressBackend',
     'IngressClass',
-    'IngressClassParametersReference',
     'IngressClassSpec',
     'IngressRule',
     'IngressSpec',
@@ -28,7 +27,7 @@ __all__ = [
 @pulumi.output_type
 class HTTPIngressPath(dict):
     """
-    HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
+    HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -52,9 +51,9 @@ class HTTPIngressPath(dict):
                  path: Optional[str] = None,
                  path_type: Optional[str] = None):
         """
-        HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
+        HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
         :param 'IngressBackendArgs' backend: Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-        :param str path: Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+        :param str path: Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         :param str path_type: PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
                  done on a path element by element basis. A path element refers is the
                  list of labels in the path split by the '/' separator. A request is a
@@ -85,7 +84,7 @@ class HTTPIngressPath(dict):
     @pulumi.getter
     def path(self) -> Optional[str]:
         """
-        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+        Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         """
         return pulumi.get(self, "path")
 
@@ -387,103 +386,17 @@ class IngressClass(dict):
 
 
 @pulumi.output_type
-class IngressClassParametersReference(dict):
-    """
-    IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
-    """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "apiGroup":
-            suggest = "api_group"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in IngressClassParametersReference. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        IngressClassParametersReference.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        IngressClassParametersReference.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 kind: str,
-                 name: str,
-                 api_group: Optional[str] = None,
-                 namespace: Optional[str] = None,
-                 scope: Optional[str] = None):
-        """
-        IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
-        :param str kind: Kind is the type of resource being referenced.
-        :param str name: Name is the name of resource being referenced.
-        :param str api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
-        :param str namespace: Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
-        :param str scope: Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
-        """
-        pulumi.set(__self__, "kind", kind)
-        pulumi.set(__self__, "name", name)
-        if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
-        if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
-        if scope is not None:
-            pulumi.set(__self__, "scope", scope)
-
-    @property
-    @pulumi.getter
-    def kind(self) -> str:
-        """
-        Kind is the type of resource being referenced.
-        """
-        return pulumi.get(self, "kind")
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        """
-        Name is the name of resource being referenced.
-        """
-        return pulumi.get(self, "name")
-
-    @property
-    @pulumi.getter(name="apiGroup")
-    def api_group(self) -> Optional[str]:
-        """
-        APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
-        """
-        return pulumi.get(self, "api_group")
-
-    @property
-    @pulumi.getter
-    def namespace(self) -> Optional[str]:
-        """
-        Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
-        """
-        return pulumi.get(self, "namespace")
-
-    @property
-    @pulumi.getter
-    def scope(self) -> Optional[str]:
-        """
-        Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
-        """
-        return pulumi.get(self, "scope")
-
-
-@pulumi.output_type
 class IngressClassSpec(dict):
     """
     IngressClassSpec provides information about the class of an Ingress.
     """
     def __init__(__self__, *,
                  controller: Optional[str] = None,
-                 parameters: Optional['outputs.IngressClassParametersReference'] = None):
+                 parameters: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None):
         """
         IngressClassSpec provides information about the class of an Ingress.
         :param str controller: Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
-        :param 'IngressClassParametersReferenceArgs' parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+        :param '_core.v1.TypedLocalObjectReferenceArgs' parameters: Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
         if controller is not None:
             pulumi.set(__self__, "controller", controller)
@@ -500,7 +413,7 @@ class IngressClassSpec(dict):
 
     @property
     @pulumi.getter
-    def parameters(self) -> Optional['outputs.IngressClassParametersReference']:
+    def parameters(self) -> Optional['_core.v1.outputs.TypedLocalObjectReference']:
         """
         Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
@@ -517,14 +430,12 @@ class IngressRule(dict):
                  http: Optional['outputs.HTTPIngressRuleValue'] = None):
         """
         IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
-        :param str host: Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-                  the IP in the Spec of the parent Ingress.
+        :param str host: Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
+               	  IP in the Spec of the parent Ingress.
                2. The `:` delimiter is not respected because ports are not allowed.
                	  Currently the port of an Ingress is implicitly :80 for http and
                	  :443 for https.
                Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-               
-               Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
         """
         if host is not None:
             pulumi.set(__self__, "host", host)
@@ -535,14 +446,12 @@ class IngressRule(dict):
     @pulumi.getter
     def host(self) -> Optional[str]:
         """
-        Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-           the IP in the Spec of the parent Ingress.
+        Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
+        	  IP in the Spec of the parent Ingress.
         2. The `:` delimiter is not respected because ports are not allowed.
         	  Currently the port of an Ingress is implicitly :80 for http and
         	  :443 for https.
         Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-
-        Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
         """
         return pulumi.get(self, "host")
 
@@ -696,7 +605,7 @@ class IngressTLS(dict):
         """
         IngressTLS describes the transport layer security associated with an Ingress.
         :param Sequence[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
-        :param str secret_name: SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+        :param str secret_name: SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
         if hosts is not None:
             pulumi.set(__self__, "hosts", hosts)
@@ -715,7 +624,7 @@ class IngressTLS(dict):
     @pulumi.getter(name="secretName")
     def secret_name(self) -> Optional[str]:
         """
-        SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+        SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
         return pulumi.get(self, "secret_name")
 

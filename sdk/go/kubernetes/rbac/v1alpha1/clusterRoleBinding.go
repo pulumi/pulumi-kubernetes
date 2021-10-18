@@ -209,9 +209,7 @@ func (i ClusterRoleBindingMap) ToClusterRoleBindingMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingMapOutput)
 }
 
-type ClusterRoleBindingOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleBindingOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleBindingOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ClusterRoleBinding)(nil))
@@ -230,14 +228,12 @@ func (o ClusterRoleBindingOutput) ToClusterRoleBindingPtrOutput() ClusterRoleBin
 }
 
 func (o ClusterRoleBindingOutput) ToClusterRoleBindingPtrOutputWithContext(ctx context.Context) ClusterRoleBindingPtrOutput {
-	return o.ApplyT(func(v ClusterRoleBinding) *ClusterRoleBinding {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterRoleBinding) *ClusterRoleBinding {
 		return &v
 	}).(ClusterRoleBindingPtrOutput)
 }
 
-type ClusterRoleBindingPtrOutput struct {
-	*pulumi.OutputState
-}
+type ClusterRoleBindingPtrOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleBindingPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ClusterRoleBinding)(nil))
@@ -249,6 +245,16 @@ func (o ClusterRoleBindingPtrOutput) ToClusterRoleBindingPtrOutput() ClusterRole
 
 func (o ClusterRoleBindingPtrOutput) ToClusterRoleBindingPtrOutputWithContext(ctx context.Context) ClusterRoleBindingPtrOutput {
 	return o
+}
+
+func (o ClusterRoleBindingPtrOutput) Elem() ClusterRoleBindingOutput {
+	return o.ApplyT(func(v *ClusterRoleBinding) ClusterRoleBinding {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterRoleBinding
+		return ret
+	}).(ClusterRoleBindingOutput)
 }
 
 type ClusterRoleBindingArrayOutput struct{ *pulumi.OutputState }

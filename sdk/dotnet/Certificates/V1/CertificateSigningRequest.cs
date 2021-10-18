@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Certificates.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Certificates.V1.CertificateSigningRequestSpec> Spec { get; private set; } = null!;
@@ -128,7 +128,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        /// spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         /// </summary>
         [Input("spec", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Certificates.V1.CertificateSigningRequestSpecArgs> Spec { get; set; } = null!;

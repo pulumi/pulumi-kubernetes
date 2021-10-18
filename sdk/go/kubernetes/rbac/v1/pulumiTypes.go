@@ -107,7 +107,7 @@ func (o AggregationRuleOutput) ToAggregationRulePtrOutput() AggregationRulePtrOu
 }
 
 func (o AggregationRuleOutput) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
-	return o.ApplyT(func(v AggregationRule) *AggregationRule {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AggregationRule) *AggregationRule {
 		return &v
 	}).(AggregationRulePtrOutput)
 }
@@ -132,7 +132,13 @@ func (o AggregationRulePtrOutput) ToAggregationRulePtrOutputWithContext(ctx cont
 }
 
 func (o AggregationRulePtrOutput) Elem() AggregationRuleOutput {
-	return o.ApplyT(func(v *AggregationRule) AggregationRule { return *v }).(AggregationRuleOutput)
+	return o.ApplyT(func(v *AggregationRule) AggregationRule {
+		if v != nil {
+			return *v
+		}
+		var ret AggregationRule
+		return ret
+	}).(AggregationRuleOutput)
 }
 
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
@@ -589,9 +595,9 @@ type PolicyRule struct {
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
 	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames []string `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+	// Resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources []string `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 	Verbs []string `pulumi:"verbs"`
 }
 
@@ -614,9 +620,9 @@ type PolicyRuleArgs struct {
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
 	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
 	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+	// Resources is a list of resources this rule applies to. '*' represents all resources.
 	Resources pulumi.StringArrayInput `pulumi:"resources"`
-	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+	// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
 }
 
@@ -687,12 +693,12 @@ func (o PolicyRuleOutput) ResourceNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.ResourceNames }).(pulumi.StringArrayOutput)
 }
 
-// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
+// Resources is a list of resources this rule applies to. '*' represents all resources.
 func (o PolicyRuleOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
 
-// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
+// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
 func (o PolicyRuleOutput) Verbs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.Verbs }).(pulumi.StringArrayOutput)
 }
@@ -1248,7 +1254,7 @@ func (o RoleRefOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
 }
 
 func (o RoleRefOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return o.ApplyT(func(v RoleRef) *RoleRef {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleRef) *RoleRef {
 		return &v
 	}).(RoleRefPtrOutput)
 }
@@ -1283,7 +1289,13 @@ func (o RoleRefPtrOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) Rol
 }
 
 func (o RoleRefPtrOutput) Elem() RoleRefOutput {
-	return o.ApplyT(func(v *RoleRef) RoleRef { return *v }).(RoleRefOutput)
+	return o.ApplyT(func(v *RoleRef) RoleRef {
+		if v != nil {
+			return *v
+		}
+		var ret RoleRef
+		return ret
+	}).(RoleRefOutput)
 }
 
 // APIGroup is the group for the resource being referenced
@@ -1444,6 +1456,26 @@ func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AggregationRuleInput)(nil)).Elem(), AggregationRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AggregationRulePtrInput)(nil)).Elem(), AggregationRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleTypeInput)(nil)).Elem(), ClusterRoleTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleTypeArrayInput)(nil)).Elem(), ClusterRoleTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleBindingTypeInput)(nil)).Elem(), ClusterRoleBindingTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleBindingTypeArrayInput)(nil)).Elem(), ClusterRoleBindingTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleBindingListTypeInput)(nil)).Elem(), ClusterRoleBindingListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleListTypeInput)(nil)).Elem(), ClusterRoleListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PolicyRuleInput)(nil)).Elem(), PolicyRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PolicyRuleArrayInput)(nil)).Elem(), PolicyRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleTypeInput)(nil)).Elem(), RoleTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleTypeArrayInput)(nil)).Elem(), RoleTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingTypeInput)(nil)).Elem(), RoleBindingTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingTypeArrayInput)(nil)).Elem(), RoleBindingTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListTypeInput)(nil)).Elem(), RoleBindingListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleListTypeInput)(nil)).Elem(), RoleListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleRefInput)(nil)).Elem(), RoleRefArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleRefPtrInput)(nil)).Elem(), RoleRefArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectInput)(nil)).Elem(), SubjectArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectArrayInput)(nil)).Elem(), SubjectArray{})
 	pulumi.RegisterOutputType(AggregationRuleOutput{})
 	pulumi.RegisterOutputType(AggregationRulePtrOutput{})
 	pulumi.RegisterOutputType(ClusterRoleTypeOutput{})

@@ -191,9 +191,7 @@ func (i AuditSinkListMap) ToAuditSinkListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListMapOutput)
 }
 
-type AuditSinkListOutput struct {
-	*pulumi.OutputState
-}
+type AuditSinkListOutput struct{ *pulumi.OutputState }
 
 func (AuditSinkListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*AuditSinkList)(nil))
@@ -212,14 +210,12 @@ func (o AuditSinkListOutput) ToAuditSinkListPtrOutput() AuditSinkListPtrOutput {
 }
 
 func (o AuditSinkListOutput) ToAuditSinkListPtrOutputWithContext(ctx context.Context) AuditSinkListPtrOutput {
-	return o.ApplyT(func(v AuditSinkList) *AuditSinkList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AuditSinkList) *AuditSinkList {
 		return &v
 	}).(AuditSinkListPtrOutput)
 }
 
-type AuditSinkListPtrOutput struct {
-	*pulumi.OutputState
-}
+type AuditSinkListPtrOutput struct{ *pulumi.OutputState }
 
 func (AuditSinkListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**AuditSinkList)(nil))
@@ -231,6 +227,16 @@ func (o AuditSinkListPtrOutput) ToAuditSinkListPtrOutput() AuditSinkListPtrOutpu
 
 func (o AuditSinkListPtrOutput) ToAuditSinkListPtrOutputWithContext(ctx context.Context) AuditSinkListPtrOutput {
 	return o
+}
+
+func (o AuditSinkListPtrOutput) Elem() AuditSinkListOutput {
+	return o.ApplyT(func(v *AuditSinkList) AuditSinkList {
+		if v != nil {
+			return *v
+		}
+		var ret AuditSinkList
+		return ret
+	}).(AuditSinkListOutput)
 }
 
 type AuditSinkListArrayOutput struct{ *pulumi.OutputState }

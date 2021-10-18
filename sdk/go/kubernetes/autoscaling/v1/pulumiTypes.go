@@ -115,7 +115,7 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutpu
 }
 
 func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutputWithContext(ctx context.Context) CrossVersionObjectReferencePtrOutput {
-	return o.ApplyT(func(v CrossVersionObjectReference) *CrossVersionObjectReference {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CrossVersionObjectReference) *CrossVersionObjectReference {
 		return &v
 	}).(CrossVersionObjectReferencePtrOutput)
 }
@@ -150,7 +150,13 @@ func (o CrossVersionObjectReferencePtrOutput) ToCrossVersionObjectReferencePtrOu
 }
 
 func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReferenceOutput {
-	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference { return *v }).(CrossVersionObjectReferenceOutput)
+	return o.ApplyT(func(v *CrossVersionObjectReference) CrossVersionObjectReference {
+		if v != nil {
+			return *v
+		}
+		var ret CrossVersionObjectReference
+		return ret
+	}).(CrossVersionObjectReferenceOutput)
 }
 
 // API version of the referent
@@ -509,7 +515,7 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutpu
 }
 
 func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerSpec) *HorizontalPodAutoscalerSpec {
 		return &v
 	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
@@ -549,7 +555,13 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) ToHorizontalPodAutoscalerSpecPtrOu
 }
 
 func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpecOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec { return *v }).(HorizontalPodAutoscalerSpecOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) HorizontalPodAutoscalerSpec {
+		if v != nil {
+			return *v
+		}
+		var ret HorizontalPodAutoscalerSpec
+		return ret
+	}).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
@@ -704,7 +716,7 @@ func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrO
 }
 
 func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerStatusPtrOutput {
-	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *HorizontalPodAutoscalerStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscalerStatus) *HorizontalPodAutoscalerStatus {
 		return &v
 	}).(HorizontalPodAutoscalerStatusPtrOutput)
 }
@@ -749,7 +761,13 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ToHorizontalPodAutoscalerStatusP
 }
 
 func (o HorizontalPodAutoscalerStatusPtrOutput) Elem() HorizontalPodAutoscalerStatusOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus { return *v }).(HorizontalPodAutoscalerStatusOutput)
+	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) HorizontalPodAutoscalerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret HorizontalPodAutoscalerStatus
+		return ret
+	}).(HorizontalPodAutoscalerStatusOutput)
 }
 
 // current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
@@ -989,7 +1007,7 @@ func (o ScaleSpecOutput) ToScaleSpecPtrOutput() ScaleSpecPtrOutput {
 }
 
 func (o ScaleSpecOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context) ScaleSpecPtrOutput {
-	return o.ApplyT(func(v ScaleSpec) *ScaleSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleSpec) *ScaleSpec {
 		return &v
 	}).(ScaleSpecPtrOutput)
 }
@@ -1014,7 +1032,13 @@ func (o ScaleSpecPtrOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o ScaleSpecPtrOutput) Elem() ScaleSpecOutput {
-	return o.ApplyT(func(v *ScaleSpec) ScaleSpec { return *v }).(ScaleSpecOutput)
+	return o.ApplyT(func(v *ScaleSpec) ScaleSpec {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleSpec
+		return ret
+	}).(ScaleSpecOutput)
 }
 
 // desired number of instances for the scaled object.
@@ -1127,7 +1151,7 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutput() ScaleStatusPtrOutput {
 }
 
 func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context) ScaleStatusPtrOutput {
-	return o.ApplyT(func(v ScaleStatus) *ScaleStatus {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ScaleStatus) *ScaleStatus {
 		return &v
 	}).(ScaleStatusPtrOutput)
 }
@@ -1157,7 +1181,13 @@ func (o ScaleStatusPtrOutput) ToScaleStatusPtrOutputWithContext(ctx context.Cont
 }
 
 func (o ScaleStatusPtrOutput) Elem() ScaleStatusOutput {
-	return o.ApplyT(func(v *ScaleStatus) ScaleStatus { return *v }).(ScaleStatusOutput)
+	return o.ApplyT(func(v *ScaleStatus) ScaleStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ScaleStatus
+		return ret
+	}).(ScaleStatusOutput)
 }
 
 // actual number of observed instances of the scaled object.
@@ -1181,6 +1211,20 @@ func (o ScaleStatusPtrOutput) Selector() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CrossVersionObjectReferenceInput)(nil)).Elem(), CrossVersionObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CrossVersionObjectReferencePtrInput)(nil)).Elem(), CrossVersionObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerTypeInput)(nil)).Elem(), HorizontalPodAutoscalerTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerTypeArrayInput)(nil)).Elem(), HorizontalPodAutoscalerTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerListTypeInput)(nil)).Elem(), HorizontalPodAutoscalerListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecInput)(nil)).Elem(), HorizontalPodAutoscalerSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerSpecPtrInput)(nil)).Elem(), HorizontalPodAutoscalerSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerStatusInput)(nil)).Elem(), HorizontalPodAutoscalerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerStatusPtrInput)(nil)).Elem(), HorizontalPodAutoscalerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleInput)(nil)).Elem(), ScaleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleSpecInput)(nil)).Elem(), ScaleSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleSpecPtrInput)(nil)).Elem(), ScaleSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleStatusInput)(nil)).Elem(), ScaleStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleStatusPtrInput)(nil)).Elem(), ScaleStatusArgs{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferenceOutput{})
 	pulumi.RegisterOutputType(CrossVersionObjectReferencePtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerTypeOutput{})

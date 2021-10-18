@@ -332,7 +332,7 @@ func (o LeaseSpecOutput) ToLeaseSpecPtrOutput() LeaseSpecPtrOutput {
 }
 
 func (o LeaseSpecOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context) LeaseSpecPtrOutput {
-	return o.ApplyT(func(v LeaseSpec) *LeaseSpec {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseSpec) *LeaseSpec {
 		return &v
 	}).(LeaseSpecPtrOutput)
 }
@@ -377,7 +377,13 @@ func (o LeaseSpecPtrOutput) ToLeaseSpecPtrOutputWithContext(ctx context.Context)
 }
 
 func (o LeaseSpecPtrOutput) Elem() LeaseSpecOutput {
-	return o.ApplyT(func(v *LeaseSpec) LeaseSpec { return *v }).(LeaseSpecOutput)
+	return o.ApplyT(func(v *LeaseSpec) LeaseSpec {
+		if v != nil {
+			return *v
+		}
+		var ret LeaseSpec
+		return ret
+	}).(LeaseSpecOutput)
 }
 
 // acquireTime is a time when the current lease was acquired.
@@ -431,6 +437,11 @@ func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseTypeInput)(nil)).Elem(), LeaseTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseTypeArrayInput)(nil)).Elem(), LeaseTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListTypeInput)(nil)).Elem(), LeaseListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseSpecInput)(nil)).Elem(), LeaseSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseSpecPtrInput)(nil)).Elem(), LeaseSpecArgs{})
 	pulumi.RegisterOutputType(LeaseTypeOutput{})
 	pulumi.RegisterOutputType(LeaseTypeArrayOutput{})
 	pulumi.RegisterOutputType(LeaseListTypeOutput{})

@@ -22,8 +22,10 @@ class TokenRequestArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a TokenRequest resource.
+        :param pulumi.Input['TokenRequestSpecArgs'] spec: Spec holds information about the request being evaluated
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         pulumi.set(__self__, "spec", spec)
         if api_version is not None:
@@ -36,6 +38,9 @@ class TokenRequestArgs:
     @property
     @pulumi.getter
     def spec(self) -> pulumi.Input['TokenRequestSpecArgs']:
+        """
+        Spec holds information about the request being evaluated
+        """
         return pulumi.get(self, "spec")
 
     @spec.setter
@@ -69,6 +74,9 @@ class TokenRequestArgs:
     @property
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
@@ -93,6 +101,8 @@ class TokenRequest(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param pulumi.Input[pulumi.InputType['TokenRequestSpecArgs']] spec: Spec holds information about the request being evaluated
         """
         ...
     @overload
@@ -189,15 +199,24 @@ class TokenRequest(pulumi.CustomResource):
     @property
     @pulumi.getter
     def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
         return pulumi.get(self, "metadata")
 
     @property
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.TokenRequestSpec']:
+        """
+        Spec holds information about the request being evaluated
+        """
         return pulumi.get(self, "spec")
 
     @property
     @pulumi.getter
     def status(self) -> pulumi.Output[Optional['outputs.TokenRequestStatus']]:
+        """
+        Status is filled in by the server and indicates whether the token can be authenticated.
+        """
         return pulumi.get(self, "status")
 

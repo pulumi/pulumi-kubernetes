@@ -194,9 +194,7 @@ func (i ResourceQuotaListMap) ToResourceQuotaListMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaListMapOutput)
 }
 
-type ResourceQuotaListOutput struct {
-	*pulumi.OutputState
-}
+type ResourceQuotaListOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ResourceQuotaList)(nil))
@@ -215,14 +213,12 @@ func (o ResourceQuotaListOutput) ToResourceQuotaListPtrOutput() ResourceQuotaLis
 }
 
 func (o ResourceQuotaListOutput) ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput {
-	return o.ApplyT(func(v ResourceQuotaList) *ResourceQuotaList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceQuotaList) *ResourceQuotaList {
 		return &v
 	}).(ResourceQuotaListPtrOutput)
 }
 
-type ResourceQuotaListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ResourceQuotaListPtrOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ResourceQuotaList)(nil))
@@ -234,6 +230,16 @@ func (o ResourceQuotaListPtrOutput) ToResourceQuotaListPtrOutput() ResourceQuota
 
 func (o ResourceQuotaListPtrOutput) ToResourceQuotaListPtrOutputWithContext(ctx context.Context) ResourceQuotaListPtrOutput {
 	return o
+}
+
+func (o ResourceQuotaListPtrOutput) Elem() ResourceQuotaListOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) ResourceQuotaList {
+		if v != nil {
+			return *v
+		}
+		var ret ResourceQuotaList
+		return ret
+	}).(ResourceQuotaListOutput)
 }
 
 type ResourceQuotaListArrayOutput struct{ *pulumi.OutputState }

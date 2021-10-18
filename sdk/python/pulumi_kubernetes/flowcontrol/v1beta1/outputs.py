@@ -1052,7 +1052,10 @@ class Subject(dict):
                  user: Optional['outputs.UserSubject'] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-        :param str kind: Required
+        :param str kind: `kind` indicates which one of the other fields is non-empty. Required
+        :param 'GroupSubjectArgs' group: `group` matches based on user group name.
+        :param 'ServiceAccountSubjectArgs' service_account: `serviceAccount` matches ServiceAccounts.
+        :param 'UserSubjectArgs' user: `user` matches based on username.
         """
         pulumi.set(__self__, "kind", kind)
         if group is not None:
@@ -1066,23 +1069,32 @@ class Subject(dict):
     @pulumi.getter
     def kind(self) -> str:
         """
-        Required
+        `kind` indicates which one of the other fields is non-empty. Required
         """
         return pulumi.get(self, "kind")
 
     @property
     @pulumi.getter
     def group(self) -> Optional['outputs.GroupSubject']:
+        """
+        `group` matches based on user group name.
+        """
         return pulumi.get(self, "group")
 
     @property
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional['outputs.ServiceAccountSubject']:
+        """
+        `serviceAccount` matches ServiceAccounts.
+        """
         return pulumi.get(self, "service_account")
 
     @property
     @pulumi.getter
     def user(self) -> Optional['outputs.UserSubject']:
+        """
+        `user` matches based on username.
+        """
         return pulumi.get(self, "user")
 
 

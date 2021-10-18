@@ -209,9 +209,7 @@ func (i ControllerRevisionMap) ToControllerRevisionMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionMapOutput)
 }
 
-type ControllerRevisionOutput struct {
-	*pulumi.OutputState
-}
+type ControllerRevisionOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ControllerRevision)(nil))
@@ -230,14 +228,12 @@ func (o ControllerRevisionOutput) ToControllerRevisionPtrOutput() ControllerRevi
 }
 
 func (o ControllerRevisionOutput) ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput {
-	return o.ApplyT(func(v ControllerRevision) *ControllerRevision {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ControllerRevision) *ControllerRevision {
 		return &v
 	}).(ControllerRevisionPtrOutput)
 }
 
-type ControllerRevisionPtrOutput struct {
-	*pulumi.OutputState
-}
+type ControllerRevisionPtrOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ControllerRevision)(nil))
@@ -249,6 +245,16 @@ func (o ControllerRevisionPtrOutput) ToControllerRevisionPtrOutput() ControllerR
 
 func (o ControllerRevisionPtrOutput) ToControllerRevisionPtrOutputWithContext(ctx context.Context) ControllerRevisionPtrOutput {
 	return o
+}
+
+func (o ControllerRevisionPtrOutput) Elem() ControllerRevisionOutput {
+	return o.ApplyT(func(v *ControllerRevision) ControllerRevision {
+		if v != nil {
+			return *v
+		}
+		var ret ControllerRevision
+		return ret
+	}).(ControllerRevisionOutput)
 }
 
 type ControllerRevisionArrayOutput struct{ *pulumi.OutputState }

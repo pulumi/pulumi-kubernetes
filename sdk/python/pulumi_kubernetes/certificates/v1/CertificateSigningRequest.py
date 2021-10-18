@@ -22,7 +22,7 @@ class CertificateSigningRequestInitArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a CertificateSigningRequest resource.
-        :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        :param pulumi.Input['CertificateSigningRequestSpecArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -38,7 +38,7 @@ class CertificateSigningRequestInitArgs:
     @pulumi.getter
     def spec(self) -> pulumi.Input['CertificateSigningRequestSpecArgs']:
         """
-        spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         """
         return pulumi.get(self, "spec")
 
@@ -103,7 +103,7 @@ class CertificateSigningRequest(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['CertificateSigningRequestSpecArgs']] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        :param pulumi.Input[pulumi.InputType['CertificateSigningRequestSpecArgs']] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         """
         ...
     @overload
@@ -214,7 +214,7 @@ class CertificateSigningRequest(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.CertificateSigningRequestSpec']:
         """
-        spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         """
         return pulumi.get(self, "spec")
 

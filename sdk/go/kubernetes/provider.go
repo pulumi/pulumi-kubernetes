@@ -31,6 +31,9 @@ func NewProvider(ctx *pulumi.Context,
 	if args.SuppressDeprecationWarnings == nil {
 		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
 	}
+	if args.SuppressHelmHookWarnings == nil {
+		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
+	}
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:kubernetes", name, args, &resource, opts...)
 	if err != nil {
@@ -47,6 +50,10 @@ type providerArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
+	// BETA FEATURE - Options to configure the Helm Release resource.
+	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
+	// Options for tuning the Kubernetes client used by a Provider.
+	KubeClientSettings *KubeClientSettings `pulumi:"kubeClientSettings"`
 	// The contents of a kubeconfig file or the path to a kubeconfig file.
 	Kubeconfig *string `pulumi:"kubeconfig"`
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
@@ -67,6 +74,8 @@ type providerArgs struct {
 	RenderYamlToDirectory *string `pulumi:"renderYamlToDirectory"`
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
+	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+	SuppressHelmHookWarnings *bool `pulumi:"suppressHelmHookWarnings"`
 }
 
 // The set of arguments for constructing a Provider resource.
@@ -78,6 +87,10 @@ type ProviderArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun pulumi.BoolPtrInput
+	// BETA FEATURE - Options to configure the Helm Release resource.
+	HelmReleaseSettings HelmReleaseSettingsPtrInput
+	// Options for tuning the Kubernetes client used by a Provider.
+	KubeClientSettings KubeClientSettingsPtrInput
 	// The contents of a kubeconfig file or the path to a kubeconfig file.
 	Kubeconfig pulumi.StringPtrInput
 	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
@@ -98,6 +111,8 @@ type ProviderArgs struct {
 	RenderYamlToDirectory pulumi.StringPtrInput
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
+	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
+	SuppressHelmHookWarnings pulumi.BoolPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -152,9 +167,7 @@ func (i *providerPtrType) ToProviderPtrOutputWithContext(ctx context.Context) Pr
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderPtrOutput)
 }
 
-type ProviderOutput struct {
-	*pulumi.OutputState
-}
+type ProviderOutput struct{ *pulumi.OutputState }
 
 func (ProviderOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*Provider)(nil))
@@ -173,14 +186,12 @@ func (o ProviderOutput) ToProviderPtrOutput() ProviderPtrOutput {
 }
 
 func (o ProviderOutput) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
-	return o.ApplyT(func(v Provider) *Provider {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Provider) *Provider {
 		return &v
 	}).(ProviderPtrOutput)
 }
 
-type ProviderPtrOutput struct {
-	*pulumi.OutputState
-}
+type ProviderPtrOutput struct{ *pulumi.OutputState }
 
 func (ProviderPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**Provider)(nil))
@@ -192,6 +203,16 @@ func (o ProviderPtrOutput) ToProviderPtrOutput() ProviderPtrOutput {
 
 func (o ProviderPtrOutput) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
 	return o
+}
+
+func (o ProviderPtrOutput) Elem() ProviderOutput {
+	return o.ApplyT(func(v *Provider) Provider {
+		if v != nil {
+			return *v
+		}
+		var ret Provider
+		return ret
+	}).(ProviderOutput)
 }
 
 func init() {

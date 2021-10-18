@@ -1214,9 +1214,9 @@ class HTTPIngressPathArgs:
                  path: Optional[pulumi.Input[str]] = None,
                  path_type: Optional[pulumi.Input[str]] = None):
         """
-        HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
+        HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
         :param pulumi.Input['IngressBackendArgs'] backend: Backend defines the referenced service endpoint to which the traffic will be forwarded to.
-        :param pulumi.Input[str] path: Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+        :param pulumi.Input[str] path: Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         :param pulumi.Input[str] path_type: PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
                  done on a path element by element basis. A path element refers is the
                  list of labels in the path split by the '/' separator. A request is a
@@ -1251,7 +1251,7 @@ class HTTPIngressPathArgs:
     @pulumi.getter
     def path(self) -> Optional[pulumi.Input[str]]:
         """
-        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
+        Path is an extended POSIX regex as defined by IEEE Std 1003.1, (i.e this follows the egrep/unix syntax, not the perl syntax) matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. If unspecified, the path defaults to a catch all sending traffic to the backend.
         """
         return pulumi.get(self, "path")
 
@@ -1481,14 +1481,12 @@ class IngressRuleArgs:
                  http: Optional[pulumi.Input['HTTPIngressRuleValueArgs']] = None):
         """
         IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
-        :param pulumi.Input[str] host: Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-                  the IP in the Spec of the parent Ingress.
+        :param pulumi.Input[str] host: Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
+               	  IP in the Spec of the parent Ingress.
                2. The `:` delimiter is not respected because ports are not allowed.
                	  Currently the port of an Ingress is implicitly :80 for http and
                	  :443 for https.
                Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-               
-               Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
         """
         if host is not None:
             pulumi.set(__self__, "host", host)
@@ -1499,14 +1497,12 @@ class IngressRuleArgs:
     @pulumi.getter
     def host(self) -> Optional[pulumi.Input[str]]:
         """
-        Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-           the IP in the Spec of the parent Ingress.
+        Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
+        	  IP in the Spec of the parent Ingress.
         2. The `:` delimiter is not respected because ports are not allowed.
         	  Currently the port of an Ingress is implicitly :80 for http and
         	  :443 for https.
         Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-
-        Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
         """
         return pulumi.get(self, "host")
 

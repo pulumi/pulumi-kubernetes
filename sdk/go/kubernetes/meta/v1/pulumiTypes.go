@@ -838,7 +838,7 @@ func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
 }
 
 func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
-	return o.ApplyT(func(v DeleteOptions) *DeleteOptions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeleteOptions) *DeleteOptions {
 		return &v
 	}).(DeleteOptionsPtrOutput)
 }
@@ -893,7 +893,13 @@ func (o DeleteOptionsPtrOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.
 }
 
 func (o DeleteOptionsPtrOutput) Elem() DeleteOptionsOutput {
-	return o.ApplyT(func(v *DeleteOptions) DeleteOptions { return *v }).(DeleteOptionsOutput)
+	return o.ApplyT(func(v *DeleteOptions) DeleteOptions {
+		if v != nil {
+			return *v
+		}
+		var ret DeleteOptions
+		return ret
+	}).(DeleteOptionsOutput)
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1091,7 +1097,7 @@ func (o GroupVersionForDiscoveryOutput) ToGroupVersionForDiscoveryPtrOutput() Gr
 }
 
 func (o GroupVersionForDiscoveryOutput) ToGroupVersionForDiscoveryPtrOutputWithContext(ctx context.Context) GroupVersionForDiscoveryPtrOutput {
-	return o.ApplyT(func(v GroupVersionForDiscovery) *GroupVersionForDiscovery {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GroupVersionForDiscovery) *GroupVersionForDiscovery {
 		return &v
 	}).(GroupVersionForDiscoveryPtrOutput)
 }
@@ -1121,7 +1127,13 @@ func (o GroupVersionForDiscoveryPtrOutput) ToGroupVersionForDiscoveryPtrOutputWi
 }
 
 func (o GroupVersionForDiscoveryPtrOutput) Elem() GroupVersionForDiscoveryOutput {
-	return o.ApplyT(func(v *GroupVersionForDiscovery) GroupVersionForDiscovery { return *v }).(GroupVersionForDiscoveryOutput)
+	return o.ApplyT(func(v *GroupVersionForDiscovery) GroupVersionForDiscovery {
+		if v != nil {
+			return *v
+		}
+		var ret GroupVersionForDiscovery
+		return ret
+	}).(GroupVersionForDiscoveryOutput)
 }
 
 // groupVersion specifies the API group and version in the form "group/version"
@@ -1289,7 +1301,7 @@ func (o LabelSelectorOutput) ToLabelSelectorPtrOutput() LabelSelectorPtrOutput {
 }
 
 func (o LabelSelectorOutput) ToLabelSelectorPtrOutputWithContext(ctx context.Context) LabelSelectorPtrOutput {
-	return o.ApplyT(func(v LabelSelector) *LabelSelector {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LabelSelector) *LabelSelector {
 		return &v
 	}).(LabelSelectorPtrOutput)
 }
@@ -1319,7 +1331,13 @@ func (o LabelSelectorPtrOutput) ToLabelSelectorPtrOutputWithContext(ctx context.
 }
 
 func (o LabelSelectorPtrOutput) Elem() LabelSelectorOutput {
-	return o.ApplyT(func(v *LabelSelector) LabelSelector { return *v }).(LabelSelectorOutput)
+	return o.ApplyT(func(v *LabelSelector) LabelSelector {
+		if v != nil {
+			return *v
+		}
+		var ret LabelSelector
+		return ret
+	}).(LabelSelectorOutput)
 }
 
 // matchExpressions is a list of label selector requirements. The requirements are ANDed.
@@ -1592,7 +1610,7 @@ func (o ListMetaOutput) ToListMetaPtrOutput() ListMetaPtrOutput {
 }
 
 func (o ListMetaOutput) ToListMetaPtrOutputWithContext(ctx context.Context) ListMetaPtrOutput {
-	return o.ApplyT(func(v ListMeta) *ListMeta {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMeta) *ListMeta {
 		return &v
 	}).(ListMetaPtrOutput)
 }
@@ -1634,7 +1652,13 @@ func (o ListMetaPtrOutput) ToListMetaPtrOutputWithContext(ctx context.Context) L
 }
 
 func (o ListMetaPtrOutput) Elem() ListMetaOutput {
-	return o.ApplyT(func(v *ListMeta) ListMeta { return *v }).(ListMetaOutput)
+	return o.ApplyT(func(v *ListMeta) ListMeta {
+		if v != nil {
+			return *v
+		}
+		var ret ListMeta
+		return ret
+	}).(ListMetaOutput)
 }
 
 // continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
@@ -1691,6 +1715,8 @@ type ManagedFieldsEntry struct {
 	Manager *string `pulumi:"manager"`
 	// Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
 	Operation *string `pulumi:"operation"`
+	// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+	Subresource *string `pulumi:"subresource"`
 	// Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
 	Time *string `pulumi:"time"`
 }
@@ -1718,6 +1744,8 @@ type ManagedFieldsEntryArgs struct {
 	Manager pulumi.StringPtrInput `pulumi:"manager"`
 	// Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
 	Operation pulumi.StringPtrInput `pulumi:"operation"`
+	// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+	Subresource pulumi.StringPtrInput `pulumi:"subresource"`
 	// Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
 	Time pulumi.StringPtrInput `pulumi:"time"`
 }
@@ -1797,6 +1825,11 @@ func (o ManagedFieldsEntryOutput) Manager() pulumi.StringPtrOutput {
 // Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.
 func (o ManagedFieldsEntryOutput) Operation() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ManagedFieldsEntry) *string { return v.Operation }).(pulumi.StringPtrOutput)
+}
+
+// Subresource is the name of the subresource used to update that object, or empty string if the object was updated through the main resource. The value of this field is used to distinguish between managers, even if they share the same name. For example, a status update will be distinct from a regular update using the same manager name. Note that the APIVersion field is not related to the Subresource field and it always corresponds to the version of the main resource.
+func (o ManagedFieldsEntryOutput) Subresource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ManagedFieldsEntry) *string { return v.Subresource }).(pulumi.StringPtrOutput)
 }
 
 // Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'
@@ -2012,7 +2045,7 @@ func (o ObjectMetaOutput) ToObjectMetaPtrOutput() ObjectMetaPtrOutput {
 }
 
 func (o ObjectMetaOutput) ToObjectMetaPtrOutputWithContext(ctx context.Context) ObjectMetaPtrOutput {
-	return o.ApplyT(func(v ObjectMeta) *ObjectMeta {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectMeta) *ObjectMeta {
 		return &v
 	}).(ObjectMetaPtrOutput)
 }
@@ -2128,7 +2161,13 @@ func (o ObjectMetaPtrOutput) ToObjectMetaPtrOutputWithContext(ctx context.Contex
 }
 
 func (o ObjectMetaPtrOutput) Elem() ObjectMetaOutput {
-	return o.ApplyT(func(v *ObjectMeta) ObjectMeta { return *v }).(ObjectMetaOutput)
+	return o.ApplyT(func(v *ObjectMeta) ObjectMeta {
+		if v != nil {
+			return *v
+		}
+		var ret ObjectMeta
+		return ret
+	}).(ObjectMetaOutput)
 }
 
 // Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
@@ -2552,7 +2591,7 @@ func (o PreconditionsOutput) ToPreconditionsPtrOutput() PreconditionsPtrOutput {
 }
 
 func (o PreconditionsOutput) ToPreconditionsPtrOutputWithContext(ctx context.Context) PreconditionsPtrOutput {
-	return o.ApplyT(func(v Preconditions) *Preconditions {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v Preconditions) *Preconditions {
 		return &v
 	}).(PreconditionsPtrOutput)
 }
@@ -2582,7 +2621,13 @@ func (o PreconditionsPtrOutput) ToPreconditionsPtrOutputWithContext(ctx context.
 }
 
 func (o PreconditionsPtrOutput) Elem() PreconditionsOutput {
-	return o.ApplyT(func(v *Preconditions) Preconditions { return *v }).(PreconditionsOutput)
+	return o.ApplyT(func(v *Preconditions) Preconditions {
+		if v != nil {
+			return *v
+		}
+		var ret Preconditions
+		return ret
+	}).(PreconditionsOutput)
 }
 
 // Specifies the target ResourceVersion
@@ -3078,7 +3123,7 @@ func (o StatusDetailsOutput) ToStatusDetailsPtrOutput() StatusDetailsPtrOutput {
 }
 
 func (o StatusDetailsOutput) ToStatusDetailsPtrOutputWithContext(ctx context.Context) StatusDetailsPtrOutput {
-	return o.ApplyT(func(v StatusDetails) *StatusDetails {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusDetails) *StatusDetails {
 		return &v
 	}).(StatusDetailsPtrOutput)
 }
@@ -3128,7 +3173,13 @@ func (o StatusDetailsPtrOutput) ToStatusDetailsPtrOutputWithContext(ctx context.
 }
 
 func (o StatusDetailsPtrOutput) Elem() StatusDetailsOutput {
-	return o.ApplyT(func(v *StatusDetails) StatusDetails { return *v }).(StatusDetailsOutput)
+	return o.ApplyT(func(v *StatusDetails) StatusDetails {
+		if v != nil {
+			return *v
+		}
+		var ret StatusDetails
+		return ret
+	}).(StatusDetailsOutput)
 }
 
 // The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
@@ -3265,6 +3316,43 @@ func (o WatchEventOutput) Type() pulumi.StringOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*APIGroupInput)(nil)).Elem(), APIGroupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIGroupArrayInput)(nil)).Elem(), APIGroupArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIGroupListInput)(nil)).Elem(), APIGroupListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIResourceInput)(nil)).Elem(), APIResourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIResourceArrayInput)(nil)).Elem(), APIResourceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIResourceListInput)(nil)).Elem(), APIResourceListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIVersionsInput)(nil)).Elem(), APIVersionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConditionInput)(nil)).Elem(), ConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ConditionArrayInput)(nil)).Elem(), ConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeleteOptionsInput)(nil)).Elem(), DeleteOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DeleteOptionsPtrInput)(nil)).Elem(), DeleteOptionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryInput)(nil)).Elem(), GroupVersionForDiscoveryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryPtrInput)(nil)).Elem(), GroupVersionForDiscoveryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GroupVersionForDiscoveryArrayInput)(nil)).Elem(), GroupVersionForDiscoveryArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorInput)(nil)).Elem(), LabelSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorPtrInput)(nil)).Elem(), LabelSelectorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorArrayInput)(nil)).Elem(), LabelSelectorArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorRequirementInput)(nil)).Elem(), LabelSelectorRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LabelSelectorRequirementArrayInput)(nil)).Elem(), LabelSelectorRequirementArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMetaInput)(nil)).Elem(), ListMetaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListMetaPtrInput)(nil)).Elem(), ListMetaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ManagedFieldsEntryInput)(nil)).Elem(), ManagedFieldsEntryArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ManagedFieldsEntryArrayInput)(nil)).Elem(), ManagedFieldsEntryArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectMetaInput)(nil)).Elem(), ObjectMetaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ObjectMetaPtrInput)(nil)).Elem(), ObjectMetaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OwnerReferenceInput)(nil)).Elem(), OwnerReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OwnerReferenceArrayInput)(nil)).Elem(), OwnerReferenceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PreconditionsInput)(nil)).Elem(), PreconditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PreconditionsPtrInput)(nil)).Elem(), PreconditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServerAddressByClientCIDRInput)(nil)).Elem(), ServerAddressByClientCIDRArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServerAddressByClientCIDRArrayInput)(nil)).Elem(), ServerAddressByClientCIDRArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusTypeInput)(nil)).Elem(), StatusTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusCauseInput)(nil)).Elem(), StatusCauseArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusCauseArrayInput)(nil)).Elem(), StatusCauseArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusDetailsInput)(nil)).Elem(), StatusDetailsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusDetailsPtrInput)(nil)).Elem(), StatusDetailsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatchEventInput)(nil)).Elem(), WatchEventArgs{})
 	pulumi.RegisterOutputType(APIGroupOutput{})
 	pulumi.RegisterOutputType(APIGroupArrayOutput{})
 	pulumi.RegisterOutputType(APIGroupListOutput{})

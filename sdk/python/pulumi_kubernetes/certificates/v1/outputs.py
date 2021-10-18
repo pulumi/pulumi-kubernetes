@@ -59,7 +59,7 @@ class CertificateSigningRequest(dict):
          2. serving certificates for TLS endpoints kube-apiserver can connect to securely (with the "kubernetes.io/kubelet-serving" signerName).
 
         This API can be used to request client certificates to authenticate to kube-apiserver (with the "kubernetes.io/kube-apiserver-client" signerName), or to obtain certificates from custom non-Kubernetes signers.
-        :param 'CertificateSigningRequestSpecArgs' spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        :param 'CertificateSigningRequestSpecArgs' spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'CertificateSigningRequestStatusArgs' status: status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
@@ -78,7 +78,7 @@ class CertificateSigningRequest(dict):
     @pulumi.getter
     def spec(self) -> 'outputs.CertificateSigningRequestSpec':
         """
-        spec contains the certificate request, and is immutable after creation. Only the request, signerName, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
+        spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         """
         return pulumi.get(self, "spec")
 
@@ -242,6 +242,8 @@ class CertificateSigningRequestSpec(dict):
         suggest = None
         if key == "signerName":
             suggest = "signer_name"
+        elif key == "expirationSeconds":
+            suggest = "expiration_seconds"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CertificateSigningRequestSpec. Access the value via the '{suggest}' property getter instead.")
@@ -257,6 +259,7 @@ class CertificateSigningRequestSpec(dict):
     def __init__(__self__, *,
                  request: str,
                  signer_name: str,
+                 expiration_seconds: Optional[int] = None,
                  extra: Optional[Mapping[str, Sequence[str]]] = None,
                  groups: Optional[Sequence[str]] = None,
                  uid: Optional[str] = None,
@@ -286,6 +289,20 @@ class CertificateSigningRequestSpec(dict):
                 4. Required, permitted, or forbidden key usages / extended key usages.
                 5. Expiration/certificate lifetime: whether it is fixed by the signer, configurable by the admin.
                 6. Whether or not requests for CA certificates are allowed.
+        :param int expiration_seconds: expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+               
+               The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+               
+               Certificate signers may not honor this field for various reasons:
+               
+                 1. Old signer that is unaware of the field (such as the in-tree
+                    implementations prior to v1.22)
+                 2. Signer whose configured maximum is shorter than the requested duration
+                 3. Signer whose configured minimum is longer than the requested duration
+               
+               The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+               
+               As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
         :param Mapping[str, Sequence[str]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         :param Sequence[str] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         :param str uid: uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
@@ -307,6 +324,8 @@ class CertificateSigningRequestSpec(dict):
         """
         pulumi.set(__self__, "request", request)
         pulumi.set(__self__, "signer_name", signer_name)
+        if expiration_seconds is not None:
+            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
         if extra is not None:
             pulumi.set(__self__, "extra", extra)
         if groups is not None:
@@ -353,6 +372,27 @@ class CertificateSigningRequestSpec(dict):
          6. Whether or not requests for CA certificates are allowed.
         """
         return pulumi.get(self, "signer_name")
+
+    @property
+    @pulumi.getter(name="expirationSeconds")
+    def expiration_seconds(self) -> Optional[int]:
+        """
+        expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
+
+        The v1.22+ in-tree implementations of the well-known Kubernetes signers will honor this field as long as the requested duration is not greater than the maximum duration they will honor per the --cluster-signing-duration CLI flag to the Kubernetes controller manager.
+
+        Certificate signers may not honor this field for various reasons:
+
+          1. Old signer that is unaware of the field (such as the in-tree
+             implementations prior to v1.22)
+          2. Signer whose configured maximum is shorter than the requested duration
+          3. Signer whose configured minimum is longer than the requested duration
+
+        The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
+
+        As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
+        """
+        return pulumi.get(self, "expiration_seconds")
 
     @property
     @pulumi.getter

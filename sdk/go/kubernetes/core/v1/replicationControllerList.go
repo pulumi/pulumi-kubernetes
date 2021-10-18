@@ -194,9 +194,7 @@ func (i ReplicationControllerListMap) ToReplicationControllerListMapOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicationControllerListMapOutput)
 }
 
-type ReplicationControllerListOutput struct {
-	*pulumi.OutputState
-}
+type ReplicationControllerListOutput struct{ *pulumi.OutputState }
 
 func (ReplicationControllerListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*ReplicationControllerList)(nil))
@@ -215,14 +213,12 @@ func (o ReplicationControllerListOutput) ToReplicationControllerListPtrOutput() 
 }
 
 func (o ReplicationControllerListOutput) ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput {
-	return o.ApplyT(func(v ReplicationControllerList) *ReplicationControllerList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicationControllerList) *ReplicationControllerList {
 		return &v
 	}).(ReplicationControllerListPtrOutput)
 }
 
-type ReplicationControllerListPtrOutput struct {
-	*pulumi.OutputState
-}
+type ReplicationControllerListPtrOutput struct{ *pulumi.OutputState }
 
 func (ReplicationControllerListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**ReplicationControllerList)(nil))
@@ -234,6 +230,16 @@ func (o ReplicationControllerListPtrOutput) ToReplicationControllerListPtrOutput
 
 func (o ReplicationControllerListPtrOutput) ToReplicationControllerListPtrOutputWithContext(ctx context.Context) ReplicationControllerListPtrOutput {
 	return o
+}
+
+func (o ReplicationControllerListPtrOutput) Elem() ReplicationControllerListOutput {
+	return o.ApplyT(func(v *ReplicationControllerList) ReplicationControllerList {
+		if v != nil {
+			return *v
+		}
+		var ret ReplicationControllerList
+		return ret
+	}).(ReplicationControllerListOutput)
 }
 
 type ReplicationControllerListArrayOutput struct{ *pulumi.OutputState }

@@ -194,9 +194,7 @@ func (i PodListMap) ToPodListMapOutputWithContext(ctx context.Context) PodListMa
 	return pulumi.ToOutputWithContext(ctx, i).(PodListMapOutput)
 }
 
-type PodListOutput struct {
-	*pulumi.OutputState
-}
+type PodListOutput struct{ *pulumi.OutputState }
 
 func (PodListOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((*PodList)(nil))
@@ -215,14 +213,12 @@ func (o PodListOutput) ToPodListPtrOutput() PodListPtrOutput {
 }
 
 func (o PodListOutput) ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput {
-	return o.ApplyT(func(v PodList) *PodList {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodList) *PodList {
 		return &v
 	}).(PodListPtrOutput)
 }
 
-type PodListPtrOutput struct {
-	*pulumi.OutputState
-}
+type PodListPtrOutput struct{ *pulumi.OutputState }
 
 func (PodListPtrOutput) ElementType() reflect.Type {
 	return reflect.TypeOf((**PodList)(nil))
@@ -234,6 +230,16 @@ func (o PodListPtrOutput) ToPodListPtrOutput() PodListPtrOutput {
 
 func (o PodListPtrOutput) ToPodListPtrOutputWithContext(ctx context.Context) PodListPtrOutput {
 	return o
+}
+
+func (o PodListPtrOutput) Elem() PodListOutput {
+	return o.ApplyT(func(v *PodList) PodList {
+		if v != nil {
+			return *v
+		}
+		var ret PodList
+		return ret
+	}).(PodListOutput)
 }
 
 type PodListArrayOutput struct{ *pulumi.OutputState }
