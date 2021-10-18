@@ -17,7 +17,7 @@ func main() {
 		if err != nil {
 			return err
 		}
-		_, err = providers.NewProvider(ctx, "k8s", &providers.ProviderArgs{})
+		_, err = providers.NewProvider(ctx, "deprecated", &providers.ProviderArgs{})
 		if err != nil {
 			return err
 		}
