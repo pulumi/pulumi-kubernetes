@@ -39,10 +39,10 @@ var serviceSpecType = pschema.ComplexTypeSpec{
 		Type: "string",
 	},
 	Enum: []pschema.EnumValueSpec{
-			{Value: v1.ServiceTypeExternalName},
-			{Value: v1.ServiceTypeClusterIP},
-			{Value: v1.ServiceTypeNodePort},
-			{Value: v1.ServiceTypeLoadBalancer},
+		{Value: v1.ServiceTypeExternalName},
+		{Value: v1.ServiceTypeClusterIP},
+		{Value: v1.ServiceTypeNodePort},
+		{Value: v1.ServiceTypeLoadBalancer},
 	},
 }
 
