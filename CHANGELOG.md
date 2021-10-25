@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Add env variable lookup for k8s client settings (https://github.com/pulumi/pulumi-kubernetes/pull/1777)
 
 ## 3.8.2 (October 18, 2021)
 

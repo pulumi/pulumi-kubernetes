@@ -27,6 +27,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -623,6 +624,23 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if err != nil {
 			return nil, fmt.Errorf("failed to unmarshal kubeClientSettings option: %w", err)
 		}
+	}
+
+	// TODO: Once https://github.com/pulumi/pulumi/issues/8132 is fixed, we can drop the env var handling logic.
+	if burst := os.Getenv("PULUMI_K8S_CLIENT_BURST"); burst != "" && kubeClientSettings.Burst == nil {
+		asInt, err := strconv.Atoi(burst)
+		if err != nil {
+			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_BURST: %w", err)
+		}
+		kubeClientSettings.Burst = &asInt
+	}
+
+	if qps := os.Getenv("PULUMI_K8S_CLIENT_QPS"); qps != "" && kubeClientSettings.QPS == nil {
+		asFloat, err := strconv.ParseFloat(qps, 64)
+		if err != nil {
+			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_QPS: %w", err)
+		}
+		kubeClientSettings.QPS = &asFloat
 	}
 
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
