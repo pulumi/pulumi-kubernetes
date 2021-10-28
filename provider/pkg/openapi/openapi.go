@@ -93,9 +93,8 @@ func PatchForResourceUpdate(
 		return nil, "", nil, err
 	}
 
-	// Use kinds.Namespaced() to determine if kind is unknown, such as for CRD Kinds.
-	kind := kinds.Kind(lastSubmitted.GetKind())
-	if knownKind, _ := kind.Namespaced(); !knownKind {
+	// CRD GroupVersions are not included in the known set.
+	if knownGV := kinds.KnownGroupVersions.Has(lastSubmitted.GetAPIVersion()); !knownGV {
 		// Use a JSON merge patch for CRD Kinds.
 		patch, patchType, err = MergePatch(
 			lastSubmitted, lastSubmittedJSON, currentSubmittedJSON, liveOldJSON,

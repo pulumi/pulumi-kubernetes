@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ package kinds
 import (
 	"strings"
 
+	"github.com/pulumi/pulumi/pkg/v3/codegen"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -269,3 +270,57 @@ func toGVK(gv groupVersion, kind Kind) schema.GroupVersionKind {
 		Kind:    string(kind),
 	}
 }
+
+// KnownGroupVersions is the set of built-in GroupVersions / ApiVersions. GVs defined by a CRD are not part of this set.
+var KnownGroupVersions = codegen.NewStringSet(
+	"admissionregistration.k8s.io/v1",
+	"admissionregistration.k8s.io/v1beta1",
+	"apiextensions.k8s.io/v1",
+	"apiextensions.k8s.io/v1beta1",
+	"apiregistration.k8s.io/v1",
+	"apiregistration.k8s.io/v1beta1",
+	"apps/v1",
+	"apps/v1beta1",
+	"apps/v1beta2",
+	"auditregistration.k8s.io/v1alpha1",
+	"authentication.k8s.io/v1",
+	"authentication.k8s.io/v1beta1",
+	"authorization.k8s.io/v1",
+	"authorization.k8s.io/v1beta1",
+	"autoscaling/v1",
+	"autoscaling/v2beta1",
+	"autoscaling/v2beta2",
+	"batch/v1",
+	"batch/v1beta1",
+	"batch/v2alpha1",
+	"certificates.k8s.io/v1",
+	"certificates.k8s.io/v1beta1",
+	"coordination.k8s.io/v1",
+	"coordination.k8s.io/v1beta1",
+	"core/v1",
+	"discovery.k8s.io/v1",
+	"discovery.k8s.io/v1beta1",
+	"events.k8s.io/v1",
+	"events.k8s.io/v1beta1",
+	"extensions/v1beta1",
+	"flowcontrol.apiserver.k8s.io/v1alpha1",
+	"flowcontrol.apiserver.k8s.io/v1beta1",
+	"meta/v1",
+	"networking.k8s.io/v1",
+	"networking.k8s.io/v1beta1",
+	"node.k8s.io/v1",
+	"node.k8s.io/v1alpha1",
+	"node.k8s.io/v1beta1",
+	"policy/v1",
+	"policy/v1beta1",
+	"rbac.authorization.k8s.io/v1",
+	"rbac.authorization.k8s.io/v1alpha1",
+	"rbac.authorization.k8s.io/v1beta1",
+	"scheduling.k8s.io/v1",
+	"scheduling.k8s.io/v1alpha1",
+	"scheduling.k8s.io/v1beta1",
+	"settings.k8s.io/v1alpha1",
+	"storage.k8s.io/v1",
+	"storage.k8s.io/v1alpha1",
+	"storage.k8s.io/v1beta1",
+)

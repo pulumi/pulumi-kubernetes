@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ package kinds
 import (
 	"strings"
 
+	"github.com/pulumi/pulumi/pkg/v3/codegen"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -117,3 +118,10 @@ func toGVK(gv groupVersion, kind Kind) schema.GroupVersionKind {
 		Kind:    string(kind),
 	}
 }
+
+// KnownGroupVersions is the set of built-in GroupVersions / ApiVersions. GVs defined by a CRD are not part of this set.
+var KnownGroupVersions = codegen.NewStringSet(
+{{- range .GroupVersions}}
+	"{{.}}",
+{{- end}}
+)
