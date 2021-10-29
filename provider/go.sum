@@ -946,10 +946,10 @@ github.com/prometheus/procfs v0.2.0/go.mod h1:lV6e/gmhEcM9IjHGsFOCxxuZ+z1YqCvr4O
 github.com/prometheus/procfs v0.6.0 h1:mxy4L2jP6qMonqmq+aTtOx1ifVWUgG/TAmntgbh3xv4=
 github.com/prometheus/procfs v0.6.0/go.mod h1:cz+aTbrPOrUb4q7XlbU9ygM+/jj0fzG6c1xBZuNvfVA=
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
-github.com/pulumi/pulumi/pkg/v3 v3.14.1-0.20211007232357-25a4c9d4398b h1:3ZM4P/K+2lsvNLq/cHxpVdjcC4iTn0xgY5vUITdy2nY=
-github.com/pulumi/pulumi/pkg/v3 v3.14.1-0.20211007232357-25a4c9d4398b/go.mod h1:0w8C+JDP+OuihIgj/TNljRJdNHyW1vNiH1zzbeB4xeM=
-github.com/pulumi/pulumi/sdk/v3 v3.14.0 h1:UXLRHGQCsO1tLWdv4IO3IQOXrUoZUHhDtDXFoGMmAtA=
-github.com/pulumi/pulumi/sdk/v3 v3.14.0/go.mod h1:aT7YmFdR6/T7tp2tMIZ68WRD1Xyv5a6Y4BhsuaCNpW0=
+github.com/pulumi/pulumi/pkg/v3 v3.16.1-0.20211027195309-9a78ca1ca424 h1:MB7LHWmVlMx5XRqOg2Vm9TXfY99VFqhg9I6lZpe+TMw=
+github.com/pulumi/pulumi/pkg/v3 v3.16.1-0.20211027195309-9a78ca1ca424/go.mod h1:jiNNl7RjXQSqkfVA2EJrfwoDVWhuDPVFjOqJ8q+CquA=
+github.com/pulumi/pulumi/sdk/v3 v3.16.0 h1:yqGysCf1LqlkengBnYqcbl5JI6JGySPN67+g60dMieU=
+github.com/pulumi/pulumi/sdk/v3 v3.16.0/go.mod h1:252ou/zAU1g6E8iTwe2Y9ht7pb5BDl2fJlOuAgZCHiA=
 github.com/rjeczalik/notify v0.9.2 h1:MiTWrPj55mNDHEiIX5YUSKefw/+lCQVoAFmD6oQm5w8=
 github.com/rjeczalik/notify v0.9.2/go.mod h1:aErll2f0sUX9PXZnVNyeiObbmTlk5jnMoCa4QEjJeqM=
 github.com/rogpeppe/fastuuid v0.0.0-20150106093220-6724a57986af/go.mod h1:XWv6SoW27p1b0cqNHllgS5HIMJraePCO15w5zCzIWYg=

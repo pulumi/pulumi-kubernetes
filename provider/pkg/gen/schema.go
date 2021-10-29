@@ -35,10 +35,12 @@ var resourceOverlays = map[string]pschema.ResourceSpec{}
 func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
+		DisplayName: "Kubernetes",
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
 		License:     "Apache-2.0",
-		Keywords:    []string{"pulumi", "kubernetes"},
+		Keywords:    []string{"pulumi", "kubernetes", "category/cloud", "kind/native"},
 		Homepage:    "https://pulumi.com",
+		Publisher:   "Pulumi",
 		Repository:  "https://github.com/pulumi/pulumi-kubernetes",
 
 		Config: pschema.ConfigSpec{
