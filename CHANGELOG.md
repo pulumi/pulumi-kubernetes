@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.8.3 (October 29, 2021)
+
 - Add env variable lookup for k8s client settings (https://github.com/pulumi/pulumi-kubernetes/pull/1777)
 - Fix diff logic for CRD kinds with the same name as a built-in (https://github.com/pulumi/pulumi-kubernetes/pull/1779)
 
