@@ -124,4 +124,5 @@ var KnownGroupVersions = codegen.NewStringSet(
 {{- range .GroupVersions}}
 	"{{.}}",
 {{- end}}
+    "v1", // alias for "core/v1"
 )

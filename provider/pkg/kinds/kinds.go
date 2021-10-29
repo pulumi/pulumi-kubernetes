@@ -323,4 +323,5 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"storage.k8s.io/v1",
 	"storage.k8s.io/v1alpha1",
 	"storage.k8s.io/v1beta1",
+	"v1", // alias for "core/v1"
 )
