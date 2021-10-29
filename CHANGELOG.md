@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- [sdk/python] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1782)
+
 ## 3.8.3 (October 29, 2021)
 
 - Add env variable lookup for k8s client settings (https://github.com/pulumi/pulumi-kubernetes/pull/1777)
