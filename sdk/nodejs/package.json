@@ -3,7 +3,9 @@
     "version": "${VERSION}",
     "keywords": [
         "pulumi",
-        "kubernetes"
+        "kubernetes",
+        "category/cloud",
+        "kind/native"
     ],
     "homepage": "https://pulumi.com",
     "repository": "https://github.com/pulumi/pulumi-kubernetes",

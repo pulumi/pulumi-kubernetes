@@ -1,13 +1,17 @@
 {
     "name": "kubernetes",
+    "displayName": "Kubernetes",
     "description": "A Pulumi package for creating and managing Kubernetes resources.",
     "keywords": [
         "pulumi",
-        "kubernetes"
+        "kubernetes",
+        "category/cloud",
+        "kind/native"
     ],
     "homepage": "https://pulumi.com",
     "license": "Apache-2.0",
     "repository": "https://github.com/pulumi/pulumi-kubernetes",
+    "publisher": "Pulumi",
     "config": {
         "variables": {
             "cluster": {
