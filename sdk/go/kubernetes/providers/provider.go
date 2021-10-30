@@ -244,6 +244,8 @@ func (o ProviderPtrOutput) Elem() ProviderOutput {
 
 // Deprecated: Use `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderInput)(nil)).Elem(), &Provider{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderPtrInput)(nil)).Elem(), &Provider{})
 	pulumi.RegisterOutputType(ProviderOutput{})
 	pulumi.RegisterOutputType(ProviderPtrOutput{})
 }

@@ -283,6 +283,10 @@ func (o ReplicationControllerListMapOutput) MapIndex(k pulumi.StringInput) Repli
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerListInput)(nil)).Elem(), &ReplicationControllerList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerListPtrInput)(nil)).Elem(), &ReplicationControllerList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerListArrayInput)(nil)).Elem(), ReplicationControllerListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicationControllerListMapInput)(nil)).Elem(), ReplicationControllerListMap{})
 	pulumi.RegisterOutputType(ReplicationControllerListOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerListPtrOutput{})
 	pulumi.RegisterOutputType(ReplicationControllerListArrayOutput{})

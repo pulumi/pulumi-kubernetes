@@ -280,6 +280,10 @@ func (o AuditSinkListMapOutput) MapIndex(k pulumi.StringInput) AuditSinkListOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkListInput)(nil)).Elem(), &AuditSinkList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkListPtrInput)(nil)).Elem(), &AuditSinkList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkListArrayInput)(nil)).Elem(), AuditSinkListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkListMapInput)(nil)).Elem(), AuditSinkListMap{})
 	pulumi.RegisterOutputType(AuditSinkListOutput{})
 	pulumi.RegisterOutputType(AuditSinkListPtrOutput{})
 	pulumi.RegisterOutputType(AuditSinkListArrayOutput{})

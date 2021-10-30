@@ -287,6 +287,10 @@ func (o PriorityLevelConfigurationMapOutput) MapIndex(k pulumi.StringInput) Prio
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationInput)(nil)).Elem(), &PriorityLevelConfiguration{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationPtrInput)(nil)).Elem(), &PriorityLevelConfiguration{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationArrayInput)(nil)).Elem(), PriorityLevelConfigurationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationMapInput)(nil)).Elem(), PriorityLevelConfigurationMap{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationArrayOutput{})

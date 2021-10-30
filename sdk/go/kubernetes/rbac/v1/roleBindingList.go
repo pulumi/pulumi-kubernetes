@@ -283,6 +283,10 @@ func (o RoleBindingListMapOutput) MapIndex(k pulumi.StringInput) RoleBindingList
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListInput)(nil)).Elem(), &RoleBindingList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListPtrInput)(nil)).Elem(), &RoleBindingList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListArrayInput)(nil)).Elem(), RoleBindingListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListMapInput)(nil)).Elem(), RoleBindingListMap{})
 	pulumi.RegisterOutputType(RoleBindingListOutput{})
 	pulumi.RegisterOutputType(RoleBindingListPtrOutput{})
 	pulumi.RegisterOutputType(RoleBindingListArrayOutput{})

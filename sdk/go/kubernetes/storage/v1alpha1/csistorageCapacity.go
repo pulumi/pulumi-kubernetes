@@ -339,6 +339,10 @@ func (o CSIStorageCapacityMapOutput) MapIndex(k pulumi.StringInput) CSIStorageCa
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityInput)(nil)).Elem(), &CSIStorageCapacity{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityPtrInput)(nil)).Elem(), &CSIStorageCapacity{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityArrayInput)(nil)).Elem(), CSIStorageCapacityArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityMapInput)(nil)).Elem(), CSIStorageCapacityMap{})
 	pulumi.RegisterOutputType(CSIStorageCapacityOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityPtrOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityArrayOutput{})

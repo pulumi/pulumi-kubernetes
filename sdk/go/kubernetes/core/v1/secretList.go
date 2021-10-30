@@ -283,6 +283,10 @@ func (o SecretListMapOutput) MapIndex(k pulumi.StringInput) SecretListOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretListInput)(nil)).Elem(), &SecretList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretListPtrInput)(nil)).Elem(), &SecretList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretListArrayInput)(nil)).Elem(), SecretListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecretListMapInput)(nil)).Elem(), SecretListMap{})
 	pulumi.RegisterOutputType(SecretListOutput{})
 	pulumi.RegisterOutputType(SecretListPtrOutput{})
 	pulumi.RegisterOutputType(SecretListArrayOutput{})

@@ -291,6 +291,10 @@ func (o CustomResourceDefinitionMapOutput) MapIndex(k pulumi.StringInput) Custom
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionInput)(nil)).Elem(), &CustomResourceDefinition{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionPtrInput)(nil)).Elem(), &CustomResourceDefinition{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionArrayInput)(nil)).Elem(), CustomResourceDefinitionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionMapInput)(nil)).Elem(), CustomResourceDefinitionMap{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionArrayOutput{})

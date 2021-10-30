@@ -328,6 +328,10 @@ func (o StorageClassMapOutput) MapIndex(k pulumi.StringInput) StorageClassOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassInput)(nil)).Elem(), &StorageClass{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassPtrInput)(nil)).Elem(), &StorageClass{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassArrayInput)(nil)).Elem(), StorageClassArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StorageClassMapInput)(nil)).Elem(), StorageClassMap{})
 	pulumi.RegisterOutputType(StorageClassOutput{})
 	pulumi.RegisterOutputType(StorageClassPtrOutput{})
 	pulumi.RegisterOutputType(StorageClassArrayOutput{})

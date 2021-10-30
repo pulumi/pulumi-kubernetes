@@ -289,6 +289,10 @@ func (o APIServiceListMapOutput) MapIndex(k pulumi.StringInput) APIServiceListOu
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceListInput)(nil)).Elem(), &APIServiceList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceListPtrInput)(nil)).Elem(), &APIServiceList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceListArrayInput)(nil)).Elem(), APIServiceListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceListMapInput)(nil)).Elem(), APIServiceListMap{})
 	pulumi.RegisterOutputType(APIServiceListOutput{})
 	pulumi.RegisterOutputType(APIServiceListPtrOutput{})
 	pulumi.RegisterOutputType(APIServiceListArrayOutput{})

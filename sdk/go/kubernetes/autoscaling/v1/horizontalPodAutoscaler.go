@@ -290,6 +290,10 @@ func (o HorizontalPodAutoscalerMapOutput) MapIndex(k pulumi.StringInput) Horizon
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerInput)(nil)).Elem(), &HorizontalPodAutoscaler{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerPtrInput)(nil)).Elem(), &HorizontalPodAutoscaler{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerArrayInput)(nil)).Elem(), HorizontalPodAutoscalerArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerMapInput)(nil)).Elem(), HorizontalPodAutoscalerMap{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerArrayOutput{})

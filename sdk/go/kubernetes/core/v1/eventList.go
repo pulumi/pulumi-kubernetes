@@ -283,6 +283,10 @@ func (o EventListMapOutput) MapIndex(k pulumi.StringInput) EventListOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListInput)(nil)).Elem(), &EventList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListPtrInput)(nil)).Elem(), &EventList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListArrayInput)(nil)).Elem(), EventListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListMapInput)(nil)).Elem(), EventListMap{})
 	pulumi.RegisterOutputType(EventListOutput{})
 	pulumi.RegisterOutputType(EventListPtrOutput{})
 	pulumi.RegisterOutputType(EventListArrayOutput{})

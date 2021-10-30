@@ -281,6 +281,10 @@ func (o ResourceQuotaMapOutput) MapIndex(k pulumi.StringInput) ResourceQuotaOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaInput)(nil)).Elem(), &ResourceQuota{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaPtrInput)(nil)).Elem(), &ResourceQuota{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaArrayInput)(nil)).Elem(), ResourceQuotaArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaMapInput)(nil)).Elem(), ResourceQuotaMap{})
 	pulumi.RegisterOutputType(ResourceQuotaOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaPtrOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaArrayOutput{})

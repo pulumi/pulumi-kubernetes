@@ -283,6 +283,10 @@ func (o CronJobListMapOutput) MapIndex(k pulumi.StringInput) CronJobListOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListInput)(nil)).Elem(), &CronJobList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListPtrInput)(nil)).Elem(), &CronJobList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListArrayInput)(nil)).Elem(), CronJobListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListMapInput)(nil)).Elem(), CronJobListMap{})
 	pulumi.RegisterOutputType(CronJobListOutput{})
 	pulumi.RegisterOutputType(CronJobListPtrOutput{})
 	pulumi.RegisterOutputType(CronJobListArrayOutput{})

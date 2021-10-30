@@ -283,6 +283,10 @@ func (o BindingMapOutput) MapIndex(k pulumi.StringInput) BindingOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*BindingInput)(nil)).Elem(), &Binding{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BindingPtrInput)(nil)).Elem(), &Binding{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BindingArrayInput)(nil)).Elem(), BindingArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BindingMapInput)(nil)).Elem(), BindingMap{})
 	pulumi.RegisterOutputType(BindingOutput{})
 	pulumi.RegisterOutputType(BindingPtrOutput{})
 	pulumi.RegisterOutputType(BindingArrayOutput{})

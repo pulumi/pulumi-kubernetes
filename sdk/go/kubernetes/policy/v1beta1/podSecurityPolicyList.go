@@ -283,6 +283,10 @@ func (o PodSecurityPolicyListMapOutput) MapIndex(k pulumi.StringInput) PodSecuri
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyListInput)(nil)).Elem(), &PodSecurityPolicyList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyListPtrInput)(nil)).Elem(), &PodSecurityPolicyList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyListArrayInput)(nil)).Elem(), PodSecurityPolicyListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyListMapInput)(nil)).Elem(), PodSecurityPolicyListMap{})
 	pulumi.RegisterOutputType(PodSecurityPolicyListOutput{})
 	pulumi.RegisterOutputType(PodSecurityPolicyListPtrOutput{})
 	pulumi.RegisterOutputType(PodSecurityPolicyListArrayOutput{})

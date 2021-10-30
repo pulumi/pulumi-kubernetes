@@ -298,6 +298,10 @@ func (o StatusMapOutput) MapIndex(k pulumi.StringInput) StatusOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusInput)(nil)).Elem(), &Status{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusPtrInput)(nil)).Elem(), &Status{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusArrayInput)(nil)).Elem(), StatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatusMapInput)(nil)).Elem(), StatusMap{})
 	pulumi.RegisterOutputType(StatusOutput{})
 	pulumi.RegisterOutputType(StatusPtrOutput{})
 	pulumi.RegisterOutputType(StatusArrayOutput{})

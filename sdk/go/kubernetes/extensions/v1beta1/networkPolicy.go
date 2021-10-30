@@ -285,6 +285,10 @@ func (o NetworkPolicyMapOutput) MapIndex(k pulumi.StringInput) NetworkPolicyOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyInput)(nil)).Elem(), &NetworkPolicy{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPtrInput)(nil)).Elem(), &NetworkPolicy{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyArrayInput)(nil)).Elem(), NetworkPolicyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyMapInput)(nil)).Elem(), NetworkPolicyMap{})
 	pulumi.RegisterOutputType(NetworkPolicyOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPtrOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyArrayOutput{})
