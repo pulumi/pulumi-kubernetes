@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- [sdk/go] Update pulumi dependencies to register input types (https://github.com/pulumi/pulumi-kubernetes/pull/1783)
+
 ## 3.8.3 (October 29, 2021)
 
 - Add env variable lookup for k8s client settings (https://github.com/pulumi/pulumi-kubernetes/pull/1777)
@@ -8,7 +10,7 @@
 ## 3.8.2 (October 18, 2021)
 
 - [sdk/python] Relax PyYaml dependency to allow upgrade to PyYaml 6.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1768)
-- [go/sdk] Add missing types for deprecated Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1771)
+- [sdk/go] Add missing types for deprecated Provider (https://github.com/pulumi/pulumi-kubernetes/pull/1771)
 
 ## 3.8.1 (October 8, 2021)
 
