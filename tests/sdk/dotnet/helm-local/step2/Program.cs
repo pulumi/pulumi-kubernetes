@@ -1,4 +1,4 @@
-﻿// Copyright 2016-2020, Pulumi Corporation.  All rights reserved.
+﻿// Copyright 2016-2021, Pulumi Corporation.  All rights reserved.
 
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -16,6 +16,16 @@ class HelmStack : Stack
         var namespaceName = namespaceTest.Metadata.Apply(n => n.Name);
 
         var nginx = CreateChart(namespaceName);
+        new ConfigMap("foo", new Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapArgs
+        {
+            Data = new InputMap<string>
+            {
+                {"foo", "bar"}
+            },
+        }, new CustomResourceOptions
+        {
+            DependsOn = nginx.Ready(),
+        });
 
         // Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
         // can be managed in the same stack.

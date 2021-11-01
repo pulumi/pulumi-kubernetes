@@ -17,11 +17,13 @@ package test
 import (
 	b64 "encoding/base64"
 	"encoding/json"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	"fmt"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
@@ -115,7 +117,34 @@ func TestDotnet_HelmLocal(t *testing.T) {
 		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 11, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 12, len(stackInfo.Deployment.Resources))
+
+			// Verify resource creation order using the Event stream. The Chart resources must be created
+			// first, followed by the dependent ConfigMap. (The ConfigMap doesn't actually need the Chart, but
+			// it creates almost instantly, so it's a good choice to test creation ordering)
+			cmRegex := regexp.MustCompile(`ConfigMap::test-.*/nginx-server-block`)
+			svcRegex := regexp.MustCompile(`Service::test-.*/nginx`)
+			deployRegex := regexp.MustCompile(`Deployment::test-.*/nginx`)
+			dependentRegex := regexp.MustCompile(`ConfigMap::foo`)
+
+			var configmapFound, serviceFound, deploymentFound, dependentFound bool
+			for _, e := range stackInfo.Events {
+				if e.ResOutputsEvent != nil {
+					switch {
+					case cmRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+						configmapFound = true
+					case svcRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+						serviceFound = true
+					case deployRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+						deploymentFound = true
+					case dependentRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+						dependentFound = true
+					}
+					assert.Falsef(t, dependentFound && !(configmapFound && serviceFound && deploymentFound),
+						"dependent ConfigMap created before all chart resources were ready")
+					fmt.Println(e.ResOutputsEvent.Metadata.URN)
+				}
+			}
 		},
 		EditDirs: []integration.EditDir{
 			{
