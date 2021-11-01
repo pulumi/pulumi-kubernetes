@@ -365,9 +365,9 @@ func TestHelmLocal(t *testing.T) {
 			// Verify resource creation order using the Event stream. The Chart resources must be created
 			// first, followed by the dependent ConfigMap. (The ConfigMap doesn't actually need the Chart, but
 			// it creates almost instantly, so it's a good choice to test creation ordering)
-			cmRegex := regexp.MustCompile(`ConfigMap::test-.*/nginx-server-block`)
-			svcRegex := regexp.MustCompile(`Service::test-.*/nginx`)
-			deployRegex := regexp.MustCompile(`Deployment::test-.*/nginx`)
+			cmRegex := regexp.MustCompile(`ConfigMap::nginx-server-block`)
+			svcRegex := regexp.MustCompile(`Service::nginx`)
+			deployRegex := regexp.MustCompile(`Deployment::nginx`)
 			dependentRegex := regexp.MustCompile(`ConfigMap::foo`)
 
 			var configmapFound, serviceFound, deploymentFound, dependentFound bool
