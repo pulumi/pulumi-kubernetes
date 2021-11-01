@@ -13,13 +13,13 @@
 #  limitations under the License.
 
 import pulumi
-from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapArgs
+from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
 from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 values = {"service": {"type": "ClusterIP"}}
 
 chart = Chart("nginx", LocalChartOpts(path="nginx", values=values))
-foo = ConfigMap("foo", data={"foo": "bar"}, opts=pulumi.ResourceOptions(depends_on=chart.ready))
+foo = ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=chart.ready))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
