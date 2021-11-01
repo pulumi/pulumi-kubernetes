@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
 
+- [sdk/python] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1782)
 - [sdk/go] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1784)
 
 ## 3.8.3 (October 29, 2021)
