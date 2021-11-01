@@ -17,13 +17,14 @@ package test
 import (
 	b64 "encoding/base64"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
-
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/stretchr/testify/assert"
 )
@@ -63,6 +64,34 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-local", "step1"),
 			Quick: true,
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				// Verify resource creation order using the Event stream. The Chart resources must be created
+				// first, followed by the dependent ConfigMap. (The ConfigMap doesn't actually need the Chart, but
+				// it creates almost instantly, so it's a good choice to test creation ordering)
+				cmRegex := regexp.MustCompile(`ConfigMap::nginx-server-block`)
+				svcRegex := regexp.MustCompile(`Service::nginx`)
+				deployRegex := regexp.MustCompile(`Deployment::nginx`)
+				dependentRegex := regexp.MustCompile(`ConfigMap::foo`)
+
+				var configmapFound, serviceFound, deploymentFound, dependentFound bool
+				for _, e := range stackInfo.Events {
+					if e.ResOutputsEvent != nil {
+						switch {
+						case cmRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+							configmapFound = true
+						case svcRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+							serviceFound = true
+						case deployRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+							deploymentFound = true
+						case dependentRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
+							dependentFound = true
+						}
+						assert.Falsef(t, dependentFound && !(configmapFound && serviceFound && deploymentFound),
+							"dependent ConfigMap created before all chart resources were ready")
+						fmt.Println(e.ResOutputsEvent.Metadata.URN)
+					}
+				}
+			},
 			EditDirs: []integration.EditDir{
 				{
 					Dir:             filepath.Join(cwd, "helm-local", "step2"),

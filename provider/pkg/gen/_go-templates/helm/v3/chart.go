@@ -213,6 +213,7 @@ import (
 type Chart struct {
 	pulumi.ResourceState
 
+	Ready     pulumi.ResourceArrayOutput
 	Resources pulumi.Output
 }
 
@@ -250,6 +251,15 @@ func NewChart(ctx *pulumi.Context,
 	if err != nil {
 		return nil, errors.Wrap(err, "registering child resources")
 	}
+
+	chart.Ready = resources.ApplyT(func(x interface{}) []pulumi.Resource {
+		resources := x.(map[string]pulumi.Resource)
+		var outputs []pulumi.Resource
+		for _, r := range resources {
+			outputs = append(outputs, r)
+		}
+		return outputs
+	}).(pulumi.ResourceArrayOutput)
 
 	return chart, nil
 }
