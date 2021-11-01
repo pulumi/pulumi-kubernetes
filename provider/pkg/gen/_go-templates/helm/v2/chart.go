@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -221,6 +221,7 @@ import (
 type Chart struct {
 	pulumi.ResourceState
 
+	Ready     pulumi.ResourceArrayOutput
 	Resources pulumi.Output
 }
 
@@ -252,6 +253,15 @@ func NewChart(ctx *pulumi.Context,
 	if err != nil {
 		return nil, errors.Wrap(err, "registering child resources")
 	}
+
+	chart.Ready = resources.ApplyT(func(x interface{}) []pulumi.Resource {
+		resources := x.(map[string]pulumi.Resource)
+		var outputs []pulumi.Resource
+		for _, r := range resources {
+			outputs = append(outputs, r)
+		}
+		return outputs
+	}).(pulumi.ResourceArrayOutput)
 
 	return chart, nil
 }

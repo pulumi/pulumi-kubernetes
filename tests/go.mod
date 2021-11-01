@@ -13,6 +13,6 @@ require (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi/pkg/v3 v3.14.1-0.20211007232357-25a4c9d4398b
-	github.com/pulumi/pulumi/sdk/v3 v3.14.0
+	github.com/pulumi/pulumi/sdk/v3 v3.16.0
 	github.com/stretchr/testify v1.7.0
 )

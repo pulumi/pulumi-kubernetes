@@ -24,6 +24,15 @@ func main() {
 			})
 		ctx.Export("svc_ip", svc)
 
+		_, err = corev1.NewConfigMap(ctx, "cm", &corev1.ConfigMapArgs{
+			Data: pulumi.StringMap{
+				"foo": pulumi.String("bar"),
+			},
+		}, pulumi.DependsOnInputs(chart.Ready))
+		if err != nil {
+			return err
+		}
+
 		return nil
 	})
 }
