@@ -18,7 +18,6 @@ class CustomResourceArgs:
     def __init__(__self__, *,
                  api_version: pulumi.Input[str],
                  kind: pulumi.Input[str],
-                 compat: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
                  spec: Optional[Any] = None):
         """
@@ -30,8 +29,6 @@ class CustomResourceArgs:
         """
         pulumi.set(__self__, "api_version", api_version)
         pulumi.set(__self__, "kind", kind)
-        if compat is not None:
-            pulumi.set(__self__, "compat", 'true')
         if metadata is not None:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
@@ -60,15 +57,6 @@ class CustomResourceArgs:
     @kind.setter
     def kind(self, value: pulumi.Input[str]):
         pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def compat(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "compat")
-
-    @compat.setter
-    def compat(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "compat", value)
 
     @property
     @pulumi.getter
@@ -132,7 +120,6 @@ class CustomResource(pulumi.CustomResource):
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(resource_name, str):
             raise TypeError('Expected resource name to be a string')
-#         resource_args, opts = _utilities.get_resource_args_opts(CustomResourceArgs, pulumi.ResourceOptions, *args, **kwargs)
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=_utilities.get_version()))
         self._internal_init(resource_name, api_version=api_version, kind=kind, opts=opts, metadata=metadata, spec=spec)
 
