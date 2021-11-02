@@ -90,6 +90,21 @@ func TestGetOneStep(t *testing.T) {
 				ExpectRefreshChanges: true, // CRD changes on refresh
 				Dir:                  filepath.Join(cwd, dir),
 				NoParallel:           true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					var success bool
+					for _, res := range stackInfo.Deployment.Resources {
+						if res.URN.Type() == "kubernetes:python.test/v1:GetTest" {
+							nodeSelector, _ := openapi.Pluck(res.Outputs, "spec", "node_selector")
+							assert.Equal(t, "kubernetes.io/hostname: \"docker-desktop\"\n", nodeSelector)
+							foo, _ := openapi.Pluck(res.Outputs, "spec", "foo")
+							assert.Equal(t, "bar", foo)
+							apiVersion, _ := openapi.Pluck(res.Outputs, "apiVersion")
+							assert.Equal(t, "python.test/v1", apiVersion)
+							success = true
+						}
+					}
+					assert.True(t, success)
+				},
 			})
 			integration.ProgramTest(t, &options)
 		})
