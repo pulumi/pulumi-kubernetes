@@ -9,8 +9,90 @@ import pulumi.runtime
 from pulumi import ResourceOptions
 
 from .. import meta as _meta
-from .. import _utilities, _tables
+from .. import _utilities
 
+__all__ = ['CustomResourceArgs', 'CustomResource']
+
+@pulumi.input_type
+class CustomResourceArgs:
+    def __init__(__self__, *,
+                 api_version: pulumi.Input[str],
+                 kind: pulumi.Input[str],
+                 compat: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+                 spec: Optional[Any] = None):
+        """
+        The set of arguments for constructing a CustomResource resource.
+        :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata.
+        :param Any spec: Specification of the CustomResource.
+        """
+        pulumi.set(__self__, "api_version", api_version)
+        pulumi.set(__self__, "kind", kind)
+        if compat is not None:
+            pulumi.set(__self__, "compat", 'true')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[str]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def kind(self) -> pulumi.Input[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @kind.setter
+    def kind(self, value: pulumi.Input[str]):
+        pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def compat(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "compat")
+
+    @compat.setter
+    def compat(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "compat", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
+        """
+        Standard object metadata.
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional[Any]:
+        """
+        Specification of the CustomResource.
+        """
+        return pulumi.get(self, "spec")
+
+    @spec.setter
+    def spec(self, value: Optional[Any]):
+        pulumi.set(self, "spec", value)
 
 class CustomResource(pulumi.CustomResource):
     def __init__(self,
@@ -50,19 +132,38 @@ class CustomResource(pulumi.CustomResource):
             raise TypeError('Missing resource name argument (for URN creation)')
         if not isinstance(resource_name, str):
             raise TypeError('Expected resource name to be a string')
-        if opts and not isinstance(opts, pulumi.ResourceOptions):
-            raise TypeError('Expected resource options to be a ResourceOptions instance')
-
-        __props__ = dict()
-
-        __props__['apiVersion'] = api_version
-        __props__['kind'] = kind
-        __props__['spec'] = spec
-        __props__['metadata'] = metadata
-
+#         resource_args, opts = _utilities.get_resource_args_opts(CustomResourceArgs, pulumi.ResourceOptions, *args, **kwargs)
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(version=_utilities.get_version()))
+        self._internal_init(resource_name, api_version=api_version, kind=kind, opts=opts, metadata=metadata, spec=spec)
 
-        super(CustomResource, self).__init__(
+    def _internal_init(__self__,
+                 resource_name: str,
+                 api_version: str,
+                 kind: str,
+                 opts: Optional[pulumi.ResourceOptions] = None,
+                 metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
+                 spec: Optional[Any] = None,
+                 __props__=None):
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if not isinstance(opts, pulumi.ResourceOptions):
+            raise TypeError('Expected resource options to be a ResourceOptions instance')
+        if opts.version is None:
+            opts.version = _utilities.get_version()
+        if opts.id is None:
+            if __props__ is not None:
+                raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
+            __props__ = CustomResourceArgs.__new__(CustomResourceArgs)
+
+            if api_version is None and not opts.urn:
+                raise TypeError("Missing required property 'api_version'")
+            __props__.__dict__["api_version"] = api_version
+            if kind is None and not opts.urn:
+                raise TypeError("Missing required property 'kind'")
+            __props__.__dict__["kind"] = kind
+            __props__.__dict__["metadata"] = metadata
+            __props__.__dict__["spec"] = spec
+        super(CustomResource, __self__).__init__(
             f"kubernetes:{api_version}:{kind}",
             resource_name,
             __props__,
@@ -95,9 +196,3 @@ class CustomResource(pulumi.CustomResource):
 
         opts = ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
         return CustomResource(resource_name=resource_name, api_version=api_version, kind=kind, opts=opts)
-
-    def translate_output_property(self, prop: str) -> str:
-        return _tables.CAMEL_TO_SNAKE_CASE_TABLE.get(prop) or prop
-
-    def translate_input_property(self, prop: str) -> str:
-        return _tables.SNAKE_TO_CAMEL_CASE_TABLE.get(prop) or prop

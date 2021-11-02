@@ -46,7 +46,12 @@ crd = CustomResourceDefinition(
             schema=CustomResourceValidationArgs(
                 open_apiv3_schema=JSONSchemaPropsArgs(
                     type="object",
-                    properties={"foo": JSONSchemaPropsArgs(type="string")},
+                    properties={
+                        "spec": JSONSchemaPropsArgs(type="object", properties={
+                            "foo": JSONSchemaPropsArgs(type="string"),
+                            "node_selector": JSONSchemaPropsArgs(type="string"),
+                        })
+                    },
                 ),
             ),
         )],
@@ -59,7 +64,7 @@ cr = CustomResource(
     api_version="python.test/v1",
     kind="GetTest",
     metadata={"namespace": ns.metadata["name"]},
-    spec={"foo": "bar"},
+    spec={"foo": "bar", "node_selector": 'kubernetes.io/hostname: "docker-desktop"\n'},
     opts=pulumi.ResourceOptions(depends_on=[crd]))
 
 cr_get = CustomResource.get(resource_name="bar", api_version="python.test/v1", kind="GetTest", id=cr.id)
