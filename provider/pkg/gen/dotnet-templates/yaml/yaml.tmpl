@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -71,6 +71,14 @@ namespace Pulumi.Kubernetes.Yaml
 
                 return (T) value;
             });
+        }
+
+        /// <summary>
+        /// Returns an array of ready resources to be used by DependsOn.
+        /// </summary>
+        public Output<ImmutableArray<Resource>> Ready()
+        {
+            return Resources.Apply(resources => resources.Values.Cast<Resource>().ToImmutableArray());
         }
 
         /// <summary>
