@@ -3,6 +3,7 @@
 - [sdk/python] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1782)
 - [sdk/go] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1784)
 - [sdk/dotnet] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1785)
+- [sdk/python] Update CustomResource python implementation to pickup snake-case updates (https://github.com/pulumi/pulumi-kubernetes/pull/1786)
 
 ## 3.8.3 (October 29, 2021)
 
