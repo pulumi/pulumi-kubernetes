@@ -285,6 +285,10 @@ func (o MutatingWebhookConfigurationMapOutput) MapIndex(k pulumi.StringInput) Mu
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationInput)(nil)).Elem(), &MutatingWebhookConfiguration{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationPtrInput)(nil)).Elem(), &MutatingWebhookConfiguration{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationArrayInput)(nil)).Elem(), MutatingWebhookConfigurationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationMapInput)(nil)).Elem(), MutatingWebhookConfigurationMap{})
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationArrayOutput{})

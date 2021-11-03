@@ -277,6 +277,10 @@ func (o StatefulSetListMapOutput) MapIndex(k pulumi.StringInput) StatefulSetList
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListInput)(nil)).Elem(), &StatefulSetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListPtrInput)(nil)).Elem(), &StatefulSetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListArrayInput)(nil)).Elem(), StatefulSetListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListMapInput)(nil)).Elem(), StatefulSetListMap{})
 	pulumi.RegisterOutputType(StatefulSetListOutput{})
 	pulumi.RegisterOutputType(StatefulSetListPtrOutput{})
 	pulumi.RegisterOutputType(StatefulSetListArrayOutput{})

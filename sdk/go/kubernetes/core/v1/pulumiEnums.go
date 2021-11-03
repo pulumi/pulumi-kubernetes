@@ -177,6 +177,8 @@ func (in *serviceSpecTypePtr) ToServiceSpecTypePtrOutputWithContext(ctx context.
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceSpecTypeInput)(nil)).Elem(), ServiceSpecType("ExternalName"))
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceSpecTypePtrInput)(nil)).Elem(), ServiceSpecType("ExternalName"))
 	pulumi.RegisterOutputType(ServiceSpecTypeOutput{})
 	pulumi.RegisterOutputType(ServiceSpecTypePtrOutput{})
 }

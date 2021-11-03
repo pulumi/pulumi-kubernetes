@@ -291,6 +291,10 @@ func (o CSINodeMapOutput) MapIndex(k pulumi.StringInput) CSINodeOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeInput)(nil)).Elem(), &CSINode{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodePtrInput)(nil)).Elem(), &CSINode{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeArrayInput)(nil)).Elem(), CSINodeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeMapInput)(nil)).Elem(), CSINodeMap{})
 	pulumi.RegisterOutputType(CSINodeOutput{})
 	pulumi.RegisterOutputType(CSINodePtrOutput{})
 	pulumi.RegisterOutputType(CSINodeArrayOutput{})

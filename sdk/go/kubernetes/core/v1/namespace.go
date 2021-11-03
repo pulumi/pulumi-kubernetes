@@ -281,6 +281,10 @@ func (o NamespaceMapOutput) MapIndex(k pulumi.StringInput) NamespaceOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceInput)(nil)).Elem(), &Namespace{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespacePtrInput)(nil)).Elem(), &Namespace{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceArrayInput)(nil)).Elem(), NamespaceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NamespaceMapInput)(nil)).Elem(), NamespaceMap{})
 	pulumi.RegisterOutputType(NamespaceOutput{})
 	pulumi.RegisterOutputType(NamespacePtrOutput{})
 	pulumi.RegisterOutputType(NamespaceArrayOutput{})

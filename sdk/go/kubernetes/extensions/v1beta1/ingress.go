@@ -306,6 +306,10 @@ func (o IngressMapOutput) MapIndex(k pulumi.StringInput) IngressOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressInput)(nil)).Elem(), &Ingress{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressPtrInput)(nil)).Elem(), &Ingress{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressArrayInput)(nil)).Elem(), IngressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressMapInput)(nil)).Elem(), IngressMap{})
 	pulumi.RegisterOutputType(IngressOutput{})
 	pulumi.RegisterOutputType(IngressPtrOutput{})
 	pulumi.RegisterOutputType(IngressArrayOutput{})

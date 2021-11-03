@@ -291,6 +291,10 @@ func (o TokenReviewMapOutput) MapIndex(k pulumi.StringInput) TokenReviewOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewInput)(nil)).Elem(), &TokenReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewPtrInput)(nil)).Elem(), &TokenReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewArrayInput)(nil)).Elem(), TokenReviewArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewMapInput)(nil)).Elem(), TokenReviewMap{})
 	pulumi.RegisterOutputType(TokenReviewOutput{})
 	pulumi.RegisterOutputType(TokenReviewPtrOutput{})
 	pulumi.RegisterOutputType(TokenReviewArrayOutput{})

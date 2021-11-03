@@ -283,6 +283,10 @@ func (o ServiceAccountListMapOutput) MapIndex(k pulumi.StringInput) ServiceAccou
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountListInput)(nil)).Elem(), &ServiceAccountList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountListPtrInput)(nil)).Elem(), &ServiceAccountList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountListArrayInput)(nil)).Elem(), ServiceAccountListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ServiceAccountListMapInput)(nil)).Elem(), ServiceAccountListMap{})
 	pulumi.RegisterOutputType(ServiceAccountListOutput{})
 	pulumi.RegisterOutputType(ServiceAccountListPtrOutput{})
 	pulumi.RegisterOutputType(ServiceAccountListArrayOutput{})

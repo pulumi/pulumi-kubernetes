@@ -283,6 +283,10 @@ func (o DaemonSetListMapOutput) MapIndex(k pulumi.StringInput) DaemonSetListOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetListInput)(nil)).Elem(), &DaemonSetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetListPtrInput)(nil)).Elem(), &DaemonSetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetListArrayInput)(nil)).Elem(), DaemonSetListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetListMapInput)(nil)).Elem(), DaemonSetListMap{})
 	pulumi.RegisterOutputType(DaemonSetListOutput{})
 	pulumi.RegisterOutputType(DaemonSetListPtrOutput{})
 	pulumi.RegisterOutputType(DaemonSetListArrayOutput{})

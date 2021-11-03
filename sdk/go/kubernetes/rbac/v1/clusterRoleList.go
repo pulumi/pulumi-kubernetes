@@ -283,6 +283,10 @@ func (o ClusterRoleListMapOutput) MapIndex(k pulumi.StringInput) ClusterRoleList
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleListInput)(nil)).Elem(), &ClusterRoleList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleListPtrInput)(nil)).Elem(), &ClusterRoleList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleListArrayInput)(nil)).Elem(), ClusterRoleListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleListMapInput)(nil)).Elem(), ClusterRoleListMap{})
 	pulumi.RegisterOutputType(ClusterRoleListOutput{})
 	pulumi.RegisterOutputType(ClusterRoleListPtrOutput{})
 	pulumi.RegisterOutputType(ClusterRoleListArrayOutput{})

@@ -283,6 +283,10 @@ func (o ReplicaSetListMapOutput) MapIndex(k pulumi.StringInput) ReplicaSetListOu
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListInput)(nil)).Elem(), &ReplicaSetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListPtrInput)(nil)).Elem(), &ReplicaSetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListArrayInput)(nil)).Elem(), ReplicaSetListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListMapInput)(nil)).Elem(), ReplicaSetListMap{})
 	pulumi.RegisterOutputType(ReplicaSetListOutput{})
 	pulumi.RegisterOutputType(ReplicaSetListPtrOutput{})
 	pulumi.RegisterOutputType(ReplicaSetListArrayOutput{})

@@ -298,6 +298,10 @@ func (o ControllerRevisionMapOutput) MapIndex(k pulumi.StringInput) ControllerRe
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionInput)(nil)).Elem(), &ControllerRevision{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionPtrInput)(nil)).Elem(), &ControllerRevision{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionArrayInput)(nil)).Elem(), ControllerRevisionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionMapInput)(nil)).Elem(), ControllerRevisionMap{})
 	pulumi.RegisterOutputType(ControllerRevisionOutput{})
 	pulumi.RegisterOutputType(ControllerRevisionPtrOutput{})
 	pulumi.RegisterOutputType(ControllerRevisionArrayOutput{})

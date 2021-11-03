@@ -464,6 +464,10 @@ func (o ReleaseMapOutput) MapIndex(k pulumi.StringInput) ReleaseOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseInput)(nil)).Elem(), &Release{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleasePtrInput)(nil)).Elem(), &Release{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseArrayInput)(nil)).Elem(), ReleaseArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseMapInput)(nil)).Elem(), ReleaseMap{})
 	pulumi.RegisterOutputType(ReleaseOutput{})
 	pulumi.RegisterOutputType(ReleasePtrOutput{})
 	pulumi.RegisterOutputType(ReleaseArrayOutput{})

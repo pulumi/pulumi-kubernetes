@@ -288,6 +288,10 @@ func (o SubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) SubjectAcce
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewInput)(nil)).Elem(), &SubjectAccessReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewPtrInput)(nil)).Elem(), &SubjectAccessReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewArrayInput)(nil)).Elem(), SubjectAccessReviewArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewMapInput)(nil)).Elem(), SubjectAccessReviewMap{})
 	pulumi.RegisterOutputType(SubjectAccessReviewOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewPtrOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewArrayOutput{})

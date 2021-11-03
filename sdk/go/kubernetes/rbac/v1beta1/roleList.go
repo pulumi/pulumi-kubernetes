@@ -283,6 +283,10 @@ func (o RoleListMapOutput) MapIndex(k pulumi.StringInput) RoleListOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleListInput)(nil)).Elem(), &RoleList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleListPtrInput)(nil)).Elem(), &RoleList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleListArrayInput)(nil)).Elem(), RoleListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RoleListMapInput)(nil)).Elem(), RoleListMap{})
 	pulumi.RegisterOutputType(RoleListOutput{})
 	pulumi.RegisterOutputType(RoleListPtrOutput{})
 	pulumi.RegisterOutputType(RoleListArrayOutput{})
