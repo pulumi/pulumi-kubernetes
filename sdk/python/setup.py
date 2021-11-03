@@ -45,7 +45,7 @@ setup(name='pulumi_kubernetes',
       cmdclass={
           'install': InstallPluginCommand,
       },
-      keywords='pulumi kubernetes',
+      keywords='pulumi kubernetes category/cloud kind/native',
       url='https://pulumi.com',
       project_urls={
           'Repository': 'https://github.com/pulumi/pulumi-kubernetes'
