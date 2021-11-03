@@ -283,6 +283,10 @@ func (o EndpointSliceListMapOutput) MapIndex(k pulumi.StringInput) EndpointSlice
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListInput)(nil)).Elem(), &EndpointSliceList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListPtrInput)(nil)).Elem(), &EndpointSliceList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListArrayInput)(nil)).Elem(), EndpointSliceListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListMapInput)(nil)).Elem(), EndpointSliceListMap{})
 	pulumi.RegisterOutputType(EndpointSliceListOutput{})
 	pulumi.RegisterOutputType(EndpointSliceListPtrOutput{})
 	pulumi.RegisterOutputType(EndpointSliceListArrayOutput{})

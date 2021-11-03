@@ -287,6 +287,10 @@ func (o FlowSchemaMapOutput) MapIndex(k pulumi.StringInput) FlowSchemaOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaInput)(nil)).Elem(), &FlowSchema{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaPtrInput)(nil)).Elem(), &FlowSchema{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaArrayInput)(nil)).Elem(), FlowSchemaArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaMapInput)(nil)).Elem(), FlowSchemaMap{})
 	pulumi.RegisterOutputType(FlowSchemaOutput{})
 	pulumi.RegisterOutputType(FlowSchemaPtrOutput{})
 	pulumi.RegisterOutputType(FlowSchemaArrayOutput{})

@@ -310,6 +310,10 @@ func (o RuntimeClassMapOutput) MapIndex(k pulumi.StringInput) RuntimeClassOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassInput)(nil)).Elem(), &RuntimeClass{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassPtrInput)(nil)).Elem(), &RuntimeClass{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassArrayInput)(nil)).Elem(), RuntimeClassArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassMapInput)(nil)).Elem(), RuntimeClassMap{})
 	pulumi.RegisterOutputType(RuntimeClassOutput{})
 	pulumi.RegisterOutputType(RuntimeClassPtrOutput{})
 	pulumi.RegisterOutputType(RuntimeClassArrayOutput{})

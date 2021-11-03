@@ -283,6 +283,10 @@ func (o ValidatingWebhookConfigurationListMapOutput) MapIndex(k pulumi.StringInp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationListInput)(nil)).Elem(), &ValidatingWebhookConfigurationList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationListPtrInput)(nil)).Elem(), &ValidatingWebhookConfigurationList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationListArrayInput)(nil)).Elem(), ValidatingWebhookConfigurationListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationListMapInput)(nil)).Elem(), ValidatingWebhookConfigurationListMap{})
 	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListPtrOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookConfigurationListArrayOutput{})

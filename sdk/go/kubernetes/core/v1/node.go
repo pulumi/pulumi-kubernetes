@@ -281,6 +281,10 @@ func (o NodeMapOutput) MapIndex(k pulumi.StringInput) NodeOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeInput)(nil)).Elem(), &Node{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePtrInput)(nil)).Elem(), &Node{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeArrayInput)(nil)).Elem(), NodeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodeMapInput)(nil)).Elem(), NodeMap{})
 	pulumi.RegisterOutputType(NodeOutput{})
 	pulumi.RegisterOutputType(NodePtrOutput{})
 	pulumi.RegisterOutputType(NodeArrayOutput{})

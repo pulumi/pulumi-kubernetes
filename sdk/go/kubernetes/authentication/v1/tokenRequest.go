@@ -285,6 +285,10 @@ func (o TokenRequestMapOutput) MapIndex(k pulumi.StringInput) TokenRequestOutput
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestInput)(nil)).Elem(), &TokenRequest{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestPtrInput)(nil)).Elem(), &TokenRequest{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestArrayInput)(nil)).Elem(), TokenRequestArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestMapInput)(nil)).Elem(), TokenRequestMap{})
 	pulumi.RegisterOutputType(TokenRequestOutput{})
 	pulumi.RegisterOutputType(TokenRequestPtrOutput{})
 	pulumi.RegisterOutputType(TokenRequestArrayOutput{})

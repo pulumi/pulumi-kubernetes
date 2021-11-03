@@ -273,6 +273,10 @@ func (o PodPresetMapOutput) MapIndex(k pulumi.StringInput) PodPresetOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetInput)(nil)).Elem(), &PodPreset{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetPtrInput)(nil)).Elem(), &PodPreset{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetArrayInput)(nil)).Elem(), PodPresetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetMapInput)(nil)).Elem(), PodPresetMap{})
 	pulumi.RegisterOutputType(PodPresetOutput{})
 	pulumi.RegisterOutputType(PodPresetPtrOutput{})
 	pulumi.RegisterOutputType(PodPresetArrayOutput{})

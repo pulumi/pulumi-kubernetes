@@ -291,6 +291,10 @@ func (o SelfSubjectRulesReviewMapOutput) MapIndex(k pulumi.StringInput) SelfSubj
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewInput)(nil)).Elem(), &SelfSubjectRulesReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewPtrInput)(nil)).Elem(), &SelfSubjectRulesReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewArrayInput)(nil)).Elem(), SelfSubjectRulesReviewArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewMapInput)(nil)).Elem(), SelfSubjectRulesReviewMap{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewPtrOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewArrayOutput{})

@@ -281,6 +281,10 @@ func (o PersistentVolumeClaimMapOutput) MapIndex(k pulumi.StringInput) Persisten
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimInput)(nil)).Elem(), &PersistentVolumeClaim{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimPtrInput)(nil)).Elem(), &PersistentVolumeClaim{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimArrayInput)(nil)).Elem(), PersistentVolumeClaimArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimMapInput)(nil)).Elem(), PersistentVolumeClaimMap{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimPtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimArrayOutput{})

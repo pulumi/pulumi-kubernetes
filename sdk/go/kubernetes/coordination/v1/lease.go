@@ -285,6 +285,10 @@ func (o LeaseMapOutput) MapIndex(k pulumi.StringInput) LeaseOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseInput)(nil)).Elem(), &Lease{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeasePtrInput)(nil)).Elem(), &Lease{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseArrayInput)(nil)).Elem(), LeaseArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseMapInput)(nil)).Elem(), LeaseMap{})
 	pulumi.RegisterOutputType(LeaseOutput{})
 	pulumi.RegisterOutputType(LeasePtrOutput{})
 	pulumi.RegisterOutputType(LeaseArrayOutput{})

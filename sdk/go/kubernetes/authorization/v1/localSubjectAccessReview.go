@@ -291,6 +291,10 @@ func (o LocalSubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) LocalS
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewInput)(nil)).Elem(), &LocalSubjectAccessReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewPtrInput)(nil)).Elem(), &LocalSubjectAccessReview{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewArrayInput)(nil)).Elem(), LocalSubjectAccessReviewArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewMapInput)(nil)).Elem(), LocalSubjectAccessReviewMap{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewOutput{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewPtrOutput{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewArrayOutput{})

@@ -283,6 +283,10 @@ func (o IngressClassListMapOutput) MapIndex(k pulumi.StringInput) IngressClassLi
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassListInput)(nil)).Elem(), &IngressClassList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassListPtrInput)(nil)).Elem(), &IngressClassList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassListArrayInput)(nil)).Elem(), IngressClassListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassListMapInput)(nil)).Elem(), IngressClassListMap{})
 	pulumi.RegisterOutputType(IngressClassListOutput{})
 	pulumi.RegisterOutputType(IngressClassListPtrOutput{})
 	pulumi.RegisterOutputType(IngressClassListArrayOutput{})

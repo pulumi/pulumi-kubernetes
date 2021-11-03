@@ -283,6 +283,10 @@ func (o PodDisruptionBudgetListMapOutput) MapIndex(k pulumi.StringInput) PodDisr
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetListInput)(nil)).Elem(), &PodDisruptionBudgetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetListPtrInput)(nil)).Elem(), &PodDisruptionBudgetList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetListArrayInput)(nil)).Elem(), PodDisruptionBudgetListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetListMapInput)(nil)).Elem(), PodDisruptionBudgetListMap{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetListOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetListPtrOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetListArrayOutput{})

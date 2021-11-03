@@ -310,6 +310,10 @@ func (o PriorityClassMapOutput) MapIndex(k pulumi.StringInput) PriorityClassOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassInput)(nil)).Elem(), &PriorityClass{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassPtrInput)(nil)).Elem(), &PriorityClass{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassArrayInput)(nil)).Elem(), PriorityClassArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassMapInput)(nil)).Elem(), PriorityClassMap{})
 	pulumi.RegisterOutputType(PriorityClassOutput{})
 	pulumi.RegisterOutputType(PriorityClassPtrOutput{})
 	pulumi.RegisterOutputType(PriorityClassArrayOutput{})

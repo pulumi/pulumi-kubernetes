@@ -283,6 +283,10 @@ func (o PodListMapOutput) MapIndex(k pulumi.StringInput) PodListOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*PodListInput)(nil)).Elem(), &PodList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodListPtrInput)(nil)).Elem(), &PodList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodListArrayInput)(nil)).Elem(), PodListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodListMapInput)(nil)).Elem(), PodListMap{})
 	pulumi.RegisterOutputType(PodListOutput{})
 	pulumi.RegisterOutputType(PodListPtrOutput{})
 	pulumi.RegisterOutputType(PodListArrayOutput{})

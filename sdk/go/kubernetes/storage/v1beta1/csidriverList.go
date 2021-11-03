@@ -283,6 +283,10 @@ func (o CSIDriverListMapOutput) MapIndex(k pulumi.StringInput) CSIDriverListOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverListInput)(nil)).Elem(), &CSIDriverList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverListPtrInput)(nil)).Elem(), &CSIDriverList{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverListArrayInput)(nil)).Elem(), CSIDriverListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverListMapInput)(nil)).Elem(), CSIDriverListMap{})
 	pulumi.RegisterOutputType(CSIDriverListOutput{})
 	pulumi.RegisterOutputType(CSIDriverListPtrOutput{})
 	pulumi.RegisterOutputType(CSIDriverListArrayOutput{})

@@ -279,6 +279,10 @@ func (o LimitRangeMapOutput) MapIndex(k pulumi.StringInput) LimitRangeOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeInput)(nil)).Elem(), &LimitRange{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangePtrInput)(nil)).Elem(), &LimitRange{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeArrayInput)(nil)).Elem(), LimitRangeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeMapInput)(nil)).Elem(), LimitRangeMap{})
 	pulumi.RegisterOutputType(LimitRangeOutput{})
 	pulumi.RegisterOutputType(LimitRangePtrOutput{})
 	pulumi.RegisterOutputType(LimitRangeArrayOutput{})
