@@ -36,9 +36,11 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
+		DisplayName: "Kubernetes",
 		License:     "Apache-2.0",
-		Keywords:    []string{"pulumi", "kubernetes"},
+		Keywords:    []string{"pulumi", "kubernetes", "category/cloud", "kind/native"},
 		Homepage:    "https://pulumi.com",
+		Publisher:   "Pulumi",
 		Repository:  "https://github.com/pulumi/pulumi-kubernetes",
 
 		Config: pschema.ConfigSpec{
