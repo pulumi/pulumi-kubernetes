@@ -22770,6 +22770,140 @@
                 }
             }
         },
+        "kubernetes:helm.sh/v2:FetchOpts": {
+            "description": "Additional options to customize the fetching of the Helm chart.",
+            "properties": {
+                "caFile": {
+                    "type": "string",
+                    "description": "Verify certificates of HTTPS-enabled servers using this CA bundle."
+                },
+                "certFile": {
+                    "type": "string",
+                    "description": "Identify HTTPS client using this SSL certificate file."
+                },
+                "destination": {
+                    "type": "string",
+                    "description": "Location to write the chart. If this and tardir are specified, tardir is appended to this (default \".\")."
+                },
+                "devel": {
+                    "type": "boolean",
+                    "description": "Use development versions, too. Equivalent to version '>0.0.0-0'. If –version is set, this is ignored."
+                },
+                "home": {
+                    "type": "string",
+                    "description": "Location of your Helm config. Overrides $HELM_HOME (default \"/Users/abc/.helm\")."
+                },
+                "keyFile": {
+                    "type": "string",
+                    "description": "Identify HTTPS client using this SSL key file."
+                },
+                "keyring": {
+                    "type": "string",
+                    "description": "Keyring containing public keys (default “/Users/abc/.gnupg/pubring.gpg”)."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Chart repository password."
+                },
+                "prov": {
+                    "type": "string",
+                    "description": "Fetch the provenance file, but don’t perform verification."
+                },
+                "repo": {
+                    "type": "string",
+                    "description": "Chart repository url where to locate the requested chart."
+                },
+                "untar": {
+                    "type": "boolean",
+                    "description": "If set to false, will leave the chart as a tarball after downloading."
+                },
+                "untardir": {
+                    "type": "string",
+                    "description": "If untar is specified, this flag specifies the name of the directory into which the chart is expanded (default \".\")."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Chart repository username."
+                },
+                "verify": {
+                    "type": "boolean",
+                    "description": "Verify the package against its signature."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Specific version of a chart. Without this, the latest version is fetched."
+                }
+            },
+            "type": "object",
+            "isOverlay": true
+        },
+        "kubernetes:helm.sh/v3:FetchOpts": {
+            "description": "Additional options to customize the fetching of the Helm chart.",
+            "properties": {
+                "caFile": {
+                    "type": "string",
+                    "description": "Verify certificates of HTTPS-enabled servers using this CA bundle."
+                },
+                "certFile": {
+                    "type": "string",
+                    "description": "Identify HTTPS client using this SSL certificate file."
+                },
+                "destination": {
+                    "type": "string",
+                    "description": "Location to write the chart. If this and tardir are specified, tardir is appended to this (default \".\")."
+                },
+                "devel": {
+                    "type": "boolean",
+                    "description": "Use development versions, too. Equivalent to version '>0.0.0-0'. If –version is set, this is ignored."
+                },
+                "home": {
+                    "type": "string",
+                    "description": "Location of your Helm config. Overrides $HELM_HOME (default \"/Users/abc/.helm\")."
+                },
+                "keyFile": {
+                    "type": "string",
+                    "description": "Identify HTTPS client using this SSL key file."
+                },
+                "keyring": {
+                    "type": "string",
+                    "description": "Keyring containing public keys (default “/Users/abc/.gnupg/pubring.gpg”)."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Chart repository password."
+                },
+                "prov": {
+                    "type": "string",
+                    "description": "Fetch the provenance file, but don’t perform verification."
+                },
+                "repo": {
+                    "type": "string",
+                    "description": "Chart repository url where to locate the requested chart."
+                },
+                "untar": {
+                    "type": "boolean",
+                    "description": "If set to false, will leave the chart as a tarball after downloading."
+                },
+                "untardir": {
+                    "type": "string",
+                    "description": "If untar is specified, this flag specifies the name of the directory into which the chart is expanded (default \".\")."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "Chart repository username."
+                },
+                "verify": {
+                    "type": "boolean",
+                    "description": "Verify the package against its signature."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Specific version of a chart. Without this, the latest version is fetched."
+                }
+            },
+            "type": "object",
+            "isOverlay": true
+        },
         "kubernetes:helm.sh/v3:Release": {
             "description": "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.\nNote - Helm Release is currently in BETA and may change. Use in production environment is discouraged.",
             "properties": {
@@ -30816,6 +30950,54 @@
             },
             "requiredInputs": [
                 "items"
+            ]
+        },
+        "kubernetes:apiextensions.k8s.io:CustomResource": {
+            "description": "CustomResource represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResource`, passing the\n `ServiceMonitor` resource definition as an argument.",
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata."
+                }
+            },
+            "type": "object",
+            "required": [
+                "apiVersion",
+                "kind"
+            ],
+            "isOverlay": true,
+            "inputProperties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources"
+                },
+                "kind": {
+                    "type": "string",
+                    "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+                },
+                "metadata": {
+                    "$ref": "#/types/kubernetes:meta/v1:ObjectMeta",
+                    "description": "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata."
+                },
+                "others": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "This field is not an actual property. It is used to represent custom property names and their values that can be passed in addition to the other input properties."
+                }
+            },
+            "requiredInputs": [
+                "apiVersion",
+                "kind"
             ]
         },
         "kubernetes:apiregistration.k8s.io/v1:APIService": {
@@ -39442,6 +39624,126 @@
                 "items"
             ]
         },
+        "kubernetes:helm.sh/v2:Chart": {
+            "description": "Chart is a component representing a collection of resources described by an arbitrary Helm Chart.\n\nThe Chart can be fetched from any source that is accessible to the `helm` command line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by supplying callbacks to `ChartOpts.transformations`.\n\n`Chart` does not use Tiller. The Chart specified is copied and expanded locally; the semantics are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake values, and none of Tiller's server-side validity testing is executed.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n### Local Chart Directory\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v2.Chart(\"nginx-ingress\", {\n    path: \"./nginx-ingress\",\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v2 import Chart, LocalChartOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    LocalChartOpts(\n        path=\"./nginx-ingress\",\n    ),\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V2;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new LocalChartArgs\n        {\n            Path = \"./nginx-ingress\",\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v2\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tPath: pulumi.String(\"./nginx-ingress\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Remote Chart\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v2.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n    ),\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V2;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            }\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v2\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.run(func(ctx *pulumi.context) error {\n\t\t_, err := helm.newchart(ctx, \"nginx-ingress\", helm.chartargs{\n\t\t\tchart:   pulumi.string(\"nginx-ingress\"),\n\t\t\tversion: pulumi.string(\"1.24.4\"),\n\t\t\tfetchargs: helm.fetchargs{\n\t\t\t\trepo: pulumi.string(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n\n{{% /example %}}\n{{% example %}}\n### Set Chart Values\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v2.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n    values: {\n        controller: {\n            metrics: {\n                enabled: true,\n            }\n        }\n    },\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n        values={\n            \"controller\": {\n                \"metrics\": {\n                    \"enabled\": True,\n                },\n            },\n        },\n    ),\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V2;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var values = new Dictionary<string, object>\n        {\n            [\"controller\"] = new Dictionary<string, object>\n            {\n                [\"metrics\"] = new Dictionary<string, object>\n                {\n                    [\"enabled\"] = true\n                }\n            },\n        };\n\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            },\n            Values = values,\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v2\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tChart:   pulumi.String(\"nginx-ingress\"),\n\t\t\tVersion: pulumi.String(\"1.24.4\"),\n\t\t\tFetchArgs: helm.FetchArgs{\n\t\t\t\tRepo: pulumi.String(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t\tValues: pulumi.Map{\n\t\t\t\t\"controller\": pulumi.Map{\n\t\t\t\t\t\"metrics\": pulumi.Map{\n\t\t\t\t\t\t\"enabled\": pulumi.Bool(true),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Deploy Chart into Namespace\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v2.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    namespace: \"test-namespace\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        namespace=\"test-namespace\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n    ),\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V2;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            Namespace = \"test-namespace\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            },\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v2\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tChart:     pulumi.String(\"nginx-ingress\"),\n\t\t\tVersion:   pulumi.String(\"1.24.4\"),\n\t\t\tNamespace: pulumi.String(\"test-namespace\"),\n\t\t\tFetchArgs: helm.FetchArgs{\n\t\t\t\tRepo: pulumi.String(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Chart with Transformations\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v2.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n    transformations: [\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Service\" && obj.apiVersion === \"v1\") {\n                if (obj.spec && obj.spec.type && obj.spec.type === \"LoadBalancer\") {\n                    obj.spec.type = \"ClusterIP\";\n                }\n            }\n        },\n\n        // Set a resource alias for a previous name.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Deployment\") {\n                opts.aliases = [{ name: \"oldName\" }]\n            }\n        },\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Pod\" && obj.metadata.name === \"test\") {\n                obj.apiVersion = \"v1\"\n                obj.kind = \"List\"\n            }\n        },\n    ],\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts\n\n# Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\ndef make_service_private(obj, opts):\n    if obj[\"kind\"] == \"Service\" and obj[\"apiVersion\"] == \"v1\":\n        try:\n            t = obj[\"spec\"][\"type\"]\n            if t == \"LoadBalancer\":\n                obj[\"spec\"][\"type\"] = \"ClusterIP\"\n        except KeyError:\n            pass\n\n\n# Set a resource alias for a previous name.\ndef alias(obj, opts):\n    if obj[\"kind\"] == \"Deployment\":\n        opts.aliases = [\"oldName\"]\n\n\n# Omit a resource from the Chart by transforming the specified resource definition to an empty List.\ndef omit_resource(obj, opts):\n    if obj[\"kind\"] == \"Pod\" and obj[\"metadata\"][\"name\"] == \"test\":\n        obj[\"apiVersion\"] = \"v1\"\n        obj[\"kind\"] = \"List\"\n\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n        transformations=[make_service_private, alias, omit_resource],\n    ),\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Collections.Immutable;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V2;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            },\n            Transformations =\n            {\n                LoadBalancerToClusterIP,\n                ResourceAlias,\n                OmitTestPod,\n            }\n\n        });\n\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Service\" && (string)obj[\"apiVersion\"] == \"v1\")\n            {\n                var spec = (ImmutableDictionary<string, object>)obj[\"spec\"];\n                if (spec != null && (string)spec[\"type\"] == \"LoadBalancer\")\n                {\n                    return obj.SetItem(\"spec\", spec.SetItem(\"type\", \"ClusterIP\"));\n                }\n            }\n\n            return obj;\n        }\n\n        // Set a resource alias for a previous name.\n        ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Deployment\")\n            {\n                opts.Aliases.Add(new Alias { Name = \"oldName\" });\n            }\n\n            return obj;\n        }\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            var metadata = (ImmutableDictionary<string, object>)obj[\"metadata\"];\n            if ((string)obj[\"kind\"] == \"Pod\" && (string)metadata[\"name\"] == \"test\")\n            {\n                return new Dictionary<string, object>\n                {\n                    [\"apiVersion\"] = \"v1\",\n                    [\"kind\"] = \"List\",\n                    [\"items\"] = new Dictionary<string, object>(),\n                }.ToImmutableDictionary();\n            }\n\n            return obj;\n        }\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v2\"\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tChart:   pulumi.String(\"nginx-ingress\"),\n\t\t\tVersion: pulumi.String(\"1.24.4\"),\n\t\t\tFetchArgs: helm.FetchArgs{\n\t\t\t\tRepo: pulumi.String(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t\tTransformations: []yaml.Transformation{\n\t\t\t\t// Make every service private to the cluster, i.e., turn all services into ClusterIP\n\t\t\t\t// instead of LoadBalancer.\n\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\tif state[\"kind\"] == \"Service\" {\n\t\t\t\t\t\tspec := state[\"spec\"].(map[string]interface{})\n\t\t\t\t\t\tspec[\"type\"] = \"ClusterIP\"\n\t\t\t\t\t}\n\t\t\t\t},\n\n\t\t\t\t// Set a resource alias for a previous name.\n\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\tif state[\"kind\"] == \"Deployment\" {\n\t\t\t\t\t\taliases := pulumi.Aliases([]pulumi.Alias{\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tName: pulumi.String(\"oldName\"),\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t})\n\t\t\t\t\t\topts = append(opts, aliases)\n\t\t\t\t\t}\n\t\t\t\t},\n\n\t\t\t\t// Omit a resource from the Chart by transforming the specified resource definition\n\t\t\t\t// to an empty List.\n\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\tname := state[\"metadata\"].(map[string]interface{})[\"name\"]\n\t\t\t\t\tif state[\"kind\"] == \"Pod\" && name == \"test\" {\n\t\t\t\t\t\tstate[\"apiVersion\"] = \"core/v1\"\n\t\t\t\t\t\tstate[\"kind\"] = \"List\"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n\n\n",
+            "properties": {
+                "resources": {
+                    "type": "string",
+                    "description": "Resources created by the Chart."
+                },
+                "urn": {
+                    "type": "string",
+                    "description": "The stable logical URN used to distinctly address a resource, both before and after deployments."
+                }
+            },
+            "type": "object",
+            "isOverlay": true,
+            "inputProperties": {
+                "chart": {
+                    "type": "string",
+                    "description": "The name of the chart to deploy. If [repo] is provided, this chart name will be prefixed by the repo name. Example: repo: \"stable\", chart: \"nginx-ingress\" -> \"stable/nginx-ingress\" Example: chart: \"stable/nginx-ingress\" -> \"stable/nginx-ingress\"\n\nRequired if specifying `ChartOpts` for a remote chart."
+                },
+                "fetchOpts": {
+                    "$ref": "#/types/kubernetes:helm.sh/v2:FetchOpts",
+                    "description": "Additional options to customize the fetching of the Helm chart."
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "The optional namespace to install chart resources into."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "The path to the chart directory which contains the `Chart.yaml` file.\n\nRequired if specifying `LocalChartOpts`."
+                },
+                "repo": {
+                    "type": "string",
+                    "description": "The repository name of the chart to deploy. Example: \"stable\".\n\nUsed only when specifying options for a remote chart."
+                },
+                "resourcePrefix": {
+                    "type": "string",
+                    "description": "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\"."
+                },
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Optional array of transformations to apply to resources that will be created by this chart prior to creation. Allows customization of the chart behaviour without directly modifying the chart itself."
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Overrides for chart values."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The version of the chart to deploy. If not provided, the latest version will be deployed."
+                }
+            },
+            "isComponent": true
+        },
+        "kubernetes:helm.sh/v3:Chart": {
+            "description": "Chart is a component representing a collection of resources described by an arbitrary Helm Chart.\n\nThe Chart can be fetched from any source that is accessible to the `helm` command line. Values in the `values.yml` file can be overridden using `ChartOpts.values` (equivalent to `--set` or having multiple `values.yml` files). Objects can be transformed arbitrarily by supplying callbacks to `ChartOpts.transformations`.\n\n`Chart` does not use Tiller. The Chart specified is copied and expanded locally; the semantics are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake values, and none of Tiller's server-side validity testing is executed.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n### Local Chart Directory\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v3.Chart(\"nginx-ingress\", {\n    path: \"./nginx-ingress\",\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    LocalChartOpts(\n        path=\"./nginx-ingress\",\n    ),\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V3;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new LocalChartArgs\n        {\n            Path = \"./nginx-ingress\",\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tPath: pulumi.String(\"./nginx-ingress\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Remote Chart\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v3.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n    ),\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V3;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            }\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.run(func(ctx *pulumi.context) error {\n\t\t_, err := helm.newchart(ctx, \"nginx-ingress\", helm.chartargs{\n\t\t\tchart:   pulumi.string(\"nginx-ingress\"),\n\t\t\tversion: pulumi.string(\"1.24.4\"),\n\t\t\tfetchargs: helm.fetchargs{\n\t\t\t\trepo: pulumi.string(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n\n{{% /example %}}\n{{% example %}}\n### Set Chart Values\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v3.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n    values: {\n        controller: {\n            metrics: {\n                enabled: true,\n            }\n        }\n    },\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n        values={\n            \"controller\": {\n                \"metrics\": {\n                    \"enabled\": True,\n                },\n            },\n        },\n    ),\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V3;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var values = new Dictionary<string, object>\n        {\n            [\"controller\"] = new Dictionary<string, object>\n            {\n                [\"metrics\"] = new Dictionary<string, object>\n                {\n                    [\"enabled\"] = true\n                }\n            },\n        };\n\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            },\n            Values = values,\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tChart:   pulumi.String(\"nginx-ingress\"),\n\t\t\tVersion: pulumi.String(\"1.24.4\"),\n\t\t\tFetchArgs: helm.FetchArgs{\n\t\t\t\tRepo: pulumi.String(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t\tValues: pulumi.Map{\n\t\t\t\t\"controller\": pulumi.Map{\n\t\t\t\t\t\"metrics\": pulumi.Map{\n\t\t\t\t\t\t\"enabled\": pulumi.Bool(true),\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Deploy Chart into Namespace\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v3.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    namespace: \"test-namespace\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        namespace=\"test-namespace\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n    ),\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V3;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            Namespace = \"test-namespace\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            },\n        });\n\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tChart:     pulumi.String(\"nginx-ingress\"),\n\t\t\tVersion:   pulumi.String(\"1.24.4\"),\n\t\t\tNamespace: pulumi.String(\"test-namespace\"),\n\t\t\tFetchArgs: helm.FetchArgs{\n\t\t\t\tRepo: pulumi.String(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Chart with Transformations\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst nginxIngress = new k8s.helm.v3.Chart(\"nginx-ingress\", {\n    chart: \"nginx-ingress\",\n    version: \"1.24.4\",\n    fetchOpts:{\n        repo: \"https://charts.helm.sh/stable//\",\n    },\n    transformations: [\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Service\" && obj.apiVersion === \"v1\") {\n                if (obj.spec && obj.spec.type && obj.spec.type === \"LoadBalancer\") {\n                    obj.spec.type = \"ClusterIP\";\n                }\n            }\n        },\n\n        // Set a resource alias for a previous name.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Deployment\") {\n                opts.aliases = [{ name: \"oldName\" }]\n            }\n        },\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Pod\" && obj.metadata.name === \"test\") {\n                obj.apiVersion = \"v1\"\n                obj.kind = \"List\"\n            }\n        },\n    ],\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts\n\n# Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\ndef make_service_private(obj, opts):\n    if obj[\"kind\"] == \"Service\" and obj[\"apiVersion\"] == \"v1\":\n        try:\n            t = obj[\"spec\"][\"type\"]\n            if t == \"LoadBalancer\":\n                obj[\"spec\"][\"type\"] = \"ClusterIP\"\n        except KeyError:\n            pass\n\n\n# Set a resource alias for a previous name.\ndef alias(obj, opts):\n    if obj[\"kind\"] == \"Deployment\":\n        opts.aliases = [\"oldName\"]\n\n\n# Omit a resource from the Chart by transforming the specified resource definition to an empty List.\ndef omit_resource(obj, opts):\n    if obj[\"kind\"] == \"Pod\" and obj[\"metadata\"][\"name\"] == \"test\":\n        obj[\"apiVersion\"] = \"v1\"\n        obj[\"kind\"] = \"List\"\n\n\nnginx_ingress = Chart(\n    \"nginx-ingress\",\n    ChartOpts(\n        chart=\"nginx-ingress\",\n        version=\"1.24.4\",\n        fetch_opts=FetchOpts(\n            repo=\"https://charts.helm.sh/stable//\",\n        ),\n        transformations=[make_service_private, alias, omit_resource],\n    ),\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Collections.Immutable;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Helm;\nusing Pulumi.Kubernetes.Helm.V3;\n\nclass HelmStack : Stack\n{\n    public HelmStack()\n    {\n        var nginx = new Chart(\"nginx-ingress\", new ChartArgs\n        {\n            Chart = \"nginx-ingress\",\n            Version = \"1.24.4\",\n            FetchOptions = new ChartFetchArgs\n            {\n                Repo = \"https://charts.helm.sh/stable//\"\n            },\n            Transformations =\n            {\n                LoadBalancerToClusterIP,\n                ResourceAlias,\n                OmitTestPod,\n            }\n\n        });\n\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Service\" && (string)obj[\"apiVersion\"] == \"v1\")\n            {\n                var spec = (ImmutableDictionary<string, object>)obj[\"spec\"];\n                if (spec != null && (string)spec[\"type\"] == \"LoadBalancer\")\n                {\n                    return obj.SetItem(\"spec\", spec.SetItem(\"type\", \"ClusterIP\"));\n                }\n            }\n\n            return obj;\n        }\n\n        // Set a resource alias for a previous name.\n        ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Deployment\")\n            {\n                opts.Aliases.Add(new Alias { Name = \"oldName\" });\n            }\n\n            return obj;\n        }\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            var metadata = (ImmutableDictionary<string, object>)obj[\"metadata\"];\n            if ((string)obj[\"kind\"] == \"Pod\" && (string)metadata[\"name\"] == \"test\")\n            {\n                return new Dictionary<string, object>\n                {\n                    [\"apiVersion\"] = \"v1\",\n                    [\"kind\"] = \"List\",\n                    [\"items\"] = new Dictionary<string, object>(),\n                }.ToImmutableDictionary();\n            }\n\n            return obj;\n        }\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3\"\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := helm.NewChart(ctx, \"nginx-ingress\", helm.ChartArgs{\n\t\t\tChart:   pulumi.String(\"nginx-ingress\"),\n\t\t\tVersion: pulumi.String(\"1.24.4\"),\n\t\t\tFetchArgs: helm.FetchArgs{\n\t\t\t\tRepo: pulumi.String(\"https://charts.helm.sh/stable//\"),\n\t\t\t},\n\t\t\tTransformations: []yaml.Transformation{\n\t\t\t\t// Make every service private to the cluster, i.e., turn all services into ClusterIP\n\t\t\t\t// instead of LoadBalancer.\n\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\tif state[\"kind\"] == \"Service\" {\n\t\t\t\t\t\tspec := state[\"spec\"].(map[string]interface{})\n\t\t\t\t\t\tspec[\"type\"] = \"ClusterIP\"\n\t\t\t\t\t}\n\t\t\t\t},\n\n\t\t\t\t// Set a resource alias for a previous name.\n\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\tif state[\"kind\"] == \"Deployment\" {\n\t\t\t\t\t\taliases := pulumi.Aliases([]pulumi.Alias{\n\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\tName: pulumi.String(\"oldName\"),\n\t\t\t\t\t\t\t},\n\t\t\t\t\t\t})\n\t\t\t\t\t\topts = append(opts, aliases)\n\t\t\t\t\t}\n\t\t\t\t},\n\n\t\t\t\t// Omit a resource from the Chart by transforming the specified resource definition\n\t\t\t\t// to an empty List.\n\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\tname := state[\"metadata\"].(map[string]interface{})[\"name\"]\n\t\t\t\t\tif state[\"kind\"] == \"Pod\" && name == \"test\" {\n\t\t\t\t\t\tstate[\"apiVersion\"] = \"core/v1\"\n\t\t\t\t\t\tstate[\"kind\"] = \"List\"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t},\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n\n",
+            "properties": {
+                "resources": {
+                    "type": "string",
+                    "description": "Resources created by the Chart."
+                },
+                "urn": {
+                    "type": "string",
+                    "description": "The stable logical URN used to distinctly address a resource, both before and after deployments."
+                }
+            },
+            "type": "object",
+            "isOverlay": true,
+            "inputProperties": {
+                "chart": {
+                    "type": "string",
+                    "description": "The name of the chart to deploy. If [repo] is provided, this chart name will be prefixed by the repo name. Example: repo: \"stable\", chart: \"nginx-ingress\" -> \"stable/nginx-ingress\" Example: chart: \"stable/nginx-ingress\" -> \"stable/nginx-ingress\"\n\nRequired if specifying `ChartOpts` for a remote chart."
+                },
+                "fetchOpts": {
+                    "$ref": "#/types/kubernetes:helm.sh/v3:FetchOpts",
+                    "description": "Additional options to customize the fetching of the Helm chart."
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "The optional namespace to install chart resources into."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "The path to the chart directory which contains the `Chart.yaml` file.\n\nRequired if specifying `LocalChartOpts`."
+                },
+                "repo": {
+                    "type": "string",
+                    "description": "The repository name of the chart to deploy. Example: \"stable\".\n\nUsed only when specifying options for a remote chart."
+                },
+                "resourcePrefix": {
+                    "type": "string",
+                    "description": "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\"."
+                },
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Optional array of transformations to apply to resources that will be created by this chart prior to creation. Allows customization of the chart behaviour without directly modifying the chart itself."
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "Overrides for chart values."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The version of the chart to deploy. If not provided, the latest version will be deployed."
+                }
+            },
+            "isComponent": true
+        },
         "kubernetes:helm.sh/v3:Release": {
             "description": "A Release is an instance of a chart running in a Kubernetes cluster.\n\nA Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.",
             "properties": {
@@ -39799,6 +40101,52 @@
                 "chart",
                 "repositoryOpts"
             ]
+        },
+        "kubernetes:kustomize:Directory": {
+            "description": "Directory is a component representing a collection of resources described by a kustomize directory (kustomization).\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n### Local Kustomize Directory\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst helloWorld = new k8s.kustomize.Directory(\"helloWorldLocal\", {\n    directory: \"./helloWorld\",\n});\n```\n```python\nfrom pulumi_kubernetes.kustomize import Directory\n\nhello_world = Directory(\n    \"hello-world-local\",\n    directory=\"./helloWorld\",\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Kustomize;\n\nclass KustomizeStack : Stack\n{\n    public KustomizeStack()\n    {\n        var helloWorld = new Directory(\"helloWorldLocal\", new DirectoryArgs\n        {\n            Directory = \"./helloWorld\",\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := kustomize.NewDirectory(ctx, \"helloWorldLocal\",\n\t\t\tkustomize.DirectoryArgs{\n\t\t\t\tDirectory: pulumi.String(\"./helloWorld\"),\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Kustomize Directory from a Git Repo\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst helloWorld = new k8s.kustomize.Directory(\"helloWorldRemote\", {\n    directory: \"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\",\n});\n```\n```python\nfrom pulumi_kubernetes.kustomize import Directory\n\nhello_world = Directory(\n    \"hello-world-remote\",\n    directory=\"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\",\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Kustomize;\n\nclass KustomizeStack : Stack\n{\n    public KustomizeStack()\n    {\n        var helloWorld = new Directory(\"helloWorldRemote\", new DirectoryArgs\n        {\n            Directory = \"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\",\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := kustomize.NewDirectory(ctx, \"helloWorldRemote\",\n\t\t\tkustomize.DirectoryArgs{\n\t\t\t\tDirectory: pulumi.String(\"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\"),\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Kustomize Directory with Transformations\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst helloWorld = new k8s.kustomize.Directory(\"helloWorldRemote\", {\n    directory: \"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\",\n    transformations: [\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Service\" && obj.apiVersion === \"v1\") {\n                if (obj.spec && obj.spec.type && obj.spec.type === \"LoadBalancer\") {\n                    obj.spec.type = \"ClusterIP\";\n                }\n            }\n        },\n\n        // Set a resource alias for a previous name.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Deployment\") {\n                opts.aliases = [{ name: \"oldName\" }]\n            }\n        },\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Pod\" && obj.metadata.name === \"test\") {\n                obj.apiVersion = \"v1\"\n                obj.kind = \"List\"\n            }\n        },\n    ],\n});\n```\n```python\nfrom pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts\n\n# Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\ndef make_service_private(obj, opts):\n    if obj[\"kind\"] == \"Service\" and obj[\"apiVersion\"] == \"v1\":\n        try:\n            t = obj[\"spec\"][\"type\"]\n            if t == \"LoadBalancer\":\n                obj[\"spec\"][\"type\"] = \"ClusterIP\"\n        except KeyError:\n            pass\n\n\n# Set a resource alias for a previous name.\ndef alias(obj, opts):\n    if obj[\"kind\"] == \"Deployment\":\n        opts.aliases = [\"oldName\"]\n\n\n# Omit a resource from the Chart by transforming the specified resource definition to an empty List.\ndef omit_resource(obj, opts):\n    if obj[\"kind\"] == \"Pod\" and obj[\"metadata\"][\"name\"] == \"test\":\n        obj[\"apiVersion\"] = \"v1\"\n        obj[\"kind\"] = \"List\"\n\n\nhello_world = Directory(\n    \"hello-world-remote\",\n    directory=\"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\",\n    transformations=[make_service_private, alias, omit_resource],\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Collections.Immutable;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Kustomize;\n\nclass KustomizeStack : Stack\n{\n    public KustomizeStack()\n    {\n        var helloWorld = new Directory(\"helloWorldRemote\", new DirectoryArgs\n        {\n            Directory = \"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\",\n            Transformations =\n              {\n                  LoadBalancerToClusterIP,\n                  ResourceAlias,\n                  OmitTestPod,\n              }\n        });\n\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Service\" && (string)obj[\"apiVersion\"] == \"v1\")\n            {\n                var spec = (ImmutableDictionary<string, object>)obj[\"spec\"];\n                if (spec != null && (string)spec[\"type\"] == \"LoadBalancer\")\n                {\n                    return obj.SetItem(\"spec\", spec.SetItem(\"type\", \"ClusterIP\"));\n                }\n            }\n\n            return obj;\n        }\n\n        // Set a resource alias for a previous name.\n        ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Deployment\")\n            {\n                opts.Aliases.Add(new Alias { Name = \"oldName\" });\n            }\n\n            return obj;\n        }\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            var metadata = (ImmutableDictionary<string, object>)obj[\"metadata\"];\n            if ((string)obj[\"kind\"] == \"Pod\" && (string)metadata[\"name\"] == \"test\")\n            {\n                return new Dictionary<string, object>\n                {\n                    [\"apiVersion\"] = \"v1\",\n                    [\"kind\"] = \"List\",\n                    [\"items\"] = new Dictionary<string, object>(),\n                }.ToImmutableDictionary();\n            }\n\n            return obj;\n        }\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/kustomize\"\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := kustomize.NewDirectory(ctx, \"helloWorldRemote\",\n\t\t\tkustomize.DirectoryArgs{\n\t\t\t\tDirectory: pulumi.String(\"https://github.com/kubernetes-sigs/kustomize/tree/v3.3.1/examples/helloWorld\"),\n\t\t\t\tTransformations: []yaml.Transformation{\n\t\t\t\t\t// Make every service private to the cluster, i.e., turn all services into ClusterIP\n\t\t\t\t\t// instead of LoadBalancer.\n\t\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\t\tif state[\"kind\"] == \"Service\" {\n\t\t\t\t\t\t\tspec := state[\"spec\"].(map[string]interface{})\n\t\t\t\t\t\t\tspec[\"type\"] = \"ClusterIP\"\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\n\t\t\t\t\t// Set a resource alias for a previous name.\n\t\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\t\tif state[\"kind\"] == \"Deployment\" {\n\t\t\t\t\t\t\taliases := pulumi.Aliases([]pulumi.Alias{\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tName: pulumi.String(\"oldName\"),\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\topts = append(opts, aliases)\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\n\t\t\t\t\t// Omit a resource from the Chart by transforming the specified resource definition\n\t\t\t\t\t// to an empty List.\n\t\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\t\tname := state[\"metadata\"].(map[string]interface{})[\"name\"]\n\t\t\t\t\t\tif state[\"kind\"] == \"Pod\" && name == \"test\" {\n\t\t\t\t\t\t\tstate[\"apiVersion\"] = \"core/v1\"\n\t\t\t\t\t\t\tstate[\"kind\"] = \"List\"\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% /examples %}}\n",
+            "properties": {
+                "directory": {
+                    "type": "string",
+                    "description": "The directory containing the kustomization to apply. The value can be a local directory or a folder in a\ngit repository.\nExample: ./helloWorld\nExample: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld"
+                },
+                "resourcePrefix": {
+                    "type": "string",
+                    "description": "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\"."
+                },
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "A set of transformations to apply to Kubernetes resource definitions before registering with engine."
+                }
+            },
+            "type": "object",
+            "required": [
+                "directory"
+            ],
+            "isOverlay": true,
+            "inputProperties": {
+                "directory": {
+                    "type": "string",
+                    "description": "The directory containing the kustomization to apply. The value can be a local directory or a folder in a\ngit repository.\nExample: ./helloWorld\nExample: https://github.com/kubernetes-sigs/kustomize/tree/master/examples/helloWorld"
+                },
+                "resourcePrefix": {
+                    "type": "string",
+                    "description": "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\"."
+                },
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "A set of transformations to apply to Kubernetes resource definitions before registering with engine."
+                }
+            },
+            "requiredInputs": [
+                "directory"
+            ],
+            "isComponent": true
         },
         "kubernetes:meta/v1:Status": {
             "description": "Status is a return value for calls that don't return other objects.",
@@ -45342,6 +45690,105 @@
             "requiredInputs": [
                 "items"
             ]
+        },
+        "kubernetes:yaml:ConfigFile": {
+            "description": "ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n### Local File\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigFile(\"example\", {\n  file: \"foo.yaml\",\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigFile\n\nexample = ConfigFile(\n    \"example\",\n    file=\"foo.yaml\",\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigFile(\"example\", new ConfigFileArgs\n        {\n            File = \"foo.yaml\",\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n    \"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n    \"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n    pulumi.Run(func(ctx *pulumi.Context) error {\n        _, err := yaml.NewConfigFile(ctx, \"example\",\n            &yaml.ConfigFileArgs{\n                File: \"foo.yaml\",\n            },\n        )\n        if err != nil {\n            return err\n        }\n\n        return nil\n    })\n}\n```\n{{% /example %}}\n{{% example %}}\n### YAML with Transformations\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigFile(\"example\", {\n  file: \"foo.yaml\",\n  transformations: [\n    // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n    (obj: any, opts: pulumi.CustomResourceOptions) => {\n      if (obj.kind === \"Service\" && obj.apiVersion === \"v1\") {\n        if (obj.spec && obj.spec.type && obj.spec.type === \"LoadBalancer\") {\n          obj.spec.type = \"ClusterIP\";\n        }\n      }\n    },\n\n    // Set a resource alias for a previous name.\n    (obj: any, opts: pulumi.CustomResourceOptions) => {\n      if (obj.kind === \"Deployment\") {\n        opts.aliases = [{name: \"oldName\"}]\n      }\n    },\n\n    // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n    (obj: any, opts: pulumi.CustomResourceOptions) => {\n      if (obj.kind === \"Pod\" && obj.metadata.name === \"test\") {\n        obj.apiVersion = \"v1\"\n        obj.kind = \"List\"\n      }\n    },\n  ],\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigFile\n\n# Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\ndef make_service_private(obj, opts):\n    if obj[\"kind\"] == \"Service\" and obj[\"apiVersion\"] == \"v1\":\n        try:\n            t = obj[\"spec\"][\"type\"]\n            if t == \"LoadBalancer\":\n                obj[\"spec\"][\"type\"] = \"ClusterIP\"\n        except KeyError:\n            pass\n\n\n# Set a resource alias for a previous name.\ndef alias(obj, opts):\n    if obj[\"kind\"] == \"Deployment\":\n        opts.aliases = [\"oldName\"]\n\n\n# Omit a resource from the Chart by transforming the specified resource definition to an empty List.\ndef omit_resource(obj, opts):\n    if obj[\"kind\"] == \"Pod\" and obj[\"metadata\"][\"name\"] == \"test\":\n        obj[\"apiVersion\"] = \"v1\"\n        obj[\"kind\"] = \"List\"\n\n\nexample = ConfigFile(\n    \"example\",\n    file=\"foo.yaml\",\n    transformations=[make_service_private, alias, omit_resource],\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Collections.Immutable;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigFile(\"example\", new ConfigFileArgs\n        {\n            File = \"foo.yaml\",\n            Transformations =\n               {\n                   LoadBalancerToClusterIP,\n                   ResourceAlias,\n                   OmitTestPod,\n               }\n        });\n\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        ImmutableDictionary&lt;string, object&gt; LoadBalancerToClusterIP(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Service\" &amp;&amp; (string)obj[\"apiVersion\"] == \"v1\")\n            {\n                var spec = (ImmutableDictionary&lt;string, object&gt;)obj[\"spec\"];\n                if (spec != null &amp;&amp; (string)spec[\"type\"] == \"LoadBalancer\")\n                {\n                    return obj.SetItem(\"spec\", spec.SetItem(\"type\", \"ClusterIP\"));\n                }\n            }\n\n            return obj;\n        }\n\n        // Set a resource alias for a previous name.\n        ImmutableDictionary&lt;string, object&gt; ResourceAlias(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Deployment\")\n            {\n                opts.Aliases = new List&lt;Input&lt;Alias&gt;&gt; { new Alias { Name = \"oldName\" } };\n            }\n\n            return obj;\n        }\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        ImmutableDictionary&lt;string, object&gt; OmitTestPod(ImmutableDictionary&lt;string, object&gt; obj, CustomResourceOptions opts)\n        {\n            var metadata = (ImmutableDictionary&lt;string, object&gt;)obj[\"metadata\"];\n            if ((string)obj[\"kind\"] == \"Pod\" &amp;&amp; (string)metadata[\"name\"] == \"test\")\n            {\n                return new Dictionary&lt;string, object&gt;\n                {\n                    [\"apiVersion\"] = \"v1\",\n                    [\"kind\"] = \"List\",\n                    [\"items\"] = new Dictionary&lt;string, object&gt;(),\n                }.ToImmutableDictionary();\n            }\n\n            return obj;\n        }\n    }\n}\n```\n```go\npackage main\n\nimport (\n    \"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n    \"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n    pulumi.Run(func(ctx *pulumi.Context) error {\n        _, err := yaml.NewConfigFile(ctx, \"example\",\n            &yaml.ConfigFileArgs{\n                File: \"foo.yaml\",\n                Transformations: []yaml.Transformation{\n                    // Make every service private to the cluster, i.e., turn all services into ClusterIP\n                    // instead of LoadBalancer.\n                    func(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n                        if state[\"kind\"] == \"Service\" {\n                            spec := state[\"spec\"].(map[string]interface{})\n                            spec[\"type\"] = \"ClusterIP\"\n                        }\n                    },\n\n                    // Set a resource alias for a previous name.\n                    func(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n                        if state[\"kind\"] == \"Deployment\" {\n                            aliases := pulumi.Aliases([]pulumi.Alias{\n                                {\n                                    Name: pulumi.String(\"oldName\"),\n                                },\n                            })\n                            opts = append(opts, aliases)\n                        }\n                    },\n\n                    // Omit a resource from the Chart by transforming the specified resource definition\n                    // to an empty List.\n                    func(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n                        name := state[\"metadata\"].(map[string]interface{})[\"name\"]\n                        if state[\"kind\"] == \"Pod\" && name == \"test\" {\n                            state[\"apiVersion\"] = \"core/v1\"\n                            state[\"kind\"] = \"List\"\n                        }\n                    },\n                },\n            },\n        )\n        if err != nil {\n            return err\n        }\n\n        return nil\n    })\n}\n```\n{{% /example %}}\n{% /examples %}}\n",
+            "properties": {
+                "resources": {
+                    "type": "string",
+                    "description": "Resources created by the ConfigFile."
+                }
+            },
+            "type": "object",
+            "isOverlay": true,
+            "inputProperties": {
+                "file": {
+                    "type": "string",
+                    "description": "Path or a URL that uniquely identifies a file."
+                },
+                "resourcePrefix": {
+                    "type": "string",
+                    "description": "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\"."
+                },
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "A set of transformations to apply to Kubernetes resource definitions before registering with engine."
+                }
+            },
+            "requiredInputs": [
+                "file"
+            ],
+            "isComponent": true
+        },
+        "kubernetes:yaml:ConfigGroup": {
+            "description": "ConfigGroup creates a set of Kubernetes resources from Kubernetes YAML text. The YAML text\nmay be supplied using any of the following methods:\n\n1. Using a filename or a list of filenames:\n2. Using a file pattern or a list of file patterns:\n3. Using a literal string containing YAML, or a list of such strings:\n4. Any combination of files, patterns, or YAML strings:\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n### Local File\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigGroup(\"example\", {\n    files: \"foo.yaml\",\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigGroup\n\nexample = ConfigGroup(\n    \"example\",\n    files=[\"foo.yaml\"],\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigGroup(\"example\", new ConfigGroupArgs\n        {\n            Files = new[] { \"foo.yaml\" }\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := yaml.NewConfigGroup(ctx, \"example\",\n\t\t\t&yaml.ConfigGroupArgs{\n\t\t\t\tFiles: []string{\"foo.yaml\"},\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Multiple Local Files\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigGroup(\"example\", {\n    files: [\"foo.yaml\", \"bar.yaml\"],\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigGroup\n\nexample = ConfigGroup(\n    \"example\",\n    files=[\"foo.yaml\", \"bar.yaml\"],\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigGroup(\"example\", new ConfigGroupArgs\n        {\n            Files = new[] { \"foo.yaml\", \"bar.yaml\" }\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := yaml.NewConfigGroup(ctx, \"example\",\n\t\t\t&yaml.ConfigGroupArgs{\n\t\t\t\tFiles: []string{\"foo.yaml\", \"bar.yaml\"},\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Local File Pattern\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigGroup(\"example\", {\n    files: \"yaml/*.yaml\",\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigGroup\n\nexample = ConfigGroup(\n    \"example\",\n    files=[\"yaml/*.yaml\"],\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigGroup(\"example\", new ConfigGroupArgs\n        {\n            Files = new[] { \"yaml/*.yaml\" }\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := yaml.NewConfigGroup(ctx, \"example\",\n\t\t\t&yaml.ConfigGroupArgs{\n\t\t\t\tFiles: []string{\"yaml/*.yaml\"},\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Multiple Local File Patterns\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigGroup(\"example\", {\n    files: [\"foo/*.yaml\", \"bar/*.yaml\"],\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigGroup\n\nexample = ConfigGroup(\n    \"example\",\n    files=[\"foo/*.yaml\", \"bar/*.yaml\"],\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigGroup(\"example\", new ConfigGroupArgs\n        {\n            Files = new[] { \"foo/*.yaml\", \"bar/*.yaml\" }\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := yaml.NewConfigGroup(ctx, \"example\",\n\t\t\t&yaml.ConfigGroupArgs{\n\t\t\t\tFiles: []string{\"yaml/*.yaml\", \"bar/*.yaml\"},\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### Literal YAML String\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigGroup(\"example\", {\n    yaml: `\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: foo\n`,\n})\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigGroup\n\nexample = ConfigGroup(\n    \"example\",\n    yaml=['''\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: foo\n''']\n)\n```\n```csharp\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigGroup(\"example\", new ConfigGroupArgs\n        {\n            Yaml = @\"\n            apiVersion: v1\n            kind: Namespace\n            metadata:\n              name: foo\n            \",\n        });\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := yaml.NewConfigGroup(ctx, \"example\",\n\t\t\t&yaml.ConfigGroupArgs{\n\t\t\t\tYAML: []string{\n\t\t\t\t\t`\napiVersion: v1\nkind: Namespace\nmetadata:\n  name: foo\n`,\n\t\t\t\t},\n\t\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{{% example %}}\n### YAML with Transformations\n\n```typescript\nimport * as k8s from \"@pulumi/kubernetes\";\n\nconst example = new k8s.yaml.ConfigGroup(\"example\", {\n    files: \"foo.yaml\",\n    transformations: [\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Service\" && obj.apiVersion === \"v1\") {\n                if (obj.spec && obj.spec.type && obj.spec.type === \"LoadBalancer\") {\n                    obj.spec.type = \"ClusterIP\";\n                }\n            }\n        },\n\n        // Set a resource alias for a previous name.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Deployment\") {\n                opts.aliases = [{ name: \"oldName\" }]\n            }\n        },\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        (obj: any, opts: pulumi.CustomResourceOptions) => {\n            if (obj.kind === \"Pod\" && obj.metadata.name === \"test\") {\n                obj.apiVersion = \"v1\"\n                obj.kind = \"List\"\n            }\n        },\n    ],\n});\n```\n```python\nfrom pulumi_kubernetes.yaml import ConfigFile\n\n# Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\ndef make_service_private(obj, opts):\n    if obj[\"kind\"] == \"Service\" and obj[\"apiVersion\"] == \"v1\":\n        try:\n            t = obj[\"spec\"][\"type\"]\n            if t == \"LoadBalancer\":\n                obj[\"spec\"][\"type\"] = \"ClusterIP\"\n        except KeyError:\n            pass\n\n\n# Set a resource alias for a previous name.\ndef alias(obj, opts):\n    if obj[\"kind\"] == \"Deployment\":\n        opts.aliases = [\"oldName\"]\n\n\n# Omit a resource from the Chart by transforming the specified resource definition to an empty List.\ndef omit_resource(obj, opts):\n    if obj[\"kind\"] == \"Pod\" and obj[\"metadata\"][\"name\"] == \"test\":\n        obj[\"apiVersion\"] = \"v1\"\n        obj[\"kind\"] = \"List\"\n\n\nexample = ConfigGroup(\n    \"example\",\n    files=[\"foo.yaml\"],\n    transformations=[make_service_private, alias, omit_resource],\n)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Collections.Immutable;\nusing System.Threading.Tasks;\nusing Pulumi;\nusing Pulumi.Kubernetes.Yaml;\n\nclass YamlStack : Stack\n{\n    public YamlStack()\n    {\n        var helloWorld = new ConfigGroup(\"example\", new ConfigGroupArgs\n        {\n            Files = new[] { \"foo.yaml\" },\n            Transformations =\n               {\n                   LoadBalancerToClusterIP,\n                   ResourceAlias,\n                   OmitTestPod,\n               }\n        });\n\n        // Make every service private to the cluster, i.e., turn all services into ClusterIP instead of LoadBalancer.\n        ImmutableDictionary<string, object> LoadBalancerToClusterIP(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Service\" && (string)obj[\"apiVersion\"] == \"v1\")\n            {\n                var spec = (ImmutableDictionary<string, object>)obj[\"spec\"];\n                if (spec != null && (string)spec[\"type\"] == \"LoadBalancer\")\n                {\n                    return obj.SetItem(\"spec\", spec.SetItem(\"type\", \"ClusterIP\"));\n                }\n            }\n\n            return obj;\n        }\n\n        // Set a resource alias for a previous name.\n        ImmutableDictionary<string, object> ResourceAlias(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            if ((string)obj[\"kind\"] == \"Deployment\")\n            {\n                opts.Aliases.Add(new Alias { Name = \"oldName\" });\n            }\n\n            return obj;\n        }\n\n        // Omit a resource from the Chart by transforming the specified resource definition to an empty List.\n        ImmutableDictionary<string, object> OmitTestPod(ImmutableDictionary<string, object> obj, CustomResourceOptions opts)\n        {\n            var metadata = (ImmutableDictionary<string, object>)obj[\"metadata\"];\n            if ((string)obj[\"kind\"] == \"Pod\" && (string)metadata[\"name\"] == \"test\")\n            {\n                return new Dictionary<string, object>\n                {\n                    [\"apiVersion\"] = \"v1\",\n                    [\"kind\"] = \"List\",\n                    [\"items\"] = new Dictionary<string, object>(),\n                }.ToImmutableDictionary();\n            }\n\n            return obj;\n        }\n    }\n}\n```\n```go\npackage main\n\nimport (\n\t\"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := yaml.NewConfigGroup(ctx, \"example\",\n\t\t\t&yaml.ConfigGroupArgs{\n\t\t\t\tFiles: []string{\"foo.yaml\"},\n\t\t\t\tTransformations: []yaml.Transformation{\n\t\t\t\t\t// Make every service private to the cluster, i.e., turn all services into ClusterIP\n\t\t\t\t\t// instead of LoadBalancer.\n\t\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\t\tif state[\"kind\"] == \"Service\" {\n\t\t\t\t\t\t\tspec := state[\"spec\"].(map[string]interface{})\n\t\t\t\t\t\t\tspec[\"type\"] = \"ClusterIP\"\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\n\t\t\t\t\t// Set a resource alias for a previous name.\n\t\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\t\tif state[\"kind\"] == \"Deployment\" {\n\t\t\t\t\t\t\taliases := pulumi.Aliases([]pulumi.Alias{\n\t\t\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\t\tName: pulumi.String(\"oldName\"),\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t})\n\t\t\t\t\t\t\topts = append(opts, aliases)\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\n\t\t\t\t\t// Omit a resource from the Chart by transforming the specified resource definition\n\t\t\t\t\t// to an empty List.\n\t\t\t\t\tfunc(state map[string]interface{}, opts ...pulumi.ResourceOption) {\n\t\t\t\t\t\tname := state[\"metadata\"].(map[string]interface{})[\"name\"]\n\t\t\t\t\t\tif state[\"kind\"] == \"Pod\" && name == \"test\" {\n\t\t\t\t\t\t\tstate[\"apiVersion\"] = \"core/v1\"\n\t\t\t\t\t\t\tstate[\"kind\"] = \"List\"\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t},\n\t\t)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\n\t\treturn nil\n\t})\n}\n```\n{{% /example %}}\n{% /examples %}}\n",
+            "properties": {
+                "resources": {
+                    "type": "string",
+                    "description": "Resources created by the ConfigGroup."
+                }
+            },
+            "type": "object",
+            "isOverlay": true,
+            "inputProperties": {
+                "files": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    ],
+                    "description": "Set of paths or a URLs that uniquely identify files."
+                },
+                "objs": {
+                    "oneOf": [
+                        {
+                            "$ref": "pulumi.json#/Any"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "pulumi.json#/Any"
+                            }
+                        }
+                    ],
+                    "description": "Objects representing Kubernetes resources."
+                },
+                "resourcePrefix": {
+                    "type": "string",
+                    "description": "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\"."
+                },
+                "transformations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "pulumi.json#/Any"
+                    },
+                    "description": "A set of transformations to apply to Kubernetes resource definitions before registering with engine."
+                },
+                "yaml": {
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    ],
+                    "description": "YAML text containing Kubernetes resource definitions."
+                }
+            },
+            "isComponent": true
         }
     },
     "language": {
@@ -45352,6 +45799,7 @@
                 "": "Provider",
                 "admissionregistration.k8s.io/v1": "AdmissionRegistration.V1",
                 "admissionregistration.k8s.io/v1beta1": "AdmissionRegistration.V1Beta1",
+                "apiextensions": "ApiExtensions",
                 "apiextensions.k8s.io/v1": "ApiExtensions.V1",
                 "apiextensions.k8s.io/v1beta1": "ApiExtensions.V1Beta1",
                 "apiregistration.k8s.io/v1": "ApiRegistration.V1",
@@ -45382,6 +45830,7 @@
                 "extensions/v1beta1": "Extensions.V1Beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "FlowControl.V1Alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "FlowControl.V1Beta1",
+                "helm.sh/v2": "Helm.V2",
                 "helm.sh/v3": "Helm.V3",
                 "meta/v1": "Meta.V1",
                 "networking.k8s.io/v1": "Networking.V1",
@@ -45401,7 +45850,8 @@
                 "settings.k8s.io/v1alpha1": "Settings.V1Alpha1",
                 "storage.k8s.io/v1": "Storage.V1",
                 "storage.k8s.io/v1alpha1": "Storage.V1Alpha1",
-                "storage.k8s.io/v1beta1": "Storage.V1Beta1"
+                "storage.k8s.io/v1beta1": "Storage.V1Beta1",
+                "yaml": "Yaml"
             },
             "packageReferences": {
                 "Glob": "1.1.5",
@@ -45414,6 +45864,7 @@
             "moduleToPackage": {
                 "admissionregistration.k8s.io/v1": "admissionregistration/v1",
                 "admissionregistration.k8s.io/v1beta1": "admissionregistration/v1beta1",
+                "apiextensions.k8s.io": "apiextensions",
                 "apiextensions.k8s.io/v1": "apiextensions/v1",
                 "apiextensions.k8s.io/v1beta1": "apiextensions/v1beta1",
                 "apiregistration.k8s.io/v1": "apiregistration/v1",
@@ -45444,6 +45895,8 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
+                "helm.sh": "helm",
+                "helm.sh/v2": "helm/v2",
                 "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
@@ -45540,6 +45993,7 @@
             "moduleToPackage": {
                 "admissionregistration.k8s.io/v1": "admissionregistration/v1",
                 "admissionregistration.k8s.io/v1beta1": "admissionregistration/v1beta1",
+                "apiextensions.k8s.io": "apiextensions",
                 "apiextensions.k8s.io/v1": "apiextensions/v1",
                 "apiextensions.k8s.io/v1beta1": "apiextensions/v1beta1",
                 "apiregistration.k8s.io/v1": "apiregistration/v1",
@@ -45570,6 +46024,8 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
+                "helm.sh": "helm",
+                "helm.sh/v2": "helm/v2",
                 "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",
@@ -45598,6 +46054,7 @@
             "moduleNameOverrides": {
                 "admissionregistration.k8s.io/v1": "admissionregistration/v1",
                 "admissionregistration.k8s.io/v1beta1": "admissionregistration/v1beta1",
+                "apiextensions.k8s.io": "apiextensions",
                 "apiextensions.k8s.io/v1": "apiextensions/v1",
                 "apiextensions.k8s.io/v1beta1": "apiextensions/v1beta1",
                 "apiregistration.k8s.io/v1": "apiregistration/v1",
@@ -45628,6 +46085,8 @@
                 "extensions/v1beta1": "extensions/v1beta1",
                 "flowcontrol.apiserver.k8s.io/v1alpha1": "flowcontrol/v1alpha1",
                 "flowcontrol.apiserver.k8s.io/v1beta1": "flowcontrol/v1beta1",
+                "helm.sh": "helm",
+                "helm.sh/v2": "helm/v2",
                 "helm.sh/v3": "helm/v3",
                 "meta/v1": "meta/v1",
                 "networking.k8s.io/v1": "networking/v1",

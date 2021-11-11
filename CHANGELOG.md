@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Schematize overlay types (https://github.com/pulumi/pulumi-kubernetes/pull/1793)
+
 ## 3.9.0 (November 5, 2021)
 
 - [sdk/python] Add ready attribute to await Helm charts (https://github.com/pulumi/pulumi-kubernetes/pull/1782)

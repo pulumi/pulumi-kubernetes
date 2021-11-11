@@ -13,7 +13,7 @@ import pulumi.runtime
 import requests
 from pulumi_kubernetes.apiextensions import CustomResource
 
-from . import _utilities, _tables
+from .. import _utilities, _tables
 
 __all__ = ['ConfigFile', 'ConfigGroup']
 

@@ -19,7 +19,7 @@ import json
 from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 import pulumi.runtime
-from pulumi_kubernetes.yaml import _parse_yaml_document, _skip_await
+from pulumi_kubernetes.yaml.yaml import _parse_yaml_document, _skip_await
 
 from ... import _utilities
 
