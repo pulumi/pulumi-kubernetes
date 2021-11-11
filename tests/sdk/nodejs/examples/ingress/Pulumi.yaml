@@ -1,3 +1,3 @@
-name: guestbook
+name: ingress
 runtime: nodejs
-description: Kubernetes Guestbook example based on https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
+description: Create ingress resources using Kubernetes provider for Pulumi.

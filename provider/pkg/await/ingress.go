@@ -18,7 +18,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	networkingv1b1 "k8s.io/api/networking/v1beta1"
+	networkingv1 "k8s.io/api/networking/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -305,12 +305,12 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		inputIngressName)
 }
 
-func decodeIngress(u *unstructured.Unstructured) (*networkingv1b1.Ingress, error) {
+func decodeIngress(u *unstructured.Unstructured) (*networkingv1.Ingress, error) {
 	b, err := u.MarshalJSON()
 	if err != nil {
 		return nil, err
 	}
-	var obj networkingv1b1.Ingress
+	var obj networkingv1.Ingress
 	err = json.Unmarshal(b, &obj)
 	if err != nil {
 		return nil, err
@@ -334,14 +334,13 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
 		}
 		for _, path := range rule.HTTP.Paths {
 			// Ignore ExternalName services
-			if iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
+			if path.Backend.Service != nil && iia.knownExternalNameServices.Has(path.Backend.Service.Name) {
 				continue
 			}
 
-			if !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
+			if path.Backend.Service != nil && !iia.knownEndpointObjects.Has(path.Backend.Service.Name) {
 				iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
-					expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
-
+					expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
 				return false
 			}
 		}

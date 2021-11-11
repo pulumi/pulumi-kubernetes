@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,93 @@ import { output as outputs } from "@pulumi/kubernetes/types";
 
 const ns = new k8s.core.v1.Namespace("test");
 const namespace = ns.metadata.name;
+
+// Install nginx ingress controller first
+const ingressNs = new k8s.core.v1.Namespace("ingress-nginx-ns", {metadata: {name: "ingress-nginx"}})
+const ingressController = new k8s.helm.v3.Release(
+    "nginx-ingress", {
+        name: "nginx-ingress",
+        namespace: ingressNs.metadata.name,
+        chart: "ingress-nginx",
+        repositoryOpts: {
+            repo: "https://kubernetes.github.io/ingress-nginx",
+        },
+    });
+
+// nginx hello app
+let helloLabels = {app: "hello", tier: "frontend"};
+const helloService = new k8s.core.v1.Service("hello-svc", {
+    metadata: {
+        namespace: namespace,
+        name: "hello",
+        labels: helloLabels,
+    },
+    spec: {
+        // GKE ingress will only work with service type of NodePort or LoadBalancer.
+        // We only want one endpoint through the ingress so choosing NodePort.
+        ports: [{port: 8080, targetPort: 8080}],
+        selector: helloLabels,
+    },
+});
+
+let helloDeployment = new k8s.apps.v1.Deployment("hello-app", {
+    metadata: {
+        namespace: namespace,
+        name: "hello",
+    },
+    spec: {
+        selector: {
+            matchLabels: helloLabels,
+        },
+        replicas: 3,
+        template: {
+            metadata: {
+                labels: helloLabels,
+            },
+            spec: {
+                containers: [{
+                    name: "hello",
+                    image: "gcr.io/google-samples/hello-app:1.0",
+                    resources: {
+                        requests: {
+                            cpu: "100m",
+                            memory: "100Mi",
+                        },
+                    },
+                    ports: [{
+                        containerPort: 8080,
+                    }],
+                }],
+            },
+        },
+    },
+});
+
+// Note - this uses the nginx ingress controller which should work across k8s providers.
+let feIngressNginx = new k8s.networking.v1.Ingress("feIngressNginx", {
+    metadata: {
+        namespace: namespace,
+        name: "feingress-nginx",
+        annotations: {
+            "kubernetes.io/ingress.class": "nginx",
+            "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+        },
+    },
+    spec: {
+        rules: [{
+            host: "ingresshello.io",
+            http: {
+                paths: [{
+                    path: "/hello",
+                    pathType: "Prefix",
+                    backend: {service: {name: helloService.metadata.name, port: {number: 8080}}}
+                }]
+            }
+        }],
+    }
+}, {dependsOn: [ingressController]});
+
+export const ingressNginxIp = feIngressNginx.status.loadBalancer.ingress[0].ip;
 
 // REDIS MASTER
 
@@ -139,6 +226,8 @@ const frontendService = new k8s.core.v1.Service("frontend", {
     },
 });
 
+
+
 let frontendDeployment = new k8s.apps.v1.Deployment("frontend", {
     metadata: {
         namespace: namespace,
@@ -200,8 +289,6 @@ let feIngress = new k8s.networking.v1.Ingress("feIngress", {
             }
         }],
     }
-})
+});
 
-// GKE's ingress controller takes a few minutes for the ingress IP to be populated and the current
-// await logic doesn't wait on it. See https://github.com/pulumi/pulumi-kubernetes/issues/1649
-export const externalIp = feIngress.status.loadBalancer.ingress[0].ip;
+export const ingressIp = feIngress.status.loadBalancer.ingress[0].ip;

@@ -115,6 +115,7 @@ const (
 	coreV1ServiceAccount                        = "v1/ServiceAccount"
 	extensionsV1Beta1Deployment                 = "extensions/v1beta1/Deployment"
 	extensionsV1Beta1Ingress                    = "extensions/v1beta1/Ingress"
+	networkingV1Ingress                         = "networking.k8s.io/v1/Ingress"
 	rbacAuthorizationV1ClusterRole              = "rbac.authorization.k8s.io/v1/ClusterRole"
 	rbacAuthorizationV1ClusterRoleBinding       = "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
 	rbacAuthorizationV1Role                     = "rbac.authorization.k8s.io/v1/Role"
@@ -225,6 +226,11 @@ var awaiters = map[string]awaitSpec{
 	},
 	extensionsV1Beta1Deployment: deploymentAwaiter,
 	extensionsV1Beta1Ingress: {
+		awaitCreation: awaitIngressInit,
+		awaitRead:     awaitIngressRead,
+		awaitUpdate:   awaitIngressUpdate,
+	},
+	networkingV1Ingress: {
 		awaitCreation: awaitIngressInit,
 		awaitRead:     awaitIngressRead,
 		awaitUpdate:   awaitIngressUpdate,
