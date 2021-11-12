@@ -336,8 +336,8 @@ func initializedIngressV1(namespace, name, targetService string) *unstructured.U
                                     "name": "%s",
                                     "port": {
                                         "number": 80
-									}
-								}
+                                    }
+                                }
                             },
                             "path": "/nginx"
                         }
