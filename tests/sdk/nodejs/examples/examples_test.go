@@ -134,10 +134,11 @@ func TestAccIngress(t *testing.T) {
 	skipIfShort(t)
 	testNetworkingV1 := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "ingress"),
-			Quick:       true,
+			Dir:           filepath.Join(getCwd(t), "ingress"),
+			Quick:         true,
+			NoParallel:    true, // We want to run this and the next test serially so nginx ingress isn't clobbered.
 			DebugLogLevel: 3,
-			SkipRefresh: true, // ingress may have changes during refresh.
+			SkipRefresh:   true, // ingress may have changes during refresh.
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
@@ -147,13 +148,13 @@ func TestAccIngress(t *testing.T) {
 				integration.AssertHTTPResultWithRetry(t,
 					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
 					nil, 5*time.Minute, func(body string) bool {
-					return assert.NotEmpty(t, body, "Body should not be empty")
-				})
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
 
 				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
 					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
-					return assert.NotEmpty(t, body, "Body should not be empty")
-				})
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
 			},
 		})
 	integration.ProgramTest(t, &testNetworkingV1)
@@ -162,7 +163,8 @@ func TestAccIngress(t *testing.T) {
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "ingress"),
 			Quick:       true,
-			Config: map[string]string{"use-v1beta1-ingress": "true"},
+			NoParallel:  true,
+			Config:      map[string]string{"use-v1beta1-ingress": "true"},
 			SkipRefresh: true, // ingress may have changes during refresh.
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
@@ -189,14 +191,14 @@ func TestAccIngress(t *testing.T) {
 				integration.AssertHTTPResultWithRetry(t,
 					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
 					nil, 5*time.Minute, func(body string) bool {
-					return assert.NotEmpty(t, body, "Body should not be empty")
-				})
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
 
 				integration.AssertHTTPResultWithRetry(t,
 					fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
 					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
-					return assert.NotEmpty(t, body, "Body should not be empty")
-				})
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
 			},
 		})
 	integration.ProgramTest(t, &testWithNetworkingBeta1)
