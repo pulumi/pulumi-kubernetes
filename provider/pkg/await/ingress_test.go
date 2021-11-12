@@ -362,7 +362,6 @@ func initializedIngressV1(namespace, name, targetService string) *unstructured.U
 	return obj
 }
 
-
 func initializedIngressUnspecifiedPath(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "apiVersion": "extensions/v1beta1",
