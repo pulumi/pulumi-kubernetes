@@ -600,8 +600,8 @@ class Release(pulumi.CustomResource):
                  __props__=None):
         """
         A Release is an instance of a chart running in a Kubernetes cluster.
-
-        A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
+        A Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+        Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -647,8 +647,8 @@ class Release(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         A Release is an instance of a chart running in a Kubernetes cluster.
-
-        A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
+        A Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+        Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 
         :param str resource_name: The name of the resource.
         :param ReleaseArgs args: The arguments to use to populate this resource's properties.

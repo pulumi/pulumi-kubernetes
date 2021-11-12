@@ -10,9 +10,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// A Release is an instance of a chart running in a Kubernetes cluster.
-// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
-// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 type ReleaseType struct {
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic *bool `pulumi:"atomic"`
@@ -95,9 +92,6 @@ type ReleaseTypeInput interface {
 	ToReleaseTypeOutputWithContext(context.Context) ReleaseTypeOutput
 }
 
-// A Release is an instance of a chart running in a Kubernetes cluster.
-// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
-// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 type ReleaseTypeArgs struct {
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrInput `pulumi:"atomic"`
@@ -181,9 +175,6 @@ func (i ReleaseTypeArgs) ToReleaseTypeOutputWithContext(ctx context.Context) Rel
 	return pulumi.ToOutputWithContext(ctx, i).(ReleaseTypeOutput)
 }
 
-// A Release is an instance of a chart running in a Kubernetes cluster.
-// A Chart is a Helm package. It contains all of the resource definitions necessary to run an application, tool, or service inside of a Kubernetes cluster.
-// Note - Helm Release is currently in BETA and may change. Use in production environment is discouraged.
 type ReleaseTypeOutput struct{ *pulumi.OutputState }
 
 func (ReleaseTypeOutput) ElementType() reflect.Type {
