@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen/examples"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
@@ -292,6 +293,14 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 			if _, resourceExists := pkg.Resources[tok]; !resourceExists {
 				pkg.Resources[tok] = resourceOverlays[tok]
 			}
+		}
+	}
+
+	// Add examples to resources
+	for k, v := range examples.ApiVersionToExample {
+		if r, ok := pkg.Resources[k]; ok {
+			r.Description += v
+			pkg.Resources[k] = r
 		}
 	}
 
