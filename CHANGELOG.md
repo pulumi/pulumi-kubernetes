@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Add await support for networking.k8s.io/v1 variant of ingress (https://github.com/pulumi/pulumi-kubernetes/pull/1795)
 
 - Schematize overlay types (https://github.com/pulumi/pulumi-kubernetes/pull/1793)
 
