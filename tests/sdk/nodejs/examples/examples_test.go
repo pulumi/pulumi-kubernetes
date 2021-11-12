@@ -28,6 +28,7 @@ import (
 	"sort"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestAccMinimal(t *testing.T) {
@@ -131,90 +132,76 @@ func TestAccGuestbook(t *testing.T) {
 
 func TestAccIngress(t *testing.T) {
 	skipIfShort(t)
-	test := getBaseOptions(t).
+	testNetworkingV1 := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:           filepath.Join(getCwd(t), "ingress"),
+			Quick:         true,
+			NoParallel:    true, // We want to run this and the next test serially so nginx ingress isn't clobbered.
+			DebugLogLevel: 3,
+			SkipRefresh:   true, // ingress may have changes during refresh.
+			ExtraRuntimeValidation: func(
+				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
+			) {
+				assert.NotNil(t, stackInfo.Deployment)
+				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
+
+				integration.AssertHTTPResultWithRetry(t,
+					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
+					nil, 5*time.Minute, func(body string) bool {
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
+
+				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
+					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
+			},
+		})
+	integration.ProgramTest(t, &testNetworkingV1)
+
+	testWithNetworkingBeta1 := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "ingress"),
 			Quick:       true,
+			NoParallel:  true,
+			Config:      map[string]string{"use-v1beta1-ingress": "true"},
 			SkipRefresh: true, // ingress may have changes during refresh.
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
+				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
 
-				sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
-					ri := stackInfo.Deployment.Resources[i]
-					rj := stackInfo.Deployment.Resources[j]
-					riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
-					rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
-					rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
-					rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
-					return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
-						fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
-				})
+				ingressCount := 0
+				for _, resource := range stackInfo.Deployment.Resources {
+					kind, ok := openapi.Pluck(resource.Outputs, "kind")
+					if !ok {
+						continue
+					}
+					switch kind.(string) {
+					case "Ingress":
+						apiVersion, _ := openapi.Pluck(resource.Outputs, "apiVersion")
+						assert.Equal(t, "networking.k8s.io/v1beta1", apiVersion)
+						ingressCount++
+					}
+				}
 
-				var name interface{}
-				var status interface{}
+				assert.Equal(t, 2, ingressCount)
 
-				// Verify frontend deployment.
-				frontendDepl := stackInfo.Deployment.Resources[0]
-				assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), frontendDepl.URN.Type())
-				name, _ = openapi.Pluck(frontendDepl.Outputs, "metadata", "name")
-				assert.Equal(t, "frontend", name)
-				status, _ = openapi.Pluck(frontendDepl.Outputs, "status", "readyReplicas")
-				assert.Equal(t, float64(3), status)
+				integration.AssertHTTPResultWithRetry(t,
+					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
+					nil, 5*time.Minute, func(body string) bool {
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
 
-				// Verify redis-master deployment.
-				redisMasterDepl := stackInfo.Deployment.Resources[1]
-				assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisMasterDepl.URN.Type())
-				name, _ = openapi.Pluck(redisMasterDepl.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-master", name)
-				status, _ = openapi.Pluck(redisMasterDepl.Outputs, "status", "readyReplicas")
-				assert.Equal(t, float64(1), status)
-
-				// Verify redis-slave deployment.
-				redisSlaveDepl := stackInfo.Deployment.Resources[2]
-				assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisSlaveDepl.URN.Type())
-				name, _ = openapi.Pluck(redisSlaveDepl.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-slave", name)
-				status, _ = openapi.Pluck(redisSlaveDepl.Outputs, "status", "readyReplicas")
-				assert.Equal(t, float64(1), status)
-
-				// Verify test namespace.
-				namespace := stackInfo.Deployment.Resources[3]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
-
-				// Verify frontend service.
-				frontentService := stackInfo.Deployment.Resources[4]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontentService.URN.Type())
-				name, _ = openapi.Pluck(frontentService.Outputs, "metadata", "name")
-				assert.Equal(t, "frontend", name)
-
-				// Verify redis-master service.
-				redisMasterService := stackInfo.Deployment.Resources[5]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisMasterService.URN.Type())
-				name, _ = openapi.Pluck(redisMasterService.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-master", name)
-				status, _ = openapi.Pluck(redisMasterService.Outputs, "spec", "clusterIP")
-				assert.True(t, len(status.(string)) > 1)
-
-				// Verify redis-slave service.
-				redisSlaveService := stackInfo.Deployment.Resources[6]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisSlaveService.URN.Type())
-				name, _ = openapi.Pluck(redisSlaveService.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-slave", name)
-				status, _ = openapi.Pluck(redisSlaveService.Outputs, "spec", "clusterIP")
-				assert.True(t, len(status.(string)) > 1)
-
-				// TODO: revisit this as part of https://github.com/pulumi/pulumi-kubernetes/issues/1649.
-				// Verify the ingress endpoint is accessible
-				// integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIP"]), nil, 5*time.Minute, func(body string) bool {
-				//	return assert.NotEmpty(t, body, "Body should not be empty")
-				//})
+				integration.AssertHTTPResultWithRetry(t,
+					fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
+					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
+						return assert.NotEmpty(t, body, "Body should not be empty")
+					})
 			},
 		})
-
-	integration.ProgramTest(t, &test)
+	integration.ProgramTest(t, &testWithNetworkingBeta1)
 }
 
 func TestAccHelm(t *testing.T) {

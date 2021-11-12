@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,9 +19,127 @@ import { output as outputs } from "@pulumi/kubernetes/types";
 const ns = new k8s.core.v1.Namespace("test");
 const namespace = ns.metadata.name;
 
+const config = new pulumi.Config();
+const useV1Beta1Ingress = config.get("use-v1beta1-ingress") != undefined;
+
+// Install nginx ingress controller first
+const ingressNs = new k8s.core.v1.Namespace("ingress-nginx");
+const ingressController = new k8s.helm.v3.Release(
+    "nginx-ingress", {
+    name: "nginx-ingress",
+    namespace: ingressNs.metadata.name,
+    chart: "ingress-nginx",
+    repositoryOpts: {
+        repo: "https://kubernetes.github.io/ingress-nginx",
+    },
+});
+
+// nginx hello app
+let helloLabels = { app: "hello", tier: "frontend" };
+const helloService = new k8s.core.v1.Service("hello-svc", {
+    metadata: {
+        namespace: namespace,
+        name: "hello",
+        labels: helloLabels,
+    },
+    spec: {
+        // GKE ingress will only work with service type of NodePort or LoadBalancer.
+        // We only want one endpoint through the ingress so choosing NodePort.
+        ports: [{ port: 8080, targetPort: 8080 }],
+        selector: helloLabels,
+    },
+});
+
+let helloDeployment = new k8s.apps.v1.Deployment("hello-app", {
+    metadata: {
+        namespace: namespace,
+        name: "hello",
+    },
+    spec: {
+        selector: {
+            matchLabels: helloLabels,
+        },
+        replicas: 3,
+        template: {
+            metadata: {
+                labels: helloLabels,
+            },
+            spec: {
+                containers: [{
+                    name: "hello",
+                    image: "gcr.io/google-samples/hello-app:1.0",
+                    resources: {
+                        requests: {
+                            cpu: "100m",
+                            memory: "100Mi",
+                        },
+                    },
+                    ports: [{
+                        containerPort: 8080,
+                    }],
+                }],
+            },
+        },
+    },
+});
+
+let feIngressNginx = undefined;
+
+if (!useV1Beta1Ingress) {
+    // Note - this uses the nginx ingress controller which should work across k8s providers.
+    feIngressNginx = new k8s.networking.v1.Ingress("feIngressNginx", {
+        metadata: {
+            namespace: namespace,
+            name: "feingress-nginx",
+            annotations: {
+                "kubernetes.io/ingress.class": "nginx",
+                "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+            },
+        },
+        spec: {
+            rules: [{
+                host: "ingresshello.io",
+                http: {
+                    paths: [{
+                        path: "/hello",
+                        pathType: "Prefix",
+                        backend: { service: { name: helloService.metadata.name, port: { number: 8080 } } }
+                    }]
+                }
+            }],
+        }
+    }, { dependsOn: [ingressController] });
+
+} else {
+    // Note - this uses the nginx ingress controller which should work across k8s providers.
+    feIngressNginx = new k8s.networking.v1beta1.Ingress("feIngressNginx", {
+        metadata: {
+            namespace: namespace,
+            name: "feingress-nginx",
+            annotations: {
+                "kubernetes.io/ingress.class": "nginx",
+                "nginx.ingress.kubernetes.io/ssl-redirect": "false"
+            },
+        },
+        spec: {
+            rules: [{
+                host: "ingresshello.io",
+                http: {
+                    paths: [{
+                        path: "/hello",
+                        pathType: "Prefix",
+                        backend: { serviceName: helloService.metadata.name, servicePort: 8080 }
+                    }]
+                }
+            }],
+        }
+    }, { dependsOn: [ingressController] });
+}
+export const ingressNginxIp = feIngressNginx.status.loadBalancer.ingress[0].ip;
+
 // REDIS MASTER
 
-let redisMasterLabels = {app: "redis", tier: "backend", role: "master"};
+let redisMasterLabels = { app: "redis", tier: "backend", role: "master" };
 let redisMasterService = new k8s.core.v1.Service("redis-master", {
     metadata: {
         namespace: namespace,
@@ -29,7 +147,7 @@ let redisMasterService = new k8s.core.v1.Service("redis-master", {
         labels: redisMasterLabels,
     },
     spec: {
-        ports: [{port: 6379, targetPort: 6379}],
+        ports: [{ port: 6379, targetPort: 6379 }],
         selector: redisMasterLabels,
     },
 });
@@ -68,7 +186,7 @@ let redisMasterDeployment = new k8s.apps.v1.Deployment("redis-master", {
 });
 
 // REDIS SLAVE
-let redisSlaveLabels = {app: "redis", tier: "backend", role: "slave"};
+let redisSlaveLabels = { app: "redis", tier: "backend", role: "slave" };
 let redisSlaveService = new k8s.core.v1.Service("redis-slave", {
     metadata: {
         namespace: namespace,
@@ -76,7 +194,7 @@ let redisSlaveService = new k8s.core.v1.Service("redis-slave", {
         labels: redisSlaveLabels,
     },
     spec: {
-        ports: [{port: 6379, targetPort: 6379}],
+        ports: [{ port: 6379, targetPort: 6379 }],
         selector: redisSlaveLabels,
     },
 });
@@ -123,7 +241,7 @@ let redisSlaveDeployment = new k8s.apps.v1.Deployment("redis-slave", {
 });
 
 // FRONTEND
-let frontendLabels = {app: "guestbook", tier: "frontend"};
+let frontendLabels = { app: "guestbook", tier: "frontend" };
 const frontendService = new k8s.core.v1.Service("frontend", {
     metadata: {
         namespace: namespace,
@@ -134,10 +252,12 @@ const frontendService = new k8s.core.v1.Service("frontend", {
         // GKE ingress will only work with service type of NodePort or LoadBalancer.
         // We only want one endpoint through the ingress so choosing NodePort.
         type: "NodePort",
-        ports: [{port: 80}],
+        ports: [{ port: 80 }],
         selector: frontendLabels,
     },
 });
+
+
 
 let frontendDeployment = new k8s.apps.v1.Deployment("frontend", {
     metadata: {
@@ -180,28 +300,53 @@ let frontendDeployment = new k8s.apps.v1.Deployment("frontend", {
     },
 });
 
-// Note - this uses the built-in GKE ingress controller. This will not work across other Kubernetes providers.
-let feIngress = new k8s.networking.v1.Ingress("feIngress", {
-    metadata: {
-        namespace: namespace,
-        name: "feingress",
-        annotations: {
-                "kubernetes.io/ingress.class": "gce"
-        },
-    },
-    spec: {
-        rules: [{
-            http: {
-                paths: [{
-                    path: "/*",
-                    pathType: "ImplementationSpecific",
-                    backend: {service: {name: frontendService.metadata.name, port: {number: 80}}}
-                }]
-            }
-        }],
-    }
-})
+let feIngress = undefined;
 
-// GKE's ingress controller takes a few minutes for the ingress IP to be populated and the current
-// await logic doesn't wait on it. See https://github.com/pulumi/pulumi-kubernetes/issues/1649
-export const externalIp = feIngress.status.loadBalancer.ingress[0].ip;
+if (!useV1Beta1Ingress) {
+    // Note - this uses the built-in GKE ingress controller. This will not work across other Kubernetes providers.
+    feIngress = new k8s.networking.v1.Ingress("feIngress", {
+        metadata: {
+            namespace: namespace,
+            name: "feingress",
+            annotations: {
+                "kubernetes.io/ingress.class": "gce"
+            },
+        },
+        spec: {
+            rules: [{
+                http: {
+                    paths: [{
+                        path: "/*",
+                        pathType: "ImplementationSpecific",
+                        backend: { service: { name: frontendService.metadata.name, port: { number: 80 } } }
+                    }]
+                }
+            }],
+        }
+        // Don't want to race with the ingress controller admission webhook being fully available.
+    }, { dependsOn: [ingressController] });
+} else {
+    // Note - this uses the built-in GKE ingress controller. This will not work across other Kubernetes providers.
+    feIngress = new k8s.networking.v1beta1.Ingress("feIngress", {
+        metadata: {
+            namespace: namespace,
+            name: "feingress",
+            annotations: {
+                "kubernetes.io/ingress.class": "gce"
+            },
+        },
+        spec: {
+            rules: [{
+                http: {
+                    paths: [{
+                        path: "/*",
+                        pathType: "ImplementationSpecific",
+                        backend: { serviceName: frontendService.metadata.name, servicePort: 80 }
+                    }]
+                }
+            }],
+        }
+        // Don't want to race with the ingress controller admission controller being fully available.
+    }, { dependsOn: [ingressController] });
+}
+export const ingressIp = feIngress.status.loadBalancer.ingress[0].ip;

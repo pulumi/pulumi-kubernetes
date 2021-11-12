@@ -18,7 +18,8 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	networkingv1b1 "k8s.io/api/networking/v1beta1"
+	networkingv1 "k8s.io/api/networking/v1"
+	networkingv1beta1 "k8s.io/api/networking/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -217,7 +218,7 @@ func (iia *ingressInitAwaiter) await(
 		select {
 		case <-iia.config.ctx.Done():
 			// On cancel, check one last time if the ingress is ready.
-			if iia.ingressReady && iia.checkIfEndpointsReady() {
+			if _, ready := iia.checkIfEndpointsReady(); ready && iia.ingressReady {
 				return nil
 			}
 			return &cancellationError{
@@ -226,7 +227,7 @@ func (iia *ingressInitAwaiter) await(
 			}
 		case <-timeout:
 			// On timeout, check one last time if the ingress is ready.
-			if iia.ingressReady && iia.checkIfEndpointsReady() {
+			if _, ready := iia.checkIfEndpointsReady(); ready && iia.ingressReady {
 				return nil
 			}
 			return &timeoutError{
@@ -290,64 +291,103 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 	}
 
 	iia.ingress = ingress
-	obj, err := decodeIngress(ingress)
-	if err != nil {
+
+	// To the best of my knowledge, this works across all known ingress api version variations.
+	ingressesRaw, ok := openapi.Pluck(ingress.Object, "status", "loadBalancer", "ingress")
+	if !ok {
 		logger.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", ingress)
 		return
 	}
 
-	logger.V(3).Infof("Received status for ingress %q: %#v", inputIngressName, obj.Status)
+	ingresses, ok := ingressesRaw.([]interface{})
+	if !ok {
+		logger.V(3).Infof("Unexpected ingress object structure from unstructured: %#v", ingress)
+		return
+	}
 
 	// Update status of ingress object so that we can check success.
-	iia.ingressReady = len(obj.Status.LoadBalancer.Ingress) > 0
+	iia.ingressReady = len(ingresses) > 0
 
 	logger.V(3).Infof("Waiting for ingress %q to update .status.loadBalancer with hostname/IP",
 		inputIngressName)
 }
 
-func decodeIngress(u *unstructured.Unstructured) (*networkingv1b1.Ingress, error) {
+func decodeIngress(u *unstructured.Unstructured, to interface{}) error {
 	b, err := u.MarshalJSON()
 	if err != nil {
-		return nil, err
+		return err
 	}
-	var obj networkingv1b1.Ingress
-	err = json.Unmarshal(b, &obj)
+	err = json.Unmarshal(b, to)
 	if err != nil {
-		return nil, err
+		return err
 	}
-
-	return &obj, nil
+	return nil
 }
 
-func (iia *ingressInitAwaiter) checkIfEndpointsReady() bool {
-	obj, err := decodeIngress(iia.ingress)
-	if err != nil {
-		logger.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", iia.ingress)
-		return false
+func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
+	apiVersion := iia.ingress.GetAPIVersion()
+	switch apiVersion {
+	case "extensions/v1beta1", "networking.k8s.io/v1beta1":
+		var obj networkingv1beta1.Ingress
+
+		if err := decodeIngress(iia.ingress, &obj); err != nil {
+			logger.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", iia.ingress)
+			return apiVersion, false
+		}
+
+		for _, rule := range obj.Spec.Rules {
+			if rule.HTTP == nil {
+				iia.config.logStatus(diag.Error, fmt.Sprintf("expected value %q is unset for ingress: %s",
+					".spec.rules[*].http", obj.Name))
+				return apiVersion, false
+			}
+			for _, path := range rule.HTTP.Paths {
+				// Ignore ExternalName services
+				if path.Backend.ServiceName != "" && iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
+					continue
+				}
+
+				if path.Backend.ServiceName != "" && !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
+					iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
+						expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
+					return apiVersion, false
+				}
+			}
+		}
+	case "networking.k8s.io/v1":
+		var obj networkingv1.Ingress
+		if err := decodeIngress(iia.ingress, &obj); err != nil {
+			logger.V(3).Infof("Unable to decode Ingress object from unstructured: %#v", iia.ingress)
+			return apiVersion, false
+		}
+
+		for _, rule := range obj.Spec.Rules {
+			if rule.HTTP == nil {
+				iia.config.logStatus(diag.Error, fmt.Sprintf("expected value %q is unset for ingress: %s",
+					".spec.rules[*].http", obj.Name))
+				return apiVersion, false
+			}
+			for _, path := range rule.HTTP.Paths {
+				// TODO: Should we worry about "resource" backends?
+				if path.Backend.Service == nil {
+					continue
+				}
+
+				// Ignore ExternalName services
+				if path.Backend.Service.Name != "" && iia.knownExternalNameServices.Has(path.Backend.Service.Name) {
+					continue
+				}
+
+				if path.Backend.Service.Name != "" && !iia.knownEndpointObjects.Has(path.Backend.Service.Name) {
+					iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
+						expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
+					return apiVersion, false
+				}
+			}
+		}
 	}
 
-	for _, rule := range obj.Spec.Rules {
-		if rule.HTTP == nil {
-			iia.config.logStatus(diag.Error, fmt.Sprintf("expected value %q is unset for ingress: %s",
-				".spec.rules[*].http", obj.Name))
-			return false
-		}
-		for _, path := range rule.HTTP.Paths {
-			// Ignore ExternalName services
-			if iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
-				continue
-			}
-
-			if !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
-				iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
-					expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
-
-				return false
-			}
-		}
-	}
-
-	return true
+	return apiVersion, true
 }
 
 // expectedIngressPath is a helper to print a useful error message.
@@ -403,10 +443,15 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 func (iia *ingressInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
 
-	if !iia.checkIfEndpointsReady() {
-		messages = append(messages,
+	if apiVersion, ready := iia.checkIfEndpointsReady(); !ready {
+		field := ".spec.rules[].http.paths[].backend.serviceName"
+		switch apiVersion {
+		case "networking.k8s.io/v1":
+			field = ".spec.rules[].http.paths[].backend.service.name"
+		}
+		messages = append(messages, fmt.Sprintf(
 			"Ingress has at least one rule that does not target any Service. "+
-				"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service")
+				"Field '%v' may not match any active Service", field))
 	}
 
 	if !iia.ingressReady {
@@ -419,11 +464,12 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 }
 
 func (iia *ingressInitAwaiter) checkAndLogStatus() bool {
-	success := iia.ingressReady && iia.checkIfEndpointsReady()
+	_, ready := iia.checkIfEndpointsReady()
+	success := iia.ingressReady && ready
 	if success {
 		iia.config.logStatus(diag.Info,
 			fmt.Sprintf("%sIngress initialization complete", cmdutil.EmojiOr("✅ ", "")))
-	} else if iia.checkIfEndpointsReady() {
+	} else if ready {
 		iia.config.logStatus(diag.Info, "[2/3] Waiting for update of .status.loadBalancer with hostname/IP")
 	}
 

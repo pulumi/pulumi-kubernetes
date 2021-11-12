@@ -32,6 +32,18 @@ func Test_Extensions_Ingress(t *testing.T) {
 			},
 		},
 		{
+			description:  "Should succeed when Ingress (networking/v1) is allocated an IP address and all paths match an existing Endpoint",
+			ingressInput: initializedIngressV1,
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+				// API server passes initialized ingress and endpoint objects back.
+				ingresses <- watchAddedEvent(initializedIngress("default", "foo", "foo-4setj4y6"))
+				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
+
+				// Mark endpoint objects as having settled. Success.
+				settled <- struct{}{}
+			},
+		},
+		{
 			description:  "Should succeed when Ingress is allocated an IP address and path references an ExternalName Service",
 			ingressInput: initializedIngress,
 			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
@@ -159,6 +171,15 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			},
 		},
 		{
+			description:  "Read should fail if not all Ingress (networking/v1) paths match existing Endpoints",
+			ingressInput: ingressInput,
+			ingress:      initializedIngressV1,
+			expectedSubErrors: []string{
+				"Ingress has at least one rule that does not target any Service. " +
+					"Field '.spec.rules[].http.paths[].backend.service.name' may not match any active Service",
+			},
+		},
+		{
 			description:  "Read should succeed when Ingress is allocated an IP address and Service is type ExternalName",
 			ingressInput: ingressInput,
 			ingress:      initializedIngress,
@@ -257,7 +278,7 @@ func ingressInput(namespace, name, targetService string) *unstructured.Unstructu
 
 func initializedIngress(namespace, name, targetService string) *unstructured.Unstructured {
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
-    "apiVersion": "extensions/v1beta1",
+    "apiVersion": "networking.k8s.io/v1beta1",
     "kind": "Ingress",
     "metadata": {
         "name": "%s",
@@ -272,6 +293,51 @@ func initializedIngress(namespace, name, targetService string) *unstructured.Uns
                             "backend": {
                                 "serviceName": "%s",
                                 "servicePort": 80
+                            },
+                            "path": "/nginx"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "loadBalancer": {
+            "ingress": [
+                {
+                    "hostname": "localhost"
+                }
+            ]
+        }
+    }
+}`, name, namespace, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func initializedIngressV1(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "Ingress",
+    "metadata": {
+        "name": "%s",
+        "namespace": "%s"
+    },
+    "spec": {
+        "rules": [
+            {
+                "http": {
+                    "paths": [
+                        {
+                            "backend": {
+                                "service": {
+                                    "name": "%s",
+                                    "port": {
+                                        "number": 80
+                                    }
+                                }
                             },
                             "path": "/nginx"
                         }
