@@ -231,11 +231,11 @@ var awaiters = map[string]awaitSpec{
 	coreV1ServiceAccount: {
 		awaitCreation: untilCoreV1ServiceAccountInitialized,
 	},
-	extensionsV1Beta1Deployment:                 deploymentAwaiter,
+	extensionsV1Beta1Deployment: deploymentAwaiter,
 
-	extensionsV1Beta1Ingress:                    ingressAwaiter,
-	networkingV1Beta1Ingress:                    ingressAwaiter,
-	networkingV1Ingress:                         ingressAwaiter,
+	extensionsV1Beta1Ingress: ingressAwaiter,
+	networkingV1Beta1Ingress: ingressAwaiter,
+	networkingV1Ingress:      ingressAwaiter,
 
 	rbacAuthorizationV1ClusterRole:              { /* NONE */ },
 	rbacAuthorizationV1ClusterRoleBinding:       { /* NONE */ },
