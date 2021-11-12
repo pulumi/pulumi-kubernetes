@@ -323,7 +323,8 @@ if (!useV1Beta1Ingress) {
                 }
             }],
         }
-    });
+        // Don't want to race with the ingress controller admission webhook being fully available.
+    }, { dependsOn: [ingressController] });
 } else {
     // Note - this uses the built-in GKE ingress controller. This will not work across other Kubernetes providers.
     feIngress = new k8s.networking.v1beta1.Ingress("feIngress", {
@@ -345,6 +346,7 @@ if (!useV1Beta1Ingress) {
                 }
             }],
         }
-    });
+        // Don't want to race with the ingress controller admission controller being fully available.
+    }, { dependsOn: [ingressController] });
 }
 export const ingressIp = feIngress.status.loadBalancer.ingress[0].ip;
