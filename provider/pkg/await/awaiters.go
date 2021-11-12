@@ -116,6 +116,7 @@ const (
 	extensionsV1Beta1Deployment                 = "extensions/v1beta1/Deployment"
 	extensionsV1Beta1Ingress                    = "extensions/v1beta1/Ingress"
 	networkingV1Ingress                         = "networking.k8s.io/v1/Ingress"
+	networkingV1Beta1Ingress                    = "networking.k8s.io/v1beta1/Ingress"
 	rbacAuthorizationV1ClusterRole              = "rbac.authorization.k8s.io/v1/ClusterRole"
 	rbacAuthorizationV1ClusterRoleBinding       = "rbac.authorization.k8s.io/v1/ClusterRoleBinding"
 	rbacAuthorizationV1Role                     = "rbac.authorization.k8s.io/v1/Role"
@@ -149,6 +150,12 @@ var deploymentAwaiter = awaitSpec{
 		return makeDeploymentInitAwaiter(updateAwaitConfig{createAwaitConfig: c}).Read()
 	},
 	awaitDeletion: untilAppsDeploymentDeleted,
+}
+
+var ingressAwaiter = awaitSpec{
+	awaitCreation: awaitIngressInit,
+	awaitRead:     awaitIngressRead,
+	awaitUpdate:   awaitIngressUpdate,
 }
 
 var jobAwaiter = awaitSpec{
@@ -224,17 +231,12 @@ var awaiters = map[string]awaitSpec{
 	coreV1ServiceAccount: {
 		awaitCreation: untilCoreV1ServiceAccountInitialized,
 	},
-	extensionsV1Beta1Deployment: deploymentAwaiter,
-	extensionsV1Beta1Ingress: {
-		awaitCreation: awaitIngressInit,
-		awaitRead:     awaitIngressRead,
-		awaitUpdate:   awaitIngressUpdate,
-	},
-	networkingV1Ingress: {
-		awaitCreation: awaitIngressInit,
-		awaitRead:     awaitIngressRead,
-		awaitUpdate:   awaitIngressUpdate,
-	},
+	extensionsV1Beta1Deployment:                 deploymentAwaiter,
+
+	extensionsV1Beta1Ingress:                    ingressAwaiter,
+	networkingV1Beta1Ingress:                    ingressAwaiter,
+	networkingV1Ingress:                         ingressAwaiter,
+
 	rbacAuthorizationV1ClusterRole:              { /* NONE */ },
 	rbacAuthorizationV1ClusterRoleBinding:       { /* NONE */ },
 	rbacAuthorizationV1Role:                     { /* NONE */ },
