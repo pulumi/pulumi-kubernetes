@@ -169,11 +169,17 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
 
 	csharpNamespaces := map[string]string{
-		"helm.sh/v3": "Helm.V3",
-		"":           "Provider",
+		"apiextensions": "ApiExtensions",
+		"helm.sh/v2":    "Helm.V2",
+		"helm.sh/v3":    "Helm.V3",
+		"yaml":          "Yaml",
+		"":              "Provider",
 	}
 	modToPkg := map[string]string{
-		"helm.sh/v3": "helm/v3",
+		"apiextensions.k8s.io": "apiextensions",
+		"helm.sh":              "helm",
+		"helm.sh/v2":           "helm/v2",
+		"helm.sh/v3":           "helm/v3",
 	}
 	pkgImportAliases := map[string]string{
 		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",

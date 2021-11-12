@@ -24,7 +24,7 @@ from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, Optional, Sequence, TextIO, Tuple, Union
 
 import pulumi.runtime
-from pulumi_kubernetes.yaml import _parse_yaml_document
+from pulumi_kubernetes.yaml.yaml import _parse_yaml_document
 
 from ... import _utilities
 

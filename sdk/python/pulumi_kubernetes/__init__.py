@@ -5,9 +5,7 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
-from .kustomize import *
 from .provider import *
-from .yaml import *
 from ._inputs import *
 
 # Make subpackages available:
@@ -46,6 +44,8 @@ if typing.TYPE_CHECKING:
     flowcontrol = __flowcontrol
     import pulumi_kubernetes.helm as __helm
     helm = __helm
+    import pulumi_kubernetes.kustomize as __kustomize
+    kustomize = __kustomize
     import pulumi_kubernetes.meta as __meta
     meta = __meta
     import pulumi_kubernetes.networking as __networking
@@ -62,6 +62,8 @@ if typing.TYPE_CHECKING:
     settings = __settings
     import pulumi_kubernetes.storage as __storage
     storage = __storage
+    import pulumi_kubernetes.yaml as __yaml
+    yaml = __yaml
 else:
     admissionregistration = _utilities.lazy_import('pulumi_kubernetes.admissionregistration')
     apiextensions = _utilities.lazy_import('pulumi_kubernetes.apiextensions')
@@ -80,6 +82,7 @@ else:
     extensions = _utilities.lazy_import('pulumi_kubernetes.extensions')
     flowcontrol = _utilities.lazy_import('pulumi_kubernetes.flowcontrol')
     helm = _utilities.lazy_import('pulumi_kubernetes.helm')
+    kustomize = _utilities.lazy_import('pulumi_kubernetes.kustomize')
     meta = _utilities.lazy_import('pulumi_kubernetes.meta')
     networking = _utilities.lazy_import('pulumi_kubernetes.networking')
     node = _utilities.lazy_import('pulumi_kubernetes.node')
@@ -88,6 +91,7 @@ else:
     scheduling = _utilities.lazy_import('pulumi_kubernetes.scheduling')
     settings = _utilities.lazy_import('pulumi_kubernetes.settings')
     storage = _utilities.lazy_import('pulumi_kubernetes.storage')
+    yaml = _utilities.lazy_import('pulumi_kubernetes.yaml')
 
 _utilities.register(
     resource_modules="""

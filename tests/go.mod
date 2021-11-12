@@ -12,7 +12,7 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi/pkg/v3 v3.17.0
-	github.com/pulumi/pulumi/sdk/v3 v3.17.0
+	github.com/pulumi/pulumi/pkg/v3 v3.17.2-0.20211112000003-0d4fb3e340d8
+	github.com/pulumi/pulumi/sdk/v3 v3.17.1
 	github.com/stretchr/testify v1.7.0
 )
