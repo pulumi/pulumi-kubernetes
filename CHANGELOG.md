@@ -1,6 +1,8 @@
 ## HEAD (Unreleased)
-- Add await support for networking.k8s.io/v1 variant of ingress (https://github.com/pulumi/pulumi-kubernetes/pull/1795)
 
+## 3.10.0 (November 12, 2021)
+
+- Add await support for networking.k8s.io/v1 variant of ingress (https://github.com/pulumi/pulumi-kubernetes/pull/1795)
 - Schematize overlay types (https://github.com/pulumi/pulumi-kubernetes/pull/1793)
 
 ## 3.9.0 (November 5, 2021)
