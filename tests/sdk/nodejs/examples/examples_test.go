@@ -132,7 +132,7 @@ func TestAccGuestbook(t *testing.T) {
 
 func TestAccIngress(t *testing.T) {
 	skipIfShort(t)
-	test := getBaseOptions(t).
+	testNetworkingV1 := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "ingress"),
 			Quick:       true,
@@ -144,86 +144,21 @@ func TestAccIngress(t *testing.T) {
 				assert.NotNil(t, stackInfo.Deployment)
 				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
 
-				sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
-					ri := stackInfo.Deployment.Resources[i]
-					rj := stackInfo.Deployment.Resources[j]
-					riname, _ := openapi.Pluck(ri.Outputs, "metadata", "name")
-					rinamespace, _ := openapi.Pluck(ri.Outputs, "metadata", "namespace")
-					rjname, _ := openapi.Pluck(rj.Outputs, "metadata", "name")
-					rjnamespace, _ := openapi.Pluck(rj.Outputs, "metadata", "namespace")
-					return fmt.Sprintf("%s/%s/%s", ri.URN.Type(), rinamespace, riname) <
-						fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
-				})
-
-				var name interface{}
-				var status interface{}
-
-				// Verify frontend deployment.
-				frontendDepl := stackInfo.Deployment.Resources[0]
-				assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), frontendDepl.URN.Type())
-				name, _ = openapi.Pluck(frontendDepl.Outputs, "metadata", "name")
-				assert.Equal(t, "frontend", name)
-				status, _ = openapi.Pluck(frontendDepl.Outputs, "status", "readyReplicas")
-				assert.Equal(t, float64(3), status)
-
-				// Verify redis-master deployment.
-				redisMasterDepl := stackInfo.Deployment.Resources[2]
-				assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisMasterDepl.URN.Type())
-				name, _ = openapi.Pluck(redisMasterDepl.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-master", name)
-				status, _ = openapi.Pluck(redisMasterDepl.Outputs, "status", "readyReplicas")
-				assert.Equal(t, float64(1), status)
-
-				// Verify redis-slave deployment.
-				redisSlaveDepl := stackInfo.Deployment.Resources[3]
-				assert.Equal(t, tokens.Type("kubernetes:apps/v1:Deployment"), redisSlaveDepl.URN.Type())
-				name, _ = openapi.Pluck(redisSlaveDepl.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-slave", name)
-				status, _ = openapi.Pluck(redisSlaveDepl.Outputs, "status", "readyReplicas")
-				assert.Equal(t, float64(1), status)
-
-				// Verify test namespace.
-				namespace := stackInfo.Deployment.Resources[5]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
-
-				// Verify frontend service.
-				frontendService := stackInfo.Deployment.Resources[6]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), frontendService.URN.Type())
-				name, _ = openapi.Pluck(frontendService.Outputs, "metadata", "name")
-				assert.Equal(t, "frontend", name)
-
-				// Verify redis-master service.
-				redisMasterService := stackInfo.Deployment.Resources[8]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisMasterService.URN.Type())
-				name, _ = openapi.Pluck(redisMasterService.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-master", name)
-				status, _ = openapi.Pluck(redisMasterService.Outputs, "spec", "clusterIP")
-				assert.True(t, len(status.(string)) > 1)
-
-				// Verify redis-slave service.
-				redisSlaveService := stackInfo.Deployment.Resources[9]
-				assert.Equal(t, tokens.Type("kubernetes:core/v1:Service"), redisSlaveService.URN.Type())
-				name, _ = openapi.Pluck(redisSlaveService.Outputs, "metadata", "name")
-				assert.Equal(t, "redis-slave", name)
-				status, _ = openapi.Pluck(redisSlaveService.Outputs, "spec", "clusterIP")
-				assert.True(t, len(status.(string)) > 1)
-
-				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]), nil, 5*time.Minute, func(body string) bool {
+				integration.AssertHTTPResultWithRetry(t,
+					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
+					nil, 5*time.Minute, func(body string) bool {
 					return assert.NotEmpty(t, body, "Body should not be empty")
 				})
 
-				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]), map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
+				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
+					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
 					return assert.NotEmpty(t, body, "Body should not be empty")
 				})
 			},
 		})
+	integration.ProgramTest(t, &testNetworkingV1)
 
-	integration.ProgramTest(t, &test)
-}
-
-func TestAccIngressV1Beta1(t *testing.T) {
-	skipIfShort(t)
-	test := getBaseOptions(t).
+	testWithNetworkingBeta1 := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "ingress"),
 			Quick:       true,
@@ -251,19 +186,21 @@ func TestAccIngressV1Beta1(t *testing.T) {
 
 				assert.Equal(t, 2, ingressCount)
 
-				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]), nil, 5*time.Minute, func(body string) bool {
+				integration.AssertHTTPResultWithRetry(t,
+					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
+					nil, 5*time.Minute, func(body string) bool {
 					return assert.NotEmpty(t, body, "Body should not be empty")
 				})
 
-				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]), map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
+				integration.AssertHTTPResultWithRetry(t,
+					fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
+					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
 					return assert.NotEmpty(t, body, "Body should not be empty")
 				})
 			},
 		})
-
-	integration.ProgramTest(t, &test)
+	integration.ProgramTest(t, &testWithNetworkingBeta1)
 }
-
 
 func TestAccHelm(t *testing.T) {
 	skipIfShort(t)
