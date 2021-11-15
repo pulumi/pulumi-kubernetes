@@ -115,6 +115,155 @@ class StatefulSet(pulumi.CustomResource):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        ## Example Usage
+        ### Create a StatefulSet with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_service = kubernetes.core.v1.Service(
+            "nginxService",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    port=80,
+                    name="web",
+                )],
+                cluster_ip="None",
+                selector={
+                    "app": "nginx",
+                },
+            ))
+
+        www_stateful_set = kubernetes.apps.v1.StatefulSet(
+            "wwwStatefulSet",
+            spec=kubernetes.apps.v1.StatefulSetSpecArgs(
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                service_name=nginx_service.metadata.name,
+                replicas=3,
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        termination_grace_period_seconds=10,
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="k8s.gcr.io/nginx-slim:0.8",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                                name="web",
+                            )],
+                            volume_mounts=[{
+                                "name": "www",
+                                "mount_path": "/usr/share/nginx/html",
+                            }],
+                        )],
+                    ),
+                ),
+                volume_claim_templates=[{
+                    "metadata": {
+                        "name": "www",
+                    },
+                    "spec": {
+                        "access_modes": ["ReadWriteOnce"],
+                        "storage_class_name": "my-storage-class",
+                        "resources": {
+                            "requests": {
+                                "storage": "1Gi",
+                            },
+                        },
+                    },
+                }],
+            ))
+        ```
+        ### Create a StatefulSet with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_service = kubernetes.core.v1.Service(
+            "nginxService",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="nginx",
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    port=80,
+                    name="web",
+                )],
+                cluster_ip="None",
+                selector={
+                    "app": "nginx",
+                },
+            ))
+
+        www_stateful_set = kubernetes.apps.v1.StatefulSet(
+            "wwwStatefulSet",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="web",
+            ),
+            spec=kubernetes.apps.v1.StatefulSetSpecArgs(
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                service_name=nginx_service.metadata.name,
+                replicas=3,
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        termination_grace_period_seconds=10,
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="k8s.gcr.io/nginx-slim:0.8",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                                name="web",
+                            )],
+                            volume_mounts=[{
+                                "name": "www",
+                                "mount_path": "/usr/share/nginx/html",
+                            }],
+                        )],
+                    ),
+                ),
+                volume_claim_templates=[{
+                    "metadata": {
+                        "name": "www",
+                    },
+                    "spec": {
+                        "access_modes": ["ReadWriteOnce"],
+                        "storage_class_name": "my-storage-class",
+                        "resources": {
+                            "requests": {
+                                "storage": "1Gi",
+                            },
+                        },
+                    },
+                }],
+            ))
+        ```
+        {% /examples %}}
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -146,6 +295,155 @@ class StatefulSet(pulumi.CustomResource):
         If the StatefulSet has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
+        ## Example Usage
+        ### Create a StatefulSet with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_service = kubernetes.core.v1.Service(
+            "nginxService",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    port=80,
+                    name="web",
+                )],
+                cluster_ip="None",
+                selector={
+                    "app": "nginx",
+                },
+            ))
+
+        www_stateful_set = kubernetes.apps.v1.StatefulSet(
+            "wwwStatefulSet",
+            spec=kubernetes.apps.v1.StatefulSetSpecArgs(
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                service_name=nginx_service.metadata.name,
+                replicas=3,
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        termination_grace_period_seconds=10,
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="k8s.gcr.io/nginx-slim:0.8",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                                name="web",
+                            )],
+                            volume_mounts=[{
+                                "name": "www",
+                                "mount_path": "/usr/share/nginx/html",
+                            }],
+                        )],
+                    ),
+                ),
+                volume_claim_templates=[{
+                    "metadata": {
+                        "name": "www",
+                    },
+                    "spec": {
+                        "access_modes": ["ReadWriteOnce"],
+                        "storage_class_name": "my-storage-class",
+                        "resources": {
+                            "requests": {
+                                "storage": "1Gi",
+                            },
+                        },
+                    },
+                }],
+            ))
+        ```
+        ### Create a StatefulSet with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_service = kubernetes.core.v1.Service(
+            "nginxService",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="nginx",
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    port=80,
+                    name="web",
+                )],
+                cluster_ip="None",
+                selector={
+                    "app": "nginx",
+                },
+            ))
+
+        www_stateful_set = kubernetes.apps.v1.StatefulSet(
+            "wwwStatefulSet",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="web",
+            ),
+            spec=kubernetes.apps.v1.StatefulSetSpecArgs(
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                service_name=nginx_service.metadata.name,
+                replicas=3,
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        termination_grace_period_seconds=10,
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="k8s.gcr.io/nginx-slim:0.8",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                                name="web",
+                            )],
+                            volume_mounts=[{
+                                "name": "www",
+                                "mount_path": "/usr/share/nginx/html",
+                            }],
+                        )],
+                    ),
+                ),
+                volume_claim_templates=[{
+                    "metadata": {
+                        "name": "www",
+                    },
+                    "spec": {
+                        "access_modes": ["ReadWriteOnce"],
+                        "storage_class_name": "my-storage-class",
+                        "resources": {
+                            "requests": {
+                                "storage": "1Gi",
+                            },
+                        },
+                    },
+                }],
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param StatefulSetInitArgs args: The arguments to use to populate this resource's properties.

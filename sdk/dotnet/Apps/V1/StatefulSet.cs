@@ -27,6 +27,246 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// If the StatefulSet has not reached a Ready state after 10 minutes, it will
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
+    /// 
+    /// ## Example Usage
+    /// ### Create a StatefulSet with auto-naming
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var nginxService = new Kubernetes.Core.V1.Service("nginxService", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Labels = 
+    ///                 {
+    ///                     { "app", "nginx" },
+    ///                 },
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
+    ///             {
+    ///                 Ports = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
+    ///                     {
+    ///                         Port = 80,
+    ///                         Name = "web",
+    ///                     },
+    ///                 },
+    ///                 ClusterIP = "None",
+    ///                 Selector = 
+    ///                 {
+    ///                     { "app", "nginx" },
+    ///                 },
+    ///             },
+    ///         });
+    ///         var wwwStatefulSet = new Kubernetes.Apps.V1.StatefulSet("wwwStatefulSet", new Kubernetes.Types.Inputs.Apps.V1.StatefulSetArgs
+    ///         {
+    ///             Spec = new Kubernetes.Types.Inputs.Apps.V1.StatefulSetSpecArgs
+    ///             {
+    ///                 Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+    ///                 {
+    ///                     MatchLabels = 
+    ///                     {
+    ///                         { "app", "nginx" },
+    ///                     },
+    ///                 },
+    ///                 ServiceName = nginxService.Metadata.Name,
+    ///                 Replicas = 3,
+    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 {
+    ///                     Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///                     {
+    ///                         Labels = 
+    ///                         {
+    ///                             { "app", "nginx" },
+    ///                         },
+    ///                     },
+    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///                     {
+    ///                         TerminationGracePeriodSeconds = 10,
+    ///                         Containers = 
+    ///                         {
+    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             {
+    ///                                 Name = "nginx",
+    ///                                 Image = "k8s.gcr.io/nginx-slim:0.8",
+    ///                                 Ports = 
+    ///                                 {
+    ///                                     new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
+    ///                                     {
+    ///                                         ContainerPort = 80,
+    ///                                         Name = "web",
+    ///                                     },
+    ///                                 },
+    ///                                 VolumeMounts = 
+    ///                                 {
+    ///                                     new Kubernetes.Types.Inputs.Core.V1.VolumeMountArgs
+    ///                                     {
+    ///                                         Name = "www",
+    ///                                         MountPath = "/usr/share/nginx/html",
+    ///                                     },
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///                 VolumeClaimTemplates = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimArgs
+    ///                     {
+    ///                         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///                         {
+    ///                             Name = "www",
+    ///                         },
+    ///                         Spec = new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimSpecArgs
+    ///                         {
+    ///                             AccessModes = 
+    ///                             {
+    ///                                 "ReadWriteOnce",
+    ///                             },
+    ///                             StorageClassName = "my-storage-class",
+    ///                             Resources = new Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs
+    ///                             {
+    ///                                 Requests = 
+    ///                                 {
+    ///                                     { "storage", "1Gi" },
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Create a StatefulSet with a user-specified name
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var nginxService = new Kubernetes.Core.V1.Service("nginxService", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Name = "nginx",
+    ///                 Labels = 
+    ///                 {
+    ///                     { "app", "nginx" },
+    ///                 },
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
+    ///             {
+    ///                 Ports = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
+    ///                     {
+    ///                         Port = 80,
+    ///                         Name = "web",
+    ///                     },
+    ///                 },
+    ///                 ClusterIP = "None",
+    ///                 Selector = 
+    ///                 {
+    ///                     { "app", "nginx" },
+    ///                 },
+    ///             },
+    ///         });
+    ///         var wwwStatefulSet = new Kubernetes.Apps.V1.StatefulSet("wwwStatefulSet", new Kubernetes.Types.Inputs.Apps.V1.StatefulSetArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Name = "web",
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Apps.V1.StatefulSetSpecArgs
+    ///             {
+    ///                 Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+    ///                 {
+    ///                     MatchLabels = 
+    ///                     {
+    ///                         { "app", "nginx" },
+    ///                     },
+    ///                 },
+    ///                 ServiceName = nginxService.Metadata.Name,
+    ///                 Replicas = 3,
+    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 {
+    ///                     Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///                     {
+    ///                         Labels = 
+    ///                         {
+    ///                             { "app", "nginx" },
+    ///                         },
+    ///                     },
+    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///                     {
+    ///                         TerminationGracePeriodSeconds = 10,
+    ///                         Containers = 
+    ///                         {
+    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             {
+    ///                                 Name = "nginx",
+    ///                                 Image = "k8s.gcr.io/nginx-slim:0.8",
+    ///                                 Ports = 
+    ///                                 {
+    ///                                     new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
+    ///                                     {
+    ///                                         ContainerPort = 80,
+    ///                                         Name = "web",
+    ///                                     },
+    ///                                 },
+    ///                                 VolumeMounts = 
+    ///                                 {
+    ///                                     new Kubernetes.Types.Inputs.Core.V1.VolumeMountArgs
+    ///                                     {
+    ///                                         Name = "www",
+    ///                                         MountPath = "/usr/share/nginx/html",
+    ///                                     },
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///                 VolumeClaimTemplates = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimArgs
+    ///                     {
+    ///                         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///                         {
+    ///                             Name = "www",
+    ///                         },
+    ///                         Spec = new Kubernetes.Types.Inputs.Core.V1.PersistentVolumeClaimSpecArgs
+    ///                         {
+    ///                             AccessModes = 
+    ///                             {
+    ///                                 "ReadWriteOnce",
+    ///                             },
+    ///                             StorageClassName = "my-storage-class",
+    ///                             Resources = new Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs
+    ///                             {
+    ///                                 Requests = 
+    ///                                 {
+    ///                                     { "storage", "1Gi" },
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:apps/v1:StatefulSet")]
     public partial class StatefulSet : KubernetesResource
