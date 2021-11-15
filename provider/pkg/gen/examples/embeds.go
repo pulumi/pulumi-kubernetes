@@ -25,6 +25,9 @@ var appsV1StatefulSetMD string
 //go:embed upstream/job.md
 var batchV1JobMD string
 
+//go:embed upstream/pod.md
+var coreV1PodMD string
+
 //go:embed upstream/service.md
 var coreV1ServiceMD string
 
@@ -36,6 +39,7 @@ var ApiVersionToExample = map[string]string{
 	"kubernetes:apps/v1:Deployment":           appsV1DeploymentMD,
 	"kubernetes:apps/v1:StatefulSet":          appsV1StatefulSetMD,
 	"kubernetes:batch/v1:Job":                 batchV1JobMD,
+	"kubernetes:core/v1:Pod":                  coreV1PodMD,
 	"kubernetes:core/v1:Service":              coreV1ServiceMD,
 	"kubernetes:networking.k8s.io/v1:Ingress": networkingV1IngressMD,
 }

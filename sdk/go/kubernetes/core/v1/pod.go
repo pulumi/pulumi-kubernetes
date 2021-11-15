@@ -27,6 +27,80 @@ import (
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
+//
+// ## Example Usage
+// ### Create a Pod with auto-naming
+// ```go
+// package main
+//
+// import (
+// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := corev1.NewPod(ctx, "nginxPod", &corev1.PodArgs{
+// 			Spec: &corev1.PodSpecArgs{
+// 				Containers: corev1.ContainerArray{
+// 					&corev1.ContainerArgs{
+// 						Name:  pulumi.String("nginx"),
+// 						Image: pulumi.String("nginx:1.14.2"),
+// 						Ports: corev1.ContainerPortArray{
+// 							&corev1.ContainerPortArgs{
+// 								ContainerPort: pulumi.Int(80),
+// 							},
+// 						},
+// 					},
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// ### Create a Pod with a user-specified name
+// ```go
+// package main
+//
+// import (
+// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := corev1.NewPod(ctx, "nginxPod", &corev1.PodArgs{
+// 			Metadata: &metav1.ObjectMetaArgs{
+// 				Name: pulumi.String("nginx"),
+// 			},
+// 			Spec: &corev1.PodSpecArgs{
+// 				Containers: corev1.ContainerArray{
+// 					&corev1.ContainerArgs{
+// 						Name:  pulumi.String("nginx"),
+// 						Image: pulumi.String("nginx:1.14.2"),
+// 						Ports: corev1.ContainerPortArray{
+// 							&corev1.ContainerPortArgs{
+// 								ContainerPort: pulumi.Int(80),
+// 							},
+// 						},
+// 					},
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// {% /examples %}}
 type Pod struct {
 	pulumi.CustomResourceState
 
