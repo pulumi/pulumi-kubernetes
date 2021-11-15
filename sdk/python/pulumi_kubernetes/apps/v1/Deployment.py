@@ -119,7 +119,85 @@ class Deployment(pulumi.CustomResource):
 
         If the Deployment has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
+        by setting the 'customTimeouts' option on the resource.ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+
+        ## Example Usage
+        ### Create a Deployment with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx = kubernetes.apps.v1.Deployment(
+            "nginx",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.apps.v1.DeploymentSpecArgs(
+                replicas=3,
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="nginx:1.14.2",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                            )],
+                        )],
+                    ),
+                ),
+            ))
+        ```
+        ### Create a Deployment with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx = kubernetes.apps.v1.Deployment(
+            "nginx",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="nginx-deployment",
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.apps.v1.DeploymentSpecArgs(
+                replicas=3,
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="nginx:1.14.2",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                            )],
+                        )],
+                    ),
+                ),
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -157,7 +235,85 @@ class Deployment(pulumi.CustomResource):
 
         If the Deployment has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
-        by setting the 'customTimeouts' option on the resource.
+        by setting the 'customTimeouts' option on the resource.ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+
+        ## Example Usage
+        ### Create a Deployment with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx = kubernetes.apps.v1.Deployment(
+            "nginx",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.apps.v1.DeploymentSpecArgs(
+                replicas=3,
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="nginx:1.14.2",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                            )],
+                        )],
+                    ),
+                ),
+            ))
+        ```
+        ### Create a Deployment with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx = kubernetes.apps.v1.Deployment(
+            "nginx",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="nginx-deployment",
+                labels={
+                    "app": "nginx",
+                },
+            ),
+            spec=kubernetes.apps.v1.DeploymentSpecArgs(
+                replicas=3,
+                selector=kubernetes.meta.v1.LabelSelectorArgs(
+                    match_labels={
+                        "app": "nginx",
+                    },
+                ),
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                        labels={
+                            "app": "nginx",
+                        },
+                    ),
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="nginx",
+                            image="nginx:1.14.2",
+                            ports=[kubernetes.core.v1.ContainerPortArgs(
+                                container_port=80,
+                            )],
+                        )],
+                    ),
+                ),
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param DeploymentInitArgs args: The arguments to use to populate this resource's properties.

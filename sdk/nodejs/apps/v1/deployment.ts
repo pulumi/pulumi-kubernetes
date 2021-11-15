@@ -28,7 +28,87 @@ import * as utilities from "../../utilities";
  *
  * If the Deployment has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
- * by setting the 'customTimeouts' option on the resource.
+ * by setting the 'customTimeouts' option on the resource.ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+ *
+ * ## Example Usage
+ * ### Create a Deployment with auto-naming
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const nginx = new kubernetes.apps.v1.Deployment("nginx", {
+ *     metadata: {
+ *         labels: {
+ *             app: "nginx",
+ *         },
+ *     },
+ *     spec: {
+ *         replicas: 3,
+ *         selector: {
+ *             matchLabels: {
+ *                 app: "nginx",
+ *             },
+ *         },
+ *         template: {
+ *             metadata: {
+ *                 labels: {
+ *                     app: "nginx",
+ *                 },
+ *             },
+ *             spec: {
+ *                 containers: [{
+ *                     name: "nginx",
+ *                     image: "nginx:1.14.2",
+ *                     ports: [{
+ *                         containerPort: 80,
+ *                     }],
+ *                 }],
+ *             },
+ *         },
+ *     },
+ * });
+ * ```
+ * ### Create a Deployment with a user-specified name
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const nginx = new kubernetes.apps.v1.Deployment("nginx", {
+ *     metadata: {
+ *         name: "nginx-deployment",
+ *         labels: {
+ *             app: "nginx",
+ *         },
+ *     },
+ *     spec: {
+ *         replicas: 3,
+ *         selector: {
+ *             matchLabels: {
+ *                 app: "nginx",
+ *             },
+ *         },
+ *         template: {
+ *             metadata: {
+ *                 labels: {
+ *                     app: "nginx",
+ *                 },
+ *             },
+ *             spec: {
+ *                 containers: [{
+ *                     name: "nginx",
+ *                     image: "nginx:1.14.2",
+ *                     ports: [{
+ *                         containerPort: 80,
+ *                     }],
+ *                 }],
+ *             },
+ *         },
+ *     },
+ * });
+ * ```
+ * {% /examples %}}
  */
 export class Deployment extends pulumi.CustomResource {
     /**
