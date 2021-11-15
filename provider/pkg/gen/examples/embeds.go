@@ -19,11 +19,15 @@ import _ "embed" // Needed to support go:embed directive
 //go:embed upstream/deployment.md
 var appsV1DeploymentMD string
 
+//go:embed upstream/job.md
+var batchV1JobMD string
+
 //go:embed upstream/service.md
 var coreV1ServiceMD string
 
 // ApiVersionToExample contains Markdown-formatted examples corresponding to a k8s apiVersion.
 var ApiVersionToExample = map[string]string{
 	"kubernetes:apps/v1:Deployment": appsV1DeploymentMD,
+	"kubernetes:batch/v1:Job":       batchV1JobMD,
 	"kubernetes:core/v1:Service":    coreV1ServiceMD,
 }

@@ -27,6 +27,66 @@ import * as utilities from "../../utilities";
  * Pulumi will continue to wait for readiness on the next update. If you would prefer
  * to schedule a replacement for an unready resource on the next update, you can add the
  * "pulumi.com/replaceUnready": "true" annotation to the resource definition.
+ *
+ * ## Example Usage
+ * ### Create a Job with auto-naming
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const job = new kubernetes.batch.v1.Job("pi", {
+ *     spec: {
+ *         template: {
+ *             spec: {
+ *                 containers: [{
+ *                     name: "pi",
+ *                     image: "perl",
+ *                     command: [
+ *                         "perl",
+ *                         "-Mbignum=bpi",
+ *                         "-wle",
+ *                         "print bpi(2000)",
+ *                     ],
+ *                 }],
+ *                 restartPolicy: "Never",
+ *             },
+ *         },
+ *         backoffLimit: 4,
+ *     },
+ * });
+ * ```
+ * ### Create a Job with a user-specified name
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const job = new kubernetes.batch.v1.Job("pi", {
+ *     metadata: {
+ *         name: "pi",
+ *     },
+ *     spec: {
+ *         template: {
+ *             spec: {
+ *                 containers: [{
+ *                     name: "pi",
+ *                     image: "perl",
+ *                     command: [
+ *                         "perl",
+ *                         "-Mbignum=bpi",
+ *                         "-wle",
+ *                         "print bpi(2000)",
+ *                     ],
+ *                 }],
+ *                 restartPolicy: "Never",
+ *             },
+ *         },
+ *         backoffLimit: 4,
+ *     },
+ * });
+ * ```
+ * {% /examples %}}
  */
 export class Job extends pulumi.CustomResource {
     /**

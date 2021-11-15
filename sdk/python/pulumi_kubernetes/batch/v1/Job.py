@@ -119,6 +119,64 @@ class Job(pulumi.CustomResource):
         to schedule a replacement for an unready resource on the next update, you can add the
         "pulumi.com/replaceUnready": "true" annotation to the resource definition.
 
+        ## Example Usage
+        ### Create a Job with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        job = kubernetes.batch.v1.Job(
+            "pi",
+            spec=kubernetes.batch.v1.JobSpecArgs(
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="pi",
+                            image="perl",
+                            command=[
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)",
+                            ],
+                        )],
+                        restart_policy="Never",
+                    ),
+                ),
+                backoff_limit=4,
+            ))
+        ```
+        ### Create a Job with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        job = kubernetes.batch.v1.Job(
+            "pi",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="pi",
+            ),
+            spec=kubernetes.batch.v1.JobSpecArgs(
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="pi",
+                            image="perl",
+                            command=[
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)",
+                            ],
+                        )],
+                        restart_policy="Never",
+                    ),
+                ),
+                backoff_limit=4,
+            ))
+        ```
+        {% /examples %}}
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -154,6 +212,64 @@ class Job(pulumi.CustomResource):
         Pulumi will continue to wait for readiness on the next update. If you would prefer
         to schedule a replacement for an unready resource on the next update, you can add the
         "pulumi.com/replaceUnready": "true" annotation to the resource definition.
+
+        ## Example Usage
+        ### Create a Job with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        job = kubernetes.batch.v1.Job(
+            "pi",
+            spec=kubernetes.batch.v1.JobSpecArgs(
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="pi",
+                            image="perl",
+                            command=[
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)",
+                            ],
+                        )],
+                        restart_policy="Never",
+                    ),
+                ),
+                backoff_limit=4,
+            ))
+        ```
+        ### Create a Job with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        job = kubernetes.batch.v1.Job(
+            "pi",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="pi",
+            ),
+            spec=kubernetes.batch.v1.JobSpecArgs(
+                template=kubernetes.core.v1.PodTemplateSpecArgs(
+                    spec=kubernetes.core.v1.PodSpecArgs(
+                        containers=[kubernetes.core.v1.ContainerArgs(
+                            name="pi",
+                            image="perl",
+                            command=[
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)",
+                            ],
+                        )],
+                        restart_policy="Never",
+                    ),
+                ),
+                backoff_limit=4,
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param JobInitArgs args: The arguments to use to populate this resource's properties.

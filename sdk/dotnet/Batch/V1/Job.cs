@@ -31,6 +31,95 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// Pulumi will continue to wait for readiness on the next update. If you would prefer
     /// to schedule a replacement for an unready resource on the next update, you can add the
     /// "pulumi.com/replaceUnready": "true" annotation to the resource definition.
+    /// 
+    /// ## Example Usage
+    /// ### Create a Job with auto-naming
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var piJob = new Kubernetes.Batch.V1.Job("pi", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+    ///         {
+    ///             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
+    ///             {
+    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 {
+    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///                     {
+    ///                         Containers = 
+    ///                         {
+    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             {
+    ///                                 Name = "pi",
+    ///                                 Image = "perl",
+    ///                                 Command = 
+    ///                                 {
+    ///                                     "perl",
+    ///                                     "-Mbignum=bpi",
+    ///                                     "-wle",
+    ///                                     "print bpi(2000)",
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                         RestartPolicy = "Never",
+    ///                     },
+    ///                 },
+    ///                 BackoffLimit = 4,
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Create a Job with a user-specified name
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var piJob = new Kubernetes.Batch.V1.Job("pi", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Name = "pi",
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
+    ///             {
+    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 {
+    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///                     {
+    ///                         Containers = 
+    ///                         {
+    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             {
+    ///                                 Name = "pi",
+    ///                                 Image = "perl",
+    ///                                 Command = 
+    ///                                 {
+    ///                                     "perl",
+    ///                                     "-Mbignum=bpi",
+    ///                                     "-wle",
+    ///                                     "print bpi(2000)",
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                         RestartPolicy = "Never",
+    ///                     },
+    ///                 },
+    ///                 BackoffLimit = 4,
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:batch/v1:Job")]
     public partial class Job : KubernetesResource
