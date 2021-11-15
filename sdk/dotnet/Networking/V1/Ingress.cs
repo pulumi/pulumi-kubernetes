@@ -25,6 +25,116 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// If the Ingress has not reached a Ready state after 10 minutes, it will
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
+    /// 
+    /// ## Example Usage
+    /// ### Create an Ingress with auto-naming
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var minimalIngress = new Kubernetes.Networking.V1.Ingress("minimal_ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Annotations = 
+    ///                 {
+    ///                     { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
+    ///                 },
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+    ///             {
+    ///                 Rules = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
+    ///                     {
+    ///                         Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
+    ///                         {
+    ///                             Paths = 
+    ///                             {
+    ///                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
+    ///                                 {
+    ///                                     Path = "/testpath",
+    ///                                     PathType = "Prefix",
+    ///                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
+    ///                                     {
+    ///                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
+    ///                                         {
+    ///                                             Name = "test",
+    ///                                             Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
+    ///                                             {
+    ///                                                 Number = 80,
+    ///                                             },
+    ///                                         },
+    ///                                     },
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Create an Ingress with a user-specified name
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var minimalIngress = new Kubernetes.Networking.V1.Ingress("minimal_ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Name = "minimal-ingress",
+    ///                 Annotations = 
+    ///                 {
+    ///                     { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
+    ///                 },
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+    ///             {
+    ///                 Rules = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
+    ///                     {
+    ///                         Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
+    ///                         {
+    ///                             Paths = 
+    ///                             {
+    ///                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
+    ///                                 {
+    ///                                     Path = "/testpath",
+    ///                                     PathType = "Prefix",
+    ///                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
+    ///                                     {
+    ///                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
+    ///                                         {
+    ///                                             Name = "test",
+    ///                                             Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
+    ///                                             {
+    ///                                                 Number = 80,
+    ///                                             },
+    ///                                         },
+    ///                                     },
+    ///                                 },
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:networking.k8s.io/v1:Ingress")]
     public partial class Ingress : KubernetesResource
