@@ -124,6 +124,48 @@ class Service(pulumi.CustomResource):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        ## Example Usage
+        ### Create a Service with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        my_service = kubernetes.core.v1.Service(
+            "my_service",
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                selector={
+                    "app": "MyApp",
+                },
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    protocol="TCP",
+                    port=80,
+                    target_port=9376,
+                )],
+            ))
+        ```
+        ### Create a Service with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        my_service = kubernetes.core.v1.Service(
+            "my_service",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="my-service",
+            ),
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                selector={
+                    "app": "MyApp",
+                },
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    protocol="TCP",
+                    port=80,
+                    target_port=9376,
+                )],
+            ))
+        ```
+        {% /examples %}}
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -164,6 +206,48 @@ class Service(pulumi.CustomResource):
         If the Service has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
+        ## Example Usage
+        ### Create a Service with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        my_service = kubernetes.core.v1.Service(
+            "my_service",
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                selector={
+                    "app": "MyApp",
+                },
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    protocol="TCP",
+                    port=80,
+                    target_port=9376,
+                )],
+            ))
+        ```
+        ### Create a Service with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        my_service = kubernetes.core.v1.Service(
+            "my_service",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="my-service",
+            ),
+            spec=kubernetes.core.v1.ServiceSpecArgs(
+                selector={
+                    "app": "MyApp",
+                },
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    protocol="TCP",
+                    port=80,
+                    target_port=9376,
+                )],
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param ServiceInitArgs args: The arguments to use to populate this resource's properties.

@@ -32,6 +32,50 @@ import * as utilities from "../../utilities";
  * If the Service has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
  * by setting the 'customTimeouts' option on the resource.
+ *
+ * ## Example Usage
+ * ### Create a Service with auto-naming
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const my_service = new kubernetes.core.v1.Service("my_service", {
+ *     spec: {
+ *         selector: {
+ *             app: "MyApp",
+ *         },
+ *         ports: [{
+ *             protocol: "TCP",
+ *             port: 80,
+ *             targetPort: 9376,
+ *         }],
+ *     },
+ * });
+ * ```
+ * ### Create a Service with a user-specified name
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const my_service = new kubernetes.core.v1.Service("my_service", {
+ *     metadata: {
+ *         name: "my-service",
+ *     },
+ *     spec: {
+ *         selector: {
+ *             app: "MyApp",
+ *         },
+ *         ports: [{
+ *             protocol: "TCP",
+ *             port: 80,
+ *             targetPort: 9376,
+ *         }],
+ *     },
+ * });
+ * ```
+ * {% /examples %}}
  */
 export class Service extends pulumi.CustomResource {
     /**

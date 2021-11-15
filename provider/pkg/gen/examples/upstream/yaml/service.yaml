@@ -1,0 +1,12 @@
+# From https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    app: MyApp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9376

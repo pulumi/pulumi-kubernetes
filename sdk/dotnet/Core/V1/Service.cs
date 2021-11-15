@@ -36,6 +36,75 @@ namespace Pulumi.Kubernetes.Core.V1
     /// If the Service has not reached a Ready state after 10 minutes, it will
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
+    /// 
+    /// ## Example Usage
+    /// ### Create a Service with auto-naming
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var service = new Kubernetes.Core.V1.Service("my_service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         {
+    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
+    ///             {
+    ///                 Selector = 
+    ///                 {
+    ///                     { "app", "MyApp" },
+    ///                 },
+    ///                 Ports = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
+    ///                     {
+    ///                         Protocol = "TCP",
+    ///                         Port = 80,
+    ///                         TargetPort = 9376,
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Create a Service with a user-specified name
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var service = new Kubernetes.Core.V1.Service("my_service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Name = "my-service",
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
+    ///             {
+    ///                 Selector = 
+    ///                 {
+    ///                     { "app", "MyApp" },
+    ///                 },
+    ///                 Ports = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
+    ///                     {
+    ///                         Protocol = "TCP",
+    ///                         Port = 80,
+    ///                         TargetPort = 9376,
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Service")]
     public partial class Service : KubernetesResource
