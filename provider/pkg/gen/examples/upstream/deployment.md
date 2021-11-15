@@ -1,5 +1,3 @@
-ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
-
 {{% examples %}}
 ## Example Usage
 {{% example %}}

@@ -299,7 +299,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 	// Add examples to resources
 	for k, v := range examples.ApiVersionToExample {
 		if r, ok := pkg.Resources[k]; ok {
-			r.Description += v
+			r.Description += "\n\n" + v
 			pkg.Resources[k] = r
 		}
 	}

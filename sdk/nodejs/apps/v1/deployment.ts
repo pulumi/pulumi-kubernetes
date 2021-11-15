@@ -28,7 +28,7 @@ import * as utilities from "../../utilities";
  *
  * If the Deployment has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
- * by setting the 'customTimeouts' option on the resource.ConfigFile creates a set of Kubernetes resources from a Kubernetes YAML file.
+ * by setting the 'customTimeouts' option on the resource.
  *
  * ## Example Usage
  * ### Create a Deployment with auto-naming
