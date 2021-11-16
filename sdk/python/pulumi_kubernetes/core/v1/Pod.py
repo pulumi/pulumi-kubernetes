@@ -113,6 +113,46 @@ class Pod(pulumi.CustomResource):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        ## Example Usage
+        ### Create a Pod with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_pod = kubernetes.core.v1.Pod(
+            "nginxPod",
+            spec=kubernetes.core.v1.PodSpecArgs(
+                containers=[kubernetes.core.v1.ContainerArgs(
+                    name="nginx",
+                    image="nginx:1.14.2",
+                    ports=[kubernetes.core.v1.ContainerPortArgs(
+                        container_port=80,
+                    )],
+                )],
+            ))
+        ```
+        ### Create a Pod with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_pod = kubernetes.core.v1.Pod(
+            "nginxPod",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="nginx",
+            ),
+            spec=kubernetes.core.v1.PodSpecArgs(
+                containers=[kubernetes.core.v1.ContainerArgs(
+                    name="nginx",
+                    image="nginx:1.14.2",
+                    ports=[kubernetes.core.v1.ContainerPortArgs(
+                        container_port=80,
+                    )],
+                )],
+            ))
+        ```
+        {% /examples %}}
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -143,6 +183,46 @@ class Pod(pulumi.CustomResource):
         If the Pod has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
+        ## Example Usage
+        ### Create a Pod with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_pod = kubernetes.core.v1.Pod(
+            "nginxPod",
+            spec=kubernetes.core.v1.PodSpecArgs(
+                containers=[kubernetes.core.v1.ContainerArgs(
+                    name="nginx",
+                    image="nginx:1.14.2",
+                    ports=[kubernetes.core.v1.ContainerPortArgs(
+                        container_port=80,
+                    )],
+                )],
+            ))
+        ```
+        ### Create a Pod with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        nginx_pod = kubernetes.core.v1.Pod(
+            "nginxPod",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="nginx",
+            ),
+            spec=kubernetes.core.v1.PodSpecArgs(
+                containers=[kubernetes.core.v1.ContainerArgs(
+                    name="nginx",
+                    image="nginx:1.14.2",
+                    ports=[kubernetes.core.v1.ContainerPortArgs(
+                        container_port=80,
+                    )],
+                )],
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param PodInitArgs args: The arguments to use to populate this resource's properties.

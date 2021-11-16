@@ -22,6 +22,48 @@ import * as utilities from "../../utilities";
  * If the Pod has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
  * by setting the 'customTimeouts' option on the resource.
+ *
+ * ## Example Usage
+ * ### Create a Pod with auto-naming
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
+ *     spec: {
+ *         containers: [{
+ *             name: "nginx",
+ *             image: "nginx:1.14.2",
+ *             ports: [{
+ *                 containerPort: 80,
+ *             }],
+ *         }],
+ *     },
+ * });
+ * ```
+ * ### Create a Pod with a user-specified name
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
+ *     metadata: {
+ *         name: "nginx",
+ *     },
+ *     spec: {
+ *         containers: [{
+ *             name: "nginx",
+ *             image: "nginx:1.14.2",
+ *             ports: [{
+ *                 containerPort: 80,
+ *             }],
+ *         }],
+ *     },
+ * });
+ * ```
+ * {% /examples %}}
  */
 export class Pod extends pulumi.CustomResource {
     /**

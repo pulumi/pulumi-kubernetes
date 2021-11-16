@@ -23,6 +23,155 @@ import * as utilities from "../../utilities";
  * If the StatefulSet has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
  * by setting the 'customTimeouts' option on the resource.
+ *
+ * ## Example Usage
+ * ### Create a StatefulSet with auto-naming
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const nginxService = new kubernetes.core.v1.Service("nginxService", {
+ *     metadata: {
+ *         labels: {
+ *             app: "nginx",
+ *         },
+ *     },
+ *     spec: {
+ *         ports: [{
+ *             port: 80,
+ *             name: "web",
+ *         }],
+ *         clusterIP: "None",
+ *         selector: {
+ *             app: "nginx",
+ *         },
+ *     },
+ * });
+ * const wwwStatefulSet = new kubernetes.apps.v1.StatefulSet("wwwStatefulSet", {
+ *     spec: {
+ *         selector: {
+ *             matchLabels: {
+ *                 app: "nginx",
+ *             },
+ *         },
+ *         serviceName: nginxService.metadata.name,
+ *         replicas: 3,
+ *         template: {
+ *             metadata: {
+ *                 labels: {
+ *                     app: "nginx",
+ *                 },
+ *             },
+ *             spec: {
+ *                 terminationGracePeriodSeconds: 10,
+ *                 containers: [{
+ *                     name: "nginx",
+ *                     image: "k8s.gcr.io/nginx-slim:0.8",
+ *                     ports: [{
+ *                         containerPort: 80,
+ *                         name: "web",
+ *                     }],
+ *                     volumeMounts: [{
+ *                         name: "www",
+ *                         mountPath: "/usr/share/nginx/html",
+ *                     }],
+ *                 }],
+ *             },
+ *         },
+ *         volumeClaimTemplates: [{
+ *             metadata: {
+ *                 name: "www",
+ *             },
+ *             spec: {
+ *                 accessModes: ["ReadWriteOnce"],
+ *                 storageClassName: "my-storage-class",
+ *                 resources: {
+ *                     requests: {
+ *                         storage: "1Gi",
+ *                     },
+ *                 },
+ *             },
+ *         }],
+ *     },
+ * });
+ * ```
+ * ### Create a StatefulSet with a user-specified name
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const nginxService = new kubernetes.core.v1.Service("nginxService", {
+ *     metadata: {
+ *         name: "nginx",
+ *         labels: {
+ *             app: "nginx",
+ *         },
+ *     },
+ *     spec: {
+ *         ports: [{
+ *             port: 80,
+ *             name: "web",
+ *         }],
+ *         clusterIP: "None",
+ *         selector: {
+ *             app: "nginx",
+ *         },
+ *     },
+ * });
+ * const wwwStatefulSet = new kubernetes.apps.v1.StatefulSet("wwwStatefulSet", {
+ *     metadata: {
+ *         name: "web",
+ *     },
+ *     spec: {
+ *         selector: {
+ *             matchLabels: {
+ *                 app: "nginx",
+ *             },
+ *         },
+ *         serviceName: nginxService.metadata.name,
+ *         replicas: 3,
+ *         template: {
+ *             metadata: {
+ *                 labels: {
+ *                     app: "nginx",
+ *                 },
+ *             },
+ *             spec: {
+ *                 terminationGracePeriodSeconds: 10,
+ *                 containers: [{
+ *                     name: "nginx",
+ *                     image: "k8s.gcr.io/nginx-slim:0.8",
+ *                     ports: [{
+ *                         containerPort: 80,
+ *                         name: "web",
+ *                     }],
+ *                     volumeMounts: [{
+ *                         name: "www",
+ *                         mountPath: "/usr/share/nginx/html",
+ *                     }],
+ *                 }],
+ *             },
+ *         },
+ *         volumeClaimTemplates: [{
+ *             metadata: {
+ *                 name: "www",
+ *             },
+ *             spec: {
+ *                 accessModes: ["ReadWriteOnce"],
+ *                 storageClassName: "my-storage-class",
+ *                 resources: {
+ *                     requests: {
+ *                         storage: "1Gi",
+ *                     },
+ *                 },
+ *             },
+ *         }],
+ *     },
+ * });
+ * ```
+ * {% /examples %}}
  */
 export class StatefulSet extends pulumi.CustomResource {
     /**

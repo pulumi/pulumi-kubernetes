@@ -26,6 +26,79 @@ namespace Pulumi.Kubernetes.Core.V1
     /// If the Pod has not reached a Ready state after 10 minutes, it will
     /// time out and mark the resource update as Failed. You can override the default timeout value
     /// by setting the 'customTimeouts' option on the resource.
+    /// 
+    /// ## Example Usage
+    /// ### Create a Pod with auto-naming
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var nginxPod = new Kubernetes.Core.V1.Pod("nginxPod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+    ///         {
+    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///             {
+    ///                 Containers = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                     {
+    ///                         Name = "nginx",
+    ///                         Image = "nginx:1.14.2",
+    ///                         Ports = 
+    ///                         {
+    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
+    ///                             {
+    ///                                 ContainerPort = 80,
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// ### Create a Pod with a user-specified name
+    /// ```csharp
+    /// using Pulumi;
+    /// using Kubernetes = Pulumi.Kubernetes;
+    /// 
+    /// class MyStack : Stack
+    /// {
+    ///     public MyStack()
+    ///     {
+    ///         var nginxPod = new Kubernetes.Core.V1.Pod("nginxPod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+    ///         {
+    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             {
+    ///                 Name = "nginx",
+    ///             },
+    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///             {
+    ///                 Containers = 
+    ///                 {
+    ///                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                     {
+    ///                         Name = "nginx",
+    ///                         Image = "nginx:1.14.2",
+    ///                         Ports = 
+    ///                         {
+    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
+    ///                             {
+    ///                                 ContainerPort = 80,
+    ///                             },
+    ///                         },
+    ///                     },
+    ///                 },
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// ```
+    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Pod")]
     public partial class Pod : KubernetesResource

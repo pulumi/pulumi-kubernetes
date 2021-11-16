@@ -32,6 +32,96 @@ import (
 // Pulumi will continue to wait for readiness on the next update. If you would prefer
 // to schedule a replacement for an unready resource on the next update, you can add the
 // "pulumi.com/replaceUnready": "true" annotation to the resource definition.
+//
+// ## Example Usage
+// ### Create a Job with auto-naming
+// ```go
+// package main
+//
+// import (
+// 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
+// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := batchv1.NewJob(ctx, "pi", &batchv1.JobArgs{
+// 			Spec: &batchv1.JobSpecArgs{
+// 				Template: &corev1.PodTemplateSpecArgs{
+// 					Spec: &corev1.PodSpecArgs{
+// 						Containers: corev1.ContainerArray{
+// 							&corev1.ContainerArgs{
+// 								Name:  pulumi.String("pi"),
+// 								Image: pulumi.String("perl"),
+// 								Command: pulumi.StringArray{
+// 									pulumi.String("perl"),
+// 									pulumi.String("-Mbignum=bpi"),
+// 									pulumi.String("-wle"),
+// 									pulumi.String("print bpi(2000)"),
+// 								},
+// 							},
+// 						},
+// 						RestartPolicy: pulumi.String("Never"),
+// 					},
+// 				},
+// 				BackoffLimit: pulumi.Int(4),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// ### Create a Job with a user-specified name
+// ```go
+// package main
+//
+// import (
+// 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
+// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		_, err := batchv1.NewJob(ctx, "pi", &batchv1.JobArgs{
+// 			Metadata: &metav1.ObjectMetaArgs{
+// 				Name: pulumi.String("pi"),
+// 			},
+// 			Spec: &batchv1.JobSpecArgs{
+// 				Template: &corev1.PodTemplateSpecArgs{
+// 					Spec: &corev1.PodSpecArgs{
+// 						Containers: corev1.ContainerArray{
+// 							&corev1.ContainerArgs{
+// 								Name:  pulumi.String("pi"),
+// 								Image: pulumi.String("perl"),
+// 								Command: pulumi.StringArray{
+// 									pulumi.String("perl"),
+// 									pulumi.String("-Mbignum=bpi"),
+// 									pulumi.String("-wle"),
+// 									pulumi.String("print bpi(2000)"),
+// 								},
+// 							},
+// 						},
+// 						RestartPolicy: pulumi.String("Never"),
+// 					},
+// 				},
+// 				BackoffLimit: pulumi.Int(4),
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// {% /examples %}}
 type Job struct {
 	pulumi.CustomResourceState
 

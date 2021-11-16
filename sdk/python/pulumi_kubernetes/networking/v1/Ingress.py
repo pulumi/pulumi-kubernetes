@@ -113,6 +113,72 @@ class Ingress(pulumi.CustomResource):
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
 
+        ## Example Usage
+        ### Create an Ingress with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        minimal_ingress = kubernetes.networking.v1.Ingress(
+            "minimal_ingress",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                annotations={
+                    "nginx.ingress.kubernetes.io/rewrite-target": "/",
+                },
+            ),
+            spec=kubernetes.networking.v1.IngressSpecArgs(
+                rules=[kubernetes.networking.v1.IngressRuleArgs(
+                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
+                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
+                            path="/testpath",
+                            path_type="Prefix",
+                            backend=kubernetes.networking.v1.IngressBackendArgs(
+                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
+                                    name="test",
+                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
+                                        number=80,
+                                    ),
+                                ),
+                            ),
+                        )],
+                    ),
+                )],
+            ))
+        ```
+        ### Create an Ingress with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        minimal_ingress = kubernetes.networking.v1.Ingress(
+            "minimal_ingress",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="minimal-ingress",
+                annotations={
+                    "nginx.ingress.kubernetes.io/rewrite-target": "/",
+                },
+            ),
+            spec=kubernetes.networking.v1.IngressSpecArgs(
+                rules=[kubernetes.networking.v1.IngressRuleArgs(
+                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
+                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
+                            path="/testpath",
+                            path_type="Prefix",
+                            backend=kubernetes.networking.v1.IngressBackendArgs(
+                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
+                                    name="test",
+                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
+                                        number=80,
+                                    ),
+                                ),
+                            ),
+                        )],
+                    ),
+                )],
+            ))
+        ```
+        {% /examples %}}
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -142,6 +208,72 @@ class Ingress(pulumi.CustomResource):
         If the Ingress has not reached a Ready state after 10 minutes, it will
         time out and mark the resource update as Failed. You can override the default timeout value
         by setting the 'customTimeouts' option on the resource.
+
+        ## Example Usage
+        ### Create an Ingress with auto-naming
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        minimal_ingress = kubernetes.networking.v1.Ingress(
+            "minimal_ingress",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                annotations={
+                    "nginx.ingress.kubernetes.io/rewrite-target": "/",
+                },
+            ),
+            spec=kubernetes.networking.v1.IngressSpecArgs(
+                rules=[kubernetes.networking.v1.IngressRuleArgs(
+                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
+                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
+                            path="/testpath",
+                            path_type="Prefix",
+                            backend=kubernetes.networking.v1.IngressBackendArgs(
+                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
+                                    name="test",
+                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
+                                        number=80,
+                                    ),
+                                ),
+                            ),
+                        )],
+                    ),
+                )],
+            ))
+        ```
+        ### Create an Ingress with a user-specified name
+        ```python
+        import pulumi
+        import pulumi_kubernetes as kubernetes
+
+        minimal_ingress = kubernetes.networking.v1.Ingress(
+            "minimal_ingress",
+            metadata=kubernetes.meta.v1.ObjectMetaArgs(
+                name="minimal-ingress",
+                annotations={
+                    "nginx.ingress.kubernetes.io/rewrite-target": "/",
+                },
+            ),
+            spec=kubernetes.networking.v1.IngressSpecArgs(
+                rules=[kubernetes.networking.v1.IngressRuleArgs(
+                    http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
+                        paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
+                            path="/testpath",
+                            path_type="Prefix",
+                            backend=kubernetes.networking.v1.IngressBackendArgs(
+                                service=kubernetes.networking.v1.IngressServiceBackendArgs(
+                                    name="test",
+                                    port=kubernetes.networking.v1.ServiceBackendPortArgs(
+                                        number=80,
+                                    ),
+                                ),
+                            ),
+                        )],
+                    ),
+                )],
+            ))
+        ```
+        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param IngressInitArgs args: The arguments to use to populate this resource's properties.

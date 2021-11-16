@@ -21,6 +21,74 @@ import * as utilities from "../../utilities";
  * If the Ingress has not reached a Ready state after 10 minutes, it will
  * time out and mark the resource update as Failed. You can override the default timeout value
  * by setting the 'customTimeouts' option on the resource.
+ *
+ * ## Example Usage
+ * ### Create an Ingress with auto-naming
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
+ *     metadata: {
+ *         annotations: {
+ *             "nginx.ingress.kubernetes.io/rewrite-target": "/",
+ *         },
+ *     },
+ *     spec: {
+ *         rules: [{
+ *             http: {
+ *                 paths: [{
+ *                     path: "/testpath",
+ *                     pathType: "Prefix",
+ *                     backend: {
+ *                         service: {
+ *                             name: "test",
+ *                             port: {
+ *                                 number: 80,
+ *                             },
+ *                         },
+ *                     },
+ *                 }],
+ *             },
+ *         }],
+ *     },
+ * });
+ * ```
+ * ### Create an Ingress with a user-specified name
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as kubernetes from "@pulumi/kubernetes";
+ *
+ * const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
+ *     metadata: {
+ *         name: "minimal-ingress",
+ *         annotations: {
+ *             "nginx.ingress.kubernetes.io/rewrite-target": "/",
+ *         },
+ *     },
+ *     spec: {
+ *         rules: [{
+ *             http: {
+ *                 paths: [{
+ *                     path: "/testpath",
+ *                     pathType: "Prefix",
+ *                     backend: {
+ *                         service: {
+ *                             name: "test",
+ *                             port: {
+ *                                 number: 80,
+ *                             },
+ *                         },
+ *                     },
+ *                 }],
+ *             },
+ *         }],
+ *     },
+ * });
+ * ```
+ * {% /examples %}}
  */
 export class Ingress extends pulumi.CustomResource {
     /**

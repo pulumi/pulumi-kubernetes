@@ -28,6 +28,211 @@ import (
 // If the StatefulSet has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
 // by setting the 'customTimeouts' option on the resource.
+//
+// ## Example Usage
+// ### Create a StatefulSet with auto-naming
+// ```go
+// package main
+//
+// import (
+// 	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1"
+// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		nginxService, err := corev1.NewService(ctx, "nginxService", &corev1.ServiceArgs{
+// 			Metadata: &metav1.ObjectMetaArgs{
+// 				Labels: pulumi.StringMap{
+// 					"app": pulumi.String("nginx"),
+// 				},
+// 			},
+// 			Spec: &corev1.ServiceSpecArgs{
+// 				Ports: corev1.ServicePortArray{
+// 					&corev1.ServicePortArgs{
+// 						Port: pulumi.Int(80),
+// 						Name: pulumi.String("web"),
+// 					},
+// 				},
+// 				ClusterIP: pulumi.String("None"),
+// 				Selector: pulumi.StringMap{
+// 					"app": pulumi.String("nginx"),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = appsv1.NewStatefulSet(ctx, "wwwStatefulSet", &appsv1.StatefulSetArgs{
+// 			Spec: &appsv1.StatefulSetSpecArgs{
+// 				Selector: &metav1.LabelSelectorArgs{
+// 					MatchLabels: pulumi.StringMap{
+// 						"app": pulumi.String("nginx"),
+// 					},
+// 				},
+// 				ServiceName: nginxService.Metadata.Name().Elem(),
+// 				Replicas:    pulumi.Int(3),
+// 				Template: &corev1.PodTemplateSpecArgs{
+// 					Metadata: &metav1.ObjectMetaArgs{
+// 						Labels: pulumi.StringMap{
+// 							"app": pulumi.String("nginx"),
+// 						},
+// 					},
+// 					Spec: &corev1.PodSpecArgs{
+// 						TerminationGracePeriodSeconds: pulumi.Int(10),
+// 						Containers: corev1.ContainerArray{
+// 							&corev1.ContainerArgs{
+// 								Name:  pulumi.String("nginx"),
+// 								Image: pulumi.String("k8s.gcr.io/nginx-slim:0.8"),
+// 								Ports: corev1.ContainerPortArray{
+// 									&corev1.ContainerPortArgs{
+// 										ContainerPort: pulumi.Int(80),
+// 										Name:          pulumi.String("web"),
+// 									},
+// 								},
+// 								VolumeMounts: corev1.VolumeMountArray{
+// 									&corev1.VolumeMountArgs{
+// 										Name:      pulumi.String("www"),
+// 										MountPath: pulumi.String("/usr/share/nginx/html"),
+// 									},
+// 								},
+// 							},
+// 						},
+// 					},
+// 				},
+// 				VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
+// 					&corev1.PersistentVolumeClaimTypeArgs{
+// 						Metadata: &metav1.ObjectMetaArgs{
+// 							Name: pulumi.String("www"),
+// 						},
+// 						Spec: &corev1.PersistentVolumeClaimSpecArgs{
+// 							AccessModes: pulumi.StringArray{
+// 								pulumi.String("ReadWriteOnce"),
+// 							},
+// 							StorageClassName: pulumi.String("my-storage-class"),
+// 							Resources: &corev1.ResourceRequirementsArgs{
+// 								Requests: pulumi.StringMap{
+// 									"storage": pulumi.String("1Gi"),
+// 								},
+// 							},
+// 						},
+// 					},
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// ### Create a StatefulSet with a user-specified name
+// ```go
+// package main
+//
+// import (
+// 	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1"
+// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
+//
+// func main() {
+// 	pulumi.Run(func(ctx *pulumi.Context) error {
+// 		nginxService, err := corev1.NewService(ctx, "nginxService", &corev1.ServiceArgs{
+// 			Metadata: &metav1.ObjectMetaArgs{
+// 				Name: pulumi.String("nginx"),
+// 				Labels: pulumi.StringMap{
+// 					"app": pulumi.String("nginx"),
+// 				},
+// 			},
+// 			Spec: &corev1.ServiceSpecArgs{
+// 				Ports: corev1.ServicePortArray{
+// 					&corev1.ServicePortArgs{
+// 						Port: pulumi.Int(80),
+// 						Name: pulumi.String("web"),
+// 					},
+// 				},
+// 				ClusterIP: pulumi.String("None"),
+// 				Selector: pulumi.StringMap{
+// 					"app": pulumi.String("nginx"),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		_, err = appsv1.NewStatefulSet(ctx, "wwwStatefulSet", &appsv1.StatefulSetArgs{
+// 			Metadata: &metav1.ObjectMetaArgs{
+// 				Name: pulumi.String("web"),
+// 			},
+// 			Spec: &appsv1.StatefulSetSpecArgs{
+// 				Selector: &metav1.LabelSelectorArgs{
+// 					MatchLabels: pulumi.StringMap{
+// 						"app": pulumi.String("nginx"),
+// 					},
+// 				},
+// 				ServiceName: nginxService.Metadata.Name().Elem(),
+// 				Replicas:    pulumi.Int(3),
+// 				Template: &corev1.PodTemplateSpecArgs{
+// 					Metadata: &metav1.ObjectMetaArgs{
+// 						Labels: pulumi.StringMap{
+// 							"app": pulumi.String("nginx"),
+// 						},
+// 					},
+// 					Spec: &corev1.PodSpecArgs{
+// 						TerminationGracePeriodSeconds: pulumi.Int(10),
+// 						Containers: corev1.ContainerArray{
+// 							&corev1.ContainerArgs{
+// 								Name:  pulumi.String("nginx"),
+// 								Image: pulumi.String("k8s.gcr.io/nginx-slim:0.8"),
+// 								Ports: corev1.ContainerPortArray{
+// 									&corev1.ContainerPortArgs{
+// 										ContainerPort: pulumi.Int(80),
+// 										Name:          pulumi.String("web"),
+// 									},
+// 								},
+// 								VolumeMounts: corev1.VolumeMountArray{
+// 									&corev1.VolumeMountArgs{
+// 										Name:      pulumi.String("www"),
+// 										MountPath: pulumi.String("/usr/share/nginx/html"),
+// 									},
+// 								},
+// 							},
+// 						},
+// 					},
+// 				},
+// 				VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
+// 					&corev1.PersistentVolumeClaimTypeArgs{
+// 						Metadata: &metav1.ObjectMetaArgs{
+// 							Name: pulumi.String("www"),
+// 						},
+// 						Spec: &corev1.PersistentVolumeClaimSpecArgs{
+// 							AccessModes: pulumi.StringArray{
+// 								pulumi.String("ReadWriteOnce"),
+// 							},
+// 							StorageClassName: pulumi.String("my-storage-class"),
+// 							Resources: &corev1.ResourceRequirementsArgs{
+// 								Requests: pulumi.StringMap{
+// 									"storage": pulumi.String("1Gi"),
+// 								},
+// 							},
+// 						},
+// 					},
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
+// 		return nil
+// 	})
+// }
+// ```
+// {% /examples %}}
 type StatefulSet struct {
 	pulumi.CustomResourceState
 
