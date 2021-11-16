@@ -48,7 +48,7 @@ var serviceSpecType = pschema.ComplexTypeSpec{
 	},
 }
 
-//go:embed examples/chartV2.md
+//go:embed examples/overlays/chartV2.md
 var helmV2ChartMD string
 
 var helmV2ChartResource = pschema.ResourceSpec{
@@ -136,7 +136,7 @@ var helmV2ChartResource = pschema.ResourceSpec{
 	},
 }
 
-//go:embed examples/chartV3.md
+//go:embed examples/overlays/chartV3.md
 var helmV3ChartMD string
 
 var helmV3ChartResource = pschema.ResourceSpec{
@@ -807,7 +807,7 @@ var helmReleaseSettings = pschema.ComplexTypeSpec{
 	},
 }
 
-//go:embed examples/helmRelease.md
+//go:embed examples/overlays/helmRelease.md
 var helmV3ReleaseMD string
 
 var helmV3ReleaseResource = pschema.ResourceSpec{
@@ -1309,7 +1309,7 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 	},
 }
 
-//go:embed examples/kustomizeDirectory.md
+//go:embed examples/overlays/kustomizeDirectory.md
 var kustomizeDirectoryMD string
 
 var kustomizeDirectoryResource = pschema.ResourceSpec{
@@ -1373,7 +1373,7 @@ var kustomizeDirectoryResource = pschema.ResourceSpec{
 	},
 }
 
-//go:embed examples/configFile.md
+//go:embed examples/overlays/configFile.md
 var configFileMD string
 
 var yamlConfigFileResource = pschema.ResourceSpec{
@@ -1419,7 +1419,7 @@ var yamlConfigFileResource = pschema.ResourceSpec{
 	},
 }
 
-//go:embed examples/configGroup.md
+//go:embed examples/overlays/configGroup.md
 var configGroupMD string
 
 var yamlConfigGroupResource = pschema.ResourceSpec{
