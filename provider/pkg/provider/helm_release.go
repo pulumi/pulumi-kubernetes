@@ -177,6 +177,7 @@ type helmReleaseProvider struct {
 	enableSecrets    bool
 	name             string
 	settings         *cli.EnvSettings
+	kubeconfig       clientcmd.ClientConfig
 }
 
 func newHelmReleaseProvider(
@@ -191,6 +192,7 @@ func newHelmReleaseProvider(
 	registryConfigPath,
 	repositoryConfigPath,
 	repositoryCache string,
+	kubeconfig clientcmd.ClientConfig,
 ) (customResourceProvider, error) {
 	settings := cli.New()
 	settings.PluginsDirectory = pluginsDirectory
@@ -208,6 +210,7 @@ func newHelmReleaseProvider(
 		enableSecrets:    enableSecrets,
 		name:             "kubernetes:helmrelease",
 		settings:         settings,
+		kubeconfig:       kubeconfig,
 	}, nil
 }
 
@@ -217,30 +220,7 @@ func debug(format string, a ...interface{}) {
 
 func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
 	conf := new(action.Configuration)
-	var overrides clientcmd.ConfigOverrides
-	if r.defaultOverrides != nil {
-		overrides = *r.defaultOverrides
-	}
-
-	// This essentially points the client to use the specified namespace when a namespaced
-	// object doesn't have the namespace specified. This allows us to interpolate the
-	// release's namespace as the default namespace on charts with templates that don't
-	// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
-	overrides.Context.Namespace = namespace
-
-	var clientConfig clientcmd.ClientConfig
-	if r.apiConfig != nil {
-		clientConfig = clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
-	} else {
-		// Use client-go to resolve the final configuration values for the client. Typically these
-		// values would would reside in the $KUBECONFIG file, but can also be altered in several
-		// places, including in env variables, client-go default values, and (if we allowed it) CLI
-		// flags.
-		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
-	}
-	kc := newKubeConfig(r.restConfig, clientConfig)
+	kc := newKubeConfig(r.restConfig, r.kubeconfig)
 	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {
 		return nil, err
 	}
@@ -355,26 +335,19 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs}, nil
 }
 
-func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease *Release) error {
+func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, newRelease *Release) error {
 	conf, err := r.getActionConfig(newRelease.Namespace)
 	if err != nil {
 		return err
 	}
 	client := action.NewInstall(conf)
-	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.Name)
-	cpo, chartName, err := chartPathOptions(newRelease)
-	if err != nil {
-		return err
-	}
-
-	logger.V(9).Infof("getChart: %q settings: %#v, cpo: %+v", chartName, r.settings, cpo)
-	c, path, err := getChart(chartName, r.settings, cpo)
+	c, path, err := getChart(r.settings, newRelease)
 	if err != nil {
 		logger.V(9).Infof("getChart failed: %+v", err)
 		return err
 	}
 
-	logger.V(9).Infof("Checking chart dependencies for chart: %q with path: %q", chartName, path)
+	logger.V(9).Infof("Checking chart dependencies for chart: %q with path: %q", newRelease.Chart, path)
 	// check and update the chart's dependencies if needed
 	updated, err := checkChartDependencies(
 		c,
@@ -405,7 +378,6 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 		return err
 	}
 
-	client.ChartPathOptions = *cpo
 	client.ClientOnly = false
 	client.DisableHooks = newRelease.DisableWebhooks
 	client.Wait = !newRelease.SkipAwait
@@ -467,14 +439,9 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 }
 
 func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release) error {
-	cpo, chartName, err := chartPathOptions(newRelease)
-	if err != nil {
-		return err
-	}
-
-	logger.V(9).Infof("getChart: %q settings: %#v, cpo: %+v", chartName, r.settings, cpo)
+	logger.V(9).Infof("getChart: %q settings: %#v", newRelease.Chart, r.settings)
 	// Get Chart metadata, if we fail - we're done
-	chart, path, err := getChart(chartName, r.settings, cpo)
+	chart, path, err := getChart(r.settings, newRelease)
 	if err != nil {
 		return err
 	}
@@ -497,7 +464,7 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 	}
 
 	if newRelease.Lint {
-		if err := resourceReleaseValidate(newRelease, news, r.settings, cpo); err != nil {
+		if err := resourceReleaseValidate(newRelease, r.settings); err != nil {
 			return err
 		}
 	}
@@ -513,7 +480,6 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 	}
 
 	client := action.NewUpgrade(actionConfig)
-	client.ChartPathOptions = *cpo
 	client.Devel = newRelease.Devel
 	client.Namespace = newRelease.Namespace
 	client.Timeout = time.Duration(newRelease.Timeout) * time.Second
@@ -689,7 +655,7 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	}, nil
 }
 
-func resourceReleaseValidate(release *Release, pm resource.PropertyMap, settings *cli.EnvSettings, cpo *action.ChartPathOptions) error {
+func resourceReleaseValidate(release *Release, settings *cli.EnvSettings) error {
 	cpo, name, err := chartPathOptions(release)
 	if err != nil {
 		return fmt.Errorf("malformed values: \n\t%s", err)
@@ -753,7 +719,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 	}
 
 	if !req.GetPreview() {
-		if err = r.helmCreate(ctx, urn, news, newRelease); err != nil {
+		if err = r.helmCreate(ctx, urn, newRelease); err != nil {
 			return nil, err
 		}
 	}
@@ -837,16 +803,11 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 
-	cpo, chartName, err := chartPathOptions(existingRelease)
-	if err != nil {
-		return nil, err
-	}
-
-	logger.V(9).Infof("Trying to get chart: %q, settings: %#v", chartName, r.settings)
+	logger.V(9).Infof("Trying to get chart: %q, settings: %#v", existingRelease.Chart, r.settings)
 
 	// Helm itself doesn't store any information about where the Chart was downloaded from.
 	// We need the user to ensure the chart is downloadable by using `helm repo add` etc.
-	_, _, err = getChart(chartName, r.settings, cpo)
+	_, _, err = getChart(r.settings, existingRelease)
 	if err != nil {
 		return nil, err
 	}
@@ -1197,14 +1158,34 @@ func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
 	return out
 }
 
-func getChart(name string, settings *cli.EnvSettings, cpo *action.ChartPathOptions) (*helmchart.Chart, string, error) {
-	path, err := cpo.LocateChart(name, settings)
-	if err != nil {
-		return nil, "", err
+func getChart(settings *cli.EnvSettings, newRelease *Release) (*helmchart.Chart, string, error) {
+	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.Name)
+
+	var path string
+	if newRelease.RepositoryOpts != nil {
+		cpo, chartName, err := chartPathOptions(newRelease)
+		if err != nil {
+			return nil, "", err
+		}
+
+		path, err = cpo.LocateChart(chartName, settings)
+		if err != nil {
+			return nil, "", err
+		}
+
+		logger.V(9).Infof("Trying to load chart: %q from path: %q", chartName, path)
+		c, err := loader.Load(path)
+		if err != nil {
+			return nil, "", err
+		}
+
+		return c, path, nil
 	}
 
-	logger.V(9).Infof("Trying to load chart: %q from path: %q", name, path)
-	c, err := loader.Load(path)
+	path = newRelease.Chart
+
+	logger.V(9).Infof("Trying to load chart from path: %q", path)
+	c, err := loader.Load(newRelease.Chart)
 	if err != nil {
 		return nil, "", err
 	}
