@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.10.1 (November 19, 2021)
+
 - Remove unused helm ReleaseType type (https://github.com/pulumi/pulumi-kubernetes/pull/1805)
 - Fix Helm Release Panic "Helm uninstall returned information" (https://github.com/pulumi/pulumi-kubernetes/pull/1807)
 
