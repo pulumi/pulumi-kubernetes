@@ -976,7 +976,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	}
 
 	if res.Info != "" {
-		_ = r.host.Log(context.Background(), diag.Warning, "Helm uninstall returned information: %q", res.Info)
+		_ = r.host.Log(context.Background(), diag.Warning, urn, fmt.Sprintf("Helm uninstall returned information: %q", res.Info))
 	}
 	return &pbempty.Empty{}, nil
 }
