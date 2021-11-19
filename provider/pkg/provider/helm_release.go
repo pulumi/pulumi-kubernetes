@@ -1,4 +1,16 @@
-// Copyright 2021, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2021, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package provider
 
@@ -299,11 +311,10 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		new.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
 	}
 
-	var templateRelease bool
+	haveResourceNames := true
 	if len(olds.Mappable()) > 0 {
 		adoptOldNameIfUnnamed(new, old)
-
-		templateRelease = true
+		haveResourceNames = false
 	} else {
 		assignNameIfAutonameable(new, news, "release")
 		conf, err := r.getActionConfig(new.Namespace)
@@ -315,48 +326,17 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 		if !exists {
-			templateRelease = true
+			haveResourceNames = false
 		}
 		// If resource exists, we are likely doing an import. We will just pass the inputs through.
 	}
 
-	if templateRelease {
-		helmHome := os.Getenv("HELM_HOME")
-
-		helmChartOpts := HelmChartOpts{
-			HelmFetchOpts: HelmFetchOpts{
-				CAFile:   new.RepositoryOpts.CAFile,
-				CertFile: new.RepositoryOpts.CertFile,
-				Devel:    new.Devel,
-				Home:     helmHome,
-				KeyFile:  new.RepositoryOpts.KeyFile,
-				Keyring:  new.Keyring,
-				Password: new.RepositoryOpts.Password,
-				Repo:     new.RepositoryOpts.Repo,
-				Username: new.RepositoryOpts.Password,
-				Version:  new.Version,
-			},
-			APIVersions:              nil,
-			Chart:                    new.Chart,
-			IncludeTestHookResources: true,
-			SkipCRDRendering:         new.SkipCrds,
-			Namespace:                new.Namespace,
-			Path:                     "",
-			ReleaseName:              new.Name,
-			Values:                   new.Values,
-			Version:                  new.Version,
-		}
-		templ, err := helmTemplate(helmChartOpts)
+	if !haveResourceNames {
+		resourceNames, err := computeResourceNames(new)
 		if err != nil {
 			return nil, err
 		}
-
-		_, resources, err := convertYAMLManifestToJSON(templ)
-		if err != nil {
-			return nil, err
-		}
-
-		new.ResourceNames = resources
+		new.ResourceNames = resourceNames
 	}
 
 	autonamed := resource.NewPropertyMap(new)
@@ -999,6 +979,45 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 		_ = r.host.Log(context.Background(), diag.Warning, "Helm uninstall returned information: %q", res.Info)
 	}
 	return &pbempty.Empty{}, nil
+}
+
+func computeResourceNames(r *Release) (map[string][]string, error) {
+	helmHome := os.Getenv("HELM_HOME")
+
+	helmChartOpts := HelmChartOpts{
+		HelmFetchOpts: HelmFetchOpts{
+			CAFile:   r.RepositoryOpts.CAFile,
+			CertFile: r.RepositoryOpts.CertFile,
+			Devel:    r.Devel,
+			Home:     helmHome,
+			KeyFile:  r.RepositoryOpts.KeyFile,
+			Keyring:  r.Keyring,
+			Password: r.RepositoryOpts.Password,
+			Repo:     r.RepositoryOpts.Repo,
+			Username: r.RepositoryOpts.Password,
+			Version:  r.Version,
+		},
+		APIVersions:              nil,
+		Chart:                    r.Chart,
+		IncludeTestHookResources: true,
+		SkipCRDRendering:         r.SkipCrds,
+		Namespace:                r.Namespace,
+		Path:                     "",
+		ReleaseName:              r.Name,
+		Values:                   r.Values,
+		Version:                  r.Version,
+	}
+	templ, err := helmTemplate(helmChartOpts)
+	if err != nil {
+		return nil, err
+	}
+
+	_, resourceNames, err := convertYAMLManifestToJSON(templ)
+	if err != nil {
+		return nil, err
+	}
+
+	return resourceNames, nil
 }
 
 func checkpointRelease(inputs resource.PropertyMap, outputs *Release) resource.PropertyMap {
