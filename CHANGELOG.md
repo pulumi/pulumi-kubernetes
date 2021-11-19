@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Helm Release: Make RepositoryOpts optional  (https://github.com/pulumi/pulumi-kubernetes/pull/1806)
+
 ## 3.10.1 (November 19, 2021)
 
 - Remove unused helm ReleaseType type (https://github.com/pulumi/pulumi-kubernetes/pull/1805)

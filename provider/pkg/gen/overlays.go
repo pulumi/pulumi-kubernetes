@@ -766,14 +766,12 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 		Type: "object",
 		Required: []string{
 			"chart",
-			"repositoryOpts",
 			"status",
 		},
 		Language: map[string]pschema.RawMessage{
 			"nodejs": rawMessage(map[string][]string{
 				"requiredOutputs": {
 					"name",
-					"repositoryOpts",
 					"chart",
 					"version",
 					"devel",
@@ -1033,7 +1031,6 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 	},
 	RequiredInputs: []string{
 		"chart",
-		"repositoryOpts",
 	},
 }
 

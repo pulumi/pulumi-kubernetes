@@ -102,7 +102,7 @@ type Release struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace bool `json:"replace,omitempty"`
 	// Specification defining the Helm chart repository to use.
-	RepositoryOpts RepositoryOpts `json:"repositoryOpts,omitempty"`
+	RepositoryOpts *RepositoryOpts `json:"repositoryOpts,omitempty"`
 	// When upgrading, reset the values to the ones built into the chart
 	ResetValues bool `json:"resetValues,omitempty"`
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
@@ -985,7 +985,17 @@ func computeResourceNames(r *Release) (map[string][]string, error) {
 	helmHome := os.Getenv("HELM_HOME")
 
 	helmChartOpts := HelmChartOpts{
-		HelmFetchOpts: HelmFetchOpts{
+		APIVersions:              nil,
+		IncludeTestHookResources: true,
+		SkipCRDRendering:         r.SkipCrds,
+		Namespace:                r.Namespace,
+		ReleaseName:              r.Name,
+		Values:                   r.Values,
+		Version:                  r.Version,
+	}
+	if r.RepositoryOpts != nil {
+		helmChartOpts.Chart = r.Chart
+		helmChartOpts.HelmFetchOpts = HelmFetchOpts{
 			CAFile:   r.RepositoryOpts.CAFile,
 			CertFile: r.RepositoryOpts.CertFile,
 			Devel:    r.Devel,
@@ -996,17 +1006,11 @@ func computeResourceNames(r *Release) (map[string][]string, error) {
 			Repo:     r.RepositoryOpts.Repo,
 			Username: r.RepositoryOpts.Password,
 			Version:  r.Version,
-		},
-		APIVersions:              nil,
-		Chart:                    r.Chart,
-		IncludeTestHookResources: true,
-		SkipCRDRendering:         r.SkipCrds,
-		Namespace:                r.Namespace,
-		Path:                     "",
-		ReleaseName:              r.Name,
-		Values:                   r.Values,
-		Version:                  r.Version,
+		}
+	} else {
+		helmChartOpts.Path = r.Chart
 	}
+
 	templ, err := helmTemplate(helmChartOpts)
 	if err != nil {
 		return nil, err

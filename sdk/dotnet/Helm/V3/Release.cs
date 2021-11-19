@@ -418,8 +418,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// <summary>
         /// Specification defining the Helm chart repository to use.
         /// </summary>
-        [Input("repositoryOpts", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Helm.V3.RepositoryOptsArgs> RepositoryOpts { get; set; } = null!;
+        [Input("repositoryOpts")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Helm.V3.RepositoryOptsArgs>? RepositoryOpts { get; set; }
 
         /// <summary>
         /// When upgrading, reset the values to the ones built into the chart.

@@ -188,9 +188,6 @@ export class Release extends pulumi.CustomResource {
             if ((!args || args.chart === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'chart'");
             }
-            if ((!args || args.repositoryOpts === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'repositoryOpts'");
-            }
             inputs["atomic"] = args ? args.atomic : undefined;
             inputs["chart"] = args ? args.chart : undefined;
             inputs["cleanupOnFail"] = args ? args.cleanupOnFail : undefined;
@@ -361,7 +358,7 @@ export interface ReleaseArgs {
     /**
      * Specification defining the Helm chart repository to use.
      */
-    repositoryOpts: pulumi.Input<inputs.helm.v3.RepositoryOpts>;
+    repositoryOpts?: pulumi.Input<inputs.helm.v3.RepositoryOpts>;
     /**
      * When upgrading, reset the values to the ones built into the chart.
      */

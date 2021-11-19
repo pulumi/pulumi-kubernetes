@@ -39700,14 +39700,12 @@
             "type": "object",
             "required": [
                 "chart",
-                "repositoryOpts",
                 "status"
             ],
             "language": {
                 "nodejs": {
                     "requiredOutputs": [
                         "name",
-                        "repositoryOpts",
                         "chart",
                         "version",
                         "devel",
@@ -39896,8 +39894,7 @@
                 }
             },
             "requiredInputs": [
-                "chart",
-                "repositoryOpts"
+                "chart"
             ]
         },
         "kubernetes:kustomize:Directory": {

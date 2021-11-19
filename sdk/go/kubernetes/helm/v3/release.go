@@ -60,7 +60,7 @@ type Release struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace pulumi.BoolPtrOutput `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
-	RepositoryOpts RepositoryOptsOutput `pulumi:"repositoryOpts"`
+	RepositoryOpts RepositoryOptsPtrOutput `pulumi:"repositoryOpts"`
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues pulumi.BoolPtrOutput `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
@@ -96,9 +96,6 @@ func NewRelease(ctx *pulumi.Context,
 
 	if args.Chart == nil {
 		return nil, errors.New("invalid value for required argument 'Chart'")
-	}
-	if args.RepositoryOpts == nil {
-		return nil, errors.New("invalid value for required argument 'RepositoryOpts'")
 	}
 	args.Compat = pulumi.StringPtr("true")
 	var resource Release
@@ -177,7 +174,7 @@ type releaseArgs struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace *bool `pulumi:"replace"`
 	// Specification defining the Helm chart repository to use.
-	RepositoryOpts RepositoryOpts `pulumi:"repositoryOpts"`
+	RepositoryOpts *RepositoryOpts `pulumi:"repositoryOpts"`
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues *bool `pulumi:"resetValues"`
 	// Names of resources created by the release grouped by "kind/version".
@@ -248,7 +245,7 @@ type ReleaseArgs struct {
 	// Re-use the given name, even if that name is already used. This is unsafe in production
 	Replace pulumi.BoolPtrInput
 	// Specification defining the Helm chart repository to use.
-	RepositoryOpts RepositoryOptsInput
+	RepositoryOpts RepositoryOptsPtrInput
 	// When upgrading, reset the values to the ones built into the chart.
 	ResetValues pulumi.BoolPtrInput
 	// Names of resources created by the release grouped by "kind/version".
