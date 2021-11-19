@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Remove unused helm ReleaseType type (https://github.com/pulumi/pulumi-kubernetes/pull/1805)
+
 ## 3.10.0 (November 12, 2021)
 
 - Add await support for networking.k8s.io/v1 variant of ingress (https://github.com/pulumi/pulumi-kubernetes/pull/1795)
