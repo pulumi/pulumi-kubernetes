@@ -126,12 +126,12 @@ import (
 )
 
 func main() {
-	pulumi.run(func(ctx *pulumi.context) error {
-		_, err := helm.newchart(ctx, "nginx-ingress", helm.chartargs{
-			chart:   pulumi.string("nginx-ingress"),
-			version: pulumi.string("1.24.4"),
-			fetchargs: helm.fetchargs{
-				repo: pulumi.string("https://charts.helm.sh/stable"),
+	pulumi.Run(func(ctx *pulumi.Context) error {
+		_, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+			Chart:   pulumi.String("nginx-ingress"),
+			Version: pulumi.String("1.24.4"),
+			Fetchargs: helm.FetchArgs{
+				Repo: pulumi.String("https://charts.helm.sh/stable"),
 			},
 		})
 		if err != nil {
