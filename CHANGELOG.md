@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Helm Release: Helm Release imports support (https://github.com/pulumi/pulumi-kubernetes/pull/1818)
 
 ## 3.11.0 (December 6, 2021)
 
