@@ -109,7 +109,7 @@ type LocalSubjectAccessReviewInput interface {
 }
 
 func (*LocalSubjectAccessReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReview)(nil))
+	return reflect.TypeOf((**LocalSubjectAccessReview)(nil)).Elem()
 }
 
 func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
@@ -118,35 +118,6 @@ func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutput() LocalSubje
 
 func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewOutput)
-}
-
-func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
-	return i.ToLocalSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPtrOutput)
-}
-
-type LocalSubjectAccessReviewPtrInput interface {
-	pulumi.Input
-
-	ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput
-	ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput
-}
-
-type localSubjectAccessReviewPtrType LocalSubjectAccessReviewArgs
-
-func (*localSubjectAccessReviewPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**LocalSubjectAccessReview)(nil))
-}
-
-func (i *localSubjectAccessReviewPtrType) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
-	return i.ToLocalSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *localSubjectAccessReviewPtrType) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPtrOutput)
 }
 
 // LocalSubjectAccessReviewArrayInput is an input type that accepts LocalSubjectAccessReviewArray and LocalSubjectAccessReviewArrayOutput values.
@@ -202,7 +173,7 @@ func (i LocalSubjectAccessReviewMap) ToLocalSubjectAccessReviewMapOutputWithCont
 type LocalSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReview)(nil))
+	return reflect.TypeOf((**LocalSubjectAccessReview)(nil)).Elem()
 }
 
 func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
@@ -213,44 +184,10 @@ func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutputWithCont
 	return o
 }
 
-func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
-	return o.ToLocalSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v LocalSubjectAccessReview) *LocalSubjectAccessReview {
-		return &v
-	}).(LocalSubjectAccessReviewPtrOutput)
-}
-
-type LocalSubjectAccessReviewPtrOutput struct{ *pulumi.OutputState }
-
-func (LocalSubjectAccessReviewPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**LocalSubjectAccessReview)(nil))
-}
-
-func (o LocalSubjectAccessReviewPtrOutput) ToLocalSubjectAccessReviewPtrOutput() LocalSubjectAccessReviewPtrOutput {
-	return o
-}
-
-func (o LocalSubjectAccessReviewPtrOutput) ToLocalSubjectAccessReviewPtrOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPtrOutput {
-	return o
-}
-
-func (o LocalSubjectAccessReviewPtrOutput) Elem() LocalSubjectAccessReviewOutput {
-	return o.ApplyT(func(v *LocalSubjectAccessReview) LocalSubjectAccessReview {
-		if v != nil {
-			return *v
-		}
-		var ret LocalSubjectAccessReview
-		return ret
-	}).(LocalSubjectAccessReviewOutput)
-}
-
 type LocalSubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]LocalSubjectAccessReview)(nil))
+	return reflect.TypeOf((*[]*LocalSubjectAccessReview)(nil)).Elem()
 }
 
 func (o LocalSubjectAccessReviewArrayOutput) ToLocalSubjectAccessReviewArrayOutput() LocalSubjectAccessReviewArrayOutput {
@@ -262,15 +199,15 @@ func (o LocalSubjectAccessReviewArrayOutput) ToLocalSubjectAccessReviewArrayOutp
 }
 
 func (o LocalSubjectAccessReviewArrayOutput) Index(i pulumi.IntInput) LocalSubjectAccessReviewOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) LocalSubjectAccessReview {
-		return vs[0].([]LocalSubjectAccessReview)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *LocalSubjectAccessReview {
+		return vs[0].([]*LocalSubjectAccessReview)[vs[1].(int)]
 	}).(LocalSubjectAccessReviewOutput)
 }
 
 type LocalSubjectAccessReviewMapOutput struct{ *pulumi.OutputState }
 
 func (LocalSubjectAccessReviewMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]LocalSubjectAccessReview)(nil))
+	return reflect.TypeOf((*map[string]*LocalSubjectAccessReview)(nil)).Elem()
 }
 
 func (o LocalSubjectAccessReviewMapOutput) ToLocalSubjectAccessReviewMapOutput() LocalSubjectAccessReviewMapOutput {
@@ -282,18 +219,16 @@ func (o LocalSubjectAccessReviewMapOutput) ToLocalSubjectAccessReviewMapOutputWi
 }
 
 func (o LocalSubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) LocalSubjectAccessReviewOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) LocalSubjectAccessReview {
-		return vs[0].(map[string]LocalSubjectAccessReview)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *LocalSubjectAccessReview {
+		return vs[0].(map[string]*LocalSubjectAccessReview)[vs[1].(string)]
 	}).(LocalSubjectAccessReviewOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewInput)(nil)).Elem(), &LocalSubjectAccessReview{})
-	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewPtrInput)(nil)).Elem(), &LocalSubjectAccessReview{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewArrayInput)(nil)).Elem(), LocalSubjectAccessReviewArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewMapInput)(nil)).Elem(), LocalSubjectAccessReviewMap{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewOutput{})
-	pulumi.RegisterOutputType(LocalSubjectAccessReviewPtrOutput{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewArrayOutput{})
 	pulumi.RegisterOutputType(LocalSubjectAccessReviewMapOutput{})
 }

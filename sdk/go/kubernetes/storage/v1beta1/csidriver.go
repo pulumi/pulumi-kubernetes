@@ -110,7 +110,7 @@ type CSIDriverInput interface {
 }
 
 func (*CSIDriver) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSIDriver)(nil))
+	return reflect.TypeOf((**CSIDriver)(nil)).Elem()
 }
 
 func (i *CSIDriver) ToCSIDriverOutput() CSIDriverOutput {
@@ -119,35 +119,6 @@ func (i *CSIDriver) ToCSIDriverOutput() CSIDriverOutput {
 
 func (i *CSIDriver) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverOutput)
-}
-
-func (i *CSIDriver) ToCSIDriverPtrOutput() CSIDriverPtrOutput {
-	return i.ToCSIDriverPtrOutputWithContext(context.Background())
-}
-
-func (i *CSIDriver) ToCSIDriverPtrOutputWithContext(ctx context.Context) CSIDriverPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverPtrOutput)
-}
-
-type CSIDriverPtrInput interface {
-	pulumi.Input
-
-	ToCSIDriverPtrOutput() CSIDriverPtrOutput
-	ToCSIDriverPtrOutputWithContext(ctx context.Context) CSIDriverPtrOutput
-}
-
-type csidriverPtrType CSIDriverArgs
-
-func (*csidriverPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CSIDriver)(nil))
-}
-
-func (i *csidriverPtrType) ToCSIDriverPtrOutput() CSIDriverPtrOutput {
-	return i.ToCSIDriverPtrOutputWithContext(context.Background())
-}
-
-func (i *csidriverPtrType) ToCSIDriverPtrOutputWithContext(ctx context.Context) CSIDriverPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverPtrOutput)
 }
 
 // CSIDriverArrayInput is an input type that accepts CSIDriverArray and CSIDriverArrayOutput values.
@@ -203,7 +174,7 @@ func (i CSIDriverMap) ToCSIDriverMapOutputWithContext(ctx context.Context) CSIDr
 type CSIDriverOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSIDriver)(nil))
+	return reflect.TypeOf((**CSIDriver)(nil)).Elem()
 }
 
 func (o CSIDriverOutput) ToCSIDriverOutput() CSIDriverOutput {
@@ -214,44 +185,10 @@ func (o CSIDriverOutput) ToCSIDriverOutputWithContext(ctx context.Context) CSIDr
 	return o
 }
 
-func (o CSIDriverOutput) ToCSIDriverPtrOutput() CSIDriverPtrOutput {
-	return o.ToCSIDriverPtrOutputWithContext(context.Background())
-}
-
-func (o CSIDriverOutput) ToCSIDriverPtrOutputWithContext(ctx context.Context) CSIDriverPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIDriver) *CSIDriver {
-		return &v
-	}).(CSIDriverPtrOutput)
-}
-
-type CSIDriverPtrOutput struct{ *pulumi.OutputState }
-
-func (CSIDriverPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CSIDriver)(nil))
-}
-
-func (o CSIDriverPtrOutput) ToCSIDriverPtrOutput() CSIDriverPtrOutput {
-	return o
-}
-
-func (o CSIDriverPtrOutput) ToCSIDriverPtrOutputWithContext(ctx context.Context) CSIDriverPtrOutput {
-	return o
-}
-
-func (o CSIDriverPtrOutput) Elem() CSIDriverOutput {
-	return o.ApplyT(func(v *CSIDriver) CSIDriver {
-		if v != nil {
-			return *v
-		}
-		var ret CSIDriver
-		return ret
-	}).(CSIDriverOutput)
-}
-
 type CSIDriverArrayOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CSIDriver)(nil))
+	return reflect.TypeOf((*[]*CSIDriver)(nil)).Elem()
 }
 
 func (o CSIDriverArrayOutput) ToCSIDriverArrayOutput() CSIDriverArrayOutput {
@@ -263,15 +200,15 @@ func (o CSIDriverArrayOutput) ToCSIDriverArrayOutputWithContext(ctx context.Cont
 }
 
 func (o CSIDriverArrayOutput) Index(i pulumi.IntInput) CSIDriverOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CSIDriver {
-		return vs[0].([]CSIDriver)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSIDriver {
+		return vs[0].([]*CSIDriver)[vs[1].(int)]
 	}).(CSIDriverOutput)
 }
 
 type CSIDriverMapOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]CSIDriver)(nil))
+	return reflect.TypeOf((*map[string]*CSIDriver)(nil)).Elem()
 }
 
 func (o CSIDriverMapOutput) ToCSIDriverMapOutput() CSIDriverMapOutput {
@@ -283,18 +220,16 @@ func (o CSIDriverMapOutput) ToCSIDriverMapOutputWithContext(ctx context.Context)
 }
 
 func (o CSIDriverMapOutput) MapIndex(k pulumi.StringInput) CSIDriverOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CSIDriver {
-		return vs[0].(map[string]CSIDriver)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *CSIDriver {
+		return vs[0].(map[string]*CSIDriver)[vs[1].(string)]
 	}).(CSIDriverOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverInput)(nil)).Elem(), &CSIDriver{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverPtrInput)(nil)).Elem(), &CSIDriver{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverArrayInput)(nil)).Elem(), CSIDriverArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIDriverMapInput)(nil)).Elem(), CSIDriverMap{})
 	pulumi.RegisterOutputType(CSIDriverOutput{})
-	pulumi.RegisterOutputType(CSIDriverPtrOutput{})
 	pulumi.RegisterOutputType(CSIDriverArrayOutput{})
 	pulumi.RegisterOutputType(CSIDriverMapOutput{})
 }

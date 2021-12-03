@@ -60,26 +60,26 @@ export class ServiceList extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ServiceListArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.items === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = "v1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = "ServiceList";
-            inputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["items"] = args ? args.items : undefined;
+            resourceInputs["kind"] = "ServiceList";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["items"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["items"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(ServiceList.__pulumiType, name, inputs, opts);
+        super(ServiceList.__pulumiType, name, resourceInputs, opts);
     }
 }
 

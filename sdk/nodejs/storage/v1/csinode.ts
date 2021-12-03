@@ -60,28 +60,28 @@ export class CSINode extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: CSINodeArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.spec === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
-            inputs["apiVersion"] = "storage.k8s.io/v1";
-            inputs["kind"] = "CSINode";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["apiVersion"] = "storage.k8s.io/v1";
+            resourceInputs["kind"] = "CSINode";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSINode" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(CSINode.__pulumiType, name, inputs, opts);
+        super(CSINode.__pulumiType, name, resourceInputs, opts);
     }
 }
 

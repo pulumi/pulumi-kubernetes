@@ -66,30 +66,30 @@ export class VolumeAttachment extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: VolumeAttachmentArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.spec === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
-            inputs["apiVersion"] = "storage.k8s.io/v1";
-            inputs["kind"] = "VolumeAttachment";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = "storage.k8s.io/v1";
+            resourceInputs["kind"] = "VolumeAttachment";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment" }, { type: "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(VolumeAttachment.__pulumiType, name, inputs, opts);
+        super(VolumeAttachment.__pulumiType, name, resourceInputs, opts);
     }
 }
 

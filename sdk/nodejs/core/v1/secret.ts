@@ -82,31 +82,31 @@ export class Secret extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: SecretArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["data"] = args?.data ? pulumi.secret(args.data) : undefined;
-            inputs["immutable"] = args ? args.immutable : undefined;
-            inputs["kind"] = "Secret";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["stringData"] = args?.stringData ? pulumi.secret(args.stringData) : undefined;
-            inputs["type"] = args ? args.type : undefined;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["data"] = args?.data ? pulumi.secret(args.data) : undefined;
+            resourceInputs["immutable"] = args ? args.immutable : undefined;
+            resourceInputs["kind"] = "Secret";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["stringData"] = args?.stringData ? pulumi.secret(args.stringData) : undefined;
+            resourceInputs["type"] = args ? args.type : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["data"] = undefined /*out*/;
-            inputs["immutable"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["stringData"] = undefined /*out*/;
-            inputs["type"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["data"] = undefined /*out*/;
+            resourceInputs["immutable"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["stringData"] = undefined /*out*/;
+            resourceInputs["type"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const secretOpts = { additionalSecretOutputs: ["data", "stringData"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
-        super(Secret.__pulumiType, name, inputs, opts);
+        super(Secret.__pulumiType, name, resourceInputs, opts);
     }
 }
 

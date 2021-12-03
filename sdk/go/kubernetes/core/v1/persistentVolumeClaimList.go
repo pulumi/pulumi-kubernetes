@@ -104,7 +104,7 @@ type PersistentVolumeClaimListInput interface {
 }
 
 func (*PersistentVolumeClaimList) ElementType() reflect.Type {
-	return reflect.TypeOf((*PersistentVolumeClaimList)(nil))
+	return reflect.TypeOf((**PersistentVolumeClaimList)(nil)).Elem()
 }
 
 func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListOutput() PersistentVolumeClaimListOutput {
@@ -113,35 +113,6 @@ func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListOutput() Persiste
 
 func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListOutputWithContext(ctx context.Context) PersistentVolumeClaimListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListOutput)
-}
-
-func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListPtrOutput() PersistentVolumeClaimListPtrOutput {
-	return i.ToPersistentVolumeClaimListPtrOutputWithContext(context.Background())
-}
-
-func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListPtrOutput)
-}
-
-type PersistentVolumeClaimListPtrInput interface {
-	pulumi.Input
-
-	ToPersistentVolumeClaimListPtrOutput() PersistentVolumeClaimListPtrOutput
-	ToPersistentVolumeClaimListPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimListPtrOutput
-}
-
-type persistentVolumeClaimListPtrType PersistentVolumeClaimListArgs
-
-func (*persistentVolumeClaimListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PersistentVolumeClaimList)(nil))
-}
-
-func (i *persistentVolumeClaimListPtrType) ToPersistentVolumeClaimListPtrOutput() PersistentVolumeClaimListPtrOutput {
-	return i.ToPersistentVolumeClaimListPtrOutputWithContext(context.Background())
-}
-
-func (i *persistentVolumeClaimListPtrType) ToPersistentVolumeClaimListPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListPtrOutput)
 }
 
 // PersistentVolumeClaimListArrayInput is an input type that accepts PersistentVolumeClaimListArray and PersistentVolumeClaimListArrayOutput values.
@@ -197,7 +168,7 @@ func (i PersistentVolumeClaimListMap) ToPersistentVolumeClaimListMapOutputWithCo
 type PersistentVolumeClaimListOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PersistentVolumeClaimList)(nil))
+	return reflect.TypeOf((**PersistentVolumeClaimList)(nil)).Elem()
 }
 
 func (o PersistentVolumeClaimListOutput) ToPersistentVolumeClaimListOutput() PersistentVolumeClaimListOutput {
@@ -208,44 +179,10 @@ func (o PersistentVolumeClaimListOutput) ToPersistentVolumeClaimListOutputWithCo
 	return o
 }
 
-func (o PersistentVolumeClaimListOutput) ToPersistentVolumeClaimListPtrOutput() PersistentVolumeClaimListPtrOutput {
-	return o.ToPersistentVolumeClaimListPtrOutputWithContext(context.Background())
-}
-
-func (o PersistentVolumeClaimListOutput) ToPersistentVolumeClaimListPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolumeClaimList) *PersistentVolumeClaimList {
-		return &v
-	}).(PersistentVolumeClaimListPtrOutput)
-}
-
-type PersistentVolumeClaimListPtrOutput struct{ *pulumi.OutputState }
-
-func (PersistentVolumeClaimListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PersistentVolumeClaimList)(nil))
-}
-
-func (o PersistentVolumeClaimListPtrOutput) ToPersistentVolumeClaimListPtrOutput() PersistentVolumeClaimListPtrOutput {
-	return o
-}
-
-func (o PersistentVolumeClaimListPtrOutput) ToPersistentVolumeClaimListPtrOutputWithContext(ctx context.Context) PersistentVolumeClaimListPtrOutput {
-	return o
-}
-
-func (o PersistentVolumeClaimListPtrOutput) Elem() PersistentVolumeClaimListOutput {
-	return o.ApplyT(func(v *PersistentVolumeClaimList) PersistentVolumeClaimList {
-		if v != nil {
-			return *v
-		}
-		var ret PersistentVolumeClaimList
-		return ret
-	}).(PersistentVolumeClaimListOutput)
-}
-
 type PersistentVolumeClaimListArrayOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PersistentVolumeClaimList)(nil))
+	return reflect.TypeOf((*[]*PersistentVolumeClaimList)(nil)).Elem()
 }
 
 func (o PersistentVolumeClaimListArrayOutput) ToPersistentVolumeClaimListArrayOutput() PersistentVolumeClaimListArrayOutput {
@@ -257,15 +194,15 @@ func (o PersistentVolumeClaimListArrayOutput) ToPersistentVolumeClaimListArrayOu
 }
 
 func (o PersistentVolumeClaimListArrayOutput) Index(i pulumi.IntInput) PersistentVolumeClaimListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PersistentVolumeClaimList {
-		return vs[0].([]PersistentVolumeClaimList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolumeClaimList {
+		return vs[0].([]*PersistentVolumeClaimList)[vs[1].(int)]
 	}).(PersistentVolumeClaimListOutput)
 }
 
 type PersistentVolumeClaimListMapOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PersistentVolumeClaimList)(nil))
+	return reflect.TypeOf((*map[string]*PersistentVolumeClaimList)(nil)).Elem()
 }
 
 func (o PersistentVolumeClaimListMapOutput) ToPersistentVolumeClaimListMapOutput() PersistentVolumeClaimListMapOutput {
@@ -277,18 +214,16 @@ func (o PersistentVolumeClaimListMapOutput) ToPersistentVolumeClaimListMapOutput
 }
 
 func (o PersistentVolumeClaimListMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeClaimListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PersistentVolumeClaimList {
-		return vs[0].(map[string]PersistentVolumeClaimList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PersistentVolumeClaimList {
+		return vs[0].(map[string]*PersistentVolumeClaimList)[vs[1].(string)]
 	}).(PersistentVolumeClaimListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimListInput)(nil)).Elem(), &PersistentVolumeClaimList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimListPtrInput)(nil)).Elem(), &PersistentVolumeClaimList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimListArrayInput)(nil)).Elem(), PersistentVolumeClaimListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeClaimListMapInput)(nil)).Elem(), PersistentVolumeClaimListMap{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimListOutput{})
-	pulumi.RegisterOutputType(PersistentVolumeClaimListPtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimListArrayOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeClaimListMapOutput{})
 }

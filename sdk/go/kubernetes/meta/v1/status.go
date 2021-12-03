@@ -119,7 +119,7 @@ type StatusInput interface {
 }
 
 func (*Status) ElementType() reflect.Type {
-	return reflect.TypeOf((*Status)(nil))
+	return reflect.TypeOf((**Status)(nil)).Elem()
 }
 
 func (i *Status) ToStatusOutput() StatusOutput {
@@ -128,35 +128,6 @@ func (i *Status) ToStatusOutput() StatusOutput {
 
 func (i *Status) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatusOutput)
-}
-
-func (i *Status) ToStatusPtrOutput() StatusPtrOutput {
-	return i.ToStatusPtrOutputWithContext(context.Background())
-}
-
-func (i *Status) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StatusPtrOutput)
-}
-
-type StatusPtrInput interface {
-	pulumi.Input
-
-	ToStatusPtrOutput() StatusPtrOutput
-	ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput
-}
-
-type statusPtrType StatusArgs
-
-func (*statusPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**Status)(nil))
-}
-
-func (i *statusPtrType) ToStatusPtrOutput() StatusPtrOutput {
-	return i.ToStatusPtrOutputWithContext(context.Background())
-}
-
-func (i *statusPtrType) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StatusPtrOutput)
 }
 
 // StatusArrayInput is an input type that accepts StatusArray and StatusArrayOutput values.
@@ -212,7 +183,7 @@ func (i StatusMap) ToStatusMapOutputWithContext(ctx context.Context) StatusMapOu
 type StatusOutput struct{ *pulumi.OutputState }
 
 func (StatusOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Status)(nil))
+	return reflect.TypeOf((**Status)(nil)).Elem()
 }
 
 func (o StatusOutput) ToStatusOutput() StatusOutput {
@@ -223,44 +194,10 @@ func (o StatusOutput) ToStatusOutputWithContext(ctx context.Context) StatusOutpu
 	return o
 }
 
-func (o StatusOutput) ToStatusPtrOutput() StatusPtrOutput {
-	return o.ToStatusPtrOutputWithContext(context.Background())
-}
-
-func (o StatusOutput) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v Status) *Status {
-		return &v
-	}).(StatusPtrOutput)
-}
-
-type StatusPtrOutput struct{ *pulumi.OutputState }
-
-func (StatusPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**Status)(nil))
-}
-
-func (o StatusPtrOutput) ToStatusPtrOutput() StatusPtrOutput {
-	return o
-}
-
-func (o StatusPtrOutput) ToStatusPtrOutputWithContext(ctx context.Context) StatusPtrOutput {
-	return o
-}
-
-func (o StatusPtrOutput) Elem() StatusOutput {
-	return o.ApplyT(func(v *Status) Status {
-		if v != nil {
-			return *v
-		}
-		var ret Status
-		return ret
-	}).(StatusOutput)
-}
-
 type StatusArrayOutput struct{ *pulumi.OutputState }
 
 func (StatusArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]Status)(nil))
+	return reflect.TypeOf((*[]*Status)(nil)).Elem()
 }
 
 func (o StatusArrayOutput) ToStatusArrayOutput() StatusArrayOutput {
@@ -272,15 +209,15 @@ func (o StatusArrayOutput) ToStatusArrayOutputWithContext(ctx context.Context) S
 }
 
 func (o StatusArrayOutput) Index(i pulumi.IntInput) StatusOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Status {
-		return vs[0].([]Status)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Status {
+		return vs[0].([]*Status)[vs[1].(int)]
 	}).(StatusOutput)
 }
 
 type StatusMapOutput struct{ *pulumi.OutputState }
 
 func (StatusMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]Status)(nil))
+	return reflect.TypeOf((*map[string]*Status)(nil)).Elem()
 }
 
 func (o StatusMapOutput) ToStatusMapOutput() StatusMapOutput {
@@ -292,18 +229,16 @@ func (o StatusMapOutput) ToStatusMapOutputWithContext(ctx context.Context) Statu
 }
 
 func (o StatusMapOutput) MapIndex(k pulumi.StringInput) StatusOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) Status {
-		return vs[0].(map[string]Status)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *Status {
+		return vs[0].(map[string]*Status)[vs[1].(string)]
 	}).(StatusOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusInput)(nil)).Elem(), &Status{})
-	pulumi.RegisterInputType(reflect.TypeOf((*StatusPtrInput)(nil)).Elem(), &Status{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusArrayInput)(nil)).Elem(), StatusArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatusMapInput)(nil)).Elem(), StatusMap{})
 	pulumi.RegisterOutputType(StatusOutput{})
-	pulumi.RegisterOutputType(StatusPtrOutput{})
 	pulumi.RegisterOutputType(StatusArrayOutput{})
 	pulumi.RegisterOutputType(StatusMapOutput{})
 }

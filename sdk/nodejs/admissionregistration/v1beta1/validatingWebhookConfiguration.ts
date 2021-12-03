@@ -60,25 +60,25 @@ export class ValidatingWebhookConfiguration extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ValidatingWebhookConfigurationArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
-            inputs["kind"] = "ValidatingWebhookConfiguration";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["webhooks"] = args ? args.webhooks : undefined;
+            resourceInputs["apiVersion"] = "admissionregistration.k8s.io/v1beta1";
+            resourceInputs["kind"] = "ValidatingWebhookConfiguration";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["webhooks"] = args ? args.webhooks : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["webhooks"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["webhooks"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(ValidatingWebhookConfiguration.__pulumiType, name, inputs, opts);
+        super(ValidatingWebhookConfiguration.__pulumiType, name, resourceInputs, opts);
     }
 }
 

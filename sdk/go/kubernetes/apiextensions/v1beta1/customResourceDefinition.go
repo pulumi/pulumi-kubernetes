@@ -109,7 +109,7 @@ type CustomResourceDefinitionInput interface {
 }
 
 func (*CustomResourceDefinition) ElementType() reflect.Type {
-	return reflect.TypeOf((*CustomResourceDefinition)(nil))
+	return reflect.TypeOf((**CustomResourceDefinition)(nil)).Elem()
 }
 
 func (i *CustomResourceDefinition) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {
@@ -118,35 +118,6 @@ func (i *CustomResourceDefinition) ToCustomResourceDefinitionOutput() CustomReso
 
 func (i *CustomResourceDefinition) ToCustomResourceDefinitionOutputWithContext(ctx context.Context) CustomResourceDefinitionOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionOutput)
-}
-
-func (i *CustomResourceDefinition) ToCustomResourceDefinitionPtrOutput() CustomResourceDefinitionPtrOutput {
-	return i.ToCustomResourceDefinitionPtrOutputWithContext(context.Background())
-}
-
-func (i *CustomResourceDefinition) ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionPtrOutput)
-}
-
-type CustomResourceDefinitionPtrInput interface {
-	pulumi.Input
-
-	ToCustomResourceDefinitionPtrOutput() CustomResourceDefinitionPtrOutput
-	ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput
-}
-
-type customResourceDefinitionPtrType CustomResourceDefinitionArgs
-
-func (*customResourceDefinitionPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CustomResourceDefinition)(nil))
-}
-
-func (i *customResourceDefinitionPtrType) ToCustomResourceDefinitionPtrOutput() CustomResourceDefinitionPtrOutput {
-	return i.ToCustomResourceDefinitionPtrOutputWithContext(context.Background())
-}
-
-func (i *customResourceDefinitionPtrType) ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionPtrOutput)
 }
 
 // CustomResourceDefinitionArrayInput is an input type that accepts CustomResourceDefinitionArray and CustomResourceDefinitionArrayOutput values.
@@ -202,7 +173,7 @@ func (i CustomResourceDefinitionMap) ToCustomResourceDefinitionMapOutputWithCont
 type CustomResourceDefinitionOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CustomResourceDefinition)(nil))
+	return reflect.TypeOf((**CustomResourceDefinition)(nil)).Elem()
 }
 
 func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionOutput() CustomResourceDefinitionOutput {
@@ -213,44 +184,10 @@ func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionOutputWithCont
 	return o
 }
 
-func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionPtrOutput() CustomResourceDefinitionPtrOutput {
-	return o.ToCustomResourceDefinitionPtrOutputWithContext(context.Background())
-}
-
-func (o CustomResourceDefinitionOutput) ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinition) *CustomResourceDefinition {
-		return &v
-	}).(CustomResourceDefinitionPtrOutput)
-}
-
-type CustomResourceDefinitionPtrOutput struct{ *pulumi.OutputState }
-
-func (CustomResourceDefinitionPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CustomResourceDefinition)(nil))
-}
-
-func (o CustomResourceDefinitionPtrOutput) ToCustomResourceDefinitionPtrOutput() CustomResourceDefinitionPtrOutput {
-	return o
-}
-
-func (o CustomResourceDefinitionPtrOutput) ToCustomResourceDefinitionPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionPtrOutput {
-	return o
-}
-
-func (o CustomResourceDefinitionPtrOutput) Elem() CustomResourceDefinitionOutput {
-	return o.ApplyT(func(v *CustomResourceDefinition) CustomResourceDefinition {
-		if v != nil {
-			return *v
-		}
-		var ret CustomResourceDefinition
-		return ret
-	}).(CustomResourceDefinitionOutput)
-}
-
 type CustomResourceDefinitionArrayOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CustomResourceDefinition)(nil))
+	return reflect.TypeOf((*[]*CustomResourceDefinition)(nil)).Elem()
 }
 
 func (o CustomResourceDefinitionArrayOutput) ToCustomResourceDefinitionArrayOutput() CustomResourceDefinitionArrayOutput {
@@ -262,15 +199,15 @@ func (o CustomResourceDefinitionArrayOutput) ToCustomResourceDefinitionArrayOutp
 }
 
 func (o CustomResourceDefinitionArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CustomResourceDefinition {
-		return vs[0].([]CustomResourceDefinition)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CustomResourceDefinition {
+		return vs[0].([]*CustomResourceDefinition)[vs[1].(int)]
 	}).(CustomResourceDefinitionOutput)
 }
 
 type CustomResourceDefinitionMapOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]CustomResourceDefinition)(nil))
+	return reflect.TypeOf((*map[string]*CustomResourceDefinition)(nil)).Elem()
 }
 
 func (o CustomResourceDefinitionMapOutput) ToCustomResourceDefinitionMapOutput() CustomResourceDefinitionMapOutput {
@@ -282,18 +219,16 @@ func (o CustomResourceDefinitionMapOutput) ToCustomResourceDefinitionMapOutputWi
 }
 
 func (o CustomResourceDefinitionMapOutput) MapIndex(k pulumi.StringInput) CustomResourceDefinitionOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CustomResourceDefinition {
-		return vs[0].(map[string]CustomResourceDefinition)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *CustomResourceDefinition {
+		return vs[0].(map[string]*CustomResourceDefinition)[vs[1].(string)]
 	}).(CustomResourceDefinitionOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionInput)(nil)).Elem(), &CustomResourceDefinition{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionPtrInput)(nil)).Elem(), &CustomResourceDefinition{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionArrayInput)(nil)).Elem(), CustomResourceDefinitionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionMapInput)(nil)).Elem(), CustomResourceDefinitionMap{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionOutput{})
-	pulumi.RegisterOutputType(CustomResourceDefinitionPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionArrayOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionMapOutput{})
 }

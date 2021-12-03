@@ -64,25 +64,25 @@ export class ReplicationController extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ReplicationControllerArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["kind"] = "ReplicationController";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["kind"] = "ReplicationController";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(ReplicationController.__pulumiType, name, inputs, opts);
+        super(ReplicationController.__pulumiType, name, resourceInputs, opts);
     }
 }
 

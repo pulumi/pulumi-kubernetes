@@ -104,7 +104,7 @@ type LeaseListInput interface {
 }
 
 func (*LeaseList) ElementType() reflect.Type {
-	return reflect.TypeOf((*LeaseList)(nil))
+	return reflect.TypeOf((**LeaseList)(nil)).Elem()
 }
 
 func (i *LeaseList) ToLeaseListOutput() LeaseListOutput {
@@ -113,35 +113,6 @@ func (i *LeaseList) ToLeaseListOutput() LeaseListOutput {
 
 func (i *LeaseList) ToLeaseListOutputWithContext(ctx context.Context) LeaseListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseListOutput)
-}
-
-func (i *LeaseList) ToLeaseListPtrOutput() LeaseListPtrOutput {
-	return i.ToLeaseListPtrOutputWithContext(context.Background())
-}
-
-func (i *LeaseList) ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseListPtrOutput)
-}
-
-type LeaseListPtrInput interface {
-	pulumi.Input
-
-	ToLeaseListPtrOutput() LeaseListPtrOutput
-	ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput
-}
-
-type leaseListPtrType LeaseListArgs
-
-func (*leaseListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**LeaseList)(nil))
-}
-
-func (i *leaseListPtrType) ToLeaseListPtrOutput() LeaseListPtrOutput {
-	return i.ToLeaseListPtrOutputWithContext(context.Background())
-}
-
-func (i *leaseListPtrType) ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LeaseListPtrOutput)
 }
 
 // LeaseListArrayInput is an input type that accepts LeaseListArray and LeaseListArrayOutput values.
@@ -197,7 +168,7 @@ func (i LeaseListMap) ToLeaseListMapOutputWithContext(ctx context.Context) Lease
 type LeaseListOutput struct{ *pulumi.OutputState }
 
 func (LeaseListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LeaseList)(nil))
+	return reflect.TypeOf((**LeaseList)(nil)).Elem()
 }
 
 func (o LeaseListOutput) ToLeaseListOutput() LeaseListOutput {
@@ -208,44 +179,10 @@ func (o LeaseListOutput) ToLeaseListOutputWithContext(ctx context.Context) Lease
 	return o
 }
 
-func (o LeaseListOutput) ToLeaseListPtrOutput() LeaseListPtrOutput {
-	return o.ToLeaseListPtrOutputWithContext(context.Background())
-}
-
-func (o LeaseListOutput) ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v LeaseList) *LeaseList {
-		return &v
-	}).(LeaseListPtrOutput)
-}
-
-type LeaseListPtrOutput struct{ *pulumi.OutputState }
-
-func (LeaseListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**LeaseList)(nil))
-}
-
-func (o LeaseListPtrOutput) ToLeaseListPtrOutput() LeaseListPtrOutput {
-	return o
-}
-
-func (o LeaseListPtrOutput) ToLeaseListPtrOutputWithContext(ctx context.Context) LeaseListPtrOutput {
-	return o
-}
-
-func (o LeaseListPtrOutput) Elem() LeaseListOutput {
-	return o.ApplyT(func(v *LeaseList) LeaseList {
-		if v != nil {
-			return *v
-		}
-		var ret LeaseList
-		return ret
-	}).(LeaseListOutput)
-}
-
 type LeaseListArrayOutput struct{ *pulumi.OutputState }
 
 func (LeaseListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]LeaseList)(nil))
+	return reflect.TypeOf((*[]*LeaseList)(nil)).Elem()
 }
 
 func (o LeaseListArrayOutput) ToLeaseListArrayOutput() LeaseListArrayOutput {
@@ -257,15 +194,15 @@ func (o LeaseListArrayOutput) ToLeaseListArrayOutputWithContext(ctx context.Cont
 }
 
 func (o LeaseListArrayOutput) Index(i pulumi.IntInput) LeaseListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) LeaseList {
-		return vs[0].([]LeaseList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *LeaseList {
+		return vs[0].([]*LeaseList)[vs[1].(int)]
 	}).(LeaseListOutput)
 }
 
 type LeaseListMapOutput struct{ *pulumi.OutputState }
 
 func (LeaseListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]LeaseList)(nil))
+	return reflect.TypeOf((*map[string]*LeaseList)(nil)).Elem()
 }
 
 func (o LeaseListMapOutput) ToLeaseListMapOutput() LeaseListMapOutput {
@@ -277,18 +214,16 @@ func (o LeaseListMapOutput) ToLeaseListMapOutputWithContext(ctx context.Context)
 }
 
 func (o LeaseListMapOutput) MapIndex(k pulumi.StringInput) LeaseListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) LeaseList {
-		return vs[0].(map[string]LeaseList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *LeaseList {
+		return vs[0].(map[string]*LeaseList)[vs[1].(string)]
 	}).(LeaseListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListInput)(nil)).Elem(), &LeaseList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListPtrInput)(nil)).Elem(), &LeaseList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListArrayInput)(nil)).Elem(), LeaseListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListMapInput)(nil)).Elem(), LeaseListMap{})
 	pulumi.RegisterOutputType(LeaseListOutput{})
-	pulumi.RegisterOutputType(LeaseListPtrOutput{})
 	pulumi.RegisterOutputType(LeaseListArrayOutput{})
 	pulumi.RegisterOutputType(LeaseListMapOutput{})
 }

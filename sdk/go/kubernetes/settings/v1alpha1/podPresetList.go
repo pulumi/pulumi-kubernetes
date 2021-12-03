@@ -104,7 +104,7 @@ type PodPresetListInput interface {
 }
 
 func (*PodPresetList) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodPresetList)(nil))
+	return reflect.TypeOf((**PodPresetList)(nil)).Elem()
 }
 
 func (i *PodPresetList) ToPodPresetListOutput() PodPresetListOutput {
@@ -113,35 +113,6 @@ func (i *PodPresetList) ToPodPresetListOutput() PodPresetListOutput {
 
 func (i *PodPresetList) ToPodPresetListOutputWithContext(ctx context.Context) PodPresetListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListOutput)
-}
-
-func (i *PodPresetList) ToPodPresetListPtrOutput() PodPresetListPtrOutput {
-	return i.ToPodPresetListPtrOutputWithContext(context.Background())
-}
-
-func (i *PodPresetList) ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListPtrOutput)
-}
-
-type PodPresetListPtrInput interface {
-	pulumi.Input
-
-	ToPodPresetListPtrOutput() PodPresetListPtrOutput
-	ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput
-}
-
-type podPresetListPtrType PodPresetListArgs
-
-func (*podPresetListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PodPresetList)(nil))
-}
-
-func (i *podPresetListPtrType) ToPodPresetListPtrOutput() PodPresetListPtrOutput {
-	return i.ToPodPresetListPtrOutputWithContext(context.Background())
-}
-
-func (i *podPresetListPtrType) ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListPtrOutput)
 }
 
 // PodPresetListArrayInput is an input type that accepts PodPresetListArray and PodPresetListArrayOutput values.
@@ -197,7 +168,7 @@ func (i PodPresetListMap) ToPodPresetListMapOutputWithContext(ctx context.Contex
 type PodPresetListOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodPresetList)(nil))
+	return reflect.TypeOf((**PodPresetList)(nil)).Elem()
 }
 
 func (o PodPresetListOutput) ToPodPresetListOutput() PodPresetListOutput {
@@ -208,44 +179,10 @@ func (o PodPresetListOutput) ToPodPresetListOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o PodPresetListOutput) ToPodPresetListPtrOutput() PodPresetListPtrOutput {
-	return o.ToPodPresetListPtrOutputWithContext(context.Background())
-}
-
-func (o PodPresetListOutput) ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodPresetList) *PodPresetList {
-		return &v
-	}).(PodPresetListPtrOutput)
-}
-
-type PodPresetListPtrOutput struct{ *pulumi.OutputState }
-
-func (PodPresetListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PodPresetList)(nil))
-}
-
-func (o PodPresetListPtrOutput) ToPodPresetListPtrOutput() PodPresetListPtrOutput {
-	return o
-}
-
-func (o PodPresetListPtrOutput) ToPodPresetListPtrOutputWithContext(ctx context.Context) PodPresetListPtrOutput {
-	return o
-}
-
-func (o PodPresetListPtrOutput) Elem() PodPresetListOutput {
-	return o.ApplyT(func(v *PodPresetList) PodPresetList {
-		if v != nil {
-			return *v
-		}
-		var ret PodPresetList
-		return ret
-	}).(PodPresetListOutput)
-}
-
 type PodPresetListArrayOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PodPresetList)(nil))
+	return reflect.TypeOf((*[]*PodPresetList)(nil)).Elem()
 }
 
 func (o PodPresetListArrayOutput) ToPodPresetListArrayOutput() PodPresetListArrayOutput {
@@ -257,15 +194,15 @@ func (o PodPresetListArrayOutput) ToPodPresetListArrayOutputWithContext(ctx cont
 }
 
 func (o PodPresetListArrayOutput) Index(i pulumi.IntInput) PodPresetListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodPresetList {
-		return vs[0].([]PodPresetList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodPresetList {
+		return vs[0].([]*PodPresetList)[vs[1].(int)]
 	}).(PodPresetListOutput)
 }
 
 type PodPresetListMapOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PodPresetList)(nil))
+	return reflect.TypeOf((*map[string]*PodPresetList)(nil)).Elem()
 }
 
 func (o PodPresetListMapOutput) ToPodPresetListMapOutput() PodPresetListMapOutput {
@@ -277,18 +214,16 @@ func (o PodPresetListMapOutput) ToPodPresetListMapOutputWithContext(ctx context.
 }
 
 func (o PodPresetListMapOutput) MapIndex(k pulumi.StringInput) PodPresetListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PodPresetList {
-		return vs[0].(map[string]PodPresetList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PodPresetList {
+		return vs[0].(map[string]*PodPresetList)[vs[1].(string)]
 	}).(PodPresetListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetListInput)(nil)).Elem(), &PodPresetList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetListPtrInput)(nil)).Elem(), &PodPresetList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetListArrayInput)(nil)).Elem(), PodPresetListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodPresetListMapInput)(nil)).Elem(), PodPresetListMap{})
 	pulumi.RegisterOutputType(PodPresetListOutput{})
-	pulumi.RegisterOutputType(PodPresetListPtrOutput{})
 	pulumi.RegisterOutputType(PodPresetListArrayOutput{})
 	pulumi.RegisterOutputType(PodPresetListMapOutput{})
 }

@@ -10,8 +10,8 @@ require (
 	github.com/imdario/mergo v0.3.12
 	github.com/mitchellh/mapstructure v1.4.1
 	github.com/pkg/errors v0.9.1
-	github.com/pulumi/pulumi/pkg/v3 v3.17.2-0.20211112000003-0d4fb3e340d8
-	github.com/pulumi/pulumi/sdk/v3 v3.17.1
+	github.com/pulumi/pulumi/pkg/v3 v3.19.0
+	github.com/pulumi/pulumi/sdk/v3 v3.19.0
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a
 	google.golang.org/grpc v1.38.0

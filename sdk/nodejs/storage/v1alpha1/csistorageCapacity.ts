@@ -88,34 +88,34 @@ export class CSIStorageCapacity extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: CSIStorageCapacityArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.storageClassName === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'storageClassName'");
             }
-            inputs["apiVersion"] = "storage.k8s.io/v1alpha1";
-            inputs["capacity"] = args ? args.capacity : undefined;
-            inputs["kind"] = "CSIStorageCapacity";
-            inputs["maximumVolumeSize"] = args ? args.maximumVolumeSize : undefined;
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["nodeTopology"] = args ? args.nodeTopology : undefined;
-            inputs["storageClassName"] = args ? args.storageClassName : undefined;
+            resourceInputs["apiVersion"] = "storage.k8s.io/v1alpha1";
+            resourceInputs["capacity"] = args ? args.capacity : undefined;
+            resourceInputs["kind"] = "CSIStorageCapacity";
+            resourceInputs["maximumVolumeSize"] = args ? args.maximumVolumeSize : undefined;
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["nodeTopology"] = args ? args.nodeTopology : undefined;
+            resourceInputs["storageClassName"] = args ? args.storageClassName : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["capacity"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["maximumVolumeSize"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["nodeTopology"] = undefined /*out*/;
-            inputs["storageClassName"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["capacity"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["maximumVolumeSize"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["nodeTopology"] = undefined /*out*/;
+            resourceInputs["storageClassName"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(CSIStorageCapacity.__pulumiType, name, inputs, opts);
+        super(CSIStorageCapacity.__pulumiType, name, resourceInputs, opts);
     }
 }
 

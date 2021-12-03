@@ -60,28 +60,28 @@ export class RuntimeClass extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.spec === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'spec'");
             }
-            inputs["apiVersion"] = "node.k8s.io/v1alpha1";
-            inputs["kind"] = "RuntimeClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["apiVersion"] = "node.k8s.io/v1alpha1";
+            resourceInputs["kind"] = "RuntimeClass";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:node.k8s.io/v1:RuntimeClass" }, { type: "kubernetes:node.k8s.io/v1beta1:RuntimeClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(RuntimeClass.__pulumiType, name, inputs, opts);
+        super(RuntimeClass.__pulumiType, name, resourceInputs, opts);
     }
 }
 

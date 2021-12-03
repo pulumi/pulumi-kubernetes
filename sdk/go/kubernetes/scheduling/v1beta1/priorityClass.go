@@ -131,7 +131,7 @@ type PriorityClassInput interface {
 }
 
 func (*PriorityClass) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityClass)(nil))
+	return reflect.TypeOf((**PriorityClass)(nil)).Elem()
 }
 
 func (i *PriorityClass) ToPriorityClassOutput() PriorityClassOutput {
@@ -140,35 +140,6 @@ func (i *PriorityClass) ToPriorityClassOutput() PriorityClassOutput {
 
 func (i *PriorityClass) ToPriorityClassOutputWithContext(ctx context.Context) PriorityClassOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassOutput)
-}
-
-func (i *PriorityClass) ToPriorityClassPtrOutput() PriorityClassPtrOutput {
-	return i.ToPriorityClassPtrOutputWithContext(context.Background())
-}
-
-func (i *PriorityClass) ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassPtrOutput)
-}
-
-type PriorityClassPtrInput interface {
-	pulumi.Input
-
-	ToPriorityClassPtrOutput() PriorityClassPtrOutput
-	ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput
-}
-
-type priorityClassPtrType PriorityClassArgs
-
-func (*priorityClassPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PriorityClass)(nil))
-}
-
-func (i *priorityClassPtrType) ToPriorityClassPtrOutput() PriorityClassPtrOutput {
-	return i.ToPriorityClassPtrOutputWithContext(context.Background())
-}
-
-func (i *priorityClassPtrType) ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassPtrOutput)
 }
 
 // PriorityClassArrayInput is an input type that accepts PriorityClassArray and PriorityClassArrayOutput values.
@@ -224,7 +195,7 @@ func (i PriorityClassMap) ToPriorityClassMapOutputWithContext(ctx context.Contex
 type PriorityClassOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityClass)(nil))
+	return reflect.TypeOf((**PriorityClass)(nil)).Elem()
 }
 
 func (o PriorityClassOutput) ToPriorityClassOutput() PriorityClassOutput {
@@ -235,44 +206,10 @@ func (o PriorityClassOutput) ToPriorityClassOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o PriorityClassOutput) ToPriorityClassPtrOutput() PriorityClassPtrOutput {
-	return o.ToPriorityClassPtrOutputWithContext(context.Background())
-}
-
-func (o PriorityClassOutput) ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityClass) *PriorityClass {
-		return &v
-	}).(PriorityClassPtrOutput)
-}
-
-type PriorityClassPtrOutput struct{ *pulumi.OutputState }
-
-func (PriorityClassPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PriorityClass)(nil))
-}
-
-func (o PriorityClassPtrOutput) ToPriorityClassPtrOutput() PriorityClassPtrOutput {
-	return o
-}
-
-func (o PriorityClassPtrOutput) ToPriorityClassPtrOutputWithContext(ctx context.Context) PriorityClassPtrOutput {
-	return o
-}
-
-func (o PriorityClassPtrOutput) Elem() PriorityClassOutput {
-	return o.ApplyT(func(v *PriorityClass) PriorityClass {
-		if v != nil {
-			return *v
-		}
-		var ret PriorityClass
-		return ret
-	}).(PriorityClassOutput)
-}
-
 type PriorityClassArrayOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PriorityClass)(nil))
+	return reflect.TypeOf((*[]*PriorityClass)(nil)).Elem()
 }
 
 func (o PriorityClassArrayOutput) ToPriorityClassArrayOutput() PriorityClassArrayOutput {
@@ -284,15 +221,15 @@ func (o PriorityClassArrayOutput) ToPriorityClassArrayOutputWithContext(ctx cont
 }
 
 func (o PriorityClassArrayOutput) Index(i pulumi.IntInput) PriorityClassOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PriorityClass {
-		return vs[0].([]PriorityClass)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PriorityClass {
+		return vs[0].([]*PriorityClass)[vs[1].(int)]
 	}).(PriorityClassOutput)
 }
 
 type PriorityClassMapOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PriorityClass)(nil))
+	return reflect.TypeOf((*map[string]*PriorityClass)(nil)).Elem()
 }
 
 func (o PriorityClassMapOutput) ToPriorityClassMapOutput() PriorityClassMapOutput {
@@ -304,18 +241,16 @@ func (o PriorityClassMapOutput) ToPriorityClassMapOutputWithContext(ctx context.
 }
 
 func (o PriorityClassMapOutput) MapIndex(k pulumi.StringInput) PriorityClassOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PriorityClass {
-		return vs[0].(map[string]PriorityClass)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PriorityClass {
+		return vs[0].(map[string]*PriorityClass)[vs[1].(string)]
 	}).(PriorityClassOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassInput)(nil)).Elem(), &PriorityClass{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassPtrInput)(nil)).Elem(), &PriorityClass{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassArrayInput)(nil)).Elem(), PriorityClassArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassMapInput)(nil)).Elem(), PriorityClassMap{})
 	pulumi.RegisterOutputType(PriorityClassOutput{})
-	pulumi.RegisterOutputType(PriorityClassPtrOutput{})
 	pulumi.RegisterOutputType(PriorityClassArrayOutput{})
 	pulumi.RegisterOutputType(PriorityClassMapOutput{})
 }

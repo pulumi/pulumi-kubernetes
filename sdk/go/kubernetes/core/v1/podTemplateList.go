@@ -104,7 +104,7 @@ type PodTemplateListInput interface {
 }
 
 func (*PodTemplateList) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodTemplateList)(nil))
+	return reflect.TypeOf((**PodTemplateList)(nil)).Elem()
 }
 
 func (i *PodTemplateList) ToPodTemplateListOutput() PodTemplateListOutput {
@@ -113,35 +113,6 @@ func (i *PodTemplateList) ToPodTemplateListOutput() PodTemplateListOutput {
 
 func (i *PodTemplateList) ToPodTemplateListOutputWithContext(ctx context.Context) PodTemplateListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListOutput)
-}
-
-func (i *PodTemplateList) ToPodTemplateListPtrOutput() PodTemplateListPtrOutput {
-	return i.ToPodTemplateListPtrOutputWithContext(context.Background())
-}
-
-func (i *PodTemplateList) ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListPtrOutput)
-}
-
-type PodTemplateListPtrInput interface {
-	pulumi.Input
-
-	ToPodTemplateListPtrOutput() PodTemplateListPtrOutput
-	ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput
-}
-
-type podTemplateListPtrType PodTemplateListArgs
-
-func (*podTemplateListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PodTemplateList)(nil))
-}
-
-func (i *podTemplateListPtrType) ToPodTemplateListPtrOutput() PodTemplateListPtrOutput {
-	return i.ToPodTemplateListPtrOutputWithContext(context.Background())
-}
-
-func (i *podTemplateListPtrType) ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListPtrOutput)
 }
 
 // PodTemplateListArrayInput is an input type that accepts PodTemplateListArray and PodTemplateListArrayOutput values.
@@ -197,7 +168,7 @@ func (i PodTemplateListMap) ToPodTemplateListMapOutputWithContext(ctx context.Co
 type PodTemplateListOutput struct{ *pulumi.OutputState }
 
 func (PodTemplateListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodTemplateList)(nil))
+	return reflect.TypeOf((**PodTemplateList)(nil)).Elem()
 }
 
 func (o PodTemplateListOutput) ToPodTemplateListOutput() PodTemplateListOutput {
@@ -208,44 +179,10 @@ func (o PodTemplateListOutput) ToPodTemplateListOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o PodTemplateListOutput) ToPodTemplateListPtrOutput() PodTemplateListPtrOutput {
-	return o.ToPodTemplateListPtrOutputWithContext(context.Background())
-}
-
-func (o PodTemplateListOutput) ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodTemplateList) *PodTemplateList {
-		return &v
-	}).(PodTemplateListPtrOutput)
-}
-
-type PodTemplateListPtrOutput struct{ *pulumi.OutputState }
-
-func (PodTemplateListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PodTemplateList)(nil))
-}
-
-func (o PodTemplateListPtrOutput) ToPodTemplateListPtrOutput() PodTemplateListPtrOutput {
-	return o
-}
-
-func (o PodTemplateListPtrOutput) ToPodTemplateListPtrOutputWithContext(ctx context.Context) PodTemplateListPtrOutput {
-	return o
-}
-
-func (o PodTemplateListPtrOutput) Elem() PodTemplateListOutput {
-	return o.ApplyT(func(v *PodTemplateList) PodTemplateList {
-		if v != nil {
-			return *v
-		}
-		var ret PodTemplateList
-		return ret
-	}).(PodTemplateListOutput)
-}
-
 type PodTemplateListArrayOutput struct{ *pulumi.OutputState }
 
 func (PodTemplateListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PodTemplateList)(nil))
+	return reflect.TypeOf((*[]*PodTemplateList)(nil)).Elem()
 }
 
 func (o PodTemplateListArrayOutput) ToPodTemplateListArrayOutput() PodTemplateListArrayOutput {
@@ -257,15 +194,15 @@ func (o PodTemplateListArrayOutput) ToPodTemplateListArrayOutputWithContext(ctx 
 }
 
 func (o PodTemplateListArrayOutput) Index(i pulumi.IntInput) PodTemplateListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodTemplateList {
-		return vs[0].([]PodTemplateList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodTemplateList {
+		return vs[0].([]*PodTemplateList)[vs[1].(int)]
 	}).(PodTemplateListOutput)
 }
 
 type PodTemplateListMapOutput struct{ *pulumi.OutputState }
 
 func (PodTemplateListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PodTemplateList)(nil))
+	return reflect.TypeOf((*map[string]*PodTemplateList)(nil)).Elem()
 }
 
 func (o PodTemplateListMapOutput) ToPodTemplateListMapOutput() PodTemplateListMapOutput {
@@ -277,18 +214,16 @@ func (o PodTemplateListMapOutput) ToPodTemplateListMapOutputWithContext(ctx cont
 }
 
 func (o PodTemplateListMapOutput) MapIndex(k pulumi.StringInput) PodTemplateListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PodTemplateList {
-		return vs[0].(map[string]PodTemplateList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PodTemplateList {
+		return vs[0].(map[string]*PodTemplateList)[vs[1].(string)]
 	}).(PodTemplateListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateListInput)(nil)).Elem(), &PodTemplateList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateListPtrInput)(nil)).Elem(), &PodTemplateList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateListArrayInput)(nil)).Elem(), PodTemplateListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodTemplateListMapInput)(nil)).Elem(), PodTemplateListMap{})
 	pulumi.RegisterOutputType(PodTemplateListOutput{})
-	pulumi.RegisterOutputType(PodTemplateListPtrOutput{})
 	pulumi.RegisterOutputType(PodTemplateListArrayOutput{})
 	pulumi.RegisterOutputType(PodTemplateListMapOutput{})
 }

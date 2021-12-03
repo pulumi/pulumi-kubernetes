@@ -64,30 +64,30 @@ export class ControllerRevision extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ControllerRevisionArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.revision === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'revision'");
             }
-            inputs["apiVersion"] = "apps/v1";
-            inputs["data"] = args ? args.data : undefined;
-            inputs["kind"] = "ControllerRevision";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["revision"] = args ? args.revision : undefined;
+            resourceInputs["apiVersion"] = "apps/v1";
+            resourceInputs["data"] = args ? args.data : undefined;
+            resourceInputs["kind"] = "ControllerRevision";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["revision"] = args ? args.revision : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["data"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["revision"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["data"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["revision"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1beta1:ControllerRevision" }, { type: "kubernetes:apps/v1beta2:ControllerRevision" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(ControllerRevision.__pulumiType, name, inputs, opts);
+        super(ControllerRevision.__pulumiType, name, resourceInputs, opts);
     }
 }
 

@@ -68,7 +68,7 @@ export class EndpointSlice extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: EndpointSliceArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.addressType === undefined) && !opts.urn) {
@@ -77,26 +77,26 @@ export class EndpointSlice extends pulumi.CustomResource {
             if ((!args || args.endpoints === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'endpoints'");
             }
-            inputs["addressType"] = args ? args.addressType : undefined;
-            inputs["apiVersion"] = "discovery.k8s.io/v1beta1";
-            inputs["endpoints"] = args ? args.endpoints : undefined;
-            inputs["kind"] = "EndpointSlice";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["ports"] = args ? args.ports : undefined;
+            resourceInputs["addressType"] = args ? args.addressType : undefined;
+            resourceInputs["apiVersion"] = "discovery.k8s.io/v1beta1";
+            resourceInputs["endpoints"] = args ? args.endpoints : undefined;
+            resourceInputs["kind"] = "EndpointSlice";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["ports"] = args ? args.ports : undefined;
         } else {
-            inputs["addressType"] = undefined /*out*/;
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["endpoints"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["ports"] = undefined /*out*/;
+            resourceInputs["addressType"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["endpoints"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["ports"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:discovery.k8s.io/v1:EndpointSlice" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(EndpointSlice.__pulumiType, name, inputs, opts);
+        super(EndpointSlice.__pulumiType, name, resourceInputs, opts);
     }
 }
 

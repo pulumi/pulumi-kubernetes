@@ -60,23 +60,23 @@ export class LimitRange extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: LimitRangeArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["kind"] = "LimitRange";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["kind"] = "LimitRange";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(LimitRange.__pulumiType, name, inputs, opts);
+        super(LimitRange.__pulumiType, name, resourceInputs, opts);
     }
 }
 

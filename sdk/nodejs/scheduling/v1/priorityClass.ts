@@ -72,34 +72,34 @@ export class PriorityClass extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: PriorityClassArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.value === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'value'");
             }
-            inputs["apiVersion"] = "scheduling.k8s.io/v1";
-            inputs["description"] = args ? args.description : undefined;
-            inputs["globalDefault"] = args ? args.globalDefault : undefined;
-            inputs["kind"] = "PriorityClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
-            inputs["value"] = args ? args.value : undefined;
+            resourceInputs["apiVersion"] = "scheduling.k8s.io/v1";
+            resourceInputs["description"] = args ? args.description : undefined;
+            resourceInputs["globalDefault"] = args ? args.globalDefault : undefined;
+            resourceInputs["kind"] = "PriorityClass";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["preemptionPolicy"] = args ? args.preemptionPolicy : undefined;
+            resourceInputs["value"] = args ? args.value : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["description"] = undefined /*out*/;
-            inputs["globalDefault"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["preemptionPolicy"] = undefined /*out*/;
-            inputs["value"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["description"] = undefined /*out*/;
+            resourceInputs["globalDefault"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["preemptionPolicy"] = undefined /*out*/;
+            resourceInputs["value"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass" }, { type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(PriorityClass.__pulumiType, name, inputs, opts);
+        super(PriorityClass.__pulumiType, name, resourceInputs, opts);
     }
 }
 

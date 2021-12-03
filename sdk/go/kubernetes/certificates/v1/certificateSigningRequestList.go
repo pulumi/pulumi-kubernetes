@@ -101,7 +101,7 @@ type CertificateSigningRequestListInput interface {
 }
 
 func (*CertificateSigningRequestList) ElementType() reflect.Type {
-	return reflect.TypeOf((*CertificateSigningRequestList)(nil))
+	return reflect.TypeOf((**CertificateSigningRequestList)(nil)).Elem()
 }
 
 func (i *CertificateSigningRequestList) ToCertificateSigningRequestListOutput() CertificateSigningRequestListOutput {
@@ -110,35 +110,6 @@ func (i *CertificateSigningRequestList) ToCertificateSigningRequestListOutput() 
 
 func (i *CertificateSigningRequestList) ToCertificateSigningRequestListOutputWithContext(ctx context.Context) CertificateSigningRequestListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListOutput)
-}
-
-func (i *CertificateSigningRequestList) ToCertificateSigningRequestListPtrOutput() CertificateSigningRequestListPtrOutput {
-	return i.ToCertificateSigningRequestListPtrOutputWithContext(context.Background())
-}
-
-func (i *CertificateSigningRequestList) ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListPtrOutput)
-}
-
-type CertificateSigningRequestListPtrInput interface {
-	pulumi.Input
-
-	ToCertificateSigningRequestListPtrOutput() CertificateSigningRequestListPtrOutput
-	ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput
-}
-
-type certificateSigningRequestListPtrType CertificateSigningRequestListArgs
-
-func (*certificateSigningRequestListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CertificateSigningRequestList)(nil))
-}
-
-func (i *certificateSigningRequestListPtrType) ToCertificateSigningRequestListPtrOutput() CertificateSigningRequestListPtrOutput {
-	return i.ToCertificateSigningRequestListPtrOutputWithContext(context.Background())
-}
-
-func (i *certificateSigningRequestListPtrType) ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListPtrOutput)
 }
 
 // CertificateSigningRequestListArrayInput is an input type that accepts CertificateSigningRequestListArray and CertificateSigningRequestListArrayOutput values.
@@ -194,7 +165,7 @@ func (i CertificateSigningRequestListMap) ToCertificateSigningRequestListMapOutp
 type CertificateSigningRequestListOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CertificateSigningRequestList)(nil))
+	return reflect.TypeOf((**CertificateSigningRequestList)(nil)).Elem()
 }
 
 func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListOutput() CertificateSigningRequestListOutput {
@@ -205,44 +176,10 @@ func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListOutp
 	return o
 }
 
-func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListPtrOutput() CertificateSigningRequestListPtrOutput {
-	return o.ToCertificateSigningRequestListPtrOutputWithContext(context.Background())
-}
-
-func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestList) *CertificateSigningRequestList {
-		return &v
-	}).(CertificateSigningRequestListPtrOutput)
-}
-
-type CertificateSigningRequestListPtrOutput struct{ *pulumi.OutputState }
-
-func (CertificateSigningRequestListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CertificateSigningRequestList)(nil))
-}
-
-func (o CertificateSigningRequestListPtrOutput) ToCertificateSigningRequestListPtrOutput() CertificateSigningRequestListPtrOutput {
-	return o
-}
-
-func (o CertificateSigningRequestListPtrOutput) ToCertificateSigningRequestListPtrOutputWithContext(ctx context.Context) CertificateSigningRequestListPtrOutput {
-	return o
-}
-
-func (o CertificateSigningRequestListPtrOutput) Elem() CertificateSigningRequestListOutput {
-	return o.ApplyT(func(v *CertificateSigningRequestList) CertificateSigningRequestList {
-		if v != nil {
-			return *v
-		}
-		var ret CertificateSigningRequestList
-		return ret
-	}).(CertificateSigningRequestListOutput)
-}
-
 type CertificateSigningRequestListArrayOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CertificateSigningRequestList)(nil))
+	return reflect.TypeOf((*[]*CertificateSigningRequestList)(nil)).Elem()
 }
 
 func (o CertificateSigningRequestListArrayOutput) ToCertificateSigningRequestListArrayOutput() CertificateSigningRequestListArrayOutput {
@@ -254,15 +191,15 @@ func (o CertificateSigningRequestListArrayOutput) ToCertificateSigningRequestLis
 }
 
 func (o CertificateSigningRequestListArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CertificateSigningRequestList {
-		return vs[0].([]CertificateSigningRequestList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CertificateSigningRequestList {
+		return vs[0].([]*CertificateSigningRequestList)[vs[1].(int)]
 	}).(CertificateSigningRequestListOutput)
 }
 
 type CertificateSigningRequestListMapOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]CertificateSigningRequestList)(nil))
+	return reflect.TypeOf((*map[string]*CertificateSigningRequestList)(nil)).Elem()
 }
 
 func (o CertificateSigningRequestListMapOutput) ToCertificateSigningRequestListMapOutput() CertificateSigningRequestListMapOutput {
@@ -274,18 +211,16 @@ func (o CertificateSigningRequestListMapOutput) ToCertificateSigningRequestListM
 }
 
 func (o CertificateSigningRequestListMapOutput) MapIndex(k pulumi.StringInput) CertificateSigningRequestListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CertificateSigningRequestList {
-		return vs[0].(map[string]CertificateSigningRequestList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *CertificateSigningRequestList {
+		return vs[0].(map[string]*CertificateSigningRequestList)[vs[1].(string)]
 	}).(CertificateSigningRequestListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestListInput)(nil)).Elem(), &CertificateSigningRequestList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestListPtrInput)(nil)).Elem(), &CertificateSigningRequestList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestListArrayInput)(nil)).Elem(), CertificateSigningRequestListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestListMapInput)(nil)).Elem(), CertificateSigningRequestListMap{})
 	pulumi.RegisterOutputType(CertificateSigningRequestListOutput{})
-	pulumi.RegisterOutputType(CertificateSigningRequestListPtrOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestListArrayOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestListMapOutput{})
 }

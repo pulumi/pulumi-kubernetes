@@ -282,7 +282,7 @@ type ReleaseInput interface {
 }
 
 func (*Release) ElementType() reflect.Type {
-	return reflect.TypeOf((*Release)(nil))
+	return reflect.TypeOf((**Release)(nil)).Elem()
 }
 
 func (i *Release) ToReleaseOutput() ReleaseOutput {
@@ -291,35 +291,6 @@ func (i *Release) ToReleaseOutput() ReleaseOutput {
 
 func (i *Release) ToReleaseOutputWithContext(ctx context.Context) ReleaseOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReleaseOutput)
-}
-
-func (i *Release) ToReleasePtrOutput() ReleasePtrOutput {
-	return i.ToReleasePtrOutputWithContext(context.Background())
-}
-
-func (i *Release) ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleasePtrOutput)
-}
-
-type ReleasePtrInput interface {
-	pulumi.Input
-
-	ToReleasePtrOutput() ReleasePtrOutput
-	ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput
-}
-
-type releasePtrType ReleaseArgs
-
-func (*releasePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**Release)(nil))
-}
-
-func (i *releasePtrType) ToReleasePtrOutput() ReleasePtrOutput {
-	return i.ToReleasePtrOutputWithContext(context.Background())
-}
-
-func (i *releasePtrType) ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleasePtrOutput)
 }
 
 // ReleaseArrayInput is an input type that accepts ReleaseArray and ReleaseArrayOutput values.
@@ -375,7 +346,7 @@ func (i ReleaseMap) ToReleaseMapOutputWithContext(ctx context.Context) ReleaseMa
 type ReleaseOutput struct{ *pulumi.OutputState }
 
 func (ReleaseOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Release)(nil))
+	return reflect.TypeOf((**Release)(nil)).Elem()
 }
 
 func (o ReleaseOutput) ToReleaseOutput() ReleaseOutput {
@@ -386,44 +357,10 @@ func (o ReleaseOutput) ToReleaseOutputWithContext(ctx context.Context) ReleaseOu
 	return o
 }
 
-func (o ReleaseOutput) ToReleasePtrOutput() ReleasePtrOutput {
-	return o.ToReleasePtrOutputWithContext(context.Background())
-}
-
-func (o ReleaseOutput) ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v Release) *Release {
-		return &v
-	}).(ReleasePtrOutput)
-}
-
-type ReleasePtrOutput struct{ *pulumi.OutputState }
-
-func (ReleasePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**Release)(nil))
-}
-
-func (o ReleasePtrOutput) ToReleasePtrOutput() ReleasePtrOutput {
-	return o
-}
-
-func (o ReleasePtrOutput) ToReleasePtrOutputWithContext(ctx context.Context) ReleasePtrOutput {
-	return o
-}
-
-func (o ReleasePtrOutput) Elem() ReleaseOutput {
-	return o.ApplyT(func(v *Release) Release {
-		if v != nil {
-			return *v
-		}
-		var ret Release
-		return ret
-	}).(ReleaseOutput)
-}
-
 type ReleaseArrayOutput struct{ *pulumi.OutputState }
 
 func (ReleaseArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]Release)(nil))
+	return reflect.TypeOf((*[]*Release)(nil)).Elem()
 }
 
 func (o ReleaseArrayOutput) ToReleaseArrayOutput() ReleaseArrayOutput {
@@ -435,15 +372,15 @@ func (o ReleaseArrayOutput) ToReleaseArrayOutputWithContext(ctx context.Context)
 }
 
 func (o ReleaseArrayOutput) Index(i pulumi.IntInput) ReleaseOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Release {
-		return vs[0].([]Release)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Release {
+		return vs[0].([]*Release)[vs[1].(int)]
 	}).(ReleaseOutput)
 }
 
 type ReleaseMapOutput struct{ *pulumi.OutputState }
 
 func (ReleaseMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]Release)(nil))
+	return reflect.TypeOf((*map[string]*Release)(nil)).Elem()
 }
 
 func (o ReleaseMapOutput) ToReleaseMapOutput() ReleaseMapOutput {
@@ -455,18 +392,16 @@ func (o ReleaseMapOutput) ToReleaseMapOutputWithContext(ctx context.Context) Rel
 }
 
 func (o ReleaseMapOutput) MapIndex(k pulumi.StringInput) ReleaseOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) Release {
-		return vs[0].(map[string]Release)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *Release {
+		return vs[0].(map[string]*Release)[vs[1].(string)]
 	}).(ReleaseOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseInput)(nil)).Elem(), &Release{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ReleasePtrInput)(nil)).Elem(), &Release{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseArrayInput)(nil)).Elem(), ReleaseArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseMapInput)(nil)).Elem(), ReleaseMap{})
 	pulumi.RegisterOutputType(ReleaseOutput{})
-	pulumi.RegisterOutputType(ReleasePtrOutput{})
 	pulumi.RegisterOutputType(ReleaseArrayOutput{})
 	pulumi.RegisterOutputType(ReleaseMapOutput{})
 }

@@ -106,7 +106,7 @@ type ValidatingWebhookConfigurationInput interface {
 }
 
 func (*ValidatingWebhookConfiguration) ElementType() reflect.Type {
-	return reflect.TypeOf((*ValidatingWebhookConfiguration)(nil))
+	return reflect.TypeOf((**ValidatingWebhookConfiguration)(nil)).Elem()
 }
 
 func (i *ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput {
@@ -115,35 +115,6 @@ func (i *ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationOutput(
 
 func (i *ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationOutput)
-}
-
-func (i *ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationPtrOutput() ValidatingWebhookConfigurationPtrOutput {
-	return i.ToValidatingWebhookConfigurationPtrOutputWithContext(context.Background())
-}
-
-func (i *ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPtrOutput)
-}
-
-type ValidatingWebhookConfigurationPtrInput interface {
-	pulumi.Input
-
-	ToValidatingWebhookConfigurationPtrOutput() ValidatingWebhookConfigurationPtrOutput
-	ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput
-}
-
-type validatingWebhookConfigurationPtrType ValidatingWebhookConfigurationArgs
-
-func (*validatingWebhookConfigurationPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ValidatingWebhookConfiguration)(nil))
-}
-
-func (i *validatingWebhookConfigurationPtrType) ToValidatingWebhookConfigurationPtrOutput() ValidatingWebhookConfigurationPtrOutput {
-	return i.ToValidatingWebhookConfigurationPtrOutputWithContext(context.Background())
-}
-
-func (i *validatingWebhookConfigurationPtrType) ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPtrOutput)
 }
 
 // ValidatingWebhookConfigurationArrayInput is an input type that accepts ValidatingWebhookConfigurationArray and ValidatingWebhookConfigurationArrayOutput values.
@@ -199,7 +170,7 @@ func (i ValidatingWebhookConfigurationMap) ToValidatingWebhookConfigurationMapOu
 type ValidatingWebhookConfigurationOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ValidatingWebhookConfiguration)(nil))
+	return reflect.TypeOf((**ValidatingWebhookConfiguration)(nil)).Elem()
 }
 
 func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOutput() ValidatingWebhookConfigurationOutput {
@@ -210,44 +181,10 @@ func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOu
 	return o
 }
 
-func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationPtrOutput() ValidatingWebhookConfigurationPtrOutput {
-	return o.ToValidatingWebhookConfigurationPtrOutputWithContext(context.Background())
-}
-
-func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingWebhookConfiguration) *ValidatingWebhookConfiguration {
-		return &v
-	}).(ValidatingWebhookConfigurationPtrOutput)
-}
-
-type ValidatingWebhookConfigurationPtrOutput struct{ *pulumi.OutputState }
-
-func (ValidatingWebhookConfigurationPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ValidatingWebhookConfiguration)(nil))
-}
-
-func (o ValidatingWebhookConfigurationPtrOutput) ToValidatingWebhookConfigurationPtrOutput() ValidatingWebhookConfigurationPtrOutput {
-	return o
-}
-
-func (o ValidatingWebhookConfigurationPtrOutput) ToValidatingWebhookConfigurationPtrOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPtrOutput {
-	return o
-}
-
-func (o ValidatingWebhookConfigurationPtrOutput) Elem() ValidatingWebhookConfigurationOutput {
-	return o.ApplyT(func(v *ValidatingWebhookConfiguration) ValidatingWebhookConfiguration {
-		if v != nil {
-			return *v
-		}
-		var ret ValidatingWebhookConfiguration
-		return ret
-	}).(ValidatingWebhookConfigurationOutput)
-}
-
 type ValidatingWebhookConfigurationArrayOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ValidatingWebhookConfiguration)(nil))
+	return reflect.TypeOf((*[]*ValidatingWebhookConfiguration)(nil)).Elem()
 }
 
 func (o ValidatingWebhookConfigurationArrayOutput) ToValidatingWebhookConfigurationArrayOutput() ValidatingWebhookConfigurationArrayOutput {
@@ -259,15 +196,15 @@ func (o ValidatingWebhookConfigurationArrayOutput) ToValidatingWebhookConfigurat
 }
 
 func (o ValidatingWebhookConfigurationArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidatingWebhookConfiguration {
-		return vs[0].([]ValidatingWebhookConfiguration)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ValidatingWebhookConfiguration {
+		return vs[0].([]*ValidatingWebhookConfiguration)[vs[1].(int)]
 	}).(ValidatingWebhookConfigurationOutput)
 }
 
 type ValidatingWebhookConfigurationMapOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ValidatingWebhookConfiguration)(nil))
+	return reflect.TypeOf((*map[string]*ValidatingWebhookConfiguration)(nil)).Elem()
 }
 
 func (o ValidatingWebhookConfigurationMapOutput) ToValidatingWebhookConfigurationMapOutput() ValidatingWebhookConfigurationMapOutput {
@@ -279,18 +216,16 @@ func (o ValidatingWebhookConfigurationMapOutput) ToValidatingWebhookConfiguratio
 }
 
 func (o ValidatingWebhookConfigurationMapOutput) MapIndex(k pulumi.StringInput) ValidatingWebhookConfigurationOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ValidatingWebhookConfiguration {
-		return vs[0].(map[string]ValidatingWebhookConfiguration)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ValidatingWebhookConfiguration {
+		return vs[0].(map[string]*ValidatingWebhookConfiguration)[vs[1].(string)]
 	}).(ValidatingWebhookConfigurationOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationInput)(nil)).Elem(), &ValidatingWebhookConfiguration{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationPtrInput)(nil)).Elem(), &ValidatingWebhookConfiguration{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationArrayInput)(nil)).Elem(), ValidatingWebhookConfigurationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingWebhookConfigurationMapInput)(nil)).Elem(), ValidatingWebhookConfigurationMap{})
 	pulumi.RegisterOutputType(ValidatingWebhookConfigurationOutput{})
-	pulumi.RegisterOutputType(ValidatingWebhookConfigurationPtrOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookConfigurationArrayOutput{})
 	pulumi.RegisterOutputType(ValidatingWebhookConfigurationMapOutput{})
 }

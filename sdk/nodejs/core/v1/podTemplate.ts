@@ -60,23 +60,23 @@ export class PodTemplate extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: PodTemplateArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["kind"] = "PodTemplate";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["template"] = args ? args.template : undefined;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["kind"] = "PodTemplate";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["template"] = args ? args.template : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["template"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["template"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(PodTemplate.__pulumiType, name, inputs, opts);
+        super(PodTemplate.__pulumiType, name, resourceInputs, opts);
     }
 }
 

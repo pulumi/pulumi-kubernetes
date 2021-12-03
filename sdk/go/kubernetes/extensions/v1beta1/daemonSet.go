@@ -113,7 +113,7 @@ type DaemonSetInput interface {
 }
 
 func (*DaemonSet) ElementType() reflect.Type {
-	return reflect.TypeOf((*DaemonSet)(nil))
+	return reflect.TypeOf((**DaemonSet)(nil)).Elem()
 }
 
 func (i *DaemonSet) ToDaemonSetOutput() DaemonSetOutput {
@@ -122,35 +122,6 @@ func (i *DaemonSet) ToDaemonSetOutput() DaemonSetOutput {
 
 func (i *DaemonSet) ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetOutput)
-}
-
-func (i *DaemonSet) ToDaemonSetPtrOutput() DaemonSetPtrOutput {
-	return i.ToDaemonSetPtrOutputWithContext(context.Background())
-}
-
-func (i *DaemonSet) ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetPtrOutput)
-}
-
-type DaemonSetPtrInput interface {
-	pulumi.Input
-
-	ToDaemonSetPtrOutput() DaemonSetPtrOutput
-	ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput
-}
-
-type daemonSetPtrType DaemonSetArgs
-
-func (*daemonSetPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**DaemonSet)(nil))
-}
-
-func (i *daemonSetPtrType) ToDaemonSetPtrOutput() DaemonSetPtrOutput {
-	return i.ToDaemonSetPtrOutputWithContext(context.Background())
-}
-
-func (i *daemonSetPtrType) ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetPtrOutput)
 }
 
 // DaemonSetArrayInput is an input type that accepts DaemonSetArray and DaemonSetArrayOutput values.
@@ -206,7 +177,7 @@ func (i DaemonSetMap) ToDaemonSetMapOutputWithContext(ctx context.Context) Daemo
 type DaemonSetOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*DaemonSet)(nil))
+	return reflect.TypeOf((**DaemonSet)(nil)).Elem()
 }
 
 func (o DaemonSetOutput) ToDaemonSetOutput() DaemonSetOutput {
@@ -217,44 +188,10 @@ func (o DaemonSetOutput) ToDaemonSetOutputWithContext(ctx context.Context) Daemo
 	return o
 }
 
-func (o DaemonSetOutput) ToDaemonSetPtrOutput() DaemonSetPtrOutput {
-	return o.ToDaemonSetPtrOutputWithContext(context.Background())
-}
-
-func (o DaemonSetOutput) ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v DaemonSet) *DaemonSet {
-		return &v
-	}).(DaemonSetPtrOutput)
-}
-
-type DaemonSetPtrOutput struct{ *pulumi.OutputState }
-
-func (DaemonSetPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**DaemonSet)(nil))
-}
-
-func (o DaemonSetPtrOutput) ToDaemonSetPtrOutput() DaemonSetPtrOutput {
-	return o
-}
-
-func (o DaemonSetPtrOutput) ToDaemonSetPtrOutputWithContext(ctx context.Context) DaemonSetPtrOutput {
-	return o
-}
-
-func (o DaemonSetPtrOutput) Elem() DaemonSetOutput {
-	return o.ApplyT(func(v *DaemonSet) DaemonSet {
-		if v != nil {
-			return *v
-		}
-		var ret DaemonSet
-		return ret
-	}).(DaemonSetOutput)
-}
-
 type DaemonSetArrayOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]DaemonSet)(nil))
+	return reflect.TypeOf((*[]*DaemonSet)(nil)).Elem()
 }
 
 func (o DaemonSetArrayOutput) ToDaemonSetArrayOutput() DaemonSetArrayOutput {
@@ -266,15 +203,15 @@ func (o DaemonSetArrayOutput) ToDaemonSetArrayOutputWithContext(ctx context.Cont
 }
 
 func (o DaemonSetArrayOutput) Index(i pulumi.IntInput) DaemonSetOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) DaemonSet {
-		return vs[0].([]DaemonSet)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DaemonSet {
+		return vs[0].([]*DaemonSet)[vs[1].(int)]
 	}).(DaemonSetOutput)
 }
 
 type DaemonSetMapOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]DaemonSet)(nil))
+	return reflect.TypeOf((*map[string]*DaemonSet)(nil)).Elem()
 }
 
 func (o DaemonSetMapOutput) ToDaemonSetMapOutput() DaemonSetMapOutput {
@@ -286,18 +223,16 @@ func (o DaemonSetMapOutput) ToDaemonSetMapOutputWithContext(ctx context.Context)
 }
 
 func (o DaemonSetMapOutput) MapIndex(k pulumi.StringInput) DaemonSetOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) DaemonSet {
-		return vs[0].(map[string]DaemonSet)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *DaemonSet {
+		return vs[0].(map[string]*DaemonSet)[vs[1].(string)]
 	}).(DaemonSetOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetInput)(nil)).Elem(), &DaemonSet{})
-	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetPtrInput)(nil)).Elem(), &DaemonSet{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetArrayInput)(nil)).Elem(), DaemonSetArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DaemonSetMapInput)(nil)).Elem(), DaemonSetMap{})
 	pulumi.RegisterOutputType(DaemonSetOutput{})
-	pulumi.RegisterOutputType(DaemonSetPtrOutput{})
 	pulumi.RegisterOutputType(DaemonSetArrayOutput{})
 	pulumi.RegisterOutputType(DaemonSetMapOutput{})
 }

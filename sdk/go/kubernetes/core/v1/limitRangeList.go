@@ -104,7 +104,7 @@ type LimitRangeListInput interface {
 }
 
 func (*LimitRangeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*LimitRangeList)(nil))
+	return reflect.TypeOf((**LimitRangeList)(nil)).Elem()
 }
 
 func (i *LimitRangeList) ToLimitRangeListOutput() LimitRangeListOutput {
@@ -113,35 +113,6 @@ func (i *LimitRangeList) ToLimitRangeListOutput() LimitRangeListOutput {
 
 func (i *LimitRangeList) ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListOutput)
-}
-
-func (i *LimitRangeList) ToLimitRangeListPtrOutput() LimitRangeListPtrOutput {
-	return i.ToLimitRangeListPtrOutputWithContext(context.Background())
-}
-
-func (i *LimitRangeList) ToLimitRangeListPtrOutputWithContext(ctx context.Context) LimitRangeListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListPtrOutput)
-}
-
-type LimitRangeListPtrInput interface {
-	pulumi.Input
-
-	ToLimitRangeListPtrOutput() LimitRangeListPtrOutput
-	ToLimitRangeListPtrOutputWithContext(ctx context.Context) LimitRangeListPtrOutput
-}
-
-type limitRangeListPtrType LimitRangeListArgs
-
-func (*limitRangeListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**LimitRangeList)(nil))
-}
-
-func (i *limitRangeListPtrType) ToLimitRangeListPtrOutput() LimitRangeListPtrOutput {
-	return i.ToLimitRangeListPtrOutputWithContext(context.Background())
-}
-
-func (i *limitRangeListPtrType) ToLimitRangeListPtrOutputWithContext(ctx context.Context) LimitRangeListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListPtrOutput)
 }
 
 // LimitRangeListArrayInput is an input type that accepts LimitRangeListArray and LimitRangeListArrayOutput values.
@@ -197,7 +168,7 @@ func (i LimitRangeListMap) ToLimitRangeListMapOutputWithContext(ctx context.Cont
 type LimitRangeListOutput struct{ *pulumi.OutputState }
 
 func (LimitRangeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LimitRangeList)(nil))
+	return reflect.TypeOf((**LimitRangeList)(nil)).Elem()
 }
 
 func (o LimitRangeListOutput) ToLimitRangeListOutput() LimitRangeListOutput {
@@ -208,44 +179,10 @@ func (o LimitRangeListOutput) ToLimitRangeListOutputWithContext(ctx context.Cont
 	return o
 }
 
-func (o LimitRangeListOutput) ToLimitRangeListPtrOutput() LimitRangeListPtrOutput {
-	return o.ToLimitRangeListPtrOutputWithContext(context.Background())
-}
-
-func (o LimitRangeListOutput) ToLimitRangeListPtrOutputWithContext(ctx context.Context) LimitRangeListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitRangeList) *LimitRangeList {
-		return &v
-	}).(LimitRangeListPtrOutput)
-}
-
-type LimitRangeListPtrOutput struct{ *pulumi.OutputState }
-
-func (LimitRangeListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**LimitRangeList)(nil))
-}
-
-func (o LimitRangeListPtrOutput) ToLimitRangeListPtrOutput() LimitRangeListPtrOutput {
-	return o
-}
-
-func (o LimitRangeListPtrOutput) ToLimitRangeListPtrOutputWithContext(ctx context.Context) LimitRangeListPtrOutput {
-	return o
-}
-
-func (o LimitRangeListPtrOutput) Elem() LimitRangeListOutput {
-	return o.ApplyT(func(v *LimitRangeList) LimitRangeList {
-		if v != nil {
-			return *v
-		}
-		var ret LimitRangeList
-		return ret
-	}).(LimitRangeListOutput)
-}
-
 type LimitRangeListArrayOutput struct{ *pulumi.OutputState }
 
 func (LimitRangeListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]LimitRangeList)(nil))
+	return reflect.TypeOf((*[]*LimitRangeList)(nil)).Elem()
 }
 
 func (o LimitRangeListArrayOutput) ToLimitRangeListArrayOutput() LimitRangeListArrayOutput {
@@ -257,15 +194,15 @@ func (o LimitRangeListArrayOutput) ToLimitRangeListArrayOutputWithContext(ctx co
 }
 
 func (o LimitRangeListArrayOutput) Index(i pulumi.IntInput) LimitRangeListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) LimitRangeList {
-		return vs[0].([]LimitRangeList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *LimitRangeList {
+		return vs[0].([]*LimitRangeList)[vs[1].(int)]
 	}).(LimitRangeListOutput)
 }
 
 type LimitRangeListMapOutput struct{ *pulumi.OutputState }
 
 func (LimitRangeListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]LimitRangeList)(nil))
+	return reflect.TypeOf((*map[string]*LimitRangeList)(nil)).Elem()
 }
 
 func (o LimitRangeListMapOutput) ToLimitRangeListMapOutput() LimitRangeListMapOutput {
@@ -277,18 +214,16 @@ func (o LimitRangeListMapOutput) ToLimitRangeListMapOutputWithContext(ctx contex
 }
 
 func (o LimitRangeListMapOutput) MapIndex(k pulumi.StringInput) LimitRangeListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) LimitRangeList {
-		return vs[0].(map[string]LimitRangeList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *LimitRangeList {
+		return vs[0].(map[string]*LimitRangeList)[vs[1].(string)]
 	}).(LimitRangeListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeListInput)(nil)).Elem(), &LimitRangeList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeListPtrInput)(nil)).Elem(), &LimitRangeList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeListArrayInput)(nil)).Elem(), LimitRangeListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeListMapInput)(nil)).Elem(), LimitRangeListMap{})
 	pulumi.RegisterOutputType(LimitRangeListOutput{})
-	pulumi.RegisterOutputType(LimitRangeListPtrOutput{})
 	pulumi.RegisterOutputType(LimitRangeListArrayOutput{})
 	pulumi.RegisterOutputType(LimitRangeListMapOutput{})
 }

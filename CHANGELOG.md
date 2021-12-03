@@ -7,6 +7,7 @@ resource definition from the Go SDK. Following this change, use the Provider res
 `github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead.
 
 - Helm Release: Make RepositoryOpts optional  (https://github.com/pulumi/pulumi-kubernetes/pull/1806)
+- Update pulumi dependencies v3.19.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1816)
 - [go/sdk] Remove deprecated providers/Provider resource (https://github.com/pulumi/pulumi-kubernetes/pull/1817)
 
 ## 3.10.1 (November 19, 2021)

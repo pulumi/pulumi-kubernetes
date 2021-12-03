@@ -26,6 +26,39 @@ type HelmReleaseSettings struct {
 	SuppressBetaWarning *bool `pulumi:"suppressBetaWarning"`
 }
 
+// Defaults sets the appropriate defaults for HelmReleaseSettings
+func (val *HelmReleaseSettings) Defaults() *HelmReleaseSettings {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	if isZero(tmp.Driver) {
+		driver_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string)
+		tmp.Driver = &driver_
+	}
+	if isZero(tmp.PluginsPath) {
+		pluginsPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string)
+		tmp.PluginsPath = &pluginsPath_
+	}
+	if isZero(tmp.RegistryConfigPath) {
+		registryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string)
+		tmp.RegistryConfigPath = &registryConfigPath_
+	}
+	if isZero(tmp.RepositoryCache) {
+		repositoryCache_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE").(string)
+		tmp.RepositoryCache = &repositoryCache_
+	}
+	if isZero(tmp.RepositoryConfigPath) {
+		repositoryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string)
+		tmp.RepositoryConfigPath = &repositoryConfigPath_
+	}
+	if isZero(tmp.SuppressBetaWarning) {
+		suppressBetaWarning_ := getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING").(bool)
+		tmp.SuppressBetaWarning = &suppressBetaWarning_
+	}
+	return &tmp
+}
+
 // HelmReleaseSettingsInput is an input type that accepts HelmReleaseSettingsArgs and HelmReleaseSettingsOutput values.
 // You can construct a concrete instance of `HelmReleaseSettingsInput` via:
 //
@@ -251,6 +284,23 @@ type KubeClientSettings struct {
 	Burst *int `pulumi:"burst"`
 	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
 	Qps *float64 `pulumi:"qps"`
+}
+
+// Defaults sets the appropriate defaults for KubeClientSettings
+func (val *KubeClientSettings) Defaults() *KubeClientSettings {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	if isZero(tmp.Burst) {
+		burst_ := getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_BURST").(int)
+		tmp.Burst = &burst_
+	}
+	if isZero(tmp.Qps) {
+		qps_ := getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64)
+		tmp.Qps = &qps_
+	}
+	return &tmp
 }
 
 // KubeClientSettingsInput is an input type that accepts KubeClientSettingsArgs and KubeClientSettingsOutput values.

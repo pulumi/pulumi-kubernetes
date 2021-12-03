@@ -111,7 +111,7 @@ type HorizontalPodAutoscalerInput interface {
 }
 
 func (*HorizontalPodAutoscaler) ElementType() reflect.Type {
-	return reflect.TypeOf((*HorizontalPodAutoscaler)(nil))
+	return reflect.TypeOf((**HorizontalPodAutoscaler)(nil)).Elem()
 }
 
 func (i *HorizontalPodAutoscaler) ToHorizontalPodAutoscalerOutput() HorizontalPodAutoscalerOutput {
@@ -120,35 +120,6 @@ func (i *HorizontalPodAutoscaler) ToHorizontalPodAutoscalerOutput() HorizontalPo
 
 func (i *HorizontalPodAutoscaler) ToHorizontalPodAutoscalerOutputWithContext(ctx context.Context) HorizontalPodAutoscalerOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerOutput)
-}
-
-func (i *HorizontalPodAutoscaler) ToHorizontalPodAutoscalerPtrOutput() HorizontalPodAutoscalerPtrOutput {
-	return i.ToHorizontalPodAutoscalerPtrOutputWithContext(context.Background())
-}
-
-func (i *HorizontalPodAutoscaler) ToHorizontalPodAutoscalerPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerPtrOutput)
-}
-
-type HorizontalPodAutoscalerPtrInput interface {
-	pulumi.Input
-
-	ToHorizontalPodAutoscalerPtrOutput() HorizontalPodAutoscalerPtrOutput
-	ToHorizontalPodAutoscalerPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerPtrOutput
-}
-
-type horizontalPodAutoscalerPtrType HorizontalPodAutoscalerArgs
-
-func (*horizontalPodAutoscalerPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**HorizontalPodAutoscaler)(nil))
-}
-
-func (i *horizontalPodAutoscalerPtrType) ToHorizontalPodAutoscalerPtrOutput() HorizontalPodAutoscalerPtrOutput {
-	return i.ToHorizontalPodAutoscalerPtrOutputWithContext(context.Background())
-}
-
-func (i *horizontalPodAutoscalerPtrType) ToHorizontalPodAutoscalerPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerPtrOutput)
 }
 
 // HorizontalPodAutoscalerArrayInput is an input type that accepts HorizontalPodAutoscalerArray and HorizontalPodAutoscalerArrayOutput values.
@@ -204,7 +175,7 @@ func (i HorizontalPodAutoscalerMap) ToHorizontalPodAutoscalerMapOutputWithContex
 type HorizontalPodAutoscalerOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*HorizontalPodAutoscaler)(nil))
+	return reflect.TypeOf((**HorizontalPodAutoscaler)(nil)).Elem()
 }
 
 func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerOutput() HorizontalPodAutoscalerOutput {
@@ -215,44 +186,10 @@ func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerOutputWithContex
 	return o
 }
 
-func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerPtrOutput() HorizontalPodAutoscalerPtrOutput {
-	return o.ToHorizontalPodAutoscalerPtrOutputWithContext(context.Background())
-}
-
-func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v HorizontalPodAutoscaler) *HorizontalPodAutoscaler {
-		return &v
-	}).(HorizontalPodAutoscalerPtrOutput)
-}
-
-type HorizontalPodAutoscalerPtrOutput struct{ *pulumi.OutputState }
-
-func (HorizontalPodAutoscalerPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**HorizontalPodAutoscaler)(nil))
-}
-
-func (o HorizontalPodAutoscalerPtrOutput) ToHorizontalPodAutoscalerPtrOutput() HorizontalPodAutoscalerPtrOutput {
-	return o
-}
-
-func (o HorizontalPodAutoscalerPtrOutput) ToHorizontalPodAutoscalerPtrOutputWithContext(ctx context.Context) HorizontalPodAutoscalerPtrOutput {
-	return o
-}
-
-func (o HorizontalPodAutoscalerPtrOutput) Elem() HorizontalPodAutoscalerOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscaler) HorizontalPodAutoscaler {
-		if v != nil {
-			return *v
-		}
-		var ret HorizontalPodAutoscaler
-		return ret
-	}).(HorizontalPodAutoscalerOutput)
-}
-
 type HorizontalPodAutoscalerArrayOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]HorizontalPodAutoscaler)(nil))
+	return reflect.TypeOf((*[]*HorizontalPodAutoscaler)(nil)).Elem()
 }
 
 func (o HorizontalPodAutoscalerArrayOutput) ToHorizontalPodAutoscalerArrayOutput() HorizontalPodAutoscalerArrayOutput {
@@ -264,15 +201,15 @@ func (o HorizontalPodAutoscalerArrayOutput) ToHorizontalPodAutoscalerArrayOutput
 }
 
 func (o HorizontalPodAutoscalerArrayOutput) Index(i pulumi.IntInput) HorizontalPodAutoscalerOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HorizontalPodAutoscaler {
-		return vs[0].([]HorizontalPodAutoscaler)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *HorizontalPodAutoscaler {
+		return vs[0].([]*HorizontalPodAutoscaler)[vs[1].(int)]
 	}).(HorizontalPodAutoscalerOutput)
 }
 
 type HorizontalPodAutoscalerMapOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]HorizontalPodAutoscaler)(nil))
+	return reflect.TypeOf((*map[string]*HorizontalPodAutoscaler)(nil)).Elem()
 }
 
 func (o HorizontalPodAutoscalerMapOutput) ToHorizontalPodAutoscalerMapOutput() HorizontalPodAutoscalerMapOutput {
@@ -284,18 +221,16 @@ func (o HorizontalPodAutoscalerMapOutput) ToHorizontalPodAutoscalerMapOutputWith
 }
 
 func (o HorizontalPodAutoscalerMapOutput) MapIndex(k pulumi.StringInput) HorizontalPodAutoscalerOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) HorizontalPodAutoscaler {
-		return vs[0].(map[string]HorizontalPodAutoscaler)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *HorizontalPodAutoscaler {
+		return vs[0].(map[string]*HorizontalPodAutoscaler)[vs[1].(string)]
 	}).(HorizontalPodAutoscalerOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerInput)(nil)).Elem(), &HorizontalPodAutoscaler{})
-	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerPtrInput)(nil)).Elem(), &HorizontalPodAutoscaler{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerArrayInput)(nil)).Elem(), HorizontalPodAutoscalerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HorizontalPodAutoscalerMapInput)(nil)).Elem(), HorizontalPodAutoscalerMap{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerOutput{})
-	pulumi.RegisterOutputType(HorizontalPodAutoscalerPtrOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerArrayOutput{})
 	pulumi.RegisterOutputType(HorizontalPodAutoscalerMapOutput{})
 }

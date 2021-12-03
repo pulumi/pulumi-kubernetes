@@ -60,25 +60,25 @@ export class Role extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: RoleArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-            inputs["kind"] = "Role";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["rules"] = args ? args.rules : undefined;
+            resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+            resourceInputs["kind"] = "Role";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["rules"] = args ? args.rules : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["rules"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["rules"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role" }, { type: "kubernetes:rbac.authorization.k8s.io/v1beta1:Role" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(Role.__pulumiType, name, inputs, opts);
+        super(Role.__pulumiType, name, resourceInputs, opts);
     }
 }
 

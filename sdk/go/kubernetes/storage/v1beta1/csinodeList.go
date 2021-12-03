@@ -104,7 +104,7 @@ type CSINodeListInput interface {
 }
 
 func (*CSINodeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeList)(nil))
+	return reflect.TypeOf((**CSINodeList)(nil)).Elem()
 }
 
 func (i *CSINodeList) ToCSINodeListOutput() CSINodeListOutput {
@@ -113,35 +113,6 @@ func (i *CSINodeList) ToCSINodeListOutput() CSINodeListOutput {
 
 func (i *CSINodeList) ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListOutput)
-}
-
-func (i *CSINodeList) ToCSINodeListPtrOutput() CSINodeListPtrOutput {
-	return i.ToCSINodeListPtrOutputWithContext(context.Background())
-}
-
-func (i *CSINodeList) ToCSINodeListPtrOutputWithContext(ctx context.Context) CSINodeListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListPtrOutput)
-}
-
-type CSINodeListPtrInput interface {
-	pulumi.Input
-
-	ToCSINodeListPtrOutput() CSINodeListPtrOutput
-	ToCSINodeListPtrOutputWithContext(ctx context.Context) CSINodeListPtrOutput
-}
-
-type csinodeListPtrType CSINodeListArgs
-
-func (*csinodeListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CSINodeList)(nil))
-}
-
-func (i *csinodeListPtrType) ToCSINodeListPtrOutput() CSINodeListPtrOutput {
-	return i.ToCSINodeListPtrOutputWithContext(context.Background())
-}
-
-func (i *csinodeListPtrType) ToCSINodeListPtrOutputWithContext(ctx context.Context) CSINodeListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListPtrOutput)
 }
 
 // CSINodeListArrayInput is an input type that accepts CSINodeListArray and CSINodeListArrayOutput values.
@@ -197,7 +168,7 @@ func (i CSINodeListMap) ToCSINodeListMapOutputWithContext(ctx context.Context) C
 type CSINodeListOutput struct{ *pulumi.OutputState }
 
 func (CSINodeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSINodeList)(nil))
+	return reflect.TypeOf((**CSINodeList)(nil)).Elem()
 }
 
 func (o CSINodeListOutput) ToCSINodeListOutput() CSINodeListOutput {
@@ -208,44 +179,10 @@ func (o CSINodeListOutput) ToCSINodeListOutputWithContext(ctx context.Context) C
 	return o
 }
 
-func (o CSINodeListOutput) ToCSINodeListPtrOutput() CSINodeListPtrOutput {
-	return o.ToCSINodeListPtrOutputWithContext(context.Background())
-}
-
-func (o CSINodeListOutput) ToCSINodeListPtrOutputWithContext(ctx context.Context) CSINodeListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSINodeList) *CSINodeList {
-		return &v
-	}).(CSINodeListPtrOutput)
-}
-
-type CSINodeListPtrOutput struct{ *pulumi.OutputState }
-
-func (CSINodeListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CSINodeList)(nil))
-}
-
-func (o CSINodeListPtrOutput) ToCSINodeListPtrOutput() CSINodeListPtrOutput {
-	return o
-}
-
-func (o CSINodeListPtrOutput) ToCSINodeListPtrOutputWithContext(ctx context.Context) CSINodeListPtrOutput {
-	return o
-}
-
-func (o CSINodeListPtrOutput) Elem() CSINodeListOutput {
-	return o.ApplyT(func(v *CSINodeList) CSINodeList {
-		if v != nil {
-			return *v
-		}
-		var ret CSINodeList
-		return ret
-	}).(CSINodeListOutput)
-}
-
 type CSINodeListArrayOutput struct{ *pulumi.OutputState }
 
 func (CSINodeListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CSINodeList)(nil))
+	return reflect.TypeOf((*[]*CSINodeList)(nil)).Elem()
 }
 
 func (o CSINodeListArrayOutput) ToCSINodeListArrayOutput() CSINodeListArrayOutput {
@@ -257,15 +194,15 @@ func (o CSINodeListArrayOutput) ToCSINodeListArrayOutputWithContext(ctx context.
 }
 
 func (o CSINodeListArrayOutput) Index(i pulumi.IntInput) CSINodeListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CSINodeList {
-		return vs[0].([]CSINodeList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSINodeList {
+		return vs[0].([]*CSINodeList)[vs[1].(int)]
 	}).(CSINodeListOutput)
 }
 
 type CSINodeListMapOutput struct{ *pulumi.OutputState }
 
 func (CSINodeListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]CSINodeList)(nil))
+	return reflect.TypeOf((*map[string]*CSINodeList)(nil)).Elem()
 }
 
 func (o CSINodeListMapOutput) ToCSINodeListMapOutput() CSINodeListMapOutput {
@@ -277,18 +214,16 @@ func (o CSINodeListMapOutput) ToCSINodeListMapOutputWithContext(ctx context.Cont
 }
 
 func (o CSINodeListMapOutput) MapIndex(k pulumi.StringInput) CSINodeListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CSINodeList {
-		return vs[0].(map[string]CSINodeList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *CSINodeList {
+		return vs[0].(map[string]*CSINodeList)[vs[1].(string)]
 	}).(CSINodeListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeListInput)(nil)).Elem(), &CSINodeList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeListPtrInput)(nil)).Elem(), &CSINodeList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeListArrayInput)(nil)).Elem(), CSINodeListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSINodeListMapInput)(nil)).Elem(), CSINodeListMap{})
 	pulumi.RegisterOutputType(CSINodeListOutput{})
-	pulumi.RegisterOutputType(CSINodeListPtrOutput{})
 	pulumi.RegisterOutputType(CSINodeListArrayOutput{})
 	pulumi.RegisterOutputType(CSINodeListMapOutput{})
 }

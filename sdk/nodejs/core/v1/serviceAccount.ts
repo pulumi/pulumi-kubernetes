@@ -68,27 +68,27 @@ export class ServiceAccount extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ServiceAccountArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
-            inputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
-            inputs["kind"] = "ServiceAccount";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["secrets"] = args ? args.secrets : undefined;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
+            resourceInputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
+            resourceInputs["kind"] = "ServiceAccount";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["secrets"] = args ? args.secrets : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["automountServiceAccountToken"] = undefined /*out*/;
-            inputs["imagePullSecrets"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["secrets"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["automountServiceAccountToken"] = undefined /*out*/;
+            resourceInputs["imagePullSecrets"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["secrets"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(ServiceAccount.__pulumiType, name, inputs, opts);
+        super(ServiceAccount.__pulumiType, name, resourceInputs, opts);
     }
 }
 

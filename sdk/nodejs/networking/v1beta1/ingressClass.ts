@@ -60,25 +60,25 @@ export class IngressClass extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: IngressClassArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "networking.k8s.io/v1beta1";
-            inputs["kind"] = "IngressClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["apiVersion"] = "networking.k8s.io/v1beta1";
+            resourceInputs["kind"] = "IngressClass";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:IngressClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(IngressClass.__pulumiType, name, inputs, opts);
+        super(IngressClass.__pulumiType, name, resourceInputs, opts);
     }
 }
 

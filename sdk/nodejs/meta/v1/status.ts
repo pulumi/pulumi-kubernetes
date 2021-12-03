@@ -76,31 +76,31 @@ export class Status extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: StatusArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["code"] = args ? args.code : undefined;
-            inputs["details"] = args ? args.details : undefined;
-            inputs["kind"] = "Status";
-            inputs["message"] = args ? args.message : undefined;
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["reason"] = args ? args.reason : undefined;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["code"] = args ? args.code : undefined;
+            resourceInputs["details"] = args ? args.details : undefined;
+            resourceInputs["kind"] = "Status";
+            resourceInputs["message"] = args ? args.message : undefined;
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["reason"] = args ? args.reason : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["code"] = undefined /*out*/;
-            inputs["details"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["message"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["reason"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["code"] = undefined /*out*/;
+            resourceInputs["details"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["message"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["reason"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(Status.__pulumiType, name, inputs, opts);
+        super(Status.__pulumiType, name, resourceInputs, opts);
     }
 }
 

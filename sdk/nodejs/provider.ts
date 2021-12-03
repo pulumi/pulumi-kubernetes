@@ -32,24 +32,24 @@ export class Provider extends pulumi.ProviderResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ProviderArgs, opts?: pulumi.ResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
-            inputs["cluster"] = args ? args.cluster : undefined;
-            inputs["context"] = args ? args.context : undefined;
-            inputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
-            inputs["helmReleaseSettings"] = pulumi.output(args ? args.helmReleaseSettings : undefined).apply(JSON.stringify);
-            inputs["kubeClientSettings"] = pulumi.output(args ? args.kubeClientSettings : undefined).apply(JSON.stringify);
-            inputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
-            inputs["namespace"] = args ? args.namespace : undefined;
-            inputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
-            inputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
-            inputs["suppressHelmHookWarnings"] = pulumi.output((args ? args.suppressHelmHookWarnings : undefined) ?? <any>utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
+            resourceInputs["cluster"] = args ? args.cluster : undefined;
+            resourceInputs["context"] = args ? args.context : undefined;
+            resourceInputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
+            resourceInputs["helmReleaseSettings"] = pulumi.output(args ? (args.helmReleaseSettings ? pulumi.output(args.helmReleaseSettings).apply(inputs.helmReleaseSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
+            resourceInputs["kubeClientSettings"] = pulumi.output(args ? (args.kubeClientSettings ? pulumi.output(args.kubeClientSettings).apply(inputs.kubeClientSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
+            resourceInputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
+            resourceInputs["namespace"] = args ? args.namespace : undefined;
+            resourceInputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
+            resourceInputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
+            resourceInputs["suppressHelmHookWarnings"] = pulumi.output((args ? args.suppressHelmHookWarnings : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(Provider.__pulumiType, name, inputs, opts);
+        super(Provider.__pulumiType, name, resourceInputs, opts);
     }
 }
 

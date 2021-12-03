@@ -64,30 +64,30 @@ export class ClusterRoleBinding extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ClusterRoleBindingArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.roleRef === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'roleRef'");
             }
-            inputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
-            inputs["kind"] = "ClusterRoleBinding";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["roleRef"] = args ? args.roleRef : undefined;
-            inputs["subjects"] = args ? args.subjects : undefined;
+            resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
+            resourceInputs["kind"] = "ClusterRoleBinding";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["roleRef"] = args ? args.roleRef : undefined;
+            resourceInputs["subjects"] = args ? args.subjects : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["roleRef"] = undefined /*out*/;
-            inputs["subjects"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["roleRef"] = undefined /*out*/;
+            resourceInputs["subjects"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBinding" }, { type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBinding" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(ClusterRoleBinding.__pulumiType, name, inputs, opts);
+        super(ClusterRoleBinding.__pulumiType, name, resourceInputs, opts);
     }
 }
 

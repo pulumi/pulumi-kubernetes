@@ -86,40 +86,40 @@ export class StorageClass extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: StorageClassArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.provisioner === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'provisioner'");
             }
-            inputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
-            inputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
-            inputs["apiVersion"] = "storage.k8s.io/v1beta1";
-            inputs["kind"] = "StorageClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["mountOptions"] = args ? args.mountOptions : undefined;
-            inputs["parameters"] = args ? args.parameters : undefined;
-            inputs["provisioner"] = args ? args.provisioner : undefined;
-            inputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
-            inputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
+            resourceInputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
+            resourceInputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
+            resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
+            resourceInputs["kind"] = "StorageClass";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["mountOptions"] = args ? args.mountOptions : undefined;
+            resourceInputs["parameters"] = args ? args.parameters : undefined;
+            resourceInputs["provisioner"] = args ? args.provisioner : undefined;
+            resourceInputs["reclaimPolicy"] = args ? args.reclaimPolicy : undefined;
+            resourceInputs["volumeBindingMode"] = args ? args.volumeBindingMode : undefined;
         } else {
-            inputs["allowVolumeExpansion"] = undefined /*out*/;
-            inputs["allowedTopologies"] = undefined /*out*/;
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["mountOptions"] = undefined /*out*/;
-            inputs["parameters"] = undefined /*out*/;
-            inputs["provisioner"] = undefined /*out*/;
-            inputs["reclaimPolicy"] = undefined /*out*/;
-            inputs["volumeBindingMode"] = undefined /*out*/;
+            resourceInputs["allowVolumeExpansion"] = undefined /*out*/;
+            resourceInputs["allowedTopologies"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["mountOptions"] = undefined /*out*/;
+            resourceInputs["parameters"] = undefined /*out*/;
+            resourceInputs["provisioner"] = undefined /*out*/;
+            resourceInputs["reclaimPolicy"] = undefined /*out*/;
+            resourceInputs["volumeBindingMode"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1:StorageClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(StorageClass.__pulumiType, name, inputs, opts);
+        super(StorageClass.__pulumiType, name, resourceInputs, opts);
     }
 }
 
