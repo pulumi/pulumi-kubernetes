@@ -407,7 +407,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Compute config overrides.
 	overrides := &clientcmd.ConfigOverrides{
 		Context: clientapi.Context{
-			Cluster: vars["kubernetes:config:cluster"],
+			Cluster:   vars["kubernetes:config:cluster"],
 			Namespace: k.defaultNamespace,
 		},
 		CurrentContext: vars["kubernetes:config:context"],
