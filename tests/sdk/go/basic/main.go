@@ -6,18 +6,12 @@ import (
 	apiextensionsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apiextensions/v1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-	providers "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/providers"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		// Make sure both the supported and deprecated Provider resources compile.
 		_, err := kubernetes.NewProvider(ctx, "k8s", &kubernetes.ProviderArgs{})
-		if err != nil {
-			return err
-		}
-		_, err = providers.NewProvider(ctx, "deprecated", &providers.ProviderArgs{})
 		if err != nil {
 			return err
 		}

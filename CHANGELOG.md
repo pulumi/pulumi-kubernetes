@@ -1,6 +1,13 @@
 ## HEAD (Unreleased)
 
+Breaking change note:
+
+[#1817](https://github.com/pulumi/pulumi-kubernetes/pull/1817) removed the deprecated providers/Provider
+resource definition from the Go SDK. Following this change, use the Provider resource at
+`github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes` instead.
+
 - Helm Release: Make RepositoryOpts optional  (https://github.com/pulumi/pulumi-kubernetes/pull/1806)
+- [go/sdk] Remove deprecated providers/Provider resource (https://github.com/pulumi/pulumi-kubernetes/pull/1817)
 
 ## 3.10.1 (November 19, 2021)
 
