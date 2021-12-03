@@ -197,6 +197,7 @@ func newHelmReleaseProvider(
 	settings.RegistryConfig = registryConfigPath
 	settings.RepositoryConfig = repositoryConfigPath
 	settings.RepositoryCache = repositoryCache
+	settings.Debug = true
 
 	return &helmReleaseProvider{
 		host:             host,
@@ -212,7 +213,7 @@ func newHelmReleaseProvider(
 }
 
 func debug(format string, a ...interface{}) {
-	logger.V(9).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
+	logger.V(3).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
 }
 
 func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
@@ -299,44 +300,43 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		return nil, err
 	}
 
-	if new.Namespace == "" {
-		new.Namespace = r.defaultNamespace
+	if len(olds.Mappable()) > 0 {
+		adoptOldNameIfUnnamed(new, old)
 	}
+	assignNameIfAutonameable(new, news, "release")
+	r.setDefaults(new)
 
-	if !new.SkipAwait && new.Timeout == 0 {
-		new.Timeout = defaultTimeoutSeconds
+	conf, err := r.getActionConfig(new.Namespace)
+	if err != nil {
+		return nil, err
 	}
-
-	if new.Keyring == "" {
-		new.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
+	rel, exists, err := resourceReleaseLookup(new.Name, conf)
+	if err != nil {
+		return nil, err
 	}
 
 	haveResourceNames := true
 	if len(olds.Mappable()) > 0 {
-		adoptOldNameIfUnnamed(new, old)
 		haveResourceNames = false
 	} else {
-		assignNameIfAutonameable(new, news, "release")
-		conf, err := r.getActionConfig(new.Namespace)
-		if err != nil {
-			return nil, err
-		}
-		exists, err := resourceReleaseExists(new.Name, conf)
-		if err != nil {
-			return nil, err
-		}
 		if !exists {
 			haveResourceNames = false
 		}
-		// If resource exists, we are likely doing an import. We will just pass the inputs through.
 	}
 
 	if !haveResourceNames {
-		resourceNames, err := computeResourceNames(new)
-		if err != nil {
-			return nil, err
+		if resourceNames, err := computeResourceNames(new); err != nil && exists {
+			logger.V(9).Infof("Failed to compute resource names, assuming no resource names known: %v", err)
+			_, resourceNames, err = convertYAMLManifestToJSON(rel.Manifest)
+			if err != nil {
+				return nil, err
+			}
+			new.ResourceNames = resourceNames
+		} else if !exists {
+			return nil, fmt.Errorf("release not found: %q", new.Name)
+		} else {
+			new.ResourceNames = resourceNames
 		}
-		new.ResourceNames = resourceNames
 	}
 
 	autonamed := resource.NewPropertyMap(new)
@@ -353,6 +353,20 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 
 	// Return new, possibly-autonamed inputs.
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs}, nil
+}
+
+func (r *helmReleaseProvider) setDefaults(new *Release) {
+	if new.Namespace == "" {
+		new.Namespace = r.defaultNamespace
+	}
+
+	if !new.SkipAwait && new.Timeout == 0 {
+		new.Timeout = defaultTimeoutSeconds
+	}
+
+	if new.Keyring == "" {
+		new.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
+	}
 }
 
 func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, newRelease *Release) error {
@@ -435,12 +449,10 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	}
 
 	if err != nil && rel != nil {
-		exists, existsErr := resourceReleaseExists(newRelease.Name, conf)
-
+		_, exists, existsErr := resourceReleaseLookup(newRelease.Name, conf)
 		if existsErr != nil {
 			return err
 		}
-
 		if !exists {
 			return err
 		}
@@ -776,9 +788,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if err != nil {
 		return nil, err
 	}
-	oldInputs, err := plugin.UnmarshalProperties(req.GetInputs(), plugin.MarshalOptions{
-		Label: fmt.Sprintf("%s.oldInputs", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
-	})
+
 	if err != nil {
 		return nil, err
 	}
@@ -803,7 +813,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if err != nil {
 		return nil, err
 	}
-	exists, err := resourceReleaseExists(name, actionConfig)
+	liveObj, exists, err := resourceReleaseLookup(name, actionConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -813,26 +823,35 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return deleteResponse, nil
 	}
 
-	liveObj, err := getRelease(actionConfig, name)
-	if err != nil {
-		return nil, err
-	}
-
 	err = setReleaseAttributes(existingRelease, liveObj, false)
 	if err != nil {
 		return nil, err
 	}
 
-	logger.V(9).Infof("Trying to get chart: %q, settings: %#v", existingRelease.Chart, r.settings)
-
 	// Helm itself doesn't store any information about where the Chart was downloaded from.
 	// We need the user to ensure the chart is downloadable by using `helm repo add` etc.
-	_, _, err = getChart(r.settings, existingRelease)
-	if err != nil {
-		return nil, err
+	if existingRelease.RepositoryOpts != nil {
+		_, chartName, err := chartPathOptions(existingRelease)
+		if err != nil {
+			return nil, err
+		}
+
+		logger.V(9).Infof("Trying to get chart: %q, settings: %#v", chartName, r.settings)
+
+		_, _, err = getChart(r.settings, existingRelease)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	logger.V(9).Infof("%s Found release %s/%s", label, namespace, name)
+
+	oldInputs, _ := parseCheckpointRelease(oldState)
+	if oldInputs == nil {
+		// No old inputs suggests this is an import. Hydrate the imports from the current live object
+		r.setDefaults(existingRelease)
+		oldInputs = r.serializeImportInputs(existingRelease)
+	}
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
@@ -846,7 +865,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 
-	liveInputsPM := resource.NewPropertyMap(existingRelease)
+	liveInputsPM := r.serializeImportInputs(existingRelease)
 
 	inputs, err := plugin.MarshalProperties(liveInputsPM, plugin.MarshalOptions{
 		Label: label + ".inputs", KeepUnknowns: true, SkipNulls: true, KeepSecrets: r.enableSecrets,
@@ -861,6 +880,12 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	}
 
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
+}
+
+func (r *helmReleaseProvider) serializeImportInputs(release *Release) resource.PropertyMap {
+	inputs := resource.NewPropertyMap(release)
+	delete(inputs, resource.PropertyKey("status"))
+	return inputs
 }
 
 func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateRequest) (*pulumirpc.UpdateResponse, error) {
@@ -963,6 +988,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 }
 
 func computeResourceNames(r *Release) (map[string][]string, error) {
+	logger.V(9).Infof("Looking up resource names for release: %q: %#v", r.Name, r)
 	helmHome := os.Getenv("HELM_HOME")
 
 	helmChartOpts := HelmChartOpts{
@@ -1036,18 +1062,12 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	if release.Namespace == "" {
 		release.Namespace = r.Namespace
 	}
-	if len(release.Values) == 0 {
-		release.Values = r.Config
-	}
-	if release.Version == "" {
-		release.Version = r.Chart.Metadata.Version
-	}
 	if release.Chart == "" {
 		release.Chart = r.Chart.Metadata.Name
 	}
-	if release.Description == "" {
-		release.Description = r.Info.Description
-	}
+	logger.V(9).Infof("Setting release values: %+v", r.Config)
+	release.Values = r.Config
+	release.Version = r.Chart.Metadata.Version
 
 	_, resources, err := convertYAMLManifestToJSON(r.Manifest)
 	if err != nil {
@@ -1080,21 +1100,20 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	return nil
 }
 
-func resourceReleaseExists(name string, actionConfig *action.Configuration) (bool, error) {
-	logger.V(9).Infof("[resourceReleaseExists: %s]", name)
-	_, err := getRelease(actionConfig, name)
-
-	logger.V(9).Infof("[resourceReleaseExists: %s] Done", name)
+func resourceReleaseLookup(name string, actionConfig *action.Configuration) (*release.Release, bool, error) {
+	logger.V(9).Infof("[resourceReleaseLookup: %s]", name)
+	release, err := getRelease(actionConfig, name)
+	logger.V(9).Infof("[resourceReleaseLookup: %s] Done", name)
 
 	if err == nil {
-		return true, nil
+		return release, true, nil
 	}
 
 	if err == errReleaseNotFound {
-		return false, nil
+		return nil, false, nil
 	}
 
-	return false, err
+	return nil, false, err
 }
 
 func getRelease(cfg *action.Configuration, name string) (*release.Release, error) {
@@ -1116,7 +1135,7 @@ func getRelease(cfg *action.Configuration, name string) (*release.Release, error
 		return nil, err
 	}
 
-	logger.V(9).Infof("%s getRelease done", name)
+	logger.V(9).Infof("%s getRelease done: %+v", name, res)
 
 	return res, nil
 }
@@ -1244,24 +1263,29 @@ func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *
 func chartPathOptions(release *Release) (*action.ChartPathOptions, string, error) {
 	chartName := release.Chart
 
-	repository := release.RepositoryOpts.Repo
-	repositoryURL, chartName, err := resolveChartName(repository, strings.TrimSpace(chartName))
-	if err != nil {
-		return nil, "", err
-	}
 	version := getVersion(release)
+	cpo := &action.ChartPathOptions{
+		Keyring: release.Keyring,
+		Verify:  release.Verify,
+		Version: version,
+	}
+	if release.RepositoryOpts != nil {
+		var repositoryURL string
+		var err error
+		repository := release.RepositoryOpts.Repo
+		repositoryURL, chartName, err = resolveChartName(repository, strings.TrimSpace(chartName))
+		if err != nil {
+			return nil, "", err
+		}
+		cpo.CertFile = release.RepositoryOpts.CertFile
+		cpo.CaFile = release.RepositoryOpts.CAFile
+		cpo.KeyFile = release.RepositoryOpts.KeyFile
+		cpo.Username = release.RepositoryOpts.Username
+		cpo.Password = release.RepositoryOpts.Password
+		cpo.RepoURL = repositoryURL
+	}
 
-	return &action.ChartPathOptions{
-		CaFile:   release.RepositoryOpts.CAFile,
-		CertFile: release.RepositoryOpts.CertFile,
-		KeyFile:  release.RepositoryOpts.KeyFile,
-		Keyring:  release.Keyring,
-		RepoURL:  repositoryURL,
-		Verify:   release.Verify,
-		Version:  version,
-		Username: release.RepositoryOpts.Username,
-		Password: release.RepositoryOpts.Password, // TODO: This should already be resolved.
-	}, chartName, nil
+	return cpo, chartName, nil
 }
 
 func getVersion(release *Release) (version string) {
