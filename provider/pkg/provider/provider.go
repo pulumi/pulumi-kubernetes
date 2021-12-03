@@ -400,10 +400,15 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Configure client-go using provided or ambient kubeconfig file.
 	//
 
+	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
+		k.defaultNamespace = defaultNamespace
+	}
+
 	// Compute config overrides.
 	overrides := &clientcmd.ConfigOverrides{
 		Context: clientapi.Context{
-			Cluster: vars["kubernetes:config:cluster"],
+			Cluster:   vars["kubernetes:config:cluster"],
+			Namespace: k.defaultNamespace,
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
@@ -612,10 +617,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
 		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
-	}
-
-	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
-		k.defaultNamespace = defaultNamespace
 	}
 
 	var kubeClientSettings KubeClientSettings
