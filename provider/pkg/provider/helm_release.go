@@ -177,7 +177,6 @@ type helmReleaseProvider struct {
 	enableSecrets    bool
 	name             string
 	settings         *cli.EnvSettings
-	kubeconfig       clientcmd.ClientConfig
 }
 
 func newHelmReleaseProvider(
@@ -192,7 +191,6 @@ func newHelmReleaseProvider(
 	registryConfigPath,
 	repositoryConfigPath,
 	repositoryCache string,
-	kubeconfig clientcmd.ClientConfig,
 ) (customResourceProvider, error) {
 	settings := cli.New()
 	settings.PluginsDirectory = pluginsDirectory
@@ -210,7 +208,6 @@ func newHelmReleaseProvider(
 		enableSecrets:    enableSecrets,
 		name:             "kubernetes:helmrelease",
 		settings:         settings,
-		kubeconfig:       kubeconfig,
 	}, nil
 }
 
@@ -220,7 +217,30 @@ func debug(format string, a ...interface{}) {
 
 func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
 	conf := new(action.Configuration)
-	kc := newKubeConfig(r.restConfig, r.kubeconfig)
+	var overrides clientcmd.ConfigOverrides
+	if r.defaultOverrides != nil {
+		overrides = *r.defaultOverrides
+	}
+
+	// This essentially points the client to use the specified namespace when a namespaced
+	// object doesn't have the namespace specified. This allows us to interpolate the
+	// release's namespace as the default namespace on charts with templates that don't
+	// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
+	overrides.Context.Namespace = namespace
+
+	var clientConfig clientcmd.ClientConfig
+	if r.apiConfig != nil {
+		clientConfig = clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
+	} else {
+		// Use client-go to resolve the final configuration values for the client. Typically these
+		// values would would reside in the $KUBECONFIG file, but can also be altered in several
+		// places, including in env variables, client-go default values, and (if we allowed it) CLI
+		// flags.
+		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
+	}
+	kc := newKubeConfig(r.restConfig, clientConfig)
 	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {
 		return nil, err
 	}

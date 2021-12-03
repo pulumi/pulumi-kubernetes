@@ -682,8 +682,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				k.helmPluginsPath,
 				k.helmRegistryConfigPath,
 				k.helmRepositoryConfigPath,
-				k.helmRepositoryCache,
-				k.kubeconfig)
+				k.helmRepositoryCache)
 			if err != nil {
 				return nil, err
 			}
