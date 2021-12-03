@@ -59,6 +59,8 @@ dotnet_sdk::
 		dotnet build /p:Version=${DOTNET_VERSION}
 
 go_sdk::
+	# Delete generated SDK before regenerating.
+	rm -rf sdk/go/kubernetes
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
 nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
