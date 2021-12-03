@@ -108,7 +108,7 @@ type PodDisruptionBudgetInput interface {
 }
 
 func (*PodDisruptionBudget) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodDisruptionBudget)(nil))
+	return reflect.TypeOf((**PodDisruptionBudget)(nil)).Elem()
 }
 
 func (i *PodDisruptionBudget) ToPodDisruptionBudgetOutput() PodDisruptionBudgetOutput {
@@ -117,35 +117,6 @@ func (i *PodDisruptionBudget) ToPodDisruptionBudgetOutput() PodDisruptionBudgetO
 
 func (i *PodDisruptionBudget) ToPodDisruptionBudgetOutputWithContext(ctx context.Context) PodDisruptionBudgetOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetOutput)
-}
-
-func (i *PodDisruptionBudget) ToPodDisruptionBudgetPtrOutput() PodDisruptionBudgetPtrOutput {
-	return i.ToPodDisruptionBudgetPtrOutputWithContext(context.Background())
-}
-
-func (i *PodDisruptionBudget) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPtrOutput)
-}
-
-type PodDisruptionBudgetPtrInput interface {
-	pulumi.Input
-
-	ToPodDisruptionBudgetPtrOutput() PodDisruptionBudgetPtrOutput
-	ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput
-}
-
-type podDisruptionBudgetPtrType PodDisruptionBudgetArgs
-
-func (*podDisruptionBudgetPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PodDisruptionBudget)(nil))
-}
-
-func (i *podDisruptionBudgetPtrType) ToPodDisruptionBudgetPtrOutput() PodDisruptionBudgetPtrOutput {
-	return i.ToPodDisruptionBudgetPtrOutputWithContext(context.Background())
-}
-
-func (i *podDisruptionBudgetPtrType) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPtrOutput)
 }
 
 // PodDisruptionBudgetArrayInput is an input type that accepts PodDisruptionBudgetArray and PodDisruptionBudgetArrayOutput values.
@@ -201,7 +172,7 @@ func (i PodDisruptionBudgetMap) ToPodDisruptionBudgetMapOutputWithContext(ctx co
 type PodDisruptionBudgetOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodDisruptionBudget)(nil))
+	return reflect.TypeOf((**PodDisruptionBudget)(nil)).Elem()
 }
 
 func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutput() PodDisruptionBudgetOutput {
@@ -212,44 +183,10 @@ func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutputWithContext(ctx co
 	return o
 }
 
-func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetPtrOutput() PodDisruptionBudgetPtrOutput {
-	return o.ToPodDisruptionBudgetPtrOutputWithContext(context.Background())
-}
-
-func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudget) *PodDisruptionBudget {
-		return &v
-	}).(PodDisruptionBudgetPtrOutput)
-}
-
-type PodDisruptionBudgetPtrOutput struct{ *pulumi.OutputState }
-
-func (PodDisruptionBudgetPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PodDisruptionBudget)(nil))
-}
-
-func (o PodDisruptionBudgetPtrOutput) ToPodDisruptionBudgetPtrOutput() PodDisruptionBudgetPtrOutput {
-	return o
-}
-
-func (o PodDisruptionBudgetPtrOutput) ToPodDisruptionBudgetPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetPtrOutput {
-	return o
-}
-
-func (o PodDisruptionBudgetPtrOutput) Elem() PodDisruptionBudgetOutput {
-	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudget {
-		if v != nil {
-			return *v
-		}
-		var ret PodDisruptionBudget
-		return ret
-	}).(PodDisruptionBudgetOutput)
-}
-
 type PodDisruptionBudgetArrayOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PodDisruptionBudget)(nil))
+	return reflect.TypeOf((*[]*PodDisruptionBudget)(nil)).Elem()
 }
 
 func (o PodDisruptionBudgetArrayOutput) ToPodDisruptionBudgetArrayOutput() PodDisruptionBudgetArrayOutput {
@@ -261,15 +198,15 @@ func (o PodDisruptionBudgetArrayOutput) ToPodDisruptionBudgetArrayOutputWithCont
 }
 
 func (o PodDisruptionBudgetArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodDisruptionBudget {
-		return vs[0].([]PodDisruptionBudget)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodDisruptionBudget {
+		return vs[0].([]*PodDisruptionBudget)[vs[1].(int)]
 	}).(PodDisruptionBudgetOutput)
 }
 
 type PodDisruptionBudgetMapOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PodDisruptionBudget)(nil))
+	return reflect.TypeOf((*map[string]*PodDisruptionBudget)(nil)).Elem()
 }
 
 func (o PodDisruptionBudgetMapOutput) ToPodDisruptionBudgetMapOutput() PodDisruptionBudgetMapOutput {
@@ -281,18 +218,16 @@ func (o PodDisruptionBudgetMapOutput) ToPodDisruptionBudgetMapOutputWithContext(
 }
 
 func (o PodDisruptionBudgetMapOutput) MapIndex(k pulumi.StringInput) PodDisruptionBudgetOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PodDisruptionBudget {
-		return vs[0].(map[string]PodDisruptionBudget)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PodDisruptionBudget {
+		return vs[0].(map[string]*PodDisruptionBudget)[vs[1].(string)]
 	}).(PodDisruptionBudgetOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetInput)(nil)).Elem(), &PodDisruptionBudget{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetPtrInput)(nil)).Elem(), &PodDisruptionBudget{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetArrayInput)(nil)).Elem(), PodDisruptionBudgetArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetMapInput)(nil)).Elem(), PodDisruptionBudgetMap{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetOutput{})
-	pulumi.RegisterOutputType(PodDisruptionBudgetPtrOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetArrayOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetMapOutput{})
 }

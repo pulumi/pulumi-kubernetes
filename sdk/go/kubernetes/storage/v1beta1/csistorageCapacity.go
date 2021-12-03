@@ -160,7 +160,7 @@ type CSIStorageCapacityInput interface {
 }
 
 func (*CSIStorageCapacity) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSIStorageCapacity)(nil))
+	return reflect.TypeOf((**CSIStorageCapacity)(nil)).Elem()
 }
 
 func (i *CSIStorageCapacity) ToCSIStorageCapacityOutput() CSIStorageCapacityOutput {
@@ -169,35 +169,6 @@ func (i *CSIStorageCapacity) ToCSIStorageCapacityOutput() CSIStorageCapacityOutp
 
 func (i *CSIStorageCapacity) ToCSIStorageCapacityOutputWithContext(ctx context.Context) CSIStorageCapacityOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityOutput)
-}
-
-func (i *CSIStorageCapacity) ToCSIStorageCapacityPtrOutput() CSIStorageCapacityPtrOutput {
-	return i.ToCSIStorageCapacityPtrOutputWithContext(context.Background())
-}
-
-func (i *CSIStorageCapacity) ToCSIStorageCapacityPtrOutputWithContext(ctx context.Context) CSIStorageCapacityPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityPtrOutput)
-}
-
-type CSIStorageCapacityPtrInput interface {
-	pulumi.Input
-
-	ToCSIStorageCapacityPtrOutput() CSIStorageCapacityPtrOutput
-	ToCSIStorageCapacityPtrOutputWithContext(ctx context.Context) CSIStorageCapacityPtrOutput
-}
-
-type csistorageCapacityPtrType CSIStorageCapacityArgs
-
-func (*csistorageCapacityPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CSIStorageCapacity)(nil))
-}
-
-func (i *csistorageCapacityPtrType) ToCSIStorageCapacityPtrOutput() CSIStorageCapacityPtrOutput {
-	return i.ToCSIStorageCapacityPtrOutputWithContext(context.Background())
-}
-
-func (i *csistorageCapacityPtrType) ToCSIStorageCapacityPtrOutputWithContext(ctx context.Context) CSIStorageCapacityPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityPtrOutput)
 }
 
 // CSIStorageCapacityArrayInput is an input type that accepts CSIStorageCapacityArray and CSIStorageCapacityArrayOutput values.
@@ -253,7 +224,7 @@ func (i CSIStorageCapacityMap) ToCSIStorageCapacityMapOutputWithContext(ctx cont
 type CSIStorageCapacityOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CSIStorageCapacity)(nil))
+	return reflect.TypeOf((**CSIStorageCapacity)(nil)).Elem()
 }
 
 func (o CSIStorageCapacityOutput) ToCSIStorageCapacityOutput() CSIStorageCapacityOutput {
@@ -264,44 +235,10 @@ func (o CSIStorageCapacityOutput) ToCSIStorageCapacityOutputWithContext(ctx cont
 	return o
 }
 
-func (o CSIStorageCapacityOutput) ToCSIStorageCapacityPtrOutput() CSIStorageCapacityPtrOutput {
-	return o.ToCSIStorageCapacityPtrOutputWithContext(context.Background())
-}
-
-func (o CSIStorageCapacityOutput) ToCSIStorageCapacityPtrOutputWithContext(ctx context.Context) CSIStorageCapacityPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CSIStorageCapacity) *CSIStorageCapacity {
-		return &v
-	}).(CSIStorageCapacityPtrOutput)
-}
-
-type CSIStorageCapacityPtrOutput struct{ *pulumi.OutputState }
-
-func (CSIStorageCapacityPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CSIStorageCapacity)(nil))
-}
-
-func (o CSIStorageCapacityPtrOutput) ToCSIStorageCapacityPtrOutput() CSIStorageCapacityPtrOutput {
-	return o
-}
-
-func (o CSIStorageCapacityPtrOutput) ToCSIStorageCapacityPtrOutputWithContext(ctx context.Context) CSIStorageCapacityPtrOutput {
-	return o
-}
-
-func (o CSIStorageCapacityPtrOutput) Elem() CSIStorageCapacityOutput {
-	return o.ApplyT(func(v *CSIStorageCapacity) CSIStorageCapacity {
-		if v != nil {
-			return *v
-		}
-		var ret CSIStorageCapacity
-		return ret
-	}).(CSIStorageCapacityOutput)
-}
-
 type CSIStorageCapacityArrayOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CSIStorageCapacity)(nil))
+	return reflect.TypeOf((*[]*CSIStorageCapacity)(nil)).Elem()
 }
 
 func (o CSIStorageCapacityArrayOutput) ToCSIStorageCapacityArrayOutput() CSIStorageCapacityArrayOutput {
@@ -313,15 +250,15 @@ func (o CSIStorageCapacityArrayOutput) ToCSIStorageCapacityArrayOutputWithContex
 }
 
 func (o CSIStorageCapacityArrayOutput) Index(i pulumi.IntInput) CSIStorageCapacityOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CSIStorageCapacity {
-		return vs[0].([]CSIStorageCapacity)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSIStorageCapacity {
+		return vs[0].([]*CSIStorageCapacity)[vs[1].(int)]
 	}).(CSIStorageCapacityOutput)
 }
 
 type CSIStorageCapacityMapOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]CSIStorageCapacity)(nil))
+	return reflect.TypeOf((*map[string]*CSIStorageCapacity)(nil)).Elem()
 }
 
 func (o CSIStorageCapacityMapOutput) ToCSIStorageCapacityMapOutput() CSIStorageCapacityMapOutput {
@@ -333,18 +270,16 @@ func (o CSIStorageCapacityMapOutput) ToCSIStorageCapacityMapOutputWithContext(ct
 }
 
 func (o CSIStorageCapacityMapOutput) MapIndex(k pulumi.StringInput) CSIStorageCapacityOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CSIStorageCapacity {
-		return vs[0].(map[string]CSIStorageCapacity)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *CSIStorageCapacity {
+		return vs[0].(map[string]*CSIStorageCapacity)[vs[1].(string)]
 	}).(CSIStorageCapacityOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityInput)(nil)).Elem(), &CSIStorageCapacity{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityPtrInput)(nil)).Elem(), &CSIStorageCapacity{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityArrayInput)(nil)).Elem(), CSIStorageCapacityArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityMapInput)(nil)).Elem(), CSIStorageCapacityMap{})
 	pulumi.RegisterOutputType(CSIStorageCapacityOutput{})
-	pulumi.RegisterOutputType(CSIStorageCapacityPtrOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityArrayOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityMapOutput{})
 }

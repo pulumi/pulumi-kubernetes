@@ -68,27 +68,27 @@ export class ConfigMap extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ConfigMapArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "v1";
-            inputs["binaryData"] = args ? args.binaryData : undefined;
-            inputs["data"] = args ? args.data : undefined;
-            inputs["immutable"] = args ? args.immutable : undefined;
-            inputs["kind"] = "ConfigMap";
-            inputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["apiVersion"] = "v1";
+            resourceInputs["binaryData"] = args ? args.binaryData : undefined;
+            resourceInputs["data"] = args ? args.data : undefined;
+            resourceInputs["immutable"] = args ? args.immutable : undefined;
+            resourceInputs["kind"] = "ConfigMap";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["binaryData"] = undefined /*out*/;
-            inputs["data"] = undefined /*out*/;
-            inputs["immutable"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["binaryData"] = undefined /*out*/;
+            resourceInputs["data"] = undefined /*out*/;
+            resourceInputs["immutable"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(ConfigMap.__pulumiType, name, inputs, opts);
+        super(ConfigMap.__pulumiType, name, resourceInputs, opts);
     }
 }
 

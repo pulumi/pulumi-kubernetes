@@ -109,7 +109,7 @@ type SubjectAccessReviewInput interface {
 }
 
 func (*SubjectAccessReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReview)(nil))
+	return reflect.TypeOf((**SubjectAccessReview)(nil)).Elem()
 }
 
 func (i *SubjectAccessReview) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {
@@ -118,35 +118,6 @@ func (i *SubjectAccessReview) ToSubjectAccessReviewOutput() SubjectAccessReviewO
 
 func (i *SubjectAccessReview) ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewOutput)
-}
-
-func (i *SubjectAccessReview) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
-	return i.ToSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *SubjectAccessReview) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPtrOutput)
-}
-
-type SubjectAccessReviewPtrInput interface {
-	pulumi.Input
-
-	ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput
-	ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput
-}
-
-type subjectAccessReviewPtrType SubjectAccessReviewArgs
-
-func (*subjectAccessReviewPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReview)(nil))
-}
-
-func (i *subjectAccessReviewPtrType) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
-	return i.ToSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *subjectAccessReviewPtrType) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPtrOutput)
 }
 
 // SubjectAccessReviewArrayInput is an input type that accepts SubjectAccessReviewArray and SubjectAccessReviewArrayOutput values.
@@ -202,7 +173,7 @@ func (i SubjectAccessReviewMap) ToSubjectAccessReviewMapOutputWithContext(ctx co
 type SubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReview)(nil))
+	return reflect.TypeOf((**SubjectAccessReview)(nil)).Elem()
 }
 
 func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {
@@ -213,44 +184,10 @@ func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutputWithContext(ctx co
 	return o
 }
 
-func (o SubjectAccessReviewOutput) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
-	return o.ToSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (o SubjectAccessReviewOutput) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReview) *SubjectAccessReview {
-		return &v
-	}).(SubjectAccessReviewPtrOutput)
-}
-
-type SubjectAccessReviewPtrOutput struct{ *pulumi.OutputState }
-
-func (SubjectAccessReviewPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReview)(nil))
-}
-
-func (o SubjectAccessReviewPtrOutput) ToSubjectAccessReviewPtrOutput() SubjectAccessReviewPtrOutput {
-	return o
-}
-
-func (o SubjectAccessReviewPtrOutput) ToSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SubjectAccessReviewPtrOutput {
-	return o
-}
-
-func (o SubjectAccessReviewPtrOutput) Elem() SubjectAccessReviewOutput {
-	return o.ApplyT(func(v *SubjectAccessReview) SubjectAccessReview {
-		if v != nil {
-			return *v
-		}
-		var ret SubjectAccessReview
-		return ret
-	}).(SubjectAccessReviewOutput)
-}
-
 type SubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SubjectAccessReview)(nil))
+	return reflect.TypeOf((*[]*SubjectAccessReview)(nil)).Elem()
 }
 
 func (o SubjectAccessReviewArrayOutput) ToSubjectAccessReviewArrayOutput() SubjectAccessReviewArrayOutput {
@@ -262,15 +199,15 @@ func (o SubjectAccessReviewArrayOutput) ToSubjectAccessReviewArrayOutputWithCont
 }
 
 func (o SubjectAccessReviewArrayOutput) Index(i pulumi.IntInput) SubjectAccessReviewOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SubjectAccessReview {
-		return vs[0].([]SubjectAccessReview)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SubjectAccessReview {
+		return vs[0].([]*SubjectAccessReview)[vs[1].(int)]
 	}).(SubjectAccessReviewOutput)
 }
 
 type SubjectAccessReviewMapOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]SubjectAccessReview)(nil))
+	return reflect.TypeOf((*map[string]*SubjectAccessReview)(nil)).Elem()
 }
 
 func (o SubjectAccessReviewMapOutput) ToSubjectAccessReviewMapOutput() SubjectAccessReviewMapOutput {
@@ -282,18 +219,16 @@ func (o SubjectAccessReviewMapOutput) ToSubjectAccessReviewMapOutputWithContext(
 }
 
 func (o SubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) SubjectAccessReviewOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) SubjectAccessReview {
-		return vs[0].(map[string]SubjectAccessReview)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *SubjectAccessReview {
+		return vs[0].(map[string]*SubjectAccessReview)[vs[1].(string)]
 	}).(SubjectAccessReviewOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewInput)(nil)).Elem(), &SubjectAccessReview{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewPtrInput)(nil)).Elem(), &SubjectAccessReview{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewArrayInput)(nil)).Elem(), SubjectAccessReviewArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewMapInput)(nil)).Elem(), SubjectAccessReviewMap{})
 	pulumi.RegisterOutputType(SubjectAccessReviewOutput{})
-	pulumi.RegisterOutputType(SubjectAccessReviewPtrOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewArrayOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewMapOutput{})
 }

@@ -115,7 +115,7 @@ type CertificateSigningRequestInput interface {
 }
 
 func (*CertificateSigningRequest) ElementType() reflect.Type {
-	return reflect.TypeOf((*CertificateSigningRequest)(nil))
+	return reflect.TypeOf((**CertificateSigningRequest)(nil)).Elem()
 }
 
 func (i *CertificateSigningRequest) ToCertificateSigningRequestOutput() CertificateSigningRequestOutput {
@@ -124,35 +124,6 @@ func (i *CertificateSigningRequest) ToCertificateSigningRequestOutput() Certific
 
 func (i *CertificateSigningRequest) ToCertificateSigningRequestOutputWithContext(ctx context.Context) CertificateSigningRequestOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestOutput)
-}
-
-func (i *CertificateSigningRequest) ToCertificateSigningRequestPtrOutput() CertificateSigningRequestPtrOutput {
-	return i.ToCertificateSigningRequestPtrOutputWithContext(context.Background())
-}
-
-func (i *CertificateSigningRequest) ToCertificateSigningRequestPtrOutputWithContext(ctx context.Context) CertificateSigningRequestPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestPtrOutput)
-}
-
-type CertificateSigningRequestPtrInput interface {
-	pulumi.Input
-
-	ToCertificateSigningRequestPtrOutput() CertificateSigningRequestPtrOutput
-	ToCertificateSigningRequestPtrOutputWithContext(ctx context.Context) CertificateSigningRequestPtrOutput
-}
-
-type certificateSigningRequestPtrType CertificateSigningRequestArgs
-
-func (*certificateSigningRequestPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CertificateSigningRequest)(nil))
-}
-
-func (i *certificateSigningRequestPtrType) ToCertificateSigningRequestPtrOutput() CertificateSigningRequestPtrOutput {
-	return i.ToCertificateSigningRequestPtrOutputWithContext(context.Background())
-}
-
-func (i *certificateSigningRequestPtrType) ToCertificateSigningRequestPtrOutputWithContext(ctx context.Context) CertificateSigningRequestPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestPtrOutput)
 }
 
 // CertificateSigningRequestArrayInput is an input type that accepts CertificateSigningRequestArray and CertificateSigningRequestArrayOutput values.
@@ -208,7 +179,7 @@ func (i CertificateSigningRequestMap) ToCertificateSigningRequestMapOutputWithCo
 type CertificateSigningRequestOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*CertificateSigningRequest)(nil))
+	return reflect.TypeOf((**CertificateSigningRequest)(nil)).Elem()
 }
 
 func (o CertificateSigningRequestOutput) ToCertificateSigningRequestOutput() CertificateSigningRequestOutput {
@@ -219,44 +190,10 @@ func (o CertificateSigningRequestOutput) ToCertificateSigningRequestOutputWithCo
 	return o
 }
 
-func (o CertificateSigningRequestOutput) ToCertificateSigningRequestPtrOutput() CertificateSigningRequestPtrOutput {
-	return o.ToCertificateSigningRequestPtrOutputWithContext(context.Background())
-}
-
-func (o CertificateSigningRequestOutput) ToCertificateSigningRequestPtrOutputWithContext(ctx context.Context) CertificateSigningRequestPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequest) *CertificateSigningRequest {
-		return &v
-	}).(CertificateSigningRequestPtrOutput)
-}
-
-type CertificateSigningRequestPtrOutput struct{ *pulumi.OutputState }
-
-func (CertificateSigningRequestPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CertificateSigningRequest)(nil))
-}
-
-func (o CertificateSigningRequestPtrOutput) ToCertificateSigningRequestPtrOutput() CertificateSigningRequestPtrOutput {
-	return o
-}
-
-func (o CertificateSigningRequestPtrOutput) ToCertificateSigningRequestPtrOutputWithContext(ctx context.Context) CertificateSigningRequestPtrOutput {
-	return o
-}
-
-func (o CertificateSigningRequestPtrOutput) Elem() CertificateSigningRequestOutput {
-	return o.ApplyT(func(v *CertificateSigningRequest) CertificateSigningRequest {
-		if v != nil {
-			return *v
-		}
-		var ret CertificateSigningRequest
-		return ret
-	}).(CertificateSigningRequestOutput)
-}
-
 type CertificateSigningRequestArrayOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]CertificateSigningRequest)(nil))
+	return reflect.TypeOf((*[]*CertificateSigningRequest)(nil)).Elem()
 }
 
 func (o CertificateSigningRequestArrayOutput) ToCertificateSigningRequestArrayOutput() CertificateSigningRequestArrayOutput {
@@ -268,15 +205,15 @@ func (o CertificateSigningRequestArrayOutput) ToCertificateSigningRequestArrayOu
 }
 
 func (o CertificateSigningRequestArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CertificateSigningRequest {
-		return vs[0].([]CertificateSigningRequest)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CertificateSigningRequest {
+		return vs[0].([]*CertificateSigningRequest)[vs[1].(int)]
 	}).(CertificateSigningRequestOutput)
 }
 
 type CertificateSigningRequestMapOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]CertificateSigningRequest)(nil))
+	return reflect.TypeOf((*map[string]*CertificateSigningRequest)(nil)).Elem()
 }
 
 func (o CertificateSigningRequestMapOutput) ToCertificateSigningRequestMapOutput() CertificateSigningRequestMapOutput {
@@ -288,18 +225,16 @@ func (o CertificateSigningRequestMapOutput) ToCertificateSigningRequestMapOutput
 }
 
 func (o CertificateSigningRequestMapOutput) MapIndex(k pulumi.StringInput) CertificateSigningRequestOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) CertificateSigningRequest {
-		return vs[0].(map[string]CertificateSigningRequest)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *CertificateSigningRequest {
+		return vs[0].(map[string]*CertificateSigningRequest)[vs[1].(string)]
 	}).(CertificateSigningRequestOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestInput)(nil)).Elem(), &CertificateSigningRequest{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestPtrInput)(nil)).Elem(), &CertificateSigningRequest{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestArrayInput)(nil)).Elem(), CertificateSigningRequestArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestMapInput)(nil)).Elem(), CertificateSigningRequestMap{})
 	pulumi.RegisterOutputType(CertificateSigningRequestOutput{})
-	pulumi.RegisterOutputType(CertificateSigningRequestPtrOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestArrayOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestMapOutput{})
 }

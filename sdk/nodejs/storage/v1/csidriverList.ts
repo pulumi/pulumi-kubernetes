@@ -60,26 +60,26 @@ export class CSIDriverList extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: CSIDriverListArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.items === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = "storage.k8s.io/v1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = "CSIDriverList";
-            inputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["apiVersion"] = "storage.k8s.io/v1";
+            resourceInputs["items"] = args ? args.items : undefined;
+            resourceInputs["kind"] = "CSIDriverList";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["items"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["items"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(CSIDriverList.__pulumiType, name, inputs, opts);
+        super(CSIDriverList.__pulumiType, name, resourceInputs, opts);
     }
 }
 

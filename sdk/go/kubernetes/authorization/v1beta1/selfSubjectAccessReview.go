@@ -109,7 +109,7 @@ type SelfSubjectAccessReviewInput interface {
 }
 
 func (*SelfSubjectAccessReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReview)(nil))
+	return reflect.TypeOf((**SelfSubjectAccessReview)(nil)).Elem()
 }
 
 func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {
@@ -118,35 +118,6 @@ func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutput() SelfSubjectA
 
 func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewOutput)
-}
-
-func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewPtrOutput() SelfSubjectAccessReviewPtrOutput {
-	return i.ToSelfSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewPtrOutput)
-}
-
-type SelfSubjectAccessReviewPtrInput interface {
-	pulumi.Input
-
-	ToSelfSubjectAccessReviewPtrOutput() SelfSubjectAccessReviewPtrOutput
-	ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput
-}
-
-type selfSubjectAccessReviewPtrType SelfSubjectAccessReviewArgs
-
-func (*selfSubjectAccessReviewPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectAccessReview)(nil))
-}
-
-func (i *selfSubjectAccessReviewPtrType) ToSelfSubjectAccessReviewPtrOutput() SelfSubjectAccessReviewPtrOutput {
-	return i.ToSelfSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *selfSubjectAccessReviewPtrType) ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewPtrOutput)
 }
 
 // SelfSubjectAccessReviewArrayInput is an input type that accepts SelfSubjectAccessReviewArray and SelfSubjectAccessReviewArrayOutput values.
@@ -202,7 +173,7 @@ func (i SelfSubjectAccessReviewMap) ToSelfSubjectAccessReviewMapOutputWithContex
 type SelfSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReview)(nil))
+	return reflect.TypeOf((**SelfSubjectAccessReview)(nil)).Elem()
 }
 
 func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {
@@ -213,44 +184,10 @@ func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutputWithContex
 	return o
 }
 
-func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewPtrOutput() SelfSubjectAccessReviewPtrOutput {
-	return o.ToSelfSubjectAccessReviewPtrOutputWithContext(context.Background())
-}
-
-func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectAccessReview) *SelfSubjectAccessReview {
-		return &v
-	}).(SelfSubjectAccessReviewPtrOutput)
-}
-
-type SelfSubjectAccessReviewPtrOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectAccessReviewPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectAccessReview)(nil))
-}
-
-func (o SelfSubjectAccessReviewPtrOutput) ToSelfSubjectAccessReviewPtrOutput() SelfSubjectAccessReviewPtrOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewPtrOutput) ToSelfSubjectAccessReviewPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPtrOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewPtrOutput) Elem() SelfSubjectAccessReviewOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReview) SelfSubjectAccessReview {
-		if v != nil {
-			return *v
-		}
-		var ret SelfSubjectAccessReview
-		return ret
-	}).(SelfSubjectAccessReviewOutput)
-}
-
 type SelfSubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SelfSubjectAccessReview)(nil))
+	return reflect.TypeOf((*[]*SelfSubjectAccessReview)(nil)).Elem()
 }
 
 func (o SelfSubjectAccessReviewArrayOutput) ToSelfSubjectAccessReviewArrayOutput() SelfSubjectAccessReviewArrayOutput {
@@ -262,15 +199,15 @@ func (o SelfSubjectAccessReviewArrayOutput) ToSelfSubjectAccessReviewArrayOutput
 }
 
 func (o SelfSubjectAccessReviewArrayOutput) Index(i pulumi.IntInput) SelfSubjectAccessReviewOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SelfSubjectAccessReview {
-		return vs[0].([]SelfSubjectAccessReview)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SelfSubjectAccessReview {
+		return vs[0].([]*SelfSubjectAccessReview)[vs[1].(int)]
 	}).(SelfSubjectAccessReviewOutput)
 }
 
 type SelfSubjectAccessReviewMapOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]SelfSubjectAccessReview)(nil))
+	return reflect.TypeOf((*map[string]*SelfSubjectAccessReview)(nil)).Elem()
 }
 
 func (o SelfSubjectAccessReviewMapOutput) ToSelfSubjectAccessReviewMapOutput() SelfSubjectAccessReviewMapOutput {
@@ -282,18 +219,16 @@ func (o SelfSubjectAccessReviewMapOutput) ToSelfSubjectAccessReviewMapOutputWith
 }
 
 func (o SelfSubjectAccessReviewMapOutput) MapIndex(k pulumi.StringInput) SelfSubjectAccessReviewOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) SelfSubjectAccessReview {
-		return vs[0].(map[string]SelfSubjectAccessReview)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *SelfSubjectAccessReview {
+		return vs[0].(map[string]*SelfSubjectAccessReview)[vs[1].(string)]
 	}).(SelfSubjectAccessReviewOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewInput)(nil)).Elem(), &SelfSubjectAccessReview{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewPtrInput)(nil)).Elem(), &SelfSubjectAccessReview{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewArrayInput)(nil)).Elem(), SelfSubjectAccessReviewArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewMapInput)(nil)).Elem(), SelfSubjectAccessReviewMap{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewOutput{})
-	pulumi.RegisterOutputType(SelfSubjectAccessReviewPtrOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewArrayOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewMapOutput{})
 }

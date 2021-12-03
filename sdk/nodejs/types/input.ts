@@ -4,6 +4,8 @@
 import * as pulumi from "@pulumi/pulumi";
 import { input as inputs, output as outputs, enums } from "../types";
 
+import * as utilities from "../utilities";
+
 /**
  * BETA FEATURE - Options to configure the Helm Release resource.
  */
@@ -33,6 +35,20 @@ export interface HelmReleaseSettings {
      */
     suppressBetaWarning?: pulumi.Input<boolean>;
 }
+/**
+ * helmReleaseSettingsProvideDefaults sets the appropriate defaults for HelmReleaseSettings
+ */
+export function helmReleaseSettingsProvideDefaults(val: HelmReleaseSettings): HelmReleaseSettings {
+    return {
+        ...val,
+        driver: (val.driver) ?? utilities.getEnv("PULUMI_K8S_HELM_DRIVER"),
+        pluginsPath: (val.pluginsPath) ?? utilities.getEnv("PULUMI_K8S_HELM_PLUGINS_PATH"),
+        registryConfigPath: (val.registryConfigPath) ?? utilities.getEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"),
+        repositoryCache: (val.repositoryCache) ?? utilities.getEnv("PULUMI_K8S_HELM_REPOSITORY_CACHE"),
+        repositoryConfigPath: (val.repositoryConfigPath) ?? utilities.getEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"),
+        suppressBetaWarning: (val.suppressBetaWarning) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"),
+    };
+}
 
 /**
  * Options for tuning the Kubernetes client used by a Provider.
@@ -46,6 +62,16 @@ export interface KubeClientSettings {
      * Maximum queries per second (QPS) to the API server from this client. Default value is 5.
      */
     qps?: pulumi.Input<number>;
+}
+/**
+ * kubeClientSettingsProvideDefaults sets the appropriate defaults for KubeClientSettings
+ */
+export function kubeClientSettingsProvideDefaults(val: KubeClientSettings): KubeClientSettings {
+    return {
+        ...val,
+        burst: (val.burst) ?? utilities.getEnvNumber("PULUMI_K8S_CLIENT_BURST"),
+        qps: (val.qps) ?? utilities.getEnvNumber("PULUMI_K8S_CLIENT_QPS"),
+    };
 }
 export namespace admissionregistration {
     export namespace v1 {

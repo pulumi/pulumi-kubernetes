@@ -104,7 +104,7 @@ type ReplicaSetListInput interface {
 }
 
 func (*ReplicaSetList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicaSetList)(nil))
+	return reflect.TypeOf((**ReplicaSetList)(nil)).Elem()
 }
 
 func (i *ReplicaSetList) ToReplicaSetListOutput() ReplicaSetListOutput {
@@ -113,35 +113,6 @@ func (i *ReplicaSetList) ToReplicaSetListOutput() ReplicaSetListOutput {
 
 func (i *ReplicaSetList) ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListOutput)
-}
-
-func (i *ReplicaSetList) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
-	return i.ToReplicaSetListPtrOutputWithContext(context.Background())
-}
-
-func (i *ReplicaSetList) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListPtrOutput)
-}
-
-type ReplicaSetListPtrInput interface {
-	pulumi.Input
-
-	ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput
-	ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput
-}
-
-type replicaSetListPtrType ReplicaSetListArgs
-
-func (*replicaSetListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReplicaSetList)(nil))
-}
-
-func (i *replicaSetListPtrType) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
-	return i.ToReplicaSetListPtrOutputWithContext(context.Background())
-}
-
-func (i *replicaSetListPtrType) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListPtrOutput)
 }
 
 // ReplicaSetListArrayInput is an input type that accepts ReplicaSetListArray and ReplicaSetListArrayOutput values.
@@ -197,7 +168,7 @@ func (i ReplicaSetListMap) ToReplicaSetListMapOutputWithContext(ctx context.Cont
 type ReplicaSetListOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ReplicaSetList)(nil))
+	return reflect.TypeOf((**ReplicaSetList)(nil)).Elem()
 }
 
 func (o ReplicaSetListOutput) ToReplicaSetListOutput() ReplicaSetListOutput {
@@ -208,44 +179,10 @@ func (o ReplicaSetListOutput) ToReplicaSetListOutputWithContext(ctx context.Cont
 	return o
 }
 
-func (o ReplicaSetListOutput) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
-	return o.ToReplicaSetListPtrOutputWithContext(context.Background())
-}
-
-func (o ReplicaSetListOutput) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReplicaSetList) *ReplicaSetList {
-		return &v
-	}).(ReplicaSetListPtrOutput)
-}
-
-type ReplicaSetListPtrOutput struct{ *pulumi.OutputState }
-
-func (ReplicaSetListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReplicaSetList)(nil))
-}
-
-func (o ReplicaSetListPtrOutput) ToReplicaSetListPtrOutput() ReplicaSetListPtrOutput {
-	return o
-}
-
-func (o ReplicaSetListPtrOutput) ToReplicaSetListPtrOutputWithContext(ctx context.Context) ReplicaSetListPtrOutput {
-	return o
-}
-
-func (o ReplicaSetListPtrOutput) Elem() ReplicaSetListOutput {
-	return o.ApplyT(func(v *ReplicaSetList) ReplicaSetList {
-		if v != nil {
-			return *v
-		}
-		var ret ReplicaSetList
-		return ret
-	}).(ReplicaSetListOutput)
-}
-
 type ReplicaSetListArrayOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ReplicaSetList)(nil))
+	return reflect.TypeOf((*[]*ReplicaSetList)(nil)).Elem()
 }
 
 func (o ReplicaSetListArrayOutput) ToReplicaSetListArrayOutput() ReplicaSetListArrayOutput {
@@ -257,15 +194,15 @@ func (o ReplicaSetListArrayOutput) ToReplicaSetListArrayOutputWithContext(ctx co
 }
 
 func (o ReplicaSetListArrayOutput) Index(i pulumi.IntInput) ReplicaSetListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ReplicaSetList {
-		return vs[0].([]ReplicaSetList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ReplicaSetList {
+		return vs[0].([]*ReplicaSetList)[vs[1].(int)]
 	}).(ReplicaSetListOutput)
 }
 
 type ReplicaSetListMapOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ReplicaSetList)(nil))
+	return reflect.TypeOf((*map[string]*ReplicaSetList)(nil)).Elem()
 }
 
 func (o ReplicaSetListMapOutput) ToReplicaSetListMapOutput() ReplicaSetListMapOutput {
@@ -277,18 +214,16 @@ func (o ReplicaSetListMapOutput) ToReplicaSetListMapOutputWithContext(ctx contex
 }
 
 func (o ReplicaSetListMapOutput) MapIndex(k pulumi.StringInput) ReplicaSetListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ReplicaSetList {
-		return vs[0].(map[string]ReplicaSetList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ReplicaSetList {
+		return vs[0].(map[string]*ReplicaSetList)[vs[1].(string)]
 	}).(ReplicaSetListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListInput)(nil)).Elem(), &ReplicaSetList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListPtrInput)(nil)).Elem(), &ReplicaSetList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListArrayInput)(nil)).Elem(), ReplicaSetListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReplicaSetListMapInput)(nil)).Elem(), ReplicaSetListMap{})
 	pulumi.RegisterOutputType(ReplicaSetListOutput{})
-	pulumi.RegisterOutputType(ReplicaSetListPtrOutput{})
 	pulumi.RegisterOutputType(ReplicaSetListArrayOutput{})
 	pulumi.RegisterOutputType(ReplicaSetListMapOutput{})
 }

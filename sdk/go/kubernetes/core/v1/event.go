@@ -194,7 +194,7 @@ type EventInput interface {
 }
 
 func (*Event) ElementType() reflect.Type {
-	return reflect.TypeOf((*Event)(nil))
+	return reflect.TypeOf((**Event)(nil)).Elem()
 }
 
 func (i *Event) ToEventOutput() EventOutput {
@@ -203,35 +203,6 @@ func (i *Event) ToEventOutput() EventOutput {
 
 func (i *Event) ToEventOutputWithContext(ctx context.Context) EventOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EventOutput)
-}
-
-func (i *Event) ToEventPtrOutput() EventPtrOutput {
-	return i.ToEventPtrOutputWithContext(context.Background())
-}
-
-func (i *Event) ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EventPtrOutput)
-}
-
-type EventPtrInput interface {
-	pulumi.Input
-
-	ToEventPtrOutput() EventPtrOutput
-	ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput
-}
-
-type eventPtrType EventArgs
-
-func (*eventPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**Event)(nil))
-}
-
-func (i *eventPtrType) ToEventPtrOutput() EventPtrOutput {
-	return i.ToEventPtrOutputWithContext(context.Background())
-}
-
-func (i *eventPtrType) ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EventPtrOutput)
 }
 
 // EventArrayInput is an input type that accepts EventArray and EventArrayOutput values.
@@ -287,7 +258,7 @@ func (i EventMap) ToEventMapOutputWithContext(ctx context.Context) EventMapOutpu
 type EventOutput struct{ *pulumi.OutputState }
 
 func (EventOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Event)(nil))
+	return reflect.TypeOf((**Event)(nil)).Elem()
 }
 
 func (o EventOutput) ToEventOutput() EventOutput {
@@ -298,44 +269,10 @@ func (o EventOutput) ToEventOutputWithContext(ctx context.Context) EventOutput {
 	return o
 }
 
-func (o EventOutput) ToEventPtrOutput() EventPtrOutput {
-	return o.ToEventPtrOutputWithContext(context.Background())
-}
-
-func (o EventOutput) ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v Event) *Event {
-		return &v
-	}).(EventPtrOutput)
-}
-
-type EventPtrOutput struct{ *pulumi.OutputState }
-
-func (EventPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**Event)(nil))
-}
-
-func (o EventPtrOutput) ToEventPtrOutput() EventPtrOutput {
-	return o
-}
-
-func (o EventPtrOutput) ToEventPtrOutputWithContext(ctx context.Context) EventPtrOutput {
-	return o
-}
-
-func (o EventPtrOutput) Elem() EventOutput {
-	return o.ApplyT(func(v *Event) Event {
-		if v != nil {
-			return *v
-		}
-		var ret Event
-		return ret
-	}).(EventOutput)
-}
-
 type EventArrayOutput struct{ *pulumi.OutputState }
 
 func (EventArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]Event)(nil))
+	return reflect.TypeOf((*[]*Event)(nil)).Elem()
 }
 
 func (o EventArrayOutput) ToEventArrayOutput() EventArrayOutput {
@@ -347,15 +284,15 @@ func (o EventArrayOutput) ToEventArrayOutputWithContext(ctx context.Context) Eve
 }
 
 func (o EventArrayOutput) Index(i pulumi.IntInput) EventOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Event {
-		return vs[0].([]Event)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Event {
+		return vs[0].([]*Event)[vs[1].(int)]
 	}).(EventOutput)
 }
 
 type EventMapOutput struct{ *pulumi.OutputState }
 
 func (EventMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]Event)(nil))
+	return reflect.TypeOf((*map[string]*Event)(nil)).Elem()
 }
 
 func (o EventMapOutput) ToEventMapOutput() EventMapOutput {
@@ -367,18 +304,16 @@ func (o EventMapOutput) ToEventMapOutputWithContext(ctx context.Context) EventMa
 }
 
 func (o EventMapOutput) MapIndex(k pulumi.StringInput) EventOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) Event {
-		return vs[0].(map[string]Event)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *Event {
+		return vs[0].(map[string]*Event)[vs[1].(string)]
 	}).(EventOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EventInput)(nil)).Elem(), &Event{})
-	pulumi.RegisterInputType(reflect.TypeOf((*EventPtrInput)(nil)).Elem(), &Event{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventArrayInput)(nil)).Elem(), EventArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventMapInput)(nil)).Elem(), EventMap{})
 	pulumi.RegisterOutputType(EventOutput{})
-	pulumi.RegisterOutputType(EventPtrOutput{})
 	pulumi.RegisterOutputType(EventArrayOutput{})
 	pulumi.RegisterOutputType(EventMapOutput{})
 }

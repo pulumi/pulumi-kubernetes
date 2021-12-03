@@ -106,7 +106,7 @@ type NetworkPolicyInput interface {
 }
 
 func (*NetworkPolicy) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicy)(nil))
+	return reflect.TypeOf((**NetworkPolicy)(nil)).Elem()
 }
 
 func (i *NetworkPolicy) ToNetworkPolicyOutput() NetworkPolicyOutput {
@@ -115,35 +115,6 @@ func (i *NetworkPolicy) ToNetworkPolicyOutput() NetworkPolicyOutput {
 
 func (i *NetworkPolicy) ToNetworkPolicyOutputWithContext(ctx context.Context) NetworkPolicyOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyOutput)
-}
-
-func (i *NetworkPolicy) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
-	return i.ToNetworkPolicyPtrOutputWithContext(context.Background())
-}
-
-func (i *NetworkPolicy) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPtrOutput)
-}
-
-type NetworkPolicyPtrInput interface {
-	pulumi.Input
-
-	ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput
-	ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput
-}
-
-type networkPolicyPtrType NetworkPolicyArgs
-
-func (*networkPolicyPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**NetworkPolicy)(nil))
-}
-
-func (i *networkPolicyPtrType) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
-	return i.ToNetworkPolicyPtrOutputWithContext(context.Background())
-}
-
-func (i *networkPolicyPtrType) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPtrOutput)
 }
 
 // NetworkPolicyArrayInput is an input type that accepts NetworkPolicyArray and NetworkPolicyArrayOutput values.
@@ -199,7 +170,7 @@ func (i NetworkPolicyMap) ToNetworkPolicyMapOutputWithContext(ctx context.Contex
 type NetworkPolicyOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicy)(nil))
+	return reflect.TypeOf((**NetworkPolicy)(nil)).Elem()
 }
 
 func (o NetworkPolicyOutput) ToNetworkPolicyOutput() NetworkPolicyOutput {
@@ -210,44 +181,10 @@ func (o NetworkPolicyOutput) ToNetworkPolicyOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o NetworkPolicyOutput) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
-	return o.ToNetworkPolicyPtrOutputWithContext(context.Background())
-}
-
-func (o NetworkPolicyOutput) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkPolicy) *NetworkPolicy {
-		return &v
-	}).(NetworkPolicyPtrOutput)
-}
-
-type NetworkPolicyPtrOutput struct{ *pulumi.OutputState }
-
-func (NetworkPolicyPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**NetworkPolicy)(nil))
-}
-
-func (o NetworkPolicyPtrOutput) ToNetworkPolicyPtrOutput() NetworkPolicyPtrOutput {
-	return o
-}
-
-func (o NetworkPolicyPtrOutput) ToNetworkPolicyPtrOutputWithContext(ctx context.Context) NetworkPolicyPtrOutput {
-	return o
-}
-
-func (o NetworkPolicyPtrOutput) Elem() NetworkPolicyOutput {
-	return o.ApplyT(func(v *NetworkPolicy) NetworkPolicy {
-		if v != nil {
-			return *v
-		}
-		var ret NetworkPolicy
-		return ret
-	}).(NetworkPolicyOutput)
-}
-
 type NetworkPolicyArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]NetworkPolicy)(nil))
+	return reflect.TypeOf((*[]*NetworkPolicy)(nil)).Elem()
 }
 
 func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutput {
@@ -259,15 +196,15 @@ func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutputWithContext(ctx cont
 }
 
 func (o NetworkPolicyArrayOutput) Index(i pulumi.IntInput) NetworkPolicyOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NetworkPolicy {
-		return vs[0].([]NetworkPolicy)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NetworkPolicy {
+		return vs[0].([]*NetworkPolicy)[vs[1].(int)]
 	}).(NetworkPolicyOutput)
 }
 
 type NetworkPolicyMapOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]NetworkPolicy)(nil))
+	return reflect.TypeOf((*map[string]*NetworkPolicy)(nil)).Elem()
 }
 
 func (o NetworkPolicyMapOutput) ToNetworkPolicyMapOutput() NetworkPolicyMapOutput {
@@ -279,18 +216,16 @@ func (o NetworkPolicyMapOutput) ToNetworkPolicyMapOutputWithContext(ctx context.
 }
 
 func (o NetworkPolicyMapOutput) MapIndex(k pulumi.StringInput) NetworkPolicyOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) NetworkPolicy {
-		return vs[0].(map[string]NetworkPolicy)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *NetworkPolicy {
+		return vs[0].(map[string]*NetworkPolicy)[vs[1].(string)]
 	}).(NetworkPolicyOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyInput)(nil)).Elem(), &NetworkPolicy{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPtrInput)(nil)).Elem(), &NetworkPolicy{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyArrayInput)(nil)).Elem(), NetworkPolicyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyMapInput)(nil)).Elem(), NetworkPolicyMap{})
 	pulumi.RegisterOutputType(NetworkPolicyOutput{})
-	pulumi.RegisterOutputType(NetworkPolicyPtrOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyMapOutput{})
 }

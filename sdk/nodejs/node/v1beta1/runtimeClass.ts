@@ -68,32 +68,32 @@ export class RuntimeClass extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: RuntimeClassArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.handler === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'handler'");
             }
-            inputs["apiVersion"] = "node.k8s.io/v1beta1";
-            inputs["handler"] = args ? args.handler : undefined;
-            inputs["kind"] = "RuntimeClass";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["overhead"] = args ? args.overhead : undefined;
-            inputs["scheduling"] = args ? args.scheduling : undefined;
+            resourceInputs["apiVersion"] = "node.k8s.io/v1beta1";
+            resourceInputs["handler"] = args ? args.handler : undefined;
+            resourceInputs["kind"] = "RuntimeClass";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["overhead"] = args ? args.overhead : undefined;
+            resourceInputs["scheduling"] = args ? args.scheduling : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["handler"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["overhead"] = undefined /*out*/;
-            inputs["scheduling"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["handler"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["overhead"] = undefined /*out*/;
+            resourceInputs["scheduling"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:node.k8s.io/v1:RuntimeClass" }, { type: "kubernetes:node.k8s.io/v1alpha1:RuntimeClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(RuntimeClass.__pulumiType, name, inputs, opts);
+        super(RuntimeClass.__pulumiType, name, resourceInputs, opts);
     }
 }
 

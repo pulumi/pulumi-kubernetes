@@ -61,27 +61,27 @@ export class APIService extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: APIServiceArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
-            inputs["kind"] = "APIService";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = "apiregistration.k8s.io/v1beta1";
+            resourceInputs["kind"] = "APIService";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apiregistration.k8s.io/v1:APIService" }, { type: "kubernetes:apiregistration/v1:APIService" }, { type: "kubernetes:apiregistration/v1beta1:APIService" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(APIService.__pulumiType, name, inputs, opts);
+        super(APIService.__pulumiType, name, resourceInputs, opts);
     }
 }
 

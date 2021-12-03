@@ -102,7 +102,7 @@ type PersistentVolumeInput interface {
 }
 
 func (*PersistentVolume) ElementType() reflect.Type {
-	return reflect.TypeOf((*PersistentVolume)(nil))
+	return reflect.TypeOf((**PersistentVolume)(nil)).Elem()
 }
 
 func (i *PersistentVolume) ToPersistentVolumeOutput() PersistentVolumeOutput {
@@ -111,35 +111,6 @@ func (i *PersistentVolume) ToPersistentVolumeOutput() PersistentVolumeOutput {
 
 func (i *PersistentVolume) ToPersistentVolumeOutputWithContext(ctx context.Context) PersistentVolumeOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeOutput)
-}
-
-func (i *PersistentVolume) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
-	return i.ToPersistentVolumePtrOutputWithContext(context.Background())
-}
-
-func (i *PersistentVolume) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePtrOutput)
-}
-
-type PersistentVolumePtrInput interface {
-	pulumi.Input
-
-	ToPersistentVolumePtrOutput() PersistentVolumePtrOutput
-	ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput
-}
-
-type persistentVolumePtrType PersistentVolumeArgs
-
-func (*persistentVolumePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**PersistentVolume)(nil))
-}
-
-func (i *persistentVolumePtrType) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
-	return i.ToPersistentVolumePtrOutputWithContext(context.Background())
-}
-
-func (i *persistentVolumePtrType) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePtrOutput)
 }
 
 // PersistentVolumeArrayInput is an input type that accepts PersistentVolumeArray and PersistentVolumeArrayOutput values.
@@ -195,7 +166,7 @@ func (i PersistentVolumeMap) ToPersistentVolumeMapOutputWithContext(ctx context.
 type PersistentVolumeOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PersistentVolume)(nil))
+	return reflect.TypeOf((**PersistentVolume)(nil)).Elem()
 }
 
 func (o PersistentVolumeOutput) ToPersistentVolumeOutput() PersistentVolumeOutput {
@@ -206,44 +177,10 @@ func (o PersistentVolumeOutput) ToPersistentVolumeOutputWithContext(ctx context.
 	return o
 }
 
-func (o PersistentVolumeOutput) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
-	return o.ToPersistentVolumePtrOutputWithContext(context.Background())
-}
-
-func (o PersistentVolumeOutput) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v PersistentVolume) *PersistentVolume {
-		return &v
-	}).(PersistentVolumePtrOutput)
-}
-
-type PersistentVolumePtrOutput struct{ *pulumi.OutputState }
-
-func (PersistentVolumePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**PersistentVolume)(nil))
-}
-
-func (o PersistentVolumePtrOutput) ToPersistentVolumePtrOutput() PersistentVolumePtrOutput {
-	return o
-}
-
-func (o PersistentVolumePtrOutput) ToPersistentVolumePtrOutputWithContext(ctx context.Context) PersistentVolumePtrOutput {
-	return o
-}
-
-func (o PersistentVolumePtrOutput) Elem() PersistentVolumeOutput {
-	return o.ApplyT(func(v *PersistentVolume) PersistentVolume {
-		if v != nil {
-			return *v
-		}
-		var ret PersistentVolume
-		return ret
-	}).(PersistentVolumeOutput)
-}
-
 type PersistentVolumeArrayOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]PersistentVolume)(nil))
+	return reflect.TypeOf((*[]*PersistentVolume)(nil)).Elem()
 }
 
 func (o PersistentVolumeArrayOutput) ToPersistentVolumeArrayOutput() PersistentVolumeArrayOutput {
@@ -255,15 +192,15 @@ func (o PersistentVolumeArrayOutput) ToPersistentVolumeArrayOutputWithContext(ct
 }
 
 func (o PersistentVolumeArrayOutput) Index(i pulumi.IntInput) PersistentVolumeOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PersistentVolume {
-		return vs[0].([]PersistentVolume)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolume {
+		return vs[0].([]*PersistentVolume)[vs[1].(int)]
 	}).(PersistentVolumeOutput)
 }
 
 type PersistentVolumeMapOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]PersistentVolume)(nil))
+	return reflect.TypeOf((*map[string]*PersistentVolume)(nil)).Elem()
 }
 
 func (o PersistentVolumeMapOutput) ToPersistentVolumeMapOutput() PersistentVolumeMapOutput {
@@ -275,18 +212,16 @@ func (o PersistentVolumeMapOutput) ToPersistentVolumeMapOutputWithContext(ctx co
 }
 
 func (o PersistentVolumeMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) PersistentVolume {
-		return vs[0].(map[string]PersistentVolume)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *PersistentVolume {
+		return vs[0].(map[string]*PersistentVolume)[vs[1].(string)]
 	}).(PersistentVolumeOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeInput)(nil)).Elem(), &PersistentVolume{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumePtrInput)(nil)).Elem(), &PersistentVolume{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeArrayInput)(nil)).Elem(), PersistentVolumeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PersistentVolumeMapInput)(nil)).Elem(), PersistentVolumeMap{})
 	pulumi.RegisterOutputType(PersistentVolumeOutput{})
-	pulumi.RegisterOutputType(PersistentVolumePtrOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeArrayOutput{})
 	pulumi.RegisterOutputType(PersistentVolumeMapOutput{})
 }

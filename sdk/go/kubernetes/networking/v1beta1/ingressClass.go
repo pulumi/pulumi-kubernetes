@@ -106,7 +106,7 @@ type IngressClassInput interface {
 }
 
 func (*IngressClass) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressClass)(nil))
+	return reflect.TypeOf((**IngressClass)(nil)).Elem()
 }
 
 func (i *IngressClass) ToIngressClassOutput() IngressClassOutput {
@@ -115,35 +115,6 @@ func (i *IngressClass) ToIngressClassOutput() IngressClassOutput {
 
 func (i *IngressClass) ToIngressClassOutputWithContext(ctx context.Context) IngressClassOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassOutput)
-}
-
-func (i *IngressClass) ToIngressClassPtrOutput() IngressClassPtrOutput {
-	return i.ToIngressClassPtrOutputWithContext(context.Background())
-}
-
-func (i *IngressClass) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressClassPtrOutput)
-}
-
-type IngressClassPtrInput interface {
-	pulumi.Input
-
-	ToIngressClassPtrOutput() IngressClassPtrOutput
-	ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput
-}
-
-type ingressClassPtrType IngressClassArgs
-
-func (*ingressClassPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**IngressClass)(nil))
-}
-
-func (i *ingressClassPtrType) ToIngressClassPtrOutput() IngressClassPtrOutput {
-	return i.ToIngressClassPtrOutputWithContext(context.Background())
-}
-
-func (i *ingressClassPtrType) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressClassPtrOutput)
 }
 
 // IngressClassArrayInput is an input type that accepts IngressClassArray and IngressClassArrayOutput values.
@@ -199,7 +170,7 @@ func (i IngressClassMap) ToIngressClassMapOutputWithContext(ctx context.Context)
 type IngressClassOutput struct{ *pulumi.OutputState }
 
 func (IngressClassOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressClass)(nil))
+	return reflect.TypeOf((**IngressClass)(nil)).Elem()
 }
 
 func (o IngressClassOutput) ToIngressClassOutput() IngressClassOutput {
@@ -210,44 +181,10 @@ func (o IngressClassOutput) ToIngressClassOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o IngressClassOutput) ToIngressClassPtrOutput() IngressClassPtrOutput {
-	return o.ToIngressClassPtrOutputWithContext(context.Background())
-}
-
-func (o IngressClassOutput) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressClass) *IngressClass {
-		return &v
-	}).(IngressClassPtrOutput)
-}
-
-type IngressClassPtrOutput struct{ *pulumi.OutputState }
-
-func (IngressClassPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**IngressClass)(nil))
-}
-
-func (o IngressClassPtrOutput) ToIngressClassPtrOutput() IngressClassPtrOutput {
-	return o
-}
-
-func (o IngressClassPtrOutput) ToIngressClassPtrOutputWithContext(ctx context.Context) IngressClassPtrOutput {
-	return o
-}
-
-func (o IngressClassPtrOutput) Elem() IngressClassOutput {
-	return o.ApplyT(func(v *IngressClass) IngressClass {
-		if v != nil {
-			return *v
-		}
-		var ret IngressClass
-		return ret
-	}).(IngressClassOutput)
-}
-
 type IngressClassArrayOutput struct{ *pulumi.OutputState }
 
 func (IngressClassArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]IngressClass)(nil))
+	return reflect.TypeOf((*[]*IngressClass)(nil)).Elem()
 }
 
 func (o IngressClassArrayOutput) ToIngressClassArrayOutput() IngressClassArrayOutput {
@@ -259,15 +196,15 @@ func (o IngressClassArrayOutput) ToIngressClassArrayOutputWithContext(ctx contex
 }
 
 func (o IngressClassArrayOutput) Index(i pulumi.IntInput) IngressClassOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressClass {
-		return vs[0].([]IngressClass)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *IngressClass {
+		return vs[0].([]*IngressClass)[vs[1].(int)]
 	}).(IngressClassOutput)
 }
 
 type IngressClassMapOutput struct{ *pulumi.OutputState }
 
 func (IngressClassMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]IngressClass)(nil))
+	return reflect.TypeOf((*map[string]*IngressClass)(nil)).Elem()
 }
 
 func (o IngressClassMapOutput) ToIngressClassMapOutput() IngressClassMapOutput {
@@ -279,18 +216,16 @@ func (o IngressClassMapOutput) ToIngressClassMapOutputWithContext(ctx context.Co
 }
 
 func (o IngressClassMapOutput) MapIndex(k pulumi.StringInput) IngressClassOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) IngressClass {
-		return vs[0].(map[string]IngressClass)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *IngressClass {
+		return vs[0].(map[string]*IngressClass)[vs[1].(string)]
 	}).(IngressClassOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassInput)(nil)).Elem(), &IngressClass{})
-	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassPtrInput)(nil)).Elem(), &IngressClass{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassArrayInput)(nil)).Elem(), IngressClassArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassMapInput)(nil)).Elem(), IngressClassMap{})
 	pulumi.RegisterOutputType(IngressClassOutput{})
-	pulumi.RegisterOutputType(IngressClassPtrOutput{})
 	pulumi.RegisterOutputType(IngressClassArrayOutput{})
 	pulumi.RegisterOutputType(IngressClassMapOutput{})
 }

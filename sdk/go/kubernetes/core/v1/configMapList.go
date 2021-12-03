@@ -104,7 +104,7 @@ type ConfigMapListInput interface {
 }
 
 func (*ConfigMapList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ConfigMapList)(nil))
+	return reflect.TypeOf((**ConfigMapList)(nil)).Elem()
 }
 
 func (i *ConfigMapList) ToConfigMapListOutput() ConfigMapListOutput {
@@ -113,35 +113,6 @@ func (i *ConfigMapList) ToConfigMapListOutput() ConfigMapListOutput {
 
 func (i *ConfigMapList) ToConfigMapListOutputWithContext(ctx context.Context) ConfigMapListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListOutput)
-}
-
-func (i *ConfigMapList) ToConfigMapListPtrOutput() ConfigMapListPtrOutput {
-	return i.ToConfigMapListPtrOutputWithContext(context.Background())
-}
-
-func (i *ConfigMapList) ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListPtrOutput)
-}
-
-type ConfigMapListPtrInput interface {
-	pulumi.Input
-
-	ToConfigMapListPtrOutput() ConfigMapListPtrOutput
-	ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput
-}
-
-type configMapListPtrType ConfigMapListArgs
-
-func (*configMapListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ConfigMapList)(nil))
-}
-
-func (i *configMapListPtrType) ToConfigMapListPtrOutput() ConfigMapListPtrOutput {
-	return i.ToConfigMapListPtrOutputWithContext(context.Background())
-}
-
-func (i *configMapListPtrType) ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListPtrOutput)
 }
 
 // ConfigMapListArrayInput is an input type that accepts ConfigMapListArray and ConfigMapListArrayOutput values.
@@ -197,7 +168,7 @@ func (i ConfigMapListMap) ToConfigMapListMapOutputWithContext(ctx context.Contex
 type ConfigMapListOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ConfigMapList)(nil))
+	return reflect.TypeOf((**ConfigMapList)(nil)).Elem()
 }
 
 func (o ConfigMapListOutput) ToConfigMapListOutput() ConfigMapListOutput {
@@ -208,44 +179,10 @@ func (o ConfigMapListOutput) ToConfigMapListOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o ConfigMapListOutput) ToConfigMapListPtrOutput() ConfigMapListPtrOutput {
-	return o.ToConfigMapListPtrOutputWithContext(context.Background())
-}
-
-func (o ConfigMapListOutput) ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ConfigMapList) *ConfigMapList {
-		return &v
-	}).(ConfigMapListPtrOutput)
-}
-
-type ConfigMapListPtrOutput struct{ *pulumi.OutputState }
-
-func (ConfigMapListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ConfigMapList)(nil))
-}
-
-func (o ConfigMapListPtrOutput) ToConfigMapListPtrOutput() ConfigMapListPtrOutput {
-	return o
-}
-
-func (o ConfigMapListPtrOutput) ToConfigMapListPtrOutputWithContext(ctx context.Context) ConfigMapListPtrOutput {
-	return o
-}
-
-func (o ConfigMapListPtrOutput) Elem() ConfigMapListOutput {
-	return o.ApplyT(func(v *ConfigMapList) ConfigMapList {
-		if v != nil {
-			return *v
-		}
-		var ret ConfigMapList
-		return ret
-	}).(ConfigMapListOutput)
-}
-
 type ConfigMapListArrayOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ConfigMapList)(nil))
+	return reflect.TypeOf((*[]*ConfigMapList)(nil)).Elem()
 }
 
 func (o ConfigMapListArrayOutput) ToConfigMapListArrayOutput() ConfigMapListArrayOutput {
@@ -257,15 +194,15 @@ func (o ConfigMapListArrayOutput) ToConfigMapListArrayOutputWithContext(ctx cont
 }
 
 func (o ConfigMapListArrayOutput) Index(i pulumi.IntInput) ConfigMapListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ConfigMapList {
-		return vs[0].([]ConfigMapList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ConfigMapList {
+		return vs[0].([]*ConfigMapList)[vs[1].(int)]
 	}).(ConfigMapListOutput)
 }
 
 type ConfigMapListMapOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ConfigMapList)(nil))
+	return reflect.TypeOf((*map[string]*ConfigMapList)(nil)).Elem()
 }
 
 func (o ConfigMapListMapOutput) ToConfigMapListMapOutput() ConfigMapListMapOutput {
@@ -277,18 +214,16 @@ func (o ConfigMapListMapOutput) ToConfigMapListMapOutputWithContext(ctx context.
 }
 
 func (o ConfigMapListMapOutput) MapIndex(k pulumi.StringInput) ConfigMapListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ConfigMapList {
-		return vs[0].(map[string]ConfigMapList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ConfigMapList {
+		return vs[0].(map[string]*ConfigMapList)[vs[1].(string)]
 	}).(ConfigMapListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapListInput)(nil)).Elem(), &ConfigMapList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapListPtrInput)(nil)).Elem(), &ConfigMapList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapListArrayInput)(nil)).Elem(), ConfigMapListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ConfigMapListMapInput)(nil)).Elem(), ConfigMapListMap{})
 	pulumi.RegisterOutputType(ConfigMapListOutput{})
-	pulumi.RegisterOutputType(ConfigMapListPtrOutput{})
 	pulumi.RegisterOutputType(ConfigMapListArrayOutput{})
 	pulumi.RegisterOutputType(ConfigMapListMapOutput{})
 }

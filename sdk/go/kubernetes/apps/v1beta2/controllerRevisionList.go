@@ -104,7 +104,7 @@ type ControllerRevisionListInput interface {
 }
 
 func (*ControllerRevisionList) ElementType() reflect.Type {
-	return reflect.TypeOf((*ControllerRevisionList)(nil))
+	return reflect.TypeOf((**ControllerRevisionList)(nil)).Elem()
 }
 
 func (i *ControllerRevisionList) ToControllerRevisionListOutput() ControllerRevisionListOutput {
@@ -113,35 +113,6 @@ func (i *ControllerRevisionList) ToControllerRevisionListOutput() ControllerRevi
 
 func (i *ControllerRevisionList) ToControllerRevisionListOutputWithContext(ctx context.Context) ControllerRevisionListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionListOutput)
-}
-
-func (i *ControllerRevisionList) ToControllerRevisionListPtrOutput() ControllerRevisionListPtrOutput {
-	return i.ToControllerRevisionListPtrOutputWithContext(context.Background())
-}
-
-func (i *ControllerRevisionList) ToControllerRevisionListPtrOutputWithContext(ctx context.Context) ControllerRevisionListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionListPtrOutput)
-}
-
-type ControllerRevisionListPtrInput interface {
-	pulumi.Input
-
-	ToControllerRevisionListPtrOutput() ControllerRevisionListPtrOutput
-	ToControllerRevisionListPtrOutputWithContext(ctx context.Context) ControllerRevisionListPtrOutput
-}
-
-type controllerRevisionListPtrType ControllerRevisionListArgs
-
-func (*controllerRevisionListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ControllerRevisionList)(nil))
-}
-
-func (i *controllerRevisionListPtrType) ToControllerRevisionListPtrOutput() ControllerRevisionListPtrOutput {
-	return i.ToControllerRevisionListPtrOutputWithContext(context.Background())
-}
-
-func (i *controllerRevisionListPtrType) ToControllerRevisionListPtrOutputWithContext(ctx context.Context) ControllerRevisionListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionListPtrOutput)
 }
 
 // ControllerRevisionListArrayInput is an input type that accepts ControllerRevisionListArray and ControllerRevisionListArrayOutput values.
@@ -197,7 +168,7 @@ func (i ControllerRevisionListMap) ToControllerRevisionListMapOutputWithContext(
 type ControllerRevisionListOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ControllerRevisionList)(nil))
+	return reflect.TypeOf((**ControllerRevisionList)(nil)).Elem()
 }
 
 func (o ControllerRevisionListOutput) ToControllerRevisionListOutput() ControllerRevisionListOutput {
@@ -208,44 +179,10 @@ func (o ControllerRevisionListOutput) ToControllerRevisionListOutputWithContext(
 	return o
 }
 
-func (o ControllerRevisionListOutput) ToControllerRevisionListPtrOutput() ControllerRevisionListPtrOutput {
-	return o.ToControllerRevisionListPtrOutputWithContext(context.Background())
-}
-
-func (o ControllerRevisionListOutput) ToControllerRevisionListPtrOutputWithContext(ctx context.Context) ControllerRevisionListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ControllerRevisionList) *ControllerRevisionList {
-		return &v
-	}).(ControllerRevisionListPtrOutput)
-}
-
-type ControllerRevisionListPtrOutput struct{ *pulumi.OutputState }
-
-func (ControllerRevisionListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ControllerRevisionList)(nil))
-}
-
-func (o ControllerRevisionListPtrOutput) ToControllerRevisionListPtrOutput() ControllerRevisionListPtrOutput {
-	return o
-}
-
-func (o ControllerRevisionListPtrOutput) ToControllerRevisionListPtrOutputWithContext(ctx context.Context) ControllerRevisionListPtrOutput {
-	return o
-}
-
-func (o ControllerRevisionListPtrOutput) Elem() ControllerRevisionListOutput {
-	return o.ApplyT(func(v *ControllerRevisionList) ControllerRevisionList {
-		if v != nil {
-			return *v
-		}
-		var ret ControllerRevisionList
-		return ret
-	}).(ControllerRevisionListOutput)
-}
-
 type ControllerRevisionListArrayOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ControllerRevisionList)(nil))
+	return reflect.TypeOf((*[]*ControllerRevisionList)(nil)).Elem()
 }
 
 func (o ControllerRevisionListArrayOutput) ToControllerRevisionListArrayOutput() ControllerRevisionListArrayOutput {
@@ -257,15 +194,15 @@ func (o ControllerRevisionListArrayOutput) ToControllerRevisionListArrayOutputWi
 }
 
 func (o ControllerRevisionListArrayOutput) Index(i pulumi.IntInput) ControllerRevisionListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ControllerRevisionList {
-		return vs[0].([]ControllerRevisionList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ControllerRevisionList {
+		return vs[0].([]*ControllerRevisionList)[vs[1].(int)]
 	}).(ControllerRevisionListOutput)
 }
 
 type ControllerRevisionListMapOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ControllerRevisionList)(nil))
+	return reflect.TypeOf((*map[string]*ControllerRevisionList)(nil)).Elem()
 }
 
 func (o ControllerRevisionListMapOutput) ToControllerRevisionListMapOutput() ControllerRevisionListMapOutput {
@@ -277,18 +214,16 @@ func (o ControllerRevisionListMapOutput) ToControllerRevisionListMapOutputWithCo
 }
 
 func (o ControllerRevisionListMapOutput) MapIndex(k pulumi.StringInput) ControllerRevisionListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ControllerRevisionList {
-		return vs[0].(map[string]ControllerRevisionList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ControllerRevisionList {
+		return vs[0].(map[string]*ControllerRevisionList)[vs[1].(string)]
 	}).(ControllerRevisionListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionListInput)(nil)).Elem(), &ControllerRevisionList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionListPtrInput)(nil)).Elem(), &ControllerRevisionList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionListArrayInput)(nil)).Elem(), ControllerRevisionListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ControllerRevisionListMapInput)(nil)).Elem(), ControllerRevisionListMap{})
 	pulumi.RegisterOutputType(ControllerRevisionListOutput{})
-	pulumi.RegisterOutputType(ControllerRevisionListPtrOutput{})
 	pulumi.RegisterOutputType(ControllerRevisionListArrayOutput{})
 	pulumi.RegisterOutputType(ControllerRevisionListMapOutput{})
 }

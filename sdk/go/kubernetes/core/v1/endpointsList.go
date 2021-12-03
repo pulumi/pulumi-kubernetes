@@ -104,7 +104,7 @@ type EndpointsListInput interface {
 }
 
 func (*EndpointsList) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointsList)(nil))
+	return reflect.TypeOf((**EndpointsList)(nil)).Elem()
 }
 
 func (i *EndpointsList) ToEndpointsListOutput() EndpointsListOutput {
@@ -113,35 +113,6 @@ func (i *EndpointsList) ToEndpointsListOutput() EndpointsListOutput {
 
 func (i *EndpointsList) ToEndpointsListOutputWithContext(ctx context.Context) EndpointsListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListOutput)
-}
-
-func (i *EndpointsList) ToEndpointsListPtrOutput() EndpointsListPtrOutput {
-	return i.ToEndpointsListPtrOutputWithContext(context.Background())
-}
-
-func (i *EndpointsList) ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListPtrOutput)
-}
-
-type EndpointsListPtrInput interface {
-	pulumi.Input
-
-	ToEndpointsListPtrOutput() EndpointsListPtrOutput
-	ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput
-}
-
-type endpointsListPtrType EndpointsListArgs
-
-func (*endpointsListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**EndpointsList)(nil))
-}
-
-func (i *endpointsListPtrType) ToEndpointsListPtrOutput() EndpointsListPtrOutput {
-	return i.ToEndpointsListPtrOutputWithContext(context.Background())
-}
-
-func (i *endpointsListPtrType) ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EndpointsListPtrOutput)
 }
 
 // EndpointsListArrayInput is an input type that accepts EndpointsListArray and EndpointsListArrayOutput values.
@@ -197,7 +168,7 @@ func (i EndpointsListMap) ToEndpointsListMapOutputWithContext(ctx context.Contex
 type EndpointsListOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointsList)(nil))
+	return reflect.TypeOf((**EndpointsList)(nil)).Elem()
 }
 
 func (o EndpointsListOutput) ToEndpointsListOutput() EndpointsListOutput {
@@ -208,44 +179,10 @@ func (o EndpointsListOutput) ToEndpointsListOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o EndpointsListOutput) ToEndpointsListPtrOutput() EndpointsListPtrOutput {
-	return o.ToEndpointsListPtrOutputWithContext(context.Background())
-}
-
-func (o EndpointsListOutput) ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointsList) *EndpointsList {
-		return &v
-	}).(EndpointsListPtrOutput)
-}
-
-type EndpointsListPtrOutput struct{ *pulumi.OutputState }
-
-func (EndpointsListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**EndpointsList)(nil))
-}
-
-func (o EndpointsListPtrOutput) ToEndpointsListPtrOutput() EndpointsListPtrOutput {
-	return o
-}
-
-func (o EndpointsListPtrOutput) ToEndpointsListPtrOutputWithContext(ctx context.Context) EndpointsListPtrOutput {
-	return o
-}
-
-func (o EndpointsListPtrOutput) Elem() EndpointsListOutput {
-	return o.ApplyT(func(v *EndpointsList) EndpointsList {
-		if v != nil {
-			return *v
-		}
-		var ret EndpointsList
-		return ret
-	}).(EndpointsListOutput)
-}
-
 type EndpointsListArrayOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]EndpointsList)(nil))
+	return reflect.TypeOf((*[]*EndpointsList)(nil)).Elem()
 }
 
 func (o EndpointsListArrayOutput) ToEndpointsListArrayOutput() EndpointsListArrayOutput {
@@ -257,15 +194,15 @@ func (o EndpointsListArrayOutput) ToEndpointsListArrayOutputWithContext(ctx cont
 }
 
 func (o EndpointsListArrayOutput) Index(i pulumi.IntInput) EndpointsListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointsList {
-		return vs[0].([]EndpointsList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *EndpointsList {
+		return vs[0].([]*EndpointsList)[vs[1].(int)]
 	}).(EndpointsListOutput)
 }
 
 type EndpointsListMapOutput struct{ *pulumi.OutputState }
 
 func (EndpointsListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]EndpointsList)(nil))
+	return reflect.TypeOf((*map[string]*EndpointsList)(nil)).Elem()
 }
 
 func (o EndpointsListMapOutput) ToEndpointsListMapOutput() EndpointsListMapOutput {
@@ -277,18 +214,16 @@ func (o EndpointsListMapOutput) ToEndpointsListMapOutputWithContext(ctx context.
 }
 
 func (o EndpointsListMapOutput) MapIndex(k pulumi.StringInput) EndpointsListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) EndpointsList {
-		return vs[0].(map[string]EndpointsList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *EndpointsList {
+		return vs[0].(map[string]*EndpointsList)[vs[1].(string)]
 	}).(EndpointsListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsListInput)(nil)).Elem(), &EndpointsList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsListPtrInput)(nil)).Elem(), &EndpointsList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsListArrayInput)(nil)).Elem(), EndpointsListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointsListMapInput)(nil)).Elem(), EndpointsListMap{})
 	pulumi.RegisterOutputType(EndpointsListOutput{})
-	pulumi.RegisterOutputType(EndpointsListPtrOutput{})
 	pulumi.RegisterOutputType(EndpointsListArrayOutput{})
 	pulumi.RegisterOutputType(EndpointsListMapOutput{})
 }

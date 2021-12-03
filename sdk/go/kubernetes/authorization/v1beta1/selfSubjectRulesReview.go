@@ -109,7 +109,7 @@ type SelfSubjectRulesReviewInput interface {
 }
 
 func (*SelfSubjectRulesReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReview)(nil))
+	return reflect.TypeOf((**SelfSubjectRulesReview)(nil)).Elem()
 }
 
 func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
@@ -118,35 +118,6 @@ func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutput() SelfSubjectRul
 
 func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewOutput)
-}
-
-func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewPtrOutput() SelfSubjectRulesReviewPtrOutput {
-	return i.ToSelfSubjectRulesReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewPtrOutput)
-}
-
-type SelfSubjectRulesReviewPtrInput interface {
-	pulumi.Input
-
-	ToSelfSubjectRulesReviewPtrOutput() SelfSubjectRulesReviewPtrOutput
-	ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput
-}
-
-type selfSubjectRulesReviewPtrType SelfSubjectRulesReviewArgs
-
-func (*selfSubjectRulesReviewPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectRulesReview)(nil))
-}
-
-func (i *selfSubjectRulesReviewPtrType) ToSelfSubjectRulesReviewPtrOutput() SelfSubjectRulesReviewPtrOutput {
-	return i.ToSelfSubjectRulesReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *selfSubjectRulesReviewPtrType) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewPtrOutput)
 }
 
 // SelfSubjectRulesReviewArrayInput is an input type that accepts SelfSubjectRulesReviewArray and SelfSubjectRulesReviewArrayOutput values.
@@ -202,7 +173,7 @@ func (i SelfSubjectRulesReviewMap) ToSelfSubjectRulesReviewMapOutputWithContext(
 type SelfSubjectRulesReviewOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReview)(nil))
+	return reflect.TypeOf((**SelfSubjectRulesReview)(nil)).Elem()
 }
 
 func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
@@ -213,44 +184,10 @@ func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutputWithContext(
 	return o
 }
 
-func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewPtrOutput() SelfSubjectRulesReviewPtrOutput {
-	return o.ToSelfSubjectRulesReviewPtrOutputWithContext(context.Background())
-}
-
-func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReview) *SelfSubjectRulesReview {
-		return &v
-	}).(SelfSubjectRulesReviewPtrOutput)
-}
-
-type SelfSubjectRulesReviewPtrOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectRulesReviewPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectRulesReview)(nil))
-}
-
-func (o SelfSubjectRulesReviewPtrOutput) ToSelfSubjectRulesReviewPtrOutput() SelfSubjectRulesReviewPtrOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewPtrOutput) ToSelfSubjectRulesReviewPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPtrOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewPtrOutput) Elem() SelfSubjectRulesReviewOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReview) SelfSubjectRulesReview {
-		if v != nil {
-			return *v
-		}
-		var ret SelfSubjectRulesReview
-		return ret
-	}).(SelfSubjectRulesReviewOutput)
-}
-
 type SelfSubjectRulesReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]SelfSubjectRulesReview)(nil))
+	return reflect.TypeOf((*[]*SelfSubjectRulesReview)(nil)).Elem()
 }
 
 func (o SelfSubjectRulesReviewArrayOutput) ToSelfSubjectRulesReviewArrayOutput() SelfSubjectRulesReviewArrayOutput {
@@ -262,15 +199,15 @@ func (o SelfSubjectRulesReviewArrayOutput) ToSelfSubjectRulesReviewArrayOutputWi
 }
 
 func (o SelfSubjectRulesReviewArrayOutput) Index(i pulumi.IntInput) SelfSubjectRulesReviewOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SelfSubjectRulesReview {
-		return vs[0].([]SelfSubjectRulesReview)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SelfSubjectRulesReview {
+		return vs[0].([]*SelfSubjectRulesReview)[vs[1].(int)]
 	}).(SelfSubjectRulesReviewOutput)
 }
 
 type SelfSubjectRulesReviewMapOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]SelfSubjectRulesReview)(nil))
+	return reflect.TypeOf((*map[string]*SelfSubjectRulesReview)(nil)).Elem()
 }
 
 func (o SelfSubjectRulesReviewMapOutput) ToSelfSubjectRulesReviewMapOutput() SelfSubjectRulesReviewMapOutput {
@@ -282,18 +219,16 @@ func (o SelfSubjectRulesReviewMapOutput) ToSelfSubjectRulesReviewMapOutputWithCo
 }
 
 func (o SelfSubjectRulesReviewMapOutput) MapIndex(k pulumi.StringInput) SelfSubjectRulesReviewOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) SelfSubjectRulesReview {
-		return vs[0].(map[string]SelfSubjectRulesReview)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *SelfSubjectRulesReview {
+		return vs[0].(map[string]*SelfSubjectRulesReview)[vs[1].(string)]
 	}).(SelfSubjectRulesReviewOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewInput)(nil)).Elem(), &SelfSubjectRulesReview{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewPtrInput)(nil)).Elem(), &SelfSubjectRulesReview{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewArrayInput)(nil)).Elem(), SelfSubjectRulesReviewArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewMapInput)(nil)).Elem(), SelfSubjectRulesReviewMap{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewOutput{})
-	pulumi.RegisterOutputType(SelfSubjectRulesReviewPtrOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewArrayOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewMapOutput{})
 }

@@ -112,54 +112,54 @@ export class Event extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: EventArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.eventTime === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'eventTime'");
             }
-            inputs["action"] = args ? args.action : undefined;
-            inputs["apiVersion"] = "events.k8s.io/v1";
-            inputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
-            inputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
-            inputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
-            inputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
-            inputs["eventTime"] = args ? args.eventTime : undefined;
-            inputs["kind"] = "Event";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["note"] = args ? args.note : undefined;
-            inputs["reason"] = args ? args.reason : undefined;
-            inputs["regarding"] = args ? args.regarding : undefined;
-            inputs["related"] = args ? args.related : undefined;
-            inputs["reportingController"] = args ? args.reportingController : undefined;
-            inputs["reportingInstance"] = args ? args.reportingInstance : undefined;
-            inputs["series"] = args ? args.series : undefined;
-            inputs["type"] = args ? args.type : undefined;
+            resourceInputs["action"] = args ? args.action : undefined;
+            resourceInputs["apiVersion"] = "events.k8s.io/v1";
+            resourceInputs["deprecatedCount"] = args ? args.deprecatedCount : undefined;
+            resourceInputs["deprecatedFirstTimestamp"] = args ? args.deprecatedFirstTimestamp : undefined;
+            resourceInputs["deprecatedLastTimestamp"] = args ? args.deprecatedLastTimestamp : undefined;
+            resourceInputs["deprecatedSource"] = args ? args.deprecatedSource : undefined;
+            resourceInputs["eventTime"] = args ? args.eventTime : undefined;
+            resourceInputs["kind"] = "Event";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["note"] = args ? args.note : undefined;
+            resourceInputs["reason"] = args ? args.reason : undefined;
+            resourceInputs["regarding"] = args ? args.regarding : undefined;
+            resourceInputs["related"] = args ? args.related : undefined;
+            resourceInputs["reportingController"] = args ? args.reportingController : undefined;
+            resourceInputs["reportingInstance"] = args ? args.reportingInstance : undefined;
+            resourceInputs["series"] = args ? args.series : undefined;
+            resourceInputs["type"] = args ? args.type : undefined;
         } else {
-            inputs["action"] = undefined /*out*/;
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["deprecatedCount"] = undefined /*out*/;
-            inputs["deprecatedFirstTimestamp"] = undefined /*out*/;
-            inputs["deprecatedLastTimestamp"] = undefined /*out*/;
-            inputs["deprecatedSource"] = undefined /*out*/;
-            inputs["eventTime"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["note"] = undefined /*out*/;
-            inputs["reason"] = undefined /*out*/;
-            inputs["regarding"] = undefined /*out*/;
-            inputs["related"] = undefined /*out*/;
-            inputs["reportingController"] = undefined /*out*/;
-            inputs["reportingInstance"] = undefined /*out*/;
-            inputs["series"] = undefined /*out*/;
-            inputs["type"] = undefined /*out*/;
+            resourceInputs["action"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["deprecatedCount"] = undefined /*out*/;
+            resourceInputs["deprecatedFirstTimestamp"] = undefined /*out*/;
+            resourceInputs["deprecatedLastTimestamp"] = undefined /*out*/;
+            resourceInputs["deprecatedSource"] = undefined /*out*/;
+            resourceInputs["eventTime"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["note"] = undefined /*out*/;
+            resourceInputs["reason"] = undefined /*out*/;
+            resourceInputs["regarding"] = undefined /*out*/;
+            resourceInputs["related"] = undefined /*out*/;
+            resourceInputs["reportingController"] = undefined /*out*/;
+            resourceInputs["reportingInstance"] = undefined /*out*/;
+            resourceInputs["series"] = undefined /*out*/;
+            resourceInputs["type"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:core/v1:Event" }, { type: "kubernetes:events.k8s.io/v1beta1:Event" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(Event.__pulumiType, name, inputs, opts);
+        super(Event.__pulumiType, name, resourceInputs, opts);
     }
 }
 

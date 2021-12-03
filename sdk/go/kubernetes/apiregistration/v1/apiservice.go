@@ -114,7 +114,7 @@ type APIServiceInput interface {
 }
 
 func (*APIService) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIService)(nil))
+	return reflect.TypeOf((**APIService)(nil)).Elem()
 }
 
 func (i *APIService) ToAPIServiceOutput() APIServiceOutput {
@@ -123,35 +123,6 @@ func (i *APIService) ToAPIServiceOutput() APIServiceOutput {
 
 func (i *APIService) ToAPIServiceOutputWithContext(ctx context.Context) APIServiceOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceOutput)
-}
-
-func (i *APIService) ToAPIServicePtrOutput() APIServicePtrOutput {
-	return i.ToAPIServicePtrOutputWithContext(context.Background())
-}
-
-func (i *APIService) ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(APIServicePtrOutput)
-}
-
-type APIServicePtrInput interface {
-	pulumi.Input
-
-	ToAPIServicePtrOutput() APIServicePtrOutput
-	ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput
-}
-
-type apiservicePtrType APIServiceArgs
-
-func (*apiservicePtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**APIService)(nil))
-}
-
-func (i *apiservicePtrType) ToAPIServicePtrOutput() APIServicePtrOutput {
-	return i.ToAPIServicePtrOutputWithContext(context.Background())
-}
-
-func (i *apiservicePtrType) ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(APIServicePtrOutput)
 }
 
 // APIServiceArrayInput is an input type that accepts APIServiceArray and APIServiceArrayOutput values.
@@ -207,7 +178,7 @@ func (i APIServiceMap) ToAPIServiceMapOutputWithContext(ctx context.Context) API
 type APIServiceOutput struct{ *pulumi.OutputState }
 
 func (APIServiceOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*APIService)(nil))
+	return reflect.TypeOf((**APIService)(nil)).Elem()
 }
 
 func (o APIServiceOutput) ToAPIServiceOutput() APIServiceOutput {
@@ -218,44 +189,10 @@ func (o APIServiceOutput) ToAPIServiceOutputWithContext(ctx context.Context) API
 	return o
 }
 
-func (o APIServiceOutput) ToAPIServicePtrOutput() APIServicePtrOutput {
-	return o.ToAPIServicePtrOutputWithContext(context.Background())
-}
-
-func (o APIServiceOutput) ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v APIService) *APIService {
-		return &v
-	}).(APIServicePtrOutput)
-}
-
-type APIServicePtrOutput struct{ *pulumi.OutputState }
-
-func (APIServicePtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**APIService)(nil))
-}
-
-func (o APIServicePtrOutput) ToAPIServicePtrOutput() APIServicePtrOutput {
-	return o
-}
-
-func (o APIServicePtrOutput) ToAPIServicePtrOutputWithContext(ctx context.Context) APIServicePtrOutput {
-	return o
-}
-
-func (o APIServicePtrOutput) Elem() APIServiceOutput {
-	return o.ApplyT(func(v *APIService) APIService {
-		if v != nil {
-			return *v
-		}
-		var ret APIService
-		return ret
-	}).(APIServiceOutput)
-}
-
 type APIServiceArrayOutput struct{ *pulumi.OutputState }
 
 func (APIServiceArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]APIService)(nil))
+	return reflect.TypeOf((*[]*APIService)(nil)).Elem()
 }
 
 func (o APIServiceArrayOutput) ToAPIServiceArrayOutput() APIServiceArrayOutput {
@@ -267,15 +204,15 @@ func (o APIServiceArrayOutput) ToAPIServiceArrayOutputWithContext(ctx context.Co
 }
 
 func (o APIServiceArrayOutput) Index(i pulumi.IntInput) APIServiceOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) APIService {
-		return vs[0].([]APIService)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *APIService {
+		return vs[0].([]*APIService)[vs[1].(int)]
 	}).(APIServiceOutput)
 }
 
 type APIServiceMapOutput struct{ *pulumi.OutputState }
 
 func (APIServiceMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]APIService)(nil))
+	return reflect.TypeOf((*map[string]*APIService)(nil)).Elem()
 }
 
 func (o APIServiceMapOutput) ToAPIServiceMapOutput() APIServiceMapOutput {
@@ -287,18 +224,16 @@ func (o APIServiceMapOutput) ToAPIServiceMapOutputWithContext(ctx context.Contex
 }
 
 func (o APIServiceMapOutput) MapIndex(k pulumi.StringInput) APIServiceOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) APIService {
-		return vs[0].(map[string]APIService)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *APIService {
+		return vs[0].(map[string]*APIService)[vs[1].(string)]
 	}).(APIServiceOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceInput)(nil)).Elem(), &APIService{})
-	pulumi.RegisterInputType(reflect.TypeOf((*APIServicePtrInput)(nil)).Elem(), &APIService{})
 	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceArrayInput)(nil)).Elem(), APIServiceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*APIServiceMapInput)(nil)).Elem(), APIServiceMap{})
 	pulumi.RegisterOutputType(APIServiceOutput{})
-	pulumi.RegisterOutputType(APIServicePtrOutput{})
 	pulumi.RegisterOutputType(APIServiceArrayOutput{})
 	pulumi.RegisterOutputType(APIServiceMapOutput{})
 }

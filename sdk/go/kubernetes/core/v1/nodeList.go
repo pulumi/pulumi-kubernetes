@@ -104,7 +104,7 @@ type NodeListInput interface {
 }
 
 func (*NodeList) ElementType() reflect.Type {
-	return reflect.TypeOf((*NodeList)(nil))
+	return reflect.TypeOf((**NodeList)(nil)).Elem()
 }
 
 func (i *NodeList) ToNodeListOutput() NodeListOutput {
@@ -113,35 +113,6 @@ func (i *NodeList) ToNodeListOutput() NodeListOutput {
 
 func (i *NodeList) ToNodeListOutputWithContext(ctx context.Context) NodeListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NodeListOutput)
-}
-
-func (i *NodeList) ToNodeListPtrOutput() NodeListPtrOutput {
-	return i.ToNodeListPtrOutputWithContext(context.Background())
-}
-
-func (i *NodeList) ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NodeListPtrOutput)
-}
-
-type NodeListPtrInput interface {
-	pulumi.Input
-
-	ToNodeListPtrOutput() NodeListPtrOutput
-	ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput
-}
-
-type nodeListPtrType NodeListArgs
-
-func (*nodeListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**NodeList)(nil))
-}
-
-func (i *nodeListPtrType) ToNodeListPtrOutput() NodeListPtrOutput {
-	return i.ToNodeListPtrOutputWithContext(context.Background())
-}
-
-func (i *nodeListPtrType) ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NodeListPtrOutput)
 }
 
 // NodeListArrayInput is an input type that accepts NodeListArray and NodeListArrayOutput values.
@@ -197,7 +168,7 @@ func (i NodeListMap) ToNodeListMapOutputWithContext(ctx context.Context) NodeLis
 type NodeListOutput struct{ *pulumi.OutputState }
 
 func (NodeListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NodeList)(nil))
+	return reflect.TypeOf((**NodeList)(nil)).Elem()
 }
 
 func (o NodeListOutput) ToNodeListOutput() NodeListOutput {
@@ -208,44 +179,10 @@ func (o NodeListOutput) ToNodeListOutputWithContext(ctx context.Context) NodeLis
 	return o
 }
 
-func (o NodeListOutput) ToNodeListPtrOutput() NodeListPtrOutput {
-	return o.ToNodeListPtrOutputWithContext(context.Background())
-}
-
-func (o NodeListOutput) ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v NodeList) *NodeList {
-		return &v
-	}).(NodeListPtrOutput)
-}
-
-type NodeListPtrOutput struct{ *pulumi.OutputState }
-
-func (NodeListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**NodeList)(nil))
-}
-
-func (o NodeListPtrOutput) ToNodeListPtrOutput() NodeListPtrOutput {
-	return o
-}
-
-func (o NodeListPtrOutput) ToNodeListPtrOutputWithContext(ctx context.Context) NodeListPtrOutput {
-	return o
-}
-
-func (o NodeListPtrOutput) Elem() NodeListOutput {
-	return o.ApplyT(func(v *NodeList) NodeList {
-		if v != nil {
-			return *v
-		}
-		var ret NodeList
-		return ret
-	}).(NodeListOutput)
-}
-
 type NodeListArrayOutput struct{ *pulumi.OutputState }
 
 func (NodeListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]NodeList)(nil))
+	return reflect.TypeOf((*[]*NodeList)(nil)).Elem()
 }
 
 func (o NodeListArrayOutput) ToNodeListArrayOutput() NodeListArrayOutput {
@@ -257,15 +194,15 @@ func (o NodeListArrayOutput) ToNodeListArrayOutputWithContext(ctx context.Contex
 }
 
 func (o NodeListArrayOutput) Index(i pulumi.IntInput) NodeListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodeList {
-		return vs[0].([]NodeList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NodeList {
+		return vs[0].([]*NodeList)[vs[1].(int)]
 	}).(NodeListOutput)
 }
 
 type NodeListMapOutput struct{ *pulumi.OutputState }
 
 func (NodeListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]NodeList)(nil))
+	return reflect.TypeOf((*map[string]*NodeList)(nil)).Elem()
 }
 
 func (o NodeListMapOutput) ToNodeListMapOutput() NodeListMapOutput {
@@ -277,18 +214,16 @@ func (o NodeListMapOutput) ToNodeListMapOutputWithContext(ctx context.Context) N
 }
 
 func (o NodeListMapOutput) MapIndex(k pulumi.StringInput) NodeListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) NodeList {
-		return vs[0].(map[string]NodeList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *NodeList {
+		return vs[0].(map[string]*NodeList)[vs[1].(string)]
 	}).(NodeListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeListInput)(nil)).Elem(), &NodeList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NodeListPtrInput)(nil)).Elem(), &NodeList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeListArrayInput)(nil)).Elem(), NodeListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodeListMapInput)(nil)).Elem(), NodeListMap{})
 	pulumi.RegisterOutputType(NodeListOutput{})
-	pulumi.RegisterOutputType(NodeListPtrOutput{})
 	pulumi.RegisterOutputType(NodeListArrayOutput{})
 	pulumi.RegisterOutputType(NodeListMapOutput{})
 }

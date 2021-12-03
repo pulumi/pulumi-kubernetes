@@ -98,7 +98,7 @@ type StatefulSetListInput interface {
 }
 
 func (*StatefulSetList) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatefulSetList)(nil))
+	return reflect.TypeOf((**StatefulSetList)(nil)).Elem()
 }
 
 func (i *StatefulSetList) ToStatefulSetListOutput() StatefulSetListOutput {
@@ -107,35 +107,6 @@ func (i *StatefulSetList) ToStatefulSetListOutput() StatefulSetListOutput {
 
 func (i *StatefulSetList) ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListOutput)
-}
-
-func (i *StatefulSetList) ToStatefulSetListPtrOutput() StatefulSetListPtrOutput {
-	return i.ToStatefulSetListPtrOutputWithContext(context.Background())
-}
-
-func (i *StatefulSetList) ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListPtrOutput)
-}
-
-type StatefulSetListPtrInput interface {
-	pulumi.Input
-
-	ToStatefulSetListPtrOutput() StatefulSetListPtrOutput
-	ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput
-}
-
-type statefulSetListPtrType StatefulSetListArgs
-
-func (*statefulSetListPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**StatefulSetList)(nil))
-}
-
-func (i *statefulSetListPtrType) ToStatefulSetListPtrOutput() StatefulSetListPtrOutput {
-	return i.ToStatefulSetListPtrOutputWithContext(context.Background())
-}
-
-func (i *statefulSetListPtrType) ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListPtrOutput)
 }
 
 // StatefulSetListArrayInput is an input type that accepts StatefulSetListArray and StatefulSetListArrayOutput values.
@@ -191,7 +162,7 @@ func (i StatefulSetListMap) ToStatefulSetListMapOutputWithContext(ctx context.Co
 type StatefulSetListOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*StatefulSetList)(nil))
+	return reflect.TypeOf((**StatefulSetList)(nil)).Elem()
 }
 
 func (o StatefulSetListOutput) ToStatefulSetListOutput() StatefulSetListOutput {
@@ -202,44 +173,10 @@ func (o StatefulSetListOutput) ToStatefulSetListOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o StatefulSetListOutput) ToStatefulSetListPtrOutput() StatefulSetListPtrOutput {
-	return o.ToStatefulSetListPtrOutputWithContext(context.Background())
-}
-
-func (o StatefulSetListOutput) ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetList) *StatefulSetList {
-		return &v
-	}).(StatefulSetListPtrOutput)
-}
-
-type StatefulSetListPtrOutput struct{ *pulumi.OutputState }
-
-func (StatefulSetListPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**StatefulSetList)(nil))
-}
-
-func (o StatefulSetListPtrOutput) ToStatefulSetListPtrOutput() StatefulSetListPtrOutput {
-	return o
-}
-
-func (o StatefulSetListPtrOutput) ToStatefulSetListPtrOutputWithContext(ctx context.Context) StatefulSetListPtrOutput {
-	return o
-}
-
-func (o StatefulSetListPtrOutput) Elem() StatefulSetListOutput {
-	return o.ApplyT(func(v *StatefulSetList) StatefulSetList {
-		if v != nil {
-			return *v
-		}
-		var ret StatefulSetList
-		return ret
-	}).(StatefulSetListOutput)
-}
-
 type StatefulSetListArrayOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]StatefulSetList)(nil))
+	return reflect.TypeOf((*[]*StatefulSetList)(nil)).Elem()
 }
 
 func (o StatefulSetListArrayOutput) ToStatefulSetListArrayOutput() StatefulSetListArrayOutput {
@@ -251,15 +188,15 @@ func (o StatefulSetListArrayOutput) ToStatefulSetListArrayOutputWithContext(ctx 
 }
 
 func (o StatefulSetListArrayOutput) Index(i pulumi.IntInput) StatefulSetListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) StatefulSetList {
-		return vs[0].([]StatefulSetList)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StatefulSetList {
+		return vs[0].([]*StatefulSetList)[vs[1].(int)]
 	}).(StatefulSetListOutput)
 }
 
 type StatefulSetListMapOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]StatefulSetList)(nil))
+	return reflect.TypeOf((*map[string]*StatefulSetList)(nil)).Elem()
 }
 
 func (o StatefulSetListMapOutput) ToStatefulSetListMapOutput() StatefulSetListMapOutput {
@@ -271,18 +208,16 @@ func (o StatefulSetListMapOutput) ToStatefulSetListMapOutputWithContext(ctx cont
 }
 
 func (o StatefulSetListMapOutput) MapIndex(k pulumi.StringInput) StatefulSetListOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) StatefulSetList {
-		return vs[0].(map[string]StatefulSetList)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *StatefulSetList {
+		return vs[0].(map[string]*StatefulSetList)[vs[1].(string)]
 	}).(StatefulSetListOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListInput)(nil)).Elem(), &StatefulSetList{})
-	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListPtrInput)(nil)).Elem(), &StatefulSetList{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListArrayInput)(nil)).Elem(), StatefulSetListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListMapInput)(nil)).Elem(), StatefulSetListMap{})
 	pulumi.RegisterOutputType(StatefulSetListOutput{})
-	pulumi.RegisterOutputType(StatefulSetListPtrOutput{})
 	pulumi.RegisterOutputType(StatefulSetListArrayOutput{})
 	pulumi.RegisterOutputType(StatefulSetListMapOutput{})
 }

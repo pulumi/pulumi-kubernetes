@@ -102,7 +102,7 @@ type ResourceQuotaInput interface {
 }
 
 func (*ResourceQuota) ElementType() reflect.Type {
-	return reflect.TypeOf((*ResourceQuota)(nil))
+	return reflect.TypeOf((**ResourceQuota)(nil)).Elem()
 }
 
 func (i *ResourceQuota) ToResourceQuotaOutput() ResourceQuotaOutput {
@@ -111,35 +111,6 @@ func (i *ResourceQuota) ToResourceQuotaOutput() ResourceQuotaOutput {
 
 func (i *ResourceQuota) ToResourceQuotaOutputWithContext(ctx context.Context) ResourceQuotaOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaOutput)
-}
-
-func (i *ResourceQuota) ToResourceQuotaPtrOutput() ResourceQuotaPtrOutput {
-	return i.ToResourceQuotaPtrOutputWithContext(context.Background())
-}
-
-func (i *ResourceQuota) ToResourceQuotaPtrOutputWithContext(ctx context.Context) ResourceQuotaPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaPtrOutput)
-}
-
-type ResourceQuotaPtrInput interface {
-	pulumi.Input
-
-	ToResourceQuotaPtrOutput() ResourceQuotaPtrOutput
-	ToResourceQuotaPtrOutputWithContext(ctx context.Context) ResourceQuotaPtrOutput
-}
-
-type resourceQuotaPtrType ResourceQuotaArgs
-
-func (*resourceQuotaPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ResourceQuota)(nil))
-}
-
-func (i *resourceQuotaPtrType) ToResourceQuotaPtrOutput() ResourceQuotaPtrOutput {
-	return i.ToResourceQuotaPtrOutputWithContext(context.Background())
-}
-
-func (i *resourceQuotaPtrType) ToResourceQuotaPtrOutputWithContext(ctx context.Context) ResourceQuotaPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ResourceQuotaPtrOutput)
 }
 
 // ResourceQuotaArrayInput is an input type that accepts ResourceQuotaArray and ResourceQuotaArrayOutput values.
@@ -195,7 +166,7 @@ func (i ResourceQuotaMap) ToResourceQuotaMapOutputWithContext(ctx context.Contex
 type ResourceQuotaOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ResourceQuota)(nil))
+	return reflect.TypeOf((**ResourceQuota)(nil)).Elem()
 }
 
 func (o ResourceQuotaOutput) ToResourceQuotaOutput() ResourceQuotaOutput {
@@ -206,44 +177,10 @@ func (o ResourceQuotaOutput) ToResourceQuotaOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o ResourceQuotaOutput) ToResourceQuotaPtrOutput() ResourceQuotaPtrOutput {
-	return o.ToResourceQuotaPtrOutputWithContext(context.Background())
-}
-
-func (o ResourceQuotaOutput) ToResourceQuotaPtrOutputWithContext(ctx context.Context) ResourceQuotaPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceQuota) *ResourceQuota {
-		return &v
-	}).(ResourceQuotaPtrOutput)
-}
-
-type ResourceQuotaPtrOutput struct{ *pulumi.OutputState }
-
-func (ResourceQuotaPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ResourceQuota)(nil))
-}
-
-func (o ResourceQuotaPtrOutput) ToResourceQuotaPtrOutput() ResourceQuotaPtrOutput {
-	return o
-}
-
-func (o ResourceQuotaPtrOutput) ToResourceQuotaPtrOutputWithContext(ctx context.Context) ResourceQuotaPtrOutput {
-	return o
-}
-
-func (o ResourceQuotaPtrOutput) Elem() ResourceQuotaOutput {
-	return o.ApplyT(func(v *ResourceQuota) ResourceQuota {
-		if v != nil {
-			return *v
-		}
-		var ret ResourceQuota
-		return ret
-	}).(ResourceQuotaOutput)
-}
-
 type ResourceQuotaArrayOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ResourceQuota)(nil))
+	return reflect.TypeOf((*[]*ResourceQuota)(nil)).Elem()
 }
 
 func (o ResourceQuotaArrayOutput) ToResourceQuotaArrayOutput() ResourceQuotaArrayOutput {
@@ -255,15 +192,15 @@ func (o ResourceQuotaArrayOutput) ToResourceQuotaArrayOutputWithContext(ctx cont
 }
 
 func (o ResourceQuotaArrayOutput) Index(i pulumi.IntInput) ResourceQuotaOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ResourceQuota {
-		return vs[0].([]ResourceQuota)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceQuota {
+		return vs[0].([]*ResourceQuota)[vs[1].(int)]
 	}).(ResourceQuotaOutput)
 }
 
 type ResourceQuotaMapOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]ResourceQuota)(nil))
+	return reflect.TypeOf((*map[string]*ResourceQuota)(nil)).Elem()
 }
 
 func (o ResourceQuotaMapOutput) ToResourceQuotaMapOutput() ResourceQuotaMapOutput {
@@ -275,18 +212,16 @@ func (o ResourceQuotaMapOutput) ToResourceQuotaMapOutputWithContext(ctx context.
 }
 
 func (o ResourceQuotaMapOutput) MapIndex(k pulumi.StringInput) ResourceQuotaOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) ResourceQuota {
-		return vs[0].(map[string]ResourceQuota)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *ResourceQuota {
+		return vs[0].(map[string]*ResourceQuota)[vs[1].(string)]
 	}).(ResourceQuotaOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaInput)(nil)).Elem(), &ResourceQuota{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaPtrInput)(nil)).Elem(), &ResourceQuota{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaArrayInput)(nil)).Elem(), ResourceQuotaArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceQuotaMapInput)(nil)).Elem(), ResourceQuotaMap{})
 	pulumi.RegisterOutputType(ResourceQuotaOutput{})
-	pulumi.RegisterOutputType(ResourceQuotaPtrOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaArrayOutput{})
 	pulumi.RegisterOutputType(ResourceQuotaMapOutput{})
 }

@@ -60,26 +60,26 @@ export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: HorizontalPodAutoscalerListArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
             if ((!args || args.items === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'items'");
             }
-            inputs["apiVersion"] = "autoscaling/v1";
-            inputs["items"] = args ? args.items : undefined;
-            inputs["kind"] = "HorizontalPodAutoscalerList";
-            inputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["apiVersion"] = "autoscaling/v1";
+            resourceInputs["items"] = args ? args.items : undefined;
+            resourceInputs["kind"] = "HorizontalPodAutoscalerList";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["items"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["items"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
-        super(HorizontalPodAutoscalerList.__pulumiType, name, inputs, opts);
+        super(HorizontalPodAutoscalerList.__pulumiType, name, resourceInputs, opts);
     }
 }
 

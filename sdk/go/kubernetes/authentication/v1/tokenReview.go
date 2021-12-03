@@ -112,7 +112,7 @@ type TokenReviewInput interface {
 }
 
 func (*TokenReview) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenReview)(nil))
+	return reflect.TypeOf((**TokenReview)(nil)).Elem()
 }
 
 func (i *TokenReview) ToTokenReviewOutput() TokenReviewOutput {
@@ -121,35 +121,6 @@ func (i *TokenReview) ToTokenReviewOutput() TokenReviewOutput {
 
 func (i *TokenReview) ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewOutput)
-}
-
-func (i *TokenReview) ToTokenReviewPtrOutput() TokenReviewPtrOutput {
-	return i.ToTokenReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *TokenReview) ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewPtrOutput)
-}
-
-type TokenReviewPtrInput interface {
-	pulumi.Input
-
-	ToTokenReviewPtrOutput() TokenReviewPtrOutput
-	ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput
-}
-
-type tokenReviewPtrType TokenReviewArgs
-
-func (*tokenReviewPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokenReview)(nil))
-}
-
-func (i *tokenReviewPtrType) ToTokenReviewPtrOutput() TokenReviewPtrOutput {
-	return i.ToTokenReviewPtrOutputWithContext(context.Background())
-}
-
-func (i *tokenReviewPtrType) ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewPtrOutput)
 }
 
 // TokenReviewArrayInput is an input type that accepts TokenReviewArray and TokenReviewArrayOutput values.
@@ -205,7 +176,7 @@ func (i TokenReviewMap) ToTokenReviewMapOutputWithContext(ctx context.Context) T
 type TokenReviewOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenReview)(nil))
+	return reflect.TypeOf((**TokenReview)(nil)).Elem()
 }
 
 func (o TokenReviewOutput) ToTokenReviewOutput() TokenReviewOutput {
@@ -216,44 +187,10 @@ func (o TokenReviewOutput) ToTokenReviewOutputWithContext(ctx context.Context) T
 	return o
 }
 
-func (o TokenReviewOutput) ToTokenReviewPtrOutput() TokenReviewPtrOutput {
-	return o.ToTokenReviewPtrOutputWithContext(context.Background())
-}
-
-func (o TokenReviewOutput) ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReview) *TokenReview {
-		return &v
-	}).(TokenReviewPtrOutput)
-}
-
-type TokenReviewPtrOutput struct{ *pulumi.OutputState }
-
-func (TokenReviewPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokenReview)(nil))
-}
-
-func (o TokenReviewPtrOutput) ToTokenReviewPtrOutput() TokenReviewPtrOutput {
-	return o
-}
-
-func (o TokenReviewPtrOutput) ToTokenReviewPtrOutputWithContext(ctx context.Context) TokenReviewPtrOutput {
-	return o
-}
-
-func (o TokenReviewPtrOutput) Elem() TokenReviewOutput {
-	return o.ApplyT(func(v *TokenReview) TokenReview {
-		if v != nil {
-			return *v
-		}
-		var ret TokenReview
-		return ret
-	}).(TokenReviewOutput)
-}
-
 type TokenReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]TokenReview)(nil))
+	return reflect.TypeOf((*[]*TokenReview)(nil)).Elem()
 }
 
 func (o TokenReviewArrayOutput) ToTokenReviewArrayOutput() TokenReviewArrayOutput {
@@ -265,15 +202,15 @@ func (o TokenReviewArrayOutput) ToTokenReviewArrayOutputWithContext(ctx context.
 }
 
 func (o TokenReviewArrayOutput) Index(i pulumi.IntInput) TokenReviewOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TokenReview {
-		return vs[0].([]TokenReview)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *TokenReview {
+		return vs[0].([]*TokenReview)[vs[1].(int)]
 	}).(TokenReviewOutput)
 }
 
 type TokenReviewMapOutput struct{ *pulumi.OutputState }
 
 func (TokenReviewMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]TokenReview)(nil))
+	return reflect.TypeOf((*map[string]*TokenReview)(nil)).Elem()
 }
 
 func (o TokenReviewMapOutput) ToTokenReviewMapOutput() TokenReviewMapOutput {
@@ -285,18 +222,16 @@ func (o TokenReviewMapOutput) ToTokenReviewMapOutputWithContext(ctx context.Cont
 }
 
 func (o TokenReviewMapOutput) MapIndex(k pulumi.StringInput) TokenReviewOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) TokenReview {
-		return vs[0].(map[string]TokenReview)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *TokenReview {
+		return vs[0].(map[string]*TokenReview)[vs[1].(string)]
 	}).(TokenReviewOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewInput)(nil)).Elem(), &TokenReview{})
-	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewPtrInput)(nil)).Elem(), &TokenReview{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewArrayInput)(nil)).Elem(), TokenReviewArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewMapInput)(nil)).Elem(), TokenReviewMap{})
 	pulumi.RegisterOutputType(TokenReviewOutput{})
-	pulumi.RegisterOutputType(TokenReviewPtrOutput{})
 	pulumi.RegisterOutputType(TokenReviewArrayOutput{})
 	pulumi.RegisterOutputType(TokenReviewMapOutput{})
 }

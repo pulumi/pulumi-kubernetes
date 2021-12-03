@@ -64,27 +64,27 @@ export class ClusterRole extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ClusterRoleArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["aggregationRule"] = args ? args.aggregationRule : undefined;
-            inputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
-            inputs["kind"] = "ClusterRole";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["rules"] = args ? args.rules : undefined;
+            resourceInputs["aggregationRule"] = args ? args.aggregationRule : undefined;
+            resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
+            resourceInputs["kind"] = "ClusterRole";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["rules"] = args ? args.rules : undefined;
         } else {
-            inputs["aggregationRule"] = undefined /*out*/;
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["rules"] = undefined /*out*/;
+            resourceInputs["aggregationRule"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["rules"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:rbac.authorization.k8s.io/v1:ClusterRole" }, { type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(ClusterRole.__pulumiType, name, inputs, opts);
+        super(ClusterRole.__pulumiType, name, resourceInputs, opts);
     }
 }
 

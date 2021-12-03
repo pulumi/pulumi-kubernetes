@@ -64,27 +64,27 @@ export class ReplicaSet extends pulumi.CustomResource {
      * @param opts A bag of options that control this resource's behavior.
      */
     constructor(name: string, args?: ReplicaSetArgs, opts?: pulumi.CustomResourceOptions) {
-        let inputs: pulumi.Inputs = {};
+        let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            inputs["apiVersion"] = "apps/v1";
-            inputs["kind"] = "ReplicaSet";
-            inputs["metadata"] = args ? args.metadata : undefined;
-            inputs["spec"] = args ? args.spec : undefined;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = "apps/v1";
+            resourceInputs["kind"] = "ReplicaSet";
+            resourceInputs["metadata"] = args ? args.metadata : undefined;
+            resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
-            inputs["apiVersion"] = undefined /*out*/;
-            inputs["kind"] = undefined /*out*/;
-            inputs["metadata"] = undefined /*out*/;
-            inputs["spec"] = undefined /*out*/;
-            inputs["status"] = undefined /*out*/;
+            resourceInputs["apiVersion"] = undefined /*out*/;
+            resourceInputs["kind"] = undefined /*out*/;
+            resourceInputs["metadata"] = undefined /*out*/;
+            resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         if (!opts.version) {
             opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
         }
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1beta2:ReplicaSet" }, { type: "kubernetes:extensions/v1beta1:ReplicaSet" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(ReplicaSet.__pulumiType, name, inputs, opts);
+        super(ReplicaSet.__pulumiType, name, resourceInputs, opts);
     }
 }
 

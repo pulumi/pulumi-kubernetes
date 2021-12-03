@@ -22,16 +22,24 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
-	if args.EnableDryRun == nil {
+	if isZero(args.EnableDryRun) {
 		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
 	}
-	if args.Kubeconfig == nil {
+	helmReleaseSettingsApplier := func(v HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }
+	if args.HelmReleaseSettings != nil {
+		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().Elem().ApplyT(helmReleaseSettingsApplier).(HelmReleaseSettingsPtrOutput)
+	}
+	kubeClientSettingsApplier := func(v KubeClientSettings) *KubeClientSettings { return v.Defaults() }
+	if args.KubeClientSettings != nil {
+		args.KubeClientSettings = args.KubeClientSettings.ToKubeClientSettingsPtrOutput().Elem().ApplyT(kubeClientSettingsApplier).(KubeClientSettingsPtrOutput)
+	}
+	if isZero(args.Kubeconfig) {
 		args.Kubeconfig = pulumi.StringPtr(getEnvOrDefault("", nil, "KUBECONFIG").(string))
 	}
-	if args.SuppressDeprecationWarnings == nil {
+	if isZero(args.SuppressDeprecationWarnings) {
 		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
 	}
-	if args.SuppressHelmHookWarnings == nil {
+	if isZero(args.SuppressHelmHookWarnings) {
 		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
 	}
 	var resource Provider
@@ -127,7 +135,7 @@ type ProviderInput interface {
 }
 
 func (*Provider) ElementType() reflect.Type {
-	return reflect.TypeOf((*Provider)(nil))
+	return reflect.TypeOf((**Provider)(nil)).Elem()
 }
 
 func (i *Provider) ToProviderOutput() ProviderOutput {
@@ -138,39 +146,10 @@ func (i *Provider) ToProviderOutputWithContext(ctx context.Context) ProviderOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ProviderOutput)
 }
 
-func (i *Provider) ToProviderPtrOutput() ProviderPtrOutput {
-	return i.ToProviderPtrOutputWithContext(context.Background())
-}
-
-func (i *Provider) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProviderPtrOutput)
-}
-
-type ProviderPtrInput interface {
-	pulumi.Input
-
-	ToProviderPtrOutput() ProviderPtrOutput
-	ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput
-}
-
-type providerPtrType ProviderArgs
-
-func (*providerPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**Provider)(nil))
-}
-
-func (i *providerPtrType) ToProviderPtrOutput() ProviderPtrOutput {
-	return i.ToProviderPtrOutputWithContext(context.Background())
-}
-
-func (i *providerPtrType) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ProviderPtrOutput)
-}
-
 type ProviderOutput struct{ *pulumi.OutputState }
 
 func (ProviderOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Provider)(nil))
+	return reflect.TypeOf((**Provider)(nil)).Elem()
 }
 
 func (o ProviderOutput) ToProviderOutput() ProviderOutput {
@@ -181,43 +160,7 @@ func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) Provide
 	return o
 }
 
-func (o ProviderOutput) ToProviderPtrOutput() ProviderPtrOutput {
-	return o.ToProviderPtrOutputWithContext(context.Background())
-}
-
-func (o ProviderOutput) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v Provider) *Provider {
-		return &v
-	}).(ProviderPtrOutput)
-}
-
-type ProviderPtrOutput struct{ *pulumi.OutputState }
-
-func (ProviderPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**Provider)(nil))
-}
-
-func (o ProviderPtrOutput) ToProviderPtrOutput() ProviderPtrOutput {
-	return o
-}
-
-func (o ProviderPtrOutput) ToProviderPtrOutputWithContext(ctx context.Context) ProviderPtrOutput {
-	return o
-}
-
-func (o ProviderPtrOutput) Elem() ProviderOutput {
-	return o.ApplyT(func(v *Provider) Provider {
-		if v != nil {
-			return *v
-		}
-		var ret Provider
-		return ret
-	}).(ProviderOutput)
-}
-
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderInput)(nil)).Elem(), &Provider{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ProviderPtrInput)(nil)).Elem(), &Provider{})
 	pulumi.RegisterOutputType(ProviderOutput{})
-	pulumi.RegisterOutputType(ProviderPtrOutput{})
 }

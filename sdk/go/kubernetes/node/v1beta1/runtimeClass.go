@@ -125,7 +125,7 @@ type RuntimeClassInput interface {
 }
 
 func (*RuntimeClass) ElementType() reflect.Type {
-	return reflect.TypeOf((*RuntimeClass)(nil))
+	return reflect.TypeOf((**RuntimeClass)(nil)).Elem()
 }
 
 func (i *RuntimeClass) ToRuntimeClassOutput() RuntimeClassOutput {
@@ -134,35 +134,6 @@ func (i *RuntimeClass) ToRuntimeClassOutput() RuntimeClassOutput {
 
 func (i *RuntimeClass) ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassOutput)
-}
-
-func (i *RuntimeClass) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
-	return i.ToRuntimeClassPtrOutputWithContext(context.Background())
-}
-
-func (i *RuntimeClass) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassPtrOutput)
-}
-
-type RuntimeClassPtrInput interface {
-	pulumi.Input
-
-	ToRuntimeClassPtrOutput() RuntimeClassPtrOutput
-	ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput
-}
-
-type runtimeClassPtrType RuntimeClassArgs
-
-func (*runtimeClassPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**RuntimeClass)(nil))
-}
-
-func (i *runtimeClassPtrType) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
-	return i.ToRuntimeClassPtrOutputWithContext(context.Background())
-}
-
-func (i *runtimeClassPtrType) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassPtrOutput)
 }
 
 // RuntimeClassArrayInput is an input type that accepts RuntimeClassArray and RuntimeClassArrayOutput values.
@@ -218,7 +189,7 @@ func (i RuntimeClassMap) ToRuntimeClassMapOutputWithContext(ctx context.Context)
 type RuntimeClassOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RuntimeClass)(nil))
+	return reflect.TypeOf((**RuntimeClass)(nil)).Elem()
 }
 
 func (o RuntimeClassOutput) ToRuntimeClassOutput() RuntimeClassOutput {
@@ -229,44 +200,10 @@ func (o RuntimeClassOutput) ToRuntimeClassOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o RuntimeClassOutput) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
-	return o.ToRuntimeClassPtrOutputWithContext(context.Background())
-}
-
-func (o RuntimeClassOutput) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v RuntimeClass) *RuntimeClass {
-		return &v
-	}).(RuntimeClassPtrOutput)
-}
-
-type RuntimeClassPtrOutput struct{ *pulumi.OutputState }
-
-func (RuntimeClassPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**RuntimeClass)(nil))
-}
-
-func (o RuntimeClassPtrOutput) ToRuntimeClassPtrOutput() RuntimeClassPtrOutput {
-	return o
-}
-
-func (o RuntimeClassPtrOutput) ToRuntimeClassPtrOutputWithContext(ctx context.Context) RuntimeClassPtrOutput {
-	return o
-}
-
-func (o RuntimeClassPtrOutput) Elem() RuntimeClassOutput {
-	return o.ApplyT(func(v *RuntimeClass) RuntimeClass {
-		if v != nil {
-			return *v
-		}
-		var ret RuntimeClass
-		return ret
-	}).(RuntimeClassOutput)
-}
-
 type RuntimeClassArrayOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]RuntimeClass)(nil))
+	return reflect.TypeOf((*[]*RuntimeClass)(nil)).Elem()
 }
 
 func (o RuntimeClassArrayOutput) ToRuntimeClassArrayOutput() RuntimeClassArrayOutput {
@@ -278,15 +215,15 @@ func (o RuntimeClassArrayOutput) ToRuntimeClassArrayOutputWithContext(ctx contex
 }
 
 func (o RuntimeClassArrayOutput) Index(i pulumi.IntInput) RuntimeClassOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RuntimeClass {
-		return vs[0].([]RuntimeClass)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RuntimeClass {
+		return vs[0].([]*RuntimeClass)[vs[1].(int)]
 	}).(RuntimeClassOutput)
 }
 
 type RuntimeClassMapOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]RuntimeClass)(nil))
+	return reflect.TypeOf((*map[string]*RuntimeClass)(nil)).Elem()
 }
 
 func (o RuntimeClassMapOutput) ToRuntimeClassMapOutput() RuntimeClassMapOutput {
@@ -298,18 +235,16 @@ func (o RuntimeClassMapOutput) ToRuntimeClassMapOutputWithContext(ctx context.Co
 }
 
 func (o RuntimeClassMapOutput) MapIndex(k pulumi.StringInput) RuntimeClassOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) RuntimeClass {
-		return vs[0].(map[string]RuntimeClass)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *RuntimeClass {
+		return vs[0].(map[string]*RuntimeClass)[vs[1].(string)]
 	}).(RuntimeClassOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassInput)(nil)).Elem(), &RuntimeClass{})
-	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassPtrInput)(nil)).Elem(), &RuntimeClass{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassArrayInput)(nil)).Elem(), RuntimeClassArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassMapInput)(nil)).Elem(), RuntimeClassMap{})
 	pulumi.RegisterOutputType(RuntimeClassOutput{})
-	pulumi.RegisterOutputType(RuntimeClassPtrOutput{})
 	pulumi.RegisterOutputType(RuntimeClassArrayOutput{})
 	pulumi.RegisterOutputType(RuntimeClassMapOutput{})
 }

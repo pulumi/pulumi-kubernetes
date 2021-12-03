@@ -106,7 +106,7 @@ type TokenRequestInput interface {
 }
 
 func (*TokenRequest) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenRequest)(nil))
+	return reflect.TypeOf((**TokenRequest)(nil)).Elem()
 }
 
 func (i *TokenRequest) ToTokenRequestOutput() TokenRequestOutput {
@@ -115,35 +115,6 @@ func (i *TokenRequest) ToTokenRequestOutput() TokenRequestOutput {
 
 func (i *TokenRequest) ToTokenRequestOutputWithContext(ctx context.Context) TokenRequestOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestOutput)
-}
-
-func (i *TokenRequest) ToTokenRequestPtrOutput() TokenRequestPtrOutput {
-	return i.ToTokenRequestPtrOutputWithContext(context.Background())
-}
-
-func (i *TokenRequest) ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestPtrOutput)
-}
-
-type TokenRequestPtrInput interface {
-	pulumi.Input
-
-	ToTokenRequestPtrOutput() TokenRequestPtrOutput
-	ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput
-}
-
-type tokenRequestPtrType TokenRequestArgs
-
-func (*tokenRequestPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokenRequest)(nil))
-}
-
-func (i *tokenRequestPtrType) ToTokenRequestPtrOutput() TokenRequestPtrOutput {
-	return i.ToTokenRequestPtrOutputWithContext(context.Background())
-}
-
-func (i *tokenRequestPtrType) ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestPtrOutput)
 }
 
 // TokenRequestArrayInput is an input type that accepts TokenRequestArray and TokenRequestArrayOutput values.
@@ -199,7 +170,7 @@ func (i TokenRequestMap) ToTokenRequestMapOutputWithContext(ctx context.Context)
 type TokenRequestOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*TokenRequest)(nil))
+	return reflect.TypeOf((**TokenRequest)(nil)).Elem()
 }
 
 func (o TokenRequestOutput) ToTokenRequestOutput() TokenRequestOutput {
@@ -210,44 +181,10 @@ func (o TokenRequestOutput) ToTokenRequestOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o TokenRequestOutput) ToTokenRequestPtrOutput() TokenRequestPtrOutput {
-	return o.ToTokenRequestPtrOutputWithContext(context.Background())
-}
-
-func (o TokenRequestOutput) ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequest) *TokenRequest {
-		return &v
-	}).(TokenRequestPtrOutput)
-}
-
-type TokenRequestPtrOutput struct{ *pulumi.OutputState }
-
-func (TokenRequestPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokenRequest)(nil))
-}
-
-func (o TokenRequestPtrOutput) ToTokenRequestPtrOutput() TokenRequestPtrOutput {
-	return o
-}
-
-func (o TokenRequestPtrOutput) ToTokenRequestPtrOutputWithContext(ctx context.Context) TokenRequestPtrOutput {
-	return o
-}
-
-func (o TokenRequestPtrOutput) Elem() TokenRequestOutput {
-	return o.ApplyT(func(v *TokenRequest) TokenRequest {
-		if v != nil {
-			return *v
-		}
-		var ret TokenRequest
-		return ret
-	}).(TokenRequestOutput)
-}
-
 type TokenRequestArrayOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]TokenRequest)(nil))
+	return reflect.TypeOf((*[]*TokenRequest)(nil)).Elem()
 }
 
 func (o TokenRequestArrayOutput) ToTokenRequestArrayOutput() TokenRequestArrayOutput {
@@ -259,15 +196,15 @@ func (o TokenRequestArrayOutput) ToTokenRequestArrayOutputWithContext(ctx contex
 }
 
 func (o TokenRequestArrayOutput) Index(i pulumi.IntInput) TokenRequestOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TokenRequest {
-		return vs[0].([]TokenRequest)[vs[1].(int)]
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *TokenRequest {
+		return vs[0].([]*TokenRequest)[vs[1].(int)]
 	}).(TokenRequestOutput)
 }
 
 type TokenRequestMapOutput struct{ *pulumi.OutputState }
 
 func (TokenRequestMapOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*map[string]TokenRequest)(nil))
+	return reflect.TypeOf((*map[string]*TokenRequest)(nil)).Elem()
 }
 
 func (o TokenRequestMapOutput) ToTokenRequestMapOutput() TokenRequestMapOutput {
@@ -279,18 +216,16 @@ func (o TokenRequestMapOutput) ToTokenRequestMapOutputWithContext(ctx context.Co
 }
 
 func (o TokenRequestMapOutput) MapIndex(k pulumi.StringInput) TokenRequestOutput {
-	return pulumi.All(o, k).ApplyT(func(vs []interface{}) TokenRequest {
-		return vs[0].(map[string]TokenRequest)[vs[1].(string)]
+	return pulumi.All(o, k).ApplyT(func(vs []interface{}) *TokenRequest {
+		return vs[0].(map[string]*TokenRequest)[vs[1].(string)]
 	}).(TokenRequestOutput)
 }
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestInput)(nil)).Elem(), &TokenRequest{})
-	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestPtrInput)(nil)).Elem(), &TokenRequest{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestArrayInput)(nil)).Elem(), TokenRequestArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestMapInput)(nil)).Elem(), TokenRequestMap{})
 	pulumi.RegisterOutputType(TokenRequestOutput{})
-	pulumi.RegisterOutputType(TokenRequestPtrOutput{})
 	pulumi.RegisterOutputType(TokenRequestArrayOutput{})
 	pulumi.RegisterOutputType(TokenRequestMapOutput{})
 }
