@@ -14,7 +14,7 @@
 
 package provider
 
-// Note: These types must match the types defined in the Go SDK (sdk/go/kubernetes/config/pulumiTypes.go).
+// Note: These types must match the types defined in the Go SDK (sdk/go/kubernetes/pulumiTypes.go).
 // Copying the types avoids having the provider depend on the SDK.
 
 // BETA FEATURE - Options to configure the Helm Release resource.
