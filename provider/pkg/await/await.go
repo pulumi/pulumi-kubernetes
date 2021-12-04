@@ -354,7 +354,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// - [ ] Support server-side apply, when it comes out.
 	//
 
-	client, err := c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
+	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nil, err
 	}
@@ -366,21 +366,32 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
-	patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
-	if err != nil {
-		return nil, err
-	}
+	var currentOutputs *unstructured.Unstructured
+	if clients.IsCRD(c.Inputs) {
+		// CRDs require special handling to update. Rather than computing a patch, replace the CRD with a PUT
+		// operation (equivalent to running `kubectl replace`). This is accomplished by getting the `resourceVersion`
+		// of the existing CRD, setting that as the `resourceVersion` in the request, and then running an update. This
+		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
+		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
+		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
+		currentOutputs, err = client.Update(context.TODO(), c.Inputs, metav1.UpdateOptions{})
+	} else {
+		// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
+		patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
+		if err != nil {
+			return nil, err
+		}
 
-	var options metav1.PatchOptions
-	if c.DryRun {
-		options.DryRun = []string{metav1.DryRunAll}
-	}
+		var options metav1.PatchOptions
+		if c.DryRun {
+			options.DryRun = []string{metav1.DryRunAll}
+		}
 
-	// Issue patch request.
-	// NOTE: We can use the same client because if the `kind` changes, this will cause
-	// a replace (i.e., destroy and create).
-	currentOutputs, err := client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, options)
+		// Issue patch request.
+		// NOTE: We can use the same client because if the `kind` changes, this will cause
+		// a replace (i.e., destroy and create).
+		currentOutputs, err = client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, options)
+	}
 	if err != nil {
 		return nil, err
 	}
