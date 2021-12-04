@@ -10,14 +10,16 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
+		ns, err := corev1.NewNamespace(ctx, "test", &corev1.NamespaceArgs{})
+		if err != nil {
+			return err
+		}
+
 		rel, err := helm.NewRelease(ctx, "test", &helm.ReleaseArgs{
-			Chart:   pulumi.String("nginx"),
-			Version: pulumi.String("6.0.4"),
-			RepositoryOpts: helm.RepositoryOptsArgs{
-				Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
-			},
-			Values:  pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
-			Timeout: pulumi.Int(300),
+			Chart:     pulumi.String("nginx"),
+			Namespace: ns.Metadata.Name(),
+			Values:    pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
+			Timeout:   pulumi.Int(300),
 		})
 		if err != nil {
 			return err

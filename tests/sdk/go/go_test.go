@@ -122,13 +122,14 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-release", "step1"),
 			Quick: true,
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join("helm-release", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Helm Release Local", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "helm-release-local", "step1"),
+			Quick: true,
 		})
 		integration.ProgramTest(t, &options)
 	})

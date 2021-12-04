@@ -610,8 +610,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			}
 		}
 	} else {
-		// Use client-go to resolve the final configuration values for the client. Typically these
-		// values would would reside in the $KUBECONFIG file, but can also be altered in several
+		// Use client-go to resolve the final configuration values for the client. Typically, these
+		// values would reside in the $KUBECONFIG file, but can also be altered in several
 		// places, including in env variables, client-go default values, and (if we allowed it) CLI
 		// flags.
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
