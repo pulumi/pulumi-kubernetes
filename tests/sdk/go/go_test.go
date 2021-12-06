@@ -34,6 +34,10 @@ var baseOptions = &integration.ProgramTestOptions{
 	Dependencies: []string{
 		"github.com/pulumi/pulumi-kubernetes/sdk/v3",
 	},
+	Env: []string{
+		"PULUMI_K8S_CLIENT_BURST=200",
+		"PULUMI_K8S_CLIENT_QPS=100",
+	},
 }
 
 // TestGo runs Go SDK tests sequentially to avoid OOM errors in CI

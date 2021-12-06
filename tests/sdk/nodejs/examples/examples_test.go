@@ -16,12 +16,6 @@ package examples
 
 import (
 	"fmt"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
-	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
-	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -29,6 +23,13 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
+	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestAccMinimal(t *testing.T) {
@@ -478,6 +479,10 @@ func getBaseOptions(t *testing.T) integration.ProgramTestOptions {
 	return integration.ProgramTestOptions{
 		Dependencies: []string{
 			"@pulumi/kubernetes",
+		},
+		Env: []string{
+			"PULUMI_K8S_CLIENT_BURST=200",
+			"PULUMI_K8S_CLIENT_QPS=100",
 		},
 	}
 }
