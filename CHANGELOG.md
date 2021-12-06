@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Add support for k8s v1.23.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1681)
+
 ## 3.11.0 (December 6, 2021)
 
 Breaking change note:
