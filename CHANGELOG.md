@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.11.0 (December 6, 2021)
+
 Breaking change note:
 
 [#1817](https://github.com/pulumi/pulumi-kubernetes/pull/1817) removed the deprecated providers/Provider
