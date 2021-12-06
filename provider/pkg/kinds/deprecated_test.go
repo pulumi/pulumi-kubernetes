@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -211,7 +211,7 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(ExtensionsV1B1, IngressList), &v120},
 		{toGVK(ExtensionsV1B1, PodSecurityPolicy), &v125},
 		{toGVK(PolicyV1B1, PodSecurityPolicy), &v125},
-		{toGVK(RbacV1A1, ClusterRole), &v122},
+		{toGVK(RbacV1A1, ClusterRole), &v120},
 		{toGVK(RbacV1B1, ClusterRole), &v122},
 		{toGVK(SchedulingV1A1, PriorityClass), &v117},
 		{toGVK(SchedulingV1B1, PriorityClass), &v117},
