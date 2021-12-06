@@ -329,8 +329,14 @@ jobs:
         run: |
           helm repo add stable https://charts.helm.sh/stable
           helm repo update
+      - name: Set up gotestfmt
+        uses: haveyoudebuggedit/gotestfmt-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run tests
-        run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout 2h -parallel 4 ./...
+        run: |
+          set -euo pipefail
+          cd tests/sdk/${{ matrix.language }} && go test -v -json -count=1 -cover -timeout 2h -parallel 4 ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
     strategy:
       fail-fast: false
       matrix:

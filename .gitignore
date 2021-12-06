@@ -12,3 +12,4 @@ Pulumi.*.yaml
 yarn.lock
 ci-scripts
 /nuget/
+**/.DS_Store
