@@ -37,6 +37,10 @@ var baseOptions = &integration.ProgramTestOptions{
 	Dependencies: []string{
 		filepath.Join("..", "..", "..", "sdk", "python", "bin"),
 	},
+	Env: []string{
+		"PULUMI_K8S_CLIENT_BURST=200",
+		"PULUMI_K8S_CLIENT_QPS=100",
+	},
 }
 
 func TestSmoke(t *testing.T) {

@@ -35,6 +35,10 @@ var baseOptions = &integration.ProgramTestOptions{
 	Dependencies: []string{
 		"Pulumi.Kubernetes",
 	},
+	Env: []string{
+		"PULUMI_K8S_CLIENT_BURST=200",
+		"PULUMI_K8S_CLIENT_QPS=100",
+	},
 }
 
 func TestDotnet_Basic(t *testing.T) {
