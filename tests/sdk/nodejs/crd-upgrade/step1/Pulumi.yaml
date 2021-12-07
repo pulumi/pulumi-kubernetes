@@ -1,0 +1,3 @@
+name: crd-upgrade
+description: A program that tests CRD upgrades.
+runtime: nodejs
