@@ -27,7 +27,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// <summary>
         /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
         /// </summary>
-        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction GRPC;
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction Grpc;
         /// <summary>
         /// HTTPGet specifies the http request to perform.
         /// </summary>
@@ -63,7 +63,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             int failureThreshold,
 
-            Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction gRPC,
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.GRPCAction grpc,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.HTTPGetAction httpGet,
 
@@ -81,7 +81,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         {
             Exec = exec;
             FailureThreshold = failureThreshold;
-            GRPC = gRPC;
+            Grpc = grpc;
             HttpGet = httpGet;
             InitialDelaySeconds = initialDelaySeconds;
             PeriodSeconds = periodSeconds;

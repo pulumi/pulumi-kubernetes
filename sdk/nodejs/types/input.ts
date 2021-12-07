@@ -9389,7 +9389,7 @@ export namespace core {
             /**
              * GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
              */
-            gRPC?: pulumi.Input<inputs.core.v1.GRPCAction>;
+            grpc?: pulumi.Input<inputs.core.v1.GRPCAction>;
             /**
              * HTTPGet specifies the http request to perform.
              */

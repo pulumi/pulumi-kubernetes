@@ -23876,7 +23876,7 @@ type Probe struct {
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
 	// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-	GRPC *GRPCAction `pulumi:"gRPC"`
+	Grpc *GRPCAction `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -23911,7 +23911,7 @@ type ProbeArgs struct {
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
 	// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-	GRPC GRPCActionPtrInput `pulumi:"gRPC"`
+	Grpc GRPCActionPtrInput `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -24017,8 +24017,8 @@ func (o ProbeOutput) FailureThreshold() pulumi.IntPtrOutput {
 }
 
 // GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-func (o ProbeOutput) GRPC() GRPCActionPtrOutput {
-	return o.ApplyT(func(v Probe) *GRPCAction { return v.GRPC }).(GRPCActionPtrOutput)
+func (o ProbeOutput) Grpc() GRPCActionPtrOutput {
+	return o.ApplyT(func(v Probe) *GRPCAction { return v.Grpc }).(GRPCActionPtrOutput)
 }
 
 // HTTPGet specifies the http request to perform.
@@ -24101,12 +24101,12 @@ func (o ProbePtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 }
 
 // GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
-func (o ProbePtrOutput) GRPC() GRPCActionPtrOutput {
+func (o ProbePtrOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *GRPCAction {
 		if v == nil {
 			return nil
 		}
-		return v.GRPC
+		return v.Grpc
 	}).(GRPCActionPtrOutput)
 }
 

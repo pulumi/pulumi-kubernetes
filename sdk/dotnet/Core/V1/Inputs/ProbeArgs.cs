@@ -30,8 +30,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// <summary>
         /// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
         /// </summary>
-        [Input("gRPC")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GRPCActionArgs>? GRPC { get; set; }
+        [Input("grpc")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GRPCActionArgs>? Grpc { get; set; }
 
         /// <summary>
         /// HTTPGet specifies the http request to perform.

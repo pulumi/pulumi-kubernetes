@@ -9604,7 +9604,7 @@ export namespace core {
             /**
              * GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
              */
-            gRPC: outputs.core.v1.GRPCAction;
+            grpc: outputs.core.v1.GRPCAction;
             /**
              * HTTPGet specifies the http request to perform.
              */

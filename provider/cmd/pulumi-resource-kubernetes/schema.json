@@ -17207,7 +17207,7 @@
                     "type": "integer",
                     "description": "Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1."
                 },
-                "gRPC": {
+                "grpc": {
                     "$ref": "#/types/kubernetes:core/v1:GRPCAction",
                     "description": "GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate."
                 },
@@ -17246,7 +17246,7 @@
                     "requiredOutputs": [
                         "exec",
                         "failureThreshold",
-                        "gRPC",
+                        "grpc",
                         "httpGet",
                         "initialDelaySeconds",
                         "periodSeconds",

@@ -10316,7 +10316,7 @@ class ProbeArgs:
     def __init__(__self__, *,
                  exec_: Optional[pulumi.Input['ExecActionArgs']] = None,
                  failure_threshold: Optional[pulumi.Input[int]] = None,
-                 g_rpc: Optional[pulumi.Input['GRPCActionArgs']] = None,
+                 grpc: Optional[pulumi.Input['GRPCActionArgs']] = None,
                  http_get: Optional[pulumi.Input['HTTPGetActionArgs']] = None,
                  initial_delay_seconds: Optional[pulumi.Input[int]] = None,
                  period_seconds: Optional[pulumi.Input[int]] = None,
@@ -10328,7 +10328,7 @@ class ProbeArgs:
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
         :param pulumi.Input['ExecActionArgs'] exec_: Exec specifies the action to take.
         :param pulumi.Input[int] failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
-        :param pulumi.Input['GRPCActionArgs'] g_rpc: GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+        :param pulumi.Input['GRPCActionArgs'] grpc: GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
         :param pulumi.Input['HTTPGetActionArgs'] http_get: HTTPGet specifies the http request to perform.
         :param pulumi.Input[int] initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param pulumi.Input[int] period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -10341,8 +10341,8 @@ class ProbeArgs:
             pulumi.set(__self__, "exec_", exec_)
         if failure_threshold is not None:
             pulumi.set(__self__, "failure_threshold", failure_threshold)
-        if g_rpc is not None:
-            pulumi.set(__self__, "g_rpc", g_rpc)
+        if grpc is not None:
+            pulumi.set(__self__, "grpc", grpc)
         if http_get is not None:
             pulumi.set(__self__, "http_get", http_get)
         if initial_delay_seconds is not None:
@@ -10383,16 +10383,16 @@ class ProbeArgs:
         pulumi.set(self, "failure_threshold", value)
 
     @property
-    @pulumi.getter(name="gRPC")
-    def g_rpc(self) -> Optional[pulumi.Input['GRPCActionArgs']]:
+    @pulumi.getter
+    def grpc(self) -> Optional[pulumi.Input['GRPCActionArgs']]:
         """
         GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
         """
-        return pulumi.get(self, "g_rpc")
+        return pulumi.get(self, "grpc")
 
-    @g_rpc.setter
-    def g_rpc(self, value: Optional[pulumi.Input['GRPCActionArgs']]):
-        pulumi.set(self, "g_rpc", value)
+    @grpc.setter
+    def grpc(self, value: Optional[pulumi.Input['GRPCActionArgs']]):
+        pulumi.set(self, "grpc", value)
 
     @property
     @pulumi.getter(name="httpGet")
