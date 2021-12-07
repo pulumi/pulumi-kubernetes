@@ -1015,7 +1015,7 @@ type IngressClassParametersReference struct {
 	Name string `pulumi:"name"`
 	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 	Namespace *string `pulumi:"namespace"`
-	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 	Scope *string `pulumi:"scope"`
 }
 
@@ -1040,7 +1040,7 @@ type IngressClassParametersReferenceArgs struct {
 	Name pulumi.StringInput `pulumi:"name"`
 	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 	Scope pulumi.StringPtrInput `pulumi:"scope"`
 }
 
@@ -1142,7 +1142,7 @@ func (o IngressClassParametersReferenceOutput) Namespace() pulumi.StringPtrOutpu
 	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 func (o IngressClassParametersReferenceOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Scope }).(pulumi.StringPtrOutput)
 }
@@ -1211,7 +1211,7 @@ func (o IngressClassParametersReferencePtrOutput) Namespace() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 func (o IngressClassParametersReferencePtrOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReference) *string {
 		if v == nil {

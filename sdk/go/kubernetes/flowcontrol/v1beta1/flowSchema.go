@@ -40,6 +40,9 @@ func NewFlowSchema(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema"),
 		},
+		{
+			Type: pulumi.String("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema"),
+		},
 	})
 	opts = append(opts, aliases)
 	var resource FlowSchema

@@ -32,6 +32,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Type of namespace controller condition.
+        /// 
+        /// Possible enum values:
+        ///  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
+        ///  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
+        ///  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
+        ///  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
+        ///  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

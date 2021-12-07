@@ -233,6 +233,11 @@ func (o CronJobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpec struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+	//
+	// Possible enum values:
+	//  - `"Allow"` allows CronJobs to run concurrently.
+	//  - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+	//  - `"Replace"` cancels currently running job and replaces it with a new one.
 	ConcurrencyPolicy *string `pulumi:"concurrencyPolicy"`
 	// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 	FailedJobsHistoryLimit *int `pulumi:"failedJobsHistoryLimit"`
@@ -262,6 +267,11 @@ type CronJobSpecInput interface {
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecArgs struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+	//
+	// Possible enum values:
+	//  - `"Allow"` allows CronJobs to run concurrently.
+	//  - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+	//  - `"Replace"` cancels currently running job and replaces it with a new one.
 	ConcurrencyPolicy pulumi.StringPtrInput `pulumi:"concurrencyPolicy"`
 	// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 	FailedJobsHistoryLimit pulumi.IntPtrInput `pulumi:"failedJobsHistoryLimit"`
@@ -356,6 +366,11 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+//
+// Possible enum values:
+//  - `"Allow"` allows CronJobs to run concurrently.
+//  - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+//  - `"Replace"` cancels currently running job and replaces it with a new one.
 func (o CronJobSpecOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *string { return v.ConcurrencyPolicy }).(pulumi.StringPtrOutput)
 }
@@ -415,6 +430,11 @@ func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+//
+// Possible enum values:
+//  - `"Allow"` allows CronJobs to run concurrently.
+//  - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
+//  - `"Replace"` cancels currently running job and replaces it with a new one.
 func (o CronJobSpecPtrOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CronJobSpec) *string {
 		if v == nil {
@@ -871,6 +891,11 @@ type JobCondition struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status string `pulumi:"status"`
 	// Type of job condition, Complete or Failed.
+	//
+	// Possible enum values:
+	//  - `"Complete"` means the job has completed its execution.
+	//  - `"Failed"` means the job has failed its execution.
+	//  - `"Suspended"` means the job has been suspended.
 	Type string `pulumi:"type"`
 }
 
@@ -898,6 +923,11 @@ type JobConditionArgs struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type of job condition, Complete or Failed.
+	//
+	// Possible enum values:
+	//  - `"Complete"` means the job has completed its execution.
+	//  - `"Failed"` means the job has failed its execution.
+	//  - `"Suspended"` means the job has been suspended.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -979,6 +1009,11 @@ func (o JobConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type of job condition, Complete or Failed.
+//
+// Possible enum values:
+//  - `"Complete"` means the job has completed its execution.
+//  - `"Failed"` means the job has failed its execution.
+//  - `"Suspended"` means the job has been suspended.
 func (o JobConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v JobCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -1113,7 +1148,7 @@ type JobSpec struct {
 	Suspend *bool `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpec `pulumi:"template"`
-	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
 	TtlSecondsAfterFinished *int `pulumi:"ttlSecondsAfterFinished"`
 }
 
@@ -1156,7 +1191,7 @@ type JobSpecArgs struct {
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
-	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+	// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
 	TtlSecondsAfterFinished pulumi.IntPtrInput `pulumi:"ttlSecondsAfterFinished"`
 }
 
@@ -1291,7 +1326,7 @@ func (o JobSpecOutput) Template() corev1.PodTemplateSpecOutput {
 	return o.ApplyT(func(v JobSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
 
-// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
 func (o JobSpecOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.TtlSecondsAfterFinished }).(pulumi.IntPtrOutput)
 }
@@ -1418,7 +1453,7 @@ func (o JobSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	}).(corev1.PodTemplateSpecPtrOutput)
 }
 
-// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+// ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
 func (o JobSpecPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *int {
 		if v == nil {
@@ -1430,7 +1465,7 @@ func (o JobSpecPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 
 // JobStatus represents the current state of a Job.
 type JobStatus struct {
-	// The number of actively running pods.
+	// The number of pending and running pods.
 	Active *int `pulumi:"active"`
 	// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 	CompletedIndexes *string `pulumi:"completedIndexes"`
@@ -1440,6 +1475,10 @@ type JobStatus struct {
 	Conditions []JobCondition `pulumi:"conditions"`
 	// The number of pods which reached phase Failed.
 	Failed *int `pulumi:"failed"`
+	// The number of pods which have a Ready condition.
+	//
+	// This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+	Ready *int `pulumi:"ready"`
 	// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 	StartTime *string `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
@@ -1449,7 +1488,7 @@ type JobStatus struct {
 	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
-	// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+	// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 	UncountedTerminatedPods *UncountedTerminatedPods `pulumi:"uncountedTerminatedPods"`
 }
 
@@ -1466,7 +1505,7 @@ type JobStatusInput interface {
 
 // JobStatus represents the current state of a Job.
 type JobStatusArgs struct {
-	// The number of actively running pods.
+	// The number of pending and running pods.
 	Active pulumi.IntPtrInput `pulumi:"active"`
 	// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 	CompletedIndexes pulumi.StringPtrInput `pulumi:"completedIndexes"`
@@ -1476,6 +1515,10 @@ type JobStatusArgs struct {
 	Conditions JobConditionArrayInput `pulumi:"conditions"`
 	// The number of pods which reached phase Failed.
 	Failed pulumi.IntPtrInput `pulumi:"failed"`
+	// The number of pods which have a Ready condition.
+	//
+	// This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+	Ready pulumi.IntPtrInput `pulumi:"ready"`
 	// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
@@ -1485,7 +1528,7 @@ type JobStatusArgs struct {
 	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
-	// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+	// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 	UncountedTerminatedPods UncountedTerminatedPodsPtrInput `pulumi:"uncountedTerminatedPods"`
 }
 
@@ -1567,7 +1610,7 @@ func (o JobStatusOutput) ToJobStatusPtrOutputWithContext(ctx context.Context) Jo
 	}).(JobStatusPtrOutput)
 }
 
-// The number of actively running pods.
+// The number of pending and running pods.
 func (o JobStatusOutput) Active() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
 }
@@ -1592,6 +1635,13 @@ func (o JobStatusOutput) Failed() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Failed }).(pulumi.IntPtrOutput)
 }
 
+// The number of pods which have a Ready condition.
+//
+// This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+func (o JobStatusOutput) Ready() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v JobStatus) *int { return v.Ready }).(pulumi.IntPtrOutput)
+}
+
 // Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 func (o JobStatusOutput) StartTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatus) *string { return v.StartTime }).(pulumi.StringPtrOutput)
@@ -1607,7 +1657,7 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 // The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 //     counter.
 //
-// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
 	return o.ApplyT(func(v JobStatus) *UncountedTerminatedPods { return v.UncountedTerminatedPods }).(UncountedTerminatedPodsPtrOutput)
 }
@@ -1636,7 +1686,7 @@ func (o JobStatusPtrOutput) Elem() JobStatusOutput {
 	}).(JobStatusOutput)
 }
 
-// The number of actively running pods.
+// The number of pending and running pods.
 func (o JobStatusPtrOutput) Active() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *int {
 		if v == nil {
@@ -1686,6 +1736,18 @@ func (o JobStatusPtrOutput) Failed() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// The number of pods which have a Ready condition.
+//
+// This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+func (o JobStatusPtrOutput) Ready() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *JobStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Ready
+	}).(pulumi.IntPtrOutput)
+}
+
 // Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
 func (o JobStatusPtrOutput) StartTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *string {
@@ -1711,7 +1773,7 @@ func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
 // The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 //     counter.
 //
-// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *UncountedTerminatedPods {
 		if v == nil {

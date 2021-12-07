@@ -29,6 +29,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        /// 
+        /// Possible enum values:
+        ///  - `"SCTP"` is the SCTP protocol.
+        ///  - `"TCP"` is the TCP protocol.
+        ///  - `"UDP"` is the UDP protocol.
         /// </summary>
         [Input("protocol", required: true)]
         public Input<string> Protocol { get; set; } = null!;

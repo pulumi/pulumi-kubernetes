@@ -83,6 +83,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
                 Aliases =
                 {
                     new Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchema"},
+                    new Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

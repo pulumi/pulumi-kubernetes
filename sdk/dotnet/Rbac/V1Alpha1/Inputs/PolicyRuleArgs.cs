@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
         private InputList<string>? _nonResourceURLs;
 
         /// <summary>
-        /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
+        /// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path This name is intentionally different than the internal type so that the DefaultConvert works nicely and because the ordering may be different. Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
         /// </summary>
         public InputList<string> NonResourceURLs
         {
@@ -55,7 +55,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
         private InputList<string>? _resources;
 
         /// <summary>
-        /// Resources is a list of resources this rule applies to. '*' represents all resources.
+        /// Resources is a list of resources this rule applies to.  ResourceAll represents all resources.
         /// </summary>
         public InputList<string> Resources
         {
@@ -67,7 +67,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
         private InputList<string>? _verbs;
 
         /// <summary>
-        /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule. '*' represents all verbs.
+        /// Verbs is a list of Verbs that apply to ALL the ResourceKinds and AttributeRestrictions contained in this rule.  VerbAll represents all kinds.
         /// </summary>
         public InputList<string> Verbs
         {

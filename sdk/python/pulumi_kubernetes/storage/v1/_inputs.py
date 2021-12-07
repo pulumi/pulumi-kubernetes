@@ -41,7 +41,7 @@ class CSIDriverSpecArgs:
         :param pulumi.Input[bool] attach_required: attachRequired indicates this CSI volume driver requires an attach operation (because it implements the CSI ControllerPublishVolume() method), and that the Kubernetes attach detach controller should call the attach volume interface which checks the volumeattachment status and waits until the volume is attached before proceeding to mounting. The CSI external-attacher coordinates with CSI volume driver and updates the volumeattachment status when the attach operation is complete. If the CSIDriverRegistry feature gate is enabled and the value is specified to false, the attach operation will be skipped. Otherwise the attach operation will be called.
                
                This field is immutable.
-        :param pulumi.Input[str] fs_group_policy: Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+        :param pulumi.Input[str] fs_group_policy: Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
                
                This field is immutable.
                
@@ -61,7 +61,7 @@ class CSIDriverSpecArgs:
                
                Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
                
-               This field is immutable.
+               This field was immutable in Kubernetes <= 1.22 and now is mutable.
                
                This is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.
         :param pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]] token_requests: TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
@@ -110,7 +110,7 @@ class CSIDriverSpecArgs:
     @pulumi.getter(name="fsGroupPolicy")
     def fs_group_policy(self) -> Optional[pulumi.Input[str]]:
         """
-        Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+        Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
 
         This field is immutable.
 
@@ -163,7 +163,7 @@ class CSIDriverSpecArgs:
 
         Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
 
-        This field is immutable.
+        This field was immutable in Kubernetes <= 1.22 and now is mutable.
 
         This is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.
         """

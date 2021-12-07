@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public Input<string>? Namespace { get; set; }
 
         /// <summary>
-        /// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace". Field can be enabled with IngressClassNamespacedParams feature gate.
+        /// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
         /// </summary>
         [Input("scope")]
         public Input<string>? Scope { get; set; }

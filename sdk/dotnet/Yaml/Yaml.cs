@@ -113,6 +113,8 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Authorization.V1Beta1.SubjectAccessReview) ? "authorization.k8s.io/v1beta1/SubjectAccessReview" :
                 type == typeof(Autoscaling.V1.HorizontalPodAutoscaler) ? "autoscaling/v1/HorizontalPodAutoscaler" :
                 type == typeof(Autoscaling.V1.HorizontalPodAutoscalerList) ? "autoscaling/v1/HorizontalPodAutoscalerList" :
+                type == typeof(Autoscaling.V2.HorizontalPodAutoscaler) ? "autoscaling/v2/HorizontalPodAutoscaler" :
+                type == typeof(Autoscaling.V2.HorizontalPodAutoscalerList) ? "autoscaling/v2/HorizontalPodAutoscalerList" :
                 type == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscaler) ? "autoscaling/v2beta1/HorizontalPodAutoscaler" :
                 type == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscalerList) ? "autoscaling/v2beta1/HorizontalPodAutoscalerList" :
                 type == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscaler) ? "autoscaling/v2beta2/HorizontalPodAutoscaler" :
@@ -192,6 +194,10 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(FlowControl.V1Beta1.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList" :
                 type == typeof(FlowControl.V1Beta1.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration" :
                 type == typeof(FlowControl.V1Beta1.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList" :
+                type == typeof(FlowControl.V1Beta2.FlowSchema) ? "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchema" :
+                type == typeof(FlowControl.V1Beta2.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList" :
+                type == typeof(FlowControl.V1Beta2.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration" :
+                type == typeof(FlowControl.V1Beta2.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList" :
                 type == typeof(Meta.V1.Status) ? "meta/v1/Status" :
                 type == typeof(Networking.V1.Ingress) ? "networking.k8s.io/v1/Ingress" :
                 type == typeof(Networking.V1.IngressClass) ? "networking.k8s.io/v1/IngressClass" :
@@ -498,6 +504,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "apps/v1beta2/StatefulSetList"
                 || gvk == "auditregistration.k8s.io/v1alpha1/AuditSinkList"
                 || gvk == "autoscaling/v1/HorizontalPodAutoscalerList"
+                || gvk == "autoscaling/v2/HorizontalPodAutoscalerList"
                 || gvk == "autoscaling/v2beta1/HorizontalPodAutoscalerList"
                 || gvk == "autoscaling/v2beta2/HorizontalPodAutoscalerList"
                 || gvk == "batch/v1/CronJobList"
@@ -537,6 +544,8 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList"
                 || gvk == "networking.k8s.io/v1/IngressClassList"
                 || gvk == "networking.k8s.io/v1/IngressList"
                 || gvk == "networking.k8s.io/v1/NetworkPolicyList"
@@ -818,6 +827,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"autoscaling/v1/HorizontalPodAutoscaler::{id}",
                                 new Autoscaling.V1.HorizontalPodAutoscaler(id, obj!, opts) as KubernetesResource))
                         };
+                    case "autoscaling/v2/HorizontalPodAutoscaler":
+                        return new[]
+                        {
+                            id.Apply(id => ($"autoscaling/v2/HorizontalPodAutoscaler::{id}",
+                                new Autoscaling.V2.HorizontalPodAutoscaler(id, obj!, opts) as KubernetesResource))
+                        };
                     case "autoscaling/v2beta1/HorizontalPodAutoscaler":
                         return new[]
                         {
@@ -1057,6 +1072,18 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration::{id}",
                                 new FlowControl.V1Beta1.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchema":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta2/FlowSchema::{id}",
+                                new FlowControl.V1Beta2.FlowSchema(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration::{id}",
+                                new FlowControl.V1Beta2.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
                         };
                     case "meta/v1/Status":
                         return new[]

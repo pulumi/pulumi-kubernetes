@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Rbac.V1Alpha1
 {
     /// <summary>
-    /// RoleList is a collection of Roles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.22.
+    /// RoleList is a collection of Roles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
     /// </summary>
     [KubernetesResourceType("kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList")]
     public partial class RoleList : KubernetesResource

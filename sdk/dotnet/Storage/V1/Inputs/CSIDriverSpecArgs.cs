@@ -24,7 +24,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<bool>? AttachRequired { get; set; }
 
         /// <summary>
-        /// Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details. This field is beta, and is only honored by servers that enable the CSIVolumeFSGroupPolicy feature gate.
+        /// Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
         /// 
         /// This field is immutable.
         /// 
@@ -59,7 +59,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// 
         /// Alternatively, the driver can be deployed with the field unset or false and it can be flipped later when storage capacity information has been published.
         /// 
-        /// This field is immutable.
+        /// This field was immutable in Kubernetes &lt;= 1.22 and now is mutable.
         /// 
         /// This is a beta field and only available when the CSIStorageCapacity feature is enabled. The default is false.
         /// </summary>

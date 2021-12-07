@@ -34,6 +34,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         public readonly Union<int, string> Port;
         /// <summary>
         /// Scheme to use for connecting to the host. Defaults to HTTP.
+        /// 
+        /// Possible enum values:
+        ///  - `"HTTP"` means that the scheme used will be http://
+        ///  - `"HTTPS"` means that the scheme used will be https://
         /// </summary>
         public readonly string Scheme;
 

@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ import (
 // apiextensions/v1beta1/CustomResourceDefinition / 1.16 / 1.22 (Previously 1.19)
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals
 //
-// rbac/v1alpha1/* / 1.17 / 1.22
+// rbac/v1alpha1/* / 1.17 / 1.20
 // rbac/v1beta1/* / 1.17 / 1.22
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals
 //
@@ -285,7 +285,9 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 			return &v120
 		}
 		return &v116
-	case RbacV1A1, RbacV1B1:
+	case RbacV1A1:
+		return &v120
+	case RbacV1B1:
 		return &v122
 	case SchedulingV1A1, SchedulingV1B1:
 		return &v117

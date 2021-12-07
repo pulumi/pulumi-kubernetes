@@ -118,6 +118,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
         /// x-kubernetes-preserve-unknown-fields stops the API server decoding step from pruning fields which are not specified in the validation schema. This affects fields recursively, but switches back to normal pruning behaviour if nested properties or additionalProperties are specified in the schema. This can either be true or undefined. False is forbidden.
         /// </summary>
         public readonly bool X_kubernetes_preserve_unknown_fields;
+        /// <summary>
+        /// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.ValidationRule> X_kubernetes_validations;
 
         [OutputConstructor]
         private JSONSchemaProps(
@@ -205,7 +209,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
 
             string x_kubernetes_map_type,
 
-            bool x_kubernetes_preserve_unknown_fields)
+            bool x_kubernetes_preserve_unknown_fields,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1.ValidationRule> x_kubernetes_validations)
         {
             Ref = @ref;
             Schema = schema;
@@ -250,6 +256,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.ApiExtensions.V1
             X_kubernetes_list_type = x_kubernetes_list_type;
             X_kubernetes_map_type = x_kubernetes_map_type;
             X_kubernetes_preserve_unknown_fields = x_kubernetes_preserve_unknown_fields;
+            X_kubernetes_validations = x_kubernetes_validations;
         }
     }
 }

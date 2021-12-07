@@ -46,7 +46,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? ObservedGeneration { get; set; }
 
         /// <summary>
-        /// The number of ready replicas for this replica set.
+        /// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
         /// </summary>
         [Input("readyReplicas")]
         public Input<int>? ReadyReplicas { get; set; }

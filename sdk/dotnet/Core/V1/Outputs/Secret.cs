@@ -51,7 +51,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableDictionary<string, string> StringData;
         /// <summary>
-        /// Used to facilitate programmatic handling of secret data.
+        /// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
         /// </summary>
         public readonly string Type;
 

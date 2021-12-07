@@ -42,6 +42,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("status", required: true)]
         public Input<string> Status { get; set; } = null!;
 
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        /// Possible enum values:
+        ///  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
+        ///  - `"Resizing"` - a user trigger resize of pvc has been started
+        /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
 

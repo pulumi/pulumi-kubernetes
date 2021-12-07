@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
     public sealed class JobStatus
     {
         /// <summary>
-        /// The number of actively running pods.
+        /// The number of pending and running pods.
         /// </summary>
         public readonly int Active;
         /// <summary>
@@ -37,6 +37,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// </summary>
         public readonly int Failed;
         /// <summary>
+        /// The number of pods which have a Ready condition.
+        /// 
+        /// This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+        /// </summary>
+        public readonly int Ready;
+        /// <summary>
         /// Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
         /// </summary>
         public readonly string StartTime;
@@ -50,7 +56,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
         ///     counter.
         /// 
-        /// This field is alpha-level. The job controller only makes use of this field when the feature gate PodTrackingWithFinalizers is enabled. Old jobs might not be tracked using this field, in which case the field remains null.
+        /// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Batch.V1.UncountedTerminatedPods UncountedTerminatedPods;
 
@@ -66,6 +72,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 
             int failed,
 
+            int ready,
+
             string startTime,
 
             int succeeded,
@@ -77,6 +85,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
             CompletionTime = completionTime;
             Conditions = conditions;
             Failed = failed;
+            Ready = ready;
             StartTime = startTime;
             Succeeded = succeeded;
             UncountedTerminatedPods = uncountedTerminatedPods;

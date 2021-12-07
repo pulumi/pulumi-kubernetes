@@ -33,6 +33,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Reason;
         public readonly string Status;
+        /// <summary>
+        /// 
+        /// 
+        /// 
+        /// Possible enum values:
+        ///  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
+        ///  - `"Resizing"` - a user trigger resize of pvc has been started
+        /// </summary>
         public readonly string Type;
 
         [OutputConstructor]

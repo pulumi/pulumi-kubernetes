@@ -17,6 +17,11 @@ namespace Pulumi.Kubernetes.Discovery.V1
     {
         /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+        /// 
+        /// Possible enum values:
+        ///  - `"FQDN"` represents a FQDN.
+        ///  - `"IPv4"` represents an IPv4 Address.
+        ///  - `"IPv6"` represents an IPv6 Address.
         /// </summary>
         [Output("addressType")]
         public Output<string> AddressType { get; private set; } = null!;
@@ -117,6 +122,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
     {
         /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+        /// 
+        /// Possible enum values:
+        ///  - `"FQDN"` represents a FQDN.
+        ///  - `"IPv4"` represents an IPv4 Address.
+        ///  - `"IPv6"` represents an IPv6 Address.
         /// </summary>
         [Input("addressType", required: true)]
         public Input<string> AddressType { get; set; } = null!;

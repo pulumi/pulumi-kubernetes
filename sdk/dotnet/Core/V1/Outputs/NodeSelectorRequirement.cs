@@ -22,6 +22,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         public readonly string Key;
         /// <summary>
         /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+        /// 
+        /// Possible enum values:
+        ///  - `"DoesNotExist"`
+        ///  - `"Exists"`
+        ///  - `"Gt"`
+        ///  - `"In"`
+        ///  - `"Lt"`
+        ///  - `"NotIn"`
         /// </summary>
         public readonly string Operator;
         /// <summary>

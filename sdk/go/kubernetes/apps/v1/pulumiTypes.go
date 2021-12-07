@@ -814,7 +814,7 @@ type DaemonSetStatus struct {
 	NumberAvailable *int `pulumi:"numberAvailable"`
 	// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 	NumberMisscheduled int `pulumi:"numberMisscheduled"`
-	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+	// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
 	NumberReady int `pulumi:"numberReady"`
 	// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberUnavailable *int `pulumi:"numberUnavailable"`
@@ -849,7 +849,7 @@ type DaemonSetStatusArgs struct {
 	NumberAvailable pulumi.IntPtrInput `pulumi:"numberAvailable"`
 	// The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
 	NumberMisscheduled pulumi.IntInput `pulumi:"numberMisscheduled"`
-	// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+	// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
 	NumberReady pulumi.IntInput `pulumi:"numberReady"`
 	// The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
 	NumberUnavailable pulumi.IntPtrInput `pulumi:"numberUnavailable"`
@@ -967,7 +967,7 @@ func (o DaemonSetStatusOutput) NumberMisscheduled() pulumi.IntOutput {
 	return o.ApplyT(func(v DaemonSetStatus) int { return v.NumberMisscheduled }).(pulumi.IntOutput)
 }
 
-// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
 func (o DaemonSetStatusOutput) NumberReady() pulumi.IntOutput {
 	return o.ApplyT(func(v DaemonSetStatus) int { return v.NumberReady }).(pulumi.IntOutput)
 }
@@ -1071,7 +1071,7 @@ func (o DaemonSetStatusPtrOutput) NumberMisscheduled() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+// numberReady is the number of nodes that should be running the daemon pod and have one or more of the daemon pod running with a Ready Condition.
 func (o DaemonSetStatusPtrOutput) NumberReady() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DaemonSetStatus) *int {
 		if v == nil {
@@ -1116,6 +1116,10 @@ type DaemonSetUpdateStrategy struct {
 	// Rolling update config params. Present only if type = "RollingUpdate".
 	RollingUpdate *RollingUpdateDaemonSet `pulumi:"rollingUpdate"`
 	// Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+	//
+	// Possible enum values:
+	//  - `"OnDelete"` Replace the old daemons only when it's killed
+	//  - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 	Type *string `pulumi:"type"`
 }
 
@@ -1135,6 +1139,10 @@ type DaemonSetUpdateStrategyArgs struct {
 	// Rolling update config params. Present only if type = "RollingUpdate".
 	RollingUpdate RollingUpdateDaemonSetPtrInput `pulumi:"rollingUpdate"`
 	// Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+	//
+	// Possible enum values:
+	//  - `"OnDelete"` Replace the old daemons only when it's killed
+	//  - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -1222,6 +1230,10 @@ func (o DaemonSetUpdateStrategyOutput) RollingUpdate() RollingUpdateDaemonSetPtr
 }
 
 // Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+//
+// Possible enum values:
+//  - `"OnDelete"` Replace the old daemons only when it's killed
+//  - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 func (o DaemonSetUpdateStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DaemonSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -1261,6 +1273,10 @@ func (o DaemonSetUpdateStrategyPtrOutput) RollingUpdate() RollingUpdateDaemonSet
 }
 
 // Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+//
+// Possible enum values:
+//  - `"OnDelete"` Replace the old daemons only when it's killed
+//  - `"RollingUpdate"` Replace the old daemons by new ones using rolling update i.e replace them on each node one after the other.
 func (o DaemonSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DaemonSetUpdateStrategy) *string {
 		if v == nil {
@@ -1982,7 +1998,7 @@ type DeploymentStatus struct {
 	Conditions []DeploymentCondition `pulumi:"conditions"`
 	// The generation observed by the deployment controller.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// Total number of ready pods targeted by this deployment.
+	// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
 	Replicas *int `pulumi:"replicas"`
@@ -2013,7 +2029,7 @@ type DeploymentStatusArgs struct {
 	Conditions DeploymentConditionArrayInput `pulumi:"conditions"`
 	// The generation observed by the deployment controller.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// Total number of ready pods targeted by this deployment.
+	// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// Total number of non-terminated pods targeted by this deployment (their labels match the selector).
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -2121,7 +2137,7 @@ func (o DeploymentStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// Total number of ready pods targeted by this deployment.
+// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
 func (o DeploymentStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v DeploymentStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
@@ -2205,7 +2221,7 @@ func (o DeploymentStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Total number of ready pods targeted by this deployment.
+// readyReplicas is the number of pods targeted by this Deployment with a Ready Condition.
 func (o DeploymentStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DeploymentStatus) *int {
 		if v == nil {
@@ -2250,6 +2266,10 @@ type DeploymentStrategy struct {
 	// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 	RollingUpdate *RollingUpdateDeployment `pulumi:"rollingUpdate"`
 	// Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+	//
+	// Possible enum values:
+	//  - `"Recreate"` Kill all existing pods before creating new ones.
+	//  - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 	Type *string `pulumi:"type"`
 }
 
@@ -2269,6 +2289,10 @@ type DeploymentStrategyArgs struct {
 	// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
 	RollingUpdate RollingUpdateDeploymentPtrInput `pulumi:"rollingUpdate"`
 	// Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+	//
+	// Possible enum values:
+	//  - `"Recreate"` Kill all existing pods before creating new ones.
+	//  - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -2356,6 +2380,10 @@ func (o DeploymentStrategyOutput) RollingUpdate() RollingUpdateDeploymentPtrOutp
 }
 
 // Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+//
+// Possible enum values:
+//  - `"Recreate"` Kill all existing pods before creating new ones.
+//  - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 func (o DeploymentStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DeploymentStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -2395,6 +2423,10 @@ func (o DeploymentStrategyPtrOutput) RollingUpdate() RollingUpdateDeploymentPtrO
 }
 
 // Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+//
+// Possible enum values:
+//  - `"Recreate"` Kill all existing pods before creating new ones.
+//  - `"RollingUpdate"` Replace the old ReplicaSets by new one using rolling update i.e gradually scale down the old ReplicaSets and scale up the new one.
 func (o DeploymentStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DeploymentStrategy) *string {
 		if v == nil {
@@ -2965,7 +2997,7 @@ type ReplicaSetStatus struct {
 	FullyLabeledReplicas *int `pulumi:"fullyLabeledReplicas"`
 	// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// The number of ready replicas for this replica set.
+	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas int `pulumi:"replicas"`
@@ -2992,7 +3024,7 @@ type ReplicaSetStatusArgs struct {
 	FullyLabeledReplicas pulumi.IntPtrInput `pulumi:"fullyLabeledReplicas"`
 	// ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// The number of ready replicas for this replica set.
+	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas pulumi.IntInput `pulumi:"replicas"`
@@ -3096,7 +3128,7 @@ func (o ReplicaSetStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// The number of ready replicas for this replica set.
+// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 func (o ReplicaSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
@@ -3170,7 +3202,7 @@ func (o ReplicaSetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// The number of ready replicas for this replica set.
+// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 func (o ReplicaSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -4050,11 +4082,176 @@ func (o StatefulSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v StatefulSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+type StatefulSetPersistentVolumeClaimRetentionPolicy struct {
+	// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+	WhenDeleted *string `pulumi:"whenDeleted"`
+	// WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+	WhenScaled *string `pulumi:"whenScaled"`
+}
+
+// StatefulSetPersistentVolumeClaimRetentionPolicyInput is an input type that accepts StatefulSetPersistentVolumeClaimRetentionPolicyArgs and StatefulSetPersistentVolumeClaimRetentionPolicyOutput values.
+// You can construct a concrete instance of `StatefulSetPersistentVolumeClaimRetentionPolicyInput` via:
+//
+//          StatefulSetPersistentVolumeClaimRetentionPolicyArgs{...}
+type StatefulSetPersistentVolumeClaimRetentionPolicyInput interface {
+	pulumi.Input
+
+	ToStatefulSetPersistentVolumeClaimRetentionPolicyOutput() StatefulSetPersistentVolumeClaimRetentionPolicyOutput
+	ToStatefulSetPersistentVolumeClaimRetentionPolicyOutputWithContext(context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyOutput
+}
+
+// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+type StatefulSetPersistentVolumeClaimRetentionPolicyArgs struct {
+	// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+	WhenDeleted pulumi.StringPtrInput `pulumi:"whenDeleted"`
+	// WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+	WhenScaled pulumi.StringPtrInput `pulumi:"whenScaled"`
+}
+
+func (StatefulSetPersistentVolumeClaimRetentionPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetPersistentVolumeClaimRetentionPolicy)(nil)).Elem()
+}
+
+func (i StatefulSetPersistentVolumeClaimRetentionPolicyArgs) ToStatefulSetPersistentVolumeClaimRetentionPolicyOutput() StatefulSetPersistentVolumeClaimRetentionPolicyOutput {
+	return i.ToStatefulSetPersistentVolumeClaimRetentionPolicyOutputWithContext(context.Background())
+}
+
+func (i StatefulSetPersistentVolumeClaimRetentionPolicyArgs) ToStatefulSetPersistentVolumeClaimRetentionPolicyOutputWithContext(ctx context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetPersistentVolumeClaimRetentionPolicyOutput)
+}
+
+func (i StatefulSetPersistentVolumeClaimRetentionPolicyArgs) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return i.ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i StatefulSetPersistentVolumeClaimRetentionPolicyArgs) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(ctx context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetPersistentVolumeClaimRetentionPolicyOutput).ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(ctx)
+}
+
+// StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput is an input type that accepts StatefulSetPersistentVolumeClaimRetentionPolicyArgs, StatefulSetPersistentVolumeClaimRetentionPolicyPtr and StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput values.
+// You can construct a concrete instance of `StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput` via:
+//
+//          StatefulSetPersistentVolumeClaimRetentionPolicyArgs{...}
+//
+//  or:
+//
+//          nil
+type StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput interface {
+	pulumi.Input
+
+	ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput
+	ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput
+}
+
+type statefulSetPersistentVolumeClaimRetentionPolicyPtrType StatefulSetPersistentVolumeClaimRetentionPolicyArgs
+
+func StatefulSetPersistentVolumeClaimRetentionPolicyPtr(v *StatefulSetPersistentVolumeClaimRetentionPolicyArgs) StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput {
+	return (*statefulSetPersistentVolumeClaimRetentionPolicyPtrType)(v)
+}
+
+func (*statefulSetPersistentVolumeClaimRetentionPolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatefulSetPersistentVolumeClaimRetentionPolicy)(nil)).Elem()
+}
+
+func (i *statefulSetPersistentVolumeClaimRetentionPolicyPtrType) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return i.ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *statefulSetPersistentVolumeClaimRetentionPolicyPtrType) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(ctx context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput)
+}
+
+// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
+type StatefulSetPersistentVolumeClaimRetentionPolicyOutput struct{ *pulumi.OutputState }
+
+func (StatefulSetPersistentVolumeClaimRetentionPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetPersistentVolumeClaimRetentionPolicy)(nil)).Elem()
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyOutput) ToStatefulSetPersistentVolumeClaimRetentionPolicyOutput() StatefulSetPersistentVolumeClaimRetentionPolicyOutput {
+	return o
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyOutput) ToStatefulSetPersistentVolumeClaimRetentionPolicyOutputWithContext(ctx context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyOutput {
+	return o
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyOutput) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return o.ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(context.Background())
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyOutput) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(ctx context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetPersistentVolumeClaimRetentionPolicy) *StatefulSetPersistentVolumeClaimRetentionPolicy {
+		return &v
+	}).(StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput)
+}
+
+// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyOutput) WhenDeleted() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatefulSetPersistentVolumeClaimRetentionPolicy) *string { return v.WhenDeleted }).(pulumi.StringPtrOutput)
+}
+
+// WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyOutput) WhenScaled() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StatefulSetPersistentVolumeClaimRetentionPolicy) *string { return v.WhenScaled }).(pulumi.StringPtrOutput)
+}
+
+type StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatefulSetPersistentVolumeClaimRetentionPolicy)(nil)).Elem()
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return o
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput) ToStatefulSetPersistentVolumeClaimRetentionPolicyPtrOutputWithContext(ctx context.Context) StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return o
+}
+
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput) Elem() StatefulSetPersistentVolumeClaimRetentionPolicyOutput {
+	return o.ApplyT(func(v *StatefulSetPersistentVolumeClaimRetentionPolicy) StatefulSetPersistentVolumeClaimRetentionPolicy {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetPersistentVolumeClaimRetentionPolicy
+		return ret
+	}).(StatefulSetPersistentVolumeClaimRetentionPolicyOutput)
+}
+
+// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput) WhenDeleted() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatefulSetPersistentVolumeClaimRetentionPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WhenDeleted
+	}).(pulumi.StringPtrOutput)
+}
+
+// WhenScaled specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is scaled down. The default policy of `Retain` causes PVCs to not be affected by a scaledown. The `Delete` policy causes the associated PVCs for any excess pods above the replica count to be deleted.
+func (o StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput) WhenScaled() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StatefulSetPersistentVolumeClaimRetentionPolicy) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WhenScaled
+	}).(pulumi.StringPtrOutput)
+}
+
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpec struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
+	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicy `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+	//
+	// Possible enum values:
+	//  - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+	//  - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
 	PodManagementPolicy *string `pulumi:"podManagementPolicy"`
 	// replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
 	Replicas *int `pulumi:"replicas"`
@@ -4087,7 +4284,13 @@ type StatefulSetSpecInput interface {
 type StatefulSetSpecArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
+	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+	//
+	// Possible enum values:
+	//  - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+	//  - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
 	PodManagementPolicy pulumi.StringPtrInput `pulumi:"podManagementPolicy"`
 	// replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
@@ -4188,7 +4391,18 @@ func (o StatefulSetSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
+// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+func (o StatefulSetSpecOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetPersistentVolumeClaimRetentionPolicy {
+		return v.PersistentVolumeClaimRetentionPolicy
+	}).(StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput)
+}
+
 // podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+//
+// Possible enum values:
+//  - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+//  - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
 func (o StatefulSetSpecOutput) PodManagementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *string { return v.PodManagementPolicy }).(pulumi.StringPtrOutput)
 }
@@ -4262,7 +4476,21 @@ func (o StatefulSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
+func (o StatefulSetSpecPtrOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
+	return o.ApplyT(func(v *StatefulSetSpec) *StatefulSetPersistentVolumeClaimRetentionPolicy {
+		if v == nil {
+			return nil
+		}
+		return v.PersistentVolumeClaimRetentionPolicy
+	}).(StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput)
+}
+
 // podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+//
+// Possible enum values:
+//  - `"OrderedReady"` will create pods in strictly increasing order on scale up and strictly decreasing order on scale down, progressing only when the previous pod is ready or terminated. At most one pod will be changed at any time.
+//  - `"Parallel"` will create and delete pods as soon as the stateful set replica count is changed, and will not wait for pods to be ready or complete termination.
 func (o StatefulSetSpecPtrOutput) PodManagementPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpec) *string {
 		if v == nil {
@@ -4344,8 +4572,8 @@ func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolume
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatus struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
-	AvailableReplicas *int `pulumi:"availableReplicas"`
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+	AvailableReplicas int `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
 	// Represents the latest available observations of a statefulset's current state.
@@ -4356,7 +4584,7 @@ type StatefulSetStatus struct {
 	CurrentRevision *string `pulumi:"currentRevision"`
 	// observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
-	// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+	// readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
 	// replicas is the number of Pods created by the StatefulSet controller.
 	Replicas int `pulumi:"replicas"`
@@ -4379,8 +4607,8 @@ type StatefulSetStatusInput interface {
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatusArgs struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
-	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+	AvailableReplicas pulumi.IntInput `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
 	// Represents the latest available observations of a statefulset's current state.
@@ -4391,7 +4619,7 @@ type StatefulSetStatusArgs struct {
 	CurrentRevision pulumi.StringPtrInput `pulumi:"currentRevision"`
 	// observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
-	// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+	// readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
 	// replicas is the number of Pods created by the StatefulSet controller.
 	Replicas pulumi.IntInput `pulumi:"replicas"`
@@ -4479,9 +4707,9 @@ func (o StatefulSetStatusOutput) ToStatefulSetStatusPtrOutputWithContext(ctx con
 	}).(StatefulSetStatusPtrOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
-func (o StatefulSetStatusOutput) AvailableReplicas() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v StatefulSetStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+func (o StatefulSetStatusOutput) AvailableReplicas() pulumi.IntOutput {
+	return o.ApplyT(func(v StatefulSetStatus) int { return v.AvailableReplicas }).(pulumi.IntOutput)
 }
 
 // collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -4509,7 +4737,7 @@ func (o StatefulSetStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+// readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
 func (o StatefulSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
@@ -4553,13 +4781,13 @@ func (o StatefulSetStatusPtrOutput) Elem() StatefulSetStatusOutput {
 	}).(StatefulSetStatusOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. Remove omitempty when graduating to beta
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
 func (o StatefulSetStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *StatefulSetStatus) *int {
 		if v == nil {
 			return nil
 		}
-		return v.AvailableReplicas
+		return &v.AvailableReplicas
 	}).(pulumi.IntPtrOutput)
 }
 
@@ -4613,7 +4841,7 @@ func (o StatefulSetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+// readyReplicas is the number of pods created for this StatefulSet with a Ready Condition.
 func (o StatefulSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *StatefulSetStatus) *int {
 		if v == nil {
@@ -4658,6 +4886,10 @@ type StatefulSetUpdateStrategy struct {
 	// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 	RollingUpdate *RollingUpdateStatefulSetStrategy `pulumi:"rollingUpdate"`
 	// Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+	//
+	// Possible enum values:
+	//  - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+	//  - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
 	Type *string `pulumi:"type"`
 }
 
@@ -4677,6 +4909,10 @@ type StatefulSetUpdateStrategyArgs struct {
 	// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
 	RollingUpdate RollingUpdateStatefulSetStrategyPtrInput `pulumi:"rollingUpdate"`
 	// Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+	//
+	// Possible enum values:
+	//  - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+	//  - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -4764,6 +5000,10 @@ func (o StatefulSetUpdateStrategyOutput) RollingUpdate() RollingUpdateStatefulSe
 }
 
 // Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+//
+// Possible enum values:
+//  - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+//  - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
 func (o StatefulSetUpdateStrategyOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetUpdateStrategy) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -4803,6 +5043,10 @@ func (o StatefulSetUpdateStrategyPtrOutput) RollingUpdate() RollingUpdateStatefu
 }
 
 // Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+//
+// Possible enum values:
+//  - `"OnDelete"` triggers the legacy behavior. Version tracking and ordered rolling restarts are disabled. Pods are recreated from the StatefulSetSpec when they are manually deleted. When a scale operation is performed with this strategy,specification version indicated by the StatefulSet's currentRevision.
+//  - `"RollingUpdate"` indicates that update will be applied to all Pods in the StatefulSet with respect to the StatefulSet ordering constraints. When a scale operation is performed with this strategy, new Pods will be created from the specification version indicated by the StatefulSet's updateRevision.
 func (o StatefulSetUpdateStrategyPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StatefulSetUpdateStrategy) *string {
 		if v == nil {
@@ -4858,6 +5102,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetConditionInput)(nil)).Elem(), StatefulSetConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetConditionArrayInput)(nil)).Elem(), StatefulSetConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListTypeInput)(nil)).Elem(), StatefulSetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetPersistentVolumeClaimRetentionPolicyInput)(nil)).Elem(), StatefulSetPersistentVolumeClaimRetentionPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput)(nil)).Elem(), StatefulSetPersistentVolumeClaimRetentionPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetSpecInput)(nil)).Elem(), StatefulSetSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetSpecPtrInput)(nil)).Elem(), StatefulSetSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetStatusInput)(nil)).Elem(), StatefulSetStatusArgs{})
@@ -4909,6 +5155,8 @@ func init() {
 	pulumi.RegisterOutputType(StatefulSetConditionOutput{})
 	pulumi.RegisterOutputType(StatefulSetConditionArrayOutput{})
 	pulumi.RegisterOutputType(StatefulSetListTypeOutput{})
+	pulumi.RegisterOutputType(StatefulSetPersistentVolumeClaimRetentionPolicyOutput{})
+	pulumi.RegisterOutputType(StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput{})
 	pulumi.RegisterOutputType(StatefulSetSpecOutput{})
 	pulumi.RegisterOutputType(StatefulSetSpecPtrOutput{})
 	pulumi.RegisterOutputType(StatefulSetStatusOutput{})

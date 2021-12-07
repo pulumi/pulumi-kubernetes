@@ -70,7 +70,7 @@ export class Secret extends pulumi.CustomResource {
      */
     public readonly stringData!: pulumi.Output<{[key: string]: string}>;
     /**
-     * Used to facilitate programmatic handling of secret data.
+     * Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
      */
     public readonly type!: pulumi.Output<string>;
 
@@ -139,7 +139,7 @@ export interface SecretArgs {
      */
     stringData?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
     /**
-     * Used to facilitate programmatic handling of secret data.
+     * Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
      */
     type?: pulumi.Input<string>;
 }

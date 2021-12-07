@@ -4386,6 +4386,11 @@ type Container struct {
 	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 	Image *string `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+	//
+	// Possible enum values:
+	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy *string `pulumi:"imagePullPolicy"`
 	// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
 	Lifecycle *Lifecycle `pulumi:"lifecycle"`
@@ -4410,6 +4415,10 @@ type Container struct {
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath *string `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+	//
+	// Possible enum values:
+	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy *string `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty *bool `pulumi:"tty"`
@@ -4445,6 +4454,11 @@ type ContainerArgs struct {
 	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 	Image pulumi.StringPtrInput `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+	//
+	// Possible enum values:
+	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy pulumi.StringPtrInput `pulumi:"imagePullPolicy"`
 	// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
 	Lifecycle LifecyclePtrInput `pulumi:"lifecycle"`
@@ -4469,6 +4483,10 @@ type ContainerArgs struct {
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath pulumi.StringPtrInput `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+	//
+	// Possible enum values:
+	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy pulumi.StringPtrInput `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty pulumi.BoolPtrInput `pulumi:"tty"`
@@ -4558,6 +4576,11 @@ func (o ContainerOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+//
+// Possible enum values:
+//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 func (o ContainerOutput) ImagePullPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Container) *string { return v.ImagePullPolicy }).(pulumi.StringPtrOutput)
 }
@@ -4618,6 +4641,10 @@ func (o ContainerOutput) TerminationMessagePath() pulumi.StringPtrOutput {
 }
 
 // Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+//
+// Possible enum values:
+//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 func (o ContainerOutput) TerminationMessagePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Container) *string { return v.TerminationMessagePolicy }).(pulumi.StringPtrOutput)
 }
@@ -4782,6 +4809,11 @@ type ContainerPort struct {
 	// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
 	Name *string `pulumi:"name"`
 	// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -4807,6 +4839,11 @@ type ContainerPortArgs struct {
 	// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -4883,6 +4920,11 @@ func (o ContainerPortOutput) Name() pulumi.StringPtrOutput {
 }
 
 // Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+//
+// Possible enum values:
+//  - `"SCTP"` is the SCTP protocol.
+//  - `"TCP"` is the TCP protocol.
+//  - `"UDP"` is the UDP protocol.
 func (o ContainerPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -5642,7 +5684,7 @@ func (o ContainerStateWaitingPtrOutput) Reason() pulumi.StringPtrOutput {
 type ContainerStatus struct {
 	// Container's ID in the format 'docker://<container_id>'.
 	ContainerID *string `pulumi:"containerID"`
-	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image string `pulumi:"image"`
 	// ImageID of the container's image.
 	ImageID string `pulumi:"imageID"`
@@ -5652,7 +5694,7 @@ type ContainerStatus struct {
 	Name string `pulumi:"name"`
 	// Specifies whether the container has passed its readiness probe.
 	Ready bool `pulumi:"ready"`
-	// The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+	// The number of times the container has been restarted.
 	RestartCount int `pulumi:"restartCount"`
 	// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
 	Started *bool `pulumi:"started"`
@@ -5675,7 +5717,7 @@ type ContainerStatusInput interface {
 type ContainerStatusArgs struct {
 	// Container's ID in the format 'docker://<container_id>'.
 	ContainerID pulumi.StringPtrInput `pulumi:"containerID"`
-	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image pulumi.StringInput `pulumi:"image"`
 	// ImageID of the container's image.
 	ImageID pulumi.StringInput `pulumi:"imageID"`
@@ -5685,7 +5727,7 @@ type ContainerStatusArgs struct {
 	Name pulumi.StringInput `pulumi:"name"`
 	// Specifies whether the container has passed its readiness probe.
 	Ready pulumi.BoolInput `pulumi:"ready"`
-	// The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+	// The number of times the container has been restarted.
 	RestartCount pulumi.IntInput `pulumi:"restartCount"`
 	// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
 	Started pulumi.BoolPtrInput `pulumi:"started"`
@@ -5750,7 +5792,7 @@ func (o ContainerStatusOutput) ContainerID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *string { return v.ContainerID }).(pulumi.StringPtrOutput)
 }
 
-// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images
+// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 func (o ContainerStatusOutput) Image() pulumi.StringOutput {
 	return o.ApplyT(func(v ContainerStatus) string { return v.Image }).(pulumi.StringOutput)
 }
@@ -5775,7 +5817,7 @@ func (o ContainerStatusOutput) Ready() pulumi.BoolOutput {
 	return o.ApplyT(func(v ContainerStatus) bool { return v.Ready }).(pulumi.BoolOutput)
 }
 
-// The number of times the container has been restarted, currently based on the number of dead containers that have not yet been removed. Note that this is calculated from dead containers. But those containers are subject to garbage collection. This value will get capped at 5 by GC.
+// The number of times the container has been restarted.
 func (o ContainerStatusOutput) RestartCount() pulumi.IntOutput {
 	return o.ApplyT(func(v ContainerStatus) int { return v.RestartCount }).(pulumi.IntOutput)
 }
@@ -6671,6 +6713,11 @@ type EndpointPort struct {
 	// The port number of the endpoint.
 	Port int `pulumi:"port"`
 	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -6694,6 +6741,11 @@ type EndpointPortArgs struct {
 	// The port number of the endpoint.
 	Port pulumi.IntInput `pulumi:"port"`
 	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -6765,6 +6817,11 @@ func (o EndpointPortOutput) Port() pulumi.IntOutput {
 }
 
 // The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+//
+// Possible enum values:
+//  - `"SCTP"` is the SCTP protocol.
+//  - `"TCP"` is the TCP protocol.
+//  - `"UDP"` is the UDP protocol.
 func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -7603,7 +7660,11 @@ func (o EnvVarSourcePtrOutput) SecretKeyRef() SecretKeySelectorPtrOutput {
 	}).(SecretKeySelectorPtrOutput)
 }
 
-// An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
+// An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
+//
+// To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+//
+// This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 type EphemeralContainer struct {
 	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args []string `pulumi:"args"`
@@ -7616,6 +7677,11 @@ type EphemeralContainer struct {
 	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
 	Image *string `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+	//
+	// Possible enum values:
+	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy *string `pulumi:"imagePullPolicy"`
 	// Lifecycle is not allowed for ephemeral containers.
 	Lifecycle *Lifecycle `pulumi:"lifecycle"`
@@ -7637,17 +7703,23 @@ type EphemeralContainer struct {
 	Stdin *bool `pulumi:"stdin"`
 	// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
 	StdinOnce *bool `pulumi:"stdinOnce"`
-	// If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container is run in whatever namespaces are shared for the pod. Note that the container runtime must support this feature.
+	// If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+	//
+	// The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
 	TargetContainerName *string `pulumi:"targetContainerName"`
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath *string `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+	//
+	// Possible enum values:
+	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy *string `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty *bool `pulumi:"tty"`
 	// volumeDevices is the list of block devices to be used by the container.
 	VolumeDevices []VolumeDevice `pulumi:"volumeDevices"`
-	// Pod volumes to mount into the container's filesystem. Cannot be updated.
+	// Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
 	VolumeMounts []VolumeMount `pulumi:"volumeMounts"`
 	// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
 	WorkingDir *string `pulumi:"workingDir"`
@@ -7664,7 +7736,11 @@ type EphemeralContainerInput interface {
 	ToEphemeralContainerOutputWithContext(context.Context) EphemeralContainerOutput
 }
 
-// An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
+// An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
+//
+// To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+//
+// This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 type EphemeralContainerArgs struct {
 	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args pulumi.StringArrayInput `pulumi:"args"`
@@ -7677,6 +7753,11 @@ type EphemeralContainerArgs struct {
 	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
 	Image pulumi.StringPtrInput `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+	//
+	// Possible enum values:
+	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy pulumi.StringPtrInput `pulumi:"imagePullPolicy"`
 	// Lifecycle is not allowed for ephemeral containers.
 	Lifecycle LifecyclePtrInput `pulumi:"lifecycle"`
@@ -7698,17 +7779,23 @@ type EphemeralContainerArgs struct {
 	Stdin pulumi.BoolPtrInput `pulumi:"stdin"`
 	// Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
 	StdinOnce pulumi.BoolPtrInput `pulumi:"stdinOnce"`
-	// If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container is run in whatever namespaces are shared for the pod. Note that the container runtime must support this feature.
+	// If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+	//
+	// The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
 	TargetContainerName pulumi.StringPtrInput `pulumi:"targetContainerName"`
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath pulumi.StringPtrInput `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+	//
+	// Possible enum values:
+	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy pulumi.StringPtrInput `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty pulumi.BoolPtrInput `pulumi:"tty"`
 	// volumeDevices is the list of block devices to be used by the container.
 	VolumeDevices VolumeDeviceArrayInput `pulumi:"volumeDevices"`
-	// Pod volumes to mount into the container's filesystem. Cannot be updated.
+	// Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
 	VolumeMounts VolumeMountArrayInput `pulumi:"volumeMounts"`
 	// Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
 	WorkingDir pulumi.StringPtrInput `pulumi:"workingDir"`
@@ -7751,7 +7838,11 @@ func (i EphemeralContainerArray) ToEphemeralContainerArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(EphemeralContainerArrayOutput)
 }
 
-// An EphemeralContainer is a container that may be added temporarily to an existing pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a pod is removed or restarted. If an ephemeral container causes a pod to exceed its resource allocation, the pod may be evicted. Ephemeral containers may not be added by directly updating the pod spec. They must be added via the pod's ephemeralcontainers subresource, and they will appear in the pod spec once added. This is an alpha feature enabled by the EphemeralContainers feature flag.
+// An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
+//
+// To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+//
+// This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 type EphemeralContainerOutput struct{ *pulumi.OutputState }
 
 func (EphemeralContainerOutput) ElementType() reflect.Type {
@@ -7792,6 +7883,11 @@ func (o EphemeralContainerOutput) Image() pulumi.StringPtrOutput {
 }
 
 // Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+//
+// Possible enum values:
+//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
+//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
+//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 func (o EphemeralContainerOutput) ImagePullPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *string { return v.ImagePullPolicy }).(pulumi.StringPtrOutput)
 }
@@ -7846,7 +7942,9 @@ func (o EphemeralContainerOutput) StdinOnce() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *bool { return v.StdinOnce }).(pulumi.BoolPtrOutput)
 }
 
-// If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container is run in whatever namespaces are shared for the pod. Note that the container runtime must support this feature.
+// If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+//
+// The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
 func (o EphemeralContainerOutput) TargetContainerName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *string { return v.TargetContainerName }).(pulumi.StringPtrOutput)
 }
@@ -7857,6 +7955,10 @@ func (o EphemeralContainerOutput) TerminationMessagePath() pulumi.StringPtrOutpu
 }
 
 // Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+//
+// Possible enum values:
+//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
+//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 func (o EphemeralContainerOutput) TerminationMessagePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *string { return v.TerminationMessagePolicy }).(pulumi.StringPtrOutput)
 }
@@ -7871,7 +7973,7 @@ func (o EphemeralContainerOutput) VolumeDevices() VolumeDeviceArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []VolumeDevice { return v.VolumeDevices }).(VolumeDeviceArrayOutput)
 }
 
-// Pod volumes to mount into the container's filesystem. Cannot be updated.
+// Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
 func (o EphemeralContainerOutput) VolumeMounts() VolumeMountArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []VolumeMount { return v.VolumeMounts }).(VolumeMountArrayOutput)
 }
@@ -9897,6 +9999,170 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
+type GRPCAction struct {
+	// Port number of the gRPC service. Number must be in the range 1 to 65535.
+	Port int `pulumi:"port"`
+	// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+	//
+	// If this is not specified, the default behavior is defined by gRPC.
+	Service *string `pulumi:"service"`
+}
+
+// GRPCActionInput is an input type that accepts GRPCActionArgs and GRPCActionOutput values.
+// You can construct a concrete instance of `GRPCActionInput` via:
+//
+//          GRPCActionArgs{...}
+type GRPCActionInput interface {
+	pulumi.Input
+
+	ToGRPCActionOutput() GRPCActionOutput
+	ToGRPCActionOutputWithContext(context.Context) GRPCActionOutput
+}
+
+type GRPCActionArgs struct {
+	// Port number of the gRPC service. Number must be in the range 1 to 65535.
+	Port pulumi.IntInput `pulumi:"port"`
+	// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+	//
+	// If this is not specified, the default behavior is defined by gRPC.
+	Service pulumi.StringPtrInput `pulumi:"service"`
+}
+
+func (GRPCActionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GRPCAction)(nil)).Elem()
+}
+
+func (i GRPCActionArgs) ToGRPCActionOutput() GRPCActionOutput {
+	return i.ToGRPCActionOutputWithContext(context.Background())
+}
+
+func (i GRPCActionArgs) ToGRPCActionOutputWithContext(ctx context.Context) GRPCActionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GRPCActionOutput)
+}
+
+func (i GRPCActionArgs) ToGRPCActionPtrOutput() GRPCActionPtrOutput {
+	return i.ToGRPCActionPtrOutputWithContext(context.Background())
+}
+
+func (i GRPCActionArgs) ToGRPCActionPtrOutputWithContext(ctx context.Context) GRPCActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GRPCActionOutput).ToGRPCActionPtrOutputWithContext(ctx)
+}
+
+// GRPCActionPtrInput is an input type that accepts GRPCActionArgs, GRPCActionPtr and GRPCActionPtrOutput values.
+// You can construct a concrete instance of `GRPCActionPtrInput` via:
+//
+//          GRPCActionArgs{...}
+//
+//  or:
+//
+//          nil
+type GRPCActionPtrInput interface {
+	pulumi.Input
+
+	ToGRPCActionPtrOutput() GRPCActionPtrOutput
+	ToGRPCActionPtrOutputWithContext(context.Context) GRPCActionPtrOutput
+}
+
+type grpcactionPtrType GRPCActionArgs
+
+func GRPCActionPtr(v *GRPCActionArgs) GRPCActionPtrInput {
+	return (*grpcactionPtrType)(v)
+}
+
+func (*grpcactionPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GRPCAction)(nil)).Elem()
+}
+
+func (i *grpcactionPtrType) ToGRPCActionPtrOutput() GRPCActionPtrOutput {
+	return i.ToGRPCActionPtrOutputWithContext(context.Background())
+}
+
+func (i *grpcactionPtrType) ToGRPCActionPtrOutputWithContext(ctx context.Context) GRPCActionPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GRPCActionPtrOutput)
+}
+
+type GRPCActionOutput struct{ *pulumi.OutputState }
+
+func (GRPCActionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GRPCAction)(nil)).Elem()
+}
+
+func (o GRPCActionOutput) ToGRPCActionOutput() GRPCActionOutput {
+	return o
+}
+
+func (o GRPCActionOutput) ToGRPCActionOutputWithContext(ctx context.Context) GRPCActionOutput {
+	return o
+}
+
+func (o GRPCActionOutput) ToGRPCActionPtrOutput() GRPCActionPtrOutput {
+	return o.ToGRPCActionPtrOutputWithContext(context.Background())
+}
+
+func (o GRPCActionOutput) ToGRPCActionPtrOutputWithContext(ctx context.Context) GRPCActionPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GRPCAction) *GRPCAction {
+		return &v
+	}).(GRPCActionPtrOutput)
+}
+
+// Port number of the gRPC service. Number must be in the range 1 to 65535.
+func (o GRPCActionOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v GRPCAction) int { return v.Port }).(pulumi.IntOutput)
+}
+
+// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+//
+// If this is not specified, the default behavior is defined by gRPC.
+func (o GRPCActionOutput) Service() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GRPCAction) *string { return v.Service }).(pulumi.StringPtrOutput)
+}
+
+type GRPCActionPtrOutput struct{ *pulumi.OutputState }
+
+func (GRPCActionPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GRPCAction)(nil)).Elem()
+}
+
+func (o GRPCActionPtrOutput) ToGRPCActionPtrOutput() GRPCActionPtrOutput {
+	return o
+}
+
+func (o GRPCActionPtrOutput) ToGRPCActionPtrOutputWithContext(ctx context.Context) GRPCActionPtrOutput {
+	return o
+}
+
+func (o GRPCActionPtrOutput) Elem() GRPCActionOutput {
+	return o.ApplyT(func(v *GRPCAction) GRPCAction {
+		if v != nil {
+			return *v
+		}
+		var ret GRPCAction
+		return ret
+	}).(GRPCActionOutput)
+}
+
+// Port number of the gRPC service. Number must be in the range 1 to 65535.
+func (o GRPCActionPtrOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *GRPCAction) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Port
+	}).(pulumi.IntPtrOutput)
+}
+
+// Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+//
+// If this is not specified, the default behavior is defined by gRPC.
+func (o GRPCActionPtrOutput) Service() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GRPCAction) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Service
+	}).(pulumi.StringPtrOutput)
+}
+
 // Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
 //
 // DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
@@ -10467,6 +10733,10 @@ type HTTPGetAction struct {
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port interface{} `pulumi:"port"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
+	//
+	// Possible enum values:
+	//  - `"HTTP"` means that the scheme used will be http://
+	//  - `"HTTPS"` means that the scheme used will be https://
 	Scheme *string `pulumi:"scheme"`
 }
 
@@ -10492,6 +10762,10 @@ type HTTPGetActionArgs struct {
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port pulumi.Input `pulumi:"port"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
+	//
+	// Possible enum values:
+	//  - `"HTTP"` means that the scheme used will be http://
+	//  - `"HTTPS"` means that the scheme used will be https://
 	Scheme pulumi.StringPtrInput `pulumi:"scheme"`
 }
 
@@ -10594,6 +10868,10 @@ func (o HTTPGetActionOutput) Port() pulumi.AnyOutput {
 }
 
 // Scheme to use for connecting to the host. Defaults to HTTP.
+//
+// Possible enum values:
+//  - `"HTTP"` means that the scheme used will be http://
+//  - `"HTTPS"` means that the scheme used will be https://
 func (o HTTPGetActionOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPGetAction) *string { return v.Scheme }).(pulumi.StringPtrOutput)
 }
@@ -10663,6 +10941,10 @@ func (o HTTPGetActionPtrOutput) Port() pulumi.AnyOutput {
 }
 
 // Scheme to use for connecting to the host. Defaults to HTTP.
+//
+// Possible enum values:
+//  - `"HTTP"` means that the scheme used will be http://
+//  - `"HTTPS"` means that the scheme used will be https://
 func (o HTTPGetActionPtrOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HTTPGetAction) *string {
 		if v == nil {
@@ -10824,47 +11106,6 @@ func (i HandlerArgs) ToHandlerOutputWithContext(ctx context.Context) HandlerOutp
 	return pulumi.ToOutputWithContext(ctx, i).(HandlerOutput)
 }
 
-func (i HandlerArgs) ToHandlerPtrOutput() HandlerPtrOutput {
-	return i.ToHandlerPtrOutputWithContext(context.Background())
-}
-
-func (i HandlerArgs) ToHandlerPtrOutputWithContext(ctx context.Context) HandlerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HandlerOutput).ToHandlerPtrOutputWithContext(ctx)
-}
-
-// HandlerPtrInput is an input type that accepts HandlerArgs, HandlerPtr and HandlerPtrOutput values.
-// You can construct a concrete instance of `HandlerPtrInput` via:
-//
-//          HandlerArgs{...}
-//
-//  or:
-//
-//          nil
-type HandlerPtrInput interface {
-	pulumi.Input
-
-	ToHandlerPtrOutput() HandlerPtrOutput
-	ToHandlerPtrOutputWithContext(context.Context) HandlerPtrOutput
-}
-
-type handlerPtrType HandlerArgs
-
-func HandlerPtr(v *HandlerArgs) HandlerPtrInput {
-	return (*handlerPtrType)(v)
-}
-
-func (*handlerPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**Handler)(nil)).Elem()
-}
-
-func (i *handlerPtrType) ToHandlerPtrOutput() HandlerPtrOutput {
-	return i.ToHandlerPtrOutputWithContext(context.Background())
-}
-
-func (i *handlerPtrType) ToHandlerPtrOutputWithContext(ctx context.Context) HandlerPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(HandlerPtrOutput)
-}
-
 // Handler defines a specific action that should be taken
 type HandlerOutput struct{ *pulumi.OutputState }
 
@@ -10880,16 +11121,6 @@ func (o HandlerOutput) ToHandlerOutputWithContext(ctx context.Context) HandlerOu
 	return o
 }
 
-func (o HandlerOutput) ToHandlerPtrOutput() HandlerPtrOutput {
-	return o.ToHandlerPtrOutputWithContext(context.Background())
-}
-
-func (o HandlerOutput) ToHandlerPtrOutputWithContext(ctx context.Context) HandlerPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v Handler) *Handler {
-		return &v
-	}).(HandlerPtrOutput)
-}
-
 // One and only one of the following should be specified. Exec specifies the action to take.
 func (o HandlerOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v Handler) *ExecAction { return v.Exec }).(ExecActionPtrOutput)
@@ -10903,60 +11134,6 @@ func (o HandlerOutput) HttpGet() HTTPGetActionPtrOutput {
 // TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
 func (o HandlerOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v Handler) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
-}
-
-type HandlerPtrOutput struct{ *pulumi.OutputState }
-
-func (HandlerPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**Handler)(nil)).Elem()
-}
-
-func (o HandlerPtrOutput) ToHandlerPtrOutput() HandlerPtrOutput {
-	return o
-}
-
-func (o HandlerPtrOutput) ToHandlerPtrOutputWithContext(ctx context.Context) HandlerPtrOutput {
-	return o
-}
-
-func (o HandlerPtrOutput) Elem() HandlerOutput {
-	return o.ApplyT(func(v *Handler) Handler {
-		if v != nil {
-			return *v
-		}
-		var ret Handler
-		return ret
-	}).(HandlerOutput)
-}
-
-// One and only one of the following should be specified. Exec specifies the action to take.
-func (o HandlerPtrOutput) Exec() ExecActionPtrOutput {
-	return o.ApplyT(func(v *Handler) *ExecAction {
-		if v == nil {
-			return nil
-		}
-		return v.Exec
-	}).(ExecActionPtrOutput)
-}
-
-// HTTPGet specifies the http request to perform.
-func (o HandlerPtrOutput) HttpGet() HTTPGetActionPtrOutput {
-	return o.ApplyT(func(v *Handler) *HTTPGetAction {
-		if v == nil {
-			return nil
-		}
-		return v.HttpGet
-	}).(HTTPGetActionPtrOutput)
-}
-
-// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
-func (o HandlerPtrOutput) TcpSocket() TCPSocketActionPtrOutput {
-	return o.ApplyT(func(v *Handler) *TCPSocketAction {
-		if v == nil {
-			return nil
-		}
-		return v.TcpSocket
-	}).(TCPSocketActionPtrOutput)
 }
 
 // HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
@@ -12008,9 +12185,9 @@ func (o KeyToPathArrayOutput) Index(i pulumi.IntInput) KeyToPathOutput {
 // Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
 type Lifecycle struct {
 	// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-	PostStart *Handler `pulumi:"postStart"`
-	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-	PreStop *Handler `pulumi:"preStop"`
+	PostStart *LifecycleHandler `pulumi:"postStart"`
+	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+	PreStop *LifecycleHandler `pulumi:"preStop"`
 }
 
 // LifecycleInput is an input type that accepts LifecycleArgs and LifecycleOutput values.
@@ -12027,9 +12204,9 @@ type LifecycleInput interface {
 // Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
 type LifecycleArgs struct {
 	// PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-	PostStart HandlerPtrInput `pulumi:"postStart"`
-	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-	PreStop HandlerPtrInput `pulumi:"preStop"`
+	PostStart LifecycleHandlerPtrInput `pulumi:"postStart"`
+	// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+	PreStop LifecycleHandlerPtrInput `pulumi:"preStop"`
 }
 
 func (LifecycleArgs) ElementType() reflect.Type {
@@ -12111,13 +12288,13 @@ func (o LifecycleOutput) ToLifecyclePtrOutputWithContext(ctx context.Context) Li
 }
 
 // PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-func (o LifecycleOutput) PostStart() HandlerPtrOutput {
-	return o.ApplyT(func(v Lifecycle) *Handler { return v.PostStart }).(HandlerPtrOutput)
+func (o LifecycleOutput) PostStart() LifecycleHandlerPtrOutput {
+	return o.ApplyT(func(v Lifecycle) *LifecycleHandler { return v.PostStart }).(LifecycleHandlerPtrOutput)
 }
 
-// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-func (o LifecycleOutput) PreStop() HandlerPtrOutput {
-	return o.ApplyT(func(v Lifecycle) *Handler { return v.PreStop }).(HandlerPtrOutput)
+// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+func (o LifecycleOutput) PreStop() LifecycleHandlerPtrOutput {
+	return o.ApplyT(func(v Lifecycle) *LifecycleHandler { return v.PreStop }).(LifecycleHandlerPtrOutput)
 }
 
 type LifecyclePtrOutput struct{ *pulumi.OutputState }
@@ -12145,23 +12322,201 @@ func (o LifecyclePtrOutput) Elem() LifecycleOutput {
 }
 
 // PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-func (o LifecyclePtrOutput) PostStart() HandlerPtrOutput {
-	return o.ApplyT(func(v *Lifecycle) *Handler {
+func (o LifecyclePtrOutput) PostStart() LifecycleHandlerPtrOutput {
+	return o.ApplyT(func(v *Lifecycle) *LifecycleHandler {
 		if v == nil {
 			return nil
 		}
 		return v.PostStart
-	}).(HandlerPtrOutput)
+	}).(LifecycleHandlerPtrOutput)
 }
 
-// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The reason for termination is passed to the handler. The Pod's termination grace period countdown begins before the PreStop hooked is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period. Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-func (o LifecyclePtrOutput) PreStop() HandlerPtrOutput {
-	return o.ApplyT(func(v *Lifecycle) *Handler {
+// PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+func (o LifecyclePtrOutput) PreStop() LifecycleHandlerPtrOutput {
+	return o.ApplyT(func(v *Lifecycle) *LifecycleHandler {
 		if v == nil {
 			return nil
 		}
 		return v.PreStop
-	}).(HandlerPtrOutput)
+	}).(LifecycleHandlerPtrOutput)
+}
+
+// LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+type LifecycleHandler struct {
+	// Exec specifies the action to take.
+	Exec *ExecAction `pulumi:"exec"`
+	// HTTPGet specifies the http request to perform.
+	HttpGet *HTTPGetAction `pulumi:"httpGet"`
+	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+	TcpSocket *TCPSocketAction `pulumi:"tcpSocket"`
+}
+
+// LifecycleHandlerInput is an input type that accepts LifecycleHandlerArgs and LifecycleHandlerOutput values.
+// You can construct a concrete instance of `LifecycleHandlerInput` via:
+//
+//          LifecycleHandlerArgs{...}
+type LifecycleHandlerInput interface {
+	pulumi.Input
+
+	ToLifecycleHandlerOutput() LifecycleHandlerOutput
+	ToLifecycleHandlerOutputWithContext(context.Context) LifecycleHandlerOutput
+}
+
+// LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+type LifecycleHandlerArgs struct {
+	// Exec specifies the action to take.
+	Exec ExecActionPtrInput `pulumi:"exec"`
+	// HTTPGet specifies the http request to perform.
+	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
+	// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+	TcpSocket TCPSocketActionPtrInput `pulumi:"tcpSocket"`
+}
+
+func (LifecycleHandlerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LifecycleHandler)(nil)).Elem()
+}
+
+func (i LifecycleHandlerArgs) ToLifecycleHandlerOutput() LifecycleHandlerOutput {
+	return i.ToLifecycleHandlerOutputWithContext(context.Background())
+}
+
+func (i LifecycleHandlerArgs) ToLifecycleHandlerOutputWithContext(ctx context.Context) LifecycleHandlerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LifecycleHandlerOutput)
+}
+
+func (i LifecycleHandlerArgs) ToLifecycleHandlerPtrOutput() LifecycleHandlerPtrOutput {
+	return i.ToLifecycleHandlerPtrOutputWithContext(context.Background())
+}
+
+func (i LifecycleHandlerArgs) ToLifecycleHandlerPtrOutputWithContext(ctx context.Context) LifecycleHandlerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LifecycleHandlerOutput).ToLifecycleHandlerPtrOutputWithContext(ctx)
+}
+
+// LifecycleHandlerPtrInput is an input type that accepts LifecycleHandlerArgs, LifecycleHandlerPtr and LifecycleHandlerPtrOutput values.
+// You can construct a concrete instance of `LifecycleHandlerPtrInput` via:
+//
+//          LifecycleHandlerArgs{...}
+//
+//  or:
+//
+//          nil
+type LifecycleHandlerPtrInput interface {
+	pulumi.Input
+
+	ToLifecycleHandlerPtrOutput() LifecycleHandlerPtrOutput
+	ToLifecycleHandlerPtrOutputWithContext(context.Context) LifecycleHandlerPtrOutput
+}
+
+type lifecycleHandlerPtrType LifecycleHandlerArgs
+
+func LifecycleHandlerPtr(v *LifecycleHandlerArgs) LifecycleHandlerPtrInput {
+	return (*lifecycleHandlerPtrType)(v)
+}
+
+func (*lifecycleHandlerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**LifecycleHandler)(nil)).Elem()
+}
+
+func (i *lifecycleHandlerPtrType) ToLifecycleHandlerPtrOutput() LifecycleHandlerPtrOutput {
+	return i.ToLifecycleHandlerPtrOutputWithContext(context.Background())
+}
+
+func (i *lifecycleHandlerPtrType) ToLifecycleHandlerPtrOutputWithContext(ctx context.Context) LifecycleHandlerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LifecycleHandlerPtrOutput)
+}
+
+// LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+type LifecycleHandlerOutput struct{ *pulumi.OutputState }
+
+func (LifecycleHandlerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LifecycleHandler)(nil)).Elem()
+}
+
+func (o LifecycleHandlerOutput) ToLifecycleHandlerOutput() LifecycleHandlerOutput {
+	return o
+}
+
+func (o LifecycleHandlerOutput) ToLifecycleHandlerOutputWithContext(ctx context.Context) LifecycleHandlerOutput {
+	return o
+}
+
+func (o LifecycleHandlerOutput) ToLifecycleHandlerPtrOutput() LifecycleHandlerPtrOutput {
+	return o.ToLifecycleHandlerPtrOutputWithContext(context.Background())
+}
+
+func (o LifecycleHandlerOutput) ToLifecycleHandlerPtrOutputWithContext(ctx context.Context) LifecycleHandlerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LifecycleHandler) *LifecycleHandler {
+		return &v
+	}).(LifecycleHandlerPtrOutput)
+}
+
+// Exec specifies the action to take.
+func (o LifecycleHandlerOutput) Exec() ExecActionPtrOutput {
+	return o.ApplyT(func(v LifecycleHandler) *ExecAction { return v.Exec }).(ExecActionPtrOutput)
+}
+
+// HTTPGet specifies the http request to perform.
+func (o LifecycleHandlerOutput) HttpGet() HTTPGetActionPtrOutput {
+	return o.ApplyT(func(v LifecycleHandler) *HTTPGetAction { return v.HttpGet }).(HTTPGetActionPtrOutput)
+}
+
+// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+func (o LifecycleHandlerOutput) TcpSocket() TCPSocketActionPtrOutput {
+	return o.ApplyT(func(v LifecycleHandler) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
+}
+
+type LifecycleHandlerPtrOutput struct{ *pulumi.OutputState }
+
+func (LifecycleHandlerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LifecycleHandler)(nil)).Elem()
+}
+
+func (o LifecycleHandlerPtrOutput) ToLifecycleHandlerPtrOutput() LifecycleHandlerPtrOutput {
+	return o
+}
+
+func (o LifecycleHandlerPtrOutput) ToLifecycleHandlerPtrOutputWithContext(ctx context.Context) LifecycleHandlerPtrOutput {
+	return o
+}
+
+func (o LifecycleHandlerPtrOutput) Elem() LifecycleHandlerOutput {
+	return o.ApplyT(func(v *LifecycleHandler) LifecycleHandler {
+		if v != nil {
+			return *v
+		}
+		var ret LifecycleHandler
+		return ret
+	}).(LifecycleHandlerOutput)
+}
+
+// Exec specifies the action to take.
+func (o LifecycleHandlerPtrOutput) Exec() ExecActionPtrOutput {
+	return o.ApplyT(func(v *LifecycleHandler) *ExecAction {
+		if v == nil {
+			return nil
+		}
+		return v.Exec
+	}).(ExecActionPtrOutput)
+}
+
+// HTTPGet specifies the http request to perform.
+func (o LifecycleHandlerPtrOutput) HttpGet() HTTPGetActionPtrOutput {
+	return o.ApplyT(func(v *LifecycleHandler) *HTTPGetAction {
+		if v == nil {
+			return nil
+		}
+		return v.HttpGet
+	}).(HTTPGetActionPtrOutput)
+}
+
+// Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+func (o LifecycleHandlerPtrOutput) TcpSocket() TCPSocketActionPtrOutput {
+	return o.ApplyT(func(v *LifecycleHandler) *TCPSocketAction {
+		if v == nil {
+			return nil
+		}
+		return v.TcpSocket
+	}).(TCPSocketActionPtrOutput)
 }
 
 // LimitRange sets resource usage limits for each kind of resource in a Namespace.
@@ -12304,6 +12659,11 @@ type LimitRangeItem struct {
 	// Min usage constraints on this kind by resource name.
 	Min map[string]string `pulumi:"min"`
 	// Type of resource that this limit applies to.
+	//
+	// Possible enum values:
+	//  - `"Container"` Limit that applies to all containers in a namespace
+	//  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
+	//  - `"Pod"` Limit that applies to all pods in a namespace
 	Type string `pulumi:"type"`
 }
 
@@ -12331,6 +12691,11 @@ type LimitRangeItemArgs struct {
 	// Min usage constraints on this kind by resource name.
 	Min pulumi.StringMapInput `pulumi:"min"`
 	// Type of resource that this limit applies to.
+	//
+	// Possible enum values:
+	//  - `"Container"` Limit that applies to all containers in a namespace
+	//  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
+	//  - `"Pod"` Limit that applies to all pods in a namespace
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -12412,6 +12777,11 @@ func (o LimitRangeItemOutput) Min() pulumi.StringMapOutput {
 }
 
 // Type of resource that this limit applies to.
+//
+// Possible enum values:
+//  - `"Container"` Limit that applies to all containers in a namespace
+//  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
+//  - `"Pod"` Limit that applies to all pods in a namespace
 func (o LimitRangeItemOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v LimitRangeItem) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -13103,7 +13473,7 @@ func (o LocalObjectReferenceArrayOutput) Index(i pulumi.IntInput) LocalObjectRef
 
 // Local represents directly-attached storage with node affinity (Beta feature)
 type LocalVolumeSource struct {
-	// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
+	// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType *string `pulumi:"fsType"`
 	// The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
 	Path string `pulumi:"path"`
@@ -13122,7 +13492,7 @@ type LocalVolumeSourceInput interface {
 
 // Local represents directly-attached storage with node affinity (Beta feature)
 type LocalVolumeSourceArgs struct {
-	// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
+	// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
 	// The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
 	Path pulumi.StringInput `pulumi:"path"`
@@ -13206,7 +13576,7 @@ func (o LocalVolumeSourceOutput) ToLocalVolumeSourcePtrOutputWithContext(ctx con
 	}).(LocalVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
+// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 func (o LocalVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LocalVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
@@ -13240,7 +13610,7 @@ func (o LocalVolumeSourcePtrOutput) Elem() LocalVolumeSourceOutput {
 	}).(LocalVolumeSourceOutput)
 }
 
-// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a fileystem if unspecified.
+// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 func (o LocalVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LocalVolumeSource) *string {
 		if v == nil {
@@ -13582,6 +13952,13 @@ type NamespaceCondition struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status string `pulumi:"status"`
 	// Type of namespace controller condition.
+	//
+	// Possible enum values:
+	//  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
+	//  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
+	//  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
+	//  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
+	//  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 	Type string `pulumi:"type"`
 }
 
@@ -13604,6 +13981,13 @@ type NamespaceConditionArgs struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type of namespace controller condition.
+	//
+	// Possible enum values:
+	//  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
+	//  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
+	//  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
+	//  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
+	//  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -13677,6 +14061,13 @@ func (o NamespaceConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type of namespace controller condition.
+//
+// Possible enum values:
+//  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
+//  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
+//  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
+//  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
+//  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 func (o NamespaceConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v NamespaceCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -13928,6 +14319,10 @@ type NamespaceStatus struct {
 	// Represents the latest available observations of a namespace's current state.
 	Conditions []NamespaceCondition `pulumi:"conditions"`
 	// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+	//
+	// Possible enum values:
+	//  - `"Active"` means the namespace is available for use in the system
+	//  - `"Terminating"` means the namespace is undergoing graceful termination
 	Phase *string `pulumi:"phase"`
 }
 
@@ -13947,6 +14342,10 @@ type NamespaceStatusArgs struct {
 	// Represents the latest available observations of a namespace's current state.
 	Conditions NamespaceConditionArrayInput `pulumi:"conditions"`
 	// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+	//
+	// Possible enum values:
+	//  - `"Active"` means the namespace is available for use in the system
+	//  - `"Terminating"` means the namespace is undergoing graceful termination
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 }
 
@@ -14034,6 +14433,10 @@ func (o NamespaceStatusOutput) Conditions() NamespaceConditionArrayOutput {
 }
 
 // Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+//
+// Possible enum values:
+//  - `"Active"` means the namespace is available for use in the system
+//  - `"Terminating"` means the namespace is undergoing graceful termination
 func (o NamespaceStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -14073,6 +14476,10 @@ func (o NamespaceStatusPtrOutput) Conditions() NamespaceConditionArrayOutput {
 }
 
 // Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+//
+// Possible enum values:
+//  - `"Active"` means the namespace is available for use in the system
+//  - `"Terminating"` means the namespace is undergoing graceful termination
 func (o NamespaceStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NamespaceStatus) *string {
 		if v == nil {
@@ -14223,6 +14630,13 @@ type NodeAddress struct {
 	// The node address.
 	Address string `pulumi:"address"`
 	// Node address type, one of Hostname, ExternalIP or InternalIP.
+	//
+	// Possible enum values:
+	//  - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
+	//  - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
+	//  - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
+	//  - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
+	//  - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 	Type string `pulumi:"type"`
 }
 
@@ -14242,6 +14656,13 @@ type NodeAddressArgs struct {
 	// The node address.
 	Address pulumi.StringInput `pulumi:"address"`
 	// Node address type, one of Hostname, ExternalIP or InternalIP.
+	//
+	// Possible enum values:
+	//  - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
+	//  - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
+	//  - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
+	//  - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
+	//  - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -14303,6 +14724,13 @@ func (o NodeAddressOutput) Address() pulumi.StringOutput {
 }
 
 // Node address type, one of Hostname, ExternalIP or InternalIP.
+//
+// Possible enum values:
+//  - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
+//  - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
+//  - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
+//  - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
+//  - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 func (o NodeAddressOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeAddress) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -14501,6 +14929,13 @@ type NodeCondition struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status string `pulumi:"status"`
 	// Type of node condition.
+	//
+	// Possible enum values:
+	//  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
+	//  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
+	//  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
+	//  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
+	//  - `"Ready"` means kubelet is healthy and ready to accept pods.
 	Type string `pulumi:"type"`
 }
 
@@ -14528,6 +14963,13 @@ type NodeConditionArgs struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type of node condition.
+	//
+	// Possible enum values:
+	//  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
+	//  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
+	//  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
+	//  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
+	//  - `"Ready"` means kubelet is healthy and ready to accept pods.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -14609,6 +15051,13 @@ func (o NodeConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type of node condition.
+//
+// Possible enum values:
+//  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
+//  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
+//  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
+//  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
+//  - `"Ready"` means kubelet is healthy and ready to accept pods.
 func (o NodeConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -15337,6 +15786,14 @@ type NodeSelectorRequirement struct {
 	// The label key that the selector applies to.
 	Key string `pulumi:"key"`
 	// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+	//
+	// Possible enum values:
+	//  - `"DoesNotExist"`
+	//  - `"Exists"`
+	//  - `"Gt"`
+	//  - `"In"`
+	//  - `"Lt"`
+	//  - `"NotIn"`
 	Operator string `pulumi:"operator"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	Values []string `pulumi:"values"`
@@ -15358,6 +15815,14 @@ type NodeSelectorRequirementArgs struct {
 	// The label key that the selector applies to.
 	Key pulumi.StringInput `pulumi:"key"`
 	// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+	//
+	// Possible enum values:
+	//  - `"DoesNotExist"`
+	//  - `"Exists"`
+	//  - `"Gt"`
+	//  - `"In"`
+	//  - `"Lt"`
+	//  - `"NotIn"`
 	Operator pulumi.StringInput `pulumi:"operator"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	Values pulumi.StringArrayInput `pulumi:"values"`
@@ -15421,6 +15886,14 @@ func (o NodeSelectorRequirementOutput) Key() pulumi.StringOutput {
 }
 
 // Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+//
+// Possible enum values:
+//  - `"DoesNotExist"`
+//  - `"Exists"`
+//  - `"Gt"`
+//  - `"In"`
+//  - `"Lt"`
+//  - `"NotIn"`
 func (o NodeSelectorRequirementOutput) Operator() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSelectorRequirement) string { return v.Operator }).(pulumi.StringOutput)
 }
@@ -15832,6 +16305,11 @@ type NodeStatus struct {
 	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
 	NodeInfo *NodeSystemInfo `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+	//
+	// Possible enum values:
+	//  - `"Pending"` means the node has been created/added by the system, but not configured.
+	//  - `"Running"` means the node has been configured and has Kubernetes components running.
+	//  - `"Terminated"` means the node has been removed from the cluster.
 	Phase *string `pulumi:"phase"`
 	// List of volumes that are attached to the node.
 	VolumesAttached []AttachedVolume `pulumi:"volumesAttached"`
@@ -15869,6 +16347,11 @@ type NodeStatusArgs struct {
 	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
 	NodeInfo NodeSystemInfoPtrInput `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+	//
+	// Possible enum values:
+	//  - `"Pending"` means the node has been created/added by the system, but not configured.
+	//  - `"Running"` means the node has been configured and has Kubernetes components running.
+	//  - `"Terminated"` means the node has been removed from the cluster.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// List of volumes that are attached to the node.
 	VolumesAttached AttachedVolumeArrayInput `pulumi:"volumesAttached"`
@@ -15995,6 +16478,11 @@ func (o NodeStatusOutput) NodeInfo() NodeSystemInfoPtrOutput {
 }
 
 // NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+//
+// Possible enum values:
+//  - `"Pending"` means the node has been created/added by the system, but not configured.
+//  - `"Running"` means the node has been configured and has Kubernetes components running.
+//  - `"Terminated"` means the node has been removed from the cluster.
 func (o NodeStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -16114,6 +16602,11 @@ func (o NodeStatusPtrOutput) NodeInfo() NodeSystemInfoPtrOutput {
 }
 
 // NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+//
+// Possible enum values:
+//  - `"Pending"` means the node has been created/added by the system, but not configured.
+//  - `"Running"` means the node has been configured and has Kubernetes components running.
+//  - `"Terminated"` means the node has been removed from the cluster.
 func (o NodeStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeStatus) *string {
 		if v == nil {
@@ -17195,7 +17688,10 @@ type PersistentVolumeClaimCondition struct {
 	// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
 	Reason *string `pulumi:"reason"`
 	Status string  `pulumi:"status"`
-	Type   string  `pulumi:"type"`
+	// Possible enum values:
+	//  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
+	//  - `"Resizing"` - a user trigger resize of pvc has been started
+	Type string `pulumi:"type"`
 }
 
 // PersistentVolumeClaimConditionInput is an input type that accepts PersistentVolumeClaimConditionArgs and PersistentVolumeClaimConditionOutput values.
@@ -17220,7 +17716,10 @@ type PersistentVolumeClaimConditionArgs struct {
 	// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	Status pulumi.StringInput    `pulumi:"status"`
-	Type   pulumi.StringInput    `pulumi:"type"`
+	// Possible enum values:
+	//  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
+	//  - `"Resizing"` - a user trigger resize of pvc has been started
+	Type pulumi.StringInput `pulumi:"type"`
 }
 
 func (PersistentVolumeClaimConditionArgs) ElementType() reflect.Type {
@@ -17299,6 +17798,9 @@ func (o PersistentVolumeClaimConditionOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
+// Possible enum values:
+//  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
+//  - `"Resizing"` - a user trigger resize of pvc has been started
 func (o PersistentVolumeClaimConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -17418,7 +17920,7 @@ type PersistentVolumeClaimSpec struct {
 	//   specified.
 	//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 	DataSourceRef *TypedLocalObjectReference `pulumi:"dataSourceRef"`
-	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// A label query over volumes to consider for binding.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
@@ -17454,7 +17956,7 @@ type PersistentVolumeClaimSpecArgs struct {
 	//   specified.
 	//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 	DataSourceRef TypedLocalObjectReferencePtrInput `pulumi:"dataSourceRef"`
-	// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// A label query over volumes to consider for binding.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
@@ -17564,7 +18066,7 @@ func (o PersistentVolumeClaimSpecOutput) DataSourceRef() TypedLocalObjectReferen
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSourceRef }).(TypedLocalObjectReferencePtrOutput)
 }
 
-// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 func (o PersistentVolumeClaimSpecOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
 }
@@ -17648,7 +18150,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedLocalObjectRefe
 	}).(TypedLocalObjectReferencePtrOutput)
 }
 
-// Resources represents the minimum resources the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 func (o PersistentVolumeClaimSpecPtrOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *ResourceRequirements {
 		if v == nil {
@@ -17702,12 +18204,21 @@ func (o PersistentVolumeClaimSpecPtrOutput) VolumeName() pulumi.StringPtrOutput 
 type PersistentVolumeClaimStatus struct {
 	// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
+	// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	AllocatedResources map[string]string `pulumi:"allocatedResources"`
 	// Represents the actual resources of the underlying volume.
 	Capacity map[string]string `pulumi:"capacity"`
 	// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions []PersistentVolumeClaimCondition `pulumi:"conditions"`
 	// Phase represents the current phase of PersistentVolumeClaim.
+	//
+	// Possible enum values:
+	//  - `"Bound"` used for PersistentVolumeClaims that are bound
+	//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+	//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 	Phase *string `pulumi:"phase"`
+	// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	ResizeStatus *string `pulumi:"resizeStatus"`
 }
 
 // PersistentVolumeClaimStatusInput is an input type that accepts PersistentVolumeClaimStatusArgs and PersistentVolumeClaimStatusOutput values.
@@ -17725,12 +18236,21 @@ type PersistentVolumeClaimStatusInput interface {
 type PersistentVolumeClaimStatusArgs struct {
 	// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
+	// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	AllocatedResources pulumi.StringMapInput `pulumi:"allocatedResources"`
 	// Represents the actual resources of the underlying volume.
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
 	// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions PersistentVolumeClaimConditionArrayInput `pulumi:"conditions"`
 	// Phase represents the current phase of PersistentVolumeClaim.
+	//
+	// Possible enum values:
+	//  - `"Bound"` used for PersistentVolumeClaims that are bound
+	//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+	//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
+	// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	ResizeStatus pulumi.StringPtrInput `pulumi:"resizeStatus"`
 }
 
 func (PersistentVolumeClaimStatusArgs) ElementType() reflect.Type {
@@ -17816,6 +18336,11 @@ func (o PersistentVolumeClaimStatusOutput) AccessModes() pulumi.StringArrayOutpu
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
+// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+func (o PersistentVolumeClaimStatusOutput) AllocatedResources() pulumi.StringMapOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatus) map[string]string { return v.AllocatedResources }).(pulumi.StringMapOutput)
+}
+
 // Represents the actual resources of the underlying volume.
 func (o PersistentVolumeClaimStatusOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
@@ -17827,8 +18352,18 @@ func (o PersistentVolumeClaimStatusOutput) Conditions() PersistentVolumeClaimCon
 }
 
 // Phase represents the current phase of PersistentVolumeClaim.
+//
+// Possible enum values:
+//  - `"Bound"` used for PersistentVolumeClaims that are bound
+//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 func (o PersistentVolumeClaimStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
+}
+
+// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+func (o PersistentVolumeClaimStatusOutput) ResizeStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.ResizeStatus }).(pulumi.StringPtrOutput)
 }
 
 type PersistentVolumeClaimStatusPtrOutput struct{ *pulumi.OutputState }
@@ -17865,6 +18400,16 @@ func (o PersistentVolumeClaimStatusPtrOutput) AccessModes() pulumi.StringArrayOu
 	}).(pulumi.StringArrayOutput)
 }
 
+// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+func (o PersistentVolumeClaimStatusPtrOutput) AllocatedResources() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.AllocatedResources
+	}).(pulumi.StringMapOutput)
+}
+
 // Represents the actual resources of the underlying volume.
 func (o PersistentVolumeClaimStatusPtrOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) map[string]string {
@@ -17886,12 +18431,27 @@ func (o PersistentVolumeClaimStatusPtrOutput) Conditions() PersistentVolumeClaim
 }
 
 // Phase represents the current phase of PersistentVolumeClaim.
+//
+// Possible enum values:
+//  - `"Bound"` used for PersistentVolumeClaims that are bound
+//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
+//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
 func (o PersistentVolumeClaimStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *string {
 		if v == nil {
 			return nil
 		}
 		return v.Phase
+	}).(pulumi.StringPtrOutput)
+}
+
+// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+func (o PersistentVolumeClaimStatusPtrOutput) ResizeStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResizeStatus
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -18338,6 +18898,11 @@ type PersistentVolumeSpec struct {
 	// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
 	NodeAffinity *VolumeNodeAffinity `pulumi:"nodeAffinity"`
 	// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+	//
+	// Possible enum values:
+	//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+	//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+	//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 	PersistentVolumeReclaimPolicy *string `pulumi:"persistentVolumeReclaimPolicy"`
 	// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSource `pulumi:"photonPersistentDisk"`
@@ -18413,6 +18978,11 @@ type PersistentVolumeSpecArgs struct {
 	// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
 	NodeAffinity VolumeNodeAffinityPtrInput `pulumi:"nodeAffinity"`
 	// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+	//
+	// Possible enum values:
+	//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+	//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+	//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 	PersistentVolumeReclaimPolicy pulumi.StringPtrInput `pulumi:"persistentVolumeReclaimPolicy"`
 	// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePtrInput `pulumi:"photonPersistentDisk"`
@@ -18613,6 +19183,11 @@ func (o PersistentVolumeSpecOutput) NodeAffinity() VolumeNodeAffinityPtrOutput {
 }
 
 // What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+//
+// Possible enum values:
+//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 func (o PersistentVolumeSpecOutput) PersistentVolumeReclaimPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.PersistentVolumeReclaimPolicy }).(pulumi.StringPtrOutput)
 }
@@ -18887,6 +19462,11 @@ func (o PersistentVolumeSpecPtrOutput) NodeAffinity() VolumeNodeAffinityPtrOutpu
 }
 
 // What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+//
+// Possible enum values:
+//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
+//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
+//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
 func (o PersistentVolumeSpecPtrOutput) PersistentVolumeReclaimPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *string {
 		if v == nil {
@@ -18991,6 +19571,13 @@ type PersistentVolumeStatus struct {
 	// A human-readable message indicating details about why the volume is in this state.
 	Message *string `pulumi:"message"`
 	// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+	//
+	// Possible enum values:
+	//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+	//  - `"Bound"` used for PersistentVolumes that are bound
+	//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+	//  - `"Pending"` used for PersistentVolumes that are not available
+	//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
 	Phase *string `pulumi:"phase"`
 	// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 	Reason *string `pulumi:"reason"`
@@ -19012,6 +19599,13 @@ type PersistentVolumeStatusArgs struct {
 	// A human-readable message indicating details about why the volume is in this state.
 	Message pulumi.StringPtrInput `pulumi:"message"`
 	// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+	//
+	// Possible enum values:
+	//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+	//  - `"Bound"` used for PersistentVolumes that are bound
+	//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+	//  - `"Pending"` used for PersistentVolumes that are not available
+	//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
@@ -19101,6 +19695,13 @@ func (o PersistentVolumeStatusOutput) Message() pulumi.StringPtrOutput {
 }
 
 // Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+//
+// Possible enum values:
+//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+//  - `"Bound"` used for PersistentVolumes that are bound
+//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+//  - `"Pending"` used for PersistentVolumes that are not available
+//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
 func (o PersistentVolumeStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -19145,6 +19746,13 @@ func (o PersistentVolumeStatusPtrOutput) Message() pulumi.StringPtrOutput {
 }
 
 // Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+//
+// Possible enum values:
+//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
+//  - `"Bound"` used for PersistentVolumes that are bound
+//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
+//  - `"Pending"` used for PersistentVolumes that are not available
+//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
 func (o PersistentVolumeStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeStatus) *string {
 		if v == nil {
@@ -19966,6 +20574,12 @@ type PodCondition struct {
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Status string `pulumi:"status"`
 	// Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+	//
+	// Possible enum values:
+	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
+	//  - `"Initialized"` means that all init containers in the pod have started successfully.
+	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
+	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	Type string `pulumi:"type"`
 }
 
@@ -19993,6 +20607,12 @@ type PodConditionArgs struct {
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+	//
+	// Possible enum values:
+	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
+	//  - `"Initialized"` means that all init containers in the pod have started successfully.
+	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
+	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -20074,6 +20694,12 @@ func (o PodConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+//
+// Possible enum values:
+//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
+//  - `"Initialized"` means that all init containers in the pod have started successfully.
+//  - `"PodScheduled"` represents status of the scheduling process for this pod.
+//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 func (o PodConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v PodCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -20567,9 +21193,155 @@ func (o PodListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v PodListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// PodOS defines the OS parameters of a pod.
+type PodOS struct {
+	// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+	Name string `pulumi:"name"`
+}
+
+// PodOSInput is an input type that accepts PodOSArgs and PodOSOutput values.
+// You can construct a concrete instance of `PodOSInput` via:
+//
+//          PodOSArgs{...}
+type PodOSInput interface {
+	pulumi.Input
+
+	ToPodOSOutput() PodOSOutput
+	ToPodOSOutputWithContext(context.Context) PodOSOutput
+}
+
+// PodOS defines the OS parameters of a pod.
+type PodOSArgs struct {
+	// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (PodOSArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodOS)(nil)).Elem()
+}
+
+func (i PodOSArgs) ToPodOSOutput() PodOSOutput {
+	return i.ToPodOSOutputWithContext(context.Background())
+}
+
+func (i PodOSArgs) ToPodOSOutputWithContext(ctx context.Context) PodOSOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodOSOutput)
+}
+
+func (i PodOSArgs) ToPodOSPtrOutput() PodOSPtrOutput {
+	return i.ToPodOSPtrOutputWithContext(context.Background())
+}
+
+func (i PodOSArgs) ToPodOSPtrOutputWithContext(ctx context.Context) PodOSPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodOSOutput).ToPodOSPtrOutputWithContext(ctx)
+}
+
+// PodOSPtrInput is an input type that accepts PodOSArgs, PodOSPtr and PodOSPtrOutput values.
+// You can construct a concrete instance of `PodOSPtrInput` via:
+//
+//          PodOSArgs{...}
+//
+//  or:
+//
+//          nil
+type PodOSPtrInput interface {
+	pulumi.Input
+
+	ToPodOSPtrOutput() PodOSPtrOutput
+	ToPodOSPtrOutputWithContext(context.Context) PodOSPtrOutput
+}
+
+type podOSPtrType PodOSArgs
+
+func PodOSPtr(v *PodOSArgs) PodOSPtrInput {
+	return (*podOSPtrType)(v)
+}
+
+func (*podOSPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodOS)(nil)).Elem()
+}
+
+func (i *podOSPtrType) ToPodOSPtrOutput() PodOSPtrOutput {
+	return i.ToPodOSPtrOutputWithContext(context.Background())
+}
+
+func (i *podOSPtrType) ToPodOSPtrOutputWithContext(ctx context.Context) PodOSPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodOSPtrOutput)
+}
+
+// PodOS defines the OS parameters of a pod.
+type PodOSOutput struct{ *pulumi.OutputState }
+
+func (PodOSOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodOS)(nil)).Elem()
+}
+
+func (o PodOSOutput) ToPodOSOutput() PodOSOutput {
+	return o
+}
+
+func (o PodOSOutput) ToPodOSOutputWithContext(ctx context.Context) PodOSOutput {
+	return o
+}
+
+func (o PodOSOutput) ToPodOSPtrOutput() PodOSPtrOutput {
+	return o.ToPodOSPtrOutputWithContext(context.Background())
+}
+
+func (o PodOSOutput) ToPodOSPtrOutputWithContext(ctx context.Context) PodOSPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodOS) *PodOS {
+		return &v
+	}).(PodOSPtrOutput)
+}
+
+// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+func (o PodOSOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v PodOS) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type PodOSPtrOutput struct{ *pulumi.OutputState }
+
+func (PodOSPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodOS)(nil)).Elem()
+}
+
+func (o PodOSPtrOutput) ToPodOSPtrOutput() PodOSPtrOutput {
+	return o
+}
+
+func (o PodOSPtrOutput) ToPodOSPtrOutputWithContext(ctx context.Context) PodOSPtrOutput {
+	return o
+}
+
+func (o PodOSPtrOutput) Elem() PodOSOutput {
+	return o.ApplyT(func(v *PodOS) PodOS {
+		if v != nil {
+			return *v
+		}
+		var ret PodOS
+		return ret
+	}).(PodOSOutput)
+}
+
+// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+func (o PodOSPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodOS) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
 // PodReadinessGate contains the reference to a pod condition
 type PodReadinessGate struct {
 	// ConditionType refers to a condition in the pod's condition list with matching type.
+	//
+	// Possible enum values:
+	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
+	//  - `"Initialized"` means that all init containers in the pod have started successfully.
+	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
+	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	ConditionType string `pulumi:"conditionType"`
 }
 
@@ -20587,6 +21359,12 @@ type PodReadinessGateInput interface {
 // PodReadinessGate contains the reference to a pod condition
 type PodReadinessGateArgs struct {
 	// ConditionType refers to a condition in the pod's condition list with matching type.
+	//
+	// Possible enum values:
+	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
+	//  - `"Initialized"` means that all init containers in the pod have started successfully.
+	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
+	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	ConditionType pulumi.StringInput `pulumi:"conditionType"`
 }
 
@@ -20643,6 +21421,12 @@ func (o PodReadinessGateOutput) ToPodReadinessGateOutputWithContext(ctx context.
 }
 
 // ConditionType refers to a condition in the pod's condition list with matching type.
+//
+// Possible enum values:
+//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
+//  - `"Initialized"` means that all init containers in the pod have started successfully.
+//  - `"PodScheduled"` represents status of the scheduling process for this pod.
+//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 func (o PodReadinessGateOutput) ConditionType() pulumi.StringOutput {
 	return o.ApplyT(func(v PodReadinessGate) string { return v.ConditionType }).(pulumi.StringOutput)
 }
@@ -20673,25 +21457,25 @@ type PodSecurityContext struct {
 	//
 	// 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
 	//
-	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
+	// If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
 	FsGroup *int `pulumi:"fsGroup"`
-	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
 	FsGroupChangePolicy *string `pulumi:"fsGroupChangePolicy"`
-	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsGroup *int `pulumi:"runAsGroup"`
 	// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsNonRoot *bool `pulumi:"runAsNonRoot"`
-	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser *int `pulumi:"runAsUser"`
-	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions *SELinuxOptions `pulumi:"seLinuxOptions"`
-	// The seccomp options to use by the containers in this pod.
+	// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
 	SeccompProfile *SeccompProfile `pulumi:"seccompProfile"`
-	// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
+	// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
 	SupplementalGroups []int `pulumi:"supplementalGroups"`
-	// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
+	// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
 	Sysctls []Sysctl `pulumi:"sysctls"`
-	// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 	WindowsOptions *WindowsSecurityContextOptions `pulumi:"windowsOptions"`
 }
 
@@ -20712,25 +21496,25 @@ type PodSecurityContextArgs struct {
 	//
 	// 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
 	//
-	// If unset, the Kubelet will not modify the ownership and permissions of any volume.
+	// If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
 	FsGroup pulumi.IntPtrInput `pulumi:"fsGroup"`
-	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
+	// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
 	FsGroupChangePolicy pulumi.StringPtrInput `pulumi:"fsGroupChangePolicy"`
-	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsGroup pulumi.IntPtrInput `pulumi:"runAsGroup"`
 	// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsNonRoot pulumi.BoolPtrInput `pulumi:"runAsNonRoot"`
-	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser pulumi.IntPtrInput `pulumi:"runAsUser"`
-	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+	// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
-	// The seccomp options to use by the containers in this pod.
+	// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
 	SeccompProfile SeccompProfilePtrInput `pulumi:"seccompProfile"`
-	// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
+	// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
 	SupplementalGroups pulumi.IntArrayInput `pulumi:"supplementalGroups"`
-	// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
+	// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
 	Sysctls SysctlArrayInput `pulumi:"sysctls"`
-	// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 	WindowsOptions WindowsSecurityContextOptionsPtrInput `pulumi:"windowsOptions"`
 }
 
@@ -20816,17 +21600,17 @@ func (o PodSecurityContextOutput) ToPodSecurityContextPtrOutputWithContext(ctx c
 //
 // 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
 //
-// If unset, the Kubelet will not modify the ownership and permissions of any volume.
+// If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) FsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.FsGroup }).(pulumi.IntPtrOutput)
 }
 
-// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *string { return v.FsGroupChangePolicy }).(pulumi.StringPtrOutput)
 }
 
-// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) RunAsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.RunAsGroup }).(pulumi.IntPtrOutput)
 }
@@ -20836,32 +21620,32 @@ func (o PodSecurityContextOutput) RunAsNonRoot() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *bool { return v.RunAsNonRoot }).(pulumi.BoolPtrOutput)
 }
 
-// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) RunAsUser() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *int { return v.RunAsUser }).(pulumi.IntPtrOutput)
 }
 
-// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *SELinuxOptions { return v.SeLinuxOptions }).(SELinuxOptionsPtrOutput)
 }
 
-// The seccomp options to use by the containers in this pod.
+// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) SeccompProfile() SeccompProfilePtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *SeccompProfile { return v.SeccompProfile }).(SeccompProfilePtrOutput)
 }
 
-// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
+// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) SupplementalGroups() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v PodSecurityContext) []int { return v.SupplementalGroups }).(pulumi.IntArrayOutput)
 }
 
-// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
+// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextOutput) Sysctls() SysctlArrayOutput {
 	return o.ApplyT(func(v PodSecurityContext) []Sysctl { return v.Sysctls }).(SysctlArrayOutput)
 }
 
-// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 func (o PodSecurityContextOutput) WindowsOptions() WindowsSecurityContextOptionsPtrOutput {
 	return o.ApplyT(func(v PodSecurityContext) *WindowsSecurityContextOptions { return v.WindowsOptions }).(WindowsSecurityContextOptionsPtrOutput)
 }
@@ -20894,7 +21678,7 @@ func (o PodSecurityContextPtrOutput) Elem() PodSecurityContextOutput {
 //
 // 1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
 //
-// If unset, the Kubelet will not modify the ownership and permissions of any volume.
+// If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) FsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *int {
 		if v == nil {
@@ -20904,7 +21688,7 @@ func (o PodSecurityContextPtrOutput) FsGroup() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used.
+// fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) FsGroupChangePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *string {
 		if v == nil {
@@ -20914,7 +21698,7 @@ func (o PodSecurityContextPtrOutput) FsGroupChangePolicy() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) RunAsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *int {
 		if v == nil {
@@ -20934,7 +21718,7 @@ func (o PodSecurityContextPtrOutput) RunAsNonRoot() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *int {
 		if v == nil {
@@ -20944,7 +21728,7 @@ func (o PodSecurityContextPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container.
+// The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *SELinuxOptions {
 		if v == nil {
@@ -20954,7 +21738,7 @@ func (o PodSecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	}).(SELinuxOptionsPtrOutput)
 }
 
-// The seccomp options to use by the containers in this pod.
+// The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) SeccompProfile() SeccompProfilePtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *SeccompProfile {
 		if v == nil {
@@ -20964,7 +21748,7 @@ func (o PodSecurityContextPtrOutput) SeccompProfile() SeccompProfilePtrOutput {
 	}).(SeccompProfilePtrOutput)
 }
 
-// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container.
+// A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) SupplementalGroups() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *PodSecurityContext) []int {
 		if v == nil {
@@ -20974,7 +21758,7 @@ func (o PodSecurityContextPtrOutput) SupplementalGroups() pulumi.IntArrayOutput 
 	}).(pulumi.IntArrayOutput)
 }
 
-// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch.
+// Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
 func (o PodSecurityContextPtrOutput) Sysctls() SysctlArrayOutput {
 	return o.ApplyT(func(v *PodSecurityContext) []Sysctl {
 		if v == nil {
@@ -20984,7 +21768,7 @@ func (o PodSecurityContextPtrOutput) Sysctls() SysctlArrayOutput {
 	}).(SysctlArrayOutput)
 }
 
-// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 func (o PodSecurityContextPtrOutput) WindowsOptions() WindowsSecurityContextOptionsPtrOutput {
 	return o.ApplyT(func(v *PodSecurityContext) *WindowsSecurityContextOptions {
 		if v == nil {
@@ -21007,10 +21791,16 @@ type PodSpec struct {
 	// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
 	DnsConfig *PodDNSConfig `pulumi:"dnsConfig"`
 	// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+	//
+	// Possible enum values:
+	//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+	//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+	//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
+	//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 	DnsPolicy *string `pulumi:"dnsPolicy"`
 	// EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
 	EnableServiceLinks *bool `pulumi:"enableServiceLinks"`
-	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.
+	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 	EphemeralContainers []EphemeralContainer `pulumi:"ephemeralContainers"`
 	// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
 	HostAliases []HostAlias `pulumi:"hostAliases"`
@@ -21030,6 +21820,12 @@ type PodSpec struct {
 	NodeName *string `pulumi:"nodeName"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 	NodeSelector map[string]string `pulumi:"nodeSelector"`
+	// Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+	//
+	// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+	//
+	// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+	Os *PodOS `pulumi:"os"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead map[string]string `pulumi:"overhead"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
@@ -21041,6 +21837,11 @@ type PodSpec struct {
 	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 	ReadinessGates []PodReadinessGate `pulumi:"readinessGates"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+	//
+	// Possible enum values:
+	//  - `"Always"`
+	//  - `"Never"`
+	//  - `"OnFailure"`
 	RestartPolicy *string `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
 	RuntimeClassName *string `pulumi:"runtimeClassName"`
@@ -21092,10 +21893,16 @@ type PodSpecArgs struct {
 	// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
 	DnsConfig PodDNSConfigPtrInput `pulumi:"dnsConfig"`
 	// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+	//
+	// Possible enum values:
+	//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+	//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+	//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
+	//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 	DnsPolicy pulumi.StringPtrInput `pulumi:"dnsPolicy"`
 	// EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
 	EnableServiceLinks pulumi.BoolPtrInput `pulumi:"enableServiceLinks"`
-	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.
+	// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 	EphemeralContainers EphemeralContainerArrayInput `pulumi:"ephemeralContainers"`
 	// HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
 	HostAliases HostAliasArrayInput `pulumi:"hostAliases"`
@@ -21115,6 +21922,12 @@ type PodSpecArgs struct {
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
 	NodeSelector pulumi.StringMapInput `pulumi:"nodeSelector"`
+	// Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+	//
+	// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+	//
+	// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+	Os PodOSPtrInput `pulumi:"os"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
@@ -21126,6 +21939,11 @@ type PodSpecArgs struct {
 	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 	ReadinessGates PodReadinessGateArrayInput `pulumi:"readinessGates"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+	//
+	// Possible enum values:
+	//  - `"Always"`
+	//  - `"Never"`
+	//  - `"OnFailure"`
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
 	RuntimeClassName pulumi.StringPtrInput `pulumi:"runtimeClassName"`
@@ -21257,6 +22075,12 @@ func (o PodSpecOutput) DnsConfig() PodDNSConfigPtrOutput {
 }
 
 // Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+//
+// Possible enum values:
+//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
+//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 func (o PodSpecOutput) DnsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.DnsPolicy }).(pulumi.StringPtrOutput)
 }
@@ -21266,7 +22090,7 @@ func (o PodSpecOutput) EnableServiceLinks() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PodSpec) *bool { return v.EnableServiceLinks }).(pulumi.BoolPtrOutput)
 }
 
-// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.
+// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 func (o PodSpecOutput) EphemeralContainers() EphemeralContainerArrayOutput {
 	return o.ApplyT(func(v PodSpec) []EphemeralContainer { return v.EphemeralContainers }).(EphemeralContainerArrayOutput)
 }
@@ -21316,6 +22140,15 @@ func (o PodSpecOutput) NodeSelector() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
 }
 
+// Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+//
+// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+//
+// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+func (o PodSpecOutput) Os() PodOSPtrOutput {
+	return o.ApplyT(func(v PodSpec) *PodOS { return v.Os }).(PodOSPtrOutput)
+}
+
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o PodSpecOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
@@ -21342,6 +22175,11 @@ func (o PodSpecOutput) ReadinessGates() PodReadinessGateArrayOutput {
 }
 
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+//
+// Possible enum values:
+//  - `"Always"`
+//  - `"Never"`
+//  - `"OnFailure"`
 func (o PodSpecOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
 }
@@ -21481,6 +22319,12 @@ func (o PodSpecPtrOutput) DnsConfig() PodDNSConfigPtrOutput {
 }
 
 // Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+//
+// Possible enum values:
+//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
+//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
+//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 func (o PodSpecPtrOutput) DnsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -21500,7 +22344,7 @@ func (o PodSpecPtrOutput) EnableServiceLinks() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is alpha-level and is only honored by servers that enable the EphemeralContainers feature.
+// List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 func (o PodSpecPtrOutput) EphemeralContainers() EphemeralContainerArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []EphemeralContainer {
 		if v == nil {
@@ -21600,6 +22444,20 @@ func (o PodSpecPtrOutput) NodeSelector() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
+// Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+//
+// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+//
+// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+func (o PodSpecPtrOutput) Os() PodOSPtrOutput {
+	return o.ApplyT(func(v *PodSpec) *PodOS {
+		if v == nil {
+			return nil
+		}
+		return v.Os
+	}).(PodOSPtrOutput)
+}
+
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
 func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PodSpec) map[string]string {
@@ -21651,6 +22509,11 @@ func (o PodSpecPtrOutput) ReadinessGates() PodReadinessGateArrayOutput {
 }
 
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+//
+// Possible enum values:
+//  - `"Always"`
+//  - `"Never"`
+//  - `"OnFailure"`
 func (o PodSpecPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -21786,7 +22649,7 @@ type PodStatus struct {
 	Conditions []PodCondition `pulumi:"conditions"`
 	// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses []ContainerStatus `pulumi:"containerStatuses"`
-	// Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
+	// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 	EphemeralContainerStatuses []ContainerStatus `pulumi:"ephemeralContainerStatuses"`
 	// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
 	HostIP *string `pulumi:"hostIP"`
@@ -21801,12 +22664,24 @@ type PodStatus struct {
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 	//
 	// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+	//
+	// Possible enum values:
+	//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+	//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
+	//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
+	//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
+	//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 	Phase *string `pulumi:"phase"`
 	// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 	PodIP *string `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs []PodIP `pulumi:"podIPs"`
 	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+	//
+	// Possible enum values:
+	//  - `"BestEffort"` is the BestEffort qos class.
+	//  - `"Burstable"` is the Burstable qos class.
+	//  - `"Guaranteed"` is the Guaranteed qos class.
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
@@ -21831,7 +22706,7 @@ type PodStatusArgs struct {
 	Conditions PodConditionArrayInput `pulumi:"conditions"`
 	// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses ContainerStatusArrayInput `pulumi:"containerStatuses"`
-	// Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
+	// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 	EphemeralContainerStatuses ContainerStatusArrayInput `pulumi:"ephemeralContainerStatuses"`
 	// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
 	HostIP pulumi.StringPtrInput `pulumi:"hostIP"`
@@ -21846,12 +22721,24 @@ type PodStatusArgs struct {
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 	//
 	// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+	//
+	// Possible enum values:
+	//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+	//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
+	//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
+	//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
+	//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 	PodIP pulumi.StringPtrInput `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs PodIPArrayInput `pulumi:"podIPs"`
 	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+	//
+	// Possible enum values:
+	//  - `"BestEffort"` is the BestEffort qos class.
+	//  - `"Burstable"` is the Burstable qos class.
+	//  - `"Guaranteed"` is the Guaranteed qos class.
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
@@ -21947,7 +22834,7 @@ func (o PodStatusOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v PodStatus) []ContainerStatus { return v.ContainerStatuses }).(ContainerStatusArrayOutput)
 }
 
-// Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
+// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 func (o PodStatusOutput) EphemeralContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v PodStatus) []ContainerStatus { return v.EphemeralContainerStatuses }).(ContainerStatusArrayOutput)
 }
@@ -21977,6 +22864,13 @@ func (o PodStatusOutput) NominatedNodeName() pulumi.StringPtrOutput {
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 //
 // More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+//
+// Possible enum values:
+//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
+//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
+//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
+//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 func (o PodStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -21992,6 +22886,11 @@ func (o PodStatusOutput) PodIPs() PodIPArrayOutput {
 }
 
 // The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+//
+// Possible enum values:
+//  - `"BestEffort"` is the BestEffort qos class.
+//  - `"Burstable"` is the Burstable qos class.
+//  - `"Guaranteed"` is the Guaranteed qos class.
 func (o PodStatusOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.QosClass }).(pulumi.StringPtrOutput)
 }
@@ -22050,7 +22949,7 @@ func (o PodStatusPtrOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	}).(ContainerStatusArrayOutput)
 }
 
-// Status for any ephemeral containers that have run in this pod. This field is alpha-level and is only populated by servers that enable the EphemeralContainers feature.
+// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 func (o PodStatusPtrOutput) EphemeralContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v *PodStatus) []ContainerStatus {
 		if v == nil {
@@ -22105,6 +23004,13 @@ func (o PodStatusPtrOutput) NominatedNodeName() pulumi.StringPtrOutput {
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 //
 // More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+//
+// Possible enum values:
+//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
+//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
+//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
+//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
+//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 func (o PodStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -22135,6 +23041,11 @@ func (o PodStatusPtrOutput) PodIPs() PodIPArrayOutput {
 }
 
 // The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+//
+// Possible enum values:
+//  - `"BestEffort"` is the BestEffort qos class.
+//  - `"Burstable"` is the Burstable qos class.
+//  - `"Guaranteed"` is the Guaranteed qos class.
 func (o PodStatusPtrOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -22541,6 +23452,11 @@ type PortStatus struct {
 	// Port is the port number of the service port of which status is recorded here
 	Port int `pulumi:"port"`
 	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol string `pulumi:"protocol"`
 }
 
@@ -22564,6 +23480,11 @@ type PortStatusArgs struct {
 	// Port is the port number of the service port of which status is recorded here
 	Port pulumi.IntInput `pulumi:"port"`
 	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringInput `pulumi:"protocol"`
 }
 
@@ -22632,6 +23553,11 @@ func (o PortStatusOutput) Port() pulumi.IntOutput {
 }
 
 // Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+//
+// Possible enum values:
+//  - `"SCTP"` is the SCTP protocol.
+//  - `"TCP"` is the TCP protocol.
+//  - `"UDP"` is the UDP protocol.
 func (o PortStatusOutput) Protocol() pulumi.StringOutput {
 	return o.ApplyT(func(v PortStatus) string { return v.Protocol }).(pulumi.StringOutput)
 }
@@ -22945,10 +23871,12 @@ func (o PreferredSchedulingTermArrayOutput) Index(i pulumi.IntInput) PreferredSc
 
 // Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 type Probe struct {
-	// One and only one of the following should be specified. Exec specifies the action to take.
+	// Exec specifies the action to take.
 	Exec *ExecAction `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
+	// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+	Grpc *GRPCAction `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -22957,7 +23885,7 @@ type Probe struct {
 	PeriodSeconds *int `pulumi:"periodSeconds"`
 	// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 	SuccessThreshold *int `pulumi:"successThreshold"`
-	// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+	// TCPSocket specifies an action involving a TCP port.
 	TcpSocket *TCPSocketAction `pulumi:"tcpSocket"`
 	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds *int `pulumi:"terminationGracePeriodSeconds"`
@@ -22978,10 +23906,12 @@ type ProbeInput interface {
 
 // Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
 type ProbeArgs struct {
-	// One and only one of the following should be specified. Exec specifies the action to take.
+	// Exec specifies the action to take.
 	Exec ExecActionPtrInput `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
+	// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+	Grpc GRPCActionPtrInput `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
 	// Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -22990,7 +23920,7 @@ type ProbeArgs struct {
 	PeriodSeconds pulumi.IntPtrInput `pulumi:"periodSeconds"`
 	// Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
 	SuccessThreshold pulumi.IntPtrInput `pulumi:"successThreshold"`
-	// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+	// TCPSocket specifies an action involving a TCP port.
 	TcpSocket TCPSocketActionPtrInput `pulumi:"tcpSocket"`
 	// Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
 	TerminationGracePeriodSeconds pulumi.IntPtrInput `pulumi:"terminationGracePeriodSeconds"`
@@ -23076,7 +24006,7 @@ func (o ProbeOutput) ToProbePtrOutputWithContext(ctx context.Context) ProbePtrOu
 	}).(ProbePtrOutput)
 }
 
-// One and only one of the following should be specified. Exec specifies the action to take.
+// Exec specifies the action to take.
 func (o ProbeOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v Probe) *ExecAction { return v.Exec }).(ExecActionPtrOutput)
 }
@@ -23084,6 +24014,11 @@ func (o ProbeOutput) Exec() ExecActionPtrOutput {
 // Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 func (o ProbeOutput) FailureThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.FailureThreshold }).(pulumi.IntPtrOutput)
+}
+
+// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+func (o ProbeOutput) Grpc() GRPCActionPtrOutput {
+	return o.ApplyT(func(v Probe) *GRPCAction { return v.Grpc }).(GRPCActionPtrOutput)
 }
 
 // HTTPGet specifies the http request to perform.
@@ -23106,7 +24041,7 @@ func (o ProbeOutput) SuccessThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.SuccessThreshold }).(pulumi.IntPtrOutput)
 }
 
-// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+// TCPSocket specifies an action involving a TCP port.
 func (o ProbeOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v Probe) *TCPSocketAction { return v.TcpSocket }).(TCPSocketActionPtrOutput)
 }
@@ -23145,7 +24080,7 @@ func (o ProbePtrOutput) Elem() ProbeOutput {
 	}).(ProbeOutput)
 }
 
-// One and only one of the following should be specified. Exec specifies the action to take.
+// Exec specifies the action to take.
 func (o ProbePtrOutput) Exec() ExecActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *ExecAction {
 		if v == nil {
@@ -23163,6 +24098,16 @@ func (o ProbePtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 		}
 		return v.FailureThreshold
 	}).(pulumi.IntPtrOutput)
+}
+
+// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+func (o ProbePtrOutput) Grpc() GRPCActionPtrOutput {
+	return o.ApplyT(func(v *Probe) *GRPCAction {
+		if v == nil {
+			return nil
+		}
+		return v.Grpc
+	}).(GRPCActionPtrOutput)
 }
 
 // HTTPGet specifies the http request to perform.
@@ -23205,7 +24150,7 @@ func (o ProbePtrOutput) SuccessThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// TCPSocket specifies an action involving a TCP port. TCP hooks not yet supported
+// TCPSocket specifies an action involving a TCP port.
 func (o ProbePtrOutput) TcpSocket() TCPSocketActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *TCPSocketAction {
 		if v == nil {
@@ -26815,8 +27760,22 @@ func (o ScopeSelectorPtrOutput) MatchExpressions() ScopedResourceSelectorRequire
 // A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 type ScopedResourceSelectorRequirement struct {
 	// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+	//
+	// Possible enum values:
+	//  - `"DoesNotExist"`
+	//  - `"Exists"`
+	//  - `"In"`
+	//  - `"NotIn"`
 	Operator string `pulumi:"operator"`
 	// The name of the scope that the selector applies to.
+	//
+	// Possible enum values:
+	//  - `"BestEffort"` Match all pod objects that have best effort quality of service
+	//  - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
+	//  - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
+	//  - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
+	//  - `"PriorityClass"` Match all pod objects that have priority class mentioned
+	//  - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 	ScopeName string `pulumi:"scopeName"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	Values []string `pulumi:"values"`
@@ -26836,8 +27795,22 @@ type ScopedResourceSelectorRequirementInput interface {
 // A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 type ScopedResourceSelectorRequirementArgs struct {
 	// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+	//
+	// Possible enum values:
+	//  - `"DoesNotExist"`
+	//  - `"Exists"`
+	//  - `"In"`
+	//  - `"NotIn"`
 	Operator pulumi.StringInput `pulumi:"operator"`
 	// The name of the scope that the selector applies to.
+	//
+	// Possible enum values:
+	//  - `"BestEffort"` Match all pod objects that have best effort quality of service
+	//  - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
+	//  - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
+	//  - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
+	//  - `"PriorityClass"` Match all pod objects that have priority class mentioned
+	//  - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 	ScopeName pulumi.StringInput `pulumi:"scopeName"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	Values pulumi.StringArrayInput `pulumi:"values"`
@@ -26896,11 +27869,25 @@ func (o ScopedResourceSelectorRequirementOutput) ToScopedResourceSelectorRequire
 }
 
 // Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+//
+// Possible enum values:
+//  - `"DoesNotExist"`
+//  - `"Exists"`
+//  - `"In"`
+//  - `"NotIn"`
 func (o ScopedResourceSelectorRequirementOutput) Operator() pulumi.StringOutput {
 	return o.ApplyT(func(v ScopedResourceSelectorRequirement) string { return v.Operator }).(pulumi.StringOutput)
 }
 
 // The name of the scope that the selector applies to.
+//
+// Possible enum values:
+//  - `"BestEffort"` Match all pod objects that have best effort quality of service
+//  - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
+//  - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
+//  - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
+//  - `"PriorityClass"` Match all pod objects that have priority class mentioned
+//  - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 func (o ScopedResourceSelectorRequirementOutput) ScopeName() pulumi.StringOutput {
 	return o.ApplyT(func(v ScopedResourceSelectorRequirement) string { return v.ScopeName }).(pulumi.StringOutput)
 }
@@ -26937,6 +27924,11 @@ type SeccompProfile struct {
 	// type indicates which kind of seccomp profile will be applied. Valid options are:
 	//
 	// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+	//
+	// Possible enum values:
+	//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
+	//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+	//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 	Type string `pulumi:"type"`
 }
 
@@ -26958,6 +27950,11 @@ type SeccompProfileArgs struct {
 	// type indicates which kind of seccomp profile will be applied. Valid options are:
 	//
 	// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+	//
+	// Possible enum values:
+	//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
+	//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+	//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -27047,6 +28044,11 @@ func (o SeccompProfileOutput) LocalhostProfile() pulumi.StringPtrOutput {
 // type indicates which kind of seccomp profile will be applied. Valid options are:
 //
 // Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+//
+// Possible enum values:
+//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
+//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 func (o SeccompProfileOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v SeccompProfile) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -27088,6 +28090,11 @@ func (o SeccompProfilePtrOutput) LocalhostProfile() pulumi.StringPtrOutput {
 // type indicates which kind of seccomp profile will be applied. Valid options are:
 //
 // Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+//
+// Possible enum values:
+//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
+//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
+//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 func (o SeccompProfilePtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SeccompProfile) *string {
 		if v == nil {
@@ -27121,7 +28128,7 @@ type SecretType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 	StringData map[string]string `pulumi:"stringData"`
-	// Used to facilitate programmatic handling of secret data.
+	// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 	Type *string `pulumi:"type"`
 }
 
@@ -27160,7 +28167,7 @@ type SecretTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 	StringData pulumi.StringMapInput `pulumi:"stringData"`
-	// Used to facilitate programmatic handling of secret data.
+	// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -27256,7 +28263,7 @@ func (o SecretTypeOutput) StringData() pulumi.StringMapOutput {
 	return o.ApplyT(func(v SecretType) map[string]string { return v.StringData }).(pulumi.StringMapOutput)
 }
 
-// Used to facilitate programmatic handling of secret data.
+// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
 func (o SecretTypeOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SecretType) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -28254,27 +29261,27 @@ func (o SecretVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 
 // SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
 type SecurityContext struct {
-	// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+	// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
 	AllowPrivilegeEscalation *bool `pulumi:"allowPrivilegeEscalation"`
-	// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
+	// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
 	Capabilities *Capabilities `pulumi:"capabilities"`
-	// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
+	// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
 	Privileged *bool `pulumi:"privileged"`
-	// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+	// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
 	ProcMount *string `pulumi:"procMount"`
-	// Whether this container has a read-only root filesystem. Default is false.
+	// Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
 	ReadOnlyRootFilesystem *bool `pulumi:"readOnlyRootFilesystem"`
-	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 	RunAsGroup *int `pulumi:"runAsGroup"`
 	// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsNonRoot *bool `pulumi:"runAsNonRoot"`
-	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser *int `pulumi:"runAsUser"`
-	// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions *SELinuxOptions `pulumi:"seLinuxOptions"`
-	// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+	// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
 	SeccompProfile *SeccompProfile `pulumi:"seccompProfile"`
-	// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 	WindowsOptions *WindowsSecurityContextOptions `pulumi:"windowsOptions"`
 }
 
@@ -28291,27 +29298,27 @@ type SecurityContextInput interface {
 
 // SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
 type SecurityContextArgs struct {
-	// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+	// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
 	AllowPrivilegeEscalation pulumi.BoolPtrInput `pulumi:"allowPrivilegeEscalation"`
-	// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
+	// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
 	Capabilities CapabilitiesPtrInput `pulumi:"capabilities"`
-	// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
+	// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
 	Privileged pulumi.BoolPtrInput `pulumi:"privileged"`
-	// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+	// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
 	ProcMount pulumi.StringPtrInput `pulumi:"procMount"`
-	// Whether this container has a read-only root filesystem. Default is false.
+	// Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
 	ReadOnlyRootFilesystem pulumi.BoolPtrInput `pulumi:"readOnlyRootFilesystem"`
-	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 	RunAsGroup pulumi.IntPtrInput `pulumi:"runAsGroup"`
 	// Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 	RunAsNonRoot pulumi.BoolPtrInput `pulumi:"runAsNonRoot"`
-	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 	RunAsUser pulumi.IntPtrInput `pulumi:"runAsUser"`
-	// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 	SeLinuxOptions SELinuxOptionsPtrInput `pulumi:"seLinuxOptions"`
-	// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+	// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
 	SeccompProfile SeccompProfilePtrInput `pulumi:"seccompProfile"`
-	// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+	// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 	WindowsOptions WindowsSecurityContextOptionsPtrInput `pulumi:"windowsOptions"`
 }
 
@@ -28393,32 +29400,32 @@ func (o SecurityContextOutput) ToSecurityContextPtrOutputWithContext(ctx context
 	}).(SecurityContextPtrOutput)
 }
 
-// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *bool { return v.AllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
 }
 
-// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
+// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) Capabilities() CapabilitiesPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *Capabilities { return v.Capabilities }).(CapabilitiesPtrOutput)
 }
 
-// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
+// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) Privileged() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *bool { return v.Privileged }).(pulumi.BoolPtrOutput)
 }
 
-// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) ProcMount() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *string { return v.ProcMount }).(pulumi.StringPtrOutput)
 }
 
-// Whether this container has a read-only root filesystem. Default is false.
+// Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) ReadOnlyRootFilesystem() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *bool { return v.ReadOnlyRootFilesystem }).(pulumi.BoolPtrOutput)
 }
 
-// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) RunAsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *int { return v.RunAsGroup }).(pulumi.IntPtrOutput)
 }
@@ -28428,22 +29435,22 @@ func (o SecurityContextOutput) RunAsNonRoot() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *bool { return v.RunAsNonRoot }).(pulumi.BoolPtrOutput)
 }
 
-// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) RunAsUser() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *int { return v.RunAsUser }).(pulumi.IntPtrOutput)
 }
 
-// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *SELinuxOptions { return v.SeLinuxOptions }).(SELinuxOptionsPtrOutput)
 }
 
-// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextOutput) SeccompProfile() SeccompProfilePtrOutput {
 	return o.ApplyT(func(v SecurityContext) *SeccompProfile { return v.SeccompProfile }).(SeccompProfilePtrOutput)
 }
 
-// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 func (o SecurityContextOutput) WindowsOptions() WindowsSecurityContextOptionsPtrOutput {
 	return o.ApplyT(func(v SecurityContext) *WindowsSecurityContextOptions { return v.WindowsOptions }).(WindowsSecurityContextOptionsPtrOutput)
 }
@@ -28472,7 +29479,7 @@ func (o SecurityContextPtrOutput) Elem() SecurityContextOutput {
 	}).(SecurityContextOutput)
 }
 
-// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN
+// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *bool {
 		if v == nil {
@@ -28482,7 +29489,7 @@ func (o SecurityContextPtrOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOutpu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime.
+// The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) Capabilities() CapabilitiesPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *Capabilities {
 		if v == nil {
@@ -28492,7 +29499,7 @@ func (o SecurityContextPtrOutput) Capabilities() CapabilitiesPtrOutput {
 	}).(CapabilitiesPtrOutput)
 }
 
-// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false.
+// Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) Privileged() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *bool {
 		if v == nil {
@@ -28502,7 +29509,7 @@ func (o SecurityContextPtrOutput) Privileged() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled.
+// procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) ProcMount() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *string {
 		if v == nil {
@@ -28512,7 +29519,7 @@ func (o SecurityContextPtrOutput) ProcMount() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Whether this container has a read-only root filesystem. Default is false.
+// Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) ReadOnlyRootFilesystem() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *bool {
 		if v == nil {
@@ -28522,7 +29529,7 @@ func (o SecurityContextPtrOutput) ReadOnlyRootFilesystem() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) RunAsGroup() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *int {
 		if v == nil {
@@ -28542,7 +29549,7 @@ func (o SecurityContextPtrOutput) RunAsNonRoot() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *int {
 		if v == nil {
@@ -28552,7 +29559,7 @@ func (o SecurityContextPtrOutput) RunAsUser() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *SELinuxOptions {
 		if v == nil {
@@ -28562,7 +29569,7 @@ func (o SecurityContextPtrOutput) SeLinuxOptions() SELinuxOptionsPtrOutput {
 	}).(SELinuxOptionsPtrOutput)
 }
 
-// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options.
+// The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
 func (o SecurityContextPtrOutput) SeccompProfile() SeccompProfilePtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *SeccompProfile {
 		if v == nil {
@@ -28572,7 +29579,7 @@ func (o SecurityContextPtrOutput) SeccompProfile() SeccompProfilePtrOutput {
 	}).(SeccompProfilePtrOutput)
 }
 
-// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+// The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
 func (o SecurityContextPtrOutput) WindowsOptions() WindowsSecurityContextOptionsPtrOutput {
 	return o.ApplyT(func(v *SecurityContext) *WindowsSecurityContextOptions {
 		if v == nil {
@@ -29291,6 +30298,11 @@ type ServicePort struct {
 	// The port that will be exposed by this service.
 	Port int `pulumi:"port"`
 	// The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol *string `pulumi:"protocol"`
 	// Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 	TargetPort interface{} `pulumi:"targetPort"`
@@ -29318,6 +30330,11 @@ type ServicePortArgs struct {
 	// The port that will be exposed by this service.
 	Port pulumi.IntInput `pulumi:"port"`
 	// The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+	//
+	// Possible enum values:
+	//  - `"SCTP"` is the SCTP protocol.
+	//  - `"TCP"` is the TCP protocol.
+	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 	// Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 	TargetPort pulumi.Input `pulumi:"targetPort"`
@@ -29396,6 +30413,11 @@ func (o ServicePortOutput) Port() pulumi.IntOutput {
 }
 
 // The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+//
+// Possible enum values:
+//  - `"SCTP"` is the SCTP protocol.
+//  - `"TCP"` is the TCP protocol.
+//  - `"UDP"` is the UDP protocol.
 func (o ServicePortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServicePort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -29433,25 +30455,29 @@ type ServiceSpec struct {
 	ClusterIP *string `pulumi:"clusterIP"`
 	// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
 	//
-	// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	// This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIPs []string `pulumi:"clusterIPs"`
 	// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 	ExternalIPs []string `pulumi:"externalIPs"`
 	// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
 	ExternalName *string `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+	//
+	// Possible enum values:
+	//  - `"Cluster"` specifies node-global (legacy) behavior.
+	//  - `"Local"` specifies node-local endpoints behavior.
 	ExternalTrafficPolicy *string `pulumi:"externalTrafficPolicy"`
 	// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 	HealthCheckNodePort *int `pulumi:"healthCheckNodePort"`
 	// InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
 	InternalTrafficPolicy *string `pulumi:"internalTrafficPolicy"`
-	// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+	// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
 	//
 	// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
 	IpFamilies []string `pulumi:"ipFamilies"`
 	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
 	IpFamily *string `pulumi:"ipFamily"`
-	// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+	// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
 	IpFamilyPolicy *string `pulumi:"ipFamilyPolicy"`
 	// loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
 	LoadBalancerClass *string `pulumi:"loadBalancerClass"`
@@ -29466,12 +30492,22 @@ type ServiceSpec struct {
 	// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
 	Selector map[string]string `pulumi:"selector"`
 	// Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	//
+	// Possible enum values:
+	//  - `"ClientIP"` is the Client IP based.
+	//  - `"None"` - no session affinity.
 	SessionAffinity *string `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+	//
+	// Possible enum values:
+	//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+	//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+	//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+	//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 	Type *string `pulumi:"type"`
 }
 
@@ -29494,25 +30530,29 @@ type ServiceSpecArgs struct {
 	ClusterIP pulumi.StringPtrInput `pulumi:"clusterIP"`
 	// ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
 	//
-	// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	// This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIPs pulumi.StringArrayInput `pulumi:"clusterIPs"`
 	// externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
 	ExternalIPs pulumi.StringArrayInput `pulumi:"externalIPs"`
 	// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
 	ExternalName pulumi.StringPtrInput `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+	//
+	// Possible enum values:
+	//  - `"Cluster"` specifies node-global (legacy) behavior.
+	//  - `"Local"` specifies node-local endpoints behavior.
 	ExternalTrafficPolicy pulumi.StringPtrInput `pulumi:"externalTrafficPolicy"`
 	// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 	HealthCheckNodePort pulumi.IntPtrInput `pulumi:"healthCheckNodePort"`
 	// InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
 	InternalTrafficPolicy pulumi.StringPtrInput `pulumi:"internalTrafficPolicy"`
-	// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+	// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
 	//
 	// This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
 	IpFamilies pulumi.StringArrayInput `pulumi:"ipFamilies"`
 	// ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
 	IpFamily pulumi.StringPtrInput `pulumi:"ipFamily"`
-	// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+	// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
 	IpFamilyPolicy pulumi.StringPtrInput `pulumi:"ipFamilyPolicy"`
 	// loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
 	LoadBalancerClass pulumi.StringPtrInput `pulumi:"loadBalancerClass"`
@@ -29527,12 +30567,22 @@ type ServiceSpecArgs struct {
 	// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
 	Selector pulumi.StringMapInput `pulumi:"selector"`
 	// Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+	//
+	// Possible enum values:
+	//  - `"ClientIP"` is the Client IP based.
+	//  - `"None"` - no session affinity.
 	SessionAffinity pulumi.StringPtrInput `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+	//
+	// Possible enum values:
+	//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+	//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+	//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+	//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -29626,7 +30676,7 @@ func (o ServiceSpecOutput) ClusterIP() pulumi.StringPtrOutput {
 
 // ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
 //
-// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+// This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 func (o ServiceSpecOutput) ClusterIPs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ServiceSpec) []string { return v.ClusterIPs }).(pulumi.StringArrayOutput)
 }
@@ -29642,6 +30692,10 @@ func (o ServiceSpecOutput) ExternalName() pulumi.StringPtrOutput {
 }
 
 // externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+//
+// Possible enum values:
+//  - `"Cluster"` specifies node-global (legacy) behavior.
+//  - `"Local"` specifies node-local endpoints behavior.
 func (o ServiceSpecOutput) ExternalTrafficPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.ExternalTrafficPolicy }).(pulumi.StringPtrOutput)
 }
@@ -29656,7 +30710,7 @@ func (o ServiceSpecOutput) InternalTrafficPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.InternalTrafficPolicy }).(pulumi.StringPtrOutput)
 }
 
-// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
 //
 // This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
 func (o ServiceSpecOutput) IpFamilies() pulumi.StringArrayOutput {
@@ -29668,7 +30722,7 @@ func (o ServiceSpecOutput) IpFamily() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.IpFamily }).(pulumi.StringPtrOutput)
 }
 
-// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
 func (o ServiceSpecOutput) IpFamilyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.IpFamilyPolicy }).(pulumi.StringPtrOutput)
 }
@@ -29704,6 +30758,10 @@ func (o ServiceSpecOutput) Selector() pulumi.StringMapOutput {
 }
 
 // Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+//
+// Possible enum values:
+//  - `"ClientIP"` is the Client IP based.
+//  - `"None"` - no session affinity.
 func (o ServiceSpecOutput) SessionAffinity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.SessionAffinity }).(pulumi.StringPtrOutput)
 }
@@ -29719,6 +30777,12 @@ func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 }
 
 // type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+//
+// Possible enum values:
+//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 func (o ServiceSpecOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -29769,7 +30833,7 @@ func (o ServiceSpecPtrOutput) ClusterIP() pulumi.StringPtrOutput {
 
 // ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
 //
-// Unless the "IPv6DualStack" feature gate is enabled, this field is limited to one value, which must be the same as the clusterIP field.  If the feature gate is enabled, this field may hold a maximum of two entries (dual-stack IPs, in either order).  These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+// This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 func (o ServiceSpecPtrOutput) ClusterIPs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ServiceSpec) []string {
 		if v == nil {
@@ -29800,6 +30864,10 @@ func (o ServiceSpecPtrOutput) ExternalName() pulumi.StringPtrOutput {
 }
 
 // externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+//
+// Possible enum values:
+//  - `"Cluster"` specifies node-global (legacy) behavior.
+//  - `"Local"` specifies node-local endpoints behavior.
 func (o ServiceSpecPtrOutput) ExternalTrafficPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -29829,7 +30897,7 @@ func (o ServiceSpecPtrOutput) InternalTrafficPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service, and is gated by the "IPv6DualStack" feature gate.  This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail.  This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.  Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services.  This field will be wiped when updating a Service to type ExternalName.
+// IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
 //
 // This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
 func (o ServiceSpecPtrOutput) IpFamilies() pulumi.StringArrayOutput {
@@ -29851,7 +30919,7 @@ func (o ServiceSpecPtrOutput) IpFamily() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service, and is gated by the "IPv6DualStack" feature gate.  If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field.  This field will be wiped when updating a service to type ExternalName.
+// IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
 func (o ServiceSpecPtrOutput) IpFamilyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -29922,6 +30990,10 @@ func (o ServiceSpecPtrOutput) Selector() pulumi.StringMapOutput {
 }
 
 // Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+//
+// Possible enum values:
+//  - `"ClientIP"` is the Client IP based.
+//  - `"None"` - no session affinity.
 func (o ServiceSpecPtrOutput) SessionAffinity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -29952,6 +31024,12 @@ func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 }
 
 // type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+//
+// Possible enum values:
+//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
+//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
+//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
+//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 func (o ServiceSpecPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -30963,6 +32041,11 @@ func (o TCPSocketActionPtrOutput) Port() pulumi.AnyOutput {
 // The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
 type Taint struct {
 	// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+	//
+	// Possible enum values:
+	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect string `pulumi:"effect"`
 	// Required. The taint key to be applied to a node.
 	Key string `pulumi:"key"`
@@ -30986,6 +32069,11 @@ type TaintInput interface {
 // The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
 type TaintArgs struct {
 	// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+	//
+	// Possible enum values:
+	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect pulumi.StringInput `pulumi:"effect"`
 	// Required. The taint key to be applied to a node.
 	Key pulumi.StringInput `pulumi:"key"`
@@ -31048,6 +32136,11 @@ func (o TaintOutput) ToTaintOutputWithContext(ctx context.Context) TaintOutput {
 }
 
 // Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+//
+// Possible enum values:
+//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 func (o TaintOutput) Effect() pulumi.StringOutput {
 	return o.ApplyT(func(v Taint) string { return v.Effect }).(pulumi.StringOutput)
 }
@@ -31090,10 +32183,19 @@ func (o TaintArrayOutput) Index(i pulumi.IntInput) TaintOutput {
 // The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
 type Toleration struct {
 	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+	//
+	// Possible enum values:
+	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect *string `pulumi:"effect"`
 	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
 	Key *string `pulumi:"key"`
 	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+	//
+	// Possible enum values:
+	//  - `"Equal"`
+	//  - `"Exists"`
 	Operator *string `pulumi:"operator"`
 	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
 	TolerationSeconds *int `pulumi:"tolerationSeconds"`
@@ -31115,10 +32217,19 @@ type TolerationInput interface {
 // The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
 type TolerationArgs struct {
 	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+	//
+	// Possible enum values:
+	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect pulumi.StringPtrInput `pulumi:"effect"`
 	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
 	Key pulumi.StringPtrInput `pulumi:"key"`
 	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+	//
+	// Possible enum values:
+	//  - `"Equal"`
+	//  - `"Exists"`
 	Operator pulumi.StringPtrInput `pulumi:"operator"`
 	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
 	TolerationSeconds pulumi.IntPtrInput `pulumi:"tolerationSeconds"`
@@ -31179,6 +32290,11 @@ func (o TolerationOutput) ToTolerationOutputWithContext(ctx context.Context) Tol
 }
 
 // Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+//
+// Possible enum values:
+//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
+//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
+//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 func (o TolerationOutput) Effect() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Toleration) *string { return v.Effect }).(pulumi.StringPtrOutput)
 }
@@ -31189,6 +32305,10 @@ func (o TolerationOutput) Key() pulumi.StringPtrOutput {
 }
 
 // Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+//
+// Possible enum values:
+//  - `"Equal"`
+//  - `"Exists"`
 func (o TolerationOutput) Operator() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Toleration) *string { return v.Operator }).(pulumi.StringPtrOutput)
 }
@@ -31443,7 +32563,11 @@ type TopologySpreadConstraint struct {
 	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
 	//   but giving higher precedence to topologies that would help reduce the
 	//   skew.
-	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+	//
+	// Possible enum values:
+	//  - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
+	//  - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 	WhenUnsatisfiable string `pulumi:"whenUnsatisfiable"`
 }
 
@@ -31469,7 +32593,11 @@ type TopologySpreadConstraintArgs struct {
 	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
 	//   but giving higher precedence to topologies that would help reduce the
 	//   skew.
-	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+	//
+	// Possible enum values:
+	//  - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
+	//  - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 	WhenUnsatisfiable pulumi.StringInput `pulumi:"whenUnsatisfiable"`
 }
 
@@ -31543,7 +32671,11 @@ func (o TopologySpreadConstraintOutput) TopologyKey() pulumi.StringOutput {
 // WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
 //   but giving higher precedence to topologies that would help reduce the
 //   skew.
-// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assigment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+//
+// Possible enum values:
+//  - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
+//  - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 func (o TopologySpreadConstraintOutput) WhenUnsatisfiable() pulumi.StringOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) string { return v.WhenUnsatisfiable }).(pulumi.StringOutput)
 }
@@ -31780,8 +32912,6 @@ type Volume struct {
 	// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
 	//
 	// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-	//
-	// This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
 	Ephemeral *EphemeralVolumeSource `pulumi:"ephemeral"`
 	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSource `pulumi:"fc"`
@@ -31870,8 +33000,6 @@ type VolumeArgs struct {
 	// Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
 	//
 	// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-	//
-	// This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
 	Ephemeral EphemeralVolumeSourcePtrInput `pulumi:"ephemeral"`
 	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePtrInput `pulumi:"fc"`
@@ -32026,8 +33154,6 @@ func (o VolumeOutput) EmptyDir() EmptyDirVolumeSourcePtrOutput {
 // Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
 //
 // A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-//
-// This is a beta feature and only available when the GenericEphemeralVolume feature gate is enabled.
 func (o VolumeOutput) Ephemeral() EphemeralVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *EphemeralVolumeSource { return v.Ephemeral }).(EphemeralVolumeSourcePtrOutput)
 }
@@ -33288,6 +34414,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlockerVolumeSourcePtrInput)(nil)).Elem(), FlockerVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GCEPersistentDiskVolumeSourceInput)(nil)).Elem(), GCEPersistentDiskVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GCEPersistentDiskVolumeSourcePtrInput)(nil)).Elem(), GCEPersistentDiskVolumeSourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GRPCActionInput)(nil)).Elem(), GRPCActionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GRPCActionPtrInput)(nil)).Elem(), GRPCActionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GitRepoVolumeSourceInput)(nil)).Elem(), GitRepoVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GitRepoVolumeSourcePtrInput)(nil)).Elem(), GitRepoVolumeSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GlusterfsPersistentVolumeSourceInput)(nil)).Elem(), GlusterfsPersistentVolumeSourceArgs{})
@@ -33299,7 +34427,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPHeaderInput)(nil)).Elem(), HTTPHeaderArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HTTPHeaderArrayInput)(nil)).Elem(), HTTPHeaderArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HandlerInput)(nil)).Elem(), HandlerArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*HandlerPtrInput)(nil)).Elem(), HandlerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HostAliasInput)(nil)).Elem(), HostAliasArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HostAliasArrayInput)(nil)).Elem(), HostAliasArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HostPathVolumeSourceInput)(nil)).Elem(), HostPathVolumeSourceArgs{})
@@ -33312,6 +34439,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*KeyToPathArrayInput)(nil)).Elem(), KeyToPathArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LifecycleInput)(nil)).Elem(), LifecycleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LifecyclePtrInput)(nil)).Elem(), LifecycleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LifecycleHandlerInput)(nil)).Elem(), LifecycleHandlerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LifecycleHandlerPtrInput)(nil)).Elem(), LifecycleHandlerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeTypeInput)(nil)).Elem(), LimitRangeTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeTypeArrayInput)(nil)).Elem(), LimitRangeTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LimitRangeItemInput)(nil)).Elem(), LimitRangeItemArgs{})
@@ -33410,6 +34539,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PodIPInput)(nil)).Elem(), PodIPArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodIPArrayInput)(nil)).Elem(), PodIPArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodListTypeInput)(nil)).Elem(), PodListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodOSInput)(nil)).Elem(), PodOSArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodOSPtrInput)(nil)).Elem(), PodOSArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodReadinessGateInput)(nil)).Elem(), PodReadinessGateArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodReadinessGateArrayInput)(nil)).Elem(), PodReadinessGateArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityContextInput)(nil)).Elem(), PodSecurityContextArgs{})
@@ -33649,6 +34780,8 @@ func init() {
 	pulumi.RegisterOutputType(FlockerVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(GCEPersistentDiskVolumeSourceOutput{})
 	pulumi.RegisterOutputType(GCEPersistentDiskVolumeSourcePtrOutput{})
+	pulumi.RegisterOutputType(GRPCActionOutput{})
+	pulumi.RegisterOutputType(GRPCActionPtrOutput{})
 	pulumi.RegisterOutputType(GitRepoVolumeSourceOutput{})
 	pulumi.RegisterOutputType(GitRepoVolumeSourcePtrOutput{})
 	pulumi.RegisterOutputType(GlusterfsPersistentVolumeSourceOutput{})
@@ -33660,7 +34793,6 @@ func init() {
 	pulumi.RegisterOutputType(HTTPHeaderOutput{})
 	pulumi.RegisterOutputType(HTTPHeaderArrayOutput{})
 	pulumi.RegisterOutputType(HandlerOutput{})
-	pulumi.RegisterOutputType(HandlerPtrOutput{})
 	pulumi.RegisterOutputType(HostAliasOutput{})
 	pulumi.RegisterOutputType(HostAliasArrayOutput{})
 	pulumi.RegisterOutputType(HostPathVolumeSourceOutput{})
@@ -33673,6 +34805,8 @@ func init() {
 	pulumi.RegisterOutputType(KeyToPathArrayOutput{})
 	pulumi.RegisterOutputType(LifecycleOutput{})
 	pulumi.RegisterOutputType(LifecyclePtrOutput{})
+	pulumi.RegisterOutputType(LifecycleHandlerOutput{})
+	pulumi.RegisterOutputType(LifecycleHandlerPtrOutput{})
 	pulumi.RegisterOutputType(LimitRangeTypeOutput{})
 	pulumi.RegisterOutputType(LimitRangeTypeArrayOutput{})
 	pulumi.RegisterOutputType(LimitRangeItemOutput{})
@@ -33771,6 +34905,8 @@ func init() {
 	pulumi.RegisterOutputType(PodIPOutput{})
 	pulumi.RegisterOutputType(PodIPArrayOutput{})
 	pulumi.RegisterOutputType(PodListTypeOutput{})
+	pulumi.RegisterOutputType(PodOSOutput{})
+	pulumi.RegisterOutputType(PodOSPtrOutput{})
 	pulumi.RegisterOutputType(PodReadinessGateOutput{})
 	pulumi.RegisterOutputType(PodReadinessGateArrayOutput{})
 	pulumi.RegisterOutputType(PodSecurityContextOutput{})

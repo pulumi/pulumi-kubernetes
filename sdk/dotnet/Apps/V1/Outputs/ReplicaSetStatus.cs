@@ -33,7 +33,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly int ObservedGeneration;
         /// <summary>
-        /// The number of ready replicas for this replica set.
+        /// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
         /// </summary>
         public readonly int ReadyReplicas;
         /// <summary>

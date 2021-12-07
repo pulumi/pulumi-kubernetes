@@ -47,6 +47,11 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
 
         /// <summary>
         /// Type of job condition, Complete or Failed.
+        /// 
+        /// Possible enum values:
+        ///  - `"Complete"` means the job has completed its execution.
+        ///  - `"Failed"` means the job has failed its execution.
+        ///  - `"Suspended"` means the job has been suspended.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

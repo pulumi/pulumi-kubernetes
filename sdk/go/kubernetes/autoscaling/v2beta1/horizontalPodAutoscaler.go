@@ -41,6 +41,9 @@ func NewHorizontalPodAutoscaler(ctx *pulumi.Context,
 			Type: pulumi.String("kubernetes:autoscaling/v1:HorizontalPodAutoscaler"),
 		},
 		{
+			Type: pulumi.String("kubernetes:autoscaling/v2:HorizontalPodAutoscaler"),
+		},
+		{
 			Type: pulumi.String("kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler"),
 		},
 	})

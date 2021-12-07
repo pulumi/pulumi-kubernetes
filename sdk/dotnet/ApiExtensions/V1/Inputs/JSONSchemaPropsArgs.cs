@@ -254,6 +254,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         [Input("x_kubernetes_preserve_unknown_fields")]
         public Input<bool>? X_kubernetes_preserve_unknown_fields { get; set; }
 
+        [Input("x_kubernetes_validations")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.ValidationRuleArgs>? _x_kubernetes_validations;
+
+        /// <summary>
+        /// x-kubernetes-validations describes a list of validation rules written in the CEL expression language. This field is an alpha-level. Using this field requires the feature gate `CustomResourceValidationExpressions` to be enabled.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.ValidationRuleArgs> X_kubernetes_validations
+        {
+            get => _x_kubernetes_validations ?? (_x_kubernetes_validations = new InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.ValidationRuleArgs>());
+            set => _x_kubernetes_validations = value;
+        }
+
         public JSONSchemaPropsArgs()
         {
         }
