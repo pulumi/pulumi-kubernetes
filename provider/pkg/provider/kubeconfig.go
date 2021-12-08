@@ -49,6 +49,6 @@ func (k *KubeConfig) ToRawKubeConfigLoader() clientcmd.ClientConfig {
 	return k.clientConfig
 }
 
-func newKubeConfig(config *rest.Config, clientConfig clientcmd.ClientConfig) *KubeConfig {
+func NewKubeConfig(config *rest.Config, clientConfig clientcmd.ClientConfig) *KubeConfig {
 	return &KubeConfig{restConfig: config, clientConfig: clientConfig}
 }

@@ -144,7 +144,6 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-release", "step1"),
 			Quick: true,
-
 		})
 		integration.ProgramTest(t, &options)
 	})

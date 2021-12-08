@@ -16,9 +16,11 @@ package test
 
 import (
 	"fmt"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/kube"
+	"k8s.io/client-go/tools/clientcmd"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -44,12 +46,24 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 		panic(err)
 	}
 
+	var overrides clientcmd.ConfigOverrides
+	overrides.Context.Namespace = releaseNamespace
+
 	actionConfig := new(action.Configuration)
-	if err := actionConfig.Init(kube.GetConfig("", "", releaseNamespace), releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
+	restConfig, err := kubeconfig.ClientConfig()
+	if err != nil {
+		return err
+	}
+	provider.NewKubeConfig(restConfig, kubeconfig)
+	if err := actionConfig.Init(provider.NewKubeConfig(restConfig, kubeconfig), releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
 		fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
 	}
+
 
 	action := action.NewInstall(actionConfig)
 	action.Namespace = releaseNamespace

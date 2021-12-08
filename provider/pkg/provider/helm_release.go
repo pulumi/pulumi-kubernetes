@@ -241,7 +241,7 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
 		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
 	}
-	kc := newKubeConfig(r.restConfig, clientConfig)
+	kc := NewKubeConfig(r.restConfig, clientConfig)
 	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {
 		return nil, err
 	}
