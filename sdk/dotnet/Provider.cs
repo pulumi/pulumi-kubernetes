@@ -66,6 +66,13 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
+        /// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
+        /// This feature is in developer preview, and is disabled by default.
+        /// </summary>
+        [Input("enableReplaceCRD", json: true)]
+        public Input<bool>? EnableReplaceCRD { get; set; }
+
+        /// <summary>
         /// BETA FEATURE - Options to configure the Helm Release resource.
         /// </summary>
         [Input("helmReleaseSettings", json: true)]
@@ -122,6 +129,7 @@ namespace Pulumi.Kubernetes
         public ProviderArgs()
         {
             EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
+            EnableReplaceCRD = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
             SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");

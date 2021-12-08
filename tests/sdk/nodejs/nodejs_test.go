@@ -271,6 +271,21 @@ func TestCRDs(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestCRDUpgrade(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("crd-upgrade", "step1"),
+		Quick:                false,
+		ExpectRefreshChanges: true,
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("crd-upgrade", "step2"),
+				Additive: true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestPod(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("delete-before-replace", "step1"),

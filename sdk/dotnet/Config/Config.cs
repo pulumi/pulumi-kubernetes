@@ -67,6 +67,21 @@ namespace Pulumi.Kubernetes
             set => _enableDryRun.Set(value);
         }
 
+        private static readonly __Value<bool?> _enableReplaceCRD = new __Value<bool?>(() => __config.GetBoolean("enableReplaceCRD"));
+        /// <summary>
+        /// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
+        /// This feature is in developer preview, and is disabled by default.
+        /// 
+        /// This config can be specified in the following ways, using this precedence:
+        /// 1. This `enableReplaceCRD` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_REPLACE_CRD` environment variable.
+        /// </summary>
+        public static bool? EnableReplaceCRD
+        {
+            get => _enableReplaceCRD.Get();
+            set => _enableReplaceCRD.Set(value);
+        }
+
         private static readonly __Value<string?> _kubeconfig = new __Value<string?>(() => __config.Get("kubeconfig"));
         /// <summary>
         /// The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.
