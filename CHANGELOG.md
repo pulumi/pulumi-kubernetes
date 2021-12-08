@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Helm Release: fix username fetch option (https://github.com/pulumi/pulumi-kubernetes/pull/1824)
+
 ## 3.12.0 (December 7, 2021)
 
 - Add support for k8s v1.23.0. (https://github.com/pulumi/pulumi-kubernetes/pull/1681)

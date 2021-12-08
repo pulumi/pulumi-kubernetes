@@ -985,7 +985,7 @@ func computeResourceNames(r *Release) (map[string][]string, error) {
 			Keyring:  r.Keyring,
 			Password: r.RepositoryOpts.Password,
 			Repo:     r.RepositoryOpts.Repo,
-			Username: r.RepositoryOpts.Password,
+			Username: r.RepositoryOpts.Username,
 			Version:  r.Version,
 		}
 	} else {
