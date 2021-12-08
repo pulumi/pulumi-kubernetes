@@ -58,6 +58,7 @@ type ProviderConfig struct {
 	URN               resource.URN
 	InitialAPIVersion string
 	ClusterVersion    *cluster.ServerVersion
+	EnableReplaceCRD  bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -367,7 +368,10 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	}
 
 	var currentOutputs *unstructured.Unstructured
-	if clients.IsCRD(c.Inputs) {
+	if c.EnableReplaceCRD && clients.IsCRD(c.Inputs) {
+		// Note: This feature is currently enabled with a provider feature flag, but is expected to eventually become
+		// the default behavior.
+
 		// CRDs require special handling to update. Rather than computing a patch, replace the CRD with a PUT
 		// operation (equivalent to running `kubectl replace`). This is accomplished by getting the `resourceVersion`
 		// of the existing CRD, setting that as the `resourceVersion` in the request, and then running an update. This

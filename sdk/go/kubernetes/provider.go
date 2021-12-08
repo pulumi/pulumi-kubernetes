@@ -25,6 +25,9 @@ func NewProvider(ctx *pulumi.Context,
 	if isZero(args.EnableDryRun) {
 		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
 	}
+	if isZero(args.EnableReplaceCRD) {
+		args.EnableReplaceCRD = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD").(bool))
+	}
 	helmReleaseSettingsApplier := func(v HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }
 	if args.HelmReleaseSettings != nil {
 		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().Elem().ApplyT(helmReleaseSettingsApplier).(HelmReleaseSettingsPtrOutput)
@@ -58,6 +61,9 @@ type providerArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
+	// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
+	// This feature is in developer preview, and is disabled by default.
+	EnableReplaceCRD *bool `pulumi:"enableReplaceCRD"`
 	// BETA FEATURE - Options to configure the Helm Release resource.
 	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
 	// Options for tuning the Kubernetes client used by a Provider.
@@ -95,6 +101,9 @@ type ProviderArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun pulumi.BoolPtrInput
+	// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
+	// This feature is in developer preview, and is disabled by default.
+	EnableReplaceCRD pulumi.BoolPtrInput
 	// BETA FEATURE - Options to configure the Helm Release resource.
 	HelmReleaseSettings HelmReleaseSettingsPtrInput
 	// Options for tuning the Kubernetes client used by a Provider.
