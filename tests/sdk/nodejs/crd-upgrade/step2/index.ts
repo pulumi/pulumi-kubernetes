@@ -14,6 +14,10 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
+const provider = new k8s.Provider("k8s", {
+    enableReplaceCRD: true,
+});
+
 //
 // Create a CustomResourceDefinition.
 //
@@ -23,4 +27,5 @@ new k8s.yaml.ConfigFile(
     {
         file: 'https://download.elastic.co/downloads/eck/1.8.0/crds.yaml', // New version of the CRD
     },
+    {provider},
 )
