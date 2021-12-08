@@ -325,15 +325,16 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	if !haveResourceNames {
-		if resourceNames, err := computeResourceNames(new); err != nil && exists {
+		resourceNames, err := computeResourceNames(new)
+		if err != nil && exists {
 			logger.V(9).Infof("Failed to compute resource names, assuming no resource names known: %v", err)
 			_, resourceNames, err = convertYAMLManifestToJSON(rel.Manifest)
 			if err != nil {
 				return nil, err
 			}
 			new.ResourceNames = resourceNames
-		} else if !exists {
-			return nil, fmt.Errorf("release not found: %q", new.Name)
+		} else if err != nil && !exists {
+			return nil, fmt.Errorf("release not found: %q: %w", new.Name, err)
 		} else {
 			new.ResourceNames = resourceNames
 		}
