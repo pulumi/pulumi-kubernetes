@@ -647,21 +647,19 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
 		config, err := kubeconfig.ClientConfig()
-
-		if kubeClientSettings.Burst != nil {
-			config.Burst = *kubeClientSettings.Burst
-			logger.V(9).Infof("kube client burst set to %v", config.Burst)
-		}
-		if kubeClientSettings.QPS != nil {
-			config.QPS = float32(*kubeClientSettings.QPS)
-			logger.V(9).Infof("kube client QPS set to %v", config.QPS)
-		}
-
 		if err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load Kubernetes client configuration from kubeconfig file: %v", err)
 		} else {
+			if kubeClientSettings.Burst != nil {
+				config.Burst = *kubeClientSettings.Burst
+				logger.V(9).Infof("kube client burst set to %v", config.Burst)
+			}
+			if kubeClientSettings.QPS != nil {
+				config.QPS = float32(*kubeClientSettings.QPS)
+				logger.V(9).Infof("kube client QPS set to %v", config.QPS)
+			}
 			warningConfig := rest.CopyConfig(config)
 			warningConfig.WarningHandler = rest.NoWarnings{}
 			k.config = warningConfig

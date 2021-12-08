@@ -26,7 +26,9 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -102,6 +104,22 @@ func TestGo(t *testing.T) {
 					Additive:        true,
 					ExpectNoChanges: true,
 				},
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Helm Import", func(t *testing.T) {
+		baseDir := filepath.Join(cwd, "helm-release-import", "step1")
+		namespace := getRandomNamespace("importtest")
+		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
+		defer func() {
+			contract.IgnoreError(deleteRelease("mynginx", namespace))
+		}()
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir: baseDir,
+			Config: map[string]string{
+				"namespace": namespace,
 			},
 		})
 		integration.ProgramTest(t, &options)

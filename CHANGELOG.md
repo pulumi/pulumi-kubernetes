@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Helm Release: Helm Release imports support (https://github.com/pulumi/pulumi-kubernetes/pull/1818)
 
 - Helm Release: fix username fetch option (https://github.com/pulumi/pulumi-kubernetes/pull/1824)
 
