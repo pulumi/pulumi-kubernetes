@@ -18,6 +18,8 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	"github.com/stretchr/testify/require"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -38,6 +40,7 @@ var baseOptions = &integration.ProgramTestOptions{
 		"PULUMI_K8S_CLIENT_BURST=200",
 		"PULUMI_K8S_CLIENT_QPS=100",
 	},
+	GoBin: "/usr/local/bin/go",
 }
 
 // TestGo runs Go SDK tests sequentially to avoid OOM errors in CI
@@ -107,6 +110,22 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
+	t.Run("Helm Import", func(t *testing.T) {
+		baseDir := filepath.Join(cwd, "helm-release-import", "step1")
+		namespace := getRandomNamespace("importtest")
+		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
+		defer func() {
+			contract.AssertNoError(deleteRelease("mynginx", namespace))
+		}()
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   baseDir,
+			Config: map[string]string{
+				"namespace": namespace,
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
 	t.Run("Helm Remote", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm", "step1"),
@@ -126,6 +145,7 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-release", "step1"),
 			Quick: true,
+
 		})
 		integration.ProgramTest(t, &options)
 	})
@@ -211,3 +231,4 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 }
+
