@@ -40,7 +40,6 @@ var baseOptions = &integration.ProgramTestOptions{
 		"PULUMI_K8S_CLIENT_BURST=200",
 		"PULUMI_K8S_CLIENT_QPS=100",
 	},
-	GoBin: "/usr/local/bin/go",
 }
 
 // TestGo runs Go SDK tests sequentially to avoid OOM errors in CI
