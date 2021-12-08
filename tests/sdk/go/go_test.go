@@ -18,8 +18,6 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	"github.com/stretchr/testify/require"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -28,7 +26,9 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -114,10 +114,10 @@ func TestGo(t *testing.T) {
 		namespace := getRandomNamespace("importtest")
 		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
 		defer func() {
-			contract.AssertNoError(deleteRelease("mynginx", namespace))
+			contract.IgnoreError(deleteRelease("mynginx", namespace))
 		}()
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   baseDir,
+			Dir: baseDir,
 			Config: map[string]string{
 				"namespace": namespace,
 			},
@@ -229,4 +229,3 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 }
-
