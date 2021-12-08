@@ -559,6 +559,9 @@ func adoptOldNameIfUnnamed(new, old *Release) {
 }
 
 func assignNameIfAutonameable(release *Release, pm resource.PropertyMap, base tokens.QName) {
+	if release.Name != "" {
+		return
+	}
 	if name, ok := pm["name"]; ok && name.IsComputed() {
 		return
 	}
