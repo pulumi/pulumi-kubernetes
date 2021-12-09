@@ -258,13 +258,10 @@ func decodeRelease(pm resource.PropertyMap) (*Release, error) {
 	return &release, nil
 }
 
-func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest, displayBetaWarning bool) (*pulumirpc.CheckResponse, error) {
+func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Check(%s)", r.name, urn)
 
-	if displayBetaWarning {
-		_ = r.host.LogStatus(ctx, diag.Warning, urn, "Helm Release resource is currently in beta and may change. Use in production environments is discouraged.")
-	}
 	// Obtain old resource inputs. This is the old version of the resource(s) supplied by the user as
 	// an update.
 	oldResInputs := req.GetOlds()
@@ -303,7 +300,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	if len(olds.Mappable()) > 0 {
 		adoptOldNameIfUnnamed(new, old)
 	}
-	assignNameIfAutonameable(new, news, "release")
+	assignNameIfAutonameable(new, news, urn.Name())
 	r.setDefaults(new)
 
 	conf, err := r.getActionConfig(new.Namespace)
@@ -365,7 +362,7 @@ func (r *helmReleaseProvider) setDefaults(new *Release) {
 		new.Timeout = defaultTimeoutSeconds
 	}
 
-	if new.Keyring == "" {
+	if new.Keyring == "" && new.Verify {
 		new.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
 	}
 }

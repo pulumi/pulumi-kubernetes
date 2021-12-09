@@ -12,7 +12,7 @@ type customResourceProvider interface {
 	// Check validates that the given property bag is valid for a resource of the given type and returns
 	// the inputs that should be passed to successive calls to Diff, Create, or Update for this
 	// resource.
-	Check(ctx context.Context, req *pulumirpc.CheckRequest, displayBetaWarning bool) (*pulumirpc.CheckResponse, error)
+	Check(ctx context.Context, req *pulumirpc.CheckRequest) (*pulumirpc.CheckResponse, error)
 	// Diff checks what impacts a hypothetical update will have on the resource's properties.
 	Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error)
 	// Create allocates a new instance of the provided resource and returns its unique ID afterwards.  (The input ID
