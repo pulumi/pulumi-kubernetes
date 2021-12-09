@@ -1043,7 +1043,7 @@ class Release(pulumi.CustomResource):
     @pulumi.getter(name="valueYamlFiles")
     def value_yaml_files(self) -> pulumi.Output[Optional[Sequence[Union[pulumi.Asset, pulumi.Archive]]]]:
         """
-        List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
         """
         return pulumi.get(self, "value_yaml_files")
 

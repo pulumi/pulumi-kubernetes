@@ -192,7 +192,7 @@ namespace Pulumi.Kubernetes.Helm.V3
         public Output<int> Timeout { get; private set; } = null!;
 
         /// <summary>
-        /// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        /// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
         /// </summary>
         [Output("valueYamlFiles")]
         public Output<ImmutableArray<AssetOrArchive>> ValueYamlFiles { get; private set; } = null!;

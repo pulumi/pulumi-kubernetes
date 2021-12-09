@@ -154,7 +154,7 @@ export class Release extends pulumi.CustomResource {
      */
     public readonly timeout!: pulumi.Output<number>;
     /**
-     * List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+     * List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
      */
     public readonly valueYamlFiles!: pulumi.Output<(pulumi.asset.Asset | pulumi.asset.Archive)[]>;
     /**
