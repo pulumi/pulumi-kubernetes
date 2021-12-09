@@ -22,6 +22,7 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 	"time"
 
@@ -113,8 +114,6 @@ type Release struct {
 	SkipCrds bool `json:"skipCrds,omitempty"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout int `json:"timeout,omitempty"`
-	// ValueYamlFiles List of assets (raw yaml files) to pass to helm.
-	//ValueYamlFiles []*resource.Asset `json:"valueYamlFiles,omitempty"`
 	// Verify the package before installing it.
 	Verify bool `json:"verify,omitempty"`
 	// Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -250,11 +249,37 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 
 func decodeRelease(pm resource.PropertyMap) (*Release, error) {
 	var release Release
+	values := map[string]interface{}{}
 	stripped := pm.MapRepl(nil, mapReplStripSecrets)
 	logger.V(9).Infof("Decoding release: %#v", stripped)
+
+	if pm.HasValue("valueYamlFiles") {
+		v := stripped["valueYamlFiles"]
+		switch reflect.TypeOf(v).Kind() {
+		case reflect.Slice, reflect.Array:
+			s := reflect.ValueOf(v)
+			for i := 0; i < s.Len(); i++ {
+				val := s.Index(i).Interface()
+				switch t := val.(type) {
+				case *resource.Asset:
+					b, err := t.Bytes()
+					if err != nil {
+						return nil, err
+					}
+					if err = yaml.Unmarshal(b, &values); err != nil {
+						return nil, err
+					}
+				default:
+					return nil, fmt.Errorf("unsupported type for 'valueYamlFiles' arg: %T", v)
+				}
+			}
+		}
+	}
+
 	if err := mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
+	release.Values = mergeMaps(release.Values, values)
 	return &release, nil
 }
 
@@ -1067,7 +1092,7 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 		release.Chart = r.Chart.Metadata.Name
 	}
 	logger.V(9).Infof("Setting release values: %+v", r.Config)
-	release.Values = r.Config
+	release.Values = mergeMaps(release.Values, r.Config)
 	release.Version = r.Chart.Metadata.Version
 
 	_, resources, err := convertYAMLManifestToJSON(r.Manifest)

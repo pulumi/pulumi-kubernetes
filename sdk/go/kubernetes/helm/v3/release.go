@@ -75,7 +75,7 @@ type Release struct {
 	Status ReleaseStatusOutput `pulumi:"status"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrOutput `pulumi:"timeout"`
-	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+	// List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).
 	ValueYamlFiles pulumi.AssetOrArchiveArrayOutput `pulumi:"valueYamlFiles"`
 	// Custom values set for the release.
 	Values pulumi.MapOutput `pulumi:"values"`

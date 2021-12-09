@@ -390,32 +390,57 @@ func TestAccProvider(t *testing.T) {
 
 func TestHelmRelease(t *testing.T) {
 	skipIfShort(t)
+	validationFunc := func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+		assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
+		assert.Equal(t, stackInfo.Outputs["status"], "deployed")
+		for _, res := range stackInfo.Deployment.Resources {
+			if res.Type == "kubernetes:helm.sh/v3:Release" {
+				version, has := res.Inputs["version"]
+				assert.True(t, has)
+				stat, has := res.Outputs["status"]
+				assert.True(t, has)
+				specMap, is := stat.(map[string]interface{})
+				assert.True(t, is)
+				versionOut, has := specMap["version"]
+				assert.True(t, has)
+				assert.Equal(t, version, versionOut)
+				values, has := res.Outputs["values"]
+				assert.True(t, has)
+				assert.Contains(t, values, "cluster")
+				valMap := values.(map[string]interface{})
+				assert.Equal(t, valMap["cluster"], map[string]interface{}{
+					"enabled": true,
+					"slaveCount": float64(2),
+				})
+				// not asserting contents since the secret is hard to assert equality on.
+				assert.Contains(t, values, "global")
+				assert.Contains(t, values, "metrics")
+				assert.Equal(t, valMap["metrics"], map[string]interface{}{
+					"enabled": true,
+					"service": map[string]interface{}{
+						"annotations": map[string]interface{}{
+							"prometheus.io/port": "9127",
+						},
+					},
+				})
+				assert.Contains(t, values,"rbac")
+				assert.Equal(t, valMap["rbac"], map[string]interface{}{
+					"create": true,
+				})
+			}
+		}
+	}
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "helm-release", "step1"),
 			SkipRefresh: false,
 			Verbose:     true,
-			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
-				assert.Equal(t, stackInfo.Outputs["status"], "deployed")
-				for _, res := range stackInfo.Deployment.Resources {
-					if res.Type == "kubernetes:helm.sh/v3:Release" {
-						version, has := res.Inputs["version"]
-						assert.True(t, has)
-						stat, has := res.Outputs["status"]
-						assert.True(t, has)
-						specMap, is := stat.(map[string]interface{})
-						assert.True(t, is)
-						versionOut, has := specMap["version"]
-						assert.True(t, has)
-						assert.Equal(t, version, versionOut)
-					}
-				}
-			},
+			ExtraRuntimeValidation: validationFunc,
 			EditDirs: []integration.EditDir{
 				{
 					Dir:      filepath.Join(getCwd(t), "helm-release", "step2"),
 					Additive: true,
+					ExtraRuntimeValidation: validationFunc,
 				},
 			},
 		})

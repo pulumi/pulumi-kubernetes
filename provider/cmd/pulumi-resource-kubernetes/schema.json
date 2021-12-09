@@ -41736,7 +41736,7 @@
                     "items": {
                         "$ref": "pulumi.json#/Asset"
                     },
-                    "description": "List of assets (raw yaml files). Content is read and merged with values. Not yet supported."
+                    "description": "List of assets (raw yaml files). Content is read and merged with values (with values taking precedence)."
                 },
                 "values": {
                     "type": "object",

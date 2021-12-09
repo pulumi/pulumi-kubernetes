@@ -1,0 +1,5 @@
+metrics:
+  enabled: true
+  service:
+    annotations:
+      "prometheus.io/port": "9127"

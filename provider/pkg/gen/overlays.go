@@ -580,7 +580,7 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 						Ref: "pulumi.json#/Asset",
 					},
 				},
-				Description: "List of assets (raw yaml files). Content is read and merged with values. Not yet supported.",
+				Description: "List of assets (raw yaml files). Content is read and merged with values (with values taking precedence).",
 			},
 			"values": {
 				TypeSpec: pschema.TypeSpec{
