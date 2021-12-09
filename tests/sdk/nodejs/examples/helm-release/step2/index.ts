@@ -1,7 +1,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 import * as random from "@pulumi/random";
-
+import { FileAsset } from "@pulumi/pulumi/asset";
 
 const redisPassword = pulumi.secret("$053cr3t!");
 
@@ -19,18 +19,11 @@ const release = new k8s.helm.v3.Release("release", {
     },
     version: "13.0.1", // <--- change
     namespace: namespace.metadata.name,
+    valueYamlFiles: [new FileAsset("./metrics.yml")],
     values: {
         cluster: {
             enabled: true,
-            slaveCount: 3,
-        },
-        metrics: {
-            enabled: true,
-            service: {
-                annotations: {
-                    "prometheus.io/port": "9127",
-                }
-            },
+            slaveCount: 2,
         },
         global: {
             redis: {

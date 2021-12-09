@@ -390,32 +390,58 @@ func TestAccProvider(t *testing.T) {
 
 func TestHelmRelease(t *testing.T) {
 	skipIfShort(t)
+	validationFunc := func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+		assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
+		assert.Equal(t, stackInfo.Outputs["status"], "deployed")
+		for _, res := range stackInfo.Deployment.Resources {
+			if res.Type == "kubernetes:helm.sh/v3:Release" {
+				version, has := res.Inputs["version"]
+				assert.True(t, has)
+				stat, has := res.Outputs["status"]
+				assert.True(t, has)
+				specMap, is := stat.(map[string]interface{})
+				assert.True(t, is)
+				versionOut, has := specMap["version"]
+				assert.True(t, has)
+				assert.Equal(t, version, versionOut)
+				values, has := res.Outputs["values"]
+				assert.True(t, has)
+				assert.Equal(t, map[string]interface{}{
+					"cluster": map[string]interface{}{
+						"enabled": true,
+						"slaveCount": 2,
+					},
+					"global": map[string]interface{}{
+						"redis": map[string]interface{}{
+							"password": "redisPassword",
+						},
+					},
+					"metrics": map[string]interface{}{
+						"enabled": true,
+						"service": map[string]interface{}{
+							"annotations": map[string]string{
+								"prometheus.io/port": "9127",
+							},
+						},
+					},
+					"rbac": map[string]interface{}{
+						"create": true,
+					},
+				}, values)
+			}
+		}
+	}
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "helm-release", "step1"),
 			SkipRefresh: false,
 			Verbose:     true,
-			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
-				assert.Equal(t, stackInfo.Outputs["status"], "deployed")
-				for _, res := range stackInfo.Deployment.Resources {
-					if res.Type == "kubernetes:helm.sh/v3:Release" {
-						version, has := res.Inputs["version"]
-						assert.True(t, has)
-						stat, has := res.Outputs["status"]
-						assert.True(t, has)
-						specMap, is := stat.(map[string]interface{})
-						assert.True(t, is)
-						versionOut, has := specMap["version"]
-						assert.True(t, has)
-						assert.Equal(t, version, versionOut)
-					}
-				}
-			},
+			ExtraRuntimeValidation: validationFunc,
 			EditDirs: []integration.EditDir{
 				{
 					Dir:      filepath.Join(getCwd(t), "helm-release", "step2"),
 					Additive: true,
+					ExtraRuntimeValidation: validationFunc,
 				},
 			},
 		})
