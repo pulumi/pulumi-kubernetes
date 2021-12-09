@@ -1,4 +1,7 @@
 ## HEAD (Unreleased)
+
+## 3.12.1 (December 9, 2021)
+
 - Helm Release: Helm Release imports support (https://github.com/pulumi/pulumi-kubernetes/pull/1818)
 - Helm Release: fix username fetch option (https://github.com/pulumi/pulumi-kubernetes/pull/1824)
 - Helm Release: Use URN name as base for autonaming, Drop warning, fix default value for 
