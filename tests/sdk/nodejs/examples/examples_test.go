@@ -393,6 +393,7 @@ func TestHelmRelease(t *testing.T) {
 	validationFunc := func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 		assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
 		assert.Equal(t, stackInfo.Outputs["status"], "deployed")
+		redisPassword := stackInfo.Outputs["redisPassword"]
 		for _, res := range stackInfo.Deployment.Resources {
 			if res.Type == "kubernetes:helm.sh/v3:Release" {
 				version, has := res.Inputs["version"]
@@ -409,17 +410,17 @@ func TestHelmRelease(t *testing.T) {
 				assert.Equal(t, map[string]interface{}{
 					"cluster": map[string]interface{}{
 						"enabled": true,
-						"slaveCount": 2,
+						"slaveCount": float64(2),
 					},
 					"global": map[string]interface{}{
 						"redis": map[string]interface{}{
-							"password": "redisPassword",
+							"password": redisPassword,
 						},
 					},
 					"metrics": map[string]interface{}{
 						"enabled": true,
 						"service": map[string]interface{}{
-							"annotations": map[string]string{
+							"annotations": map[string]interface{}{
 								"prometheus.io/port": "9127",
 							},
 						},
