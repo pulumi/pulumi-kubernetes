@@ -3,6 +3,7 @@
 - Helm Release: fix username fetch option (https://github.com/pulumi/pulumi-kubernetes/pull/1824)
 - Helm Release: Use URN name as base for autonaming, Drop warning, fix default value for 
   keyring (https://github.com/pulumi/pulumi-kubernetes/pull/1826)
+- Helm Release: Add support for loading values from yaml files (https://github.com/pulumi/pulumi-kubernetes/pull/1828)
 
 - Fix CRD upgrades (https://github.com/pulumi/pulumi-kubernetes/pull/1819)
 
