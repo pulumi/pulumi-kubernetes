@@ -222,7 +222,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
-		RejectAssets: true,
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
@@ -299,7 +298,6 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
-		RejectAssets: true,
 	})
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "DiffConfig failed because of malformed resource inputs")
@@ -1209,7 +1207,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
-		RejectAssets: true,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1431,7 +1428,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
-		RejectAssets: true,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -1642,7 +1638,6 @@ func (k *kubeProvider) Create(
 		Label:        fmt.Sprintf("%s.properties", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
-		RejectAssets: true,
 		KeepSecrets:  true,
 	})
 	if err != nil {
@@ -2078,7 +2073,6 @@ func (k *kubeProvider) Update(
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
-		RejectAssets: true,
 		KeepSecrets:  true,
 	})
 	if err != nil {
