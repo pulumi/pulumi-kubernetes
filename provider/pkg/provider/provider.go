@@ -124,13 +124,12 @@ type kubeProvider struct {
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
 
-	suppressHelmReleaseBetaWarning bool
-	helmDriver                     string
-	helmPluginsPath                string
-	helmRegistryConfigPath         string
-	helmRepositoryConfigPath       string
-	helmRepositoryCache            string
-	helmReleaseProvider            customResourceProvider
+	helmDriver               string
+	helmPluginsPath          string
+	helmRegistryConfigPath   string
+	helmRepositoryConfigPath string
+	helmRepositoryCache      string
+	helmReleaseProvider      customResourceProvider
 
 	yamlRenderMode bool
 	yamlDirectory  string
@@ -560,19 +559,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return helmpath.CachePath("repository")
 	}
 	k.helmRepositoryCache = helmRepositoryCache()
-
-	suppressHelmReleaseBetaWarning := func() bool {
-		if helmReleaseSettings.SuppressBetaWarning != nil {
-			return *helmReleaseSettings.SuppressBetaWarning
-		}
-
-		// If the provider flag is not set, fall back to the ENV var.
-		if disabled, exists := os.LookupEnv("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"); exists {
-			return disabled == trueStr
-		}
-		return false
-	}
-	k.suppressHelmReleaseBetaWarning = suppressHelmReleaseBetaWarning()
 
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
@@ -1248,7 +1234,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
 		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Check(ctx, req, !k.suppressHelmReleaseBetaWarning)
+			return k.helmReleaseProvider.Check(ctx, req)
 		}
 		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 	}
