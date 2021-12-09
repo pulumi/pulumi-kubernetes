@@ -15,7 +15,6 @@
 import * as k8s from "@pulumi/kubernetes";
 
 const provider = new k8s.Provider("k8s", {
-    enableReplaceCRD: true,
 });
 
 //
