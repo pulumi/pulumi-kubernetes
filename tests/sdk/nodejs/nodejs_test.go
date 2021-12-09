@@ -274,8 +274,7 @@ func TestCRDs(t *testing.T) {
 func TestCRDUpgrade(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("crd-upgrade", "step1"),
-		Quick:                false,
-		ExpectRefreshChanges: true,
+		ExpectRefreshChanges: true, // API server will populate additional fields on refresh
 		EditDirs: []integration.EditDir{
 			{
 				Dir:      filepath.Join("crd-upgrade", "step2"),
