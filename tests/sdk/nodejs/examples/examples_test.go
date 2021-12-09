@@ -393,7 +393,6 @@ func TestHelmRelease(t *testing.T) {
 	validationFunc := func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 		assert.NotEmpty(t, stackInfo.Outputs["redisMasterClusterIP"].(string))
 		assert.Equal(t, stackInfo.Outputs["status"], "deployed")
-		redisPassword := stackInfo.Outputs["redisPassword"]
 		for _, res := range stackInfo.Deployment.Resources {
 			if res.Type == "kubernetes:helm.sh/v3:Release" {
 				version, has := res.Inputs["version"]
@@ -407,28 +406,27 @@ func TestHelmRelease(t *testing.T) {
 				assert.Equal(t, version, versionOut)
 				values, has := res.Outputs["values"]
 				assert.True(t, has)
-				assert.Equal(t, map[string]interface{}{
-					"cluster": map[string]interface{}{
-						"enabled": true,
-						"slaveCount": float64(2),
-					},
-					"global": map[string]interface{}{
-						"redis": map[string]interface{}{
-							"password": redisPassword,
+				assert.Contains(t, values, "cluster")
+				valMap := values.(map[string]interface{})
+				assert.Equal(t, valMap["cluster"], map[string]interface{}{
+					"enabled": true,
+					"slaveCount": float64(2),
+				})
+				// not asserting contents since the secret is hard to assert equality on.
+				assert.Contains(t, values, "global")
+				assert.Contains(t, values, "metrics")
+				assert.Equal(t, valMap["metrics"], map[string]interface{}{
+					"enabled": true,
+					"service": map[string]interface{}{
+						"annotations": map[string]interface{}{
+							"prometheus.io/port": "9127",
 						},
 					},
-					"metrics": map[string]interface{}{
-						"enabled": true,
-						"service": map[string]interface{}{
-							"annotations": map[string]interface{}{
-								"prometheus.io/port": "9127",
-							},
-						},
-					},
-					"rbac": map[string]interface{}{
-						"create": true,
-					},
-				}, values)
+				})
+				assert.Contains(t, values,"rbac")
+				assert.Equal(t, valMap["rbac"], map[string]interface{}{
+					"create": true,
+				})
 			}
 		}
 	}

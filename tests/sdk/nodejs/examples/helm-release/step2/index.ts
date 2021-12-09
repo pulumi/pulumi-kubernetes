@@ -3,7 +3,7 @@ import * as k8s from "@pulumi/kubernetes";
 import * as random from "@pulumi/random";
 import { FileAsset } from "@pulumi/pulumi/asset";
 
-export const redisPassword = pulumi.secret("$053cr3t!");
+const redisPassword = pulumi.secret("$053cr3t!");
 
 const nsName = new random.RandomPet("test");
 const namespace = new k8s.core.v1.Namespace("release-ns", {
@@ -39,4 +39,4 @@ const release = new k8s.helm.v3.Release("release", {
 
 const srv = k8s.core.v1.Service.get("redis-master-svc", pulumi.interpolate`${release.status.namespace}/${release.status.name}-redis-master`);
 export const redisMasterClusterIP = srv.spec.clusterIP;
-export const status = release.status;
+export const status = release.status.status;

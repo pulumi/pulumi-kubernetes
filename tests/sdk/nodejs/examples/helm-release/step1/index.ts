@@ -3,7 +3,7 @@ import * as k8s from "@pulumi/kubernetes";
 import * as random from "@pulumi/random";
 import { FileAsset } from "@pulumi/pulumi/asset";
 
-export const redisPassword = pulumi.secret("$053cr3t!");
+const redisPassword = pulumi.secret("$053cr3t!");
 
 const nsName = new random.RandomPet("test");
 const namespace = new k8s.core.v1.Namespace("release-ns", {
