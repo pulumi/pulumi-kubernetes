@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2021, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import (
 
 	pkgerrors "github.com/pkg/errors"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	"helm.sh/helm/v3/internal/experimental/registry"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
@@ -127,7 +128,18 @@ type chart struct {
 
 // fetch runs the `helm fetch` action to fetch a Chart from a remote URL.
 func (c *chart) fetch() error {
-	p := action.NewPull()
+	var p *action.Pull
+	if registry.IsOCI(c.opts.Repo) {
+		registryClient, err := registry.NewClient()
+		if err != nil {
+			return fmt.Errorf("failed to initialize OCI registry client: %w", err)
+		}
+		p = action.NewPullWithOpts(action.WithConfig(&action.Configuration{
+			RegistryClient: registryClient,
+		}))
+	} else {
+		p = action.NewPull()
+	}
 	p.Settings = cli.New()
 	p.CaFile = c.opts.CAFile
 	p.CertFile = c.opts.CertFile
@@ -177,6 +189,11 @@ func (c *chart) fetch() error {
 // failed to pull chart: chart "bitnami/apache" version "1.0.0" not
 // found in https://charts.bitnami.com/bitnami repository
 func normalizeChartRef(repoName string, repoURL string, originalChartRef string) string {
+
+	// For OCI repos, use the fully-qualified repo URL as the chartRef
+	if strings.HasPrefix(repoURL, fmt.Sprintf("oci://")) {
+		return repoURL
+	}
 
 	// If URL is known, do not prefix
 	if len(repoURL) > 0 {
