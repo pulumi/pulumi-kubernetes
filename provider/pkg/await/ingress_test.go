@@ -16,13 +16,13 @@ func Test_Extensions_Ingress(t *testing.T) {
 	tests := []struct {
 		description   string
 		ingressInput  func(namespace, name, targetService string) *unstructured.Unstructured
-		do            func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time)
+		do            func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time)
 		expectedError error
 	}{
 		{
 			description:  "Should succeed when Ingress is allocated an IP address and all paths match an existing Endpoint",
 			ingressInput: initializedIngress,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// API server passes initialized ingress and endpoint objects back.
 				ingresses <- watchAddedEvent(initializedIngress("default", "foo", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
@@ -34,7 +34,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 		{
 			description:  "Should succeed when Ingress (networking/v1) is allocated an IP address and all paths match an existing Endpoint",
 			ingressInput: initializedIngressV1,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// API server passes initialized ingress and endpoint objects back.
 				ingresses <- watchAddedEvent(initializedIngress("default", "foo", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
@@ -46,7 +46,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 		{
 			description:  "Should succeed when Ingress is allocated an IP address and path references an ExternalName Service",
 			ingressInput: initializedIngress,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// API server passes initialized ingress and endpoint objects back.
 				ingresses <- watchAddedEvent(initializedIngress("default", "foo", "foo-4setj4y6"))
 				services <- watchAddedEvent(externalNameService("default", "foo-4setj4y6"))
@@ -59,43 +59,73 @@ func Test_Extensions_Ingress(t *testing.T) {
 			},
 		},
 		{
+			description:  "Should succeed when Ingress V1 is allocated an IP address and path references a Resource",
+			ingressInput: initializedIngressV1,
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
+				// API server passes initialized ingress and endpoint objects back.
+				ingresses <- watchAddedEvent(initializedIngressV1WithResourceRef("default", "foo", "foo-4setj4y6"))
+
+				// No endpoint events received in grace period. Success.
+				settlementGracePeriod <- time.Now()
+			},
+		},
+		{
+			description:  "Should succeed when Ingress V1 is allocated an IP address and path references an ExternalName Service",
+			ingressInput: initializedIngressV1,
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
+				// API server passes initialized ingress and endpoint objects back.
+				ingresses <- watchAddedEvent(initializedIngressV1("default", "foo", "foo-4setj4y6"))
+				services <- watchAddedEvent(externalNameService("default", "foo-4setj4y6"))
+
+				// Mark endpoint objects as having settled. Success.
+				settled <- struct{}{}
+
+				// Timeout, success.
+				timeout <- time.Now()
+			},
+		},
+		{
 			description:  "Should fail if the Ingress does not have an IP address allocated, and not all paths match an existing Endpoint",
 			ingressInput: ingressInput,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// Trigger timeout.
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
 				object: ingressInput("default", "foo", "foo-4setj4y6"),
 				subErrors: []string{
-					"Ingress has at least one rule that does not target any Service. " +
-						"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
+					"Ingress has at least one rule with an unavailable target endpoint.",
 					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
 						"\n    for more information about this error, see https://pulumi.io/xdv72s",
 				}},
 		},
 		{
-			description:  "Should fail if not all Ingress paths match existing Endpoints",
+			description:  "Should succeed even if not all Ingress paths match existing Endpoints",
 			ingressInput: ingressInput,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// API server passes initialized ingress back.
 				ingresses <- watchAddedEvent(initializedIngress("default", "foo", "foo-4setj4y6"))
 
+				// Mark endpoint objects as having settled. Success.
 				settled <- struct{}{}
-
-				// Finally, time out.
-				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{
-				object: initializedIngress("default", "foo", "foo-4setj4y6"),
-				subErrors: []string{
-					"Ingress has at least one rule that does not target any Service. " +
-						"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service"}},
 		},
+		{
+			description:  "Should succeed if no known endpoints exist and no endpoint events are seen",
+			ingressInput: ingressInput,
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
+				// API server passes initialized ingress back.
+				ingresses <- watchAddedEvent(initializedIngress("default", "foo", "foo-4setj4y6"))
+
+				// No events seen in grace period. Success.
+				settlementGracePeriod <- time.Now()
+			},
+		},
+
 		{
 			description:  "Should succeed for Ingress with an unspecified path.",
 			ingressInput: ingressInput,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// API server passes initialized ingress back.
 				ingresses <- watchAddedEvent(initializedIngressUnspecifiedPath("default", "foo", "foo-4setj4y6"))
 				endpoints <- watchAddedEvent(initializedEndpoint("default", "foo-4setj4y6"))
@@ -109,7 +139,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 		{
 			description:  "Should fail if Ingress is not allocated an IP address",
 			ingressInput: ingressInput,
-			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
+			do: func(ingresses, services, endpoints chan watch.Event, settled chan struct{}, settlementGracePeriod, timeout chan time.Time) {
 				// API server passes uninitialized service back.
 				ingresses <- watchAddedEvent(ingressInput("default", "foo", "foo-4setj4y6"))
 
@@ -131,18 +161,21 @@ func Test_Extensions_Ingress(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		awaiter := makeIngressInitAwaiter(
-			mockAwaitConfig(test.ingressInput("default", "foo", "foo-4setj4y6")))
+		t.Run(test.description, func(t *testing.T) {
+			awaiter := makeIngressInitAwaiter(
+				mockAwaitConfig(test.ingressInput("default", "foo", "foo-4setj4y6")))
 
-		ingresses := make(chan watch.Event)
-		services := make(chan watch.Event)
-		endpoints := make(chan watch.Event)
-		settled := make(chan struct{})
-		timeout := make(chan time.Time)
-		go test.do(ingresses, services, endpoints, settled, timeout)
+			ingresses := make(chan watch.Event)
+			services := make(chan watch.Event)
+			endpoints := make(chan watch.Event)
+			settled := make(chan struct{})
+			settlementGracePeriod := make(chan time.Time)
+			timeout := make(chan time.Time)
+			go test.do(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
 
-		err := awaiter.await(ingresses, services, endpoints, settled, timeout)
-		assert.Equal(t, test.expectedError, err, test.description)
+			err := awaiter.await(ingresses, services, endpoints, settled, settlementGracePeriod, timeout)
+			assert.Equal(t, test.expectedError, err, test.description)
+		})
 	}
 }
 
@@ -165,19 +198,11 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			description:  "Read should fail if not all Ingress paths match existing Endpoints",
 			ingressInput: ingressInput,
 			ingress:      initializedIngress,
-			expectedSubErrors: []string{
-				"Ingress has at least one rule that does not target any Service. " +
-					"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
-			},
 		},
 		{
-			description:  "Read should fail if not all Ingress (networking/v1) paths match existing Endpoints",
+			description:  "Read should succeed even if not all Ingress (networking/v1) paths match existing Endpoints",
 			ingressInput: ingressInput,
 			ingress:      initializedIngressV1,
-			expectedSubErrors: []string{
-				"Ingress has at least one rule that does not target any Service. " +
-					"Field '.spec.rules[].http.paths[].backend.service.name' may not match any active Service",
-			},
 		},
 		{
 			description:  "Read should succeed when Ingress is allocated an IP address and Service is type ExternalName",
@@ -200,8 +225,6 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 			ingressInput: ingressInput,
 			ingress:      ingressInput,
 			expectedSubErrors: []string{
-				"Ingress has at least one rule that does not target any Service. " +
-					"Field '.spec.rules[].http.paths[].backend.serviceName' may not match any active Service",
 				"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
 					"\n    for more information about this error, see https://pulumi.io/xdv72s",
 			},
@@ -209,28 +232,30 @@ func Test_Extensions_Ingress_Read(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		awaiter := makeIngressInitAwaiter(mockAwaitConfig(
-			test.ingressInput("default", "foo", "foo-4setj4y6")))
-		ingress := test.ingress("default", "foo", "foo-4setj4y6")
+		t.Run(test.description, func(t *testing.T) {
+			awaiter := makeIngressInitAwaiter(mockAwaitConfig(
+				test.ingressInput("default", "foo", "foo-4setj4y6")))
+			ingress := test.ingress("default", "foo", "foo-4setj4y6")
 
-		var err error
-		endpointList := unstructuredList()
-		serviceList := unstructuredList()
-		if test.endpoint != nil {
-			endpoint := test.endpoint("default", "foo-4setj4y6")
-			endpointList = unstructuredList(*endpoint)
-		}
-		if test.service != nil {
-			service := test.service("default", "foo-4setj4y6")
-			serviceList = unstructuredList(*service)
-		}
-		err = awaiter.read(ingress, endpointList, serviceList)
+			var err error
+			endpointList := unstructuredList()
+			serviceList := unstructuredList()
+			if test.endpoint != nil {
+				endpoint := test.endpoint("default", "foo-4setj4y6")
+				endpointList = unstructuredList(*endpoint)
+			}
+			if test.service != nil {
+				service := test.service("default", "foo-4setj4y6")
+				serviceList = unstructuredList(*service)
+			}
+			err = awaiter.read(ingress, endpointList, serviceList)
 
-		if test.expectedSubErrors != nil {
-			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
-		} else {
-			assert.Nil(t, err, test.description)
-		}
+			if test.expectedSubErrors != nil {
+				assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
+			} else {
+				assert.Nil(t, err, test.description)
+			}
+		})
 	}
 
 }
@@ -356,6 +381,50 @@ func initializedIngressV1(namespace, name, targetService string) *unstructured.U
         }
     }
 }`, name, namespace, targetService))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+func initializedIngressV1WithResourceRef(namespace, name, targetService string) *unstructured.Unstructured {
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "apiVersion": "networking.k8s.io/v1",
+    "kind": "Ingress",
+    "metadata": {
+        "name": "%s",
+        "namespace": "%s"
+    },
+    "spec": {
+        "rules": [
+            {
+                "http": {
+                    "paths": [
+                        {
+                            "backend": {
+                                "resource": {
+                                    "apiGroup": "k8s.example.com",
+                                    "kind": "StorageBucket",
+                                    "name": "icon-assets"
+                                }
+                            },
+                            "path": "/nginx"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "status": {
+        "loadBalancer": {
+            "ingress": [
+                {
+                    "hostname": "localhost"
+                }
+            ]
+        }
+    }
+}`, name, namespace))
 	if err != nil {
 		panic(err)
 	}
