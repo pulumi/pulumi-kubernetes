@@ -63,6 +63,7 @@ type ingressInitAwaiter struct {
 	ingress                   *unstructured.Unstructured
 	ingressReady              bool
 	endpointsSettled          bool
+	endpointEventsCount       uint64
 	knownEndpointObjects      sets.String
 	knownExternalNameServices sets.String
 }
@@ -208,6 +209,7 @@ func (iia *ingressInitAwaiter) await(
 ) error {
 	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
+	endpointExistenceTimer := time.Tick(60 * time.Second)
 	for {
 		// Check whether we've succeeded.
 		if iia.checkAndLogStatus() {
@@ -233,6 +235,11 @@ func (iia *ingressInitAwaiter) await(
 			return &timeoutError{
 				object:    iia.ingress,
 				subErrors: iia.errorMessages(),
+			}
+		case <-endpointExistenceTimer:
+			// If we don't see any endpoint events in the designated time, assume endpoints have settled.
+			if iia.endpointEventsCount == 0 {
+				iia.endpointsSettled = true
 			}
 		case <-settled:
 			iia.endpointsSettled = true
@@ -326,6 +333,7 @@ func decodeIngress(u *unstructured.Unstructured, to interface{}) error {
 
 func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 	apiVersion := iia.ingress.GetAPIVersion()
+
 	switch apiVersion {
 	case "extensions/v1beta1", "networking.k8s.io/v1beta1":
 		var obj networkingv1beta1.Ingress
@@ -336,21 +344,24 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 		}
 
 		for _, rule := range obj.Spec.Rules {
-			if rule.HTTP == nil {
-				iia.config.logStatus(diag.Error, fmt.Sprintf("expected value %q is unset for ingress: %s",
-					".spec.rules[*].http", obj.Name))
-				return apiVersion, false
+			var httpRules []networkingv1beta1.HTTPIngressPath
+
+			if rule.HTTP != nil {
+				httpRules = rule.HTTP.Paths
 			}
-			for _, path := range rule.HTTP.Paths {
+			for _, path := range httpRules {
 				// Ignore ExternalName services
 				if path.Backend.ServiceName != "" && iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
 					continue
 				}
 
 				if path.Backend.ServiceName != "" && !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
-					iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
-						expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
-					return apiVersion, false
+					if iia.endpointsSettled {
+						iia.config.logStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
+							expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
+					} else {
+						return apiVersion, false
+					}
 				}
 			}
 		}
@@ -362,12 +373,12 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 		}
 
 		for _, rule := range obj.Spec.Rules {
+			var httpRules []networkingv1.HTTPIngressPath
+
 			if rule.HTTP == nil {
-				iia.config.logStatus(diag.Error, fmt.Sprintf("expected value %q is unset for ingress: %s",
-					".spec.rules[*].http", obj.Name))
-				return apiVersion, false
+				httpRules = rule.HTTP.Paths
 			}
-			for _, path := range rule.HTTP.Paths {
+			for _, path := range httpRules {
 				// TODO: Should we worry about "resource" backends?
 				if path.Backend.Service == nil {
 					continue
@@ -379,9 +390,13 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 				}
 
 				if path.Backend.Service.Name != "" && !iia.knownEndpointObjects.Has(path.Backend.Service.Name) {
-					iia.config.logStatus(diag.Info, fmt.Sprintf("No matching service found for ingress rule: %s",
-						expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
-					return apiVersion, false
+					if iia.endpointsSettled {
+						iia.config.logStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
+							expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
+					} else {
+						// Wait till the endpoints are settled.
+						return apiVersion, false
+					}
 				}
 			}
 		}
@@ -420,6 +435,8 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 			reflect.TypeOf(endpoint))
 		return
 	}
+
+	iia.endpointEventsCount++
 
 	name := endpoint.GetName()
 	switch event.Type {
