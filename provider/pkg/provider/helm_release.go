@@ -212,7 +212,7 @@ func newHelmReleaseProvider(
 }
 
 func debug(format string, a ...interface{}) {
-	logger.V(3).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
+	logger.V(6).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
 }
 
 func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configuration, error) {
