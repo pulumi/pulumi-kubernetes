@@ -94,7 +94,7 @@ func Test_Extensions_Ingress(t *testing.T) {
 			expectedError: &timeoutError{
 				object: ingressInput("default", "foo", "foo-4setj4y6"),
 				subErrors: []string{
-					"Ingress has at least one rule who's target endpoint didn't become available in time.",
+					"Ingress has at least one rule with an unavailable target endpoint.",
 					"Ingress .status.loadBalancer field was not updated with a hostname/IP address. " +
 						"\n    for more information about this error, see https://pulumi.io/xdv72s",
 				}},

@@ -346,12 +346,12 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 		}
 
 		for _, rule := range obj.Spec.Rules {
-			var httpRules []networkingv1beta1.HTTPIngressPath
+			var httpIngressPaths []networkingv1beta1.HTTPIngressPath
 
 			if rule.HTTP != nil {
-				httpRules = rule.HTTP.Paths
+				httpIngressPaths = rule.HTTP.Paths
 			}
-			for _, path := range httpRules {
+			for _, path := range httpIngressPaths {
 				// Ignore ExternalName services
 				if path.Backend.ServiceName != "" && iia.knownExternalNameServices.Has(path.Backend.ServiceName) {
 					continue
@@ -378,12 +378,12 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 		}
 
 		for _, rule := range obj.Spec.Rules {
-			var httpRules []networkingv1.HTTPIngressPath
+			var httpIngressPaths []networkingv1.HTTPIngressPath
 
 			if rule.HTTP != nil {
-				httpRules = rule.HTTP.Paths
+				httpIngressPaths = rule.HTTP.Paths
 			}
-			for _, path := range httpRules {
+			for _, path := range httpIngressPaths {
 				// TODO: Should we worry about "resource" backends?
 				if path.Backend.Service == nil {
 					continue
@@ -469,7 +469,7 @@ func (iia *ingressInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
 
 	if _, ready := iia.checkIfEndpointsReady(); !ready {
-		messages = append(messages, "Ingress has at least one rule who's target endpoint didn't become available in time.")
+		messages = append(messages, "Ingress has at least one rule with an unavailable target endpoint.")
 	}
 
 	if !iia.ingressReady {
