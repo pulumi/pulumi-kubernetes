@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- Relax ingress await restrictions (https://github.com/pulumi/pulumi-kubernetes/pull/1832)
 
 ## 3.12.1 (December 9, 2021)
 
