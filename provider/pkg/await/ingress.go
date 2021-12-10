@@ -134,7 +134,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	go serviceInformer.Informer().Run(stopper)
 
 	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
-	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(timeout))
+	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))
 }
 
 func (iia *ingressInitAwaiter) Read() error {
@@ -205,11 +205,11 @@ func (iia *ingressInitAwaiter) read(ingress *unstructured.Unstructured, endpoint
 func (iia *ingressInitAwaiter) await(
 	ingressEvents, serviceEvents, endpointsEvents <-chan watch.Event,
 	settled chan struct{},
+	settlementGracePeriodExpired <-chan time.Time,
 	timeout <-chan time.Time,
 ) error {
 	iia.config.logStatus(diag.Info, "[1/3] Finding a matching service for each Ingress path")
 
-	endpointExistenceTimer := time.Tick(60 * time.Second)
 	for {
 		// Check whether we've succeeded.
 		if iia.checkAndLogStatus() {
@@ -236,8 +236,10 @@ func (iia *ingressInitAwaiter) await(
 				object:    iia.ingress,
 				subErrors: iia.errorMessages(),
 			}
-		case <-endpointExistenceTimer:
+		case <-settlementGracePeriodExpired:
 			// If we don't see any endpoint events in the designated time, assume endpoints have settled.
+			// This is to account for the distinct possibility of ingress using a resource reference or non-existent
+			// endpoints - in which case we will never see corresponding endpoint events.
 			if iia.endpointEventsCount == 0 {
 				iia.endpointsSettled = true
 			}
@@ -357,9 +359,12 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 
 				if path.Backend.ServiceName != "" && !iia.knownEndpointObjects.Has(path.Backend.ServiceName) {
 					if iia.endpointsSettled {
+						// We haven't seen the target endpoint emit any events within the settlement period
+						// and there is a chance it may never exist.
 						iia.config.logStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
 							expectedIngressPath(rule.Host, path.Path, path.Backend.ServiceName)))
 					} else {
+						// We may get more endpoint events, lets wait and retry.
 						return apiVersion, false
 					}
 				}
@@ -375,7 +380,7 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 		for _, rule := range obj.Spec.Rules {
 			var httpRules []networkingv1.HTTPIngressPath
 
-			if rule.HTTP == nil {
+			if rule.HTTP != nil {
 				httpRules = rule.HTTP.Paths
 			}
 			for _, path := range httpRules {
@@ -391,10 +396,13 @@ func (iia *ingressInitAwaiter) checkIfEndpointsReady() (string, bool) {
 
 				if path.Backend.Service.Name != "" && !iia.knownEndpointObjects.Has(path.Backend.Service.Name) {
 					if iia.endpointsSettled {
+						// We haven't seen the target endpoint emit any events within the settlement period
+						// and there is a chance it may never exist
+						// (https://github.com/pulumi/pulumi-kubernetes/issues/1810)
 						iia.config.logStatus(diag.Warning, fmt.Sprintf("No matching service found for ingress rule: %s",
 							expectedIngressPath(rule.Host, path.Path, path.Backend.Service.Name)))
 					} else {
-						// Wait till the endpoints are settled.
+						// We may get more endpoint events, lets wait and retry.
 						return apiVersion, false
 					}
 				}
@@ -460,15 +468,8 @@ func (iia *ingressInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 func (iia *ingressInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
 
-	if apiVersion, ready := iia.checkIfEndpointsReady(); !ready {
-		field := ".spec.rules[].http.paths[].backend.serviceName"
-		switch apiVersion {
-		case "networking.k8s.io/v1":
-			field = ".spec.rules[].http.paths[].backend.service.name"
-		}
-		messages = append(messages, fmt.Sprintf(
-			"Ingress has at least one rule that does not target any Service. "+
-				"Field '%v' may not match any active Service", field))
+	if _, ready := iia.checkIfEndpointsReady(); !ready {
+		messages = append(messages, "Ingress has at least one rule who's target endpoint didn't become available in time.")
 	}
 
 	if !iia.ingressReady {
