@@ -493,7 +493,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	return err
 }
 
-func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release) error {
+func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error {
 	logger.V(9).Infof("getChart: %q settings: %#v", newRelease.Chart, r.settings)
 	// Get Chart metadata, if we fail - we're done
 	chart, path, err := getChart(r.settings, newRelease)
@@ -949,7 +949,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 	}
 
 	if !req.GetPreview() {
-		if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease); err != nil {
+		if err = r.helmUpdate(newRelease, oldRelease); err != nil {
 			return nil, err
 		}
 	}
