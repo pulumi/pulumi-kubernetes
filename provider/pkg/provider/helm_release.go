@@ -1237,7 +1237,13 @@ func excludeNulls(in interface{}) interface{} {
 		m := in.(map[string]interface{})
 		for k, v := range m {
 			val := reflect.ValueOf(v)
-			if val.IsValid() && !val.IsNil() {
+			if val.IsValid() {
+				switch val.Kind() {
+				case reflect.Map, reflect.Ptr, reflect.UnsafePointer, reflect.Interface, reflect.Slice:
+					if val.IsNil() {
+						continue
+					}
+				}
 				out[k] = excludeNulls(v)
 			}
 		}

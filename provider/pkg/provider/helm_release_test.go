@@ -8,7 +8,7 @@ import (
 
 func Test_MergeMaps(t *testing.T) {
 	m := map[string]interface{}{
-		"a": map[string]interface{} {
+		"a": map[string]interface{}{
 			"b": map[string]interface{}{
 				"d": []interface{}{
 					"1", "2",
@@ -17,8 +17,8 @@ func Test_MergeMaps(t *testing.T) {
 		},
 	}
 
-	override :=  map[string]interface{}{
-		"a": map[string]interface{} {
+	override := map[string]interface{}{
+		"a": map[string]interface{}{
 			"b": map[string]interface{}{
 				"d": []interface{}{
 					"3", "4",
@@ -27,32 +27,33 @@ func Test_MergeMaps(t *testing.T) {
 		},
 	}
 
-	for _, test := range []struct{
-		name string
-		dest map[string]interface{}
-		src map[string]interface{}
+	for _, test := range []struct {
+		name     string
+		dest     map[string]interface{}
+		src      map[string]interface{}
 		expected map[string]interface{}
-	} {
+	}{
 		{
-			name: "Precedence",
-			dest: m,
-			src: override,
+			name:     "Precedence",
+			dest:     m,
+			src:      override,
 			expected: override, // Expect the override to take precedence
 		},
 		{
 			name: "Merge maps",
 			dest: m,
 			src: map[string]interface{}{
-				"a": map[string]interface{} {
+				"a": map[string]interface{}{
 					"b": map[string]interface{}{
 						"c": []interface{}{
 							"3", "4",
 						},
+						"f": true,
 					},
 				},
 			},
-			expected:  map[string]interface{}{
-				"a": map[string]interface{} {
+			expected: map[string]interface{}{
+				"a": map[string]interface{}{
 					"b": map[string]interface{}{
 						"d": []interface{}{
 							"1", "2",
@@ -60,6 +61,7 @@ func Test_MergeMaps(t *testing.T) {
 						"c": []interface{}{
 							"3", "4",
 						},
+						"f": true,
 					},
 				},
 			},
@@ -68,15 +70,15 @@ func Test_MergeMaps(t *testing.T) {
 			name: "Dest Has Nil Values",
 			dest: m,
 			src: map[string]interface{}{
-				"a": map[string]interface{} {
+				"a": map[string]interface{}{
 					"b": map[string]interface{}{
 						"c": interface{}(nil),
 						"e": (*interface{})(nil),
 					},
 				},
 			},
-			expected:  map[string]interface{}{
-				"a": map[string]interface{} {
+			expected: map[string]interface{}{
+				"a": map[string]interface{}{
 					"b": map[string]interface{}{
 						"d": []interface{}{
 							"1", "2",
