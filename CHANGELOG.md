@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
 - Relax ingress await restrictions (https://github.com/pulumi/pulumi-kubernetes/pull/1832)
+- Exclude nil entries from values (https://github.com/pulumi/pulumi-kubernetes/pull/1845)
 
 ## 3.12.1 (December 9, 2021)
 
