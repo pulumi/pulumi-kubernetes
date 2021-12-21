@@ -29,6 +29,7 @@ import (
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
+	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
@@ -276,10 +277,14 @@ func decodeRelease(pm resource.PropertyMap) (*Release, error) {
 		}
 	}
 
-	if err := mapstructure.Decode(stripped, &release); err != nil {
+	var err error
+	if err = mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
-	release.Values = mergeMaps(release.Values, values)
+	release.Values, err = mergeMaps(release.Values, values)
+	if err != nil {
+		return nil, err
+	}
 	return &release, nil
 }
 
@@ -362,6 +367,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		}
 	}
 
+	logger.V(9).Infof("New: %+v", new)
 	autonamed := resource.NewPropertyMap(new)
 	annotateSecrets(autonamed, news)
 	autonamedInputs, err := plugin.MarshalProperties(autonamed, plugin.MarshalOptions{
@@ -876,6 +882,9 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if oldInputs == nil {
 		// No old inputs suggests this is an import. Hydrate the imports from the current live object
 		r.setDefaults(existingRelease)
+		logger.V(9).Infof("existingRelease: %#v", existingRelease)
+		logger.V(9).Infof("existingRelease.Status: %#v", existingRelease.Status)
+		logger.V(9).Infof("existingRelease.Status.Revision: %#v", *existingRelease.Status.Revision)
 		oldInputs = r.serializeImportInputs(existingRelease)
 	}
 
@@ -1091,8 +1100,12 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	if release.Chart == "" {
 		release.Chart = r.Chart.Metadata.Name
 	}
+	var err error
 	logger.V(9).Infof("Setting release values: %+v", r.Config)
-	release.Values = mergeMaps(release.Values, r.Config)
+	release.Values, err = mergeMaps(release.Values, r.Config)
+	if err != nil {
+		return err
+	}
 	release.Version = r.Chart.Metadata.Version
 
 	_, resources, err := convertYAMLManifestToJSON(r.Manifest)
@@ -1175,8 +1188,12 @@ func isChartInstallable(ch *helmchart.Chart) error {
 }
 
 func getValues(release *Release) (map[string]interface{}, error) {
+	var err error
 	base := map[string]interface{}{}
-	base = mergeMaps(base, release.Values)
+	base, err = mergeMaps(base, release.Values)
+	if err != nil {
+		return nil, err
+	}
 	return base, logValues(base)
 }
 
@@ -1202,25 +1219,40 @@ func logValues(values map[string]interface{}) error {
 	return nil
 }
 
-// Merges source and destination map, preferring values from the source map
-// Taken from github.com/helm/pkg/cli/values/options.go
-func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
-	out := make(map[string]interface{}, len(a))
-	for k, v := range a {
-		out[k] = v
+// Merges a and b map, preferring values from b map
+func mergeMaps(a, b map[string]interface{}) (map[string]interface{}, error) {
+	a = excludeNulls(a).(map[string]interface{})
+	b = excludeNulls(b).(map[string]interface{})
+
+	if err := mergo.Merge(&a, b, mergo.WithOverride, mergo.WithTypeCheck); err != nil {
+		return nil, err
 	}
-	for k, v := range b {
-		if v, ok := v.(map[string]interface{}); ok {
-			if bv, ok := out[k]; ok {
-				if bv, ok := bv.(map[string]interface{}); ok {
-					out[k] = mergeMaps(bv, v)
-					continue
-				}
+	return a, nil
+}
+
+func excludeNulls(in interface{}) interface{} {
+	switch reflect.TypeOf(in).Kind() {
+	case reflect.Map:
+		out := map[string]interface{}{}
+		m := in.(map[string]interface{})
+		for k, v := range m {
+			val := reflect.ValueOf(v)
+			if val.IsValid() && !val.IsNil() {
+				out[k] = excludeNulls(v)
 			}
 		}
-		out[k] = v
+		return out
+	case reflect.Slice, reflect.Array:
+		var out []interface{}
+		s := in.([]interface{})
+		for _, i := range s {
+			if i != nil {
+				out = append(out, excludeNulls(i))
+			}
+		}
+		return out
 	}
-	return out
+	return in
 }
 
 func getChart(settings *cli.EnvSettings, newRelease *Release) (*helmchart.Chart, string, error) {
