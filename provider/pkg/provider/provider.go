@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -1841,8 +1842,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
+	var noOldInputs bool
 	oldInputs, oldLive := parseCheckpointObject(oldState)
-
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
 			gvk, err := k.gvkFromURN(urn)
@@ -1850,6 +1851,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
+			noOldInputs = true
 		} else {
 			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
@@ -1947,6 +1949,30 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Attempt to parse the inputs for this object. If parsing was unsuccessful, retain the old inputs.
 	liveInputs := parseLiveInputs(liveObj, oldInputs)
+	if noOldInputs {
+		// If no previous inputs were known, this is a fresh import. In which case we want to populate
+		// the inputs from the live state for the resource by referring to the input properties for the resource.
+		pkgSpec := pulumischema.PackageSpec{}
+		if err := json.Unmarshal(k.pulumiSchema, &pkgSpec); err != nil {
+			return nil, err
+		}
+		res := pkgSpec.Resources[urn.Type().String()]
+		for k := range res.InputProperties {
+			if liveVal, ok := liveObj.Object[k]; ok {
+				if err = unstructured.SetNestedField(liveInputs.Object, liveVal, k); err != nil {
+					return nil, fmt.Errorf("failure setting field %q for %q: %w", k, urn, err)
+				}
+			}
+		}
+
+		// Cleanup some obviously non-input-ty fields.
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "creationTimestamp")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "generation")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "managedFields")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "resourceVersion")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "uid")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", "kubectl.kubernetes.io/last-applied-configuration")
+	}
 
 	// TODO(lblackstone): not sure why this is needed
 	id := fqObjName(liveObj)
@@ -2759,6 +2785,7 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 	inputs := &unstructured.Unstructured{Object: map[string]interface{}{}}
 	inputs.SetGroupVersionKind(live.GroupVersionKind())
 	metadata.AdoptOldAutonameIfUnnamed(inputs, live)
+
 	return inputs
 }
 
