@@ -5,6 +5,7 @@
 - Change await log type to cloud-ready-check lib (https://github.com/pulumi/pulumi-kubernetes/pull/1855)
 - Populate inputs from live state for imports (https://github.com/pulumi/pulumi-kubernetes/pull/1846)
 - Elide last-applied-configuration annotation when server-side support is enabled (https://github.com/pulumi/pulumi-kubernetes/pull/1863)
+- Fix panic for deletions from virtual fields in Helm Release (https://github.com/pulumi/pulumi-kubernetes/pull/1850)
 
 ## 3.12.2 (January 5, 2022)
 
