@@ -2881,7 +2881,6 @@ type patchConverter struct {
 func (pc *patchConverter) addPatchValueToDiff(
 	path []interface{}, v, old, newInput, oldInput interface{}, inArray bool,
 ) error {
-
 	contract.Assertf(v != nil || old != nil || oldInput != nil,
 		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v",
 		path, v, old, oldInput)
