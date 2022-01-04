@@ -6,6 +6,7 @@
 
 - Relax ingress await restrictions (https://github.com/pulumi/pulumi-kubernetes/pull/1832)
 - Exclude nil entries from values (https://github.com/pulumi/pulumi-kubernetes/pull/1845)
+- Populate inputs from live state for imports (https://github.com/pulumi/pulumi-kubernetes/pull/1846)
 
 ## 3.12.1 (December 9, 2021)
 
