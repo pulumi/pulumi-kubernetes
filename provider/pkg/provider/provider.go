@@ -1842,7 +1842,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
-	var noOldInputs bool
+	noOldInputs := false
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
