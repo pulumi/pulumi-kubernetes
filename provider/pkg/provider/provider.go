@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -36,8 +36,8 @@ import (
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	"github.com/imdario/mergo"
 	pkgerrors "github.com/pkg/errors"
+	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen"
@@ -1557,11 +1557,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		case "Job":
 			// Fetch current Job status and check point-in-time readiness. Errors are ignored.
 			if live, err := k.readLiveObject(newInputs); err == nil {
-				jobChecker := states.NewJobChecker()
+				jobChecker := checkjob.NewJobChecker()
 				job, err := clients.FromUnstructured(live)
 				if err == nil {
-					jobChecker.Update(job)
-					if !jobChecker.Ready() {
+					if !jobChecker.Ready(job) {
 						hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 						replaces = append(replaces, `.metadata.annotations["pulumi.com/replaceUnready"]`)
 					}

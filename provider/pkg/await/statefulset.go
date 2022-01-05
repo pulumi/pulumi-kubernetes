@@ -22,8 +22,8 @@ import (
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
@@ -428,13 +428,14 @@ func (sia *statefulsetInitAwaiter) aggregatePodErrors() logging.Messages {
 		}
 
 		// Check the pod for errors.
-		checker := states.NewPodChecker()
+		checker := checkpod.NewPodChecker()
 		pod, err := clients.PodFromUnstructured(unstructuredPod)
 		if err != nil {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return nil
 		}
-		messages = append(messages, checker.Update(pod).Warnings()...)
+		_, results := checker.ReadyDetails(pod)
+		messages = append(messages, results.Messages().Warnings()...)
 	}
 
 	return messages

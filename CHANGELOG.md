@@ -1,6 +1,7 @@
 ## HEAD (Unreleased)
 
 - Change await log type to cloud-ready-check lib (https://github.com/pulumi/pulumi-kubernetes/pull/1855)
+- Switch Pod and Job await logic to external lib (https://github.com/pulumi/pulumi-kubernetes/pull/1856)
 
 ## 3.12.2 (January 5, 2022)
 
