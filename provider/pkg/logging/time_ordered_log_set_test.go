@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,57 +17,58 @@ package logging
 import (
 	"testing"
 
+	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestOrderedStringSet_Add(t *testing.T) {
-	status1 := Message{"foo", diag.Info}
-	status2 := Message{"bar", diag.Info}
-	warn1 := Message{"boom", diag.Warning}
+	status1 := logging.Message{S: "foo", Severity: diag.Info}
+	status2 := logging.Message{S: "bar", Severity: diag.Info}
+	warn1 := logging.Message{S: "boom", Severity: diag.Warning}
 
 	type fields struct {
-		exists   map[Message]bool
-		Messages []Message
+		exists   map[logging.Message]bool
+		Messages []logging.Message
 	}
 	type args struct {
-		msg Message
+		msg logging.Message
 	}
 	tests := []struct {
 		name   string
 		fields fields
 		args   args
-		expect []Message
+		expect []logging.Message
 	}{
 		{
 			"add a message to uninitialized struct",
 			fields{},
 			args{status1},
-			[]Message{status1},
+			[]logging.Message{status1},
 		},
 		{
 			"add a new message to empty list",
-			fields{map[Message]bool{}, []Message{}},
+			fields{map[logging.Message]bool{}, []logging.Message{}},
 			args{status1},
-			[]Message{status1},
+			[]logging.Message{status1},
 		},
 		{
 			"add a new info message to existing list",
-			fields{map[Message]bool{status1: true}, []Message{status1}},
+			fields{map[logging.Message]bool{status1: true}, []logging.Message{status1}},
 			args{status2},
-			[]Message{status1, status2},
+			[]logging.Message{status1, status2},
 		},
 		{
 			"add a new warning message to existing list",
-			fields{map[Message]bool{status1: true}, []Message{status1}},
+			fields{map[logging.Message]bool{status1: true}, []logging.Message{status1}},
 			args{warn1},
-			[]Message{status1, warn1},
+			[]logging.Message{status1, warn1},
 		},
 		{
 			"add a duplicate string",
-			fields{map[Message]bool{status1: true}, []Message{status1}},
+			fields{map[logging.Message]bool{status1: true}, []logging.Message{status1}},
 			args{status1},
-			[]Message{status1},
+			[]logging.Message{status1},
 		},
 	}
 	for _, tt := range tests {

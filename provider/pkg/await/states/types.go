@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package states
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
+	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

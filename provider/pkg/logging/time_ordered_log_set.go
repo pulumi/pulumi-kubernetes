@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,20 +14,24 @@
 
 package logging
 
+import (
+	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+)
+
 // TimeOrderedLogSet stores a temporally-ordered set of log messages.
 type TimeOrderedLogSet struct {
-	exists   map[Message]bool
-	Messages Messages
+	exists   map[logging.Message]bool
+	Messages logging.Messages
 }
 
 // Add appends a message to the time-ordered set.
-func (o *TimeOrderedLogSet) Add(msg Message) {
+func (o *TimeOrderedLogSet) Add(msg logging.Message) {
 	// Ensure memory has been allocated.
 	if o.exists == nil {
-		o.exists = make(map[Message]bool)
+		o.exists = make(map[logging.Message]bool)
 	}
 	if o.Messages == nil {
-		o.Messages = []Message{}
+		o.Messages = []logging.Message{}
 	}
 
 	if !o.exists[msg] {
