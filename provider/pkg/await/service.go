@@ -9,13 +9,6 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
-	v1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic"
-
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
@@ -25,6 +18,12 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	v1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/client-go/dynamic"
 )
 
 // ------------------------------------------------------------------------------------------------

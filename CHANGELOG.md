@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Change await log type to cloud-ready-check lib (https://github.com/pulumi/pulumi-kubernetes/pull/1855)
+
 ## 3.12.2 (January 5, 2022)
 
 - Relax ingress await restrictions (https://github.com/pulumi/pulumi-kubernetes/pull/1832)

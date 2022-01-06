@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import (
 	"context"
 	"sync"
 
+	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -45,7 +46,7 @@ func NewLogger(ctx context.Context, host *provider.HostClient, urn resource.URN)
 }
 
 // LogMessage adds a message to the log set and flushes the queue to the host.
-func (l *DedupLogger) LogMessage(msg Message) {
+func (l *DedupLogger) LogMessage(msg logging.Message) {
 	l.EnqueueMessage(msg.Severity, msg.S)
 	l.LogNewMessages()
 }
@@ -55,11 +56,11 @@ func (l *DedupLogger) EnqueueMessage(severity diag.Severity, s string) {
 	l.mux.Lock()
 	defer l.mux.Unlock()
 
-	l.messages.Add(Message{s, severity})
+	l.messages.Add(logging.Message{S: s, Severity: severity})
 }
 
 // GetNewMessages returns the list of new messages since last calling GetNewMessages.
-func (l *DedupLogger) GetNewMessages() []Message {
+func (l *DedupLogger) GetNewMessages() []logging.Message {
 	l.mux.Lock()
 	defer l.mux.Unlock()
 

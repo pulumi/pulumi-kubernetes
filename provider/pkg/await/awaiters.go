@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import (
 	"reflect"
 	"time"
 
+	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
@@ -55,10 +56,10 @@ type createAwaitConfig struct {
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
-	cac.logMessage(logging.Message{S: message, Severity: sev})
+	cac.logMessage(checkerlog.Message{S: message, Severity: sev})
 }
 
-func (cac *createAwaitConfig) logMessage(message logging.Message) {
+func (cac *createAwaitConfig) logMessage(message checkerlog.Message) {
 	cac.logger.LogMessage(message)
 }
 

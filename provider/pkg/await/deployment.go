@@ -1,4 +1,16 @@
-// Copyright 2021, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2022, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package await
 
@@ -9,11 +21,11 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -780,13 +792,13 @@ func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch
 	dia.checkPersistentVolumeClaimStatus()
 }
 
-func (dia *deploymentInitAwaiter) aggregatePodErrors() logging.Messages {
+func (dia *deploymentInitAwaiter) aggregatePodErrors() checkerlog.Messages {
 	rs, exists := dia.replicaSets[dia.replicaSetGeneration]
 	if !exists {
 		return nil
 	}
 
-	var messages logging.Messages
+	var messages checkerlog.Messages
 	for _, unstructuredPod := range dia.pods {
 		// Filter down to only Pods owned by the active ReplicaSet.
 		if !isOwnedBy(unstructuredPod, rs) {

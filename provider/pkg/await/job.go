@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,9 +19,8 @@ import (
 	"strings"
 	"time"
 
-	"k8s.io/client-go/dynamic/dynamicinformer"
-
 	"github.com/pkg/errors"
+	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
@@ -33,6 +32,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/client-go/dynamic/dynamicinformer"
 )
 
 // ------------------------------------------------------------------------------------------------
@@ -233,7 +233,7 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 	return nil
 }
 
-func (jia *jobInitAwaiter) processPodMessages(messages logging.Messages) {
+func (jia *jobInitAwaiter) processPodMessages(messages checkerlog.Messages) {
 	for _, message := range messages {
 		jia.errors.Add(message)
 
