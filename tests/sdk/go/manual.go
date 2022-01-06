@@ -102,10 +102,9 @@ func deleteRelease(releaseName, releaseNamespace string) error {
 	}
 	act := action.NewUninstall(actionConfig)
 	act.Wait = true
-	uninstall, err := act.Run(releaseName)
-	if err != nil {
+	if _, err = act.Run(releaseName); err != nil {
 		return err
 	}
-	fmt.Printf("Uninstall release: %q\n", uninstall.Info)
+	fmt.Printf("Uninstall release: %s/%s\n", releaseNamespace, releaseName)
 	return nil
 }

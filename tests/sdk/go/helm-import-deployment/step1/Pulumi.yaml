@@ -1,0 +1,3 @@
+name: go_helm_import_deployment
+description: Test import support for Kubernetes resources deployed by a Helm chart externally.
+runtime: go
