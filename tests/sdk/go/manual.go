@@ -20,6 +20,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
 	"helm.sh/helm/v3/pkg/action"
@@ -69,6 +70,10 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 	action.Namespace = releaseNamespace
 	action.ReleaseName = releaseName
 	action.CreateNamespace = createNamespace
+	// Block on helm install since otherwise if we import resources created by the release which are not ready,
+	// we might end up with mysterious test failures (initErrors during updates might trigger an update).
+	action.Wait = true
+	action.Timeout = 5 * time.Minute
 	rel, err := action.Run(chart, map[string]interface{}{"service": map[string]interface{}{"type": "ClusterIP"}})
 	if err != nil {
 		return err
