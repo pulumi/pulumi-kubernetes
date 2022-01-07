@@ -128,7 +128,9 @@ func main() {
 					},
 				},
 			},
-			pulumi.IgnoreChanges([]string{`metadata.annotations["deployment.kubernetes.io/revision"]`}),
+			pulumi.IgnoreChanges([]string{
+				`metadata.annotations["deployment.kubernetes.io/revision"]`,
+				`metadata.selfLink`}),
 			pulumi.Import(pulumi.ID(fmt.Sprintf("%s/mynginx", namespace))))
 		if err != nil {
 			return err
