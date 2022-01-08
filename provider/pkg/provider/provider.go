@@ -1842,7 +1842,14 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
-	noOldInputs := false
+	namespace, name := parseFqName(req.GetId())
+	if name == "" {
+		return nil, fmt.Errorf(
+			"failed to read resource because of a failure to parse resource name from request ID: %s",
+			req.GetId())
+	}
+
+	freshImport := false
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
@@ -1851,23 +1858,18 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
-			noOldInputs = true
+			freshImport = true
 		} else {
 			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
-	}
 
-	namespace, name := parseFqName(req.GetId())
-	if name == "" {
-		return nil, fmt.Errorf(
-			"failed to read resource because of a failure to parse resource name from request ID: %s",
-			req.GetId())
-	}
-	if oldInputs.GetName() == "" {
-		oldInputs.SetName(name)
-	}
-	if oldInputs.GetNamespace() == "" {
-		oldInputs.SetNamespace(namespace)
+		if oldInputs.GetName() == "" {
+			oldInputs.SetName(name)
+		}
+
+		if oldInputs.GetNamespace() == "" {
+			oldInputs.SetNamespace(namespace)
+		}
 	}
 
 	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
@@ -1949,7 +1951,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Attempt to parse the inputs for this object. If parsing was unsuccessful, retain the old inputs.
 	liveInputs := parseLiveInputs(liveObj, oldInputs)
-	if noOldInputs {
+
+	if freshImport {
 		// If no previous inputs were known, this is a fresh import. In which case we want to populate
 		// the inputs from the live state for the resource by referring to the input properties for the resource.
 		pkgSpec := pulumischema.PackageSpec{}
@@ -2563,9 +2566,10 @@ func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Uns
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	if k.supportsDryRun(config.GroupVersionKind()) {
-		// Skip last-applied-config if the resource supports server-side apply.
+		// Skip last-applied-config annotation if the resource supports server-side apply.
 		return config, nil
 	}
+
 	// Serialize the inputs and add the last-applied-configuration annotation.
 	marshaled, err := config.MarshalJSON()
 	if err != nil {
