@@ -1,12 +1,13 @@
 ## HEAD (Unreleased)
 
 - Change await log type to cloud-ready-check lib (https://github.com/pulumi/pulumi-kubernetes/pull/1855)
+- Populate inputs from live state for imports (https://github.com/pulumi/pulumi-kubernetes/pull/1846)
+- Elide last-applied-configuration annotation when server-side support is enabled (https://github.com/pulumi/pulumi-kubernetes/pull/1863)
 
 ## 3.12.2 (January 5, 2022)
 
 - Relax ingress await restrictions (https://github.com/pulumi/pulumi-kubernetes/pull/1832)
 - Exclude nil entries from values (https://github.com/pulumi/pulumi-kubernetes/pull/1845)
-- Populate inputs from live state for imports (https://github.com/pulumi/pulumi-kubernetes/pull/1846)
 
 ## 3.12.1 (December 9, 2021)
 

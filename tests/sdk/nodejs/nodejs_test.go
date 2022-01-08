@@ -475,6 +475,15 @@ func TestDryRun(t *testing.T) {
 				Additive: true,
 			},
 		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:apps/v1:Deployment" {
+					annotations, _ := openapi.Pluck(res.Outputs, "metadata", "annotations")
+					assert.NotEmpty(t, annotations)
+					assert.NotContains(t, annotations, "kubectl.kubernetes.io/last-applied-configuration")
+				}
+			}
+		},
 	})
 	integration.ProgramTest(t, &test)
 }
