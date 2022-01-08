@@ -2881,8 +2881,9 @@ type patchConverter struct {
 func (pc *patchConverter) addPatchValueToDiff(
 	path []interface{}, v, old, newInput, oldInput interface{}, inArray bool,
 ) error {
-
-	contract.Assert(v != nil || old != nil)
+	contract.Assertf(v != nil || old != nil || oldInput != nil,
+		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v",
+		path, v, old, oldInput)
 
 	// If there is no new input, then the only possible diff here is a delete. All other diffs must be diffs between
 	// old and new properties that are populated by the server. If there is also no old input, then there is no diff
