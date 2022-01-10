@@ -409,7 +409,7 @@ func TestHelmRelease(t *testing.T) {
 				assert.Contains(t, values, "cluster")
 				valMap := values.(map[string]interface{})
 				assert.Equal(t, valMap["cluster"], map[string]interface{}{
-					"enabled": true,
+					"enabled":    true,
 					"slaveCount": float64(2),
 				})
 				// not asserting contents since the secret is hard to assert equality on.
@@ -423,7 +423,7 @@ func TestHelmRelease(t *testing.T) {
 						},
 					},
 				})
-				assert.Contains(t, values,"rbac")
+				assert.Contains(t, values, "rbac")
 				assert.Equal(t, valMap["rbac"], map[string]interface{}{
 					"create": true,
 				})
@@ -432,14 +432,14 @@ func TestHelmRelease(t *testing.T) {
 	}
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release", "step1"),
-			SkipRefresh: false,
-			Verbose:     true,
+			Dir:                    filepath.Join(getCwd(t), "helm-release", "step1"),
+			SkipRefresh:            false,
+			Verbose:                true,
 			ExtraRuntimeValidation: validationFunc,
 			EditDirs: []integration.EditDir{
 				{
-					Dir:      filepath.Join(getCwd(t), "helm-release", "step2"),
-					Additive: true,
+					Dir:                    filepath.Join(getCwd(t), "helm-release", "step2"),
+					Additive:               true,
 					ExtraRuntimeValidation: validationFunc,
 				},
 			},
@@ -482,6 +482,25 @@ func TestHelmReleaseNamespace(t *testing.T) {
 			},
 		})
 
+	integration.ProgramTest(t, &test)
+}
+
+func TestRancher(t *testing.T) {
+	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1848
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "rancher", "step1"),
+			SkipRefresh: true,
+			Verbose:     true,
+			NoParallel:  true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "rancher", "step2"),
+					Additive: true,
+				},
+			},
+		})
 	integration.ProgramTest(t, &test)
 }
 

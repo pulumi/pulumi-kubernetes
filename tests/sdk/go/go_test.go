@@ -121,6 +121,28 @@ func TestGo(t *testing.T) {
 			Config: map[string]string{
 				"namespace": namespace,
 			},
+			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				assert.NotEmpty(t, stack.Outputs["svc_ip"])
+			},
+			NoParallel: true,
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Import Deployment Created by Helm", func(t *testing.T) {
+		baseDir := filepath.Join(cwd, "helm-import-deployment", "step1")
+		namespace := getRandomNamespace("importdepl")
+		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
+		defer func() {
+			contract.IgnoreError(deleteRelease("mynginx", namespace))
+		}()
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir: baseDir,
+			Config: map[string]string{
+				"namespace": namespace,
+			},
+			NoParallel: true,
+			Verbose:    true,
 		})
 		integration.ProgramTest(t, &options)
 	})

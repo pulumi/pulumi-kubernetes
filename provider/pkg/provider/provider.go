@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -1655,7 +1656,7 @@ func (k *kubeProvider) Create(
 		return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 	}
 
-	annotatedInputs, err := withLastAppliedConfig(newInputs)
+	annotatedInputs, err := k.withLastAppliedConfig(newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
@@ -1840,8 +1841,15 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		return nil, err
 	}
 
-	oldInputs, oldLive := parseCheckpointObject(oldState)
+	namespace, name := parseFqName(req.GetId())
+	if name == "" {
+		return nil, fmt.Errorf(
+			"failed to read resource because of a failure to parse resource name from request ID: %s",
+			req.GetId())
+	}
 
+	freshImport := false
+	oldInputs, oldLive := parseCheckpointObject(oldState)
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
 			gvk, err := k.gvkFromURN(urn)
@@ -1849,22 +1857,18 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
+			freshImport = true
 		} else {
 			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
-	}
 
-	namespace, name := parseFqName(req.GetId())
-	if name == "" {
-		return nil, fmt.Errorf(
-			"failed to read resource because of a failure to parse resource name from request ID: %s",
-			req.GetId())
-	}
-	if oldInputs.GetName() == "" {
-		oldInputs.SetName(name)
-	}
-	if oldInputs.GetNamespace() == "" {
-		oldInputs.SetNamespace(namespace)
+		if oldInputs.GetName() == "" {
+			oldInputs.SetName(name)
+		}
+
+		if oldInputs.GetNamespace() == "" {
+			oldInputs.SetNamespace(namespace)
+		}
 	}
 
 	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
@@ -1946,6 +1950,31 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Attempt to parse the inputs for this object. If parsing was unsuccessful, retain the old inputs.
 	liveInputs := parseLiveInputs(liveObj, oldInputs)
+
+	if freshImport {
+		// If no previous inputs were known, this is a fresh import. In which case we want to populate
+		// the inputs from the live state for the resource by referring to the input properties for the resource.
+		pkgSpec := pulumischema.PackageSpec{}
+		if err := json.Unmarshal(k.pulumiSchema, &pkgSpec); err != nil {
+			return nil, err
+		}
+		res := pkgSpec.Resources[urn.Type().String()]
+		for k := range res.InputProperties {
+			if liveVal, ok := liveObj.Object[k]; ok {
+				if err = unstructured.SetNestedField(liveInputs.Object, liveVal, k); err != nil {
+					return nil, fmt.Errorf("failure setting field %q for %q: %w", k, urn, err)
+				}
+			}
+		}
+
+		// Cleanup some obviously non-input-ty fields.
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "creationTimestamp")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "generation")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "managedFields")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "resourceVersion")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "uid")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", lastAppliedConfigKey)
+	}
 
 	// TODO(lblackstone): not sure why this is needed
 	id := fqObjName(liveObj)
@@ -2099,7 +2128,7 @@ func (k *kubeProvider) Update(
 	// Ignore old state; we'll get it from Kubernetes later.
 	oldInputs, _ := parseCheckpointObject(oldState)
 
-	annotatedInputs, err := withLastAppliedConfig(newInputs)
+	annotatedInputs, err := k.withLastAppliedConfig(newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to update resource %s/%s because of an error generating the %s value in "+
@@ -2534,6 +2563,28 @@ func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Uns
 	return ssPatch, ssPatchBase, true
 }
 
+func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	if k.supportsDryRun(config.GroupVersionKind()) {
+		// Skip last-applied-config annotation if the resource supports server-side apply.
+		return config, nil
+	}
+
+	// Serialize the inputs and add the last-applied-configuration annotation.
+	marshaled, err := config.MarshalJSON()
+	if err != nil {
+		return nil, err
+	}
+
+	// Deep copy the config before returning.
+	config = config.DeepCopy()
+
+	annotations := getAnnotations(config)
+
+	annotations[lastAppliedConfigKey] = string(marshaled)
+	config.SetAnnotations(annotations)
+	return config, nil
+}
+
 func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
 	if v.IsSecret() {
 		return v.SecretValue().Element.MapRepl(nil, mapReplStripSecrets), true
@@ -2589,23 +2640,6 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 	}
 
 	return oldConfig.GetAPIVersion(), nil
-}
-
-func withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	// Serialize the inputs and add the last-applied-configuration annotation.
-	marshaled, err := config.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-
-	// Deep copy the config before returning.
-	config = config.DeepCopy()
-
-	annotations := getAnnotations(config)
-
-	annotations[lastAppliedConfigKey] = string(marshaled)
-	config.SetAnnotations(annotations)
-	return config, nil
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap, initialAPIVersion string) resource.PropertyMap {
@@ -2758,6 +2792,7 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 	inputs := &unstructured.Unstructured{Object: map[string]interface{}{}}
 	inputs.SetGroupVersionKind(live.GroupVersionKind())
 	metadata.AdoptOldAutonameIfUnnamed(inputs, live)
+
 	return inputs
 }
 
@@ -2845,8 +2880,9 @@ type patchConverter struct {
 func (pc *patchConverter) addPatchValueToDiff(
 	path []interface{}, v, old, newInput, oldInput interface{}, inArray bool,
 ) error {
-
-	contract.Assert(v != nil || old != nil)
+	contract.Assertf(v != nil || old != nil || oldInput != nil,
+		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v",
+		path, v, old, oldInput)
 
 	// If there is no new input, then the only possible diff here is a delete. All other diffs must be diffs between
 	// old and new properties that are populated by the server. If there is also no old input, then there is no diff
