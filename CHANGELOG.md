@@ -1,5 +1,6 @@
 ## HEAD (Unreleased)
 - Fix panic for deletions from virtual fields in Helm Release (https://github.com/pulumi/pulumi-kubernetes/pull/1850)
+- Upgrade kubernetes provider module deps (https://github.com/pulumi/pulumi-kubernetes/pull/1861)
 
 ## 3.13.0 (January 7, 2022)
 - Change await log type to cloud-ready-check lib (https://github.com/pulumi/pulumi-kubernetes/pull/1855)
