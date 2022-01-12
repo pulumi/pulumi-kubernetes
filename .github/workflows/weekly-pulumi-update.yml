@@ -1,0 +1,79 @@
+name: weekly-pulumi-update
+"on":
+  schedule:
+    - cron: 35 12 * * 4
+  workflow_dispatch: {}
+
+env:
+  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
+
+jobs:
+  update-go-mod:
+    name: Update Go mods
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goversion: [1.17.x]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Unshallow clone for tags
+        run: git fetch --prune --unshallow --tags
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.goversion }}
+      - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
+        with:
+          repo: pulumi/pulumictl
+      - name: Install Pulumi CLI
+        uses: pulumi/setup-pulumi@v2
+      - name: Preparing Git Branch
+        run: |
+          git config --local user.email "bot@pulumi.com"
+          git config --local user.name "pulumi-bot"
+          git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+      - name: Update pulumi/pulumi
+        id: gomod
+        run: |
+          cd provider
+          go get github.com/pulumi/pulumi/pkg/v3
+          go get github.com/pulumi/pulumi/sdk/v3
+          go mod download
+          go mod tidy
+          cd ..
+          git update-index -q --refresh
+          if ! git diff-files --quiet; then
+            echo ::set-output name=changes::1
+          fi
+      - name: Build codegen binaries
+        if: steps.gomod.outputs.changes != 0
+        run: make codegen
+      - name: Build Schema + SDKs
+        if: steps.gomod.outputs.changes != 0
+        run: make local_generate
+      - name: Commit changes
+        if: steps.gomod.outputs.changes != 0
+        run: |
+          git add sdk/nodejs
+          git commit -m "Regenerating Node.js SDK based on updated modules" || echo "ignore commit failure, may be empty"
+          git add sdk/python
+          git commit -m "Regenerating Python SDK based on updated modules" || echo "ignore commit failure, may be empty"
+          git add sdk/dotnet
+          git commit -m "Regenerating .NET SDK based on updated modules" || echo "ignore commit failure, may be empty"
+          git add sdk/go
+          git commit -m "Regenerating Go SDK based on updated modules" || echo "ignore commit failure, may be empty"
+          git add .
+          git commit -m "Updated modules"
+          git push origin update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+      - name: Open a pull request
+        if: steps.gomod.outputs.changes != 0
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "update-pulumi/${{ github.run_id }}-${{ github.run_number }}"
+          destination_branch: "master"
+          pr_title: "Automated pulumi/pulumi upgrade"
+          pr_label: "automation/merge"
+          pr_allow_empty: true
+          github_token: ${{ secrets.PULUMI_BOT_TOKEN }}

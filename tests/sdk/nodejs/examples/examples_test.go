@@ -153,7 +153,7 @@ func TestAccIngress(t *testing.T) {
 					})
 
 				integration.AssertHTTPResultWithRetry(t, fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
-					map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
+					map[string]string{"Host": "ingresshello.io"}, 10*time.Minute, func(body string) bool {
 						return assert.NotEmpty(t, body, "Body should not be empty")
 					})
 			},
