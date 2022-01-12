@@ -19,9 +19,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/cloud-ready-checks/pkg/checker"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
@@ -107,15 +108,16 @@ const (
 type podInitAwaiter struct {
 	pod      *unstructured.Unstructured
 	config   createAwaitConfig
-	state    *states.StateChecker
+	checker  *checker.StateChecker
+	ready    bool
 	messages logging.Messages
 }
 
 func makePodInitAwaiter(c createAwaitConfig) *podInitAwaiter {
 	return &podInitAwaiter{
-		config: c,
-		pod:    c.currentOutputs,
-		state:  states.NewPodChecker(),
+		config:  c,
+		pod:     c.currentOutputs,
+		checker: pod.NewPodChecker(),
 	}
 }
 
@@ -160,7 +162,7 @@ func (pia *podInitAwaiter) Await() error {
 
 	timeout := metadata.TimeoutDuration(pia.config.timeout, pia.config.currentInputs, DefaultPodTimeoutMins*60)
 	for {
-		if pia.state.Ready() {
+		if pia.ready {
 			return nil
 		}
 
@@ -202,7 +204,7 @@ func (pia *podInitAwaiter) Read() error {
 	pia.processPodEvent(watchAddedEvent(pod))
 
 	// Check whether we've succeeded.
-	if pia.state.Ready() {
+	if pia.ready {
 		return nil
 	}
 
@@ -228,7 +230,9 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 		return
 	}
 
-	pia.messages = pia.state.Update(pod)
+	var results checker.Results
+	pia.ready, results = pia.checker.ReadyDetails(pod)
+	pia.messages = results.Messages()
 	for _, message := range pia.messages {
 		pia.config.logMessage(message)
 	}

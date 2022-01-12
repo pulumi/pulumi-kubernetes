@@ -17,8 +17,9 @@ package await
 import (
 	"sync"
 
+	"github.com/pulumi/cloud-ready-checks/pkg/checker"
 	"github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
+	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
@@ -41,7 +42,7 @@ type PodAggregator struct {
 	owner ResourceID
 
 	// Pod checker
-	checker *states.StateChecker
+	checker *checker.StateChecker
 
 	// Clients
 	lister cache.GenericLister
@@ -56,7 +57,7 @@ func NewPodAggregator(owner ResourceID, lister cache.GenericLister) *PodAggregat
 		stopped:  false,
 		owner:    owner,
 		lister:   lister,
-		checker:  states.NewPodChecker(),
+		checker:  pod.NewPodChecker(),
 		messages: make(chan logging.Messages),
 	}
 	return pa
@@ -78,7 +79,8 @@ func (pa *PodAggregator) run(informChan <-chan watch.Event) {
 			return
 		}
 		if relatedResource(pa.owner, pod) {
-			messages := pa.checker.Update(pod).MessagesWithSeverity(diag.Warning, diag.Error)
+			_, results := pa.checker.ReadyDetails(pod)
+			messages := results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 			if len(messages) > 0 {
 				pa.messages <- messages
 			}
@@ -107,7 +109,8 @@ func (pa *PodAggregator) Read() logging.Messages {
 			return
 		}
 		if relatedResource(pa.owner, pod) {
-			messages = append(messages, pa.checker.Update(pod).MessagesWithSeverity(diag.Warning, diag.Error)...)
+			_, results := pa.checker.ReadyDetails(pod)
+			messages = results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)
 		}
 	}
 

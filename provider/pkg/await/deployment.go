@@ -22,8 +22,8 @@ import (
 
 	"github.com/pkg/errors"
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	checkpod "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/pod"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
@@ -806,14 +806,14 @@ func (dia *deploymentInitAwaiter) aggregatePodErrors() checkerlog.Messages {
 		}
 
 		// Check the pod for errors.
-		checker := states.NewPodChecker()
+		checker := checkpod.NewPodChecker()
 		pod, err := clients.PodFromUnstructured(unstructuredPod)
 		if err != nil {
 			logger.V(3).Infof("Failed to unmarshal Pod event: %v", err)
 			return nil
 		}
-		m := checker.Update(pod)
-		messages = append(messages, m.MessagesWithSeverity(diag.Warning, diag.Error)...)
+		_, results := checker.ReadyDetails(pod)
+		messages = append(messages, results.Messages().MessagesWithSeverity(diag.Warning, diag.Error)...)
 	}
 
 	return messages

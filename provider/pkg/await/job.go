@@ -20,9 +20,10 @@ import (
 	"time"
 
 	"github.com/pkg/errors"
+	"github.com/pulumi/cloud-ready-checks/pkg/checker"
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
+	"github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/informers"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await/states"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
@@ -82,16 +83,17 @@ const (
 type jobInitAwaiter struct {
 	job      *unstructured.Unstructured
 	config   createAwaitConfig
-	state    *states.StateChecker
+	checker  *checker.StateChecker
 	errors   logging.TimeOrderedLogSet
 	resource ResourceID
+	ready    bool
 }
 
 func makeJobInitAwaiter(c createAwaitConfig) *jobInitAwaiter {
 	return &jobInitAwaiter{
 		config:   c,
 		job:      c.currentOutputs,
-		state:    states.NewJobChecker(),
+		checker:  job.NewJobChecker(),
 		resource: ResourceIDFromUnstructured(c.currentOutputs),
 	}
 }
@@ -124,7 +126,7 @@ func (jia *jobInitAwaiter) Await() error {
 
 	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentInputs, DefaultJobTimeoutMins*60)
 	for {
-		if jia.state.Ready() {
+		if jia.ready {
 			return nil
 		}
 
@@ -176,7 +178,7 @@ func (jia *jobInitAwaiter) Read() error {
 	_ = jia.processJobEvent(watchAddedEvent(job))
 
 	// Check whether we've succeeded.
-	if jia.state.Ready() {
+	if jia.ready {
 		return nil
 	}
 
@@ -215,7 +217,9 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 		return nil
 	}
 
-	messages := jia.state.Update(job)
+	var results checker.Results
+	jia.ready, results = jia.checker.ReadyDetails(job)
+	messages := results.Messages()
 	for _, message := range messages.MessagesWithSeverity(diag.Warning, diag.Error) {
 		jia.errors.Add(message)
 	}
