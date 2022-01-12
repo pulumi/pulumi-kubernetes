@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+## 3.14.0 (January 12, 2022)
+
 - Fix panic for deletions from virtual fields in Helm Release (https://github.com/pulumi/pulumi-kubernetes/pull/1850)
 - Switch Pod and Job await logic to external lib (https://github.com/pulumi/pulumi-kubernetes/pull/1856)
 - Upgrade kubernetes provider module deps (https://github.com/pulumi/pulumi-kubernetes/pull/1861)
