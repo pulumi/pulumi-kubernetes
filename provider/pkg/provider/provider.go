@@ -19,7 +19,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -46,6 +45,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -329,23 +329,38 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	if !reflect.DeepEqual(oldConfig, newConfig) {
 		diffs = append(diffs, "kubeconfig")
 	}
-	if olds["context"] != news["context"] {
-		diffs = append(diffs, "context")
-	}
 	if olds["cluster"] != news["cluster"] {
 		diffs = append(diffs, "cluster")
 	}
-	if olds["namespace"] != news["namespace"] {
-		diffs = append(diffs, "namespace")
+	if olds["context"] != news["context"] {
+		diffs = append(diffs, "context")
 	}
 	if olds["enableDryRun"] != news["enableDryRun"] {
 		diffs = append(diffs, "enableDryRun")
 	}
+	if olds["enabledReplaceCRD"] != news["enableReplaceCRD"] {
+		diffs = append(diffs, "enableReplaceCRD")
+	}
+	if olds["helmReleaseSettings"] != news["helmReleaseSettings"] {
+		diffs = append(diffs, "helmReleaseSettings")
+	}
+	if olds["kubeClientSettings"] != news["kubeClientSettings"] {
+		diffs = append(diffs, "kubeClientSettings")
+	}
+	if olds["namespace"] != news["namespace"] {
+		diffs = append(diffs, "namespace")
+	}
 	if olds["renderYamlToDirectory"] != news["renderYamlToDirectory"] {
 		diffs = append(diffs, "renderYamlToDirectory")
 
-		// If the render directory changes, all of the manifests will be replaced.
+		// If the render directory changes, all the manifests will be replaced.
 		replaces = append(replaces, "renderYamlToDirectory")
+	}
+	if olds["suppressDeprecationWarnings"] != news["suppressDeprecationWarnings"] {
+		diffs = append(diffs, "suppressDeprecationWarnings")
+	}
+	if olds["suppressHelmHookWarnings"] != news["suppressHelmHookWarnings"] {
+		diffs = append(diffs, "suppressHelmHookWarnings")
 	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
