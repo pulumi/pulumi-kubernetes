@@ -119,3 +119,13 @@ func IsNamespaceNotFoundErr(err error) bool {
 
 	return errors.IsNotFound(err) && se.Status().Details.Kind == "namespaces"
 }
+
+// IsResourceExistsErr returns true if the resource already exists on the k8s cluster.
+func IsResourceExistsErr(err error) bool {
+	_, isStatusError := err.(*errors.StatusError)
+	if !isStatusError {
+		return false
+	}
+
+	return errors.IsAlreadyExists(err)
+}

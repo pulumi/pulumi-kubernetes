@@ -1721,7 +1721,11 @@ func (k *kubeProvider) Create(
 		if req.GetPreview() {
 			failedPreview := false
 			_, isPreviewErr := awaitErr.(await.PreviewError)
-			if k.isDryRunDisabledError(err) || isPreviewErr {
+			if k.isDryRunDisabledError(awaitErr) || isPreviewErr {
+				failedPreview = true
+			}
+
+			if k.enableDryRun && errors.IsAlreadyExists(awaitErr) {
 				failedPreview = true
 			}
 
