@@ -2564,6 +2564,10 @@ func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Uns
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	if k.enableReplaceCRD && clients.IsCRD(config) {
+		// Skip last-applied-config annotation when CRD replacement is enabled.
+		return config, nil
+	}
 	if k.supportsDryRun(config.GroupVersionKind()) {
 		// Skip last-applied-config annotation if the resource supports server-side apply.
 		return config, nil

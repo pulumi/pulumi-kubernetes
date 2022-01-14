@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Disable last-applied-configuration annotation for replaced CRDs (https://github.com/pulumi/pulumi-kubernetes/pull/1868)
+
 ## 3.14.0 (January 12, 2022)
 
 - Fix panic for deletions from virtual fields in Helm Release (https://github.com/pulumi/pulumi-kubernetes/pull/1850)
