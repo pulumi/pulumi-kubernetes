@@ -19,7 +19,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -46,6 +45,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -326,26 +326,16 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 
 	// Check for differences in provider overrides.
-	if !reflect.DeepEqual(oldConfig, newConfig) {
-		diffs = append(diffs, "kubeconfig")
-	}
-	if olds["context"] != news["context"] {
-		diffs = append(diffs, "context")
-	}
-	if olds["cluster"] != news["cluster"] {
-		diffs = append(diffs, "cluster")
-	}
-	if olds["namespace"] != news["namespace"] {
-		diffs = append(diffs, "namespace")
-	}
-	if olds["enableDryRun"] != news["enableDryRun"] {
-		diffs = append(diffs, "enableDryRun")
-	}
-	if olds["renderYamlToDirectory"] != news["renderYamlToDirectory"] {
-		diffs = append(diffs, "renderYamlToDirectory")
+	diff := olds.Diff(news)
+	for _, k := range diff.ChangedKeys() {
+		diffs = append(diffs, string(k))
 
-		// If the render directory changes, all of the manifests will be replaced.
-		replaces = append(replaces, "renderYamlToDirectory")
+		// Handle any special cases.
+		switch k {
+		case "renderYamlToDirectory":
+			// If the render directory changes, all the manifests will be replaced.
+			replaces = append(replaces, "renderYamlToDirectory")
+		}
 	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
