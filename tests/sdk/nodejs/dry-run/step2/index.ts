@@ -43,3 +43,10 @@ const deployment = new k8s.apps.v1.Deployment("nginx", {
     }
 }, { provider });
 export const name = deployment.metadata.name;
+
+new k8s.core.v1.ConfigMap("test", {
+    metadata: {
+        name: "foo", // Specify the name to force resource replacement on change.
+    },
+    data: {foo: "baz"}, // <-- Updated value
+}, {provider});
