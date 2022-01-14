@@ -326,41 +326,16 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 	}
 
 	// Check for differences in provider overrides.
-	if !reflect.DeepEqual(oldConfig, newConfig) {
-		diffs = append(diffs, "kubeconfig")
-	}
-	if olds["cluster"] != news["cluster"] {
-		diffs = append(diffs, "cluster")
-	}
-	if olds["context"] != news["context"] {
-		diffs = append(diffs, "context")
-	}
-	if olds["enableDryRun"] != news["enableDryRun"] {
-		diffs = append(diffs, "enableDryRun")
-	}
-	if olds["enabledReplaceCRD"] != news["enableReplaceCRD"] {
-		diffs = append(diffs, "enableReplaceCRD")
-	}
-	if olds["helmReleaseSettings"] != news["helmReleaseSettings"] {
-		diffs = append(diffs, "helmReleaseSettings")
-	}
-	if olds["kubeClientSettings"] != news["kubeClientSettings"] {
-		diffs = append(diffs, "kubeClientSettings")
-	}
-	if olds["namespace"] != news["namespace"] {
-		diffs = append(diffs, "namespace")
-	}
-	if olds["renderYamlToDirectory"] != news["renderYamlToDirectory"] {
-		diffs = append(diffs, "renderYamlToDirectory")
+	diff := olds.Diff(news)
+	for _, k := range diff.ChangedKeys() {
+		diffs = append(diffs, string(k))
 
-		// If the render directory changes, all the manifests will be replaced.
-		replaces = append(replaces, "renderYamlToDirectory")
-	}
-	if olds["suppressDeprecationWarnings"] != news["suppressDeprecationWarnings"] {
-		diffs = append(diffs, "suppressDeprecationWarnings")
-	}
-	if olds["suppressHelmHookWarnings"] != news["suppressHelmHookWarnings"] {
-		diffs = append(diffs, "suppressHelmHookWarnings")
+		// Handle any special cases.
+		switch k {
+		case "renderYamlToDirectory":
+			// If the render directory changes, all the manifests will be replaced.
+			replaces = append(replaces, "renderYamlToDirectory")
+		}
 	}
 
 	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
