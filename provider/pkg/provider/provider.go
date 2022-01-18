@@ -1531,9 +1531,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 					"converting JSON patch describing resource changes to a diff",
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
-		for _, v := range detailedDiff {
-			v.InputDiff = true
-		}
 
 		for k, v := range detailedDiff {
 			switch v.Kind {
