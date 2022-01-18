@@ -2552,6 +2552,9 @@ func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Uns
 			return nil, nil, false
 		}
 	}
+	if err != nil {
+		return nil, nil, false
+	}
 
 	// The server-side patch succeeded.
 	return ssPatch, ssPatchBase, true
