@@ -79,9 +79,7 @@ export class SubjectAccessReview extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:authorization.k8s.io/v1:SubjectAccessReview" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(SubjectAccessReview.__pulumiType, name, resourceInputs, opts);

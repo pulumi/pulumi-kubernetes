@@ -79,9 +79,7 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:autoscaling/v1:HorizontalPodAutoscaler" }, { type: "kubernetes:autoscaling/v2beta1:HorizontalPodAutoscaler" }, { type: "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscaler" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(HorizontalPodAutoscaler.__pulumiType, name, resourceInputs, opts);

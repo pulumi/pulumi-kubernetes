@@ -73,9 +73,7 @@ export class NetworkPolicy extends pulumi.CustomResource {
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:NetworkPolicy" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(NetworkPolicy.__pulumiType, name, resourceInputs, opts);

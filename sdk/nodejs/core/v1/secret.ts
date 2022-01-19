@@ -101,9 +101,7 @@ export class Secret extends pulumi.CustomResource {
             resourceInputs["stringData"] = undefined /*out*/;
             resourceInputs["type"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["data", "stringData"] };
         opts = pulumi.mergeOptions(opts, secretOpts);
         super(Secret.__pulumiType, name, resourceInputs, opts);

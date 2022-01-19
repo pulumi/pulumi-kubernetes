@@ -95,9 +95,7 @@ export class StatefulSet extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1:StatefulSet" }, { type: "kubernetes:apps/v1beta2:StatefulSet" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(StatefulSet.__pulumiType, name, resourceInputs, opts);

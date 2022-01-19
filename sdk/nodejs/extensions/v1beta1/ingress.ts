@@ -96,9 +96,7 @@ export class Ingress extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:networking.k8s.io/v1:Ingress" }, { type: "kubernetes:networking.k8s.io/v1beta1:Ingress" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Ingress.__pulumiType, name, resourceInputs, opts);
