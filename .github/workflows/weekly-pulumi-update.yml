@@ -47,12 +47,9 @@ jobs:
           if ! git diff-files --quiet; then
             echo ::set-output name=changes::1
           fi
-      - name: Build codegen binaries
+      - name: Build codegen + Schema + SDKs
         if: steps.gomod.outputs.changes != 0
-        run: make codegen
-      - name: Build Schema + SDKs
-        if: steps.gomod.outputs.changes != 0
-        run: make local_generate
+        run: make build
       - name: Commit changes
         if: steps.gomod.outputs.changes != 0
         run: |
