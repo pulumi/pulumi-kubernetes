@@ -435,76 +435,6 @@ type FlowSchemaListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// FlowSchemaListTypeInput is an input type that accepts FlowSchemaListTypeArgs and FlowSchemaListTypeOutput values.
-// You can construct a concrete instance of `FlowSchemaListTypeInput` via:
-//
-//          FlowSchemaListTypeArgs{...}
-type FlowSchemaListTypeInput interface {
-	pulumi.Input
-
-	ToFlowSchemaListTypeOutput() FlowSchemaListTypeOutput
-	ToFlowSchemaListTypeOutputWithContext(context.Context) FlowSchemaListTypeOutput
-}
-
-// FlowSchemaList is a list of FlowSchema objects.
-type FlowSchemaListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// `items` is a list of FlowSchemas.
-	Items FlowSchemaTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (FlowSchemaListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlowSchemaListType)(nil)).Elem()
-}
-
-func (i FlowSchemaListTypeArgs) ToFlowSchemaListTypeOutput() FlowSchemaListTypeOutput {
-	return i.ToFlowSchemaListTypeOutputWithContext(context.Background())
-}
-
-func (i FlowSchemaListTypeArgs) ToFlowSchemaListTypeOutputWithContext(ctx context.Context) FlowSchemaListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListTypeOutput)
-}
-
-// FlowSchemaList is a list of FlowSchema objects.
-type FlowSchemaListTypeOutput struct{ *pulumi.OutputState }
-
-func (FlowSchemaListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*FlowSchemaListType)(nil)).Elem()
-}
-
-func (o FlowSchemaListTypeOutput) ToFlowSchemaListTypeOutput() FlowSchemaListTypeOutput {
-	return o
-}
-
-func (o FlowSchemaListTypeOutput) ToFlowSchemaListTypeOutputWithContext(ctx context.Context) FlowSchemaListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o FlowSchemaListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// `items` is a list of FlowSchemas.
-func (o FlowSchemaListTypeOutput) Items() FlowSchemaTypeArrayOutput {
-	return o.ApplyT(func(v FlowSchemaListType) []FlowSchemaType { return v.Items }).(FlowSchemaTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o FlowSchemaListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v FlowSchemaListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o FlowSchemaListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v FlowSchemaListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
 type FlowSchemaSpec struct {
 	// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
@@ -1851,76 +1781,6 @@ type PriorityLevelConfigurationListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// PriorityLevelConfigurationListTypeInput is an input type that accepts PriorityLevelConfigurationListTypeArgs and PriorityLevelConfigurationListTypeOutput values.
-// You can construct a concrete instance of `PriorityLevelConfigurationListTypeInput` via:
-//
-//          PriorityLevelConfigurationListTypeArgs{...}
-type PriorityLevelConfigurationListTypeInput interface {
-	pulumi.Input
-
-	ToPriorityLevelConfigurationListTypeOutput() PriorityLevelConfigurationListTypeOutput
-	ToPriorityLevelConfigurationListTypeOutputWithContext(context.Context) PriorityLevelConfigurationListTypeOutput
-}
-
-// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
-type PriorityLevelConfigurationListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// `items` is a list of request-priorities.
-	Items PriorityLevelConfigurationTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (PriorityLevelConfigurationListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityLevelConfigurationListType)(nil)).Elem()
-}
-
-func (i PriorityLevelConfigurationListTypeArgs) ToPriorityLevelConfigurationListTypeOutput() PriorityLevelConfigurationListTypeOutput {
-	return i.ToPriorityLevelConfigurationListTypeOutputWithContext(context.Background())
-}
-
-func (i PriorityLevelConfigurationListTypeArgs) ToPriorityLevelConfigurationListTypeOutputWithContext(ctx context.Context) PriorityLevelConfigurationListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListTypeOutput)
-}
-
-// PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
-type PriorityLevelConfigurationListTypeOutput struct{ *pulumi.OutputState }
-
-func (PriorityLevelConfigurationListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityLevelConfigurationListType)(nil)).Elem()
-}
-
-func (o PriorityLevelConfigurationListTypeOutput) ToPriorityLevelConfigurationListTypeOutput() PriorityLevelConfigurationListTypeOutput {
-	return o
-}
-
-func (o PriorityLevelConfigurationListTypeOutput) ToPriorityLevelConfigurationListTypeOutputWithContext(ctx context.Context) PriorityLevelConfigurationListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityLevelConfigurationListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// `items` is a list of request-priorities.
-func (o PriorityLevelConfigurationListTypeOutput) Items() PriorityLevelConfigurationTypeArrayOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) []PriorityLevelConfigurationType { return v.Items }).(PriorityLevelConfigurationTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityLevelConfigurationListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityLevelConfigurationListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v PriorityLevelConfigurationListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 type PriorityLevelConfigurationReference struct {
 	// `name` is the name of the priority level configuration being referenced Required.
@@ -3107,7 +2967,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaTypeArrayInput)(nil)).Elem(), FlowSchemaTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaConditionInput)(nil)).Elem(), FlowSchemaConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaConditionArrayInput)(nil)).Elem(), FlowSchemaConditionArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaListTypeInput)(nil)).Elem(), FlowSchemaListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecInput)(nil)).Elem(), FlowSchemaSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaSpecPtrInput)(nil)).Elem(), FlowSchemaSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowSchemaStatusInput)(nil)).Elem(), FlowSchemaStatusArgs{})
@@ -3126,7 +2985,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationTypeArrayInput)(nil)).Elem(), PriorityLevelConfigurationTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationConditionInput)(nil)).Elem(), PriorityLevelConfigurationConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationConditionArrayInput)(nil)).Elem(), PriorityLevelConfigurationConditionArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationListTypeInput)(nil)).Elem(), PriorityLevelConfigurationListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferenceInput)(nil)).Elem(), PriorityLevelConfigurationReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationReferencePtrInput)(nil)).Elem(), PriorityLevelConfigurationReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityLevelConfigurationSpecInput)(nil)).Elem(), PriorityLevelConfigurationSpecArgs{})
@@ -3149,7 +3007,6 @@ func init() {
 	pulumi.RegisterOutputType(FlowSchemaTypeArrayOutput{})
 	pulumi.RegisterOutputType(FlowSchemaConditionOutput{})
 	pulumi.RegisterOutputType(FlowSchemaConditionArrayOutput{})
-	pulumi.RegisterOutputType(FlowSchemaListTypeOutput{})
 	pulumi.RegisterOutputType(FlowSchemaSpecOutput{})
 	pulumi.RegisterOutputType(FlowSchemaSpecPtrOutput{})
 	pulumi.RegisterOutputType(FlowSchemaStatusOutput{})
@@ -3168,7 +3025,6 @@ func init() {
 	pulumi.RegisterOutputType(PriorityLevelConfigurationTypeArrayOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationConditionOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationConditionArrayOutput{})
-	pulumi.RegisterOutputType(PriorityLevelConfigurationListTypeOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationReferenceOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationReferencePtrOutput{})
 	pulumi.RegisterOutputType(PriorityLevelConfigurationSpecOutput{})

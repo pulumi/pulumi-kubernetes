@@ -146,74 +146,6 @@ type AuditSinkListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// AuditSinkListTypeInput is an input type that accepts AuditSinkListTypeArgs and AuditSinkListTypeOutput values.
-// You can construct a concrete instance of `AuditSinkListTypeInput` via:
-//
-//          AuditSinkListTypeArgs{...}
-type AuditSinkListTypeInput interface {
-	pulumi.Input
-
-	ToAuditSinkListTypeOutput() AuditSinkListTypeOutput
-	ToAuditSinkListTypeOutputWithContext(context.Context) AuditSinkListTypeOutput
-}
-
-// AuditSinkList is a list of AuditSink items.
-type AuditSinkListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// List of audit configurations.
-	Items AuditSinkTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (AuditSinkListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkListType)(nil)).Elem()
-}
-
-func (i AuditSinkListTypeArgs) ToAuditSinkListTypeOutput() AuditSinkListTypeOutput {
-	return i.ToAuditSinkListTypeOutputWithContext(context.Background())
-}
-
-func (i AuditSinkListTypeArgs) ToAuditSinkListTypeOutputWithContext(ctx context.Context) AuditSinkListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListTypeOutput)
-}
-
-// AuditSinkList is a list of AuditSink items.
-type AuditSinkListTypeOutput struct{ *pulumi.OutputState }
-
-func (AuditSinkListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*AuditSinkListType)(nil)).Elem()
-}
-
-func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutput() AuditSinkListTypeOutput {
-	return o
-}
-
-func (o AuditSinkListTypeOutput) ToAuditSinkListTypeOutputWithContext(ctx context.Context) AuditSinkListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o AuditSinkListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AuditSinkListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// List of audit configurations.
-func (o AuditSinkListTypeOutput) Items() AuditSinkTypeArrayOutput {
-	return o.ApplyT(func(v AuditSinkListType) []AuditSinkType { return v.Items }).(AuditSinkTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o AuditSinkListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v AuditSinkListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o AuditSinkListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v AuditSinkListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // AuditSinkSpec holds the spec for the audit sink
 type AuditSinkSpec struct {
 	// Policy defines the policy for selecting which events should be sent to the webhook required
@@ -1276,7 +1208,6 @@ func (o WebhookThrottleConfigPtrOutput) Qps() pulumi.IntPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkTypeInput)(nil)).Elem(), AuditSinkTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkTypeArrayInput)(nil)).Elem(), AuditSinkTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkListTypeInput)(nil)).Elem(), AuditSinkListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkSpecInput)(nil)).Elem(), AuditSinkSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditSinkSpecPtrInput)(nil)).Elem(), AuditSinkSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PolicyInput)(nil)).Elem(), PolicyArgs{})
@@ -1291,7 +1222,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookThrottleConfigPtrInput)(nil)).Elem(), WebhookThrottleConfigArgs{})
 	pulumi.RegisterOutputType(AuditSinkTypeOutput{})
 	pulumi.RegisterOutputType(AuditSinkTypeArrayOutput{})
-	pulumi.RegisterOutputType(AuditSinkListTypeOutput{})
 	pulumi.RegisterOutputType(AuditSinkSpecOutput{})
 	pulumi.RegisterOutputType(AuditSinkSpecPtrOutput{})
 	pulumi.RegisterOutputType(PolicyOutput{})

@@ -789,76 +789,6 @@ type EndpointSliceListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// EndpointSliceListTypeInput is an input type that accepts EndpointSliceListTypeArgs and EndpointSliceListTypeOutput values.
-// You can construct a concrete instance of `EndpointSliceListTypeInput` via:
-//
-//          EndpointSliceListTypeArgs{...}
-type EndpointSliceListTypeInput interface {
-	pulumi.Input
-
-	ToEndpointSliceListTypeOutput() EndpointSliceListTypeOutput
-	ToEndpointSliceListTypeOutputWithContext(context.Context) EndpointSliceListTypeOutput
-}
-
-// EndpointSliceList represents a list of endpoint slices
-type EndpointSliceListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// List of endpoint slices
-	Items EndpointSliceTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (EndpointSliceListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSliceListType)(nil)).Elem()
-}
-
-func (i EndpointSliceListTypeArgs) ToEndpointSliceListTypeOutput() EndpointSliceListTypeOutput {
-	return i.ToEndpointSliceListTypeOutputWithContext(context.Background())
-}
-
-func (i EndpointSliceListTypeArgs) ToEndpointSliceListTypeOutputWithContext(ctx context.Context) EndpointSliceListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListTypeOutput)
-}
-
-// EndpointSliceList represents a list of endpoint slices
-type EndpointSliceListTypeOutput struct{ *pulumi.OutputState }
-
-func (EndpointSliceListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*EndpointSliceListType)(nil)).Elem()
-}
-
-func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutput() EndpointSliceListTypeOutput {
-	return o
-}
-
-func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutputWithContext(ctx context.Context) EndpointSliceListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EndpointSliceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// List of endpoint slices
-func (o EndpointSliceListTypeOutput) Items() EndpointSliceTypeArrayOutput {
-	return o.ApplyT(func(v EndpointSliceListType) []EndpointSliceType { return v.Items }).(EndpointSliceTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EndpointSliceListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v EndpointSliceListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard list metadata.
-func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v EndpointSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // ForZone provides information about which zones should consume this endpoint.
 type ForZone struct {
 	// name represents the name of the zone.
@@ -970,7 +900,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortArrayInput)(nil)).Elem(), EndpointPortArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceTypeInput)(nil)).Elem(), EndpointSliceTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceTypeArrayInput)(nil)).Elem(), EndpointSliceTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListTypeInput)(nil)).Elem(), EndpointSliceListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ForZoneInput)(nil)).Elem(), ForZoneArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ForZoneArrayInput)(nil)).Elem(), ForZoneArray{})
 	pulumi.RegisterOutputType(EndpointOutput{})
@@ -983,7 +912,6 @@ func init() {
 	pulumi.RegisterOutputType(EndpointPortArrayOutput{})
 	pulumi.RegisterOutputType(EndpointSliceTypeOutput{})
 	pulumi.RegisterOutputType(EndpointSliceTypeArrayOutput{})
-	pulumi.RegisterOutputType(EndpointSliceListTypeOutput{})
 	pulumi.RegisterOutputType(ForZoneOutput{})
 	pulumi.RegisterOutputType(ForZoneArrayOutput{})
 }
