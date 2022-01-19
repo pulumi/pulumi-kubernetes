@@ -40,9 +40,8 @@ jobs:
           cd provider
           go get github.com/pulumi/pulumi/pkg/v3
           go get github.com/pulumi/pulumi/sdk/v3
-          go mod download
-          go mod tidy
           cd ..
+          make ensure
           git update-index -q --refresh
           if ! git diff-files --quiet; then
             echo ::set-output name=changes::1
