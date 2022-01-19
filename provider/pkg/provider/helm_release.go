@@ -486,17 +486,31 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 			return err
 		}
 
+		// Don't expect this to fail
 		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
 			return err
 		}
-
 		_ = r.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("Helm release %q was created but has a failed status. Use the `helm` command to investigate the error, correct it, then retry. Reason: %v", client.ReleaseName, err))
-		return err
-
+		return &releaseFailedError{release: newRelease, err: err}
 	}
 
 	err = setReleaseAttributes(newRelease, rel, false)
 	return err
+}
+
+type releaseFailedError struct {
+	release *Release
+	err     error
+}
+
+func (e *releaseFailedError) Error() string {
+	var s strings.Builder
+	s.WriteString("Helm Release ")
+	if e.release != nil {
+		s.WriteString(fmt.Sprintf("%s/%s: ", e.release.Namespace, e.release.Name))
+	}
+	s.WriteString(e.err.Error())
+	return "failed to become available within allocated timeout. Error: " + s.String()
 }
 
 func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release) error {
@@ -574,7 +588,11 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		logger.V(9).Infof("No existing release found.")
 		return err
 	} else if err != nil {
-		return fmt.Errorf("error running update: %w", err)
+		// Don't expect this to fail
+		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
+			return err
+		}
+		return fmt.Errorf("error running update: %w", &releaseFailedError{release: newRelease, err: err})
 	}
 
 	err = setReleaseAttributes(newRelease, rel, false)
@@ -782,9 +800,18 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 
+	id := ""
+
+	var creationError error
 	if !req.GetPreview() {
-		if err = r.helmCreate(ctx, urn, newRelease); err != nil {
-			return nil, err
+		id = fqName(newRelease.Namespace, newRelease.Name)
+		if err := r.helmCreate(ctx, urn, newRelease); err != nil {
+			var failedErr *releaseFailedError
+			if errors.As(err, &failedErr) {
+				creationError = failedErr
+			} else {
+				return nil, err
+			}
 		}
 	}
 
@@ -800,9 +827,14 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 
-	id := ""
-	if !req.GetPreview() {
-		id = fqName(newRelease.Namespace, newRelease.Name)
+	if creationError != nil {
+		return nil, partialError(
+			id,
+			pkgerrors.Wrapf(
+				creationError, "Helm release %q was created, but failed to initialize completely. "+
+					"Use Helm CLI to investigate.", id),
+			inputsAndComputed,
+			nil)
 	}
 
 	logger.V(9).Infof("Create: [id: %q] properties: %+v", id, inputsAndComputed)
@@ -846,13 +878,12 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 	liveObj, exists, err := resourceReleaseLookup(name, actionConfig)
-	if err != nil {
-		return nil, err
-	}
-
-	if !exists {
+	if !exists && err == nil {
 		// If not found, this resource was probably deleted.
 		return deleteResponse, nil
+	}
+	if err != nil {
+		return nil, err
 	}
 
 	err = setReleaseAttributes(existingRelease, liveObj, false)
@@ -957,9 +988,15 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		return nil, err
 	}
 
+	var updateError error
 	if !req.GetPreview() {
 		if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease); err != nil {
-			return nil, err
+			var failedErr *releaseFailedError
+			if errors.As(err, &failedErr) {
+				updateError = failedErr
+			} else {
+				return nil, err
+			}
 		}
 	}
 
@@ -973,6 +1010,16 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		})
 	if err != nil {
 		return nil, err
+	}
+
+	if updateError != nil {
+		return nil, partialError(
+			fqName(newRelease.Namespace, newRelease.Name),
+			pkgerrors.Wrapf(
+				updateError, "Helm release %q failed to initialize completely. "+
+					"Use Helm CLI to investigate.", fqName(newRelease.Namespace, newRelease.Name)),
+			inputsAndComputed,
+			nil)
 	}
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 }
