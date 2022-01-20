@@ -28,13 +28,11 @@ func NewProvider(ctx *pulumi.Context,
 	if isZero(args.EnableReplaceCRD) {
 		args.EnableReplaceCRD = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD").(bool))
 	}
-	helmReleaseSettingsApplier := func(v HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }
 	if args.HelmReleaseSettings != nil {
-		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().Elem().ApplyT(helmReleaseSettingsApplier).(HelmReleaseSettingsPtrOutput)
+		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().ApplyT(func(v *HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }).(HelmReleaseSettingsPtrOutput)
 	}
-	kubeClientSettingsApplier := func(v KubeClientSettings) *KubeClientSettings { return v.Defaults() }
 	if args.KubeClientSettings != nil {
-		args.KubeClientSettings = args.KubeClientSettings.ToKubeClientSettingsPtrOutput().Elem().ApplyT(kubeClientSettingsApplier).(KubeClientSettingsPtrOutput)
+		args.KubeClientSettings = args.KubeClientSettings.ToKubeClientSettingsPtrOutput().ApplyT(func(v *KubeClientSettings) *KubeClientSettings { return v.Defaults() }).(KubeClientSettingsPtrOutput)
 	}
 	if isZero(args.Kubeconfig) {
 		args.Kubeconfig = pulumi.StringPtr(getEnvOrDefault("", nil, "KUBECONFIG").(string))

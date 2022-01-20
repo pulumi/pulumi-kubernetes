@@ -177,81 +177,9 @@ type PriorityClassListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// PriorityClassListTypeInput is an input type that accepts PriorityClassListTypeArgs and PriorityClassListTypeOutput values.
-// You can construct a concrete instance of `PriorityClassListTypeInput` via:
-//
-//          PriorityClassListTypeArgs{...}
-type PriorityClassListTypeInput interface {
-	pulumi.Input
-
-	ToPriorityClassListTypeOutput() PriorityClassListTypeOutput
-	ToPriorityClassListTypeOutputWithContext(context.Context) PriorityClassListTypeOutput
-}
-
-// PriorityClassList is a collection of priority classes.
-type PriorityClassListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// items is the list of PriorityClasses
-	Items PriorityClassTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (PriorityClassListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityClassListType)(nil)).Elem()
-}
-
-func (i PriorityClassListTypeArgs) ToPriorityClassListTypeOutput() PriorityClassListTypeOutput {
-	return i.ToPriorityClassListTypeOutputWithContext(context.Background())
-}
-
-func (i PriorityClassListTypeArgs) ToPriorityClassListTypeOutputWithContext(ctx context.Context) PriorityClassListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassListTypeOutput)
-}
-
-// PriorityClassList is a collection of priority classes.
-type PriorityClassListTypeOutput struct{ *pulumi.OutputState }
-
-func (PriorityClassListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PriorityClassListType)(nil)).Elem()
-}
-
-func (o PriorityClassListTypeOutput) ToPriorityClassListTypeOutput() PriorityClassListTypeOutput {
-	return o
-}
-
-func (o PriorityClassListTypeOutput) ToPriorityClassListTypeOutputWithContext(ctx context.Context) PriorityClassListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// items is the list of PriorityClasses
-func (o PriorityClassListTypeOutput) Items() PriorityClassTypeArrayOutput {
-	return o.ApplyT(func(v PriorityClassListType) []PriorityClassType { return v.Items }).(PriorityClassTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityClassListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PriorityClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v PriorityClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeInput)(nil)).Elem(), PriorityClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeArrayInput)(nil)).Elem(), PriorityClassTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassListTypeInput)(nil)).Elem(), PriorityClassListTypeArgs{})
 	pulumi.RegisterOutputType(PriorityClassTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeArrayOutput{})
-	pulumi.RegisterOutputType(PriorityClassListTypeOutput{})
 }

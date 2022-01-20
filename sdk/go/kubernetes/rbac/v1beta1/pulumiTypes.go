@@ -435,76 +435,6 @@ type ClusterRoleBindingListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// ClusterRoleBindingListTypeInput is an input type that accepts ClusterRoleBindingListTypeArgs and ClusterRoleBindingListTypeOutput values.
-// You can construct a concrete instance of `ClusterRoleBindingListTypeInput` via:
-//
-//          ClusterRoleBindingListTypeArgs{...}
-type ClusterRoleBindingListTypeInput interface {
-	pulumi.Input
-
-	ToClusterRoleBindingListTypeOutput() ClusterRoleBindingListTypeOutput
-	ToClusterRoleBindingListTypeOutputWithContext(context.Context) ClusterRoleBindingListTypeOutput
-}
-
-// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.20.
-type ClusterRoleBindingListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of ClusterRoleBindings
-	Items ClusterRoleBindingTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (ClusterRoleBindingListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterRoleBindingListType)(nil)).Elem()
-}
-
-func (i ClusterRoleBindingListTypeArgs) ToClusterRoleBindingListTypeOutput() ClusterRoleBindingListTypeOutput {
-	return i.ToClusterRoleBindingListTypeOutputWithContext(context.Background())
-}
-
-func (i ClusterRoleBindingListTypeArgs) ToClusterRoleBindingListTypeOutputWithContext(ctx context.Context) ClusterRoleBindingListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingListTypeOutput)
-}
-
-// ClusterRoleBindingList is a collection of ClusterRoleBindings. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBindingList, and will no longer be served in v1.20.
-type ClusterRoleBindingListTypeOutput struct{ *pulumi.OutputState }
-
-func (ClusterRoleBindingListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterRoleBindingListType)(nil)).Elem()
-}
-
-func (o ClusterRoleBindingListTypeOutput) ToClusterRoleBindingListTypeOutput() ClusterRoleBindingListTypeOutput {
-	return o
-}
-
-func (o ClusterRoleBindingListTypeOutput) ToClusterRoleBindingListTypeOutputWithContext(ctx context.Context) ClusterRoleBindingListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ClusterRoleBindingListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterRoleBindingListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is a list of ClusterRoleBindings
-func (o ClusterRoleBindingListTypeOutput) Items() ClusterRoleBindingTypeArrayOutput {
-	return o.ApplyT(func(v ClusterRoleBindingListType) []ClusterRoleBindingType { return v.Items }).(ClusterRoleBindingTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ClusterRoleBindingListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterRoleBindingListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard object's metadata.
-func (o ClusterRoleBindingListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v ClusterRoleBindingListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
 type ClusterRoleListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -515,76 +445,6 @@ type ClusterRoleListType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
-}
-
-// ClusterRoleListTypeInput is an input type that accepts ClusterRoleListTypeArgs and ClusterRoleListTypeOutput values.
-// You can construct a concrete instance of `ClusterRoleListTypeInput` via:
-//
-//          ClusterRoleListTypeArgs{...}
-type ClusterRoleListTypeInput interface {
-	pulumi.Input
-
-	ToClusterRoleListTypeOutput() ClusterRoleListTypeOutput
-	ToClusterRoleListTypeOutputWithContext(context.Context) ClusterRoleListTypeOutput
-}
-
-// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
-type ClusterRoleListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of ClusterRoles
-	Items ClusterRoleTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (ClusterRoleListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterRoleListType)(nil)).Elem()
-}
-
-func (i ClusterRoleListTypeArgs) ToClusterRoleListTypeOutput() ClusterRoleListTypeOutput {
-	return i.ToClusterRoleListTypeOutputWithContext(context.Background())
-}
-
-func (i ClusterRoleListTypeArgs) ToClusterRoleListTypeOutputWithContext(ctx context.Context) ClusterRoleListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListTypeOutput)
-}
-
-// ClusterRoleList is a collection of ClusterRoles. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoles, and will no longer be served in v1.20.
-type ClusterRoleListTypeOutput struct{ *pulumi.OutputState }
-
-func (ClusterRoleListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*ClusterRoleListType)(nil)).Elem()
-}
-
-func (o ClusterRoleListTypeOutput) ToClusterRoleListTypeOutput() ClusterRoleListTypeOutput {
-	return o
-}
-
-func (o ClusterRoleListTypeOutput) ToClusterRoleListTypeOutputWithContext(ctx context.Context) ClusterRoleListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ClusterRoleListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterRoleListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is a list of ClusterRoles
-func (o ClusterRoleListTypeOutput) Items() ClusterRoleTypeArrayOutput {
-	return o.ApplyT(func(v ClusterRoleListType) []ClusterRoleType { return v.Items }).(ClusterRoleTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ClusterRoleListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ClusterRoleListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard object's metadata.
-func (o ClusterRoleListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v ClusterRoleListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
@@ -998,76 +858,6 @@ type RoleBindingListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// RoleBindingListTypeInput is an input type that accepts RoleBindingListTypeArgs and RoleBindingListTypeOutput values.
-// You can construct a concrete instance of `RoleBindingListTypeInput` via:
-//
-//          RoleBindingListTypeArgs{...}
-type RoleBindingListTypeInput interface {
-	pulumi.Input
-
-	ToRoleBindingListTypeOutput() RoleBindingListTypeOutput
-	ToRoleBindingListTypeOutputWithContext(context.Context) RoleBindingListTypeOutput
-}
-
-// RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
-type RoleBindingListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of RoleBindings
-	Items RoleBindingTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (RoleBindingListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*RoleBindingListType)(nil)).Elem()
-}
-
-func (i RoleBindingListTypeArgs) ToRoleBindingListTypeOutput() RoleBindingListTypeOutput {
-	return i.ToRoleBindingListTypeOutputWithContext(context.Background())
-}
-
-func (i RoleBindingListTypeArgs) ToRoleBindingListTypeOutputWithContext(ctx context.Context) RoleBindingListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListTypeOutput)
-}
-
-// RoleBindingList is a collection of RoleBindings Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBindingList, and will no longer be served in v1.20.
-type RoleBindingListTypeOutput struct{ *pulumi.OutputState }
-
-func (RoleBindingListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RoleBindingListType)(nil)).Elem()
-}
-
-func (o RoleBindingListTypeOutput) ToRoleBindingListTypeOutput() RoleBindingListTypeOutput {
-	return o
-}
-
-func (o RoleBindingListTypeOutput) ToRoleBindingListTypeOutputWithContext(ctx context.Context) RoleBindingListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o RoleBindingListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleBindingListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is a list of RoleBindings
-func (o RoleBindingListTypeOutput) Items() RoleBindingTypeArrayOutput {
-	return o.ApplyT(func(v RoleBindingListType) []RoleBindingType { return v.Items }).(RoleBindingTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o RoleBindingListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleBindingListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard object's metadata.
-func (o RoleBindingListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v RoleBindingListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
 type RoleListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1078,76 +868,6 @@ type RoleListType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
-}
-
-// RoleListTypeInput is an input type that accepts RoleListTypeArgs and RoleListTypeOutput values.
-// You can construct a concrete instance of `RoleListTypeInput` via:
-//
-//          RoleListTypeArgs{...}
-type RoleListTypeInput interface {
-	pulumi.Input
-
-	ToRoleListTypeOutput() RoleListTypeOutput
-	ToRoleListTypeOutputWithContext(context.Context) RoleListTypeOutput
-}
-
-// RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
-type RoleListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of Roles
-	Items RoleTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (RoleListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*RoleListType)(nil)).Elem()
-}
-
-func (i RoleListTypeArgs) ToRoleListTypeOutput() RoleListTypeOutput {
-	return i.ToRoleListTypeOutputWithContext(context.Background())
-}
-
-func (i RoleListTypeArgs) ToRoleListTypeOutputWithContext(ctx context.Context) RoleListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RoleListTypeOutput)
-}
-
-// RoleList is a collection of Roles Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleList, and will no longer be served in v1.20.
-type RoleListTypeOutput struct{ *pulumi.OutputState }
-
-func (RoleListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*RoleListType)(nil)).Elem()
-}
-
-func (o RoleListTypeOutput) ToRoleListTypeOutput() RoleListTypeOutput {
-	return o
-}
-
-func (o RoleListTypeOutput) ToRoleListTypeOutputWithContext(ctx context.Context) RoleListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o RoleListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is a list of Roles
-func (o RoleListTypeOutput) Items() RoleTypeArrayOutput {
-	return o.ApplyT(func(v RoleListType) []RoleType { return v.Items }).(RoleTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o RoleListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v RoleListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard object's metadata.
-func (o RoleListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v RoleListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // RoleRef contains information that points to the role being used
@@ -1193,47 +913,6 @@ func (i RoleRefArgs) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOutp
 	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput)
 }
 
-func (i RoleRefArgs) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return i.ToRoleRefPtrOutputWithContext(context.Background())
-}
-
-func (i RoleRefArgs) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput).ToRoleRefPtrOutputWithContext(ctx)
-}
-
-// RoleRefPtrInput is an input type that accepts RoleRefArgs, RoleRefPtr and RoleRefPtrOutput values.
-// You can construct a concrete instance of `RoleRefPtrInput` via:
-//
-//          RoleRefArgs{...}
-//
-//  or:
-//
-//          nil
-type RoleRefPtrInput interface {
-	pulumi.Input
-
-	ToRoleRefPtrOutput() RoleRefPtrOutput
-	ToRoleRefPtrOutputWithContext(context.Context) RoleRefPtrOutput
-}
-
-type roleRefPtrType RoleRefArgs
-
-func RoleRefPtr(v *RoleRefArgs) RoleRefPtrInput {
-	return (*roleRefPtrType)(v)
-}
-
-func (*roleRefPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**RoleRef)(nil)).Elem()
-}
-
-func (i *roleRefPtrType) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return i.ToRoleRefPtrOutputWithContext(context.Background())
-}
-
-func (i *roleRefPtrType) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RoleRefPtrOutput)
-}
-
 // RoleRef contains information that points to the role being used
 type RoleRefOutput struct{ *pulumi.OutputState }
 
@@ -1249,16 +928,6 @@ func (o RoleRefOutput) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOu
 	return o
 }
 
-func (o RoleRefOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return o.ToRoleRefPtrOutputWithContext(context.Background())
-}
-
-func (o RoleRefOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleRef) *RoleRef {
-		return &v
-	}).(RoleRefPtrOutput)
-}
-
 // APIGroup is the group for the resource being referenced
 func (o RoleRefOutput) ApiGroup() pulumi.StringOutput {
 	return o.ApplyT(func(v RoleRef) string { return v.ApiGroup }).(pulumi.StringOutput)
@@ -1272,60 +941,6 @@ func (o RoleRefOutput) Kind() pulumi.StringOutput {
 // Name is the name of resource being referenced
 func (o RoleRefOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v RoleRef) string { return v.Name }).(pulumi.StringOutput)
-}
-
-type RoleRefPtrOutput struct{ *pulumi.OutputState }
-
-func (RoleRefPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**RoleRef)(nil)).Elem()
-}
-
-func (o RoleRefPtrOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return o
-}
-
-func (o RoleRefPtrOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return o
-}
-
-func (o RoleRefPtrOutput) Elem() RoleRefOutput {
-	return o.ApplyT(func(v *RoleRef) RoleRef {
-		if v != nil {
-			return *v
-		}
-		var ret RoleRef
-		return ret
-	}).(RoleRefOutput)
-}
-
-// APIGroup is the group for the resource being referenced
-func (o RoleRefPtrOutput) ApiGroup() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RoleRef) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.ApiGroup
-	}).(pulumi.StringPtrOutput)
-}
-
-// Kind is the type of resource being referenced
-func (o RoleRefPtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RoleRef) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Kind
-	}).(pulumi.StringPtrOutput)
-}
-
-// Name is the name of resource being referenced
-func (o RoleRefPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RoleRef) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Name
-	}).(pulumi.StringPtrOutput)
 }
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
@@ -1462,18 +1077,13 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleTypeArrayInput)(nil)).Elem(), ClusterRoleTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleBindingTypeInput)(nil)).Elem(), ClusterRoleBindingTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleBindingTypeArrayInput)(nil)).Elem(), ClusterRoleBindingTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleBindingListTypeInput)(nil)).Elem(), ClusterRoleBindingListTypeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoleListTypeInput)(nil)).Elem(), ClusterRoleListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PolicyRuleInput)(nil)).Elem(), PolicyRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PolicyRuleArrayInput)(nil)).Elem(), PolicyRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleTypeInput)(nil)).Elem(), RoleTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleTypeArrayInput)(nil)).Elem(), RoleTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingTypeInput)(nil)).Elem(), RoleBindingTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingTypeArrayInput)(nil)).Elem(), RoleBindingTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListTypeInput)(nil)).Elem(), RoleBindingListTypeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*RoleListTypeInput)(nil)).Elem(), RoleListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleRefInput)(nil)).Elem(), RoleRefArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*RoleRefPtrInput)(nil)).Elem(), RoleRefArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectInput)(nil)).Elem(), SubjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectArrayInput)(nil)).Elem(), SubjectArray{})
 	pulumi.RegisterOutputType(AggregationRuleOutput{})
@@ -1482,18 +1092,13 @@ func init() {
 	pulumi.RegisterOutputType(ClusterRoleTypeArrayOutput{})
 	pulumi.RegisterOutputType(ClusterRoleBindingTypeOutput{})
 	pulumi.RegisterOutputType(ClusterRoleBindingTypeArrayOutput{})
-	pulumi.RegisterOutputType(ClusterRoleBindingListTypeOutput{})
-	pulumi.RegisterOutputType(ClusterRoleListTypeOutput{})
 	pulumi.RegisterOutputType(PolicyRuleOutput{})
 	pulumi.RegisterOutputType(PolicyRuleArrayOutput{})
 	pulumi.RegisterOutputType(RoleTypeOutput{})
 	pulumi.RegisterOutputType(RoleTypeArrayOutput{})
 	pulumi.RegisterOutputType(RoleBindingTypeOutput{})
 	pulumi.RegisterOutputType(RoleBindingTypeArrayOutput{})
-	pulumi.RegisterOutputType(RoleBindingListTypeOutput{})
-	pulumi.RegisterOutputType(RoleListTypeOutput{})
 	pulumi.RegisterOutputType(RoleRefOutput{})
-	pulumi.RegisterOutputType(RoleRefPtrOutput{})
 	pulumi.RegisterOutputType(SubjectOutput{})
 	pulumi.RegisterOutputType(SubjectArrayOutput{})
 }

@@ -339,76 +339,6 @@ type Eviction struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 }
 
-// EvictionInput is an input type that accepts EvictionArgs and EvictionOutput values.
-// You can construct a concrete instance of `EvictionInput` via:
-//
-//          EvictionArgs{...}
-type EvictionInput interface {
-	pulumi.Input
-
-	ToEvictionOutput() EvictionOutput
-	ToEvictionOutputWithContext(context.Context) EvictionOutput
-}
-
-// Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
-type EvictionArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// DeleteOptions may be provided
-	DeleteOptions metav1.DeleteOptionsPtrInput `pulumi:"deleteOptions"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// ObjectMeta describes the pod that is being evicted.
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-}
-
-func (EvictionArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*Eviction)(nil)).Elem()
-}
-
-func (i EvictionArgs) ToEvictionOutput() EvictionOutput {
-	return i.ToEvictionOutputWithContext(context.Background())
-}
-
-func (i EvictionArgs) ToEvictionOutputWithContext(ctx context.Context) EvictionOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(EvictionOutput)
-}
-
-// Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
-type EvictionOutput struct{ *pulumi.OutputState }
-
-func (EvictionOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*Eviction)(nil)).Elem()
-}
-
-func (o EvictionOutput) ToEvictionOutput() EvictionOutput {
-	return o
-}
-
-func (o EvictionOutput) ToEvictionOutputWithContext(ctx context.Context) EvictionOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o EvictionOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Eviction) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// DeleteOptions may be provided
-func (o EvictionOutput) DeleteOptions() metav1.DeleteOptionsPtrOutput {
-	return o.ApplyT(func(v Eviction) *metav1.DeleteOptions { return v.DeleteOptions }).(metav1.DeleteOptionsPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o EvictionOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v Eviction) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// ObjectMeta describes the pod that is being evicted.
-func (o EvictionOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v Eviction) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
 // FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
 type FSGroupStrategyOptions struct {
 	// ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
@@ -932,76 +862,6 @@ type PodDisruptionBudgetListType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
-}
-
-// PodDisruptionBudgetListTypeInput is an input type that accepts PodDisruptionBudgetListTypeArgs and PodDisruptionBudgetListTypeOutput values.
-// You can construct a concrete instance of `PodDisruptionBudgetListTypeInput` via:
-//
-//          PodDisruptionBudgetListTypeArgs{...}
-type PodDisruptionBudgetListTypeInput interface {
-	pulumi.Input
-
-	ToPodDisruptionBudgetListTypeOutput() PodDisruptionBudgetListTypeOutput
-	ToPodDisruptionBudgetListTypeOutputWithContext(context.Context) PodDisruptionBudgetListTypeOutput
-}
-
-// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
-type PodDisruptionBudgetListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// items list individual PodDisruptionBudget objects
-	Items PodDisruptionBudgetTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (PodDisruptionBudgetListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodDisruptionBudgetListType)(nil)).Elem()
-}
-
-func (i PodDisruptionBudgetListTypeArgs) ToPodDisruptionBudgetListTypeOutput() PodDisruptionBudgetListTypeOutput {
-	return i.ToPodDisruptionBudgetListTypeOutputWithContext(context.Background())
-}
-
-func (i PodDisruptionBudgetListTypeArgs) ToPodDisruptionBudgetListTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListTypeOutput)
-}
-
-// PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
-type PodDisruptionBudgetListTypeOutput struct{ *pulumi.OutputState }
-
-func (PodDisruptionBudgetListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodDisruptionBudgetListType)(nil)).Elem()
-}
-
-func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutput() PodDisruptionBudgetListTypeOutput {
-	return o
-}
-
-func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodDisruptionBudgetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// items list individual PodDisruptionBudget objects
-func (o PodDisruptionBudgetListTypeOutput) Items() PodDisruptionBudgetTypeArrayOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) []PodDisruptionBudgetType { return v.Items }).(PodDisruptionBudgetTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodDisruptionBudgetListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodDisruptionBudgetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
@@ -1605,76 +1465,6 @@ type PodSecurityPolicyListType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
-}
-
-// PodSecurityPolicyListTypeInput is an input type that accepts PodSecurityPolicyListTypeArgs and PodSecurityPolicyListTypeOutput values.
-// You can construct a concrete instance of `PodSecurityPolicyListTypeInput` via:
-//
-//          PodSecurityPolicyListTypeArgs{...}
-type PodSecurityPolicyListTypeInput interface {
-	pulumi.Input
-
-	ToPodSecurityPolicyListTypeOutput() PodSecurityPolicyListTypeOutput
-	ToPodSecurityPolicyListTypeOutputWithContext(context.Context) PodSecurityPolicyListTypeOutput
-}
-
-// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
-type PodSecurityPolicyListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// items is a list of schema objects.
-	Items PodSecurityPolicyTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (PodSecurityPolicyListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodSecurityPolicyListType)(nil)).Elem()
-}
-
-func (i PodSecurityPolicyListTypeArgs) ToPodSecurityPolicyListTypeOutput() PodSecurityPolicyListTypeOutput {
-	return i.ToPodSecurityPolicyListTypeOutputWithContext(context.Background())
-}
-
-func (i PodSecurityPolicyListTypeArgs) ToPodSecurityPolicyListTypeOutputWithContext(ctx context.Context) PodSecurityPolicyListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListTypeOutput)
-}
-
-// PodSecurityPolicyList is a list of PodSecurityPolicy objects.
-type PodSecurityPolicyListTypeOutput struct{ *pulumi.OutputState }
-
-func (PodSecurityPolicyListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*PodSecurityPolicyListType)(nil)).Elem()
-}
-
-func (o PodSecurityPolicyListTypeOutput) ToPodSecurityPolicyListTypeOutput() PodSecurityPolicyListTypeOutput {
-	return o
-}
-
-func (o PodSecurityPolicyListTypeOutput) ToPodSecurityPolicyListTypeOutputWithContext(ctx context.Context) PodSecurityPolicyListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodSecurityPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// items is a list of schema objects.
-func (o PodSecurityPolicyListTypeOutput) Items() PodSecurityPolicyTypeArrayOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) []PodSecurityPolicyType { return v.Items }).(PodSecurityPolicyTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodSecurityPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v PodSecurityPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // PodSecurityPolicySpec defines the policy enforced.
@@ -3072,7 +2862,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AllowedFlexVolumeArrayInput)(nil)).Elem(), AllowedFlexVolumeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllowedHostPathInput)(nil)).Elem(), AllowedHostPathArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AllowedHostPathArrayInput)(nil)).Elem(), AllowedHostPathArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*EvictionInput)(nil)).Elem(), EvictionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FSGroupStrategyOptionsInput)(nil)).Elem(), FSGroupStrategyOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FSGroupStrategyOptionsPtrInput)(nil)).Elem(), FSGroupStrategyOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*HostPortRangeInput)(nil)).Elem(), HostPortRangeArgs{})
@@ -3081,14 +2870,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IDRangeArrayInput)(nil)).Elem(), IDRangeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetTypeInput)(nil)).Elem(), PodDisruptionBudgetTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetTypeArrayInput)(nil)).Elem(), PodDisruptionBudgetTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetListTypeInput)(nil)).Elem(), PodDisruptionBudgetListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetSpecInput)(nil)).Elem(), PodDisruptionBudgetSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetSpecPtrInput)(nil)).Elem(), PodDisruptionBudgetSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetStatusInput)(nil)).Elem(), PodDisruptionBudgetStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodDisruptionBudgetStatusPtrInput)(nil)).Elem(), PodDisruptionBudgetStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyTypeInput)(nil)).Elem(), PodSecurityPolicyTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyTypeArrayInput)(nil)).Elem(), PodSecurityPolicyTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicyListTypeInput)(nil)).Elem(), PodSecurityPolicyListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicySpecInput)(nil)).Elem(), PodSecurityPolicySpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PodSecurityPolicySpecPtrInput)(nil)).Elem(), PodSecurityPolicySpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RunAsGroupStrategyOptionsInput)(nil)).Elem(), RunAsGroupStrategyOptionsArgs{})
@@ -3107,7 +2894,6 @@ func init() {
 	pulumi.RegisterOutputType(AllowedFlexVolumeArrayOutput{})
 	pulumi.RegisterOutputType(AllowedHostPathOutput{})
 	pulumi.RegisterOutputType(AllowedHostPathArrayOutput{})
-	pulumi.RegisterOutputType(EvictionOutput{})
 	pulumi.RegisterOutputType(FSGroupStrategyOptionsOutput{})
 	pulumi.RegisterOutputType(FSGroupStrategyOptionsPtrOutput{})
 	pulumi.RegisterOutputType(HostPortRangeOutput{})
@@ -3116,14 +2902,12 @@ func init() {
 	pulumi.RegisterOutputType(IDRangeArrayOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetTypeOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetTypeArrayOutput{})
-	pulumi.RegisterOutputType(PodDisruptionBudgetListTypeOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetSpecOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetSpecPtrOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetStatusOutput{})
 	pulumi.RegisterOutputType(PodDisruptionBudgetStatusPtrOutput{})
 	pulumi.RegisterOutputType(PodSecurityPolicyTypeOutput{})
 	pulumi.RegisterOutputType(PodSecurityPolicyTypeArrayOutput{})
-	pulumi.RegisterOutputType(PodSecurityPolicyListTypeOutput{})
 	pulumi.RegisterOutputType(PodSecurityPolicySpecOutput{})
 	pulumi.RegisterOutputType(PodSecurityPolicySpecPtrOutput{})
 	pulumi.RegisterOutputType(RunAsGroupStrategyOptionsOutput{})

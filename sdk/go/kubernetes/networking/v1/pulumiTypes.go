@@ -935,76 +935,6 @@ type IngressClassListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// IngressClassListTypeInput is an input type that accepts IngressClassListTypeArgs and IngressClassListTypeOutput values.
-// You can construct a concrete instance of `IngressClassListTypeInput` via:
-//
-//          IngressClassListTypeArgs{...}
-type IngressClassListTypeInput interface {
-	pulumi.Input
-
-	ToIngressClassListTypeOutput() IngressClassListTypeOutput
-	ToIngressClassListTypeOutputWithContext(context.Context) IngressClassListTypeOutput
-}
-
-// IngressClassList is a collection of IngressClasses.
-type IngressClassListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is the list of IngressClasses.
-	Items IngressClassTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata.
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (IngressClassListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressClassListType)(nil)).Elem()
-}
-
-func (i IngressClassListTypeArgs) ToIngressClassListTypeOutput() IngressClassListTypeOutput {
-	return i.ToIngressClassListTypeOutputWithContext(context.Background())
-}
-
-func (i IngressClassListTypeArgs) ToIngressClassListTypeOutputWithContext(ctx context.Context) IngressClassListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressClassListTypeOutput)
-}
-
-// IngressClassList is a collection of IngressClasses.
-type IngressClassListTypeOutput struct{ *pulumi.OutputState }
-
-func (IngressClassListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressClassListType)(nil)).Elem()
-}
-
-func (o IngressClassListTypeOutput) ToIngressClassListTypeOutput() IngressClassListTypeOutput {
-	return o
-}
-
-func (o IngressClassListTypeOutput) ToIngressClassListTypeOutputWithContext(ctx context.Context) IngressClassListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is the list of IngressClasses.
-func (o IngressClassListTypeOutput) Items() IngressClassTypeArrayOutput {
-	return o.ApplyT(func(v IngressClassListType) []IngressClassType { return v.Items }).(IngressClassTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressClassListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard list metadata.
-func (o IngressClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v IngressClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 type IngressClassParametersReference struct {
 	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -1390,76 +1320,6 @@ type IngressListType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
-}
-
-// IngressListTypeInput is an input type that accepts IngressListTypeArgs and IngressListTypeOutput values.
-// You can construct a concrete instance of `IngressListTypeInput` via:
-//
-//          IngressListTypeArgs{...}
-type IngressListTypeInput interface {
-	pulumi.Input
-
-	ToIngressListTypeOutput() IngressListTypeOutput
-	ToIngressListTypeOutputWithContext(context.Context) IngressListTypeOutput
-}
-
-// IngressList is a collection of Ingress.
-type IngressListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is the list of Ingress.
-	Items IngressTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (IngressListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressListType)(nil)).Elem()
-}
-
-func (i IngressListTypeArgs) ToIngressListTypeOutput() IngressListTypeOutput {
-	return i.ToIngressListTypeOutputWithContext(context.Background())
-}
-
-func (i IngressListTypeArgs) ToIngressListTypeOutputWithContext(ctx context.Context) IngressListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IngressListTypeOutput)
-}
-
-// IngressList is a collection of Ingress.
-type IngressListTypeOutput struct{ *pulumi.OutputState }
-
-func (IngressListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IngressListType)(nil)).Elem()
-}
-
-func (o IngressListTypeOutput) ToIngressListTypeOutput() IngressListTypeOutput {
-	return o
-}
-
-func (o IngressListTypeOutput) ToIngressListTypeOutputWithContext(ctx context.Context) IngressListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is the list of Ingress.
-func (o IngressListTypeOutput) Items() IngressTypeArrayOutput {
-	return o.ApplyT(func(v IngressListType) []IngressType { return v.Items }).(IngressTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IngressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v IngressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
@@ -2551,76 +2411,6 @@ type NetworkPolicyListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
-// NetworkPolicyListTypeInput is an input type that accepts NetworkPolicyListTypeArgs and NetworkPolicyListTypeOutput values.
-// You can construct a concrete instance of `NetworkPolicyListTypeInput` via:
-//
-//          NetworkPolicyListTypeArgs{...}
-type NetworkPolicyListTypeInput interface {
-	pulumi.Input
-
-	ToNetworkPolicyListTypeOutput() NetworkPolicyListTypeOutput
-	ToNetworkPolicyListTypeOutputWithContext(context.Context) NetworkPolicyListTypeOutput
-}
-
-// NetworkPolicyList is a list of NetworkPolicy objects.
-type NetworkPolicyListTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
-	Items NetworkPolicyTypeArrayInput `pulumi:"items"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
-}
-
-func (NetworkPolicyListTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicyListType)(nil)).Elem()
-}
-
-func (i NetworkPolicyListTypeArgs) ToNetworkPolicyListTypeOutput() NetworkPolicyListTypeOutput {
-	return i.ToNetworkPolicyListTypeOutputWithContext(context.Background())
-}
-
-func (i NetworkPolicyListTypeArgs) ToNetworkPolicyListTypeOutputWithContext(ctx context.Context) NetworkPolicyListTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyListTypeOutput)
-}
-
-// NetworkPolicyList is a list of NetworkPolicy objects.
-type NetworkPolicyListTypeOutput struct{ *pulumi.OutputState }
-
-func (NetworkPolicyListTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*NetworkPolicyListType)(nil)).Elem()
-}
-
-func (o NetworkPolicyListTypeOutput) ToNetworkPolicyListTypeOutput() NetworkPolicyListTypeOutput {
-	return o
-}
-
-func (o NetworkPolicyListTypeOutput) ToNetworkPolicyListTypeOutputWithContext(ctx context.Context) NetworkPolicyListTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Items is a list of schema objects.
-func (o NetworkPolicyListTypeOutput) Items() NetworkPolicyTypeArrayOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) []NetworkPolicyType { return v.Items }).(NetworkPolicyTypeArrayOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NetworkPolicyListTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NetworkPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v NetworkPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
-}
-
 // NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 type NetworkPolicyPeer struct {
 	// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
@@ -3238,12 +3028,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressBackendPtrInput)(nil)).Elem(), IngressBackendArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassTypeInput)(nil)).Elem(), IngressClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassTypeArrayInput)(nil)).Elem(), IngressClassTypeArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassListTypeInput)(nil)).Elem(), IngressClassListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassParametersReferenceInput)(nil)).Elem(), IngressClassParametersReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassParametersReferencePtrInput)(nil)).Elem(), IngressClassParametersReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassSpecInput)(nil)).Elem(), IngressClassSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassSpecPtrInput)(nil)).Elem(), IngressClassSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*IngressListTypeInput)(nil)).Elem(), IngressListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressRuleInput)(nil)).Elem(), IngressRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressRuleArrayInput)(nil)).Elem(), IngressRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressServiceBackendInput)(nil)).Elem(), IngressServiceBackendArgs{})
@@ -3260,7 +3048,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyEgressRuleArrayInput)(nil)).Elem(), NetworkPolicyEgressRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyIngressRuleInput)(nil)).Elem(), NetworkPolicyIngressRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyIngressRuleArrayInput)(nil)).Elem(), NetworkPolicyIngressRuleArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyListTypeInput)(nil)).Elem(), NetworkPolicyListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPeerInput)(nil)).Elem(), NetworkPolicyPeerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPeerArrayInput)(nil)).Elem(), NetworkPolicyPeerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPortInput)(nil)).Elem(), NetworkPolicyPortArgs{})
@@ -3281,12 +3068,10 @@ func init() {
 	pulumi.RegisterOutputType(IngressBackendPtrOutput{})
 	pulumi.RegisterOutputType(IngressClassTypeOutput{})
 	pulumi.RegisterOutputType(IngressClassTypeArrayOutput{})
-	pulumi.RegisterOutputType(IngressClassListTypeOutput{})
 	pulumi.RegisterOutputType(IngressClassParametersReferenceOutput{})
 	pulumi.RegisterOutputType(IngressClassParametersReferencePtrOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecPtrOutput{})
-	pulumi.RegisterOutputType(IngressListTypeOutput{})
 	pulumi.RegisterOutputType(IngressRuleOutput{})
 	pulumi.RegisterOutputType(IngressRuleArrayOutput{})
 	pulumi.RegisterOutputType(IngressServiceBackendOutput{})
@@ -3303,7 +3088,6 @@ func init() {
 	pulumi.RegisterOutputType(NetworkPolicyEgressRuleArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyIngressRuleOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyIngressRuleArrayOutput{})
-	pulumi.RegisterOutputType(NetworkPolicyListTypeOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPeerOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPeerArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicyPortOutput{})

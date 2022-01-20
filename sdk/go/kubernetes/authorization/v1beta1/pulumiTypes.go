@@ -24,81 +24,6 @@ type LocalSubjectAccessReviewType struct {
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
 
-// LocalSubjectAccessReviewTypeInput is an input type that accepts LocalSubjectAccessReviewTypeArgs and LocalSubjectAccessReviewTypeOutput values.
-// You can construct a concrete instance of `LocalSubjectAccessReviewTypeInput` via:
-//
-//          LocalSubjectAccessReviewTypeArgs{...}
-type LocalSubjectAccessReviewTypeInput interface {
-	pulumi.Input
-
-	ToLocalSubjectAccessReviewTypeOutput() LocalSubjectAccessReviewTypeOutput
-	ToLocalSubjectAccessReviewTypeOutputWithContext(context.Context) LocalSubjectAccessReviewTypeOutput
-}
-
-// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-	Spec SubjectAccessReviewSpecInput `pulumi:"spec"`
-	// Status is filled in by the server and indicates whether the request is allowed or not
-	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
-}
-
-func (LocalSubjectAccessReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewType)(nil)).Elem()
-}
-
-func (i LocalSubjectAccessReviewTypeArgs) ToLocalSubjectAccessReviewTypeOutput() LocalSubjectAccessReviewTypeOutput {
-	return i.ToLocalSubjectAccessReviewTypeOutputWithContext(context.Background())
-}
-
-func (i LocalSubjectAccessReviewTypeArgs) ToLocalSubjectAccessReviewTypeOutputWithContext(ctx context.Context) LocalSubjectAccessReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewTypeOutput)
-}
-
-// LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewTypeOutput struct{ *pulumi.OutputState }
-
-func (LocalSubjectAccessReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewType)(nil)).Elem()
-}
-
-func (o LocalSubjectAccessReviewTypeOutput) ToLocalSubjectAccessReviewTypeOutput() LocalSubjectAccessReviewTypeOutput {
-	return o
-}
-
-func (o LocalSubjectAccessReviewTypeOutput) ToLocalSubjectAccessReviewTypeOutputWithContext(ctx context.Context) LocalSubjectAccessReviewTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LocalSubjectAccessReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LocalSubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o LocalSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
-// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-func (o LocalSubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
-}
-
-// Status is filled in by the server and indicates whether the request is allowed or not
-func (o LocalSubjectAccessReviewTypeOutput) Status() SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
-}
-
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
 type NonResourceAttributes struct {
 	// Path is the URL path of the request
@@ -264,62 +189,6 @@ type NonResourceRule struct {
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
 	// Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
 	Verbs []string `pulumi:"verbs"`
-}
-
-// NonResourceRuleInput is an input type that accepts NonResourceRuleArgs and NonResourceRuleOutput values.
-// You can construct a concrete instance of `NonResourceRuleInput` via:
-//
-//          NonResourceRuleArgs{...}
-type NonResourceRuleInput interface {
-	pulumi.Input
-
-	ToNonResourceRuleOutput() NonResourceRuleOutput
-	ToNonResourceRuleOutputWithContext(context.Context) NonResourceRuleOutput
-}
-
-// NonResourceRule holds information that describes a rule for the non-resource
-type NonResourceRuleArgs struct {
-	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
-	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
-	// Verb is a list of kubernetes non-resource API verbs, like: get, post, put, delete, patch, head, options.  "*" means all.
-	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
-}
-
-func (NonResourceRuleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*NonResourceRule)(nil)).Elem()
-}
-
-func (i NonResourceRuleArgs) ToNonResourceRuleOutput() NonResourceRuleOutput {
-	return i.ToNonResourceRuleOutputWithContext(context.Background())
-}
-
-func (i NonResourceRuleArgs) ToNonResourceRuleOutputWithContext(ctx context.Context) NonResourceRuleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NonResourceRuleOutput)
-}
-
-// NonResourceRuleArrayInput is an input type that accepts NonResourceRuleArray and NonResourceRuleArrayOutput values.
-// You can construct a concrete instance of `NonResourceRuleArrayInput` via:
-//
-//          NonResourceRuleArray{ NonResourceRuleArgs{...} }
-type NonResourceRuleArrayInput interface {
-	pulumi.Input
-
-	ToNonResourceRuleArrayOutput() NonResourceRuleArrayOutput
-	ToNonResourceRuleArrayOutputWithContext(context.Context) NonResourceRuleArrayOutput
-}
-
-type NonResourceRuleArray []NonResourceRuleInput
-
-func (NonResourceRuleArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]NonResourceRule)(nil)).Elem()
-}
-
-func (i NonResourceRuleArray) ToNonResourceRuleArrayOutput() NonResourceRuleArrayOutput {
-	return i.ToNonResourceRuleArrayOutputWithContext(context.Background())
-}
-
-func (i NonResourceRuleArray) ToNonResourceRuleArrayOutputWithContext(ctx context.Context) NonResourceRuleArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(NonResourceRuleArrayOutput)
 }
 
 // NonResourceRule holds information that describes a rule for the non-resource
@@ -634,67 +503,6 @@ type ResourceRule struct {
 	Verbs []string `pulumi:"verbs"`
 }
 
-// ResourceRuleInput is an input type that accepts ResourceRuleArgs and ResourceRuleOutput values.
-// You can construct a concrete instance of `ResourceRuleInput` via:
-//
-//          ResourceRuleArgs{...}
-type ResourceRuleInput interface {
-	pulumi.Input
-
-	ToResourceRuleOutput() ResourceRuleOutput
-	ToResourceRuleOutputWithContext(context.Context) ResourceRuleOutput
-}
-
-// ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
-type ResourceRuleArgs struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
-	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
-	// ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.  "*" means all.
-	ResourceNames pulumi.StringArrayInput `pulumi:"resourceNames"`
-	// Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
-	//  "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
-	Resources pulumi.StringArrayInput `pulumi:"resources"`
-	// Verb is a list of kubernetes resource API verbs, like: get, list, watch, create, update, delete, proxy.  "*" means all.
-	Verbs pulumi.StringArrayInput `pulumi:"verbs"`
-}
-
-func (ResourceRuleArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*ResourceRule)(nil)).Elem()
-}
-
-func (i ResourceRuleArgs) ToResourceRuleOutput() ResourceRuleOutput {
-	return i.ToResourceRuleOutputWithContext(context.Background())
-}
-
-func (i ResourceRuleArgs) ToResourceRuleOutputWithContext(ctx context.Context) ResourceRuleOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ResourceRuleOutput)
-}
-
-// ResourceRuleArrayInput is an input type that accepts ResourceRuleArray and ResourceRuleArrayOutput values.
-// You can construct a concrete instance of `ResourceRuleArrayInput` via:
-//
-//          ResourceRuleArray{ ResourceRuleArgs{...} }
-type ResourceRuleArrayInput interface {
-	pulumi.Input
-
-	ToResourceRuleArrayOutput() ResourceRuleArrayOutput
-	ToResourceRuleArrayOutputWithContext(context.Context) ResourceRuleArrayOutput
-}
-
-type ResourceRuleArray []ResourceRuleInput
-
-func (ResourceRuleArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]ResourceRule)(nil)).Elem()
-}
-
-func (i ResourceRuleArray) ToResourceRuleArrayOutput() ResourceRuleArrayOutput {
-	return i.ToResourceRuleArrayOutputWithContext(context.Background())
-}
-
-func (i ResourceRuleArray) ToResourceRuleArrayOutputWithContext(ctx context.Context) ResourceRuleArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ResourceRuleArrayOutput)
-}
-
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 type ResourceRuleOutput struct{ *pulumi.OutputState }
 
@@ -764,81 +572,6 @@ type SelfSubjectAccessReviewType struct {
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
 
-// SelfSubjectAccessReviewTypeInput is an input type that accepts SelfSubjectAccessReviewTypeArgs and SelfSubjectAccessReviewTypeOutput values.
-// You can construct a concrete instance of `SelfSubjectAccessReviewTypeInput` via:
-//
-//          SelfSubjectAccessReviewTypeArgs{...}
-type SelfSubjectAccessReviewTypeInput interface {
-	pulumi.Input
-
-	ToSelfSubjectAccessReviewTypeOutput() SelfSubjectAccessReviewTypeOutput
-	ToSelfSubjectAccessReviewTypeOutputWithContext(context.Context) SelfSubjectAccessReviewTypeOutput
-}
-
-// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec holds information about the request being evaluated.  user and groups must be empty
-	Spec SelfSubjectAccessReviewSpecInput `pulumi:"spec"`
-	// Status is filled in by the server and indicates whether the request is allowed or not
-	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
-}
-
-func (SelfSubjectAccessReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewType)(nil)).Elem()
-}
-
-func (i SelfSubjectAccessReviewTypeArgs) ToSelfSubjectAccessReviewTypeOutput() SelfSubjectAccessReviewTypeOutput {
-	return i.ToSelfSubjectAccessReviewTypeOutputWithContext(context.Background())
-}
-
-func (i SelfSubjectAccessReviewTypeArgs) ToSelfSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SelfSubjectAccessReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewTypeOutput)
-}
-
-// SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewTypeOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectAccessReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewType)(nil)).Elem()
-}
-
-func (o SelfSubjectAccessReviewTypeOutput) ToSelfSubjectAccessReviewTypeOutput() SelfSubjectAccessReviewTypeOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewTypeOutput) ToSelfSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SelfSubjectAccessReviewTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SelfSubjectAccessReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SelfSubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o SelfSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
-// Spec holds information about the request being evaluated.  user and groups must be empty
-func (o SelfSubjectAccessReviewTypeOutput) Spec() SelfSubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) SelfSubjectAccessReviewSpec { return v.Spec }).(SelfSubjectAccessReviewSpecOutput)
-}
-
-// Status is filled in by the server and indicates whether the request is allowed or not
-func (o SelfSubjectAccessReviewTypeOutput) Status() SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
-}
-
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SelfSubjectAccessReviewSpec struct {
 	// NonResourceAttributes describes information for a non-resource access request
@@ -878,47 +611,6 @@ func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecOutput)
 }
 
-func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return i.ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecOutput).ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx)
-}
-
-// SelfSubjectAccessReviewSpecPtrInput is an input type that accepts SelfSubjectAccessReviewSpecArgs, SelfSubjectAccessReviewSpecPtr and SelfSubjectAccessReviewSpecPtrOutput values.
-// You can construct a concrete instance of `SelfSubjectAccessReviewSpecPtrInput` via:
-//
-//          SelfSubjectAccessReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type SelfSubjectAccessReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput
-	ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Context) SelfSubjectAccessReviewSpecPtrOutput
-}
-
-type selfSubjectAccessReviewSpecPtrType SelfSubjectAccessReviewSpecArgs
-
-func SelfSubjectAccessReviewSpecPtr(v *SelfSubjectAccessReviewSpecArgs) SelfSubjectAccessReviewSpecPtrInput {
-	return (*selfSubjectAccessReviewSpecPtrType)(v)
-}
-
-func (*selfSubjectAccessReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (i *selfSubjectAccessReviewSpecPtrType) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return i.ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *selfSubjectAccessReviewSpecPtrType) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecPtrOutput)
-}
-
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SelfSubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -934,16 +626,6 @@ func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecOutputWi
 	return o
 }
 
-func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectAccessReviewSpec) *SelfSubjectAccessReviewSpec {
-		return &v
-	}).(SelfSubjectAccessReviewSpecPtrOutput)
-}
-
 // NonResourceAttributes describes information for a non-resource access request
 func (o SelfSubjectAccessReviewSpecOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *NonResourceAttributes { return v.NonResourceAttributes }).(NonResourceAttributesPtrOutput)
@@ -952,50 +634,6 @@ func (o SelfSubjectAccessReviewSpecOutput) NonResourceAttributes() NonResourceAt
 // ResourceAuthorizationAttributes describes information for a resource access request
 func (o SelfSubjectAccessReviewSpecOutput) ResourceAttributes() ResourceAttributesPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *ResourceAttributes { return v.ResourceAttributes }).(ResourceAttributesPtrOutput)
-}
-
-type SelfSubjectAccessReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectAccessReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (o SelfSubjectAccessReviewSpecPtrOutput) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewSpecPtrOutput) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewSpecPtrOutput) Elem() SelfSubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) SelfSubjectAccessReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret SelfSubjectAccessReviewSpec
-		return ret
-	}).(SelfSubjectAccessReviewSpecOutput)
-}
-
-// NonResourceAttributes describes information for a non-resource access request
-func (o SelfSubjectAccessReviewSpecPtrOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) *NonResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.NonResourceAttributes
-	}).(NonResourceAttributesPtrOutput)
-}
-
-// ResourceAuthorizationAttributes describes information for a resource access request
-func (o SelfSubjectAccessReviewSpecPtrOutput) ResourceAttributes() ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) *ResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.ResourceAttributes
-	}).(ResourceAttributesPtrOutput)
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
@@ -1009,81 +647,6 @@ type SelfSubjectRulesReviewType struct {
 	Spec SelfSubjectRulesReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates the set of actions a user can perform.
 	Status *SubjectRulesReviewStatus `pulumi:"status"`
-}
-
-// SelfSubjectRulesReviewTypeInput is an input type that accepts SelfSubjectRulesReviewTypeArgs and SelfSubjectRulesReviewTypeOutput values.
-// You can construct a concrete instance of `SelfSubjectRulesReviewTypeInput` via:
-//
-//          SelfSubjectRulesReviewTypeArgs{...}
-type SelfSubjectRulesReviewTypeInput interface {
-	pulumi.Input
-
-	ToSelfSubjectRulesReviewTypeOutput() SelfSubjectRulesReviewTypeOutput
-	ToSelfSubjectRulesReviewTypeOutputWithContext(context.Context) SelfSubjectRulesReviewTypeOutput
-}
-
-// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec holds information about the request being evaluated.
-	Spec SelfSubjectRulesReviewSpecInput `pulumi:"spec"`
-	// Status is filled in by the server and indicates the set of actions a user can perform.
-	Status SubjectRulesReviewStatusPtrInput `pulumi:"status"`
-}
-
-func (SelfSubjectRulesReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewType)(nil)).Elem()
-}
-
-func (i SelfSubjectRulesReviewTypeArgs) ToSelfSubjectRulesReviewTypeOutput() SelfSubjectRulesReviewTypeOutput {
-	return i.ToSelfSubjectRulesReviewTypeOutputWithContext(context.Background())
-}
-
-func (i SelfSubjectRulesReviewTypeArgs) ToSelfSubjectRulesReviewTypeOutputWithContext(ctx context.Context) SelfSubjectRulesReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewTypeOutput)
-}
-
-// SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewTypeOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectRulesReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewType)(nil)).Elem()
-}
-
-func (o SelfSubjectRulesReviewTypeOutput) ToSelfSubjectRulesReviewTypeOutput() SelfSubjectRulesReviewTypeOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewTypeOutput) ToSelfSubjectRulesReviewTypeOutputWithContext(ctx context.Context) SelfSubjectRulesReviewTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SelfSubjectRulesReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SelfSubjectRulesReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o SelfSubjectRulesReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
-// Spec holds information about the request being evaluated.
-func (o SelfSubjectRulesReviewTypeOutput) Spec() SelfSubjectRulesReviewSpecOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) SelfSubjectRulesReviewSpec { return v.Spec }).(SelfSubjectRulesReviewSpecOutput)
-}
-
-// Status is filled in by the server and indicates the set of actions a user can perform.
-func (o SelfSubjectRulesReviewTypeOutput) Status() SubjectRulesReviewStatusPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *SubjectRulesReviewStatus { return v.Status }).(SubjectRulesReviewStatusPtrOutput)
 }
 
 type SelfSubjectRulesReviewSpec struct {
@@ -1119,47 +682,6 @@ func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecOutput)
 }
 
-func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return i.ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecOutput).ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx)
-}
-
-// SelfSubjectRulesReviewSpecPtrInput is an input type that accepts SelfSubjectRulesReviewSpecArgs, SelfSubjectRulesReviewSpecPtr and SelfSubjectRulesReviewSpecPtrOutput values.
-// You can construct a concrete instance of `SelfSubjectRulesReviewSpecPtrInput` via:
-//
-//          SelfSubjectRulesReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type SelfSubjectRulesReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput
-	ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Context) SelfSubjectRulesReviewSpecPtrOutput
-}
-
-type selfSubjectRulesReviewSpecPtrType SelfSubjectRulesReviewSpecArgs
-
-func SelfSubjectRulesReviewSpecPtr(v *SelfSubjectRulesReviewSpecArgs) SelfSubjectRulesReviewSpecPtrInput {
-	return (*selfSubjectRulesReviewSpecPtrType)(v)
-}
-
-func (*selfSubjectRulesReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectRulesReviewSpec)(nil)).Elem()
-}
-
-func (i *selfSubjectRulesReviewSpecPtrType) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return i.ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *selfSubjectRulesReviewSpecPtrType) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecPtrOutput)
-}
-
 type SelfSubjectRulesReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewSpecOutput) ElementType() reflect.Type {
@@ -1174,53 +696,9 @@ func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecOutputWith
 	return o
 }
 
-func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReviewSpec) *SelfSubjectRulesReviewSpec {
-		return &v
-	}).(SelfSubjectRulesReviewSpecPtrOutput)
-}
-
 // Namespace to evaluate rules for. Required.
 func (o SelfSubjectRulesReviewSpecOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SelfSubjectRulesReviewSpec) *string { return v.Namespace }).(pulumi.StringPtrOutput)
-}
-
-type SelfSubjectRulesReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectRulesReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectRulesReviewSpec)(nil)).Elem()
-}
-
-func (o SelfSubjectRulesReviewSpecPtrOutput) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewSpecPtrOutput) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewSpecPtrOutput) Elem() SelfSubjectRulesReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) SelfSubjectRulesReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret SelfSubjectRulesReviewSpec
-		return ret
-	}).(SelfSubjectRulesReviewSpecOutput)
-}
-
-// Namespace to evaluate rules for. Required.
-func (o SelfSubjectRulesReviewSpecPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Namespace
-	}).(pulumi.StringPtrOutput)
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
@@ -1234,81 +712,6 @@ type SubjectAccessReviewType struct {
 	Spec SubjectAccessReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request is allowed or not
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
-}
-
-// SubjectAccessReviewTypeInput is an input type that accepts SubjectAccessReviewTypeArgs and SubjectAccessReviewTypeOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewTypeInput` via:
-//
-//          SubjectAccessReviewTypeArgs{...}
-type SubjectAccessReviewTypeInput interface {
-	pulumi.Input
-
-	ToSubjectAccessReviewTypeOutput() SubjectAccessReviewTypeOutput
-	ToSubjectAccessReviewTypeOutputWithContext(context.Context) SubjectAccessReviewTypeOutput
-}
-
-// SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewTypeArgs struct {
-	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
-	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec holds information about the request being evaluated
-	Spec SubjectAccessReviewSpecInput `pulumi:"spec"`
-	// Status is filled in by the server and indicates whether the request is allowed or not
-	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
-}
-
-func (SubjectAccessReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewType)(nil)).Elem()
-}
-
-func (i SubjectAccessReviewTypeArgs) ToSubjectAccessReviewTypeOutput() SubjectAccessReviewTypeOutput {
-	return i.ToSubjectAccessReviewTypeOutputWithContext(context.Background())
-}
-
-func (i SubjectAccessReviewTypeArgs) ToSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SubjectAccessReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewTypeOutput)
-}
-
-// SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewTypeOutput struct{ *pulumi.OutputState }
-
-func (SubjectAccessReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewType)(nil)).Elem()
-}
-
-func (o SubjectAccessReviewTypeOutput) ToSubjectAccessReviewTypeOutput() SubjectAccessReviewTypeOutput {
-	return o
-}
-
-func (o SubjectAccessReviewTypeOutput) ToSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SubjectAccessReviewTypeOutput {
-	return o
-}
-
-// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SubjectAccessReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
-}
-
-// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
-}
-
-func (o SubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
-}
-
-// Spec holds information about the request being evaluated
-func (o SubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
-}
-
-// Status is filled in by the server and indicates whether the request is allowed or not
-func (o SubjectAccessReviewTypeOutput) Status() SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -1366,47 +769,6 @@ func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecOutput)
 }
 
-func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return i.ToSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecOutput).ToSubjectAccessReviewSpecPtrOutputWithContext(ctx)
-}
-
-// SubjectAccessReviewSpecPtrInput is an input type that accepts SubjectAccessReviewSpecArgs, SubjectAccessReviewSpecPtr and SubjectAccessReviewSpecPtrOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewSpecPtrInput` via:
-//
-//          SubjectAccessReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type SubjectAccessReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput
-	ToSubjectAccessReviewSpecPtrOutputWithContext(context.Context) SubjectAccessReviewSpecPtrOutput
-}
-
-type subjectAccessReviewSpecPtrType SubjectAccessReviewSpecArgs
-
-func SubjectAccessReviewSpecPtr(v *SubjectAccessReviewSpecArgs) SubjectAccessReviewSpecPtrInput {
-	return (*subjectAccessReviewSpecPtrType)(v)
-}
-
-func (*subjectAccessReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (i *subjectAccessReviewSpecPtrType) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return i.ToSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *subjectAccessReviewSpecPtrType) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecPtrOutput)
-}
-
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -1420,16 +782,6 @@ func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecOutput() Subject
 
 func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecOutputWithContext(ctx context.Context) SubjectAccessReviewSpecOutput {
 	return o
-}
-
-func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return o.ToSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewSpec) *SubjectAccessReviewSpec {
-		return &v
-	}).(SubjectAccessReviewSpecPtrOutput)
 }
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
@@ -1462,90 +814,6 @@ func (o SubjectAccessReviewSpecOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectAccessReviewSpec) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-type SubjectAccessReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (SubjectAccessReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (o SubjectAccessReviewSpecPtrOutput) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SubjectAccessReviewSpecPtrOutput) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SubjectAccessReviewSpecPtrOutput) Elem() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) SubjectAccessReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret SubjectAccessReviewSpec
-		return ret
-	}).(SubjectAccessReviewSpecOutput)
-}
-
-// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-func (o SubjectAccessReviewSpecPtrOutput) Extra() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) map[string][]string {
-		if v == nil {
-			return nil
-		}
-		return v.Extra
-	}).(pulumi.StringArrayMapOutput)
-}
-
-// Groups is the groups you're testing for.
-func (o SubjectAccessReviewSpecPtrOutput) Group() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Group
-	}).(pulumi.StringArrayOutput)
-}
-
-// NonResourceAttributes describes information for a non-resource access request
-func (o SubjectAccessReviewSpecPtrOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *NonResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.NonResourceAttributes
-	}).(NonResourceAttributesPtrOutput)
-}
-
-// ResourceAuthorizationAttributes describes information for a resource access request
-func (o SubjectAccessReviewSpecPtrOutput) ResourceAttributes() ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *ResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.ResourceAttributes
-	}).(ResourceAttributesPtrOutput)
-}
-
-// UID information about the requesting user.
-func (o SubjectAccessReviewSpecPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Uid
-	}).(pulumi.StringPtrOutput)
-}
-
-// User is the user you're testing for. If you specify "User" but not "Group", then is it interpreted as "What if User were not a member of any groups
-func (o SubjectAccessReviewSpecPtrOutput) User() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.User
-	}).(pulumi.StringPtrOutput)
-}
-
 // SubjectAccessReviewStatus
 type SubjectAccessReviewStatus struct {
 	// Allowed is required. True if the action would be allowed, false otherwise.
@@ -1556,82 +824,6 @@ type SubjectAccessReviewStatus struct {
 	EvaluationError *string `pulumi:"evaluationError"`
 	// Reason is optional.  It indicates why a request was allowed or denied.
 	Reason *string `pulumi:"reason"`
-}
-
-// SubjectAccessReviewStatusInput is an input type that accepts SubjectAccessReviewStatusArgs and SubjectAccessReviewStatusOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewStatusInput` via:
-//
-//          SubjectAccessReviewStatusArgs{...}
-type SubjectAccessReviewStatusInput interface {
-	pulumi.Input
-
-	ToSubjectAccessReviewStatusOutput() SubjectAccessReviewStatusOutput
-	ToSubjectAccessReviewStatusOutputWithContext(context.Context) SubjectAccessReviewStatusOutput
-}
-
-// SubjectAccessReviewStatus
-type SubjectAccessReviewStatusArgs struct {
-	// Allowed is required. True if the action would be allowed, false otherwise.
-	Allowed pulumi.BoolInput `pulumi:"allowed"`
-	// Denied is optional. True if the action would be denied, otherwise false. If both allowed is false and denied is false, then the authorizer has no opinion on whether to authorize the action. Denied may not be true if Allowed is true.
-	Denied pulumi.BoolPtrInput `pulumi:"denied"`
-	// EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
-	EvaluationError pulumi.StringPtrInput `pulumi:"evaluationError"`
-	// Reason is optional.  It indicates why a request was allowed or denied.
-	Reason pulumi.StringPtrInput `pulumi:"reason"`
-}
-
-func (SubjectAccessReviewStatusArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewStatus)(nil)).Elem()
-}
-
-func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusOutput() SubjectAccessReviewStatusOutput {
-	return i.ToSubjectAccessReviewStatusOutputWithContext(context.Background())
-}
-
-func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusOutputWithContext(ctx context.Context) SubjectAccessReviewStatusOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusOutput)
-}
-
-func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusPtrOutput() SubjectAccessReviewStatusPtrOutput {
-	return i.ToSubjectAccessReviewStatusPtrOutputWithContext(context.Background())
-}
-
-func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusOutput).ToSubjectAccessReviewStatusPtrOutputWithContext(ctx)
-}
-
-// SubjectAccessReviewStatusPtrInput is an input type that accepts SubjectAccessReviewStatusArgs, SubjectAccessReviewStatusPtr and SubjectAccessReviewStatusPtrOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewStatusPtrInput` via:
-//
-//          SubjectAccessReviewStatusArgs{...}
-//
-//  or:
-//
-//          nil
-type SubjectAccessReviewStatusPtrInput interface {
-	pulumi.Input
-
-	ToSubjectAccessReviewStatusPtrOutput() SubjectAccessReviewStatusPtrOutput
-	ToSubjectAccessReviewStatusPtrOutputWithContext(context.Context) SubjectAccessReviewStatusPtrOutput
-}
-
-type subjectAccessReviewStatusPtrType SubjectAccessReviewStatusArgs
-
-func SubjectAccessReviewStatusPtr(v *SubjectAccessReviewStatusArgs) SubjectAccessReviewStatusPtrInput {
-	return (*subjectAccessReviewStatusPtrType)(v)
-}
-
-func (*subjectAccessReviewStatusPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReviewStatus)(nil)).Elem()
-}
-
-func (i *subjectAccessReviewStatusPtrType) ToSubjectAccessReviewStatusPtrOutput() SubjectAccessReviewStatusPtrOutput {
-	return i.ToSubjectAccessReviewStatusPtrOutputWithContext(context.Background())
-}
-
-func (i *subjectAccessReviewStatusPtrType) ToSubjectAccessReviewStatusPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusPtrOutput)
 }
 
 // SubjectAccessReviewStatus
@@ -1647,16 +839,6 @@ func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusOutput() Sub
 
 func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusOutputWithContext(ctx context.Context) SubjectAccessReviewStatusOutput {
 	return o
-}
-
-func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutput() SubjectAccessReviewStatusPtrOutput {
-	return o.ToSubjectAccessReviewStatusPtrOutputWithContext(context.Background())
-}
-
-func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewStatus) *SubjectAccessReviewStatus {
-		return &v
-	}).(SubjectAccessReviewStatusPtrOutput)
 }
 
 // Allowed is required. True if the action would be allowed, false otherwise.
@@ -1755,82 +937,6 @@ type SubjectRulesReviewStatus struct {
 	ResourceRules []ResourceRule `pulumi:"resourceRules"`
 }
 
-// SubjectRulesReviewStatusInput is an input type that accepts SubjectRulesReviewStatusArgs and SubjectRulesReviewStatusOutput values.
-// You can construct a concrete instance of `SubjectRulesReviewStatusInput` via:
-//
-//          SubjectRulesReviewStatusArgs{...}
-type SubjectRulesReviewStatusInput interface {
-	pulumi.Input
-
-	ToSubjectRulesReviewStatusOutput() SubjectRulesReviewStatusOutput
-	ToSubjectRulesReviewStatusOutputWithContext(context.Context) SubjectRulesReviewStatusOutput
-}
-
-// SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
-type SubjectRulesReviewStatusArgs struct {
-	// EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
-	EvaluationError pulumi.StringPtrInput `pulumi:"evaluationError"`
-	// Incomplete is true when the rules returned by this call are incomplete. This is most commonly encountered when an authorizer, such as an external authorizer, doesn't support rules evaluation.
-	Incomplete pulumi.BoolInput `pulumi:"incomplete"`
-	// NonResourceRules is the list of actions the subject is allowed to perform on non-resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
-	NonResourceRules NonResourceRuleArrayInput `pulumi:"nonResourceRules"`
-	// ResourceRules is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
-	ResourceRules ResourceRuleArrayInput `pulumi:"resourceRules"`
-}
-
-func (SubjectRulesReviewStatusArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectRulesReviewStatus)(nil)).Elem()
-}
-
-func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusOutput() SubjectRulesReviewStatusOutput {
-	return i.ToSubjectRulesReviewStatusOutputWithContext(context.Background())
-}
-
-func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusOutputWithContext(ctx context.Context) SubjectRulesReviewStatusOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusOutput)
-}
-
-func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusPtrOutput() SubjectRulesReviewStatusPtrOutput {
-	return i.ToSubjectRulesReviewStatusPtrOutputWithContext(context.Background())
-}
-
-func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusOutput).ToSubjectRulesReviewStatusPtrOutputWithContext(ctx)
-}
-
-// SubjectRulesReviewStatusPtrInput is an input type that accepts SubjectRulesReviewStatusArgs, SubjectRulesReviewStatusPtr and SubjectRulesReviewStatusPtrOutput values.
-// You can construct a concrete instance of `SubjectRulesReviewStatusPtrInput` via:
-//
-//          SubjectRulesReviewStatusArgs{...}
-//
-//  or:
-//
-//          nil
-type SubjectRulesReviewStatusPtrInput interface {
-	pulumi.Input
-
-	ToSubjectRulesReviewStatusPtrOutput() SubjectRulesReviewStatusPtrOutput
-	ToSubjectRulesReviewStatusPtrOutputWithContext(context.Context) SubjectRulesReviewStatusPtrOutput
-}
-
-type subjectRulesReviewStatusPtrType SubjectRulesReviewStatusArgs
-
-func SubjectRulesReviewStatusPtr(v *SubjectRulesReviewStatusArgs) SubjectRulesReviewStatusPtrInput {
-	return (*subjectRulesReviewStatusPtrType)(v)
-}
-
-func (*subjectRulesReviewStatusPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectRulesReviewStatus)(nil)).Elem()
-}
-
-func (i *subjectRulesReviewStatusPtrType) ToSubjectRulesReviewStatusPtrOutput() SubjectRulesReviewStatusPtrOutput {
-	return i.ToSubjectRulesReviewStatusPtrOutputWithContext(context.Background())
-}
-
-func (i *subjectRulesReviewStatusPtrType) ToSubjectRulesReviewStatusPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusPtrOutput)
-}
-
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
 type SubjectRulesReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -1844,16 +950,6 @@ func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusOutput() Subje
 
 func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusOutputWithContext(ctx context.Context) SubjectRulesReviewStatusOutput {
 	return o
-}
-
-func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutput() SubjectRulesReviewStatusPtrOutput {
-	return o.ToSubjectRulesReviewStatusPtrOutputWithContext(context.Background())
-}
-
-func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectRulesReviewStatus) *SubjectRulesReviewStatus {
-		return &v
-	}).(SubjectRulesReviewStatusPtrOutput)
 }
 
 // EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
@@ -1941,29 +1037,13 @@ func (o SubjectRulesReviewStatusPtrOutput) ResourceRules() ResourceRuleArrayOutp
 }
 
 func init() {
-	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewTypeInput)(nil)).Elem(), LocalSubjectAccessReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesInput)(nil)).Elem(), NonResourceAttributesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesPtrInput)(nil)).Elem(), NonResourceAttributesArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceRuleInput)(nil)).Elem(), NonResourceRuleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceRuleArrayInput)(nil)).Elem(), NonResourceRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceAttributesInput)(nil)).Elem(), ResourceAttributesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceAttributesPtrInput)(nil)).Elem(), ResourceAttributesArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRuleInput)(nil)).Elem(), ResourceRuleArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRuleArrayInput)(nil)).Elem(), ResourceRuleArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewTypeInput)(nil)).Elem(), SelfSubjectAccessReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPtrInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewTypeInput)(nil)).Elem(), SelfSubjectRulesReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPtrInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewTypeInput)(nil)).Elem(), SubjectAccessReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecPtrInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewStatusInput)(nil)).Elem(), SubjectAccessReviewStatusArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewStatusPtrInput)(nil)).Elem(), SubjectAccessReviewStatusArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPtrInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
-	pulumi.RegisterOutputType(LocalSubjectAccessReviewTypeOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesPtrOutput{})
 	pulumi.RegisterOutputType(NonResourceRuleOutput{})
@@ -1972,15 +1052,9 @@ func init() {
 	pulumi.RegisterOutputType(ResourceAttributesPtrOutput{})
 	pulumi.RegisterOutputType(ResourceRuleOutput{})
 	pulumi.RegisterOutputType(ResourceRuleArrayOutput{})
-	pulumi.RegisterOutputType(SelfSubjectAccessReviewTypeOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecOutput{})
-	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecPtrOutput{})
-	pulumi.RegisterOutputType(SelfSubjectRulesReviewTypeOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecOutput{})
-	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecPtrOutput{})
-	pulumi.RegisterOutputType(SubjectAccessReviewTypeOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewSpecOutput{})
-	pulumi.RegisterOutputType(SubjectAccessReviewSpecPtrOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewStatusOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewStatusPtrOutput{})
 	pulumi.RegisterOutputType(SubjectRulesReviewStatusOutput{})
