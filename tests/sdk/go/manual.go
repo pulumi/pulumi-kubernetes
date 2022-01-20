@@ -16,6 +16,7 @@ package test
 
 import (
 	"fmt"
+	"helm.sh/helm/v3/pkg/release"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -100,6 +101,29 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 	}
 	fmt.Println("Successfully installed release: ", rel.Name)
 	return nil
+}
+
+func listReleases(releaseNamespace string) ([]*release.Release, error) {
+	actionConfig := new(action.Configuration)
+	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+	overrides := clientcmd.ConfigOverrides{Context: api.Context{Namespace: releaseNamespace}}
+	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
+	restConfig, err := kubeconfig.ClientConfig()
+	if err != nil {
+		return nil, err
+	}
+	if err := actionConfig.Init(provider.NewKubeConfig(restConfig, kubeconfig), releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+		fmt.Sprintf(format, v)
+	}); err != nil {
+		panic(err)
+	}
+	list := action.NewList(actionConfig)
+	releases, err := list.Run()
+	if err != nil {
+		return nil, err
+	}
+	return releases, nil
 }
 
 func deleteRelease(releaseName, releaseNamespace string) error {

@@ -23,14 +23,14 @@ func main() {
 					"type": pulumi.String("ClusterIP"),
 				},
 				"tcpSocket": pulumi.Map{
-					// This should fix it.
-					"port": pulumi.String("http"),
+					// This will cause initial Helm release install to fail.
+					"port": pulumi.String("httpunknown"),
 				},
 				"initialDelaySeconds": pulumi.Int(1),
 				"timeoutSeconds":      pulumi.Int(1),
 				"periodSeconds":       pulumi.Int(3),
 			},
-			Timeout:   pulumi.Int(10),
+			Timeout: pulumi.Int(10),
 		})
 		if err != nil {
 			return err
