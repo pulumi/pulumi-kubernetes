@@ -157,9 +157,7 @@ export class Event extends pulumi.CustomResource {
             resourceInputs["source"] = undefined /*out*/;
             resourceInputs["type"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:events.k8s.io/v1:Event" }, { type: "kubernetes:events.k8s.io/v1beta1:Event" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(Event.__pulumiType, name, resourceInputs, opts);

@@ -114,9 +114,7 @@ export class StorageClass extends pulumi.CustomResource {
             resourceInputs["reclaimPolicy"] = undefined /*out*/;
             resourceInputs["volumeBindingMode"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1:StorageClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(StorageClass.__pulumiType, name, resourceInputs, opts);

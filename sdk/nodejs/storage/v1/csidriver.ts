@@ -76,9 +76,7 @@ export class CSIDriver extends pulumi.CustomResource {
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSIDriver" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CSIDriver.__pulumiType, name, resourceInputs, opts);

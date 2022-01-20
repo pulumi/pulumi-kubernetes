@@ -110,9 +110,7 @@ export class CSIStorageCapacity extends pulumi.CustomResource {
             resourceInputs["nodeTopology"] = undefined /*out*/;
             resourceInputs["storageClassName"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CSIStorageCapacity.__pulumiType, name, resourceInputs, opts);
