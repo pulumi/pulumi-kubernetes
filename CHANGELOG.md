@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
 
+- Fix detailed diff for server-side apply (https://github.com/pulumi/pulumi-kubernetes/pull/1873)
+
 ## 3.14.1 (January 18, 2022)
 
 - Disable last-applied-configuration annotation for replaced CRDs (https://github.com/pulumi/pulumi-kubernetes/pull/1868)
