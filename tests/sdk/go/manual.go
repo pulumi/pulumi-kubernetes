@@ -104,16 +104,16 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 }
 
 func listReleases(releaseNamespace string) ([]*release.Release, error) {
-	actionConfig := new(action.Configuration)
-	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-	overrides := clientcmd.ConfigOverrides{Context: api.Context{Namespace: releaseNamespace}}
-	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
-	restConfig, err := kubeconfig.ClientConfig()
+	kubeconfig, err := namespacedKubeconfig(releaseNamespace)
 	if err != nil {
 		return nil, err
 	}
-	if err := actionConfig.Init(provider.NewKubeConfig(restConfig, kubeconfig), releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+	actionConfig := new(action.Configuration)
+	if err != nil {
+		return nil, err
+	}
+	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string,
+		v ...interface{}) {
 		fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
