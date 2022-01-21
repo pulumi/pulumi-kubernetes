@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
+	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
-	"k8s.io/client-go/tools/clientcmd/api"
 )
 
 func getRandomNamespace(prefix string) string {
@@ -41,6 +41,32 @@ func getRandomNamespace(prefix string) string {
 	return prefix + "-" + genRand(7)
 }
 
+func namespacedKubeconfig(namespace string) (*provider.KubeConfig, error) {
+	var overrides clientcmd.ConfigOverrides
+	overrides.Context.Namespace = namespace
+
+	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
+	restConfig, err := kubeconfig.ClientConfig()
+	if err != nil {
+		return nil, err
+	}
+	return provider.NewKubeConfig(restConfig, kubeconfig), nil
+}
+
+func namespacedClientSet(namespace string) (*kubernetes.Clientset, error) {
+	kubeconfig, err := namespacedKubeconfig(namespace)
+	if err != nil {
+		return nil, err
+	}
+	restConfig, err := kubeconfig.ToRESTConfig()
+	if err != nil {
+		return nil, err
+	}
+	return kubernetes.NewForConfig(restConfig)
+}
+
 func createRelease(releaseName, releaseNamespace, baseDir string, createNamespace bool) error {
 	chartPath := filepath.Join(baseDir, "./nginx")
 	chart, err := loader.Load(chartPath)
@@ -48,33 +74,27 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 		panic(err)
 	}
 
-	var overrides clientcmd.ConfigOverrides
-	overrides.Context.Namespace = releaseNamespace
+	kubeconfig, err := namespacedKubeconfig(releaseNamespace)
+	if err != nil {
+		panic(err)
+	}
 
 	actionConfig := new(action.Configuration)
-	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
-	restConfig, err := kubeconfig.ClientConfig()
-	if err != nil {
-		return err
-	}
-	provider.NewKubeConfig(restConfig, kubeconfig)
-	if err := actionConfig.Init(provider.NewKubeConfig(restConfig, kubeconfig), releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
 		fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
 	}
 
-	action := action.NewInstall(actionConfig)
-	action.Namespace = releaseNamespace
-	action.ReleaseName = releaseName
-	action.CreateNamespace = createNamespace
+	install := action.NewInstall(actionConfig)
+	install.Namespace = releaseNamespace
+	install.ReleaseName = releaseName
+	install.CreateNamespace = createNamespace
 	// Block on helm install since otherwise if we import resources created by the release which are not ready,
 	// we might end up with mysterious test failures (initErrors during updates might trigger an update).
-	action.Wait = true
-	action.Timeout = 5 * time.Minute
-	rel, err := action.Run(chart, map[string]interface{}{"service": map[string]interface{}{"type": "ClusterIP"}})
+	install.Wait = true
+	install.Timeout = 5 * time.Minute
+	rel, err := install.Run(chart, map[string]interface{}{"service": map[string]interface{}{"type": "ClusterIP"}})
 	if err != nil {
 		return err
 	}
@@ -83,16 +103,13 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 }
 
 func deleteRelease(releaseName, releaseNamespace string) error {
-	actionConfig := new(action.Configuration)
-	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-	overrides := clientcmd.ConfigOverrides{Context: api.Context{Namespace: releaseNamespace}}
-	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
-	restConfig, err := kubeconfig.ClientConfig()
+	kubeconfig, err := namespacedKubeconfig(releaseNamespace)
 	if err != nil {
-		return err
+		panic(err)
 	}
-	if err := actionConfig.Init(provider.NewKubeConfig(restConfig, kubeconfig), releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+
+	actionConfig := new(action.Configuration)
+	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
 		fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
