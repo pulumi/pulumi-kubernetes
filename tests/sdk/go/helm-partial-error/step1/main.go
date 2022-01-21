@@ -22,15 +22,17 @@ func main() {
 				"service": pulumi.StringMap{
 					"type": pulumi.String("ClusterIP"),
 				},
-				"tcpSocket": pulumi.Map{
-					// This will cause initial Helm release install to fail.
-					"port": pulumi.String("httpunknown"),
+				"readinessProbe": pulumi.Map{
+					"tcpSocket": pulumi.Map{
+						// This will cause initial Helm release install to fail.
+						"port": pulumi.String("httpunknown"),
+					},
+					"initialDelaySeconds": pulumi.Int(1),
+					"timeoutSeconds":      pulumi.Int(1),
+					"periodSeconds":       pulumi.Int(3),
 				},
-				"initialDelaySeconds": pulumi.Int(1),
-				"timeoutSeconds":      pulumi.Int(1),
-				"periodSeconds":       pulumi.Int(3),
 			},
-			Timeout: pulumi.Int(10),
+			Timeout: pulumi.Int(30),
 		})
 		if err != nil {
 			return err

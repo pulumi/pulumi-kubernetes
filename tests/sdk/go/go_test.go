@@ -198,6 +198,8 @@ func TestGo(t *testing.T) {
 		test := baseOptions.With(integration.ProgramTestOptions{
 			Dir:                    filepath.Join("helm-partial-error", "step1"),
 			SkipRefresh:            false,
+			SkipEmptyPreviewUpdate: true,
+			SkipPreview:            true,
 			Verbose:                true,
 			ExpectFailure:          true,
 			ExtraRuntimeValidation: validation,
@@ -206,6 +208,7 @@ func TestGo(t *testing.T) {
 					Dir:                    filepath.Join("helm-partial-error", "step2"),
 					Additive:               true,
 					ExtraRuntimeValidation: validation,
+					ExpectFailure:          false,
 				},
 			},
 		})
