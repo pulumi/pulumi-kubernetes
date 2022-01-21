@@ -2575,12 +2575,20 @@ func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Uns
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if k.enableReplaceCRD && clients.IsCRD(config) {
-		// Skip last-applied-config annotation when CRD replacement is enabled.
-		return config, nil
-	}
 	if k.supportsDryRun(config.GroupVersionKind()) {
 		// Skip last-applied-config annotation if the resource supports server-side apply.
+		return config, nil
+	}
+
+	// CRDs are updated using a separate mechanism, so skip the last-applied-configuration annotation, and delete it
+	// if it was present from a previous update.
+	if clients.IsCRD(config) {
+		// Deep copy the config before returning.
+		config = config.DeepCopy()
+
+		annotations := getAnnotations(config)
+		delete(annotations, lastAppliedConfigKey)
+		config.SetAnnotations(annotations)
 		return config, nil
 	}
 
@@ -2594,7 +2602,6 @@ func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) 
 	config = config.DeepCopy()
 
 	annotations := getAnnotations(config)
-
 	annotations[lastAppliedConfigKey] = string(marshaled)
 	config.SetAnnotations(annotations)
 	return config, nil

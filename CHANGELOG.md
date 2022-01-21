@@ -1,5 +1,6 @@
 ## Unreleased
-(None)
+
+- Don't use the last-applied-configuration annotation for CRDs (https://github.com/pulumi/pulumi-kubernetes/pull/1882)
 
 ## 3.19.0 (May 3, 2022)
 
