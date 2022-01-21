@@ -248,11 +248,11 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 	return conf, nil
 }
 
-func decodeRelease(pm resource.PropertyMap) (*Release, error) {
+func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	var release Release
 	values := map[string]interface{}{}
 	stripped := pm.MapRepl(nil, mapReplStripSecrets)
-	logger.V(9).Infof("Decoding release: %#v", stripped)
+	logger.V(9).Infof("[%s] Decoding release: %#v", label, stripped)
 
 	if pm.HasValue("valueYamlFiles") {
 		v := stripped["valueYamlFiles"]
@@ -316,13 +316,13 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	logger.V(9).Infof("Decoding new release.")
-	new, err := decodeRelease(news)
+	new, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
 
 	logger.V(9).Infof("Decoding old release.")
-	old, err := decodeRelease(olds)
+	old, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
@@ -649,11 +649,11 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		return &pulumirpc.DiffResponse{Changes: pulumirpc.DiffResponse_DIFF_NONE}, nil
 	}
 
-	oldRelease, err := decodeRelease(olds)
+	oldRelease, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
-	newRelease, err := decodeRelease(news)
+	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
@@ -795,7 +795,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
 	}
 
-	newRelease, err := decodeRelease(news)
+	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
@@ -857,7 +857,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 
-	existingRelease, err := decodeRelease(oldState)
+	existingRelease, err := decodeRelease(oldState, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
@@ -978,12 +978,12 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 
 	logger.V(9).Infof("%s executing", label)
 
-	newRelease, err := decodeRelease(newResInputs)
+	newRelease, err := decodeRelease(newResInputs, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
 
-	oldRelease, err := decodeRelease(oldState)
+	oldRelease, err := decodeRelease(oldState, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
@@ -1036,7 +1036,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 		return nil, err
 	}
 
-	release, err := decodeRelease(olds)
+	release, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
