@@ -1,4 +1,5 @@
 ## HEAD (Unreleased)
+- [Helm/Release] Handle partial failure during create/update (https://github.com/pulumi/pulumi-kubernetes/pull/1880)
 
 ## 3.14.1 (January 18, 2022)
 
