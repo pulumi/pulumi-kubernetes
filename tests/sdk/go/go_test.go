@@ -178,6 +178,43 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
+	t.Run("Helm Release Partial Error", func(t *testing.T) {
+		// Validate that we only see a single release in the namespace - success or failure.
+		validation := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+			var namespace string
+			for _, res := range stack.Deployment.Resources {
+				if res.Type == "kubernetes:helm.sh/v3:Release" {
+					ns, found := res.Outputs["namespace"]
+					assert.True(t, found)
+					namespace = ns.(string)
+				}
+			}
+			assert.NotEmpty(t, namespace)
+			releases, err := listReleases(namespace)
+			assert.NoError(t, err)
+			assert.Len(t, releases, 1)
+		}
+
+		test := baseOptions.With(integration.ProgramTestOptions{
+			Dir:                    filepath.Join("helm-partial-error", "step1"),
+			SkipRefresh:            false,
+			SkipEmptyPreviewUpdate: true,
+			SkipPreview:            true,
+			Verbose:                true,
+			ExpectFailure:          true,
+			ExtraRuntimeValidation: validation,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:                    filepath.Join("helm-partial-error", "step2"),
+					Additive:               true,
+					ExtraRuntimeValidation: validation,
+					ExpectFailure:          false,
+				},
+			},
+		})
+		integration.ProgramTest(t, &test)
+	})
+
 	t.Run("Helm API Versions", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-api-versions", "step1"),

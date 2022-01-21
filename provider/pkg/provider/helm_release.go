@@ -248,11 +248,11 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 	return conf, nil
 }
 
-func decodeRelease(pm resource.PropertyMap) (*Release, error) {
+func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	var release Release
 	values := map[string]interface{}{}
 	stripped := pm.MapRepl(nil, mapReplStripSecrets)
-	logger.V(9).Infof("Decoding release: %#v", stripped)
+	logger.V(9).Infof("[%s] Decoding release: %#v", label, stripped)
 
 	if pm.HasValue("valueYamlFiles") {
 		v := stripped["valueYamlFiles"]
@@ -316,13 +316,13 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	logger.V(9).Infof("Decoding new release.")
-	new, err := decodeRelease(news)
+	new, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
 
 	logger.V(9).Infof("Decoding old release.")
-	old, err := decodeRelease(olds)
+	old, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
@@ -486,17 +486,31 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 			return err
 		}
 
+		// Don't expect this to fail
 		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
 			return err
 		}
-
 		_ = r.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("Helm release %q was created but has a failed status. Use the `helm` command to investigate the error, correct it, then retry. Reason: %v", client.ReleaseName, err))
-		return err
-
+		return &releaseFailedError{release: newRelease, err: err}
 	}
 
 	err = setReleaseAttributes(newRelease, rel, false)
 	return err
+}
+
+type releaseFailedError struct {
+	release *Release
+	err     error
+}
+
+func (e *releaseFailedError) Error() string {
+	var s strings.Builder
+	s.WriteString("Helm Release ")
+	if e.release != nil {
+		s.WriteString(fmt.Sprintf("%s/%s: ", e.release.Namespace, e.release.Name))
+	}
+	s.WriteString(e.err.Error())
+	return "failed to become available within allocated timeout. Error: " + s.String()
 }
 
 func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release) error {
@@ -574,7 +588,11 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		logger.V(9).Infof("No existing release found.")
 		return err
 	} else if err != nil {
-		return fmt.Errorf("error running update: %w", err)
+		// Don't expect this to fail
+		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
+			return err
+		}
+		return fmt.Errorf("error running update: %w", &releaseFailedError{release: newRelease, err: err})
 	}
 
 	err = setReleaseAttributes(newRelease, rel, false)
@@ -631,11 +649,11 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		return &pulumirpc.DiffResponse{Changes: pulumirpc.DiffResponse_DIFF_NONE}, nil
 	}
 
-	oldRelease, err := decodeRelease(olds)
+	oldRelease, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
-	newRelease, err := decodeRelease(news)
+	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
@@ -777,14 +795,23 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, pkgerrors.Wrapf(err, "create failed because malformed resource inputs")
 	}
 
-	newRelease, err := decodeRelease(news)
+	newRelease, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
 
+	id := ""
+
+	var creationError error
 	if !req.GetPreview() {
-		if err = r.helmCreate(ctx, urn, newRelease); err != nil {
-			return nil, err
+		id = fqName(newRelease.Namespace, newRelease.Name)
+		if err := r.helmCreate(ctx, urn, newRelease); err != nil {
+			var failedErr *releaseFailedError
+			if errors.As(err, &failedErr) {
+				creationError = failedErr
+			} else {
+				return nil, err
+			}
 		}
 	}
 
@@ -800,9 +827,14 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		return nil, err
 	}
 
-	id := ""
-	if !req.GetPreview() {
-		id = fqName(newRelease.Namespace, newRelease.Name)
+	if creationError != nil {
+		return nil, partialError(
+			id,
+			pkgerrors.Wrapf(
+				creationError, "Helm release %q was created, but failed to initialize completely. "+
+					"Use Helm CLI to investigate.", id),
+			inputsAndComputed,
+			nil)
 	}
 
 	logger.V(9).Infof("Create: [id: %q] properties: %+v", id, inputsAndComputed)
@@ -825,7 +857,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 
-	existingRelease, err := decodeRelease(oldState)
+	existingRelease, err := decodeRelease(oldState, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
@@ -846,13 +878,12 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 	liveObj, exists, err := resourceReleaseLookup(name, actionConfig)
-	if err != nil {
-		return nil, err
-	}
-
-	if !exists {
+	if !exists && err == nil {
 		// If not found, this resource was probably deleted.
 		return deleteResponse, nil
+	}
+	if err != nil {
+		return nil, err
 	}
 
 	err = setReleaseAttributes(existingRelease, liveObj, false)
@@ -947,19 +978,25 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 
 	logger.V(9).Infof("%s executing", label)
 
-	newRelease, err := decodeRelease(newResInputs)
+	newRelease, err := decodeRelease(newResInputs, fmt.Sprintf("%s.news", label))
 	if err != nil {
 		return nil, err
 	}
 
-	oldRelease, err := decodeRelease(oldState)
+	oldRelease, err := decodeRelease(oldState, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
 
+	var updateError error
 	if !req.GetPreview() {
 		if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease); err != nil {
-			return nil, err
+			var failedErr *releaseFailedError
+			if errors.As(err, &failedErr) {
+				updateError = failedErr
+			} else {
+				return nil, err
+			}
 		}
 	}
 
@@ -973,6 +1010,16 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		})
 	if err != nil {
 		return nil, err
+	}
+
+	if updateError != nil {
+		return nil, partialError(
+			fqName(newRelease.Namespace, newRelease.Name),
+			pkgerrors.Wrapf(
+				updateError, "Helm release %q failed to initialize completely. "+
+					"Use Helm CLI to investigate.", fqName(newRelease.Namespace, newRelease.Name)),
+			inputsAndComputed,
+			nil)
 	}
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 }
@@ -989,7 +1036,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 		return nil, err
 	}
 
-	release, err := decodeRelease(olds)
+	release, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
 	if err != nil {
 		return nil, err
 	}
