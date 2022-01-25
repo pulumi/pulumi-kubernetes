@@ -1,4 +1,6 @@
 ## HEAD (Unreleased)
+- [Helm/Release] Remove beta warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1885)
+
 - [Helm/Release] Handle partial failure during create/update (https://github.com/pulumi/pulumi-kubernetes/pull/1880)
 
 - Fix detailed diff for server-side apply (https://github.com/pulumi/pulumi-kubernetes/pull/1873)

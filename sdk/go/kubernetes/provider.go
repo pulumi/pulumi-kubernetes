@@ -64,7 +64,7 @@ type providerArgs struct {
 	// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
 	// This feature is in developer preview, and is disabled by default.
 	EnableReplaceCRD *bool `pulumi:"enableReplaceCRD"`
-	// BETA FEATURE - Options to configure the Helm Release resource.
+	// Options to configure the Helm Release resource.
 	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
 	// Options for tuning the Kubernetes client used by a Provider.
 	KubeClientSettings *KubeClientSettings `pulumi:"kubeClientSettings"`
@@ -104,7 +104,7 @@ type ProviderArgs struct {
 	// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
 	// This feature is in developer preview, and is disabled by default.
 	EnableReplaceCRD pulumi.BoolPtrInput
-	// BETA FEATURE - Options to configure the Helm Release resource.
+	// Options to configure the Helm Release resource.
 	HelmReleaseSettings HelmReleaseSettingsPtrInput
 	// Options for tuning the Kubernetes client used by a Provider.
 	KubeClientSettings KubeClientSettingsPtrInput

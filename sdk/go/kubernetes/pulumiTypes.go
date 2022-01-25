@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettings struct {
 	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
 	Driver *string `pulumi:"driver"`
@@ -22,8 +22,6 @@ type HelmReleaseSettings struct {
 	RepositoryCache *string `pulumi:"repositoryCache"`
 	// The path to the file containing repository names and URLs.
 	RepositoryConfigPath *string `pulumi:"repositoryConfigPath"`
-	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-	SuppressBetaWarning *bool `pulumi:"suppressBetaWarning"`
 }
 
 // Defaults sets the appropriate defaults for HelmReleaseSettings
@@ -52,10 +50,6 @@ func (val *HelmReleaseSettings) Defaults() *HelmReleaseSettings {
 		repositoryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string)
 		tmp.RepositoryConfigPath = &repositoryConfigPath_
 	}
-	if isZero(tmp.SuppressBetaWarning) {
-		suppressBetaWarning_ := getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING").(bool)
-		tmp.SuppressBetaWarning = &suppressBetaWarning_
-	}
 	return &tmp
 }
 
@@ -70,7 +64,7 @@ type HelmReleaseSettingsInput interface {
 	ToHelmReleaseSettingsOutputWithContext(context.Context) HelmReleaseSettingsOutput
 }
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettingsArgs struct {
 	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
@@ -82,8 +76,6 @@ type HelmReleaseSettingsArgs struct {
 	RepositoryCache pulumi.StringPtrInput `pulumi:"repositoryCache"`
 	// The path to the file containing repository names and URLs.
 	RepositoryConfigPath pulumi.StringPtrInput `pulumi:"repositoryConfigPath"`
-	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-	SuppressBetaWarning pulumi.BoolPtrInput `pulumi:"suppressBetaWarning"`
 }
 
 func (HelmReleaseSettingsArgs) ElementType() reflect.Type {
@@ -139,7 +131,7 @@ func (i *helmReleaseSettingsPtrType) ToHelmReleaseSettingsPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsPtrOutput)
 }
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettingsOutput struct{ *pulumi.OutputState }
 
 func (HelmReleaseSettingsOutput) ElementType() reflect.Type {
@@ -187,11 +179,6 @@ func (o HelmReleaseSettingsOutput) RepositoryCache() pulumi.StringPtrOutput {
 // The path to the file containing repository names and URLs.
 func (o HelmReleaseSettingsOutput) RepositoryConfigPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HelmReleaseSettings) *string { return v.RepositoryConfigPath }).(pulumi.StringPtrOutput)
-}
-
-// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-func (o HelmReleaseSettingsOutput) SuppressBetaWarning() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v HelmReleaseSettings) *bool { return v.SuppressBetaWarning }).(pulumi.BoolPtrOutput)
 }
 
 type HelmReleaseSettingsPtrOutput struct{ *pulumi.OutputState }
@@ -266,16 +253,6 @@ func (o HelmReleaseSettingsPtrOutput) RepositoryConfigPath() pulumi.StringPtrOut
 		}
 		return v.RepositoryConfigPath
 	}).(pulumi.StringPtrOutput)
-}
-
-// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-func (o HelmReleaseSettingsPtrOutput) SuppressBetaWarning() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *HelmReleaseSettings) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.SuppressBetaWarning
-	}).(pulumi.BoolPtrOutput)
 }
 
 // Options for tuning the Kubernetes client used by a Provider.

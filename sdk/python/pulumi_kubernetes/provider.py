@@ -33,7 +33,7 @@ class ProviderArgs:
                This feature is in developer preview, and is disabled by default.
         :param pulumi.Input[bool] enable_replace_crd: BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
                This feature is in developer preview, and is disabled by default.
-        :param pulumi.Input['HelmReleaseSettingsArgs'] helm_release_settings: BETA FEATURE - Options to configure the Helm Release resource.
+        :param pulumi.Input['HelmReleaseSettingsArgs'] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input['KubeClientSettingsArgs'] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
@@ -140,7 +140,7 @@ class ProviderArgs:
     @pulumi.getter(name="helmReleaseSettings")
     def helm_release_settings(self) -> Optional[pulumi.Input['HelmReleaseSettingsArgs']]:
         """
-        BETA FEATURE - Options to configure the Helm Release resource.
+        Options to configure the Helm Release resource.
         """
         return pulumi.get(self, "helm_release_settings")
 
@@ -261,7 +261,7 @@ class Provider(pulumi.ProviderResource):
                This feature is in developer preview, and is disabled by default.
         :param pulumi.Input[bool] enable_replace_crd: BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
                This feature is in developer preview, and is disabled by default.
-        :param pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']] helm_release_settings: BETA FEATURE - Options to configure the Helm Release resource.
+        :param pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
         :param pulumi.Input[str] namespace: If present, the default namespace to use. This flag is ignored for cluster-scoped resources.

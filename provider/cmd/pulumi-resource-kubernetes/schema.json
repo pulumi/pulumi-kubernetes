@@ -24627,7 +24627,7 @@
             }
         },
         "kubernetes:index:HelmReleaseSettings": {
-            "description": "BETA FEATURE - Options to configure the Helm Release resource.",
+            "description": "Options to configure the Helm Release resource.",
             "properties": {
                 "driver": {
                     "type": "string",
@@ -24671,15 +24671,6 @@
                     "defaultInfo": {
                         "environment": [
                             "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"
-                        ]
-                    }
-                },
-                "suppressBetaWarning": {
-                    "type": "boolean",
-                    "description": "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to \"true\", this warning is omitted.",
-                    "defaultInfo": {
-                        "environment": [
-                            "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"
                         ]
                     }
                 }
@@ -31547,7 +31538,7 @@
             },
             "helmReleaseSettings": {
                 "$ref": "#/types/kubernetes:index:HelmReleaseSettings",
-                "description": "BETA FEATURE - Options to configure the Helm Release resource."
+                "description": "Options to configure the Helm Release resource."
             },
             "kubeClientSettings": {
                 "$ref": "#/types/kubernetes:index:KubeClientSettings",
@@ -41604,7 +41595,7 @@
             "isComponent": true
         },
         "kubernetes:helm.sh/v3:Release": {
-            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.\nNote - Helm Release is currently in BETA and may change. Use in production environment is discouraged.\n",
+            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.\n",
             "properties": {
                 "atomic": {
                     "type": "boolean",

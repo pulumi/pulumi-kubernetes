@@ -73,7 +73,7 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableReplaceCRD { get; set; }
 
         /// <summary>
-        /// BETA FEATURE - Options to configure the Helm Release resource.
+        /// Options to configure the Helm Release resource.
         /// </summary>
         [Input("helmReleaseSettings", json: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Provider.HelmReleaseSettingsArgs>? HelmReleaseSettings { get; set; }

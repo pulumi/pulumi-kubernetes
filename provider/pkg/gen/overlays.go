@@ -474,7 +474,7 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 
 var helmReleaseSettings = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		Description: "BETA FEATURE - Options to configure the Helm Release resource.",
+		Description: "Options to configure the Helm Release resource.",
 		Properties: map[string]pschema.PropertySpec{
 			"driver": {
 				DefaultInfo: &pschema.DefaultSpec{
@@ -520,15 +520,6 @@ var helmReleaseSettings = pschema.ComplexTypeSpec{
 				},
 				Description: "The path to the file containing cached repository indexes.",
 				TypeSpec:    pschema.TypeSpec{Type: "string"},
-			},
-			"suppressBetaWarning": {
-				DefaultInfo: &pschema.DefaultSpec{
-					Environment: []string{
-						"PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING",
-					},
-				},
-				Description: "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to \"true\", this warning is omitted.",
-				TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 			},
 		},
 		Type: "object",
