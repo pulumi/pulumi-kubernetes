@@ -17,7 +17,7 @@ package provider
 // Note: These types must match the types defined in the Go SDK (sdk/go/kubernetes/pulumiTypes.go).
 // Copying the types avoids having the provider depend on the SDK.
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettings struct {
 	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
 	Driver *string `json:"driver"`

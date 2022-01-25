@@ -22,7 +22,7 @@ class HelmReleaseSettingsArgs:
                  repository_cache: Optional[pulumi.Input[str]] = None,
                  repository_config_path: Optional[pulumi.Input[str]] = None):
         """
-        BETA FEATURE - Options to configure the Helm Release resource.
+        Options to configure the Helm Release resource.
         :param pulumi.Input[str] driver: The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
         :param pulumi.Input[str] plugins_path: The path to the helm plugins directory.
         :param pulumi.Input[str] registry_config_path: The path to the registry config file.

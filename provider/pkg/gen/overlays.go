@@ -474,7 +474,7 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 
 var helmReleaseSettings = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		Description: "BETA FEATURE - Options to configure the Helm Release resource.",
+		Description: "Options to configure the Helm Release resource.",
 		Properties: map[string]pschema.PropertySpec{
 			"driver": {
 				DefaultInfo: &pschema.DefaultSpec{

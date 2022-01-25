@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
 {
 
     /// <summary>
-    /// BETA FEATURE - Options to configure the Helm Release resource.
+    /// Options to configure the Helm Release resource.
     /// </summary>
     public class HelmReleaseSettingsArgs : Pulumi.ResourceArgs
     {

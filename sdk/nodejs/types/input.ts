@@ -7,7 +7,7 @@ import { input as inputs, output as outputs, enums } from "../types";
 import * as utilities from "../utilities";
 
 /**
- * BETA FEATURE - Options to configure the Helm Release resource.
+ * Options to configure the Helm Release resource.
  */
 export interface HelmReleaseSettings {
     /**

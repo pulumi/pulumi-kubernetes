@@ -24627,7 +24627,7 @@
             }
         },
         "kubernetes:index:HelmReleaseSettings": {
-            "description": "BETA FEATURE - Options to configure the Helm Release resource.",
+            "description": "Options to configure the Helm Release resource.",
             "properties": {
                 "driver": {
                     "type": "string",

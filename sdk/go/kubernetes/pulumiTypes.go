@@ -10,7 +10,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettings struct {
 	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
 	Driver *string `pulumi:"driver"`
@@ -64,7 +64,7 @@ type HelmReleaseSettingsInput interface {
 	ToHelmReleaseSettingsOutputWithContext(context.Context) HelmReleaseSettingsOutput
 }
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettingsArgs struct {
 	// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
@@ -131,7 +131,7 @@ func (i *helmReleaseSettingsPtrType) ToHelmReleaseSettingsPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsPtrOutput)
 }
 
-// BETA FEATURE - Options to configure the Helm Release resource.
+// Options to configure the Helm Release resource.
 type HelmReleaseSettingsOutput struct{ *pulumi.OutputState }
 
 func (HelmReleaseSettingsOutput) ElementType() reflect.Type {
