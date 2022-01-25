@@ -77,7 +77,7 @@ export interface ProviderArgs {
      */
     enableReplaceCRD?: pulumi.Input<boolean>;
     /**
-     * BETA FEATURE - Options to configure the Helm Release resource.
+     * Options to configure the Helm Release resource.
      */
     helmReleaseSettings?: pulumi.Input<inputs.HelmReleaseSettings>;
     /**

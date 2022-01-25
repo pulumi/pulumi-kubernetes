@@ -31538,7 +31538,7 @@
             },
             "helmReleaseSettings": {
                 "$ref": "#/types/kubernetes:index:HelmReleaseSettings",
-                "description": "BETA FEATURE - Options to configure the Helm Release resource."
+                "description": "Options to configure the Helm Release resource."
             },
             "kubeClientSettings": {
                 "$ref": "#/types/kubernetes:index:KubeClientSettings",

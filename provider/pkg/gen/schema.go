@@ -159,7 +159,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:KubeClientSettings"},
 				},
 				"helmReleaseSettings": {
-					Description: "BETA FEATURE - Options to configure the Helm Release resource.",
+					Description: "Options to configure the Helm Release resource.",
 					TypeSpec:    pschema.TypeSpec{Ref: "#/types/kubernetes:index:HelmReleaseSettings"},
 				},
 				"suppressHelmHookWarnings": {
