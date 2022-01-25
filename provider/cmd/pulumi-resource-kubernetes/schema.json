@@ -41595,7 +41595,7 @@
             "isComponent": true
         },
         "kubernetes:helm.sh/v3:Release": {
-            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.\nNote - Helm Release is currently in BETA and may change. Use in production environment is discouraged.\n",
+            "description": "A Release is an instance of a chart running in a Kubernetes cluster.\nA Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.\n",
             "properties": {
                 "atomic": {
                     "type": "boolean",
