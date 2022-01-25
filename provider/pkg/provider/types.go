@@ -29,8 +29,6 @@ type HelmReleaseSettings struct {
 	RepositoryCache *string `json:"repositoryCache"`
 	// The path to the file containing repository names and URLs.
 	RepositoryConfigPath *string `json:"repositoryConfigPath"`
-	// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-	SuppressBetaWarning *bool `json:"suppressBetaWarning"`
 }
 
 // Options for tuning the Kubernetes client used by a Provider.
