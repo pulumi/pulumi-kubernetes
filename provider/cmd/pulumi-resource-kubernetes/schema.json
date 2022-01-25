@@ -24673,15 +24673,6 @@
                             "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"
                         ]
                     }
-                },
-                "suppressBetaWarning": {
-                    "type": "boolean",
-                    "description": "While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to \"true\", this warning is omitted.",
-                    "defaultInfo": {
-                        "environment": [
-                            "PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"
-                        ]
-                    }
                 }
             },
             "type": "object"

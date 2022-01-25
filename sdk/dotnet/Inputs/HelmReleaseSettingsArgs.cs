@@ -45,12 +45,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
         [Input("repositoryConfigPath")]
         public Input<string>? RepositoryConfigPath { get; set; }
 
-        /// <summary>
-        /// While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-        /// </summary>
-        [Input("suppressBetaWarning")]
-        public Input<bool>? SuppressBetaWarning { get; set; }
-
         public HelmReleaseSettingsArgs()
         {
             Driver = Utilities.GetEnv("PULUMI_K8S_HELM_DRIVER");
@@ -58,7 +52,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
             RegistryConfigPath = Utilities.GetEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH");
             RepositoryCache = Utilities.GetEnv("PULUMI_K8S_HELM_REPOSITORY_CACHE");
             RepositoryConfigPath = Utilities.GetEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH");
-            SuppressBetaWarning = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING");
         }
     }
 }

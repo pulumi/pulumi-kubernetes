@@ -30,10 +30,6 @@ export interface HelmReleaseSettings {
      * The path to the file containing repository names and URLs.
      */
     repositoryConfigPath?: pulumi.Input<string>;
-    /**
-     * While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-     */
-    suppressBetaWarning?: pulumi.Input<boolean>;
 }
 /**
  * helmReleaseSettingsProvideDefaults sets the appropriate defaults for HelmReleaseSettings
@@ -46,7 +42,6 @@ export function helmReleaseSettingsProvideDefaults(val: HelmReleaseSettings): He
         registryConfigPath: (val.registryConfigPath) ?? utilities.getEnv("PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"),
         repositoryCache: (val.repositoryCache) ?? utilities.getEnv("PULUMI_K8S_HELM_REPOSITORY_CACHE"),
         repositoryConfigPath: (val.repositoryConfigPath) ?? utilities.getEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"),
-        suppressBetaWarning: (val.suppressBetaWarning) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING"),
     };
 }
 

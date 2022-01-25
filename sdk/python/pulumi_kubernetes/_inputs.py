@@ -20,8 +20,7 @@ class HelmReleaseSettingsArgs:
                  plugins_path: Optional[pulumi.Input[str]] = None,
                  registry_config_path: Optional[pulumi.Input[str]] = None,
                  repository_cache: Optional[pulumi.Input[str]] = None,
-                 repository_config_path: Optional[pulumi.Input[str]] = None,
-                 suppress_beta_warning: Optional[pulumi.Input[bool]] = None):
+                 repository_config_path: Optional[pulumi.Input[str]] = None):
         """
         BETA FEATURE - Options to configure the Helm Release resource.
         :param pulumi.Input[str] driver: The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
@@ -29,7 +28,6 @@ class HelmReleaseSettingsArgs:
         :param pulumi.Input[str] registry_config_path: The path to the registry config file.
         :param pulumi.Input[str] repository_cache: The path to the file containing cached repository indexes.
         :param pulumi.Input[str] repository_config_path: The path to the file containing repository names and URLs.
-        :param pulumi.Input[bool] suppress_beta_warning: While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
         """
         if driver is None:
             driver = _utilities.get_env('PULUMI_K8S_HELM_DRIVER')
@@ -51,10 +49,6 @@ class HelmReleaseSettingsArgs:
             repository_config_path = _utilities.get_env('PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH')
         if repository_config_path is not None:
             pulumi.set(__self__, "repository_config_path", repository_config_path)
-        if suppress_beta_warning is None:
-            suppress_beta_warning = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_RELEASE_BETA_WARNING')
-        if suppress_beta_warning is not None:
-            pulumi.set(__self__, "suppress_beta_warning", suppress_beta_warning)
 
     @property
     @pulumi.getter
@@ -115,18 +109,6 @@ class HelmReleaseSettingsArgs:
     @repository_config_path.setter
     def repository_config_path(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "repository_config_path", value)
-
-    @property
-    @pulumi.getter(name="suppressBetaWarning")
-    def suppress_beta_warning(self) -> Optional[pulumi.Input[bool]]:
-        """
-        While Helm Release provider is in beta, by default 'pulumi up' will log a warning if the resource is used. If present and set to "true", this warning is omitted.
-        """
-        return pulumi.get(self, "suppress_beta_warning")
-
-    @suppress_beta_warning.setter
-    def suppress_beta_warning(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "suppress_beta_warning", value)
 
 
 @pulumi.input_type
