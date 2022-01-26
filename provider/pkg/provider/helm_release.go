@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"log"
 	"net/url"
 	"os"
 	"reflect"
@@ -168,15 +167,17 @@ type ReleaseStatus struct {
 }
 
 type helmReleaseProvider struct {
-	host             *provider.HostClient
-	helmDriver       string
-	apiConfig        *api.Config
-	defaultOverrides *clientcmd.ConfigOverrides
-	restConfig       *rest.Config
-	defaultNamespace string
-	enableSecrets    bool
-	name             string
-	settings         *cli.EnvSettings
+	host                     *provider.HostClient
+	helmDriver               string
+	apiConfig                *api.Config
+	defaultOverrides         *clientcmd.ConfigOverrides
+	restConfig               *rest.Config
+	defaultNamespace         string
+	enableSecrets            bool
+	clusterUnreachable       bool
+	clusterUnreachableReason string
+	name                     string
+	settings                 *cli.EnvSettings
 }
 
 func newHelmReleaseProvider(
@@ -191,6 +192,8 @@ func newHelmReleaseProvider(
 	registryConfigPath,
 	repositoryConfigPath,
 	repositoryCache string,
+	clusterUnreachable bool,
+	clusterUnreachableReason string,
 ) (customResourceProvider, error) {
 	settings := cli.New()
 	settings.PluginsDirectory = pluginsDirectory
@@ -200,15 +203,17 @@ func newHelmReleaseProvider(
 	settings.Debug = true
 
 	return &helmReleaseProvider{
-		host:             host,
-		apiConfig:        apiConfig,
-		defaultOverrides: defaultOverrides,
-		restConfig:       restConfig,
-		helmDriver:       helmDriver,
-		defaultNamespace: namespace,
-		enableSecrets:    enableSecrets,
-		name:             "kubernetes:helmrelease",
-		settings:         settings,
+		host:                     host,
+		apiConfig:                apiConfig,
+		defaultOverrides:         defaultOverrides,
+		restConfig:               restConfig,
+		helmDriver:               helmDriver,
+		defaultNamespace:         namespace,
+		enableSecrets:            enableSecrets,
+		clusterUnreachable:       clusterUnreachable,
+		clusterUnreachableReason: clusterUnreachableReason,
+		name:                     "kubernetes:helmrelease",
+		settings:                 settings,
 	}, nil
 }
 
@@ -234,7 +239,7 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 		clientConfig = clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
 	} else {
 		// Use client-go to resolve the final configuration values for the client. Typically these
-		// values would would reside in the $KUBECONFIG file, but can also be altered in several
+		// values would reside in the $KUBECONFIG file, but can also be altered in several
 		// places, including in env variables, client-go default values, and (if we allowed it) CLI
 		// flags.
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
@@ -333,39 +338,11 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	assignNameIfAutonameable(new, news, urn.Name())
 	r.setDefaults(new)
 
-	conf, err := r.getActionConfig(new.Namespace)
+	resourceNames, err := computeResourceNames(new)
 	if err != nil {
 		return nil, err
 	}
-	rel, exists, err := resourceReleaseLookup(new.Name, conf)
-	if err != nil {
-		return nil, err
-	}
-
-	haveResourceNames := true
-	if len(olds.Mappable()) > 0 {
-		haveResourceNames = false
-	} else {
-		if !exists {
-			haveResourceNames = false
-		}
-	}
-
-	if !haveResourceNames {
-		resourceNames, err := computeResourceNames(new)
-		if err != nil && exists {
-			logger.V(9).Infof("Failed to compute resource names, assuming no resource names known: %v", err)
-			_, resourceNames, err = convertYAMLManifestToJSON(rel.Manifest)
-			if err != nil {
-				return nil, err
-			}
-			new.ResourceNames = resourceNames
-		} else if err != nil && !exists {
-			return nil, fmt.Errorf("release not found: %q: %w", new.Name, err)
-		} else {
-			new.ResourceNames = resourceNames
-		}
-	}
+	new.ResourceNames = resourceNames
 
 	logger.V(9).Infof("New: %+v", new)
 	autonamed := resource.NewPropertyMap(new)
@@ -804,6 +781,9 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 
 	var creationError error
 	if !req.GetPreview() {
+		if r.clusterUnreachable {
+			return nil, fmt.Errorf("can't create Helm Release with unreachable cluster: %s", r.clusterUnreachableReason)
+		}
 		id = fqName(newRelease.Namespace, newRelease.Name)
 		if err := r.helmCreate(ctx, urn, newRelease); err != nil {
 			var failedErr *releaseFailedError
@@ -815,7 +795,7 @@ func (r *helmReleaseProvider) Create(ctx context.Context, req *pulumirpc.CreateR
 		}
 	}
 
-	obj := checkpointRelease(news, newRelease)
+	obj := checkpointRelease(news, newRelease, fmt.Sprintf("%s.news", label))
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -921,7 +901,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointRelease(oldInputs, existingRelease), plugin.MarshalOptions{
+		checkpointRelease(oldInputs, existingRelease, fmt.Sprintf("%s.olds", label)), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -990,6 +970,9 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 
 	var updateError error
 	if !req.GetPreview() {
+		if r.clusterUnreachable {
+			return nil, fmt.Errorf("can't update Helm Release with unreachable cluster: %s", r.clusterUnreachableReason)
+		}
 		if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease); err != nil {
 			var failedErr *releaseFailedError
 			if errors.As(err, &failedErr) {
@@ -1000,7 +983,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		}
 	}
 
-	checkpointed := checkpointRelease(newResInputs, newRelease)
+	checkpointed := checkpointRelease(newResInputs, newRelease, fmt.Sprintf("%s.news", label))
 	inputsAndComputed, err := plugin.MarshalProperties(
 		checkpointed, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1113,7 +1096,9 @@ func computeResourceNames(r *Release) (map[string][]string, error) {
 	return resourceNames, nil
 }
 
-func checkpointRelease(inputs resource.PropertyMap, outputs *Release) resource.PropertyMap {
+func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string) resource.PropertyMap {
+	logger.V(9).Infof("[%s] Checkpointing outputs: %#v", label, outputs)
+	logger.V(9).Infof("[%s] Checkpointing inputs: %#v", label, inputs)
 	object := resource.NewPropertyMap(outputs)
 	object["__inputs"] = resource.MakeSecret(resource.NewObjectProperty(inputs))
 
@@ -1360,14 +1345,12 @@ func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *
 					RepositoryCache:  settings.RepositoryCache,
 					Debug:            settings.Debug,
 				}
-				log.Println("[DEBUG] Downloading chart dependencies...")
 				return true, man.Update()
 			}
 			return false, err
 		}
 		return false, err
 	}
-	log.Println("[DEBUG] Chart dependencies are up to date.")
 	return false, nil
 }
 

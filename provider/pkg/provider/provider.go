@@ -656,26 +656,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			warningConfig.WarningHandler = rest.NoWarnings{}
 			k.config = warningConfig
 			k.kubeconfig = kubeconfig
-
-			namespace := "default"
-			if k.defaultNamespace != "" {
-				namespace = k.defaultNamespace
-			}
-			k.helmReleaseProvider, err = newHelmReleaseProvider(
-				k.host,
-				apiConfig,
-				overrides,
-				k.config,
-				k.helmDriver,
-				namespace,
-				k.enableSecrets,
-				k.helmPluginsPath,
-				k.helmRegistryConfigPath,
-				k.helmRepositoryConfigPath,
-				k.helmRepositoryCache)
-			if err != nil {
-				return nil, err
-			}
 		}
 	}
 
@@ -700,6 +680,29 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load schema information from the API server: %v", err)
 		}
+	}
+
+	var err error
+	namespace := "default"
+	if k.defaultNamespace != "" {
+		namespace = k.defaultNamespace
+	}
+	k.helmReleaseProvider, err = newHelmReleaseProvider(
+		k.host,
+		apiConfig,
+		overrides,
+		k.config,
+		k.helmDriver,
+		namespace,
+		k.enableSecrets,
+		k.helmPluginsPath,
+		k.helmRegistryConfigPath,
+		k.helmRepositoryConfigPath,
+		k.helmRepositoryCache,
+		k.clusterUnreachable,
+		k.clusterUnreachableReason)
+	if err != nil {
+		return nil, err
 	}
 
 	return &pulumirpc.ConfigureResponse{
@@ -1221,10 +1224,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	newInputs = annotatedInputs
 
 	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Check(ctx, req)
-		}
-		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
 	// Adopt name from old object if appropriate.
@@ -1434,10 +1434,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Diff(ctx, req)
-		}
-		return nil, fmt.Errorf("can't use Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+		return k.helmReleaseProvider.Diff(ctx, req)
 	}
 
 	namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
@@ -1605,10 +1602,7 @@ func (k *kubeProvider) Create(
 	urn := resource.URN(req.GetUrn())
 
 	if isHelmRelease(urn) && !req.GetPreview() {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Create(ctx, req)
-		}
-		return nil, fmt.Errorf("can't create Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+		return k.helmReleaseProvider.Create(ctx, req)
 	}
 
 	label := fmt.Sprintf("%s.Create(%s)", k.label(), urn)
@@ -2110,10 +2104,6 @@ func (k *kubeProvider) Update(
 	}
 
 	if isHelmRelease(urn) {
-		if k.clusterUnreachable {
-			return nil, fmt.Errorf("can't update Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
-		}
-
 		return k.helmReleaseProvider.Update(ctx, req)
 	}
 	// Ignore old state; we'll get it from Kubernetes later.
@@ -2256,10 +2246,10 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	}
 
 	if isHelmRelease(urn) {
-		if !k.clusterUnreachable {
-			return k.helmReleaseProvider.Delete(ctx, req)
+		if k.clusterUnreachable {
+			return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster")
 		}
-		return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
+		return k.helmReleaseProvider.Delete(ctx, req)
 	}
 
 	_, current := parseCheckpointObject(oldState)
