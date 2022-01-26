@@ -2247,7 +2247,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	if isHelmRelease(urn) {
 		if k.clusterUnreachable {
-			return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster")
+			return nil, fmt.Errorf("can't delete Helm Release with unreachable cluster. Reason: %q", k.clusterUnreachableReason)
 		}
 		return k.helmReleaseProvider.Delete(ctx, req)
 	}
