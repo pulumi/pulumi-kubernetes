@@ -618,6 +618,74 @@ type CustomResourceDefinitionListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// CustomResourceDefinitionListTypeInput is an input type that accepts CustomResourceDefinitionListTypeArgs and CustomResourceDefinitionListTypeOutput values.
+// You can construct a concrete instance of `CustomResourceDefinitionListTypeInput` via:
+//
+//          CustomResourceDefinitionListTypeArgs{...}
+type CustomResourceDefinitionListTypeInput interface {
+	pulumi.Input
+
+	ToCustomResourceDefinitionListTypeOutput() CustomResourceDefinitionListTypeOutput
+	ToCustomResourceDefinitionListTypeOutputWithContext(context.Context) CustomResourceDefinitionListTypeOutput
+}
+
+// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+type CustomResourceDefinitionListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items list individual CustomResourceDefinition objects
+	Items CustomResourceDefinitionTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CustomResourceDefinitionListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionListType)(nil)).Elem()
+}
+
+func (i CustomResourceDefinitionListTypeArgs) ToCustomResourceDefinitionListTypeOutput() CustomResourceDefinitionListTypeOutput {
+	return i.ToCustomResourceDefinitionListTypeOutputWithContext(context.Background())
+}
+
+func (i CustomResourceDefinitionListTypeArgs) ToCustomResourceDefinitionListTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListTypeOutput)
+}
+
+// CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
+type CustomResourceDefinitionListTypeOutput struct{ *pulumi.OutputState }
+
+func (CustomResourceDefinitionListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomResourceDefinitionListType)(nil)).Elem()
+}
+
+func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTypeOutput() CustomResourceDefinitionListTypeOutput {
+	return o
+}
+
+func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CustomResourceDefinitionListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items list individual CustomResourceDefinition objects
+func (o CustomResourceDefinitionListTypeOutput) Items() CustomResourceDefinitionTypeArrayOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) []CustomResourceDefinitionType { return v.Items }).(CustomResourceDefinitionTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CustomResourceDefinitionListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o CustomResourceDefinitionListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CustomResourceDefinitionListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
 type CustomResourceDefinitionNames struct {
 	// categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -3414,6 +3482,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionTypeArrayInput)(nil)).Elem(), CustomResourceDefinitionTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionConditionInput)(nil)).Elem(), CustomResourceDefinitionConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionConditionArrayInput)(nil)).Elem(), CustomResourceDefinitionConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionListTypeInput)(nil)).Elem(), CustomResourceDefinitionListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesPtrInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
@@ -3445,6 +3514,7 @@ func init() {
 	pulumi.RegisterOutputType(CustomResourceDefinitionTypeArrayOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionConditionOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionConditionArrayOutput{})
+	pulumi.RegisterOutputType(CustomResourceDefinitionListTypeOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionNamesOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionNamesPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionSpecOutput{})

@@ -150,6 +150,76 @@ type LeaseListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// LeaseListTypeInput is an input type that accepts LeaseListTypeArgs and LeaseListTypeOutput values.
+// You can construct a concrete instance of `LeaseListTypeInput` via:
+//
+//          LeaseListTypeArgs{...}
+type LeaseListTypeInput interface {
+	pulumi.Input
+
+	ToLeaseListTypeOutput() LeaseListTypeOutput
+	ToLeaseListTypeOutputWithContext(context.Context) LeaseListTypeOutput
+}
+
+// LeaseList is a list of Lease objects.
+type LeaseListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is a list of schema objects.
+	Items LeaseTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (LeaseListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseListType)(nil)).Elem()
+}
+
+func (i LeaseListTypeArgs) ToLeaseListTypeOutput() LeaseListTypeOutput {
+	return i.ToLeaseListTypeOutputWithContext(context.Background())
+}
+
+func (i LeaseListTypeArgs) ToLeaseListTypeOutputWithContext(ctx context.Context) LeaseListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LeaseListTypeOutput)
+}
+
+// LeaseList is a list of Lease objects.
+type LeaseListTypeOutput struct{ *pulumi.OutputState }
+
+func (LeaseListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LeaseListType)(nil)).Elem()
+}
+
+func (o LeaseListTypeOutput) ToLeaseListTypeOutput() LeaseListTypeOutput {
+	return o
+}
+
+func (o LeaseListTypeOutput) ToLeaseListTypeOutputWithContext(ctx context.Context) LeaseListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o LeaseListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of schema objects.
+func (o LeaseListTypeOutput) Items() LeaseTypeArrayOutput {
+	return o.ApplyT(func(v LeaseListType) []LeaseType { return v.Items }).(LeaseTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o LeaseListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o LeaseListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v LeaseListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // LeaseSpec is a specification of a Lease.
 type LeaseSpec struct {
 	// acquireTime is a time when the current lease was acquired.
@@ -369,10 +439,12 @@ func (o LeaseSpecPtrOutput) RenewTime() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseTypeInput)(nil)).Elem(), LeaseTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseTypeArrayInput)(nil)).Elem(), LeaseTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LeaseListTypeInput)(nil)).Elem(), LeaseListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseSpecInput)(nil)).Elem(), LeaseSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LeaseSpecPtrInput)(nil)).Elem(), LeaseSpecArgs{})
 	pulumi.RegisterOutputType(LeaseTypeOutput{})
 	pulumi.RegisterOutputType(LeaseTypeArrayOutput{})
+	pulumi.RegisterOutputType(LeaseListTypeOutput{})
 	pulumi.RegisterOutputType(LeaseSpecOutput{})
 	pulumi.RegisterOutputType(LeaseSpecPtrOutput{})
 }

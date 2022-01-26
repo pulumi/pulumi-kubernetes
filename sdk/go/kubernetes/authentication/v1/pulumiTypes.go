@@ -222,6 +222,83 @@ type TokenRequestType struct {
 	Status *TokenRequestStatus `pulumi:"status"`
 }
 
+// TokenRequestTypeInput is an input type that accepts TokenRequestTypeArgs and TokenRequestTypeOutput values.
+// You can construct a concrete instance of `TokenRequestTypeInput` via:
+//
+//          TokenRequestTypeArgs{...}
+type TokenRequestTypeInput interface {
+	pulumi.Input
+
+	ToTokenRequestTypeOutput() TokenRequestTypeOutput
+	ToTokenRequestTypeOutputWithContext(context.Context) TokenRequestTypeOutput
+}
+
+// TokenRequest requests a token for a given service account.
+type TokenRequestTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec holds information about the request being evaluated
+	Spec TokenRequestSpecInput `pulumi:"spec"`
+	// Status is filled in by the server and indicates whether the token can be authenticated.
+	Status TokenRequestStatusPtrInput `pulumi:"status"`
+}
+
+func (TokenRequestTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenRequestType)(nil)).Elem()
+}
+
+func (i TokenRequestTypeArgs) ToTokenRequestTypeOutput() TokenRequestTypeOutput {
+	return i.ToTokenRequestTypeOutputWithContext(context.Background())
+}
+
+func (i TokenRequestTypeArgs) ToTokenRequestTypeOutputWithContext(ctx context.Context) TokenRequestTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestTypeOutput)
+}
+
+// TokenRequest requests a token for a given service account.
+type TokenRequestTypeOutput struct{ *pulumi.OutputState }
+
+func (TokenRequestTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenRequestType)(nil)).Elem()
+}
+
+func (o TokenRequestTypeOutput) ToTokenRequestTypeOutput() TokenRequestTypeOutput {
+	return o
+}
+
+func (o TokenRequestTypeOutput) ToTokenRequestTypeOutputWithContext(ctx context.Context) TokenRequestTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o TokenRequestTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TokenRequestType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o TokenRequestTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TokenRequestType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o TokenRequestTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v TokenRequestType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec holds information about the request being evaluated
+func (o TokenRequestTypeOutput) Spec() TokenRequestSpecOutput {
+	return o.ApplyT(func(v TokenRequestType) TokenRequestSpec { return v.Spec }).(TokenRequestSpecOutput)
+}
+
+// Status is filled in by the server and indicates whether the token can be authenticated.
+func (o TokenRequestTypeOutput) Status() TokenRequestStatusPtrOutput {
+	return o.ApplyT(func(v TokenRequestType) *TokenRequestStatus { return v.Status }).(TokenRequestStatusPtrOutput)
+}
+
 // TokenRequestSpec contains client provided parameters of a token request.
 type TokenRequestSpec struct {
 	// Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
@@ -303,6 +380,78 @@ type TokenRequestStatus struct {
 	Token string `pulumi:"token"`
 }
 
+// TokenRequestStatusInput is an input type that accepts TokenRequestStatusArgs and TokenRequestStatusOutput values.
+// You can construct a concrete instance of `TokenRequestStatusInput` via:
+//
+//          TokenRequestStatusArgs{...}
+type TokenRequestStatusInput interface {
+	pulumi.Input
+
+	ToTokenRequestStatusOutput() TokenRequestStatusOutput
+	ToTokenRequestStatusOutputWithContext(context.Context) TokenRequestStatusOutput
+}
+
+// TokenRequestStatus is the result of a token request.
+type TokenRequestStatusArgs struct {
+	// ExpirationTimestamp is the time of expiration of the returned token.
+	ExpirationTimestamp pulumi.StringInput `pulumi:"expirationTimestamp"`
+	// Token is the opaque bearer token.
+	Token pulumi.StringInput `pulumi:"token"`
+}
+
+func (TokenRequestStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenRequestStatus)(nil)).Elem()
+}
+
+func (i TokenRequestStatusArgs) ToTokenRequestStatusOutput() TokenRequestStatusOutput {
+	return i.ToTokenRequestStatusOutputWithContext(context.Background())
+}
+
+func (i TokenRequestStatusArgs) ToTokenRequestStatusOutputWithContext(ctx context.Context) TokenRequestStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestStatusOutput)
+}
+
+func (i TokenRequestStatusArgs) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return i.ToTokenRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i TokenRequestStatusArgs) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestStatusOutput).ToTokenRequestStatusPtrOutputWithContext(ctx)
+}
+
+// TokenRequestStatusPtrInput is an input type that accepts TokenRequestStatusArgs, TokenRequestStatusPtr and TokenRequestStatusPtrOutput values.
+// You can construct a concrete instance of `TokenRequestStatusPtrInput` via:
+//
+//          TokenRequestStatusArgs{...}
+//
+//  or:
+//
+//          nil
+type TokenRequestStatusPtrInput interface {
+	pulumi.Input
+
+	ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput
+	ToTokenRequestStatusPtrOutputWithContext(context.Context) TokenRequestStatusPtrOutput
+}
+
+type tokenRequestStatusPtrType TokenRequestStatusArgs
+
+func TokenRequestStatusPtr(v *TokenRequestStatusArgs) TokenRequestStatusPtrInput {
+	return (*tokenRequestStatusPtrType)(v)
+}
+
+func (*tokenRequestStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenRequestStatus)(nil)).Elem()
+}
+
+func (i *tokenRequestStatusPtrType) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return i.ToTokenRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *tokenRequestStatusPtrType) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenRequestStatusPtrOutput)
+}
+
 // TokenRequestStatus is the result of a token request.
 type TokenRequestStatusOutput struct{ *pulumi.OutputState }
 
@@ -316,6 +465,16 @@ func (o TokenRequestStatusOutput) ToTokenRequestStatusOutput() TokenRequestStatu
 
 func (o TokenRequestStatusOutput) ToTokenRequestStatusOutputWithContext(ctx context.Context) TokenRequestStatusOutput {
 	return o
+}
+
+func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutput() TokenRequestStatusPtrOutput {
+	return o.ToTokenRequestStatusPtrOutputWithContext(context.Background())
+}
+
+func (o TokenRequestStatusOutput) ToTokenRequestStatusPtrOutputWithContext(ctx context.Context) TokenRequestStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenRequestStatus) *TokenRequestStatus {
+		return &v
+	}).(TokenRequestStatusPtrOutput)
 }
 
 // ExpirationTimestamp is the time of expiration of the returned token.
@@ -384,6 +543,83 @@ type TokenReviewType struct {
 	Spec TokenReviewSpec `pulumi:"spec"`
 	// Status is filled in by the server and indicates whether the request can be authenticated.
 	Status *TokenReviewStatus `pulumi:"status"`
+}
+
+// TokenReviewTypeInput is an input type that accepts TokenReviewTypeArgs and TokenReviewTypeOutput values.
+// You can construct a concrete instance of `TokenReviewTypeInput` via:
+//
+//          TokenReviewTypeArgs{...}
+type TokenReviewTypeInput interface {
+	pulumi.Input
+
+	ToTokenReviewTypeOutput() TokenReviewTypeOutput
+	ToTokenReviewTypeOutputWithContext(context.Context) TokenReviewTypeOutput
+}
+
+// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+type TokenReviewTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// Spec holds information about the request being evaluated
+	Spec TokenReviewSpecInput `pulumi:"spec"`
+	// Status is filled in by the server and indicates whether the request can be authenticated.
+	Status TokenReviewStatusPtrInput `pulumi:"status"`
+}
+
+func (TokenReviewTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenReviewType)(nil)).Elem()
+}
+
+func (i TokenReviewTypeArgs) ToTokenReviewTypeOutput() TokenReviewTypeOutput {
+	return i.ToTokenReviewTypeOutputWithContext(context.Background())
+}
+
+func (i TokenReviewTypeArgs) ToTokenReviewTypeOutputWithContext(ctx context.Context) TokenReviewTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewTypeOutput)
+}
+
+// TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
+type TokenReviewTypeOutput struct{ *pulumi.OutputState }
+
+func (TokenReviewTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenReviewType)(nil)).Elem()
+}
+
+func (o TokenReviewTypeOutput) ToTokenReviewTypeOutput() TokenReviewTypeOutput {
+	return o
+}
+
+func (o TokenReviewTypeOutput) ToTokenReviewTypeOutputWithContext(ctx context.Context) TokenReviewTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o TokenReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TokenReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o TokenReviewTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TokenReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o TokenReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v TokenReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec holds information about the request being evaluated
+func (o TokenReviewTypeOutput) Spec() TokenReviewSpecOutput {
+	return o.ApplyT(func(v TokenReviewType) TokenReviewSpec { return v.Spec }).(TokenReviewSpecOutput)
+}
+
+// Status is filled in by the server and indicates whether the request can be authenticated.
+func (o TokenReviewTypeOutput) Status() TokenReviewStatusPtrOutput {
+	return o.ApplyT(func(v TokenReviewType) *TokenReviewStatus { return v.Status }).(TokenReviewStatusPtrOutput)
 }
 
 // TokenReviewSpec is a description of the token authentication request.
@@ -462,6 +698,82 @@ type TokenReviewStatus struct {
 	User *UserInfo `pulumi:"user"`
 }
 
+// TokenReviewStatusInput is an input type that accepts TokenReviewStatusArgs and TokenReviewStatusOutput values.
+// You can construct a concrete instance of `TokenReviewStatusInput` via:
+//
+//          TokenReviewStatusArgs{...}
+type TokenReviewStatusInput interface {
+	pulumi.Input
+
+	ToTokenReviewStatusOutput() TokenReviewStatusOutput
+	ToTokenReviewStatusOutputWithContext(context.Context) TokenReviewStatusOutput
+}
+
+// TokenReviewStatus is the result of the token authentication request.
+type TokenReviewStatusArgs struct {
+	// Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
+	Audiences pulumi.StringArrayInput `pulumi:"audiences"`
+	// Authenticated indicates that the token was associated with a known user.
+	Authenticated pulumi.BoolPtrInput `pulumi:"authenticated"`
+	// Error indicates that the token couldn't be checked
+	Error pulumi.StringPtrInput `pulumi:"error"`
+	// User is the UserInfo associated with the provided token.
+	User UserInfoPtrInput `pulumi:"user"`
+}
+
+func (TokenReviewStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TokenReviewStatus)(nil)).Elem()
+}
+
+func (i TokenReviewStatusArgs) ToTokenReviewStatusOutput() TokenReviewStatusOutput {
+	return i.ToTokenReviewStatusOutputWithContext(context.Background())
+}
+
+func (i TokenReviewStatusArgs) ToTokenReviewStatusOutputWithContext(ctx context.Context) TokenReviewStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusOutput)
+}
+
+func (i TokenReviewStatusArgs) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return i.ToTokenReviewStatusPtrOutputWithContext(context.Background())
+}
+
+func (i TokenReviewStatusArgs) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusOutput).ToTokenReviewStatusPtrOutputWithContext(ctx)
+}
+
+// TokenReviewStatusPtrInput is an input type that accepts TokenReviewStatusArgs, TokenReviewStatusPtr and TokenReviewStatusPtrOutput values.
+// You can construct a concrete instance of `TokenReviewStatusPtrInput` via:
+//
+//          TokenReviewStatusArgs{...}
+//
+//  or:
+//
+//          nil
+type TokenReviewStatusPtrInput interface {
+	pulumi.Input
+
+	ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput
+	ToTokenReviewStatusPtrOutputWithContext(context.Context) TokenReviewStatusPtrOutput
+}
+
+type tokenReviewStatusPtrType TokenReviewStatusArgs
+
+func TokenReviewStatusPtr(v *TokenReviewStatusArgs) TokenReviewStatusPtrInput {
+	return (*tokenReviewStatusPtrType)(v)
+}
+
+func (*tokenReviewStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TokenReviewStatus)(nil)).Elem()
+}
+
+func (i *tokenReviewStatusPtrType) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return i.ToTokenReviewStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *tokenReviewStatusPtrType) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusPtrOutput)
+}
+
 // TokenReviewStatus is the result of the token authentication request.
 type TokenReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -475,6 +787,16 @@ func (o TokenReviewStatusOutput) ToTokenReviewStatusOutput() TokenReviewStatusOu
 
 func (o TokenReviewStatusOutput) ToTokenReviewStatusOutputWithContext(ctx context.Context) TokenReviewStatusOutput {
 	return o
+}
+
+func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
+	return o.ToTokenReviewStatusPtrOutputWithContext(context.Background())
+}
+
+func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewStatus) *TokenReviewStatus {
+		return &v
+	}).(TokenReviewStatusPtrOutput)
 }
 
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
@@ -573,6 +895,82 @@ type UserInfo struct {
 	Username *string `pulumi:"username"`
 }
 
+// UserInfoInput is an input type that accepts UserInfoArgs and UserInfoOutput values.
+// You can construct a concrete instance of `UserInfoInput` via:
+//
+//          UserInfoArgs{...}
+type UserInfoInput interface {
+	pulumi.Input
+
+	ToUserInfoOutput() UserInfoOutput
+	ToUserInfoOutputWithContext(context.Context) UserInfoOutput
+}
+
+// UserInfo holds the information about the user needed to implement the user.Info interface.
+type UserInfoArgs struct {
+	// Any additional information provided by the authenticator.
+	Extra pulumi.StringArrayMapInput `pulumi:"extra"`
+	// The names of groups this user is a part of.
+	Groups pulumi.StringArrayInput `pulumi:"groups"`
+	// A unique value that identifies this user across time. If this user is deleted and another user by the same name is added, they will have different UIDs.
+	Uid pulumi.StringPtrInput `pulumi:"uid"`
+	// The name that uniquely identifies this user among all active users.
+	Username pulumi.StringPtrInput `pulumi:"username"`
+}
+
+func (UserInfoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*UserInfo)(nil)).Elem()
+}
+
+func (i UserInfoArgs) ToUserInfoOutput() UserInfoOutput {
+	return i.ToUserInfoOutputWithContext(context.Background())
+}
+
+func (i UserInfoArgs) ToUserInfoOutputWithContext(ctx context.Context) UserInfoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UserInfoOutput)
+}
+
+func (i UserInfoArgs) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return i.ToUserInfoPtrOutputWithContext(context.Background())
+}
+
+func (i UserInfoArgs) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UserInfoOutput).ToUserInfoPtrOutputWithContext(ctx)
+}
+
+// UserInfoPtrInput is an input type that accepts UserInfoArgs, UserInfoPtr and UserInfoPtrOutput values.
+// You can construct a concrete instance of `UserInfoPtrInput` via:
+//
+//          UserInfoArgs{...}
+//
+//  or:
+//
+//          nil
+type UserInfoPtrInput interface {
+	pulumi.Input
+
+	ToUserInfoPtrOutput() UserInfoPtrOutput
+	ToUserInfoPtrOutputWithContext(context.Context) UserInfoPtrOutput
+}
+
+type userInfoPtrType UserInfoArgs
+
+func UserInfoPtr(v *UserInfoArgs) UserInfoPtrInput {
+	return (*userInfoPtrType)(v)
+}
+
+func (*userInfoPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**UserInfo)(nil)).Elem()
+}
+
+func (i *userInfoPtrType) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return i.ToUserInfoPtrOutputWithContext(context.Background())
+}
+
+func (i *userInfoPtrType) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(UserInfoPtrOutput)
+}
+
 // UserInfo holds the information about the user needed to implement the user.Info interface.
 type UserInfoOutput struct{ *pulumi.OutputState }
 
@@ -586,6 +984,16 @@ func (o UserInfoOutput) ToUserInfoOutput() UserInfoOutput {
 
 func (o UserInfoOutput) ToUserInfoOutputWithContext(ctx context.Context) UserInfoOutput {
 	return o
+}
+
+func (o UserInfoOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
+	return o.ToUserInfoPtrOutputWithContext(context.Background())
+}
+
+func (o UserInfoOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserInfo) *UserInfo {
+		return &v
+	}).(UserInfoPtrOutput)
 }
 
 // Any additional information provided by the authenticator.
@@ -675,13 +1083,23 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*BoundObjectReferenceInput)(nil)).Elem(), BoundObjectReferenceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BoundObjectReferencePtrInput)(nil)).Elem(), BoundObjectReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestTypeInput)(nil)).Elem(), TokenRequestTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestSpecInput)(nil)).Elem(), TokenRequestSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestStatusInput)(nil)).Elem(), TokenRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenRequestStatusPtrInput)(nil)).Elem(), TokenRequestStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewTypeInput)(nil)).Elem(), TokenReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecInput)(nil)).Elem(), TokenReviewSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusPtrInput)(nil)).Elem(), TokenReviewStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoInput)(nil)).Elem(), UserInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoPtrInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterOutputType(BoundObjectReferenceOutput{})
 	pulumi.RegisterOutputType(BoundObjectReferencePtrOutput{})
+	pulumi.RegisterOutputType(TokenRequestTypeOutput{})
 	pulumi.RegisterOutputType(TokenRequestSpecOutput{})
 	pulumi.RegisterOutputType(TokenRequestStatusOutput{})
 	pulumi.RegisterOutputType(TokenRequestStatusPtrOutput{})
+	pulumi.RegisterOutputType(TokenReviewTypeOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecOutput{})
 	pulumi.RegisterOutputType(TokenReviewStatusOutput{})
 	pulumi.RegisterOutputType(TokenReviewStatusPtrOutput{})

@@ -268,6 +268,76 @@ type EventListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// EventListTypeInput is an input type that accepts EventListTypeArgs and EventListTypeOutput values.
+// You can construct a concrete instance of `EventListTypeInput` via:
+//
+//          EventListTypeArgs{...}
+type EventListTypeInput interface {
+	pulumi.Input
+
+	ToEventListTypeOutput() EventListTypeOutput
+	ToEventListTypeOutputWithContext(context.Context) EventListTypeOutput
+}
+
+// EventList is a list of Event objects.
+type EventListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is a list of schema objects.
+	Items EventTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (EventListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventListType)(nil)).Elem()
+}
+
+func (i EventListTypeArgs) ToEventListTypeOutput() EventListTypeOutput {
+	return i.ToEventListTypeOutputWithContext(context.Background())
+}
+
+func (i EventListTypeArgs) ToEventListTypeOutputWithContext(ctx context.Context) EventListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EventListTypeOutput)
+}
+
+// EventList is a list of Event objects.
+type EventListTypeOutput struct{ *pulumi.OutputState }
+
+func (EventListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EventListType)(nil)).Elem()
+}
+
+func (o EventListTypeOutput) ToEventListTypeOutput() EventListTypeOutput {
+	return o
+}
+
+func (o EventListTypeOutput) ToEventListTypeOutputWithContext(ctx context.Context) EventListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EventListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is a list of schema objects.
+func (o EventListTypeOutput) Items() EventTypeArrayOutput {
+	return o.ApplyT(func(v EventListType) []EventType { return v.Items }).(EventTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EventListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o EventListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v EventListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time. How often to update the EventSeries is up to the event reporters. The default event reporter in "k8s.io/client-go/tools/events/event_broadcaster.go" shows how this struct is updated on heartbeats and can guide customized reporter implementations.
 type EventSeries struct {
 	// count is the number of occurrences in this series up to the last heartbeat time.
@@ -430,10 +500,12 @@ func (o EventSeriesPtrOutput) LastObservedTime() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeInput)(nil)).Elem(), EventTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventTypeArrayInput)(nil)).Elem(), EventTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EventListTypeInput)(nil)).Elem(), EventListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesInput)(nil)).Elem(), EventSeriesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EventSeriesPtrInput)(nil)).Elem(), EventSeriesArgs{})
 	pulumi.RegisterOutputType(EventTypeOutput{})
 	pulumi.RegisterOutputType(EventTypeArrayOutput{})
+	pulumi.RegisterOutputType(EventListTypeOutput{})
 	pulumi.RegisterOutputType(EventSeriesOutput{})
 	pulumi.RegisterOutputType(EventSeriesPtrOutput{})
 }

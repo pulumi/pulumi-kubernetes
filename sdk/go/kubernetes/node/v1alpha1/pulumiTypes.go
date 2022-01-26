@@ -291,6 +291,76 @@ type RuntimeClassListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// RuntimeClassListTypeInput is an input type that accepts RuntimeClassListTypeArgs and RuntimeClassListTypeOutput values.
+// You can construct a concrete instance of `RuntimeClassListTypeInput` via:
+//
+//          RuntimeClassListTypeArgs{...}
+type RuntimeClassListTypeInput interface {
+	pulumi.Input
+
+	ToRuntimeClassListTypeOutput() RuntimeClassListTypeOutput
+	ToRuntimeClassListTypeOutputWithContext(context.Context) RuntimeClassListTypeOutput
+}
+
+// RuntimeClassList is a list of RuntimeClass objects.
+type RuntimeClassListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is a list of schema objects.
+	Items RuntimeClassTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (RuntimeClassListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassListType)(nil)).Elem()
+}
+
+func (i RuntimeClassListTypeArgs) ToRuntimeClassListTypeOutput() RuntimeClassListTypeOutput {
+	return i.ToRuntimeClassListTypeOutputWithContext(context.Background())
+}
+
+func (i RuntimeClassListTypeArgs) ToRuntimeClassListTypeOutputWithContext(ctx context.Context) RuntimeClassListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListTypeOutput)
+}
+
+// RuntimeClassList is a list of RuntimeClass objects.
+type RuntimeClassListTypeOutput struct{ *pulumi.OutputState }
+
+func (RuntimeClassListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RuntimeClassListType)(nil)).Elem()
+}
+
+func (o RuntimeClassListTypeOutput) ToRuntimeClassListTypeOutput() RuntimeClassListTypeOutput {
+	return o
+}
+
+func (o RuntimeClassListTypeOutput) ToRuntimeClassListTypeOutputWithContext(ctx context.Context) RuntimeClassListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o RuntimeClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RuntimeClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of schema objects.
+func (o RuntimeClassListTypeOutput) Items() RuntimeClassTypeArrayOutput {
+	return o.ApplyT(func(v RuntimeClassListType) []RuntimeClassType { return v.Items }).(RuntimeClassTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o RuntimeClassListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RuntimeClassListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o RuntimeClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v RuntimeClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
 type RuntimeClassSpec struct {
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
@@ -528,6 +598,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*OverheadPtrInput)(nil)).Elem(), OverheadArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassTypeInput)(nil)).Elem(), RuntimeClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassTypeArrayInput)(nil)).Elem(), RuntimeClassTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassListTypeInput)(nil)).Elem(), RuntimeClassListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuntimeClassSpecInput)(nil)).Elem(), RuntimeClassSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SchedulingInput)(nil)).Elem(), SchedulingArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SchedulingPtrInput)(nil)).Elem(), SchedulingArgs{})
@@ -535,6 +606,7 @@ func init() {
 	pulumi.RegisterOutputType(OverheadPtrOutput{})
 	pulumi.RegisterOutputType(RuntimeClassTypeOutput{})
 	pulumi.RegisterOutputType(RuntimeClassTypeArrayOutput{})
+	pulumi.RegisterOutputType(RuntimeClassListTypeOutput{})
 	pulumi.RegisterOutputType(RuntimeClassSpecOutput{})
 	pulumi.RegisterOutputType(SchedulingOutput{})
 	pulumi.RegisterOutputType(SchedulingPtrOutput{})

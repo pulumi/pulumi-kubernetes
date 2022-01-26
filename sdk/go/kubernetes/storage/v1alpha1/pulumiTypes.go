@@ -226,6 +226,76 @@ type CSIStorageCapacityListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// CSIStorageCapacityListTypeInput is an input type that accepts CSIStorageCapacityListTypeArgs and CSIStorageCapacityListTypeOutput values.
+// You can construct a concrete instance of `CSIStorageCapacityListTypeInput` via:
+//
+//          CSIStorageCapacityListTypeArgs{...}
+type CSIStorageCapacityListTypeInput interface {
+	pulumi.Input
+
+	ToCSIStorageCapacityListTypeOutput() CSIStorageCapacityListTypeOutput
+	ToCSIStorageCapacityListTypeOutputWithContext(context.Context) CSIStorageCapacityListTypeOutput
+}
+
+// CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+type CSIStorageCapacityListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of CSIStorageCapacity objects.
+	Items CSIStorageCapacityTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CSIStorageCapacityListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIStorageCapacityListType)(nil)).Elem()
+}
+
+func (i CSIStorageCapacityListTypeArgs) ToCSIStorageCapacityListTypeOutput() CSIStorageCapacityListTypeOutput {
+	return i.ToCSIStorageCapacityListTypeOutputWithContext(context.Background())
+}
+
+func (i CSIStorageCapacityListTypeArgs) ToCSIStorageCapacityListTypeOutputWithContext(ctx context.Context) CSIStorageCapacityListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityListTypeOutput)
+}
+
+// CSIStorageCapacityList is a collection of CSIStorageCapacity objects.
+type CSIStorageCapacityListTypeOutput struct{ *pulumi.OutputState }
+
+func (CSIStorageCapacityListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CSIStorageCapacityListType)(nil)).Elem()
+}
+
+func (o CSIStorageCapacityListTypeOutput) ToCSIStorageCapacityListTypeOutput() CSIStorageCapacityListTypeOutput {
+	return o
+}
+
+func (o CSIStorageCapacityListTypeOutput) ToCSIStorageCapacityListTypeOutputWithContext(ctx context.Context) CSIStorageCapacityListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSIStorageCapacityListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of CSIStorageCapacity objects.
+func (o CSIStorageCapacityListTypeOutput) Items() CSIStorageCapacityTypeArrayOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) []CSIStorageCapacityType { return v.Items }).(CSIStorageCapacityTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSIStorageCapacityListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CSIStorageCapacityListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CSIStorageCapacityListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
@@ -378,6 +448,76 @@ type VolumeAttachmentListType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// VolumeAttachmentListTypeInput is an input type that accepts VolumeAttachmentListTypeArgs and VolumeAttachmentListTypeOutput values.
+// You can construct a concrete instance of `VolumeAttachmentListTypeInput` via:
+//
+//          VolumeAttachmentListTypeArgs{...}
+type VolumeAttachmentListTypeInput interface {
+	pulumi.Input
+
+	ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput
+	ToVolumeAttachmentListTypeOutputWithContext(context.Context) VolumeAttachmentListTypeOutput
+}
+
+// VolumeAttachmentList is a collection of VolumeAttachment objects.
+type VolumeAttachmentListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Items is the list of VolumeAttachments
+	Items VolumeAttachmentTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (VolumeAttachmentListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
+}
+
+func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
+	return i.ToVolumeAttachmentListTypeOutputWithContext(context.Background())
+}
+
+func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListTypeOutput)
+}
+
+// VolumeAttachmentList is a collection of VolumeAttachment objects.
+type VolumeAttachmentListTypeOutput struct{ *pulumi.OutputState }
+
+func (VolumeAttachmentListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VolumeAttachmentListType)(nil)).Elem()
+}
+
+func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutput() VolumeAttachmentListTypeOutput {
+	return o
+}
+
+func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o VolumeAttachmentListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of VolumeAttachments
+func (o VolumeAttachmentListTypeOutput) Items() VolumeAttachmentTypeArrayOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) []VolumeAttachmentType { return v.Items }).(VolumeAttachmentTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o VolumeAttachmentListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o VolumeAttachmentListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v VolumeAttachmentListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
@@ -876,8 +1016,10 @@ func (o VolumeErrorPtrOutput) Time() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityTypeInput)(nil)).Elem(), CSIStorageCapacityTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityTypeArrayInput)(nil)).Elem(), CSIStorageCapacityTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CSIStorageCapacityListTypeInput)(nil)).Elem(), CSIStorageCapacityListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentTypeInput)(nil)).Elem(), VolumeAttachmentTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentTypeArrayInput)(nil)).Elem(), VolumeAttachmentTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentListTypeInput)(nil)).Elem(), VolumeAttachmentListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentSourceInput)(nil)).Elem(), VolumeAttachmentSourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentSpecInput)(nil)).Elem(), VolumeAttachmentSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeAttachmentStatusInput)(nil)).Elem(), VolumeAttachmentStatusArgs{})
@@ -886,8 +1028,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*VolumeErrorPtrInput)(nil)).Elem(), VolumeErrorArgs{})
 	pulumi.RegisterOutputType(CSIStorageCapacityTypeOutput{})
 	pulumi.RegisterOutputType(CSIStorageCapacityTypeArrayOutput{})
+	pulumi.RegisterOutputType(CSIStorageCapacityListTypeOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentTypeOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentTypeArrayOutput{})
+	pulumi.RegisterOutputType(VolumeAttachmentListTypeOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSourceOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentSpecOutput{})
 	pulumi.RegisterOutputType(VolumeAttachmentStatusOutput{})

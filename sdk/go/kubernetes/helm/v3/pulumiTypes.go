@@ -27,6 +27,46 @@ type ReleaseStatus struct {
 	Version *string `pulumi:"version"`
 }
 
+// ReleaseStatusInput is an input type that accepts ReleaseStatusArgs and ReleaseStatusOutput values.
+// You can construct a concrete instance of `ReleaseStatusInput` via:
+//
+//          ReleaseStatusArgs{...}
+type ReleaseStatusInput interface {
+	pulumi.Input
+
+	ToReleaseStatusOutput() ReleaseStatusOutput
+	ToReleaseStatusOutputWithContext(context.Context) ReleaseStatusOutput
+}
+
+type ReleaseStatusArgs struct {
+	// The version number of the application being deployed.
+	AppVersion pulumi.StringPtrInput `pulumi:"appVersion"`
+	// The name of the chart.
+	Chart pulumi.StringPtrInput `pulumi:"chart"`
+	// Name is the name of the release.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Namespace is the kubernetes namespace of the release.
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Version is an int32 which represents the version of the release.
+	Revision pulumi.IntPtrInput `pulumi:"revision"`
+	// Status of the release.
+	Status pulumi.StringInput `pulumi:"status"`
+	// A SemVer 2 conformant version string of the chart.
+	Version pulumi.StringPtrInput `pulumi:"version"`
+}
+
+func (ReleaseStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ReleaseStatus)(nil)).Elem()
+}
+
+func (i ReleaseStatusArgs) ToReleaseStatusOutput() ReleaseStatusOutput {
+	return i.ToReleaseStatusOutputWithContext(context.Background())
+}
+
+func (i ReleaseStatusArgs) ToReleaseStatusOutputWithContext(ctx context.Context) ReleaseStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ReleaseStatusOutput)
+}
+
 type ReleaseStatusOutput struct{ *pulumi.OutputState }
 
 func (ReleaseStatusOutput) ElementType() reflect.Type {
@@ -312,6 +352,7 @@ func (o RepositoryOptsPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseStatusInput)(nil)).Elem(), ReleaseStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RepositoryOptsInput)(nil)).Elem(), RepositoryOptsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RepositoryOptsPtrInput)(nil)).Elem(), RepositoryOptsArgs{})
 	pulumi.RegisterOutputType(ReleaseStatusOutput{})

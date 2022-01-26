@@ -363,6 +363,74 @@ type CertificateSigningRequestListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// CertificateSigningRequestListTypeInput is an input type that accepts CertificateSigningRequestListTypeArgs and CertificateSigningRequestListTypeOutput values.
+// You can construct a concrete instance of `CertificateSigningRequestListTypeInput` via:
+//
+//          CertificateSigningRequestListTypeArgs{...}
+type CertificateSigningRequestListTypeInput interface {
+	pulumi.Input
+
+	ToCertificateSigningRequestListTypeOutput() CertificateSigningRequestListTypeOutput
+	ToCertificateSigningRequestListTypeOutputWithContext(context.Context) CertificateSigningRequestListTypeOutput
+}
+
+// CertificateSigningRequestList is a collection of CertificateSigningRequest objects
+type CertificateSigningRequestListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is a collection of CertificateSigningRequest objects
+	Items CertificateSigningRequestTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CertificateSigningRequestListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CertificateSigningRequestListType)(nil)).Elem()
+}
+
+func (i CertificateSigningRequestListTypeArgs) ToCertificateSigningRequestListTypeOutput() CertificateSigningRequestListTypeOutput {
+	return i.ToCertificateSigningRequestListTypeOutputWithContext(context.Background())
+}
+
+func (i CertificateSigningRequestListTypeArgs) ToCertificateSigningRequestListTypeOutputWithContext(ctx context.Context) CertificateSigningRequestListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListTypeOutput)
+}
+
+// CertificateSigningRequestList is a collection of CertificateSigningRequest objects
+type CertificateSigningRequestListTypeOutput struct{ *pulumi.OutputState }
+
+func (CertificateSigningRequestListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CertificateSigningRequestListType)(nil)).Elem()
+}
+
+func (o CertificateSigningRequestListTypeOutput) ToCertificateSigningRequestListTypeOutput() CertificateSigningRequestListTypeOutput {
+	return o
+}
+
+func (o CertificateSigningRequestListTypeOutput) ToCertificateSigningRequestListTypeOutputWithContext(ctx context.Context) CertificateSigningRequestListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CertificateSigningRequestListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CertificateSigningRequestListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is a collection of CertificateSigningRequest objects
+func (o CertificateSigningRequestListTypeOutput) Items() CertificateSigningRequestTypeArrayOutput {
+	return o.ApplyT(func(v CertificateSigningRequestListType) []CertificateSigningRequestType { return v.Items }).(CertificateSigningRequestTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CertificateSigningRequestListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CertificateSigningRequestListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o CertificateSigningRequestListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CertificateSigningRequestListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // CertificateSigningRequestSpec contains the certificate request.
 type CertificateSigningRequestSpec struct {
 	// expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
@@ -867,6 +935,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestTypeArrayInput)(nil)).Elem(), CertificateSigningRequestTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestConditionInput)(nil)).Elem(), CertificateSigningRequestConditionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestConditionArrayInput)(nil)).Elem(), CertificateSigningRequestConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestListTypeInput)(nil)).Elem(), CertificateSigningRequestListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestSpecInput)(nil)).Elem(), CertificateSigningRequestSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestStatusInput)(nil)).Elem(), CertificateSigningRequestStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateSigningRequestStatusPtrInput)(nil)).Elem(), CertificateSigningRequestStatusArgs{})
@@ -874,6 +943,7 @@ func init() {
 	pulumi.RegisterOutputType(CertificateSigningRequestTypeArrayOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestConditionOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestConditionArrayOutput{})
+	pulumi.RegisterOutputType(CertificateSigningRequestListTypeOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestSpecOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestStatusOutput{})
 	pulumi.RegisterOutputType(CertificateSigningRequestStatusPtrOutput{})

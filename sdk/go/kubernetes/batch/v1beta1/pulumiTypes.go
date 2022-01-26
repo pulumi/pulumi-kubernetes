@@ -161,6 +161,76 @@ type CronJobListType struct {
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
+// CronJobListTypeInput is an input type that accepts CronJobListTypeArgs and CronJobListTypeOutput values.
+// You can construct a concrete instance of `CronJobListTypeInput` via:
+//
+//          CronJobListTypeArgs{...}
+type CronJobListTypeInput interface {
+	pulumi.Input
+
+	ToCronJobListTypeOutput() CronJobListTypeOutput
+	ToCronJobListTypeOutputWithContext(context.Context) CronJobListTypeOutput
+}
+
+// CronJobList is a collection of cron jobs.
+type CronJobListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of CronJobs.
+	Items CronJobTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (CronJobListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJobListType)(nil)).Elem()
+}
+
+func (i CronJobListTypeArgs) ToCronJobListTypeOutput() CronJobListTypeOutput {
+	return i.ToCronJobListTypeOutputWithContext(context.Background())
+}
+
+func (i CronJobListTypeArgs) ToCronJobListTypeOutputWithContext(ctx context.Context) CronJobListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CronJobListTypeOutput)
+}
+
+// CronJobList is a collection of cron jobs.
+type CronJobListTypeOutput struct{ *pulumi.OutputState }
+
+func (CronJobListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CronJobListType)(nil)).Elem()
+}
+
+func (o CronJobListTypeOutput) ToCronJobListTypeOutput() CronJobListTypeOutput {
+	return o
+}
+
+func (o CronJobListTypeOutput) ToCronJobListTypeOutputWithContext(ctx context.Context) CronJobListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CronJobListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CronJobListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of CronJobs.
+func (o CronJobListTypeOutput) Items() CronJobTypeArrayOutput {
+	return o.ApplyT(func(v CronJobListType) []CronJobType { return v.Items }).(CronJobTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CronJobListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CronJobListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CronJobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v CronJobListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpec struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -755,6 +825,7 @@ func (o JobTemplateSpecPtrOutput) Spec() batchv1.JobSpecPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobTypeInput)(nil)).Elem(), CronJobTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobTypeArrayInput)(nil)).Elem(), CronJobTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CronJobListTypeInput)(nil)).Elem(), CronJobListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecInput)(nil)).Elem(), CronJobSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobSpecPtrInput)(nil)).Elem(), CronJobSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CronJobStatusInput)(nil)).Elem(), CronJobStatusArgs{})
@@ -763,6 +834,7 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPtrInput)(nil)).Elem(), JobTemplateSpecArgs{})
 	pulumi.RegisterOutputType(CronJobTypeOutput{})
 	pulumi.RegisterOutputType(CronJobTypeArrayOutput{})
+	pulumi.RegisterOutputType(CronJobListTypeOutput{})
 	pulumi.RegisterOutputType(CronJobSpecOutput{})
 	pulumi.RegisterOutputType(CronJobSpecPtrOutput{})
 	pulumi.RegisterOutputType(CronJobStatusOutput{})
