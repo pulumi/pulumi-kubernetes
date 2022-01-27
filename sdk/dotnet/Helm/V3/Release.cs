@@ -10,8 +10,237 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Helm.V3
 {
     /// <summary>
-    /// A Release is an instance of a chart running in a Kubernetes cluster.
-    /// A Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+    /// A `Release` is an instance of a chart running in a Kubernetes cluster. A `Chart` is a Helm package. It contains all the
+    /// resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+    /// 
+    /// This resource models a Helm Release as if it were created by the Helm CLI. The underlying implementation embeds Helm as
+    /// a library to perform the orchestration of the resources. As a result, the full spectrum of Helm features are supported
+    /// natively.
+    /// 
+    /// ## Example Usage
+    /// ### Local Chart Directory
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "./nginx-ingress",
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Remote Chart
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.helm.sh/stable"
+    ///             }
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Set Chart Values
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var values = new Dictionary&lt;string, object&gt;
+    ///         {
+    ///             ["controller"] = new Dictionary&lt;string, object&gt;
+    ///             {
+    ///                 ["metrics"] = new Dictionary&lt;string, object&gt;
+    ///                 {
+    ///                     ["enabled"] = true
+    ///                 }
+    ///             },
+    ///         };
+    /// 
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.helm.sh/stable"
+    ///             },
+    ///             Values = values,
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Deploy Chart into Namespace
+    /// ```csharp
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             Namespace = "test-namespace",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.helm.sh/stable"
+    ///             },
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// 
+    /// ### Depend on a Chart resource
+    /// ```csharp
+    /// using System.Threading.Tasks;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Core.V1;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("nginx-ingress", new ReleaseArgs
+    ///         {
+    ///             Chart = "nginx-ingress",
+    ///             Version = "1.24.4",
+    ///             Namespace = "test-namespace",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.helm.sh/stable"
+    ///             },
+    ///             SkipAwait = false,
+    ///         });
+    /// 
+    ///         // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+    ///         // resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
+    ///         // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
+    ///         new ConfigMap("foo", new Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapArgs
+    ///         {
+    ///             Data = new InputMap&lt;string&gt;
+    ///             {
+    ///                 {"foo", "bar"}
+    ///             },
+    ///         }, new CustomResourceOptions
+    ///         {
+    ///             DependsOn = nginx,
+    ///         });
+    /// 
+    ///     }
+    /// }
+    /// ```
+    /// ### Specify Helm Chart Values in File and Code
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var nginx = new Release("redis", new ReleaseArgs
+    ///         {
+    ///             Chart = "redis",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.bitnami.com/bitnami"
+    ///             },
+    ///             ValueYamlFiles = new FileAsset("./metrics.yml");
+    ///             Values = new InputMap&lt;object&gt;
+    ///             {
+    ///                 ["cluster"] = new Dictionary&lt;string,object&gt;
+    ///                 {
+    ///                     ["enabled"] = true,
+    ///                 },
+    ///                 ["rbac"] = new Dictionary&lt;string,object&gt;
+    ///                 {
+    ///                     ["create"] = true,
+    ///                 }
+    ///             },
+    ///         });
+    ///     }
+    /// }
+    /// 
+    /// // -- Contents of metrics.yml --
+    /// // metrics:
+    /// //     enabled: true
+    /// ```
+    /// ### Query Kubernetes Resource Installed By Helm Chart
+    /// ```csharp
+    /// using System.Collections.Generic;
+    /// using Pulumi;
+    /// using Pulumi.Kubernetes.Types.Inputs.Helm.V3;
+    /// using Pulumi.Kubernetes.Helm.V3;
+    /// 
+    /// class HelmStack : Stack
+    /// {
+    ///     public HelmStack()
+    ///     {
+    ///         var redis = new Release("redis", new ReleaseArgs
+    ///         {
+    ///             Chart = "redis",
+    ///             RepositoryOpts = new RepositoryOptsArgs
+    ///             {
+    ///                 Repo = "https://charts.bitnami.com/bitnami"
+    ///             },
+    ///             Values = new InputMap&lt;object&gt;
+    ///             {
+    ///                 ["cluster"] = new Dictionary&lt;string,object&gt;
+    ///                 {
+    ///                     ["enabled"] = true,
+    ///                 },
+    ///                 ["rbac"] = new Dictionary&lt;string,object&gt;
+    ///                 {
+    ///                     ["create"] = true,
+    ///                 }
+    ///             },
+    ///         });
+    /// 
+    ///         var status = redis.Status;
+    ///         // srv will only resolve after the redis chart is installed.
+    ///         var srv = Service.Get("redist-master-svc", Output.All(status).Apply(
+    ///             s =&gt; $"{s[0].Namespace}/{s[0].Name}-master"));
+    ///         this.RedisMasterClusterIP = srv.Spec.Apply(spec =&gt; spec.ClusterIP);
+    ///     }
+    /// 
+    ///     [Output]
+    ///     public Output&lt;string&gt; RedisMasterClusterIP { get; set; }
+    /// }
+    /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:helm.sh/v3:Release")]
     public partial class Release : KubernetesResource

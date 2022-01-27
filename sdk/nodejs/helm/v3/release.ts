@@ -6,8 +6,147 @@ import { input as inputs, output as outputs, enums } from "../../types";
 import * as utilities from "../../utilities";
 
 /**
- * A Release is an instance of a chart running in a Kubernetes cluster.
- * A Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+ * A `Release` is an instance of a chart running in a Kubernetes cluster. A `Chart` is a Helm package. It contains all the
+ * resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+ *
+ * This resource models a Helm Release as if it were created by the Helm CLI. The underlying implementation embeds Helm as
+ * a library to perform the orchestration of the resources. As a result, the full spectrum of Helm features are supported
+ * natively.
+ *
+ * ## Example Usage
+ * ### Local Chart Directory
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "./nginx-ingress",
+ * });
+ * ```
+ * ### Remote Chart
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "nginx-ingress",
+ *     version: "1.24.4",
+ *     repositoryOpts: {
+ *         repo: "https://charts.helm.sh/stable",
+ *     },
+ * });
+ * ```
+ * ### Set Chart Values
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "nginx-ingress",
+ *     version: "1.24.4",
+ *     repositoryOpts: {
+ *         repo: "https://charts.helm.sh/stable",
+ *     },
+ *     values: {
+ *         controller: {
+ *             metrics: {
+ *                 enabled: true,
+ *             }
+ *         }
+ *     },
+ * });
+ * ```
+ * ### Deploy Chart into Namespace
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "nginx-ingress",
+ *     version: "1.24.4",
+ *     namespace: "test-namespace",
+ *     repositoryOpts: {
+ *         repo: "https://charts.helm.sh/stable",
+ *     },
+ * });
+ * ```
+ *
+ * ### Depend on a Chart resource
+ *
+ * ```typescript
+ * import * as k8s from "@pulumi/kubernetes";
+ *
+ * const nginxIngress = new k8s.helm.v3.Release("nginx-ingress", {
+ *     chart: "nginx-ingress",
+ *     version: "1.24.4",
+ *     namespace: "test-namespace",
+ *     repositoryOpts: {
+ *         repo: "https://charts.helm.sh/stable",
+ *     },
+ *     skipAwait: false,
+ * });
+ *
+ * // Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+ * // resources are ready. Notice skipAwait is set to false above. This is the default and will cause Helm
+ * // to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
+ * new k8s.core.v1.ConfigMap("foo", {
+ *     metadata: {namespace: namespaceName},
+ *     data: {foo: "bar"}
+ * }, {dependsOn: nginxIngress})
+ * ```
+ * ### Specify Helm Chart Values in File and Code
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as k8s from "@pulumi/kubernetes";
+ * import {FileAsset} from "@pulumi/pulumi/asset";
+ *
+ * const release = new k8s.helm.v3.Release("redis", {
+ *     chart: "redis",
+ *     repositoryOpts: {
+ *         repo: "https://charts.bitnami.com/bitnami",
+ *     },
+ *     valueYamlFiles: [new FileAsset("./metrics.yml")],
+ *     values: {
+ *         cluster: {
+ *             enabled: true,
+ *         },
+ *         rbac: {
+ *             create: true,
+ *         }
+ *     },
+ * });
+ *
+ * // -- Contents of metrics.yml --
+ * // metrics:
+ * //     enabled: true
+ * ```
+ * ### Query Kubernetes Resource Installed By Helm Chart
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as k8s from "@pulumi/kubernetes";
+ * import {FileAsset} from "@pulumi/pulumi/asset";
+ *
+ * const redis = new k8s.helm.v3.Release("redis", {
+ *     chart: "redis",
+ *     repositoryOpts: {
+ *         repo: "https://charts.bitnami.com/bitnami",
+ *     },
+ *     values: {
+ *         cluster: {
+ *             enabled: true,
+ *         },
+ *         rbac: {
+ *             create: true,
+ *         }
+ *     },
+ * });
+ *
+ * // srv will only resolve after the redis chart is installed.
+ * const srv = k8s.core.v1.Service.get("redis-master-svc", pulumi.interpolate`${redis.status.namespace}/${redis.status.name}-master`);
+ * export const redisMasterClusterIP = srv.spec.clusterIP;
+ * ```
  */
 export class Release extends pulumi.CustomResource {
     /**

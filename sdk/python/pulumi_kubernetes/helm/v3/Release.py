@@ -600,8 +600,159 @@ class Release(pulumi.CustomResource):
                  wait_for_jobs: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
         """
-        A Release is an instance of a chart running in a Kubernetes cluster.
-        A Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+        A `Release` is an instance of a chart running in a Kubernetes cluster. A `Chart` is a Helm package. It contains all the
+        resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+
+        This resource models a Helm Release as if it were created by the Helm CLI. The underlying implementation embeds Helm as
+        a library to perform the orchestration of the resources. As a result, the full spectrum of Helm features are supported
+        natively.
+
+        ## Example Usage
+        ### Local Chart Directory
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="./nginx-ingress",
+            ),
+        )
+        ```
+        ### Remote Chart
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+            ),
+        )
+        ```
+        ### Set Chart Values
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+                values={
+                    "controller": {
+                        "metrics": {
+                            "enabled": True,
+                        },
+                    },
+                },
+            ),
+        )
+        ```
+        ### Deploy Chart into Namespace
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                namespace="test-namespace",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+            ),
+        )
+        ```
+
+        ### Depend on a Chart resource
+        ```python
+        import pulumi
+        from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                namespace="test-namespace",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+                skip_await=False,
+            ),
+        )
+
+        # Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+        # resources are ready. Notice skip_await is set to false above. This is the default and will cause Helm
+        # to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
+        ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=nginx_ingress))
+        ```
+        ### Specify Helm Chart Values in File and Code
+        ```python
+        import pulumi
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "redis",
+            ReleaseArgs(
+                chart="redis",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.bitnami.com/bitnami",
+                ),
+                value_yaml_files=pulumi.FileAsset("./metrics.yml"),
+                values={
+                    cluster: {
+                        enabled: true,
+                    },
+                    rbac: {
+                        create: true,
+                    }
+                },
+            ),
+        )
+
+        # -- Contents of metrics.yml --
+        # metrics:
+        #     enabled: true
+        ```
+        ### Query Kubernetes Resource Installed By Helm Chart
+        ```python
+        from pulumi import Output
+        from pulumi_kubernetes.core.v1 import Service
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        redis = Release(
+            "redis",
+            ReleaseArgs(
+                chart="redis",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.bitnami.com/bitnami",
+                ),
+                values={
+                    "cluster": {
+                        "enabled": True,
+                    },
+                    "rbac": {
+                        "create": True,
+                    }
+                },
+            ),
+        )
+
+        # srv will only resolve after the redis chart is installed.
+        srv = Service.get("redis-master-svc", Output.concat(redis.status.namespace, "/", redis.status.name, "-master"))
+        pulumi.export("redisMasterClusterIP", srv.spec.cluster_ip)
+        ```
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -646,8 +797,159 @@ class Release(pulumi.CustomResource):
                  args: ReleaseArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        A Release is an instance of a chart running in a Kubernetes cluster.
-        A Chart is a Helm package. It contains all the resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+        A `Release` is an instance of a chart running in a Kubernetes cluster. A `Chart` is a Helm package. It contains all the
+        resource definitions necessary to run an application, tool, or service inside a Kubernetes cluster.
+
+        This resource models a Helm Release as if it were created by the Helm CLI. The underlying implementation embeds Helm as
+        a library to perform the orchestration of the resources. As a result, the full spectrum of Helm features are supported
+        natively.
+
+        ## Example Usage
+        ### Local Chart Directory
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="./nginx-ingress",
+            ),
+        )
+        ```
+        ### Remote Chart
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+            ),
+        )
+        ```
+        ### Set Chart Values
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+                values={
+                    "controller": {
+                        "metrics": {
+                            "enabled": True,
+                        },
+                    },
+                },
+            ),
+        )
+        ```
+        ### Deploy Chart into Namespace
+        ```python
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                namespace="test-namespace",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+            ),
+        )
+        ```
+
+        ### Depend on a Chart resource
+        ```python
+        import pulumi
+        from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "nginx-ingress",
+            ReleaseArgs(
+                chart="nginx-ingress",
+                version="1.24.4",
+                namespace="test-namespace",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.helm.sh/stable",
+                ),
+                skip_await=False,
+            ),
+        )
+
+        # Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+        # resources are ready. Notice skip_await is set to false above. This is the default and will cause Helm
+        # to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
+        ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=nginx_ingress))
+        ```
+        ### Specify Helm Chart Values in File and Code
+        ```python
+        import pulumi
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        nginx_ingress = Release(
+            "redis",
+            ReleaseArgs(
+                chart="redis",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.bitnami.com/bitnami",
+                ),
+                value_yaml_files=pulumi.FileAsset("./metrics.yml"),
+                values={
+                    cluster: {
+                        enabled: true,
+                    },
+                    rbac: {
+                        create: true,
+                    }
+                },
+            ),
+        )
+
+        # -- Contents of metrics.yml --
+        # metrics:
+        #     enabled: true
+        ```
+        ### Query Kubernetes Resource Installed By Helm Chart
+        ```python
+        from pulumi import Output
+        from pulumi_kubernetes.core.v1 import Service
+        from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs, RepositoryOptsArgs
+
+        redis = Release(
+            "redis",
+            ReleaseArgs(
+                chart="redis",
+                repository_opts=RepositoryOptsArgs(
+                    repo="https://charts.bitnami.com/bitnami",
+                ),
+                values={
+                    "cluster": {
+                        "enabled": True,
+                    },
+                    "rbac": {
+                        "create": True,
+                    }
+                },
+            ),
+        )
+
+        # srv will only resolve after the redis chart is installed.
+        srv = Service.get("redis-master-svc", Output.concat(redis.status.namespace, "/", redis.status.name, "-master"))
+        pulumi.export("redisMasterClusterIP", srv.spec.cluster_ip)
+        ```
 
         :param str resource_name: The name of the resource.
         :param ReleaseArgs args: The arguments to use to populate this resource's properties.
