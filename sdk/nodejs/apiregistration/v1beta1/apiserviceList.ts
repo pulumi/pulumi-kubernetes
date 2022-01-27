@@ -70,9 +70,7 @@ export class APIServiceList extends pulumi.CustomResource {
             resourceInputs["kind"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:apiregistration/v1beta1:APIServiceList" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(APIServiceList.__pulumiType, name, resourceInputs, opts);

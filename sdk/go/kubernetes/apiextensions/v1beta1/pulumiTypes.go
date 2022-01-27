@@ -992,47 +992,6 @@ func (i CustomResourceDefinitionSpecArgs) ToCustomResourceDefinitionSpecOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionSpecOutput)
 }
 
-func (i CustomResourceDefinitionSpecArgs) ToCustomResourceDefinitionSpecPtrOutput() CustomResourceDefinitionSpecPtrOutput {
-	return i.ToCustomResourceDefinitionSpecPtrOutputWithContext(context.Background())
-}
-
-func (i CustomResourceDefinitionSpecArgs) ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionSpecOutput).ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx)
-}
-
-// CustomResourceDefinitionSpecPtrInput is an input type that accepts CustomResourceDefinitionSpecArgs, CustomResourceDefinitionSpecPtr and CustomResourceDefinitionSpecPtrOutput values.
-// You can construct a concrete instance of `CustomResourceDefinitionSpecPtrInput` via:
-//
-//          CustomResourceDefinitionSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type CustomResourceDefinitionSpecPtrInput interface {
-	pulumi.Input
-
-	ToCustomResourceDefinitionSpecPtrOutput() CustomResourceDefinitionSpecPtrOutput
-	ToCustomResourceDefinitionSpecPtrOutputWithContext(context.Context) CustomResourceDefinitionSpecPtrOutput
-}
-
-type customResourceDefinitionSpecPtrType CustomResourceDefinitionSpecArgs
-
-func CustomResourceDefinitionSpecPtr(v *CustomResourceDefinitionSpecArgs) CustomResourceDefinitionSpecPtrInput {
-	return (*customResourceDefinitionSpecPtrType)(v)
-}
-
-func (*customResourceDefinitionSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**CustomResourceDefinitionSpec)(nil)).Elem()
-}
-
-func (i *customResourceDefinitionSpecPtrType) ToCustomResourceDefinitionSpecPtrOutput() CustomResourceDefinitionSpecPtrOutput {
-	return i.ToCustomResourceDefinitionSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *customResourceDefinitionSpecPtrType) ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionSpecPtrOutput)
-}
-
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
 type CustomResourceDefinitionSpecOutput struct{ *pulumi.OutputState }
 
@@ -1046,16 +1005,6 @@ func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecOutput
 
 func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecPtrOutput() CustomResourceDefinitionSpecPtrOutput {
-	return o.ToCustomResourceDefinitionSpecPtrOutputWithContext(context.Background())
-}
-
-func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionSpec) *CustomResourceDefinitionSpec {
-		return &v
-	}).(CustomResourceDefinitionSpecPtrOutput)
 }
 
 // additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
@@ -1108,130 +1057,6 @@ func (o CustomResourceDefinitionSpecOutput) Version() pulumi.StringPtrOutput {
 // versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
 func (o CustomResourceDefinitionSpecOutput) Versions() CustomResourceDefinitionVersionArrayOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionSpec) []CustomResourceDefinitionVersion { return v.Versions }).(CustomResourceDefinitionVersionArrayOutput)
-}
-
-type CustomResourceDefinitionSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (CustomResourceDefinitionSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**CustomResourceDefinitionSpec)(nil)).Elem()
-}
-
-func (o CustomResourceDefinitionSpecPtrOutput) ToCustomResourceDefinitionSpecPtrOutput() CustomResourceDefinitionSpecPtrOutput {
-	return o
-}
-
-func (o CustomResourceDefinitionSpecPtrOutput) ToCustomResourceDefinitionSpecPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPtrOutput {
-	return o
-}
-
-func (o CustomResourceDefinitionSpecPtrOutput) Elem() CustomResourceDefinitionSpecOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) CustomResourceDefinitionSpec {
-		if v != nil {
-			return *v
-		}
-		var ret CustomResourceDefinitionSpec
-		return ret
-	}).(CustomResourceDefinitionSpecOutput)
-}
-
-// additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
-func (o CustomResourceDefinitionSpecPtrOutput) AdditionalPrinterColumns() CustomResourceColumnDefinitionArrayOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) []CustomResourceColumnDefinition {
-		if v == nil {
-			return nil
-		}
-		return v.AdditionalPrinterColumns
-	}).(CustomResourceColumnDefinitionArrayOutput)
-}
-
-// conversion defines conversion settings for the CRD.
-func (o CustomResourceDefinitionSpecPtrOutput) Conversion() CustomResourceConversionPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *CustomResourceConversion {
-		if v == nil {
-			return nil
-		}
-		return v.Conversion
-	}).(CustomResourceConversionPtrOutput)
-}
-
-// group is the API group of the defined custom resource. The custom resources are served under `/apis/<group>/...`. Must match the name of the CustomResourceDefinition (in the form `<names.plural>.<group>`).
-func (o CustomResourceDefinitionSpecPtrOutput) Group() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Group
-	}).(pulumi.StringPtrOutput)
-}
-
-// names specify the resource and kind names for the custom resource.
-func (o CustomResourceDefinitionSpecPtrOutput) Names() CustomResourceDefinitionNamesPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *CustomResourceDefinitionNames {
-		if v == nil {
-			return nil
-		}
-		return &v.Names
-	}).(CustomResourceDefinitionNamesPtrOutput)
-}
-
-// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. If false, schemas must be defined for all versions. Defaults to true in v1beta for backwards compatibility. Deprecated: will be required to be false in v1. Preservation of unknown fields can be specified in the validation schema using the `x-kubernetes-preserve-unknown-fields: true` extension. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
-func (o CustomResourceDefinitionSpecPtrOutput) PreserveUnknownFields() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *bool {
-		if v == nil {
-			return nil
-		}
-		return v.PreserveUnknownFields
-	}).(pulumi.BoolPtrOutput)
-}
-
-// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`. Default is `Namespaced`.
-func (o CustomResourceDefinitionSpecPtrOutput) Scope() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Scope
-	}).(pulumi.StringPtrOutput)
-}
-
-// subresources specify what subresources the defined custom resource has. If present, this field configures subresources for all versions. Top-level and per-version subresources are mutually exclusive.
-func (o CustomResourceDefinitionSpecPtrOutput) Subresources() CustomResourceSubresourcesPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *CustomResourceSubresources {
-		if v == nil {
-			return nil
-		}
-		return v.Subresources
-	}).(CustomResourceSubresourcesPtrOutput)
-}
-
-// validation describes the schema used for validation and pruning of the custom resource. If present, this validation schema is used to validate all versions. Top-level and per-version schemas are mutually exclusive.
-func (o CustomResourceDefinitionSpecPtrOutput) Validation() CustomResourceValidationPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *CustomResourceValidation {
-		if v == nil {
-			return nil
-		}
-		return v.Validation
-	}).(CustomResourceValidationPtrOutput)
-}
-
-// version is the API version of the defined custom resource. The custom resources are served under `/apis/<group>/<version>/...`. Must match the name of the first item in the `versions` list if `version` and `versions` are both specified. Optional if `versions` is specified. Deprecated: use `versions` instead.
-func (o CustomResourceDefinitionSpecPtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Version
-	}).(pulumi.StringPtrOutput)
-}
-
-// versions is the list of all API versions of the defined custom resource. Optional if `version` is specified. The name of the first item in the `versions` list must match the `version` field if `version` and `versions` are both specified. Version names are used to compute the order in which served versions are listed in API discovery. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
-func (o CustomResourceDefinitionSpecPtrOutput) Versions() CustomResourceDefinitionVersionArrayOutput {
-	return o.ApplyT(func(v *CustomResourceDefinitionSpec) []CustomResourceDefinitionVersion {
-		if v == nil {
-			return nil
-		}
-		return v.Versions
-	}).(CustomResourceDefinitionVersionArrayOutput)
 }
 
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
@@ -3661,7 +3486,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionNamesPtrInput)(nil)).Elem(), CustomResourceDefinitionNamesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionSpecPtrInput)(nil)).Elem(), CustomResourceDefinitionSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionStatusInput)(nil)).Elem(), CustomResourceDefinitionStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionStatusPtrInput)(nil)).Elem(), CustomResourceDefinitionStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomResourceDefinitionVersionInput)(nil)).Elem(), CustomResourceDefinitionVersionArgs{})
@@ -3694,7 +3518,6 @@ func init() {
 	pulumi.RegisterOutputType(CustomResourceDefinitionNamesOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionNamesPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionSpecOutput{})
-	pulumi.RegisterOutputType(CustomResourceDefinitionSpecPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionStatusOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionStatusPtrOutput{})
 	pulumi.RegisterOutputType(CustomResourceDefinitionVersionOutput{})

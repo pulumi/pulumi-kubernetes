@@ -73,9 +73,7 @@ export class PodSecurityPolicy extends pulumi.CustomResource {
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:extensions/v1beta1:PodSecurityPolicy" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PodSecurityPolicy.__pulumiType, name, resourceInputs, opts);

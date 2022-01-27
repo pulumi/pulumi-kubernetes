@@ -94,9 +94,7 @@ export class PriorityClass extends pulumi.CustomResource {
             resourceInputs["preemptionPolicy"] = undefined /*out*/;
             resourceInputs["value"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:scheduling.k8s.io/v1alpha1:PriorityClass" }, { type: "kubernetes:scheduling.k8s.io/v1beta1:PriorityClass" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(PriorityClass.__pulumiType, name, resourceInputs, opts);

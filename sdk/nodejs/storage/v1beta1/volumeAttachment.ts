@@ -84,9 +84,7 @@ export class VolumeAttachment extends pulumi.CustomResource {
             resourceInputs["spec"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1:VolumeAttachment" }, { type: "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(VolumeAttachment.__pulumiType, name, resourceInputs, opts);

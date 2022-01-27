@@ -878,47 +878,6 @@ func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecOutput)
 }
 
-func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return i.ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecOutput).ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx)
-}
-
-// SelfSubjectAccessReviewSpecPtrInput is an input type that accepts SelfSubjectAccessReviewSpecArgs, SelfSubjectAccessReviewSpecPtr and SelfSubjectAccessReviewSpecPtrOutput values.
-// You can construct a concrete instance of `SelfSubjectAccessReviewSpecPtrInput` via:
-//
-//          SelfSubjectAccessReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type SelfSubjectAccessReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput
-	ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Context) SelfSubjectAccessReviewSpecPtrOutput
-}
-
-type selfSubjectAccessReviewSpecPtrType SelfSubjectAccessReviewSpecArgs
-
-func SelfSubjectAccessReviewSpecPtr(v *SelfSubjectAccessReviewSpecArgs) SelfSubjectAccessReviewSpecPtrInput {
-	return (*selfSubjectAccessReviewSpecPtrType)(v)
-}
-
-func (*selfSubjectAccessReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (i *selfSubjectAccessReviewSpecPtrType) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return i.ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *selfSubjectAccessReviewSpecPtrType) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecPtrOutput)
-}
-
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SelfSubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -934,16 +893,6 @@ func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecOutputWi
 	return o
 }
 
-func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ToSelfSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectAccessReviewSpec) *SelfSubjectAccessReviewSpec {
-		return &v
-	}).(SelfSubjectAccessReviewSpecPtrOutput)
-}
-
 // NonResourceAttributes describes information for a non-resource access request
 func (o SelfSubjectAccessReviewSpecOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *NonResourceAttributes { return v.NonResourceAttributes }).(NonResourceAttributesPtrOutput)
@@ -952,50 +901,6 @@ func (o SelfSubjectAccessReviewSpecOutput) NonResourceAttributes() NonResourceAt
 // ResourceAuthorizationAttributes describes information for a resource access request
 func (o SelfSubjectAccessReviewSpecOutput) ResourceAttributes() ResourceAttributesPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewSpec) *ResourceAttributes { return v.ResourceAttributes }).(ResourceAttributesPtrOutput)
-}
-
-type SelfSubjectAccessReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectAccessReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (o SelfSubjectAccessReviewSpecPtrOutput) ToSelfSubjectAccessReviewSpecPtrOutput() SelfSubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewSpecPtrOutput) ToSelfSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectAccessReviewSpecPtrOutput) Elem() SelfSubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) SelfSubjectAccessReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret SelfSubjectAccessReviewSpec
-		return ret
-	}).(SelfSubjectAccessReviewSpecOutput)
-}
-
-// NonResourceAttributes describes information for a non-resource access request
-func (o SelfSubjectAccessReviewSpecPtrOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) *NonResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.NonResourceAttributes
-	}).(NonResourceAttributesPtrOutput)
-}
-
-// ResourceAuthorizationAttributes describes information for a resource access request
-func (o SelfSubjectAccessReviewSpecPtrOutput) ResourceAttributes() ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SelfSubjectAccessReviewSpec) *ResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.ResourceAttributes
-	}).(ResourceAttributesPtrOutput)
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
@@ -1119,47 +1024,6 @@ func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecOutput)
 }
 
-func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return i.ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecOutput).ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx)
-}
-
-// SelfSubjectRulesReviewSpecPtrInput is an input type that accepts SelfSubjectRulesReviewSpecArgs, SelfSubjectRulesReviewSpecPtr and SelfSubjectRulesReviewSpecPtrOutput values.
-// You can construct a concrete instance of `SelfSubjectRulesReviewSpecPtrInput` via:
-//
-//          SelfSubjectRulesReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type SelfSubjectRulesReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput
-	ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Context) SelfSubjectRulesReviewSpecPtrOutput
-}
-
-type selfSubjectRulesReviewSpecPtrType SelfSubjectRulesReviewSpecArgs
-
-func SelfSubjectRulesReviewSpecPtr(v *SelfSubjectRulesReviewSpecArgs) SelfSubjectRulesReviewSpecPtrInput {
-	return (*selfSubjectRulesReviewSpecPtrType)(v)
-}
-
-func (*selfSubjectRulesReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectRulesReviewSpec)(nil)).Elem()
-}
-
-func (i *selfSubjectRulesReviewSpecPtrType) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return i.ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *selfSubjectRulesReviewSpecPtrType) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecPtrOutput)
-}
-
 type SelfSubjectRulesReviewSpecOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewSpecOutput) ElementType() reflect.Type {
@@ -1174,53 +1038,9 @@ func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecOutputWith
 	return o
 }
 
-func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ToSelfSubjectRulesReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SelfSubjectRulesReviewSpec) *SelfSubjectRulesReviewSpec {
-		return &v
-	}).(SelfSubjectRulesReviewSpecPtrOutput)
-}
-
 // Namespace to evaluate rules for. Required.
 func (o SelfSubjectRulesReviewSpecOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SelfSubjectRulesReviewSpec) *string { return v.Namespace }).(pulumi.StringPtrOutput)
-}
-
-type SelfSubjectRulesReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (SelfSubjectRulesReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SelfSubjectRulesReviewSpec)(nil)).Elem()
-}
-
-func (o SelfSubjectRulesReviewSpecPtrOutput) ToSelfSubjectRulesReviewSpecPtrOutput() SelfSubjectRulesReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewSpecPtrOutput) ToSelfSubjectRulesReviewSpecPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPtrOutput {
-	return o
-}
-
-func (o SelfSubjectRulesReviewSpecPtrOutput) Elem() SelfSubjectRulesReviewSpecOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) SelfSubjectRulesReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret SelfSubjectRulesReviewSpec
-		return ret
-	}).(SelfSubjectRulesReviewSpecOutput)
-}
-
-// Namespace to evaluate rules for. Required.
-func (o SelfSubjectRulesReviewSpecPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SelfSubjectRulesReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Namespace
-	}).(pulumi.StringPtrOutput)
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
@@ -1366,47 +1186,6 @@ func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecOutput)
 }
 
-func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return i.ToSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecOutput).ToSubjectAccessReviewSpecPtrOutputWithContext(ctx)
-}
-
-// SubjectAccessReviewSpecPtrInput is an input type that accepts SubjectAccessReviewSpecArgs, SubjectAccessReviewSpecPtr and SubjectAccessReviewSpecPtrOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewSpecPtrInput` via:
-//
-//          SubjectAccessReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type SubjectAccessReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput
-	ToSubjectAccessReviewSpecPtrOutputWithContext(context.Context) SubjectAccessReviewSpecPtrOutput
-}
-
-type subjectAccessReviewSpecPtrType SubjectAccessReviewSpecArgs
-
-func SubjectAccessReviewSpecPtr(v *SubjectAccessReviewSpecArgs) SubjectAccessReviewSpecPtrInput {
-	return (*subjectAccessReviewSpecPtrType)(v)
-}
-
-func (*subjectAccessReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (i *subjectAccessReviewSpecPtrType) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return i.ToSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *subjectAccessReviewSpecPtrType) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecPtrOutput)
-}
-
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -1420,16 +1199,6 @@ func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecOutput() Subject
 
 func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecOutputWithContext(ctx context.Context) SubjectAccessReviewSpecOutput {
 	return o
-}
-
-func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return o.ToSubjectAccessReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewSpec) *SubjectAccessReviewSpec {
-		return &v
-	}).(SubjectAccessReviewSpecPtrOutput)
 }
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
@@ -1460,90 +1229,6 @@ func (o SubjectAccessReviewSpecOutput) Uid() pulumi.StringPtrOutput {
 // User is the user you're testing for. If you specify "User" but not "Group", then is it interpreted as "What if User were not a member of any groups
 func (o SubjectAccessReviewSpecOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectAccessReviewSpec) *string { return v.User }).(pulumi.StringPtrOutput)
-}
-
-type SubjectAccessReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (SubjectAccessReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**SubjectAccessReviewSpec)(nil)).Elem()
-}
-
-func (o SubjectAccessReviewSpecPtrOutput) ToSubjectAccessReviewSpecPtrOutput() SubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SubjectAccessReviewSpecPtrOutput) ToSubjectAccessReviewSpecPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPtrOutput {
-	return o
-}
-
-func (o SubjectAccessReviewSpecPtrOutput) Elem() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) SubjectAccessReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret SubjectAccessReviewSpec
-		return ret
-	}).(SubjectAccessReviewSpecOutput)
-}
-
-// Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
-func (o SubjectAccessReviewSpecPtrOutput) Extra() pulumi.StringArrayMapOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) map[string][]string {
-		if v == nil {
-			return nil
-		}
-		return v.Extra
-	}).(pulumi.StringArrayMapOutput)
-}
-
-// Groups is the groups you're testing for.
-func (o SubjectAccessReviewSpecPtrOutput) Group() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Group
-	}).(pulumi.StringArrayOutput)
-}
-
-// NonResourceAttributes describes information for a non-resource access request
-func (o SubjectAccessReviewSpecPtrOutput) NonResourceAttributes() NonResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *NonResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.NonResourceAttributes
-	}).(NonResourceAttributesPtrOutput)
-}
-
-// ResourceAuthorizationAttributes describes information for a resource access request
-func (o SubjectAccessReviewSpecPtrOutput) ResourceAttributes() ResourceAttributesPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *ResourceAttributes {
-		if v == nil {
-			return nil
-		}
-		return v.ResourceAttributes
-	}).(ResourceAttributesPtrOutput)
-}
-
-// UID information about the requesting user.
-func (o SubjectAccessReviewSpecPtrOutput) Uid() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Uid
-	}).(pulumi.StringPtrOutput)
-}
-
-// User is the user you're testing for. If you specify "User" but not "Group", then is it interpreted as "What if User were not a member of any groups
-func (o SubjectAccessReviewSpecPtrOutput) User() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SubjectAccessReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.User
-	}).(pulumi.StringPtrOutput)
 }
 
 // SubjectAccessReviewStatus
@@ -1952,13 +1637,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRuleArrayInput)(nil)).Elem(), ResourceRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewTypeInput)(nil)).Elem(), SelfSubjectAccessReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPtrInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewTypeInput)(nil)).Elem(), SelfSubjectRulesReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPtrInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewTypeInput)(nil)).Elem(), SubjectAccessReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecPtrInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewStatusInput)(nil)).Elem(), SubjectAccessReviewStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewStatusPtrInput)(nil)).Elem(), SubjectAccessReviewStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
@@ -1974,13 +1656,10 @@ func init() {
 	pulumi.RegisterOutputType(ResourceRuleArrayOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewTypeOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecOutput{})
-	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecPtrOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewTypeOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecOutput{})
-	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecPtrOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewTypeOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewSpecOutput{})
-	pulumi.RegisterOutputType(SubjectAccessReviewSpecPtrOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewStatusOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewStatusPtrOutput{})
 	pulumi.RegisterOutputType(SubjectRulesReviewStatusOutput{})

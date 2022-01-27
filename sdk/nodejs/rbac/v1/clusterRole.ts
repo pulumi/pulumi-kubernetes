@@ -79,9 +79,7 @@ export class ClusterRole extends pulumi.CustomResource {
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["rules"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRole" }, { type: "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRole" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ClusterRole.__pulumiType, name, resourceInputs, opts);

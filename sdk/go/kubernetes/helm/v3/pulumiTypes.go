@@ -67,47 +67,6 @@ func (i ReleaseStatusArgs) ToReleaseStatusOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(ReleaseStatusOutput)
 }
 
-func (i ReleaseStatusArgs) ToReleaseStatusPtrOutput() ReleaseStatusPtrOutput {
-	return i.ToReleaseStatusPtrOutputWithContext(context.Background())
-}
-
-func (i ReleaseStatusArgs) ToReleaseStatusPtrOutputWithContext(ctx context.Context) ReleaseStatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleaseStatusOutput).ToReleaseStatusPtrOutputWithContext(ctx)
-}
-
-// ReleaseStatusPtrInput is an input type that accepts ReleaseStatusArgs, ReleaseStatusPtr and ReleaseStatusPtrOutput values.
-// You can construct a concrete instance of `ReleaseStatusPtrInput` via:
-//
-//          ReleaseStatusArgs{...}
-//
-//  or:
-//
-//          nil
-type ReleaseStatusPtrInput interface {
-	pulumi.Input
-
-	ToReleaseStatusPtrOutput() ReleaseStatusPtrOutput
-	ToReleaseStatusPtrOutputWithContext(context.Context) ReleaseStatusPtrOutput
-}
-
-type releaseStatusPtrType ReleaseStatusArgs
-
-func ReleaseStatusPtr(v *ReleaseStatusArgs) ReleaseStatusPtrInput {
-	return (*releaseStatusPtrType)(v)
-}
-
-func (*releaseStatusPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReleaseStatus)(nil)).Elem()
-}
-
-func (i *releaseStatusPtrType) ToReleaseStatusPtrOutput() ReleaseStatusPtrOutput {
-	return i.ToReleaseStatusPtrOutputWithContext(context.Background())
-}
-
-func (i *releaseStatusPtrType) ToReleaseStatusPtrOutputWithContext(ctx context.Context) ReleaseStatusPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(ReleaseStatusPtrOutput)
-}
-
 type ReleaseStatusOutput struct{ *pulumi.OutputState }
 
 func (ReleaseStatusOutput) ElementType() reflect.Type {
@@ -120,16 +79,6 @@ func (o ReleaseStatusOutput) ToReleaseStatusOutput() ReleaseStatusOutput {
 
 func (o ReleaseStatusOutput) ToReleaseStatusOutputWithContext(ctx context.Context) ReleaseStatusOutput {
 	return o
-}
-
-func (o ReleaseStatusOutput) ToReleaseStatusPtrOutput() ReleaseStatusPtrOutput {
-	return o.ToReleaseStatusPtrOutputWithContext(context.Background())
-}
-
-func (o ReleaseStatusOutput) ToReleaseStatusPtrOutputWithContext(ctx context.Context) ReleaseStatusPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v ReleaseStatus) *ReleaseStatus {
-		return &v
-	}).(ReleaseStatusPtrOutput)
 }
 
 // The version number of the application being deployed.
@@ -165,100 +114,6 @@ func (o ReleaseStatusOutput) Status() pulumi.StringOutput {
 // A SemVer 2 conformant version string of the chart.
 func (o ReleaseStatusOutput) Version() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ReleaseStatus) *string { return v.Version }).(pulumi.StringPtrOutput)
-}
-
-type ReleaseStatusPtrOutput struct{ *pulumi.OutputState }
-
-func (ReleaseStatusPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**ReleaseStatus)(nil)).Elem()
-}
-
-func (o ReleaseStatusPtrOutput) ToReleaseStatusPtrOutput() ReleaseStatusPtrOutput {
-	return o
-}
-
-func (o ReleaseStatusPtrOutput) ToReleaseStatusPtrOutputWithContext(ctx context.Context) ReleaseStatusPtrOutput {
-	return o
-}
-
-func (o ReleaseStatusPtrOutput) Elem() ReleaseStatusOutput {
-	return o.ApplyT(func(v *ReleaseStatus) ReleaseStatus {
-		if v != nil {
-			return *v
-		}
-		var ret ReleaseStatus
-		return ret
-	}).(ReleaseStatusOutput)
-}
-
-// The version number of the application being deployed.
-func (o ReleaseStatusPtrOutput) AppVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.AppVersion
-	}).(pulumi.StringPtrOutput)
-}
-
-// The name of the chart.
-func (o ReleaseStatusPtrOutput) Chart() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Chart
-	}).(pulumi.StringPtrOutput)
-}
-
-// Name is the name of the release.
-func (o ReleaseStatusPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Name
-	}).(pulumi.StringPtrOutput)
-}
-
-// Namespace is the kubernetes namespace of the release.
-func (o ReleaseStatusPtrOutput) Namespace() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Namespace
-	}).(pulumi.StringPtrOutput)
-}
-
-// Version is an int32 which represents the version of the release.
-func (o ReleaseStatusPtrOutput) Revision() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *int {
-		if v == nil {
-			return nil
-		}
-		return v.Revision
-	}).(pulumi.IntPtrOutput)
-}
-
-// Status of the release.
-func (o ReleaseStatusPtrOutput) Status() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Status
-	}).(pulumi.StringPtrOutput)
-}
-
-// A SemVer 2 conformant version string of the chart.
-func (o ReleaseStatusPtrOutput) Version() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReleaseStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Version
-	}).(pulumi.StringPtrOutput)
 }
 
 // Specification defining the Helm chart repository to use.
@@ -498,11 +353,9 @@ func (o RepositoryOptsPtrOutput) Username() pulumi.StringPtrOutput {
 
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseStatusInput)(nil)).Elem(), ReleaseStatusArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*ReleaseStatusPtrInput)(nil)).Elem(), ReleaseStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RepositoryOptsInput)(nil)).Elem(), RepositoryOptsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RepositoryOptsPtrInput)(nil)).Elem(), RepositoryOptsArgs{})
 	pulumi.RegisterOutputType(ReleaseStatusOutput{})
-	pulumi.RegisterOutputType(ReleaseStatusPtrOutput{})
 	pulumi.RegisterOutputType(RepositoryOptsOutput{})
 	pulumi.RegisterOutputType(RepositoryOptsPtrOutput{})
 }

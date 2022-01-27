@@ -258,9 +258,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["version"] = undefined /*out*/;
             resourceInputs["waitForJobs"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Release.__pulumiType, name, resourceInputs, opts);
     }
 }

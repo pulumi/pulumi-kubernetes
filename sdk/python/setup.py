@@ -55,6 +55,7 @@ setup(name='pulumi_kubernetes',
       package_data={
           'pulumi_kubernetes': [
               'py.typed',
+              'pulumi-plugin.json',
           ]
       },
       install_requires=[

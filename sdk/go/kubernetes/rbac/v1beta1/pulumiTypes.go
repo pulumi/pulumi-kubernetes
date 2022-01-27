@@ -1193,47 +1193,6 @@ func (i RoleRefArgs) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOutp
 	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput)
 }
 
-func (i RoleRefArgs) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return i.ToRoleRefPtrOutputWithContext(context.Background())
-}
-
-func (i RoleRefArgs) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput).ToRoleRefPtrOutputWithContext(ctx)
-}
-
-// RoleRefPtrInput is an input type that accepts RoleRefArgs, RoleRefPtr and RoleRefPtrOutput values.
-// You can construct a concrete instance of `RoleRefPtrInput` via:
-//
-//          RoleRefArgs{...}
-//
-//  or:
-//
-//          nil
-type RoleRefPtrInput interface {
-	pulumi.Input
-
-	ToRoleRefPtrOutput() RoleRefPtrOutput
-	ToRoleRefPtrOutputWithContext(context.Context) RoleRefPtrOutput
-}
-
-type roleRefPtrType RoleRefArgs
-
-func RoleRefPtr(v *RoleRefArgs) RoleRefPtrInput {
-	return (*roleRefPtrType)(v)
-}
-
-func (*roleRefPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**RoleRef)(nil)).Elem()
-}
-
-func (i *roleRefPtrType) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return i.ToRoleRefPtrOutputWithContext(context.Background())
-}
-
-func (i *roleRefPtrType) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(RoleRefPtrOutput)
-}
-
 // RoleRef contains information that points to the role being used
 type RoleRefOutput struct{ *pulumi.OutputState }
 
@@ -1249,16 +1208,6 @@ func (o RoleRefOutput) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOu
 	return o
 }
 
-func (o RoleRefOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return o.ToRoleRefPtrOutputWithContext(context.Background())
-}
-
-func (o RoleRefOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleRef) *RoleRef {
-		return &v
-	}).(RoleRefPtrOutput)
-}
-
 // APIGroup is the group for the resource being referenced
 func (o RoleRefOutput) ApiGroup() pulumi.StringOutput {
 	return o.ApplyT(func(v RoleRef) string { return v.ApiGroup }).(pulumi.StringOutput)
@@ -1272,60 +1221,6 @@ func (o RoleRefOutput) Kind() pulumi.StringOutput {
 // Name is the name of resource being referenced
 func (o RoleRefOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v RoleRef) string { return v.Name }).(pulumi.StringOutput)
-}
-
-type RoleRefPtrOutput struct{ *pulumi.OutputState }
-
-func (RoleRefPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**RoleRef)(nil)).Elem()
-}
-
-func (o RoleRefPtrOutput) ToRoleRefPtrOutput() RoleRefPtrOutput {
-	return o
-}
-
-func (o RoleRefPtrOutput) ToRoleRefPtrOutputWithContext(ctx context.Context) RoleRefPtrOutput {
-	return o
-}
-
-func (o RoleRefPtrOutput) Elem() RoleRefOutput {
-	return o.ApplyT(func(v *RoleRef) RoleRef {
-		if v != nil {
-			return *v
-		}
-		var ret RoleRef
-		return ret
-	}).(RoleRefOutput)
-}
-
-// APIGroup is the group for the resource being referenced
-func (o RoleRefPtrOutput) ApiGroup() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RoleRef) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.ApiGroup
-	}).(pulumi.StringPtrOutput)
-}
-
-// Kind is the type of resource being referenced
-func (o RoleRefPtrOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RoleRef) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Kind
-	}).(pulumi.StringPtrOutput)
-}
-
-// Name is the name of resource being referenced
-func (o RoleRefPtrOutput) Name() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *RoleRef) *string {
-		if v == nil {
-			return nil
-		}
-		return &v.Name
-	}).(pulumi.StringPtrOutput)
 }
 
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
@@ -1473,7 +1368,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleBindingListTypeInput)(nil)).Elem(), RoleBindingListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleListTypeInput)(nil)).Elem(), RoleListTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RoleRefInput)(nil)).Elem(), RoleRefArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*RoleRefPtrInput)(nil)).Elem(), RoleRefArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectInput)(nil)).Elem(), SubjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectArrayInput)(nil)).Elem(), SubjectArray{})
 	pulumi.RegisterOutputType(AggregationRuleOutput{})
@@ -1493,7 +1387,6 @@ func init() {
 	pulumi.RegisterOutputType(RoleBindingListTypeOutput{})
 	pulumi.RegisterOutputType(RoleListTypeOutput{})
 	pulumi.RegisterOutputType(RoleRefOutput{})
-	pulumi.RegisterOutputType(RoleRefPtrOutput{})
 	pulumi.RegisterOutputType(SubjectOutput{})
 	pulumi.RegisterOutputType(SubjectArrayOutput{})
 }

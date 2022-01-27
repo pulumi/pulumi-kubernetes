@@ -82,9 +82,7 @@ export class ControllerRevision extends pulumi.CustomResource {
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["revision"] = undefined /*out*/;
         }
-        if (!opts.version) {
-            opts = pulumi.mergeOptions(opts, { version: utilities.getVersion()});
-        }
+        opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const aliasOpts = { aliases: [{ type: "kubernetes:apps/v1beta1:ControllerRevision" }, { type: "kubernetes:apps/v1beta2:ControllerRevision" }] };
         opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ControllerRevision.__pulumiType, name, resourceInputs, opts);

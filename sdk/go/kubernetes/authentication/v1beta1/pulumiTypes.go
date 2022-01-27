@@ -138,47 +138,6 @@ func (i TokenReviewSpecArgs) ToTokenReviewSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecOutput)
 }
 
-func (i TokenReviewSpecArgs) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
-	return i.ToTokenReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i TokenReviewSpecArgs) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecOutput).ToTokenReviewSpecPtrOutputWithContext(ctx)
-}
-
-// TokenReviewSpecPtrInput is an input type that accepts TokenReviewSpecArgs, TokenReviewSpecPtr and TokenReviewSpecPtrOutput values.
-// You can construct a concrete instance of `TokenReviewSpecPtrInput` via:
-//
-//          TokenReviewSpecArgs{...}
-//
-//  or:
-//
-//          nil
-type TokenReviewSpecPtrInput interface {
-	pulumi.Input
-
-	ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput
-	ToTokenReviewSpecPtrOutputWithContext(context.Context) TokenReviewSpecPtrOutput
-}
-
-type tokenReviewSpecPtrType TokenReviewSpecArgs
-
-func TokenReviewSpecPtr(v *TokenReviewSpecArgs) TokenReviewSpecPtrInput {
-	return (*tokenReviewSpecPtrType)(v)
-}
-
-func (*tokenReviewSpecPtrType) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokenReviewSpec)(nil)).Elem()
-}
-
-func (i *tokenReviewSpecPtrType) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
-	return i.ToTokenReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (i *tokenReviewSpecPtrType) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecPtrOutput)
-}
-
 // TokenReviewSpec is a description of the token authentication request.
 type TokenReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -194,16 +153,6 @@ func (o TokenReviewSpecOutput) ToTokenReviewSpecOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
-	return o.ToTokenReviewSpecPtrOutputWithContext(context.Background())
-}
-
-func (o TokenReviewSpecOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewSpec) *TokenReviewSpec {
-		return &v
-	}).(TokenReviewSpecPtrOutput)
-}
-
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 func (o TokenReviewSpecOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v TokenReviewSpec) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -212,50 +161,6 @@ func (o TokenReviewSpecOutput) Audiences() pulumi.StringArrayOutput {
 // Token is the opaque bearer token.
 func (o TokenReviewSpecOutput) Token() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TokenReviewSpec) *string { return v.Token }).(pulumi.StringPtrOutput)
-}
-
-type TokenReviewSpecPtrOutput struct{ *pulumi.OutputState }
-
-func (TokenReviewSpecPtrOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((**TokenReviewSpec)(nil)).Elem()
-}
-
-func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutput() TokenReviewSpecPtrOutput {
-	return o
-}
-
-func (o TokenReviewSpecPtrOutput) ToTokenReviewSpecPtrOutputWithContext(ctx context.Context) TokenReviewSpecPtrOutput {
-	return o
-}
-
-func (o TokenReviewSpecPtrOutput) Elem() TokenReviewSpecOutput {
-	return o.ApplyT(func(v *TokenReviewSpec) TokenReviewSpec {
-		if v != nil {
-			return *v
-		}
-		var ret TokenReviewSpec
-		return ret
-	}).(TokenReviewSpecOutput)
-}
-
-// Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
-func (o TokenReviewSpecPtrOutput) Audiences() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *TokenReviewSpec) []string {
-		if v == nil {
-			return nil
-		}
-		return v.Audiences
-	}).(pulumi.StringArrayOutput)
-}
-
-// Token is the opaque bearer token.
-func (o TokenReviewSpecPtrOutput) Token() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *TokenReviewSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.Token
-	}).(pulumi.StringPtrOutput)
 }
 
 // TokenReviewStatus is the result of the token authentication request.
@@ -655,14 +560,12 @@ func (o UserInfoPtrOutput) Username() pulumi.StringPtrOutput {
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewTypeInput)(nil)).Elem(), TokenReviewTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecInput)(nil)).Elem(), TokenReviewSpecArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewSpecPtrInput)(nil)).Elem(), TokenReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusInput)(nil)).Elem(), TokenReviewStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TokenReviewStatusPtrInput)(nil)).Elem(), TokenReviewStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UserInfoPtrInput)(nil)).Elem(), UserInfoArgs{})
 	pulumi.RegisterOutputType(TokenReviewTypeOutput{})
 	pulumi.RegisterOutputType(TokenReviewSpecOutput{})
-	pulumi.RegisterOutputType(TokenReviewSpecPtrOutput{})
 	pulumi.RegisterOutputType(TokenReviewStatusOutput{})
 	pulumi.RegisterOutputType(TokenReviewStatusPtrOutput{})
 	pulumi.RegisterOutputType(UserInfoOutput{})

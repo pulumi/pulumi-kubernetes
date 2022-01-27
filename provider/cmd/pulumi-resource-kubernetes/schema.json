@@ -47708,6 +47708,7 @@
             }
         },
         "go": {
+            "generateExtraInputTypes": true,
             "generateResourceContainerTypes": true,
             "importBasePath": "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes",
             "moduleToPackage": {
