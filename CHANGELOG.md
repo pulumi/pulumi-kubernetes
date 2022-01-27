@@ -1,5 +1,7 @@
 ## HEAD (Unreleased)
+(None)
 
+## 3.15.0 (January 27, 2022)
 - [Helm/Release] Remove beta warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1885)
 - [Helm/Release] Handle partial failure during create/update (https://github.com/pulumi/pulumi-kubernetes/pull/1880)
 - [Helm/Release] Improve support for helm release operations when cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/1886)
