@@ -23,10 +23,10 @@ import (
 // ```go
 // package main
 //
-// "fmt"
-//
-// "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// import (
+// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+// )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
@@ -189,18 +189,18 @@ import (
 // 			ValueYamlFiles: pulumi.NewFileAsset("./metrics.yml"),
 // 			Value: pulumi.Map{
 // 				"cluster": pulumi.Map{
-//                     "enabled": pulumi.Bool(true),
-//                 },
-//                 "rbac": pulumi.Map{
-//                     "create": pulumi.Bool(true),
-//                 },
-//             },
-//         })
-//         if err != nil {
-//             return err
-//         }
+// 					"enabled": pulumi.Bool(true),
+// 				},
+// 				"rbac": pulumi.Map{
+// 					"create": pulumi.Bool(true),
+// 				},
+// 			},
+// 		})
+// 		if err != nil {
+// 			return err
+// 		}
 //
-//         return nil
+// 		return nil
 // 	})
 // }
 //
