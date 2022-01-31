@@ -1331,6 +1331,11 @@ func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, set
 	return c, path, nil
 }
 
+// locateChart is a copy of cpo.LocateChart with a fix to actually honor the registry client
+// configured with a registry config. As currently written, LocateChart will only ever honor
+// the registry config in $HELM_HOME/registry/config.json or the platform specific docker
+// default credential store.
+// TODO open issue on Helm for this.
 func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, name string,
 	settings *cli.EnvSettings) (string, error) {
 	name = strings.TrimSpace(name)
