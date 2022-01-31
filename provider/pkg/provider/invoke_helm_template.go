@@ -29,6 +29,7 @@ import (
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
+	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/storage"
 	"helm.sh/helm/v3/pkg/storage/driver"
 )
@@ -66,6 +67,8 @@ type HelmChartOpts struct {
 	Repo                     string                 `json:"repo,omitempty"`
 	Values                   map[string]interface{} `json:"values,omitempty"`
 	Version                  string                 `json:"version,omitempty"`
+	HelmChartDebug           bool                   `json:"helm_chart_debug,omitempty"`
+	HelmRegistryConfig       string                 `json:"helm_registry_config,omitempty"`
 }
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
@@ -76,7 +79,7 @@ func helmTemplate(opts HelmChartOpts) (string, error) {
 		return "", err
 	}
 	defer os.RemoveAll(tempDir)
-
+	logger.V(9).Infof("Will download to: %q", tempDir)
 	chart := &chart{
 		opts:     opts,
 		chartDir: tempDir,
@@ -127,7 +130,19 @@ type chart struct {
 
 // fetch runs the `helm fetch` action to fetch a Chart from a remote URL.
 func (c *chart) fetch() error {
-	p := action.NewPull()
+	registryClient, err := registry.NewClient(
+		registry.ClientOptDebug(c.opts.HelmChartDebug),
+		registry.ClientOptCredentialsFile(c.opts.HelmRegistryConfig),
+	)
+	if err != nil {
+		return err
+	}
+
+	cfg := &action.Configuration{
+		RegistryClient: registryClient,
+	}
+	p := action.NewPullWithOpts(action.WithConfig(cfg))
+
 	p.Settings = cli.New()
 	p.CaFile = c.opts.CAFile
 	p.CertFile = c.opts.CertFile
@@ -161,12 +176,15 @@ func (c *chart) fetch() error {
 		p.Version = c.opts.HelmFetchOpts.Version
 	} // If both are set, prefer the top-level version over the FetchOpts version.
 
+	logger.V(9).Infof("Chart options: %+v", c.opts)
 	chartRef := normalizeChartRef(c.opts.Repo, p.RepoURL, c.opts.Chart)
 
-	_, err := p.Run(chartRef)
+	logger.V(9).Infof("Trying to download chart: %q", chartRef)
+	downloadInfo, err := p.Run(chartRef)
 	if err != nil {
 		return pkgerrors.Wrap(err, "failed to pull chart")
 	}
+	logger.V(9).Infof("Download result: %q", downloadInfo)
 	return nil
 }
 
@@ -179,7 +197,7 @@ func (c *chart) fetch() error {
 func normalizeChartRef(repoName string, repoURL string, originalChartRef string) string {
 
 	// If URL is known, do not prefix
-	if len(repoURL) > 0 {
+	if len(repoURL) > 0 || registry.IsOCI(originalChartRef) {
 		return originalChartRef
 	}
 
@@ -195,9 +213,18 @@ func normalizeChartRef(repoName string, repoURL string, originalChartRef string)
 
 // template runs the `helm template` action to produce YAML from the Chart configuration.
 func (c *chart) template() (string, error) {
+	registryClient, err := registry.NewClient(
+		registry.ClientOptDebug(c.opts.HelmChartDebug),
+		registry.ClientOptCredentialsFile(c.opts.HelmRegistryConfig),
+	)
+	if err != nil {
+		return "", err
+	}
+
 	cfg := &action.Configuration{
-		Capabilities: chartutil.DefaultCapabilities,
-		Releases:     storage.Init(driver.NewMemory()),
+		Capabilities:   chartutil.DefaultCapabilities,
+		Releases:       storage.Init(driver.NewMemory()),
+		RegistryClient: registryClient,
 	}
 	if len(c.opts.APIVersions) > 0 {
 		cfg.Capabilities.APIVersions = append(cfg.Capabilities.APIVersions, c.opts.APIVersions...)
@@ -218,25 +245,35 @@ func (c *chart) template() (string, error) {
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
 
-	chartName := func() string {
+	chartName, err := func() (string, error) {
+		if registry.IsOCI(c.opts.Chart) {
+			u, err := url.Parse(c.opts.Chart)
+			if err != nil {
+				return "", err
+			}
+			return filepath.Base(u.Path), nil
+		}
 		// Check if the chart value is a URL with a defined scheme.
 		if _url, err := url.Parse(c.opts.Chart); err == nil && len(_url.Scheme) > 0 {
 			// Chart path will be of the form `/name-version.tgz`
 			re := regexp.MustCompile(`/(\w+)-(\S+)\.tgz$`)
 			matches := re.FindStringSubmatch(_url.Path)
 			if len(matches) > 1 {
-				return matches[1]
+				return matches[1], nil
 			}
 		}
 
 		splits := strings.Split(c.opts.Chart, "/")
 		if len(splits) == 2 {
-			return splits[1]
+			return splits[1], nil
 		}
-		return c.opts.Chart
+		return c.opts.Chart, nil
+	}()
+	if err != nil {
+		return "", pkgerrors.Wrapf(err, "failed to load chart name from %q", c.opts.Chart)
 	}
 
-	chart, err := loader.Load(filepath.Join(c.chartDir, chartName()))
+	chart, err := loader.Load(filepath.Join(c.chartDir, chartName))
 	if err != nil {
 		return "", pkgerrors.Wrap(err, "failed to load chart from temp directory")
 	}
