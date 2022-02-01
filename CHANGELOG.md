@@ -1,5 +1,7 @@
+<<<<<<< HEAD
 ## Unreleased
-(None)
+- Bump to v3.8.0 of Helm (https://github.com/pulumi/pulumi-kubernetes/pull/1892)
+- [Helm/Release][Helm/V3] Add initial support for OCI registries (https://github.com/pulumi/pulumi-kubernetes/pull/1892)
 
 ## 3.15.2 (February 9, 2022)
 - Infer default namespace from kubeconfig when not configured via the provider (https://github.com/pulumi/pulumi-kubernetes/pull/1896)
