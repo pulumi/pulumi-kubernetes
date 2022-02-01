@@ -147,6 +147,14 @@ import * as utilities from "../../utilities";
  * const srv = k8s.core.v1.Service.get("redis-master-svc", pulumi.interpolate`${redis.status.namespace}/${redis.status.name}-master`);
  * export const redisMasterClusterIP = srv.spec.clusterIP;
  * ```
+ *
+ * ## Import
+ *
+ * An existing Helm Release resource can be imported using its `type token`, `name` and identifier, e.g.
+ *
+ * ```sh
+ * $ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
+ * ```
  */
 export class Release extends pulumi.CustomResource {
     /**
@@ -520,7 +528,7 @@ export interface ReleaseArgs {
      */
     timeout?: pulumi.Input<number>;
     /**
-     * List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+     * List of assets (raw yaml files). Content is read and merged with values.
      */
     valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
     /**
