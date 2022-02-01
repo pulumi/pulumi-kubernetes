@@ -79,7 +79,7 @@ class ReleaseArgs:
         :param pulumi.Input[bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         :param pulumi.Input[int] timeout: Time in seconds to wait for any individual kubernetes operation.
-        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
@@ -502,7 +502,7 @@ class ReleaseArgs:
     @pulumi.getter(name="valueYamlFiles")
     def value_yaml_files(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]]:
         """
-        List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        List of assets (raw yaml files). Content is read and merged with values.
         """
         return pulumi.get(self, "value_yaml_files")
 
@@ -792,7 +792,7 @@ class Release(pulumi.CustomResource):
         :param pulumi.Input[bool] skip_await: By default, the provider waits until all resources are in a ready state before marking the release as successful. Setting this to true will skip such await logic.
         :param pulumi.Input[bool] skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
         :param pulumi.Input[int] timeout: Time in seconds to wait for any individual kubernetes operation.
-        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        :param pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]] value_yaml_files: List of assets (raw yaml files). Content is read and merged with values.
         :param pulumi.Input[Mapping[str, Any]] values: Custom values set for the release.
         :param pulumi.Input[bool] verify: Verify the package before installing it.
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.

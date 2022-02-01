@@ -444,7 +444,7 @@ type releaseArgs struct {
 	SkipCrds *bool `pulumi:"skipCrds"`
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout *int `pulumi:"timeout"`
-	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+	// List of assets (raw yaml files). Content is read and merged with values.
 	ValueYamlFiles []pulumi.AssetOrArchive `pulumi:"valueYamlFiles"`
 	// Custom values set for the release.
 	Values map[string]interface{} `pulumi:"values"`
@@ -515,7 +515,7 @@ type ReleaseArgs struct {
 	SkipCrds pulumi.BoolPtrInput
 	// Time in seconds to wait for any individual kubernetes operation.
 	Timeout pulumi.IntPtrInput
-	// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+	// List of assets (raw yaml files). Content is read and merged with values.
 	ValueYamlFiles pulumi.AssetOrArchiveArrayInput
 	// Custom values set for the release.
 	Values pulumi.MapInput

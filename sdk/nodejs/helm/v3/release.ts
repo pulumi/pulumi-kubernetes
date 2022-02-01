@@ -528,7 +528,7 @@ export interface ReleaseArgs {
      */
     timeout?: pulumi.Input<number>;
     /**
-     * List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+     * List of assets (raw yaml files). Content is read and merged with values.
      */
     valueYamlFiles?: pulumi.Input<pulumi.Input<pulumi.asset.Asset | pulumi.asset.Archive>[]>;
     /**

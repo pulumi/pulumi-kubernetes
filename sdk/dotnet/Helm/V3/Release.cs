@@ -703,7 +703,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         private InputList<AssetOrArchive>? _valueYamlFiles;
 
         /// <summary>
-        /// List of assets (raw yaml files). Content is read and merged with values. Not yet supported.
+        /// List of assets (raw yaml files). Content is read and merged with values.
         /// </summary>
         public InputList<AssetOrArchive> ValueYamlFiles
         {
