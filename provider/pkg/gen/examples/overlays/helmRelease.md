@@ -744,3 +744,10 @@ func main() {
 {{% /example %}}
 {{% /examples %}}
 
+## Import
+
+An existing Helm Release resource can be imported using its `type token`, `name` and identifier, e.g.
+
+```sh
+$ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
+```

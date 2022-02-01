@@ -241,6 +241,14 @@ namespace Pulumi.Kubernetes.Helm.V3
     ///     public Output&lt;string&gt; RedisMasterClusterIP { get; set; }
     /// }
     /// ```
+    /// 
+    /// ## Import
+    /// 
+    /// An existing Helm Release resource can be imported using its `type token`, `name` and identifier, e.g.
+    /// 
+    /// ```sh
+    /// $ pulumi import kubernetes:helm.sh/v3:Release myRelease &lt;namespace&gt;/&lt;releaseName&gt;
+    /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:helm.sh/v3:Release")]
     public partial class Release : KubernetesResource

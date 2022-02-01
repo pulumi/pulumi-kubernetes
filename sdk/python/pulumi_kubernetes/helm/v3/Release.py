@@ -754,6 +754,14 @@ class Release(pulumi.CustomResource):
         pulumi.export("redisMasterClusterIP", srv.spec.cluster_ip)
         ```
 
+        ## Import
+
+        An existing Helm Release resource can be imported using its `type token`, `name` and identifier, e.g.
+
+        ```sh
+        $ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
@@ -949,6 +957,14 @@ class Release(pulumi.CustomResource):
         # srv will only resolve after the redis chart is installed.
         srv = Service.get("redis-master-svc", Output.concat(redis.status.namespace, "/", redis.status.name, "-master"))
         pulumi.export("redisMasterClusterIP", srv.spec.cluster_ip)
+        ```
+
+        ## Import
+
+        An existing Helm Release resource can be imported using its `type token`, `name` and identifier, e.g.
+
+        ```sh
+        $ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
         ```
 
         :param str resource_name: The name of the resource.

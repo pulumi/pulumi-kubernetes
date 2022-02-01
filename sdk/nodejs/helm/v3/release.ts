@@ -147,6 +147,14 @@ import * as utilities from "../../utilities";
  * const srv = k8s.core.v1.Service.get("redis-master-svc", pulumi.interpolate`${redis.status.namespace}/${redis.status.name}-master`);
  * export const redisMasterClusterIP = srv.spec.clusterIP;
  * ```
+ *
+ * ## Import
+ *
+ * An existing Helm Release resource can be imported using its `type token`, `name` and identifier, e.g.
+ *
+ * ```sh
+ * $ pulumi import kubernetes:helm.sh/v3:Release myRelease <namespace>/<releaseName>
+ * ```
  */
 export class Release extends pulumi.CustomResource {
     /**
