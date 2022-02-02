@@ -1,5 +1,5 @@
-## HEAD (Unreleased)
-(None)
+## 3.15.1 (February 2, 2022)
+- [Helm/Release] Add import docs (https://github.com/pulumi/pulumi-kubernetes/pull/1893)
 
 ## 3.15.0 (January 27, 2022)
 - [Helm/Release] Remove beta warnings (https://github.com/pulumi/pulumi-kubernetes/pull/1885)
