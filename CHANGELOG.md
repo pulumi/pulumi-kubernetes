@@ -1,6 +1,6 @@
 ## Unreleased
 
-- Infer default namespace from kubeconfig when not configured via the provider
+- Infer default namespace from kubeconfig when not configured via the provider (https://github.com/pulumi/pulumi-kubernetes/pull/1896)
 
 ## 3.15.1 (February 2, 2022)
 - [Helm/Release] Add import docs (https://github.com/pulumi/pulumi-kubernetes/pull/1893)
