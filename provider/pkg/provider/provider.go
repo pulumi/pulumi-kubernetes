@@ -388,7 +388,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	//
 	// Configure client-go using provided or ambient kubeconfig file.
 	//
-
 	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
 		k.defaultNamespace = defaultNamespace
 	}
@@ -609,6 +608,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
 		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
+		configurationNamespace, _, err := kubeconfig.Namespace()
+		if err == nil {
+			k.defaultNamespace = configurationNamespace
+		}
 	}
 
 	var kubeClientSettings KubeClientSettings
@@ -683,17 +686,14 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 
 	var err error
-	namespace := "default"
-	if k.defaultNamespace != "" {
-		namespace = k.defaultNamespace
-	}
+
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
 		apiConfig,
 		overrides,
 		k.config,
 		k.helmDriver,
-		namespace,
+		k.defaultNamespace,
 		k.enableSecrets,
 		k.helmPluginsPath,
 		k.helmRegistryConfigPath,
