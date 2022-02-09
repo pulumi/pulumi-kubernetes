@@ -1,5 +1,7 @@
 ## Unreleased
+(None)
 
+## 3.15.2 (February 9, 2022)
 - Infer default namespace from kubeconfig when not configured via the provider (https://github.com/pulumi/pulumi-kubernetes/pull/1896)
 - Fix an error handling bug in await logic (https://github.com/pulumi/pulumi-kubernetes/pull/1899)
 
