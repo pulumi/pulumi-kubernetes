@@ -379,6 +379,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
 		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
 		currentOutputs, err = client.Update(context.TODO(), c.Inputs, metav1.UpdateOptions{})
+		if err != nil {
+			return nil, err
+		}
 	} else {
 		// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
 		patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
@@ -395,6 +398,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		// NOTE: We can use the same client because if the `kind` changes, this will cause
 		// a replace (i.e., destroy and create).
 		currentOutputs, err = client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, options)
+		if err != nil {
+			return nil, err
+		}
 	}
 	if err != nil {
 		return nil, err
