@@ -281,7 +281,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		return nil, err
 	}
 
-	objs, err := helmTemplate(ctx, string(b))
+	objs, err := helmTemplate(ctx, string(b), opts)
 	if err != nil {
 		return nil, err
 	}
@@ -299,7 +299,9 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 }
 
 // helmTemplate invokes the function to fetch and template a Helm Chart and decompose it into object structures.
-func helmTemplate(ctx *pulumi.Context, jsonOpts string) ([]map[string]interface{}, error) {
+func helmTemplate(
+	ctx *pulumi.Context, jsonOpts string, opts ...pulumi.ResourceOption,
+) ([]map[string]interface{}, error) {
 	args := struct {
 		JsonOpts string `pulumi:"jsonOpts"`
 	}{JsonOpts: jsonOpts}
@@ -307,7 +309,7 @@ func helmTemplate(ctx *pulumi.Context, jsonOpts string) ([]map[string]interface{
 		Result []map[string]interface{} `pulumi:"result"`
 	}
 
-	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret); err != nil {
+	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret, opts...); err != nil {
 		return nil, errors.Wrap(err, "failed to invoke helm template")
 	}
 	return ret.Result, nil
