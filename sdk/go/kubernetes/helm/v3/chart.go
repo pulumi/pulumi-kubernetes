@@ -196,7 +196,7 @@ import (
 //                 func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
 //                     name := state["metadata"].(map[string]interface{})["name"]
 //                     if state["kind"] == "Pod" && name == "test" {
-//                         state["apiVersion"] = "core/v1"
+//                         state["apiVersion"] = "v1"
 //                         state["kind"] = "List"
 //                     }
 //                 },
