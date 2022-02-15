@@ -21,9 +21,13 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"time"
+
+	"helm.sh/helm/v3/pkg/registry"
+	"helm.sh/helm/v3/pkg/repo"
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -247,9 +251,20 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
 	}
 	kc := NewKubeConfig(r.restConfig, clientConfig)
+
 	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {
 		return nil, err
 	}
+	logger.V(9).Infof("Setting registry client with config file: %q and debug: %v", r.settings.RegistryConfig,
+		r.settings.Debug)
+	registryClient, err := registry.NewClient(
+		registry.ClientOptDebug(r.settings.Debug),
+		registry.ClientOptCredentialsFile(r.settings.RegistryConfig),
+	)
+	if err != nil {
+		return nil, err
+	}
+	conf.RegistryClient = registryClient
 	return conf, nil
 }
 
@@ -338,7 +353,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	assignNameIfAutonameable(new, news, urn.Name())
 	r.setDefaults(new)
 
-	resourceNames, err := computeResourceNames(new)
+	resourceNames, err := r.computeResourceNames(new)
 	if err != nil {
 		return nil, err
 	}
@@ -381,9 +396,10 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 		return err
 	}
 	client := action.NewInstall(conf)
-	c, path, err := getChart(r.settings, newRelease)
+	c, path, err := getChart(&client.ChartPathOptions, conf.RegistryClient, r.settings, newRelease)
 	if err != nil {
 		logger.V(9).Infof("getChart failed: %+v", err)
+		logger.V(9).Infof("Settings: %#v", r.settings)
 		return err
 	}
 
@@ -394,6 +410,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 		path,
 		newRelease.Keyring,
 		r.settings,
+		conf.RegistryClient,
 		newRelease.DependencyUpdate)
 	if err != nil {
 		return err
@@ -490,10 +507,17 @@ func (e *releaseFailedError) Error() string {
 	return "failed to become available within allocated timeout. Error: " + s.String()
 }
 
-func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, news resource.PropertyMap, newRelease, oldRelease *Release) error {
+func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error {
 	logger.V(9).Infof("getChart: %q settings: %#v", newRelease.Chart, r.settings)
+
+	actionConfig, err := r.getActionConfig(oldRelease.Namespace)
+	if err != nil {
+		return err
+	}
+	client := action.NewUpgrade(actionConfig)
+	cpo := &client.ChartPathOptions
 	// Get Chart metadata, if we fail - we're done
-	chart, path, err := getChart(r.settings, newRelease)
+	chart, path, err := getChart(cpo, actionConfig.RegistryClient, r.settings, newRelease)
 	if err != nil {
 		return err
 	}
@@ -504,6 +528,7 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		path,
 		newRelease.Keyring,
 		r.settings,
+		actionConfig.RegistryClient,
 		newRelease.DependencyUpdate)
 	if err != nil {
 		return err
@@ -516,14 +541,9 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 	}
 
 	if newRelease.Lint {
-		if err := resourceReleaseValidate(newRelease, r.settings); err != nil {
+		if err := resourceReleaseValidate(cpo, newRelease, r.settings); err != nil {
 			return err
 		}
-	}
-
-	actionConfig, err := r.getActionConfig(oldRelease.Namespace)
-	if err != nil {
-		return err
 	}
 
 	values, err := getValues(newRelease)
@@ -531,7 +551,6 @@ func (r *helmReleaseProvider) helmUpdate(ctx context.Context, urn resource.URN, 
 		return fmt.Errorf("error getting values for a diff: %w", err)
 	}
 
-	client := action.NewUpgrade(actionConfig)
 	client.Devel = newRelease.Devel
 	client.Namespace = newRelease.Namespace
 	client.Timeout = time.Duration(newRelease.Timeout) * time.Second
@@ -714,8 +733,8 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	}, nil
 }
 
-func resourceReleaseValidate(release *Release, settings *cli.EnvSettings) error {
-	cpo, name, err := chartPathOptions(release)
+func resourceReleaseValidate(cpo *action.ChartPathOptions, release *Release, settings *cli.EnvSettings) error {
+	name, err := chartPathOptionsFromRelease(cpo, release)
 	if err != nil {
 		return fmt.Errorf("malformed values: \n\t%s", err)
 	}
@@ -871,22 +890,6 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 		return nil, err
 	}
 
-	// Helm itself doesn't store any information about where the Chart was downloaded from.
-	// We need the user to ensure the chart is downloadable by using `helm repo add` etc.
-	if existingRelease.RepositoryOpts != nil {
-		_, chartName, err := chartPathOptions(existingRelease)
-		if err != nil {
-			return nil, err
-		}
-
-		logger.V(9).Infof("Trying to get chart: %q, settings: %#v", chartName, r.settings)
-
-		_, _, err = getChart(r.settings, existingRelease)
-		if err != nil {
-			return nil, err
-		}
-	}
-
 	logger.V(9).Infof("%s Found release %s/%s", label, namespace, name)
 
 	oldInputs, _ := parseCheckpointRelease(oldState)
@@ -973,7 +976,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 		if r.clusterUnreachable {
 			return nil, fmt.Errorf("can't update Helm Release with unreachable cluster: %s", r.clusterUnreachableReason)
 		}
-		if err = r.helmUpdate(ctx, urn, newResInputs, newRelease, oldRelease); err != nil {
+		if err = r.helmUpdate(newRelease, oldRelease); err != nil {
 			var failedErr *releaseFailedError
 			if errors.As(err, &failedErr) {
 				updateError = failedErr
@@ -1052,37 +1055,11 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	return &pbempty.Empty{}, nil
 }
 
-func computeResourceNames(r *Release) (map[string][]string, error) {
-	logger.V(9).Infof("Looking up resource names for release: %q: %#v", r.Name, r)
-	helmHome := os.Getenv("HELM_HOME")
+func (r *helmReleaseProvider) computeResourceNames(rel *Release) (map[string][]string, error) {
+	logger.V(9).Infof("Looking up resource names for release: %q: %#v", rel.Name, rel)
+	helmChartOpts := r.chartOptsFromRelease(rel)
 
-	helmChartOpts := HelmChartOpts{
-		APIVersions:              nil,
-		IncludeTestHookResources: true,
-		SkipCRDRendering:         r.SkipCrds,
-		Namespace:                r.Namespace,
-		ReleaseName:              r.Name,
-		Values:                   r.Values,
-		Version:                  r.Version,
-	}
-	if r.RepositoryOpts != nil {
-		helmChartOpts.Chart = r.Chart
-		helmChartOpts.HelmFetchOpts = HelmFetchOpts{
-			CAFile:   r.RepositoryOpts.CAFile,
-			CertFile: r.RepositoryOpts.CertFile,
-			Devel:    r.Devel,
-			Home:     helmHome,
-			KeyFile:  r.RepositoryOpts.KeyFile,
-			Keyring:  r.Keyring,
-			Password: r.RepositoryOpts.Password,
-			Repo:     r.RepositoryOpts.Repo,
-			Username: r.RepositoryOpts.Username,
-			Version:  r.Version,
-		}
-	} else {
-		helmChartOpts.Path = r.Chart
-	}
-
+	logger.V(9).Infof("About to template: %+v", helmChartOpts)
 	templ, err := helmTemplate(helmChartOpts)
 	if err != nil {
 		return nil, err
@@ -1094,6 +1071,42 @@ func computeResourceNames(r *Release) (map[string][]string, error) {
 	}
 
 	return resourceNames, nil
+}
+
+func (r *helmReleaseProvider) chartOptsFromRelease(rel *Release) HelmChartOpts {
+	helmHome := os.Getenv("HELM_HOME")
+
+	helmChartOpts := HelmChartOpts{
+		APIVersions:              nil,
+		SkipCRDRendering:         rel.SkipCrds,
+		Namespace:                rel.Namespace,
+		ReleaseName:              rel.Name,
+		Values:                   rel.Values,
+		Version:                  rel.Version,
+		HelmChartDebug:           r.settings.Debug,
+		IncludeTestHookResources: true,
+		HelmRegistryConfig:       r.settings.RegistryConfig,
+	}
+	if rel.RepositoryOpts != nil {
+		helmChartOpts.Chart = rel.Chart
+		helmChartOpts.HelmFetchOpts = HelmFetchOpts{
+			CAFile:   rel.RepositoryOpts.CAFile,
+			CertFile: rel.RepositoryOpts.CertFile,
+			Devel:    rel.Devel,
+			Home:     helmHome,
+			KeyFile:  rel.RepositoryOpts.KeyFile,
+			Keyring:  rel.Keyring,
+			Password: rel.RepositoryOpts.Password,
+			Repo:     rel.RepositoryOpts.Repo,
+			Username: rel.RepositoryOpts.Username,
+			Version:  rel.Version,
+		}
+	} else if registry.IsOCI(rel.Chart) {
+		helmChartOpts.Chart = rel.Chart
+	} else {
+		helmChartOpts.Path = rel.Chart
+	}
+	return helmChartOpts
 }
 
 func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string) resource.PropertyMap {
@@ -1293,34 +1306,24 @@ func excludeNulls(in interface{}) interface{} {
 	return in
 }
 
-func getChart(settings *cli.EnvSettings, newRelease *Release) (*helmchart.Chart, string, error) {
+func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, settings *cli.EnvSettings,
+	newRelease *Release) (*helmchart.Chart, string,
+	error) {
 	logger.V(9).Infof("Looking up chart path options for release: %q", newRelease.Name)
 
-	var path string
-	if newRelease.RepositoryOpts != nil {
-		cpo, chartName, err := chartPathOptions(newRelease)
-		if err != nil {
-			return nil, "", err
-		}
-
-		path, err = cpo.LocateChart(chartName, settings)
-		if err != nil {
-			return nil, "", err
-		}
-
-		logger.V(9).Infof("Trying to load chart: %q from path: %q", chartName, path)
-		c, err := loader.Load(path)
-		if err != nil {
-			return nil, "", err
-		}
-
-		return c, path, nil
+	chartName, err := chartPathOptionsFromRelease(cpo, newRelease)
+	if err != nil {
+		return nil, "", err
 	}
 
-	path = newRelease.Chart
+	logger.V(9).Infof("Chart name: %q", chartName)
+	path, err := locateChart(cpo, registryClient, chartName, settings)
+	if err != nil {
+		return nil, "", err
+	}
 
 	logger.V(9).Infof("Trying to load chart from path: %q", path)
-	c, err := loader.Load(newRelease.Chart)
+	c, err := loader.Load(path)
 	if err != nil {
 		return nil, "", err
 	}
@@ -1328,7 +1331,111 @@ func getChart(settings *cli.EnvSettings, newRelease *Release) (*helmchart.Chart,
 	return c, path, nil
 }
 
-func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *cli.EnvSettings, dependencyUpdate bool) (bool, error) {
+// locateChart is a copy of cpo.LocateChart with a fix to actually honor the registry client
+// configured with a registry config. As currently written, LocateChart will only ever honor
+// the registry config in $HELM_HOME/registry/config.json or the platform specific docker
+// default credential store.
+// TODO open issue on Helm for this.
+func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, name string,
+	settings *cli.EnvSettings) (string, error) {
+	name = strings.TrimSpace(name)
+	version := strings.TrimSpace(cpo.Version)
+
+	if _, err := os.Stat(name); err == nil {
+		abs, err := filepath.Abs(name)
+		if err != nil {
+			return abs, err
+		}
+		if cpo.Verify {
+			if _, err := downloader.VerifyChart(abs, cpo.Keyring); err != nil {
+				return "", err
+			}
+		}
+		return abs, nil
+	}
+	if filepath.IsAbs(name) || strings.HasPrefix(name, ".") {
+		return name, pkgerrors.Errorf("path %q not found", name)
+	}
+
+	dl := downloader.ChartDownloader{
+		Out:     os.Stdout,
+		Keyring: cpo.Keyring,
+		Getters: getter.All(settings),
+		Options: []getter.Option{
+			getter.WithPassCredentialsAll(cpo.PassCredentialsAll),
+			getter.WithTLSClientConfig(cpo.CertFile, cpo.KeyFile, cpo.CaFile),
+			getter.WithInsecureSkipVerifyTLS(cpo.InsecureSkipTLSverify),
+		},
+		RepositoryConfig: settings.RepositoryConfig,
+		RepositoryCache:  settings.RepositoryCache,
+		RegistryClient:   registryClient,
+	}
+
+	if registry.IsOCI(name) {
+		dl.Options = append(dl.Options, getter.WithRegistryClient(registryClient))
+	}
+
+	if cpo.Verify {
+		dl.Verify = downloader.VerifyAlways
+	}
+	if cpo.RepoURL != "" {
+		chartURL, err := repo.FindChartInAuthAndTLSAndPassRepoURL(
+			cpo.RepoURL, cpo.Username, cpo.Password, name, version, cpo.CertFile,
+			cpo.KeyFile, cpo.CaFile, cpo.InsecureSkipTLSverify, cpo.PassCredentialsAll,
+			getter.All(settings))
+		if err != nil {
+			return "", err
+		}
+		name = chartURL
+
+		// Only pass the user/pass on when the user has said to or when the
+		// location of the chart repo and the chart are the same domain.
+		u1, err := url.Parse(cpo.RepoURL)
+		if err != nil {
+			return "", err
+		}
+		u2, err := url.Parse(chartURL)
+		if err != nil {
+			return "", err
+		}
+
+		// Host on URL (returned from url.Parse) contains the port if present.
+		// This check ensures credentials are not passed between different
+		// services on different ports.
+		if cpo.PassCredentialsAll || (u1.Scheme == u2.Scheme && u1.Host == u2.Host) {
+			dl.Options = append(dl.Options, getter.WithBasicAuth(cpo.Username, cpo.Password))
+		} else {
+			dl.Options = append(dl.Options, getter.WithBasicAuth("", ""))
+		}
+	} else {
+		dl.Options = append(dl.Options, getter.WithBasicAuth(cpo.Username, cpo.Password))
+	}
+
+	if err := os.MkdirAll(settings.RepositoryCache, 0755); err != nil {
+		return "", err
+	}
+
+	filename, _, err := dl.DownloadTo(name, version, settings.RepositoryCache)
+	if err == nil {
+		lname, err := filepath.Abs(filename)
+		if err != nil {
+			return filename, err
+		}
+		return lname, nil
+	} else if settings.Debug {
+		return filename, err
+	}
+
+	atVersion := ""
+	if version != "" {
+		atVersion = fmt.Sprintf(" at version %q", version)
+	}
+
+	return filename, pkgerrors.Errorf("failed to download %q%s", name, atVersion)
+}
+
+func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *cli.EnvSettings,
+	registryClient *registry.Client, dependencyUpdate bool) (bool, error) {
 	p := getter.All(settings)
 
 	if req := c.Metadata.Dependencies; req != nil {
@@ -1343,6 +1450,7 @@ func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *
 					Getters:          p,
 					RepositoryConfig: settings.RepositoryConfig,
 					RepositoryCache:  settings.RepositoryCache,
+					RegistryClient:   registryClient,
 					Debug:            settings.Debug,
 				}
 				return true, man.Update()
@@ -1354,22 +1462,20 @@ func checkChartDependencies(c *helmchart.Chart, path, keyring string, settings *
 	return false, nil
 }
 
-func chartPathOptions(release *Release) (*action.ChartPathOptions, string, error) {
+func chartPathOptionsFromRelease(cpo *action.ChartPathOptions, release *Release) (string, error) {
 	chartName := release.Chart
 
 	version := getVersion(release)
-	cpo := &action.ChartPathOptions{
-		Keyring: release.Keyring,
-		Verify:  release.Verify,
-		Version: version,
-	}
+	cpo.Keyring = release.Keyring
+	cpo.Verify = release.Verify
+	cpo.Version = version
 	if release.RepositoryOpts != nil {
 		var repositoryURL string
 		var err error
 		repository := release.RepositoryOpts.Repo
 		repositoryURL, chartName, err = resolveChartName(repository, strings.TrimSpace(chartName))
 		if err != nil {
-			return nil, "", err
+			return "", err
 		}
 		cpo.CertFile = release.RepositoryOpts.CertFile
 		cpo.CaFile = release.RepositoryOpts.CAFile
@@ -1379,7 +1485,7 @@ func chartPathOptions(release *Release) (*action.ChartPathOptions, string, error
 		cpo.RepoURL = repositoryURL
 	}
 
-	return cpo, chartName, nil
+	return chartName, nil
 }
 
 func getVersion(release *Release) (version string) {
@@ -1396,6 +1502,9 @@ func getVersion(release *Release) (version string) {
 }
 
 func resolveChartName(repository, name string) (string, string, error) {
+	if registry.IsOCI(name) {
+		return "", name, nil
+	}
 	_, err := url.ParseRequestURI(repository)
 	if err == nil {
 		return repository, name, nil

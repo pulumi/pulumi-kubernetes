@@ -237,7 +237,7 @@ jobs:
   test-sdks:
     name: test-language-sdks
     runs-on: ubuntu-latest
-    needs: [build_sdks, build-test-cluster]
+    needs: [ build_sdks, build-test-cluster ]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -316,8 +316,8 @@ jobs:
           sudo mv kubectl /usr/local/bin
       - name: Install helm
         run: |
-          curl -LO  https://get.helm.sh/helm-v3.2.1-linux-amd64.tar.gz
-          tar -xvf helm-v3.2.1-linux-amd64.tar.gz
+          curl -LO  https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
+          tar -xvf helm-v3.8.0-linux-amd64.tar.gz
           sudo mv linux-amd64/helm /usr/local/bin
       - name: Configure helm
         run: |
@@ -356,7 +356,7 @@ jobs:
           - "3.7"
   cleanup-infra:
     name: cleanup-test-infra
-    needs: [test-sdks, build-test-cluster]
+    needs: [ test-sdks, build-test-cluster ]
     strategy:
       matrix:
         platform: [ ubuntu-latest ]
