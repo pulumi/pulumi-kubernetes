@@ -281,7 +281,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		return nil, err
 	}
 
-	objs, err := helmTemplate(ctx, string(b), opts)
+	objs, err := helmTemplate(ctx, string(b), opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -308,8 +308,14 @@ func helmTemplate(
 	var ret struct {
 		Result []map[string]interface{} `pulumi:"result"`
 	}
+	invokeOptions := []pulumi.InvokeOption{}
+	for _, opt := range opts {
+		if opt, ok := opt.(pulumi.InvokeOption); ok {
+			invokeOptions = append(invokeOptions, opt)
+		}
+	}
 
-	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret, opts...); err != nil {
+	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret, invokeOptions...); err != nil {
 		return nil, errors.Wrap(err, "failed to invoke helm template")
 	}
 	return ret.Result, nil
