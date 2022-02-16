@@ -1,5 +1,7 @@
-<<<<<<< HEAD
 ## Unreleased
+(None)
+
+## 3.16.0 (February 16, 2022)
 - Bump to v3.8.0 of Helm (https://github.com/pulumi/pulumi-kubernetes/pull/1892)
 - [Helm/Release][Helm/V3] Add initial support for OCI registries (https://github.com/pulumi/pulumi-kubernetes/pull/1892)
 
