@@ -39,6 +39,12 @@ namespace Pulumi.Kubernetes.Networking.V1
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec> Spec { get; private set; } = null!;
 
+        /// <summary>
+        /// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+        [Output("status")]
+        public Output<Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicyStatus> Status { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a NetworkPolicy resource with the given unique name, arguments, and options.

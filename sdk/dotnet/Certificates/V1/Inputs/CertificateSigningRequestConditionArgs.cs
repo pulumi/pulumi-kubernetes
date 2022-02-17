@@ -57,11 +57,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
         /// Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
         /// 
         /// Only one condition of a given type is allowed.
-        /// 
-        /// Possible enum values:
-        ///  - `"Approved"` Approved indicates the request was approved and should be issued by the signer.
-        ///  - `"Denied"` Denied indicates the request was denied and should not be issued by the signer.
-        ///  - `"Failed"` Failed indicates the signer failed to issue the certificate.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

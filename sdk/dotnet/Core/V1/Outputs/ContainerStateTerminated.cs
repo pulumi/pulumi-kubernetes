@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ContainerStateTerminated
     {
         /// <summary>
-        /// Container's ID in the format 'docker://&lt;container_id&gt;'
+        /// Container's ID in the format '&lt;type&gt;://&lt;container_id&gt;'
         /// </summary>
         public readonly string ContainerID;
         /// <summary>

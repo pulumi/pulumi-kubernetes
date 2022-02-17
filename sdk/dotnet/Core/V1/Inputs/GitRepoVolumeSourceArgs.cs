@@ -18,19 +18,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class GitRepoVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+        /// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
         /// </summary>
         [Input("directory")]
         public Input<string>? Directory { get; set; }
 
         /// <summary>
-        /// Repository URL
+        /// repository is the URL
         /// </summary>
         [Input("repository", required: true)]
         public Input<string> Repository { get; set; } = null!;
 
         /// <summary>
-        /// Commit hash for the specified revision.
+        /// revision is the commit hash for the specified revision.
         /// </summary>
         [Input("revision")]
         public Input<string>? Revision { get; set; }

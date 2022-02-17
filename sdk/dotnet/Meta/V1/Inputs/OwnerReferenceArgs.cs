@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public Input<string> ApiVersion { get; set; } = null!;
 
         /// <summary>
-        /// If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
+        /// If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
         /// </summary>
         [Input("blockOwnerDeletion")]
         public Input<bool>? BlockOwnerDeletion { get; set; }

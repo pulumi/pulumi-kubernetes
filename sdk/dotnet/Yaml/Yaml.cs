@@ -257,12 +257,12 @@ namespace Pulumi.Kubernetes.Yaml
                 type == typeof(Storage.V1.CSIDriverList) ? "storage.k8s.io/v1/CSIDriverList" :
                 type == typeof(Storage.V1.CSINode) ? "storage.k8s.io/v1/CSINode" :
                 type == typeof(Storage.V1.CSINodeList) ? "storage.k8s.io/v1/CSINodeList" :
+                type == typeof(Storage.V1.CSIStorageCapacity) ? "storage.k8s.io/v1/CSIStorageCapacity" :
+                type == typeof(Storage.V1.CSIStorageCapacityList) ? "storage.k8s.io/v1/CSIStorageCapacityList" :
                 type == typeof(Storage.V1.StorageClass) ? "storage.k8s.io/v1/StorageClass" :
                 type == typeof(Storage.V1.StorageClassList) ? "storage.k8s.io/v1/StorageClassList" :
                 type == typeof(Storage.V1.VolumeAttachment) ? "storage.k8s.io/v1/VolumeAttachment" :
                 type == typeof(Storage.V1.VolumeAttachmentList) ? "storage.k8s.io/v1/VolumeAttachmentList" :
-                type == typeof(Storage.V1Alpha1.CSIStorageCapacity) ? "storage.k8s.io/v1alpha1/CSIStorageCapacity" :
-                type == typeof(Storage.V1Alpha1.CSIStorageCapacityList) ? "storage.k8s.io/v1alpha1/CSIStorageCapacityList" :
                 type == typeof(Storage.V1Alpha1.VolumeAttachment) ? "storage.k8s.io/v1alpha1/VolumeAttachment" :
                 type == typeof(Storage.V1Alpha1.VolumeAttachmentList) ? "storage.k8s.io/v1alpha1/VolumeAttachmentList" :
                 type == typeof(Storage.V1Beta1.CSIDriver) ? "storage.k8s.io/v1beta1/CSIDriver" :
@@ -575,9 +575,9 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "settings.k8s.io/v1alpha1/PodPresetList"
                 || gvk == "storage.k8s.io/v1/CSIDriverList"
                 || gvk == "storage.k8s.io/v1/CSINodeList"
+                || gvk == "storage.k8s.io/v1/CSIStorageCapacityList"
                 || gvk == "storage.k8s.io/v1/StorageClassList"
                 || gvk == "storage.k8s.io/v1/VolumeAttachmentList"
-                || gvk == "storage.k8s.io/v1alpha1/CSIStorageCapacityList"
                 || gvk == "storage.k8s.io/v1alpha1/VolumeAttachmentList"
                 || gvk == "storage.k8s.io/v1beta1/CSIDriverList"
                 || gvk == "storage.k8s.io/v1beta1/CSINodeList"
@@ -1265,6 +1265,12 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"storage.k8s.io/v1/CSINode::{id}",
                                 new Storage.V1.CSINode(id, obj!, opts) as KubernetesResource))
                         };
+                    case "storage.k8s.io/v1/CSIStorageCapacity":
+                        return new[]
+                        {
+                            id.Apply(id => ($"storage.k8s.io/v1/CSIStorageCapacity::{id}",
+                                new Storage.V1.CSIStorageCapacity(id, obj!, opts) as KubernetesResource))
+                        };
                     case "storage.k8s.io/v1/StorageClass":
                         return new[]
                         {
@@ -1276,12 +1282,6 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"storage.k8s.io/v1/VolumeAttachment::{id}",
                                 new Storage.V1.VolumeAttachment(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "storage.k8s.io/v1alpha1/CSIStorageCapacity":
-                        return new[]
-                        {
-                            id.Apply(id => ($"storage.k8s.io/v1alpha1/CSIStorageCapacity::{id}",
-                                new Storage.V1Alpha1.CSIStorageCapacity(id, obj!, opts) as KubernetesResource))
                         };
                     case "storage.k8s.io/v1alpha1/VolumeAttachment":
                         return new[]

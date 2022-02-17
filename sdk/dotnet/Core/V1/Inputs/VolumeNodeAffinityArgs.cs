@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class VolumeNodeAffinityArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Required specifies hard node constraints that must be met.
+        /// required specifies hard node constraints that must be met.
         /// </summary>
         [Input("required")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSelectorArgs>? Required { get; set; }

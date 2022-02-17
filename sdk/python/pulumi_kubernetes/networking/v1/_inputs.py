@@ -29,6 +29,7 @@ __all__ = [
     'NetworkPolicyPeerArgs',
     'NetworkPolicyPortArgs',
     'NetworkPolicySpecArgs',
+    'NetworkPolicyStatusArgs',
     'NetworkPolicyArgs',
     'ServiceBackendPortArgs',
 ]
@@ -1006,18 +1007,44 @@ class NetworkPolicySpecArgs:
 
 
 @pulumi.input_type
+class NetworkPolicyStatusArgs:
+    def __init__(__self__, *,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None):
+        """
+        NetworkPolicyStatus describe the current state of the NetworkPolicy.
+        :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]:
+        """
+        Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
+
+
+@pulumi.input_type
 class NetworkPolicyArgs:
     def __init__(__self__, *,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-                 spec: Optional[pulumi.Input['NetworkPolicySpecArgs']] = None):
+                 spec: Optional[pulumi.Input['NetworkPolicySpecArgs']] = None,
+                 status: Optional[pulumi.Input['NetworkPolicyStatusArgs']] = None):
         """
         NetworkPolicy describes what network traffic is allowed for a set of Pods
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['NetworkPolicySpecArgs'] spec: Specification of the desired behavior for this NetworkPolicy.
+        :param pulumi.Input['NetworkPolicyStatusArgs'] status: Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
@@ -1027,6 +1054,8 @@ class NetworkPolicyArgs:
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1075,6 +1104,18 @@ class NetworkPolicyArgs:
     @spec.setter
     def spec(self, value: Optional[pulumi.Input['NetworkPolicySpecArgs']]):
         pulumi.set(self, "spec", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input['NetworkPolicyStatusArgs']]:
+        """
+        Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input['NetworkPolicyStatusArgs']]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type

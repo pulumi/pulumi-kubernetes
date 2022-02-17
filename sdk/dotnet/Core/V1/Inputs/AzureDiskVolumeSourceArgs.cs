@@ -16,37 +16,37 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class AzureDiskVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Host Caching mode: None, Read Only, Read Write.
+        /// cachingMode is the Host Caching mode: None, Read Only, Read Write.
         /// </summary>
         [Input("cachingMode")]
         public Input<string>? CachingMode { get; set; }
 
         /// <summary>
-        /// The Name of the data disk in the blob storage
+        /// diskName is the Name of the data disk in the blob storage
         /// </summary>
         [Input("diskName", required: true)]
         public Input<string> DiskName { get; set; } = null!;
 
         /// <summary>
-        /// The URI the data disk in the blob storage
+        /// diskURI is the URI of data disk in the blob storage
         /// </summary>
         [Input("diskURI", required: true)]
         public Input<string> DiskURI { get; set; } = null!;
 
         /// <summary>
-        /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        /// fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         /// </summary>
         [Input("fsType")]
         public Input<string>? FsType { get; set; }
 
         /// <summary>
-        /// Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+        /// kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
         /// </summary>
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        /// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         /// </summary>
         [Input("readOnly")]
         public Input<bool>? ReadOnly { get; set; }

@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class VolumeProjection
     {
         /// <summary>
-        /// information about the configMap data to project
+        /// configMap information about the configMap data to project
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ConfigMapProjection ConfigMap;
         /// <summary>
-        /// information about the downwardAPI data to project
+        /// downwardAPI information about the downwardAPI data to project
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIProjection DownwardAPI;
         /// <summary>
-        /// information about the secret data to project
+        /// secret information about the secret data to project
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretProjection Secret;
         /// <summary>
-        /// information about the serviceAccountToken data to project
+        /// serviceAccountToken is information about the serviceAccountToken data to project
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ServiceAccountTokenProjection ServiceAccountToken;
 

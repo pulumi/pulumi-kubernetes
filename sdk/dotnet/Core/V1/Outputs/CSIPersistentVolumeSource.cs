@@ -17,39 +17,39 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class CSIPersistentVolumeSource
     {
         /// <summary>
-        /// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        /// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference ControllerExpandSecretRef;
         /// <summary>
-        /// ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        /// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference ControllerPublishSecretRef;
         /// <summary>
-        /// Driver is the name of the driver to use for this volume. Required.
+        /// driver is the name of the driver to use for this volume. Required.
         /// </summary>
         public readonly string Driver;
         /// <summary>
-        /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        /// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
         /// </summary>
         public readonly string FsType;
         /// <summary>
-        /// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        /// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference NodePublishSecretRef;
         /// <summary>
-        /// NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        /// nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference NodeStageSecretRef;
         /// <summary>
-        /// Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+        /// readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// Attributes of the volume to publish.
+        /// volumeAttributes of the volume to publish.
         /// </summary>
         public readonly ImmutableDictionary<string, string> VolumeAttributes;
         /// <summary>
-        /// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+        /// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
         /// </summary>
         public readonly string VolumeHandle;
 

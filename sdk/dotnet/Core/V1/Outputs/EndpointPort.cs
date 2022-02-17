@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class EndpointPort
     {
         /// <summary>
-        /// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        /// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         /// </summary>
         public readonly string AppProtocol;
         /// <summary>
@@ -30,11 +30,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         public readonly int Port;
         /// <summary>
         /// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-        /// 
-        /// Possible enum values:
-        ///  - `"SCTP"` is the SCTP protocol.
-        ///  - `"TCP"` is the TCP protocol.
-        ///  - `"UDP"` is the UDP protocol.
         /// </summary>
         public readonly string Protocol;
 

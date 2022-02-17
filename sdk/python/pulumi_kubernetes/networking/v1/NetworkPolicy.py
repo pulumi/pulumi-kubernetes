@@ -149,6 +149,7 @@ class NetworkPolicy(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'NetworkPolicy'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
+            __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:extensions/v1beta1:NetworkPolicy")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(NetworkPolicy, __self__).__init__(
@@ -177,6 +178,7 @@ class NetworkPolicy(pulumi.CustomResource):
         __props__.__dict__["kind"] = None
         __props__.__dict__["metadata"] = None
         __props__.__dict__["spec"] = None
+        __props__.__dict__["status"] = None
         return NetworkPolicy(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -210,4 +212,12 @@ class NetworkPolicy(pulumi.CustomResource):
         Specification of the desired behavior for this NetworkPolicy.
         """
         return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> pulumi.Output[Optional['outputs.NetworkPolicyStatus']]:
+        """
+        Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
 

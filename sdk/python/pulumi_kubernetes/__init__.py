@@ -653,6 +653,8 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1:CSIDriverList": "CSIDriverList",
    "kubernetes:storage.k8s.io/v1:CSINode": "CSINode",
    "kubernetes:storage.k8s.io/v1:CSINodeList": "CSINodeList",
+   "kubernetes:storage.k8s.io/v1:CSIStorageCapacity": "CSIStorageCapacity",
+   "kubernetes:storage.k8s.io/v1:CSIStorageCapacityList": "CSIStorageCapacityList",
    "kubernetes:storage.k8s.io/v1:StorageClass": "StorageClass",
    "kubernetes:storage.k8s.io/v1:StorageClassList": "StorageClassList",
    "kubernetes:storage.k8s.io/v1:VolumeAttachment": "VolumeAttachment",
@@ -664,8 +666,6 @@ _utilities.register(
   "mod": "storage.k8s.io/v1alpha1",
   "fqn": "pulumi_kubernetes.storage.v1alpha1",
   "classes": {
-   "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity": "CSIStorageCapacity",
-   "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityList": "CSIStorageCapacityList",
    "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment": "VolumeAttachment",
    "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList": "VolumeAttachmentList"
   }

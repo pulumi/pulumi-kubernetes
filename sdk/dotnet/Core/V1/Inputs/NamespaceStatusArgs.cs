@@ -29,10 +29,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-        /// 
-        /// Possible enum values:
-        ///  - `"Active"` means the namespace is available for use in the system
-        ///  - `"Terminating"` means the namespace is undergoing graceful termination
         /// </summary>
         [Input("phase")]
         public Input<string>? Phase { get; set; }

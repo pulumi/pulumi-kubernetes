@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class PhotonPersistentDiskVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         /// </summary>
         [Input("fsType")]
         public Input<string>? FsType { get; set; }
 
         /// <summary>
-        /// ID that identifies Photon Controller persistent disk
+        /// pdID is the ID that identifies Photon Controller persistent disk
         /// </summary>
         [Input("pdID", required: true)]
         public Input<string> PdID { get; set; } = null!;

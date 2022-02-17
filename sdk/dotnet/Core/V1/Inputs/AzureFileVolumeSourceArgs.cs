@@ -16,19 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class AzureFileVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         /// </summary>
         [Input("readOnly")]
         public Input<bool>? ReadOnly { get; set; }
 
         /// <summary>
-        /// the name of secret that contains Azure Storage Account Name and Key
+        /// secretName is the  name of secret that contains Azure Storage Account Name and Key
         /// </summary>
         [Input("secretName", required: true)]
         public Input<string> SecretName { get; set; } = null!;
 
         /// <summary>
-        /// Share Name
+        /// shareName is the azure share Name
         /// </summary>
         [Input("shareName", required: true)]
         public Input<string> ShareName { get; set; } = null!;

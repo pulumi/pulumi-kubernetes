@@ -15,13 +15,13 @@ import (
 //
 // An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
 type AWSElasticBlockStoreVolumeSource struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	FsType *string `pulumi:"fsType"`
-	// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+	// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
 	Partition *int `pulumi:"partition"`
-	// Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	VolumeID string `pulumi:"volumeID"`
 }
 
@@ -40,13 +40,13 @@ type AWSElasticBlockStoreVolumeSourceInput interface {
 //
 // An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
 type AWSElasticBlockStoreVolumeSourceArgs struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+	// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
 	Partition pulumi.IntPtrInput `pulumi:"partition"`
-	// Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	VolumeID pulumi.StringInput `pulumi:"volumeID"`
 }
 
@@ -130,22 +130,22 @@ func (o AWSElasticBlockStoreVolumeSourceOutput) ToAWSElasticBlockStoreVolumeSour
 	}).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o AWSElasticBlockStoreVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AWSElasticBlockStoreVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
 func (o AWSElasticBlockStoreVolumeSourceOutput) Partition() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v AWSElasticBlockStoreVolumeSource) *int { return v.Partition }).(pulumi.IntPtrOutput)
 }
 
-// Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o AWSElasticBlockStoreVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v AWSElasticBlockStoreVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o AWSElasticBlockStoreVolumeSourceOutput) VolumeID() pulumi.StringOutput {
 	return o.ApplyT(func(v AWSElasticBlockStoreVolumeSource) string { return v.VolumeID }).(pulumi.StringOutput)
 }
@@ -174,7 +174,7 @@ func (o AWSElasticBlockStoreVolumeSourcePtrOutput) Elem() AWSElasticBlockStoreVo
 	}).(AWSElasticBlockStoreVolumeSourceOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o AWSElasticBlockStoreVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) *string {
 		if v == nil {
@@ -184,7 +184,7 @@ func (o AWSElasticBlockStoreVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
-// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
 func (o AWSElasticBlockStoreVolumeSourcePtrOutput) Partition() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) *int {
 		if v == nil {
@@ -194,7 +194,7 @@ func (o AWSElasticBlockStoreVolumeSourcePtrOutput) Partition() pulumi.IntPtrOutp
 	}).(pulumi.IntPtrOutput)
 }
 
-// Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o AWSElasticBlockStoreVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) *bool {
 		if v == nil {
@@ -204,7 +204,7 @@ func (o AWSElasticBlockStoreVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutp
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o AWSElasticBlockStoreVolumeSourcePtrOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AWSElasticBlockStoreVolumeSource) *string {
 		if v == nil {
@@ -503,17 +503,17 @@ func (o AttachedVolumeArrayOutput) Index(i pulumi.IntInput) AttachedVolumeOutput
 
 // AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 type AzureDiskVolumeSource struct {
-	// Host Caching mode: None, Read Only, Read Write.
+	// cachingMode is the Host Caching mode: None, Read Only, Read Write.
 	CachingMode *string `pulumi:"cachingMode"`
-	// The Name of the data disk in the blob storage
+	// diskName is the Name of the data disk in the blob storage
 	DiskName string `pulumi:"diskName"`
-	// The URI the data disk in the blob storage
+	// diskURI is the URI of data disk in the blob storage
 	DiskURI string `pulumi:"diskURI"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+	// kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 	Kind *string `pulumi:"kind"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
 }
 
@@ -530,17 +530,17 @@ type AzureDiskVolumeSourceInput interface {
 
 // AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 type AzureDiskVolumeSourceArgs struct {
-	// Host Caching mode: None, Read Only, Read Write.
+	// cachingMode is the Host Caching mode: None, Read Only, Read Write.
 	CachingMode pulumi.StringPtrInput `pulumi:"cachingMode"`
-	// The Name of the data disk in the blob storage
+	// diskName is the Name of the data disk in the blob storage
 	DiskName pulumi.StringInput `pulumi:"diskName"`
-	// The URI the data disk in the blob storage
+	// diskURI is the URI of data disk in the blob storage
 	DiskURI pulumi.StringInput `pulumi:"diskURI"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+	// kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
 }
 
@@ -622,32 +622,32 @@ func (o AzureDiskVolumeSourceOutput) ToAzureDiskVolumeSourcePtrOutputWithContext
 	}).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// Host Caching mode: None, Read Only, Read Write.
+// cachingMode is the Host Caching mode: None, Read Only, Read Write.
 func (o AzureDiskVolumeSourceOutput) CachingMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureDiskVolumeSource) *string { return v.CachingMode }).(pulumi.StringPtrOutput)
 }
 
-// The Name of the data disk in the blob storage
+// diskName is the Name of the data disk in the blob storage
 func (o AzureDiskVolumeSourceOutput) DiskName() pulumi.StringOutput {
 	return o.ApplyT(func(v AzureDiskVolumeSource) string { return v.DiskName }).(pulumi.StringOutput)
 }
 
-// The URI the data disk in the blob storage
+// diskURI is the URI of data disk in the blob storage
 func (o AzureDiskVolumeSourceOutput) DiskURI() pulumi.StringOutput {
 	return o.ApplyT(func(v AzureDiskVolumeSource) string { return v.DiskURI }).(pulumi.StringOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o AzureDiskVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureDiskVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+// kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 func (o AzureDiskVolumeSourceOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureDiskVolumeSource) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o AzureDiskVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v AzureDiskVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
@@ -676,7 +676,7 @@ func (o AzureDiskVolumeSourcePtrOutput) Elem() AzureDiskVolumeSourceOutput {
 	}).(AzureDiskVolumeSourceOutput)
 }
 
-// Host Caching mode: None, Read Only, Read Write.
+// cachingMode is the Host Caching mode: None, Read Only, Read Write.
 func (o AzureDiskVolumeSourcePtrOutput) CachingMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureDiskVolumeSource) *string {
 		if v == nil {
@@ -686,7 +686,7 @@ func (o AzureDiskVolumeSourcePtrOutput) CachingMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The Name of the data disk in the blob storage
+// diskName is the Name of the data disk in the blob storage
 func (o AzureDiskVolumeSourcePtrOutput) DiskName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureDiskVolumeSource) *string {
 		if v == nil {
@@ -696,7 +696,7 @@ func (o AzureDiskVolumeSourcePtrOutput) DiskName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The URI the data disk in the blob storage
+// diskURI is the URI of data disk in the blob storage
 func (o AzureDiskVolumeSourcePtrOutput) DiskURI() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureDiskVolumeSource) *string {
 		if v == nil {
@@ -706,7 +706,7 @@ func (o AzureDiskVolumeSourcePtrOutput) DiskURI() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o AzureDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureDiskVolumeSource) *string {
 		if v == nil {
@@ -716,7 +716,7 @@ func (o AzureDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+// kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
 func (o AzureDiskVolumeSourcePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureDiskVolumeSource) *string {
 		if v == nil {
@@ -726,7 +726,7 @@ func (o AzureDiskVolumeSourcePtrOutput) Kind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o AzureDiskVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AzureDiskVolumeSource) *bool {
 		if v == nil {
@@ -738,13 +738,13 @@ func (o AzureDiskVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 
 // AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
 type AzureFilePersistentVolumeSource struct {
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// the name of secret that contains Azure Storage Account Name and Key
+	// secretName is the name of secret that contains Azure Storage Account Name and Key
 	SecretName string `pulumi:"secretName"`
-	// the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+	// secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
 	SecretNamespace *string `pulumi:"secretNamespace"`
-	// Share Name
+	// shareName is the azure Share Name
 	ShareName string `pulumi:"shareName"`
 }
 
@@ -761,13 +761,13 @@ type AzureFilePersistentVolumeSourceInput interface {
 
 // AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
 type AzureFilePersistentVolumeSourceArgs struct {
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// the name of secret that contains Azure Storage Account Name and Key
+	// secretName is the name of secret that contains Azure Storage Account Name and Key
 	SecretName pulumi.StringInput `pulumi:"secretName"`
-	// the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+	// secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
 	SecretNamespace pulumi.StringPtrInput `pulumi:"secretNamespace"`
-	// Share Name
+	// shareName is the azure Share Name
 	ShareName pulumi.StringInput `pulumi:"shareName"`
 }
 
@@ -849,22 +849,22 @@ func (o AzureFilePersistentVolumeSourceOutput) ToAzureFilePersistentVolumeSource
 	}).(AzureFilePersistentVolumeSourcePtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o AzureFilePersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v AzureFilePersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// the name of secret that contains Azure Storage Account Name and Key
+// secretName is the name of secret that contains Azure Storage Account Name and Key
 func (o AzureFilePersistentVolumeSourceOutput) SecretName() pulumi.StringOutput {
 	return o.ApplyT(func(v AzureFilePersistentVolumeSource) string { return v.SecretName }).(pulumi.StringOutput)
 }
 
-// the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+// secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
 func (o AzureFilePersistentVolumeSourceOutput) SecretNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AzureFilePersistentVolumeSource) *string { return v.SecretNamespace }).(pulumi.StringPtrOutput)
 }
 
-// Share Name
+// shareName is the azure Share Name
 func (o AzureFilePersistentVolumeSourceOutput) ShareName() pulumi.StringOutput {
 	return o.ApplyT(func(v AzureFilePersistentVolumeSource) string { return v.ShareName }).(pulumi.StringOutput)
 }
@@ -893,7 +893,7 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) Elem() AzureFilePersistentVolu
 	}).(AzureFilePersistentVolumeSourceOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o AzureFilePersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) *bool {
 		if v == nil {
@@ -903,7 +903,7 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutpu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// the name of secret that contains Azure Storage Account Name and Key
+// secretName is the name of secret that contains Azure Storage Account Name and Key
 func (o AzureFilePersistentVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) *string {
 		if v == nil {
@@ -913,7 +913,7 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) SecretName() pulumi.StringPtrO
 	}).(pulumi.StringPtrOutput)
 }
 
-// the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+// secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
 func (o AzureFilePersistentVolumeSourcePtrOutput) SecretNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) *string {
 		if v == nil {
@@ -923,7 +923,7 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) SecretNamespace() pulumi.Strin
 	}).(pulumi.StringPtrOutput)
 }
 
-// Share Name
+// shareName is the azure Share Name
 func (o AzureFilePersistentVolumeSourcePtrOutput) ShareName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureFilePersistentVolumeSource) *string {
 		if v == nil {
@@ -935,11 +935,11 @@ func (o AzureFilePersistentVolumeSourcePtrOutput) ShareName() pulumi.StringPtrOu
 
 // AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
 type AzureFileVolumeSource struct {
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// the name of secret that contains Azure Storage Account Name and Key
+	// secretName is the  name of secret that contains Azure Storage Account Name and Key
 	SecretName string `pulumi:"secretName"`
-	// Share Name
+	// shareName is the azure share Name
 	ShareName string `pulumi:"shareName"`
 }
 
@@ -956,11 +956,11 @@ type AzureFileVolumeSourceInput interface {
 
 // AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
 type AzureFileVolumeSourceArgs struct {
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// the name of secret that contains Azure Storage Account Name and Key
+	// secretName is the  name of secret that contains Azure Storage Account Name and Key
 	SecretName pulumi.StringInput `pulumi:"secretName"`
-	// Share Name
+	// shareName is the azure share Name
 	ShareName pulumi.StringInput `pulumi:"shareName"`
 }
 
@@ -1042,17 +1042,17 @@ func (o AzureFileVolumeSourceOutput) ToAzureFileVolumeSourcePtrOutputWithContext
 	}).(AzureFileVolumeSourcePtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o AzureFileVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v AzureFileVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// the name of secret that contains Azure Storage Account Name and Key
+// secretName is the  name of secret that contains Azure Storage Account Name and Key
 func (o AzureFileVolumeSourceOutput) SecretName() pulumi.StringOutput {
 	return o.ApplyT(func(v AzureFileVolumeSource) string { return v.SecretName }).(pulumi.StringOutput)
 }
 
-// Share Name
+// shareName is the azure share Name
 func (o AzureFileVolumeSourceOutput) ShareName() pulumi.StringOutput {
 	return o.ApplyT(func(v AzureFileVolumeSource) string { return v.ShareName }).(pulumi.StringOutput)
 }
@@ -1081,7 +1081,7 @@ func (o AzureFileVolumeSourcePtrOutput) Elem() AzureFileVolumeSourceOutput {
 	}).(AzureFileVolumeSourceOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o AzureFileVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *AzureFileVolumeSource) *bool {
 		if v == nil {
@@ -1091,7 +1091,7 @@ func (o AzureFileVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// the name of secret that contains Azure Storage Account Name and Key
+// secretName is the  name of secret that contains Azure Storage Account Name and Key
 func (o AzureFileVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureFileVolumeSource) *string {
 		if v == nil {
@@ -1101,7 +1101,7 @@ func (o AzureFileVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Share Name
+// shareName is the azure share Name
 func (o AzureFileVolumeSourcePtrOutput) ShareName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *AzureFileVolumeSource) *string {
 		if v == nil {
@@ -1195,23 +1195,23 @@ func (o BindingTypeOutput) Target() ObjectReferenceOutput {
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
 type CSIPersistentVolumeSource struct {
-	// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef *SecretReference `pulumi:"controllerExpandSecretRef"`
-	// ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerPublishSecretRef *SecretReference `pulumi:"controllerPublishSecretRef"`
-	// Driver is the name of the driver to use for this volume. Required.
+	// driver is the name of the driver to use for this volume. Required.
 	Driver string `pulumi:"driver"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType *string `pulumi:"fsType"`
-	// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef *SecretReference `pulumi:"nodePublishSecretRef"`
-	// NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeStageSecretRef *SecretReference `pulumi:"nodeStageSecretRef"`
-	// Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+	// readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Attributes of the volume to publish.
+	// volumeAttributes of the volume to publish.
 	VolumeAttributes map[string]string `pulumi:"volumeAttributes"`
-	// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+	// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
 	VolumeHandle string `pulumi:"volumeHandle"`
 }
 
@@ -1228,23 +1228,23 @@ type CSIPersistentVolumeSourceInput interface {
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
 type CSIPersistentVolumeSourceArgs struct {
-	// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef SecretReferencePtrInput `pulumi:"controllerExpandSecretRef"`
-	// ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerPublishSecretRef SecretReferencePtrInput `pulumi:"controllerPublishSecretRef"`
-	// Driver is the name of the driver to use for this volume. Required.
+	// driver is the name of the driver to use for this volume. Required.
 	Driver pulumi.StringInput `pulumi:"driver"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef SecretReferencePtrInput `pulumi:"nodePublishSecretRef"`
-	// NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeStageSecretRef SecretReferencePtrInput `pulumi:"nodeStageSecretRef"`
-	// Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+	// readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Attributes of the volume to publish.
+	// volumeAttributes of the volume to publish.
 	VolumeAttributes pulumi.StringMapInput `pulumi:"volumeAttributes"`
-	// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+	// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
 	VolumeHandle pulumi.StringInput `pulumi:"volumeHandle"`
 }
 
@@ -1326,47 +1326,47 @@ func (o CSIPersistentVolumeSourceOutput) ToCSIPersistentVolumeSourcePtrOutputWit
 	}).(CSIPersistentVolumeSourcePtrOutput)
 }
 
-// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) ControllerExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.ControllerExpandSecretRef }).(SecretReferencePtrOutput)
 }
 
-// ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) ControllerPublishSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.ControllerPublishSecretRef }).(SecretReferencePtrOutput)
 }
 
-// Driver is the name of the driver to use for this volume. Required.
+// driver is the name of the driver to use for this volume. Required.
 func (o CSIPersistentVolumeSourceOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) string { return v.Driver }).(pulumi.StringOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 func (o CSIPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) NodePublishSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.NodePublishSecretRef }).(SecretReferencePtrOutput)
 }
 
-// NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) NodeStageSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.NodeStageSecretRef }).(SecretReferencePtrOutput)
 }
 
-// Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+// readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
 func (o CSIPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Attributes of the volume to publish.
+// volumeAttributes of the volume to publish.
 func (o CSIPersistentVolumeSourceOutput) VolumeAttributes() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) map[string]string { return v.VolumeAttributes }).(pulumi.StringMapOutput)
 }
 
-// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
 func (o CSIPersistentVolumeSourceOutput) VolumeHandle() pulumi.StringOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) string { return v.VolumeHandle }).(pulumi.StringOutput)
 }
@@ -1395,7 +1395,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) Elem() CSIPersistentVolumeSourceOutp
 	}).(CSIPersistentVolumeSourceOutput)
 }
 
-// ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) ControllerExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -1405,7 +1405,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) ControllerExpandSecretRef() SecretRe
 	}).(SecretReferencePtrOutput)
 }
 
-// ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) ControllerPublishSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -1415,7 +1415,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) ControllerPublishSecretRef() SecretR
 	}).(SecretReferencePtrOutput)
 }
 
-// Driver is the name of the driver to use for this volume. Required.
+// driver is the name of the driver to use for this volume. Required.
 func (o CSIPersistentVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -1425,7 +1425,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 func (o CSIPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -1435,7 +1435,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) NodePublishSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -1445,7 +1445,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) NodePublishSecretRef() SecretReferen
 	}).(SecretReferencePtrOutput)
 }
 
-// NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) NodeStageSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -1455,7 +1455,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) NodeStageSecretRef() SecretReference
 	}).(SecretReferencePtrOutput)
 }
 
-// Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+// readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
 func (o CSIPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *bool {
 		if v == nil {
@@ -1465,7 +1465,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Attributes of the volume to publish.
+// volumeAttributes of the volume to publish.
 func (o CSIPersistentVolumeSourcePtrOutput) VolumeAttributes() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) map[string]string {
 		if v == nil {
@@ -1475,7 +1475,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) VolumeAttributes() pulumi.StringMapO
 	}).(pulumi.StringMapOutput)
 }
 
-// VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+// volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
 func (o CSIPersistentVolumeSourcePtrOutput) VolumeHandle() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -1487,15 +1487,15 @@ func (o CSIPersistentVolumeSourcePtrOutput) VolumeHandle() pulumi.StringPtrOutpu
 
 // Represents a source location of a volume to mount, managed by an external CSI driver
 type CSIVolumeSource struct {
-	// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+	// driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
 	Driver string `pulumi:"driver"`
-	// Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+	// fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
 	FsType *string `pulumi:"fsType"`
-	// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
 	NodePublishSecretRef *LocalObjectReference `pulumi:"nodePublishSecretRef"`
-	// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+	// readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
 	ReadOnly *bool `pulumi:"readOnly"`
-	// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+	// volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
 	VolumeAttributes map[string]string `pulumi:"volumeAttributes"`
 }
 
@@ -1512,15 +1512,15 @@ type CSIVolumeSourceInput interface {
 
 // Represents a source location of a volume to mount, managed by an external CSI driver
 type CSIVolumeSourceArgs struct {
-	// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+	// driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
 	Driver pulumi.StringInput `pulumi:"driver"`
-	// Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+	// fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
 	NodePublishSecretRef LocalObjectReferencePtrInput `pulumi:"nodePublishSecretRef"`
-	// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+	// readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+	// volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
 	VolumeAttributes pulumi.StringMapInput `pulumi:"volumeAttributes"`
 }
 
@@ -1602,27 +1602,27 @@ func (o CSIVolumeSourceOutput) ToCSIVolumeSourcePtrOutputWithContext(ctx context
 	}).(CSIVolumeSourcePtrOutput)
 }
 
-// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+// driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
 func (o CSIVolumeSourceOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v CSIVolumeSource) string { return v.Driver }).(pulumi.StringOutput)
 }
 
-// Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+// fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
 func (o CSIVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
 func (o CSIVolumeSourceOutput) NodePublishSecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v CSIVolumeSource) *LocalObjectReference { return v.NodePublishSecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+// readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
 func (o CSIVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+// volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
 func (o CSIVolumeSourceOutput) VolumeAttributes() pulumi.StringMapOutput {
 	return o.ApplyT(func(v CSIVolumeSource) map[string]string { return v.VolumeAttributes }).(pulumi.StringMapOutput)
 }
@@ -1651,7 +1651,7 @@ func (o CSIVolumeSourcePtrOutput) Elem() CSIVolumeSourceOutput {
 	}).(CSIVolumeSourceOutput)
 }
 
-// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+// driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
 func (o CSIVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CSIVolumeSource) *string {
 		if v == nil {
@@ -1661,7 +1661,7 @@ func (o CSIVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+// fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
 func (o CSIVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CSIVolumeSource) *string {
 		if v == nil {
@@ -1671,7 +1671,7 @@ func (o CSIVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
 func (o CSIVolumeSourcePtrOutput) NodePublishSecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *CSIVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -1681,7 +1681,7 @@ func (o CSIVolumeSourcePtrOutput) NodePublishSecretRef() LocalObjectReferencePtr
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+// readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
 func (o CSIVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CSIVolumeSource) *bool {
 		if v == nil {
@@ -1691,7 +1691,7 @@ func (o CSIVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+// volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
 func (o CSIVolumeSourcePtrOutput) VolumeAttributes() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *CSIVolumeSource) map[string]string {
 		if v == nil {
@@ -1862,17 +1862,17 @@ func (o CapabilitiesPtrOutput) Drop() pulumi.StringArrayOutput {
 
 // Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
 type CephFSPersistentVolumeSource struct {
-	// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	Monitors []string `pulumi:"monitors"`
-	// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+	// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 	Path *string `pulumi:"path"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretFile *string `pulumi:"secretFile"`
-	// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretRef *SecretReference `pulumi:"secretRef"`
-	// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	User *string `pulumi:"user"`
 }
 
@@ -1889,17 +1889,17 @@ type CephFSPersistentVolumeSourceInput interface {
 
 // Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
 type CephFSPersistentVolumeSourceArgs struct {
-	// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	Monitors pulumi.StringArrayInput `pulumi:"monitors"`
-	// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+	// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretFile pulumi.StringPtrInput `pulumi:"secretFile"`
-	// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretRef SecretReferencePtrInput `pulumi:"secretRef"`
-	// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	User pulumi.StringPtrInput `pulumi:"user"`
 }
 
@@ -1981,32 +1981,32 @@ func (o CephFSPersistentVolumeSourceOutput) ToCephFSPersistentVolumeSourcePtrOut
 	}).(CephFSPersistentVolumeSourcePtrOutput)
 }
 
-// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourceOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CephFSPersistentVolumeSource) []string { return v.Monitors }).(pulumi.StringArrayOutput)
 }
 
-// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 func (o CephFSPersistentVolumeSourceOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CephFSPersistentVolumeSource) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CephFSPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourceOutput) SecretFile() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CephFSPersistentVolumeSource) *string { return v.SecretFile }).(pulumi.StringPtrOutput)
 }
 
-// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourceOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CephFSPersistentVolumeSource) *SecretReference { return v.SecretRef }).(SecretReferencePtrOutput)
 }
 
-// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CephFSPersistentVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
@@ -2035,7 +2035,7 @@ func (o CephFSPersistentVolumeSourcePtrOutput) Elem() CephFSPersistentVolumeSour
 	}).(CephFSPersistentVolumeSourceOutput)
 }
 
-// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CephFSPersistentVolumeSource) []string {
 		if v == nil {
@@ -2045,7 +2045,7 @@ func (o CephFSPersistentVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 func (o CephFSPersistentVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CephFSPersistentVolumeSource) *string {
 		if v == nil {
@@ -2055,7 +2055,7 @@ func (o CephFSPersistentVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CephFSPersistentVolumeSource) *bool {
 		if v == nil {
@@ -2065,7 +2065,7 @@ func (o CephFSPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourcePtrOutput) SecretFile() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CephFSPersistentVolumeSource) *string {
 		if v == nil {
@@ -2075,7 +2075,7 @@ func (o CephFSPersistentVolumeSourcePtrOutput) SecretFile() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CephFSPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -2085,7 +2085,7 @@ func (o CephFSPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOut
 	}).(SecretReferencePtrOutput)
 }
 
-// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSPersistentVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CephFSPersistentVolumeSource) *string {
 		if v == nil {
@@ -2097,17 +2097,17 @@ func (o CephFSPersistentVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 
 // Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
 type CephFSVolumeSource struct {
-	// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	Monitors []string `pulumi:"monitors"`
-	// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+	// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 	Path *string `pulumi:"path"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretFile *string `pulumi:"secretFile"`
-	// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretRef *LocalObjectReference `pulumi:"secretRef"`
-	// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	User *string `pulumi:"user"`
 }
 
@@ -2124,17 +2124,17 @@ type CephFSVolumeSourceInput interface {
 
 // Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
 type CephFSVolumeSourceArgs struct {
-	// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	Monitors pulumi.StringArrayInput `pulumi:"monitors"`
-	// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+	// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretFile pulumi.StringPtrInput `pulumi:"secretFile"`
-	// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	SecretRef LocalObjectReferencePtrInput `pulumi:"secretRef"`
-	// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+	// user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 	User pulumi.StringPtrInput `pulumi:"user"`
 }
 
@@ -2216,32 +2216,32 @@ func (o CephFSVolumeSourceOutput) ToCephFSVolumeSourcePtrOutputWithContext(ctx c
 	}).(CephFSVolumeSourcePtrOutput)
 }
 
-// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourceOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CephFSVolumeSource) []string { return v.Monitors }).(pulumi.StringArrayOutput)
 }
 
-// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 func (o CephFSVolumeSourceOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CephFSVolumeSource) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CephFSVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourceOutput) SecretFile() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CephFSVolumeSource) *string { return v.SecretFile }).(pulumi.StringPtrOutput)
 }
 
-// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v CephFSVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CephFSVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
@@ -2270,7 +2270,7 @@ func (o CephFSVolumeSourcePtrOutput) Elem() CephFSVolumeSourceOutput {
 	}).(CephFSVolumeSourceOutput)
 }
 
-// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CephFSVolumeSource) []string {
 		if v == nil {
@@ -2280,7 +2280,7 @@ func (o CephFSVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
 func (o CephFSVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CephFSVolumeSource) *string {
 		if v == nil {
@@ -2290,7 +2290,7 @@ func (o CephFSVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CephFSVolumeSource) *bool {
 		if v == nil {
@@ -2300,7 +2300,7 @@ func (o CephFSVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourcePtrOutput) SecretFile() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CephFSVolumeSource) *string {
 		if v == nil {
@@ -2310,7 +2310,7 @@ func (o CephFSVolumeSourcePtrOutput) SecretFile() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *CephFSVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -2320,7 +2320,7 @@ func (o CephFSVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+// user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 func (o CephFSVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CephFSVolumeSource) *string {
 		if v == nil {
@@ -2332,13 +2332,13 @@ func (o CephFSVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 
 // Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
 type CinderPersistentVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	FsType *string `pulumi:"fsType"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: points to a secret object containing parameters used to connect to OpenStack.
+	// secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
 	SecretRef *SecretReference `pulumi:"secretRef"`
-	// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	VolumeID string `pulumi:"volumeID"`
 }
 
@@ -2355,13 +2355,13 @@ type CinderPersistentVolumeSourceInput interface {
 
 // Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
 type CinderPersistentVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: points to a secret object containing parameters used to connect to OpenStack.
+	// secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
 	SecretRef SecretReferencePtrInput `pulumi:"secretRef"`
-	// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	VolumeID pulumi.StringInput `pulumi:"volumeID"`
 }
 
@@ -2443,22 +2443,22 @@ func (o CinderPersistentVolumeSourceOutput) ToCinderPersistentVolumeSourcePtrOut
 	}).(CinderPersistentVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CinderPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CinderPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: points to a secret object containing parameters used to connect to OpenStack.
+// secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
 func (o CinderPersistentVolumeSourceOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CinderPersistentVolumeSource) *SecretReference { return v.SecretRef }).(SecretReferencePtrOutput)
 }
 
-// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderPersistentVolumeSourceOutput) VolumeID() pulumi.StringOutput {
 	return o.ApplyT(func(v CinderPersistentVolumeSource) string { return v.VolumeID }).(pulumi.StringOutput)
 }
@@ -2487,7 +2487,7 @@ func (o CinderPersistentVolumeSourcePtrOutput) Elem() CinderPersistentVolumeSour
 	}).(CinderPersistentVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CinderPersistentVolumeSource) *string {
 		if v == nil {
@@ -2497,7 +2497,7 @@ func (o CinderPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CinderPersistentVolumeSource) *bool {
 		if v == nil {
@@ -2507,7 +2507,7 @@ func (o CinderPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: points to a secret object containing parameters used to connect to OpenStack.
+// secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
 func (o CinderPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CinderPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -2517,7 +2517,7 @@ func (o CinderPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOut
 	}).(SecretReferencePtrOutput)
 }
 
-// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderPersistentVolumeSourcePtrOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CinderPersistentVolumeSource) *string {
 		if v == nil {
@@ -2529,13 +2529,13 @@ func (o CinderPersistentVolumeSourcePtrOutput) VolumeID() pulumi.StringPtrOutput
 
 // Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
 type CinderVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	FsType *string `pulumi:"fsType"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: points to a secret object containing parameters used to connect to OpenStack.
+	// secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
 	SecretRef *LocalObjectReference `pulumi:"secretRef"`
-	// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	VolumeID string `pulumi:"volumeID"`
 }
 
@@ -2552,13 +2552,13 @@ type CinderVolumeSourceInput interface {
 
 // Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
 type CinderVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: points to a secret object containing parameters used to connect to OpenStack.
+	// secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
 	SecretRef LocalObjectReferencePtrInput `pulumi:"secretRef"`
-	// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	VolumeID pulumi.StringInput `pulumi:"volumeID"`
 }
 
@@ -2640,22 +2640,22 @@ func (o CinderVolumeSourceOutput) ToCinderVolumeSourcePtrOutputWithContext(ctx c
 	}).(CinderVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CinderVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CinderVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: points to a secret object containing parameters used to connect to OpenStack.
+// secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
 func (o CinderVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v CinderVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderVolumeSourceOutput) VolumeID() pulumi.StringOutput {
 	return o.ApplyT(func(v CinderVolumeSource) string { return v.VolumeID }).(pulumi.StringOutput)
 }
@@ -2684,7 +2684,7 @@ func (o CinderVolumeSourcePtrOutput) Elem() CinderVolumeSourceOutput {
 	}).(CinderVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CinderVolumeSource) *string {
 		if v == nil {
@@ -2694,7 +2694,7 @@ func (o CinderVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CinderVolumeSource) *bool {
 		if v == nil {
@@ -2704,7 +2704,7 @@ func (o CinderVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: points to a secret object containing parameters used to connect to OpenStack.
+// secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
 func (o CinderVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *CinderVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -2714,7 +2714,7 @@ func (o CinderVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o CinderVolumeSourcePtrOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CinderVolumeSource) *string {
 		if v == nil {
@@ -3990,11 +3990,11 @@ func (o ConfigMapNodeConfigSourcePtrOutput) Uid() pulumi.StringPtrOutput {
 //
 // The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
 type ConfigMapProjection struct {
-	// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
 	// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
-	// Specify whether the ConfigMap or its keys must be defined
+	// optional specify whether the ConfigMap or its keys must be defined
 	Optional *bool `pulumi:"optional"`
 }
 
@@ -4013,11 +4013,11 @@ type ConfigMapProjectionInput interface {
 //
 // The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
 type ConfigMapProjectionArgs struct {
-	// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
 	// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Specify whether the ConfigMap or its keys must be defined
+	// optional specify whether the ConfigMap or its keys must be defined
 	Optional pulumi.BoolPtrInput `pulumi:"optional"`
 }
 
@@ -4101,7 +4101,7 @@ func (o ConfigMapProjectionOutput) ToConfigMapProjectionPtrOutputWithContext(ctx
 	}).(ConfigMapProjectionPtrOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapProjectionOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v ConfigMapProjection) []KeyToPath { return v.Items }).(KeyToPathArrayOutput)
 }
@@ -4111,7 +4111,7 @@ func (o ConfigMapProjectionOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ConfigMapProjection) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Specify whether the ConfigMap or its keys must be defined
+// optional specify whether the ConfigMap or its keys must be defined
 func (o ConfigMapProjectionOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ConfigMapProjection) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
@@ -4140,7 +4140,7 @@ func (o ConfigMapProjectionPtrOutput) Elem() ConfigMapProjectionOutput {
 	}).(ConfigMapProjectionOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapProjectionPtrOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v *ConfigMapProjection) []KeyToPath {
 		if v == nil {
@@ -4160,7 +4160,7 @@ func (o ConfigMapProjectionPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Specify whether the ConfigMap or its keys must be defined
+// optional specify whether the ConfigMap or its keys must be defined
 func (o ConfigMapProjectionPtrOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ConfigMapProjection) *bool {
 		if v == nil {
@@ -4174,13 +4174,13 @@ func (o ConfigMapProjectionPtrOutput) Optional() pulumi.BoolPtrOutput {
 //
 // The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 type ConfigMapVolumeSource struct {
-	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
-	// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
 	// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
-	// Specify whether the ConfigMap or its keys must be defined
+	// optional specify whether the ConfigMap or its keys must be defined
 	Optional *bool `pulumi:"optional"`
 }
 
@@ -4199,13 +4199,13 @@ type ConfigMapVolumeSourceInput interface {
 //
 // The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
 type ConfigMapVolumeSourceArgs struct {
-	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
-	// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
 	// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Specify whether the ConfigMap or its keys must be defined
+	// optional specify whether the ConfigMap or its keys must be defined
 	Optional pulumi.BoolPtrInput `pulumi:"optional"`
 }
 
@@ -4289,12 +4289,12 @@ func (o ConfigMapVolumeSourceOutput) ToConfigMapVolumeSourcePtrOutputWithContext
 	}).(ConfigMapVolumeSourcePtrOutput)
 }
 
-// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ConfigMapVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapVolumeSourceOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) []KeyToPath { return v.Items }).(KeyToPathArrayOutput)
 }
@@ -4304,7 +4304,7 @@ func (o ConfigMapVolumeSourceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Specify whether the ConfigMap or its keys must be defined
+// optional specify whether the ConfigMap or its keys must be defined
 func (o ConfigMapVolumeSourceOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ConfigMapVolumeSource) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
@@ -4333,7 +4333,7 @@ func (o ConfigMapVolumeSourcePtrOutput) Elem() ConfigMapVolumeSourceOutput {
 	}).(ConfigMapVolumeSourceOutput)
 }
 
-// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ConfigMapVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ConfigMapVolumeSource) *int {
 		if v == nil {
@@ -4343,7 +4343,7 @@ func (o ConfigMapVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o ConfigMapVolumeSourcePtrOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v *ConfigMapVolumeSource) []KeyToPath {
 		if v == nil {
@@ -4363,7 +4363,7 @@ func (o ConfigMapVolumeSourcePtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Specify whether the ConfigMap or its keys must be defined
+// optional specify whether the ConfigMap or its keys must be defined
 func (o ConfigMapVolumeSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ConfigMapVolumeSource) *bool {
 		if v == nil {
@@ -4375,22 +4375,17 @@ func (o ConfigMapVolumeSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 
 // A single application container that you want to run within a pod.
 type Container struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args []string `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command []string `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env []EnvVar `pulumi:"env"`
 	// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 	EnvFrom []EnvFromSource `pulumi:"envFrom"`
-	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+	// Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 	Image *string `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-	//
-	// Possible enum values:
-	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy *string `pulumi:"imagePullPolicy"`
 	// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
 	Lifecycle *Lifecycle `pulumi:"lifecycle"`
@@ -4415,10 +4410,6 @@ type Container struct {
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath *string `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-	//
-	// Possible enum values:
-	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy *string `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty *bool `pulumi:"tty"`
@@ -4443,22 +4434,17 @@ type ContainerInput interface {
 
 // A single application container that you want to run within a pod.
 type ContainerArgs struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args pulumi.StringArrayInput `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command pulumi.StringArrayInput `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env EnvVarArrayInput `pulumi:"env"`
 	// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 	EnvFrom EnvFromSourceArrayInput `pulumi:"envFrom"`
-	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+	// Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 	Image pulumi.StringPtrInput `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-	//
-	// Possible enum values:
-	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy pulumi.StringPtrInput `pulumi:"imagePullPolicy"`
 	// Actions that the management system should take in response to container lifecycle events. Cannot be updated.
 	Lifecycle LifecyclePtrInput `pulumi:"lifecycle"`
@@ -4483,10 +4469,6 @@ type ContainerArgs struct {
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath pulumi.StringPtrInput `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-	//
-	// Possible enum values:
-	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy pulumi.StringPtrInput `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty pulumi.BoolPtrInput `pulumi:"tty"`
@@ -4550,12 +4532,12 @@ func (o ContainerOutput) ToContainerOutputWithContext(ctx context.Context) Conta
 	return o
 }
 
-// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o ContainerOutput) Args() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Container) []string { return v.Args }).(pulumi.StringArrayOutput)
 }
 
-// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o ContainerOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Container) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
@@ -4570,17 +4552,12 @@ func (o ContainerOutput) EnvFrom() EnvFromSourceArrayOutput {
 	return o.ApplyT(func(v Container) []EnvFromSource { return v.EnvFrom }).(EnvFromSourceArrayOutput)
 }
 
-// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+// Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 func (o ContainerOutput) Image() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Container) *string { return v.Image }).(pulumi.StringPtrOutput)
 }
 
 // Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-//
-// Possible enum values:
-//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 func (o ContainerOutput) ImagePullPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Container) *string { return v.ImagePullPolicy }).(pulumi.StringPtrOutput)
 }
@@ -4641,10 +4618,6 @@ func (o ContainerOutput) TerminationMessagePath() pulumi.StringPtrOutput {
 }
 
 // Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-//
-// Possible enum values:
-//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 func (o ContainerOutput) TerminationMessagePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Container) *string { return v.TerminationMessagePolicy }).(pulumi.StringPtrOutput)
 }
@@ -4809,11 +4782,6 @@ type ContainerPort struct {
 	// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
 	Name *string `pulumi:"name"`
 	// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -4839,11 +4807,6 @@ type ContainerPortArgs struct {
 	// If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -4920,11 +4883,6 @@ func (o ContainerPortOutput) Name() pulumi.StringPtrOutput {
 }
 
 // Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-//
-// Possible enum values:
-//  - `"SCTP"` is the SCTP protocol.
-//  - `"TCP"` is the TCP protocol.
-//  - `"UDP"` is the UDP protocol.
 func (o ContainerPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -5269,7 +5227,7 @@ func (o ContainerStateRunningPtrOutput) StartedAt() pulumi.StringPtrOutput {
 
 // ContainerStateTerminated is a terminated state of a container.
 type ContainerStateTerminated struct {
-	// Container's ID in the format 'docker://<container_id>'
+	// Container's ID in the format '<type>://<container_id>'
 	ContainerID *string `pulumi:"containerID"`
 	// Exit status from the last termination of the container
 	ExitCode int `pulumi:"exitCode"`
@@ -5298,7 +5256,7 @@ type ContainerStateTerminatedInput interface {
 
 // ContainerStateTerminated is a terminated state of a container.
 type ContainerStateTerminatedArgs struct {
-	// Container's ID in the format 'docker://<container_id>'
+	// Container's ID in the format '<type>://<container_id>'
 	ContainerID pulumi.StringPtrInput `pulumi:"containerID"`
 	// Exit status from the last termination of the container
 	ExitCode pulumi.IntInput `pulumi:"exitCode"`
@@ -5392,7 +5350,7 @@ func (o ContainerStateTerminatedOutput) ToContainerStateTerminatedPtrOutputWithC
 	}).(ContainerStateTerminatedPtrOutput)
 }
 
-// Container's ID in the format 'docker://<container_id>'
+// Container's ID in the format '<type>://<container_id>'
 func (o ContainerStateTerminatedOutput) ContainerID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStateTerminated) *string { return v.ContainerID }).(pulumi.StringPtrOutput)
 }
@@ -5451,7 +5409,7 @@ func (o ContainerStateTerminatedPtrOutput) Elem() ContainerStateTerminatedOutput
 	}).(ContainerStateTerminatedOutput)
 }
 
-// Container's ID in the format 'docker://<container_id>'
+// Container's ID in the format '<type>://<container_id>'
 func (o ContainerStateTerminatedPtrOutput) ContainerID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ContainerStateTerminated) *string {
 		if v == nil {
@@ -5682,7 +5640,7 @@ func (o ContainerStateWaitingPtrOutput) Reason() pulumi.StringPtrOutput {
 
 // ContainerStatus contains details for the current status of this container.
 type ContainerStatus struct {
-	// Container's ID in the format 'docker://<container_id>'.
+	// Container's ID in the format '<type>://<container_id>'.
 	ContainerID *string `pulumi:"containerID"`
 	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image string `pulumi:"image"`
@@ -5715,7 +5673,7 @@ type ContainerStatusInput interface {
 
 // ContainerStatus contains details for the current status of this container.
 type ContainerStatusArgs struct {
-	// Container's ID in the format 'docker://<container_id>'.
+	// Container's ID in the format '<type>://<container_id>'.
 	ContainerID pulumi.StringPtrInput `pulumi:"containerID"`
 	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image pulumi.StringInput `pulumi:"image"`
@@ -5787,7 +5745,7 @@ func (o ContainerStatusOutput) ToContainerStatusOutputWithContext(ctx context.Co
 	return o
 }
 
-// Container's ID in the format 'docker://<container_id>'.
+// Container's ID in the format '<type>://<container_id>'.
 func (o ContainerStatusOutput) ContainerID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *string { return v.ContainerID }).(pulumi.StringPtrOutput)
 }
@@ -6420,9 +6378,9 @@ func (o DownwardAPIVolumeSourcePtrOutput) Items() DownwardAPIVolumeFileArrayOutp
 
 // Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
 type EmptyDirVolumeSource struct {
-	// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium *string `pulumi:"medium"`
-	// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
 	SizeLimit *string `pulumi:"sizeLimit"`
 }
 
@@ -6439,9 +6397,9 @@ type EmptyDirVolumeSourceInput interface {
 
 // Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
 type EmptyDirVolumeSourceArgs struct {
-	// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium pulumi.StringPtrInput `pulumi:"medium"`
-	// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
 	SizeLimit pulumi.StringPtrInput `pulumi:"sizeLimit"`
 }
 
@@ -6523,12 +6481,12 @@ func (o EmptyDirVolumeSourceOutput) ToEmptyDirVolumeSourcePtrOutputWithContext(c
 	}).(EmptyDirVolumeSourcePtrOutput)
 }
 
-// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourceOutput) Medium() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSource) *string { return v.Medium }).(pulumi.StringPtrOutput)
 }
 
-// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
 func (o EmptyDirVolumeSourceOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSource) *string { return v.SizeLimit }).(pulumi.StringPtrOutput)
 }
@@ -6557,7 +6515,7 @@ func (o EmptyDirVolumeSourcePtrOutput) Elem() EmptyDirVolumeSourceOutput {
 	}).(EmptyDirVolumeSourceOutput)
 }
 
-// What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourcePtrOutput) Medium() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmptyDirVolumeSource) *string {
 		if v == nil {
@@ -6567,7 +6525,7 @@ func (o EmptyDirVolumeSourcePtrOutput) Medium() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
 func (o EmptyDirVolumeSourcePtrOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmptyDirVolumeSource) *string {
 		if v == nil {
@@ -6706,18 +6664,13 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name *string `pulumi:"name"`
 	// The port number of the endpoint.
 	Port int `pulumi:"port"`
 	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -6734,18 +6687,13 @@ type EndpointPortInput interface {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 	// The port number of the endpoint.
 	Port pulumi.IntInput `pulumi:"port"`
 	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -6801,7 +6749,7 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -6817,11 +6765,6 @@ func (o EndpointPortOutput) Port() pulumi.IntOutput {
 }
 
 // The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-//
-// Possible enum values:
-//  - `"SCTP"` is the SCTP protocol.
-//  - `"TCP"` is the TCP protocol.
-//  - `"UDP"` is the UDP protocol.
 func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -7666,22 +7609,17 @@ func (o EnvVarSourcePtrOutput) SecretKeyRef() SecretKeySelectorPtrOutput {
 //
 // This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 type EphemeralContainer struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args []string `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command []string `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env []EnvVar `pulumi:"env"`
 	// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 	EnvFrom []EnvFromSource `pulumi:"envFrom"`
-	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
+	// Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
 	Image *string `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-	//
-	// Possible enum values:
-	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy *string `pulumi:"imagePullPolicy"`
 	// Lifecycle is not allowed for ephemeral containers.
 	Lifecycle *Lifecycle `pulumi:"lifecycle"`
@@ -7710,10 +7648,6 @@ type EphemeralContainer struct {
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath *string `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-	//
-	// Possible enum values:
-	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy *string `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty *bool `pulumi:"tty"`
@@ -7742,22 +7676,17 @@ type EphemeralContainerInput interface {
 //
 // This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
 type EphemeralContainerArgs struct {
-	// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Args pulumi.StringArrayInput `pulumi:"args"`
-	// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+	// Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 	Command pulumi.StringArrayInput `pulumi:"command"`
 	// List of environment variables to set in the container. Cannot be updated.
 	Env EnvVarArrayInput `pulumi:"env"`
 	// List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
 	EnvFrom EnvFromSourceArrayInput `pulumi:"envFrom"`
-	// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
+	// Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
 	Image pulumi.StringPtrInput `pulumi:"image"`
 	// Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-	//
-	// Possible enum values:
-	//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-	//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-	//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 	ImagePullPolicy pulumi.StringPtrInput `pulumi:"imagePullPolicy"`
 	// Lifecycle is not allowed for ephemeral containers.
 	Lifecycle LifecyclePtrInput `pulumi:"lifecycle"`
@@ -7786,10 +7715,6 @@ type EphemeralContainerArgs struct {
 	// Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
 	TerminationMessagePath pulumi.StringPtrInput `pulumi:"terminationMessagePath"`
 	// Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-	//
-	// Possible enum values:
-	//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-	//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 	TerminationMessagePolicy pulumi.StringPtrInput `pulumi:"terminationMessagePolicy"`
 	// Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 	Tty pulumi.BoolPtrInput `pulumi:"tty"`
@@ -7857,12 +7782,12 @@ func (o EphemeralContainerOutput) ToEphemeralContainerOutputWithContext(ctx cont
 	return o
 }
 
-// Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o EphemeralContainerOutput) Args() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []string { return v.Args }).(pulumi.StringArrayOutput)
 }
 
-// Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+// Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 func (o EphemeralContainerOutput) Command() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []string { return v.Command }).(pulumi.StringArrayOutput)
 }
@@ -7877,17 +7802,12 @@ func (o EphemeralContainerOutput) EnvFrom() EnvFromSourceArrayOutput {
 	return o.ApplyT(func(v EphemeralContainer) []EnvFromSource { return v.EnvFrom }).(EnvFromSourceArrayOutput)
 }
 
-// Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
+// Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
 func (o EphemeralContainerOutput) Image() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *string { return v.Image }).(pulumi.StringPtrOutput)
 }
 
 // Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-//
-// Possible enum values:
-//  - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-//  - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-//  - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
 func (o EphemeralContainerOutput) ImagePullPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *string { return v.ImagePullPolicy }).(pulumi.StringPtrOutput)
 }
@@ -7955,10 +7875,6 @@ func (o EphemeralContainerOutput) TerminationMessagePath() pulumi.StringPtrOutpu
 }
 
 // Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-//
-// Possible enum values:
-//  - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-//  - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
 func (o EphemeralContainerOutput) TerminationMessagePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *string { return v.TerminationMessagePolicy }).(pulumi.StringPtrOutput)
 }
@@ -8991,15 +8907,15 @@ func (o ExecActionPtrOutput) Command() pulumi.StringArrayOutput {
 
 // Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
 type FCVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// Optional: FC target lun number
+	// lun is Optional: FC target lun number
 	Lun *int `pulumi:"lun"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: FC target worldwide names (WWNs)
+	// targetWWNs is Optional: FC target worldwide names (WWNs)
 	TargetWWNs []string `pulumi:"targetWWNs"`
-	// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+	// wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 	Wwids []string `pulumi:"wwids"`
 }
 
@@ -9016,15 +8932,15 @@ type FCVolumeSourceInput interface {
 
 // Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
 type FCVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Optional: FC target lun number
+	// lun is Optional: FC target lun number
 	Lun pulumi.IntPtrInput `pulumi:"lun"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: FC target worldwide names (WWNs)
+	// targetWWNs is Optional: FC target worldwide names (WWNs)
 	TargetWWNs pulumi.StringArrayInput `pulumi:"targetWWNs"`
-	// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+	// wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 	Wwids pulumi.StringArrayInput `pulumi:"wwids"`
 }
 
@@ -9106,27 +9022,27 @@ func (o FCVolumeSourceOutput) ToFCVolumeSourcePtrOutputWithContext(ctx context.C
 	}).(FCVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o FCVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FCVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Optional: FC target lun number
+// lun is Optional: FC target lun number
 func (o FCVolumeSourceOutput) Lun() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v FCVolumeSource) *int { return v.Lun }).(pulumi.IntPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o FCVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v FCVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: FC target worldwide names (WWNs)
+// targetWWNs is Optional: FC target worldwide names (WWNs)
 func (o FCVolumeSourceOutput) TargetWWNs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v FCVolumeSource) []string { return v.TargetWWNs }).(pulumi.StringArrayOutput)
 }
 
-// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+// wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 func (o FCVolumeSourceOutput) Wwids() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v FCVolumeSource) []string { return v.Wwids }).(pulumi.StringArrayOutput)
 }
@@ -9155,7 +9071,7 @@ func (o FCVolumeSourcePtrOutput) Elem() FCVolumeSourceOutput {
 	}).(FCVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o FCVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FCVolumeSource) *string {
 		if v == nil {
@@ -9165,7 +9081,7 @@ func (o FCVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: FC target lun number
+// lun is Optional: FC target lun number
 func (o FCVolumeSourcePtrOutput) Lun() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *FCVolumeSource) *int {
 		if v == nil {
@@ -9175,7 +9091,7 @@ func (o FCVolumeSourcePtrOutput) Lun() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o FCVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *FCVolumeSource) *bool {
 		if v == nil {
@@ -9185,7 +9101,7 @@ func (o FCVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: FC target worldwide names (WWNs)
+// targetWWNs is Optional: FC target worldwide names (WWNs)
 func (o FCVolumeSourcePtrOutput) TargetWWNs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *FCVolumeSource) []string {
 		if v == nil {
@@ -9195,7 +9111,7 @@ func (o FCVolumeSourcePtrOutput) TargetWWNs() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+// wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
 func (o FCVolumeSourcePtrOutput) Wwids() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *FCVolumeSource) []string {
 		if v == nil {
@@ -9207,15 +9123,15 @@ func (o FCVolumeSourcePtrOutput) Wwids() pulumi.StringArrayOutput {
 
 // FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
 type FlexPersistentVolumeSource struct {
-	// Driver is the name of the driver to use for this volume.
+	// driver is the name of the driver to use for this volume.
 	Driver string `pulumi:"driver"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+	// fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 	FsType *string `pulumi:"fsType"`
-	// Optional: Extra command options if any.
+	// options is Optional: this field holds extra command options if any.
 	Options map[string]string `pulumi:"options"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+	// secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 	SecretRef *SecretReference `pulumi:"secretRef"`
 }
 
@@ -9232,15 +9148,15 @@ type FlexPersistentVolumeSourceInput interface {
 
 // FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
 type FlexPersistentVolumeSourceArgs struct {
-	// Driver is the name of the driver to use for this volume.
+	// driver is the name of the driver to use for this volume.
 	Driver pulumi.StringInput `pulumi:"driver"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+	// fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Optional: Extra command options if any.
+	// options is Optional: this field holds extra command options if any.
 	Options pulumi.StringMapInput `pulumi:"options"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+	// secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 	SecretRef SecretReferencePtrInput `pulumi:"secretRef"`
 }
 
@@ -9322,27 +9238,27 @@ func (o FlexPersistentVolumeSourceOutput) ToFlexPersistentVolumeSourcePtrOutputW
 	}).(FlexPersistentVolumeSourcePtrOutput)
 }
 
-// Driver is the name of the driver to use for this volume.
+// driver is the name of the driver to use for this volume.
 func (o FlexPersistentVolumeSourceOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v FlexPersistentVolumeSource) string { return v.Driver }).(pulumi.StringOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+// fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 func (o FlexPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlexPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Optional: Extra command options if any.
+// options is Optional: this field holds extra command options if any.
 func (o FlexPersistentVolumeSourceOutput) Options() pulumi.StringMapOutput {
 	return o.ApplyT(func(v FlexPersistentVolumeSource) map[string]string { return v.Options }).(pulumi.StringMapOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o FlexPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v FlexPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+// secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 func (o FlexPersistentVolumeSourceOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v FlexPersistentVolumeSource) *SecretReference { return v.SecretRef }).(SecretReferencePtrOutput)
 }
@@ -9371,7 +9287,7 @@ func (o FlexPersistentVolumeSourcePtrOutput) Elem() FlexPersistentVolumeSourceOu
 	}).(FlexPersistentVolumeSourceOutput)
 }
 
-// Driver is the name of the driver to use for this volume.
+// driver is the name of the driver to use for this volume.
 func (o FlexPersistentVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FlexPersistentVolumeSource) *string {
 		if v == nil {
@@ -9381,7 +9297,7 @@ func (o FlexPersistentVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+// fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 func (o FlexPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FlexPersistentVolumeSource) *string {
 		if v == nil {
@@ -9391,7 +9307,7 @@ func (o FlexPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: Extra command options if any.
+// options is Optional: this field holds extra command options if any.
 func (o FlexPersistentVolumeSourcePtrOutput) Options() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *FlexPersistentVolumeSource) map[string]string {
 		if v == nil {
@@ -9401,7 +9317,7 @@ func (o FlexPersistentVolumeSourcePtrOutput) Options() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o FlexPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *FlexPersistentVolumeSource) *bool {
 		if v == nil {
@@ -9411,7 +9327,7 @@ func (o FlexPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+// secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 func (o FlexPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *FlexPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -9423,15 +9339,15 @@ func (o FlexPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutpu
 
 // FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 type FlexVolumeSource struct {
-	// Driver is the name of the driver to use for this volume.
+	// driver is the name of the driver to use for this volume.
 	Driver string `pulumi:"driver"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 	FsType *string `pulumi:"fsType"`
-	// Optional: Extra command options if any.
+	// options is Optional: this field holds extra command options if any.
 	Options map[string]string `pulumi:"options"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+	// secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 	SecretRef *LocalObjectReference `pulumi:"secretRef"`
 }
 
@@ -9448,15 +9364,15 @@ type FlexVolumeSourceInput interface {
 
 // FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 type FlexVolumeSourceArgs struct {
-	// Driver is the name of the driver to use for this volume.
+	// driver is the name of the driver to use for this volume.
 	Driver pulumi.StringInput `pulumi:"driver"`
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Optional: Extra command options if any.
+	// options is Optional: this field holds extra command options if any.
 	Options pulumi.StringMapInput `pulumi:"options"`
-	// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+	// secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 	SecretRef LocalObjectReferencePtrInput `pulumi:"secretRef"`
 }
 
@@ -9538,27 +9454,27 @@ func (o FlexVolumeSourceOutput) ToFlexVolumeSourcePtrOutputWithContext(ctx conte
 	}).(FlexVolumeSourcePtrOutput)
 }
 
-// Driver is the name of the driver to use for this volume.
+// driver is the name of the driver to use for this volume.
 func (o FlexVolumeSourceOutput) Driver() pulumi.StringOutput {
 	return o.ApplyT(func(v FlexVolumeSource) string { return v.Driver }).(pulumi.StringOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 func (o FlexVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlexVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Optional: Extra command options if any.
+// options is Optional: this field holds extra command options if any.
 func (o FlexVolumeSourceOutput) Options() pulumi.StringMapOutput {
 	return o.ApplyT(func(v FlexVolumeSource) map[string]string { return v.Options }).(pulumi.StringMapOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o FlexVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v FlexVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+// secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 func (o FlexVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v FlexVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
@@ -9587,7 +9503,7 @@ func (o FlexVolumeSourcePtrOutput) Elem() FlexVolumeSourceOutput {
 	}).(FlexVolumeSourceOutput)
 }
 
-// Driver is the name of the driver to use for this volume.
+// driver is the name of the driver to use for this volume.
 func (o FlexVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FlexVolumeSource) *string {
 		if v == nil {
@@ -9597,7 +9513,7 @@ func (o FlexVolumeSourcePtrOutput) Driver() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
 func (o FlexVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FlexVolumeSource) *string {
 		if v == nil {
@@ -9607,7 +9523,7 @@ func (o FlexVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Optional: Extra command options if any.
+// options is Optional: this field holds extra command options if any.
 func (o FlexVolumeSourcePtrOutput) Options() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *FlexVolumeSource) map[string]string {
 		if v == nil {
@@ -9617,7 +9533,7 @@ func (o FlexVolumeSourcePtrOutput) Options() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o FlexVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *FlexVolumeSource) *bool {
 		if v == nil {
@@ -9627,7 +9543,7 @@ func (o FlexVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+// secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 func (o FlexVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *FlexVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -9639,9 +9555,9 @@ func (o FlexVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 
 // Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
 type FlockerVolumeSource struct {
-	// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+	// datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
 	DatasetName *string `pulumi:"datasetName"`
-	// UUID of the dataset. This is unique identifier of a Flocker dataset
+	// datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
 	DatasetUUID *string `pulumi:"datasetUUID"`
 }
 
@@ -9658,9 +9574,9 @@ type FlockerVolumeSourceInput interface {
 
 // Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
 type FlockerVolumeSourceArgs struct {
-	// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+	// datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
 	DatasetName pulumi.StringPtrInput `pulumi:"datasetName"`
-	// UUID of the dataset. This is unique identifier of a Flocker dataset
+	// datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
 	DatasetUUID pulumi.StringPtrInput `pulumi:"datasetUUID"`
 }
 
@@ -9742,12 +9658,12 @@ func (o FlockerVolumeSourceOutput) ToFlockerVolumeSourcePtrOutputWithContext(ctx
 	}).(FlockerVolumeSourcePtrOutput)
 }
 
-// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+// datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
 func (o FlockerVolumeSourceOutput) DatasetName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlockerVolumeSource) *string { return v.DatasetName }).(pulumi.StringPtrOutput)
 }
 
-// UUID of the dataset. This is unique identifier of a Flocker dataset
+// datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
 func (o FlockerVolumeSourceOutput) DatasetUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlockerVolumeSource) *string { return v.DatasetUUID }).(pulumi.StringPtrOutput)
 }
@@ -9776,7 +9692,7 @@ func (o FlockerVolumeSourcePtrOutput) Elem() FlockerVolumeSourceOutput {
 	}).(FlockerVolumeSourceOutput)
 }
 
-// Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+// datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
 func (o FlockerVolumeSourcePtrOutput) DatasetName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FlockerVolumeSource) *string {
 		if v == nil {
@@ -9786,7 +9702,7 @@ func (o FlockerVolumeSourcePtrOutput) DatasetName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// UUID of the dataset. This is unique identifier of a Flocker dataset
+// datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
 func (o FlockerVolumeSourcePtrOutput) DatasetUUID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FlockerVolumeSource) *string {
 		if v == nil {
@@ -9800,13 +9716,13 @@ func (o FlockerVolumeSourcePtrOutput) DatasetUUID() pulumi.StringPtrOutput {
 //
 // A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
 type GCEPersistentDiskVolumeSource struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	FsType *string `pulumi:"fsType"`
-	// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	Partition *int `pulumi:"partition"`
-	// Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	PdName string `pulumi:"pdName"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	ReadOnly *bool `pulumi:"readOnly"`
 }
 
@@ -9825,13 +9741,13 @@ type GCEPersistentDiskVolumeSourceInput interface {
 //
 // A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
 type GCEPersistentDiskVolumeSourceArgs struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	Partition pulumi.IntPtrInput `pulumi:"partition"`
-	// Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	PdName pulumi.StringInput `pulumi:"pdName"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
 }
 
@@ -9915,22 +9831,22 @@ func (o GCEPersistentDiskVolumeSourceOutput) ToGCEPersistentDiskVolumeSourcePtrO
 	}).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GCEPersistentDiskVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourceOutput) Partition() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GCEPersistentDiskVolumeSource) *int { return v.Partition }).(pulumi.IntPtrOutput)
 }
 
-// Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourceOutput) PdName() pulumi.StringOutput {
 	return o.ApplyT(func(v GCEPersistentDiskVolumeSource) string { return v.PdName }).(pulumi.StringOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v GCEPersistentDiskVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
@@ -9959,7 +9875,7 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) Elem() GCEPersistentDiskVolumeSo
 	}).(GCEPersistentDiskVolumeSourceOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) *string {
 		if v == nil {
@@ -9969,7 +9885,7 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourcePtrOutput) Partition() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) *int {
 		if v == nil {
@@ -9979,7 +9895,7 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) Partition() pulumi.IntPtrOutput 
 	}).(pulumi.IntPtrOutput)
 }
 
-// Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourcePtrOutput) PdName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) *string {
 		if v == nil {
@@ -9989,7 +9905,7 @@ func (o GCEPersistentDiskVolumeSourcePtrOutput) PdName() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o GCEPersistentDiskVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *GCEPersistentDiskVolumeSource) *bool {
 		if v == nil {
@@ -10167,11 +10083,11 @@ func (o GRPCActionPtrOutput) Service() pulumi.StringPtrOutput {
 //
 // DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 type GitRepoVolumeSource struct {
-	// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+	// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
 	Directory *string `pulumi:"directory"`
-	// Repository URL
+	// repository is the URL
 	Repository string `pulumi:"repository"`
-	// Commit hash for the specified revision.
+	// revision is the commit hash for the specified revision.
 	Revision *string `pulumi:"revision"`
 }
 
@@ -10190,11 +10106,11 @@ type GitRepoVolumeSourceInput interface {
 //
 // DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 type GitRepoVolumeSourceArgs struct {
-	// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+	// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
 	Directory pulumi.StringPtrInput `pulumi:"directory"`
-	// Repository URL
+	// repository is the URL
 	Repository pulumi.StringInput `pulumi:"repository"`
-	// Commit hash for the specified revision.
+	// revision is the commit hash for the specified revision.
 	Revision pulumi.StringPtrInput `pulumi:"revision"`
 }
 
@@ -10278,17 +10194,17 @@ func (o GitRepoVolumeSourceOutput) ToGitRepoVolumeSourcePtrOutputWithContext(ctx
 	}).(GitRepoVolumeSourcePtrOutput)
 }
 
-// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
 func (o GitRepoVolumeSourceOutput) Directory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GitRepoVolumeSource) *string { return v.Directory }).(pulumi.StringPtrOutput)
 }
 
-// Repository URL
+// repository is the URL
 func (o GitRepoVolumeSourceOutput) Repository() pulumi.StringOutput {
 	return o.ApplyT(func(v GitRepoVolumeSource) string { return v.Repository }).(pulumi.StringOutput)
 }
 
-// Commit hash for the specified revision.
+// revision is the commit hash for the specified revision.
 func (o GitRepoVolumeSourceOutput) Revision() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GitRepoVolumeSource) *string { return v.Revision }).(pulumi.StringPtrOutput)
 }
@@ -10317,7 +10233,7 @@ func (o GitRepoVolumeSourcePtrOutput) Elem() GitRepoVolumeSourceOutput {
 	}).(GitRepoVolumeSourceOutput)
 }
 
-// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
 func (o GitRepoVolumeSourcePtrOutput) Directory() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GitRepoVolumeSource) *string {
 		if v == nil {
@@ -10327,7 +10243,7 @@ func (o GitRepoVolumeSourcePtrOutput) Directory() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Repository URL
+// repository is the URL
 func (o GitRepoVolumeSourcePtrOutput) Repository() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GitRepoVolumeSource) *string {
 		if v == nil {
@@ -10337,7 +10253,7 @@ func (o GitRepoVolumeSourcePtrOutput) Repository() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Commit hash for the specified revision.
+// revision is the commit hash for the specified revision.
 func (o GitRepoVolumeSourcePtrOutput) Revision() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GitRepoVolumeSource) *string {
 		if v == nil {
@@ -10349,13 +10265,13 @@ func (o GitRepoVolumeSourcePtrOutput) Revision() pulumi.StringPtrOutput {
 
 // Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
 type GlusterfsPersistentVolumeSource struct {
-	// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Endpoints string `pulumi:"endpoints"`
-	// EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	EndpointsNamespace *string `pulumi:"endpointsNamespace"`
-	// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Path string `pulumi:"path"`
-	// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	ReadOnly *bool `pulumi:"readOnly"`
 }
 
@@ -10372,13 +10288,13 @@ type GlusterfsPersistentVolumeSourceInput interface {
 
 // Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
 type GlusterfsPersistentVolumeSourceArgs struct {
-	// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Endpoints pulumi.StringInput `pulumi:"endpoints"`
-	// EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	EndpointsNamespace pulumi.StringPtrInput `pulumi:"endpointsNamespace"`
-	// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Path pulumi.StringInput `pulumi:"path"`
-	// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
 }
 
@@ -10460,22 +10376,22 @@ func (o GlusterfsPersistentVolumeSourceOutput) ToGlusterfsPersistentVolumeSource
 	}).(GlusterfsPersistentVolumeSourcePtrOutput)
 }
 
-// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourceOutput) Endpoints() pulumi.StringOutput {
 	return o.ApplyT(func(v GlusterfsPersistentVolumeSource) string { return v.Endpoints }).(pulumi.StringOutput)
 }
 
-// EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourceOutput) EndpointsNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GlusterfsPersistentVolumeSource) *string { return v.EndpointsNamespace }).(pulumi.StringPtrOutput)
 }
 
-// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourceOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GlusterfsPersistentVolumeSource) string { return v.Path }).(pulumi.StringOutput)
 }
 
-// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v GlusterfsPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
@@ -10504,7 +10420,7 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) Elem() GlusterfsPersistentVolu
 	}).(GlusterfsPersistentVolumeSourceOutput)
 }
 
-// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourcePtrOutput) Endpoints() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) *string {
 		if v == nil {
@@ -10514,7 +10430,7 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) Endpoints() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourcePtrOutput) EndpointsNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) *string {
 		if v == nil {
@@ -10524,7 +10440,7 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) EndpointsNamespace() pulumi.St
 	}).(pulumi.StringPtrOutput)
 }
 
-// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) *string {
 		if v == nil {
@@ -10534,7 +10450,7 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *GlusterfsPersistentVolumeSource) *bool {
 		if v == nil {
@@ -10546,11 +10462,11 @@ func (o GlusterfsPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutpu
 
 // Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
 type GlusterfsVolumeSource struct {
-	// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Endpoints string `pulumi:"endpoints"`
-	// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Path string `pulumi:"path"`
-	// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	ReadOnly *bool `pulumi:"readOnly"`
 }
 
@@ -10567,11 +10483,11 @@ type GlusterfsVolumeSourceInput interface {
 
 // Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
 type GlusterfsVolumeSourceArgs struct {
-	// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Endpoints pulumi.StringInput `pulumi:"endpoints"`
-	// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	Path pulumi.StringInput `pulumi:"path"`
-	// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+	// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
 }
 
@@ -10653,17 +10569,17 @@ func (o GlusterfsVolumeSourceOutput) ToGlusterfsVolumeSourcePtrOutputWithContext
 	}).(GlusterfsVolumeSourcePtrOutput)
 }
 
-// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsVolumeSourceOutput) Endpoints() pulumi.StringOutput {
 	return o.ApplyT(func(v GlusterfsVolumeSource) string { return v.Endpoints }).(pulumi.StringOutput)
 }
 
-// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsVolumeSourceOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GlusterfsVolumeSource) string { return v.Path }).(pulumi.StringOutput)
 }
 
-// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v GlusterfsVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
@@ -10692,7 +10608,7 @@ func (o GlusterfsVolumeSourcePtrOutput) Elem() GlusterfsVolumeSourceOutput {
 	}).(GlusterfsVolumeSourceOutput)
 }
 
-// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsVolumeSourcePtrOutput) Endpoints() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GlusterfsVolumeSource) *string {
 		if v == nil {
@@ -10702,7 +10618,7 @@ func (o GlusterfsVolumeSourcePtrOutput) Endpoints() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GlusterfsVolumeSource) *string {
 		if v == nil {
@@ -10712,7 +10628,7 @@ func (o GlusterfsVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 func (o GlusterfsVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *GlusterfsVolumeSource) *bool {
 		if v == nil {
@@ -10733,10 +10649,6 @@ type HTTPGetAction struct {
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port interface{} `pulumi:"port"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
-	//
-	// Possible enum values:
-	//  - `"HTTP"` means that the scheme used will be http://
-	//  - `"HTTPS"` means that the scheme used will be https://
 	Scheme *string `pulumi:"scheme"`
 }
 
@@ -10762,10 +10674,6 @@ type HTTPGetActionArgs struct {
 	// Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
 	Port pulumi.Input `pulumi:"port"`
 	// Scheme to use for connecting to the host. Defaults to HTTP.
-	//
-	// Possible enum values:
-	//  - `"HTTP"` means that the scheme used will be http://
-	//  - `"HTTPS"` means that the scheme used will be https://
 	Scheme pulumi.StringPtrInput `pulumi:"scheme"`
 }
 
@@ -10868,10 +10776,6 @@ func (o HTTPGetActionOutput) Port() pulumi.AnyOutput {
 }
 
 // Scheme to use for connecting to the host. Defaults to HTTP.
-//
-// Possible enum values:
-//  - `"HTTP"` means that the scheme used will be http://
-//  - `"HTTPS"` means that the scheme used will be https://
 func (o HTTPGetActionOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPGetAction) *string { return v.Scheme }).(pulumi.StringPtrOutput)
 }
@@ -10941,10 +10845,6 @@ func (o HTTPGetActionPtrOutput) Port() pulumi.AnyOutput {
 }
 
 // Scheme to use for connecting to the host. Defaults to HTTP.
-//
-// Possible enum values:
-//  - `"HTTP"` means that the scheme used will be http://
-//  - `"HTTPS"` means that the scheme used will be https://
 func (o HTTPGetActionPtrOutput) Scheme() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HTTPGetAction) *string {
 		if v == nil {
@@ -11247,9 +11147,9 @@ func (o HostAliasArrayOutput) Index(i pulumi.IntInput) HostAliasOutput {
 
 // Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
 type HostPathVolumeSource struct {
-	// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	Path string `pulumi:"path"`
-	// Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	Type *string `pulumi:"type"`
 }
 
@@ -11266,9 +11166,9 @@ type HostPathVolumeSourceInput interface {
 
 // Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
 type HostPathVolumeSourceArgs struct {
-	// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	Path pulumi.StringInput `pulumi:"path"`
-	// Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -11350,12 +11250,12 @@ func (o HostPathVolumeSourceOutput) ToHostPathVolumeSourcePtrOutputWithContext(c
 	}).(HostPathVolumeSourcePtrOutput)
 }
 
-// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o HostPathVolumeSourceOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v HostPathVolumeSource) string { return v.Path }).(pulumi.StringOutput)
 }
 
-// Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o HostPathVolumeSourceOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HostPathVolumeSource) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -11384,7 +11284,7 @@ func (o HostPathVolumeSourcePtrOutput) Elem() HostPathVolumeSourceOutput {
 	}).(HostPathVolumeSourceOutput)
 }
 
-// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o HostPathVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HostPathVolumeSource) *string {
 		if v == nil {
@@ -11394,7 +11294,7 @@ func (o HostPathVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o HostPathVolumeSourcePtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HostPathVolumeSource) *string {
 		if v == nil {
@@ -11406,27 +11306,27 @@ func (o HostPathVolumeSourcePtrOutput) Type() pulumi.StringPtrOutput {
 
 // ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
 type ISCSIPersistentVolumeSource struct {
-	// whether support iSCSI Discovery CHAP authentication
+	// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 	ChapAuthDiscovery *bool `pulumi:"chapAuthDiscovery"`
-	// whether support iSCSI Session CHAP authentication
+	// chapAuthSession defines whether support iSCSI Session CHAP authentication
 	ChapAuthSession *bool `pulumi:"chapAuthSession"`
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 	FsType *string `pulumi:"fsType"`
-	// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+	// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 	InitiatorName *string `pulumi:"initiatorName"`
-	// Target iSCSI Qualified Name.
+	// iqn is Target iSCSI Qualified Name.
 	Iqn string `pulumi:"iqn"`
-	// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+	// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 	IscsiInterface *string `pulumi:"iscsiInterface"`
-	// iSCSI Target Lun number.
+	// lun is iSCSI Target Lun number.
 	Lun int `pulumi:"lun"`
-	// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	Portals []string `pulumi:"portals"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// CHAP Secret for iSCSI target and initiator authentication
+	// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 	SecretRef *SecretReference `pulumi:"secretRef"`
-	// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	TargetPortal string `pulumi:"targetPortal"`
 }
 
@@ -11443,27 +11343,27 @@ type ISCSIPersistentVolumeSourceInput interface {
 
 // ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
 type ISCSIPersistentVolumeSourceArgs struct {
-	// whether support iSCSI Discovery CHAP authentication
+	// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 	ChapAuthDiscovery pulumi.BoolPtrInput `pulumi:"chapAuthDiscovery"`
-	// whether support iSCSI Session CHAP authentication
+	// chapAuthSession defines whether support iSCSI Session CHAP authentication
 	ChapAuthSession pulumi.BoolPtrInput `pulumi:"chapAuthSession"`
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+	// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 	InitiatorName pulumi.StringPtrInput `pulumi:"initiatorName"`
-	// Target iSCSI Qualified Name.
+	// iqn is Target iSCSI Qualified Name.
 	Iqn pulumi.StringInput `pulumi:"iqn"`
-	// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+	// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 	IscsiInterface pulumi.StringPtrInput `pulumi:"iscsiInterface"`
-	// iSCSI Target Lun number.
+	// lun is iSCSI Target Lun number.
 	Lun pulumi.IntInput `pulumi:"lun"`
-	// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	Portals pulumi.StringArrayInput `pulumi:"portals"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// CHAP Secret for iSCSI target and initiator authentication
+	// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 	SecretRef SecretReferencePtrInput `pulumi:"secretRef"`
-	// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	TargetPortal pulumi.StringInput `pulumi:"targetPortal"`
 }
 
@@ -11545,57 +11445,57 @@ func (o ISCSIPersistentVolumeSourceOutput) ToISCSIPersistentVolumeSourcePtrOutpu
 	}).(ISCSIPersistentVolumeSourcePtrOutput)
 }
 
-// whether support iSCSI Discovery CHAP authentication
+// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 func (o ISCSIPersistentVolumeSourceOutput) ChapAuthDiscovery() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *bool { return v.ChapAuthDiscovery }).(pulumi.BoolPtrOutput)
 }
 
-// whether support iSCSI Session CHAP authentication
+// chapAuthSession defines whether support iSCSI Session CHAP authentication
 func (o ISCSIPersistentVolumeSourceOutput) ChapAuthSession() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *bool { return v.ChapAuthSession }).(pulumi.BoolPtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 func (o ISCSIPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 func (o ISCSIPersistentVolumeSourceOutput) InitiatorName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *string { return v.InitiatorName }).(pulumi.StringPtrOutput)
 }
 
-// Target iSCSI Qualified Name.
+// iqn is Target iSCSI Qualified Name.
 func (o ISCSIPersistentVolumeSourceOutput) Iqn() pulumi.StringOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) string { return v.Iqn }).(pulumi.StringOutput)
 }
 
-// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 func (o ISCSIPersistentVolumeSourceOutput) IscsiInterface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *string { return v.IscsiInterface }).(pulumi.StringPtrOutput)
 }
 
-// iSCSI Target Lun number.
+// lun is iSCSI Target Lun number.
 func (o ISCSIPersistentVolumeSourceOutput) Lun() pulumi.IntOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) int { return v.Lun }).(pulumi.IntOutput)
 }
 
-// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIPersistentVolumeSourceOutput) Portals() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) []string { return v.Portals }).(pulumi.StringArrayOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 func (o ISCSIPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// CHAP Secret for iSCSI target and initiator authentication
+// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 func (o ISCSIPersistentVolumeSourceOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) *SecretReference { return v.SecretRef }).(SecretReferencePtrOutput)
 }
 
-// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIPersistentVolumeSourceOutput) TargetPortal() pulumi.StringOutput {
 	return o.ApplyT(func(v ISCSIPersistentVolumeSource) string { return v.TargetPortal }).(pulumi.StringOutput)
 }
@@ -11624,7 +11524,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) Elem() ISCSIPersistentVolumeSource
 	}).(ISCSIPersistentVolumeSourceOutput)
 }
 
-// whether support iSCSI Discovery CHAP authentication
+// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 func (o ISCSIPersistentVolumeSourcePtrOutput) ChapAuthDiscovery() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *bool {
 		if v == nil {
@@ -11634,7 +11534,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) ChapAuthDiscovery() pulumi.BoolPtr
 	}).(pulumi.BoolPtrOutput)
 }
 
-// whether support iSCSI Session CHAP authentication
+// chapAuthSession defines whether support iSCSI Session CHAP authentication
 func (o ISCSIPersistentVolumeSourcePtrOutput) ChapAuthSession() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *bool {
 		if v == nil {
@@ -11644,7 +11544,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) ChapAuthSession() pulumi.BoolPtrOu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 func (o ISCSIPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -11654,7 +11554,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 func (o ISCSIPersistentVolumeSourcePtrOutput) InitiatorName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -11664,7 +11564,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) InitiatorName() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Target iSCSI Qualified Name.
+// iqn is Target iSCSI Qualified Name.
 func (o ISCSIPersistentVolumeSourcePtrOutput) Iqn() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -11674,7 +11574,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) Iqn() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 func (o ISCSIPersistentVolumeSourcePtrOutput) IscsiInterface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -11684,7 +11584,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) IscsiInterface() pulumi.StringPtrO
 	}).(pulumi.StringPtrOutput)
 }
 
-// iSCSI Target Lun number.
+// lun is iSCSI Target Lun number.
 func (o ISCSIPersistentVolumeSourcePtrOutput) Lun() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *int {
 		if v == nil {
@@ -11694,7 +11594,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) Lun() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIPersistentVolumeSourcePtrOutput) Portals() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) []string {
 		if v == nil {
@@ -11704,7 +11604,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) Portals() pulumi.StringArrayOutput
 	}).(pulumi.StringArrayOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 func (o ISCSIPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *bool {
 		if v == nil {
@@ -11714,7 +11614,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// CHAP Secret for iSCSI target and initiator authentication
+// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 func (o ISCSIPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -11724,7 +11624,7 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutp
 	}).(SecretReferencePtrOutput)
 }
 
-// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIPersistentVolumeSourcePtrOutput) TargetPortal() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIPersistentVolumeSource) *string {
 		if v == nil {
@@ -11736,27 +11636,27 @@ func (o ISCSIPersistentVolumeSourcePtrOutput) TargetPortal() pulumi.StringPtrOut
 
 // Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
 type ISCSIVolumeSource struct {
-	// whether support iSCSI Discovery CHAP authentication
+	// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 	ChapAuthDiscovery *bool `pulumi:"chapAuthDiscovery"`
-	// whether support iSCSI Session CHAP authentication
+	// chapAuthSession defines whether support iSCSI Session CHAP authentication
 	ChapAuthSession *bool `pulumi:"chapAuthSession"`
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 	FsType *string `pulumi:"fsType"`
-	// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+	// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 	InitiatorName *string `pulumi:"initiatorName"`
-	// Target iSCSI Qualified Name.
+	// iqn is the target iSCSI Qualified Name.
 	Iqn string `pulumi:"iqn"`
-	// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+	// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 	IscsiInterface *string `pulumi:"iscsiInterface"`
-	// iSCSI Target Lun number.
+	// lun represents iSCSI Target Lun number.
 	Lun int `pulumi:"lun"`
-	// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	Portals []string `pulumi:"portals"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// CHAP Secret for iSCSI target and initiator authentication
+	// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 	SecretRef *LocalObjectReference `pulumi:"secretRef"`
-	// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	TargetPortal string `pulumi:"targetPortal"`
 }
 
@@ -11773,27 +11673,27 @@ type ISCSIVolumeSourceInput interface {
 
 // Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
 type ISCSIVolumeSourceArgs struct {
-	// whether support iSCSI Discovery CHAP authentication
+	// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 	ChapAuthDiscovery pulumi.BoolPtrInput `pulumi:"chapAuthDiscovery"`
-	// whether support iSCSI Session CHAP authentication
+	// chapAuthSession defines whether support iSCSI Session CHAP authentication
 	ChapAuthSession pulumi.BoolPtrInput `pulumi:"chapAuthSession"`
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+	// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 	InitiatorName pulumi.StringPtrInput `pulumi:"initiatorName"`
-	// Target iSCSI Qualified Name.
+	// iqn is the target iSCSI Qualified Name.
 	Iqn pulumi.StringInput `pulumi:"iqn"`
-	// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+	// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 	IscsiInterface pulumi.StringPtrInput `pulumi:"iscsiInterface"`
-	// iSCSI Target Lun number.
+	// lun represents iSCSI Target Lun number.
 	Lun pulumi.IntInput `pulumi:"lun"`
-	// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	Portals pulumi.StringArrayInput `pulumi:"portals"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// CHAP Secret for iSCSI target and initiator authentication
+	// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 	SecretRef LocalObjectReferencePtrInput `pulumi:"secretRef"`
-	// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+	// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 	TargetPortal pulumi.StringInput `pulumi:"targetPortal"`
 }
 
@@ -11875,57 +11775,57 @@ func (o ISCSIVolumeSourceOutput) ToISCSIVolumeSourcePtrOutputWithContext(ctx con
 	}).(ISCSIVolumeSourcePtrOutput)
 }
 
-// whether support iSCSI Discovery CHAP authentication
+// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 func (o ISCSIVolumeSourceOutput) ChapAuthDiscovery() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *bool { return v.ChapAuthDiscovery }).(pulumi.BoolPtrOutput)
 }
 
-// whether support iSCSI Session CHAP authentication
+// chapAuthSession defines whether support iSCSI Session CHAP authentication
 func (o ISCSIVolumeSourceOutput) ChapAuthSession() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *bool { return v.ChapAuthSession }).(pulumi.BoolPtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 func (o ISCSIVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 func (o ISCSIVolumeSourceOutput) InitiatorName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *string { return v.InitiatorName }).(pulumi.StringPtrOutput)
 }
 
-// Target iSCSI Qualified Name.
+// iqn is the target iSCSI Qualified Name.
 func (o ISCSIVolumeSourceOutput) Iqn() pulumi.StringOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) string { return v.Iqn }).(pulumi.StringOutput)
 }
 
-// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 func (o ISCSIVolumeSourceOutput) IscsiInterface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *string { return v.IscsiInterface }).(pulumi.StringPtrOutput)
 }
 
-// iSCSI Target Lun number.
+// lun represents iSCSI Target Lun number.
 func (o ISCSIVolumeSourceOutput) Lun() pulumi.IntOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) int { return v.Lun }).(pulumi.IntOutput)
 }
 
-// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIVolumeSourceOutput) Portals() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) []string { return v.Portals }).(pulumi.StringArrayOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 func (o ISCSIVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// CHAP Secret for iSCSI target and initiator authentication
+// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 func (o ISCSIVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIVolumeSourceOutput) TargetPortal() pulumi.StringOutput {
 	return o.ApplyT(func(v ISCSIVolumeSource) string { return v.TargetPortal }).(pulumi.StringOutput)
 }
@@ -11954,7 +11854,7 @@ func (o ISCSIVolumeSourcePtrOutput) Elem() ISCSIVolumeSourceOutput {
 	}).(ISCSIVolumeSourceOutput)
 }
 
-// whether support iSCSI Discovery CHAP authentication
+// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 func (o ISCSIVolumeSourcePtrOutput) ChapAuthDiscovery() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *bool {
 		if v == nil {
@@ -11964,7 +11864,7 @@ func (o ISCSIVolumeSourcePtrOutput) ChapAuthDiscovery() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// whether support iSCSI Session CHAP authentication
+// chapAuthSession defines whether support iSCSI Session CHAP authentication
 func (o ISCSIVolumeSourcePtrOutput) ChapAuthSession() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *bool {
 		if v == nil {
@@ -11974,7 +11874,7 @@ func (o ISCSIVolumeSourcePtrOutput) ChapAuthSession() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
 func (o ISCSIVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *string {
 		if v == nil {
@@ -11984,7 +11884,7 @@ func (o ISCSIVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
 func (o ISCSIVolumeSourcePtrOutput) InitiatorName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *string {
 		if v == nil {
@@ -11994,7 +11894,7 @@ func (o ISCSIVolumeSourcePtrOutput) InitiatorName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Target iSCSI Qualified Name.
+// iqn is the target iSCSI Qualified Name.
 func (o ISCSIVolumeSourcePtrOutput) Iqn() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *string {
 		if v == nil {
@@ -12004,7 +11904,7 @@ func (o ISCSIVolumeSourcePtrOutput) Iqn() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
 func (o ISCSIVolumeSourcePtrOutput) IscsiInterface() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *string {
 		if v == nil {
@@ -12014,7 +11914,7 @@ func (o ISCSIVolumeSourcePtrOutput) IscsiInterface() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// iSCSI Target Lun number.
+// lun represents iSCSI Target Lun number.
 func (o ISCSIVolumeSourcePtrOutput) Lun() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *int {
 		if v == nil {
@@ -12024,7 +11924,7 @@ func (o ISCSIVolumeSourcePtrOutput) Lun() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIVolumeSourcePtrOutput) Portals() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) []string {
 		if v == nil {
@@ -12034,7 +11934,7 @@ func (o ISCSIVolumeSourcePtrOutput) Portals() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
 func (o ISCSIVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *bool {
 		if v == nil {
@@ -12044,7 +11944,7 @@ func (o ISCSIVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// CHAP Secret for iSCSI target and initiator authentication
+// secretRef is the CHAP Secret for iSCSI target and initiator authentication
 func (o ISCSIVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -12054,7 +11954,7 @@ func (o ISCSIVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
 func (o ISCSIVolumeSourcePtrOutput) TargetPortal() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ISCSIVolumeSource) *string {
 		if v == nil {
@@ -12066,11 +11966,11 @@ func (o ISCSIVolumeSourcePtrOutput) TargetPortal() pulumi.StringPtrOutput {
 
 // Maps a string key to a path within a volume.
 type KeyToPath struct {
-	// The key to project.
+	// key is the key to project.
 	Key string `pulumi:"key"`
-	// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	Mode *int `pulumi:"mode"`
-	// The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+	// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path string `pulumi:"path"`
 }
 
@@ -12087,11 +11987,11 @@ type KeyToPathInput interface {
 
 // Maps a string key to a path within a volume.
 type KeyToPathArgs struct {
-	// The key to project.
+	// key is the key to project.
 	Key pulumi.StringInput `pulumi:"key"`
-	// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	Mode pulumi.IntPtrInput `pulumi:"mode"`
-	// The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+	// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 	Path pulumi.StringInput `pulumi:"path"`
 }
 
@@ -12147,17 +12047,17 @@ func (o KeyToPathOutput) ToKeyToPathOutputWithContext(ctx context.Context) KeyTo
 	return o
 }
 
-// The key to project.
+// key is the key to project.
 func (o KeyToPathOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v KeyToPath) string { return v.Key }).(pulumi.StringOutput)
 }
 
-// Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o KeyToPathOutput) Mode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v KeyToPath) *int { return v.Mode }).(pulumi.IntPtrOutput)
 }
 
-// The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+// path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
 func (o KeyToPathOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v KeyToPath) string { return v.Path }).(pulumi.StringOutput)
 }
@@ -12659,11 +12559,6 @@ type LimitRangeItem struct {
 	// Min usage constraints on this kind by resource name.
 	Min map[string]string `pulumi:"min"`
 	// Type of resource that this limit applies to.
-	//
-	// Possible enum values:
-	//  - `"Container"` Limit that applies to all containers in a namespace
-	//  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-	//  - `"Pod"` Limit that applies to all pods in a namespace
 	Type string `pulumi:"type"`
 }
 
@@ -12691,11 +12586,6 @@ type LimitRangeItemArgs struct {
 	// Min usage constraints on this kind by resource name.
 	Min pulumi.StringMapInput `pulumi:"min"`
 	// Type of resource that this limit applies to.
-	//
-	// Possible enum values:
-	//  - `"Container"` Limit that applies to all containers in a namespace
-	//  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-	//  - `"Pod"` Limit that applies to all pods in a namespace
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -12777,11 +12667,6 @@ func (o LimitRangeItemOutput) Min() pulumi.StringMapOutput {
 }
 
 // Type of resource that this limit applies to.
-//
-// Possible enum values:
-//  - `"Container"` Limit that applies to all containers in a namespace
-//  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-//  - `"Pod"` Limit that applies to all pods in a namespace
 func (o LimitRangeItemOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v LimitRangeItem) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -13473,9 +13358,9 @@ func (o LocalObjectReferenceArrayOutput) Index(i pulumi.IntInput) LocalObjectRef
 
 // Local represents directly-attached storage with node affinity (Beta feature)
 type LocalVolumeSource struct {
-	// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+	// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+	// path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
 	Path string `pulumi:"path"`
 }
 
@@ -13492,9 +13377,9 @@ type LocalVolumeSourceInput interface {
 
 // Local represents directly-attached storage with node affinity (Beta feature)
 type LocalVolumeSourceArgs struct {
-	// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+	// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+	// path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
 	Path pulumi.StringInput `pulumi:"path"`
 }
 
@@ -13576,12 +13461,12 @@ func (o LocalVolumeSourceOutput) ToLocalVolumeSourcePtrOutputWithContext(ctx con
 	}).(LocalVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 func (o LocalVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LocalVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+// path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
 func (o LocalVolumeSourceOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v LocalVolumeSource) string { return v.Path }).(pulumi.StringOutput)
 }
@@ -13610,7 +13495,7 @@ func (o LocalVolumeSourcePtrOutput) Elem() LocalVolumeSourceOutput {
 	}).(LocalVolumeSourceOutput)
 }
 
-// Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 func (o LocalVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LocalVolumeSource) *string {
 		if v == nil {
@@ -13620,7 +13505,7 @@ func (o LocalVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+// path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
 func (o LocalVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LocalVolumeSource) *string {
 		if v == nil {
@@ -13632,11 +13517,11 @@ func (o LocalVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 
 // Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
 type NFSVolumeSource struct {
-	// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Path string `pulumi:"path"`
-	// ReadOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Server string `pulumi:"server"`
 }
 
@@ -13653,11 +13538,11 @@ type NFSVolumeSourceInput interface {
 
 // Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
 type NFSVolumeSourceArgs struct {
-	// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Path pulumi.StringInput `pulumi:"path"`
-	// ReadOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Server pulumi.StringInput `pulumi:"server"`
 }
 
@@ -13739,17 +13624,17 @@ func (o NFSVolumeSourceOutput) ToNFSVolumeSourcePtrOutputWithContext(ctx context
 	}).(NFSVolumeSourcePtrOutput)
 }
 
-// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o NFSVolumeSourceOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v NFSVolumeSource) string { return v.Path }).(pulumi.StringOutput)
 }
 
-// ReadOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o NFSVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v NFSVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o NFSVolumeSourceOutput) Server() pulumi.StringOutput {
 	return o.ApplyT(func(v NFSVolumeSource) string { return v.Server }).(pulumi.StringOutput)
 }
@@ -13778,7 +13663,7 @@ func (o NFSVolumeSourcePtrOutput) Elem() NFSVolumeSourceOutput {
 	}).(NFSVolumeSourceOutput)
 }
 
-// Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o NFSVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NFSVolumeSource) *string {
 		if v == nil {
@@ -13788,7 +13673,7 @@ func (o NFSVolumeSourcePtrOutput) Path() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o NFSVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *NFSVolumeSource) *bool {
 		if v == nil {
@@ -13798,7 +13683,7 @@ func (o NFSVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o NFSVolumeSourcePtrOutput) Server() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NFSVolumeSource) *string {
 		if v == nil {
@@ -13952,13 +13837,6 @@ type NamespaceCondition struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status string `pulumi:"status"`
 	// Type of namespace controller condition.
-	//
-	// Possible enum values:
-	//  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
-	//  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
-	//  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
-	//  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
-	//  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 	Type string `pulumi:"type"`
 }
 
@@ -13981,13 +13859,6 @@ type NamespaceConditionArgs struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type of namespace controller condition.
-	//
-	// Possible enum values:
-	//  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
-	//  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
-	//  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
-	//  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
-	//  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -14061,13 +13932,6 @@ func (o NamespaceConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type of namespace controller condition.
-//
-// Possible enum values:
-//  - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
-//  - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
-//  - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
-//  - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
-//  - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
 func (o NamespaceConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v NamespaceCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -14319,10 +14183,6 @@ type NamespaceStatus struct {
 	// Represents the latest available observations of a namespace's current state.
 	Conditions []NamespaceCondition `pulumi:"conditions"`
 	// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-	//
-	// Possible enum values:
-	//  - `"Active"` means the namespace is available for use in the system
-	//  - `"Terminating"` means the namespace is undergoing graceful termination
 	Phase *string `pulumi:"phase"`
 }
 
@@ -14342,10 +14202,6 @@ type NamespaceStatusArgs struct {
 	// Represents the latest available observations of a namespace's current state.
 	Conditions NamespaceConditionArrayInput `pulumi:"conditions"`
 	// Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-	//
-	// Possible enum values:
-	//  - `"Active"` means the namespace is available for use in the system
-	//  - `"Terminating"` means the namespace is undergoing graceful termination
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 }
 
@@ -14433,10 +14289,6 @@ func (o NamespaceStatusOutput) Conditions() NamespaceConditionArrayOutput {
 }
 
 // Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-//
-// Possible enum values:
-//  - `"Active"` means the namespace is available for use in the system
-//  - `"Terminating"` means the namespace is undergoing graceful termination
 func (o NamespaceStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NamespaceStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -14476,10 +14328,6 @@ func (o NamespaceStatusPtrOutput) Conditions() NamespaceConditionArrayOutput {
 }
 
 // Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-//
-// Possible enum values:
-//  - `"Active"` means the namespace is available for use in the system
-//  - `"Terminating"` means the namespace is undergoing graceful termination
 func (o NamespaceStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NamespaceStatus) *string {
 		if v == nil {
@@ -14630,13 +14478,6 @@ type NodeAddress struct {
 	// The node address.
 	Address string `pulumi:"address"`
 	// Node address type, one of Hostname, ExternalIP or InternalIP.
-	//
-	// Possible enum values:
-	//  - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
-	//  - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
-	//  - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
-	//  - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
-	//  - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 	Type string `pulumi:"type"`
 }
 
@@ -14656,13 +14497,6 @@ type NodeAddressArgs struct {
 	// The node address.
 	Address pulumi.StringInput `pulumi:"address"`
 	// Node address type, one of Hostname, ExternalIP or InternalIP.
-	//
-	// Possible enum values:
-	//  - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
-	//  - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
-	//  - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
-	//  - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
-	//  - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -14724,13 +14558,6 @@ func (o NodeAddressOutput) Address() pulumi.StringOutput {
 }
 
 // Node address type, one of Hostname, ExternalIP or InternalIP.
-//
-// Possible enum values:
-//  - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
-//  - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
-//  - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
-//  - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
-//  - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
 func (o NodeAddressOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeAddress) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -14929,13 +14756,6 @@ type NodeCondition struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status string `pulumi:"status"`
 	// Type of node condition.
-	//
-	// Possible enum values:
-	//  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
-	//  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
-	//  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
-	//  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
-	//  - `"Ready"` means kubelet is healthy and ready to accept pods.
 	Type string `pulumi:"type"`
 }
 
@@ -14963,13 +14783,6 @@ type NodeConditionArgs struct {
 	// Status of the condition, one of True, False, Unknown.
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type of node condition.
-	//
-	// Possible enum values:
-	//  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
-	//  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
-	//  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
-	//  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
-	//  - `"Ready"` means kubelet is healthy and ready to accept pods.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -15051,13 +14864,6 @@ func (o NodeConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type of node condition.
-//
-// Possible enum values:
-//  - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
-//  - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
-//  - `"NetworkUnavailable"` means that network for the node is not correctly configured.
-//  - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
-//  - `"Ready"` means kubelet is healthy and ready to accept pods.
 func (o NodeConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -15786,14 +15592,6 @@ type NodeSelectorRequirement struct {
 	// The label key that the selector applies to.
 	Key string `pulumi:"key"`
 	// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
-	//
-	// Possible enum values:
-	//  - `"DoesNotExist"`
-	//  - `"Exists"`
-	//  - `"Gt"`
-	//  - `"In"`
-	//  - `"Lt"`
-	//  - `"NotIn"`
 	Operator string `pulumi:"operator"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	Values []string `pulumi:"values"`
@@ -15815,14 +15613,6 @@ type NodeSelectorRequirementArgs struct {
 	// The label key that the selector applies to.
 	Key pulumi.StringInput `pulumi:"key"`
 	// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
-	//
-	// Possible enum values:
-	//  - `"DoesNotExist"`
-	//  - `"Exists"`
-	//  - `"Gt"`
-	//  - `"In"`
-	//  - `"Lt"`
-	//  - `"NotIn"`
 	Operator pulumi.StringInput `pulumi:"operator"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
 	Values pulumi.StringArrayInput `pulumi:"values"`
@@ -15886,14 +15676,6 @@ func (o NodeSelectorRequirementOutput) Key() pulumi.StringOutput {
 }
 
 // Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
-//
-// Possible enum values:
-//  - `"DoesNotExist"`
-//  - `"Exists"`
-//  - `"Gt"`
-//  - `"In"`
-//  - `"Lt"`
-//  - `"NotIn"`
 func (o NodeSelectorRequirementOutput) Operator() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSelectorRequirement) string { return v.Operator }).(pulumi.StringOutput)
 }
@@ -16034,7 +15816,7 @@ func (o NodeSelectorTermArrayOutput) Index(i pulumi.IntInput) NodeSelectorTermOu
 
 // NodeSpec describes the attributes that a node is created with.
 type NodeSpec struct {
-	// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+	// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
 	ConfigSource *NodeConfigSource `pulumi:"configSource"`
 	// Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
 	ExternalID *string `pulumi:"externalID"`
@@ -16063,7 +15845,7 @@ type NodeSpecInput interface {
 
 // NodeSpec describes the attributes that a node is created with.
 type NodeSpecArgs struct {
-	// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+	// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
 	ConfigSource NodeConfigSourcePtrInput `pulumi:"configSource"`
 	// Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
 	ExternalID pulumi.StringPtrInput `pulumi:"externalID"`
@@ -16157,7 +15939,7 @@ func (o NodeSpecOutput) ToNodeSpecPtrOutputWithContext(ctx context.Context) Node
 	}).(NodeSpecPtrOutput)
 }
 
-// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
 func (o NodeSpecOutput) ConfigSource() NodeConfigSourcePtrOutput {
 	return o.ApplyT(func(v NodeSpec) *NodeConfigSource { return v.ConfigSource }).(NodeConfigSourcePtrOutput)
 }
@@ -16216,7 +15998,7 @@ func (o NodeSpecPtrOutput) Elem() NodeSpecOutput {
 	}).(NodeSpecOutput)
 }
 
-// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
 func (o NodeSpecPtrOutput) ConfigSource() NodeConfigSourcePtrOutput {
 	return o.ApplyT(func(v *NodeSpec) *NodeConfigSource {
 		if v == nil {
@@ -16305,11 +16087,6 @@ type NodeStatus struct {
 	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
 	NodeInfo *NodeSystemInfo `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
-	//
-	// Possible enum values:
-	//  - `"Pending"` means the node has been created/added by the system, but not configured.
-	//  - `"Running"` means the node has been configured and has Kubernetes components running.
-	//  - `"Terminated"` means the node has been removed from the cluster.
 	Phase *string `pulumi:"phase"`
 	// List of volumes that are attached to the node.
 	VolumesAttached []AttachedVolume `pulumi:"volumesAttached"`
@@ -16347,11 +16124,6 @@ type NodeStatusArgs struct {
 	// Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
 	NodeInfo NodeSystemInfoPtrInput `pulumi:"nodeInfo"`
 	// NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
-	//
-	// Possible enum values:
-	//  - `"Pending"` means the node has been created/added by the system, but not configured.
-	//  - `"Running"` means the node has been configured and has Kubernetes components running.
-	//  - `"Terminated"` means the node has been removed from the cluster.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// List of volumes that are attached to the node.
 	VolumesAttached AttachedVolumeArrayInput `pulumi:"volumesAttached"`
@@ -16478,11 +16250,6 @@ func (o NodeStatusOutput) NodeInfo() NodeSystemInfoPtrOutput {
 }
 
 // NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
-//
-// Possible enum values:
-//  - `"Pending"` means the node has been created/added by the system, but not configured.
-//  - `"Running"` means the node has been configured and has Kubernetes components running.
-//  - `"Terminated"` means the node has been removed from the cluster.
 func (o NodeStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodeStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -16602,11 +16369,6 @@ func (o NodeStatusPtrOutput) NodeInfo() NodeSystemInfoPtrOutput {
 }
 
 // NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
-//
-// Possible enum values:
-//  - `"Pending"` means the node has been created/added by the system, but not configured.
-//  - `"Running"` means the node has been configured and has Kubernetes components running.
-//  - `"Terminated"` means the node has been removed from the cluster.
 func (o NodeStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeStatus) *string {
 		if v == nil {
@@ -16642,7 +16404,7 @@ type NodeSystemInfo struct {
 	Architecture string `pulumi:"architecture"`
 	// Boot ID reported by the node.
 	BootID string `pulumi:"bootID"`
-	// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+	// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
 	ContainerRuntimeVersion string `pulumi:"containerRuntimeVersion"`
 	// Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
 	KernelVersion string `pulumi:"kernelVersion"`
@@ -16677,7 +16439,7 @@ type NodeSystemInfoArgs struct {
 	Architecture pulumi.StringInput `pulumi:"architecture"`
 	// Boot ID reported by the node.
 	BootID pulumi.StringInput `pulumi:"bootID"`
-	// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+	// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
 	ContainerRuntimeVersion pulumi.StringInput `pulumi:"containerRuntimeVersion"`
 	// Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
 	KernelVersion pulumi.StringInput `pulumi:"kernelVersion"`
@@ -16783,7 +16545,7 @@ func (o NodeSystemInfoOutput) BootID() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.BootID }).(pulumi.StringOutput)
 }
 
-// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
 func (o NodeSystemInfoOutput) ContainerRuntimeVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v NodeSystemInfo) string { return v.ContainerRuntimeVersion }).(pulumi.StringOutput)
 }
@@ -16867,7 +16629,7 @@ func (o NodeSystemInfoPtrOutput) BootID() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
 func (o NodeSystemInfoPtrOutput) ContainerRuntimeVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodeSystemInfo) *string {
 		if v == nil {
@@ -17413,9 +17175,9 @@ type PersistentVolumeType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Spec *PersistentVolumeSpec `pulumi:"spec"`
-	// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Status *PersistentVolumeStatus `pulumi:"status"`
 }
 
@@ -17438,9 +17200,9 @@ type PersistentVolumeTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Spec PersistentVolumeSpecPtrInput `pulumi:"spec"`
-	// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Status PersistentVolumeStatusPtrInput `pulumi:"status"`
 }
 
@@ -17511,12 +17273,12 @@ func (o PersistentVolumeTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 func (o PersistentVolumeTypeOutput) Spec() PersistentVolumeSpecPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeType) *PersistentVolumeSpec { return v.Spec }).(PersistentVolumeSpecPtrOutput)
 }
 
-// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+// status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 func (o PersistentVolumeTypeOutput) Status() PersistentVolumeStatusPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeType) *PersistentVolumeStatus { return v.Status }).(PersistentVolumeStatusPtrOutput)
 }
@@ -17549,9 +17311,9 @@ type PersistentVolumeClaimType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	Spec *PersistentVolumeClaimSpec `pulumi:"spec"`
-	// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	Status *PersistentVolumeClaimStatus `pulumi:"status"`
 }
 
@@ -17574,9 +17336,9 @@ type PersistentVolumeClaimTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	Spec PersistentVolumeClaimSpecPtrInput `pulumi:"spec"`
-	// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	Status PersistentVolumeClaimStatusPtrInput `pulumi:"status"`
 }
 
@@ -17647,12 +17409,12 @@ func (o PersistentVolumeClaimTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+// spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 func (o PersistentVolumeClaimTypeOutput) Spec() PersistentVolumeClaimSpecPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimType) *PersistentVolumeClaimSpec { return v.Spec }).(PersistentVolumeClaimSpecPtrOutput)
 }
 
-// Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+// status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 func (o PersistentVolumeClaimTypeOutput) Status() PersistentVolumeClaimStatusPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimType) *PersistentVolumeClaimStatus { return v.Status }).(PersistentVolumeClaimStatusPtrOutput)
 }
@@ -17679,19 +17441,16 @@ func (o PersistentVolumeClaimTypeArrayOutput) Index(i pulumi.IntInput) Persisten
 
 // PersistentVolumeClaimCondition contails details about state of pvc
 type PersistentVolumeClaimCondition struct {
-	// Last time we probed the condition.
+	// lastProbeTime is the time we probed the condition.
 	LastProbeTime *string `pulumi:"lastProbeTime"`
-	// Last time the condition transitioned from one status to another.
+	// lastTransitionTime is the time the condition transitioned from one status to another.
 	LastTransitionTime *string `pulumi:"lastTransitionTime"`
-	// Human-readable message indicating details about last transition.
+	// message is the human-readable message indicating details about last transition.
 	Message *string `pulumi:"message"`
-	// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+	// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
 	Reason *string `pulumi:"reason"`
 	Status string  `pulumi:"status"`
-	// Possible enum values:
-	//  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
-	//  - `"Resizing"` - a user trigger resize of pvc has been started
-	Type string `pulumi:"type"`
+	Type   string  `pulumi:"type"`
 }
 
 // PersistentVolumeClaimConditionInput is an input type that accepts PersistentVolumeClaimConditionArgs and PersistentVolumeClaimConditionOutput values.
@@ -17707,19 +17466,16 @@ type PersistentVolumeClaimConditionInput interface {
 
 // PersistentVolumeClaimCondition contails details about state of pvc
 type PersistentVolumeClaimConditionArgs struct {
-	// Last time we probed the condition.
+	// lastProbeTime is the time we probed the condition.
 	LastProbeTime pulumi.StringPtrInput `pulumi:"lastProbeTime"`
-	// Last time the condition transitioned from one status to another.
+	// lastTransitionTime is the time the condition transitioned from one status to another.
 	LastTransitionTime pulumi.StringPtrInput `pulumi:"lastTransitionTime"`
-	// Human-readable message indicating details about last transition.
+	// message is the human-readable message indicating details about last transition.
 	Message pulumi.StringPtrInput `pulumi:"message"`
-	// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+	// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 	Status pulumi.StringInput    `pulumi:"status"`
-	// Possible enum values:
-	//  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
-	//  - `"Resizing"` - a user trigger resize of pvc has been started
-	Type pulumi.StringInput `pulumi:"type"`
+	Type   pulumi.StringInput    `pulumi:"type"`
 }
 
 func (PersistentVolumeClaimConditionArgs) ElementType() reflect.Type {
@@ -17774,22 +17530,22 @@ func (o PersistentVolumeClaimConditionOutput) ToPersistentVolumeClaimConditionOu
 	return o
 }
 
-// Last time we probed the condition.
+// lastProbeTime is the time we probed the condition.
 func (o PersistentVolumeClaimConditionOutput) LastProbeTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) *string { return v.LastProbeTime }).(pulumi.StringPtrOutput)
 }
 
-// Last time the condition transitioned from one status to another.
+// lastTransitionTime is the time the condition transitioned from one status to another.
 func (o PersistentVolumeClaimConditionOutput) LastTransitionTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) *string { return v.LastTransitionTime }).(pulumi.StringPtrOutput)
 }
 
-// Human-readable message indicating details about last transition.
+// message is the human-readable message indicating details about last transition.
 func (o PersistentVolumeClaimConditionOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
-// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
 func (o PersistentVolumeClaimConditionOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
@@ -17798,9 +17554,6 @@ func (o PersistentVolumeClaimConditionOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) string { return v.Status }).(pulumi.StringOutput)
 }
 
-// Possible enum values:
-//  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
-//  - `"Resizing"` - a user trigger resize of pvc has been started
 func (o PersistentVolumeClaimConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -17829,7 +17582,7 @@ func (o PersistentVolumeClaimConditionArrayOutput) Index(i pulumi.IntInput) Pers
 type PersistentVolumeClaimListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	Items []PersistentVolumeClaimType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -17852,7 +17605,7 @@ type PersistentVolumeClaimListTypeInput interface {
 type PersistentVolumeClaimListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	Items PersistentVolumeClaimTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -17892,7 +17645,7 @@ func (o PersistentVolumeClaimListTypeOutput) ApiVersion() pulumi.StringPtrOutput
 	return o.ApplyT(func(v PersistentVolumeClaimListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+// items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 func (o PersistentVolumeClaimListTypeOutput) Items() PersistentVolumeClaimTypeArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimListType) []PersistentVolumeClaimType { return v.Items }).(PersistentVolumeClaimTypeArrayOutput)
 }
@@ -17909,26 +17662,26 @@ func (o PersistentVolumeClaimListTypeOutput) Metadata() metav1.ListMetaPtrOutput
 
 // PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
 type PersistentVolumeClaimSpec struct {
-	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 	DataSource *TypedLocalObjectReference `pulumi:"dataSource"`
-	// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+	// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
 	//   allows any non-core object, as well as PersistentVolumeClaim objects.
 	// * While DataSource ignores disallowed values (dropping them), DataSourceRef
 	//   preserves all values, and generates an error if a disallowed value is
 	//   specified.
-	//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 	DataSourceRef *TypedLocalObjectReference `pulumi:"dataSourceRef"`
-	// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources *ResourceRequirements `pulumi:"resources"`
-	// A label query over volumes to consider for binding.
+	// selector is a label query over volumes to consider for binding.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
-	// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+	// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName *string `pulumi:"storageClassName"`
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode *string `pulumi:"volumeMode"`
-	// VolumeName is the binding reference to the PersistentVolume backing this claim.
+	// volumeName is the binding reference to the PersistentVolume backing this claim.
 	VolumeName *string `pulumi:"volumeName"`
 }
 
@@ -17945,26 +17698,26 @@ type PersistentVolumeClaimSpecInput interface {
 
 // PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
 type PersistentVolumeClaimSpecArgs struct {
-	// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+	// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 	DataSource TypedLocalObjectReferencePtrInput `pulumi:"dataSource"`
-	// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+	// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
 	//   allows any non-core object, as well as PersistentVolumeClaim objects.
 	// * While DataSource ignores disallowed values (dropping them), DataSourceRef
 	//   preserves all values, and generates an error if a disallowed value is
 	//   specified.
-	//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+	//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 	DataSourceRef TypedLocalObjectReferencePtrInput `pulumi:"dataSourceRef"`
-	// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+	// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
-	// A label query over volumes to consider for binding.
+	// selector is a label query over volumes to consider for binding.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
-	// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+	// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
 	// volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
-	// VolumeName is the binding reference to the PersistentVolume backing this claim.
+	// volumeName is the binding reference to the PersistentVolume backing this claim.
 	VolumeName pulumi.StringPtrInput `pulumi:"volumeName"`
 }
 
@@ -18046,37 +17799,37 @@ func (o PersistentVolumeClaimSpecOutput) ToPersistentVolumeClaimSpecPtrOutputWit
 	}).(PersistentVolumeClaimSpecPtrOutput)
 }
 
-// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 func (o PersistentVolumeClaimSpecOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSource }).(TypedLocalObjectReferencePtrOutput)
 }
 
-// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
 //   allows any non-core object, as well as PersistentVolumeClaim objects.
 // * While DataSource ignores disallowed values (dropping them), DataSourceRef
 //   preserves all values, and generates an error if a disallowed value is
 //   specified.
-//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecOutput) DataSourceRef() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSourceRef }).(TypedLocalObjectReferencePtrOutput)
 }
 
-// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 func (o PersistentVolumeClaimSpecOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
 }
 
-// A label query over volumes to consider for binding.
+// selector is a label query over volumes to consider for binding.
 func (o PersistentVolumeClaimSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 func (o PersistentVolumeClaimSpecOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
 }
@@ -18086,7 +17839,7 @@ func (o PersistentVolumeClaimSpecOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
 
-// VolumeName is the binding reference to the PersistentVolume backing this claim.
+// volumeName is the binding reference to the PersistentVolume backing this claim.
 func (o PersistentVolumeClaimSpecOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
@@ -18115,7 +17868,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) Elem() PersistentVolumeClaimSpecOutp
 	}).(PersistentVolumeClaimSpecOutput)
 }
 
-// AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+// accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) []string {
 		if v == nil {
@@ -18125,7 +17878,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) AccessModes() pulumi.StringArrayOutp
 	}).(pulumi.StringArrayOutput)
 }
 
-// This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+// dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
@@ -18135,12 +17888,12 @@ func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferen
 	}).(TypedLocalObjectReferencePtrOutput)
 }
 
-// Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+// dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
 //   allows any non-core object, as well as PersistentVolumeClaim objects.
 // * While DataSource ignores disallowed values (dropping them), DataSourceRef
 //   preserves all values, and generates an error if a disallowed value is
 //   specified.
-//   (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
@@ -18150,7 +17903,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedLocalObjectRefe
 	}).(TypedLocalObjectReferencePtrOutput)
 }
 
-// Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+// resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
 func (o PersistentVolumeClaimSpecPtrOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *ResourceRequirements {
 		if v == nil {
@@ -18160,7 +17913,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) Resources() ResourceRequirementsPtrO
 	}).(ResourceRequirementsPtrOutput)
 }
 
-// A label query over volumes to consider for binding.
+// selector is a label query over volumes to consider for binding.
 func (o PersistentVolumeClaimSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *metav1.LabelSelector {
 		if v == nil {
@@ -18170,7 +17923,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) Selector() metav1.LabelSelectorPtrOu
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+// storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
 func (o PersistentVolumeClaimSpecPtrOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *string {
 		if v == nil {
@@ -18190,7 +17943,7 @@ func (o PersistentVolumeClaimSpecPtrOutput) VolumeMode() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// VolumeName is the binding reference to the PersistentVolume backing this claim.
+// volumeName is the binding reference to the PersistentVolume backing this claim.
 func (o PersistentVolumeClaimSpecPtrOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *string {
 		if v == nil {
@@ -18202,22 +17955,17 @@ func (o PersistentVolumeClaimSpecPtrOutput) VolumeName() pulumi.StringPtrOutput 
 
 // PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 type PersistentVolumeClaimStatus struct {
-	// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes []string `pulumi:"accessModes"`
-	// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	// allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 	AllocatedResources map[string]string `pulumi:"allocatedResources"`
-	// Represents the actual resources of the underlying volume.
+	// capacity represents the actual resources of the underlying volume.
 	Capacity map[string]string `pulumi:"capacity"`
-	// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+	// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions []PersistentVolumeClaimCondition `pulumi:"conditions"`
-	// Phase represents the current phase of PersistentVolumeClaim.
-	//
-	// Possible enum values:
-	//  - `"Bound"` used for PersistentVolumeClaims that are bound
-	//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-	//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
+	// phase represents the current phase of PersistentVolumeClaim.
 	Phase *string `pulumi:"phase"`
-	// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 	ResizeStatus *string `pulumi:"resizeStatus"`
 }
 
@@ -18234,22 +17982,17 @@ type PersistentVolumeClaimStatusInput interface {
 
 // PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 type PersistentVolumeClaimStatusArgs struct {
-	// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+	// accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	// allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 	AllocatedResources pulumi.StringMapInput `pulumi:"allocatedResources"`
-	// Represents the actual resources of the underlying volume.
+	// capacity represents the actual resources of the underlying volume.
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
-	// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+	// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 	Conditions PersistentVolumeClaimConditionArrayInput `pulumi:"conditions"`
-	// Phase represents the current phase of PersistentVolumeClaim.
-	//
-	// Possible enum values:
-	//  - `"Bound"` used for PersistentVolumeClaims that are bound
-	//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-	//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
+	// phase represents the current phase of PersistentVolumeClaim.
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
-	// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+	// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 	ResizeStatus pulumi.StringPtrInput `pulumi:"resizeStatus"`
 }
 
@@ -18331,37 +18074,32 @@ func (o PersistentVolumeClaimStatusOutput) ToPersistentVolumeClaimStatusPtrOutpu
 	}).(PersistentVolumeClaimStatusPtrOutput)
 }
 
-// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+// accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 func (o PersistentVolumeClaimStatusOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+// allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 func (o PersistentVolumeClaimStatusOutput) AllocatedResources() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) map[string]string { return v.AllocatedResources }).(pulumi.StringMapOutput)
 }
 
-// Represents the actual resources of the underlying volume.
+// capacity represents the actual resources of the underlying volume.
 func (o PersistentVolumeClaimStatusOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
 }
 
-// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 func (o PersistentVolumeClaimStatusOutput) Conditions() PersistentVolumeClaimConditionArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) []PersistentVolumeClaimCondition { return v.Conditions }).(PersistentVolumeClaimConditionArrayOutput)
 }
 
-// Phase represents the current phase of PersistentVolumeClaim.
-//
-// Possible enum values:
-//  - `"Bound"` used for PersistentVolumeClaims that are bound
-//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
+// phase represents the current phase of PersistentVolumeClaim.
 func (o PersistentVolumeClaimStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
 
-// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 func (o PersistentVolumeClaimStatusOutput) ResizeStatus() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimStatus) *string { return v.ResizeStatus }).(pulumi.StringPtrOutput)
 }
@@ -18390,7 +18128,7 @@ func (o PersistentVolumeClaimStatusPtrOutput) Elem() PersistentVolumeClaimStatus
 	}).(PersistentVolumeClaimStatusOutput)
 }
 
-// AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+// accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
 func (o PersistentVolumeClaimStatusPtrOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) []string {
 		if v == nil {
@@ -18400,7 +18138,7 @@ func (o PersistentVolumeClaimStatusPtrOutput) AccessModes() pulumi.StringArrayOu
 	}).(pulumi.StringArrayOutput)
 }
 
-// The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+// allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 func (o PersistentVolumeClaimStatusPtrOutput) AllocatedResources() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) map[string]string {
 		if v == nil {
@@ -18410,7 +18148,7 @@ func (o PersistentVolumeClaimStatusPtrOutput) AllocatedResources() pulumi.String
 	}).(pulumi.StringMapOutput)
 }
 
-// Represents the actual resources of the underlying volume.
+// capacity represents the actual resources of the underlying volume.
 func (o PersistentVolumeClaimStatusPtrOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) map[string]string {
 		if v == nil {
@@ -18420,7 +18158,7 @@ func (o PersistentVolumeClaimStatusPtrOutput) Capacity() pulumi.StringMapOutput 
 	}).(pulumi.StringMapOutput)
 }
 
-// Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+// conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 func (o PersistentVolumeClaimStatusPtrOutput) Conditions() PersistentVolumeClaimConditionArrayOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) []PersistentVolumeClaimCondition {
 		if v == nil {
@@ -18430,12 +18168,7 @@ func (o PersistentVolumeClaimStatusPtrOutput) Conditions() PersistentVolumeClaim
 	}).(PersistentVolumeClaimConditionArrayOutput)
 }
 
-// Phase represents the current phase of PersistentVolumeClaim.
-//
-// Possible enum values:
-//  - `"Bound"` used for PersistentVolumeClaims that are bound
-//  - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-//  - `"Pending"` used for PersistentVolumeClaims that are not yet bound
+// phase represents the current phase of PersistentVolumeClaim.
 func (o PersistentVolumeClaimStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *string {
 		if v == nil {
@@ -18445,7 +18178,7 @@ func (o PersistentVolumeClaimStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+// resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 func (o PersistentVolumeClaimStatusPtrOutput) ResizeStatus() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimStatus) *string {
 		if v == nil {
@@ -18616,9 +18349,9 @@ func (o PersistentVolumeClaimTemplatePtrOutput) Spec() PersistentVolumeClaimSpec
 
 // PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
 type PersistentVolumeClaimVolumeSource struct {
-	// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	ClaimName string `pulumi:"claimName"`
-	// Will force the ReadOnly setting in VolumeMounts. Default false.
+	// readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
 	ReadOnly *bool `pulumi:"readOnly"`
 }
 
@@ -18635,9 +18368,9 @@ type PersistentVolumeClaimVolumeSourceInput interface {
 
 // PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
 type PersistentVolumeClaimVolumeSourceArgs struct {
-	// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	ClaimName pulumi.StringInput `pulumi:"claimName"`
-	// Will force the ReadOnly setting in VolumeMounts. Default false.
+	// readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
 }
 
@@ -18719,12 +18452,12 @@ func (o PersistentVolumeClaimVolumeSourceOutput) ToPersistentVolumeClaimVolumeSo
 	}).(PersistentVolumeClaimVolumeSourcePtrOutput)
 }
 
-// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+// claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 func (o PersistentVolumeClaimVolumeSourceOutput) ClaimName() pulumi.StringOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimVolumeSource) string { return v.ClaimName }).(pulumi.StringOutput)
 }
 
-// Will force the ReadOnly setting in VolumeMounts. Default false.
+// readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
 func (o PersistentVolumeClaimVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
@@ -18753,7 +18486,7 @@ func (o PersistentVolumeClaimVolumeSourcePtrOutput) Elem() PersistentVolumeClaim
 	}).(PersistentVolumeClaimVolumeSourceOutput)
 }
 
-// ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+// claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 func (o PersistentVolumeClaimVolumeSourcePtrOutput) ClaimName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimVolumeSource) *string {
 		if v == nil {
@@ -18763,7 +18496,7 @@ func (o PersistentVolumeClaimVolumeSourcePtrOutput) ClaimName() pulumi.StringPtr
 	}).(pulumi.StringPtrOutput)
 }
 
-// Will force the ReadOnly setting in VolumeMounts. Default false.
+// readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
 func (o PersistentVolumeClaimVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimVolumeSource) *bool {
 		if v == nil {
@@ -18777,7 +18510,7 @@ func (o PersistentVolumeClaimVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOut
 type PersistentVolumeListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+	// items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 	Items []PersistentVolumeType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -18800,7 +18533,7 @@ type PersistentVolumeListTypeInput interface {
 type PersistentVolumeListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+	// items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 	Items PersistentVolumeTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -18840,7 +18573,7 @@ func (o PersistentVolumeListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+// items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 func (o PersistentVolumeListTypeOutput) Items() PersistentVolumeTypeArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeListType) []PersistentVolumeType { return v.Items }).(PersistentVolumeTypeArrayOutput)
 }
@@ -18857,70 +18590,65 @@ func (o PersistentVolumeListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // PersistentVolumeSpec is the specification of a persistent volume.
 type PersistentVolumeSpec struct {
-	// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+	// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 	AccessModes []string `pulumi:"accessModes"`
-	// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore *AWSElasticBlockStoreVolumeSource `pulumi:"awsElasticBlockStore"`
-	// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 	AzureDisk *AzureDiskVolumeSource `pulumi:"azureDisk"`
-	// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 	AzureFile *AzureFilePersistentVolumeSource `pulumi:"azureFile"`
-	// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+	// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 	Capacity map[string]string `pulumi:"capacity"`
-	// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 	Cephfs *CephFSPersistentVolumeSource `pulumi:"cephfs"`
-	// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder *CinderPersistentVolumeSource `pulumi:"cinder"`
-	// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+	// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 	ClaimRef *ObjectReference `pulumi:"claimRef"`
-	// CSI represents storage that is handled by an external CSI driver (Beta feature).
+	// csi represents storage that is handled by an external CSI driver (Beta feature).
 	Csi *CSIPersistentVolumeSource `pulumi:"csi"`
-	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSource `pulumi:"fc"`
-	// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 	FlexVolume *FlexPersistentVolumeSource `pulumi:"flexVolume"`
-	// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
 	Flocker *FlockerVolumeSource `pulumi:"flocker"`
-	// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk *GCEPersistentDiskVolumeSource `pulumi:"gcePersistentDisk"`
-	// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs *GlusterfsPersistentVolumeSource `pulumi:"glusterfs"`
-	// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath *HostPathVolumeSource `pulumi:"hostPath"`
-	// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 	Iscsi *ISCSIPersistentVolumeSource `pulumi:"iscsi"`
-	// Local represents directly-attached storage with node affinity
+	// local represents directly-attached storage with node affinity
 	Local *LocalVolumeSource `pulumi:"local"`
-	// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+	// mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 	MountOptions []string `pulumi:"mountOptions"`
-	// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Nfs *NFSVolumeSource `pulumi:"nfs"`
-	// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+	// nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
 	NodeAffinity *VolumeNodeAffinity `pulumi:"nodeAffinity"`
-	// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-	//
-	// Possible enum values:
-	//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-	//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-	//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+	// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 	PersistentVolumeReclaimPolicy *string `pulumi:"persistentVolumeReclaimPolicy"`
-	// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSource `pulumi:"photonPersistentDisk"`
-	// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 	PortworxVolume *PortworxVolumeSource `pulumi:"portworxVolume"`
-	// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 	Quobyte *QuobyteVolumeSource `pulumi:"quobyte"`
-	// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd *RBDPersistentVolumeSource `pulumi:"rbd"`
-	// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 	ScaleIO *ScaleIOPersistentVolumeSource `pulumi:"scaleIO"`
-	// Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+	// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 	StorageClassName *string `pulumi:"storageClassName"`
-	// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos *StorageOSPersistentVolumeSource `pulumi:"storageos"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode *string `pulumi:"volumeMode"`
-	// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 	VsphereVolume *VsphereVirtualDiskVolumeSource `pulumi:"vsphereVolume"`
 }
 
@@ -18937,70 +18665,65 @@ type PersistentVolumeSpecInput interface {
 
 // PersistentVolumeSpec is the specification of a persistent volume.
 type PersistentVolumeSpecArgs struct {
-	// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+	// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 	AccessModes pulumi.StringArrayInput `pulumi:"accessModes"`
-	// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore AWSElasticBlockStoreVolumeSourcePtrInput `pulumi:"awsElasticBlockStore"`
-	// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 	AzureDisk AzureDiskVolumeSourcePtrInput `pulumi:"azureDisk"`
-	// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 	AzureFile AzureFilePersistentVolumeSourcePtrInput `pulumi:"azureFile"`
-	// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+	// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 	Capacity pulumi.StringMapInput `pulumi:"capacity"`
-	// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 	Cephfs CephFSPersistentVolumeSourcePtrInput `pulumi:"cephfs"`
-	// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder CinderPersistentVolumeSourcePtrInput `pulumi:"cinder"`
-	// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+	// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 	ClaimRef ObjectReferencePtrInput `pulumi:"claimRef"`
-	// CSI represents storage that is handled by an external CSI driver (Beta feature).
+	// csi represents storage that is handled by an external CSI driver (Beta feature).
 	Csi CSIPersistentVolumeSourcePtrInput `pulumi:"csi"`
-	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePtrInput `pulumi:"fc"`
-	// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 	FlexVolume FlexPersistentVolumeSourcePtrInput `pulumi:"flexVolume"`
-	// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
 	Flocker FlockerVolumeSourcePtrInput `pulumi:"flocker"`
-	// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk GCEPersistentDiskVolumeSourcePtrInput `pulumi:"gcePersistentDisk"`
-	// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs GlusterfsPersistentVolumeSourcePtrInput `pulumi:"glusterfs"`
-	// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath HostPathVolumeSourcePtrInput `pulumi:"hostPath"`
-	// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 	Iscsi ISCSIPersistentVolumeSourcePtrInput `pulumi:"iscsi"`
-	// Local represents directly-attached storage with node affinity
+	// local represents directly-attached storage with node affinity
 	Local LocalVolumeSourcePtrInput `pulumi:"local"`
-	// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+	// mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 	MountOptions pulumi.StringArrayInput `pulumi:"mountOptions"`
-	// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Nfs NFSVolumeSourcePtrInput `pulumi:"nfs"`
-	// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+	// nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
 	NodeAffinity VolumeNodeAffinityPtrInput `pulumi:"nodeAffinity"`
-	// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-	//
-	// Possible enum values:
-	//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-	//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-	//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+	// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 	PersistentVolumeReclaimPolicy pulumi.StringPtrInput `pulumi:"persistentVolumeReclaimPolicy"`
-	// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePtrInput `pulumi:"photonPersistentDisk"`
-	// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 	PortworxVolume PortworxVolumeSourcePtrInput `pulumi:"portworxVolume"`
-	// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 	Quobyte QuobyteVolumeSourcePtrInput `pulumi:"quobyte"`
-	// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd RBDPersistentVolumeSourcePtrInput `pulumi:"rbd"`
-	// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 	ScaleIO ScaleIOPersistentVolumeSourcePtrInput `pulumi:"scaleIO"`
-	// Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+	// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 	StorageClassName pulumi.StringPtrInput `pulumi:"storageClassName"`
-	// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+	// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 	Storageos StorageOSPersistentVolumeSourcePtrInput `pulumi:"storageos"`
 	// volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 	VolumeMode pulumi.StringPtrInput `pulumi:"volumeMode"`
-	// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 	VsphereVolume VsphereVirtualDiskVolumeSourcePtrInput `pulumi:"vsphereVolume"`
 }
 
@@ -19082,147 +18805,142 @@ func (o PersistentVolumeSpecOutput) ToPersistentVolumeSpecPtrOutputWithContext(c
 	}).(PersistentVolumeSpecPtrOutput)
 }
 
-// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 func (o PersistentVolumeSpecOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) []string { return v.AccessModes }).(pulumi.StringArrayOutput)
 }
 
-// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o PersistentVolumeSpecOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *AWSElasticBlockStoreVolumeSource { return v.AwsElasticBlockStore }).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 func (o PersistentVolumeSpecOutput) AzureDisk() AzureDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *AzureDiskVolumeSource { return v.AzureDisk }).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 func (o PersistentVolumeSpecOutput) AzureFile() AzureFilePersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *AzureFilePersistentVolumeSource { return v.AzureFile }).(AzureFilePersistentVolumeSourcePtrOutput)
 }
 
-// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 func (o PersistentVolumeSpecOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) map[string]string { return v.Capacity }).(pulumi.StringMapOutput)
 }
 
-// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 func (o PersistentVolumeSpecOutput) Cephfs() CephFSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *CephFSPersistentVolumeSource { return v.Cephfs }).(CephFSPersistentVolumeSourcePtrOutput)
 }
 
-// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o PersistentVolumeSpecOutput) Cinder() CinderPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *CinderPersistentVolumeSource { return v.Cinder }).(CinderPersistentVolumeSourcePtrOutput)
 }
 
-// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 func (o PersistentVolumeSpecOutput) ClaimRef() ObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *ObjectReference { return v.ClaimRef }).(ObjectReferencePtrOutput)
 }
 
-// CSI represents storage that is handled by an external CSI driver (Beta feature).
+// csi represents storage that is handled by an external CSI driver (Beta feature).
 func (o PersistentVolumeSpecOutput) Csi() CSIPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *CSIPersistentVolumeSource { return v.Csi }).(CSIPersistentVolumeSourcePtrOutput)
 }
 
-// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 func (o PersistentVolumeSpecOutput) Fc() FCVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *FCVolumeSource { return v.Fc }).(FCVolumeSourcePtrOutput)
 }
 
-// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 func (o PersistentVolumeSpecOutput) FlexVolume() FlexPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *FlexPersistentVolumeSource { return v.FlexVolume }).(FlexPersistentVolumeSourcePtrOutput)
 }
 
-// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
 func (o PersistentVolumeSpecOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *FlockerVolumeSource { return v.Flocker }).(FlockerVolumeSourcePtrOutput)
 }
 
-// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o PersistentVolumeSpecOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *GCEPersistentDiskVolumeSource { return v.GcePersistentDisk }).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o PersistentVolumeSpecOutput) Glusterfs() GlusterfsPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *GlusterfsPersistentVolumeSource { return v.Glusterfs }).(GlusterfsPersistentVolumeSourcePtrOutput)
 }
 
-// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o PersistentVolumeSpecOutput) HostPath() HostPathVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *HostPathVolumeSource { return v.HostPath }).(HostPathVolumeSourcePtrOutput)
 }
 
-// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 func (o PersistentVolumeSpecOutput) Iscsi() ISCSIPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *ISCSIPersistentVolumeSource { return v.Iscsi }).(ISCSIPersistentVolumeSourcePtrOutput)
 }
 
-// Local represents directly-attached storage with node affinity
+// local represents directly-attached storage with node affinity
 func (o PersistentVolumeSpecOutput) Local() LocalVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *LocalVolumeSource { return v.Local }).(LocalVolumeSourcePtrOutput)
 }
 
-// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+// mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 func (o PersistentVolumeSpecOutput) MountOptions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) []string { return v.MountOptions }).(pulumi.StringArrayOutput)
 }
 
-// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o PersistentVolumeSpecOutput) Nfs() NFSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *NFSVolumeSource { return v.Nfs }).(NFSVolumeSourcePtrOutput)
 }
 
-// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+// nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
 func (o PersistentVolumeSpecOutput) NodeAffinity() VolumeNodeAffinityPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *VolumeNodeAffinity { return v.NodeAffinity }).(VolumeNodeAffinityPtrOutput)
 }
 
-// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-//
-// Possible enum values:
-//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 func (o PersistentVolumeSpecOutput) PersistentVolumeReclaimPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.PersistentVolumeReclaimPolicy }).(pulumi.StringPtrOutput)
 }
 
-// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 func (o PersistentVolumeSpecOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *PhotonPersistentDiskVolumeSource { return v.PhotonPersistentDisk }).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 func (o PersistentVolumeSpecOutput) PortworxVolume() PortworxVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *PortworxVolumeSource { return v.PortworxVolume }).(PortworxVolumeSourcePtrOutput)
 }
 
-// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 func (o PersistentVolumeSpecOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *QuobyteVolumeSource { return v.Quobyte }).(QuobyteVolumeSourcePtrOutput)
 }
 
-// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o PersistentVolumeSpecOutput) Rbd() RBDPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *RBDPersistentVolumeSource { return v.Rbd }).(RBDPersistentVolumeSourcePtrOutput)
 }
 
-// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 func (o PersistentVolumeSpecOutput) ScaleIO() ScaleIOPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *ScaleIOPersistentVolumeSource { return v.ScaleIO }).(ScaleIOPersistentVolumeSourcePtrOutput)
 }
 
-// Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 func (o PersistentVolumeSpecOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.StorageClassName }).(pulumi.StringPtrOutput)
 }
 
-// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecOutput) Storageos() StorageOSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *StorageOSPersistentVolumeSource { return v.Storageos }).(StorageOSPersistentVolumeSourcePtrOutput)
 }
@@ -19232,7 +18950,7 @@ func (o PersistentVolumeSpecOutput) VolumeMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *string { return v.VolumeMode }).(pulumi.StringPtrOutput)
 }
 
-// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 func (o PersistentVolumeSpecOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeSpec) *VsphereVirtualDiskVolumeSource { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
@@ -19261,7 +18979,7 @@ func (o PersistentVolumeSpecPtrOutput) Elem() PersistentVolumeSpecOutput {
 	}).(PersistentVolumeSpecOutput)
 }
 
-// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
 func (o PersistentVolumeSpecPtrOutput) AccessModes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) []string {
 		if v == nil {
@@ -19271,7 +18989,7 @@ func (o PersistentVolumeSpecPtrOutput) AccessModes() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o PersistentVolumeSpecPtrOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *AWSElasticBlockStoreVolumeSource {
 		if v == nil {
@@ -19281,7 +18999,7 @@ func (o PersistentVolumeSpecPtrOutput) AwsElasticBlockStore() AWSElasticBlockSto
 	}).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 func (o PersistentVolumeSpecPtrOutput) AzureDisk() AzureDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *AzureDiskVolumeSource {
 		if v == nil {
@@ -19291,7 +19009,7 @@ func (o PersistentVolumeSpecPtrOutput) AzureDisk() AzureDiskVolumeSourcePtrOutpu
 	}).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 func (o PersistentVolumeSpecPtrOutput) AzureFile() AzureFilePersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *AzureFilePersistentVolumeSource {
 		if v == nil {
@@ -19301,7 +19019,7 @@ func (o PersistentVolumeSpecPtrOutput) AzureFile() AzureFilePersistentVolumeSour
 	}).(AzureFilePersistentVolumeSourcePtrOutput)
 }
 
-// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
 func (o PersistentVolumeSpecPtrOutput) Capacity() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) map[string]string {
 		if v == nil {
@@ -19311,7 +19029,7 @@ func (o PersistentVolumeSpecPtrOutput) Capacity() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 func (o PersistentVolumeSpecPtrOutput) Cephfs() CephFSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *CephFSPersistentVolumeSource {
 		if v == nil {
@@ -19321,7 +19039,7 @@ func (o PersistentVolumeSpecPtrOutput) Cephfs() CephFSPersistentVolumeSourcePtrO
 	}).(CephFSPersistentVolumeSourcePtrOutput)
 }
 
-// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o PersistentVolumeSpecPtrOutput) Cinder() CinderPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *CinderPersistentVolumeSource {
 		if v == nil {
@@ -19331,7 +19049,7 @@ func (o PersistentVolumeSpecPtrOutput) Cinder() CinderPersistentVolumeSourcePtrO
 	}).(CinderPersistentVolumeSourcePtrOutput)
 }
 
-// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
 func (o PersistentVolumeSpecPtrOutput) ClaimRef() ObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *ObjectReference {
 		if v == nil {
@@ -19341,7 +19059,7 @@ func (o PersistentVolumeSpecPtrOutput) ClaimRef() ObjectReferencePtrOutput {
 	}).(ObjectReferencePtrOutput)
 }
 
-// CSI represents storage that is handled by an external CSI driver (Beta feature).
+// csi represents storage that is handled by an external CSI driver (Beta feature).
 func (o PersistentVolumeSpecPtrOutput) Csi() CSIPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *CSIPersistentVolumeSource {
 		if v == nil {
@@ -19351,7 +19069,7 @@ func (o PersistentVolumeSpecPtrOutput) Csi() CSIPersistentVolumeSourcePtrOutput 
 	}).(CSIPersistentVolumeSourcePtrOutput)
 }
 
-// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 func (o PersistentVolumeSpecPtrOutput) Fc() FCVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *FCVolumeSource {
 		if v == nil {
@@ -19361,7 +19079,7 @@ func (o PersistentVolumeSpecPtrOutput) Fc() FCVolumeSourcePtrOutput {
 	}).(FCVolumeSourcePtrOutput)
 }
 
-// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 func (o PersistentVolumeSpecPtrOutput) FlexVolume() FlexPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *FlexPersistentVolumeSource {
 		if v == nil {
@@ -19371,7 +19089,7 @@ func (o PersistentVolumeSpecPtrOutput) FlexVolume() FlexPersistentVolumeSourcePt
 	}).(FlexPersistentVolumeSourcePtrOutput)
 }
 
-// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
 func (o PersistentVolumeSpecPtrOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *FlockerVolumeSource {
 		if v == nil {
@@ -19381,7 +19099,7 @@ func (o PersistentVolumeSpecPtrOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	}).(FlockerVolumeSourcePtrOutput)
 }
 
-// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o PersistentVolumeSpecPtrOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *GCEPersistentDiskVolumeSource {
 		if v == nil {
@@ -19391,7 +19109,7 @@ func (o PersistentVolumeSpecPtrOutput) GcePersistentDisk() GCEPersistentDiskVolu
 	}).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o PersistentVolumeSpecPtrOutput) Glusterfs() GlusterfsPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *GlusterfsPersistentVolumeSource {
 		if v == nil {
@@ -19401,7 +19119,7 @@ func (o PersistentVolumeSpecPtrOutput) Glusterfs() GlusterfsPersistentVolumeSour
 	}).(GlusterfsPersistentVolumeSourcePtrOutput)
 }
 
-// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o PersistentVolumeSpecPtrOutput) HostPath() HostPathVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *HostPathVolumeSource {
 		if v == nil {
@@ -19411,7 +19129,7 @@ func (o PersistentVolumeSpecPtrOutput) HostPath() HostPathVolumeSourcePtrOutput 
 	}).(HostPathVolumeSourcePtrOutput)
 }
 
-// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 func (o PersistentVolumeSpecPtrOutput) Iscsi() ISCSIPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *ISCSIPersistentVolumeSource {
 		if v == nil {
@@ -19421,7 +19139,7 @@ func (o PersistentVolumeSpecPtrOutput) Iscsi() ISCSIPersistentVolumeSourcePtrOut
 	}).(ISCSIPersistentVolumeSourcePtrOutput)
 }
 
-// Local represents directly-attached storage with node affinity
+// local represents directly-attached storage with node affinity
 func (o PersistentVolumeSpecPtrOutput) Local() LocalVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *LocalVolumeSource {
 		if v == nil {
@@ -19431,7 +19149,7 @@ func (o PersistentVolumeSpecPtrOutput) Local() LocalVolumeSourcePtrOutput {
 	}).(LocalVolumeSourcePtrOutput)
 }
 
-// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+// mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 func (o PersistentVolumeSpecPtrOutput) MountOptions() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) []string {
 		if v == nil {
@@ -19441,7 +19159,7 @@ func (o PersistentVolumeSpecPtrOutput) MountOptions() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o PersistentVolumeSpecPtrOutput) Nfs() NFSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *NFSVolumeSource {
 		if v == nil {
@@ -19451,7 +19169,7 @@ func (o PersistentVolumeSpecPtrOutput) Nfs() NFSVolumeSourcePtrOutput {
 	}).(NFSVolumeSourcePtrOutput)
 }
 
-// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+// nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
 func (o PersistentVolumeSpecPtrOutput) NodeAffinity() VolumeNodeAffinityPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *VolumeNodeAffinity {
 		if v == nil {
@@ -19461,12 +19179,7 @@ func (o PersistentVolumeSpecPtrOutput) NodeAffinity() VolumeNodeAffinityPtrOutpu
 	}).(VolumeNodeAffinityPtrOutput)
 }
 
-// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-//
-// Possible enum values:
-//  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-//  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-//  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 func (o PersistentVolumeSpecPtrOutput) PersistentVolumeReclaimPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *string {
 		if v == nil {
@@ -19476,7 +19189,7 @@ func (o PersistentVolumeSpecPtrOutput) PersistentVolumeReclaimPolicy() pulumi.St
 	}).(pulumi.StringPtrOutput)
 }
 
-// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 func (o PersistentVolumeSpecPtrOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *PhotonPersistentDiskVolumeSource {
 		if v == nil {
@@ -19486,7 +19199,7 @@ func (o PersistentVolumeSpecPtrOutput) PhotonPersistentDisk() PhotonPersistentDi
 	}).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 func (o PersistentVolumeSpecPtrOutput) PortworxVolume() PortworxVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *PortworxVolumeSource {
 		if v == nil {
@@ -19496,7 +19209,7 @@ func (o PersistentVolumeSpecPtrOutput) PortworxVolume() PortworxVolumeSourcePtrO
 	}).(PortworxVolumeSourcePtrOutput)
 }
 
-// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 func (o PersistentVolumeSpecPtrOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *QuobyteVolumeSource {
 		if v == nil {
@@ -19506,7 +19219,7 @@ func (o PersistentVolumeSpecPtrOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	}).(QuobyteVolumeSourcePtrOutput)
 }
 
-// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o PersistentVolumeSpecPtrOutput) Rbd() RBDPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *RBDPersistentVolumeSource {
 		if v == nil {
@@ -19516,7 +19229,7 @@ func (o PersistentVolumeSpecPtrOutput) Rbd() RBDPersistentVolumeSourcePtrOutput 
 	}).(RBDPersistentVolumeSourcePtrOutput)
 }
 
-// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 func (o PersistentVolumeSpecPtrOutput) ScaleIO() ScaleIOPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *ScaleIOPersistentVolumeSource {
 		if v == nil {
@@ -19526,7 +19239,7 @@ func (o PersistentVolumeSpecPtrOutput) ScaleIO() ScaleIOPersistentVolumeSourcePt
 	}).(ScaleIOPersistentVolumeSourcePtrOutput)
 }
 
-// Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
 func (o PersistentVolumeSpecPtrOutput) StorageClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *string {
 		if v == nil {
@@ -19536,7 +19249,7 @@ func (o PersistentVolumeSpecPtrOutput) StorageClassName() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
 func (o PersistentVolumeSpecPtrOutput) Storageos() StorageOSPersistentVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *StorageOSPersistentVolumeSource {
 		if v == nil {
@@ -19556,7 +19269,7 @@ func (o PersistentVolumeSpecPtrOutput) VolumeMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 func (o PersistentVolumeSpecPtrOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeSpec) *VsphereVirtualDiskVolumeSource {
 		if v == nil {
@@ -19568,18 +19281,11 @@ func (o PersistentVolumeSpecPtrOutput) VsphereVolume() VsphereVirtualDiskVolumeS
 
 // PersistentVolumeStatus is the current status of a persistent volume.
 type PersistentVolumeStatus struct {
-	// A human-readable message indicating details about why the volume is in this state.
+	// message is a human-readable message indicating details about why the volume is in this state.
 	Message *string `pulumi:"message"`
-	// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-	//
-	// Possible enum values:
-	//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-	//  - `"Bound"` used for PersistentVolumes that are bound
-	//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-	//  - `"Pending"` used for PersistentVolumes that are not available
-	//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+	// phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
 	Phase *string `pulumi:"phase"`
-	// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+	// reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 	Reason *string `pulumi:"reason"`
 }
 
@@ -19596,18 +19302,11 @@ type PersistentVolumeStatusInput interface {
 
 // PersistentVolumeStatus is the current status of a persistent volume.
 type PersistentVolumeStatusArgs struct {
-	// A human-readable message indicating details about why the volume is in this state.
+	// message is a human-readable message indicating details about why the volume is in this state.
 	Message pulumi.StringPtrInput `pulumi:"message"`
-	// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-	//
-	// Possible enum values:
-	//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-	//  - `"Bound"` used for PersistentVolumes that are bound
-	//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-	//  - `"Pending"` used for PersistentVolumes that are not available
-	//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+	// phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
-	// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+	// reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 }
 
@@ -19689,24 +19388,17 @@ func (o PersistentVolumeStatusOutput) ToPersistentVolumeStatusPtrOutputWithConte
 	}).(PersistentVolumeStatusPtrOutput)
 }
 
-// A human-readable message indicating details about why the volume is in this state.
+// message is a human-readable message indicating details about why the volume is in this state.
 func (o PersistentVolumeStatusOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeStatus) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
-// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-//
-// Possible enum values:
-//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-//  - `"Bound"` used for PersistentVolumes that are bound
-//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-//  - `"Pending"` used for PersistentVolumes that are not available
-//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+// phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
 func (o PersistentVolumeStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
 
-// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+// reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 func (o PersistentVolumeStatusOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
 }
@@ -19735,7 +19427,7 @@ func (o PersistentVolumeStatusPtrOutput) Elem() PersistentVolumeStatusOutput {
 	}).(PersistentVolumeStatusOutput)
 }
 
-// A human-readable message indicating details about why the volume is in this state.
+// message is a human-readable message indicating details about why the volume is in this state.
 func (o PersistentVolumeStatusPtrOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeStatus) *string {
 		if v == nil {
@@ -19745,14 +19437,7 @@ func (o PersistentVolumeStatusPtrOutput) Message() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-//
-// Possible enum values:
-//  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-//  - `"Bound"` used for PersistentVolumes that are bound
-//  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-//  - `"Pending"` used for PersistentVolumes that are not available
-//  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+// phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
 func (o PersistentVolumeStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeStatus) *string {
 		if v == nil {
@@ -19762,7 +19447,7 @@ func (o PersistentVolumeStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+// reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 func (o PersistentVolumeStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeStatus) *string {
 		if v == nil {
@@ -19774,9 +19459,9 @@ func (o PersistentVolumeStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 
 // Represents a Photon Controller persistent disk resource.
 type PhotonPersistentDiskVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// ID that identifies Photon Controller persistent disk
+	// pdID is the ID that identifies Photon Controller persistent disk
 	PdID string `pulumi:"pdID"`
 }
 
@@ -19793,9 +19478,9 @@ type PhotonPersistentDiskVolumeSourceInput interface {
 
 // Represents a Photon Controller persistent disk resource.
 type PhotonPersistentDiskVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// ID that identifies Photon Controller persistent disk
+	// pdID is the ID that identifies Photon Controller persistent disk
 	PdID pulumi.StringInput `pulumi:"pdID"`
 }
 
@@ -19877,12 +19562,12 @@ func (o PhotonPersistentDiskVolumeSourceOutput) ToPhotonPersistentDiskVolumeSour
 	}).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o PhotonPersistentDiskVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PhotonPersistentDiskVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// ID that identifies Photon Controller persistent disk
+// pdID is the ID that identifies Photon Controller persistent disk
 func (o PhotonPersistentDiskVolumeSourceOutput) PdID() pulumi.StringOutput {
 	return o.ApplyT(func(v PhotonPersistentDiskVolumeSource) string { return v.PdID }).(pulumi.StringOutput)
 }
@@ -19911,7 +19596,7 @@ func (o PhotonPersistentDiskVolumeSourcePtrOutput) Elem() PhotonPersistentDiskVo
 	}).(PhotonPersistentDiskVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o PhotonPersistentDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PhotonPersistentDiskVolumeSource) *string {
 		if v == nil {
@@ -19921,7 +19606,7 @@ func (o PhotonPersistentDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutp
 	}).(pulumi.StringPtrOutput)
 }
 
-// ID that identifies Photon Controller persistent disk
+// pdID is the ID that identifies Photon Controller persistent disk
 func (o PhotonPersistentDiskVolumeSourcePtrOutput) PdID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PhotonPersistentDiskVolumeSource) *string {
 		if v == nil {
@@ -20277,9 +19962,9 @@ func (o PodAffinityPtrOutput) RequiredDuringSchedulingIgnoredDuringExecution() P
 type PodAffinityTerm struct {
 	// A label query over a set of resources, in this case pods.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
-	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 	Namespaces []string `pulumi:"namespaces"`
 	// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
 	TopologyKey string `pulumi:"topologyKey"`
@@ -20300,9 +19985,9 @@ type PodAffinityTermInput interface {
 type PodAffinityTermArgs struct {
 	// A label query over a set of resources, in this case pods.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+	// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
-	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+	// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 	Namespaces pulumi.StringArrayInput `pulumi:"namespaces"`
 	// This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
 	TopologyKey pulumi.StringInput `pulumi:"topologyKey"`
@@ -20365,12 +20050,12 @@ func (o PodAffinityTermOutput) LabelSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+// A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 func (o PodAffinityTermOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodAffinityTerm) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+// namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 func (o PodAffinityTermOutput) Namespaces() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodAffinityTerm) []string { return v.Namespaces }).(pulumi.StringArrayOutput)
 }
@@ -20574,12 +20259,6 @@ type PodCondition struct {
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Status string `pulumi:"status"`
 	// Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-	//
-	// Possible enum values:
-	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-	//  - `"Initialized"` means that all init containers in the pod have started successfully.
-	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
-	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	Type string `pulumi:"type"`
 }
 
@@ -20607,12 +20286,6 @@ type PodConditionArgs struct {
 	// Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Status pulumi.StringInput `pulumi:"status"`
 	// Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-	//
-	// Possible enum values:
-	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-	//  - `"Initialized"` means that all init containers in the pod have started successfully.
-	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
-	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -20694,12 +20367,6 @@ func (o PodConditionOutput) Status() pulumi.StringOutput {
 }
 
 // Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-//
-// Possible enum values:
-//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-//  - `"Initialized"` means that all init containers in the pod have started successfully.
-//  - `"PodScheduled"` represents status of the scheduling process for this pod.
-//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 func (o PodConditionOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v PodCondition) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -21336,12 +21003,6 @@ func (o PodOSPtrOutput) Name() pulumi.StringPtrOutput {
 // PodReadinessGate contains the reference to a pod condition
 type PodReadinessGate struct {
 	// ConditionType refers to a condition in the pod's condition list with matching type.
-	//
-	// Possible enum values:
-	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-	//  - `"Initialized"` means that all init containers in the pod have started successfully.
-	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
-	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	ConditionType string `pulumi:"conditionType"`
 }
 
@@ -21359,12 +21020,6 @@ type PodReadinessGateInput interface {
 // PodReadinessGate contains the reference to a pod condition
 type PodReadinessGateArgs struct {
 	// ConditionType refers to a condition in the pod's condition list with matching type.
-	//
-	// Possible enum values:
-	//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-	//  - `"Initialized"` means that all init containers in the pod have started successfully.
-	//  - `"PodScheduled"` represents status of the scheduling process for this pod.
-	//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 	ConditionType pulumi.StringInput `pulumi:"conditionType"`
 }
 
@@ -21421,12 +21076,6 @@ func (o PodReadinessGateOutput) ToPodReadinessGateOutputWithContext(ctx context.
 }
 
 // ConditionType refers to a condition in the pod's condition list with matching type.
-//
-// Possible enum values:
-//  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-//  - `"Initialized"` means that all init containers in the pod have started successfully.
-//  - `"PodScheduled"` represents status of the scheduling process for this pod.
-//  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 func (o PodReadinessGateOutput) ConditionType() pulumi.StringOutput {
 	return o.ApplyT(func(v PodReadinessGate) string { return v.ConditionType }).(pulumi.StringOutput)
 }
@@ -21791,12 +21440,6 @@ type PodSpec struct {
 	// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
 	DnsConfig *PodDNSConfig `pulumi:"dnsConfig"`
 	// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-	//
-	// Possible enum values:
-	//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-	//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-	//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-	//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 	DnsPolicy *string `pulumi:"dnsPolicy"`
 	// EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
 	EnableServiceLinks *bool `pulumi:"enableServiceLinks"`
@@ -21812,7 +21455,7 @@ type PodSpec struct {
 	HostPID *bool `pulumi:"hostPID"`
 	// Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
 	Hostname *string `pulumi:"hostname"`
-	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets []LocalObjectReference `pulumi:"imagePullSecrets"`
 	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers []Container `pulumi:"initContainers"`
@@ -21824,11 +21467,11 @@ type PodSpec struct {
 	//
 	// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 	//
-	// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+	// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
 	Os *PodOS `pulumi:"os"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 	Overhead map[string]string `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority *int `pulumi:"priority"`
@@ -21837,13 +21480,8 @@ type PodSpec struct {
 	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 	ReadinessGates []PodReadinessGate `pulumi:"readinessGates"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-	//
-	// Possible enum values:
-	//  - `"Always"`
-	//  - `"Never"`
-	//  - `"OnFailure"`
 	RestartPolicy *string `pulumi:"restartPolicy"`
-	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 	RuntimeClassName *string `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName *string `pulumi:"schedulerName"`
@@ -21893,12 +21531,6 @@ type PodSpecArgs struct {
 	// Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
 	DnsConfig PodDNSConfigPtrInput `pulumi:"dnsConfig"`
 	// Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-	//
-	// Possible enum values:
-	//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-	//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-	//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-	//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 	DnsPolicy pulumi.StringPtrInput `pulumi:"dnsPolicy"`
 	// EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
 	EnableServiceLinks pulumi.BoolPtrInput `pulumi:"enableServiceLinks"`
@@ -21914,7 +21546,7 @@ type PodSpecArgs struct {
 	HostPID pulumi.BoolPtrInput `pulumi:"hostPID"`
 	// Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+	// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 	ImagePullSecrets LocalObjectReferenceArrayInput `pulumi:"imagePullSecrets"`
 	// List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 	InitContainers ContainerArrayInput `pulumi:"initContainers"`
@@ -21926,11 +21558,11 @@ type PodSpecArgs struct {
 	//
 	// If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 	//
-	// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+	// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
 	Os PodOSPtrInput `pulumi:"os"`
-	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 	Overhead pulumi.StringMapInput `pulumi:"overhead"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
 	// The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 	Priority pulumi.IntPtrInput `pulumi:"priority"`
@@ -21939,13 +21571,8 @@ type PodSpecArgs struct {
 	// If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
 	ReadinessGates PodReadinessGateArrayInput `pulumi:"readinessGates"`
 	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-	//
-	// Possible enum values:
-	//  - `"Always"`
-	//  - `"Never"`
-	//  - `"OnFailure"`
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
-	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 	RuntimeClassName pulumi.StringPtrInput `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName pulumi.StringPtrInput `pulumi:"schedulerName"`
@@ -22075,12 +21702,6 @@ func (o PodSpecOutput) DnsConfig() PodDNSConfigPtrOutput {
 }
 
 // Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-//
-// Possible enum values:
-//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 func (o PodSpecOutput) DnsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.DnsPolicy }).(pulumi.StringPtrOutput)
 }
@@ -22120,7 +21741,7 @@ func (o PodSpecOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 func (o PodSpecOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
 	return o.ApplyT(func(v PodSpec) []LocalObjectReference { return v.ImagePullSecrets }).(LocalObjectReferenceArrayOutput)
 }
@@ -22144,17 +21765,17 @@ func (o PodSpecOutput) NodeSelector() pulumi.StringMapOutput {
 //
 // If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 //
-// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
 func (o PodSpecOutput) Os() PodOSPtrOutput {
 	return o.ApplyT(func(v PodSpec) *PodOS { return v.Os }).(PodOSPtrOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 func (o PodSpecOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v PodSpec) map[string]string { return v.Overhead }).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 func (o PodSpecOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -22175,16 +21796,11 @@ func (o PodSpecOutput) ReadinessGates() PodReadinessGateArrayOutput {
 }
 
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-//
-// Possible enum values:
-//  - `"Always"`
-//  - `"Never"`
-//  - `"OnFailure"`
 func (o PodSpecOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
 }
 
-// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 func (o PodSpecOutput) RuntimeClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RuntimeClassName }).(pulumi.StringPtrOutput)
 }
@@ -22319,12 +21935,6 @@ func (o PodSpecPtrOutput) DnsConfig() PodDNSConfigPtrOutput {
 }
 
 // Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-//
-// Possible enum values:
-//  - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-//  - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-//  - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-//  - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
 func (o PodSpecPtrOutput) DnsPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -22404,7 +22014,7 @@ func (o PodSpecPtrOutput) Hostname() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+// ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 func (o PodSpecPtrOutput) ImagePullSecrets() LocalObjectReferenceArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []LocalObjectReference {
 		if v == nil {
@@ -22448,7 +22058,7 @@ func (o PodSpecPtrOutput) NodeSelector() pulumi.StringMapOutput {
 //
 // If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 //
-// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+// If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
 func (o PodSpecPtrOutput) Os() PodOSPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *PodOS {
 		if v == nil {
@@ -22458,7 +22068,7 @@ func (o PodSpecPtrOutput) Os() PodOSPtrOutput {
 	}).(PodOSPtrOutput)
 }
 
-// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *PodSpec) map[string]string {
 		if v == nil {
@@ -22468,7 +22078,7 @@ func (o PodSpecPtrOutput) Overhead() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 func (o PodSpecPtrOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -22509,11 +22119,6 @@ func (o PodSpecPtrOutput) ReadinessGates() PodReadinessGateArrayOutput {
 }
 
 // Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-//
-// Possible enum values:
-//  - `"Always"`
-//  - `"Never"`
-//  - `"OnFailure"`
 func (o PodSpecPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -22523,7 +22128,7 @@ func (o PodSpecPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 func (o PodSpecPtrOutput) RuntimeClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -22647,7 +22252,7 @@ func (o PodSpecPtrOutput) Volumes() VolumeArrayOutput {
 type PodStatus struct {
 	// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Conditions []PodCondition `pulumi:"conditions"`
-	// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses []ContainerStatus `pulumi:"containerStatuses"`
 	// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 	EphemeralContainerStatuses []ContainerStatus `pulumi:"ephemeralContainerStatuses"`
@@ -22664,24 +22269,12 @@ type PodStatus struct {
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 	//
 	// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-	//
-	// Possible enum values:
-	//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-	//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-	//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-	//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-	//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 	Phase *string `pulumi:"phase"`
 	// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 	PodIP *string `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs []PodIP `pulumi:"podIPs"`
 	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
-	//
-	// Possible enum values:
-	//  - `"BestEffort"` is the BestEffort qos class.
-	//  - `"Burstable"` is the Burstable qos class.
-	//  - `"Guaranteed"` is the Guaranteed qos class.
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
@@ -22704,7 +22297,7 @@ type PodStatusInput interface {
 type PodStatusArgs struct {
 	// Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
 	Conditions PodConditionArrayInput `pulumi:"conditions"`
-	// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+	// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 	ContainerStatuses ContainerStatusArrayInput `pulumi:"containerStatuses"`
 	// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
 	EphemeralContainerStatuses ContainerStatusArrayInput `pulumi:"ephemeralContainerStatuses"`
@@ -22721,24 +22314,12 @@ type PodStatusArgs struct {
 	// Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 	//
 	// More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-	//
-	// Possible enum values:
-	//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-	//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-	//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-	//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-	//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 	Phase pulumi.StringPtrInput `pulumi:"phase"`
 	// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
 	PodIP pulumi.StringPtrInput `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs PodIPArrayInput `pulumi:"podIPs"`
 	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
-	//
-	// Possible enum values:
-	//  - `"BestEffort"` is the BestEffort qos class.
-	//  - `"Burstable"` is the Burstable qos class.
-	//  - `"Guaranteed"` is the Guaranteed qos class.
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
@@ -22829,7 +22410,7 @@ func (o PodStatusOutput) Conditions() PodConditionArrayOutput {
 	return o.ApplyT(func(v PodStatus) []PodCondition { return v.Conditions }).(PodConditionArrayOutput)
 }
 
-// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v PodStatus) []ContainerStatus { return v.ContainerStatuses }).(ContainerStatusArrayOutput)
 }
@@ -22864,13 +22445,6 @@ func (o PodStatusOutput) NominatedNodeName() pulumi.StringPtrOutput {
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 //
 // More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-//
-// Possible enum values:
-//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 func (o PodStatusOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Phase }).(pulumi.StringPtrOutput)
 }
@@ -22886,11 +22460,6 @@ func (o PodStatusOutput) PodIPs() PodIPArrayOutput {
 }
 
 // The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
-//
-// Possible enum values:
-//  - `"BestEffort"` is the BestEffort qos class.
-//  - `"Burstable"` is the Burstable qos class.
-//  - `"Guaranteed"` is the Guaranteed qos class.
 func (o PodStatusOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.QosClass }).(pulumi.StringPtrOutput)
 }
@@ -22939,7 +22508,7 @@ func (o PodStatusPtrOutput) Conditions() PodConditionArrayOutput {
 	}).(PodConditionArrayOutput)
 }
 
-// The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+// The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 func (o PodStatusPtrOutput) ContainerStatuses() ContainerStatusArrayOutput {
 	return o.ApplyT(func(v *PodStatus) []ContainerStatus {
 		if v == nil {
@@ -23004,13 +22573,6 @@ func (o PodStatusPtrOutput) NominatedNodeName() pulumi.StringPtrOutput {
 // Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 //
 // More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-//
-// Possible enum values:
-//  - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-//  - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-//  - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-//  - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-//  - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
 func (o PodStatusPtrOutput) Phase() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -23041,11 +22603,6 @@ func (o PodStatusPtrOutput) PodIPs() PodIPArrayOutput {
 }
 
 // The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
-//
-// Possible enum values:
-//  - `"BestEffort"` is the BestEffort qos class.
-//  - `"Burstable"` is the Burstable qos class.
-//  - `"Guaranteed"` is the Guaranteed qos class.
 func (o PodStatusPtrOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -23452,11 +23009,6 @@ type PortStatus struct {
 	// Port is the port number of the service port of which status is recorded here
 	Port int `pulumi:"port"`
 	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol string `pulumi:"protocol"`
 }
 
@@ -23480,11 +23032,6 @@ type PortStatusArgs struct {
 	// Port is the port number of the service port of which status is recorded here
 	Port pulumi.IntInput `pulumi:"port"`
 	// Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringInput `pulumi:"protocol"`
 }
 
@@ -23553,11 +23100,6 @@ func (o PortStatusOutput) Port() pulumi.IntOutput {
 }
 
 // Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
-//
-// Possible enum values:
-//  - `"SCTP"` is the SCTP protocol.
-//  - `"TCP"` is the TCP protocol.
-//  - `"UDP"` is the UDP protocol.
 func (o PortStatusOutput) Protocol() pulumi.StringOutput {
 	return o.ApplyT(func(v PortStatus) string { return v.Protocol }).(pulumi.StringOutput)
 }
@@ -23584,11 +23126,11 @@ func (o PortStatusArrayOutput) Index(i pulumi.IntInput) PortStatusOutput {
 
 // PortworxVolumeSource represents a Portworx volume resource.
 type PortworxVolumeSource struct {
-	// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+	// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// VolumeID uniquely identifies a Portworx volume
+	// volumeID uniquely identifies a Portworx volume
 	VolumeID string `pulumi:"volumeID"`
 }
 
@@ -23605,11 +23147,11 @@ type PortworxVolumeSourceInput interface {
 
 // PortworxVolumeSource represents a Portworx volume resource.
 type PortworxVolumeSourceArgs struct {
-	// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+	// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// VolumeID uniquely identifies a Portworx volume
+	// volumeID uniquely identifies a Portworx volume
 	VolumeID pulumi.StringInput `pulumi:"volumeID"`
 }
 
@@ -23691,17 +23233,17 @@ func (o PortworxVolumeSourceOutput) ToPortworxVolumeSourcePtrOutputWithContext(c
 	}).(PortworxVolumeSourcePtrOutput)
 }
 
-// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
 func (o PortworxVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PortworxVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o PortworxVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v PortworxVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// VolumeID uniquely identifies a Portworx volume
+// volumeID uniquely identifies a Portworx volume
 func (o PortworxVolumeSourceOutput) VolumeID() pulumi.StringOutput {
 	return o.ApplyT(func(v PortworxVolumeSource) string { return v.VolumeID }).(pulumi.StringOutput)
 }
@@ -23730,7 +23272,7 @@ func (o PortworxVolumeSourcePtrOutput) Elem() PortworxVolumeSourceOutput {
 	}).(PortworxVolumeSourceOutput)
 }
 
-// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
 func (o PortworxVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PortworxVolumeSource) *string {
 		if v == nil {
@@ -23740,7 +23282,7 @@ func (o PortworxVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o PortworxVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *PortworxVolumeSource) *bool {
 		if v == nil {
@@ -23750,7 +23292,7 @@ func (o PortworxVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// VolumeID uniquely identifies a Portworx volume
+// volumeID uniquely identifies a Portworx volume
 func (o PortworxVolumeSourcePtrOutput) VolumeID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PortworxVolumeSource) *string {
 		if v == nil {
@@ -23875,7 +23417,7 @@ type Probe struct {
 	Exec *ExecAction `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+	// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
 	Grpc *GRPCAction `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
@@ -23910,7 +23452,7 @@ type ProbeArgs struct {
 	Exec ExecActionPtrInput `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+	// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
 	Grpc GRPCActionPtrInput `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
@@ -24016,7 +23558,7 @@ func (o ProbeOutput) FailureThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.FailureThreshold }).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
 func (o ProbeOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v Probe) *GRPCAction { return v.Grpc }).(GRPCActionPtrOutput)
 }
@@ -24100,7 +23642,7 @@ func (o ProbePtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
 func (o ProbePtrOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *GRPCAction {
 		if v == nil {
@@ -24182,9 +23724,9 @@ func (o ProbePtrOutput) TimeoutSeconds() pulumi.IntPtrOutput {
 
 // Represents a projected volume source
 type ProjectedVolumeSource struct {
-	// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
-	// list of volume projections
+	// sources is the list of volume projections
 	Sources []VolumeProjection `pulumi:"sources"`
 }
 
@@ -24201,9 +23743,9 @@ type ProjectedVolumeSourceInput interface {
 
 // Represents a projected volume source
 type ProjectedVolumeSourceArgs struct {
-	// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
-	// list of volume projections
+	// sources is the list of volume projections
 	Sources VolumeProjectionArrayInput `pulumi:"sources"`
 }
 
@@ -24285,12 +23827,12 @@ func (o ProjectedVolumeSourceOutput) ToProjectedVolumeSourcePtrOutputWithContext
 	}).(ProjectedVolumeSourcePtrOutput)
 }
 
-// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ProjectedVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProjectedVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
-// list of volume projections
+// sources is the list of volume projections
 func (o ProjectedVolumeSourceOutput) Sources() VolumeProjectionArrayOutput {
 	return o.ApplyT(func(v ProjectedVolumeSource) []VolumeProjection { return v.Sources }).(VolumeProjectionArrayOutput)
 }
@@ -24319,7 +23861,7 @@ func (o ProjectedVolumeSourcePtrOutput) Elem() ProjectedVolumeSourceOutput {
 	}).(ProjectedVolumeSourceOutput)
 }
 
-// Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o ProjectedVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ProjectedVolumeSource) *int {
 		if v == nil {
@@ -24329,7 +23871,7 @@ func (o ProjectedVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// list of volume projections
+// sources is the list of volume projections
 func (o ProjectedVolumeSourcePtrOutput) Sources() VolumeProjectionArrayOutput {
 	return o.ApplyT(func(v *ProjectedVolumeSource) []VolumeProjection {
 		if v == nil {
@@ -24341,17 +23883,17 @@ func (o ProjectedVolumeSourcePtrOutput) Sources() VolumeProjectionArrayOutput {
 
 // Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
 type QuobyteVolumeSource struct {
-	// Group to map volume access to Default is no group
+	// group to map volume access to Default is no group
 	Group *string `pulumi:"group"`
-	// ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+	// readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+	// registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
 	Registry string `pulumi:"registry"`
-	// Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+	// tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
 	Tenant *string `pulumi:"tenant"`
-	// User to map volume access to Defaults to serivceaccount user
+	// user to map volume access to Defaults to serivceaccount user
 	User *string `pulumi:"user"`
-	// Volume is a string that references an already created Quobyte volume by name.
+	// volume is a string that references an already created Quobyte volume by name.
 	Volume string `pulumi:"volume"`
 }
 
@@ -24368,17 +23910,17 @@ type QuobyteVolumeSourceInput interface {
 
 // Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
 type QuobyteVolumeSourceArgs struct {
-	// Group to map volume access to Default is no group
+	// group to map volume access to Default is no group
 	Group pulumi.StringPtrInput `pulumi:"group"`
-	// ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+	// readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+	// registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
 	Registry pulumi.StringInput `pulumi:"registry"`
-	// Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+	// tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
 	Tenant pulumi.StringPtrInput `pulumi:"tenant"`
-	// User to map volume access to Defaults to serivceaccount user
+	// user to map volume access to Defaults to serivceaccount user
 	User pulumi.StringPtrInput `pulumi:"user"`
-	// Volume is a string that references an already created Quobyte volume by name.
+	// volume is a string that references an already created Quobyte volume by name.
 	Volume pulumi.StringInput `pulumi:"volume"`
 }
 
@@ -24460,32 +24002,32 @@ func (o QuobyteVolumeSourceOutput) ToQuobyteVolumeSourcePtrOutputWithContext(ctx
 	}).(QuobyteVolumeSourcePtrOutput)
 }
 
-// Group to map volume access to Default is no group
+// group to map volume access to Default is no group
 func (o QuobyteVolumeSourceOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v QuobyteVolumeSource) *string { return v.Group }).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+// readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
 func (o QuobyteVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v QuobyteVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+// registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
 func (o QuobyteVolumeSourceOutput) Registry() pulumi.StringOutput {
 	return o.ApplyT(func(v QuobyteVolumeSource) string { return v.Registry }).(pulumi.StringOutput)
 }
 
-// Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+// tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
 func (o QuobyteVolumeSourceOutput) Tenant() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v QuobyteVolumeSource) *string { return v.Tenant }).(pulumi.StringPtrOutput)
 }
 
-// User to map volume access to Defaults to serivceaccount user
+// user to map volume access to Defaults to serivceaccount user
 func (o QuobyteVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v QuobyteVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
 
-// Volume is a string that references an already created Quobyte volume by name.
+// volume is a string that references an already created Quobyte volume by name.
 func (o QuobyteVolumeSourceOutput) Volume() pulumi.StringOutput {
 	return o.ApplyT(func(v QuobyteVolumeSource) string { return v.Volume }).(pulumi.StringOutput)
 }
@@ -24514,7 +24056,7 @@ func (o QuobyteVolumeSourcePtrOutput) Elem() QuobyteVolumeSourceOutput {
 	}).(QuobyteVolumeSourceOutput)
 }
 
-// Group to map volume access to Default is no group
+// group to map volume access to Default is no group
 func (o QuobyteVolumeSourcePtrOutput) Group() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *QuobyteVolumeSource) *string {
 		if v == nil {
@@ -24524,7 +24066,7 @@ func (o QuobyteVolumeSourcePtrOutput) Group() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+// readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
 func (o QuobyteVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *QuobyteVolumeSource) *bool {
 		if v == nil {
@@ -24534,7 +24076,7 @@ func (o QuobyteVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+// registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
 func (o QuobyteVolumeSourcePtrOutput) Registry() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *QuobyteVolumeSource) *string {
 		if v == nil {
@@ -24544,7 +24086,7 @@ func (o QuobyteVolumeSourcePtrOutput) Registry() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+// tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
 func (o QuobyteVolumeSourcePtrOutput) Tenant() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *QuobyteVolumeSource) *string {
 		if v == nil {
@@ -24554,7 +24096,7 @@ func (o QuobyteVolumeSourcePtrOutput) Tenant() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// User to map volume access to Defaults to serivceaccount user
+// user to map volume access to Defaults to serivceaccount user
 func (o QuobyteVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *QuobyteVolumeSource) *string {
 		if v == nil {
@@ -24564,7 +24106,7 @@ func (o QuobyteVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Volume is a string that references an already created Quobyte volume by name.
+// volume is a string that references an already created Quobyte volume by name.
 func (o QuobyteVolumeSourcePtrOutput) Volume() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *QuobyteVolumeSource) *string {
 		if v == nil {
@@ -24576,21 +24118,21 @@ func (o QuobyteVolumeSourcePtrOutput) Volume() pulumi.StringPtrOutput {
 
 // Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
 type RBDPersistentVolumeSource struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 	FsType *string `pulumi:"fsType"`
-	// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Image string `pulumi:"image"`
-	// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Keyring *string `pulumi:"keyring"`
-	// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Monitors []string `pulumi:"monitors"`
-	// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Pool *string `pulumi:"pool"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	ReadOnly *bool `pulumi:"readOnly"`
-	// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	SecretRef *SecretReference `pulumi:"secretRef"`
-	// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	User *string `pulumi:"user"`
 }
 
@@ -24607,21 +24149,21 @@ type RBDPersistentVolumeSourceInput interface {
 
 // Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
 type RBDPersistentVolumeSourceArgs struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Image pulumi.StringInput `pulumi:"image"`
-	// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Keyring pulumi.StringPtrInput `pulumi:"keyring"`
-	// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Monitors pulumi.StringArrayInput `pulumi:"monitors"`
-	// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Pool pulumi.StringPtrInput `pulumi:"pool"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	SecretRef SecretReferencePtrInput `pulumi:"secretRef"`
-	// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	User pulumi.StringPtrInput `pulumi:"user"`
 }
 
@@ -24703,42 +24245,42 @@ func (o RBDPersistentVolumeSourceOutput) ToRBDPersistentVolumeSourcePtrOutputWit
 	}).(RBDPersistentVolumeSourcePtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 func (o RBDPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) Image() pulumi.StringOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) string { return v.Image }).(pulumi.StringOutput)
 }
 
-// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) Keyring() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) *string { return v.Keyring }).(pulumi.StringPtrOutput)
 }
 
-// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) []string { return v.Monitors }).(pulumi.StringArrayOutput)
 }
 
-// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) Pool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) *string { return v.Pool }).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) *SecretReference { return v.SecretRef }).(SecretReferencePtrOutput)
 }
 
-// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDPersistentVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
@@ -24767,7 +24309,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) Elem() RBDPersistentVolumeSourceOutp
 	}).(RBDPersistentVolumeSourceOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 func (o RBDPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *string {
 		if v == nil {
@@ -24777,7 +24319,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) Image() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *string {
 		if v == nil {
@@ -24787,7 +24329,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) Image() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) Keyring() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *string {
 		if v == nil {
@@ -24797,7 +24339,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) Keyring() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) []string {
 		if v == nil {
@@ -24807,7 +24349,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput 
 	}).(pulumi.StringArrayOutput)
 }
 
-// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) Pool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *string {
 		if v == nil {
@@ -24817,7 +24359,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) Pool() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *bool {
 		if v == nil {
@@ -24827,7 +24369,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -24837,7 +24379,7 @@ func (o RBDPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput
 	}).(SecretReferencePtrOutput)
 }
 
-// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDPersistentVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDPersistentVolumeSource) *string {
 		if v == nil {
@@ -24849,21 +24391,21 @@ func (o RBDPersistentVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 
 // Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
 type RBDVolumeSource struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 	FsType *string `pulumi:"fsType"`
-	// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Image string `pulumi:"image"`
-	// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Keyring *string `pulumi:"keyring"`
-	// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Monitors []string `pulumi:"monitors"`
-	// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Pool *string `pulumi:"pool"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	ReadOnly *bool `pulumi:"readOnly"`
-	// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	SecretRef *LocalObjectReference `pulumi:"secretRef"`
-	// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	User *string `pulumi:"user"`
 }
 
@@ -24880,21 +24422,21 @@ type RBDVolumeSourceInput interface {
 
 // Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
 type RBDVolumeSourceArgs struct {
-	// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+	// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Image pulumi.StringInput `pulumi:"image"`
-	// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Keyring pulumi.StringPtrInput `pulumi:"keyring"`
-	// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Monitors pulumi.StringArrayInput `pulumi:"monitors"`
-	// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	Pool pulumi.StringPtrInput `pulumi:"pool"`
-	// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	SecretRef LocalObjectReferencePtrInput `pulumi:"secretRef"`
-	// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+	// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 	User pulumi.StringPtrInput `pulumi:"user"`
 }
 
@@ -24976,42 +24518,42 @@ func (o RBDVolumeSourceOutput) ToRBDVolumeSourcePtrOutputWithContext(ctx context
 	}).(RBDVolumeSourcePtrOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 func (o RBDVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) Image() pulumi.StringOutput {
 	return o.ApplyT(func(v RBDVolumeSource) string { return v.Image }).(pulumi.StringOutput)
 }
 
-// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) Keyring() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDVolumeSource) *string { return v.Keyring }).(pulumi.StringPtrOutput)
 }
 
-// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RBDVolumeSource) []string { return v.Monitors }).(pulumi.StringArrayOutput)
 }
 
-// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) Pool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDVolumeSource) *string { return v.Pool }).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v RBDVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v RBDVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourceOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v RBDVolumeSource) *string { return v.User }).(pulumi.StringPtrOutput)
 }
@@ -25040,7 +24582,7 @@ func (o RBDVolumeSourcePtrOutput) Elem() RBDVolumeSourceOutput {
 	}).(RBDVolumeSourceOutput)
 }
 
-// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 func (o RBDVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *string {
 		if v == nil {
@@ -25050,7 +24592,7 @@ func (o RBDVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) Image() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *string {
 		if v == nil {
@@ -25060,7 +24602,7 @@ func (o RBDVolumeSourcePtrOutput) Image() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) Keyring() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *string {
 		if v == nil {
@@ -25070,7 +24612,7 @@ func (o RBDVolumeSourcePtrOutput) Keyring() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) []string {
 		if v == nil {
@@ -25080,7 +24622,7 @@ func (o RBDVolumeSourcePtrOutput) Monitors() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) Pool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *string {
 		if v == nil {
@@ -25090,7 +24632,7 @@ func (o RBDVolumeSourcePtrOutput) Pool() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *bool {
 		if v == nil {
@@ -25100,7 +24642,7 @@ func (o RBDVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -25110,7 +24652,7 @@ func (o RBDVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 func (o RBDVolumeSourcePtrOutput) User() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RBDVolumeSource) *string {
 		if v == nil {
@@ -26997,25 +26539,25 @@ func (o SELinuxOptionsPtrOutput) User() pulumi.StringPtrOutput {
 
 // ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
 type ScaleIOPersistentVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
 	FsType *string `pulumi:"fsType"`
-	// The host address of the ScaleIO API Gateway.
+	// gateway is the host address of the ScaleIO API Gateway.
 	Gateway string `pulumi:"gateway"`
-	// The name of the ScaleIO Protection Domain for the configured storage.
+	// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 	ProtectionDomain *string `pulumi:"protectionDomain"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+	// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 	SecretRef SecretReference `pulumi:"secretRef"`
-	// Flag to enable/disable SSL communication with Gateway, default false
+	// sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
 	SslEnabled *bool `pulumi:"sslEnabled"`
-	// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+	// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 	StorageMode *string `pulumi:"storageMode"`
-	// The ScaleIO Storage Pool associated with the protection domain.
+	// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 	StoragePool *string `pulumi:"storagePool"`
-	// The name of the storage system as configured in ScaleIO.
+	// system is the name of the storage system as configured in ScaleIO.
 	System string `pulumi:"system"`
-	// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+	// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 	VolumeName *string `pulumi:"volumeName"`
 }
 
@@ -27032,25 +26574,25 @@ type ScaleIOPersistentVolumeSourceInput interface {
 
 // ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
 type ScaleIOPersistentVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The host address of the ScaleIO API Gateway.
+	// gateway is the host address of the ScaleIO API Gateway.
 	Gateway pulumi.StringInput `pulumi:"gateway"`
-	// The name of the ScaleIO Protection Domain for the configured storage.
+	// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 	ProtectionDomain pulumi.StringPtrInput `pulumi:"protectionDomain"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+	// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 	SecretRef SecretReferenceInput `pulumi:"secretRef"`
-	// Flag to enable/disable SSL communication with Gateway, default false
+	// sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
 	SslEnabled pulumi.BoolPtrInput `pulumi:"sslEnabled"`
-	// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+	// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 	StorageMode pulumi.StringPtrInput `pulumi:"storageMode"`
-	// The ScaleIO Storage Pool associated with the protection domain.
+	// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 	StoragePool pulumi.StringPtrInput `pulumi:"storagePool"`
-	// The name of the storage system as configured in ScaleIO.
+	// system is the name of the storage system as configured in ScaleIO.
 	System pulumi.StringInput `pulumi:"system"`
-	// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+	// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 	VolumeName pulumi.StringPtrInput `pulumi:"volumeName"`
 }
 
@@ -27132,52 +26674,52 @@ func (o ScaleIOPersistentVolumeSourceOutput) ToScaleIOPersistentVolumeSourcePtrO
 	}).(ScaleIOPersistentVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
 func (o ScaleIOPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The host address of the ScaleIO API Gateway.
+// gateway is the host address of the ScaleIO API Gateway.
 func (o ScaleIOPersistentVolumeSourceOutput) Gateway() pulumi.StringOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) string { return v.Gateway }).(pulumi.StringOutput)
 }
 
-// The name of the ScaleIO Protection Domain for the configured storage.
+// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 func (o ScaleIOPersistentVolumeSourceOutput) ProtectionDomain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *string { return v.ProtectionDomain }).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o ScaleIOPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 func (o ScaleIOPersistentVolumeSourceOutput) SecretRef() SecretReferenceOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) SecretReference { return v.SecretRef }).(SecretReferenceOutput)
 }
 
-// Flag to enable/disable SSL communication with Gateway, default false
+// sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
 func (o ScaleIOPersistentVolumeSourceOutput) SslEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *bool { return v.SslEnabled }).(pulumi.BoolPtrOutput)
 }
 
-// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 func (o ScaleIOPersistentVolumeSourceOutput) StorageMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *string { return v.StorageMode }).(pulumi.StringPtrOutput)
 }
 
-// The ScaleIO Storage Pool associated with the protection domain.
+// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 func (o ScaleIOPersistentVolumeSourceOutput) StoragePool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *string { return v.StoragePool }).(pulumi.StringPtrOutput)
 }
 
-// The name of the storage system as configured in ScaleIO.
+// system is the name of the storage system as configured in ScaleIO.
 func (o ScaleIOPersistentVolumeSourceOutput) System() pulumi.StringOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) string { return v.System }).(pulumi.StringOutput)
 }
 
-// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 func (o ScaleIOPersistentVolumeSourceOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOPersistentVolumeSource) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
@@ -27206,7 +26748,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) Elem() ScaleIOPersistentVolumeSo
 	}).(ScaleIOPersistentVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
 func (o ScaleIOPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27216,7 +26758,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// The host address of the ScaleIO API Gateway.
+// gateway is the host address of the ScaleIO API Gateway.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) Gateway() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27226,7 +26768,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) Gateway() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// The name of the ScaleIO Protection Domain for the configured storage.
+// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) ProtectionDomain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27236,7 +26778,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) ProtectionDomain() pulumi.String
 	}).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *bool {
 		if v == nil {
@@ -27246,7 +26788,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput 
 	}).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -27256,7 +26798,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) SecretRef() SecretReferencePtrOu
 	}).(SecretReferencePtrOutput)
 }
 
-// Flag to enable/disable SSL communication with Gateway, default false
+// sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
 func (o ScaleIOPersistentVolumeSourcePtrOutput) SslEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *bool {
 		if v == nil {
@@ -27266,7 +26808,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) SslEnabled() pulumi.BoolPtrOutpu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) StorageMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27276,7 +26818,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) StorageMode() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// The ScaleIO Storage Pool associated with the protection domain.
+// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) StoragePool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27286,7 +26828,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) StoragePool() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// The name of the storage system as configured in ScaleIO.
+// system is the name of the storage system as configured in ScaleIO.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) System() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27296,7 +26838,7 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) System() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 func (o ScaleIOPersistentVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOPersistentVolumeSource) *string {
 		if v == nil {
@@ -27308,25 +26850,25 @@ func (o ScaleIOPersistentVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrOut
 
 // ScaleIOVolumeSource represents a persistent ScaleIO volume
 type ScaleIOVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
 	FsType *string `pulumi:"fsType"`
-	// The host address of the ScaleIO API Gateway.
+	// gateway is the host address of the ScaleIO API Gateway.
 	Gateway string `pulumi:"gateway"`
-	// The name of the ScaleIO Protection Domain for the configured storage.
+	// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 	ProtectionDomain *string `pulumi:"protectionDomain"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+	// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 	SecretRef LocalObjectReference `pulumi:"secretRef"`
-	// Flag to enable/disable SSL communication with Gateway, default false
+	// sslEnabled Flag enable/disable SSL communication with Gateway, default false
 	SslEnabled *bool `pulumi:"sslEnabled"`
-	// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+	// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 	StorageMode *string `pulumi:"storageMode"`
-	// The ScaleIO Storage Pool associated with the protection domain.
+	// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 	StoragePool *string `pulumi:"storagePool"`
-	// The name of the storage system as configured in ScaleIO.
+	// system is the name of the storage system as configured in ScaleIO.
 	System string `pulumi:"system"`
-	// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+	// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 	VolumeName *string `pulumi:"volumeName"`
 }
 
@@ -27343,25 +26885,25 @@ type ScaleIOVolumeSourceInput interface {
 
 // ScaleIOVolumeSource represents a persistent ScaleIO volume
 type ScaleIOVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// The host address of the ScaleIO API Gateway.
+	// gateway is the host address of the ScaleIO API Gateway.
 	Gateway pulumi.StringInput `pulumi:"gateway"`
-	// The name of the ScaleIO Protection Domain for the configured storage.
+	// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 	ProtectionDomain pulumi.StringPtrInput `pulumi:"protectionDomain"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+	// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 	SecretRef LocalObjectReferenceInput `pulumi:"secretRef"`
-	// Flag to enable/disable SSL communication with Gateway, default false
+	// sslEnabled Flag enable/disable SSL communication with Gateway, default false
 	SslEnabled pulumi.BoolPtrInput `pulumi:"sslEnabled"`
-	// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+	// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 	StorageMode pulumi.StringPtrInput `pulumi:"storageMode"`
-	// The ScaleIO Storage Pool associated with the protection domain.
+	// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 	StoragePool pulumi.StringPtrInput `pulumi:"storagePool"`
-	// The name of the storage system as configured in ScaleIO.
+	// system is the name of the storage system as configured in ScaleIO.
 	System pulumi.StringInput `pulumi:"system"`
-	// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+	// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 	VolumeName pulumi.StringPtrInput `pulumi:"volumeName"`
 }
 
@@ -27443,52 +26985,52 @@ func (o ScaleIOVolumeSourceOutput) ToScaleIOVolumeSourcePtrOutputWithContext(ctx
 	}).(ScaleIOVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
 func (o ScaleIOVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// The host address of the ScaleIO API Gateway.
+// gateway is the host address of the ScaleIO API Gateway.
 func (o ScaleIOVolumeSourceOutput) Gateway() pulumi.StringOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) string { return v.Gateway }).(pulumi.StringOutput)
 }
 
-// The name of the ScaleIO Protection Domain for the configured storage.
+// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 func (o ScaleIOVolumeSourceOutput) ProtectionDomain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *string { return v.ProtectionDomain }).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o ScaleIOVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 func (o ScaleIOVolumeSourceOutput) SecretRef() LocalObjectReferenceOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) LocalObjectReference { return v.SecretRef }).(LocalObjectReferenceOutput)
 }
 
-// Flag to enable/disable SSL communication with Gateway, default false
+// sslEnabled Flag enable/disable SSL communication with Gateway, default false
 func (o ScaleIOVolumeSourceOutput) SslEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *bool { return v.SslEnabled }).(pulumi.BoolPtrOutput)
 }
 
-// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 func (o ScaleIOVolumeSourceOutput) StorageMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *string { return v.StorageMode }).(pulumi.StringPtrOutput)
 }
 
-// The ScaleIO Storage Pool associated with the protection domain.
+// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 func (o ScaleIOVolumeSourceOutput) StoragePool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *string { return v.StoragePool }).(pulumi.StringPtrOutput)
 }
 
-// The name of the storage system as configured in ScaleIO.
+// system is the name of the storage system as configured in ScaleIO.
 func (o ScaleIOVolumeSourceOutput) System() pulumi.StringOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) string { return v.System }).(pulumi.StringOutput)
 }
 
-// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 func (o ScaleIOVolumeSourceOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleIOVolumeSource) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
@@ -27517,7 +27059,7 @@ func (o ScaleIOVolumeSourcePtrOutput) Elem() ScaleIOVolumeSourceOutput {
 	}).(ScaleIOVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
 func (o ScaleIOVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27527,7 +27069,7 @@ func (o ScaleIOVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The host address of the ScaleIO API Gateway.
+// gateway is the host address of the ScaleIO API Gateway.
 func (o ScaleIOVolumeSourcePtrOutput) Gateway() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27537,7 +27079,7 @@ func (o ScaleIOVolumeSourcePtrOutput) Gateway() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The name of the ScaleIO Protection Domain for the configured storage.
+// protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
 func (o ScaleIOVolumeSourcePtrOutput) ProtectionDomain() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27547,7 +27089,7 @@ func (o ScaleIOVolumeSourcePtrOutput) ProtectionDomain() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o ScaleIOVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *bool {
 		if v == nil {
@@ -27557,7 +27099,7 @@ func (o ScaleIOVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+// secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 func (o ScaleIOVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -27567,7 +27109,7 @@ func (o ScaleIOVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput 
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// Flag to enable/disable SSL communication with Gateway, default false
+// sslEnabled Flag enable/disable SSL communication with Gateway, default false
 func (o ScaleIOVolumeSourcePtrOutput) SslEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *bool {
 		if v == nil {
@@ -27577,7 +27119,7 @@ func (o ScaleIOVolumeSourcePtrOutput) SslEnabled() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+// storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
 func (o ScaleIOVolumeSourcePtrOutput) StorageMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27587,7 +27129,7 @@ func (o ScaleIOVolumeSourcePtrOutput) StorageMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The ScaleIO Storage Pool associated with the protection domain.
+// storagePool is the ScaleIO Storage Pool associated with the protection domain.
 func (o ScaleIOVolumeSourcePtrOutput) StoragePool() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27597,7 +27139,7 @@ func (o ScaleIOVolumeSourcePtrOutput) StoragePool() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The name of the storage system as configured in ScaleIO.
+// system is the name of the storage system as configured in ScaleIO.
 func (o ScaleIOVolumeSourcePtrOutput) System() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27607,7 +27149,7 @@ func (o ScaleIOVolumeSourcePtrOutput) System() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// The name of a volume already created in the ScaleIO system that is associated with this volume source.
+// volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
 func (o ScaleIOVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleIOVolumeSource) *string {
 		if v == nil {
@@ -27760,22 +27302,8 @@ func (o ScopeSelectorPtrOutput) MatchExpressions() ScopedResourceSelectorRequire
 // A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 type ScopedResourceSelectorRequirement struct {
 	// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-	//
-	// Possible enum values:
-	//  - `"DoesNotExist"`
-	//  - `"Exists"`
-	//  - `"In"`
-	//  - `"NotIn"`
 	Operator string `pulumi:"operator"`
 	// The name of the scope that the selector applies to.
-	//
-	// Possible enum values:
-	//  - `"BestEffort"` Match all pod objects that have best effort quality of service
-	//  - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
-	//  - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
-	//  - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
-	//  - `"PriorityClass"` Match all pod objects that have priority class mentioned
-	//  - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 	ScopeName string `pulumi:"scopeName"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	Values []string `pulumi:"values"`
@@ -27795,22 +27323,8 @@ type ScopedResourceSelectorRequirementInput interface {
 // A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
 type ScopedResourceSelectorRequirementArgs struct {
 	// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-	//
-	// Possible enum values:
-	//  - `"DoesNotExist"`
-	//  - `"Exists"`
-	//  - `"In"`
-	//  - `"NotIn"`
 	Operator pulumi.StringInput `pulumi:"operator"`
 	// The name of the scope that the selector applies to.
-	//
-	// Possible enum values:
-	//  - `"BestEffort"` Match all pod objects that have best effort quality of service
-	//  - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
-	//  - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
-	//  - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
-	//  - `"PriorityClass"` Match all pod objects that have priority class mentioned
-	//  - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 	ScopeName pulumi.StringInput `pulumi:"scopeName"`
 	// An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
 	Values pulumi.StringArrayInput `pulumi:"values"`
@@ -27869,25 +27383,11 @@ func (o ScopedResourceSelectorRequirementOutput) ToScopedResourceSelectorRequire
 }
 
 // Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-//
-// Possible enum values:
-//  - `"DoesNotExist"`
-//  - `"Exists"`
-//  - `"In"`
-//  - `"NotIn"`
 func (o ScopedResourceSelectorRequirementOutput) Operator() pulumi.StringOutput {
 	return o.ApplyT(func(v ScopedResourceSelectorRequirement) string { return v.Operator }).(pulumi.StringOutput)
 }
 
 // The name of the scope that the selector applies to.
-//
-// Possible enum values:
-//  - `"BestEffort"` Match all pod objects that have best effort quality of service
-//  - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
-//  - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
-//  - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
-//  - `"PriorityClass"` Match all pod objects that have priority class mentioned
-//  - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
 func (o ScopedResourceSelectorRequirementOutput) ScopeName() pulumi.StringOutput {
 	return o.ApplyT(func(v ScopedResourceSelectorRequirement) string { return v.ScopeName }).(pulumi.StringOutput)
 }
@@ -27924,11 +27424,6 @@ type SeccompProfile struct {
 	// type indicates which kind of seccomp profile will be applied. Valid options are:
 	//
 	// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-	//
-	// Possible enum values:
-	//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
-	//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-	//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 	Type string `pulumi:"type"`
 }
 
@@ -27950,11 +27445,6 @@ type SeccompProfileArgs struct {
 	// type indicates which kind of seccomp profile will be applied. Valid options are:
 	//
 	// Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-	//
-	// Possible enum values:
-	//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
-	//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-	//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -28044,11 +27534,6 @@ func (o SeccompProfileOutput) LocalhostProfile() pulumi.StringPtrOutput {
 // type indicates which kind of seccomp profile will be applied. Valid options are:
 //
 // Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-//
-// Possible enum values:
-//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
-//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 func (o SeccompProfileOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v SeccompProfile) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -28090,11 +27575,6 @@ func (o SeccompProfilePtrOutput) LocalhostProfile() pulumi.StringPtrOutput {
 // type indicates which kind of seccomp profile will be applied. Valid options are:
 //
 // Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-//
-// Possible enum values:
-//  - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
-//  - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-//  - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
 func (o SeccompProfilePtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SeccompProfile) *string {
 		if v == nil {
@@ -28717,11 +28197,11 @@ func (o SecretListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 //
 // The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
 type SecretProjection struct {
-	// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
 	// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
-	// Specify whether the Secret or its key must be defined
+	// optional field specify whether the Secret or its key must be defined
 	Optional *bool `pulumi:"optional"`
 }
 
@@ -28740,11 +28220,11 @@ type SecretProjectionInput interface {
 //
 // The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
 type SecretProjectionArgs struct {
-	// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
 	// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Specify whether the Secret or its key must be defined
+	// optional field specify whether the Secret or its key must be defined
 	Optional pulumi.BoolPtrInput `pulumi:"optional"`
 }
 
@@ -28828,7 +28308,7 @@ func (o SecretProjectionOutput) ToSecretProjectionPtrOutputWithContext(ctx conte
 	}).(SecretProjectionPtrOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretProjectionOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v SecretProjection) []KeyToPath { return v.Items }).(KeyToPathArrayOutput)
 }
@@ -28838,7 +28318,7 @@ func (o SecretProjectionOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SecretProjection) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Specify whether the Secret or its key must be defined
+// optional field specify whether the Secret or its key must be defined
 func (o SecretProjectionOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecretProjection) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
@@ -28867,7 +28347,7 @@ func (o SecretProjectionPtrOutput) Elem() SecretProjectionOutput {
 	}).(SecretProjectionOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretProjectionPtrOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v *SecretProjection) []KeyToPath {
 		if v == nil {
@@ -28887,7 +28367,7 @@ func (o SecretProjectionPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Specify whether the Secret or its key must be defined
+// optional field specify whether the Secret or its key must be defined
 func (o SecretProjectionPtrOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SecretProjection) *bool {
 		if v == nil {
@@ -28899,9 +28379,9 @@ func (o SecretProjectionPtrOutput) Optional() pulumi.BoolPtrOutput {
 
 // SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
 type SecretReference struct {
-	// Name is unique within a namespace to reference a secret resource.
+	// name is unique within a namespace to reference a secret resource.
 	Name *string `pulumi:"name"`
-	// Namespace defines the space within which the secret name must be unique.
+	// namespace defines the space within which the secret name must be unique.
 	Namespace *string `pulumi:"namespace"`
 }
 
@@ -28918,9 +28398,9 @@ type SecretReferenceInput interface {
 
 // SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
 type SecretReferenceArgs struct {
-	// Name is unique within a namespace to reference a secret resource.
+	// name is unique within a namespace to reference a secret resource.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Namespace defines the space within which the secret name must be unique.
+	// namespace defines the space within which the secret name must be unique.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
 }
 
@@ -29002,12 +28482,12 @@ func (o SecretReferenceOutput) ToSecretReferencePtrOutputWithContext(ctx context
 	}).(SecretReferencePtrOutput)
 }
 
-// Name is unique within a namespace to reference a secret resource.
+// name is unique within a namespace to reference a secret resource.
 func (o SecretReferenceOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SecretReference) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Namespace defines the space within which the secret name must be unique.
+// namespace defines the space within which the secret name must be unique.
 func (o SecretReferenceOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SecretReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
@@ -29036,7 +28516,7 @@ func (o SecretReferencePtrOutput) Elem() SecretReferenceOutput {
 	}).(SecretReferenceOutput)
 }
 
-// Name is unique within a namespace to reference a secret resource.
+// name is unique within a namespace to reference a secret resource.
 func (o SecretReferencePtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SecretReference) *string {
 		if v == nil {
@@ -29046,7 +28526,7 @@ func (o SecretReferencePtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Namespace defines the space within which the secret name must be unique.
+// namespace defines the space within which the secret name must be unique.
 func (o SecretReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SecretReference) *string {
 		if v == nil {
@@ -29060,13 +28540,13 @@ func (o SecretReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 //
 // The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
 type SecretVolumeSource struct {
-	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode *int `pulumi:"defaultMode"`
-	// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items []KeyToPath `pulumi:"items"`
-	// Specify whether the Secret or its keys must be defined
+	// optional field specify whether the Secret or its keys must be defined
 	Optional *bool `pulumi:"optional"`
-	// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+	// secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	SecretName *string `pulumi:"secretName"`
 }
 
@@ -29085,13 +28565,13 @@ type SecretVolumeSourceInput interface {
 //
 // The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
 type SecretVolumeSourceArgs struct {
-	// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+	// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 	DefaultMode pulumi.IntPtrInput `pulumi:"defaultMode"`
-	// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+	// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 	Items KeyToPathArrayInput `pulumi:"items"`
-	// Specify whether the Secret or its keys must be defined
+	// optional field specify whether the Secret or its keys must be defined
 	Optional pulumi.BoolPtrInput `pulumi:"optional"`
-	// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+	// secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	SecretName pulumi.StringPtrInput `pulumi:"secretName"`
 }
 
@@ -29175,22 +28655,22 @@ func (o SecretVolumeSourceOutput) ToSecretVolumeSourcePtrOutputWithContext(ctx c
 	}).(SecretVolumeSourcePtrOutput)
 }
 
-// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o SecretVolumeSourceOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v SecretVolumeSource) *int { return v.DefaultMode }).(pulumi.IntPtrOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretVolumeSourceOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v SecretVolumeSource) []KeyToPath { return v.Items }).(KeyToPathArrayOutput)
 }
 
-// Specify whether the Secret or its keys must be defined
+// optional field specify whether the Secret or its keys must be defined
 func (o SecretVolumeSourceOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v SecretVolumeSource) *bool { return v.Optional }).(pulumi.BoolPtrOutput)
 }
 
-// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+// secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 func (o SecretVolumeSourceOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SecretVolumeSource) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
@@ -29219,7 +28699,7 @@ func (o SecretVolumeSourcePtrOutput) Elem() SecretVolumeSourceOutput {
 	}).(SecretVolumeSourceOutput)
 }
 
-// Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 func (o SecretVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) *int {
 		if v == nil {
@@ -29229,7 +28709,7 @@ func (o SecretVolumeSourcePtrOutput) DefaultMode() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+// items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
 func (o SecretVolumeSourcePtrOutput) Items() KeyToPathArrayOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) []KeyToPath {
 		if v == nil {
@@ -29239,7 +28719,7 @@ func (o SecretVolumeSourcePtrOutput) Items() KeyToPathArrayOutput {
 	}).(KeyToPathArrayOutput)
 }
 
-// Specify whether the Secret or its keys must be defined
+// optional field specify whether the Secret or its keys must be defined
 func (o SecretVolumeSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) *bool {
 		if v == nil {
@@ -29249,7 +28729,7 @@ func (o SecretVolumeSourcePtrOutput) Optional() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+// secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 func (o SecretVolumeSourcePtrOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *SecretVolumeSource) *string {
 		if v == nil {
@@ -29812,7 +29292,7 @@ type ServiceAccountType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 	Secrets []ObjectReference `pulumi:"secrets"`
 }
 
@@ -29839,7 +29319,7 @@ type ServiceAccountTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+	// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 	Secrets ObjectReferenceArrayInput `pulumi:"secrets"`
 }
 
@@ -29920,7 +29400,7 @@ func (o ServiceAccountTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ServiceAccountType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+// Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
 func (o ServiceAccountTypeOutput) Secrets() ObjectReferenceArrayOutput {
 	return o.ApplyT(func(v ServiceAccountType) []ObjectReference { return v.Secrets }).(ObjectReferenceArrayOutput)
 }
@@ -30029,11 +29509,11 @@ func (o ServiceAccountListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
 type ServiceAccountTokenProjection struct {
-	// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+	// audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
 	Audience *string `pulumi:"audience"`
-	// ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+	// expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
 	ExpirationSeconds *int `pulumi:"expirationSeconds"`
-	// Path is the path relative to the mount point of the file to project the token into.
+	// path is the path relative to the mount point of the file to project the token into.
 	Path string `pulumi:"path"`
 }
 
@@ -30050,11 +29530,11 @@ type ServiceAccountTokenProjectionInput interface {
 
 // ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
 type ServiceAccountTokenProjectionArgs struct {
-	// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+	// audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
 	Audience pulumi.StringPtrInput `pulumi:"audience"`
-	// ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+	// expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
 	ExpirationSeconds pulumi.IntPtrInput `pulumi:"expirationSeconds"`
-	// Path is the path relative to the mount point of the file to project the token into.
+	// path is the path relative to the mount point of the file to project the token into.
 	Path pulumi.StringInput `pulumi:"path"`
 }
 
@@ -30136,17 +29616,17 @@ func (o ServiceAccountTokenProjectionOutput) ToServiceAccountTokenProjectionPtrO
 	}).(ServiceAccountTokenProjectionPtrOutput)
 }
 
-// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+// audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
 func (o ServiceAccountTokenProjectionOutput) Audience() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceAccountTokenProjection) *string { return v.Audience }).(pulumi.StringPtrOutput)
 }
 
-// ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+// expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
 func (o ServiceAccountTokenProjectionOutput) ExpirationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ServiceAccountTokenProjection) *int { return v.ExpirationSeconds }).(pulumi.IntPtrOutput)
 }
 
-// Path is the path relative to the mount point of the file to project the token into.
+// path is the path relative to the mount point of the file to project the token into.
 func (o ServiceAccountTokenProjectionOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v ServiceAccountTokenProjection) string { return v.Path }).(pulumi.StringOutput)
 }
@@ -30175,7 +29655,7 @@ func (o ServiceAccountTokenProjectionPtrOutput) Elem() ServiceAccountTokenProjec
 	}).(ServiceAccountTokenProjectionOutput)
 }
 
-// Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+// audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
 func (o ServiceAccountTokenProjectionPtrOutput) Audience() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceAccountTokenProjection) *string {
 		if v == nil {
@@ -30185,7 +29665,7 @@ func (o ServiceAccountTokenProjectionPtrOutput) Audience() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+// expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
 func (o ServiceAccountTokenProjectionPtrOutput) ExpirationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ServiceAccountTokenProjection) *int {
 		if v == nil {
@@ -30195,7 +29675,7 @@ func (o ServiceAccountTokenProjectionPtrOutput) ExpirationSeconds() pulumi.IntPt
 	}).(pulumi.IntPtrOutput)
 }
 
-// Path is the path relative to the mount point of the file to project the token into.
+// path is the path relative to the mount point of the file to project the token into.
 func (o ServiceAccountTokenProjectionPtrOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceAccountTokenProjection) *string {
 		if v == nil {
@@ -30289,7 +29769,7 @@ func (o ServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // ServicePort contains information on service's port.
 type ServicePort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name *string `pulumi:"name"`
@@ -30298,11 +29778,6 @@ type ServicePort struct {
 	// The port that will be exposed by this service.
 	Port int `pulumi:"port"`
 	// The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol *string `pulumi:"protocol"`
 	// Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 	TargetPort interface{} `pulumi:"targetPort"`
@@ -30321,7 +29796,7 @@ type ServicePortInput interface {
 
 // ServicePort contains information on service's port.
 type ServicePortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -30330,11 +29805,6 @@ type ServicePortArgs struct {
 	// The port that will be exposed by this service.
 	Port pulumi.IntInput `pulumi:"port"`
 	// The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-	//
-	// Possible enum values:
-	//  - `"SCTP"` is the SCTP protocol.
-	//  - `"TCP"` is the TCP protocol.
-	//  - `"UDP"` is the UDP protocol.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 	// Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 	TargetPort pulumi.Input `pulumi:"targetPort"`
@@ -30392,7 +29862,7 @@ func (o ServicePortOutput) ToServicePortOutputWithContext(ctx context.Context) S
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o ServicePortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServicePort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -30413,11 +29883,6 @@ func (o ServicePortOutput) Port() pulumi.IntOutput {
 }
 
 // The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-//
-// Possible enum values:
-//  - `"SCTP"` is the SCTP protocol.
-//  - `"TCP"` is the TCP protocol.
-//  - `"UDP"` is the UDP protocol.
 func (o ServicePortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServicePort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -30449,7 +29914,7 @@ func (o ServicePortArrayOutput) Index(i pulumi.IntInput) ServicePortOutput {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpec struct {
-	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
 	AllocateLoadBalancerNodePorts *bool `pulumi:"allocateLoadBalancerNodePorts"`
 	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP *string `pulumi:"clusterIP"`
@@ -30462,10 +29927,6 @@ type ServiceSpec struct {
 	// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
 	ExternalName *string `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-	//
-	// Possible enum values:
-	//  - `"Cluster"` specifies node-global (legacy) behavior.
-	//  - `"Local"` specifies node-local endpoints behavior.
 	ExternalTrafficPolicy *string `pulumi:"externalTrafficPolicy"`
 	// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 	HealthCheckNodePort *int `pulumi:"healthCheckNodePort"`
@@ -30481,7 +29942,7 @@ type ServiceSpec struct {
 	IpFamilyPolicy *string `pulumi:"ipFamilyPolicy"`
 	// loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
 	LoadBalancerClass *string `pulumi:"loadBalancerClass"`
-	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+	// Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
 	LoadBalancerIP *string `pulumi:"loadBalancerIP"`
 	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 	LoadBalancerSourceRanges []string `pulumi:"loadBalancerSourceRanges"`
@@ -30492,22 +29953,12 @@ type ServiceSpec struct {
 	// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
 	Selector map[string]string `pulumi:"selector"`
 	// Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-	//
-	// Possible enum values:
-	//  - `"ClientIP"` is the Client IP based.
-	//  - `"None"` - no session affinity.
 	SessionAffinity *string `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig *SessionAffinityConfig `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys []string `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-	//
-	// Possible enum values:
-	//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-	//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-	//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-	//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 	Type *string `pulumi:"type"`
 }
 
@@ -30524,7 +29975,7 @@ type ServiceSpecInput interface {
 
 // ServiceSpec describes the attributes that a user creates on a service.
 type ServiceSpecArgs struct {
-	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+	// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
 	AllocateLoadBalancerNodePorts pulumi.BoolPtrInput `pulumi:"allocateLoadBalancerNodePorts"`
 	// clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
 	ClusterIP pulumi.StringPtrInput `pulumi:"clusterIP"`
@@ -30537,10 +29988,6 @@ type ServiceSpecArgs struct {
 	// externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
 	ExternalName pulumi.StringPtrInput `pulumi:"externalName"`
 	// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-	//
-	// Possible enum values:
-	//  - `"Cluster"` specifies node-global (legacy) behavior.
-	//  - `"Local"` specifies node-local endpoints behavior.
 	ExternalTrafficPolicy pulumi.StringPtrInput `pulumi:"externalTrafficPolicy"`
 	// healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
 	HealthCheckNodePort pulumi.IntPtrInput `pulumi:"healthCheckNodePort"`
@@ -30556,7 +30003,7 @@ type ServiceSpecArgs struct {
 	IpFamilyPolicy pulumi.StringPtrInput `pulumi:"ipFamilyPolicy"`
 	// loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
 	LoadBalancerClass pulumi.StringPtrInput `pulumi:"loadBalancerClass"`
-	// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+	// Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
 	LoadBalancerIP pulumi.StringPtrInput `pulumi:"loadBalancerIP"`
 	// If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
 	LoadBalancerSourceRanges pulumi.StringArrayInput `pulumi:"loadBalancerSourceRanges"`
@@ -30567,22 +30014,12 @@ type ServiceSpecArgs struct {
 	// Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
 	Selector pulumi.StringMapInput `pulumi:"selector"`
 	// Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-	//
-	// Possible enum values:
-	//  - `"ClientIP"` is the Client IP based.
-	//  - `"None"` - no session affinity.
 	SessionAffinity pulumi.StringPtrInput `pulumi:"sessionAffinity"`
 	// sessionAffinityConfig contains the configurations of session affinity.
 	SessionAffinityConfig SessionAffinityConfigPtrInput `pulumi:"sessionAffinityConfig"`
 	// topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
 	TopologyKeys pulumi.StringArrayInput `pulumi:"topologyKeys"`
 	// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-	//
-	// Possible enum values:
-	//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-	//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-	//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-	//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -30664,7 +30101,7 @@ func (o ServiceSpecOutput) ToServiceSpecPtrOutputWithContext(ctx context.Context
 	}).(ServiceSpecPtrOutput)
 }
 
-// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
 func (o ServiceSpecOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *bool { return v.AllocateLoadBalancerNodePorts }).(pulumi.BoolPtrOutput)
 }
@@ -30692,10 +30129,6 @@ func (o ServiceSpecOutput) ExternalName() pulumi.StringPtrOutput {
 }
 
 // externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-//
-// Possible enum values:
-//  - `"Cluster"` specifies node-global (legacy) behavior.
-//  - `"Local"` specifies node-local endpoints behavior.
 func (o ServiceSpecOutput) ExternalTrafficPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.ExternalTrafficPolicy }).(pulumi.StringPtrOutput)
 }
@@ -30732,7 +30165,7 @@ func (o ServiceSpecOutput) LoadBalancerClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.LoadBalancerClass }).(pulumi.StringPtrOutput)
 }
 
-// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+// Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
 func (o ServiceSpecOutput) LoadBalancerIP() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.LoadBalancerIP }).(pulumi.StringPtrOutput)
 }
@@ -30758,10 +30191,6 @@ func (o ServiceSpecOutput) Selector() pulumi.StringMapOutput {
 }
 
 // Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-//
-// Possible enum values:
-//  - `"ClientIP"` is the Client IP based.
-//  - `"None"` - no session affinity.
 func (o ServiceSpecOutput) SessionAffinity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.SessionAffinity }).(pulumi.StringPtrOutput)
 }
@@ -30777,12 +30206,6 @@ func (o ServiceSpecOutput) TopologyKeys() pulumi.StringArrayOutput {
 }
 
 // type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-//
-// Possible enum values:
-//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 func (o ServiceSpecOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceSpec) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -30811,7 +30234,7 @@ func (o ServiceSpecPtrOutput) Elem() ServiceSpecOutput {
 	}).(ServiceSpecOutput)
 }
 
-// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
 func (o ServiceSpecPtrOutput) AllocateLoadBalancerNodePorts() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *bool {
 		if v == nil {
@@ -30864,10 +30287,6 @@ func (o ServiceSpecPtrOutput) ExternalName() pulumi.StringPtrOutput {
 }
 
 // externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-//
-// Possible enum values:
-//  - `"Cluster"` specifies node-global (legacy) behavior.
-//  - `"Local"` specifies node-local endpoints behavior.
 func (o ServiceSpecPtrOutput) ExternalTrafficPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -30939,7 +30358,7 @@ func (o ServiceSpecPtrOutput) LoadBalancerClass() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+// Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
 func (o ServiceSpecPtrOutput) LoadBalancerIP() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -30990,10 +30409,6 @@ func (o ServiceSpecPtrOutput) Selector() pulumi.StringMapOutput {
 }
 
 // Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-//
-// Possible enum values:
-//  - `"ClientIP"` is the Client IP based.
-//  - `"None"` - no session affinity.
 func (o ServiceSpecPtrOutput) SessionAffinity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -31024,12 +30439,6 @@ func (o ServiceSpecPtrOutput) TopologyKeys() pulumi.StringArrayOutput {
 }
 
 // type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-//
-// Possible enum values:
-//  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-//  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-//  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-//  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
 func (o ServiceSpecPtrOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceSpec) *string {
 		if v == nil {
@@ -31340,15 +30749,15 @@ func (o SessionAffinityConfigPtrOutput) ClientIP() ClientIPConfigPtrOutput {
 
 // Represents a StorageOS persistent volume resource.
 type StorageOSPersistentVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+	// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 	SecretRef *ObjectReference `pulumi:"secretRef"`
-	// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+	// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 	VolumeName *string `pulumi:"volumeName"`
-	// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+	// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 	VolumeNamespace *string `pulumi:"volumeNamespace"`
 }
 
@@ -31365,15 +30774,15 @@ type StorageOSPersistentVolumeSourceInput interface {
 
 // Represents a StorageOS persistent volume resource.
 type StorageOSPersistentVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+	// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 	SecretRef ObjectReferencePtrInput `pulumi:"secretRef"`
-	// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+	// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 	VolumeName pulumi.StringPtrInput `pulumi:"volumeName"`
-	// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+	// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 	VolumeNamespace pulumi.StringPtrInput `pulumi:"volumeNamespace"`
 }
 
@@ -31455,27 +30864,27 @@ func (o StorageOSPersistentVolumeSourceOutput) ToStorageOSPersistentVolumeSource
 	}).(StorageOSPersistentVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o StorageOSPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o StorageOSPersistentVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 func (o StorageOSPersistentVolumeSourceOutput) SecretRef() ObjectReferencePtrOutput {
 	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *ObjectReference { return v.SecretRef }).(ObjectReferencePtrOutput)
 }
 
-// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 func (o StorageOSPersistentVolumeSourceOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
 
-// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 func (o StorageOSPersistentVolumeSourceOutput) VolumeNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageOSPersistentVolumeSource) *string { return v.VolumeNamespace }).(pulumi.StringPtrOutput)
 }
@@ -31504,7 +30913,7 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) Elem() StorageOSPersistentVolu
 	}).(StorageOSPersistentVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o StorageOSPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) *string {
 		if v == nil {
@@ -31514,7 +30923,7 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o StorageOSPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) *bool {
 		if v == nil {
@@ -31524,7 +30933,7 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutpu
 	}).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 func (o StorageOSPersistentVolumeSourcePtrOutput) SecretRef() ObjectReferencePtrOutput {
 	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) *ObjectReference {
 		if v == nil {
@@ -31534,7 +30943,7 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) SecretRef() ObjectReferencePtr
 	}).(ObjectReferencePtrOutput)
 }
 
-// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 func (o StorageOSPersistentVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) *string {
 		if v == nil {
@@ -31544,7 +30953,7 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrO
 	}).(pulumi.StringPtrOutput)
 }
 
-// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 func (o StorageOSPersistentVolumeSourcePtrOutput) VolumeNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StorageOSPersistentVolumeSource) *string {
 		if v == nil {
@@ -31556,15 +30965,15 @@ func (o StorageOSPersistentVolumeSourcePtrOutput) VolumeNamespace() pulumi.Strin
 
 // Represents a StorageOS persistent volume resource.
 type StorageOSVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly *bool `pulumi:"readOnly"`
-	// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+	// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 	SecretRef *LocalObjectReference `pulumi:"secretRef"`
-	// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+	// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 	VolumeName *string `pulumi:"volumeName"`
-	// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+	// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 	VolumeNamespace *string `pulumi:"volumeNamespace"`
 }
 
@@ -31581,15 +30990,15 @@ type StorageOSVolumeSourceInput interface {
 
 // Represents a StorageOS persistent volume resource.
 type StorageOSVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+	// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 	ReadOnly pulumi.BoolPtrInput `pulumi:"readOnly"`
-	// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+	// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 	SecretRef LocalObjectReferencePtrInput `pulumi:"secretRef"`
-	// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+	// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 	VolumeName pulumi.StringPtrInput `pulumi:"volumeName"`
-	// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+	// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 	VolumeNamespace pulumi.StringPtrInput `pulumi:"volumeNamespace"`
 }
 
@@ -31671,27 +31080,27 @@ func (o StorageOSVolumeSourceOutput) ToStorageOSVolumeSourcePtrOutputWithContext
 	}).(StorageOSVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o StorageOSVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageOSVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o StorageOSVolumeSourceOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v StorageOSVolumeSource) *bool { return v.ReadOnly }).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 func (o StorageOSVolumeSourceOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v StorageOSVolumeSource) *LocalObjectReference { return v.SecretRef }).(LocalObjectReferencePtrOutput)
 }
 
-// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 func (o StorageOSVolumeSourceOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageOSVolumeSource) *string { return v.VolumeName }).(pulumi.StringPtrOutput)
 }
 
-// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 func (o StorageOSVolumeSourceOutput) VolumeNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StorageOSVolumeSource) *string { return v.VolumeNamespace }).(pulumi.StringPtrOutput)
 }
@@ -31720,7 +31129,7 @@ func (o StorageOSVolumeSourcePtrOutput) Elem() StorageOSVolumeSourceOutput {
 	}).(StorageOSVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o StorageOSVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StorageOSVolumeSource) *string {
 		if v == nil {
@@ -31730,7 +31139,7 @@ func (o StorageOSVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 func (o StorageOSVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *StorageOSVolumeSource) *bool {
 		if v == nil {
@@ -31740,7 +31149,7 @@ func (o StorageOSVolumeSourcePtrOutput) ReadOnly() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+// secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 func (o StorageOSVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *StorageOSVolumeSource) *LocalObjectReference {
 		if v == nil {
@@ -31750,7 +31159,7 @@ func (o StorageOSVolumeSourcePtrOutput) SecretRef() LocalObjectReferencePtrOutpu
 	}).(LocalObjectReferencePtrOutput)
 }
 
-// VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+// volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
 func (o StorageOSVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StorageOSVolumeSource) *string {
 		if v == nil {
@@ -31760,7 +31169,7 @@ func (o StorageOSVolumeSourcePtrOutput) VolumeName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+// volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
 func (o StorageOSVolumeSourcePtrOutput) VolumeNamespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *StorageOSVolumeSource) *string {
 		if v == nil {
@@ -32041,11 +31450,6 @@ func (o TCPSocketActionPtrOutput) Port() pulumi.AnyOutput {
 // The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
 type Taint struct {
 	// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-	//
-	// Possible enum values:
-	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect string `pulumi:"effect"`
 	// Required. The taint key to be applied to a node.
 	Key string `pulumi:"key"`
@@ -32069,11 +31473,6 @@ type TaintInput interface {
 // The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
 type TaintArgs struct {
 	// Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-	//
-	// Possible enum values:
-	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect pulumi.StringInput `pulumi:"effect"`
 	// Required. The taint key to be applied to a node.
 	Key pulumi.StringInput `pulumi:"key"`
@@ -32136,11 +31535,6 @@ func (o TaintOutput) ToTaintOutputWithContext(ctx context.Context) TaintOutput {
 }
 
 // Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-//
-// Possible enum values:
-//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 func (o TaintOutput) Effect() pulumi.StringOutput {
 	return o.ApplyT(func(v Taint) string { return v.Effect }).(pulumi.StringOutput)
 }
@@ -32183,19 +31577,10 @@ func (o TaintArrayOutput) Index(i pulumi.IntInput) TaintOutput {
 // The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
 type Toleration struct {
 	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-	//
-	// Possible enum values:
-	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect *string `pulumi:"effect"`
 	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
 	Key *string `pulumi:"key"`
 	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-	//
-	// Possible enum values:
-	//  - `"Equal"`
-	//  - `"Exists"`
 	Operator *string `pulumi:"operator"`
 	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
 	TolerationSeconds *int `pulumi:"tolerationSeconds"`
@@ -32217,19 +31602,10 @@ type TolerationInput interface {
 // The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
 type TolerationArgs struct {
 	// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-	//
-	// Possible enum values:
-	//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-	//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-	//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 	Effect pulumi.StringPtrInput `pulumi:"effect"`
 	// Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
 	Key pulumi.StringPtrInput `pulumi:"key"`
 	// Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-	//
-	// Possible enum values:
-	//  - `"Equal"`
-	//  - `"Exists"`
 	Operator pulumi.StringPtrInput `pulumi:"operator"`
 	// TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
 	TolerationSeconds pulumi.IntPtrInput `pulumi:"tolerationSeconds"`
@@ -32290,11 +31666,6 @@ func (o TolerationOutput) ToTolerationOutputWithContext(ctx context.Context) Tol
 }
 
 // Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-//
-// Possible enum values:
-//  - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-//  - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-//  - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
 func (o TolerationOutput) Effect() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Toleration) *string { return v.Effect }).(pulumi.StringPtrOutput)
 }
@@ -32305,10 +31676,6 @@ func (o TolerationOutput) Key() pulumi.StringPtrOutput {
 }
 
 // Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-//
-// Possible enum values:
-//  - `"Equal"`
-//  - `"Exists"`
 func (o TolerationOutput) Operator() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Toleration) *string { return v.Operator }).(pulumi.StringPtrOutput)
 }
@@ -32556,18 +31923,20 @@ func (o TopologySelectorTermArrayOutput) Index(i pulumi.IntInput) TopologySelect
 type TopologySpreadConstraint struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew int `pulumi:"maxSkew"`
-	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
+	// MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+	//
+	// For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+	//
+	// This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+	MinDomains *int `pulumi:"minDomains"`
+	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey string `pulumi:"topologyKey"`
 	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
 	//   but giving higher precedence to topologies that would help reduce the
 	//   skew.
 	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-	//
-	// Possible enum values:
-	//  - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-	//  - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 	WhenUnsatisfiable string `pulumi:"whenUnsatisfiable"`
 }
 
@@ -32586,18 +31955,20 @@ type TopologySpreadConstraintInput interface {
 type TopologySpreadConstraintArgs struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew pulumi.IntInput `pulumi:"maxSkew"`
-	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
+	// MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+	//
+	// For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+	//
+	// This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+	MinDomains pulumi.IntPtrInput `pulumi:"minDomains"`
+	// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 	TopologyKey pulumi.StringInput `pulumi:"topologyKey"`
 	// WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
 	//   but giving higher precedence to topologies that would help reduce the
 	//   skew.
 	// A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-	//
-	// Possible enum values:
-	//  - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-	//  - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 	WhenUnsatisfiable pulumi.StringInput `pulumi:"whenUnsatisfiable"`
 }
 
@@ -32658,12 +32029,21 @@ func (o TopologySpreadConstraintOutput) LabelSelector() metav1.LabelSelectorPtrO
 	return o.ApplyT(func(v TopologySpreadConstraint) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 func (o TopologySpreadConstraintOutput) MaxSkew() pulumi.IntOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) int { return v.MaxSkew }).(pulumi.IntOutput)
 }
 
-// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
+// MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+//
+// For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+//
+// This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+func (o TopologySpreadConstraintOutput) MinDomains() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TopologySpreadConstraint) *int { return v.MinDomains }).(pulumi.IntPtrOutput)
+}
+
+// TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 func (o TopologySpreadConstraintOutput) TopologyKey() pulumi.StringOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) string { return v.TopologyKey }).(pulumi.StringOutput)
 }
@@ -32672,10 +32052,6 @@ func (o TopologySpreadConstraintOutput) TopologyKey() pulumi.StringOutput {
 //   but giving higher precedence to topologies that would help reduce the
 //   skew.
 // A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-//
-// Possible enum values:
-//  - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-//  - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
 func (o TopologySpreadConstraintOutput) WhenUnsatisfiable() pulumi.StringOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) string { return v.WhenUnsatisfiable }).(pulumi.StringOutput)
 }
@@ -32880,25 +32256,25 @@ func (o TypedLocalObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 
 // Volume represents a named volume in a pod that may be accessed by any container in the pod.
 type Volume struct {
-	// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore *AWSElasticBlockStoreVolumeSource `pulumi:"awsElasticBlockStore"`
-	// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 	AzureDisk *AzureDiskVolumeSource `pulumi:"azureDisk"`
-	// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 	AzureFile *AzureFileVolumeSource `pulumi:"azureFile"`
-	// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 	Cephfs *CephFSVolumeSource `pulumi:"cephfs"`
-	// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder *CinderVolumeSource `pulumi:"cinder"`
-	// ConfigMap represents a configMap that should populate this volume
+	// configMap represents a configMap that should populate this volume
 	ConfigMap *ConfigMapVolumeSource `pulumi:"configMap"`
-	// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 	Csi *CSIVolumeSource `pulumi:"csi"`
-	// DownwardAPI represents downward API about the pod that should populate this volume
+	// downwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI *DownwardAPIVolumeSource `pulumi:"downwardAPI"`
-	// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+	// emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	EmptyDir *EmptyDirVolumeSource `pulumi:"emptyDir"`
-	// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+	// ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 	//
 	// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
 	//    tracking are needed,
@@ -32913,45 +32289,45 @@ type Volume struct {
 	//
 	// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
 	Ephemeral *EphemeralVolumeSource `pulumi:"ephemeral"`
-	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc *FCVolumeSource `pulumi:"fc"`
-	// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 	FlexVolume *FlexVolumeSource `pulumi:"flexVolume"`
-	// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
 	Flocker *FlockerVolumeSource `pulumi:"flocker"`
-	// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk *GCEPersistentDiskVolumeSource `pulumi:"gcePersistentDisk"`
-	// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+	// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 	GitRepo *GitRepoVolumeSource `pulumi:"gitRepo"`
-	// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs *GlusterfsVolumeSource `pulumi:"glusterfs"`
-	// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath *HostPathVolumeSource `pulumi:"hostPath"`
-	// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi *ISCSIVolumeSource `pulumi:"iscsi"`
-	// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+	// name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name string `pulumi:"name"`
-	// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Nfs *NFSVolumeSource `pulumi:"nfs"`
-	// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	PersistentVolumeClaim *PersistentVolumeClaimVolumeSource `pulumi:"persistentVolumeClaim"`
-	// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 	PhotonPersistentDisk *PhotonPersistentDiskVolumeSource `pulumi:"photonPersistentDisk"`
-	// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 	PortworxVolume *PortworxVolumeSource `pulumi:"portworxVolume"`
-	// Items for all in one resources secrets, configmaps, and downward API
+	// projected items for all in one resources secrets, configmaps, and downward API
 	Projected *ProjectedVolumeSource `pulumi:"projected"`
-	// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 	Quobyte *QuobyteVolumeSource `pulumi:"quobyte"`
-	// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd *RBDVolumeSource `pulumi:"rbd"`
-	// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 	ScaleIO *ScaleIOVolumeSource `pulumi:"scaleIO"`
-	// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+	// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	Secret *SecretVolumeSource `pulumi:"secret"`
-	// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
 	Storageos *StorageOSVolumeSource `pulumi:"storageos"`
-	// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 	VsphereVolume *VsphereVirtualDiskVolumeSource `pulumi:"vsphereVolume"`
 }
 
@@ -32968,25 +32344,25 @@ type VolumeInput interface {
 
 // Volume represents a named volume in a pod that may be accessed by any container in the pod.
 type VolumeArgs struct {
-	// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+	// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 	AwsElasticBlockStore AWSElasticBlockStoreVolumeSourcePtrInput `pulumi:"awsElasticBlockStore"`
-	// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+	// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 	AzureDisk AzureDiskVolumeSourcePtrInput `pulumi:"azureDisk"`
-	// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+	// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 	AzureFile AzureFileVolumeSourcePtrInput `pulumi:"azureFile"`
-	// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+	// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 	Cephfs CephFSVolumeSourcePtrInput `pulumi:"cephfs"`
-	// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+	// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 	Cinder CinderVolumeSourcePtrInput `pulumi:"cinder"`
-	// ConfigMap represents a configMap that should populate this volume
+	// configMap represents a configMap that should populate this volume
 	ConfigMap ConfigMapVolumeSourcePtrInput `pulumi:"configMap"`
-	// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+	// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 	Csi CSIVolumeSourcePtrInput `pulumi:"csi"`
-	// DownwardAPI represents downward API about the pod that should populate this volume
+	// downwardAPI represents downward API about the pod that should populate this volume
 	DownwardAPI DownwardAPIVolumeSourcePtrInput `pulumi:"downwardAPI"`
-	// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+	// emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	EmptyDir EmptyDirVolumeSourcePtrInput `pulumi:"emptyDir"`
-	// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+	// ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 	//
 	// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
 	//    tracking are needed,
@@ -33001,45 +32377,45 @@ type VolumeArgs struct {
 	//
 	// A pod can use both types of ephemeral volumes and persistent volumes at the same time.
 	Ephemeral EphemeralVolumeSourcePtrInput `pulumi:"ephemeral"`
-	// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+	// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 	Fc FCVolumeSourcePtrInput `pulumi:"fc"`
-	// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+	// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 	FlexVolume FlexVolumeSourcePtrInput `pulumi:"flexVolume"`
-	// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+	// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
 	Flocker FlockerVolumeSourcePtrInput `pulumi:"flocker"`
-	// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+	// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 	GcePersistentDisk GCEPersistentDiskVolumeSourcePtrInput `pulumi:"gcePersistentDisk"`
-	// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+	// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 	GitRepo GitRepoVolumeSourcePtrInput `pulumi:"gitRepo"`
-	// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+	// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 	Glusterfs GlusterfsVolumeSourcePtrInput `pulumi:"glusterfs"`
-	// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+	// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 	HostPath HostPathVolumeSourcePtrInput `pulumi:"hostPath"`
-	// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+	// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 	Iscsi ISCSIVolumeSourcePtrInput `pulumi:"iscsi"`
-	// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+	// name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringInput `pulumi:"name"`
-	// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+	// nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 	Nfs NFSVolumeSourcePtrInput `pulumi:"nfs"`
-	// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+	// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 	PersistentVolumeClaim PersistentVolumeClaimVolumeSourcePtrInput `pulumi:"persistentVolumeClaim"`
-	// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+	// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 	PhotonPersistentDisk PhotonPersistentDiskVolumeSourcePtrInput `pulumi:"photonPersistentDisk"`
-	// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+	// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 	PortworxVolume PortworxVolumeSourcePtrInput `pulumi:"portworxVolume"`
-	// Items for all in one resources secrets, configmaps, and downward API
+	// projected items for all in one resources secrets, configmaps, and downward API
 	Projected ProjectedVolumeSourcePtrInput `pulumi:"projected"`
-	// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+	// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 	Quobyte QuobyteVolumeSourcePtrInput `pulumi:"quobyte"`
-	// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+	// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 	Rbd RBDVolumeSourcePtrInput `pulumi:"rbd"`
-	// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+	// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 	ScaleIO ScaleIOVolumeSourcePtrInput `pulumi:"scaleIO"`
-	// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+	// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 	Secret SecretVolumeSourcePtrInput `pulumi:"secret"`
-	// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+	// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
 	Storageos StorageOSVolumeSourcePtrInput `pulumi:"storageos"`
-	// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+	// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 	VsphereVolume VsphereVirtualDiskVolumeSourcePtrInput `pulumi:"vsphereVolume"`
 }
 
@@ -33095,52 +32471,52 @@ func (o VolumeOutput) ToVolumeOutputWithContext(ctx context.Context) VolumeOutpu
 	return o
 }
 
-// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 func (o VolumeOutput) AwsElasticBlockStore() AWSElasticBlockStoreVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *AWSElasticBlockStoreVolumeSource { return v.AwsElasticBlockStore }).(AWSElasticBlockStoreVolumeSourcePtrOutput)
 }
 
-// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
 func (o VolumeOutput) AzureDisk() AzureDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *AzureDiskVolumeSource { return v.AzureDisk }).(AzureDiskVolumeSourcePtrOutput)
 }
 
-// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
 func (o VolumeOutput) AzureFile() AzureFileVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *AzureFileVolumeSource { return v.AzureFile }).(AzureFileVolumeSourcePtrOutput)
 }
 
-// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
 func (o VolumeOutput) Cephfs() CephFSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CephFSVolumeSource { return v.Cephfs }).(CephFSVolumeSourcePtrOutput)
 }
 
-// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 func (o VolumeOutput) Cinder() CinderVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CinderVolumeSource { return v.Cinder }).(CinderVolumeSourcePtrOutput)
 }
 
-// ConfigMap represents a configMap that should populate this volume
+// configMap represents a configMap that should populate this volume
 func (o VolumeOutput) ConfigMap() ConfigMapVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ConfigMapVolumeSource { return v.ConfigMap }).(ConfigMapVolumeSourcePtrOutput)
 }
 
-// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
 func (o VolumeOutput) Csi() CSIVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *CSIVolumeSource { return v.Csi }).(CSIVolumeSourcePtrOutput)
 }
 
-// DownwardAPI represents downward API about the pod that should populate this volume
+// downwardAPI represents downward API about the pod that should populate this volume
 func (o VolumeOutput) DownwardAPI() DownwardAPIVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *DownwardAPIVolumeSource { return v.DownwardAPI }).(DownwardAPIVolumeSourcePtrOutput)
 }
 
-// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+// emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o VolumeOutput) EmptyDir() EmptyDirVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *EmptyDirVolumeSource { return v.EmptyDir }).(EmptyDirVolumeSourcePtrOutput)
 }
 
-// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+// ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 //
 // Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
 //    tracking are needed,
@@ -33158,102 +32534,102 @@ func (o VolumeOutput) Ephemeral() EphemeralVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *EphemeralVolumeSource { return v.Ephemeral }).(EphemeralVolumeSourcePtrOutput)
 }
 
-// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 func (o VolumeOutput) Fc() FCVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *FCVolumeSource { return v.Fc }).(FCVolumeSourcePtrOutput)
 }
 
-// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
 func (o VolumeOutput) FlexVolume() FlexVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *FlexVolumeSource { return v.FlexVolume }).(FlexVolumeSourcePtrOutput)
 }
 
-// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
 func (o VolumeOutput) Flocker() FlockerVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *FlockerVolumeSource { return v.Flocker }).(FlockerVolumeSourcePtrOutput)
 }
 
-// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 func (o VolumeOutput) GcePersistentDisk() GCEPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *GCEPersistentDiskVolumeSource { return v.GcePersistentDisk }).(GCEPersistentDiskVolumeSourcePtrOutput)
 }
 
-// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
 func (o VolumeOutput) GitRepo() GitRepoVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *GitRepoVolumeSource { return v.GitRepo }).(GitRepoVolumeSourcePtrOutput)
 }
 
-// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
 func (o VolumeOutput) Glusterfs() GlusterfsVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *GlusterfsVolumeSource { return v.Glusterfs }).(GlusterfsVolumeSourcePtrOutput)
 }
 
-// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 func (o VolumeOutput) HostPath() HostPathVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *HostPathVolumeSource { return v.HostPath }).(HostPathVolumeSourcePtrOutput)
 }
 
-// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 func (o VolumeOutput) Iscsi() ISCSIVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ISCSIVolumeSource { return v.Iscsi }).(ISCSIVolumeSourcePtrOutput)
 }
 
-// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+// name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o VolumeOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v Volume) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+// nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 func (o VolumeOutput) Nfs() NFSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *NFSVolumeSource { return v.Nfs }).(NFSVolumeSourcePtrOutput)
 }
 
-// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
 func (o VolumeOutput) PersistentVolumeClaim() PersistentVolumeClaimVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *PersistentVolumeClaimVolumeSource { return v.PersistentVolumeClaim }).(PersistentVolumeClaimVolumeSourcePtrOutput)
 }
 
-// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
 func (o VolumeOutput) PhotonPersistentDisk() PhotonPersistentDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *PhotonPersistentDiskVolumeSource { return v.PhotonPersistentDisk }).(PhotonPersistentDiskVolumeSourcePtrOutput)
 }
 
-// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
 func (o VolumeOutput) PortworxVolume() PortworxVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *PortworxVolumeSource { return v.PortworxVolume }).(PortworxVolumeSourcePtrOutput)
 }
 
-// Items for all in one resources secrets, configmaps, and downward API
+// projected items for all in one resources secrets, configmaps, and downward API
 func (o VolumeOutput) Projected() ProjectedVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ProjectedVolumeSource { return v.Projected }).(ProjectedVolumeSourcePtrOutput)
 }
 
-// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
 func (o VolumeOutput) Quobyte() QuobyteVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *QuobyteVolumeSource { return v.Quobyte }).(QuobyteVolumeSourcePtrOutput)
 }
 
-// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
 func (o VolumeOutput) Rbd() RBDVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *RBDVolumeSource { return v.Rbd }).(RBDVolumeSourcePtrOutput)
 }
 
-// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
 func (o VolumeOutput) ScaleIO() ScaleIOVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *ScaleIOVolumeSource { return v.ScaleIO }).(ScaleIOVolumeSourcePtrOutput)
 }
 
-// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
 func (o VolumeOutput) Secret() SecretVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *SecretVolumeSource { return v.Secret }).(SecretVolumeSourcePtrOutput)
 }
 
-// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
 func (o VolumeOutput) Storageos() StorageOSVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *StorageOSVolumeSource { return v.Storageos }).(StorageOSVolumeSourcePtrOutput)
 }
 
-// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
 func (o VolumeOutput) VsphereVolume() VsphereVirtualDiskVolumeSourcePtrOutput {
 	return o.ApplyT(func(v Volume) *VsphereVirtualDiskVolumeSource { return v.VsphereVolume }).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
@@ -33534,7 +32910,7 @@ func (o VolumeMountArrayOutput) Index(i pulumi.IntInput) VolumeMountOutput {
 
 // VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
 type VolumeNodeAffinity struct {
-	// Required specifies hard node constraints that must be met.
+	// required specifies hard node constraints that must be met.
 	Required *NodeSelector `pulumi:"required"`
 }
 
@@ -33551,7 +32927,7 @@ type VolumeNodeAffinityInput interface {
 
 // VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
 type VolumeNodeAffinityArgs struct {
-	// Required specifies hard node constraints that must be met.
+	// required specifies hard node constraints that must be met.
 	Required NodeSelectorPtrInput `pulumi:"required"`
 }
 
@@ -33633,7 +33009,7 @@ func (o VolumeNodeAffinityOutput) ToVolumeNodeAffinityPtrOutputWithContext(ctx c
 	}).(VolumeNodeAffinityPtrOutput)
 }
 
-// Required specifies hard node constraints that must be met.
+// required specifies hard node constraints that must be met.
 func (o VolumeNodeAffinityOutput) Required() NodeSelectorPtrOutput {
 	return o.ApplyT(func(v VolumeNodeAffinity) *NodeSelector { return v.Required }).(NodeSelectorPtrOutput)
 }
@@ -33662,7 +33038,7 @@ func (o VolumeNodeAffinityPtrOutput) Elem() VolumeNodeAffinityOutput {
 	}).(VolumeNodeAffinityOutput)
 }
 
-// Required specifies hard node constraints that must be met.
+// required specifies hard node constraints that must be met.
 func (o VolumeNodeAffinityPtrOutput) Required() NodeSelectorPtrOutput {
 	return o.ApplyT(func(v *VolumeNodeAffinity) *NodeSelector {
 		if v == nil {
@@ -33674,13 +33050,13 @@ func (o VolumeNodeAffinityPtrOutput) Required() NodeSelectorPtrOutput {
 
 // Projection that may be projected along with other supported volume types
 type VolumeProjection struct {
-	// information about the configMap data to project
+	// configMap information about the configMap data to project
 	ConfigMap *ConfigMapProjection `pulumi:"configMap"`
-	// information about the downwardAPI data to project
+	// downwardAPI information about the downwardAPI data to project
 	DownwardAPI *DownwardAPIProjection `pulumi:"downwardAPI"`
-	// information about the secret data to project
+	// secret information about the secret data to project
 	Secret *SecretProjection `pulumi:"secret"`
-	// information about the serviceAccountToken data to project
+	// serviceAccountToken is information about the serviceAccountToken data to project
 	ServiceAccountToken *ServiceAccountTokenProjection `pulumi:"serviceAccountToken"`
 }
 
@@ -33697,13 +33073,13 @@ type VolumeProjectionInput interface {
 
 // Projection that may be projected along with other supported volume types
 type VolumeProjectionArgs struct {
-	// information about the configMap data to project
+	// configMap information about the configMap data to project
 	ConfigMap ConfigMapProjectionPtrInput `pulumi:"configMap"`
-	// information about the downwardAPI data to project
+	// downwardAPI information about the downwardAPI data to project
 	DownwardAPI DownwardAPIProjectionPtrInput `pulumi:"downwardAPI"`
-	// information about the secret data to project
+	// secret information about the secret data to project
 	Secret SecretProjectionPtrInput `pulumi:"secret"`
-	// information about the serviceAccountToken data to project
+	// serviceAccountToken is information about the serviceAccountToken data to project
 	ServiceAccountToken ServiceAccountTokenProjectionPtrInput `pulumi:"serviceAccountToken"`
 }
 
@@ -33759,22 +33135,22 @@ func (o VolumeProjectionOutput) ToVolumeProjectionOutputWithContext(ctx context.
 	return o
 }
 
-// information about the configMap data to project
+// configMap information about the configMap data to project
 func (o VolumeProjectionOutput) ConfigMap() ConfigMapProjectionPtrOutput {
 	return o.ApplyT(func(v VolumeProjection) *ConfigMapProjection { return v.ConfigMap }).(ConfigMapProjectionPtrOutput)
 }
 
-// information about the downwardAPI data to project
+// downwardAPI information about the downwardAPI data to project
 func (o VolumeProjectionOutput) DownwardAPI() DownwardAPIProjectionPtrOutput {
 	return o.ApplyT(func(v VolumeProjection) *DownwardAPIProjection { return v.DownwardAPI }).(DownwardAPIProjectionPtrOutput)
 }
 
-// information about the secret data to project
+// secret information about the secret data to project
 func (o VolumeProjectionOutput) Secret() SecretProjectionPtrOutput {
 	return o.ApplyT(func(v VolumeProjection) *SecretProjection { return v.Secret }).(SecretProjectionPtrOutput)
 }
 
-// information about the serviceAccountToken data to project
+// serviceAccountToken is information about the serviceAccountToken data to project
 func (o VolumeProjectionOutput) ServiceAccountToken() ServiceAccountTokenProjectionPtrOutput {
 	return o.ApplyT(func(v VolumeProjection) *ServiceAccountTokenProjection { return v.ServiceAccountToken }).(ServiceAccountTokenProjectionPtrOutput)
 }
@@ -33801,13 +33177,13 @@ func (o VolumeProjectionArrayOutput) Index(i pulumi.IntInput) VolumeProjectionOu
 
 // Represents a vSphere volume resource.
 type VsphereVirtualDiskVolumeSource struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType *string `pulumi:"fsType"`
-	// Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+	// storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
 	StoragePolicyID *string `pulumi:"storagePolicyID"`
-	// Storage Policy Based Management (SPBM) profile name.
+	// storagePolicyName is the storage Policy Based Management (SPBM) profile name.
 	StoragePolicyName *string `pulumi:"storagePolicyName"`
-	// Path that identifies vSphere volume vmdk
+	// volumePath is the path that identifies vSphere volume vmdk
 	VolumePath string `pulumi:"volumePath"`
 }
 
@@ -33824,13 +33200,13 @@ type VsphereVirtualDiskVolumeSourceInput interface {
 
 // Represents a vSphere volume resource.
 type VsphereVirtualDiskVolumeSourceArgs struct {
-	// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+	// fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+	// storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
 	StoragePolicyID pulumi.StringPtrInput `pulumi:"storagePolicyID"`
-	// Storage Policy Based Management (SPBM) profile name.
+	// storagePolicyName is the storage Policy Based Management (SPBM) profile name.
 	StoragePolicyName pulumi.StringPtrInput `pulumi:"storagePolicyName"`
-	// Path that identifies vSphere volume vmdk
+	// volumePath is the path that identifies vSphere volume vmdk
 	VolumePath pulumi.StringInput `pulumi:"volumePath"`
 }
 
@@ -33912,22 +33288,22 @@ func (o VsphereVirtualDiskVolumeSourceOutput) ToVsphereVirtualDiskVolumeSourcePt
 	}).(VsphereVirtualDiskVolumeSourcePtrOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o VsphereVirtualDiskVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VsphereVirtualDiskVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+// storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
 func (o VsphereVirtualDiskVolumeSourceOutput) StoragePolicyID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VsphereVirtualDiskVolumeSource) *string { return v.StoragePolicyID }).(pulumi.StringPtrOutput)
 }
 
-// Storage Policy Based Management (SPBM) profile name.
+// storagePolicyName is the storage Policy Based Management (SPBM) profile name.
 func (o VsphereVirtualDiskVolumeSourceOutput) StoragePolicyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VsphereVirtualDiskVolumeSource) *string { return v.StoragePolicyName }).(pulumi.StringPtrOutput)
 }
 
-// Path that identifies vSphere volume vmdk
+// volumePath is the path that identifies vSphere volume vmdk
 func (o VsphereVirtualDiskVolumeSourceOutput) VolumePath() pulumi.StringOutput {
 	return o.ApplyT(func(v VsphereVirtualDiskVolumeSource) string { return v.VolumePath }).(pulumi.StringOutput)
 }
@@ -33956,7 +33332,7 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) Elem() VsphereVirtualDiskVolume
 	}).(VsphereVirtualDiskVolumeSourceOutput)
 }
 
-// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+// fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 func (o VsphereVirtualDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) *string {
 		if v == nil {
@@ -33966,7 +33342,7 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+// storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
 func (o VsphereVirtualDiskVolumeSourcePtrOutput) StoragePolicyID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) *string {
 		if v == nil {
@@ -33976,7 +33352,7 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) StoragePolicyID() pulumi.String
 	}).(pulumi.StringPtrOutput)
 }
 
-// Storage Policy Based Management (SPBM) profile name.
+// storagePolicyName is the storage Policy Based Management (SPBM) profile name.
 func (o VsphereVirtualDiskVolumeSourcePtrOutput) StoragePolicyName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) *string {
 		if v == nil {
@@ -33986,7 +33362,7 @@ func (o VsphereVirtualDiskVolumeSourcePtrOutput) StoragePolicyName() pulumi.Stri
 	}).(pulumi.StringPtrOutput)
 }
 
-// Path that identifies vSphere volume vmdk
+// volumePath is the path that identifies vSphere volume vmdk
 func (o VsphereVirtualDiskVolumeSourcePtrOutput) VolumePath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *VsphereVirtualDiskVolumeSource) *string {
 		if v == nil {

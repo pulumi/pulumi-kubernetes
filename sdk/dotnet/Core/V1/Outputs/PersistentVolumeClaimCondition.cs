@@ -17,30 +17,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PersistentVolumeClaimCondition
     {
         /// <summary>
-        /// Last time we probed the condition.
+        /// lastProbeTime is the time we probed the condition.
         /// </summary>
         public readonly string LastProbeTime;
         /// <summary>
-        /// Last time the condition transitioned from one status to another.
+        /// lastTransitionTime is the time the condition transitioned from one status to another.
         /// </summary>
         public readonly string LastTransitionTime;
         /// <summary>
-        /// Human-readable message indicating details about last transition.
+        /// message is the human-readable message indicating details about last transition.
         /// </summary>
         public readonly string Message;
         /// <summary>
-        /// Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        /// reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
         /// </summary>
         public readonly string Reason;
         public readonly string Status;
-        /// <summary>
-        /// 
-        /// 
-        /// 
-        /// Possible enum values:
-        ///  - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
-        ///  - `"Resizing"` - a user trigger resize of pvc has been started
-        /// </summary>
         public readonly string Type;
 
         [OutputConstructor]

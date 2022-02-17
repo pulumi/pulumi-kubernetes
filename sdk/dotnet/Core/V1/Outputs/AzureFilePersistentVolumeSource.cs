@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class AzureFilePersistentVolumeSource
     {
         /// <summary>
-        /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// the name of secret that contains Azure Storage Account Name and Key
+        /// secretName is the name of secret that contains Azure Storage Account Name and Key
         /// </summary>
         public readonly string SecretName;
         /// <summary>
-        /// the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+        /// secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
         /// </summary>
         public readonly string SecretNamespace;
         /// <summary>
-        /// Share Name
+        /// shareName is the azure Share Name
         /// </summary>
         public readonly string ShareName;
 

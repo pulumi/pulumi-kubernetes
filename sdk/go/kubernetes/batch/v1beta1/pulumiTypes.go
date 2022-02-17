@@ -247,6 +247,8 @@ type CronJobSpec struct {
 	SuccessfulJobsHistoryLimit *int `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
+	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+	TimeZone *string `pulumi:"timeZone"`
 }
 
 // CronJobSpecInput is an input type that accepts CronJobSpecArgs and CronJobSpecOutput values.
@@ -276,6 +278,8 @@ type CronJobSpecArgs struct {
 	SuccessfulJobsHistoryLimit pulumi.IntPtrInput `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
+	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+	TimeZone pulumi.StringPtrInput `pulumi:"timeZone"`
 }
 
 func (CronJobSpecArgs) ElementType() reflect.Type {
@@ -391,6 +395,11 @@ func (o CronJobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
 
+// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+func (o CronJobSpecOutput) TimeZone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CronJobSpec) *string { return v.TimeZone }).(pulumi.StringPtrOutput)
+}
+
 type CronJobSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecPtrOutput) ElementType() reflect.Type {
@@ -483,6 +492,16 @@ func (o CronJobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
 		}
 		return v.Suspend
 	}).(pulumi.BoolPtrOutput)
+}
+
+// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+func (o CronJobSpecPtrOutput) TimeZone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CronJobSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TimeZone
+	}).(pulumi.StringPtrOutput)
 }
 
 // CronJobStatus represents the current state of a cron job.

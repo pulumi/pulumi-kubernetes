@@ -164,7 +164,6 @@ type RuntimeClassType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
 	//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-	// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 	Overhead *Overhead `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling *Scheduling `pulumi:"scheduling"`
@@ -193,7 +192,6 @@ type RuntimeClassTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
 	//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-	// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrInput `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrInput `pulumi:"scheduling"`
@@ -273,7 +271,6 @@ func (o RuntimeClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
 //  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 func (o RuntimeClassTypeOutput) Overhead() OverheadPtrOutput {
 	return o.ApplyT(func(v RuntimeClassType) *Overhead { return v.Overhead }).(OverheadPtrOutput)
 }

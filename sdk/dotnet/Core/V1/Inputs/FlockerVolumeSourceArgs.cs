@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class FlockerVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name of the dataset stored as metadata -&gt; name on the dataset for Flocker should be considered as deprecated
+        /// datasetName is Name of the dataset stored as metadata -&gt; name on the dataset for Flocker should be considered as deprecated
         /// </summary>
         [Input("datasetName")]
         public Input<string>? DatasetName { get; set; }
 
         /// <summary>
-        /// UUID of the dataset. This is unique identifier of a Flocker dataset
+        /// datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
         /// </summary>
         [Input("datasetUUID")]
         public Input<string>? DatasetUUID { get; set; }

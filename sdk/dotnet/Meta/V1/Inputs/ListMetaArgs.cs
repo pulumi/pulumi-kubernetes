@@ -34,9 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public Input<string>? ResourceVersion { get; set; }
 
         /// <summary>
-        /// selfLink is a URL representing this object. Populated by the system. Read-only.
-        /// 
-        /// DEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.
+        /// Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         /// </summary>
         [Input("selfLink")]
         public Input<string>? SelfLink { get; set; }

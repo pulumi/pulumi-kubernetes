@@ -23,14 +23,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
-        /// 
-        /// Possible enum values:
-        ///  - `"DoesNotExist"`
-        ///  - `"Exists"`
-        ///  - `"Gt"`
-        ///  - `"In"`
-        ///  - `"Lt"`
-        ///  - `"NotIn"`
         /// </summary>
         [Input("operator", required: true)]
         public Input<string> Operator { get; set; } = null!;

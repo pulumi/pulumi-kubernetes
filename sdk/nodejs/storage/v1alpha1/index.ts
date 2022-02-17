@@ -5,14 +5,10 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./csistorageCapacity";
-export * from "./csistorageCapacityList";
 export * from "./volumeAttachment";
 export * from "./volumeAttachmentList";
 
 // Import resources to register:
-import { CSIStorageCapacity } from "./csistorageCapacity";
-import { CSIStorageCapacityList } from "./csistorageCapacityList";
 import { VolumeAttachment } from "./volumeAttachment";
 import { VolumeAttachmentList } from "./volumeAttachmentList";
 
@@ -20,10 +16,6 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
-            case "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity":
-                return new CSIStorageCapacity(name, <any>undefined, { urn })
-            case "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityList":
-                return new CSIStorageCapacityList(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachment":
                 return new VolumeAttachment(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList":

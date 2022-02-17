@@ -17,11 +17,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
     {
         /// <summary>
         /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-        /// 
-        /// Possible enum values:
-        ///  - `"Allow"` allows CronJobs to run concurrently.
-        ///  - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
-        ///  - `"Replace"` cancels currently running job and replaces it with a new one.
         /// </summary>
         [Input("concurrencyPolicy")]
         public Input<string>? ConcurrencyPolicy { get; set; }
@@ -61,6 +56,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         /// </summary>
         [Input("suspend")]
         public Input<bool>? Suspend { get; set; }
+
+        /// <summary>
+        /// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+        /// </summary>
+        [Input("timeZone")]
+        public Input<string>? TimeZone { get; set; }
 
         public CronJobSpecArgs()
         {

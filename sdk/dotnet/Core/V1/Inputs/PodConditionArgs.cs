@@ -47,12 +47,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-        /// 
-        /// Possible enum values:
-        ///  - `"ContainersReady"` indicates whether all containers in the pod are ready.
-        ///  - `"Initialized"` means that all init containers in the pod have started successfully.
-        ///  - `"PodScheduled"` represents status of the scheduling process for this pod.
-        ///  - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;

@@ -38,11 +38,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         public readonly ImmutableDictionary<string, string> Min;
         /// <summary>
         /// Type of resource that this limit applies to.
-        /// 
-        /// Possible enum values:
-        ///  - `"Container"` Limit that applies to all containers in a namespace
-        ///  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-        ///  - `"Pod"` Limit that applies to all pods in a namespace
         /// </summary>
         public readonly string Type;
 

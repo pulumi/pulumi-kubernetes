@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class SecretReference
     {
         /// <summary>
-        /// Name is unique within a namespace to reference a secret resource.
+        /// name is unique within a namespace to reference a secret resource.
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Namespace defines the space within which the secret name must be unique.
+        /// namespace defines the space within which the secret name must be unique.
         /// </summary>
         public readonly string Namespace;
 

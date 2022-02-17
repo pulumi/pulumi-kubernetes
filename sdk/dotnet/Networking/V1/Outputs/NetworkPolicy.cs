@@ -32,6 +32,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
         /// Specification of the desired behavior for this NetworkPolicy.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec Spec;
+        /// <summary>
+        /// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicyStatus Status;
 
         [OutputConstructor]
         private NetworkPolicy(
@@ -41,12 +45,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta metadata,
 
-            Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec spec)
+            Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec spec,
+
+            Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicyStatus status)
         {
             ApiVersion = apiVersion;
             Kind = kind;
             Metadata = metadata;
             Spec = spec;
+            Status = status;
         }
     }
 }

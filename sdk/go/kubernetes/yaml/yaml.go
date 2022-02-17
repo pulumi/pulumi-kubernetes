@@ -335,9 +335,9 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"settings.k8s.io/v1alpha1/PodPresetList",
 		"storage.k8s.io/v1/CSIDriverList",
 		"storage.k8s.io/v1/CSINodeList",
+		"storage.k8s.io/v1/CSIStorageCapacityList",
 		"storage.k8s.io/v1/StorageClassList",
 		"storage.k8s.io/v1/VolumeAttachmentList",
-		"storage.k8s.io/v1alpha1/CSIStorageCapacityList",
 		"storage.k8s.io/v1alpha1/VolumeAttachmentList",
 		"storage.k8s.io/v1beta1/CSIDriverList",
 		"storage.k8s.io/v1beta1/CSINodeList",
@@ -1148,6 +1148,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "storage.k8s.io/v1/CSIStorageCapacity":
+		var res storagev1.CSIStorageCapacity
+		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIStorageCapacity", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "storage.k8s.io/v1/StorageClass":
 		var res storagev1.StorageClass
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:StorageClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1158,13 +1165,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "storage.k8s.io/v1/VolumeAttachment":
 		var res storagev1.VolumeAttachment
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:VolumeAttachment", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "storage.k8s.io/v1alpha1/CSIStorageCapacity":
-		var res storagev1alpha1.CSIStorageCapacity
-		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

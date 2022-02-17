@@ -16,25 +16,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class CSIVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+        /// driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
         /// </summary>
         [Input("driver", required: true)]
         public Input<string> Driver { get; set; } = null!;
 
         /// <summary>
-        /// Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+        /// fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
         /// </summary>
         [Input("fsType")]
         public Input<string>? FsType { get; set; }
 
         /// <summary>
-        /// NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+        /// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
         /// </summary>
         [Input("nodePublishSecretRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.LocalObjectReferenceArgs>? NodePublishSecretRef { get; set; }
 
         /// <summary>
-        /// Specifies a read-only configuration for the volume. Defaults to false (read/write).
+        /// readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
         /// </summary>
         [Input("readOnly")]
         public Input<bool>? ReadOnly { get; set; }
@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputMap<string>? _volumeAttributes;
 
         /// <summary>
-        /// VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+        /// volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
         /// </summary>
         public InputMap<string> VolumeAttributes
         {

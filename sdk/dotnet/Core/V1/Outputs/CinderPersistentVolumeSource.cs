@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class CinderPersistentVolumeSource
     {
         /// <summary>
-        /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        /// fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         /// </summary>
         public readonly string FsType;
         /// <summary>
-        /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        /// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// Optional: points to a secret object containing parameters used to connect to OpenStack.
+        /// secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference SecretRef;
         /// <summary>
-        /// volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        /// volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         /// </summary>
         public readonly string VolumeID;
 

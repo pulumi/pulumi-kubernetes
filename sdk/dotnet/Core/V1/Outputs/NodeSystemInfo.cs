@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string BootID;
         /// <summary>
-        /// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+        /// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
         /// </summary>
         public readonly string ContainerRuntimeVersion;
         /// <summary>

@@ -77,11 +77,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Type of resource that this limit applies to.
-        /// 
-        /// Possible enum values:
-        ///  - `"Container"` Limit that applies to all containers in a namespace
-        ///  - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-        ///  - `"Pod"` Limit that applies to all pods in a namespace
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
