@@ -589,7 +589,9 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
 
     # Rather than using the default provider for the following invoke call, use the version specified
     # in package.json.
-    invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
+    invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
+     parent=opts.parent if opts.parent,
+     provider=opts.provider if opts.provider)
 
     transformations = config.transformations if config.transformations is not None else []
     if config.skip_await:

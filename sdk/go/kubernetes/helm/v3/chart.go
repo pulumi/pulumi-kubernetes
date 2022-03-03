@@ -228,6 +228,13 @@ func NewChart(ctx *pulumi.Context,
 			Type: pulumi.String("kubernetes:helm.sh/v2:Chart"),
 		},
 	})
+
+	var resourceOrInvokeOptions []pulumi.ResourceOrInvokeOption
+	for _, o := range opts {
+		if asResOrInv, ok := o.(pulumi.ResourceOrInvokeOption); ok {
+			resourceOrInvokeOptions = append(resourceOrInvokeOptions, asResOrInv)
+		}
+	}
 	opts = append(opts, aliases)
 	err := ctx.RegisterComponentResource("kubernetes:helm.sh/v3:Chart", name, chart, opts...)
 	if err != nil {
@@ -239,8 +246,9 @@ func NewChart(ctx *pulumi.Context,
 		name = args.ResourcePrefix + "-" + name
 	}
 
+	resourceOrInvokeOptions = append(resourceOrInvokeOptions, pulumi.Parent(chart))
 	resources := args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
-		return parseChart(ctx, name, args, pulumi.Parent(chart))
+		return parseChart(ctx, name, args, resourceOrInvokeOptions...)
 	})
 	chart.Resources = resources
 
@@ -264,7 +272,7 @@ func NewChart(ctx *pulumi.Context,
 	return chart, nil
 }
 
-func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi.ResourceOption,
+func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi.ResourceOrInvokeOption,
 ) (map[string]pulumi.Resource, error) {
 	type jsonOptsArgs struct {
 		chartArgs
@@ -281,7 +289,11 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		return nil, err
 	}
 
-	objs, err := helmTemplate(ctx, string(b), opts...)
+	var invokeOpts []pulumi.InvokeOption
+	for _, o := range opts {
+		invokeOpts = append(invokeOpts, o)
+	}
+	objs, err := helmTemplate(ctx, string(b), invokeOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +312,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 
 // helmTemplate invokes the function to fetch and template a Helm Chart and decompose it into object structures.
 func helmTemplate(
-	ctx *pulumi.Context, jsonOpts string, opts ...pulumi.ResourceOption,
+	ctx *pulumi.Context, jsonOpts string, opts ...pulumi.InvokeOption,
 ) ([]map[string]interface{}, error) {
 	args := struct {
 		JsonOpts string `pulumi:"jsonOpts"`
@@ -308,14 +320,8 @@ func helmTemplate(
 	var ret struct {
 		Result []map[string]interface{} `pulumi:"result"`
 	}
-	invokeOptions := []pulumi.InvokeOption{}
-	for _, opt := range opts {
-		if opt, ok := opt.(pulumi.InvokeOption); ok {
-			invokeOptions = append(invokeOptions, opt)
-		}
-	}
 
-	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret, invokeOptions...); err != nil {
+	if err := ctx.Invoke("kubernetes:helm:template", &args, &ret, opts...); err != nil {
 		return nil, errors.Wrap(err, "failed to invoke helm template")
 	}
 	return ret.Result, nil

@@ -17,7 +17,7 @@
 
 import * as pulumi from "@pulumi/pulumi";
 import * as path from "../../path";
-import { getVersion } from "../../utilities";
+import {getVersion} from "../../utilities";
 import * as yaml from "../../yaml/index";
 
 /**
@@ -141,7 +141,7 @@ export class Chart extends yaml.CollectionComponentResource {
         if (config.resourcePrefix !== undefined) {
             releaseName = `${config.resourcePrefix}-${releaseName}`
         }
-        const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type:"kubernetes:helm.sh/v2:Chart"}]}
+        const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type: "kubernetes:helm.sh/v2:Chart"}]}
         super("kubernetes:helm.sh/v3:Chart", releaseName, config, aliasOpts);
 
         const allConfig = pulumi.output(config);
@@ -155,13 +155,13 @@ export class Chart extends yaml.CollectionComponentResource {
         });
 
         this.resources = allConfig.apply(cfg => {
-            return this.parseChart(cfg, releaseName)
+            return this.parseChart(cfg, releaseName, opts);
         });
 
         this.ready = this.resources.apply(m => Object.values(m));
     }
 
-    parseChart(config: ChartOpts | LocalChartOpts, releaseName: string) {
+    parseChart(config: ChartOpts | LocalChartOpts, releaseName: string, opts?: pulumi.ComponentResourceOptions) {
         const blob = {
             ...config,
             releaseName,
@@ -170,7 +170,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 let obj: any = {};
                 for (const [key, value] of Object.entries(this)) {
                     if (value) {
-                        switch(key) {
+                        switch (key) {
                             case "apiVersions": {
                                 obj["api_versions"] = value;
                                 break;
@@ -226,16 +226,21 @@ export class Chart extends yaml.CollectionComponentResource {
 
         // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+        let invokeOpts: pulumi.InvokeOptions = {
+            async: true,
+            version: opts?.version ?? getVersion(),
+            provider: opts?.provider,
+            parent: opts?.parent
+        };
 
         const promise = pulumi.runtime.invoke("kubernetes:helm:template", {jsonOpts}, invokeOpts);
-        return pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
+        return pulumi.output(promise).apply<{ [key: string]: pulumi.CustomResource }>(p => yaml.parse(
             {
                 resourcePrefix: config.resourcePrefix,
                 objs: p.result,
                 transformations,
             },
-            { parent: this }
+            {parent: this}
         ));
     }
 }
