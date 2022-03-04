@@ -239,6 +239,20 @@ func TestAccHelm(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestHelmNoDefaultProvider(t *testing.T) {
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-no-default-provider"),
+			SkipRefresh: true,
+			Verbose:     true,
+			Quick:       true,
+			Config:      map[string]string{"disable-default-providers": `["kubernetes"]`},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func TestAccHelmApiVersions(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
