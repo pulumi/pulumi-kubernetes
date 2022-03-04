@@ -290,8 +290,10 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 	}
 
 	var invokeOpts []pulumi.InvokeOption
+	var resourceOpts []pulumi.ResourceOption
 	for _, o := range opts {
 		invokeOpts = append(invokeOpts, o)
+		resourceOpts = append(resourceOpts, o)
 	}
 	objs, err := helmTemplate(ctx, string(b), invokeOpts...)
 	if err != nil {
@@ -303,7 +305,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		transformations = yaml.AddSkipAwaitTransformation(transformations)
 	}
 
-	resources, err := yaml.ParseYamlObjects(ctx, objs, transformations, args.ResourcePrefix, opts...)
+	resources, err := yaml.ParseYamlObjects(ctx, objs, transformations, args.ResourcePrefix, resourceOpts...)
 	if err != nil {
 		return nil, err
 	}
