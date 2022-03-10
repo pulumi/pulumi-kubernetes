@@ -1521,7 +1521,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			changes = append(changes, k)
 		}
 
-		forceNewFields := forceNewProperties(gvk)
+		forceNewFields := forceNewProperties(oldInputs)
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
@@ -1559,7 +1559,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// Delete before replacement if we are forced to replace the old object, and the new version of
 	// that object MUST have the same name.
 	deleteBeforeReplace :=
-		// 1. We know resource must be replaced.
+	// 1. We know resource must be replaced.
 		len(replaces) > 0 &&
 			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
 			// auto-generate the name).

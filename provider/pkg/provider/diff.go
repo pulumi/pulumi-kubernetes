@@ -15,15 +15,19 @@
 package provider
 
 import (
-	"k8s.io/apimachinery/pkg/runtime/schema"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func forceNewProperties(gvk schema.GroupVersionKind) []string {
+func forceNewProperties(obj *unstructured.Unstructured) []string {
+	gvk := obj.GroupVersionKind()
 	props := metadataForceNewProperties(".metadata")
 	if group, groupExists := forceNew[gvk.Group]; groupExists {
 		if version, versionExists := group[gvk.Version]; versionExists {
 			if kindFields, kindExists := version[gvk.Kind]; kindExists {
 				props = append(props, kindFields...)
+			} else if clients.IsImmutableConfigMap(obj) {
+				props = append(props, properties{".binaryData", ".data"}...)
 			}
 		}
 	}
@@ -77,7 +81,6 @@ var forceNew = _groups{
 
 var core = _versions{
 	"v1": _kinds{
-		"ConfigMap": properties{".binaryData", ".data"},
 		"PersistentVolume": append(
 			properties{
 				".spec.awsElasticBlockStore",
