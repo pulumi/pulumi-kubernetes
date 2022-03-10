@@ -4,6 +4,7 @@ package provider
 
 import (
 	"encoding/json"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"testing"
 
 	jsonpatch "github.com/evanphx/json-patch"
@@ -167,6 +168,24 @@ func TestPatchToDiff(t *testing.T) {
 				"spec.resources.requests.storage": U,
 			},
 		},
+		{
+			name:  `ConfigMap resources don't trigger a replace.`,
+			group: "core", version: "v1", kind: "ConfigMap",
+			old: object{"data": object{"property1": "3"}},
+			new: object{"data": object{"property1": "4"}},
+			expected: expected{
+				"data.property1": U,
+			},
+		},
+		{
+			name:  `Immutable ConfigMap resources trigger a replace.`,
+			group: "core", version: "v1", kind: "ConfigMap",
+			old: object{"data": object{"property1": "3"}, "immutable": true},
+			new: object{"data": object{"property1": "4"}, "immutable": true},
+			expected: expected{
+				"data.property1": UR,
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -198,7 +217,10 @@ func TestPatchToDiff(t *testing.T) {
 				Version: tt.version,
 				Kind:    tt.kind,
 			}
-			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, forceNewProperties(gvk)...)
+			obj := &unstructured.Unstructured{}
+			obj.SetUnstructuredContent(tt.old)
+			obj.SetGroupVersionKind(gvk)
+			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, forceNewProperties(obj)...)
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expected, diff)

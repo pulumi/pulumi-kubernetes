@@ -253,7 +253,7 @@ func IsImmutableConfigMap(obj *unstructured.Unstructured) bool {
 		immutable, ok := openapi.Pluck(obj.Object, "immutable")
 		if ok {
 			immutableBool, ok := immutable.(bool)
-			if ok {
+			if !ok {
 				return false
 			}
 			return immutableBool
