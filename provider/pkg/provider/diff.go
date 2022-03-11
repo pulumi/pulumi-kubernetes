@@ -19,14 +19,14 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-func forceNewProperties(obj *unstructured.Unstructured) []string {
+func (k *kubeProvider) forceNewProperties(obj *unstructured.Unstructured) []string {
 	gvk := obj.GroupVersionKind()
 	props := metadataForceNewProperties(".metadata")
 	if group, groupExists := forceNew[gvk.Group]; groupExists {
 		if version, versionExists := group[gvk.Version]; versionExists {
 			if kindFields, kindExists := version[gvk.Kind]; kindExists {
 				props = append(props, kindFields...)
-			} else if clients.IsImmutableConfigMap(obj) {
+			} else if clients.IsConfigMap(obj) && !k.enableConfigMapMutable {
 				props = append(props, properties{".binaryData", ".data"}...)
 			}
 		}

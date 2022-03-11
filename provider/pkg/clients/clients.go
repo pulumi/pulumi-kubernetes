@@ -20,8 +20,6 @@ import (
 	"io"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
-
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -246,18 +244,8 @@ func IsCRD(obj *unstructured.Unstructured) bool {
 		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
 }
 
-// IsImmutableConfigMap returns true if the resource is a configmap marked as immutable.
-func IsImmutableConfigMap(obj *unstructured.Unstructured) bool {
+// IsConfigMap returns true if the resource is a configmap marked as immutable.
+func IsConfigMap(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
-	if (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap) {
-		immutable, ok := openapi.Pluck(obj.Object, "immutable")
-		if ok {
-			immutableBool, ok := immutable.(bool)
-			if !ok {
-				return false
-			}
-			return immutableBool
-		}
-	}
-	return false
+	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap)
 }
