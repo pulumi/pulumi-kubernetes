@@ -31,15 +31,7 @@ builds:
       - -X github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/version.Version={{.Tag}}
     main: ./cmd/pulumi-resource-kubernetes/
 changelog:
-  filters:
-    exclude:
-      - Merge branch
-      - Merge pull request
-      - \Winternal\W
-      - \Wci\W
-      - \Wchore\W
-  sort: asc
-  use: git
+  skip: true
 release:
   disable: false
 snapshot:
