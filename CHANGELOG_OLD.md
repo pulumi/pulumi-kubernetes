@@ -1,3 +1,7 @@
+## Notice (2022-03-11)
+
+*As of this notice, using CHANGELOG.md is DEPRECATED. We will be using [GitHub Releases](https://github.com/pulumi/pulumi-kubernetes/releases) for this repository*
+
 ## Unreleased
 (None)
 
