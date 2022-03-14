@@ -16,6 +16,7 @@ class ProviderArgs:
     def __init__(__self__, *,
                  cluster: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
+                 enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
@@ -29,6 +30,12 @@ class ProviderArgs:
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
+        :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+               This feature is in developer preview, and is disabled by default.
+               
+               This config can be specified in the following ways using this precedence:
+               1. This `enableConfigMapMutable` parameter.
+               2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to true, enable server-side diff calculations.
                This feature is in developer preview, and is disabled by default.
         :param pulumi.Input[bool] enable_replace_crd: BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
@@ -57,6 +64,10 @@ class ProviderArgs:
             pulumi.set(__self__, "cluster", cluster)
         if context is not None:
             pulumi.set(__self__, "context", context)
+        if enable_config_map_mutable is None:
+            enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
+        if enable_config_map_mutable is not None:
+            pulumi.set(__self__, "enable_config_map_mutable", enable_config_map_mutable)
         if enable_dry_run is None:
             enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
         if enable_dry_run is not None:
@@ -109,6 +120,23 @@ class ProviderArgs:
     @context.setter
     def context(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "context", value)
+
+    @property
+    @pulumi.getter(name="enableConfigMapMutable")
+    def enable_config_map_mutable(self) -> Optional[pulumi.Input[bool]]:
+        """
+        BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+        This feature is in developer preview, and is disabled by default.
+
+        This config can be specified in the following ways using this precedence:
+        1. This `enableConfigMapMutable` parameter.
+        2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        """
+        return pulumi.get(self, "enable_config_map_mutable")
+
+    @enable_config_map_mutable.setter
+    def enable_config_map_mutable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_config_map_mutable", value)
 
     @property
     @pulumi.getter(name="enableDryRun")
@@ -240,6 +268,7 @@ class Provider(pulumi.ProviderResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
+                 enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
@@ -257,6 +286,12 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
+        :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+               This feature is in developer preview, and is disabled by default.
+               
+               This config can be specified in the following ways using this precedence:
+               1. This `enableConfigMapMutable` parameter.
+               2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to true, enable server-side diff calculations.
                This feature is in developer preview, and is disabled by default.
         :param pulumi.Input[bool] enable_replace_crd: BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
@@ -307,6 +342,7 @@ class Provider(pulumi.ProviderResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
+                 enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
@@ -330,6 +366,9 @@ class Provider(pulumi.ProviderResource):
 
             __props__.__dict__["cluster"] = cluster
             __props__.__dict__["context"] = context
+            if enable_config_map_mutable is None:
+                enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
+            __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None
             if enable_dry_run is None:
                 enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
             __props__.__dict__["enable_dry_run"] = pulumi.Output.from_input(enable_dry_run).apply(pulumi.runtime.to_json) if enable_dry_run is not None else None

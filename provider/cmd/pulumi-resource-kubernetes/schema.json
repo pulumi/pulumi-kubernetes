@@ -22,6 +22,10 @@
                 "type": "string",
                 "description": "If present, the name of the kubeconfig context to use."
             },
+            "enableConfigMapMutable": {
+                "type": "boolean",
+                "description": "BETA FEATURE - If present and set to true, allow configMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable."
+            },
             "enableDryRun": {
                 "type": "boolean",
                 "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable."
@@ -31517,6 +31521,15 @@
             "context": {
                 "type": "string",
                 "description": "If present, the name of the kubeconfig context to use."
+            },
+            "enableConfigMapMutable": {
+                "type": "boolean",
+                "description": "BETA FEATURE - If present and set to true, allow configMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE"
+                    ]
+                }
             },
             "enableDryRun": {
                 "type": "boolean",

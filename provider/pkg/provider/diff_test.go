@@ -6,6 +6,8 @@ import (
 	"encoding/json"
 	"testing"
 
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
 	jsonpatch "github.com/evanphx/json-patch"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
 	"github.com/stretchr/testify/assert"
@@ -27,15 +29,16 @@ func TestPatchToDiff(t *testing.T) {
 	)
 
 	tests := []struct {
-		name      string
-		group     string
-		version   string
-		kind      string
-		old       object
-		new       object
-		inputs    object
-		oldInputs object
-		expected  expected
+		name              string
+		group             string
+		version           string
+		kind              string
+		old               object
+		new               object
+		inputs            object
+		oldInputs         object
+		expected          expected
+		customizeProvider func(provider *kubeProvider)
 	}{
 		{
 			name:  "Adding spec and nested field results in correct diffs.",
@@ -167,6 +170,27 @@ func TestPatchToDiff(t *testing.T) {
 				"spec.resources.requests.storage": U,
 			},
 		},
+		{
+			name:  `ConfigMap resources don't trigger a replace when mutable.`,
+			group: "core", version: "v1", kind: "ConfigMap",
+			old: object{"data": object{"property1": "3"}},
+			new: object{"data": object{"property1": "4"}},
+			customizeProvider: func(p *kubeProvider) {
+				p.enableConfigMapMutable = true
+			},
+			expected: expected{
+				"data.property1": U,
+			},
+		},
+		{
+			name:  `ConfigMap resources trigger a replace when enableConfigMapMutable is not set.`,
+			group: "core", version: "v1", kind: "ConfigMap",
+			old: object{"data": object{"property1": "3"}},
+			new: object{"data": object{"property1": "4"}},
+			expected: expected{
+				"data.property1": UR,
+			},
+		},
 	}
 
 	for _, tt := range tests {
@@ -198,7 +222,14 @@ func TestPatchToDiff(t *testing.T) {
 				Version: tt.version,
 				Kind:    tt.kind,
 			}
-			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, forceNewProperties(gvk)...)
+			obj := &unstructured.Unstructured{}
+			obj.SetUnstructuredContent(tt.old)
+			obj.SetGroupVersionKind(gvk)
+			k := &kubeProvider{}
+			if tt.customizeProvider != nil {
+				tt.customizeProvider(k)
+			}
+			diff, err := convertPatchToDiff(patch, tt.old, inputs, oldInputs, k.forceNewProperties(obj)...)
 
 			assert.NoError(t, err)
 			assert.Equal(t, tt.expected, diff)

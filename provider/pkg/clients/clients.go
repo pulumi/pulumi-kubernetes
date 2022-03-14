@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -242,4 +242,10 @@ func NamespaceOrDefault(ns string) string {
 func IsCRD(obj *unstructured.Unstructured) bool {
 	return obj.GetKind() == string(kinds.CustomResourceDefinition) &&
 		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
+}
+
+// IsConfigMap returns true if the resource is a configmap marked as immutable.
+func IsConfigMap(obj *unstructured.Unstructured) bool {
+	gvk := obj.GroupVersionKind()
+	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.ConfigMap)
 }

@@ -121,6 +121,7 @@ type kubeProvider struct {
 
 	enableDryRun                bool
 	enableReplaceCRD            bool
+	enableConfigMapMutable      bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
@@ -431,6 +432,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableReplaceCRD() {
 		k.enableReplaceCRD = true
+	}
+
+	enableConfigMapMutable := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:enableConfigMapMutable"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if enableConfigMapMutable() {
+		k.enableConfigMapMutable = true
 	}
 
 	suppressDeprecationWarnings := func() bool {
@@ -1521,7 +1538,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			changes = append(changes, k)
 		}
 
-		forceNewFields := forceNewProperties(gvk)
+		forceNewFields := k.forceNewProperties(oldInputs)
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
