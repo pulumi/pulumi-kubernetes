@@ -151,7 +151,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE",
 						},
 					},
-					Description: "BETA FEATURE - If present and set to true, allow configMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
+					Description: "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"renderYamlToDirectory": {
