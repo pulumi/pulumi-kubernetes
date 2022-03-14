@@ -59,6 +59,17 @@ namespace Pulumi.Kubernetes
         public Input<string>? Context { get; set; }
 
         /// <summary>
+        /// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+        /// This feature is in developer preview, and is disabled by default.
+        /// 
+        /// This config can be specified in the following ways using this precedence:
+        /// 1. This `enableConfigMapMutable` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        /// </summary>
+        [Input("enableConfigMapMutable", json: true)]
+        public Input<bool>? EnableConfigMapMutable { get; set; }
+
+        /// <summary>
         /// BETA FEATURE - If present and set to true, enable server-side diff calculations.
         /// This feature is in developer preview, and is disabled by default.
         /// </summary>
@@ -128,6 +139,7 @@ namespace Pulumi.Kubernetes
 
         public ProviderArgs()
         {
+            EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
             EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
             EnableReplaceCRD = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");

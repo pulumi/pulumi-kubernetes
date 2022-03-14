@@ -37,6 +37,7 @@ export class Provider extends pulumi.ProviderResource {
         {
             resourceInputs["cluster"] = args ? args.cluster : undefined;
             resourceInputs["context"] = args ? args.context : undefined;
+            resourceInputs["enableConfigMapMutable"] = pulumi.output((args ? args.enableConfigMapMutable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
             resourceInputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
             resourceInputs["enableReplaceCRD"] = pulumi.output((args ? args.enableReplaceCRD : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD")).apply(JSON.stringify);
             resourceInputs["helmReleaseSettings"] = pulumi.output(args ? (args.helmReleaseSettings ? pulumi.output(args.helmReleaseSettings).apply(inputs.helmReleaseSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
@@ -64,6 +65,15 @@ export interface ProviderArgs {
      * If present, the name of the kubeconfig context to use.
      */
     context?: pulumi.Input<string>;
+    /**
+     * BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+     * This feature is in developer preview, and is disabled by default.
+     *
+     * This config can be specified in the following ways using this precedence:
+     * 1. This `enableConfigMapMutable` parameter.
+     * 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+     */
+    enableConfigMapMutable?: pulumi.Input<boolean>;
     /**
      * BETA FEATURE - If present and set to true, enable server-side diff calculations.
      * This feature is in developer preview, and is disabled by default.

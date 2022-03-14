@@ -22,6 +22,9 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
+	if isZero(args.EnableConfigMapMutable) {
+		args.EnableConfigMapMutable = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").(bool))
+	}
 	if isZero(args.EnableDryRun) {
 		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
 	}
@@ -56,6 +59,13 @@ type providerArgs struct {
 	Cluster *string `pulumi:"cluster"`
 	// If present, the name of the kubeconfig context to use.
 	Context *string `pulumi:"context"`
+	// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+	// This feature is in developer preview, and is disabled by default.
+	//
+	// This config can be specified in the following ways using this precedence:
+	// 1. This `enableConfigMapMutable` parameter.
+	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
@@ -96,6 +106,13 @@ type ProviderArgs struct {
 	Cluster pulumi.StringPtrInput
 	// If present, the name of the kubeconfig context to use.
 	Context pulumi.StringPtrInput
+	// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+	// This feature is in developer preview, and is disabled by default.
+	//
+	// This config can be specified in the following ways using this precedence:
+	// 1. This `enableConfigMapMutable` parameter.
+	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+	EnableConfigMapMutable pulumi.BoolPtrInput
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun pulumi.BoolPtrInput

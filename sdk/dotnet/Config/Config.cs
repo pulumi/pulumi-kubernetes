@@ -52,6 +52,21 @@ namespace Pulumi.Kubernetes
             set => _context.Set(value);
         }
 
+        private static readonly __Value<bool?> _enableConfigMapMutable = new __Value<bool?>(() => __config.GetBoolean("enableConfigMapMutable"));
+        /// <summary>
+        /// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+        /// This feature is in developer preview, and is disabled by default.
+        /// 
+        /// This config can be specified in the following ways using this precedence:
+        /// 1. This `enableConfigMapMutable` parameter.
+        /// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
+        /// </summary>
+        public static bool? EnableConfigMapMutable
+        {
+            get => _enableConfigMapMutable.Get();
+            set => _enableConfigMapMutable.Set(value);
+        }
+
         private static readonly __Value<bool?> _enableDryRun = new __Value<bool?>(() => __config.GetBoolean("enableDryRun"));
         /// <summary>
         /// BETA FEATURE - If present and set to true, enable server-side diff calculations.
