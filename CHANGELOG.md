@@ -1,6 +1,6 @@
 ## Unreleased
 -  Make ConfigMaps mutable unless marked explicitly (enabled with provider config option) (https://github.com/pulumi/pulumi-kubernetes/pull/1926)
-   *NOTE*: With this change, once `enableConfigMapMutable` is enabled, all config maps will be seen as mutable. The replacement behavior can be opted in by adding `replaceOnChanges: ["*"]` etc.
+   *NOTE*: With this change, once `enableConfigMapMutable` is enabled, all ConfigMaps will be seen as mutable. In this mode, you can opt-in to the previous replacement behavior for a particular ConfigMap by setting its `replaceOnChanges` resource option to `[".binaryData", ".data"]`.
    By default, the provider will continue to treat ConfigMaps as immutable, and will replace them if the `binaryData` or `data` properties are changed.
 
 ## 3.16.0 (February 16, 2022)
