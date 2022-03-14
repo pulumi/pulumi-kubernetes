@@ -46,7 +46,6 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
 	github.com/Masterminds/squirrel v1.5.2 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
-	github.com/Microsoft/hcsshim v0.9.2 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
@@ -57,12 +56,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/chai2010/gettext-go v0.0.0-20160711120539-c6fed771bfd5 // indirect
 	github.com/cheggaaa/pb v1.0.18 // indirect
-	github.com/containerd/cgroups v1.0.3 // indirect
 	github.com/containerd/containerd v1.6.1 // indirect
-	github.com/containerd/continuity v0.2.2 // indirect
-	github.com/containerd/fifo v1.0.0 // indirect
-	github.com/containerd/ttrpc v1.1.0 // indirect
-	github.com/containerd/typeurl v1.0.2 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/djherbis/times v1.2.0 // indirect
@@ -71,7 +65,6 @@ require (
 	github.com/docker/docker v20.10.13+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.6.4 // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
-	github.com/docker/go-events v0.0.0-20190806004212-e31b211e4f1c // indirect
 	github.com/docker/go-metrics v0.0.1 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
@@ -86,11 +79,9 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
-	github.com/gogo/googleapis v1.4.1 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
 	github.com/golang/glog v1.0.0 // indirect
-	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/go-cmp v0.5.6 // indirect
@@ -130,7 +121,6 @@ require (
 	github.com/moby/locker v1.0.1 // indirect
 	github.com/moby/spdystream v0.2.0 // indirect
 	github.com/moby/sys/mountinfo v0.6.0 // indirect
-	github.com/moby/sys/signal v0.7.0 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
@@ -138,9 +128,6 @@ require (
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
-	github.com/opencontainers/runc v1.1.0 // indirect
-	github.com/opencontainers/runtime-spec v1.0.3-0.20210326190908-1c3f411f0417 // indirect
-	github.com/opencontainers/selinux v1.10.0 // indirect
 	github.com/opentracing/basictracer-go v1.0.0 // indirect
 	github.com/opentracing/opentracing-go v1.1.0 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
@@ -173,7 +160,6 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xlab/treeprint v0.0.0-20181112141820-a009c3971eca // indirect
 	github.com/zclconf/go-cty v1.3.1 // indirect
-	go.opencensus.io v0.23.0 // indirect
 	go.starlark.net v0.0.0-20200306205701-8dd3e2ee1dd5 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
