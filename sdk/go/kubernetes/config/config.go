@@ -18,7 +18,7 @@ func GetContext(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:context")
 }
 
-// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 // This feature is in developer preview, and is disabled by default.
 //
 // This config can be specified in the following ways using this precedence:

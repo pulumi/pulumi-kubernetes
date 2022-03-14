@@ -59,7 +59,7 @@ type providerArgs struct {
 	Cluster *string `pulumi:"cluster"`
 	// If present, the name of the kubeconfig context to use.
 	Context *string `pulumi:"context"`
-	// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+	// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 	// This feature is in developer preview, and is disabled by default.
 	//
 	// This config can be specified in the following ways using this precedence:
@@ -106,7 +106,7 @@ type ProviderArgs struct {
 	Cluster pulumi.StringPtrInput
 	// If present, the name of the kubeconfig context to use.
 	Context pulumi.StringPtrInput
-	// BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+	// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 	// This feature is in developer preview, and is disabled by default.
 	//
 	// This config can be specified in the following ways using this precedence:
