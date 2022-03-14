@@ -30,7 +30,7 @@ class ProviderArgs:
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
-        :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+        :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
                This feature is in developer preview, and is disabled by default.
                
                This config can be specified in the following ways using this precedence:
@@ -125,7 +125,7 @@ class ProviderArgs:
     @pulumi.getter(name="enableConfigMapMutable")
     def enable_config_map_mutable(self) -> Optional[pulumi.Input[bool]]:
         """
-        BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+        BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
         This feature is in developer preview, and is disabled by default.
 
         This config can be specified in the following ways using this precedence:
@@ -286,7 +286,7 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
-        :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow configMaps to be mutated.
+        :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
                This feature is in developer preview, and is disabled by default.
                
                This config can be specified in the following ways using this precedence:
