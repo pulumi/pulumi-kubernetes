@@ -82,7 +82,7 @@ jobs:
           curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv kubectl /usr/local/bin
-      - uses: google-github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@v0
         with:
           export_default_credentials: true
           service_account_key: ${{ secrets.GCP_SA_KEY }}
@@ -305,7 +305,7 @@ jobs:
         with:
           name: config
           path: "~/.kube/"
-      - uses: google-github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
@@ -392,7 +392,7 @@ jobs:
           curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sudo mv kubectl /usr/local/bin
-      - uses: google-github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
