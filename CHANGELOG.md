@@ -1,4 +1,7 @@
 ## Unreleased
+(None)
+
+## 3.18.0 (March 31, 2022)
 - Pass provider options to helm invokes in Python, Go and TS (https://github.com/pulumi/pulumi-kubernetes/pull/1919)
 - Fix panic in helm release update() (https://github.com/pulumi/pulumi-kubernetes/pull/1948)
 
