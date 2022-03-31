@@ -26,9 +26,6 @@ import (
 	"strings"
 	"time"
 
-	"helm.sh/helm/v3/pkg/registry"
-	"helm.sh/helm/v3/pkg/repo"
-
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
@@ -52,7 +49,10 @@ import (
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
 	"helm.sh/helm/v3/pkg/postrender"
+	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/release"
+	"helm.sh/helm/v3/pkg/repo"
+	"helm.sh/helm/v3/pkg/storage/driver"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/tools/clientcmd/api"
@@ -580,11 +580,14 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 	}
 
 	rel, err := client.Run(newRelease.Name, chart, values)
-	if err != nil && strings.Contains(err.Error(), "has no deployed releases") {
+	if err != nil && rel == nil {
+		return err
+	}
+	if err != nil && errors.Is(err, driver.ErrNoDeployedReleases) {
 		logger.V(9).Infof("No existing release found.")
 		return err
-	} else if err != nil {
-		// Don't expect this to fail
+	}
+	if err != nil {
 		if err := setReleaseAttributes(newRelease, rel, false); err != nil {
 			return err
 		}
