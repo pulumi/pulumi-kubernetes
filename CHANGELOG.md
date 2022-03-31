@@ -1,5 +1,6 @@
 ## Unreleased
 - Pass provider options to helm invokes in Python, Go and TS (https://github.com/pulumi/pulumi-kubernetes/pull/1919)
+- Fix panic in helm release update() (https://github.com/pulumi/pulumi-kubernetes/pull/1948)
 
 ## 3.17.0 (March 14, 2022)
 -  Make ConfigMaps mutable unless marked explicitly (enabled with provider config option) (https://github.com/pulumi/pulumi-kubernetes/pull/1926)
