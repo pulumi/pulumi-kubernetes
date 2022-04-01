@@ -41,14 +41,14 @@ type properties []string
 
 var forceNew = _groups{
 	"apps": _versions{
-		// NOTE: .spec.selector triggers a replacement in Deployment/Daemonset only AFTER v1beta1.
+		// NOTE: .spec.selector triggers a replacement in Deployment/DaemonSet only AFTER v1beta1.
 		"v1beta1": _kinds{"StatefulSet": statefulSet},
 		"v1beta2": _kinds{
-			"Daemonset":   daemonset,
+			"DaemonSet":   daemonset,
 			"Deployment":  deployment,
 			"StatefulSet": statefulSet},
 		"v1": _kinds{
-			"Daemonset":   daemonset,
+			"DaemonSet":   daemonset,
 			"Deployment":  deployment,
 			"StatefulSet": statefulSet},
 	},
