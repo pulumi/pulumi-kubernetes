@@ -1177,6 +1177,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	//
 
 	urn := resource.URN(req.GetUrn())
+	if isHelmRelease(urn) {
+		return k.helmReleaseProvider.Check(ctx, req)
+	}
 
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
@@ -1240,10 +1243,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	}
 	newInputs = annotatedInputs
 
-	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
-		return k.helmReleaseProvider.Check(ctx, req)
-	}
-
 	// Adopt name from old object if appropriate.
 	//
 	// If the user HAS NOT assigned a name in the new inputs, we autoname it and mark the object as
@@ -1267,7 +1266,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			}
 		}
 	} else {
-		metadata.AssignNameIfAutonamable(newInputs, news, urn.Name())
+		metadata.AssignNameIfAutonamable(newInputs, news, urn, int(req.GetSequenceNumber()))
 
 		// Set a "managed-by: pulumi" label on all created k8s resources.
 		_, err = metadata.TrySetManagedByLabel(newInputs)

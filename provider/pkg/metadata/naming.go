@@ -15,12 +15,10 @@
 package metadata
 
 import (
-	"fmt"
 	"math/rand"
 	"time"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -29,9 +27,9 @@ var dns1123Alphabet = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
-func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.PropertyMap, base tokens.QName) {
-	contract.Assert(base != "")
-
+func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN,
+	sequenceNumber int) {
+	contract.Assert(urn.Name().String() != "")
 	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
 		if name, ok := md["name"]; ok && name.IsComputed() {
@@ -40,7 +38,10 @@ func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.Pr
 	}
 
 	if obj.GetName() == "" {
-		obj.SetName(fmt.Sprintf("%s-%s", base, RandString(8)))
+		prefix := urn.Name().String() + "-"
+		autoname, err := resource.NewUniqueHexV2(urn, sequenceNumber, prefix, 0, 0)
+		contract.AssertNoError(err)
+		obj.SetName(autoname)
 		SetAnnotationTrue(obj, AnnotationAutonamed)
 	}
 }

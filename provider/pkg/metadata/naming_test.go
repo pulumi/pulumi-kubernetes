@@ -15,6 +15,7 @@
 package metadata
 
 import (
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"strings"
 	"testing"
 
@@ -29,9 +30,23 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	// o1 has no name, so autonaming succeeds.
 	o1 := &unstructured.Unstructured{}
 	pm1 := resource.NewPropertyMap(struct{}{})
-	AssignNameIfAutonamable(o1, pm1, "foo")
+	AssignNameIfAutonamable(o1, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 1)
 	assert.True(t, IsAutonamed(o1))
 	assert.True(t, strings.HasPrefix(o1.GetName(), "foo-"))
+	assert.Len(t, o1.GetName(), 12)
+	existing := o1.GetName()
+	// Call again with the same sequence number should result in the same name
+	o1Same := &unstructured.Unstructured{}
+	AssignNameIfAutonamable(o1Same, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 1)
+	assert.Equal(t, existing, o1Same.GetName())
+
+	// Call with different sequence number returns a different name
+	o1Diff := &unstructured.Unstructured{}
+	AssignNameIfAutonamable(o1Diff, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 2)
+	assert.NotEqual(t, existing, o1Diff.GetName())
 
 	// o2 has a name, so autonaming fails.
 	o2 := &unstructured.Unstructured{
@@ -42,7 +57,8 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 			"name": resource.NewStringProperty("bar"),
 		}),
 	}
-	AssignNameIfAutonamable(o2, pm2, "foo")
+	AssignNameIfAutonamable(o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"), 2)
 	assert.False(t, IsAutonamed(o2))
 	assert.Equal(t, "bar", o2.GetName())
 
@@ -55,7 +71,8 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 			"name": resource.MakeComputed(resource.NewStringProperty("bar")),
 		}),
 	}
-	AssignNameIfAutonamable(o3, pm3, "foo")
+	AssignNameIfAutonamable(o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 3)
 	assert.False(t, IsAutonamed(o3))
 	assert.Equal(t, "[Computed]", o3.GetName())
 }
