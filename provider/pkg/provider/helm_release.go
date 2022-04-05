@@ -388,7 +388,7 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 	}
 
 	skipAwaitVal, ok := target["skipAwait"]
-	if !ok || (skipAwaitVal.IsBool() && skipAwaitVal.BoolValue()) {
+	if !ok || (skipAwaitVal.IsBool() && !skipAwaitVal.BoolValue()) {
 		timeout, has := target["timeout"]
 		if !has || (timeout.IsNumber() && timeout.NumberValue() == 0) {
 			target["timeout"] = resource.NewNumberProperty(defaultTimeoutSeconds)
