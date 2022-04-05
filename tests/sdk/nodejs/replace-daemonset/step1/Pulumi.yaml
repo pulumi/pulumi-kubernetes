@@ -1,0 +1,3 @@
+name: replace-daemonset
+description: A program to test if the DaemonSet is replaced when the .spec.selector is updated
+runtime: nodejs

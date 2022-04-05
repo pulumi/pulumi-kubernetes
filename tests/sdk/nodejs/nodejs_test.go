@@ -1037,3 +1037,43 @@ func TestYAMLURL(t *testing.T) {
 	})
 	integration.ProgramTest(t, &test)
 }
+
+func TestReplaceDaemonSet(t *testing.T) {
+	daemonSetName := ""
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:           filepath.Join("replace-daemonset", "step1"),
+		Quick:         true,
+		ExpectFailure: false,
+		SkipRefresh:   true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+
+			// Save the DaemonSet name to compare it in the step2
+			daemonSetName = stackInfo.Outputs["name"].(string)
+
+			// Assert that the DaemonSet was created
+			assert.True(t, strings.HasPrefix(stackInfo.Outputs["name"].(string), "test-replacement-"))
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:           filepath.Join("replace-daemonset", "step2"),
+				Additive:      true,
+				ExpectFailure: false,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					assert.NotNil(t, stackInfo.Deployment)
+					assert.Equal(t, 3, len(stackInfo.Deployment.Resources))
+
+					newDaemonSetName := stackInfo.Outputs["name"].(string)
+
+					// Assert that the DaemonSet still exists
+					assert.True(t, strings.HasPrefix(newDaemonSetName, "test-replacement-"))
+
+					// DaemonSet should have a different name as it was replaced
+					assert.True(t, daemonSetName != newDaemonSetName)
+				},
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
