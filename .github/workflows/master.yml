@@ -44,12 +44,11 @@ jobs:
         with:
           go-version: '>=1.16 <1.18'
       - name: golangci-lint-provider-pkg
-        uses: golangci/golangci-lint-action@v1
+        uses: golangci/golangci-lint-action@v3
         with:
           version: ${{ env.GOLANGCI_LINT_VERSION }}
           args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
           working-directory: provider/pkg
-          skip-cache: true
       - if: failure() && github.event_name == 'push'
         name: Notify Slack
         uses: 8398a7/action-slack@v3
