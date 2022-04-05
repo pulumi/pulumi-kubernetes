@@ -1,4 +1,7 @@
 ## Unreleased
+(None)
+
+## 3.18.1 (April 5, 2022)
 - Fix autonaming panic for helm release (https://github.com/pulumi/pulumi-kubernetes/pull/1953)
   This change also adds support for deterministic autonaming through sequence numbers to the kubernetes provider.
 
