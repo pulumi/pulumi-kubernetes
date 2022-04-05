@@ -505,10 +505,16 @@ func TestHelmReleaseRedis(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release-redis"),
+			Dir:         filepath.Join(getCwd(t), "helm-release-redis", "step1"),
 			SkipRefresh: false,
 			Verbose:     true,
 			Quick:       true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "helm-release-redis", "step2"),
+					Additive: true,
+				},
+			},
 		})
 
 	integration.ProgramTest(t, &test)
