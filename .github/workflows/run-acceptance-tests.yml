@@ -415,12 +415,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      GOVERSION: 1.17
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v3
         with:
           go-version: '>=1.16 <1.18'
-          skip-cache: true
       - name: golangci-lint-provider-pkg
         uses: golangci/golangci-lint-action@v1
         with:
