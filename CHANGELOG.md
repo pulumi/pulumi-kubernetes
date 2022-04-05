@@ -1,5 +1,6 @@
 ## Unreleased
-(None)
+- Fix autonaming panic for helm release (https://github.com/pulumi/pulumi-kubernetes/pull/1953)
+  This change also adds support for deterministic autonaming through sequence numbers to the kubernetes provider.
 
 ## 3.18.0 (March 31, 2022)
 - Pass provider options to helm invokes in Python, Go and TS (https://github.com/pulumi/pulumi-kubernetes/pull/1919)

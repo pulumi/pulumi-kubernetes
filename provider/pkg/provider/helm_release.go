@@ -32,12 +32,10 @@ import (
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	pulumirpc "github.com/pulumi/pulumi/sdk/v3/proto/go"
@@ -335,34 +333,41 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
 	}
 
-	logger.V(9).Infof("Decoding new release.")
-	new, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
-	if err != nil {
-		return nil, err
-	}
-
-	logger.V(9).Infof("Decoding old release.")
-	old, err := decodeRelease(olds, fmt.Sprintf("%s.olds", label))
-	if err != nil {
-		return nil, err
-	}
-
 	if len(olds.Mappable()) > 0 {
-		adoptOldNameIfUnnamed(new, old)
+		adoptOldNameIfUnnamed(news, olds)
 	}
-	assignNameIfAutonameable(new, news, urn.Name())
-	r.setDefaults(new)
+	assignNameIfAutonameable(news, urn, int(req.GetSequenceNumber()))
+	r.setDefaults(news)
 
-	resourceNames, err := r.computeResourceNames(new)
+	if !news.ContainsUnknowns() {
+		logger.V(9).Infof("Decoding new release.")
+		new, err := decodeRelease(news, fmt.Sprintf("%s.news", label))
+		if err != nil {
+			return nil, err
+		}
+
+		resourceNames, err := r.computeResourceNames(new)
+		if err != nil {
+			return nil, err
+		}
+		new.ResourceNames = resourceNames
+		logger.V(9).Infof("New: %+v", new)
+		news = resource.NewPropertyMap(new)
+	}
+
+	newInputs, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.newInputs", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+		KeepSecrets:  true,
+	})
 	if err != nil {
-		return nil, err
+		return nil, pkgerrors.Wrapf(err, "check failed because malformed resource inputs: %+v", err)
 	}
-	new.ResourceNames = resourceNames
+	// ensure we don't leak secrets into state.
+	annotateSecrets(news, newInputs)
 
-	logger.V(9).Infof("New: %+v", new)
-	autonamed := resource.NewPropertyMap(new)
-	annotateSecrets(autonamed, news)
-	autonamedInputs, err := plugin.MarshalProperties(autonamed, plugin.MarshalOptions{
+	autonamedInputs, err := plugin.MarshalProperties(news, plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.autonamedInputs", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
@@ -376,17 +381,23 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	return &pulumirpc.CheckResponse{Inputs: autonamedInputs}, nil
 }
 
-func (r *helmReleaseProvider) setDefaults(new *Release) {
-	if new.Namespace == "" {
-		new.Namespace = r.defaultNamespace
+func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
+	namespace, ok := target["namespace"]
+	if !ok || (namespace.IsString() && namespace.StringValue() == "") {
+		target["namespace"] = resource.NewStringProperty(r.defaultNamespace)
 	}
 
-	if !new.SkipAwait && new.Timeout == 0 {
-		new.Timeout = defaultTimeoutSeconds
+	skipAwaitVal, ok := target["skipAwait"]
+	if !ok || (skipAwaitVal.IsBool() && !skipAwaitVal.BoolValue()) {
+		timeout, has := target["timeout"]
+		if !has || (timeout.IsNumber() && timeout.NumberValue() == 0) {
+			target["timeout"] = resource.NewNumberProperty(defaultTimeoutSeconds)
+		}
 	}
 
-	if new.Keyring == "" && new.Verify {
-		new.Keyring = os.ExpandEnv("$HOME/.gnupg/pubring.gpg")
+	keyringVal, ok := target["keyring"]
+	if !ok || (keyringVal.IsString() && keyringVal.StringValue() == "") {
+		target["keyring"] = resource.NewStringProperty(os.ExpandEnv("$HOME/.gnupg/pubring.gpg"))
 	}
 }
 
@@ -598,20 +609,21 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 	return err
 }
 
-func adoptOldNameIfUnnamed(new, old *Release) {
-	contract.Assert(old.Name != "")
-	new.Name = old.Name
+func adoptOldNameIfUnnamed(new, old resource.PropertyMap) {
+	if _, ok := new["name"]; ok {
+		return
+	}
+	contract.Assert(old["name"].StringValue() != "")
+	new["name"] = old["name"]
 }
 
-func assignNameIfAutonameable(release *Release, pm resource.PropertyMap, base tokens.QName) {
-	if release.Name != "" {
-		return
-	}
-	if name, ok := pm["name"]; ok && name.IsComputed() {
-		return
-	}
-	if name, ok := pm["name"]; !ok || name.StringValue() == "" {
-		release.Name = fmt.Sprintf("%s-%s", base, metadata.RandString(8))
+func assignNameIfAutonameable(pm resource.PropertyMap, urn resource.URN, sequenceNumber int) {
+	name, ok := pm["name"]
+	if !ok || (name.IsString() && name.StringValue() == "") {
+		prefix := urn.Name().String() + "-"
+		autoname, err := resource.NewUniqueHexV2(urn, sequenceNumber, prefix, 0, 0)
+		contract.AssertNoError(err)
+		pm["name"] = resource.NewStringProperty(autoname)
 	}
 }
 
@@ -898,11 +910,9 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	oldInputs, _ := parseCheckpointRelease(oldState)
 	if oldInputs == nil {
 		// No old inputs suggests this is an import. Hydrate the imports from the current live object
-		r.setDefaults(existingRelease)
 		logger.V(9).Infof("existingRelease: %#v", existingRelease)
-		logger.V(9).Infof("existingRelease.Status: %#v", existingRelease.Status)
-		logger.V(9).Infof("existingRelease.Status.Revision: %#v", *existingRelease.Status.Revision)
 		oldInputs = r.serializeImportInputs(existingRelease)
+		r.setDefaults(oldInputs)
 	}
 
 	// Return a new "checkpoint object".

@@ -500,6 +500,26 @@ func TestHelmReleaseNamespace(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestHelmReleaseRedis(t *testing.T) {
+	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1933
+	skipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-redis", "step1"),
+			SkipRefresh: false,
+			Verbose:     true,
+			Quick:       true,
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "helm-release-redis", "step2"),
+					Additive: true,
+				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func TestRancher(t *testing.T) {
 	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1848
 	skipIfShort(t)
