@@ -2,6 +2,10 @@
 - Fix the DaemonSet name on diff which prevented pulumi to replace the resource (https://github.com/pulumi/pulumi-kubernetes/pull/1951)
 (None)
 
+## 3.18.2 (April 6, 2022)
+- Only add keyring default value when verification is turned on (https://github.com/pulumi/pulumi-kubernetes/pull/1961)
+  Regression introduced in 3.18.1
+
 ## 3.18.1 (April 5, 2022)
 - Fix autonaming panic for helm release (https://github.com/pulumi/pulumi-kubernetes/pull/1953)
   This change also adds support for deterministic autonaming through sequence numbers to the kubernetes provider.
