@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix the DaemonSet name on diff which prevented pulumi to replace the resource (https://github.com/pulumi/pulumi-kubernetes/pull/1951)
 (None)
 
 ## 3.18.1 (April 5, 2022)
