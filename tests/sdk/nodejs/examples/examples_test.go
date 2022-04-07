@@ -501,6 +501,32 @@ func TestHelmReleaseNamespace(t *testing.T) {
 }
 
 func TestHelmReleaseRedis(t *testing.T) {
+	expectKeyringInput := func(verifyVal bool, keyRingNonEmpty bool) func(t *testing.T,
+		stackInfo integration.RuntimeValidationStackInfo) {
+		// Validate that the keyring is omitted when verify is false/unspecified.
+		// https://github.com/pulumi/pulumi-kubernetes/issues/1959
+		return func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			seen := false
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:helm.sh/v3:Release" {
+					seen = true
+
+					assert.Contains(t, res.Inputs, "verify")
+					verify := res.Inputs["verify"].(bool)
+					assert.Equal(t, verifyVal, verify)
+					val := res.Inputs["keyring"]
+					if keyRingNonEmpty {
+						assert.NotEmpty(t, val)
+					} else {
+						assert.Empty(t, val)
+					}
+
+				}
+			}
+			assert.True(t, seen)
+		}
+	}
+
 	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1933
 	skipIfShort(t)
 	test := getBaseOptions(t).
@@ -513,8 +539,12 @@ func TestHelmReleaseRedis(t *testing.T) {
 				{
 					Dir:      filepath.Join(getCwd(t), "helm-release-redis", "step2"),
 					Additive: true,
+					// The redis chart isn't signed so can't find provenance file for it.
+					// TODO: Add a separate test for chart verification.
+					ExtraRuntimeValidation: expectKeyringInput(false, false),
 				},
 			},
+			ExtraRuntimeValidation: expectKeyringInput(false, false),
 		})
 
 	integration.ProgramTest(t, &test)

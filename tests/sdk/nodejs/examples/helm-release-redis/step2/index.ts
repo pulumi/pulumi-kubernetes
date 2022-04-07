@@ -39,6 +39,7 @@ const release = new k8s.helm.v3.Release("redis", {
     },
     namespace: namespace.metadata.name,
     values: values(redisPassword.result),
+    verify: false, // Turn off verification explicitly.
 });
 
 

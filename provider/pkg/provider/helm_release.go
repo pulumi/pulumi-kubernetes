@@ -395,9 +395,13 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 		}
 	}
 
-	keyringVal, ok := target["keyring"]
-	if !ok || (keyringVal.IsString() && keyringVal.StringValue() == "") {
-		target["keyring"] = resource.NewStringProperty(os.ExpandEnv("$HOME/.gnupg/pubring.gpg"))
+	// Discover the keyring if chart verification is requested, and a keyring is not explicitly specified.
+	verify, ok := target["verify"]
+	if ok && verify.IsBool() && verify.BoolValue() {
+		keyringVal, ok := target["keyring"]
+		if !ok || (keyringVal.IsString() && keyringVal.StringValue() == "") {
+			target["keyring"] = resource.NewStringProperty(os.ExpandEnv("$HOME/.gnupg/pubring.gpg"))
+		}
 	}
 }
 
