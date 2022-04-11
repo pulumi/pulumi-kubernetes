@@ -7,7 +7,7 @@
 
 # Pulumi Kubernetes Resource Provider
 
-The Kubernetes resource provider for Pulumi lets you create, deploy, and manage Kubernetes API resources and workloads in a running cluster. For a streamlined Pulumi walkthrough, including language runtime installation and Kubernetes configuration, click "Get Started" below.
+The Kubernetes resource provider for Pulumi lets you create, deploy, and manage Kubernetes API resources and workloads in a running cluster. For a streamlined Pulumi walkthrough, including language runtime installation and Kubernetes configuration, select "Get Started" below.
 <div>
     <p>
         <a href="https://www.pulumi.com/docs/get-started/kubernetes" title="Get Started">
@@ -66,12 +66,12 @@ for more details.
 
 ## References
 
-* [Reference Documentation](https://www.pulumi.com/docs/reference/clouds/kubernetes/)
+* [Reference Documentation](https://www.pulumi.com/registry/packages/kubernetes/)
 * API Documentation
     * [Node.js API](https://pulumi.io/reference/pkg/nodejs/@pulumi/kubernetes)
     * [Python API](https://www.pulumi.com/docs/reference/pkg/python/pulumi_kubernetes/)
 * [All Examples](./examples)
-* [Tutorials](https://www.pulumi.com/docs/reference/tutorials/kubernetes/)
+* [How-to Guides](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/)
 
 ## Prerequisites
 
@@ -85,7 +85,7 @@ for more details.
     * If `kubectl` already works for your running cluster, Pulumi respects and uses this configuration.
     * If you do not have a cluster already running and available, we encourage you to
       explore Pulumi's SDKs for AWS EKS, Azure AKS, and GCP GKE. Visit the 
-      [reference docs](https://www.pulumi.com/docs/reference/clouds/kubernetes/) for more details.
+      [API reference docs in the Pulumi Registry](https://www.pulumi.com/registry/packages/kubernetes/api-docs/) for more details.
 1. [Install `kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl).
 
 ## Installing
@@ -144,7 +144,7 @@ const myApp = new k8s.yaml.ConfigFile("app", {
 
 This example creates an EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
 and then deploys a Helm chart from the stable repo using the 
-`kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/reference/programming-model/#providers).
+`kubeconfig` credentials from the cluster's Pulumi provider.
 
 ```typescript
 import * as eks from "@pulumi/eks";
@@ -170,7 +170,7 @@ export const kubeconfig = cluster.kubeconfig;
 
 This example creates a EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
 and then deploys an NGINX Deployment and Service using the SDK resource API, and the 
-`kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/reference/programming-model/#providers).
+`kubeconfig` credentials from the cluster's Pulumi provider.
 
 ```typescript
 import * as eks from "@pulumi/eks";
