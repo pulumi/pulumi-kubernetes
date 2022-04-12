@@ -144,7 +144,7 @@ const myApp = new k8s.yaml.ConfigFile("app", {
 
 This example creates an EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
 and then deploys a Helm chart from the stable repo using the 
-`kubeconfig` credentials from the cluster's Pulumi provider.
+`kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/intro/concepts/resources/providers/).
 
 ```typescript
 import * as eks from "@pulumi/eks";
@@ -170,7 +170,7 @@ export const kubeconfig = cluster.kubeconfig;
 
 This example creates a EKS cluster with [`pulumi/eks`](https://github.com/pulumi/pulumi-eks),
 and then deploys an NGINX Deployment and Service using the SDK resource API, and the 
-`kubeconfig` credentials from the cluster's Pulumi provider.
+`kubeconfig` credentials from the cluster's [Pulumi provider](https://www.pulumi.com/docs/intro/concepts/resources/providers/).
 
 ```typescript
 import * as eks from "@pulumi/eks";
