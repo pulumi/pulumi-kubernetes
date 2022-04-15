@@ -66,20 +66,18 @@ jobs:
       - name: Create PR
         id: create-pr
         if: steps.gomod.outputs.changes != 0
-        uses: peter-evans/create-pull-request@v4
+        uses: repo-sync/pull-request@v2.6.2
         with:
-          branch: "update-pulumi/${{ github.run_id }}-${{ github.run_number }}"
-          base: "master"
-          title: "Automated pulumi/pulumi upgrade"
-          labels: impact/no-changelog-required
-          committer: pulumi-bot <bot@pulumi.com>
-          author: pulumi-bot <bot@pulumi.com>
-          token: ${{ secrets.PULUMI_BOT_TOKEN }}
+          source_branch: "update-pulumi/${{ github.run_id }}-${{ github.run_number }}"
+          destination_branch: "master"
+          pr_title: "Automated pulumi/pulumi upgrade"
+          pr_label: "impact/no-changelog-required"
+          github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
       - name: Set Automerge
-        if: steps.create-pr.outputs.pull-request-operation == 'created'
+        if: steps.create-pr.outputs.has_changed_files
         uses: peter-evans/enable-pull-request-automerge@v1
         with:
           token: ${{ secrets.PULUMI_BOT_TOKEN }}
-          pull-request-number: ${{ steps.create-pr.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.create-pr.outputs.pr_number }}
           repository: ${{ github.repository }}
           merge-method: squash
