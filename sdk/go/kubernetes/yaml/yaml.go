@@ -94,7 +94,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 		// Read the raw YAML file(s) specified in the input file parameter. It might be a URL or a file path.
 		var yaml []byte
 		u, err := url.Parse(file)
-		if err != nil && u.IsAbs() {
+		if err == nil && u.IsAbs() {
 			// If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
 			resp, err := http.Get(file)
 			if err != nil {
