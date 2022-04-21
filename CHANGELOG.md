@@ -1,5 +1,5 @@
 ## Unreleased
-(None)
+- Fix fetching remote yaml files (https://github.com/pulumi/pulumi-kubernetes/pull/1962)
 
 ## 3.18.2 (April 6, 2022)
 - Only add keyring default value when verification is turned on (https://github.com/pulumi/pulumi-kubernetes/pull/1961)
