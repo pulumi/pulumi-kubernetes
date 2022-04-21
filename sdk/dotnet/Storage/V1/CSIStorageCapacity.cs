@@ -111,6 +111,7 @@ namespace Pulumi.Kubernetes.Storage.V1
                 Aliases =
                 {
                     new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity"},
+                    new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

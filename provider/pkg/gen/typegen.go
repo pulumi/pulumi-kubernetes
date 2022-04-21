@@ -515,6 +515,11 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 			}
 			results = append(results, aliasString)
 
+			switch kind {
+			case "CSIStorageCapacity":
+				results = append(results, "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity")
+			}
+
 			// "apiregistration.k8s.io" was previously called "apiregistration", so create aliases for backward compat
 			if strings.Contains(apiVersion, "apiregistration.k8s.io") {
 				parts := strings.Split(aliasString, ":")

@@ -64,6 +64,9 @@ func NewCSIStorageCapacity(ctx *pulumi.Context,
 		{
 			Type: pulumi.String("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity"),
 		},
+		{
+			Type: pulumi.String("kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity"),
+		},
 	})
 	opts = append(opts, aliases)
 	var resource CSIStorageCapacity

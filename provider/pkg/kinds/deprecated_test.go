@@ -62,6 +62,7 @@ func TestDeprecatedApiVersion(t *testing.T) {
 		{toGVK(RbacV1B1, RoleBinding), nil, true},
 		{toGVK(SchedulingV1A1, PriorityClass), nil, true},
 		{toGVK(SchedulingV1B1, PriorityClass), nil, true},
+		{toGVK(StorageV1A1, CSIStorageCapacity), nil, true},
 		{toGVK(StorageV1A1, VolumeAttachment), nil, true},
 		{toGVK(StorageV1B1, CSIDriver), nil, true},
 		{toGVK(StorageV1B1, CSIDriver), &v118, true},
@@ -215,6 +216,7 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(RbacV1B1, ClusterRole), &v122},
 		{toGVK(SchedulingV1A1, PriorityClass), &v117},
 		{toGVK(SchedulingV1B1, PriorityClass), &v117},
+		{toGVK(StorageV1A1, CSIStorageCapacity), &v124},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {

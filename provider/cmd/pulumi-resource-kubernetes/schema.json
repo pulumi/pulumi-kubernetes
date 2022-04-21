@@ -46293,6 +46293,9 @@
             "aliases": [
                 {
                     "type": "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity"
+                },
+                {
+                    "type": "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity"
                 }
             ]
         },
@@ -47195,6 +47198,9 @@
             "aliases": [
                 {
                     "type": "kubernetes:storage.k8s.io/v1:CSIStorageCapacity"
+                },
+                {
+                    "type": "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity"
                 }
             ]
         },

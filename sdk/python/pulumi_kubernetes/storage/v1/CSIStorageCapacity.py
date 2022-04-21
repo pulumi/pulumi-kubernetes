@@ -248,7 +248,7 @@ class CSIStorageCapacity(pulumi.CustomResource):
             if storage_class_name is None and not opts.urn:
                 raise TypeError("Missing required property 'storage_class_name'")
             __props__.__dict__["storage_class_name"] = storage_class_name
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity")])
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity"), pulumi.Alias(type_="kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(CSIStorageCapacity, __self__).__init__(
             'kubernetes:storage.k8s.io/v1:CSIStorageCapacity',
