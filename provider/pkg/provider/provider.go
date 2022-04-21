@@ -32,6 +32,7 @@ import (
 	"sync"
 
 	jsonpatch "github.com/evanphx/json-patch"
+	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	"github.com/imdario/mergo"
@@ -1156,6 +1157,11 @@ func (k *kubeProvider) StreamInvoke(
 	default:
 		return fmt.Errorf("unknown Invoke type '%s'", tok)
 	}
+}
+
+// Attach sends the engine address to an already running plugin.
+func (k *kubeProvider) Attach(_ context.Context, _ *pulumirpc.PluginAttach) (*empty.Empty, error) {
+	return nil, status.Error(codes.Unimplemented, "Attach is not yet implemented")
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
