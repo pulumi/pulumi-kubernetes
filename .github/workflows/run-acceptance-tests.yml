@@ -147,6 +147,15 @@ jobs:
         name: Write details of schema change to the action log
         run: |
           echo $SCHEMA_CHANGES
+      - name: Add label if no breaking changes
+        if: |
+          github.event_name != 'repository_dispatch' &&
+          contains(env.SCHEMA_CHANGES, 'Looking good! No breaking changes found.')
+        uses: actions-ecosystem/action-add-labels@v1.1.0
+        with:
+          labels: impact/no-changelog-required
+          number: ${{ github.event.issue.number }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Tar provider binaries
         run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
           }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-gen-${{ env.PROVIDER
