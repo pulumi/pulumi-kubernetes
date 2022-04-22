@@ -71,7 +71,6 @@ jobs:
           source_branch: "update-pulumi/${{ github.run_id }}-${{ github.run_number }}"
           destination_branch: "master"
           pr_title: "Automated pulumi/pulumi upgrade"
-          pr_label: "impact/no-changelog-required"
           github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
       - name: Set Automerge
         if: steps.create-pr.outputs.has_changed_files
