@@ -1166,7 +1166,7 @@ func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*
 		return nil, err
 	}
 	k.host = host
-	return &pbempty.Empty{}, nil
+	return &empty.Empty{}, nil
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
