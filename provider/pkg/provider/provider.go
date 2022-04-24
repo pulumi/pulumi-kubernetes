@@ -1160,8 +1160,13 @@ func (k *kubeProvider) StreamInvoke(
 }
 
 // Attach sends the engine address to an already running plugin.
-func (k *kubeProvider) Attach(_ context.Context, _ *pulumirpc.PluginAttach) (*empty.Empty, error) {
-	return nil, status.Error(codes.Unimplemented, "Attach is not yet implemented")
+func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*empty.Empty, error) {
+	host, err := provider.NewHostClient(req.GetAddress())
+	if err != nil {
+		return nil, err
+	}
+	k.host = host
+	return &pbempty.Empty{}, nil
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
