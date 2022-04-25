@@ -1,6 +1,8 @@
 ## Unreleased
-- Fix fetching remote yaml files (https://github.com/pulumi/pulumi-kubernetes/pull/1962)
+(None)
 
+## 3.18.3 (April 21, 2022)
+- Fix fetching remote yaml files (https://github.com/pulumi/pulumi-kubernetes/pull/1962)
 - Support attach
   [#1977](https://github.com/pulumi/pulumi-kubernetes/pull/1977)
 
