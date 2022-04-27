@@ -296,7 +296,7 @@ namespace Pulumi.Kubernetes.Helm.V3
         public Output<bool> Devel { get; private set; } = null!;
 
         /// <summary>
-        /// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        /// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         /// </summary>
         [Output("disableCRDHooks")]
         public Output<bool> DisableCRDHooks { get; private set; } = null!;
@@ -562,7 +562,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public Input<bool>? Devel { get; set; }
 
         /// <summary>
-        /// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        /// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         /// </summary>
         [Input("disableCRDHooks")]
         public Input<bool>? DisableCRDHooks { get; set; }

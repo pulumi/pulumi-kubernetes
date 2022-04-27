@@ -212,7 +212,7 @@ export class Release extends pulumi.CustomResource {
      */
     public readonly devel!: pulumi.Output<boolean>;
     /**
-     * Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+     * Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
      */
     public readonly disableCRDHooks!: pulumi.Output<boolean>;
     /**
@@ -444,7 +444,7 @@ export interface ReleaseArgs {
      */
     devel?: pulumi.Input<boolean>;
     /**
-     * Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+     * Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
      */
     disableCRDHooks?: pulumi.Input<boolean>;
     /**

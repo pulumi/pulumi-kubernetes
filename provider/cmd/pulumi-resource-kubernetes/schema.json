@@ -41640,7 +41640,7 @@
                 },
                 "disableCRDHooks": {
                     "type": "boolean",
-                    "description": "Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook"
+                    "description": "Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook"
                 },
                 "disableOpenapiValidation": {
                     "type": "boolean",
@@ -41840,7 +41840,7 @@
                 },
                 "disableCRDHooks": {
                     "type": "boolean",
-                    "description": "Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook"
+                    "description": "Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook"
                 },
                 "disableOpenapiValidation": {
                     "type": "boolean",

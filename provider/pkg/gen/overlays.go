@@ -637,7 +637,7 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				TypeSpec: pschema.TypeSpec{
 					Type: "boolean",
 				},
-				Description: "Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook",
+				Description: "Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook",
 			},
 			"reuseValues": {
 				TypeSpec: pschema.TypeSpec{
@@ -903,7 +903,7 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "boolean",
 			},
-			Description: "Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook",
+			Description: "Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook",
 		},
 		"reuseValues": {
 			TypeSpec: pschema.TypeSpec{
