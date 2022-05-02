@@ -78,7 +78,7 @@ type Release struct {
 	Description string `json:"description,omitempty"`
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored
 	Devel bool `json:"devel,omitempty"`
-	// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+	// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
 	DisableCRDHooks bool `json:"disableCRDHooks,omitempty"`
 	// If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
 	DisableOpenapiValidation bool `json:"disableOpenapiValidation,omitempty"`

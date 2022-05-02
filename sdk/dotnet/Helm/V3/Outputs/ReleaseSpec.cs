@@ -45,7 +45,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Helm.V3
         /// </summary>
         public readonly bool Devel;
         /// <summary>
-        /// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        /// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         /// </summary>
         public readonly bool DisableCRDHooks;
         /// <summary>

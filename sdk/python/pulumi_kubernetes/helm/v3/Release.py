@@ -58,7 +58,7 @@ class ReleaseArgs:
         :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart.
         :param pulumi.Input[str] description: Add a custom description
         :param pulumi.Input[bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
-        :param pulumi.Input[bool] disable_crd_hooks: Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        :param pulumi.Input[bool] disable_crd_hooks: Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         :param pulumi.Input[bool] disable_openapi_validation: If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
         :param pulumi.Input[bool] disable_webhooks: Prevent hooks from running.
         :param pulumi.Input[bool] force_update: Force resource update through delete/recreate if needed.
@@ -250,7 +250,7 @@ class ReleaseArgs:
     @pulumi.getter(name="disableCRDHooks")
     def disable_crd_hooks(self) -> Optional[pulumi.Input[bool]]:
         """
-        Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         """
         return pulumi.get(self, "disable_crd_hooks")
 
@@ -771,7 +771,7 @@ class Release(pulumi.CustomResource):
         :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart.
         :param pulumi.Input[str] description: Add a custom description
         :param pulumi.Input[bool] devel: Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
-        :param pulumi.Input[bool] disable_crd_hooks: Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        :param pulumi.Input[bool] disable_crd_hooks: Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         :param pulumi.Input[bool] disable_openapi_validation: If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
         :param pulumi.Input[bool] disable_webhooks: Prevent hooks from running.
         :param pulumi.Input[bool] force_update: Force resource update through delete/recreate if needed.
@@ -1183,7 +1183,7 @@ class Release(pulumi.CustomResource):
     @pulumi.getter(name="disableCRDHooks")
     def disable_crd_hooks(self) -> pulumi.Output[Optional[bool]]:
         """
-        Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+        Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
         """
         return pulumi.get(self, "disable_crd_hooks")
 

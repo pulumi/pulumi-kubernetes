@@ -288,7 +288,7 @@ type Release struct {
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel pulumi.BoolPtrOutput `pulumi:"devel"`
-	// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+	// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
 	DisableCRDHooks pulumi.BoolPtrOutput `pulumi:"disableCRDHooks"`
 	// If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
 	DisableOpenapiValidation pulumi.BoolPtrOutput `pulumi:"disableOpenapiValidation"`
@@ -402,7 +402,7 @@ type releaseArgs struct {
 	Description *string `pulumi:"description"`
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel *bool `pulumi:"devel"`
-	// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+	// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
 	DisableCRDHooks *bool `pulumi:"disableCRDHooks"`
 	// If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
 	DisableOpenapiValidation *bool `pulumi:"disableOpenapiValidation"`
@@ -473,7 +473,7 @@ type ReleaseArgs struct {
 	Description pulumi.StringPtrInput
 	// Use chart development versions, too. Equivalent to version '>0.0.0-0'. If `version` is set, this is ignored.
 	Devel pulumi.BoolPtrInput
-	// Prevent CRD hooks from, running, but run other hooks.  See helm install --no-crd-hook
+	// Prevent CRD hooks from running, but run other hooks.  See helm install --no-crd-hook
 	DisableCRDHooks pulumi.BoolPtrInput
 	// If set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
 	DisableOpenapiValidation pulumi.BoolPtrInput
