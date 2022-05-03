@@ -179,6 +179,26 @@ func (o ConfigMapListOutput) ToConfigMapListOutputWithContext(ctx context.Contex
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ConfigMapListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConfigMapList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of ConfigMaps.
+func (o ConfigMapListOutput) Items() ConfigMapTypeArrayOutput {
+	return o.ApplyT(func(v *ConfigMapList) ConfigMapTypeArrayOutput { return v.Items }).(ConfigMapTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ConfigMapListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ConfigMapList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o ConfigMapListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *ConfigMapList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type ConfigMapListArrayOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListArrayOutput) ElementType() reflect.Type {

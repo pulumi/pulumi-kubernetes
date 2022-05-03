@@ -181,6 +181,26 @@ func (o PodSecurityPolicyOutput) ToPodSecurityPolicyOutputWithContext(ctx contex
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodSecurityPolicyOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicy) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodSecurityPolicyOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicy) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodSecurityPolicyOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicy) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec defines the policy enforced.
+func (o PodSecurityPolicyOutput) Spec() PodSecurityPolicySpecPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicy) PodSecurityPolicySpecPtrOutput { return v.Spec }).(PodSecurityPolicySpecPtrOutput)
+}
+
 type PodSecurityPolicyArrayOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyArrayOutput) ElementType() reflect.Type {

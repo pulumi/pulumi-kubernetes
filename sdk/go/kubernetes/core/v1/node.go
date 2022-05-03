@@ -177,6 +177,31 @@ func (o NodeOutput) ToNodeOutputWithContext(ctx context.Context) NodeOutput {
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NodeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Node) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NodeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Node) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o NodeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *Node) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NodeOutput) Spec() NodeSpecPtrOutput {
+	return o.ApplyT(func(v *Node) NodeSpecPtrOutput { return v.Spec }).(NodeSpecPtrOutput)
+}
+
+// Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NodeOutput) Status() NodeStatusPtrOutput {
+	return o.ApplyT(func(v *Node) NodeStatusPtrOutput { return v.Status }).(NodeStatusPtrOutput)
+}
+
 type NodeArrayOutput struct{ *pulumi.OutputState }
 
 func (NodeArrayOutput) ElementType() reflect.Type {

@@ -190,6 +190,31 @@ func (o ClusterRoleOutput) ToClusterRoleOutputWithContext(ctx context.Context) C
 	return o
 }
 
+// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
+func (o ClusterRoleOutput) AggregationRule() AggregationRulePtrOutput {
+	return o.ApplyT(func(v *ClusterRole) AggregationRulePtrOutput { return v.AggregationRule }).(AggregationRulePtrOutput)
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ClusterRoleOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterRole) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ClusterRoleOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterRole) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata.
+func (o ClusterRoleOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *ClusterRole) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Rules holds all the PolicyRules for this ClusterRole
+func (o ClusterRoleOutput) Rules() PolicyRuleArrayOutput {
+	return o.ApplyT(func(v *ClusterRole) PolicyRuleArrayOutput { return v.Rules }).(PolicyRuleArrayOutput)
+}
+
 type ClusterRoleArrayOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleArrayOutput) ElementType() reflect.Type {

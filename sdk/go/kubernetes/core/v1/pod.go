@@ -266,6 +266,31 @@ func (o PodOutput) ToPodOutputWithContext(ctx context.Context) PodOutput {
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *Pod) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PodOutput) Spec() PodSpecPtrOutput {
+	return o.ApplyT(func(v *Pod) PodSpecPtrOutput { return v.Spec }).(PodSpecPtrOutput)
+}
+
+// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PodOutput) Status() PodStatusPtrOutput {
+	return o.ApplyT(func(v *Pod) PodStatusPtrOutput { return v.Status }).(PodStatusPtrOutput)
+}
+
 type PodArrayOutput struct{ *pulumi.OutputState }
 
 func (PodArrayOutput) ElementType() reflect.Type {

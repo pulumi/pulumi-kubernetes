@@ -179,6 +179,26 @@ func (o CSIStorageCapacityListOutput) ToCSIStorageCapacityListOutputWithContext(
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSIStorageCapacityListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CSIStorageCapacityList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of CSIStorageCapacity objects.
+func (o CSIStorageCapacityListOutput) Items() CSIStorageCapacityTypeArrayOutput {
+	return o.ApplyT(func(v *CSIStorageCapacityList) CSIStorageCapacityTypeArrayOutput { return v.Items }).(CSIStorageCapacityTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSIStorageCapacityListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CSIStorageCapacityList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o CSIStorageCapacityListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *CSIStorageCapacityList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type CSIStorageCapacityListArrayOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityListArrayOutput) ElementType() reflect.Type {

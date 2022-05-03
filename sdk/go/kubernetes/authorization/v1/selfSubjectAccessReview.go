@@ -187,6 +187,31 @@ func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutputWithContex
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o SelfSubjectAccessReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectAccessReview) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o SelfSubjectAccessReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectAccessReview) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o SelfSubjectAccessReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectAccessReview) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec holds information about the request being evaluated.  user and groups must be empty
+func (o SelfSubjectAccessReviewOutput) Spec() SelfSubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v *SelfSubjectAccessReview) SelfSubjectAccessReviewSpecOutput { return v.Spec }).(SelfSubjectAccessReviewSpecOutput)
+}
+
+// Status is filled in by the server and indicates whether the request is allowed or not
+func (o SelfSubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectAccessReview) SubjectAccessReviewStatusPtrOutput { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
+}
+
 type SelfSubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectAccessReviewArrayOutput) ElementType() reflect.Type {

@@ -189,6 +189,31 @@ func (o APIServiceOutput) ToAPIServiceOutputWithContext(ctx context.Context) API
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o APIServiceOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *APIService) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o APIServiceOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *APIService) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o APIServiceOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *APIService) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec contains information for locating and communicating with a server
+func (o APIServiceOutput) Spec() APIServiceSpecPtrOutput {
+	return o.ApplyT(func(v *APIService) APIServiceSpecPtrOutput { return v.Spec }).(APIServiceSpecPtrOutput)
+}
+
+// Status contains derived information about an API server
+func (o APIServiceOutput) Status() APIServiceStatusPtrOutput {
+	return o.ApplyT(func(v *APIService) APIServiceStatusPtrOutput { return v.Status }).(APIServiceStatusPtrOutput)
+}
+
 type APIServiceArrayOutput struct{ *pulumi.OutputState }
 
 func (APIServiceArrayOutput) ElementType() reflect.Type {

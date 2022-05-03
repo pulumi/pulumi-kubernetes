@@ -184,6 +184,30 @@ func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutputWithContext(
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o SelfSubjectRulesReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o SelfSubjectRulesReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o SelfSubjectRulesReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec holds information about the request being evaluated.
+func (o SelfSubjectRulesReviewOutput) Spec() SelfSubjectRulesReviewSpecOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) SelfSubjectRulesReviewSpecOutput { return v.Spec }).(SelfSubjectRulesReviewSpecOutput)
+}
+
+// Status is filled in by the server and indicates the set of actions a user can perform.
+func (o SelfSubjectRulesReviewOutput) Status() SubjectRulesReviewStatusPtrOutput {
+	return o.ApplyT(func(v *SelfSubjectRulesReview) SubjectRulesReviewStatusPtrOutput { return v.Status }).(SubjectRulesReviewStatusPtrOutput)
+}
+
 type SelfSubjectRulesReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (SelfSubjectRulesReviewArrayOutput) ElementType() reflect.Type {

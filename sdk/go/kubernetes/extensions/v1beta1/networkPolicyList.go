@@ -179,6 +179,26 @@ func (o NetworkPolicyListOutput) ToNetworkPolicyListOutputWithContext(ctx contex
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NetworkPolicyListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicyList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of schema objects.
+func (o NetworkPolicyListOutput) Items() NetworkPolicyTypeArrayOutput {
+	return o.ApplyT(func(v *NetworkPolicyList) NetworkPolicyTypeArrayOutput { return v.Items }).(NetworkPolicyTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NetworkPolicyListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicyList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o NetworkPolicyListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicyList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type NetworkPolicyListArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyListArrayOutput) ElementType() reflect.Type {

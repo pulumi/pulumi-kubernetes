@@ -183,6 +183,31 @@ func (o NetworkPolicyOutput) ToNetworkPolicyOutputWithContext(ctx context.Contex
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o NetworkPolicyOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicy) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o NetworkPolicyOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicy) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o NetworkPolicyOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicy) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior for this NetworkPolicy.
+func (o NetworkPolicyOutput) Spec() NetworkPolicySpecPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicy) NetworkPolicySpecPtrOutput { return v.Spec }).(NetworkPolicySpecPtrOutput)
+}
+
+// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NetworkPolicyOutput) Status() NetworkPolicyStatusPtrOutput {
+	return o.ApplyT(func(v *NetworkPolicy) NetworkPolicyStatusPtrOutput { return v.Status }).(NetworkPolicyStatusPtrOutput)
+}
+
 type NetworkPolicyArrayOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyArrayOutput) ElementType() reflect.Type {

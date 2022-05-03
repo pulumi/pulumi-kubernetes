@@ -186,6 +186,31 @@ func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationOutputWith
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PriorityLevelConfigurationOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PriorityLevelConfigurationOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PriorityLevelConfigurationOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PriorityLevelConfigurationOutput) Spec() PriorityLevelConfigurationSpecPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) PriorityLevelConfigurationSpecPtrOutput { return v.Spec }).(PriorityLevelConfigurationSpecPtrOutput)
+}
+
+// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o PriorityLevelConfigurationOutput) Status() PriorityLevelConfigurationStatusPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) PriorityLevelConfigurationStatusPtrOutput { return v.Status }).(PriorityLevelConfigurationStatusPtrOutput)
+}
+
 type PriorityLevelConfigurationArrayOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationArrayOutput) ElementType() reflect.Type {

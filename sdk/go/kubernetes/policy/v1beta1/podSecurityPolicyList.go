@@ -179,6 +179,26 @@ func (o PodSecurityPolicyListOutput) ToPodSecurityPolicyListOutputWithContext(ct
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodSecurityPolicyListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicyList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is a list of schema objects.
+func (o PodSecurityPolicyListOutput) Items() PodSecurityPolicyTypeArrayOutput {
+	return o.ApplyT(func(v *PodSecurityPolicyList) PodSecurityPolicyTypeArrayOutput { return v.Items }).(PodSecurityPolicyTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodSecurityPolicyListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicyList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodSecurityPolicyListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *PodSecurityPolicyList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type PodSecurityPolicyListArrayOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyListArrayOutput) ElementType() reflect.Type {
