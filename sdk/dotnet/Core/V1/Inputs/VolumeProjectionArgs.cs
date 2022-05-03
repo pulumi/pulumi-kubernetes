@@ -16,25 +16,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class VolumeProjectionArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// information about the configMap data to project
+        /// configMap information about the configMap data to project
         /// </summary>
         [Input("configMap")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ConfigMapProjectionArgs>? ConfigMap { get; set; }
 
         /// <summary>
-        /// information about the downwardAPI data to project
+        /// downwardAPI information about the downwardAPI data to project
         /// </summary>
         [Input("downwardAPI")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.DownwardAPIProjectionArgs>? DownwardAPI { get; set; }
 
         /// <summary>
-        /// information about the secret data to project
+        /// secret information about the secret data to project
         /// </summary>
         [Input("secret")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.SecretProjectionArgs>? Secret { get; set; }
 
         /// <summary>
-        /// information about the serviceAccountToken data to project
+        /// serviceAccountToken is information about the serviceAccountToken data to project
         /// </summary>
         [Input("serviceAccountToken")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ServiceAccountTokenProjectionArgs>? ServiceAccountToken { get; set; }

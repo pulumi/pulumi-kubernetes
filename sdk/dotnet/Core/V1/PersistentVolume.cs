@@ -34,13 +34,13 @@ namespace Pulumi.Kubernetes.Core.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        /// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeSpec> Spec { get; private set; } = null!;
 
         /// <summary>
-        /// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        /// status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         /// </summary>
         [Output("status")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeStatus> Status { get; private set; } = null!;
@@ -124,7 +124,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        /// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         /// </summary>
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeSpecArgs>? Spec { get; set; }

@@ -12,7 +12,7 @@ VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider/v3
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
-KUBE_VERSION    ?= v1.23.0
+KUBE_VERSION    ?= v1.24.0
 SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/api/openapi-spec/swagger.json
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
@@ -32,7 +32,7 @@ ensure::
 	cd tests && go mod tidy
 
 k8sgen::
-	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
+	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/bin/${CODEGEN} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
 schema:: k8sgen
 	@echo "Generating Pulumi schema..."

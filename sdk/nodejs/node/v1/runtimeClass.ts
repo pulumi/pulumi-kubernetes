@@ -54,7 +54,6 @@ export class RuntimeClass extends pulumi.CustomResource {
     /**
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
      *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-     * This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
      */
     public readonly overhead!: pulumi.Output<outputs.node.v1.Overhead>;
     /**
@@ -120,7 +119,6 @@ export interface RuntimeClassArgs {
     /**
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
      *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-     * This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
      */
     overhead?: pulumi.Input<inputs.node.v1.Overhead>;
     /**

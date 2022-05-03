@@ -222,10 +222,10 @@ class AWSElasticBlockStoreVolumeSource(dict):
         Represents a Persistent Disk resource in AWS.
 
         An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
-        :param str volume_id: Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param str fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param int partition: The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
-        :param bool read_only: Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param str volume_id: volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param int partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+        :param bool read_only: readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         pulumi.set(__self__, "volume_id", volume_id)
         if fs_type is not None:
@@ -239,7 +239,7 @@ class AWSElasticBlockStoreVolumeSource(dict):
     @pulumi.getter(name="volumeID")
     def volume_id(self) -> str:
         """
-        Unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "volume_id")
 
@@ -247,7 +247,7 @@ class AWSElasticBlockStoreVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "fs_type")
 
@@ -255,7 +255,7 @@ class AWSElasticBlockStoreVolumeSource(dict):
     @pulumi.getter
     def partition(self) -> Optional[int]:
         """
-        The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+        partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
         """
         return pulumi.get(self, "partition")
 
@@ -263,7 +263,7 @@ class AWSElasticBlockStoreVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Specify "true" to force and set the ReadOnly property in VolumeMounts to "true". If omitted, the default is "false". More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "read_only")
 
@@ -425,12 +425,12 @@ class AzureDiskVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param str disk_name: The Name of the data disk in the blob storage
-        :param str disk_uri: The URI the data disk in the blob storage
-        :param str caching_mode: Host Caching mode: None, Read Only, Read Write.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        :param str kind: Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str disk_name: diskName is the Name of the data disk in the blob storage
+        :param str disk_uri: diskURI is the URI of data disk in the blob storage
+        :param str caching_mode: cachingMode is the Host Caching mode: None, Read Only, Read Write.
+        :param str fs_type: fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param str kind: kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+        :param bool read_only: readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         pulumi.set(__self__, "disk_name", disk_name)
         pulumi.set(__self__, "disk_uri", disk_uri)
@@ -447,7 +447,7 @@ class AzureDiskVolumeSource(dict):
     @pulumi.getter(name="diskName")
     def disk_name(self) -> str:
         """
-        The Name of the data disk in the blob storage
+        diskName is the Name of the data disk in the blob storage
         """
         return pulumi.get(self, "disk_name")
 
@@ -455,7 +455,7 @@ class AzureDiskVolumeSource(dict):
     @pulumi.getter(name="diskURI")
     def disk_uri(self) -> str:
         """
-        The URI the data disk in the blob storage
+        diskURI is the URI of data disk in the blob storage
         """
         return pulumi.get(self, "disk_uri")
 
@@ -463,7 +463,7 @@ class AzureDiskVolumeSource(dict):
     @pulumi.getter(name="cachingMode")
     def caching_mode(self) -> Optional[str]:
         """
-        Host Caching mode: None, Read Only, Read Write.
+        cachingMode is the Host Caching mode: None, Read Only, Read Write.
         """
         return pulumi.get(self, "caching_mode")
 
@@ -471,7 +471,7 @@ class AzureDiskVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -479,7 +479,7 @@ class AzureDiskVolumeSource(dict):
     @pulumi.getter
     def kind(self) -> Optional[str]:
         """
-        Expected values Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+        kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
         """
         return pulumi.get(self, "kind")
 
@@ -487,7 +487,7 @@ class AzureDiskVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -527,10 +527,10 @@ class AzureFilePersistentVolumeSource(dict):
                  secret_namespace: Optional[str] = None):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-        :param str secret_name: the name of secret that contains Azure Storage Account Name and Key
-        :param str share_name: Share Name
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param str secret_namespace: the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+        :param str secret_name: secretName is the name of secret that contains Azure Storage Account Name and Key
+        :param str share_name: shareName is the azure Share Name
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str secret_namespace: secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
         """
         pulumi.set(__self__, "secret_name", secret_name)
         pulumi.set(__self__, "share_name", share_name)
@@ -543,7 +543,7 @@ class AzureFilePersistentVolumeSource(dict):
     @pulumi.getter(name="secretName")
     def secret_name(self) -> str:
         """
-        the name of secret that contains Azure Storage Account Name and Key
+        secretName is the name of secret that contains Azure Storage Account Name and Key
         """
         return pulumi.get(self, "secret_name")
 
@@ -551,7 +551,7 @@ class AzureFilePersistentVolumeSource(dict):
     @pulumi.getter(name="shareName")
     def share_name(self) -> str:
         """
-        Share Name
+        shareName is the azure Share Name
         """
         return pulumi.get(self, "share_name")
 
@@ -559,7 +559,7 @@ class AzureFilePersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -567,7 +567,7 @@ class AzureFilePersistentVolumeSource(dict):
     @pulumi.getter(name="secretNamespace")
     def secret_namespace(self) -> Optional[str]:
         """
-        the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+        secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
         """
         return pulumi.get(self, "secret_namespace")
 
@@ -604,9 +604,9 @@ class AzureFileVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-        :param str secret_name: the name of secret that contains Azure Storage Account Name and Key
-        :param str share_name: Share Name
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str secret_name: secretName is the  name of secret that contains Azure Storage Account Name and Key
+        :param str share_name: shareName is the azure share Name
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         pulumi.set(__self__, "secret_name", secret_name)
         pulumi.set(__self__, "share_name", share_name)
@@ -617,7 +617,7 @@ class AzureFileVolumeSource(dict):
     @pulumi.getter(name="secretName")
     def secret_name(self) -> str:
         """
-        the name of secret that contains Azure Storage Account Name and Key
+        secretName is the  name of secret that contains Azure Storage Account Name and Key
         """
         return pulumi.get(self, "secret_name")
 
@@ -625,7 +625,7 @@ class AzureFileVolumeSource(dict):
     @pulumi.getter(name="shareName")
     def share_name(self) -> str:
         """
-        Share Name
+        shareName is the azure share Name
         """
         return pulumi.get(self, "share_name")
 
@@ -633,7 +633,7 @@ class AzureFileVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -686,15 +686,15 @@ class CSIPersistentVolumeSource(dict):
                  volume_attributes: Optional[Mapping[str, str]] = None):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
-        :param str driver: Driver is the name of the driver to use for this volume. Required.
-        :param str volume_handle: VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
-        :param 'SecretReferenceArgs' controller_expand_secret_ref: ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-        :param 'SecretReferenceArgs' controller_publish_secret_ref: ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
-        :param 'SecretReferenceArgs' node_publish_secret_ref: NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-        :param 'SecretReferenceArgs' node_stage_secret_ref: NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
-        :param bool read_only: Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
-        :param Mapping[str, str] volume_attributes: Attributes of the volume to publish.
+        :param str driver: driver is the name of the driver to use for this volume. Required.
+        :param str volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+        :param 'SecretReferenceArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferenceArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        :param 'SecretReferenceArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferenceArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+        :param Mapping[str, str] volume_attributes: volumeAttributes of the volume to publish.
         """
         pulumi.set(__self__, "driver", driver)
         pulumi.set(__self__, "volume_handle", volume_handle)
@@ -717,7 +717,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter
     def driver(self) -> str:
         """
-        Driver is the name of the driver to use for this volume. Required.
+        driver is the name of the driver to use for this volume. Required.
         """
         return pulumi.get(self, "driver")
 
@@ -725,7 +725,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="volumeHandle")
     def volume_handle(self) -> str:
         """
-        VolumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+        volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
         """
         return pulumi.get(self, "volume_handle")
 
@@ -733,7 +733,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        ControllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -741,7 +741,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="controllerPublishSecretRef")
     def controller_publish_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        ControllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_publish_secret_ref")
 
@@ -749,7 +749,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
         """
         return pulumi.get(self, "fs_type")
 
@@ -757,7 +757,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="nodePublishSecretRef")
     def node_publish_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "node_publish_secret_ref")
 
@@ -765,7 +765,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="nodeStageSecretRef")
     def node_stage_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        NodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "node_stage_secret_ref")
 
@@ -773,7 +773,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: The value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+        readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
         """
         return pulumi.get(self, "read_only")
 
@@ -781,7 +781,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="volumeAttributes")
     def volume_attributes(self) -> Optional[Mapping[str, str]]:
         """
-        Attributes of the volume to publish.
+        volumeAttributes of the volume to publish.
         """
         return pulumi.get(self, "volume_attributes")
 
@@ -822,11 +822,11 @@ class CSIVolumeSource(dict):
                  volume_attributes: Optional[Mapping[str, str]] = None):
         """
         Represents a source location of a volume to mount, managed by an external CSI driver
-        :param str driver: Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
-        :param str fs_type: Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
-        :param 'LocalObjectReferenceArgs' node_publish_secret_ref: NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
-        :param bool read_only: Specifies a read-only configuration for the volume. Defaults to false (read/write).
-        :param Mapping[str, str] volume_attributes: VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+        :param str driver: driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+        :param str fs_type: fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+        :param 'LocalObjectReferenceArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+        :param bool read_only: readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
+        :param Mapping[str, str] volume_attributes: volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
         """
         pulumi.set(__self__, "driver", driver)
         if fs_type is not None:
@@ -842,7 +842,7 @@ class CSIVolumeSource(dict):
     @pulumi.getter
     def driver(self) -> str:
         """
-        Driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+        driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
         """
         return pulumi.get(self, "driver")
 
@@ -850,7 +850,7 @@ class CSIVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+        fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
         """
         return pulumi.get(self, "fs_type")
 
@@ -858,7 +858,7 @@ class CSIVolumeSource(dict):
     @pulumi.getter(name="nodePublishSecretRef")
     def node_publish_secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        NodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+        nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
         """
         return pulumi.get(self, "node_publish_secret_ref")
 
@@ -866,7 +866,7 @@ class CSIVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Specifies a read-only configuration for the volume. Defaults to false (read/write).
+        readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
         """
         return pulumi.get(self, "read_only")
 
@@ -874,7 +874,7 @@ class CSIVolumeSource(dict):
     @pulumi.getter(name="volumeAttributes")
     def volume_attributes(self) -> Optional[Mapping[str, str]]:
         """
-        VolumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+        volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
         """
         return pulumi.get(self, "volume_attributes")
 
@@ -949,12 +949,12 @@ class CephFSPersistentVolumeSource(dict):
                  user: Optional[str] = None):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
-        :param Sequence[str] monitors: Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param str path: Optional: Used as the mounted root, rather than the full Ceph tree, default is /
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param str secret_file: Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param 'SecretReferenceArgs' secret_ref: Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param str user: Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param Sequence[str] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str secret_file: secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param 'SecretReferenceArgs' secret_ref: secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str user: user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         pulumi.set(__self__, "monitors", monitors)
         if path is not None:
@@ -972,7 +972,7 @@ class CephFSPersistentVolumeSource(dict):
     @pulumi.getter
     def monitors(self) -> Sequence[str]:
         """
-        Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "monitors")
 
@@ -980,7 +980,7 @@ class CephFSPersistentVolumeSource(dict):
     @pulumi.getter
     def path(self) -> Optional[str]:
         """
-        Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         """
         return pulumi.get(self, "path")
 
@@ -988,7 +988,7 @@ class CephFSPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "read_only")
 
@@ -996,7 +996,7 @@ class CephFSPersistentVolumeSource(dict):
     @pulumi.getter(name="secretFile")
     def secret_file(self) -> Optional[str]:
         """
-        Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "secret_file")
 
@@ -1004,7 +1004,7 @@ class CephFSPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "secret_ref")
 
@@ -1012,7 +1012,7 @@ class CephFSPersistentVolumeSource(dict):
     @pulumi.getter
     def user(self) -> Optional[str]:
         """
-        Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "user")
 
@@ -1052,12 +1052,12 @@ class CephFSVolumeSource(dict):
                  user: Optional[str] = None):
         """
         Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
-        :param Sequence[str] monitors: Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param str path: Optional: Used as the mounted root, rather than the full Ceph tree, default is /
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param str secret_file: Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param 'LocalObjectReferenceArgs' secret_ref: Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-        :param str user: Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param Sequence[str] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str secret_file: secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str user: user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         pulumi.set(__self__, "monitors", monitors)
         if path is not None:
@@ -1075,7 +1075,7 @@ class CephFSVolumeSource(dict):
     @pulumi.getter
     def monitors(self) -> Sequence[str]:
         """
-        Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "monitors")
 
@@ -1083,7 +1083,7 @@ class CephFSVolumeSource(dict):
     @pulumi.getter
     def path(self) -> Optional[str]:
         """
-        Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         """
         return pulumi.get(self, "path")
 
@@ -1091,7 +1091,7 @@ class CephFSVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "read_only")
 
@@ -1099,7 +1099,7 @@ class CephFSVolumeSource(dict):
     @pulumi.getter(name="secretFile")
     def secret_file(self) -> Optional[str]:
         """
-        Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "secret_file")
 
@@ -1107,7 +1107,7 @@ class CephFSVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "secret_ref")
 
@@ -1115,7 +1115,7 @@ class CephFSVolumeSource(dict):
     @pulumi.getter
     def user(self) -> Optional[str]:
         """
-        Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         """
         return pulumi.get(self, "user")
 
@@ -1155,10 +1155,10 @@ class CinderPersistentVolumeSource(dict):
                  secret_ref: Optional['outputs.SecretReference'] = None):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
-        :param str volume_id: volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param 'SecretReferenceArgs' secret_ref: Optional: points to a secret object containing parameters used to connect to OpenStack.
+        :param str volume_id: volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param str fs_type: fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'SecretReferenceArgs' secret_ref: secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
         """
         pulumi.set(__self__, "volume_id", volume_id)
         if fs_type is not None:
@@ -1172,7 +1172,7 @@ class CinderPersistentVolumeSource(dict):
     @pulumi.getter(name="volumeID")
     def volume_id(self) -> str:
         """
-        volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "volume_id")
 
@@ -1180,7 +1180,7 @@ class CinderPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "fs_type")
 
@@ -1188,7 +1188,7 @@ class CinderPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "read_only")
 
@@ -1196,7 +1196,7 @@ class CinderPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        Optional: points to a secret object containing parameters used to connect to OpenStack.
+        secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -1236,10 +1236,10 @@ class CinderVolumeSource(dict):
                  secret_ref: Optional['outputs.LocalObjectReference'] = None):
         """
         Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
-        :param str volume_id: volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param 'LocalObjectReferenceArgs' secret_ref: Optional: points to a secret object containing parameters used to connect to OpenStack.
+        :param str volume_id: volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
         """
         pulumi.set(__self__, "volume_id", volume_id)
         if fs_type is not None:
@@ -1253,7 +1253,7 @@ class CinderVolumeSource(dict):
     @pulumi.getter(name="volumeID")
     def volume_id(self) -> str:
         """
-        volume id used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "volume_id")
 
@@ -1261,7 +1261,7 @@ class CinderVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "fs_type")
 
@@ -1269,7 +1269,7 @@ class CinderVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "read_only")
 
@@ -1277,7 +1277,7 @@ class CinderVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        Optional: points to a secret object containing parameters used to connect to OpenStack.
+        secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -1611,9 +1611,9 @@ class ConfigMapProjection(dict):
         Adapts a ConfigMap into a projected volume.
 
         The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
-        :param Sequence['KeyToPathArgs'] items: If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param Sequence['KeyToPathArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        :param bool optional: Specify whether the ConfigMap or its keys must be defined
+        :param bool optional: optional specify whether the ConfigMap or its keys must be defined
         """
         if items is not None:
             pulumi.set(__self__, "items", items)
@@ -1626,7 +1626,7 @@ class ConfigMapProjection(dict):
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
         """
-        If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
         return pulumi.get(self, "items")
 
@@ -1642,7 +1642,7 @@ class ConfigMapProjection(dict):
     @pulumi.getter
     def optional(self) -> Optional[bool]:
         """
-        Specify whether the ConfigMap or its keys must be defined
+        optional specify whether the ConfigMap or its keys must be defined
         """
         return pulumi.get(self, "optional")
 
@@ -1680,10 +1680,10 @@ class ConfigMapVolumeSource(dict):
         Adapts a ConfigMap into a volume.
 
         The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
-        :param int default_mode: Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
-        :param Sequence['KeyToPathArgs'] items: If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param int default_mode: defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['KeyToPathArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        :param bool optional: Specify whether the ConfigMap or its keys must be defined
+        :param bool optional: optional specify whether the ConfigMap or its keys must be defined
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
@@ -1698,7 +1698,7 @@ class ConfigMapVolumeSource(dict):
     @pulumi.getter(name="defaultMode")
     def default_mode(self) -> Optional[int]:
         """
-        Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
@@ -1706,7 +1706,7 @@ class ConfigMapVolumeSource(dict):
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
         """
-        If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
         return pulumi.get(self, "items")
 
@@ -1722,7 +1722,7 @@ class ConfigMapVolumeSource(dict):
     @pulumi.getter
     def optional(self) -> Optional[bool]:
         """
-        Specify whether the ConfigMap or its keys must be defined
+        optional specify whether the ConfigMap or its keys must be defined
         """
         return pulumi.get(self, "optional")
 
@@ -1797,17 +1797,12 @@ class Container(dict):
         """
         A single application container that you want to run within a pod.
         :param str name: Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
-        :param Sequence[str] args: Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
-        :param Sequence[str] command: Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence[str] args: Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence[str] command: Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param Sequence['EnvVarArgs'] env: List of environment variables to set in the container. Cannot be updated.
         :param Sequence['EnvFromSourceArgs'] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-        :param str image: Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+        :param str image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
         :param str image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-               
-               Possible enum values:
-                - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-                - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-                - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
         :param 'LifecycleArgs' lifecycle: Actions that the management system should take in response to container lifecycle events. Cannot be updated.
         :param 'ProbeArgs' liveness_probe: Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param Sequence['ContainerPortArgs'] ports: List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
@@ -1819,10 +1814,6 @@ class Container(dict):
         :param bool stdin_once: Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
         :param str termination_message_path: Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
         :param str termination_message_policy: Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-               
-               Possible enum values:
-                - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-                - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
         :param bool tty: Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
         :param Sequence['VolumeDeviceArgs'] volume_devices: volumeDevices is the list of block devices to be used by the container.
         :param Sequence['VolumeMountArgs'] volume_mounts: Pod volumes to mount into the container's filesystem. Cannot be updated.
@@ -1884,7 +1875,7 @@ class Container(dict):
     @pulumi.getter
     def args(self) -> Optional[Sequence[str]]:
         """
-        Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         """
         return pulumi.get(self, "args")
 
@@ -1892,7 +1883,7 @@ class Container(dict):
     @pulumi.getter
     def command(self) -> Optional[Sequence[str]]:
         """
-        Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         """
         return pulumi.get(self, "command")
 
@@ -1916,7 +1907,7 @@ class Container(dict):
     @pulumi.getter
     def image(self) -> Optional[str]:
         """
-        Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+        Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
         """
         return pulumi.get(self, "image")
 
@@ -1925,11 +1916,6 @@ class Container(dict):
     def image_pull_policy(self) -> Optional[str]:
         """
         Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-
-        Possible enum values:
-         - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-         - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-         - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
         """
         return pulumi.get(self, "image_pull_policy")
 
@@ -2018,10 +2004,6 @@ class Container(dict):
     def termination_message_policy(self) -> Optional[str]:
         """
         Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-
-        Possible enum values:
-         - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-         - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
         """
         return pulumi.get(self, "termination_message_policy")
 
@@ -2148,11 +2130,6 @@ class ContainerPort(dict):
         :param int host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
         :param str name: If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
         :param str protocol: Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-               
-               Possible enum values:
-                - `"SCTP"` is the SCTP protocol.
-                - `"TCP"` is the TCP protocol.
-                - `"UDP"` is the UDP protocol.
         """
         pulumi.set(__self__, "container_port", container_port)
         if host_ip is not None:
@@ -2201,11 +2178,6 @@ class ContainerPort(dict):
     def protocol(self) -> Optional[str]:
         """
         Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-
-        Possible enum values:
-         - `"SCTP"` is the SCTP protocol.
-         - `"TCP"` is the TCP protocol.
-         - `"UDP"` is the UDP protocol.
         """
         return pulumi.get(self, "protocol")
 
@@ -2336,7 +2308,7 @@ class ContainerStateTerminated(dict):
         """
         ContainerStateTerminated is a terminated state of a container.
         :param int exit_code: Exit status from the last termination of the container
-        :param str container_id: Container's ID in the format 'docker://<container_id>'
+        :param str container_id: Container's ID in the format '<type>://<container_id>'
         :param str finished_at: Time at which the container last terminated
         :param str message: Message regarding the last termination of the container
         :param str reason: (brief) reason from the last termination of the container
@@ -2369,7 +2341,7 @@ class ContainerStateTerminated(dict):
     @pulumi.getter(name="containerID")
     def container_id(self) -> Optional[str]:
         """
-        Container's ID in the format 'docker://<container_id>'
+        Container's ID in the format '<type>://<container_id>'
         """
         return pulumi.get(self, "container_id")
 
@@ -2494,7 +2466,7 @@ class ContainerStatus(dict):
         :param str name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
         :param bool ready: Specifies whether the container has passed its readiness probe.
         :param int restart_count: The number of times the container has been restarted.
-        :param str container_id: Container's ID in the format 'docker://<container_id>'.
+        :param str container_id: Container's ID in the format '<type>://<container_id>'.
         :param 'ContainerStateArgs' last_state: Details about the container's last termination condition.
         :param bool started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
         :param 'ContainerStateArgs' state: Details about the container's current condition.
@@ -2557,7 +2529,7 @@ class ContainerStatus(dict):
     @pulumi.getter(name="containerID")
     def container_id(self) -> Optional[str]:
         """
-        Container's ID in the format 'docker://<container_id>'.
+        Container's ID in the format '<type>://<container_id>'.
         """
         return pulumi.get(self, "container_id")
 
@@ -2804,8 +2776,8 @@ class EmptyDirVolumeSource(dict):
                  size_limit: Optional[str] = None):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
-        :param str medium: What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-        :param str size_limit: Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        :param str medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        :param str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
         """
         if medium is not None:
             pulumi.set(__self__, "medium", medium)
@@ -2816,7 +2788,7 @@ class EmptyDirVolumeSource(dict):
     @pulumi.getter
     def medium(self) -> Optional[str]:
         """
-        What type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         return pulumi.get(self, "medium")
 
@@ -2824,7 +2796,7 @@ class EmptyDirVolumeSource(dict):
     @pulumi.getter(name="sizeLimit")
     def size_limit(self) -> Optional[str]:
         """
-        Total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
         """
         return pulumi.get(self, "size_limit")
 
@@ -2936,14 +2908,9 @@ class EndpointPort(dict):
         """
         EndpointPort is a tuple that describes a single port.
         :param int port: The port number of the endpoint.
-        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         :param str name: The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
         :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-               
-               Possible enum values:
-                - `"SCTP"` is the SCTP protocol.
-                - `"TCP"` is the TCP protocol.
-                - `"UDP"` is the UDP protocol.
         """
         pulumi.set(__self__, "port", port)
         if app_protocol is not None:
@@ -2965,7 +2932,7 @@ class EndpointPort(dict):
     @pulumi.getter(name="appProtocol")
     def app_protocol(self) -> Optional[str]:
         """
-        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         """
         return pulumi.get(self, "app_protocol")
 
@@ -2982,11 +2949,6 @@ class EndpointPort(dict):
     def protocol(self) -> Optional[str]:
         """
         The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
-
-        Possible enum values:
-         - `"SCTP"` is the SCTP protocol.
-         - `"TCP"` is the TCP protocol.
-         - `"UDP"` is the UDP protocol.
         """
         return pulumi.get(self, "protocol")
 
@@ -3459,17 +3421,12 @@ class EphemeralContainer(dict):
 
         This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
         :param str name: Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
-        :param Sequence[str] args: Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
-        :param Sequence[str] command: Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence[str] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence[str] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param Sequence['EnvVarArgs'] env: List of environment variables to set in the container. Cannot be updated.
         :param Sequence['EnvFromSourceArgs'] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
-        :param str image: Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
+        :param str image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
         :param str image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-               
-               Possible enum values:
-                - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-                - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-                - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
         :param 'LifecycleArgs' lifecycle: Lifecycle is not allowed for ephemeral containers.
         :param 'ProbeArgs' liveness_probe: Probes are not allowed for ephemeral containers.
         :param Sequence['ContainerPortArgs'] ports: Ports are not allowed for ephemeral containers.
@@ -3484,10 +3441,6 @@ class EphemeralContainer(dict):
                The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
         :param str termination_message_path: Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
         :param str termination_message_policy: Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-               
-               Possible enum values:
-                - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-                - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
         :param bool tty: Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
         :param Sequence['VolumeDeviceArgs'] volume_devices: volumeDevices is the list of block devices to be used by the container.
         :param Sequence['VolumeMountArgs'] volume_mounts: Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
@@ -3551,7 +3504,7 @@ class EphemeralContainer(dict):
     @pulumi.getter
     def args(self) -> Optional[Sequence[str]]:
         """
-        Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         """
         return pulumi.get(self, "args")
 
@@ -3559,7 +3512,7 @@ class EphemeralContainer(dict):
     @pulumi.getter
     def command(self) -> Optional[Sequence[str]]:
         """
-        Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         """
         return pulumi.get(self, "command")
 
@@ -3583,7 +3536,7 @@ class EphemeralContainer(dict):
     @pulumi.getter
     def image(self) -> Optional[str]:
         """
-        Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
+        Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
         """
         return pulumi.get(self, "image")
 
@@ -3592,11 +3545,6 @@ class EphemeralContainer(dict):
     def image_pull_policy(self) -> Optional[str]:
         """
         Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-
-        Possible enum values:
-         - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-         - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-         - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
         """
         return pulumi.get(self, "image_pull_policy")
 
@@ -3695,10 +3643,6 @@ class EphemeralContainer(dict):
     def termination_message_policy(self) -> Optional[str]:
         """
         Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-
-        Possible enum values:
-         - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-         - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
         """
         return pulumi.get(self, "termination_message_policy")
 
@@ -4199,11 +4143,11 @@ class FCVolumeSource(dict):
                  wwids: Optional[Sequence[str]] = None):
         """
         Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        :param int lun: Optional: FC target lun number
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param Sequence[str] target_wwns: Optional: FC target worldwide names (WWNs)
-        :param Sequence[str] wwids: Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param int lun: lun is Optional: FC target lun number
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param Sequence[str] target_wwns: targetWWNs is Optional: FC target worldwide names (WWNs)
+        :param Sequence[str] wwids: wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
         """
         if fs_type is not None:
             pulumi.set(__self__, "fs_type", fs_type)
@@ -4220,7 +4164,7 @@ class FCVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -4228,7 +4172,7 @@ class FCVolumeSource(dict):
     @pulumi.getter
     def lun(self) -> Optional[int]:
         """
-        Optional: FC target lun number
+        lun is Optional: FC target lun number
         """
         return pulumi.get(self, "lun")
 
@@ -4236,7 +4180,7 @@ class FCVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -4244,7 +4188,7 @@ class FCVolumeSource(dict):
     @pulumi.getter(name="targetWWNs")
     def target_wwns(self) -> Optional[Sequence[str]]:
         """
-        Optional: FC target worldwide names (WWNs)
+        targetWWNs is Optional: FC target worldwide names (WWNs)
         """
         return pulumi.get(self, "target_wwns")
 
@@ -4252,7 +4196,7 @@ class FCVolumeSource(dict):
     @pulumi.getter
     def wwids(self) -> Optional[Sequence[str]]:
         """
-        Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+        wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
         """
         return pulumi.get(self, "wwids")
 
@@ -4291,11 +4235,11 @@ class FlexPersistentVolumeSource(dict):
                  secret_ref: Optional['outputs.SecretReference'] = None):
         """
         FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
-        :param str driver: Driver is the name of the driver to use for this volume.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
-        :param Mapping[str, str] options: Optional: Extra command options if any.
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param 'SecretReferenceArgs' secret_ref: Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        :param str driver: driver is the name of the driver to use for this volume.
+        :param str fs_type: fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        :param Mapping[str, str] options: options is Optional: this field holds extra command options if any.
+        :param bool read_only: readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'SecretReferenceArgs' secret_ref: secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
         """
         pulumi.set(__self__, "driver", driver)
         if fs_type is not None:
@@ -4311,7 +4255,7 @@ class FlexPersistentVolumeSource(dict):
     @pulumi.getter
     def driver(self) -> str:
         """
-        Driver is the name of the driver to use for this volume.
+        driver is the name of the driver to use for this volume.
         """
         return pulumi.get(self, "driver")
 
@@ -4319,7 +4263,7 @@ class FlexPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
         """
         return pulumi.get(self, "fs_type")
 
@@ -4327,7 +4271,7 @@ class FlexPersistentVolumeSource(dict):
     @pulumi.getter
     def options(self) -> Optional[Mapping[str, str]]:
         """
-        Optional: Extra command options if any.
+        options is Optional: this field holds extra command options if any.
         """
         return pulumi.get(self, "options")
 
@@ -4335,7 +4279,7 @@ class FlexPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -4343,7 +4287,7 @@ class FlexPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -4382,11 +4326,11 @@ class FlexVolumeSource(dict):
                  secret_ref: Optional['outputs.LocalObjectReference'] = None):
         """
         FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param str driver: Driver is the name of the driver to use for this volume.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
-        :param Mapping[str, str] options: Optional: Extra command options if any.
-        :param bool read_only: Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param 'LocalObjectReferenceArgs' secret_ref: Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        :param str driver: driver is the name of the driver to use for this volume.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        :param Mapping[str, str] options: options is Optional: this field holds extra command options if any.
+        :param bool read_only: readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
         """
         pulumi.set(__self__, "driver", driver)
         if fs_type is not None:
@@ -4402,7 +4346,7 @@ class FlexVolumeSource(dict):
     @pulumi.getter
     def driver(self) -> str:
         """
-        Driver is the name of the driver to use for this volume.
+        driver is the name of the driver to use for this volume.
         """
         return pulumi.get(self, "driver")
 
@@ -4410,7 +4354,7 @@ class FlexVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
         """
         return pulumi.get(self, "fs_type")
 
@@ -4418,7 +4362,7 @@ class FlexVolumeSource(dict):
     @pulumi.getter
     def options(self) -> Optional[Mapping[str, str]]:
         """
-        Optional: Extra command options if any.
+        options is Optional: this field holds extra command options if any.
         """
         return pulumi.get(self, "options")
 
@@ -4426,7 +4370,7 @@ class FlexVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -4434,7 +4378,7 @@ class FlexVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -4468,8 +4412,8 @@ class FlockerVolumeSource(dict):
                  dataset_uuid: Optional[str] = None):
         """
         Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
-        :param str dataset_name: Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
-        :param str dataset_uuid: UUID of the dataset. This is unique identifier of a Flocker dataset
+        :param str dataset_name: datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+        :param str dataset_uuid: datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
         """
         if dataset_name is not None:
             pulumi.set(__self__, "dataset_name", dataset_name)
@@ -4480,7 +4424,7 @@ class FlockerVolumeSource(dict):
     @pulumi.getter(name="datasetName")
     def dataset_name(self) -> Optional[str]:
         """
-        Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+        datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
         """
         return pulumi.get(self, "dataset_name")
 
@@ -4488,7 +4432,7 @@ class FlockerVolumeSource(dict):
     @pulumi.getter(name="datasetUUID")
     def dataset_uuid(self) -> Optional[str]:
         """
-        UUID of the dataset. This is unique identifier of a Flocker dataset
+        datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
         """
         return pulumi.get(self, "dataset_uuid")
 
@@ -4530,10 +4474,10 @@ class GCEPersistentDiskVolumeSource(dict):
         Represents a Persistent Disk resource in Google Compute Engine.
 
         A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
-        :param str pd_name: Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param str fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param int partition: The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param bool read_only: ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param str pd_name: pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param str fs_type: fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param int partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         pulumi.set(__self__, "pd_name", pd_name)
         if fs_type is not None:
@@ -4547,7 +4491,7 @@ class GCEPersistentDiskVolumeSource(dict):
     @pulumi.getter(name="pdName")
     def pd_name(self) -> str:
         """
-        Unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "pd_name")
 
@@ -4555,7 +4499,7 @@ class GCEPersistentDiskVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "fs_type")
 
@@ -4563,7 +4507,7 @@ class GCEPersistentDiskVolumeSource(dict):
     @pulumi.getter
     def partition(self) -> Optional[int]:
         """
-        The partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "partition")
 
@@ -4571,7 +4515,7 @@ class GCEPersistentDiskVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "read_only")
 
@@ -4625,9 +4569,9 @@ class GitRepoVolumeSource(dict):
         Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
 
         DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-        :param str repository: Repository URL
-        :param str directory: Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
-        :param str revision: Commit hash for the specified revision.
+        :param str repository: repository is the URL
+        :param str directory: directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+        :param str revision: revision is the commit hash for the specified revision.
         """
         pulumi.set(__self__, "repository", repository)
         if directory is not None:
@@ -4639,7 +4583,7 @@ class GitRepoVolumeSource(dict):
     @pulumi.getter
     def repository(self) -> str:
         """
-        Repository URL
+        repository is the URL
         """
         return pulumi.get(self, "repository")
 
@@ -4647,7 +4591,7 @@ class GitRepoVolumeSource(dict):
     @pulumi.getter
     def directory(self) -> Optional[str]:
         """
-        Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+        directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
         """
         return pulumi.get(self, "directory")
 
@@ -4655,7 +4599,7 @@ class GitRepoVolumeSource(dict):
     @pulumi.getter
     def revision(self) -> Optional[str]:
         """
-        Commit hash for the specified revision.
+        revision is the commit hash for the specified revision.
         """
         return pulumi.get(self, "revision")
 
@@ -4691,10 +4635,10 @@ class GlusterfsPersistentVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
-        :param str endpoints: EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-        :param str path: Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-        :param str endpoints_namespace: EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-        :param bool read_only: ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str endpoints_namespace: endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param bool read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         pulumi.set(__self__, "endpoints", endpoints)
         pulumi.set(__self__, "path", path)
@@ -4707,7 +4651,7 @@ class GlusterfsPersistentVolumeSource(dict):
     @pulumi.getter
     def endpoints(self) -> str:
         """
-        EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "endpoints")
 
@@ -4715,7 +4659,7 @@ class GlusterfsPersistentVolumeSource(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "path")
 
@@ -4723,7 +4667,7 @@ class GlusterfsPersistentVolumeSource(dict):
     @pulumi.getter(name="endpointsNamespace")
     def endpoints_namespace(self) -> Optional[str]:
         """
-        EndpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "endpoints_namespace")
 
@@ -4731,7 +4675,7 @@ class GlusterfsPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "read_only")
 
@@ -4764,9 +4708,9 @@ class GlusterfsVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
-        :param str endpoints: EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-        :param str path: Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-        :param bool read_only: ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param bool read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         pulumi.set(__self__, "endpoints", endpoints)
         pulumi.set(__self__, "path", path)
@@ -4777,7 +4721,7 @@ class GlusterfsVolumeSource(dict):
     @pulumi.getter
     def endpoints(self) -> str:
         """
-        EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "endpoints")
 
@@ -4785,7 +4729,7 @@ class GlusterfsVolumeSource(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "path")
 
@@ -4793,7 +4737,7 @@ class GlusterfsVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
         return pulumi.get(self, "read_only")
 
@@ -4833,10 +4777,6 @@ class HTTPGetAction(dict):
         :param Sequence['HTTPHeaderArgs'] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
         :param str path: Path to access on the HTTP server.
         :param str scheme: Scheme to use for connecting to the host. Defaults to HTTP.
-               
-               Possible enum values:
-                - `"HTTP"` means that the scheme used will be http://
-                - `"HTTPS"` means that the scheme used will be https://
         """
         pulumi.set(__self__, "port", port)
         if host is not None:
@@ -4885,10 +4825,6 @@ class HTTPGetAction(dict):
     def scheme(self) -> Optional[str]:
         """
         Scheme to use for connecting to the host. Defaults to HTTP.
-
-        Possible enum values:
-         - `"HTTP"` means that the scheme used will be http://
-         - `"HTTPS"` means that the scheme used will be https://
         """
         return pulumi.get(self, "scheme")
 
@@ -4971,8 +4907,8 @@ class HostPathVolumeSource(dict):
                  type: Optional[str] = None):
         """
         Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
-        :param str path: Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-        :param str type: Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param str path: path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param str type: type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
         pulumi.set(__self__, "path", path)
         if type is not None:
@@ -4982,7 +4918,7 @@ class HostPathVolumeSource(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
         return pulumi.get(self, "path")
 
@@ -4990,7 +4926,7 @@ class HostPathVolumeSource(dict):
     @pulumi.getter
     def type(self) -> Optional[str]:
         """
-        Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
         return pulumi.get(self, "type")
 
@@ -5045,17 +4981,17 @@ class ISCSIPersistentVolumeSource(dict):
                  secret_ref: Optional['outputs.SecretReference'] = None):
         """
         ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
-        :param str iqn: Target iSCSI Qualified Name.
-        :param int lun: iSCSI Target Lun number.
-        :param str target_portal: iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
-        :param bool chap_auth_discovery: whether support iSCSI Discovery CHAP authentication
-        :param bool chap_auth_session: whether support iSCSI Session CHAP authentication
-        :param str fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
-        :param str initiator_name: Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
-        :param str iscsi_interface: iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
-        :param Sequence[str] portals: iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
-        :param bool read_only: ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
-        :param 'SecretReferenceArgs' secret_ref: CHAP Secret for iSCSI target and initiator authentication
+        :param str iqn: iqn is Target iSCSI Qualified Name.
+        :param int lun: lun is iSCSI Target Lun number.
+        :param str target_portal: targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        :param bool chap_auth_discovery: chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
+        :param bool chap_auth_session: chapAuthSession defines whether support iSCSI Session CHAP authentication
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        :param str initiator_name: initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        :param str iscsi_interface: iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        :param Sequence[str] portals: portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        :param 'SecretReferenceArgs' secret_ref: secretRef is the CHAP Secret for iSCSI target and initiator authentication
         """
         pulumi.set(__self__, "iqn", iqn)
         pulumi.set(__self__, "lun", lun)
@@ -5081,7 +5017,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter
     def iqn(self) -> str:
         """
-        Target iSCSI Qualified Name.
+        iqn is Target iSCSI Qualified Name.
         """
         return pulumi.get(self, "iqn")
 
@@ -5089,7 +5025,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter
     def lun(self) -> int:
         """
-        iSCSI Target Lun number.
+        lun is iSCSI Target Lun number.
         """
         return pulumi.get(self, "lun")
 
@@ -5097,7 +5033,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="targetPortal")
     def target_portal(self) -> str:
         """
-        iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         """
         return pulumi.get(self, "target_portal")
 
@@ -5105,7 +5041,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="chapAuthDiscovery")
     def chap_auth_discovery(self) -> Optional[bool]:
         """
-        whether support iSCSI Discovery CHAP authentication
+        chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
         """
         return pulumi.get(self, "chap_auth_discovery")
 
@@ -5113,7 +5049,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="chapAuthSession")
     def chap_auth_session(self) -> Optional[bool]:
         """
-        whether support iSCSI Session CHAP authentication
+        chapAuthSession defines whether support iSCSI Session CHAP authentication
         """
         return pulumi.get(self, "chap_auth_session")
 
@@ -5121,7 +5057,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
         """
         return pulumi.get(self, "fs_type")
 
@@ -5129,7 +5065,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="initiatorName")
     def initiator_name(self) -> Optional[str]:
         """
-        Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
         """
         return pulumi.get(self, "initiator_name")
 
@@ -5137,7 +5073,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="iscsiInterface")
     def iscsi_interface(self) -> Optional[str]:
         """
-        iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
         """
         return pulumi.get(self, "iscsi_interface")
 
@@ -5145,7 +5081,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter
     def portals(self) -> Optional[Sequence[str]]:
         """
-        iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         """
         return pulumi.get(self, "portals")
 
@@ -5153,7 +5089,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
         """
         return pulumi.get(self, "read_only")
 
@@ -5161,7 +5097,7 @@ class ISCSIPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        CHAP Secret for iSCSI target and initiator authentication
+        secretRef is the CHAP Secret for iSCSI target and initiator authentication
         """
         return pulumi.get(self, "secret_ref")
 
@@ -5216,17 +5152,17 @@ class ISCSIVolumeSource(dict):
                  secret_ref: Optional['outputs.LocalObjectReference'] = None):
         """
         Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
-        :param str iqn: Target iSCSI Qualified Name.
-        :param int lun: iSCSI Target Lun number.
-        :param str target_portal: iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
-        :param bool chap_auth_discovery: whether support iSCSI Discovery CHAP authentication
-        :param bool chap_auth_session: whether support iSCSI Session CHAP authentication
-        :param str fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
-        :param str initiator_name: Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
-        :param str iscsi_interface: iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
-        :param Sequence[str] portals: iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
-        :param bool read_only: ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
-        :param 'LocalObjectReferenceArgs' secret_ref: CHAP Secret for iSCSI target and initiator authentication
+        :param str iqn: iqn is the target iSCSI Qualified Name.
+        :param int lun: lun represents iSCSI Target Lun number.
+        :param str target_portal: targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        :param bool chap_auth_discovery: chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
+        :param bool chap_auth_session: chapAuthSession defines whether support iSCSI Session CHAP authentication
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        :param str initiator_name: initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        :param str iscsi_interface: iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        :param Sequence[str] portals: portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef is the CHAP Secret for iSCSI target and initiator authentication
         """
         pulumi.set(__self__, "iqn", iqn)
         pulumi.set(__self__, "lun", lun)
@@ -5252,7 +5188,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter
     def iqn(self) -> str:
         """
-        Target iSCSI Qualified Name.
+        iqn is the target iSCSI Qualified Name.
         """
         return pulumi.get(self, "iqn")
 
@@ -5260,7 +5196,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter
     def lun(self) -> int:
         """
-        iSCSI Target Lun number.
+        lun represents iSCSI Target Lun number.
         """
         return pulumi.get(self, "lun")
 
@@ -5268,7 +5204,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="targetPortal")
     def target_portal(self) -> str:
         """
-        iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         """
         return pulumi.get(self, "target_portal")
 
@@ -5276,7 +5212,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="chapAuthDiscovery")
     def chap_auth_discovery(self) -> Optional[bool]:
         """
-        whether support iSCSI Discovery CHAP authentication
+        chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
         """
         return pulumi.get(self, "chap_auth_discovery")
 
@@ -5284,7 +5220,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="chapAuthSession")
     def chap_auth_session(self) -> Optional[bool]:
         """
-        whether support iSCSI Session CHAP authentication
+        chapAuthSession defines whether support iSCSI Session CHAP authentication
         """
         return pulumi.get(self, "chap_auth_session")
 
@@ -5292,7 +5228,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
         """
         return pulumi.get(self, "fs_type")
 
@@ -5300,7 +5236,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="initiatorName")
     def initiator_name(self) -> Optional[str]:
         """
-        Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
         """
         return pulumi.get(self, "initiator_name")
 
@@ -5308,7 +5244,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="iscsiInterface")
     def iscsi_interface(self) -> Optional[str]:
         """
-        iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
         """
         return pulumi.get(self, "iscsi_interface")
 
@@ -5316,7 +5252,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter
     def portals(self) -> Optional[Sequence[str]]:
         """
-        iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         """
         return pulumi.get(self, "portals")
 
@@ -5324,7 +5260,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
         """
         return pulumi.get(self, "read_only")
 
@@ -5332,7 +5268,7 @@ class ISCSIVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        CHAP Secret for iSCSI target and initiator authentication
+        secretRef is the CHAP Secret for iSCSI target and initiator authentication
         """
         return pulumi.get(self, "secret_ref")
 
@@ -5348,9 +5284,9 @@ class KeyToPath(dict):
                  mode: Optional[int] = None):
         """
         Maps a string key to a path within a volume.
-        :param str key: The key to project.
-        :param str path: The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
-        :param int mode: Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param str key: key is the key to project.
+        :param str path: path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+        :param int mode: mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "path", path)
@@ -5361,7 +5297,7 @@ class KeyToPath(dict):
     @pulumi.getter
     def key(self) -> str:
         """
-        The key to project.
+        key is the key to project.
         """
         return pulumi.get(self, "key")
 
@@ -5369,7 +5305,7 @@ class KeyToPath(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        The relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+        path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
         """
         return pulumi.get(self, "path")
 
@@ -5377,7 +5313,7 @@ class KeyToPath(dict):
     @pulumi.getter
     def mode(self) -> Optional[int]:
         """
-        Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "mode")
 
@@ -5614,11 +5550,6 @@ class LimitRangeItem(dict):
         """
         LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
         :param str type: Type of resource that this limit applies to.
-               
-               Possible enum values:
-                - `"Container"` Limit that applies to all containers in a namespace
-                - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-                - `"Pod"` Limit that applies to all pods in a namespace
         :param Mapping[str, str] default: Default resource requirement limit value by resource name if resource limit is omitted.
         :param Mapping[str, str] default_request: DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
         :param Mapping[str, str] max: Max usage constraints on this kind by resource name.
@@ -5642,11 +5573,6 @@ class LimitRangeItem(dict):
     def type(self) -> str:
         """
         Type of resource that this limit applies to.
-
-        Possible enum values:
-         - `"Container"` Limit that applies to all containers in a namespace
-         - `"PersistentVolumeClaim"` Limit that applies to all persistent volume claims in a namespace
-         - `"Pod"` Limit that applies to all pods in a namespace
         """
         return pulumi.get(self, "type")
 
@@ -5833,8 +5759,8 @@ class LocalVolumeSource(dict):
                  fs_type: Optional[str] = None):
         """
         Local represents directly-attached storage with node affinity (Beta feature)
-        :param str path: The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
-        :param str fs_type: Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+        :param str path: path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+        :param str fs_type: fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
         """
         pulumi.set(__self__, "path", path)
         if fs_type is not None:
@@ -5844,7 +5770,7 @@ class LocalVolumeSource(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        The full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+        path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
         """
         return pulumi.get(self, "path")
 
@@ -5852,7 +5778,7 @@ class LocalVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+        fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -5885,9 +5811,9 @@ class NFSVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
-        :param str path: Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-        :param str server: Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-        :param bool read_only: ReadOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param str path: path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param str server: server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param bool read_only: readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         pulumi.set(__self__, "path", path)
         pulumi.set(__self__, "server", server)
@@ -5898,7 +5824,7 @@ class NFSVolumeSource(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        Path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         return pulumi.get(self, "path")
 
@@ -5906,7 +5832,7 @@ class NFSVolumeSource(dict):
     @pulumi.getter
     def server(self) -> str:
         """
-        Server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         return pulumi.get(self, "server")
 
@@ -5914,7 +5840,7 @@ class NFSVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         return pulumi.get(self, "read_only")
 
@@ -6039,13 +5965,6 @@ class NamespaceCondition(dict):
         NamespaceCondition contains details about state of namespace.
         :param str status: Status of the condition, one of True, False, Unknown.
         :param str type: Type of namespace controller condition.
-               
-               Possible enum values:
-                - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
-                - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
-                - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
-                - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
-                - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
         """
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "type", type)
@@ -6069,13 +5988,6 @@ class NamespaceCondition(dict):
     def type(self) -> str:
         """
         Type of namespace controller condition.
-
-        Possible enum values:
-         - `"NamespaceContentRemaining"` contains information about resources remaining in a namespace.
-         - `"NamespaceDeletionContentFailure"` contains information about namespace deleter errors during deletion of resources.
-         - `"NamespaceDeletionDiscoveryFailure"` contains information about namespace deleter errors during resource discovery.
-         - `"NamespaceDeletionGroupVersionParsingFailure"` contains information about namespace deleter errors parsing GV for legacy types.
-         - `"NamespaceFinalizersRemaining"` contains information about which finalizers are on resources remaining in a namespace.
         """
         return pulumi.get(self, "type")
 
@@ -6130,10 +6042,6 @@ class NamespaceStatus(dict):
         NamespaceStatus is information about the current status of a Namespace.
         :param Sequence['NamespaceConditionArgs'] conditions: Represents the latest available observations of a namespace's current state.
         :param str phase: Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-               
-               Possible enum values:
-                - `"Active"` means the namespace is available for use in the system
-                - `"Terminating"` means the namespace is undergoing graceful termination
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
@@ -6153,10 +6061,6 @@ class NamespaceStatus(dict):
     def phase(self) -> Optional[str]:
         """
         Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
-
-        Possible enum values:
-         - `"Active"` means the namespace is available for use in the system
-         - `"Terminating"` means the namespace is undergoing graceful termination
         """
         return pulumi.get(self, "phase")
 
@@ -6261,13 +6165,6 @@ class NodeAddress(dict):
         NodeAddress contains information for the node's address.
         :param str address: The node address.
         :param str type: Node address type, one of Hostname, ExternalIP or InternalIP.
-               
-               Possible enum values:
-                - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
-                - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
-                - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
-                - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
-                - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
         """
         pulumi.set(__self__, "address", address)
         pulumi.set(__self__, "type", type)
@@ -6285,13 +6182,6 @@ class NodeAddress(dict):
     def type(self) -> str:
         """
         Node address type, one of Hostname, ExternalIP or InternalIP.
-
-        Possible enum values:
-         - `"ExternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeExternalIP. The IP it resolves to may or may not be a listed NodeExternalIP address.
-         - `"ExternalIP"` identifies an IP address which is, in some way, intended to be more usable from outside the cluster then an internal IP, though no specific semantics are defined. It may be a globally routable IP, though it is not required to be. External IPs may be assigned directly to an interface on the node, like a NodeInternalIP, or alternatively, packets sent to the external IP may be NAT'ed to an internal node IP rather than being delivered directly (making the IP less efficient for node-to-node traffic than a NodeInternalIP).
-         - `"Hostname"` identifies a name of the node. Although every node can be assumed to have a NodeAddress of this type, its exact syntax and semantics are not defined, and are not consistent between different clusters.
-         - `"InternalDNS"` identifies a DNS name which resolves to an IP address which has the characteristics of a NodeInternalIP. The IP it resolves to may or may not be a listed NodeInternalIP address.
-         - `"InternalIP"` identifies an IP address which is assigned to one of the node's network interfaces. Every node should have at least one address of this type. An internal IP is normally expected to be reachable from every other node, but may not be visible to hosts outside the cluster. By default it is assumed that kube-apiserver can reach node internal IPs, though it is possible to configure clusters where this is not the case. NodeInternalIP is the default type of node IP, and does not necessarily imply that the IP is ONLY reachable internally. If a node has multiple internal IPs, no specific semantics are assigned to the additional IPs.
         """
         return pulumi.get(self, "type")
 
@@ -6385,13 +6275,6 @@ class NodeCondition(dict):
         NodeCondition contains condition information for a node.
         :param str status: Status of the condition, one of True, False, Unknown.
         :param str type: Type of node condition.
-               
-               Possible enum values:
-                - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
-                - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
-                - `"NetworkUnavailable"` means that network for the node is not correctly configured.
-                - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
-                - `"Ready"` means kubelet is healthy and ready to accept pods.
         :param str last_heartbeat_time: Last time we got an update on a given condition.
         :param str last_transition_time: Last time the condition transit from one status to another.
         :param str message: Human readable message indicating details about last transition.
@@ -6421,13 +6304,6 @@ class NodeCondition(dict):
     def type(self) -> str:
         """
         Type of node condition.
-
-        Possible enum values:
-         - `"DiskPressure"` means the kubelet is under pressure due to insufficient available disk.
-         - `"MemoryPressure"` means the kubelet is under pressure due to insufficient available memory.
-         - `"NetworkUnavailable"` means that network for the node is not correctly configured.
-         - `"PIDPressure"` means the kubelet is under pressure due to insufficient available PID.
-         - `"Ready"` means kubelet is healthy and ready to accept pods.
         """
         return pulumi.get(self, "type")
 
@@ -6672,14 +6548,6 @@ class NodeSelectorRequirement(dict):
         A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
         :param str key: The label key that the selector applies to.
         :param str operator: Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
-               
-               Possible enum values:
-                - `"DoesNotExist"`
-                - `"Exists"`
-                - `"Gt"`
-                - `"In"`
-                - `"Lt"`
-                - `"NotIn"`
         :param Sequence[str] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
         """
         pulumi.set(__self__, "key", key)
@@ -6700,14 +6568,6 @@ class NodeSelectorRequirement(dict):
     def operator(self) -> str:
         """
         Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
-
-        Possible enum values:
-         - `"DoesNotExist"`
-         - `"Exists"`
-         - `"Gt"`
-         - `"In"`
-         - `"Lt"`
-         - `"NotIn"`
         """
         return pulumi.get(self, "operator")
 
@@ -6814,7 +6674,7 @@ class NodeSpec(dict):
                  unschedulable: Optional[bool] = None):
         """
         NodeSpec describes the attributes that a node is created with.
-        :param 'NodeConfigSourceArgs' config_source: Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+        :param 'NodeConfigSourceArgs' config_source: Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
         :param str external_id: Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
         :param str pod_cidr: PodCIDR represents the pod IP range assigned to the node.
         :param Sequence[str] pod_cidrs: podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
@@ -6841,7 +6701,7 @@ class NodeSpec(dict):
     @pulumi.getter(name="configSource")
     def config_source(self) -> Optional['outputs.NodeConfigSource']:
         """
-        Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+        Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
         """
         return pulumi.get(self, "config_source")
 
@@ -6945,11 +6805,6 @@ class NodeStatus(dict):
         :param Sequence['ContainerImageArgs'] images: List of container images on this node
         :param 'NodeSystemInfoArgs' node_info: Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
         :param str phase: NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
-               
-               Possible enum values:
-                - `"Pending"` means the node has been created/added by the system, but not configured.
-                - `"Running"` means the node has been configured and has Kubernetes components running.
-                - `"Terminated"` means the node has been removed from the cluster.
         :param Sequence['AttachedVolumeArgs'] volumes_attached: List of volumes that are attached to the node.
         :param Sequence[str] volumes_in_use: List of attachable volumes in use (mounted) by the node.
         """
@@ -7045,11 +6900,6 @@ class NodeStatus(dict):
     def phase(self) -> Optional[str]:
         """
         NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
-
-        Possible enum values:
-         - `"Pending"` means the node has been created/added by the system, but not configured.
-         - `"Running"` means the node has been configured and has Kubernetes components running.
-         - `"Terminated"` means the node has been removed from the cluster.
         """
         return pulumi.get(self, "phase")
 
@@ -7123,7 +6973,7 @@ class NodeSystemInfo(dict):
         NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
         :param str architecture: The Architecture reported by the node
         :param str boot_id: Boot ID reported by the node.
-        :param str container_runtime_version: ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+        :param str container_runtime_version: ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
         :param str kernel_version: Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
         :param str kube_proxy_version: KubeProxy Version reported by the node.
         :param str kubelet_version: Kubelet Version reported by the node.
@@ -7163,7 +7013,7 @@ class NodeSystemInfo(dict):
     @pulumi.getter(name="containerRuntimeVersion")
     def container_runtime_version(self) -> str:
         """
-        ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+        ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
         """
         return pulumi.get(self, "container_runtime_version")
 
@@ -7426,8 +7276,8 @@ class PersistentVolume(dict):
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'PersistentVolumeSpecArgs' spec: Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-        :param 'PersistentVolumeStatusArgs' status: Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        :param 'PersistentVolumeSpecArgs' spec: spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        :param 'PersistentVolumeStatusArgs' status: status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
@@ -7468,7 +7318,7 @@ class PersistentVolume(dict):
     @pulumi.getter
     def spec(self) -> Optional['outputs.PersistentVolumeSpec']:
         """
-        Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         """
         return pulumi.get(self, "spec")
 
@@ -7476,7 +7326,7 @@ class PersistentVolume(dict):
     @pulumi.getter
     def status(self) -> Optional['outputs.PersistentVolumeStatus']:
         """
-        Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+        status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
         """
         return pulumi.get(self, "status")
 
@@ -7514,8 +7364,8 @@ class PersistentVolumeClaim(dict):
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param 'PersistentVolumeClaimSpecArgs' spec: Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        :param 'PersistentVolumeClaimStatusArgs' status: Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param 'PersistentVolumeClaimSpecArgs' spec: spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param 'PersistentVolumeClaimStatusArgs' status: status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
@@ -7556,7 +7406,7 @@ class PersistentVolumeClaim(dict):
     @pulumi.getter
     def spec(self) -> Optional['outputs.PersistentVolumeClaimSpec']:
         """
-        Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         """
         return pulumi.get(self, "spec")
 
@@ -7564,7 +7414,7 @@ class PersistentVolumeClaim(dict):
     @pulumi.getter
     def status(self) -> Optional['outputs.PersistentVolumeClaimStatus']:
         """
-        Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         """
         return pulumi.get(self, "status")
 
@@ -7602,16 +7452,10 @@ class PersistentVolumeClaimCondition(dict):
                  reason: Optional[str] = None):
         """
         PersistentVolumeClaimCondition contails details about state of pvc
-        :param str type: 
-               
-               
-               Possible enum values:
-                - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
-                - `"Resizing"` - a user trigger resize of pvc has been started
-        :param str last_probe_time: Last time we probed the condition.
-        :param str last_transition_time: Last time the condition transitioned from one status to another.
-        :param str message: Human-readable message indicating details about last transition.
-        :param str reason: Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        :param str last_probe_time: lastProbeTime is the time we probed the condition.
+        :param str last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
+        :param str message: message is the human-readable message indicating details about last transition.
+        :param str reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
         """
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "type", type)
@@ -7632,21 +7476,13 @@ class PersistentVolumeClaimCondition(dict):
     @property
     @pulumi.getter
     def type(self) -> str:
-        """
-
-
-
-        Possible enum values:
-         - `"FileSystemResizePending"` - controller resize is finished and a file system resize is pending on node
-         - `"Resizing"` - a user trigger resize of pvc has been started
-        """
         return pulumi.get(self, "type")
 
     @property
     @pulumi.getter(name="lastProbeTime")
     def last_probe_time(self) -> Optional[str]:
         """
-        Last time we probed the condition.
+        lastProbeTime is the time we probed the condition.
         """
         return pulumi.get(self, "last_probe_time")
 
@@ -7654,7 +7490,7 @@ class PersistentVolumeClaimCondition(dict):
     @pulumi.getter(name="lastTransitionTime")
     def last_transition_time(self) -> Optional[str]:
         """
-        Last time the condition transitioned from one status to another.
+        lastTransitionTime is the time the condition transitioned from one status to another.
         """
         return pulumi.get(self, "last_transition_time")
 
@@ -7662,7 +7498,7 @@ class PersistentVolumeClaimCondition(dict):
     @pulumi.getter
     def message(self) -> Optional[str]:
         """
-        Human-readable message indicating details about last transition.
+        message is the human-readable message indicating details about last transition.
         """
         return pulumi.get(self, "message")
 
@@ -7670,7 +7506,7 @@ class PersistentVolumeClaimCondition(dict):
     @pulumi.getter
     def reason(self) -> Optional[str]:
         """
-        Unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
         """
         return pulumi.get(self, "reason")
 
@@ -7718,19 +7554,19 @@ class PersistentVolumeClaimSpec(dict):
                  volume_name: Optional[str] = None):
         """
         PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
-        :param Sequence[str] access_modes: AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-        :param 'TypedLocalObjectReferenceArgs' data_source: This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
-        :param 'TypedLocalObjectReferenceArgs' data_source_ref: Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+        :param Sequence[str] access_modes: accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        :param 'TypedLocalObjectReferenceArgs' data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+        :param 'TypedLocalObjectReferenceArgs' data_source_ref: dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
                  allows any non-core object, as well as PersistentVolumeClaim objects.
                * While DataSource ignores disallowed values (dropping them), DataSourceRef
                  preserves all values, and generates an error if a disallowed value is
                  specified.
-               (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
-        :param 'ResourceRequirementsArgs' resources: Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
-        :param '_meta.v1.LabelSelectorArgs' selector: A label query over volumes to consider for binding.
-        :param str storage_class_name: Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+               (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+        :param 'ResourceRequirementsArgs' resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        :param '_meta.v1.LabelSelectorArgs' selector: selector is a label query over volumes to consider for binding.
+        :param str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
         :param str volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
-        :param str volume_name: VolumeName is the binding reference to the PersistentVolume backing this claim.
+        :param str volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
         """
         if access_modes is not None:
             pulumi.set(__self__, "access_modes", access_modes)
@@ -7753,7 +7589,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter(name="accessModes")
     def access_modes(self) -> Optional[Sequence[str]]:
         """
-        AccessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         """
         return pulumi.get(self, "access_modes")
 
@@ -7761,7 +7597,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter(name="dataSource")
     def data_source(self) -> Optional['outputs.TypedLocalObjectReference']:
         """
-        This field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+        dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
         """
         return pulumi.get(self, "data_source")
 
@@ -7769,12 +7605,12 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter(name="dataSourceRef")
     def data_source_ref(self) -> Optional['outputs.TypedLocalObjectReference']:
         """
-        Specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+        dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
           allows any non-core object, as well as PersistentVolumeClaim objects.
         * While DataSource ignores disallowed values (dropping them), DataSourceRef
           preserves all values, and generates an error if a disallowed value is
           specified.
-        (Alpha) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+        (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
         """
         return pulumi.get(self, "data_source_ref")
 
@@ -7782,7 +7618,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter
     def resources(self) -> Optional['outputs.ResourceRequirements']:
         """
-        Resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
         """
         return pulumi.get(self, "resources")
 
@@ -7790,7 +7626,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
         """
-        A label query over volumes to consider for binding.
+        selector is a label query over volumes to consider for binding.
         """
         return pulumi.get(self, "selector")
 
@@ -7798,7 +7634,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter(name="storageClassName")
     def storage_class_name(self) -> Optional[str]:
         """
-        Name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+        storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
         """
         return pulumi.get(self, "storage_class_name")
 
@@ -7814,7 +7650,7 @@ class PersistentVolumeClaimSpec(dict):
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> Optional[str]:
         """
-        VolumeName is the binding reference to the PersistentVolume backing this claim.
+        volumeName is the binding reference to the PersistentVolume backing this claim.
         """
         return pulumi.get(self, "volume_name")
 
@@ -7854,17 +7690,12 @@ class PersistentVolumeClaimStatus(dict):
                  resize_status: Optional[str] = None):
         """
         PersistentVolumeClaimStatus is the current status of a persistent volume claim.
-        :param Sequence[str] access_modes: AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
-        :param Mapping[str, str] allocated_resources: The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
-        :param Mapping[str, str] capacity: Represents the actual resources of the underlying volume.
-        :param Sequence['PersistentVolumeClaimConditionArgs'] conditions: Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
-        :param str phase: Phase represents the current phase of PersistentVolumeClaim.
-               
-               Possible enum values:
-                - `"Bound"` used for PersistentVolumeClaims that are bound
-                - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-                - `"Pending"` used for PersistentVolumeClaims that are not yet bound
-        :param str resize_status: ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        :param Sequence[str] access_modes: accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        :param Mapping[str, str] allocated_resources: allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        :param Mapping[str, str] capacity: capacity represents the actual resources of the underlying volume.
+        :param Sequence['PersistentVolumeClaimConditionArgs'] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        :param str phase: phase represents the current phase of PersistentVolumeClaim.
+        :param str resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         if access_modes is not None:
             pulumi.set(__self__, "access_modes", access_modes)
@@ -7883,7 +7714,7 @@ class PersistentVolumeClaimStatus(dict):
     @pulumi.getter(name="accessModes")
     def access_modes(self) -> Optional[Sequence[str]]:
         """
-        AccessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
         """
         return pulumi.get(self, "access_modes")
 
@@ -7891,7 +7722,7 @@ class PersistentVolumeClaimStatus(dict):
     @pulumi.getter(name="allocatedResources")
     def allocated_resources(self) -> Optional[Mapping[str, str]]:
         """
-        The storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         return pulumi.get(self, "allocated_resources")
 
@@ -7899,7 +7730,7 @@ class PersistentVolumeClaimStatus(dict):
     @pulumi.getter
     def capacity(self) -> Optional[Mapping[str, str]]:
         """
-        Represents the actual resources of the underlying volume.
+        capacity represents the actual resources of the underlying volume.
         """
         return pulumi.get(self, "capacity")
 
@@ -7907,7 +7738,7 @@ class PersistentVolumeClaimStatus(dict):
     @pulumi.getter
     def conditions(self) -> Optional[Sequence['outputs.PersistentVolumeClaimCondition']]:
         """
-        Current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
         """
         return pulumi.get(self, "conditions")
 
@@ -7915,12 +7746,7 @@ class PersistentVolumeClaimStatus(dict):
     @pulumi.getter
     def phase(self) -> Optional[str]:
         """
-        Phase represents the current phase of PersistentVolumeClaim.
-
-        Possible enum values:
-         - `"Bound"` used for PersistentVolumeClaims that are bound
-         - `"Lost"` used for PersistentVolumeClaims that lost their underlying PersistentVolume. The claim was bound to a PersistentVolume and this volume does not exist any longer and all data on it was lost.
-         - `"Pending"` used for PersistentVolumeClaims that are not yet bound
+        phase represents the current phase of PersistentVolumeClaim.
         """
         return pulumi.get(self, "phase")
 
@@ -7928,7 +7754,7 @@ class PersistentVolumeClaimStatus(dict):
     @pulumi.getter(name="resizeStatus")
     def resize_status(self) -> Optional[str]:
         """
-        ResizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
         """
         return pulumi.get(self, "resize_status")
 
@@ -7996,8 +7822,8 @@ class PersistentVolumeClaimVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
-        :param str claim_name: ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        :param bool read_only: Will force the ReadOnly setting in VolumeMounts. Default false.
+        :param str claim_name: claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param bool read_only: readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
         """
         pulumi.set(__self__, "claim_name", claim_name)
         if read_only is not None:
@@ -8007,7 +7833,7 @@ class PersistentVolumeClaimVolumeSource(dict):
     @pulumi.getter(name="claimName")
     def claim_name(self) -> str:
         """
-        ClaimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         """
         return pulumi.get(self, "claim_name")
 
@@ -8015,7 +7841,7 @@ class PersistentVolumeClaimVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Will force the ReadOnly setting in VolumeMounts. Default false.
+        readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
         """
         return pulumi.get(self, "read_only")
 
@@ -8107,41 +7933,36 @@ class PersistentVolumeSpec(dict):
                  vsphere_volume: Optional['outputs.VsphereVirtualDiskVolumeSource'] = None):
         """
         PersistentVolumeSpec is the specification of a persistent volume.
-        :param Sequence[str] access_modes: AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
-        :param 'AWSElasticBlockStoreVolumeSourceArgs' aws_elastic_block_store: AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param 'AzureDiskVolumeSourceArgs' azure_disk: AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param 'AzureFilePersistentVolumeSourceArgs' azure_file: AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-        :param Mapping[str, str] capacity: A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
-        :param 'CephFSPersistentVolumeSourceArgs' cephfs: CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-        :param 'CinderPersistentVolumeSourceArgs' cinder: Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param 'ObjectReferenceArgs' claim_ref: ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
-        :param 'CSIPersistentVolumeSourceArgs' csi: CSI represents storage that is handled by an external CSI driver (Beta feature).
-        :param 'FCVolumeSourceArgs' fc: FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-        :param 'FlexPersistentVolumeSourceArgs' flex_volume: FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param 'FlockerVolumeSourceArgs' flocker: Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
-        :param 'GCEPersistentDiskVolumeSourceArgs' gce_persistent_disk: GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param 'GlusterfsPersistentVolumeSourceArgs' glusterfs: Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-        :param 'HostPathVolumeSourceArgs' host_path: HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-        :param 'ISCSIPersistentVolumeSourceArgs' iscsi: ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
-        :param 'LocalVolumeSourceArgs' local: Local represents directly-attached storage with node affinity
-        :param Sequence[str] mount_options: A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
-        :param 'NFSVolumeSourceArgs' nfs: NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-        :param 'VolumeNodeAffinityArgs' node_affinity: NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
-        :param str persistent_volume_reclaim_policy: What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-               
-               Possible enum values:
-                - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-                - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-                - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
-        :param 'PhotonPersistentDiskVolumeSourceArgs' photon_persistent_disk: PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-        :param 'PortworxVolumeSourceArgs' portworx_volume: PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
-        :param 'QuobyteVolumeSourceArgs' quobyte: Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-        :param 'RBDPersistentVolumeSourceArgs' rbd: RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-        :param 'ScaleIOPersistentVolumeSourceArgs' scale_io: ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
-        :param str storage_class_name: Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
-        :param 'StorageOSPersistentVolumeSourceArgs' storageos: StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        :param Sequence[str] access_modes: accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+        :param 'AWSElasticBlockStoreVolumeSourceArgs' aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param 'AzureDiskVolumeSourceArgs' azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        :param 'AzureFilePersistentVolumeSourceArgs' azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param Mapping[str, str] capacity: capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        :param 'CephFSPersistentVolumeSourceArgs' cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        :param 'CinderPersistentVolumeSourceArgs' cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'ObjectReferenceArgs' claim_ref: claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+        :param 'CSIPersistentVolumeSourceArgs' csi: csi represents storage that is handled by an external CSI driver (Beta feature).
+        :param 'FCVolumeSourceArgs' fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        :param 'FlexPersistentVolumeSourceArgs' flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        :param 'FlockerVolumeSourceArgs' flocker: flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        :param 'GCEPersistentDiskVolumeSourceArgs' gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param 'GlusterfsPersistentVolumeSourceArgs' glusterfs: glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param 'HostPathVolumeSourceArgs' host_path: hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param 'ISCSIPersistentVolumeSourceArgs' iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+        :param 'LocalVolumeSourceArgs' local: local represents directly-attached storage with node affinity
+        :param Sequence[str] mount_options: mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+        :param 'NFSVolumeSourceArgs' nfs: nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param 'VolumeNodeAffinityArgs' node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        :param str persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+        :param 'PhotonPersistentDiskVolumeSourceArgs' photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        :param 'PortworxVolumeSourceArgs' portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        :param 'QuobyteVolumeSourceArgs' quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        :param 'RBDPersistentVolumeSourceArgs' rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param 'ScaleIOPersistentVolumeSourceArgs' scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param str storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+        :param 'StorageOSPersistentVolumeSourceArgs' storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
         :param str volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
-        :param 'VsphereVirtualDiskVolumeSourceArgs' vsphere_volume: VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        :param 'VsphereVirtualDiskVolumeSourceArgs' vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         """
         if access_modes is not None:
             pulumi.set(__self__, "access_modes", access_modes)
@@ -8208,7 +8029,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="accessModes")
     def access_modes(self) -> Optional[Sequence[str]]:
         """
-        AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+        accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
         """
         return pulumi.get(self, "access_modes")
 
@@ -8216,7 +8037,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="awsElasticBlockStore")
     def aws_elastic_block_store(self) -> Optional['outputs.AWSElasticBlockStoreVolumeSource']:
         """
-        AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "aws_elastic_block_store")
 
@@ -8224,7 +8045,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="azureDisk")
     def azure_disk(self) -> Optional['outputs.AzureDiskVolumeSource']:
         """
-        AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
         """
         return pulumi.get(self, "azure_disk")
 
@@ -8232,7 +8053,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="azureFile")
     def azure_file(self) -> Optional['outputs.AzureFilePersistentVolumeSource']:
         """
-        AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
         """
         return pulumi.get(self, "azure_file")
 
@@ -8240,7 +8061,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def capacity(self) -> Optional[Mapping[str, str]]:
         """
-        A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         """
         return pulumi.get(self, "capacity")
 
@@ -8248,7 +8069,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def cephfs(self) -> Optional['outputs.CephFSPersistentVolumeSource']:
         """
-        CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
         """
         return pulumi.get(self, "cephfs")
 
@@ -8256,7 +8077,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def cinder(self) -> Optional['outputs.CinderPersistentVolumeSource']:
         """
-        Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "cinder")
 
@@ -8264,7 +8085,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="claimRef")
     def claim_ref(self) -> Optional['outputs.ObjectReference']:
         """
-        ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+        claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
         """
         return pulumi.get(self, "claim_ref")
 
@@ -8272,7 +8093,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def csi(self) -> Optional['outputs.CSIPersistentVolumeSource']:
         """
-        CSI represents storage that is handled by an external CSI driver (Beta feature).
+        csi represents storage that is handled by an external CSI driver (Beta feature).
         """
         return pulumi.get(self, "csi")
 
@@ -8280,7 +8101,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def fc(self) -> Optional['outputs.FCVolumeSource']:
         """
-        FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
         """
         return pulumi.get(self, "fc")
 
@@ -8288,7 +8109,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="flexVolume")
     def flex_volume(self) -> Optional['outputs.FlexPersistentVolumeSource']:
         """
-        FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
         """
         return pulumi.get(self, "flex_volume")
 
@@ -8296,7 +8117,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def flocker(self) -> Optional['outputs.FlockerVolumeSource']:
         """
-        Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
         """
         return pulumi.get(self, "flocker")
 
@@ -8304,7 +8125,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="gcePersistentDisk")
     def gce_persistent_disk(self) -> Optional['outputs.GCEPersistentDiskVolumeSource']:
         """
-        GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "gce_persistent_disk")
 
@@ -8312,7 +8133,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def glusterfs(self) -> Optional['outputs.GlusterfsPersistentVolumeSource']:
         """
-        Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         return pulumi.get(self, "glusterfs")
 
@@ -8320,7 +8141,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="hostPath")
     def host_path(self) -> Optional['outputs.HostPathVolumeSource']:
         """
-        HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
         return pulumi.get(self, "host_path")
 
@@ -8328,7 +8149,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def iscsi(self) -> Optional['outputs.ISCSIPersistentVolumeSource']:
         """
-        ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
         """
         return pulumi.get(self, "iscsi")
 
@@ -8336,7 +8157,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def local(self) -> Optional['outputs.LocalVolumeSource']:
         """
-        Local represents directly-attached storage with node affinity
+        local represents directly-attached storage with node affinity
         """
         return pulumi.get(self, "local")
 
@@ -8344,7 +8165,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="mountOptions")
     def mount_options(self) -> Optional[Sequence[str]]:
         """
-        A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+        mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
         """
         return pulumi.get(self, "mount_options")
 
@@ -8352,7 +8173,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def nfs(self) -> Optional['outputs.NFSVolumeSource']:
         """
-        NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         return pulumi.get(self, "nfs")
 
@@ -8360,7 +8181,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="nodeAffinity")
     def node_affinity(self) -> Optional['outputs.VolumeNodeAffinity']:
         """
-        NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
         """
         return pulumi.get(self, "node_affinity")
 
@@ -8368,12 +8189,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="persistentVolumeReclaimPolicy")
     def persistent_volume_reclaim_policy(self) -> Optional[str]:
         """
-        What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-
-        Possible enum values:
-         - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-         - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-         - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+        persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
         """
         return pulumi.get(self, "persistent_volume_reclaim_policy")
 
@@ -8381,7 +8197,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="photonPersistentDisk")
     def photon_persistent_disk(self) -> Optional['outputs.PhotonPersistentDiskVolumeSource']:
         """
-        PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
         """
         return pulumi.get(self, "photon_persistent_disk")
 
@@ -8389,7 +8205,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional['outputs.PortworxVolumeSource']:
         """
-        PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -8397,7 +8213,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def quobyte(self) -> Optional['outputs.QuobyteVolumeSource']:
         """
-        Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
         """
         return pulumi.get(self, "quobyte")
 
@@ -8405,7 +8221,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def rbd(self) -> Optional['outputs.RBDPersistentVolumeSource']:
         """
-        RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         return pulumi.get(self, "rbd")
 
@@ -8413,7 +8229,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="scaleIO")
     def scale_io(self) -> Optional['outputs.ScaleIOPersistentVolumeSource']:
         """
-        ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
         """
         return pulumi.get(self, "scale_io")
 
@@ -8421,7 +8237,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="storageClassName")
     def storage_class_name(self) -> Optional[str]:
         """
-        Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+        storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
         """
         return pulumi.get(self, "storage_class_name")
 
@@ -8429,7 +8245,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter
     def storageos(self) -> Optional['outputs.StorageOSPersistentVolumeSource']:
         """
-        StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
         """
         return pulumi.get(self, "storageos")
 
@@ -8445,7 +8261,7 @@ class PersistentVolumeSpec(dict):
     @pulumi.getter(name="vsphereVolume")
     def vsphere_volume(self) -> Optional['outputs.VsphereVirtualDiskVolumeSource']:
         """
-        VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         """
         return pulumi.get(self, "vsphere_volume")
 
@@ -8461,16 +8277,9 @@ class PersistentVolumeStatus(dict):
                  reason: Optional[str] = None):
         """
         PersistentVolumeStatus is the current status of a persistent volume.
-        :param str message: A human-readable message indicating details about why the volume is in this state.
-        :param str phase: Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-               
-               Possible enum values:
-                - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-                - `"Bound"` used for PersistentVolumes that are bound
-                - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-                - `"Pending"` used for PersistentVolumes that are not available
-                - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
-        :param str reason: Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+        :param str message: message is a human-readable message indicating details about why the volume is in this state.
+        :param str phase: phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+        :param str reason: reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
         """
         if message is not None:
             pulumi.set(__self__, "message", message)
@@ -8483,7 +8292,7 @@ class PersistentVolumeStatus(dict):
     @pulumi.getter
     def message(self) -> Optional[str]:
         """
-        A human-readable message indicating details about why the volume is in this state.
+        message is a human-readable message indicating details about why the volume is in this state.
         """
         return pulumi.get(self, "message")
 
@@ -8491,14 +8300,7 @@ class PersistentVolumeStatus(dict):
     @pulumi.getter
     def phase(self) -> Optional[str]:
         """
-        Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-
-        Possible enum values:
-         - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-         - `"Bound"` used for PersistentVolumes that are bound
-         - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-         - `"Pending"` used for PersistentVolumes that are not available
-         - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+        phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
         """
         return pulumi.get(self, "phase")
 
@@ -8506,7 +8308,7 @@ class PersistentVolumeStatus(dict):
     @pulumi.getter
     def reason(self) -> Optional[str]:
         """
-        Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+        reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
         """
         return pulumi.get(self, "reason")
 
@@ -8540,8 +8342,8 @@ class PhotonPersistentDiskVolumeSource(dict):
                  fs_type: Optional[str] = None):
         """
         Represents a Photon Controller persistent disk resource.
-        :param str pd_id: ID that identifies Photon Controller persistent disk
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param str pd_id: pdID is the ID that identifies Photon Controller persistent disk
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         pulumi.set(__self__, "pd_id", pd_id)
         if fs_type is not None:
@@ -8551,7 +8353,7 @@ class PhotonPersistentDiskVolumeSource(dict):
     @pulumi.getter(name="pdID")
     def pd_id(self) -> str:
         """
-        ID that identifies Photon Controller persistent disk
+        pdID is the ID that identifies Photon Controller persistent disk
         """
         return pulumi.get(self, "pd_id")
 
@@ -8559,7 +8361,7 @@ class PhotonPersistentDiskVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -8771,8 +8573,8 @@ class PodAffinityTerm(dict):
         Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
         :param str topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
         :param '_meta.v1.LabelSelectorArgs' label_selector: A label query over a set of resources, in this case pods.
-        :param '_meta.v1.LabelSelectorArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
-        :param Sequence[str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+        :param '_meta.v1.LabelSelectorArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+        :param Sequence[str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         """
         pulumi.set(__self__, "topology_key", topology_key)
         if label_selector is not None:
@@ -8802,7 +8604,7 @@ class PodAffinityTerm(dict):
     @pulumi.getter(name="namespaceSelector")
     def namespace_selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
         """
-        A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+        A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
         """
         return pulumi.get(self, "namespace_selector")
 
@@ -8810,7 +8612,7 @@ class PodAffinityTerm(dict):
     @pulumi.getter
     def namespaces(self) -> Optional[Sequence[str]]:
         """
-        namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+        namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
         """
         return pulumi.get(self, "namespaces")
 
@@ -8904,12 +8706,6 @@ class PodCondition(dict):
         PodCondition contains details for the current condition of this pod.
         :param str status: Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param str type: Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-               
-               Possible enum values:
-                - `"ContainersReady"` indicates whether all containers in the pod are ready.
-                - `"Initialized"` means that all init containers in the pod have started successfully.
-                - `"PodScheduled"` represents status of the scheduling process for this pod.
-                - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
         :param str last_probe_time: Last time we probed the condition.
         :param str last_transition_time: Last time the condition transitioned from one status to another.
         :param str message: Human-readable message indicating details about last transition.
@@ -8939,12 +8735,6 @@ class PodCondition(dict):
     def type(self) -> str:
         """
         Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-
-        Possible enum values:
-         - `"ContainersReady"` indicates whether all containers in the pod are ready.
-         - `"Initialized"` means that all init containers in the pod have started successfully.
-         - `"PodScheduled"` represents status of the scheduling process for this pod.
-         - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
         """
         return pulumi.get(self, "type")
 
@@ -9133,12 +8923,6 @@ class PodReadinessGate(dict):
         """
         PodReadinessGate contains the reference to a pod condition
         :param str condition_type: ConditionType refers to a condition in the pod's condition list with matching type.
-               
-               Possible enum values:
-                - `"ContainersReady"` indicates whether all containers in the pod are ready.
-                - `"Initialized"` means that all init containers in the pod have started successfully.
-                - `"PodScheduled"` represents status of the scheduling process for this pod.
-                - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
         """
         pulumi.set(__self__, "condition_type", condition_type)
 
@@ -9147,12 +8931,6 @@ class PodReadinessGate(dict):
     def condition_type(self) -> str:
         """
         ConditionType refers to a condition in the pod's condition list with matching type.
-
-        Possible enum values:
-         - `"ContainersReady"` indicates whether all containers in the pod are ready.
-         - `"Initialized"` means that all init containers in the pod have started successfully.
-         - `"PodScheduled"` represents status of the scheduling process for this pod.
-         - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
         """
         return pulumi.get(self, "condition_type")
 
@@ -9448,12 +9226,6 @@ class PodSpec(dict):
         :param bool automount_service_account_token: AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
         :param 'PodDNSConfigArgs' dns_config: Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
         :param str dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-               
-               Possible enum values:
-                - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-                - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-                - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-                - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
         :param bool enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
         :param Sequence['EphemeralContainerArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
         :param Sequence['HostAliasArgs'] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
@@ -9461,7 +9233,7 @@ class PodSpec(dict):
         :param bool host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
         :param bool host_pid: Use the host's pid namespace. Optional: Default to false.
         :param str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
-        :param Sequence['LocalObjectReferenceArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+        :param Sequence['LocalObjectReferenceArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param Sequence['ContainerArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
         :param str node_name: NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
         :param Mapping[str, str] node_selector: NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
@@ -9469,19 +9241,14 @@ class PodSpec(dict):
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
-        :param Mapping[str, str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
-        :param str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+        :param Mapping[str, str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+        :param str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param int priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
         :param str priority_class_name: If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
         :param Sequence['PodReadinessGateArgs'] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
         :param str restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-               
-               Possible enum values:
-                - `"Always"`
-                - `"Never"`
-                - `"OnFailure"`
-        :param str runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+        :param str runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
         :param str scheduler_name: If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
         :param 'PodSecurityContextArgs' security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param str service_account: DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
@@ -9611,12 +9378,6 @@ class PodSpec(dict):
     def dns_policy(self) -> Optional[str]:
         """
         Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-
-        Possible enum values:
-         - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-         - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-         - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-         - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
         """
         return pulumi.get(self, "dns_policy")
 
@@ -9680,7 +9441,7 @@ class PodSpec(dict):
     @pulumi.getter(name="imagePullSecrets")
     def image_pull_secrets(self) -> Optional[Sequence['outputs.LocalObjectReference']]:
         """
-        ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+        ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         """
         return pulumi.get(self, "image_pull_secrets")
 
@@ -9716,7 +9477,7 @@ class PodSpec(dict):
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
         """
         return pulumi.get(self, "os")
 
@@ -9724,7 +9485,7 @@ class PodSpec(dict):
     @pulumi.getter
     def overhead(self) -> Optional[Mapping[str, str]]:
         """
-        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         """
         return pulumi.get(self, "overhead")
 
@@ -9732,7 +9493,7 @@ class PodSpec(dict):
     @pulumi.getter(name="preemptionPolicy")
     def preemption_policy(self) -> Optional[str]:
         """
-        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         """
         return pulumi.get(self, "preemption_policy")
 
@@ -9765,11 +9526,6 @@ class PodSpec(dict):
     def restart_policy(self) -> Optional[str]:
         """
         Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-
-        Possible enum values:
-         - `"Always"`
-         - `"Never"`
-         - `"OnFailure"`
         """
         return pulumi.get(self, "restart_policy")
 
@@ -9777,7 +9533,7 @@ class PodSpec(dict):
     @pulumi.getter(name="runtimeClassName")
     def runtime_class_name(self) -> Optional[str]:
         """
-        RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+        RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
         """
         return pulumi.get(self, "runtime_class_name")
 
@@ -9925,7 +9681,7 @@ class PodStatus(dict):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
         :param Sequence['PodConditionArgs'] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-        :param Sequence['ContainerStatusArgs'] container_statuses: The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        :param Sequence['ContainerStatusArgs'] container_statuses: The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         :param Sequence['ContainerStatusArgs'] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
         :param str host_ip: IP address of the host to which the pod is assigned. Empty if not yet scheduled.
         :param Sequence['ContainerStatusArgs'] init_container_statuses: The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
@@ -9936,21 +9692,9 @@ class PodStatus(dict):
                Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
                
                More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-               
-               Possible enum values:
-                - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-                - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-                - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-                - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-                - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
         :param str pod_ip: IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
         :param Sequence['PodIPArgs'] pod_ips: podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
         :param str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
-               
-               Possible enum values:
-                - `"BestEffort"` is the BestEffort qos class.
-                - `"Burstable"` is the Burstable qos class.
-                - `"Guaranteed"` is the Guaranteed qos class.
         :param str reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
         :param str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         """
@@ -9993,7 +9737,7 @@ class PodStatus(dict):
     @pulumi.getter(name="containerStatuses")
     def container_statuses(self) -> Optional[Sequence['outputs.ContainerStatus']]:
         """
-        The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         """
         return pulumi.get(self, "container_statuses")
 
@@ -10046,13 +9790,6 @@ class PodStatus(dict):
         Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
 
         More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-
-        Possible enum values:
-         - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-         - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-         - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-         - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-         - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
         """
         return pulumi.get(self, "phase")
 
@@ -10077,11 +9814,6 @@ class PodStatus(dict):
     def qos_class(self) -> Optional[str]:
         """
         The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
-
-        Possible enum values:
-         - `"BestEffort"` is the BestEffort qos class.
-         - `"Burstable"` is the Burstable qos class.
-         - `"Guaranteed"` is the Guaranteed qos class.
         """
         return pulumi.get(self, "qos_class")
 
@@ -10222,11 +9954,6 @@ class PortStatus(dict):
         """
         :param int port: Port is the port number of the service port of which status is recorded here
         :param str protocol: Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
-               
-               Possible enum values:
-                - `"SCTP"` is the SCTP protocol.
-                - `"TCP"` is the TCP protocol.
-                - `"UDP"` is the UDP protocol.
         :param str error: Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
                  CamelCase names
                - cloud provider specific error values must have names that comply with the
@@ -10250,11 +9977,6 @@ class PortStatus(dict):
     def protocol(self) -> str:
         """
         Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
-
-        Possible enum values:
-         - `"SCTP"` is the SCTP protocol.
-         - `"TCP"` is the TCP protocol.
-         - `"UDP"` is the UDP protocol.
         """
         return pulumi.get(self, "protocol")
 
@@ -10302,9 +10024,9 @@ class PortworxVolumeSource(dict):
                  read_only: Optional[bool] = None):
         """
         PortworxVolumeSource represents a Portworx volume resource.
-        :param str volume_id: VolumeID uniquely identifies a Portworx volume
-        :param str fs_type: FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str volume_id: volumeID uniquely identifies a Portworx volume
+        :param str fs_type: fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         pulumi.set(__self__, "volume_id", volume_id)
         if fs_type is not None:
@@ -10316,7 +10038,7 @@ class PortworxVolumeSource(dict):
     @pulumi.getter(name="volumeID")
     def volume_id(self) -> str:
         """
-        VolumeID uniquely identifies a Portworx volume
+        volumeID uniquely identifies a Portworx volume
         """
         return pulumi.get(self, "volume_id")
 
@@ -10324,7 +10046,7 @@ class PortworxVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+        fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -10332,7 +10054,7 @@ class PortworxVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -10423,7 +10145,7 @@ class Probe(dict):
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
         :param 'ExecActionArgs' exec_: Exec specifies the action to take.
         :param int failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
-        :param 'GRPCActionArgs' grpc: GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+        :param 'GRPCActionArgs' grpc: GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
         :param 'HTTPGetActionArgs' http_get: HTTPGet specifies the http request to perform.
         :param int initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param int period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -10473,7 +10195,7 @@ class Probe(dict):
     @pulumi.getter
     def grpc(self) -> Optional['outputs.GRPCAction']:
         """
-        GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+        GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
         """
         return pulumi.get(self, "grpc")
 
@@ -10561,8 +10283,8 @@ class ProjectedVolumeSource(dict):
                  default_mode: Optional[int] = None):
         """
         Represents a projected volume source
-        :param Sequence['VolumeProjectionArgs'] sources: list of volume projections
-        :param int default_mode: Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['VolumeProjectionArgs'] sources: sources is the list of volume projections
+        :param int default_mode: defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         pulumi.set(__self__, "sources", sources)
         if default_mode is not None:
@@ -10572,7 +10294,7 @@ class ProjectedVolumeSource(dict):
     @pulumi.getter
     def sources(self) -> Sequence['outputs.VolumeProjection']:
         """
-        list of volume projections
+        sources is the list of volume projections
         """
         return pulumi.get(self, "sources")
 
@@ -10580,7 +10302,7 @@ class ProjectedVolumeSource(dict):
     @pulumi.getter(name="defaultMode")
     def default_mode(self) -> Optional[int]:
         """
-        Mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
@@ -10616,12 +10338,12 @@ class QuobyteVolumeSource(dict):
                  user: Optional[str] = None):
         """
         Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
-        :param str registry: Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
-        :param str volume: Volume is a string that references an already created Quobyte volume by name.
-        :param str group: Group to map volume access to Default is no group
-        :param bool read_only: ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
-        :param str tenant: Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
-        :param str user: User to map volume access to Defaults to serivceaccount user
+        :param str registry: registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+        :param str volume: volume is a string that references an already created Quobyte volume by name.
+        :param str group: group to map volume access to Default is no group
+        :param bool read_only: readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+        :param str tenant: tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+        :param str user: user to map volume access to Defaults to serivceaccount user
         """
         pulumi.set(__self__, "registry", registry)
         pulumi.set(__self__, "volume", volume)
@@ -10638,7 +10360,7 @@ class QuobyteVolumeSource(dict):
     @pulumi.getter
     def registry(self) -> str:
         """
-        Registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+        registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
         """
         return pulumi.get(self, "registry")
 
@@ -10646,7 +10368,7 @@ class QuobyteVolumeSource(dict):
     @pulumi.getter
     def volume(self) -> str:
         """
-        Volume is a string that references an already created Quobyte volume by name.
+        volume is a string that references an already created Quobyte volume by name.
         """
         return pulumi.get(self, "volume")
 
@@ -10654,7 +10376,7 @@ class QuobyteVolumeSource(dict):
     @pulumi.getter
     def group(self) -> Optional[str]:
         """
-        Group to map volume access to Default is no group
+        group to map volume access to Default is no group
         """
         return pulumi.get(self, "group")
 
@@ -10662,7 +10384,7 @@ class QuobyteVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+        readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
         """
         return pulumi.get(self, "read_only")
 
@@ -10670,7 +10392,7 @@ class QuobyteVolumeSource(dict):
     @pulumi.getter
     def tenant(self) -> Optional[str]:
         """
-        Tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+        tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
         """
         return pulumi.get(self, "tenant")
 
@@ -10678,7 +10400,7 @@ class QuobyteVolumeSource(dict):
     @pulumi.getter
     def user(self) -> Optional[str]:
         """
-        User to map volume access to Defaults to serivceaccount user
+        user to map volume access to Defaults to serivceaccount user
         """
         return pulumi.get(self, "user")
 
@@ -10720,14 +10442,14 @@ class RBDPersistentVolumeSource(dict):
                  user: Optional[str] = None):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
-        :param str image: The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param Sequence[str] monitors: A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param str fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
-        :param str keyring: Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param str pool: The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param bool read_only: ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param 'SecretReferenceArgs' secret_ref: SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param str user: The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param Sequence[str] monitors: monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        :param str keyring: keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str pool: pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param 'SecretReferenceArgs' secret_ref: secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str user: user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         pulumi.set(__self__, "image", image)
         pulumi.set(__self__, "monitors", monitors)
@@ -10748,7 +10470,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter
     def image(self) -> str:
         """
-        The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "image")
 
@@ -10756,7 +10478,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter
     def monitors(self) -> Sequence[str]:
         """
-        A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "monitors")
 
@@ -10764,7 +10486,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
         """
         return pulumi.get(self, "fs_type")
 
@@ -10772,7 +10494,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter
     def keyring(self) -> Optional[str]:
         """
-        Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "keyring")
 
@@ -10780,7 +10502,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter
     def pool(self) -> Optional[str]:
         """
-        The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "pool")
 
@@ -10788,7 +10510,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "read_only")
 
@@ -10796,7 +10518,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "secret_ref")
 
@@ -10804,7 +10526,7 @@ class RBDPersistentVolumeSource(dict):
     @pulumi.getter
     def user(self) -> Optional[str]:
         """
-        The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "user")
 
@@ -10846,14 +10568,14 @@ class RBDVolumeSource(dict):
                  user: Optional[str] = None):
         """
         Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
-        :param str image: The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param Sequence[str] monitors: A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param str fs_type: Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
-        :param str keyring: Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param str pool: The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param bool read_only: ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param 'LocalObjectReferenceArgs' secret_ref: SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-        :param str user: The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param Sequence[str] monitors: monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        :param str keyring: keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str pool: pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str user: user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         pulumi.set(__self__, "image", image)
         pulumi.set(__self__, "monitors", monitors)
@@ -10874,7 +10596,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter
     def image(self) -> str:
         """
-        The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "image")
 
@@ -10882,7 +10604,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter
     def monitors(self) -> Sequence[str]:
         """
-        A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "monitors")
 
@@ -10890,7 +10612,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
         """
         return pulumi.get(self, "fs_type")
 
@@ -10898,7 +10620,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter
     def keyring(self) -> Optional[str]:
         """
-        Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "keyring")
 
@@ -10906,7 +10628,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter
     def pool(self) -> Optional[str]:
         """
-        The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "pool")
 
@@ -10914,7 +10636,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "read_only")
 
@@ -10922,7 +10644,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "secret_ref")
 
@@ -10930,7 +10652,7 @@ class RBDVolumeSource(dict):
     @pulumi.getter
     def user(self) -> Optional[str]:
         """
-        The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
         return pulumi.get(self, "user")
 
@@ -11683,16 +11405,16 @@ class ScaleIOPersistentVolumeSource(dict):
                  volume_name: Optional[str] = None):
         """
         ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
-        :param str gateway: The host address of the ScaleIO API Gateway.
-        :param 'SecretReferenceArgs' secret_ref: SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-        :param str system: The name of the storage system as configured in ScaleIO.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
-        :param str protection_domain: The name of the ScaleIO Protection Domain for the configured storage.
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param bool ssl_enabled: Flag to enable/disable SSL communication with Gateway, default false
-        :param str storage_mode: Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
-        :param str storage_pool: The ScaleIO Storage Pool associated with the protection domain.
-        :param str volume_name: The name of a volume already created in the ScaleIO system that is associated with this volume source.
+        :param str gateway: gateway is the host address of the ScaleIO API Gateway.
+        :param 'SecretReferenceArgs' secret_ref: secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        :param str system: system is the name of the storage system as configured in ScaleIO.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+        :param str protection_domain: protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param bool ssl_enabled: sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
+        :param str storage_mode: storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        :param str storage_pool: storagePool is the ScaleIO Storage Pool associated with the protection domain.
+        :param str volume_name: volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
         """
         pulumi.set(__self__, "gateway", gateway)
         pulumi.set(__self__, "secret_ref", secret_ref)
@@ -11716,7 +11438,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter
     def gateway(self) -> str:
         """
-        The host address of the ScaleIO API Gateway.
+        gateway is the host address of the ScaleIO API Gateway.
         """
         return pulumi.get(self, "gateway")
 
@@ -11724,7 +11446,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> 'outputs.SecretReference':
         """
-        SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -11732,7 +11454,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter
     def system(self) -> str:
         """
-        The name of the storage system as configured in ScaleIO.
+        system is the name of the storage system as configured in ScaleIO.
         """
         return pulumi.get(self, "system")
 
@@ -11740,7 +11462,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
         """
         return pulumi.get(self, "fs_type")
 
@@ -11748,7 +11470,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="protectionDomain")
     def protection_domain(self) -> Optional[str]:
         """
-        The name of the ScaleIO Protection Domain for the configured storage.
+        protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
         """
         return pulumi.get(self, "protection_domain")
 
@@ -11756,7 +11478,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -11764,7 +11486,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="sslEnabled")
     def ssl_enabled(self) -> Optional[bool]:
         """
-        Flag to enable/disable SSL communication with Gateway, default false
+        sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
         """
         return pulumi.get(self, "ssl_enabled")
 
@@ -11772,7 +11494,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="storageMode")
     def storage_mode(self) -> Optional[str]:
         """
-        Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
         """
         return pulumi.get(self, "storage_mode")
 
@@ -11780,7 +11502,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="storagePool")
     def storage_pool(self) -> Optional[str]:
         """
-        The ScaleIO Storage Pool associated with the protection domain.
+        storagePool is the ScaleIO Storage Pool associated with the protection domain.
         """
         return pulumi.get(self, "storage_pool")
 
@@ -11788,7 +11510,7 @@ class ScaleIOPersistentVolumeSource(dict):
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> Optional[str]:
         """
-        The name of a volume already created in the ScaleIO system that is associated with this volume source.
+        volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
         """
         return pulumi.get(self, "volume_name")
 
@@ -11842,16 +11564,16 @@ class ScaleIOVolumeSource(dict):
                  volume_name: Optional[str] = None):
         """
         ScaleIOVolumeSource represents a persistent ScaleIO volume
-        :param str gateway: The host address of the ScaleIO API Gateway.
-        :param 'LocalObjectReferenceArgs' secret_ref: SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
-        :param str system: The name of the storage system as configured in ScaleIO.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
-        :param str protection_domain: The name of the ScaleIO Protection Domain for the configured storage.
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param bool ssl_enabled: Flag to enable/disable SSL communication with Gateway, default false
-        :param str storage_mode: Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
-        :param str storage_pool: The ScaleIO Storage Pool associated with the protection domain.
-        :param str volume_name: The name of a volume already created in the ScaleIO system that is associated with this volume source.
+        :param str gateway: gateway is the host address of the ScaleIO API Gateway.
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        :param str system: system is the name of the storage system as configured in ScaleIO.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+        :param str protection_domain: protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
+        :param bool read_only: readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param bool ssl_enabled: sslEnabled Flag enable/disable SSL communication with Gateway, default false
+        :param str storage_mode: storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        :param str storage_pool: storagePool is the ScaleIO Storage Pool associated with the protection domain.
+        :param str volume_name: volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
         """
         pulumi.set(__self__, "gateway", gateway)
         pulumi.set(__self__, "secret_ref", secret_ref)
@@ -11875,7 +11597,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter
     def gateway(self) -> str:
         """
-        The host address of the ScaleIO API Gateway.
+        gateway is the host address of the ScaleIO API Gateway.
         """
         return pulumi.get(self, "gateway")
 
@@ -11883,7 +11605,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> 'outputs.LocalObjectReference':
         """
-        SecretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -11891,7 +11613,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter
     def system(self) -> str:
         """
-        The name of the storage system as configured in ScaleIO.
+        system is the name of the storage system as configured in ScaleIO.
         """
         return pulumi.get(self, "system")
 
@@ -11899,7 +11621,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
         """
         return pulumi.get(self, "fs_type")
 
@@ -11907,7 +11629,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="protectionDomain")
     def protection_domain(self) -> Optional[str]:
         """
-        The name of the ScaleIO Protection Domain for the configured storage.
+        protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
         """
         return pulumi.get(self, "protection_domain")
 
@@ -11915,7 +11637,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -11923,7 +11645,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="sslEnabled")
     def ssl_enabled(self) -> Optional[bool]:
         """
-        Flag to enable/disable SSL communication with Gateway, default false
+        sslEnabled Flag enable/disable SSL communication with Gateway, default false
         """
         return pulumi.get(self, "ssl_enabled")
 
@@ -11931,7 +11653,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="storageMode")
     def storage_mode(self) -> Optional[str]:
         """
-        Indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
         """
         return pulumi.get(self, "storage_mode")
 
@@ -11939,7 +11661,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="storagePool")
     def storage_pool(self) -> Optional[str]:
         """
-        The ScaleIO Storage Pool associated with the protection domain.
+        storagePool is the ScaleIO Storage Pool associated with the protection domain.
         """
         return pulumi.get(self, "storage_pool")
 
@@ -11947,7 +11669,7 @@ class ScaleIOVolumeSource(dict):
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> Optional[str]:
         """
-        The name of a volume already created in the ScaleIO system that is associated with this volume source.
+        volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
         """
         return pulumi.get(self, "volume_name")
 
@@ -12021,21 +11743,7 @@ class ScopedResourceSelectorRequirement(dict):
         """
         A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
         :param str operator: Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-               
-               Possible enum values:
-                - `"DoesNotExist"`
-                - `"Exists"`
-                - `"In"`
-                - `"NotIn"`
         :param str scope_name: The name of the scope that the selector applies to.
-               
-               Possible enum values:
-                - `"BestEffort"` Match all pod objects that have best effort quality of service
-                - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
-                - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
-                - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
-                - `"PriorityClass"` Match all pod objects that have priority class mentioned
-                - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
         :param Sequence[str] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
         """
         pulumi.set(__self__, "operator", operator)
@@ -12048,12 +11756,6 @@ class ScopedResourceSelectorRequirement(dict):
     def operator(self) -> str:
         """
         Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-
-        Possible enum values:
-         - `"DoesNotExist"`
-         - `"Exists"`
-         - `"In"`
-         - `"NotIn"`
         """
         return pulumi.get(self, "operator")
 
@@ -12062,14 +11764,6 @@ class ScopedResourceSelectorRequirement(dict):
     def scope_name(self) -> str:
         """
         The name of the scope that the selector applies to.
-
-        Possible enum values:
-         - `"BestEffort"` Match all pod objects that have best effort quality of service
-         - `"CrossNamespacePodAffinity"` Match all pod objects that have cross-namespace pod (anti)affinity mentioned. This is a beta feature enabled by the PodAffinityNamespaceSelector feature flag.
-         - `"NotBestEffort"` Match all pod objects that do not have best effort quality of service
-         - `"NotTerminating"` Match all pod objects where spec.activeDeadlineSeconds is nil
-         - `"PriorityClass"` Match all pod objects that have priority class mentioned
-         - `"Terminating"` Match all pod objects where spec.activeDeadlineSeconds >=0
         """
         return pulumi.get(self, "scope_name")
 
@@ -12112,11 +11806,6 @@ class SeccompProfile(dict):
         :param str type: type indicates which kind of seccomp profile will be applied. Valid options are:
                
                Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-               
-               Possible enum values:
-                - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
-                - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-                - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
         :param str localhost_profile: localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
         """
         pulumi.set(__self__, "type", type)
@@ -12130,11 +11819,6 @@ class SeccompProfile(dict):
         type indicates which kind of seccomp profile will be applied. Valid options are:
 
         Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-
-        Possible enum values:
-         - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to <kubelet-root-dir>/seccomp.
-         - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-         - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
         """
         return pulumi.get(self, "type")
 
@@ -12381,9 +12065,9 @@ class SecretProjection(dict):
         Adapts a secret into a projected volume.
 
         The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
-        :param Sequence['KeyToPathArgs'] items: If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param Sequence['KeyToPathArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        :param bool optional: Specify whether the Secret or its key must be defined
+        :param bool optional: optional field specify whether the Secret or its key must be defined
         """
         if items is not None:
             pulumi.set(__self__, "items", items)
@@ -12396,7 +12080,7 @@ class SecretProjection(dict):
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
         """
-        If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
         return pulumi.get(self, "items")
 
@@ -12412,7 +12096,7 @@ class SecretProjection(dict):
     @pulumi.getter
     def optional(self) -> Optional[bool]:
         """
-        Specify whether the Secret or its key must be defined
+        optional field specify whether the Secret or its key must be defined
         """
         return pulumi.get(self, "optional")
 
@@ -12427,8 +12111,8 @@ class SecretReference(dict):
                  namespace: Optional[str] = None):
         """
         SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
-        :param str name: Name is unique within a namespace to reference a secret resource.
-        :param str namespace: Namespace defines the space within which the secret name must be unique.
+        :param str name: name is unique within a namespace to reference a secret resource.
+        :param str namespace: namespace defines the space within which the secret name must be unique.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -12439,7 +12123,7 @@ class SecretReference(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name is unique within a namespace to reference a secret resource.
+        name is unique within a namespace to reference a secret resource.
         """
         return pulumi.get(self, "name")
 
@@ -12447,7 +12131,7 @@ class SecretReference(dict):
     @pulumi.getter
     def namespace(self) -> Optional[str]:
         """
-        Namespace defines the space within which the secret name must be unique.
+        namespace defines the space within which the secret name must be unique.
         """
         return pulumi.get(self, "namespace")
 
@@ -12487,10 +12171,10 @@ class SecretVolumeSource(dict):
         Adapts a Secret into a volume.
 
         The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
-        :param int default_mode: Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
-        :param Sequence['KeyToPathArgs'] items: If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-        :param bool optional: Specify whether the Secret or its keys must be defined
-        :param str secret_name: Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        :param int default_mode: defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['KeyToPathArgs'] items: items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param bool optional: optional field specify whether the Secret or its keys must be defined
+        :param str secret_name: secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         """
         if default_mode is not None:
             pulumi.set(__self__, "default_mode", default_mode)
@@ -12505,7 +12189,7 @@ class SecretVolumeSource(dict):
     @pulumi.getter(name="defaultMode")
     def default_mode(self) -> Optional[int]:
         """
-        Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
 
@@ -12513,7 +12197,7 @@ class SecretVolumeSource(dict):
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
         """
-        If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
         return pulumi.get(self, "items")
 
@@ -12521,7 +12205,7 @@ class SecretVolumeSource(dict):
     @pulumi.getter
     def optional(self) -> Optional[bool]:
         """
-        Specify whether the Secret or its keys must be defined
+        optional field specify whether the Secret or its keys must be defined
         """
         return pulumi.get(self, "optional")
 
@@ -12529,7 +12213,7 @@ class SecretVolumeSource(dict):
     @pulumi.getter(name="secretName")
     def secret_name(self) -> Optional[str]:
         """
-        Name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         """
         return pulumi.get(self, "secret_name")
 
@@ -12888,7 +12572,7 @@ class ServiceAccount(dict):
         :param Sequence['LocalObjectReferenceArgs'] image_pull_secrets: ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param Sequence['ObjectReferenceArgs'] secrets: Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+        :param Sequence['ObjectReferenceArgs'] secrets: Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
@@ -12947,7 +12631,7 @@ class ServiceAccount(dict):
     @pulumi.getter
     def secrets(self) -> Optional[Sequence['outputs.ObjectReference']]:
         """
-        Secrets is the list of secrets allowed to be used by pods running using this ServiceAccount. More info: https://kubernetes.io/docs/concepts/configuration/secret
+        Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
         return pulumi.get(self, "secrets")
 
@@ -12980,9 +12664,9 @@ class ServiceAccountTokenProjection(dict):
                  expiration_seconds: Optional[int] = None):
         """
         ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
-        :param str path: Path is the path relative to the mount point of the file to project the token into.
-        :param str audience: Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
-        :param int expiration_seconds: ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        :param str path: path is the path relative to the mount point of the file to project the token into.
+        :param str audience: audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+        :param int expiration_seconds: expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
         pulumi.set(__self__, "path", path)
         if audience is not None:
@@ -12994,7 +12678,7 @@ class ServiceAccountTokenProjection(dict):
     @pulumi.getter
     def path(self) -> str:
         """
-        Path is the path relative to the mount point of the file to project the token into.
+        path is the path relative to the mount point of the file to project the token into.
         """
         return pulumi.get(self, "path")
 
@@ -13002,7 +12686,7 @@ class ServiceAccountTokenProjection(dict):
     @pulumi.getter
     def audience(self) -> Optional[str]:
         """
-        Audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+        audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
         """
         return pulumi.get(self, "audience")
 
@@ -13010,7 +12694,7 @@ class ServiceAccountTokenProjection(dict):
     @pulumi.getter(name="expirationSeconds")
     def expiration_seconds(self) -> Optional[int]:
         """
-        ExpirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
         """
         return pulumi.get(self, "expiration_seconds")
 
@@ -13051,15 +12735,10 @@ class ServicePort(dict):
         """
         ServicePort contains information on service's port.
         :param int port: The port that will be exposed by this service.
-        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         :param str name: The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
         :param int node_port: The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
         :param str protocol: The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-               
-               Possible enum values:
-                - `"SCTP"` is the SCTP protocol.
-                - `"TCP"` is the TCP protocol.
-                - `"UDP"` is the UDP protocol.
         :param Union[int, str] target_port: Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
         """
         pulumi.set(__self__, "port", port)
@@ -13086,7 +12765,7 @@ class ServicePort(dict):
     @pulumi.getter(name="appProtocol")
     def app_protocol(self) -> Optional[str]:
         """
-        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         """
         return pulumi.get(self, "app_protocol")
 
@@ -13111,11 +12790,6 @@ class ServicePort(dict):
     def protocol(self) -> Optional[str]:
         """
         The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
-
-        Possible enum values:
-         - `"SCTP"` is the SCTP protocol.
-         - `"TCP"` is the TCP protocol.
-         - `"UDP"` is the UDP protocol.
         """
         return pulumi.get(self, "protocol")
 
@@ -13208,7 +12882,7 @@ class ServiceSpec(dict):
                  type: Optional[str] = None):
         """
         ServiceSpec describes the attributes that a user creates on a service.
-        :param bool allocate_load_balancer_node_ports: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+        :param bool allocate_load_balancer_node_ports: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
         :param str cluster_ip: clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param Sequence[str] cluster_ips: ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
                
@@ -13216,10 +12890,6 @@ class ServiceSpec(dict):
         :param Sequence[str] external_ips: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
         :param str external_name: externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
         :param str external_traffic_policy: externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-               
-               Possible enum values:
-                - `"Cluster"` specifies node-global (legacy) behavior.
-                - `"Local"` specifies node-local endpoints behavior.
         :param int health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
         :param str internal_traffic_policy: InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
         :param Sequence[str] ip_families: IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
@@ -13228,25 +12898,15 @@ class ServiceSpec(dict):
         :param str ip_family: ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
         :param str ip_family_policy: IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
         :param str load_balancer_class: loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
-        :param str load_balancer_ip: Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+        :param str load_balancer_ip: Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
         :param Sequence[str] load_balancer_source_ranges: If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
         :param Sequence['ServicePortArgs'] ports: The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param bool publish_not_ready_addresses: publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
         :param Mapping[str, str] selector: Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
         :param str session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-               
-               Possible enum values:
-                - `"ClientIP"` is the Client IP based.
-                - `"None"` - no session affinity.
         :param 'SessionAffinityConfigArgs' session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
         :param Sequence[str] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
         :param Union[str, 'ServiceSpecType'] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-               
-               Possible enum values:
-                - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-                - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-                - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-                - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
         """
         if allocate_load_balancer_node_ports is not None:
             pulumi.set(__self__, "allocate_load_balancer_node_ports", allocate_load_balancer_node_ports)
@@ -13295,7 +12955,7 @@ class ServiceSpec(dict):
     @pulumi.getter(name="allocateLoadBalancerNodePorts")
     def allocate_load_balancer_node_ports(self) -> Optional[bool]:
         """
-        allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+        allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
         """
         return pulumi.get(self, "allocate_load_balancer_node_ports")
 
@@ -13338,10 +12998,6 @@ class ServiceSpec(dict):
     def external_traffic_policy(self) -> Optional[str]:
         """
         externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-
-        Possible enum values:
-         - `"Cluster"` specifies node-global (legacy) behavior.
-         - `"Local"` specifies node-local endpoints behavior.
         """
         return pulumi.get(self, "external_traffic_policy")
 
@@ -13399,7 +13055,7 @@ class ServiceSpec(dict):
     @pulumi.getter(name="loadBalancerIP")
     def load_balancer_ip(self) -> Optional[str]:
         """
-        Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+        Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
         """
         return pulumi.get(self, "load_balancer_ip")
 
@@ -13440,10 +13096,6 @@ class ServiceSpec(dict):
     def session_affinity(self) -> Optional[str]:
         """
         Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-
-        Possible enum values:
-         - `"ClientIP"` is the Client IP based.
-         - `"None"` - no session affinity.
         """
         return pulumi.get(self, "session_affinity")
 
@@ -13468,12 +13120,6 @@ class ServiceSpec(dict):
     def type(self) -> Optional[str]:
         """
         type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-
-        Possible enum values:
-         - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-         - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-         - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-         - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
         """
         return pulumi.get(self, "type")
 
@@ -13608,11 +13254,11 @@ class StorageOSPersistentVolumeSource(dict):
                  volume_namespace: Optional[str] = None):
         """
         Represents a StorageOS persistent volume resource.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param 'ObjectReferenceArgs' secret_ref: SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-        :param str volume_name: VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
-        :param str volume_namespace: VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'ObjectReferenceArgs' secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        :param str volume_name: volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        :param str volume_namespace: volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
         """
         if fs_type is not None:
             pulumi.set(__self__, "fs_type", fs_type)
@@ -13629,7 +13275,7 @@ class StorageOSPersistentVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -13637,7 +13283,7 @@ class StorageOSPersistentVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -13645,7 +13291,7 @@ class StorageOSPersistentVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.ObjectReference']:
         """
-        SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -13653,7 +13299,7 @@ class StorageOSPersistentVolumeSource(dict):
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> Optional[str]:
         """
-        VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
         """
         return pulumi.get(self, "volume_name")
 
@@ -13661,7 +13307,7 @@ class StorageOSPersistentVolumeSource(dict):
     @pulumi.getter(name="volumeNamespace")
     def volume_namespace(self) -> Optional[str]:
         """
-        VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
         """
         return pulumi.get(self, "volume_namespace")
 
@@ -13704,11 +13350,11 @@ class StorageOSVolumeSource(dict):
                  volume_namespace: Optional[str] = None):
         """
         Represents a StorageOS persistent volume resource.
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        :param bool read_only: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-        :param 'LocalObjectReferenceArgs' secret_ref: SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
-        :param str volume_name: VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
-        :param str volume_namespace: VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'LocalObjectReferenceArgs' secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        :param str volume_name: volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        :param str volume_namespace: volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
         """
         if fs_type is not None:
             pulumi.set(__self__, "fs_type", fs_type)
@@ -13725,7 +13371,7 @@ class StorageOSVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -13733,7 +13379,7 @@ class StorageOSVolumeSource(dict):
     @pulumi.getter(name="readOnly")
     def read_only(self) -> Optional[bool]:
         """
-        Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
 
@@ -13741,7 +13387,7 @@ class StorageOSVolumeSource(dict):
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
         """
-        SecretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
         """
         return pulumi.get(self, "secret_ref")
 
@@ -13749,7 +13395,7 @@ class StorageOSVolumeSource(dict):
     @pulumi.getter(name="volumeName")
     def volume_name(self) -> Optional[str]:
         """
-        VolumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
         """
         return pulumi.get(self, "volume_name")
 
@@ -13757,7 +13403,7 @@ class StorageOSVolumeSource(dict):
     @pulumi.getter(name="volumeNamespace")
     def volume_namespace(self) -> Optional[str]:
         """
-        VolumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
         """
         return pulumi.get(self, "volume_namespace")
 
@@ -13859,11 +13505,6 @@ class Taint(dict):
         """
         The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
         :param str effect: Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-               
-               Possible enum values:
-                - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-                - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-                - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
         :param str key: Required. The taint key to be applied to a node.
         :param str time_added: TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
         :param str value: The taint value corresponding to the taint key.
@@ -13880,11 +13521,6 @@ class Taint(dict):
     def effect(self) -> str:
         """
         Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
-
-        Possible enum values:
-         - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-         - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-         - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
         """
         return pulumi.get(self, "effect")
 
@@ -13944,17 +13580,8 @@ class Toleration(dict):
         """
         The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
         :param str effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-               
-               Possible enum values:
-                - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-                - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-                - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
         :param str key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
         :param str operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-               
-               Possible enum values:
-                - `"Equal"`
-                - `"Exists"`
         :param int toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
         :param str value: Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
         """
@@ -13974,11 +13601,6 @@ class Toleration(dict):
     def effect(self) -> Optional[str]:
         """
         Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-
-        Possible enum values:
-         - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-         - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-         - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
         """
         return pulumi.get(self, "effect")
 
@@ -13995,10 +13617,6 @@ class Toleration(dict):
     def operator(self) -> Optional[str]:
         """
         Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-
-        Possible enum values:
-         - `"Equal"`
-         - `"Exists"`
         """
         return pulumi.get(self, "operator")
 
@@ -14108,6 +13726,8 @@ class TopologySpreadConstraint(dict):
             suggest = "when_unsatisfiable"
         elif key == "labelSelector":
             suggest = "label_selector"
+        elif key == "minDomains":
+            suggest = "min_domains"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in TopologySpreadConstraint. Access the value via the '{suggest}' property getter instead.")
@@ -14124,32 +13744,36 @@ class TopologySpreadConstraint(dict):
                  max_skew: int,
                  topology_key: str,
                  when_unsatisfiable: str,
-                 label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None):
+                 label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+                 min_domains: Optional[int] = None):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
-        :param int max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
-        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
+        :param int max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         :param str when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
                  but giving higher precedence to topologies that would help reduce the
                  skew.
                A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-               
-               Possible enum values:
-                - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-                - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
         :param '_meta.v1.LabelSelectorArgs' label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+        :param int min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+               
+               For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+               
+               This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
         """
         pulumi.set(__self__, "max_skew", max_skew)
         pulumi.set(__self__, "topology_key", topology_key)
         pulumi.set(__self__, "when_unsatisfiable", when_unsatisfiable)
         if label_selector is not None:
             pulumi.set(__self__, "label_selector", label_selector)
+        if min_domains is not None:
+            pulumi.set(__self__, "min_domains", min_domains)
 
     @property
     @pulumi.getter(name="maxSkew")
     def max_skew(self) -> int:
         """
-        MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+        MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
         """
         return pulumi.get(self, "max_skew")
 
@@ -14157,7 +13781,7 @@ class TopologySpreadConstraint(dict):
     @pulumi.getter(name="topologyKey")
     def topology_key(self) -> str:
         """
-        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
+        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         """
         return pulumi.get(self, "topology_key")
 
@@ -14169,10 +13793,6 @@ class TopologySpreadConstraint(dict):
           but giving higher precedence to topologies that would help reduce the
           skew.
         A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-
-        Possible enum values:
-         - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-         - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
         """
         return pulumi.get(self, "when_unsatisfiable")
 
@@ -14183,6 +13803,18 @@ class TopologySpreadConstraint(dict):
         LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
         """
         return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter(name="minDomains")
+    def min_domains(self) -> Optional[int]:
+        """
+        MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+
+        For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+
+        This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+        """
+        return pulumi.get(self, "min_domains")
 
 
 @pulumi.output_type
@@ -14330,17 +13962,17 @@ class Volume(dict):
                  vsphere_volume: Optional['outputs.VsphereVirtualDiskVolumeSource'] = None):
         """
         Volume represents a named volume in a pod that may be accessed by any container in the pod.
-        :param str name: Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-        :param 'AWSElasticBlockStoreVolumeSourceArgs' aws_elastic_block_store: AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-        :param 'AzureDiskVolumeSourceArgs' azure_disk: AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
-        :param 'AzureFileVolumeSourceArgs' azure_file: AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
-        :param 'CephFSVolumeSourceArgs' cephfs: CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
-        :param 'CinderVolumeSourceArgs' cinder: Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
-        :param 'ConfigMapVolumeSourceArgs' config_map: ConfigMap represents a configMap that should populate this volume
-        :param 'CSIVolumeSourceArgs' csi: CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
-        :param 'DownwardAPIVolumeSourceArgs' downward_api: DownwardAPI represents downward API about the pod that should populate this volume
-        :param 'EmptyDirVolumeSourceArgs' empty_dir: EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-        :param 'EphemeralVolumeSourceArgs' ephemeral: Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+        :param str name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param 'AWSElasticBlockStoreVolumeSourceArgs' aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param 'AzureDiskVolumeSourceArgs' azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        :param 'AzureFileVolumeSourceArgs' azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param 'CephFSVolumeSourceArgs' cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        :param 'CinderVolumeSourceArgs' cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'ConfigMapVolumeSourceArgs' config_map: configMap represents a configMap that should populate this volume
+        :param 'CSIVolumeSourceArgs' csi: csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        :param 'DownwardAPIVolumeSourceArgs' downward_api: downwardAPI represents downward API about the pod that should populate this volume
+        :param 'EmptyDirVolumeSourceArgs' empty_dir: emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        :param 'EphemeralVolumeSourceArgs' ephemeral: ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
                
                Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
                   tracking are needed,
@@ -14354,25 +13986,25 @@ class Volume(dict):
                Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
                
                A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-        :param 'FCVolumeSourceArgs' fc: FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
-        :param 'FlexVolumeSourceArgs' flex_volume: FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
-        :param 'FlockerVolumeSourceArgs' flocker: Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
-        :param 'GCEPersistentDiskVolumeSourceArgs' gce_persistent_disk: GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-        :param 'GitRepoVolumeSourceArgs' git_repo: GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
-        :param 'GlusterfsVolumeSourceArgs' glusterfs: Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-        :param 'HostPathVolumeSourceArgs' host_path: HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-        :param 'ISCSIVolumeSourceArgs' iscsi: ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
-        :param 'NFSVolumeSourceArgs' nfs: NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
-        :param 'PersistentVolumeClaimVolumeSourceArgs' persistent_volume_claim: PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
-        :param 'PhotonPersistentDiskVolumeSourceArgs' photon_persistent_disk: PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
-        :param 'PortworxVolumeSourceArgs' portworx_volume: PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
-        :param 'ProjectedVolumeSourceArgs' projected: Items for all in one resources secrets, configmaps, and downward API
-        :param 'QuobyteVolumeSourceArgs' quobyte: Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
-        :param 'RBDVolumeSourceArgs' rbd: RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
-        :param 'ScaleIOVolumeSourceArgs' scale_io: ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
-        :param 'SecretVolumeSourceArgs' secret: Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
-        :param 'StorageOSVolumeSourceArgs' storageos: StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
-        :param 'VsphereVirtualDiskVolumeSourceArgs' vsphere_volume: VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        :param 'FCVolumeSourceArgs' fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        :param 'FlexVolumeSourceArgs' flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        :param 'FlockerVolumeSourceArgs' flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        :param 'GCEPersistentDiskVolumeSourceArgs' gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param 'GitRepoVolumeSourceArgs' git_repo: gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        :param 'GlusterfsVolumeSourceArgs' glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param 'HostPathVolumeSourceArgs' host_path: hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param 'ISCSIVolumeSourceArgs' iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        :param 'NFSVolumeSourceArgs' nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param 'PersistentVolumeClaimVolumeSourceArgs' persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param 'PhotonPersistentDiskVolumeSourceArgs' photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        :param 'PortworxVolumeSourceArgs' portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        :param 'ProjectedVolumeSourceArgs' projected: projected items for all in one resources secrets, configmaps, and downward API
+        :param 'QuobyteVolumeSourceArgs' quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        :param 'RBDVolumeSourceArgs' rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param 'ScaleIOVolumeSourceArgs' scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param 'SecretVolumeSourceArgs' secret: secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        :param 'StorageOSVolumeSourceArgs' storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        :param 'VsphereVirtualDiskVolumeSourceArgs' vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         """
         pulumi.set(__self__, "name", name)
         if aws_elastic_block_store is not None:
@@ -14438,7 +14070,7 @@ class Volume(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
         return pulumi.get(self, "name")
 
@@ -14446,7 +14078,7 @@ class Volume(dict):
     @pulumi.getter(name="awsElasticBlockStore")
     def aws_elastic_block_store(self) -> Optional['outputs.AWSElasticBlockStoreVolumeSource']:
         """
-        AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         """
         return pulumi.get(self, "aws_elastic_block_store")
 
@@ -14454,7 +14086,7 @@ class Volume(dict):
     @pulumi.getter(name="azureDisk")
     def azure_disk(self) -> Optional['outputs.AzureDiskVolumeSource']:
         """
-        AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
         """
         return pulumi.get(self, "azure_disk")
 
@@ -14462,7 +14094,7 @@ class Volume(dict):
     @pulumi.getter(name="azureFile")
     def azure_file(self) -> Optional['outputs.AzureFileVolumeSource']:
         """
-        AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
         """
         return pulumi.get(self, "azure_file")
 
@@ -14470,7 +14102,7 @@ class Volume(dict):
     @pulumi.getter
     def cephfs(self) -> Optional['outputs.CephFSVolumeSource']:
         """
-        CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
         """
         return pulumi.get(self, "cephfs")
 
@@ -14478,7 +14110,7 @@ class Volume(dict):
     @pulumi.getter
     def cinder(self) -> Optional['outputs.CinderVolumeSource']:
         """
-        Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         """
         return pulumi.get(self, "cinder")
 
@@ -14486,7 +14118,7 @@ class Volume(dict):
     @pulumi.getter(name="configMap")
     def config_map(self) -> Optional['outputs.ConfigMapVolumeSource']:
         """
-        ConfigMap represents a configMap that should populate this volume
+        configMap represents a configMap that should populate this volume
         """
         return pulumi.get(self, "config_map")
 
@@ -14494,7 +14126,7 @@ class Volume(dict):
     @pulumi.getter
     def csi(self) -> Optional['outputs.CSIVolumeSource']:
         """
-        CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
         """
         return pulumi.get(self, "csi")
 
@@ -14502,7 +14134,7 @@ class Volume(dict):
     @pulumi.getter(name="downwardAPI")
     def downward_api(self) -> Optional['outputs.DownwardAPIVolumeSource']:
         """
-        DownwardAPI represents downward API about the pod that should populate this volume
+        downwardAPI represents downward API about the pod that should populate this volume
         """
         return pulumi.get(self, "downward_api")
 
@@ -14510,7 +14142,7 @@ class Volume(dict):
     @pulumi.getter(name="emptyDir")
     def empty_dir(self) -> Optional['outputs.EmptyDirVolumeSource']:
         """
-        EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         return pulumi.get(self, "empty_dir")
 
@@ -14518,7 +14150,7 @@ class Volume(dict):
     @pulumi.getter
     def ephemeral(self) -> Optional['outputs.EphemeralVolumeSource']:
         """
-        Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+        ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 
         Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
            tracking are needed,
@@ -14539,7 +14171,7 @@ class Volume(dict):
     @pulumi.getter
     def fc(self) -> Optional['outputs.FCVolumeSource']:
         """
-        FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
         """
         return pulumi.get(self, "fc")
 
@@ -14547,7 +14179,7 @@ class Volume(dict):
     @pulumi.getter(name="flexVolume")
     def flex_volume(self) -> Optional['outputs.FlexVolumeSource']:
         """
-        FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
         """
         return pulumi.get(self, "flex_volume")
 
@@ -14555,7 +14187,7 @@ class Volume(dict):
     @pulumi.getter
     def flocker(self) -> Optional['outputs.FlockerVolumeSource']:
         """
-        Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
         """
         return pulumi.get(self, "flocker")
 
@@ -14563,7 +14195,7 @@ class Volume(dict):
     @pulumi.getter(name="gcePersistentDisk")
     def gce_persistent_disk(self) -> Optional['outputs.GCEPersistentDiskVolumeSource']:
         """
-        GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         """
         return pulumi.get(self, "gce_persistent_disk")
 
@@ -14571,7 +14203,7 @@ class Volume(dict):
     @pulumi.getter(name="gitRepo")
     def git_repo(self) -> Optional['outputs.GitRepoVolumeSource']:
         """
-        GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         """
         return pulumi.get(self, "git_repo")
 
@@ -14579,7 +14211,7 @@ class Volume(dict):
     @pulumi.getter
     def glusterfs(self) -> Optional['outputs.GlusterfsVolumeSource']:
         """
-        Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         """
         return pulumi.get(self, "glusterfs")
 
@@ -14587,7 +14219,7 @@ class Volume(dict):
     @pulumi.getter(name="hostPath")
     def host_path(self) -> Optional['outputs.HostPathVolumeSource']:
         """
-        HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
         return pulumi.get(self, "host_path")
 
@@ -14595,7 +14227,7 @@ class Volume(dict):
     @pulumi.getter
     def iscsi(self) -> Optional['outputs.ISCSIVolumeSource']:
         """
-        ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
         """
         return pulumi.get(self, "iscsi")
 
@@ -14603,7 +14235,7 @@ class Volume(dict):
     @pulumi.getter
     def nfs(self) -> Optional['outputs.NFSVolumeSource']:
         """
-        NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         return pulumi.get(self, "nfs")
 
@@ -14611,7 +14243,7 @@ class Volume(dict):
     @pulumi.getter(name="persistentVolumeClaim")
     def persistent_volume_claim(self) -> Optional['outputs.PersistentVolumeClaimVolumeSource']:
         """
-        PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         """
         return pulumi.get(self, "persistent_volume_claim")
 
@@ -14619,7 +14251,7 @@ class Volume(dict):
     @pulumi.getter(name="photonPersistentDisk")
     def photon_persistent_disk(self) -> Optional['outputs.PhotonPersistentDiskVolumeSource']:
         """
-        PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
         """
         return pulumi.get(self, "photon_persistent_disk")
 
@@ -14627,7 +14259,7 @@ class Volume(dict):
     @pulumi.getter(name="portworxVolume")
     def portworx_volume(self) -> Optional['outputs.PortworxVolumeSource']:
         """
-        PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
         """
         return pulumi.get(self, "portworx_volume")
 
@@ -14635,7 +14267,7 @@ class Volume(dict):
     @pulumi.getter
     def projected(self) -> Optional['outputs.ProjectedVolumeSource']:
         """
-        Items for all in one resources secrets, configmaps, and downward API
+        projected items for all in one resources secrets, configmaps, and downward API
         """
         return pulumi.get(self, "projected")
 
@@ -14643,7 +14275,7 @@ class Volume(dict):
     @pulumi.getter
     def quobyte(self) -> Optional['outputs.QuobyteVolumeSource']:
         """
-        Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
         """
         return pulumi.get(self, "quobyte")
 
@@ -14651,7 +14283,7 @@ class Volume(dict):
     @pulumi.getter
     def rbd(self) -> Optional['outputs.RBDVolumeSource']:
         """
-        RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
         """
         return pulumi.get(self, "rbd")
 
@@ -14659,7 +14291,7 @@ class Volume(dict):
     @pulumi.getter(name="scaleIO")
     def scale_io(self) -> Optional['outputs.ScaleIOVolumeSource']:
         """
-        ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
         """
         return pulumi.get(self, "scale_io")
 
@@ -14667,7 +14299,7 @@ class Volume(dict):
     @pulumi.getter
     def secret(self) -> Optional['outputs.SecretVolumeSource']:
         """
-        Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         """
         return pulumi.get(self, "secret")
 
@@ -14675,7 +14307,7 @@ class Volume(dict):
     @pulumi.getter
     def storageos(self) -> Optional['outputs.StorageOSVolumeSource']:
         """
-        StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
         """
         return pulumi.get(self, "storageos")
 
@@ -14683,7 +14315,7 @@ class Volume(dict):
     @pulumi.getter(name="vsphereVolume")
     def vsphere_volume(self) -> Optional['outputs.VsphereVirtualDiskVolumeSource']:
         """
-        VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         """
         return pulumi.get(self, "vsphere_volume")
 
@@ -14853,7 +14485,7 @@ class VolumeNodeAffinity(dict):
                  required: Optional['outputs.NodeSelector'] = None):
         """
         VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
-        :param 'NodeSelectorArgs' required: Required specifies hard node constraints that must be met.
+        :param 'NodeSelectorArgs' required: required specifies hard node constraints that must be met.
         """
         if required is not None:
             pulumi.set(__self__, "required", required)
@@ -14862,7 +14494,7 @@ class VolumeNodeAffinity(dict):
     @pulumi.getter
     def required(self) -> Optional['outputs.NodeSelector']:
         """
-        Required specifies hard node constraints that must be met.
+        required specifies hard node constraints that must be met.
         """
         return pulumi.get(self, "required")
 
@@ -14900,10 +14532,10 @@ class VolumeProjection(dict):
                  service_account_token: Optional['outputs.ServiceAccountTokenProjection'] = None):
         """
         Projection that may be projected along with other supported volume types
-        :param 'ConfigMapProjectionArgs' config_map: information about the configMap data to project
-        :param 'DownwardAPIProjectionArgs' downward_api: information about the downwardAPI data to project
-        :param 'SecretProjectionArgs' secret: information about the secret data to project
-        :param 'ServiceAccountTokenProjectionArgs' service_account_token: information about the serviceAccountToken data to project
+        :param 'ConfigMapProjectionArgs' config_map: configMap information about the configMap data to project
+        :param 'DownwardAPIProjectionArgs' downward_api: downwardAPI information about the downwardAPI data to project
+        :param 'SecretProjectionArgs' secret: secret information about the secret data to project
+        :param 'ServiceAccountTokenProjectionArgs' service_account_token: serviceAccountToken is information about the serviceAccountToken data to project
         """
         if config_map is not None:
             pulumi.set(__self__, "config_map", config_map)
@@ -14918,7 +14550,7 @@ class VolumeProjection(dict):
     @pulumi.getter(name="configMap")
     def config_map(self) -> Optional['outputs.ConfigMapProjection']:
         """
-        information about the configMap data to project
+        configMap information about the configMap data to project
         """
         return pulumi.get(self, "config_map")
 
@@ -14926,7 +14558,7 @@ class VolumeProjection(dict):
     @pulumi.getter(name="downwardAPI")
     def downward_api(self) -> Optional['outputs.DownwardAPIProjection']:
         """
-        information about the downwardAPI data to project
+        downwardAPI information about the downwardAPI data to project
         """
         return pulumi.get(self, "downward_api")
 
@@ -14934,7 +14566,7 @@ class VolumeProjection(dict):
     @pulumi.getter
     def secret(self) -> Optional['outputs.SecretProjection']:
         """
-        information about the secret data to project
+        secret information about the secret data to project
         """
         return pulumi.get(self, "secret")
 
@@ -14942,7 +14574,7 @@ class VolumeProjection(dict):
     @pulumi.getter(name="serviceAccountToken")
     def service_account_token(self) -> Optional['outputs.ServiceAccountTokenProjection']:
         """
-        information about the serviceAccountToken data to project
+        serviceAccountToken is information about the serviceAccountToken data to project
         """
         return pulumi.get(self, "service_account_token")
 
@@ -14982,10 +14614,10 @@ class VsphereVirtualDiskVolumeSource(dict):
                  storage_policy_name: Optional[str] = None):
         """
         Represents a vSphere volume resource.
-        :param str volume_path: Path that identifies vSphere volume vmdk
-        :param str fs_type: Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
-        :param str storage_policy_id: Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
-        :param str storage_policy_name: Storage Policy Based Management (SPBM) profile name.
+        :param str volume_path: volumePath is the path that identifies vSphere volume vmdk
+        :param str fs_type: fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param str storage_policy_id: storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+        :param str storage_policy_name: storagePolicyName is the storage Policy Based Management (SPBM) profile name.
         """
         pulumi.set(__self__, "volume_path", volume_path)
         if fs_type is not None:
@@ -14999,7 +14631,7 @@ class VsphereVirtualDiskVolumeSource(dict):
     @pulumi.getter(name="volumePath")
     def volume_path(self) -> str:
         """
-        Path that identifies vSphere volume vmdk
+        volumePath is the path that identifies vSphere volume vmdk
         """
         return pulumi.get(self, "volume_path")
 
@@ -15007,7 +14639,7 @@ class VsphereVirtualDiskVolumeSource(dict):
     @pulumi.getter(name="fsType")
     def fs_type(self) -> Optional[str]:
         """
-        Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
 
@@ -15015,7 +14647,7 @@ class VsphereVirtualDiskVolumeSource(dict):
     @pulumi.getter(name="storagePolicyID")
     def storage_policy_id(self) -> Optional[str]:
         """
-        Storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+        storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
         """
         return pulumi.get(self, "storage_policy_id")
 
@@ -15023,7 +14655,7 @@ class VsphereVirtualDiskVolumeSource(dict):
     @pulumi.getter(name="storagePolicyName")
     def storage_policy_name(self) -> Optional[str]:
         """
-        Storage Policy Based Management (SPBM) profile name.
+        storagePolicyName is the storage Policy Based Management (SPBM) profile name.
         """
         return pulumi.get(self, "storage_policy_name")
 

@@ -23,6 +23,8 @@ type NetworkPolicy struct {
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPtrOutput `pulumi:"spec"`
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status NetworkPolicyStatusPtrOutput `pulumi:"status"`
 }
 
 // NewNetworkPolicy registers a new resource with the given unique name, arguments, and options.

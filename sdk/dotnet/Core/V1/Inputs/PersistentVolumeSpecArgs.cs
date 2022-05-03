@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<string>? _accessModes;
 
         /// <summary>
-        /// AccessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+        /// accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
         /// </summary>
         public InputList<string> AccessModes
         {
@@ -28,19 +28,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        /// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         /// </summary>
         [Input("awsElasticBlockStore")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AWSElasticBlockStoreVolumeSourceArgs>? AwsElasticBlockStore { get; set; }
 
         /// <summary>
-        /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        /// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
         /// </summary>
         [Input("azureDisk")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AzureDiskVolumeSourceArgs>? AzureDisk { get; set; }
 
         /// <summary>
-        /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        /// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
         /// </summary>
         [Input("azureFile")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.AzureFilePersistentVolumeSourceArgs>? AzureFile { get; set; }
@@ -49,7 +49,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputMap<string>? _capacity;
 
         /// <summary>
-        /// A description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        /// capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         /// </summary>
         public InputMap<string> Capacity
         {
@@ -58,73 +58,73 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        /// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
         /// </summary>
         [Input("cephfs")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.CephFSPersistentVolumeSourceArgs>? Cephfs { get; set; }
 
         /// <summary>
-        /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        /// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         /// </summary>
         [Input("cinder")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.CinderPersistentVolumeSourceArgs>? Cinder { get; set; }
 
         /// <summary>
-        /// ClaimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+        /// claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
         /// </summary>
         [Input("claimRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectReferenceArgs>? ClaimRef { get; set; }
 
         /// <summary>
-        /// CSI represents storage that is handled by an external CSI driver (Beta feature).
+        /// csi represents storage that is handled by an external CSI driver (Beta feature).
         /// </summary>
         [Input("csi")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.CSIPersistentVolumeSourceArgs>? Csi { get; set; }
 
         /// <summary>
-        /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        /// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
         /// </summary>
         [Input("fc")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FCVolumeSourceArgs>? Fc { get; set; }
 
         /// <summary>
-        /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        /// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
         /// </summary>
         [Input("flexVolume")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FlexPersistentVolumeSourceArgs>? FlexVolume { get; set; }
 
         /// <summary>
-        /// Flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        /// flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
         /// </summary>
         [Input("flocker")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.FlockerVolumeSourceArgs>? Flocker { get; set; }
 
         /// <summary>
-        /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        /// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         /// </summary>
         [Input("gcePersistentDisk")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GCEPersistentDiskVolumeSourceArgs>? GcePersistentDisk { get; set; }
 
         /// <summary>
-        /// Glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        /// glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         /// </summary>
         [Input("glusterfs")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GlusterfsPersistentVolumeSourceArgs>? Glusterfs { get; set; }
 
         /// <summary>
-        /// HostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        /// hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         /// </summary>
         [Input("hostPath")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.HostPathVolumeSourceArgs>? HostPath { get; set; }
 
         /// <summary>
-        /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+        /// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
         /// </summary>
         [Input("iscsi")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ISCSIPersistentVolumeSourceArgs>? Iscsi { get; set; }
 
         /// <summary>
-        /// Local represents directly-attached storage with node affinity
+        /// local represents directly-attached storage with node affinity
         /// </summary>
         [Input("local")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.LocalVolumeSourceArgs>? Local { get; set; }
@@ -133,7 +133,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<string>? _mountOptions;
 
         /// <summary>
-        /// A list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+        /// mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
         /// </summary>
         public InputList<string> MountOptions
         {
@@ -142,66 +142,61 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// NFS represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        /// nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         /// </summary>
         [Input("nfs")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NFSVolumeSourceArgs>? Nfs { get; set; }
 
         /// <summary>
-        /// NodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        /// nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
         /// </summary>
         [Input("nodeAffinity")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.VolumeNodeAffinityArgs>? NodeAffinity { get; set; }
 
         /// <summary>
-        /// What happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-        /// 
-        /// Possible enum values:
-        ///  - `"Delete"` means the volume will be deleted from Kubernetes on release from its claim. The volume plugin must support Deletion.
-        ///  - `"Recycle"` means the volume will be recycled back into the pool of unbound persistent volumes on release from its claim. The volume plugin must support Recycling.
-        ///  - `"Retain"` means the volume will be left in its current phase (Released) for manual reclamation by the administrator. The default policy is Retain.
+        /// persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
         /// </summary>
         [Input("persistentVolumeReclaimPolicy")]
         public Input<string>? PersistentVolumeReclaimPolicy { get; set; }
 
         /// <summary>
-        /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        /// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
         /// </summary>
         [Input("photonPersistentDisk")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PhotonPersistentDiskVolumeSourceArgs>? PhotonPersistentDisk { get; set; }
 
         /// <summary>
-        /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        /// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
         /// </summary>
         [Input("portworxVolume")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PortworxVolumeSourceArgs>? PortworxVolume { get; set; }
 
         /// <summary>
-        /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        /// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
         /// </summary>
         [Input("quobyte")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.QuobyteVolumeSourceArgs>? Quobyte { get; set; }
 
         /// <summary>
-        /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
         /// </summary>
         [Input("rbd")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.RBDPersistentVolumeSourceArgs>? Rbd { get; set; }
 
         /// <summary>
-        /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        /// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
         /// </summary>
         [Input("scaleIO")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ScaleIOPersistentVolumeSourceArgs>? ScaleIO { get; set; }
 
         /// <summary>
-        /// Name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+        /// storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
         /// </summary>
         [Input("storageClassName")]
         public Input<string>? StorageClassName { get; set; }
 
         /// <summary>
-        /// StorageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        /// storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
         /// </summary>
         [Input("storageos")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.StorageOSPersistentVolumeSourceArgs>? Storageos { get; set; }
@@ -213,7 +208,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? VolumeMode { get; set; }
 
         /// <summary>
-        /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        /// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         /// </summary>
         [Input("vsphereVolume")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.VsphereVirtualDiskVolumeSourceArgs>? VsphereVolume { get; set; }

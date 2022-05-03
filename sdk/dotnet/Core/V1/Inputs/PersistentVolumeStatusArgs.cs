@@ -16,26 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class PersistentVolumeStatusArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// A human-readable message indicating details about why the volume is in this state.
+        /// message is a human-readable message indicating details about why the volume is in this state.
         /// </summary>
         [Input("message")]
         public Input<string>? Message { get; set; }
 
         /// <summary>
-        /// Phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-        /// 
-        /// Possible enum values:
-        ///  - `"Available"` used for PersistentVolumes that are not yet bound Available volumes are held by the binder and matched to PersistentVolumeClaims
-        ///  - `"Bound"` used for PersistentVolumes that are bound
-        ///  - `"Failed"` used for PersistentVolumes that failed to be correctly recycled or deleted after being released from a claim
-        ///  - `"Pending"` used for PersistentVolumes that are not available
-        ///  - `"Released"` used for PersistentVolumes where the bound PersistentVolumeClaim was deleted released volumes must be recycled before becoming available again this phase is used by the persistent volume claim binder to signal to another process to reclaim the resource
+        /// phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
         /// </summary>
         [Input("phase")]
         public Input<string>? Phase { get; set; }
 
         /// <summary>
-        /// Reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+        /// reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
         /// </summary>
         [Input("reason")]
         public Input<string>? Reason { get; set; }

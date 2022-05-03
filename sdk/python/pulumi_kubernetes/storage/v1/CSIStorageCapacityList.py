@@ -29,7 +29,7 @@ class CSIStorageCapacityListArgs:
         """
         pulumi.set(__self__, "items", items)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1alpha1')
+            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'CSIStorageCapacityList')
         if metadata is not None:
@@ -144,14 +144,14 @@ class CSIStorageCapacityList(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = CSIStorageCapacityListArgs.__new__(CSIStorageCapacityListArgs)
 
-            __props__.__dict__["api_version"] = 'storage.k8s.io/v1alpha1'
+            __props__.__dict__["api_version"] = 'storage.k8s.io/v1'
             if items is None and not opts.urn:
                 raise TypeError("Missing required property 'items'")
             __props__.__dict__["items"] = items
             __props__.__dict__["kind"] = 'CSIStorageCapacityList'
             __props__.__dict__["metadata"] = metadata
         super(CSIStorageCapacityList, __self__).__init__(
-            'kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityList',
+            'kubernetes:storage.k8s.io/v1:CSIStorageCapacityList',
             resource_name,
             __props__,
             opts)

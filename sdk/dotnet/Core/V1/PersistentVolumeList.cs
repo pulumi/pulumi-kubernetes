@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Core.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+        /// items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolume>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeArgs>? _items;
 
         /// <summary>
-        /// List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+        /// items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeArgs> Items
         {

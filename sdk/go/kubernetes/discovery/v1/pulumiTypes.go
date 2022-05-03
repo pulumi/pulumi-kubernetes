@@ -14,7 +14,7 @@ import (
 
 // Endpoint represents a single logical "backend" implementing a service.
 type Endpoint struct {
-	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
 	Addresses []string `pulumi:"addresses"`
 	// conditions contains information about the current status of the endpoint.
 	Conditions *EndpointConditions `pulumi:"conditions"`
@@ -45,7 +45,7 @@ type EndpointInput interface {
 
 // Endpoint represents a single logical "backend" implementing a service.
 type EndpointArgs struct {
-	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
 	Addresses pulumi.StringArrayInput `pulumi:"addresses"`
 	// conditions contains information about the current status of the endpoint.
 	Conditions EndpointConditionsPtrInput `pulumi:"conditions"`
@@ -115,7 +115,7 @@ func (o EndpointOutput) ToEndpointOutputWithContext(ctx context.Context) Endpoin
 	return o
 }
 
-// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
 func (o EndpointOutput) Addresses() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Endpoint) []string { return v.Addresses }).(pulumi.StringArrayOutput)
 }
@@ -495,7 +495,7 @@ func (o EndpointHintsPtrOutput) ForZones() ForZoneArrayOutput {
 
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 	Name *string `pulumi:"name"`
@@ -518,7 +518,7 @@ type EndpointPortInput interface {
 
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -580,7 +580,7 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -623,11 +623,6 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceType struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	//
-	// Possible enum values:
-	//  - `"FQDN"` represents a FQDN.
-	//  - `"IPv4"` represents an IPv4 Address.
-	//  - `"IPv6"` represents an IPv6 Address.
 	AddressType string `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -655,11 +650,6 @@ type EndpointSliceTypeInput interface {
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceTypeArgs struct {
 	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-	//
-	// Possible enum values:
-	//  - `"FQDN"` represents a FQDN.
-	//  - `"IPv4"` represents an IPv4 Address.
-	//  - `"IPv6"` represents an IPv6 Address.
 	AddressType pulumi.StringInput `pulumi:"addressType"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -726,11 +716,6 @@ func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutputWithContext(ctx contex
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-//
-// Possible enum values:
-//  - `"FQDN"` represents a FQDN.
-//  - `"IPv4"` represents an IPv4 Address.
-//  - `"IPv6"` represents an IPv6 Address.
 func (o EndpointSliceTypeOutput) AddressType() pulumi.StringOutput {
 	return o.ApplyT(func(v EndpointSliceType) string { return v.AddressType }).(pulumi.StringOutput)
 }

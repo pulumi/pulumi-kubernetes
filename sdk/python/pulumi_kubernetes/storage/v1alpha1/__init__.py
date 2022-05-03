@@ -5,8 +5,6 @@
 from ... import _utilities
 import typing
 # Export this package's modules as members:
-from .CSIStorageCapacity import *
-from .CSIStorageCapacityList import *
 from .VolumeAttachment import *
 from .VolumeAttachmentList import *
 from ._inputs import *

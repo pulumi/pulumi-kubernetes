@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class VolumeNodeAffinity
     {
         /// <summary>
-        /// Required specifies hard node constraints that must be met.
+        /// required specifies hard node constraints that must be met.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeSelector Required;
 

@@ -17,47 +17,47 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ISCSIPersistentVolumeSource
     {
         /// <summary>
-        /// whether support iSCSI Discovery CHAP authentication
+        /// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
         /// </summary>
         public readonly bool ChapAuthDiscovery;
         /// <summary>
-        /// whether support iSCSI Session CHAP authentication
+        /// chapAuthSession defines whether support iSCSI Session CHAP authentication
         /// </summary>
         public readonly bool ChapAuthSession;
         /// <summary>
-        /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        /// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
         /// </summary>
         public readonly string FsType;
         /// <summary>
-        /// Custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.
+        /// initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface &lt;target portal&gt;:&lt;volume name&gt; will be created for the connection.
         /// </summary>
         public readonly string InitiatorName;
         /// <summary>
-        /// Target iSCSI Qualified Name.
+        /// iqn is Target iSCSI Qualified Name.
         /// </summary>
         public readonly string Iqn;
         /// <summary>
-        /// iSCSI Interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        /// iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
         /// </summary>
         public readonly string IscsiInterface;
         /// <summary>
-        /// iSCSI Target Lun number.
+        /// lun is iSCSI Target Lun number.
         /// </summary>
         public readonly int Lun;
         /// <summary>
-        /// iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        /// portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         /// </summary>
         public readonly ImmutableArray<string> Portals;
         /// <summary>
-        /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        /// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// CHAP Secret for iSCSI target and initiator authentication
+        /// secretRef is the CHAP Secret for iSCSI target and initiator authentication
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference SecretRef;
         /// <summary>
-        /// iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        /// targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
         /// </summary>
         public readonly string TargetPortal;
 

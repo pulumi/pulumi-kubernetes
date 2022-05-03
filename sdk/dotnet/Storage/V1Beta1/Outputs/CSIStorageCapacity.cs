@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Beta1
     /// 
     /// The producer of these objects can decide which approach is more suitable.
     /// 
-    /// They are consumed by the kube-scheduler if the CSIStorageCapacity beta feature gate is enabled there and a CSI driver opts into capacity-aware scheduling with CSIDriver.StorageCapacity.
+    /// They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
     /// </summary>
     [OutputType]
     public sealed class CSIStorageCapacity
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1Beta1
         /// <summary>
         /// Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
         /// 
-        /// The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable and treated like zero capacity.
+        /// The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
         /// </summary>
         public readonly string Capacity;
         /// <summary>

@@ -57,7 +57,7 @@ class Endpoint(dict):
                  zone: Optional[str] = None):
         """
         Endpoint represents a single logical "backend" implementing a service.
-        :param Sequence[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        :param Sequence[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
         :param 'EndpointConditionsArgs' conditions: conditions contains information about the current status of the endpoint.
         :param Mapping[str, str] deprecated_topology: deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
         :param 'EndpointHintsArgs' hints: hints contains information associated with how an endpoint should be consumed.
@@ -86,7 +86,7 @@ class Endpoint(dict):
     @pulumi.getter
     def addresses(self) -> Sequence[str]:
         """
-        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
+        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
         """
         return pulumi.get(self, "addresses")
 
@@ -263,7 +263,7 @@ class EndpointPort(dict):
                  protocol: Optional[str] = None):
         """
         EndpointPort represents a Port used by an EndpointSlice
-        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         :param str name: The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
         :param int port: The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
         :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
@@ -281,7 +281,7 @@ class EndpointPort(dict):
     @pulumi.getter(name="appProtocol")
     def app_protocol(self) -> Optional[str]:
         """
-        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
         """
         return pulumi.get(self, "app_protocol")
 
@@ -344,11 +344,6 @@ class EndpointSlice(dict):
         """
         EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
         :param str address_type: addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-               
-               Possible enum values:
-                - `"FQDN"` represents a FQDN.
-                - `"IPv4"` represents an IPv4 Address.
-                - `"IPv6"` represents an IPv6 Address.
         :param Sequence['EndpointArgs'] endpoints: endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -371,11 +366,6 @@ class EndpointSlice(dict):
     def address_type(self) -> str:
         """
         addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-
-        Possible enum values:
-         - `"FQDN"` represents a FQDN.
-         - `"IPv4"` represents an IPv4 Address.
-         - `"IPv6"` represents an IPv6 Address.
         """
         return pulumi.get(self, "address_type")
 

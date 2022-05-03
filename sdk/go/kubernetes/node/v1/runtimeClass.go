@@ -26,7 +26,6 @@ type RuntimeClass struct {
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
 	//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-	// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrOutput `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrOutput `pulumi:"scheduling"`
@@ -95,7 +94,6 @@ type runtimeClassArgs struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
 	//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-	// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 	Overhead *Overhead `pulumi:"overhead"`
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling *Scheduling `pulumi:"scheduling"`
@@ -113,7 +111,6 @@ type RuntimeClassArgs struct {
 	Metadata metav1.ObjectMetaPtrInput
 	// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
 	//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-	// This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
 	Overhead OverheadPtrInput
 	// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
 	Scheduling SchedulingPtrInput

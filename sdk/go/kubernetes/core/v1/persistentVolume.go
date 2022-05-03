@@ -21,9 +21,9 @@ type PersistentVolume struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Spec PersistentVolumeSpecPtrOutput `pulumi:"spec"`
-	// Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Status PersistentVolumeStatusPtrOutput `pulumi:"status"`
 }
 
@@ -74,7 +74,7 @@ type persistentVolumeArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Spec *PersistentVolumeSpec `pulumi:"spec"`
 }
 
@@ -86,7 +86,7 @@ type PersistentVolumeArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
-	// Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+	// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Spec PersistentVolumeSpecPtrInput
 }
 

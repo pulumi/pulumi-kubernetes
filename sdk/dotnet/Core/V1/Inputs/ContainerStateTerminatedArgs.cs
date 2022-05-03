@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class ContainerStateTerminatedArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Container's ID in the format 'docker://&lt;container_id&gt;'
+        /// Container's ID in the format '&lt;type&gt;://&lt;container_id&gt;'
         /// </summary>
         [Input("containerID")]
         public Input<string>? ContainerID { get; set; }

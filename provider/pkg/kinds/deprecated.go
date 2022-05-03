@@ -69,6 +69,8 @@ import (
 // discovery/v1beta1/EndpointSlice / 1.21 / 1.25
 // */PodSecurityPolicy / 1.21 / 1.25
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.21.md#deprecation-1
+//
+// storage/v1alpha1/CSIStorageCapacity / 1.24 / 1.24
 // TODO: Keep updating this list on every release.
 
 var v18 = cluster.ServerVersion{Major: 1, Minor: 8}
@@ -85,6 +87,7 @@ var v119 = cluster.ServerVersion{Major: 1, Minor: 19}
 var v120 = cluster.ServerVersion{Major: 1, Minor: 20}
 var v121 = cluster.ServerVersion{Major: 1, Minor: 21}
 var v122 = cluster.ServerVersion{Major: 1, Minor: 22}
+var v124 = cluster.ServerVersion{Major: 1, Minor: 24}
 var v125 = cluster.ServerVersion{Major: 1, Minor: 25}
 
 func gvkStr(gvk schema.GroupVersionKind) string {
@@ -237,6 +240,8 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 			return &v117
 		case CSIDriver, CSIDriverList:
 			return &v118
+		case CSIStorageCapacity, CSIStorageCapacityList:
+			return &v124
 		}
 	}
 
@@ -291,6 +296,11 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		return &v122
 	case SchedulingV1A1, SchedulingV1B1:
 		return &v117
+	case StorageV1A1:
+		if k == CSIStorageCapacity || k == CSIStorageCapacityList {
+			return &v124
+		}
+		return nil
 	default:
 		return nil
 	}

@@ -94,7 +94,6 @@ class RuntimeClass(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'OverheadArgs' overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
                 https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-               This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
         :param 'SchedulingArgs' scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
         pulumi.set(__self__, "handler", handler)
@@ -147,7 +146,6 @@ class RuntimeClass(dict):
         """
         Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
          https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-        This field is in beta starting v1.18 and is only honored by servers that enable the PodOverhead feature.
         """
         return pulumi.get(self, "overhead")
 

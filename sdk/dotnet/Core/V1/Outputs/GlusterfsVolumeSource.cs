@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class GlusterfsVolumeSource
     {
         /// <summary>
-        /// EndpointsName is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        /// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         /// </summary>
         public readonly string Endpoints;
         /// <summary>
-        /// Path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        /// path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         /// </summary>
         public readonly string Path;
         /// <summary>
-        /// ReadOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        /// readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         /// </summary>
         public readonly bool ReadOnly;
 

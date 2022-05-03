@@ -17,23 +17,23 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class FCVolumeSource
     {
         /// <summary>
-        /// Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         /// </summary>
         public readonly string FsType;
         /// <summary>
-        /// Optional: FC target lun number
+        /// lun is Optional: FC target lun number
         /// </summary>
         public readonly int Lun;
         /// <summary>
-        /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        /// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// Optional: FC target worldwide names (WWNs)
+        /// targetWWNs is Optional: FC target worldwide names (WWNs)
         /// </summary>
         public readonly ImmutableArray<string> TargetWWNs;
         /// <summary>
-        /// Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+        /// wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
         /// </summary>
         public readonly ImmutableArray<string> Wwids;
 

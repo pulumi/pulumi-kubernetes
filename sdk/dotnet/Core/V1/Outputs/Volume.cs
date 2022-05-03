@@ -17,43 +17,43 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class Volume
     {
         /// <summary>
-        /// AWSElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        /// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.AWSElasticBlockStoreVolumeSource AwsElasticBlockStore;
         /// <summary>
-        /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        /// azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.AzureDiskVolumeSource AzureDisk;
         /// <summary>
-        /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        /// azureFile represents an Azure File Service mount on the host and bind mount to the pod.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.AzureFileVolumeSource AzureFile;
         /// <summary>
-        /// CephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        /// cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.CephFSVolumeSource Cephfs;
         /// <summary>
-        /// Cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        /// cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.CinderVolumeSource Cinder;
         /// <summary>
-        /// ConfigMap represents a configMap that should populate this volume
+        /// configMap represents a configMap that should populate this volume
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ConfigMapVolumeSource ConfigMap;
         /// <summary>
-        /// CSI (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        /// csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.CSIVolumeSource Csi;
         /// <summary>
-        /// DownwardAPI represents downward API about the pod that should populate this volume
+        /// downwardAPI represents downward API about the pod that should populate this volume
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.DownwardAPIVolumeSource DownwardAPI;
         /// <summary>
-        /// EmptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        /// emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.EmptyDirVolumeSource EmptyDir;
         /// <summary>
-        /// Ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+        /// ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
         /// 
         /// Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
         ///    tracking are needed,
@@ -70,83 +70,83 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.EphemeralVolumeSource Ephemeral;
         /// <summary>
-        /// FC represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        /// fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.FCVolumeSource Fc;
         /// <summary>
-        /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        /// flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.FlexVolumeSource FlexVolume;
         /// <summary>
-        /// Flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        /// flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.FlockerVolumeSource Flocker;
         /// <summary>
-        /// GCEPersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        /// gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GCEPersistentDiskVolumeSource GcePersistentDisk;
         /// <summary>
-        /// GitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        /// gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GitRepoVolumeSource GitRepo;
         /// <summary>
-        /// Glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        /// glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.GlusterfsVolumeSource Glusterfs;
         /// <summary>
-        /// HostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        /// hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.HostPathVolumeSource HostPath;
         /// <summary>
-        /// ISCSI represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        /// iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ISCSIVolumeSource Iscsi;
         /// <summary>
-        /// Volume's name. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        /// name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// NFS represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        /// nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NFSVolumeSource Nfs;
         /// <summary>
-        /// PersistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        /// persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeClaimVolumeSource PersistentVolumeClaim;
         /// <summary>
-        /// PhotonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        /// photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PhotonPersistentDiskVolumeSource PhotonPersistentDisk;
         /// <summary>
-        /// PortworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        /// portworxVolume represents a portworx volume attached and mounted on kubelets host machine
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PortworxVolumeSource PortworxVolume;
         /// <summary>
-        /// Items for all in one resources secrets, configmaps, and downward API
+        /// projected items for all in one resources secrets, configmaps, and downward API
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ProjectedVolumeSource Projected;
         /// <summary>
-        /// Quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        /// quobyte represents a Quobyte mount on the host that shares a pod's lifetime
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.QuobyteVolumeSource Quobyte;
         /// <summary>
-        /// RBD represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        /// rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.RBDVolumeSource Rbd;
         /// <summary>
-        /// ScaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        /// scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ScaleIOVolumeSource ScaleIO;
         /// <summary>
-        /// Secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        /// secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretVolumeSource Secret;
         /// <summary>
-        /// StorageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        /// storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.StorageOSVolumeSource Storageos;
         /// <summary>
-        /// VsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        /// vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.VsphereVirtualDiskVolumeSource VsphereVolume;
 

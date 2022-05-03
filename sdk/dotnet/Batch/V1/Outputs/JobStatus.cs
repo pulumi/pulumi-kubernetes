@@ -39,7 +39,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// <summary>
         /// The number of pods which have a Ready condition.
         /// 
-        /// This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+        /// This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
         /// </summary>
         public readonly int Ready;
         /// <summary>

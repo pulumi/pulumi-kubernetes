@@ -1,6 +1,9 @@
 ## Unreleased
 (None)
 
+## 3.19.0 (May 3, 2022)
+- Update Kubernetes support to Kubernetes v1.24.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1911)
+
 ## 3.18.3 (April 21, 2022)
 - Fix fetching remote yaml files (https://github.com/pulumi/pulumi-kubernetes/pull/1962)
 - Support attach

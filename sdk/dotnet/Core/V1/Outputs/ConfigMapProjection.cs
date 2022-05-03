@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ConfigMapProjection
     {
         /// <summary>
-        /// If unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        /// items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.KeyToPath> Items;
         /// <summary>
@@ -27,7 +27,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Specify whether the ConfigMap or its keys must be defined
+        /// optional specify whether the ConfigMap or its keys must be defined
         /// </summary>
         public readonly bool Optional;
 

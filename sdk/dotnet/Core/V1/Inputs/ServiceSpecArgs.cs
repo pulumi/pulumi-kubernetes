@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class ServiceSpecArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type. This field is beta-level and is only honored by servers that enable the ServiceLBNodePortControl feature.
+        /// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
         /// </summary>
         [Input("allocateLoadBalancerNodePorts")]
         public Input<bool>? AllocateLoadBalancerNodePorts { get; set; }
@@ -61,10 +61,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-        /// 
-        /// Possible enum values:
-        ///  - `"Cluster"` specifies node-global (legacy) behavior.
-        ///  - `"Local"` specifies node-local endpoints behavior.
         /// </summary>
         [Input("externalTrafficPolicy")]
         public Input<string>? ExternalTrafficPolicy { get; set; }
@@ -114,7 +110,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? LoadBalancerClass { get; set; }
 
         /// <summary>
-        /// Only applies to Service Type: LoadBalancer LoadBalancer will get created with the IP specified in this field. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature.
+        /// Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
         /// </summary>
         [Input("loadBalancerIP")]
         public Input<string>? LoadBalancerIP { get; set; }
@@ -163,10 +159,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
-        /// 
-        /// Possible enum values:
-        ///  - `"ClientIP"` is the Client IP based.
-        ///  - `"None"` - no session affinity.
         /// </summary>
         [Input("sessionAffinity")]
         public Input<string>? SessionAffinity { get; set; }
@@ -191,12 +183,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 
         /// <summary>
         /// type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
-        /// 
-        /// Possible enum values:
-        ///  - `"ClusterIP"` means a service will only be accessible inside the cluster, via the cluster IP.
-        ///  - `"ExternalName"` means a service consists of only a reference to an external name that kubedns or equivalent will return as a CNAME record, with no exposing or proxying of any pods involved.
-        ///  - `"LoadBalancer"` means a service will be exposed via an external load balancer (if the cloud provider supports it), in addition to 'NodePort' type.
-        ///  - `"NodePort"` means a service will be exposed on one port of every node, in addition to 'ClusterIP' type.
         /// </summary>
         [Input("type")]
         public InputUnion<string, Pulumi.Kubernetes.Core.V1.ServiceSpecType>? Type { get; set; }

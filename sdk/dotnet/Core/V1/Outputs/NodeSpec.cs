@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class NodeSpec
     {
         /// <summary>
-        /// Deprecated. If specified, the source of the node's configuration. The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field. This field is deprecated as of 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+        /// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.NodeConfigSource ConfigSource;
         /// <summary>

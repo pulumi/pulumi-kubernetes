@@ -40,7 +40,7 @@ export class PersistentVolumeList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"v1">;
     /**
-     * List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+     * items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
      */
     public readonly items!: pulumi.Output<outputs.core.v1.PersistentVolume[]>;
     /**
@@ -90,7 +90,7 @@ export interface PersistentVolumeListArgs {
      */
     apiVersion?: pulumi.Input<"v1">;
     /**
-     * List of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+     * items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
      */
     items: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolume>[]>;
     /**

@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string> BootID { get; set; } = null!;
 
         /// <summary>
-        /// ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+        /// ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
         /// </summary>
         [Input("containerRuntimeVersion", required: true)]
         public Input<string> ContainerRuntimeVersion { get; set; } = null!;

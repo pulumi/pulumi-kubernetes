@@ -157,11 +157,6 @@ class CertificateSigningRequestCondition(dict):
                Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
                
                Only one condition of a given type is allowed.
-               
-               Possible enum values:
-                - `"Approved"` Approved indicates the request was approved and should be issued by the signer.
-                - `"Denied"` Denied indicates the request was denied and should not be issued by the signer.
-                - `"Failed"` Failed indicates the signer failed to issue the certificate.
         :param str last_transition_time: lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
         :param str last_update_time: lastUpdateTime is the time of the last update to this condition
         :param str message: message contains a human readable message with details about the request state
@@ -201,11 +196,6 @@ class CertificateSigningRequestCondition(dict):
         Approved and Denied conditions are mutually exclusive. Approved, Denied, and Failed conditions cannot be removed once added.
 
         Only one condition of a given type is allowed.
-
-        Possible enum values:
-         - `"Approved"` Approved indicates the request was approved and should be issued by the signer.
-         - `"Denied"` Denied indicates the request was denied and should not be issued by the signer.
-         - `"Failed"` Failed indicates the signer failed to issue the certificate.
         """
         return pulumi.get(self, "type")
 
@@ -311,8 +301,6 @@ class CertificateSigningRequestSpec(dict):
                  3. Signer whose configured minimum is longer than the requested duration
                
                The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
-               
-               As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
         :param Mapping[str, Sequence[str]] extra: extra contains extra attributes of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         :param Sequence[str] groups: groups contains group membership of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         :param str uid: uid contains the uid of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
@@ -399,8 +387,6 @@ class CertificateSigningRequestSpec(dict):
           3. Signer whose configured minimum is longer than the requested duration
 
         The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
-
-        As of v1.22, this field is beta and is controlled via the CSRDuration feature gate.
         """
         return pulumi.get(self, "expiration_seconds")
 

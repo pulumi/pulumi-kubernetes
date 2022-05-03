@@ -9,6 +9,8 @@ from .CSIDriver import *
 from .CSIDriverList import *
 from .CSINode import *
 from .CSINodeList import *
+from .CSIStorageCapacity import *
+from .CSIStorageCapacityList import *
 from .StorageClass import *
 from .StorageClassList import *
 from .VolumeAttachment import *

@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class PortworxVolumeSource
     {
         /// <summary>
-        /// FSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+        /// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
         /// </summary>
         public readonly string FsType;
         /// <summary>
-        /// Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// VolumeID uniquely identifies a Portworx volume
+        /// volumeID uniquely identifies a Portworx volume
         /// </summary>
         public readonly string VolumeID;
 

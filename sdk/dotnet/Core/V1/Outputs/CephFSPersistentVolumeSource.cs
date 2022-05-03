@@ -17,27 +17,27 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class CephFSPersistentVolumeSource
     {
         /// <summary>
-        /// Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        /// monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
         public readonly ImmutableArray<string> Monitors;
         /// <summary>
-        /// Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        /// path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
         /// </summary>
         public readonly string Path;
         /// <summary>
-        /// Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        /// readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
         public readonly bool ReadOnly;
         /// <summary>
-        /// Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        /// secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
         public readonly string SecretFile;
         /// <summary>
-        /// Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        /// secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReference SecretRef;
         /// <summary>
-        /// Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        /// user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
         /// </summary>
         public readonly string User;
 

@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class SecretReferenceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name is unique within a namespace to reference a secret resource.
+        /// name is unique within a namespace to reference a secret resource.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Namespace defines the space within which the secret name must be unique.
+        /// namespace defines the space within which the secret name must be unique.
         /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }

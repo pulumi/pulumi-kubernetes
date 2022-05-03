@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Node.V1Beta1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+        /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         /// </summary>
         [Output("overhead")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Node.V1Beta1.Overhead> Overhead { get; private set; } = null!;
@@ -141,7 +141,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Beta1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
+        /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         /// </summary>
         [Input("overhead")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Node.V1Beta1.OverheadArgs>? Overhead { get; set; }

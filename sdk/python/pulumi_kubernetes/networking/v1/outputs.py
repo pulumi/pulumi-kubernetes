@@ -31,6 +31,7 @@ __all__ = [
     'NetworkPolicyPeer',
     'NetworkPolicyPort',
     'NetworkPolicySpec',
+    'NetworkPolicyStatus',
     'ServiceBackendPort',
 ]
 
@@ -812,13 +813,15 @@ class NetworkPolicy(dict):
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.NetworkPolicySpec'] = None):
+                 spec: Optional['outputs.NetworkPolicySpec'] = None,
+                 status: Optional['outputs.NetworkPolicyStatus'] = None):
         """
         NetworkPolicy describes what network traffic is allowed for a set of Pods
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'NetworkPolicySpecArgs' spec: Specification of the desired behavior for this NetworkPolicy.
+        :param 'NetworkPolicyStatusArgs' status: Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
@@ -828,6 +831,8 @@ class NetworkPolicy(dict):
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -860,6 +865,14 @@ class NetworkPolicy(dict):
         Specification of the desired behavior for this NetworkPolicy.
         """
         return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.NetworkPolicyStatus']:
+        """
+        Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "status")
 
 
 @pulumi.output_type
@@ -1164,6 +1177,29 @@ class NetworkPolicySpec(dict):
         List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
         return pulumi.get(self, "policy_types")
+
+
+@pulumi.output_type
+class NetworkPolicyStatus(dict):
+    """
+    NetworkPolicyStatus describe the current state of the NetworkPolicy.
+    """
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None):
+        """
+        NetworkPolicyStatus describe the current state of the NetworkPolicy.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        """
+        return pulumi.get(self, "conditions")
 
 
 @pulumi.output_type

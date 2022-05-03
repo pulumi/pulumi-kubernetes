@@ -48,11 +48,11 @@ export class PersistentVolume extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+     * spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
      */
     public readonly spec!: pulumi.Output<outputs.core.v1.PersistentVolumeSpec>;
     /**
-     * Status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+     * status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.core.v1.PersistentVolumeStatus>;
 
@@ -101,7 +101,7 @@ export interface PersistentVolumeArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * Spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
+     * spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
      */
     spec?: pulumi.Input<inputs.core.v1.PersistentVolumeSpec>;
 }

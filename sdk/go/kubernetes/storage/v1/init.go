@@ -29,6 +29,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CSINode{}
 	case "kubernetes:storage.k8s.io/v1:CSINodeList":
 		r = &CSINodeList{}
+	case "kubernetes:storage.k8s.io/v1:CSIStorageCapacity":
+		r = &CSIStorageCapacity{}
+	case "kubernetes:storage.k8s.io/v1:CSIStorageCapacityList":
+		r = &CSIStorageCapacityList{}
 	case "kubernetes:storage.k8s.io/v1:StorageClass":
 		r = &StorageClass{}
 	case "kubernetes:storage.k8s.io/v1:StorageClassList":

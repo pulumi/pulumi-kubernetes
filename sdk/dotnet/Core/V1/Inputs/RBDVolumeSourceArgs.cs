@@ -16,19 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class RBDVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        /// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
         /// </summary>
         [Input("fsType")]
         public Input<string>? FsType { get; set; }
 
         /// <summary>
-        /// The rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         [Input("image", required: true)]
         public Input<string> Image { get; set; } = null!;
 
         /// <summary>
-        /// Keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         [Input("keyring")]
         public Input<string>? Keyring { get; set; }
@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<string>? _monitors;
 
         /// <summary>
-        /// A collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         public InputList<string> Monitors
         {
@@ -46,25 +46,25 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// The rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         [Input("pool")]
         public Input<string>? Pool { get; set; }
 
         /// <summary>
-        /// ReadOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         [Input("readOnly")]
         public Input<bool>? ReadOnly { get; set; }
 
         /// <summary>
-        /// SecretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         [Input("secretRef")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.LocalObjectReferenceArgs>? SecretRef { get; set; }
 
         /// <summary>
-        /// The rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        /// user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         /// </summary>
         [Input("user")]
         public Input<string>? User { get; set; }

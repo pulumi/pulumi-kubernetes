@@ -48,11 +48,11 @@ export class PersistentVolumeClaim extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+     * spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
     public readonly spec!: pulumi.Output<outputs.core.v1.PersistentVolumeClaimSpec>;
     /**
-     * Status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+     * status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.core.v1.PersistentVolumeClaimStatus>;
 
@@ -101,7 +101,7 @@ export interface PersistentVolumeClaimArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * Spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+     * spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
     spec?: pulumi.Input<inputs.core.v1.PersistentVolumeClaimSpec>;
 }

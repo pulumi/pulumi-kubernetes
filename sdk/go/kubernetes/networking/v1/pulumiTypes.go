@@ -2204,6 +2204,8 @@ type NetworkPolicyType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpec `pulumi:"spec"`
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status *NetworkPolicyStatus `pulumi:"status"`
 }
 
 // NetworkPolicyTypeInput is an input type that accepts NetworkPolicyTypeArgs and NetworkPolicyTypeOutput values.
@@ -2227,6 +2229,8 @@ type NetworkPolicyTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Status NetworkPolicyStatusPtrInput `pulumi:"status"`
 }
 
 func (NetworkPolicyTypeArgs) ElementType() reflect.Type {
@@ -2299,6 +2303,11 @@ func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 // Specification of the desired behavior for this NetworkPolicy.
 func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
+}
+
+// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o NetworkPolicyTypeOutput) Status() NetworkPolicyStatusPtrOutput {
+	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicyStatus { return v.Status }).(NetworkPolicyStatusPtrOutput)
 }
 
 type NetworkPolicyTypeArrayOutput struct{ *pulumi.OutputState }
@@ -3066,6 +3075,146 @@ func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+type NetworkPolicyStatus struct {
+	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	Conditions []metav1.Condition `pulumi:"conditions"`
+}
+
+// NetworkPolicyStatusInput is an input type that accepts NetworkPolicyStatusArgs and NetworkPolicyStatusOutput values.
+// You can construct a concrete instance of `NetworkPolicyStatusInput` via:
+//
+//          NetworkPolicyStatusArgs{...}
+type NetworkPolicyStatusInput interface {
+	pulumi.Input
+
+	ToNetworkPolicyStatusOutput() NetworkPolicyStatusOutput
+	ToNetworkPolicyStatusOutputWithContext(context.Context) NetworkPolicyStatusOutput
+}
+
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+type NetworkPolicyStatusArgs struct {
+	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+}
+
+func (NetworkPolicyStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyStatus)(nil)).Elem()
+}
+
+func (i NetworkPolicyStatusArgs) ToNetworkPolicyStatusOutput() NetworkPolicyStatusOutput {
+	return i.ToNetworkPolicyStatusOutputWithContext(context.Background())
+}
+
+func (i NetworkPolicyStatusArgs) ToNetworkPolicyStatusOutputWithContext(ctx context.Context) NetworkPolicyStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusOutput)
+}
+
+func (i NetworkPolicyStatusArgs) ToNetworkPolicyStatusPtrOutput() NetworkPolicyStatusPtrOutput {
+	return i.ToNetworkPolicyStatusPtrOutputWithContext(context.Background())
+}
+
+func (i NetworkPolicyStatusArgs) ToNetworkPolicyStatusPtrOutputWithContext(ctx context.Context) NetworkPolicyStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusOutput).ToNetworkPolicyStatusPtrOutputWithContext(ctx)
+}
+
+// NetworkPolicyStatusPtrInput is an input type that accepts NetworkPolicyStatusArgs, NetworkPolicyStatusPtr and NetworkPolicyStatusPtrOutput values.
+// You can construct a concrete instance of `NetworkPolicyStatusPtrInput` via:
+//
+//          NetworkPolicyStatusArgs{...}
+//
+//  or:
+//
+//          nil
+type NetworkPolicyStatusPtrInput interface {
+	pulumi.Input
+
+	ToNetworkPolicyStatusPtrOutput() NetworkPolicyStatusPtrOutput
+	ToNetworkPolicyStatusPtrOutputWithContext(context.Context) NetworkPolicyStatusPtrOutput
+}
+
+type networkPolicyStatusPtrType NetworkPolicyStatusArgs
+
+func NetworkPolicyStatusPtr(v *NetworkPolicyStatusArgs) NetworkPolicyStatusPtrInput {
+	return (*networkPolicyStatusPtrType)(v)
+}
+
+func (*networkPolicyStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkPolicyStatus)(nil)).Elem()
+}
+
+func (i *networkPolicyStatusPtrType) ToNetworkPolicyStatusPtrOutput() NetworkPolicyStatusPtrOutput {
+	return i.ToNetworkPolicyStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *networkPolicyStatusPtrType) ToNetworkPolicyStatusPtrOutputWithContext(ctx context.Context) NetworkPolicyStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusPtrOutput)
+}
+
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+type NetworkPolicyStatusOutput struct{ *pulumi.OutputState }
+
+func (NetworkPolicyStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NetworkPolicyStatus)(nil)).Elem()
+}
+
+func (o NetworkPolicyStatusOutput) ToNetworkPolicyStatusOutput() NetworkPolicyStatusOutput {
+	return o
+}
+
+func (o NetworkPolicyStatusOutput) ToNetworkPolicyStatusOutputWithContext(ctx context.Context) NetworkPolicyStatusOutput {
+	return o
+}
+
+func (o NetworkPolicyStatusOutput) ToNetworkPolicyStatusPtrOutput() NetworkPolicyStatusPtrOutput {
+	return o.ToNetworkPolicyStatusPtrOutputWithContext(context.Background())
+}
+
+func (o NetworkPolicyStatusOutput) ToNetworkPolicyStatusPtrOutputWithContext(ctx context.Context) NetworkPolicyStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NetworkPolicyStatus) *NetworkPolicyStatus {
+		return &v
+	}).(NetworkPolicyStatusPtrOutput)
+}
+
+// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+func (o NetworkPolicyStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v NetworkPolicyStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+type NetworkPolicyStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (NetworkPolicyStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NetworkPolicyStatus)(nil)).Elem()
+}
+
+func (o NetworkPolicyStatusPtrOutput) ToNetworkPolicyStatusPtrOutput() NetworkPolicyStatusPtrOutput {
+	return o
+}
+
+func (o NetworkPolicyStatusPtrOutput) ToNetworkPolicyStatusPtrOutputWithContext(ctx context.Context) NetworkPolicyStatusPtrOutput {
+	return o
+}
+
+func (o NetworkPolicyStatusPtrOutput) Elem() NetworkPolicyStatusOutput {
+	return o.ApplyT(func(v *NetworkPolicyStatus) NetworkPolicyStatus {
+		if v != nil {
+			return *v
+		}
+		var ret NetworkPolicyStatus
+		return ret
+	}).(NetworkPolicyStatusOutput)
+}
+
+// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+func (o NetworkPolicyStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *NetworkPolicyStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
 // ServiceBackendPort is the service port being referenced.
 type ServiceBackendPort struct {
 	// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
@@ -3267,6 +3416,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyPortArrayInput)(nil)).Elem(), NetworkPolicyPortArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicySpecInput)(nil)).Elem(), NetworkPolicySpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicySpecPtrInput)(nil)).Elem(), NetworkPolicySpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyStatusInput)(nil)).Elem(), NetworkPolicyStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NetworkPolicyStatusPtrInput)(nil)).Elem(), NetworkPolicyStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceBackendPortInput)(nil)).Elem(), ServiceBackendPortArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServiceBackendPortPtrInput)(nil)).Elem(), ServiceBackendPortArgs{})
 	pulumi.RegisterOutputType(HTTPIngressPathOutput{})
@@ -3310,6 +3461,8 @@ func init() {
 	pulumi.RegisterOutputType(NetworkPolicyPortArrayOutput{})
 	pulumi.RegisterOutputType(NetworkPolicySpecOutput{})
 	pulumi.RegisterOutputType(NetworkPolicySpecPtrOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyStatusOutput{})
+	pulumi.RegisterOutputType(NetworkPolicyStatusPtrOutput{})
 	pulumi.RegisterOutputType(ServiceBackendPortOutput{})
 	pulumi.RegisterOutputType(ServiceBackendPortPtrOutput{})
 }

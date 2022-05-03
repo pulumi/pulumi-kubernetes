@@ -31,21 +31,18 @@ class CronJobSpecArgs:
                  failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
                  starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
                  successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
-                 suspend: Optional[pulumi.Input[bool]] = None):
+                 suspend: Optional[pulumi.Input[bool]] = None,
+                 time_zone: Optional[pulumi.Input[str]] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
         :param pulumi.Input['JobTemplateSpecArgs'] job_template: Specifies the job that will be created when executing a CronJob.
         :param pulumi.Input[str] schedule: The schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
         :param pulumi.Input[str] concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-               
-               Possible enum values:
-                - `"Allow"` allows CronJobs to run concurrently.
-                - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
-                - `"Replace"` cancels currently running job and replaces it with a new one.
         :param pulumi.Input[int] failed_jobs_history_limit: The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
         :param pulumi.Input[int] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param pulumi.Input[int] successful_jobs_history_limit: The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
+        :param pulumi.Input[str] time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
         """
         pulumi.set(__self__, "job_template", job_template)
         pulumi.set(__self__, "schedule", schedule)
@@ -59,6 +56,8 @@ class CronJobSpecArgs:
             pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
+        if time_zone is not None:
+            pulumi.set(__self__, "time_zone", time_zone)
 
     @property
     @pulumi.getter(name="jobTemplate")
@@ -89,11 +88,6 @@ class CronJobSpecArgs:
     def concurrency_policy(self) -> Optional[pulumi.Input[str]]:
         """
         Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
-
-        Possible enum values:
-         - `"Allow"` allows CronJobs to run concurrently.
-         - `"Forbid"` forbids concurrent runs, skipping next run if previous hasn't finished yet.
-         - `"Replace"` cancels currently running job and replaces it with a new one.
         """
         return pulumi.get(self, "concurrency_policy")
 
@@ -148,6 +142,18 @@ class CronJobSpecArgs:
     @suspend.setter
     def suspend(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "suspend", value)
+
+    @property
+    @pulumi.getter(name="timeZone")
+    def time_zone(self) -> Optional[pulumi.Input[str]]:
+        """
+        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+        """
+        return pulumi.get(self, "time_zone")
+
+    @time_zone.setter
+    def time_zone(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "time_zone", value)
 
 
 @pulumi.input_type
@@ -307,11 +313,6 @@ class JobConditionArgs:
         JobCondition describes current state of a job.
         :param pulumi.Input[str] status: Status of the condition, one of True, False, Unknown.
         :param pulumi.Input[str] type: Type of job condition, Complete or Failed.
-               
-               Possible enum values:
-                - `"Complete"` means the job has completed its execution.
-                - `"Failed"` means the job has failed its execution.
-                - `"Suspended"` means the job has been suspended.
         :param pulumi.Input[str] last_probe_time: Last time the condition was checked.
         :param pulumi.Input[str] last_transition_time: Last time the condition transit from one status to another.
         :param pulumi.Input[str] message: Human readable message indicating details about last transition.
@@ -345,11 +346,6 @@ class JobConditionArgs:
     def type(self) -> pulumi.Input[str]:
         """
         Type of job condition, Complete or Failed.
-
-        Possible enum values:
-         - `"Complete"` means the job has completed its execution.
-         - `"Failed"` means the job has failed its execution.
-         - `"Suspended"` means the job has been suspended.
         """
         return pulumi.get(self, "type")
 
@@ -430,14 +426,12 @@ class JobSpecArgs:
                
                `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
                
-               This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+               More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
         :param pulumi.Input[int] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param pulumi.Input[int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input[bool] suspend: Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
-               
-               This field is beta-level, gated by SuspendJob feature flag (enabled by default).
         :param pulumi.Input[int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
         pulumi.set(__self__, "template", template)
@@ -506,7 +500,7 @@ class JobSpecArgs:
 
         `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
 
-        This field is beta-level. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+        More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
         """
         return pulumi.get(self, "completion_mode")
 
@@ -567,8 +561,6 @@ class JobSpecArgs:
     def suspend(self) -> Optional[pulumi.Input[bool]]:
         """
         Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
-
-        This field is beta-level, gated by SuspendJob feature flag (enabled by default).
         """
         return pulumi.get(self, "suspend")
 
@@ -610,7 +602,7 @@ class JobStatusArgs:
         :param pulumi.Input[int] failed: The number of pods which reached phase Failed.
         :param pulumi.Input[int] ready: The number of pods which have a Ready condition.
                
-               This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+               This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
         :param pulumi.Input[str] start_time: Represents time when the job controller started processing a job. When a Job is created in the suspended state, this field is not set until the first time it is resumed. This field is reset every time a Job is resumed from suspension. It is represented in RFC3339 form and is in UTC.
         :param pulumi.Input[int] succeeded: The number of pods which reached phase Succeeded.
         :param pulumi.Input['UncountedTerminatedPodsArgs'] uncounted_terminated_pods: UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
@@ -705,7 +697,7 @@ class JobStatusArgs:
         """
         The number of pods which have a Ready condition.
 
-        This field is alpha-level. The job controller populates the field when the feature gate JobReadyPods is enabled (disabled by default).
+        This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
         """
         return pulumi.get(self, "ready")
 

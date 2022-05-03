@@ -18,8 +18,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
         /// </summary>
-        [Input("availableReplicas", required: true)]
-        public Input<int> AvailableReplicas { get; set; } = null!;
+        [Input("availableReplicas")]
+        public Input<int>? AvailableReplicas { get; set; }
 
         /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.

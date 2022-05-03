@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class HostPathVolumeSourceArgs : Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        /// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         /// </summary>
         [Input("path", required: true)]
         public Input<string> Path { get; set; } = null!;
 
         /// <summary>
-        /// Type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        /// type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

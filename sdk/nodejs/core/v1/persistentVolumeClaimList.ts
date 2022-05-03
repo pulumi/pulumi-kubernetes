@@ -40,7 +40,7 @@ export class PersistentVolumeClaimList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"v1">;
     /**
-     * A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+     * items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
     public readonly items!: pulumi.Output<outputs.core.v1.PersistentVolumeClaim[]>;
     /**
@@ -90,7 +90,7 @@ export interface PersistentVolumeClaimListArgs {
      */
     apiVersion?: pulumi.Input<"v1">;
     /**
-     * A list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+     * items is a list of persistent volume claims. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      */
     items: pulumi.Input<pulumi.Input<inputs.core.v1.PersistentVolumeClaim>[]>;
     /**

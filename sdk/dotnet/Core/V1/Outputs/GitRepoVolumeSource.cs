@@ -19,15 +19,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class GitRepoVolumeSource
     {
         /// <summary>
-        /// Target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+        /// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
         /// </summary>
         public readonly string Directory;
         /// <summary>
-        /// Repository URL
+        /// repository is the URL
         /// </summary>
         public readonly string Repository;
         /// <summary>
-        /// Commit hash for the specified revision.
+        /// revision is the commit hash for the specified revision.
         /// </summary>
         public readonly string Revision;
 
