@@ -2,6 +2,9 @@
 (None)
 
 ## 3.19.0 (May 3, 2022)
+
+Note: The `kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity` API was removed in this update.
+
 - Update Kubernetes support to Kubernetes v1.24.0 (https://github.com/pulumi/pulumi-kubernetes/pull/1911)
 
 ## 3.18.3 (April 21, 2022)
