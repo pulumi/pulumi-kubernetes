@@ -78,6 +78,29 @@ type HelmReleaseSettingsArgs struct {
 	RepositoryConfigPath pulumi.StringPtrInput `pulumi:"repositoryConfigPath"`
 }
 
+// Defaults sets the appropriate defaults for HelmReleaseSettingsArgs
+func (val *HelmReleaseSettingsArgs) Defaults() *HelmReleaseSettingsArgs {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	if isZero(tmp.Driver) {
+		tmp.Driver = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string))
+	}
+	if isZero(tmp.PluginsPath) {
+		tmp.PluginsPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string))
+	}
+	if isZero(tmp.RegistryConfigPath) {
+		tmp.RegistryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string))
+	}
+	if isZero(tmp.RepositoryCache) {
+		tmp.RepositoryCache = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE").(string))
+	}
+	if isZero(tmp.RepositoryConfigPath) {
+		tmp.RepositoryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string))
+	}
+	return &tmp
+}
 func (HelmReleaseSettingsArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*HelmReleaseSettings)(nil)).Elem()
 }
@@ -299,6 +322,20 @@ type KubeClientSettingsArgs struct {
 	Qps pulumi.Float64PtrInput `pulumi:"qps"`
 }
 
+// Defaults sets the appropriate defaults for KubeClientSettingsArgs
+func (val *KubeClientSettingsArgs) Defaults() *KubeClientSettingsArgs {
+	if val == nil {
+		return nil
+	}
+	tmp := *val
+	if isZero(tmp.Burst) {
+		tmp.Burst = pulumi.IntPtr(getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_BURST").(int))
+	}
+	if isZero(tmp.Qps) {
+		tmp.Qps = pulumi.Float64Ptr(getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64))
+	}
+	return &tmp
+}
 func (KubeClientSettingsArgs) ElementType() reflect.Type {
 	return reflect.TypeOf((*KubeClientSettings)(nil)).Elem()
 }

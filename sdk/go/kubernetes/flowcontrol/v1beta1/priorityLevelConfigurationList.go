@@ -179,6 +179,26 @@ func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListOu
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PriorityLevelConfigurationListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfigurationList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// `items` is a list of request-priorities.
+func (o PriorityLevelConfigurationListOutput) Items() PriorityLevelConfigurationTypeArrayOutput {
+	return o.ApplyT(func(v *PriorityLevelConfigurationList) PriorityLevelConfigurationTypeArrayOutput { return v.Items }).(PriorityLevelConfigurationTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PriorityLevelConfigurationListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfigurationList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PriorityLevelConfigurationListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfigurationList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type PriorityLevelConfigurationListArrayOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationListArrayOutput) ElementType() reflect.Type {

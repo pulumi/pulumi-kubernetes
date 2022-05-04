@@ -183,6 +183,31 @@ func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutputWithContext(ctx co
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PodDisruptionBudgetOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PodDisruptionBudgetOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PodDisruptionBudgetOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior of the PodDisruptionBudget.
+func (o PodDisruptionBudgetOutput) Spec() PodDisruptionBudgetSpecPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudgetSpecPtrOutput { return v.Spec }).(PodDisruptionBudgetSpecPtrOutput)
+}
+
+// Most recently observed status of the PodDisruptionBudget.
+func (o PodDisruptionBudgetOutput) Status() PodDisruptionBudgetStatusPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudget) PodDisruptionBudgetStatusPtrOutput { return v.Status }).(PodDisruptionBudgetStatusPtrOutput)
+}
+
 type PodDisruptionBudgetArrayOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetArrayOutput) ElementType() reflect.Type {

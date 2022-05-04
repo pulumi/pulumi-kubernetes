@@ -187,6 +187,31 @@ func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutputWithContext(ctx co
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o SubjectAccessReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SubjectAccessReview) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o SubjectAccessReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SubjectAccessReview) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o SubjectAccessReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *SubjectAccessReview) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec holds information about the request being evaluated
+func (o SubjectAccessReviewOutput) Spec() SubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v *SubjectAccessReview) SubjectAccessReviewSpecOutput { return v.Spec }).(SubjectAccessReviewSpecOutput)
+}
+
+// Status is filled in by the server and indicates whether the request is allowed or not
+func (o SubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutput {
+	return o.ApplyT(func(v *SubjectAccessReview) SubjectAccessReviewStatusPtrOutput { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
+}
+
 type SubjectAccessReviewArrayOutput struct{ *pulumi.OutputState }
 
 func (SubjectAccessReviewArrayOutput) ElementType() reflect.Type {

@@ -325,6 +325,31 @@ func (o DeploymentOutput) ToDeploymentOutputWithContext(ctx context.Context) Dep
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeploymentOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeploymentOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Deployment) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o DeploymentOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *Deployment) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Specification of the desired behavior of the Deployment.
+func (o DeploymentOutput) Spec() DeploymentSpecPtrOutput {
+	return o.ApplyT(func(v *Deployment) DeploymentSpecPtrOutput { return v.Spec }).(DeploymentSpecPtrOutput)
+}
+
+// Most recently observed status of the Deployment.
+func (o DeploymentOutput) Status() DeploymentStatusPtrOutput {
+	return o.ApplyT(func(v *Deployment) DeploymentStatusPtrOutput { return v.Status }).(DeploymentStatusPtrOutput)
+}
+
 type DeploymentArrayOutput struct{ *pulumi.OutputState }
 
 func (DeploymentArrayOutput) ElementType() reflect.Type {

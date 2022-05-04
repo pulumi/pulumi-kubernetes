@@ -172,6 +172,24 @@ func (o CertificateSigningRequestListOutput) ToCertificateSigningRequestListOutp
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CertificateSigningRequestListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CertificateSigningRequestList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o CertificateSigningRequestListOutput) Items() CertificateSigningRequestTypeArrayOutput {
+	return o.ApplyT(func(v *CertificateSigningRequestList) CertificateSigningRequestTypeArrayOutput { return v.Items }).(CertificateSigningRequestTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CertificateSigningRequestListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CertificateSigningRequestList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+func (o CertificateSigningRequestListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *CertificateSigningRequestList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type CertificateSigningRequestListArrayOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListArrayOutput) ElementType() reflect.Type {

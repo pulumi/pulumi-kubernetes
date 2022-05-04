@@ -269,6 +269,91 @@ func (o EventOutput) ToEventOutputWithContext(ctx context.Context) EventOutput {
 	return o
 }
 
+// What action was taken/failed regarding to the Regarding object.
+func (o EventOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EventOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// The number of times this event has occurred.
+func (o EventOutput) Count() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.IntPtrOutput { return v.Count }).(pulumi.IntPtrOutput)
+}
+
+// Time when this Event was first observed.
+func (o EventOutput) EventTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.EventTime }).(pulumi.StringPtrOutput)
+}
+
+// The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
+func (o EventOutput) FirstTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.FirstTimestamp }).(pulumi.StringPtrOutput)
+}
+
+// The object that this event is about.
+func (o EventOutput) InvolvedObject() ObjectReferenceOutput {
+	return o.ApplyT(func(v *Event) ObjectReferenceOutput { return v.InvolvedObject }).(ObjectReferenceOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// The time at which the most recent occurrence of this event was recorded.
+func (o EventOutput) LastTimestamp() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.LastTimestamp }).(pulumi.StringPtrOutput)
+}
+
+// A human-readable description of the status of this operation.
+func (o EventOutput) Message() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.Message }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o EventOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *Event) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
+}
+
+// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
+func (o EventOutput) Reason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// Optional secondary object for more complex actions.
+func (o EventOutput) Related() ObjectReferencePtrOutput {
+	return o.ApplyT(func(v *Event) ObjectReferencePtrOutput { return v.Related }).(ObjectReferencePtrOutput)
+}
+
+// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+func (o EventOutput) ReportingComponent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.ReportingComponent }).(pulumi.StringPtrOutput)
+}
+
+// ID of the controller instance, e.g. `kubelet-xyzf`.
+func (o EventOutput) ReportingInstance() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.ReportingInstance }).(pulumi.StringPtrOutput)
+}
+
+// Data about the Event series this event represents or nil if it's a singleton Event.
+func (o EventOutput) Series() EventSeriesPtrOutput {
+	return o.ApplyT(func(v *Event) EventSeriesPtrOutput { return v.Series }).(EventSeriesPtrOutput)
+}
+
+// The component reporting this event. Should be a short machine understandable string.
+func (o EventOutput) Source() EventSourcePtrOutput {
+	return o.ApplyT(func(v *Event) EventSourcePtrOutput { return v.Source }).(EventSourcePtrOutput)
+}
+
+// Type of this event (Normal, Warning), new types could be added in the future
+func (o EventOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Event) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
+}
+
 type EventArrayOutput struct{ *pulumi.OutputState }
 
 func (EventArrayOutput) ElementType() reflect.Type {

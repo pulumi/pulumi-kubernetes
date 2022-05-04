@@ -200,6 +200,36 @@ func (o RuntimeClassOutput) ToRuntimeClassOutputWithContext(ctx context.Context)
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o RuntimeClassOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RuntimeClass) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+func (o RuntimeClassOutput) Handler() pulumi.StringOutput {
+	return o.ApplyT(func(v *RuntimeClass) pulumi.StringOutput { return v.Handler }).(pulumi.StringOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o RuntimeClassOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RuntimeClass) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o RuntimeClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *RuntimeClass) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+func (o RuntimeClassOutput) Overhead() OverheadPtrOutput {
+	return o.ApplyT(func(v *RuntimeClass) OverheadPtrOutput { return v.Overhead }).(OverheadPtrOutput)
+}
+
+// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+func (o RuntimeClassOutput) Scheduling() SchedulingPtrOutput {
+	return o.ApplyT(func(v *RuntimeClass) SchedulingPtrOutput { return v.Scheduling }).(SchedulingPtrOutput)
+}
+
 type RuntimeClassArrayOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassArrayOutput) ElementType() reflect.Type {

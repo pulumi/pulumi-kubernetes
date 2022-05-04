@@ -185,6 +185,26 @@ func (o CSINodeOutput) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOu
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o CSINodeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CSINode) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o CSINodeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CSINode) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// metadata.name must be the Kubernetes node name.
+func (o CSINodeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *CSINode) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec is the specification of CSINode
+func (o CSINodeOutput) Spec() CSINodeSpecOutput {
+	return o.ApplyT(func(v *CSINode) CSINodeSpecOutput { return v.Spec }).(CSINodeSpecOutput)
+}
+
 type CSINodeArrayOutput struct{ *pulumi.OutputState }
 
 func (CSINodeArrayOutput) ElementType() reflect.Type {

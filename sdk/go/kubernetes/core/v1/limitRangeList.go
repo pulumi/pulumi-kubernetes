@@ -179,6 +179,26 @@ func (o LimitRangeListOutput) ToLimitRangeListOutputWithContext(ctx context.Cont
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o LimitRangeListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LimitRangeList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of LimitRange objects. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+func (o LimitRangeListOutput) Items() LimitRangeTypeArrayOutput {
+	return o.ApplyT(func(v *LimitRangeList) LimitRangeTypeArrayOutput { return v.Items }).(LimitRangeTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o LimitRangeListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LimitRangeList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o LimitRangeListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *LimitRangeList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type LimitRangeListArrayOutput struct{ *pulumi.OutputState }
 
 func (LimitRangeListArrayOutput) ElementType() reflect.Type {

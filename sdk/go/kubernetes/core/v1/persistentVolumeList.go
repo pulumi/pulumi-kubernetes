@@ -179,6 +179,26 @@ func (o PersistentVolumeListOutput) ToPersistentVolumeListOutputWithContext(ctx 
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PersistentVolumeListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
+func (o PersistentVolumeListOutput) Items() PersistentVolumeTypeArrayOutput {
+	return o.ApplyT(func(v *PersistentVolumeList) PersistentVolumeTypeArrayOutput { return v.Items }).(PersistentVolumeTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PersistentVolumeListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *PersistentVolumeList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type PersistentVolumeListArrayOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeListArrayOutput) ElementType() reflect.Type {

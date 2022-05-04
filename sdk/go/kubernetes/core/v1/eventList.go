@@ -179,6 +179,26 @@ func (o EventListOutput) ToEventListOutputWithContext(ctx context.Context) Event
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EventListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *EventList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// List of events
+func (o EventListOutput) Items() EventTypeArrayOutput {
+	return o.ApplyT(func(v *EventList) EventTypeArrayOutput { return v.Items }).(EventTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *EventList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EventListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *EventList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type EventListArrayOutput struct{ *pulumi.OutputState }
 
 func (EventListArrayOutput) ElementType() reflect.Type {

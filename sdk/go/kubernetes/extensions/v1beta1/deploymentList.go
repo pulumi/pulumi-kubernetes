@@ -179,6 +179,26 @@ func (o DeploymentListOutput) ToDeploymentListOutputWithContext(ctx context.Cont
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o DeploymentListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeploymentList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is the list of Deployments.
+func (o DeploymentListOutput) Items() DeploymentTypeArrayOutput {
+	return o.ApplyT(func(v *DeploymentList) DeploymentTypeArrayOutput { return v.Items }).(DeploymentTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o DeploymentListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DeploymentList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata.
+func (o DeploymentListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *DeploymentList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type DeploymentListArrayOutput struct{ *pulumi.OutputState }
 
 func (DeploymentListArrayOutput) ElementType() reflect.Type {

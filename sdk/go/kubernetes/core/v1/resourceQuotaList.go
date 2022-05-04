@@ -179,6 +179,26 @@ func (o ResourceQuotaListOutput) ToResourceQuotaListOutputWithContext(ctx contex
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o ResourceQuotaListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+func (o ResourceQuotaListOutput) Items() ResourceQuotaTypeArrayOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) ResourceQuotaTypeArrayOutput { return v.Items }).(ResourceQuotaTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceQuotaListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o ResourceQuotaListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type ResourceQuotaListArrayOutput struct{ *pulumi.OutputState }
 
 func (ResourceQuotaListArrayOutput) ElementType() reflect.Type {

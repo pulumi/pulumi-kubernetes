@@ -300,6 +300,31 @@ func (o IngressOutput) ToIngressOutputWithContext(ctx context.Context) IngressOu
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IngressOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Ingress) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IngressOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Ingress) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IngressOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v *Ingress) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IngressOutput) Spec() IngressSpecPtrOutput {
+	return o.ApplyT(func(v *Ingress) IngressSpecPtrOutput { return v.Spec }).(IngressSpecPtrOutput)
+}
+
+// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IngressOutput) Status() IngressStatusPtrOutput {
+	return o.ApplyT(func(v *Ingress) IngressStatusPtrOutput { return v.Status }).(IngressStatusPtrOutput)
+}
+
 type IngressArrayOutput struct{ *pulumi.OutputState }
 
 func (IngressArrayOutput) ElementType() reflect.Type {

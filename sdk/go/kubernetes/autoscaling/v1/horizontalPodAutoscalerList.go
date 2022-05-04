@@ -179,6 +179,26 @@ func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutputWi
 	return o
 }
 
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o HorizontalPodAutoscalerListOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscalerList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// list of horizontal pod autoscaler objects.
+func (o HorizontalPodAutoscalerListOutput) Items() HorizontalPodAutoscalerTypeArrayOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscalerList) HorizontalPodAutoscalerTypeArrayOutput { return v.Items }).(HorizontalPodAutoscalerTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o HorizontalPodAutoscalerListOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscalerList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard list metadata.
+func (o HorizontalPodAutoscalerListOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscalerList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
 type HorizontalPodAutoscalerListArrayOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerListArrayOutput) ElementType() reflect.Type {
