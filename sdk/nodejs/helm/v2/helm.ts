@@ -130,6 +130,8 @@ import * as yaml from "../../yaml/index";
  *   ],
  * });
  * ```
+ *
+ * @deprecated helm/v2/Chart is deprecated by helm/v3/Chart and will be removed in a future release.
  */
 export class Chart extends yaml.CollectionComponentResource {
     /**
