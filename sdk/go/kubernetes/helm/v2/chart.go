@@ -218,6 +218,7 @@ import (
 //     })
 // }
 // ```
+// Deprecated: helm/v2/Chart is deprecated by helm/v3/Chart and will be removed in a future release.
 type Chart struct {
 	pulumi.ResourceState
 
@@ -226,6 +227,7 @@ type Chart struct {
 }
 
 // NewChart registers a new resource with the given unique name, arguments, and options.
+// Deprecated: helm/v2/Chart is deprecated by helm/v3/Chart and will be removed in a future release.
 func NewChart(ctx *pulumi.Context,
 	name string, args ChartArgs, opts ...pulumi.ResourceOption) (*Chart, error) {
 
