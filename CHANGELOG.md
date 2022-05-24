@@ -1,5 +1,10 @@
 ## Unreleased
-(None)
+
+Note: The `kubernetes:helm/v2:Chart` API was deprecated in this update and will be removed in a future release. The
+`kubernetes:helm/v3:Chart` resource is backward compatible, so changing the import path should not cause any resource
+updates.
+
+- Deprecate helm/v2:Chart resources (https://github.com/pulumi/pulumi-kubernetes/pull/1990)
 
 ## 3.19.0 (May 3, 2022)
 

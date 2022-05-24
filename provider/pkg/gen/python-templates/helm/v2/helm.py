@@ -22,11 +22,15 @@ import shutil
 import subprocess
 from tempfile import mkdtemp, mkstemp
 from typing import Any, Callable, Optional, Sequence, TextIO, Tuple, Union
+from warnings import warn
 
 import pulumi.runtime
 from pulumi_kubernetes.yaml.yaml import _parse_yaml_document
 
 from ... import _utilities
+
+warn(f'helm/v2/Chart is deprecated by helm/v3/Chart and will be removed in a future release.',
+     DeprecationWarning, stacklevel=2)
 
 
 class Chart(pulumi.ComponentResource):
