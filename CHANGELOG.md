@@ -1,8 +1,14 @@
 ## Unreleased
 
-Note: The `kubernetes:helm/v2:Chart` API was deprecated in this update and will be removed in a future release. The
-`kubernetes:helm/v3:Chart` resource is backward compatible, so changing the import path should not cause any resource
-updates.
+### Deprecations
+
+- The `kubernetes:helm/v2:Chart` API is deprecated in this update and will be removed in a future release. The
+  `kubernetes:helm/v3:Chart` resource is backward compatible, so changing the import path should not cause any resource
+  updates.
+- The `enableReplaceCRD` option on the Provider is deprecated in the update and will be removed in a future release.
+  The behavior formerly enabled by this option is now default, and this option is ignored by the provider.
+
+### Improvements
 
 - Deprecate helm/v2:Chart resources (https://github.com/pulumi/pulumi-kubernetes/pull/1990)
 - Don't use the last-applied-configuration annotation for CRDs (https://github.com/pulumi/pulumi-kubernetes/pull/1882)

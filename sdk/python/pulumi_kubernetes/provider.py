@@ -38,8 +38,7 @@ class ProviderArgs:
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to true, enable server-side diff calculations.
                This feature is in developer preview, and is disabled by default.
-        :param pulumi.Input[bool] enable_replace_crd: BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-               This feature is in developer preview, and is disabled by default.
+        :param pulumi.Input[bool] enable_replace_crd: Obsolete. This option has no effect.
         :param pulumi.Input['HelmReleaseSettingsArgs'] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input['KubeClientSettingsArgs'] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -74,6 +73,9 @@ class ProviderArgs:
             pulumi.set(__self__, "enable_dry_run", enable_dry_run)
         if enable_replace_crd is None:
             enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
+        if enable_replace_crd is not None:
+            warnings.warn("""This option is deprecated, and will be removed in a future release.""", DeprecationWarning)
+            pulumi.log.warn("""enable_replace_crd is deprecated: This option is deprecated, and will be removed in a future release.""")
         if enable_replace_crd is not None:
             pulumi.set(__self__, "enable_replace_crd", enable_replace_crd)
         if helm_release_settings is not None:
@@ -155,8 +157,7 @@ class ProviderArgs:
     @pulumi.getter(name="enableReplaceCRD")
     def enable_replace_crd(self) -> Optional[pulumi.Input[bool]]:
         """
-        BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-        This feature is in developer preview, and is disabled by default.
+        Obsolete. This option has no effect.
         """
         return pulumi.get(self, "enable_replace_crd")
 
@@ -294,8 +295,7 @@ class Provider(pulumi.ProviderResource):
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
         :param pulumi.Input[bool] enable_dry_run: BETA FEATURE - If present and set to true, enable server-side diff calculations.
                This feature is in developer preview, and is disabled by default.
-        :param pulumi.Input[bool] enable_replace_crd: BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-               This feature is in developer preview, and is disabled by default.
+        :param pulumi.Input[bool] enable_replace_crd: Obsolete. This option has no effect.
         :param pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -374,6 +374,9 @@ class Provider(pulumi.ProviderResource):
             __props__.__dict__["enable_dry_run"] = pulumi.Output.from_input(enable_dry_run).apply(pulumi.runtime.to_json) if enable_dry_run is not None else None
             if enable_replace_crd is None:
                 enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
+            if enable_replace_crd is not None and not opts.urn:
+                warnings.warn("""This option is deprecated, and will be removed in a future release.""", DeprecationWarning)
+                pulumi.log.warn("""enable_replace_crd is deprecated: This option is deprecated, and will be removed in a future release.""")
             __props__.__dict__["enable_replace_crd"] = pulumi.Output.from_input(enable_replace_crd).apply(pulumi.runtime.to_json) if enable_replace_crd is not None else None
             __props__.__dict__["helm_release_settings"] = pulumi.Output.from_input(helm_release_settings).apply(pulumi.runtime.to_json) if helm_release_settings is not None else None
             __props__.__dict__["kube_client_settings"] = pulumi.Output.from_input(kube_client_settings).apply(pulumi.runtime.to_json) if kube_client_settings is not None else None

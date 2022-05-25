@@ -73,8 +73,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {
-					Description: "BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableReplaceCRD` parameter.\n2. The `PULUMI_K8S_ENABLE_REPLACE_CRD` environment variable.",
-					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+					Description:        "Obsolete. This option has no effect.",
+					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
+					DeprecationMessage: "This option is deprecated, and will be removed in a future release.",
 				},
 				"enableConfigMapMutable": {
 					Description: "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.",
@@ -142,8 +143,9 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_ENABLE_REPLACE_CRD",
 						},
 					},
-					Description: "BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.\nThis feature is in developer preview, and is disabled by default.",
-					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+					Description:        "Obsolete. This option has no effect.",
+					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
+					DeprecationMessage: "This option is deprecated, and will be removed in a future release.",
 				},
 				"enableConfigMapMutable": {
 					DefaultInfo: &pschema.DefaultSpec{

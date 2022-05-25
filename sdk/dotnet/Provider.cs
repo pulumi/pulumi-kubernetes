@@ -77,8 +77,7 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableDryRun { get; set; }
 
         /// <summary>
-        /// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-        /// This feature is in developer preview, and is disabled by default.
+        /// Obsolete. This option has no effect.
         /// </summary>
         [Input("enableReplaceCRD", json: true)]
         public Input<bool>? EnableReplaceCRD { get; set; }
