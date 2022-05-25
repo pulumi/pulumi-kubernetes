@@ -121,7 +121,6 @@ type kubeProvider struct {
 	defaultNamespace string
 
 	enableDryRun                bool
-	enableReplaceCRD            bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
@@ -417,22 +416,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableDryRun() {
 		k.enableDryRun = true
-	}
-
-	enableReplaceCRD := func() bool {
-		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
-		if enabled, exists := vars["kubernetes:config:enableReplaceCRD"]; exists {
-			return enabled == trueStr
-		}
-		// If the provider flag is not set, fall back to the ENV var.
-		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_REPLACE_CRD"); exists {
-			return enabled == trueStr
-		}
-		// Default to false.
-		return false
-	}
-	if enableReplaceCRD() {
-		k.enableReplaceCRD = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -2188,7 +2171,6 @@ func (k *kubeProvider) Update(
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
-			EnableReplaceCRD:  k.enableReplaceCRD,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
