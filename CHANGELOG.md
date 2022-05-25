@@ -1,4 +1,7 @@
 ## Unreleased
+(None)
+
+## 3.19.2 (May 25, 2022)
 
 ### Deprecations
 
@@ -12,6 +15,10 @@
 
 - Deprecate helm/v2:Chart resources (https://github.com/pulumi/pulumi-kubernetes/pull/1990)
 - Don't use the last-applied-configuration annotation for CRDs (https://github.com/pulumi/pulumi-kubernetes/pull/1882)
+
+## 3.19.1 (May 4, 2022)
+
+- Upgrade pulumi/pulumi deps to v3.31.1 (https://github.com/pulumi/pulumi-kubernetes/pull/1980)
 
 ## 3.19.0 (May 3, 2022)
 
