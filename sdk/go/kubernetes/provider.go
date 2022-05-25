@@ -69,8 +69,9 @@ type providerArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
-	// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-	// This feature is in developer preview, and is disabled by default.
+	// Obsolete. This option has no effect.
+	//
+	// Deprecated: This option is deprecated, and will be removed in a future release.
 	EnableReplaceCRD *bool `pulumi:"enableReplaceCRD"`
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
@@ -116,8 +117,9 @@ type ProviderArgs struct {
 	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
 	// This feature is in developer preview, and is disabled by default.
 	EnableDryRun pulumi.BoolPtrInput
-	// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-	// This feature is in developer preview, and is disabled by default.
+	// Obsolete. This option has no effect.
+	//
+	// Deprecated: This option is deprecated, and will be removed in a future release.
 	EnableReplaceCRD pulumi.BoolPtrInput
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings HelmReleaseSettingsPtrInput

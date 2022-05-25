@@ -80,8 +80,9 @@ export interface ProviderArgs {
      */
     enableDryRun?: pulumi.Input<boolean>;
     /**
-     * BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-     * This feature is in developer preview, and is disabled by default.
+     * Obsolete. This option has no effect.
+     *
+     * @deprecated This option is deprecated, and will be removed in a future release.
      */
     enableReplaceCRD?: pulumi.Input<boolean>;
     /**

@@ -32,7 +32,8 @@
             },
             "enableReplaceCRD": {
                 "type": "boolean",
-                "description": "BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableReplaceCRD` parameter.\n2. The `PULUMI_K8S_ENABLE_REPLACE_CRD` environment variable."
+                "description": "Obsolete. This option has no effect.",
+                "deprecationMessage": "This option is deprecated, and will be removed in a future release."
             },
             "kubeconfig": {
                 "type": "string",
@@ -31592,12 +31593,13 @@
             },
             "enableReplaceCRD": {
                 "type": "boolean",
-                "description": "BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.\nThis feature is in developer preview, and is disabled by default.",
+                "description": "Obsolete. This option has no effect.",
                 "defaultInfo": {
                     "environment": [
                         "PULUMI_K8S_ENABLE_REPLACE_CRD"
                     ]
-                }
+                },
+                "deprecationMessage": "This option is deprecated, and will be removed in a future release."
             },
             "helmReleaseSettings": {
                 "$ref": "#/types/kubernetes:index:HelmReleaseSettings",

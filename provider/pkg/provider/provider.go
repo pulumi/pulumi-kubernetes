@@ -121,7 +121,6 @@ type kubeProvider struct {
 	defaultNamespace string
 
 	enableDryRun                bool
-	enableReplaceCRD            bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
@@ -417,22 +416,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableDryRun() {
 		k.enableDryRun = true
-	}
-
-	enableReplaceCRD := func() bool {
-		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
-		if enabled, exists := vars["kubernetes:config:enableReplaceCRD"]; exists {
-			return enabled == trueStr
-		}
-		// If the provider flag is not set, fall back to the ENV var.
-		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_REPLACE_CRD"); exists {
-			return enabled == trueStr
-		}
-		// Default to false.
-		return false
-	}
-	if enableReplaceCRD() {
-		k.enableReplaceCRD = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -2188,7 +2171,6 @@ func (k *kubeProvider) Update(
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
-			EnableReplaceCRD:  k.enableReplaceCRD,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
@@ -2575,12 +2557,20 @@ func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Uns
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if k.enableReplaceCRD && clients.IsCRD(config) {
-		// Skip last-applied-config annotation when CRD replacement is enabled.
-		return config, nil
-	}
 	if k.supportsDryRun(config.GroupVersionKind()) {
 		// Skip last-applied-config annotation if the resource supports server-side apply.
+		return config, nil
+	}
+
+	// CRDs are updated using a separate mechanism, so skip the last-applied-configuration annotation, and delete it
+	// if it was present from a previous update.
+	if clients.IsCRD(config) {
+		// Deep copy the config before returning.
+		config = config.DeepCopy()
+
+		annotations := getAnnotations(config)
+		delete(annotations, lastAppliedConfigKey)
+		config.SetAnnotations(annotations)
 		return config, nil
 	}
 
@@ -2594,7 +2584,6 @@ func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) 
 	config = config.DeepCopy()
 
 	annotations := getAnnotations(config)
-
 	annotations[lastAppliedConfigKey] = string(marshaled)
 	config.SetAnnotations(annotations)
 	return config, nil

@@ -58,7 +58,6 @@ type ProviderConfig struct {
 	URN               resource.URN
 	InitialAPIVersion string
 	ClusterVersion    *cluster.ServerVersion
-	EnableReplaceCRD  bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -368,7 +367,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	}
 
 	var currentOutputs *unstructured.Unstructured
-	if c.EnableReplaceCRD && clients.IsCRD(c.Inputs) {
+	if clients.IsCRD(c.Inputs) {
 		// Note: This feature is currently enabled with a provider feature flag, but is expected to eventually become
 		// the default behavior.
 

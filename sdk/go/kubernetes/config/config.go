@@ -38,12 +38,9 @@ func GetEnableDryRun(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableDryRun")
 }
 
-// BETA FEATURE - If present and set to true, replace CRDs on update rather than patching.
-// This feature is in developer preview, and is disabled by default.
+// Obsolete. This option has no effect.
 //
-// This config can be specified in the following ways, using this precedence:
-// 1. This `enableReplaceCRD` parameter.
-// 2. The `PULUMI_K8S_ENABLE_REPLACE_CRD` environment variable.
+// Deprecated: This option is deprecated, and will be removed in a future release.
 func GetEnableReplaceCRD(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableReplaceCRD")
 }
