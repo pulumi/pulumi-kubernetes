@@ -240,7 +240,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 objs: p.result,
                 transformations,
             },
-            {parent: this}
+            { parent: this, provider: opts?.provider }
         ));
     }
 }

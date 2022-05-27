@@ -98,7 +98,7 @@ export class Directory extends yaml.CollectionComponentResource {
 
         // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
         const promise = pulumi.runtime.invoke("kubernetes:kustomize:directory", {directory}, invokeOpts);
         this.resources = pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
@@ -107,7 +107,7 @@ export class Directory extends yaml.CollectionComponentResource {
                 objs: p.result,
                 transformations: config.transformations || [],
             },
-            { parent: this, dependsOn: opts?.dependsOn }
+            { parent: this, dependsOn: opts?.dependsOn, provider: opts?.provider }
         ));
     }
 }

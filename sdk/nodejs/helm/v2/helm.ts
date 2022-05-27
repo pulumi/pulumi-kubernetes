@@ -246,7 +246,7 @@ export class Chart extends yaml.CollectionComponentResource {
                     },
                 ).toString();
                 return this.parseTemplate(
-                    yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps, cfg.namespace);
+                    yamlStream, cfg.transformations, cfg.resourcePrefix, configDeps, cfg.namespace, opts);
             } catch (e: any) {
                 // Shed stack trace, only emit the error.
                 throw new pulumi.RunError(e.toString());
@@ -269,10 +269,11 @@ export class Chart extends yaml.CollectionComponentResource {
         resourcePrefix: string | undefined,
         dependsOn: pulumi.Resource[],
         defaultNamespace: string | undefined,
+        opts?: pulumi.ComponentResourceOptions
     ): pulumi.Output<{ [key: string]: pulumi.CustomResource }> {
         // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
         const promise = pulumi.runtime.invoke("kubernetes:yaml:decode", {text, defaultNamespace}, invokeOpts);
         return pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
@@ -281,7 +282,7 @@ export class Chart extends yaml.CollectionComponentResource {
                 objs: p.result,
                 transformations: transformations || [],
             },
-            { parent: this, dependsOn: dependsOn }
+            { parent: this, dependsOn: dependsOn, provider: opts?.provider }
         ));
     }
 }
