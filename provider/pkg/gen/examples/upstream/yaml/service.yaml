@@ -1,12 +1,31 @@
-# From https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
-apiVersion: v1
-kind: Service
-metadata:
-  name: my-service
-spec:
-  selector:
-    app: MyApp
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 9376
+name: yaml-example
+runtime: yaml
+description: Create a Service with autonaming
+resources:
+  service:
+    type: kubernetes:core/v1:Service
+    properties:
+      spec:
+        selector:
+          app: MyApp
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 9376
+---
+name: yaml-example
+runtime: yaml
+description: Create a Service with a user-specified name
+resources:
+  service:
+    type: kubernetes:core/v1:Service
+    properties:
+      metadata:
+        name: my-service
+      spec:
+        selector:
+          app: MyApp
+        ports:
+          - protocol: TCP
+            port: 80
+            targetPort: 9376

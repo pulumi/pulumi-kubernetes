@@ -7,7 +7,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
+const ingress = new kubernetes.networking.v1.Ingress("ingress", {
     metadata: {
         annotations: {
             "nginx.ingress.kubernetes.io/rewrite-target": "/",
@@ -17,8 +17,6 @@ const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
         rules: [{
             http: {
                 paths: [{
-                    path: "/testpath",
-                    pathType: "Prefix",
                     backend: {
                         service: {
                             name: "test",
@@ -27,6 +25,8 @@ const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
                             },
                         },
                     },
+                    path: "/testpath",
+                    pathType: "Prefix",
                 }],
             },
         }],
@@ -37,8 +37,7 @@ const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-minimal_ingress = kubernetes.networking.v1.Ingress(
-    "minimal_ingress",
+ingress = kubernetes.networking.v1.Ingress("ingress",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
         annotations={
             "nginx.ingress.kubernetes.io/rewrite-target": "/",
@@ -48,8 +47,6 @@ minimal_ingress = kubernetes.networking.v1.Ingress(
         rules=[kubernetes.networking.v1.IngressRuleArgs(
             http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
                 paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                    path="/testpath",
-                    path_type="Prefix",
                     backend=kubernetes.networking.v1.IngressBackendArgs(
                         service=kubernetes.networking.v1.IngressServiceBackendArgs(
                             name="test",
@@ -58,6 +55,8 @@ minimal_ingress = kubernetes.networking.v1.Ingress(
                             ),
                         ),
                     ),
+                    path="/testpath",
+                    path_type="Prefix",
                 )],
             ),
         )],
@@ -71,7 +70,7 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var minimalIngress = new Kubernetes.Networking.V1.Ingress("minimal_ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+        var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
@@ -92,8 +91,6 @@ class MyStack : Stack
                             {
                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
                                 {
-                                    Path = "/testpath",
-                                    PathType = "Prefix",
                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
                                     {
                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
@@ -105,6 +102,8 @@ class MyStack : Stack
                                             },
                                         },
                                     },
+                                    Path = "/testpath",
+                                    PathType = "Prefix",
                                 },
                             },
                         },
@@ -113,6 +112,7 @@ class MyStack : Stack
             },
         });
     }
+
 }
 ```
 ```go
@@ -126,7 +126,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := networkingv1.NewIngress(ctx, "minimal_ingress", &networkingv1.IngressArgs{
+		_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
 			Metadata: &metav1.ObjectMetaArgs{
 				Annotations: pulumi.StringMap{
 					"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
@@ -138,8 +138,6 @@ func main() {
 						Http: &networkingv1.HTTPIngressRuleValueArgs{
 							Paths: networkingv1.HTTPIngressPathArray{
 								&networkingv1.HTTPIngressPathArgs{
-									Path:     pulumi.String("/testpath"),
-									PathType: pulumi.String("Prefix"),
 									Backend: &networkingv1.IngressBackendArgs{
 										Service: &networkingv1.IngressServiceBackendArgs{
 											Name: pulumi.String("test"),
@@ -148,6 +146,8 @@ func main() {
 											},
 										},
 									},
+									Path:     pulumi.String("/testpath"),
+									PathType: pulumi.String("Prefix"),
 								},
 							},
 						},
@@ -161,6 +161,29 @@ func main() {
 		return nil
 	})
 }
+```
+```yaml
+description: Create an Ingress with auto-naming
+name: yaml-example
+resources:
+    ingress:
+        properties:
+            metadata:
+                annotations:
+                    nginx.ingress.kubernetes.io/rewrite-target: /
+            spec:
+                rules:
+                    - http:
+                        paths:
+                            - backend:
+                                service:
+                                    name: test
+                                    port:
+                                        number: 80
+                              path: /testpath
+                              pathType: Prefix
+        type: kubernetes:networking.k8s.io/v1:Ingress
+runtime: yaml
 ```
 {{% /example %}}
 {{% example %}}
@@ -170,19 +193,17 @@ func main() {
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
+const ingress = new kubernetes.networking.v1.Ingress("ingress", {
     metadata: {
-        name: "minimal-ingress",
         annotations: {
             "nginx.ingress.kubernetes.io/rewrite-target": "/",
         },
+        name: "minimal-ingress",
     },
     spec: {
         rules: [{
             http: {
                 paths: [{
-                    path: "/testpath",
-                    pathType: "Prefix",
                     backend: {
                         service: {
                             name: "test",
@@ -191,6 +212,8 @@ const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
                             },
                         },
                     },
+                    path: "/testpath",
+                    pathType: "Prefix",
                 }],
             },
         }],
@@ -201,20 +224,17 @@ const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-minimal_ingress = kubernetes.networking.v1.Ingress(
-    "minimal_ingress",
+ingress = kubernetes.networking.v1.Ingress("ingress",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        name="minimal-ingress",
         annotations={
             "nginx.ingress.kubernetes.io/rewrite-target": "/",
         },
+        name="minimal-ingress",
     ),
     spec=kubernetes.networking.v1.IngressSpecArgs(
         rules=[kubernetes.networking.v1.IngressRuleArgs(
             http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
                 paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                    path="/testpath",
-                    path_type="Prefix",
                     backend=kubernetes.networking.v1.IngressBackendArgs(
                         service=kubernetes.networking.v1.IngressServiceBackendArgs(
                             name="test",
@@ -223,6 +243,8 @@ minimal_ingress = kubernetes.networking.v1.Ingress(
                             ),
                         ),
                     ),
+                    path="/testpath",
+                    path_type="Prefix",
                 )],
             ),
         )],
@@ -236,15 +258,15 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var minimalIngress = new Kubernetes.Networking.V1.Ingress("minimal_ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+        var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
-                Name = "minimal-ingress",
                 Annotations = 
                 {
                     { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
                 },
+                Name = "minimal-ingress",
             },
             Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
             {
@@ -258,8 +280,6 @@ class MyStack : Stack
                             {
                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
                                 {
-                                    Path = "/testpath",
-                                    PathType = "Prefix",
                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
                                     {
                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
@@ -271,6 +291,8 @@ class MyStack : Stack
                                             },
                                         },
                                     },
+                                    Path = "/testpath",
+                                    PathType = "Prefix",
                                 },
                             },
                         },
@@ -279,6 +301,7 @@ class MyStack : Stack
             },
         });
     }
+
 }
 ```
 ```go
@@ -292,12 +315,12 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := networkingv1.NewIngress(ctx, "minimal_ingress", &networkingv1.IngressArgs{
+		_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
 			Metadata: &metav1.ObjectMetaArgs{
-				Name: pulumi.String("minimal-ingress"),
 				Annotations: pulumi.StringMap{
 					"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
 				},
+				Name: pulumi.String("minimal-ingress"),
 			},
 			Spec: &networkingv1.IngressSpecArgs{
 				Rules: networkingv1.IngressRuleArray{
@@ -305,8 +328,6 @@ func main() {
 						Http: &networkingv1.HTTPIngressRuleValueArgs{
 							Paths: networkingv1.HTTPIngressPathArray{
 								&networkingv1.HTTPIngressPathArgs{
-									Path:     pulumi.String("/testpath"),
-									PathType: pulumi.String("Prefix"),
 									Backend: &networkingv1.IngressBackendArgs{
 										Service: &networkingv1.IngressServiceBackendArgs{
 											Name: pulumi.String("test"),
@@ -315,6 +336,8 @@ func main() {
 											},
 										},
 									},
+									Path:     pulumi.String("/testpath"),
+									PathType: pulumi.String("Prefix"),
 								},
 							},
 						},
@@ -329,5 +352,29 @@ func main() {
 	})
 }
 ```
+```yaml
+description: Create an Ingress with a user-specified name
+name: yaml-example
+resources:
+    ingress:
+        properties:
+            metadata:
+                annotations:
+                    nginx.ingress.kubernetes.io/rewrite-target: /
+                name: minimal-ingress
+            spec:
+                rules:
+                    - http:
+                        paths:
+                            - backend:
+                                service:
+                                    name: test
+                                    port:
+                                        number: 80
+                              path: /testpath
+                              pathType: Prefix
+        type: kubernetes:networking.k8s.io/v1:Ingress
+runtime: yaml
+```
 {{% /example %}}
-{% /examples %}}
+{{% /examples %}}

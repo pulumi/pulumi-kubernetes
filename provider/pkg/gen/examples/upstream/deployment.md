@@ -7,7 +7,7 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const nginx = new kubernetes.apps.v1.Deployment("nginx", {
+const deployment = new kubernetes.apps.v1.Deployment("deployment", {
     metadata: {
         labels: {
             app: "nginx",
@@ -28,8 +28,8 @@ const nginx = new kubernetes.apps.v1.Deployment("nginx", {
             },
             spec: {
                 containers: [{
-                    name: "nginx",
                     image: "nginx:1.14.2",
+                    name: "nginx",
                     ports: [{
                         containerPort: 80,
                     }],
@@ -43,8 +43,7 @@ const nginx = new kubernetes.apps.v1.Deployment("nginx", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-nginx = kubernetes.apps.v1.Deployment(
-    "nginx",
+deployment = kubernetes.apps.v1.Deployment("deployment",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
         labels={
             "app": "nginx",
@@ -65,8 +64,8 @@ nginx = kubernetes.apps.v1.Deployment(
             ),
             spec=kubernetes.core.v1.PodSpecArgs(
                 containers=[kubernetes.core.v1.ContainerArgs(
-                    name="nginx",
                     image="nginx:1.14.2",
+                    name="nginx",
                     ports=[kubernetes.core.v1.ContainerPortArgs(
                         container_port=80,
                     )],
@@ -83,7 +82,7 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var nginx = new Kubernetes.Apps.V1.Deployment("nginx", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
+        var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
@@ -117,8 +116,8 @@ class MyStack : Stack
                         {
                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                             {
-                                Name = "nginx",
                                 Image = "nginx:1.14.2",
+                                Name = "nginx",
                                 Ports = 
                                 {
                                     new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
@@ -133,6 +132,7 @@ class MyStack : Stack
             },
         });
     }
+
 }
 ```
 ```go
@@ -147,7 +147,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := appsv1.NewDeployment(ctx, "nginx", &appsv1.DeploymentArgs{
+		_, err := appsv1.NewDeployment(ctx, "deployment", &appsv1.DeploymentArgs{
 			Metadata: &metav1.ObjectMetaArgs{
 				Labels: pulumi.StringMap{
 					"app": pulumi.String("nginx"),
@@ -169,8 +169,8 @@ func main() {
 					Spec: &corev1.PodSpecArgs{
 						Containers: corev1.ContainerArray{
 							&corev1.ContainerArgs{
-								Name:  pulumi.String("nginx"),
 								Image: pulumi.String("nginx:1.14.2"),
+								Name:  pulumi.String("nginx"),
 								Ports: corev1.ContainerPortArray{
 									&corev1.ContainerPortArgs{
 										ContainerPort: pulumi.Int(80),
@@ -188,6 +188,33 @@ func main() {
 		return nil
 	})
 }
+```
+```yaml
+description: Create a Deployment with auto-naming
+name: yaml-example
+resources:
+    deployment:
+        properties:
+            metadata:
+                labels:
+                    app: nginx
+            spec:
+                replicas: 3
+                selector:
+                    matchLabels:
+                        app: nginx
+                template:
+                    metadata:
+                        labels:
+                            app: nginx
+                    spec:
+                        containers:
+                            - image: nginx:1.14.2
+                              name: nginx
+                              ports:
+                                - containerPort: 80
+        type: kubernetes:apps/v1:Deployment
+runtime: yaml
 ```
 {{% /example %}}
 {{% example %}}
@@ -197,12 +224,12 @@ func main() {
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const nginx = new kubernetes.apps.v1.Deployment("nginx", {
+const deployment = new kubernetes.apps.v1.Deployment("deployment", {
     metadata: {
-        name: "nginx-deployment",
         labels: {
             app: "nginx",
         },
+        name: "nginx-deployment",
     },
     spec: {
         replicas: 3,
@@ -219,8 +246,8 @@ const nginx = new kubernetes.apps.v1.Deployment("nginx", {
             },
             spec: {
                 containers: [{
-                    name: "nginx",
                     image: "nginx:1.14.2",
+                    name: "nginx",
                     ports: [{
                         containerPort: 80,
                     }],
@@ -234,13 +261,12 @@ const nginx = new kubernetes.apps.v1.Deployment("nginx", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-nginx = kubernetes.apps.v1.Deployment(
-    "nginx",
+deployment = kubernetes.apps.v1.Deployment("deployment",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
-        name="nginx-deployment",
         labels={
             "app": "nginx",
         },
+        name="nginx-deployment",
     ),
     spec=kubernetes.apps.v1.DeploymentSpecArgs(
         replicas=3,
@@ -257,8 +283,8 @@ nginx = kubernetes.apps.v1.Deployment(
             ),
             spec=kubernetes.core.v1.PodSpecArgs(
                 containers=[kubernetes.core.v1.ContainerArgs(
-                    name="nginx",
                     image="nginx:1.14.2",
+                    name="nginx",
                     ports=[kubernetes.core.v1.ContainerPortArgs(
                         container_port=80,
                     )],
@@ -275,15 +301,15 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var nginx = new Kubernetes.Apps.V1.Deployment("nginx", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
+        var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
-                Name = "nginx-deployment",
                 Labels = 
                 {
                     { "app", "nginx" },
                 },
+                Name = "nginx-deployment",
             },
             Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
             {
@@ -310,8 +336,8 @@ class MyStack : Stack
                         {
                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                             {
-                                Name = "nginx",
                                 Image = "nginx:1.14.2",
+                                Name = "nginx",
                                 Ports = 
                                 {
                                     new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
@@ -326,6 +352,7 @@ class MyStack : Stack
             },
         });
     }
+
 }
 ```
 ```go
@@ -340,12 +367,12 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := appsv1.NewDeployment(ctx, "nginx", &appsv1.DeploymentArgs{
+		_, err := appsv1.NewDeployment(ctx, "deployment", &appsv1.DeploymentArgs{
 			Metadata: &metav1.ObjectMetaArgs{
-				Name: pulumi.String("nginx-deployment"),
 				Labels: pulumi.StringMap{
 					"app": pulumi.String("nginx"),
 				},
+				Name: pulumi.String("nginx-deployment"),
 			},
 			Spec: &appsv1.DeploymentSpecArgs{
 				Replicas: pulumi.Int(3),
@@ -363,8 +390,8 @@ func main() {
 					Spec: &corev1.PodSpecArgs{
 						Containers: corev1.ContainerArray{
 							&corev1.ContainerArgs{
-								Name:  pulumi.String("nginx"),
 								Image: pulumi.String("nginx:1.14.2"),
+								Name:  pulumi.String("nginx"),
 								Ports: corev1.ContainerPortArray{
 									&corev1.ContainerPortArgs{
 										ContainerPort: pulumi.Int(80),
@@ -383,5 +410,33 @@ func main() {
 	})
 }
 ```
+```yaml
+description: Create a Deployment with a user-specified name
+name: yaml-example
+resources:
+    deployment:
+        properties:
+            metadata:
+                labels:
+                    app: nginx
+                name: nginx-deployment
+            spec:
+                replicas: 3
+                selector:
+                    matchLabels:
+                        app: nginx
+                template:
+                    metadata:
+                        labels:
+                            app: nginx
+                    spec:
+                        containers:
+                            - image: nginx:1.14.2
+                              name: nginx
+                              ports:
+                                - containerPort: 80
+        type: kubernetes:apps/v1:Deployment
+runtime: yaml
+```
 {{% /example %}}
-{% /examples %}}
+{{% /examples %}}
