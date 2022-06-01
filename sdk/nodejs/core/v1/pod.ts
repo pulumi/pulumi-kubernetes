@@ -30,17 +30,15 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
- *     spec: {
- *         containers: [{
- *             name: "nginx",
- *             image: "nginx:1.14.2",
- *             ports: [{
- *                 containerPort: 80,
- *             }],
+ * const pod = new kubernetes.core.v1.Pod("pod", {spec: {
+ *     containers: [{
+ *         image: "nginx:1.14.2",
+ *         name: "nginx",
+ *         ports: [{
+ *             containerPort: 80,
  *         }],
- *     },
- * });
+ *     }],
+ * }});
  * ```
  * ### Create a Pod with a user-specified name
  *
@@ -48,14 +46,14 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
+ * const pod = new kubernetes.core.v1.Pod("pod", {
  *     metadata: {
  *         name: "nginx",
  *     },
  *     spec: {
  *         containers: [{
- *             name: "nginx",
  *             image: "nginx:1.14.2",
+ *             name: "nginx",
  *             ports: [{
  *                 containerPort: 80,
  *             }],
@@ -63,7 +61,6 @@ import * as utilities from "../../utilities";
  *     },
  * });
  * ```
- * {% /examples %}}
  */
 export class Pod extends pulumi.CustomResource {
     /**

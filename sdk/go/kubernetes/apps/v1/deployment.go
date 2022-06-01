@@ -49,7 +49,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := appsv1.NewDeployment(ctx, "nginx", &appsv1.DeploymentArgs{
+// 		_, err := appsv1.NewDeployment(ctx, "deployment", &appsv1.DeploymentArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Labels: pulumi.StringMap{
 // 					"app": pulumi.String("nginx"),
@@ -71,8 +71,8 @@ import (
 // 					Spec: &corev1.PodSpecArgs{
 // 						Containers: corev1.ContainerArray{
 // 							&corev1.ContainerArgs{
-// 								Name:  pulumi.String("nginx"),
 // 								Image: pulumi.String("nginx:1.14.2"),
+// 								Name:  pulumi.String("nginx"),
 // 								Ports: corev1.ContainerPortArray{
 // 									&corev1.ContainerPortArgs{
 // 										ContainerPort: pulumi.Int(80),
@@ -104,12 +104,12 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := appsv1.NewDeployment(ctx, "nginx", &appsv1.DeploymentArgs{
+// 		_, err := appsv1.NewDeployment(ctx, "deployment", &appsv1.DeploymentArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
-// 				Name: pulumi.String("nginx-deployment"),
 // 				Labels: pulumi.StringMap{
 // 					"app": pulumi.String("nginx"),
 // 				},
+// 				Name: pulumi.String("nginx-deployment"),
 // 			},
 // 			Spec: &appsv1.DeploymentSpecArgs{
 // 				Replicas: pulumi.Int(3),
@@ -127,8 +127,8 @@ import (
 // 					Spec: &corev1.PodSpecArgs{
 // 						Containers: corev1.ContainerArray{
 // 							&corev1.ContainerArgs{
-// 								Name:  pulumi.String("nginx"),
 // 								Image: pulumi.String("nginx:1.14.2"),
+// 								Name:  pulumi.String("nginx"),
 // 								Ports: corev1.ContainerPortArray{
 // 									&corev1.ContainerPortArgs{
 // 										ContainerPort: pulumi.Int(80),
@@ -147,7 +147,6 @@ import (
 // 	})
 // }
 // ```
-// {% /examples %}}
 type Deployment struct {
 	pulumi.CustomResourceState
 

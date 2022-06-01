@@ -35,18 +35,17 @@ import (
 //
 // import (
 // 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewPod(ctx, "nginxPod", &corev1.PodArgs{
+// 		_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
 // 			Spec: &corev1.PodSpecArgs{
 // 				Containers: corev1.ContainerArray{
 // 					&corev1.ContainerArgs{
-// 						Name:  pulumi.String("nginx"),
 // 						Image: pulumi.String("nginx:1.14.2"),
+// 						Name:  pulumi.String("nginx"),
 // 						Ports: corev1.ContainerPortArray{
 // 							&corev1.ContainerPortArgs{
 // 								ContainerPort: pulumi.Int(80),
@@ -75,15 +74,15 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewPod(ctx, "nginxPod", &corev1.PodArgs{
+// 		_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Name: pulumi.String("nginx"),
 // 			},
 // 			Spec: &corev1.PodSpecArgs{
 // 				Containers: corev1.ContainerArray{
 // 					&corev1.ContainerArgs{
-// 						Name:  pulumi.String("nginx"),
 // 						Image: pulumi.String("nginx:1.14.2"),
+// 						Name:  pulumi.String("nginx"),
 // 						Ports: corev1.ContainerPortArray{
 // 							&corev1.ContainerPortArgs{
 // 								ContainerPort: pulumi.Int(80),
@@ -100,7 +99,6 @@ import (
 // 	})
 // }
 // ```
-// {% /examples %}}
 type Pod struct {
 	pulumi.CustomResourceState
 

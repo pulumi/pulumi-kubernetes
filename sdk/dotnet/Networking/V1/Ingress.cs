@@ -36,7 +36,7 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var minimalIngress = new Kubernetes.Networking.V1.Ingress("minimal_ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+    ///         var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
     ///         {
     ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///             {
@@ -57,8 +57,6 @@ namespace Pulumi.Kubernetes.Networking.V1
     ///                             {
     ///                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
     ///                                 {
-    ///                                     Path = "/testpath",
-    ///                                     PathType = "Prefix",
     ///                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
     ///                                     {
     ///                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
@@ -70,6 +68,8 @@ namespace Pulumi.Kubernetes.Networking.V1
     ///                                             },
     ///                                         },
     ///                                     },
+    ///                                     Path = "/testpath",
+    ///                                     PathType = "Prefix",
     ///                                 },
     ///                             },
     ///                         },
@@ -78,6 +78,7 @@ namespace Pulumi.Kubernetes.Networking.V1
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
     /// ### Create an Ingress with a user-specified name
@@ -89,15 +90,15 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var minimalIngress = new Kubernetes.Networking.V1.Ingress("minimal_ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+    ///         var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
     ///         {
     ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///             {
-    ///                 Name = "minimal-ingress",
     ///                 Annotations = 
     ///                 {
     ///                     { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
     ///                 },
+    ///                 Name = "minimal-ingress",
     ///             },
     ///             Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
     ///             {
@@ -111,8 +112,6 @@ namespace Pulumi.Kubernetes.Networking.V1
     ///                             {
     ///                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
     ///                                 {
-    ///                                     Path = "/testpath",
-    ///                                     PathType = "Prefix",
     ///                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
     ///                                     {
     ///                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
@@ -124,6 +123,8 @@ namespace Pulumi.Kubernetes.Networking.V1
     ///                                             },
     ///                                         },
     ///                                     },
+    ///                                     Path = "/testpath",
+    ///                                     PathType = "Prefix",
     ///                                 },
     ///                             },
     ///                         },
@@ -132,9 +133,9 @@ namespace Pulumi.Kubernetes.Networking.V1
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
-    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:networking.k8s.io/v1:Ingress")]
     public partial class Ingress : KubernetesResource

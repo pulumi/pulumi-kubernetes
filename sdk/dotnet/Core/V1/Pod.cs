@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var nginxPod = new Kubernetes.Core.V1.Pod("nginxPod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+    ///         var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
     ///         {
     ///             Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
     ///             {
@@ -45,8 +45,8 @@ namespace Pulumi.Kubernetes.Core.V1
     ///                 {
     ///                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                     {
-    ///                         Name = "nginx",
     ///                         Image = "nginx:1.14.2",
+    ///                         Name = "nginx",
     ///                         Ports = 
     ///                         {
     ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
@@ -59,6 +59,7 @@ namespace Pulumi.Kubernetes.Core.V1
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
     /// ### Create a Pod with a user-specified name
@@ -70,7 +71,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var nginxPod = new Kubernetes.Core.V1.Pod("nginxPod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+    ///         var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
     ///         {
     ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///             {
@@ -82,8 +83,8 @@ namespace Pulumi.Kubernetes.Core.V1
     ///                 {
     ///                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                     {
-    ///                         Name = "nginx",
     ///                         Image = "nginx:1.14.2",
+    ///                         Name = "nginx",
     ///                         Ports = 
     ///                         {
     ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
@@ -96,9 +97,9 @@ namespace Pulumi.Kubernetes.Core.V1
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
-    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Pod")]
     public partial class Pod : KubernetesResource

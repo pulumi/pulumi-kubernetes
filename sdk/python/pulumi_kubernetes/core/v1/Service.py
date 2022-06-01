@@ -125,46 +125,42 @@ class Service(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         ## Example Usage
-        ### Create a Service with auto-naming
+        ### Create a Service with autonaming
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        my_service = kubernetes.core.v1.Service(
-            "my_service",
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                selector={
-                    "app": "MyApp",
-                },
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    protocol="TCP",
-                    port=80,
-                    target_port=9376,
-                )],
-            ))
+        service = kubernetes.core.v1.Service("service", spec=kubernetes.core.v1.ServiceSpecArgs(
+            ports=[kubernetes.core.v1.ServicePortArgs(
+                port=80,
+                protocol="TCP",
+                target_port=9376,
+            )],
+            selector={
+                "app": "MyApp",
+            },
+        ))
         ```
         ### Create a Service with a user-specified name
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        my_service = kubernetes.core.v1.Service(
-            "my_service",
+        service = kubernetes.core.v1.Service("service",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 name="my-service",
             ),
             spec=kubernetes.core.v1.ServiceSpecArgs(
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    port=80,
+                    protocol="TCP",
+                    target_port=9376,
+                )],
                 selector={
                     "app": "MyApp",
                 },
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    protocol="TCP",
-                    port=80,
-                    target_port=9376,
-                )],
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -208,46 +204,42 @@ class Service(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         ## Example Usage
-        ### Create a Service with auto-naming
+        ### Create a Service with autonaming
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        my_service = kubernetes.core.v1.Service(
-            "my_service",
-            spec=kubernetes.core.v1.ServiceSpecArgs(
-                selector={
-                    "app": "MyApp",
-                },
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    protocol="TCP",
-                    port=80,
-                    target_port=9376,
-                )],
-            ))
+        service = kubernetes.core.v1.Service("service", spec=kubernetes.core.v1.ServiceSpecArgs(
+            ports=[kubernetes.core.v1.ServicePortArgs(
+                port=80,
+                protocol="TCP",
+                target_port=9376,
+            )],
+            selector={
+                "app": "MyApp",
+            },
+        ))
         ```
         ### Create a Service with a user-specified name
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        my_service = kubernetes.core.v1.Service(
-            "my_service",
+        service = kubernetes.core.v1.Service("service",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 name="my-service",
             ),
             spec=kubernetes.core.v1.ServiceSpecArgs(
+                ports=[kubernetes.core.v1.ServicePortArgs(
+                    port=80,
+                    protocol="TCP",
+                    target_port=9376,
+                )],
                 selector={
                     "app": "MyApp",
                 },
-                ports=[kubernetes.core.v1.ServicePortArgs(
-                    protocol="TCP",
-                    port=80,
-                    target_port=9376,
-                )],
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param ServiceInitArgs args: The arguments to use to populate this resource's properties.

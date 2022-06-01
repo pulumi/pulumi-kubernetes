@@ -119,8 +119,7 @@ class Ingress(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        minimal_ingress = kubernetes.networking.v1.Ingress(
-            "minimal_ingress",
+        ingress = kubernetes.networking.v1.Ingress("ingress",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 annotations={
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
@@ -130,8 +129,6 @@ class Ingress(pulumi.CustomResource):
                 rules=[kubernetes.networking.v1.IngressRuleArgs(
                     http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
                         paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            path="/testpath",
-                            path_type="Prefix",
                             backend=kubernetes.networking.v1.IngressBackendArgs(
                                 service=kubernetes.networking.v1.IngressServiceBackendArgs(
                                     name="test",
@@ -140,6 +137,8 @@ class Ingress(pulumi.CustomResource):
                                     ),
                                 ),
                             ),
+                            path="/testpath",
+                            path_type="Prefix",
                         )],
                     ),
                 )],
@@ -150,20 +149,17 @@ class Ingress(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        minimal_ingress = kubernetes.networking.v1.Ingress(
-            "minimal_ingress",
+        ingress = kubernetes.networking.v1.Ingress("ingress",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="minimal-ingress",
                 annotations={
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
                 },
+                name="minimal-ingress",
             ),
             spec=kubernetes.networking.v1.IngressSpecArgs(
                 rules=[kubernetes.networking.v1.IngressRuleArgs(
                     http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
                         paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            path="/testpath",
-                            path_type="Prefix",
                             backend=kubernetes.networking.v1.IngressBackendArgs(
                                 service=kubernetes.networking.v1.IngressServiceBackendArgs(
                                     name="test",
@@ -172,12 +168,13 @@ class Ingress(pulumi.CustomResource):
                                     ),
                                 ),
                             ),
+                            path="/testpath",
+                            path_type="Prefix",
                         )],
                     ),
                 )],
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -215,8 +212,7 @@ class Ingress(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        minimal_ingress = kubernetes.networking.v1.Ingress(
-            "minimal_ingress",
+        ingress = kubernetes.networking.v1.Ingress("ingress",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 annotations={
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
@@ -226,8 +222,6 @@ class Ingress(pulumi.CustomResource):
                 rules=[kubernetes.networking.v1.IngressRuleArgs(
                     http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
                         paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            path="/testpath",
-                            path_type="Prefix",
                             backend=kubernetes.networking.v1.IngressBackendArgs(
                                 service=kubernetes.networking.v1.IngressServiceBackendArgs(
                                     name="test",
@@ -236,6 +230,8 @@ class Ingress(pulumi.CustomResource):
                                     ),
                                 ),
                             ),
+                            path="/testpath",
+                            path_type="Prefix",
                         )],
                     ),
                 )],
@@ -246,20 +242,17 @@ class Ingress(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        minimal_ingress = kubernetes.networking.v1.Ingress(
-            "minimal_ingress",
+        ingress = kubernetes.networking.v1.Ingress("ingress",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="minimal-ingress",
                 annotations={
                     "nginx.ingress.kubernetes.io/rewrite-target": "/",
                 },
+                name="minimal-ingress",
             ),
             spec=kubernetes.networking.v1.IngressSpecArgs(
                 rules=[kubernetes.networking.v1.IngressRuleArgs(
                     http=kubernetes.networking.v1.HTTPIngressRuleValueArgs(
                         paths=[kubernetes.networking.v1.HTTPIngressPathArgs(
-                            path="/testpath",
-                            path_type="Prefix",
                             backend=kubernetes.networking.v1.IngressBackendArgs(
                                 service=kubernetes.networking.v1.IngressServiceBackendArgs(
                                     name="test",
@@ -268,12 +261,13 @@ class Ingress(pulumi.CustomResource):
                                     ),
                                 ),
                             ),
+                            path="/testpath",
+                            path_type="Prefix",
                         )],
                     ),
                 )],
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param IngressInitArgs args: The arguments to use to populate this resource's properties.

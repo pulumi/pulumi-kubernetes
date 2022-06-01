@@ -35,24 +35,25 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const job = new kubernetes.batch.v1.Job("pi", {
+ * const job = new kubernetes.batch.v1.Job("job", {
+ *     metadata: undefined,
  *     spec: {
+ *         backoffLimit: 4,
  *         template: {
  *             spec: {
  *                 containers: [{
- *                     name: "pi",
- *                     image: "perl",
  *                     command: [
  *                         "perl",
  *                         "-Mbignum=bpi",
  *                         "-wle",
  *                         "print bpi(2000)",
  *                     ],
+ *                     image: "perl",
+ *                     name: "pi",
  *                 }],
  *                 restartPolicy: "Never",
  *             },
  *         },
- *         backoffLimit: 4,
  *     },
  * });
  * ```
@@ -62,31 +63,30 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const job = new kubernetes.batch.v1.Job("pi", {
+ * const job = new kubernetes.batch.v1.Job("job", {
  *     metadata: {
  *         name: "pi",
  *     },
  *     spec: {
+ *         backoffLimit: 4,
  *         template: {
  *             spec: {
  *                 containers: [{
- *                     name: "pi",
- *                     image: "perl",
  *                     command: [
  *                         "perl",
  *                         "-Mbignum=bpi",
  *                         "-wle",
  *                         "print bpi(2000)",
  *                     ],
+ *                     image: "perl",
+ *                     name: "pi",
  *                 }],
  *                 restartPolicy: "Never",
  *             },
  *         },
- *         backoffLimit: 4,
  *     },
  * });
  * ```
- * {% /examples %}}
  */
 export class Job extends pulumi.CustomResource {
     /**

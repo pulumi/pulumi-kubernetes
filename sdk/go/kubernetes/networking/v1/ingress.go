@@ -40,7 +40,7 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := networkingv1.NewIngress(ctx, "minimal_ingress", &networkingv1.IngressArgs{
+// 		_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Annotations: pulumi.StringMap{
 // 					"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
@@ -52,8 +52,6 @@ import (
 // 						Http: &networkingv1.HTTPIngressRuleValueArgs{
 // 							Paths: networkingv1.HTTPIngressPathArray{
 // 								&networkingv1.HTTPIngressPathArgs{
-// 									Path:     pulumi.String("/testpath"),
-// 									PathType: pulumi.String("Prefix"),
 // 									Backend: &networkingv1.IngressBackendArgs{
 // 										Service: &networkingv1.IngressServiceBackendArgs{
 // 											Name: pulumi.String("test"),
@@ -62,6 +60,8 @@ import (
 // 											},
 // 										},
 // 									},
+// 									Path:     pulumi.String("/testpath"),
+// 									PathType: pulumi.String("Prefix"),
 // 								},
 // 							},
 // 						},
@@ -88,12 +88,12 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := networkingv1.NewIngress(ctx, "minimal_ingress", &networkingv1.IngressArgs{
+// 		_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
-// 				Name: pulumi.String("minimal-ingress"),
 // 				Annotations: pulumi.StringMap{
 // 					"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
 // 				},
+// 				Name: pulumi.String("minimal-ingress"),
 // 			},
 // 			Spec: &networkingv1.IngressSpecArgs{
 // 				Rules: networkingv1.IngressRuleArray{
@@ -101,8 +101,6 @@ import (
 // 						Http: &networkingv1.HTTPIngressRuleValueArgs{
 // 							Paths: networkingv1.HTTPIngressPathArray{
 // 								&networkingv1.HTTPIngressPathArgs{
-// 									Path:     pulumi.String("/testpath"),
-// 									PathType: pulumi.String("Prefix"),
 // 									Backend: &networkingv1.IngressBackendArgs{
 // 										Service: &networkingv1.IngressServiceBackendArgs{
 // 											Name: pulumi.String("test"),
@@ -111,6 +109,8 @@ import (
 // 											},
 // 										},
 // 									},
+// 									Path:     pulumi.String("/testpath"),
+// 									PathType: pulumi.String("Prefix"),
 // 								},
 // 							},
 // 						},
@@ -125,7 +125,6 @@ import (
 // 	})
 // }
 // ```
-// {% /examples %}}
 type Ingress struct {
 	pulumi.CustomResourceState
 

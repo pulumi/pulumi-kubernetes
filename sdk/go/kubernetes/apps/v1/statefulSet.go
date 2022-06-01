@@ -30,7 +30,7 @@ import (
 // by setting the 'customTimeouts' option on the resource.
 //
 // ## Example Usage
-// ### Create a StatefulSet with auto-naming
+// ### Create a StatefulSet with autonaming
 // ```go
 // package main
 //
@@ -43,20 +43,20 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		nginxService, err := corev1.NewService(ctx, "nginxService", &corev1.ServiceArgs{
+// 		service, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Labels: pulumi.StringMap{
 // 					"app": pulumi.String("nginx"),
 // 				},
 // 			},
 // 			Spec: &corev1.ServiceSpecArgs{
+// 				ClusterIP: pulumi.String("None"),
 // 				Ports: corev1.ServicePortArray{
 // 					&corev1.ServicePortArgs{
-// 						Port: pulumi.Int(80),
 // 						Name: pulumi.String("web"),
+// 						Port: pulumi.Int(80),
 // 					},
 // 				},
-// 				ClusterIP: pulumi.String("None"),
 // 				Selector: pulumi.StringMap{
 // 					"app": pulumi.String("nginx"),
 // 				},
@@ -65,15 +65,17 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = appsv1.NewStatefulSet(ctx, "wwwStatefulSet", &appsv1.StatefulSetArgs{
+// 		_, err = appsv1.NewStatefulSet(ctx, "statefulset", &appsv1.StatefulSetArgs{
 // 			Spec: &appsv1.StatefulSetSpecArgs{
+// 				Replicas: pulumi.Int(3),
 // 				Selector: &metav1.LabelSelectorArgs{
 // 					MatchLabels: pulumi.StringMap{
 // 						"app": pulumi.String("nginx"),
 // 					},
 // 				},
-// 				ServiceName: nginxService.Metadata.Name().Elem(),
-// 				Replicas:    pulumi.Int(3),
+// 				ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (string, error) {
+// 					return metadata.Name, nil
+// 				}).(pulumi.StringOutput),
 // 				Template: &corev1.PodTemplateSpecArgs{
 // 					Metadata: &metav1.ObjectMetaArgs{
 // 						Labels: pulumi.StringMap{
@@ -81,11 +83,10 @@ import (
 // 						},
 // 					},
 // 					Spec: &corev1.PodSpecArgs{
-// 						TerminationGracePeriodSeconds: pulumi.Int(10),
 // 						Containers: corev1.ContainerArray{
 // 							&corev1.ContainerArgs{
-// 								Name:  pulumi.String("nginx"),
 // 								Image: pulumi.String("k8s.gcr.io/nginx-slim:0.8"),
+// 								Name:  pulumi.String("nginx"),
 // 								Ports: corev1.ContainerPortArray{
 // 									&corev1.ContainerPortArgs{
 // 										ContainerPort: pulumi.Int(80),
@@ -94,16 +95,17 @@ import (
 // 								},
 // 								VolumeMounts: corev1.VolumeMountArray{
 // 									&corev1.VolumeMountArgs{
-// 										Name:      pulumi.String("www"),
 // 										MountPath: pulumi.String("/usr/share/nginx/html"),
+// 										Name:      pulumi.String("www"),
 // 									},
 // 								},
 // 							},
 // 						},
+// 						TerminationGracePeriodSeconds: pulumi.Int(10),
 // 					},
 // 				},
-// 				VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
-// 					&corev1.PersistentVolumeClaimTypeArgs{
+// 				VolumeClaimTemplates: []corev1.PersistentVolumeClaimArgs{
+// 					&corev1.PersistentVolumeClaimArgs{
 // 						Metadata: &metav1.ObjectMetaArgs{
 // 							Name: pulumi.String("www"),
 // 						},
@@ -111,12 +113,12 @@ import (
 // 							AccessModes: pulumi.StringArray{
 // 								pulumi.String("ReadWriteOnce"),
 // 							},
-// 							StorageClassName: pulumi.String("my-storage-class"),
 // 							Resources: &corev1.ResourceRequirementsArgs{
 // 								Requests: pulumi.StringMap{
 // 									"storage": pulumi.String("1Gi"),
 // 								},
 // 							},
+// 							StorageClassName: pulumi.String("my-storage-class"),
 // 						},
 // 					},
 // 				},
@@ -142,21 +144,21 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		nginxService, err := corev1.NewService(ctx, "nginxService", &corev1.ServiceArgs{
+// 		service, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
-// 				Name: pulumi.String("nginx"),
 // 				Labels: pulumi.StringMap{
 // 					"app": pulumi.String("nginx"),
 // 				},
+// 				Name: pulumi.String("nginx"),
 // 			},
 // 			Spec: &corev1.ServiceSpecArgs{
+// 				ClusterIP: pulumi.String("None"),
 // 				Ports: corev1.ServicePortArray{
 // 					&corev1.ServicePortArgs{
-// 						Port: pulumi.Int(80),
 // 						Name: pulumi.String("web"),
+// 						Port: pulumi.Int(80),
 // 					},
 // 				},
-// 				ClusterIP: pulumi.String("None"),
 // 				Selector: pulumi.StringMap{
 // 					"app": pulumi.String("nginx"),
 // 				},
@@ -165,18 +167,20 @@ import (
 // 		if err != nil {
 // 			return err
 // 		}
-// 		_, err = appsv1.NewStatefulSet(ctx, "wwwStatefulSet", &appsv1.StatefulSetArgs{
+// 		_, err = appsv1.NewStatefulSet(ctx, "statefulset", &appsv1.StatefulSetArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Name: pulumi.String("web"),
 // 			},
 // 			Spec: &appsv1.StatefulSetSpecArgs{
+// 				Replicas: pulumi.Int(3),
 // 				Selector: &metav1.LabelSelectorArgs{
 // 					MatchLabels: pulumi.StringMap{
 // 						"app": pulumi.String("nginx"),
 // 					},
 // 				},
-// 				ServiceName: nginxService.Metadata.Name().Elem(),
-// 				Replicas:    pulumi.Int(3),
+// 				ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (string, error) {
+// 					return metadata.Name, nil
+// 				}).(pulumi.StringOutput),
 // 				Template: &corev1.PodTemplateSpecArgs{
 // 					Metadata: &metav1.ObjectMetaArgs{
 // 						Labels: pulumi.StringMap{
@@ -184,11 +188,10 @@ import (
 // 						},
 // 					},
 // 					Spec: &corev1.PodSpecArgs{
-// 						TerminationGracePeriodSeconds: pulumi.Int(10),
 // 						Containers: corev1.ContainerArray{
 // 							&corev1.ContainerArgs{
-// 								Name:  pulumi.String("nginx"),
 // 								Image: pulumi.String("k8s.gcr.io/nginx-slim:0.8"),
+// 								Name:  pulumi.String("nginx"),
 // 								Ports: corev1.ContainerPortArray{
 // 									&corev1.ContainerPortArgs{
 // 										ContainerPort: pulumi.Int(80),
@@ -197,16 +200,17 @@ import (
 // 								},
 // 								VolumeMounts: corev1.VolumeMountArray{
 // 									&corev1.VolumeMountArgs{
-// 										Name:      pulumi.String("www"),
 // 										MountPath: pulumi.String("/usr/share/nginx/html"),
+// 										Name:      pulumi.String("www"),
 // 									},
 // 								},
 // 							},
 // 						},
+// 						TerminationGracePeriodSeconds: pulumi.Int(10),
 // 					},
 // 				},
-// 				VolumeClaimTemplates: corev1.PersistentVolumeClaimTypeArray{
-// 					&corev1.PersistentVolumeClaimTypeArgs{
+// 				VolumeClaimTemplates: []corev1.PersistentVolumeClaimArgs{
+// 					&corev1.PersistentVolumeClaimArgs{
 // 						Metadata: &metav1.ObjectMetaArgs{
 // 							Name: pulumi.String("www"),
 // 						},
@@ -214,12 +218,12 @@ import (
 // 							AccessModes: pulumi.StringArray{
 // 								pulumi.String("ReadWriteOnce"),
 // 							},
-// 							StorageClassName: pulumi.String("my-storage-class"),
 // 							Resources: &corev1.ResourceRequirementsArgs{
 // 								Requests: pulumi.StringMap{
 // 									"storage": pulumi.String("1Gi"),
 // 								},
 // 							},
+// 							StorageClassName: pulumi.String("my-storage-class"),
 // 						},
 // 					},
 // 				},
@@ -232,7 +236,6 @@ import (
 // 	})
 // }
 // ```
-// {% /examples %}}
 type StatefulSet struct {
 	pulumi.CustomResourceState
 
