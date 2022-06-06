@@ -15,7 +15,7 @@ const namespace = new k8s.core.v1.Namespace("release-ns", {
 const release = new k8s.helm.v3.Release("release", {
     chart: "redis",
     repositoryOpts: {
-        repo: "https://charts.bitnami.com/bitnami",
+        repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
     },
     version: "13.0.1", // <--- change
     namespace: namespace.metadata.name,

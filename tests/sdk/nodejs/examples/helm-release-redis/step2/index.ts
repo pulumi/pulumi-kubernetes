@@ -35,7 +35,7 @@ function values(password: pulumi.Output<string>): pulumi.Input<{ [key: string]: 
 const release = new k8s.helm.v3.Release("redis", {
     chart: "redis",
     repositoryOpts: {
-        repo: "https://charts.bitnami.com/bitnami",
+        repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
     },
     namespace: namespace.metadata.name,
     values: values(redisPassword.result),

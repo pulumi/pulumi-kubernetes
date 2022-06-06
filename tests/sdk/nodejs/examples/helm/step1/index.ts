@@ -25,7 +25,7 @@ const nginx = new k8s.helm.v2.Chart("test", {
     namespace: namespaceName,
     fetchOpts: {
         home: os.homedir(),
-        repo: "https://charts.bitnami.com/bitnami",
+        repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
     },
     values: {
         service: { type: "ClusterIP" }

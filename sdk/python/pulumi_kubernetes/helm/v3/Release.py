@@ -707,7 +707,7 @@ class Release(pulumi.CustomResource):
             ReleaseArgs(
                 chart="redis",
                 repository_opts=RepositoryOptsArgs(
-                    repo="https://charts.bitnami.com/bitnami",
+                    repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
                 ),
                 value_yaml_files=pulumi.FileAsset("./metrics.yml"),
                 values={
@@ -736,7 +736,7 @@ class Release(pulumi.CustomResource):
             ReleaseArgs(
                 chart="redis",
                 repository_opts=RepositoryOptsArgs(
-                    repo="https://charts.bitnami.com/bitnami",
+                    repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
                 ),
                 values={
                     "cluster": {
@@ -912,7 +912,7 @@ class Release(pulumi.CustomResource):
             ReleaseArgs(
                 chart="redis",
                 repository_opts=RepositoryOptsArgs(
-                    repo="https://charts.bitnami.com/bitnami",
+                    repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
                 ),
                 value_yaml_files=pulumi.FileAsset("./metrics.yml"),
                 values={
@@ -941,7 +941,7 @@ class Release(pulumi.CustomResource):
             ReleaseArgs(
                 chart="redis",
                 repository_opts=RepositoryOptsArgs(
-                    repo="https://charts.bitnami.com/bitnami",
+                    repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
                 ),
                 values={
                     "cluster": {
