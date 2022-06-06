@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -98,7 +98,7 @@ export class Directory extends yaml.CollectionComponentResource {
 
         // Rather than using the default provider for the following invoke call, use the version specified
         // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
         const promise = pulumi.runtime.invoke("kubernetes:kustomize:directory", {directory}, invokeOpts);
         this.resources = pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(

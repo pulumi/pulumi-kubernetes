@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -2717,7 +2717,7 @@ export class ConfigGroup extends CollectionComponentResource {
      */
     constructor(name: string, config: ConfigGroupOpts, opts?: pulumi.ComponentResourceOptions) {
         super("kubernetes:yaml:ConfigGroup", name, config, opts);
-        this.resources = parse(config, {parent: this});
+        this.resources = parse(config, {...opts, parent: this});
     }
 }
 
@@ -2809,10 +2809,10 @@ export class ConfigFile extends CollectionComponentResource {
         this.resources = pulumi.output(text.then(t => {
             try {
                 return parseYamlDocument({
-                    objs: yamlLoadAll(t),
+                    objs: yamlLoadAll(t, opts),
                     transformations,
                     resourcePrefix: config && config.resourcePrefix || undefined
-                }, {parent: this})
+                }, {...opts, parent: this})
             } catch (e) {
                 throw Error(`Error fetching YAML file '${fileId}': ${e}`);
             }
@@ -2889,10 +2889,10 @@ export interface ConfigOpts {
     resourcePrefix?: string;
 }
 
-/** @ignore */ function yamlLoadAll(text: string): Promise<any[]> {
+/** @ignore */ function yamlLoadAll(text: string, opts?: pulumi.ComponentResourceOptions): Promise<any[]> {
     // Rather than using the default provider for the following invoke call, use the version specified
     // in package.json.
-    let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion() };
+    let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
     return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
         .then((p => p.result));
@@ -2958,7 +2958,7 @@ export interface ConfigOpts {
 
         for (const text of yamlTexts) {
             const docResources = parseYamlDocument({
-                    objs: yamlLoadAll(text),
+                    objs: yamlLoadAll(text, opts),
                     transformations,
                     resourcePrefix: config.resourcePrefix
                 },
