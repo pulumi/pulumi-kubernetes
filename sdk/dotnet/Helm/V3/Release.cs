@@ -177,7 +177,7 @@ namespace Pulumi.Kubernetes.Helm.V3
     ///             Chart = "redis",
     ///             RepositoryOpts = new RepositoryOptsArgs
     ///             {
-    ///                 Repo = "https://charts.bitnami.com/bitnami"
+    ///                 Repo = "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
     ///             },
     ///             ValueYamlFiles = new FileAsset("./metrics.yml");
     ///             Values = new InputMap&lt;object&gt;
@@ -215,7 +215,7 @@ namespace Pulumi.Kubernetes.Helm.V3
     ///             Chart = "redis",
     ///             RepositoryOpts = new RepositoryOptsArgs
     ///             {
-    ///                 Repo = "https://charts.bitnami.com/bitnami"
+    ///                 Repo = "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
     ///             },
     ///             Values = new InputMap&lt;object&gt;
     ///             {

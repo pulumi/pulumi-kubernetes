@@ -29,7 +29,7 @@ Chart(
         chart="nginx",
         fetch_opts=FetchOpts(
             home=expanduser("~"),
-            repo="https://charts.bitnami.com/bitnami"
+            repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
         ),
         namespace=namespace.metadata["name"],
         values={"service": {"type": "ClusterIP"}},
@@ -45,7 +45,7 @@ Chart(
         resource_prefix="dup",
         fetch_opts=FetchOpts(
             home=expanduser("~"),
-            repo="https://charts.bitnami.com/bitnami"
+            repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"
         ),
         namespace=namespace.metadata["name"],
         values={"service": {"type": "ClusterIP"}},

@@ -33,7 +33,7 @@ class HelmStack : Stack
             Values = values,
             FetchOptions = new ChartFetchArgs
             {
-                Repo = "https://charts.bitnami.com/bitnami",
+                Repo = "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
             },
             Transformations =
             {

@@ -14,7 +14,7 @@ func main() {
 			Chart:   pulumi.String("nginx"),
 			Version: pulumi.String("6.0.4"),
 			RepositoryOpts: helm.RepositoryOptsArgs{
-				Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
+				Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
 			},
 			Values:  pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
 			Timeout: pulumi.Int(300),

@@ -226,7 +226,7 @@ import (
 // 		rel, err := helm.NewRelease(ctx, "redis", &helm.ReleaseArgs{
 // 			Chart: pulumi.String("redis"),
 // 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://charts.bitnami.com/bitnami"),
+// 				Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
 // 			},
 // 			Values: pulumi.Map{
 // 				"cluster": pulumi.Map{

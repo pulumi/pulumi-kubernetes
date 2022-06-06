@@ -104,7 +104,7 @@ import * as utilities from "../../utilities";
  * const release = new k8s.helm.v3.Release("redis", {
  *     chart: "redis",
  *     repositoryOpts: {
- *         repo: "https://charts.bitnami.com/bitnami",
+ *         repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
  *     },
  *     valueYamlFiles: [new FileAsset("./metrics.yml")],
  *     values: {
@@ -131,7 +131,7 @@ import * as utilities from "../../utilities";
  * const redis = new k8s.helm.v3.Release("redis", {
  *     chart: "redis",
  *     repositoryOpts: {
- *         repo: "https://charts.bitnami.com/bitnami",
+ *         repo: "https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
  *     },
  *     values: {
  *         cluster: {
