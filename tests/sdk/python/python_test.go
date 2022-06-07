@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -123,6 +123,13 @@ func TestYaml(t *testing.T) {
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join(cwd, "yaml-test"),
 		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 20, len(stackInfo.Deployment.Resources))
@@ -144,7 +151,7 @@ func TestYaml(t *testing.T) {
 
 			// Verify CRD.
 			crd := stackInfo.Deployment.Resources[0]
-			assert.Equal(t, tokens.Type("kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinition"),
+			assert.Equal(t, tokens.Type("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinition"),
 				crd.URN.Type())
 			name, _ = openapi.Pluck(crd.Outputs, "metadata", "name")
 			assert.True(t, strings.HasPrefix(name.(string), "foos.bar.example.com"))
@@ -204,19 +211,18 @@ func TestYaml(t *testing.T) {
 			stackRes := stackInfo.Deployment.Resources[19]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			// TODO[pulumi/pulumi#2782] Testing of secrets blocked on a bug in Python support for secrets.
-			// // Ensure that all `Pod` have `status` marked as a `Secret`
-			// for _, res := range stackInfo.Deployment.Resources {
-			// 	if res.Type == tokens.Type("kubernetes:core/v1:Pod") {
-			// 		spec, has := res.Outputs["apiVersion"]
-			// 		assert.True(t, has)
-			// 		specMap, is := spec.(map[string]interface{})
-			// 		assert.True(t, is)
-			// 		sigKey, has := specMap[resource.SigKey]
-			// 		assert.True(t, has)
-			// 		assert.Equal(t, resource.SecretSig, sigKey)
-			// 	}
-			// }
+			// Ensure that all `Pod`s have `apiVersion` marked as a `Secret`
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:core/v1:Pod" {
+					spec, has := res.Outputs["apiVersion"]
+					assert.True(t, has)
+					specMap, is := spec.(map[string]interface{})
+					assert.True(t, is)
+					sigKey, has := specMap[resource.SigKey]
+					assert.True(t, has)
+					assert.Equal(t, resource.SecretSig, sigKey)
+				}
+			}
 		},
 	})
 	integration.ProgramTest(t, &options)
@@ -469,6 +475,13 @@ func TestKustomize(t *testing.T) {
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join(cwd, "kustomize"),
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 	})
 	integration.ProgramTest(t, &options)
 }
