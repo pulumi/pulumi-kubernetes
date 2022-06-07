@@ -190,7 +190,8 @@ class ConfigGroup(pulumi.ComponentResource):
         for text in yaml:
             # Rather than using the default provider for the following invoke call, use the version specified
             # in package.json.
-            invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
+            invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
+                                               provider=opts.provider if opts.provider else None)
 
             __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
             resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
@@ -341,7 +342,8 @@ class ConfigFile(pulumi.ComponentResource):
 
         # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
-        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version())
+        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
+                                           provider=opts.provider if opts.provider else None)
 
         __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
 

@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ namespace Pulumi.Kubernetes.Kustomize
         internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> KustomizeDirectory(KustomizeDirectoryArgs args,
             InvokeOptions? options = null)
             => Output.Create(Deployment.Instance.InvokeAsync<KustomizeDirectoryResult>("kubernetes:kustomize:directory", args,
-                options.WithVersion())).Apply(r => r.Result.ToImmutableArray());
+                options.WithDefaults())).Apply(r => r.Result.ToImmutableArray());
     }
 
     internal class KustomizeDirectoryArgs : InvokeArgs

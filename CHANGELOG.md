@@ -1,6 +1,8 @@
 ## Unreleased
 (None)
 
+- fix: Use provider option on all invokes (https://github.com/pulumi/pulumi-kubernetes/pull/2005)
+
 ## 3.19.2 (May 25, 2022)
 
 ### Deprecations
