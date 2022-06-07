@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -156,11 +156,12 @@ func NewConfigFile(ctx *pulumi.Context,
 		}
 
 		// Parse and decode the YAML files.
+		parseOpts := append(opts, pulumi.Parent(configFile))
 		rs, err := parseDecodeYamlFiles(ctx, &ConfigGroupArgs{
 			Files:           []string{args.File},
 			Transformations: args.Transformations,
 			ResourcePrefix:  args.ResourcePrefix,
-		}, true, pulumi.Parent(configFile))
+		}, true, parseOpts...)
 		if err != nil {
 			return nil, err
 		}

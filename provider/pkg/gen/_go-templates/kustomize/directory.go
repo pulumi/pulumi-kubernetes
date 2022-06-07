@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -156,8 +156,9 @@ func NewDirectory(ctx *pulumi.Context,
 		name = args.ResourcePrefix + "-" + name
 	}
 
+	parseOpts := append(opts, pulumi.Parent(chart))
 	resources := args.ToDirectoryArgsOutput().ApplyT(func(args directoryArgs) (map[string]pulumi.Resource, error) {
-		return parseDirectory(ctx, name, args, pulumi.Parent(chart))
+		return parseDirectory(ctx, name, args, parseOpts...)
 	})
 	chart.Resources = resources
 
@@ -181,7 +182,15 @@ func parseDirectory(ctx *pulumi.Context, name string, args directoryArgs, opts .
 		Result []map[string]interface{} `pulumi:"result"`
 	}
 
-	if err := ctx.Invoke("kubernetes:kustomize:directory", &invokeArgs, &ret); err != nil {
+	// Find options which are also Invoke options, and prepare them to pass to Invoke functions
+	var invokeOpts []pulumi.InvokeOption
+	for _, opt := range opts {
+		if invokeOpt, ok := opt.(pulumi.InvokeOption); ok {
+			invokeOpts = append(invokeOpts, invokeOpt)
+		}
+	}
+
+	if err := ctx.Invoke("kubernetes:kustomize:directory", &invokeArgs, &ret, invokeOpts...); err != nil {
 		return nil, errors.Wrap(err, "kustomize invoke failed")
 	}
 
