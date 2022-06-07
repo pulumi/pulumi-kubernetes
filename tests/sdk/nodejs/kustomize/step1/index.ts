@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
+const provider = new k8s.Provider("k8s");
+
 // Create two test namespaces to allow test parallelism.
-const namespace = new k8s.core.v1.Namespace("test-namespace");
-const namespace2 = new k8s.core.v1.Namespace("test-namespace2");
+const namespace = new k8s.core.v1.Namespace("test-namespace", {}, {provider});
+const namespace2 = new k8s.core.v1.Namespace("test-namespace2", {}, {provider});
 
 function kustomizeDirectory(name: string, directory: string, namespace: string, resourcePrefix?: string): k8s.kustomize.Directory {
     return new k8s.kustomize.Directory(name, {
@@ -38,15 +40,15 @@ function kustomizeDirectory(name: string, directory: string, namespace: string, 
                 }
             }
         ]
-    });
+    }, {provider});
 }
 
 // Create resources from local kustomize directory in the first namespace.
-namespace.metadata.name.apply(ns => kustomizeDirectory("helloWorld", "helloWorld", ns));
+namespace.metadata.name.apply((ns: string) => kustomizeDirectory("helloWorld", "helloWorld", ns));
 
 // Create resources from remote kustomize directory in the second namespace.
 // Disambiguate resource names with a specified prefix.
-namespace2.metadata.name.apply(ns => kustomizeDirectory(
+namespace2.metadata.name.apply((ns: string) => kustomizeDirectory(
     "helloWorld",
     "https://github.com/kubernetes-sigs/kustomize/tree/95f4ecd261af60ed61b7fbe30a96ded1d0aa012d/examples/helloWorld",
     ns,
