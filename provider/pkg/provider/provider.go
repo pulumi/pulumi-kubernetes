@@ -3118,7 +3118,13 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 		namespace = resource.GetNamespace()
 	}
 
-	fileName := fmt.Sprintf("%s-%s-%s.yaml", strings.ToLower(resource.GetKind()), namespace, resource.GetName())
+	sanitise := func(name string) string {
+		name = strings.ReplaceAll(name, "/", "_")
+		name = strings.ReplaceAll(name, ":", "_")
+		return name
+	}
+
+	fileName := fmt.Sprintf("%s-%s-%s-%s.yaml", sanitise(resource.GetAPIVersion()), strings.ToLower(resource.GetKind()), namespace, resource.GetName())
 	filepath.Join(yamlDirectory, fileName)
 
 	var path string
