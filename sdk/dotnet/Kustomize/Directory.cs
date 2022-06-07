@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -142,7 +142,7 @@ namespace Pulumi.Kubernetes.Kustomize
             : base("kubernetes:kustomize:Directory", MakeName(args, name), options)
         {
             name = GetName(args, name);
-            var objs = Invokes.KustomizeDirectory(new KustomizeDirectoryArgs { Directory = args.Directory });
+            var objs = Invokes.KustomizeDirectory(new KustomizeDirectoryArgs { Directory = args.Directory }, new InvokeOptions  { Provider = options?.Provider });
             var configGroupArgs = new ConfigGroupArgs
             {
                 ResourcePrefix = args.ResourcePrefix,

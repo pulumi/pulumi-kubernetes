@@ -1,4 +1,4 @@
-// Copyright 2016-2020, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -153,7 +153,7 @@ namespace Pulumi.Kubernetes.Yaml
             }).Apply(text =>
                 Parser.ParseYamlDocument(new ParseArgs
                 {
-                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }),
+                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, new InvokeOptions { Provider = options?.Provider }),
                     Transformations = transformations,
                     ResourcePrefix = args?.ResourcePrefix
                 }, options));

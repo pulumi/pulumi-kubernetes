@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Text.Json;
+using Pulumi;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
 
@@ -138,7 +139,7 @@ namespace Pulumi.Kubernetes.Helm
 
                     var yaml = ExecuteCommand("helm", flags);
                     return ParseTemplate(
-                        yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace);
+                        yaml, cfgBase.Transformations, cfgBase.ResourcePrefix, dependencies, cfgBase.Namespace, options?.Provider);
                 }
                 catch (Exception e)
                 {
@@ -260,10 +261,10 @@ namespace Pulumi.Kubernetes.Helm
 
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
             List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Resource> dependsOn,
-            string? defaultNamespace)
+            string? defaultNamespace, Pulumi.ProviderResource provider)
         {
             return Yaml.Invokes
-                .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace })
+                .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace }, new InvokeOptions { Provider = provider })
                 .Apply(objs =>
                 {
                     var args = new ConfigGroupArgs
@@ -272,7 +273,7 @@ namespace Pulumi.Kubernetes.Helm
                         Objs = objs,
                         Transformations = transformations
                     };
-                    var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray() };
+                    var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray(), Provider = provider };
                     return Parser.Parse(args, opts);
                 });
         }
