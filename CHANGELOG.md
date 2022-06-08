@@ -1,5 +1,6 @@
 ## Unreleased
-(None)
+
+- Use fully-qualified resource name for generating manifests, to avoid conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2007)
 
 ## 3.19.3 (June 8, 2022)
 
