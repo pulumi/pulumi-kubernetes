@@ -1,7 +1,9 @@
 ## Unreleased
 (None)
 
-- fix: Use provider option on all invokes (https://github.com/pulumi/pulumi-kubernetes/pull/2005)
+## 3.19.3 (June 8, 2022)
+
+- Fix a bug where the specified provider was not used for some operations on kustomize, helm, and yaml resources (https://github.com/pulumi/pulumi-kubernetes/pull/2005)
 
 ## 3.19.2 (May 25, 2022)
 
