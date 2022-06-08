@@ -3119,8 +3119,7 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 	}
 
 	sanitise := func(name string) string {
-		name = strings.ReplaceAll(name, "/", "_")
-		name = strings.ReplaceAll(name, ":", "_")
+		name = strings.NewReplacer("/", "_", ":", "_").Replace(name)
 		return name
 	}
 
