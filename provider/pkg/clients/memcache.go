@@ -1,5 +1,3 @@
-// Copyright 2021, Pulumi Corporation.  All rights reserved.
-
 /*
 Copyright 2017 The Kubernetes Authors.
 
@@ -16,17 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-//
 // Note: this code is taken nearly verbatim from the upstream memcache client [1].
-// The `refreshLocked` method does not return errors, but instead logs them using
-// the `HandleError` method, which dispatches to klog. This bypasses Pulumi's logging
-// mechanism, and causes unactionable error messages to appear in the CLI.
-// This error logging was disabled.
+// Several methods do not return errors, but instead log them using the `HandleError` method, which dispatches to klog.
+// This bypasses Pulumi's logging mechanism, and causes unactionable error messages to appear in the CLI. This error
+// logging was disabled.
 //
-// Additionally, we improved caching of the OpenAPI schema in the OpenAPISchema method.
-// If this change merges upstream, we will reconcile those changes in a future release.
-//
-// [1] https://github.com/kubernetes/client-go/blob/2568220050f6fdd4a8a0dbae292517559731905f/discovery/cached/memory/memcache.go
+// [1] https://github.com/kubernetes/client-go/blob/release-1.24/discovery/cached/memory/memcache.go
 
 package clients
 
@@ -36,13 +29,16 @@ import (
 	"sync"
 	"syscall"
 
-	openapi_v2 "github.com/googleapis/gnostic/openapiv2"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	openapi_v2 "github.com/google/gnostic/openapiv2"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging" // Added in place of upstream HandleError
+
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/version"
 	"k8s.io/client-go/discovery"
-	"k8s.io/client-go/discovery/cached/memory"
+	"k8s.io/client-go/openapi"
+	cachedopenapi "k8s.io/client-go/openapi/cached"
 	restclient "k8s.io/client-go/rest"
 )
 
@@ -60,11 +56,16 @@ type memCacheClient struct {
 	delegate discovery.DiscoveryInterface
 
 	lock                   sync.RWMutex
-	schema                 *openapi_v2.Document
 	groupToServerResources map[string]*cacheEntry
 	groupList              *metav1.APIGroupList
 	cacheValid             bool
+	openapiClient          openapi.Client
 }
+
+// Error Constants
+var (
+	ErrCacheNotFound = errors.New("not found")
+)
 
 var _ discovery.CachedDiscoveryInterface = &memCacheClient{}
 
@@ -102,25 +103,19 @@ func (d *memCacheClient) ServerResourcesForGroupVersion(groupVersion string) (*m
 	}
 	cachedVal, ok := d.groupToServerResources[groupVersion]
 	if !ok {
-		return nil, memory.ErrCacheNotFound
+		return nil, ErrCacheNotFound
 	}
 
 	if cachedVal.err != nil && isTransientError(cachedVal.err) {
 		r, err := d.serverResourcesForGroupVersion(groupVersion)
 		if err != nil {
-			logger.V(9).Infof("couldn't get resource list for %v: %v", groupVersion, err)
+			logger.V(9).Infof("couldn't get resource list for %v: %v", groupVersion, err) // Updated by Pulumi
 		}
 		cachedVal = &cacheEntry{r, err}
 		d.groupToServerResources[groupVersion] = cachedVal
 	}
 
 	return cachedVal.resourceList, cachedVal.err
-}
-
-// ServerResources returns the supported resources for all groups and versions.
-// Deprecated: use ServerGroupsAndResources instead.
-func (d *memCacheClient) ServerResources() ([]*metav1.APIResourceList, error) {
-	return discovery.ServerResources(d)
 }
 
 // ServerGroupsAndResources returns the groups and supported resources for all groups and versions.
@@ -156,18 +151,19 @@ func (d *memCacheClient) ServerVersion() (*version.Info, error) {
 }
 
 func (d *memCacheClient) OpenAPISchema() (*openapi_v2.Document, error) {
+	return d.delegate.OpenAPISchema()
+}
+
+func (d *memCacheClient) OpenAPIV3() openapi.Client {
+	// Must take lock since Invalidate call may modify openapiClient
 	d.lock.Lock()
 	defer d.lock.Unlock()
 
-	if d.schema == nil {
-		sch, err := d.delegate.OpenAPISchema()
-		if err != nil {
-			return nil, err
-		}
-		d.schema = sch
+	if d.openapiClient == nil {
+		d.openapiClient = cachedopenapi.NewClient(d.delegate.OpenAPIV3())
 	}
 
-	return d.schema, nil
+	return d.openapiClient
 }
 
 func (d *memCacheClient) Fresh() bool {
@@ -187,7 +183,7 @@ func (d *memCacheClient) Invalidate() {
 	d.cacheValid = false
 	d.groupToServerResources = nil
 	d.groupList = nil
-	d.schema = nil
+	d.openapiClient = nil
 }
 
 // refreshLocked refreshes the state of cache. The caller must hold d.lock for
@@ -198,7 +194,7 @@ func (d *memCacheClient) refreshLocked() error {
 	// APIResourceList to have the same GroupVersion, the lists would need merged.
 	gl, err := d.delegate.ServerGroups()
 	if err != nil || len(gl.Groups) == 0 {
-		logger.V(9).Infof("couldn't get current server API group list: %v", err)
+		logger.V(9).Infof("couldn't get current server API group list: %v", err) // Updated by Pulumi
 		return err
 	}
 
@@ -211,10 +207,11 @@ func (d *memCacheClient) refreshLocked() error {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
+				defer utilruntime.HandleCrash()
 
 				r, err := d.serverResourcesForGroupVersion(gv)
 				if err != nil {
-					logger.V(9).Infof("couldn't get resource list for %v: %v", gv, err)
+					logger.V(9).Infof("couldn't get resource list for %v: %v", gv, err) // Updated by Pulumi
 				}
 
 				resultLock.Lock()

@@ -10,11 +10,12 @@ replace (
 )
 
 require (
+	github.com/hashicorp/go-hclog v1.0.0 // indirect
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi/pkg/v3 v3.34.0
 	github.com/pulumi/pulumi/sdk/v3 v3.34.0
 	github.com/stretchr/testify v1.7.1
-	helm.sh/helm/v3 v3.8.1
-	k8s.io/client-go v0.23.4
+	helm.sh/helm/v3 v3.9.0
+	k8s.io/client-go v0.24.0
 )
