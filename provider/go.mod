@@ -11,12 +11,12 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335
-	github.com/pulumi/pulumi/pkg/v3 v3.33.2
-	github.com/pulumi/pulumi/sdk/v3 v3.33.2
+	github.com/pulumi/pulumi/pkg/v3 v3.34.0
+	github.com/pulumi/pulumi/sdk/v3 v3.34.0
 	github.com/stretchr/testify v1.7.1
 	golang.org/x/crypto v0.0.0-20220131195533-30dcbda58838
 	google.golang.org/grpc v1.45.0
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	gopkg.in/yaml.v3 v3.0.0
 	helm.sh/helm/v3 v3.8.1
 	k8s.io/api v0.23.4
 	k8s.io/apimachinery v0.23.4
