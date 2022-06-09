@@ -142,7 +142,7 @@ type kubeProvider struct {
 	config         *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
 	kubeconfig     clientcmd.ClientConfig
 	clientSet      *clients.DynamicClientSet
-	dryRunVerifier *k8sresource.DryRunVerifier
+	dryRunVerifier *k8sresource.QueryParamVerifier
 	logClient      *clients.LogClient
 	k8sVersion     cluster.ServerVersion
 
@@ -670,7 +670,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, err
 		}
 		k.clientSet = cs
-		k.dryRunVerifier = k8sresource.NewDryRunVerifier(cs.GenericClient, cs.DiscoveryClientCached)
+		k.dryRunVerifier = k8sresource.NewQueryParamVerifier(
+			cs.GenericClient, cs.DiscoveryClientCached, k8sresource.QueryParamDryRun)
 		lc, err := clients.NewLogClient(k.config)
 		if err != nil {
 			return nil, err

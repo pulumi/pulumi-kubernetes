@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -147,7 +147,7 @@ func MergePatch(
 }
 
 // SupportsDryRun returns true if the given GVK supports dry-run applies.
-func SupportsDryRun(dryRunVerifier *resource.DryRunVerifier, gvk schema.GroupVersionKind) bool {
+func SupportsDryRun(dryRunVerifier *resource.QueryParamVerifier, gvk schema.GroupVersionKind) bool {
 	// If an error is returned, DryRun is not supported.
 	if err := dryRunVerifier.HasSupport(gvk); err != nil {
 		return false
