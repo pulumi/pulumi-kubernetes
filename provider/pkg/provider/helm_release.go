@@ -336,7 +336,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	if len(olds.Mappable()) > 0 {
 		adoptOldNameIfUnnamed(news, olds)
 	}
-	assignNameIfAutonameable(news, urn, int(req.GetSequenceNumber()))
+	assignNameIfAutonameable(news, urn)
 	r.setDefaults(news)
 
 	if !news.ContainsUnknowns() {
@@ -621,11 +621,11 @@ func adoptOldNameIfUnnamed(new, old resource.PropertyMap) {
 	new["name"] = old["name"]
 }
 
-func assignNameIfAutonameable(pm resource.PropertyMap, urn resource.URN, sequenceNumber int) {
+func assignNameIfAutonameable(pm resource.PropertyMap, urn resource.URN) {
 	name, ok := pm["name"]
 	if !ok || (name.IsString() && name.StringValue() == "") {
 		prefix := urn.Name().String() + "-"
-		autoname, err := resource.NewUniqueHexV2(urn, sequenceNumber, prefix, 0, 0)
+		autoname, err := resource.NewUniqueHex(prefix, 0, 0)
 		contract.AssertNoError(err)
 		pm["name"] = resource.NewStringProperty(autoname)
 	}
