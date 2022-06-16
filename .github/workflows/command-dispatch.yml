@@ -1,35 +1,41 @@
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
-  PROVIDER: kubernetes
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-  PULUMI_API: https://api.pulumi-staging.io
-  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
-  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
-  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-  TRAVIS_OS_NAME: linux
-jobs:
-  command-dispatch-for-testing:
-    if: ${{ github.event.issue.pull_request }}
-    name: command-dispatch-for-testing
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v2
-    - uses: peter-evans/slash-command-dispatch@v2
-      with:
-        commands: run-acceptance-tests
-        issue-type: pull-request
-        permission: write
-        reaction-token: ${{ secrets.GITHUB_TOKEN }}
-        repository: pulumi/pulumi-kubernetes
-        token: ${{ secrets.PULUMI_BOT_TOKEN }}
 name: command-dispatch
 on:
   issue_comment:
     types:
     - created
     - edited
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PROVIDER: kubernetes
+  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+  PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
+  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  TRAVIS_OS_NAME: linux
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
+  AWS_REGION: us-west-2
+  PULUMI_TEST_OWNER: moolumi
+  GOLANGCI_LINT_VERSION: v1.31
+  GOLANGCI_LINT_TIMEOUT: 10m
+jobs:
+  command-dispatch-for-testing:
+    runs-on: ubuntu-latest
+    name: command-dispatch-for-testing
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+    - uses: peter-evans/slash-command-dispatch@v2
+      with:
+        token: ${{ secrets.PULUMI_BOT_TOKEN }}
+        reaction-token: ${{ secrets.GITHUB_TOKEN }}
+        commands: run-acceptance-tests
+        permission: write
+        issue-type: pull-request
+        repository: pulumi/pulumi-kubernetes
+    if: ${{ github.event.issue.pull_request }}
