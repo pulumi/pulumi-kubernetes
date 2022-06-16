@@ -1,437 +1,526 @@
-name: Run Acceptance Tests from PR
+name: run-acceptance-tests
 on:
   repository_dispatch:
-    types: [ run-acceptance-tests-command ]
+    types:
+    - run-acceptance-tests-command
   pull_request:
     branches:
-      - master
-
+    - master
+    - main
+    paths-ignore:
+    - CHANGELOG.md
 env:
-  AWS_REGION: us-west-2
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PROVIDER: kubernetes
+  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+  PULUMI_API: https://api.pulumi-staging.io
+  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
+  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  TRAVIS_OS_NAME: linux
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
+  AWS_REGION: us-west-2
+  PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.31
   GOLANGCI_LINT_TIMEOUT: 10m
-  PROVIDER: kubernetes
-  PULUMI_TEST_OWNER: moolumi
-  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
-  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   PR_COMMIT_SHA: ${{ github.event.client_payload.pull_request.head.sha }}
-  VERSION_PREFIX: 3.0.0
-  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
-
 jobs:
   comment-notification:
-    # We only care about adding the result to the PR if it's a repository_dispatch event
+    runs-on: ubuntu-latest
+    name: comment-notification
+    steps:
+    - name: Create URL to the run output
+      id: vars
+      run: echo ::set-output
+        name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+    - name: Update with Result
+      uses: peter-evans/create-or-update-comment@v1
+      with:
+        token: ${{ secrets.PULUMI_BOT_TOKEN }}
+        repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
+        issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
+        body: "Please view the PR build: ${{ steps.vars.outputs.run-url }}"
     if: github.event_name == 'repository_dispatch'
+  prerequisites:
     runs-on: ubuntu-latest
-    steps:
-      - name: Create URL to the run output
-        id: vars
-        run: echo ::set-output name=run-url::https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-      - name: Update with Result
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.event.client_payload.github.payload.repository.full_name }}
-          issue-number: ${{ github.event.client_payload.github.payload.issue.number }}
-          body: |
-            Please view the PR build - ${{ steps.vars.outputs.run-url }}
-  build-test-cluster:
-    name: build-test-infrastructure
-    strategy:
-      matrix:
-        platform: [ ubuntu-latest ]
-        go-version: [ 1.17.x ]
-        node-version: [ 14.x ]
-        python-version: [ 3.7 ]
-        dotnet-version: [ 3.1.x ]
-    runs-on: ${{ matrix.platform }}
-    outputs:
-      stack-name: ${{ steps.vars.outputs.stack-name }}
-    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ env.PR_COMMIT_SHA }}
-      - name: Install DotNet ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Set up Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v1
-        with:
-          go-version: ${{ matrix.go-version }}
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Python Deps
-        run: |
-          pip3 install virtualenv==20.0.23
-          pip3 install pipenv
-      - name: Install Kubectl
-        run: |
-          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-          chmod +x ./kubectl
-          sudo mv kubectl /usr/local/bin
-      - uses: google-github-actions/setup-gcloud@v0
-        with:
-          export_default_credentials: true
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-      - name: Login to Google Cloud Registry
-        run: |
-          gcloud --quiet auth configure-docker
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - id: vars
-        run: echo "::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{ github.sha }}-$(date +%s)"
-      - name: Create test infra
-        run: |
-          ./scripts/ci-cluster-create.sh ${{ steps.vars.outputs.stack-name }}
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: config
-          path: ~/.kube/config
-  prerequisities:
-    name: build-provider
-    runs-on: ubuntu-latest
-    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ env.PR_COMMIT_SHA }}
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.17.x
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Install Schema Tools
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: mikhailshilkov/schema-tools
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - name: Build K8sgen
-        run: make k8sgen
-      - name: Prepare openapi file
-        run: make openapi_file
-      - name: Prepare Schema
-        run: make schema
-      - name: Make Kubernetes Provider
-        run: make k8sprovider
-      - name: Check Schema is Valid
-        run: |
-          echo 'SCHEMA_CHANGES<<EOF' >> $GITHUB_ENV
-          schema-tools compare ${{ env.PROVIDER }} master --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
-      - if: github.event_name != 'repository_dispatch'
-        name: Comment on PR with Details of Schema Check
-        uses: thollander/actions-comment-pull-request@1.0.1
-        with:
-          message: |
-            ### Does the PR have any schema changes?
-
-            ${{ env.SCHEMA_CHANGES }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - if: github.event_name == 'repository_dispatch'
-        name: Write details of schema change to the action log
-        run: |
-          echo $SCHEMA_CHANGES
-      - name: Add label if no breaking changes
-        if: |
-          github.event_name != 'repository_dispatch' &&
-          contains(env.SCHEMA_CHANGES, 'Looking good! No breaking changes found.')
-        uses: actions-ecosystem/action-add-labels@v1.1.0
-        with:
-          labels: impact/no-changelog-required
-          number: ${{ github.event.issue.number }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Tar provider binaries
-        run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
-          }}/bin/ pulumi-resource-${{ env.PROVIDER }} pulumi-gen-${{ env.PROVIDER
-          }}
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.PROVIDER }}-provider.tar.gz
-          path: ${{ github.workspace }}/bin/provider.tar.gz
-      - name: Test provider
-        run: make test_provider
-  build_sdks:
-    name: build-language-sdks
-    runs-on: ubuntu-latest
-    needs: prerequisities
-    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ env.PR_COMMIT_SHA }}
-      - name: Checkout Scripts Repo
-        uses: actions/checkout@v2
-        with:
-          path: ci-scripts
-          repository: pulumi/scripts
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ matrix.goversion }}
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{matrix.nodeversion}}
-          registry-url: https://registry.npmjs.org
-      - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{matrix.dotnetverson}}
-      - name: Setup Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{matrix.pythonversion}}
-      - name: Download provider + gen binaries
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.PROVIDER }}-provider.tar.gz
-          path: ${{ github.workspace }}/bin
-      - name: Untar provider binaries
-        run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
-          }}/bin
-      - name: Restore binary perms
-        run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
-          -exec chmod +x {} \;
-      - name: Build SDK
-        run: make ${{ matrix.language }}_sdk
-      - name: Check worktree clean
-        run: ./ci-scripts/ci/check-worktree-is-clean
-      - name: Compress SDK folder
-        run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }}
-          .
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.language  }}-sdk.tar.gz
-          path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
     strategy:
       fail-fast: true
       matrix:
-        dotnetversion:
-          - 3.1.x
         goversion:
-          - 1.17.x
-        language:
-          - nodejs
-          - python
-          - dotnet
-          - go
-        nodeversion:
-          - 14.x
+        - 1.17.x
+        dotnetversion:
+        - 3.1.301
         pythonversion:
-          - 3.7
-  test-sdks:
-    name: test-language-sdks
+        - "3.7"
+        nodeversion:
+        - 14.x
+    name: prerequisites
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Checkout Scripts Repo
+      uses: actions/checkout@v2
+      with:
+        path: ci-scripts
+        repository: pulumi/scripts
+    - name: Unshallow clone for tags
+      run: git fetch --prune --unshallow --tags
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.5.0
+      with:
+        repo: pulumi/pulumictl
+    - name: Install Pulumi CLI
+      uses: pulumi/action-install-pulumi-cli@v2
+    - if: github.event_name == 'pull_request'
+      name: Install Schema Tools
+      uses: jaxxstorm/action-install-gh-release@v1.5.0
+      with:
+        repo: mikhailshilkov/schema-tools
+    - name: Build K8sgen
+      run: make k8sgen
+    - name: Prepare OpenAPI file
+      run: make openapi_file
+    - name: Prepare Schema
+      run: make schema
+    - name: Make Kubernetes provider
+      run: make k8sprovider
+    - if: github.event_name == 'pull_request'
+      name: Check Schema is Valid
+      run: >-
+        echo 'SCHEMA_CHANGES<<EOF' >> $GITHUB_ENV
+
+        schema-tools compare ${{ env.PROVIDER }} master --local-path=provider/cmd/pulumi-resource-${{ env.PROVIDER }}/schema.json >> $GITHUB_ENV
+
+        echo 'EOF' >> $GITHUB_ENV
+    - if: github.event_name == 'pull_request'
+      name: Comment on PR with Details of Schema Check
+      uses: thollander/actions-comment-pull-request@v1
+      with:
+        message: |
+          ### Does the PR have any schema changes?
+
+          ${{ env.SCHEMA_CHANGES }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - if: contains(env.SCHEMA_CHANGES, 'Looking good! No breaking changes found.') &&
+        github.actor == 'pulumi-bot'
+      name: Add label if no breaking changes
+      uses: actions-ecosystem/action-add-labels@v1.1.0
+      with:
+        labels: impact/no-changelog-required
+        number: ${{ github.event.issue.number }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Check worktree clean
+      run: ./ci-scripts/ci/check-worktree-is-clean
+    - name: Tar provider binaries
+      run: tar -zcf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
+        github.workspace}}/bin/ pulumi-resource-${{ env.PROVIDER }}
+        pulumi-gen-${{ env.PROVIDER}}
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
+        path: ${{ github.workspace }}/bin/provider.tar.gz
+    - name: Test Provider Library
+      run: make test_provider
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+  build_sdks:
+    needs: prerequisites
     runs-on: ubuntu-latest
-    needs: [ build_sdks, build-test-cluster ]
-    if: github.event_name == 'repository_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ env.PR_COMMIT_SHA }}
-      - name: Checkout Scripts Repo
-        uses: actions/checkout@v2
-        with:
-          path: ci-scripts
-          repository: pulumi/scripts
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ matrix.goversion }}
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{matrix.nodeversion}}
-          registry-url: https://registry.npmjs.org
-      - name: Setup DotNet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{matrix.dotnetverson}}
-      - run: dotnet nuget add source ${{ github.workspace }}/nuget
-      - name: Setup Python
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{matrix.pythonversion}}
-      - name: Download provider + gen binaries
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ env.PROVIDER }}-provider.tar.gz
-          path: ${{ github.workspace }}/bin
-      - name: Untar provider binaries
-        run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{ github.workspace
-          }}/bin
-      - name: Restore binary perms
-        run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
-          -exec chmod +x {} \;
-      - name: Download SDK
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ matrix.language  }}-sdk.tar.gz
-          path: ${{ github.workspace}}/sdk/
-      - name: Uncompress SDK folder
-        run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
-          github.workspace}}/sdk/${{ matrix.language}}
-      - name: Update path
-        run: echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
-      - name: Install Python deps
-        run: |-
-          pip3 install virtualenv==20.0.23
-          pip3 install pipenv
-      - name: Install dependencies
-        run: make install_${{ matrix.language}}_sdk
-      - run: mkdir -p "$HOME/.kube/"
-      - name: Download Kubeconfig
-        uses: actions/download-artifact@v2
-        with:
-          name: config
-          path: "~/.kube/"
-      - uses: google-github-actions/setup-gcloud@v0
-        with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
-      - name: Install Kubectl
-        run: |
-          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-          chmod +x ./kubectl
-          sudo mv kubectl /usr/local/bin
-      - name: Install helm
-        run: |
-          curl -LO  https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gz
-          tar -xvf helm-v3.8.0-linux-amd64.tar.gz
-          sudo mv linux-amd64/helm /usr/local/bin
-      - name: Configure helm
-        run: |
-          helm repo add stable https://charts.helm.sh/stable
-          helm repo update
-      - name: Set up gotestfmt
-        uses: haveyoudebuggedit/gotestfmt-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Run tests
-        run: |
-          set -euo pipefail
-          cd tests/sdk/${{ matrix.language }} && go test -v -json -count=1 -cover -timeout 2h -parallel 4 ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
-        dotnetversion:
-          - 3.1.x
         goversion:
-          - 1.17.x
-        language:
-          - nodejs
-          - python
-          - dotnet
-          - go
-        nodeversion:
-          - 13.x
+        - 1.17.x
+        dotnetversion:
+        - 3.1.301
         pythonversion:
-          - 3.7
-  cleanup-infra:
-    name: cleanup-test-infra
-    needs: [ test-sdks, build-test-cluster ]
-    strategy:
-      matrix:
-        platform: [ ubuntu-latest ]
-        go-version: [ 1.17.x ]
-        node-version: [ 14.x ]
-        python-version: [ 3.7 ]
-        dotnet-version: [ 3.1.x ]
-    runs-on: ${{ matrix.platform }}
-    if: ${{ always() }} && github.event.pull_request.head.repo.full_name == github.repository
+        - "3.7"
+        nodeversion:
+        - 14.x
+        language:
+        - nodejs
+        - python
+        - dotnet
+        - go
+    name: build_sdks
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ env.PR_COMMIT_SHA }}
-      - name: Install DotNet ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Set up Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v1
-        with:
-          go-version: ${{ matrix.go-version }}
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Python Deps
-        run: |
-          pip3 install virtualenv==20.0.23
-          pip3 install pipenv
-      - name: Install Kubectl
-        run: |
-          curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-          chmod +x ./kubectl
-          sudo mv kubectl /usr/local/bin
-      - uses: google-github-actions/setup-gcloud@v0
-        with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
-      - name: Login to Google Cloud Registry
-        run: |
-          gcloud --quiet auth configure-docker
-      - name: Install Pulumi CLI
-        uses: pulumi/action-install-pulumi-cli@v1.0.1
-      - name: Destroy test infra
-        run: |
-          ./scripts/ci-cluster-destroy.sh ${{needs.build-test-cluster.outputs.stack-name}}
-      - if: always()
-        uses: geekyeggo/delete-artifact@v1
-        with:
-          name: config
-  golangci:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Checkout Scripts Repo
+      uses: actions/checkout@v2
+      with:
+        path: ci-scripts
+        repository: pulumi/scripts
+    - name: Unshallow clone for tags
+      run: git fetch --prune --unshallow --tags
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.5.0
+      with:
+        repo: pulumi/pulumictl
+    - name: Install Pulumi CLI
+      uses: pulumi/action-install-pulumi-cli@v2
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.nodeversion}}
+        registry-url: https://registry.npmjs.org
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{matrix.dotnetversion}}
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.pythonversion}}
+    - name: Download provider + tfgen binaries
+      uses: actions/download-artifact@v2
+      with:
+        name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
+        path: ${{ github.workspace }}/bin
+    - name: UnTar provider binaries
+      run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
+        github.workspace}}/bin
+    - name: Restore Binary Permissions
+      run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
+        -exec chmod +x {} \;
+    - name: Generate SDK
+      run: make generate_${{ matrix.language }}
+    - name: Build SDK
+      run: make build_${{ matrix.language }}
+    - name: Check worktree clean
+      run: ./ci-scripts/ci/check-worktree-is-clean
+    - name: Tar SDK folder
+      run: tar -zcf sdk/${{ matrix.language }}.tar.gz -C sdk/${{ matrix.language }} .
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ matrix.language  }}-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/${{ matrix.language }}.tar.gz
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+  test:
+    runs-on: ubuntu-latest
+    needs:
+    - build_sdks
+    - build-test-cluster
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+        - 1.17.x
+        dotnetversion:
+        - 3.1.301
+        pythonversion:
+        - "3.7"
+        nodeversion:
+        - 14.x
+        language:
+        - nodejs
+        - python
+        - dotnet
+        - go
+    name: test
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Checkout Scripts Repo
+      uses: actions/checkout@v2
+      with:
+        path: ci-scripts
+        repository: pulumi/scripts
+    - name: Unshallow clone for tags
+      run: git fetch --prune --unshallow --tags
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.5.0
+      with:
+        repo: pulumi/pulumictl
+    - name: Install Pulumi CLI
+      uses: pulumi/action-install-pulumi-cli@v2
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.nodeversion}}
+        registry-url: https://registry.npmjs.org
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{matrix.dotnetversion}}
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.pythonversion}}
+    - name: Download provider + tfgen binaries
+      uses: actions/download-artifact@v2
+      with:
+        name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
+        path: ${{ github.workspace }}/bin
+    - name: UnTar provider binaries
+      run: tar -zxf ${{ github.workspace }}/bin/provider.tar.gz -C ${{
+        github.workspace}}/bin
+    - name: Restore Binary Permissions
+      run: find ${{ github.workspace }} -name "pulumi-*-${{ env.PROVIDER }}" -print
+        -exec chmod +x {} \;
+    - name: Download SDK
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ matrix.language }}-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: UnTar SDK folder
+      run: tar -zxf ${{ github.workspace}}/sdk/${{ matrix.language}}.tar.gz -C ${{
+        github.workspace}}/sdk/${{ matrix.language}}
+    - name: Update path
+      run: echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
+    - name: Install Node dependencies
+      run: yarn global add typescript
+    - run: dotnet nuget add source ${{ github.workspace }}/nuget
+    - name: Install Python deps
+      run: |-
+        pip3 install virtualenv==20.0.23
+        pip3 install pipenv
+    - name: Install dependencies
+      run: make install_${{ matrix.language}}_sdk
+    - name: Make Kube Directory
+      run: mkdir -p "~/.kube/"
+    - name: Download Kubeconfig
+      uses: actions/download-artifact@v2
+      with:
+        name: config
+        path: ~/.kube/
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-region: ${{ env.AWS_REGION }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-duration-seconds: 3600
+        role-session-name: ${{ env.PROVIDER }}@githubActions
+        role-to-assume: ${{ secrets.AWS_CI_ROLE_ARN }}
+    - name: Configure GCP credentials
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ env.GOOGLE_PROJECT }}
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+    - name: Install Kubectl
+      run: curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl
+        -s
+        https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectlchmod
+        +x ./kubectlsudo mv kubectl /usr/local/bin
+    - name: Install and configure Helm
+      run: curl -LO  https://get.helm.sh/helm-v3.8.0-linux-amd64.tar.gztar -xvf
+        helm-v3.8.0-linux-amd64.tar.gzsudo mv linux-amd64/helm
+        /usr/local/binhelm repo add stable https://charts.helm.sh/stablehelm
+        repo update
+    - name: Install gotestfmt
+      uses: jaxxstorm/action-install-gh-release@v1.5.0
+      with:
+        repo: haveyoudebuggedit/gotestfmt
+    - name: Run tests
+      run: >-
+        set -euo pipefail
+
+        cd tests/sdk/${{ matrix.language }} && go test -v -json -count=1 -cover -timeout 2h -parallel 4 ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+  build_test_cluster:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+        - 1.17.x
+        dotnetversion:
+        - 3.1.301
+        pythonversion:
+        - "3.7"
+        nodeversion:
+        - 14.x
+        language:
+        - nodejs
+        - python
+        - dotnet
+        - go
+    name: build-test-cluster
+    outputs:
+      stack-name: ${{ steps.vars.outputs.stack-name }}
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: Install Pulumi CLI
+      uses: pulumi/action-install-pulumi-cli@v2
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.nodeversion}}
+        registry-url: https://registry.npmjs.org
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{matrix.dotnetversion}}
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.pythonversion}}
+    - name: Install Python deps
+      run: |-
+        pip3 install virtualenv==20.0.23
+        pip3 install pipenv
+    - name: Configure GCP credentials
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ env.GOOGLE_PROJECT }}
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+    - name: Install Kubectl
+      run: curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl
+        -s
+        https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectlchmod
+        +x ./kubectlsudo mv kubectl /usr/local/bin
+    - name: Login to Google Cloud Registry
+      run: gcloud --quiet auth configure-docker
+    - name: Set stack name in output
+      id: stackname
+      run: echo '::set-output name=stack-name::${{ secrets.PULUMI_TEST_OWNER }}/${{
+        github.sha }}-$(date +%s)'
+    - name: Create test infrastructure
+      run: ./scripts/ci-cluster-create.sh ${{ steps.stackname.outputs.stack-name }}
+    - name: Upload Kubernetes Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: config
+        path: ~/.kube/config
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+  destroy_test_cluster:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+        - 1.17.x
+        dotnetversion:
+        - 3.1.301
+        pythonversion:
+        - "3.7"
+        nodeversion:
+        - 14.x
+        language:
+        - nodejs
+        - python
+        - dotnet
+        - go
+    name: teardown-test-cluster
+    needs:
+    - build-test-cluster
+    - test
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: Install Pulumi CLI
+      uses: pulumi/action-install-pulumi-cli@v2
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.nodeversion}}
+        registry-url: https://registry.npmjs.org
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{matrix.dotnetversion}}
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.pythonversion}}
+    - name: Install Python deps
+      run: |-
+        pip3 install virtualenv==20.0.23
+        pip3 install pipenv
+    - name: Configure GCP credentials
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        project_id: ${{ env.GOOGLE_PROJECT }}
+        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
+    - name: Install Kubectl
+      run: curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl
+        -s
+        https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectlchmod
+        +x ./kubectlsudo mv kubectl /usr/local/bin
+    - name: Login to Google Cloud Registry
+      run: gcloud --quiet auth configure-docker
+    - name: Destroy test infra
+      run: ./scripts/ci-cluster-destroy.sh
+        ${{needs.build-test-cluster.outputs.stack-name}}
+    - uses: geekyeggo/delete-artifact@v1
+      with:
+        name: config
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+        - 1.17.x
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+        ref: ${{ env.PR_COMMIT_SHA }}
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: golangci-lint provider pkg
+      uses: golangci/golangci-lint-action@v3
+      with:
+        version: ${{ env.GOLANGCI_LINT_VERSION }}
+        args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
+        working-directory: provider/pkg
     name: lint
-    runs-on: ubuntu-latest
-    env:
-      ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v3
-        with:
-          go-version: '>=1.16 <1.18'
-      - name: golangci-lint-provider-pkg
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: ${{ env.GOLANGCI_LINT_VERSION }}
-          args: -c ../../.golangci.yml --timeout ${{ env.GOLANGCI_LINT_TIMEOUT }}
-          working-directory: provider/pkg
+    if: github.event_name == 'repository_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
