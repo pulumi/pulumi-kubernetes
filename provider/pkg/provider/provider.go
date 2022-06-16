@@ -63,6 +63,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/sets"
 	k8sresource "k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/rest"
@@ -126,6 +127,7 @@ type kubeProvider struct {
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
+	serverSideApplyMode         bool
 
 	helmDriver               string
 	helmPluginsPath          string
@@ -163,7 +165,6 @@ func makeKubeProvider(
 		version:                     version,
 		pulumiSchema:                pulumiSchema,
 		providerPackage:             name,
-		enableDryRun:                false,
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
 		deleteUnreachable:           false,
@@ -273,6 +274,12 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "enableDryRun",
 				Reason:   fmt.Sprintf(errTemplate, "enableDryRun"),
+			})
+		}
+		if truthyValue("enableServerSideApply", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "enableServerSideApply",
+				Reason:   fmt.Sprintf(errTemplate, "enableServerSideApply"),
 			})
 		}
 
@@ -434,6 +441,23 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableDryRun() {
 		k.enableDryRun = true
+	}
+
+	enableServerSideApply := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:enableServerSideApply"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if enableServerSideApply() {
+		k.enableDryRun = true
+		k.serverSideApplyMode = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -1721,6 +1745,7 @@ func (k *kubeProvider) Create(
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
@@ -2200,6 +2225,7 @@ func (k *kubeProvider) Update(
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
 		},
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
@@ -2329,6 +2355,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
 		},
 		Inputs:  current,
 		Name:    name,
@@ -2445,16 +2472,6 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 	if err != nil {
 		return nil, nil, err
 	}
-	liveInputs := parseLiveInputs(liveObject, oldInputs)
-
-	resources, err := k.getResources()
-	if err != nil {
-		return nil, nil, err
-	}
-	patch, patchType, _, err := openapi.PatchForResourceUpdate(resources, liveInputs, newInputs, liveObject)
-	if err != nil {
-		return nil, nil, err
-	}
 
 	// If the new resource does not exist, we need to dry-run a Create rather than a Patch.
 	var newObject *unstructured.Unstructured
@@ -2476,9 +2493,40 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 			return nil, nil, err
 		}
 	case err == nil:
-		newObject, err = client.Patch(k.canceler.context, newInputs.GetName(), patchType, patch, metav1.PatchOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
+		if k.serverSideApplyMode {
+			objYAML, err := yaml.Marshal(newInputs.Object)
+			if err != nil {
+				return nil, nil, err
+			}
+
+			newObject, err = client.Patch(context.TODO(), newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
+				DryRun:       []string{metav1.DryRunAll},
+				FieldManager: "pulumi-resource-kubernetes",
+			})
+			if err != nil {
+				return nil, nil, err
+			}
+		} else {
+			liveInputs := parseLiveInputs(liveObject, oldInputs)
+
+			resources, err := k.getResources()
+			if err != nil {
+				return nil, nil, err
+			}
+
+			patch, patchType, _, err := openapi.PatchForResourceUpdate(resources, liveInputs, newInputs, liveObject)
+			if err != nil {
+				return nil, nil, err
+			}
+
+			newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+				DryRun: []string{metav1.DryRunAll},
+			})
+			if err != nil {
+				return nil, nil, err
+			}
+		}
+
 	default:
 		return nil, nil, err
 	}
@@ -2495,7 +2543,7 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 		return nil, nil, err
 	}
 
-	patch, err = jsonpatch.CreateMergePatch(liveJSON, newJSON)
+	patch, err := jsonpatch.CreateMergePatch(liveJSON, newJSON)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -369,12 +369,17 @@
             },
             "enableDryRun": {
                 "type": "boolean",
-                "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable."
+                "description": "Deprecated. If present and set to true, enable server-side diff calculations.\n",
+                "deprecationMessage": "This option has been replaced by `enableServerSideApply`."
             },
             "enableReplaceCRD": {
                 "type": "boolean",
                 "description": "Obsolete. This option has no effect.",
                 "deprecationMessage": "This option is deprecated, and will be removed in a future release."
+            },
+            "enableServerSideApply": {
+                "type": "boolean",
+                "description": "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default."
             },
             "kubeconfig": {
                 "type": "string",
@@ -31929,12 +31934,13 @@
             },
             "enableDryRun": {
                 "type": "boolean",
-                "description": "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.",
+                "description": "Deprecated. If present and set to true, enable server-side diff calculations.\n",
                 "defaultInfo": {
                     "environment": [
                         "PULUMI_K8S_ENABLE_DRY_RUN"
                     ]
-                }
+                },
+                "deprecationMessage": "This option has been replaced by `enableServerSideApply`."
             },
             "enableReplaceCRD": {
                 "type": "boolean",
@@ -31945,6 +31951,15 @@
                     ]
                 },
                 "deprecationMessage": "This option is deprecated, and will be removed in a future release."
+            },
+            "enableServerSideApply": {
+                "type": "boolean",
+                "description": "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
+                "defaultInfo": {
+                    "environment": [
+                        "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"
+                    ]
+                }
             },
             "helmReleaseSettings": {
                 "$ref": "#/types/kubernetes:index:HelmReleaseSettings",

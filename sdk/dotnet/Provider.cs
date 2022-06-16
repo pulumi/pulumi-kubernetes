@@ -76,8 +76,7 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableConfigMapMutable { get; set; }
 
         /// <summary>
-        /// BETA FEATURE - If present and set to true, enable server-side diff calculations.
-        /// This feature is in developer preview, and is disabled by default.
+        /// Deprecated. If present and set to true, enable server-side diff calculations.
         /// </summary>
         [Input("enableDryRun", json: true)]
         public Input<bool>? EnableDryRun { get; set; }
@@ -87,6 +86,14 @@ namespace Pulumi.Kubernetes
         /// </summary>
         [Input("enableReplaceCRD", json: true)]
         public Input<bool>? EnableReplaceCRD { get; set; }
+
+        /// <summary>
+        /// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        /// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+        /// This feature is in developer preview, and is disabled by default.
+        /// </summary>
+        [Input("enableServerSideApply", json: true)]
+        public Input<bool>? EnableServerSideApply { get; set; }
 
         /// <summary>
         /// Options to configure the Helm Release resource.
@@ -147,6 +154,7 @@ namespace Pulumi.Kubernetes
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
             EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
             EnableReplaceCRD = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD");
+            EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
             SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");

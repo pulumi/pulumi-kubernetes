@@ -73,7 +73,12 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableDryRun": {
-					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.",
+					Description:        "Deprecated. If present and set to true, enable server-side diff calculations.\n",
+					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
+					DeprecationMessage: "This option has been replaced by `enableServerSideApply`.",
+				},
+				"enableServerSideApply": {
+					Description: "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {
@@ -142,7 +147,17 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_ENABLE_DRY_RUN",
 						},
 					},
-					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.",
+					Description:        "Deprecated. If present and set to true, enable server-side diff calculations.\n",
+					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
+					DeprecationMessage: "This option has been replaced by `enableServerSideApply`.",
+				},
+				"enableServerSideApply": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY",
+						},
+					},
+					Description: "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {
