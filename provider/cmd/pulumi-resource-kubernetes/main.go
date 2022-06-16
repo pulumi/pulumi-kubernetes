@@ -17,11 +17,16 @@
 package main
 
 import (
+	_ "embed"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/version"
 )
 
 var providerName = "kubernetes"
+
+//go:embed schema-embed.json
+var pulumiSchema []byte
 
 func main() {
 	provider.Serve(providerName, version.Version, pulumiSchema)
