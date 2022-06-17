@@ -1472,8 +1472,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "kind"): pulumi.Output<"Secret">;
     public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
     public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "stringData"): pulumi.Output<{[key: string]: string}>;
-    public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "stringData"): pulumi.Output<{[key: string]: string}>;
     public getResourceProperty(groupVersionKind: "v1/Secret", name: string, property: "type"): pulumi.Output<string>;
     public getResourceProperty(groupVersionKind: "v1/Secret", namespace: string, name: string, property: "type"): pulumi.Output<string>;
     public getResourceProperty(groupVersionKind: "v1/SecretList", name: string, property: "apiVersion"): pulumi.Output<"v1">;

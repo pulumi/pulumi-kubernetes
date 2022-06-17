@@ -256,7 +256,6 @@ class Secret(pulumi.CustomResource):
         __props__.__dict__["immutable"] = None
         __props__.__dict__["kind"] = None
         __props__.__dict__["metadata"] = None
-        __props__.__dict__["string_data"] = None
         __props__.__dict__["type"] = None
         return Secret(resource_name, opts=opts, __props__=__props__)
 
@@ -299,14 +298,6 @@ class Secret(pulumi.CustomResource):
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
         return pulumi.get(self, "metadata")
-
-    @property
-    @pulumi.getter(name="stringData")
-    def string_data(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
-        """
-        stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
-        """
-        return pulumi.get(self, "string_data")
 
     @property
     @pulumi.getter
