@@ -227,7 +227,7 @@ class Secret(pulumi.CustomResource):
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["string_data"] = None if string_data is None else pulumi.Output.secret(string_data)
             __props__.__dict__["type"] = type
-        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["data", "stringData"])
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["data"])
         opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Secret, __self__).__init__(
             'kubernetes:core/v1:Secret',

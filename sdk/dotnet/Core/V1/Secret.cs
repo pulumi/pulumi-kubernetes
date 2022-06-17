@@ -105,7 +105,6 @@ namespace Pulumi.Kubernetes.Core.V1
                 AdditionalSecretOutputs =
                 {
                     "data",
-                    "stringData",
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

@@ -58,7 +58,6 @@ func NewSecret(ctx *pulumi.Context,
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"data",
-		"stringData",
 	})
 	opts = append(opts, secrets)
 	var resource Secret
