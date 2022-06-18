@@ -270,6 +270,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					continue
 				}
 
+				objectSpec = stripStringDataFromSecretProperties(kind.apiVersion, kind.kind, &objectSpec)
+
 				resourceSpec := pschema.ResourceSpec{
 					ObjectTypeSpec:     objectSpec,
 					DeprecationMessage: kind.DeprecationComment(),
@@ -411,6 +413,31 @@ If this is your first time using this package, these two resources may be helpfu
 	})
 
 	return pkg
+}
+
+// stripStringDataFromSecretProperties strips stringData from the output properties for the
+// resource (but not from the corresponding type).
+func stripStringDataFromSecretProperties(resourceGV, resourceKind string,
+	objectSpec *pschema.ObjectTypeSpec) (outSpec pschema.
+	ObjectTypeSpec) {
+	outSpec = *objectSpec
+	if resourceGV != "core/v1" || resourceKind != "Secret" {
+		return
+	}
+	outSpec.Properties = make(map[string]pschema.PropertySpec)
+	for k, v := range objectSpec.Properties {
+		if k != "stringData" {
+			outSpec.Properties[k] = v
+		}
+	}
+
+	outSpec.Required = make([]string, len(objectSpec.Required))
+	for _, k := range outSpec.Required {
+		if k != "stringData" {
+			outSpec.Required = append(outSpec.Required, k)
+		}
+	}
+	return
 }
 
 func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema.PropertySpec {
