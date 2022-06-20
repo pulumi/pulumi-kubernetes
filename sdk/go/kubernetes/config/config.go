@@ -18,6 +18,11 @@ func GetContext(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:context")
 }
 
+// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+func GetDeleteUnreachable(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:deleteUnreachable")
+}
+
 // BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 // This feature is in developer preview, and is disabled by default.
 //
