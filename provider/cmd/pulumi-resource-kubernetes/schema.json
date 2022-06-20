@@ -359,6 +359,10 @@
                 "type": "string",
                 "description": "If present, the name of the kubeconfig context to use."
             },
+            "deleteUnreachable": {
+                "type": "boolean",
+                "description": "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state"
+            },
             "enableConfigMapMutable": {
                 "type": "boolean",
                 "description": "BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways using this precedence:\n1. This `enableConfigMapMutable` parameter.\n2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable."
@@ -31909,6 +31913,10 @@
             "context": {
                 "type": "string",
                 "description": "If present, the name of the kubeconfig context to use."
+            },
+            "deleteUnreachable": {
+                "type": "boolean",
+                "description": "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state"
             },
             "enableConfigMapMutable": {
                 "type": "boolean",

@@ -120,6 +120,7 @@ type kubeProvider struct {
 	opts             kubeOpts
 	defaultNamespace string
 
+	deleteUnreachable           bool
 	enableDryRun                bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
@@ -165,6 +166,7 @@ func makeKubeProvider(
 		enableDryRun:                false,
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
+		deleteUnreachable:           false,
 	}, nil
 }
 
@@ -400,6 +402,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			Namespace: k.defaultNamespace,
 		},
 		CurrentContext: vars["kubernetes:config:context"],
+	}
+
+	deleteUnreachable := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:deleteUnreachable"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_DELETE_UNREACHABLE"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if deleteUnreachable() {
+		k.deleteUnreachable = true
 	}
 
 	enableDryRun := func() bool {
@@ -1809,8 +1827,15 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	label := fmt.Sprintf("%s.Read(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	// If the cluster is unreachable, return an error.
+	// If the cluster is unreachable, return an error unless the user has opted in to mark the resources to be deleted
 	if k.clusterUnreachable {
+		if k.deleteUnreachable {
+			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+				"configured Kubernetes cluster is unreachable and configuration is specified to ensure that "+
+					"the resources are deleted: %s", k.clusterUnreachableReason))
+			return deleteResponse, nil
+		}
+
 		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
 		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. " +

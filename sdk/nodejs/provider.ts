@@ -37,6 +37,7 @@ export class Provider extends pulumi.ProviderResource {
         {
             resourceInputs["cluster"] = args ? args.cluster : undefined;
             resourceInputs["context"] = args ? args.context : undefined;
+            resourceInputs["deleteUnreachable"] = pulumi.output(args ? args.deleteUnreachable : undefined).apply(JSON.stringify);
             resourceInputs["enableConfigMapMutable"] = pulumi.output((args ? args.enableConfigMapMutable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
             resourceInputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
             resourceInputs["enableReplaceCRD"] = pulumi.output((args ? args.enableReplaceCRD : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD")).apply(JSON.stringify);
@@ -65,6 +66,10 @@ export interface ProviderArgs {
      * If present, the name of the kubeconfig context to use.
      */
     context?: pulumi.Input<string>;
+    /**
+     * If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+     */
+    deleteUnreachable?: pulumi.Input<boolean>;
     /**
      * BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
      * This feature is in developer preview, and is disabled by default.

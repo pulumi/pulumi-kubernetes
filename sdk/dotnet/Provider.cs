@@ -59,6 +59,12 @@ namespace Pulumi.Kubernetes
         public Input<string>? Context { get; set; }
 
         /// <summary>
+        /// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+        /// </summary>
+        [Input("deleteUnreachable", json: true)]
+        public Input<bool>? DeleteUnreachable { get; set; }
+
+        /// <summary>
         /// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
         /// This feature is in developer preview, and is disabled by default.
         /// 

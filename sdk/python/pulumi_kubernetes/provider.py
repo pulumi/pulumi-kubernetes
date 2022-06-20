@@ -16,6 +16,7 @@ class ProviderArgs:
     def __init__(__self__, *,
                  cluster: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
+                 delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
@@ -30,6 +31,7 @@ class ProviderArgs:
         The set of arguments for constructing a Provider resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
+        :param pulumi.Input[bool] delete_unreachable: If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
         :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
                This feature is in developer preview, and is disabled by default.
                
@@ -63,6 +65,8 @@ class ProviderArgs:
             pulumi.set(__self__, "cluster", cluster)
         if context is not None:
             pulumi.set(__self__, "context", context)
+        if delete_unreachable is not None:
+            pulumi.set(__self__, "delete_unreachable", delete_unreachable)
         if enable_config_map_mutable is None:
             enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
         if enable_config_map_mutable is not None:
@@ -122,6 +126,18 @@ class ProviderArgs:
     @context.setter
     def context(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "context", value)
+
+    @property
+    @pulumi.getter(name="deleteUnreachable")
+    def delete_unreachable(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+        """
+        return pulumi.get(self, "delete_unreachable")
+
+    @delete_unreachable.setter
+    def delete_unreachable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "delete_unreachable", value)
 
     @property
     @pulumi.getter(name="enableConfigMapMutable")
@@ -269,6 +285,7 @@ class Provider(pulumi.ProviderResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
+                 delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
@@ -287,6 +304,7 @@ class Provider(pulumi.ProviderResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] cluster: If present, the name of the kubeconfig cluster to use.
         :param pulumi.Input[str] context: If present, the name of the kubeconfig context to use.
+        :param pulumi.Input[bool] delete_unreachable: If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
         :param pulumi.Input[bool] enable_config_map_mutable: BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
                This feature is in developer preview, and is disabled by default.
                
@@ -342,6 +360,7 @@ class Provider(pulumi.ProviderResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  cluster: Optional[pulumi.Input[str]] = None,
                  context: Optional[pulumi.Input[str]] = None,
+                 delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
                  enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
@@ -366,6 +385,7 @@ class Provider(pulumi.ProviderResource):
 
             __props__.__dict__["cluster"] = cluster
             __props__.__dict__["context"] = context
+            __props__.__dict__["delete_unreachable"] = pulumi.Output.from_input(delete_unreachable).apply(pulumi.runtime.to_json) if delete_unreachable is not None else None
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
             __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None

@@ -52,6 +52,16 @@ namespace Pulumi.Kubernetes
             set => _context.Set(value);
         }
 
+        private static readonly __Value<bool?> _deleteUnreachable = new __Value<bool?>(() => __config.GetBoolean("deleteUnreachable"));
+        /// <summary>
+        /// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+        /// </summary>
+        public static bool? DeleteUnreachable
+        {
+            get => _deleteUnreachable.Get();
+            set => _deleteUnreachable.Set(value);
+        }
+
         private static readonly __Value<bool?> _enableConfigMapMutable = new __Value<bool?>(() => __config.GetBoolean("enableConfigMapMutable"));
         /// <summary>
         /// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.

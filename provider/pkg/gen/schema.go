@@ -68,6 +68,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "If present, the default namespace to use. This flag is ignored for cluster-scoped resources.\n\nA namespace can be specified in multiple places, and the precedence is as follows:\n1. `.metadata.namespace` set on the resource.\n2. This `namespace` parameter.\n3. `namespace` set for the active context in the kubeconfig.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
+				"deleteUnreachable": {
+					Description: "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"enableDryRun": {
 					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
@@ -123,6 +127,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				"cluster": {
 					Description: "If present, the name of the kubeconfig cluster to use.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
+				},
+				"deleteUnreachable": {
+					Description: "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"namespace": {
 					Description: "If present, the default namespace to use. This flag is ignored for cluster-scoped resources.\n\nA namespace can be specified in multiple places, and the precedence is as follows:\n1. `.metadata.namespace` set on the resource.\n2. This `namespace` parameter.\n3. `namespace` set for the active context in the kubeconfig.",

@@ -59,6 +59,8 @@ type providerArgs struct {
 	Cluster *string `pulumi:"cluster"`
 	// If present, the name of the kubeconfig context to use.
 	Context *string `pulumi:"context"`
+	// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+	DeleteUnreachable *bool `pulumi:"deleteUnreachable"`
 	// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 	// This feature is in developer preview, and is disabled by default.
 	//
@@ -107,6 +109,8 @@ type ProviderArgs struct {
 	Cluster pulumi.StringPtrInput
 	// If present, the name of the kubeconfig context to use.
 	Context pulumi.StringPtrInput
+	// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+	DeleteUnreachable pulumi.BoolPtrInput
 	// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 	// This feature is in developer preview, and is disabled by default.
 	//
