@@ -1325,8 +1325,8 @@ github.com/pulumi/pulumi/pkg/v3 v3.26.0/go.mod h1:L9E+MXe05AbrSmX1GjX3jIrVNpE2Rr
 github.com/pulumi/pulumi/pkg/v3 v3.31.1-0.20220429232336-81582c4dcb93/go.mod h1:bO/BHZJoG2Mm8C3dxP414vLPvjxFfsetPE3Ep7Ffgro=
 github.com/pulumi/pulumi/pkg/v3 v3.32.1/go.mod h1:TNPDg+H4Mzy5ldOJNpkzqPYTuYH8ehorPFtnQd3pRUU=
 github.com/pulumi/pulumi/pkg/v3 v3.33.3-0.20220601044734-8c3b8ab96f3e/go.mod h1:L6pQPxfwzQ844F0xaPSwBTijOApmiLoGonpuphShQt4=
-github.com/pulumi/pulumi/pkg/v3 v3.34.0 h1:5423fihd1r7ArQEKMnuP+ADIKKbMs5FEHbSMMz+FgIA=
-github.com/pulumi/pulumi/pkg/v3 v3.34.0/go.mod h1:9n0gPLl4TGbmAC+tpsK10g4fmflbCz2Nj6A73bpFBpQ=
+github.com/pulumi/pulumi/pkg/v3 v3.34.1 h1:yg7B6CixUN4cCQgZZRnY1OZSO2k96ze/7314n1eHMxM=
+github.com/pulumi/pulumi/pkg/v3 v3.34.1/go.mod h1:RJ5AFc+/Ej+cN03SDSN49DcBpuX/F7VFuEQ+nb7fq4w=
 github.com/pulumi/pulumi/sdk/v3 v3.16.0/go.mod h1:252ou/zAU1g6E8iTwe2Y9ht7pb5BDl2fJlOuAgZCHiA=
 github.com/pulumi/pulumi/sdk/v3 v3.19.0/go.mod h1:AnbQmAhp0ezO/MhcVjqkhvoQnxZ0+79Xb035NcuKrtM=
 github.com/pulumi/pulumi/sdk/v3 v3.26.0/go.mod h1:VsxW+TGv2VBLe/MeqsAr9r0zKzK/gbAhFT9QxYr24cY=
@@ -1335,8 +1335,8 @@ github.com/pulumi/pulumi/sdk/v3 v3.31.0/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3d
 github.com/pulumi/pulumi/sdk/v3 v3.32.1/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
 github.com/pulumi/pulumi/sdk/v3 v3.33.2/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
 github.com/pulumi/pulumi/sdk/v3 v3.33.3-0.20220601044734-8c3b8ab96f3e/go.mod h1:sF9VfTkwRXYNk/gCR7ICd79VDC8WcsyVq37/sb8sV5A=
-github.com/pulumi/pulumi/sdk/v3 v3.34.0 h1:9NaloshJrB5bWT/xBHBNHWG926sVOmrKe9f9GybSRss=
-github.com/pulumi/pulumi/sdk/v3 v3.34.0/go.mod h1:sF9VfTkwRXYNk/gCR7ICd79VDC8WcsyVq37/sb8sV5A=
+github.com/pulumi/pulumi/sdk/v3 v3.34.1 h1:M1WQwcD+6Z1BjSUl5F7cxZStvu0gpWmRWNkqeJ/A7QI=
+github.com/pulumi/pulumi/sdk/v3 v3.34.1/go.mod h1:sF9VfTkwRXYNk/gCR7ICd79VDC8WcsyVq37/sb8sV5A=
 github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rjeczalik/notify v0.9.2 h1:MiTWrPj55mNDHEiIX5YUSKefw/+lCQVoAFmD6oQm5w8=
