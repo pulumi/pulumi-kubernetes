@@ -60,6 +60,7 @@ type ProviderConfig struct {
 	Host              *pulumiprovider.HostClient
 	URN               resource.URN
 	InitialAPIVersion string
+	FieldManager      string
 	ClusterVersion    *cluster.ServerVersion
 	ServerSideApply   bool
 
@@ -182,8 +183,10 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			if c.ServerSideApply {
+				force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
 				options := metav1.PatchOptions{
-					FieldManager: "pulumi-resource-kubernetes",
+					FieldManager: c.FieldManager,
+					Force:        &force,
 				}
 				objYAML, err := yaml.Marshal(c.Inputs.Object)
 				if err != nil {
@@ -403,13 +406,14 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			if err != nil {
 				return nil, err
 			}
-			var options metav1.PatchOptions
+			force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+			options := metav1.PatchOptions{
+				FieldManager: c.FieldManager,
+				Force:        &force,
+			}
 			if c.DryRun {
 				options.DryRun = []string{metav1.DryRunAll}
 			}
-			options.FieldManager = "pulumi-resource-kubernetes"
-			//force := true
-			//options.Force = &force
 
 			// Issue patch request.
 			// NOTE: We can use the same client because if the `kind` changes, this will cause
@@ -536,7 +540,7 @@ func Deletion(c DeleteConfig) error {
 		}
 
 		_, err = client.Patch(context.TODO(), c.Name, types.ApplyPatchType, yamlObj, metav1.PatchOptions{
-			FieldManager: "pulumi-resource-kubernetes",
+			FieldManager: c.FieldManager,
 			//FieldValidation: metav1.FieldValidationIgnore,
 		})
 		return err
