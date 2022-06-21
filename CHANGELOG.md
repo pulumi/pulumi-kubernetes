@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
+
 ## 3.19.4 (June 21, 2022)
 
 - Use fully-qualified resource name for generating manifests, to avoid conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2007)
