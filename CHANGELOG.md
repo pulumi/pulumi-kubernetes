@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.19.4 (June 21, 2022)
+
 - Use fully-qualified resource name for generating manifests, to avoid conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2007)
 - Upgrade helm and k8s client-go module dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2008)
 - Allow a user to opt-in to removing resources from Pulumi state when a cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/2037)
