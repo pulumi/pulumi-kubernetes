@@ -46,6 +46,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/ssa"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -1533,7 +1534,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	fieldManager := fieldManagerName(oldState, oldInputs)
+	fieldManager := fieldManagerName(newResInputs, newInputs)
 
 	// Try to compute a server-side patch.
 	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
@@ -2297,29 +2298,18 @@ func (k *kubeProvider) Update(
 			nil)
 	}
 
-	if fieldManagerOld != fieldManager {
-		// Obtain client for the resource being deleted.
-		client, err := k.clientSet.ResourceClientForObject(newInputs)
-		if err != nil {
-			return nil, err
-		}
-
-		//patchResource := strings.HasSuffix(urn.Type().String(), "Patch")
-		if k.serverSideApplyMode {
-			obj := unstructured.Unstructured{}
-			obj.SetAPIVersion(newInputs.GetAPIVersion())
-			obj.SetKind(newInputs.GetKind())
-			obj.SetNamespace(newInputs.GetNamespace())
-			obj.SetName(newInputs.GetName())
-			yamlObj, err := yaml.Marshal(obj.Object)
+	if k.serverSideApplyMode {
+		// For non-preview updates, drop the old fieldManager if the value changes.
+		if !req.GetPreview() && fieldManagerOld != fieldManager {
+			client, err := k.clientSet.ResourceClientForObject(newInputs)
 			if err != nil {
 				return nil, err
 			}
 
-			_, err = client.Patch(context.TODO(), newInputs.GetName(), types.ApplyPatchType, yamlObj,
-				metav1.PatchOptions{
-					FieldManager: fieldManagerOld,
-				})
+			err = ssa.Relinquish(context.TODO(), client, newInputs, fieldManagerOld)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 

@@ -26,6 +26,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/retry"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/ssa"
 	pulumiprovider "github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -529,20 +530,7 @@ func Deletion(c DeleteConfig) error {
 
 	patchResource := strings.HasSuffix(c.URN.Type().String(), "Patch")
 	if c.ServerSideApply && patchResource {
-		obj := unstructured.Unstructured{}
-		obj.SetAPIVersion(c.Inputs.GetAPIVersion())
-		obj.SetKind(c.Inputs.GetKind())
-		obj.SetNamespace(c.Inputs.GetNamespace())
-		obj.SetName(c.Inputs.GetName())
-		yamlObj, err := yaml.Marshal(obj.Object)
-		if err != nil {
-			return err
-		}
-
-		_, err = client.Patch(context.TODO(), c.Name, types.ApplyPatchType, yamlObj, metav1.PatchOptions{
-			FieldManager: c.FieldManager,
-			//FieldValidation: metav1.FieldValidationIgnore,
-		})
+		err = ssa.Relinquish(context.TODO(), client, c.Inputs, c.FieldManager)
 		return err
 	}
 
