@@ -7,14 +7,18 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./flowSchema";
 export * from "./flowSchemaList";
+export * from "./flowSchemaPatch";
 export * from "./priorityLevelConfiguration";
 export * from "./priorityLevelConfigurationList";
+export * from "./priorityLevelConfigurationPatch";
 
 // Import resources to register:
 import { FlowSchema } from "./flowSchema";
 import { FlowSchemaList } from "./flowSchemaList";
+import { FlowSchemaPatch } from "./flowSchemaPatch";
 import { PriorityLevelConfiguration } from "./priorityLevelConfiguration";
 import { PriorityLevelConfigurationList } from "./priorityLevelConfigurationList";
+import { PriorityLevelConfigurationPatch } from "./priorityLevelConfigurationPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -24,10 +28,14 @@ const _module = {
                 return new FlowSchema(name, <any>undefined, { urn })
             case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaList":
                 return new FlowSchemaList(name, <any>undefined, { urn })
+            case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch":
+                return new FlowSchemaPatch(name, <any>undefined, { urn })
             case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration":
                 return new PriorityLevelConfiguration(name, <any>undefined, { urn })
             case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationList":
                 return new PriorityLevelConfigurationList(name, <any>undefined, { urn })
+            case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationPatch":
+                return new PriorityLevelConfigurationPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .VolumeAttachment import *
 from .VolumeAttachmentList import *
+from .VolumeAttachmentPatch import *
 from ._inputs import *
 from . import outputs

@@ -25,10 +25,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CronJob{}
 	case "kubernetes:batch/v1:CronJobList":
 		r = &CronJobList{}
+	case "kubernetes:batch/v1:CronJobPatch":
+		r = &CronJobPatch{}
 	case "kubernetes:batch/v1:Job":
 		r = &Job{}
 	case "kubernetes:batch/v1:JobList":
 		r = &JobList{}
+	case "kubernetes:batch/v1:JobPatch":
+		r = &JobPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

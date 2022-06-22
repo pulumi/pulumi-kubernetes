@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./horizontalPodAutoscaler";
 export * from "./horizontalPodAutoscalerList";
+export * from "./horizontalPodAutoscalerPatch";
 
 // Import resources to register:
 import { HorizontalPodAutoscaler } from "./horizontalPodAutoscaler";
 import { HorizontalPodAutoscalerList } from "./horizontalPodAutoscalerList";
+import { HorizontalPodAutoscalerPatch } from "./horizontalPodAutoscalerPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new HorizontalPodAutoscaler(name, <any>undefined, { urn })
             case "kubernetes:autoscaling/v1:HorizontalPodAutoscalerList":
                 return new HorizontalPodAutoscalerList(name, <any>undefined, { urn })
+            case "kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch":
+                return new HorizontalPodAutoscalerPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

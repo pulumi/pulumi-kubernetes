@@ -14,8 +14,10 @@ from ... import meta as _meta
 
 __all__ = [
     'Overhead',
+    'OverheadPatch',
     'RuntimeClass',
     'Scheduling',
+    'SchedulingPatch',
 ]
 
 @pulumi.output_type
@@ -38,6 +40,46 @@ class Overhead(dict):
 
     def get(self, key: str, default = None) -> Any:
         Overhead.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 pod_fixed: Optional[Mapping[str, str]] = None):
+        """
+        Overhead structure represents the resource overhead associated with running a pod.
+        :param Mapping[str, str] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
+        """
+        if pod_fixed is not None:
+            pulumi.set(__self__, "pod_fixed", pod_fixed)
+
+    @property
+    @pulumi.getter(name="podFixed")
+    def pod_fixed(self) -> Optional[Mapping[str, str]]:
+        """
+        PodFixed represents the fixed resource overhead associated with running a pod.
+        """
+        return pulumi.get(self, "pod_fixed")
+
+
+@pulumi.output_type
+class OverheadPatch(dict):
+    """
+    Overhead structure represents the resource overhead associated with running a pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podFixed":
+            suggest = "pod_fixed"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OverheadPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OverheadPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OverheadPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -203,6 +245,58 @@ class Scheduling(dict):
     @property
     @pulumi.getter
     def tolerations(self) -> Optional[Sequence['_core.v1.outputs.Toleration']]:
+        """
+        tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        return pulumi.get(self, "tolerations")
+
+
+@pulumi.output_type
+class SchedulingPatch(dict):
+    """
+    Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeSelector":
+            suggest = "node_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SchedulingPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SchedulingPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SchedulingPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_selector: Optional[Mapping[str, str]] = None,
+                 tolerations: Optional[Sequence['_core.v1.outputs.TolerationPatch']] = None):
+        """
+        Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+        :param Mapping[str, str] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        :param Sequence['_core.v1.TolerationPatchArgs'] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> Optional[Mapping[str, str]]:
+        """
+        nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        """
+        return pulumi.get(self, "node_selector")
+
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[Sequence['_core.v1.outputs.TolerationPatch']]:
         """
         tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """

@@ -181,8 +181,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			if c.ServerSideApply {
 				force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
 				options := metav1.PatchOptions{
-					FieldManager: c.FieldManager,
-					Force:        &force,
+					FieldManager:    c.FieldManager,
+					Force:           &force,
+					FieldValidation: metav1.FieldValidationIgnore,
 				}
 				if c.DryRun {
 					options.DryRun = []string{metav1.DryRunAll}

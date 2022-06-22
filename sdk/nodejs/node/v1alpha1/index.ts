@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./runtimeClass";
 export * from "./runtimeClassList";
+export * from "./runtimeClassPatch";
 
 // Import resources to register:
 import { RuntimeClass } from "./runtimeClass";
 import { RuntimeClassList } from "./runtimeClassList";
+import { RuntimeClassPatch } from "./runtimeClassPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new RuntimeClass(name, <any>undefined, { urn })
             case "kubernetes:node.k8s.io/v1alpha1:RuntimeClassList":
                 return new RuntimeClassList(name, <any>undefined, { urn })
+            case "kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch":
+                return new RuntimeClassPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

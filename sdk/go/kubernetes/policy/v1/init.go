@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PodDisruptionBudget{}
 	case "kubernetes:policy/v1:PodDisruptionBudgetList":
 		r = &PodDisruptionBudgetList{}
+	case "kubernetes:policy/v1:PodDisruptionBudgetPatch":
+		r = &PodDisruptionBudgetPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

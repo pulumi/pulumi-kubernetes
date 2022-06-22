@@ -6,15 +6,23 @@ import * as utilities from "../../utilities";
 
 // Export members:
 export * from "./localSubjectAccessReview";
+export * from "./localSubjectAccessReviewPatch";
 export * from "./selfSubjectAccessReview";
+export * from "./selfSubjectAccessReviewPatch";
 export * from "./selfSubjectRulesReview";
+export * from "./selfSubjectRulesReviewPatch";
 export * from "./subjectAccessReview";
+export * from "./subjectAccessReviewPatch";
 
 // Import resources to register:
 import { LocalSubjectAccessReview } from "./localSubjectAccessReview";
+import { LocalSubjectAccessReviewPatch } from "./localSubjectAccessReviewPatch";
 import { SelfSubjectAccessReview } from "./selfSubjectAccessReview";
+import { SelfSubjectAccessReviewPatch } from "./selfSubjectAccessReviewPatch";
 import { SelfSubjectRulesReview } from "./selfSubjectRulesReview";
+import { SelfSubjectRulesReviewPatch } from "./selfSubjectRulesReviewPatch";
 import { SubjectAccessReview } from "./subjectAccessReview";
+import { SubjectAccessReviewPatch } from "./subjectAccessReviewPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -22,12 +30,20 @@ const _module = {
         switch (type) {
             case "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview":
                 return new LocalSubjectAccessReview(name, <any>undefined, { urn })
+            case "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReviewPatch":
+                return new LocalSubjectAccessReviewPatch(name, <any>undefined, { urn })
             case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview":
                 return new SelfSubjectAccessReview(name, <any>undefined, { urn })
+            case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReviewPatch":
+                return new SelfSubjectAccessReviewPatch(name, <any>undefined, { urn })
             case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview":
                 return new SelfSubjectRulesReview(name, <any>undefined, { urn })
+            case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch":
+                return new SelfSubjectRulesReviewPatch(name, <any>undefined, { urn })
             case "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview":
                 return new SubjectAccessReview(name, <any>undefined, { urn })
+            case "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReviewPatch":
+                return new SubjectAccessReviewPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

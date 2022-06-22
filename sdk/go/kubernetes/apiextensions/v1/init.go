@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CustomResourceDefinition{}
 	case "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList":
 		r = &CustomResourceDefinitionList{}
+	case "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch":
+		r = &CustomResourceDefinitionPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

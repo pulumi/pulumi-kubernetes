@@ -6,9 +6,11 @@ import * as utilities from "../../utilities";
 
 // Export members:
 export * from "./status";
+export * from "./statusPatch";
 
 // Import resources to register:
 import { Status } from "./status";
+import { StatusPatch } from "./statusPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -16,6 +18,8 @@ const _module = {
         switch (type) {
             case "kubernetes:meta/v1:Status":
                 return new Status(name, <any>undefined, { urn })
+            case "kubernetes:meta/v1:StatusPatch":
+                return new StatusPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

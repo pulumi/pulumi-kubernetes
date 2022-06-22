@@ -23,6 +23,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "kubernetes:authentication.k8s.io/v1beta1:TokenReview":
 		r = &TokenReview{}
+	case "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch":
+		r = &TokenReviewPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

@@ -185,6 +185,9 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 		if resource.Package == "" {
 			continue
 		}
+		if strings.HasSuffix(resource.Name, "Patch") {
+			continue
+		}
 		tr := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -212,11 +215,12 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	templateResources.Packages = packages.SortedValues()
 
 	overlays := map[string][]byte{
-		"apiextensions/customResource.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
-		"helm/v2/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
-		"helm/v3/helm.ts":                 mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.ts")),
-		"kustomize/kustomize.ts":          mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
-		"yaml/yaml.ts":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+		"apiextensions/customResource.ts":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
+		"apiextensions/customResourcePatch.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResourcePatch.ts")),
+		"helm/v2/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
+		"helm/v3/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.ts")),
+		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
+		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
@@ -241,6 +245,9 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		if resourcesToFilterFromTemplate.Has(tok) {
 			continue
 		}
+		if strings.HasSuffix(resource.Name, "Patch") {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -253,11 +260,12 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	})
 
 	overlays := map[string][]byte{
-		"apiextensions/CustomResource.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.py")),
-		"helm/v2/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
-		"helm/v3/helm.py":                 mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.py")),
-		"kustomize/kustomize.py":          mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.py")),
-		"yaml/yaml.py":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+		"apiextensions/CustomResource.py":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.py")),
+		"apiextensions/CustomResourcePatch.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResourcePatch.py")),
+		"helm/v2/helm.py":                      mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
+		"helm/v3/helm.py":                      mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.py")),
+		"kustomize/kustomize.py":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.py")),
+		"yaml/yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
 	files, err := pythongen.GeneratePackage("pulumigen", pkg, overlays)
@@ -279,6 +287,9 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		if resourcesToFilterFromTemplate.Has(tok) {
 			continue
 		}
+		if strings.HasSuffix(resource.Name, "Patch") {
+			continue
+		}
 		r := gen.TemplateResource{
 			Name:    resource.Name,
 			Package: resource.Package,
@@ -290,19 +301,20 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
 	overlays := map[string][]byte{
-		"ApiExtensions/CustomResource.cs": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.cs")),
-		"Helm/ChartBase.cs":               mustLoadFile(filepath.Join(templateDir, "helm", "ChartBase.cs")),
-		"Helm/Unwraps.cs":                 mustLoadFile(filepath.Join(templateDir, "helm", "Unwraps.cs")),
-		"Helm/V2/Chart.cs":                mustLoadFile(filepath.Join(templateDir, "helm", "v2", "Chart.cs")),
-		"Helm/V3/Chart.cs":                mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Chart.cs")),
-		"Helm/V3/Invokes.cs":              mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Invokes.cs")),
-		"Kustomize/Directory.cs":          mustLoadFile(filepath.Join(templateDir, "kustomize", "Directory.cs")),
-		"Kustomize/Invokes.cs":            mustLoadFile(filepath.Join(templateDir, "kustomize", "Invokes.cs")),
-		"Yaml/ConfigFile.cs":              mustLoadFile(filepath.Join(templateDir, "yaml", "ConfigFile.cs")),
-		"Yaml/ConfigGroup.cs":             mustLoadFile(filepath.Join(templateDir, "yaml", "ConfigGroup.cs")),
-		"Yaml/Invokes.cs":                 mustLoadFile(filepath.Join(templateDir, "yaml", "Invokes.cs")),
-		"Yaml/TransformationAction.cs":    mustLoadFile(filepath.Join(templateDir, "yaml", "TransformationAction.cs")),
-		"Yaml/Yaml.cs":                    mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+		"ApiExtensions/CustomResource.cs":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.cs")),
+		"ApiExtensions/CustomResourcePatch.cs": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResourcePatch.cs")),
+		"Helm/ChartBase.cs":                    mustLoadFile(filepath.Join(templateDir, "helm", "ChartBase.cs")),
+		"Helm/Unwraps.cs":                      mustLoadFile(filepath.Join(templateDir, "helm", "Unwraps.cs")),
+		"Helm/V2/Chart.cs":                     mustLoadFile(filepath.Join(templateDir, "helm", "v2", "Chart.cs")),
+		"Helm/V3/Chart.cs":                     mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Chart.cs")),
+		"Helm/V3/Invokes.cs":                   mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Invokes.cs")),
+		"Kustomize/Directory.cs":               mustLoadFile(filepath.Join(templateDir, "kustomize", "Directory.cs")),
+		"Kustomize/Invokes.cs":                 mustLoadFile(filepath.Join(templateDir, "kustomize", "Invokes.cs")),
+		"Yaml/ConfigFile.cs":                   mustLoadFile(filepath.Join(templateDir, "yaml", "ConfigFile.cs")),
+		"Yaml/ConfigGroup.cs":                  mustLoadFile(filepath.Join(templateDir, "yaml", "ConfigGroup.cs")),
+		"Yaml/Invokes.cs":                      mustLoadFile(filepath.Join(templateDir, "yaml", "Invokes.cs")),
+		"Yaml/TransformationAction.cs":         mustLoadFile(filepath.Join(templateDir, "yaml", "TransformationAction.cs")),
+		"Yaml/Yaml.cs":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 
 	files, err := dotnetgen.GeneratePackage("pulumigen", pkg, overlays)
@@ -360,6 +372,9 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 		if resourcesToFilterFromTemplate.Has(tok) {
 			continue
 		}
+		if strings.HasSuffix(resource.Name, "Patch") {
+			continue
+		}
 		r := gen.TemplateResource{
 			Alias:   resource.Alias,
 			Name:    resource.Name,
@@ -374,6 +389,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 
 	files["kubernetes/customPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "customPulumiTypes.go"))
 	files["kubernetes/apiextensions/customResource.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResource.go"))
+	files["kubernetes/apiextensions/customResourcePatch.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResourcePatch.go"))
 	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
 	files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
 	files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
@@ -439,6 +455,9 @@ func genK8sResourceTypes(pkg *schema.Package) {
 		groupVersion, kind := parts[1], parts[2]
 
 		if resource.IsOverlay {
+			continue
+		}
+		if strings.HasSuffix(kind, "Patch") {
 			continue
 		}
 

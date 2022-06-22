@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &RuntimeClass{}
 	case "kubernetes:node.k8s.io/v1beta1:RuntimeClassList":
 		r = &RuntimeClassList{}
+	case "kubernetes:node.k8s.io/v1beta1:RuntimeClassPatch":
+		r = &RuntimeClassPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

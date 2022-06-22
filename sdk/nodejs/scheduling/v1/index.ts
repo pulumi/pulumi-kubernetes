@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./priorityClass";
 export * from "./priorityClassList";
+export * from "./priorityClassPatch";
 
 // Import resources to register:
 import { PriorityClass } from "./priorityClass";
 import { PriorityClassList } from "./priorityClassList";
+import { PriorityClassPatch } from "./priorityClassPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new PriorityClass(name, <any>undefined, { urn })
             case "kubernetes:scheduling.k8s.io/v1:PriorityClassList":
                 return new PriorityClassList(name, <any>undefined, { urn })
+            case "kubernetes:scheduling.k8s.io/v1:PriorityClassPatch":
+                return new PriorityClassPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

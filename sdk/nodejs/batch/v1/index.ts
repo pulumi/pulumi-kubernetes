@@ -7,14 +7,18 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./cronJob";
 export * from "./cronJobList";
+export * from "./cronJobPatch";
 export * from "./job";
 export * from "./jobList";
+export * from "./jobPatch";
 
 // Import resources to register:
 import { CronJob } from "./cronJob";
 import { CronJobList } from "./cronJobList";
+import { CronJobPatch } from "./cronJobPatch";
 import { Job } from "./job";
 import { JobList } from "./jobList";
+import { JobPatch } from "./jobPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -24,10 +28,14 @@ const _module = {
                 return new CronJob(name, <any>undefined, { urn })
             case "kubernetes:batch/v1:CronJobList":
                 return new CronJobList(name, <any>undefined, { urn })
+            case "kubernetes:batch/v1:CronJobPatch":
+                return new CronJobPatch(name, <any>undefined, { urn })
             case "kubernetes:batch/v1:Job":
                 return new Job(name, <any>undefined, { urn })
             case "kubernetes:batch/v1:JobList":
                 return new JobList(name, <any>undefined, { urn })
+            case "kubernetes:batch/v1:JobPatch":
+                return new JobPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

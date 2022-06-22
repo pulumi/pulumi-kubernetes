@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &AuditSink{}
 	case "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList":
 		r = &AuditSinkList{}
+	case "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch":
+		r = &AuditSinkPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

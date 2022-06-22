@@ -7,13 +7,18 @@ import typing
 # Export this package's modules as members:
 from .ControllerRevision import *
 from .ControllerRevisionList import *
+from .ControllerRevisionPatch import *
 from .DaemonSet import *
 from .DaemonSetList import *
+from .DaemonSetPatch import *
 from .Deployment import *
 from .DeploymentList import *
+from .DeploymentPatch import *
 from .ReplicaSet import *
 from .ReplicaSetList import *
+from .ReplicaSetPatch import *
 from .StatefulSet import *
 from .StatefulSetList import *
+from .StatefulSetPatch import *
 from ._inputs import *
 from . import outputs

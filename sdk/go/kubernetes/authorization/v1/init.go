@@ -23,12 +23,20 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview":
 		r = &LocalSubjectAccessReview{}
+	case "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReviewPatch":
+		r = &LocalSubjectAccessReviewPatch{}
 	case "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview":
 		r = &SelfSubjectAccessReview{}
+	case "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReviewPatch":
+		r = &SelfSubjectAccessReviewPatch{}
 	case "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview":
 		r = &SelfSubjectRulesReview{}
+	case "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReviewPatch":
+		r = &SelfSubjectRulesReviewPatch{}
 	case "kubernetes:authorization.k8s.io/v1:SubjectAccessReview":
 		r = &SubjectAccessReview{}
+	case "kubernetes:authorization.k8s.io/v1:SubjectAccessReviewPatch":
+		r = &SubjectAccessReviewPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

@@ -15,10 +15,15 @@ from ... import meta as _meta
 __all__ = [
     'Endpoint',
     'EndpointConditions',
+    'EndpointConditionsPatch',
     'EndpointHints',
+    'EndpointHintsPatch',
+    'EndpointPatch',
     'EndpointPort',
+    'EndpointPortPatch',
     'EndpointSlice',
     'ForZone',
+    'ForZonePatch',
 ]
 
 @pulumi.output_type
@@ -196,6 +201,53 @@ class EndpointConditions(dict):
 
 
 @pulumi.output_type
+class EndpointConditionsPatch(dict):
+    """
+    EndpointConditions represents the current condition of an endpoint.
+    """
+    def __init__(__self__, *,
+                 ready: Optional[bool] = None,
+                 serving: Optional[bool] = None,
+                 terminating: Optional[bool] = None):
+        """
+        EndpointConditions represents the current condition of an endpoint.
+        :param bool ready: ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+        :param bool serving: serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        :param bool terminating: terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        if ready is not None:
+            pulumi.set(__self__, "ready", ready)
+        if serving is not None:
+            pulumi.set(__self__, "serving", serving)
+        if terminating is not None:
+            pulumi.set(__self__, "terminating", terminating)
+
+    @property
+    @pulumi.getter
+    def ready(self) -> Optional[bool]:
+        """
+        ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+        """
+        return pulumi.get(self, "ready")
+
+    @property
+    @pulumi.getter
+    def serving(self) -> Optional[bool]:
+        """
+        serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        return pulumi.get(self, "serving")
+
+    @property
+    @pulumi.getter
+    def terminating(self) -> Optional[bool]:
+        """
+        terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+        """
+        return pulumi.get(self, "terminating")
+
+
+@pulumi.output_type
 class EndpointHints(dict):
     """
     EndpointHints provides hints describing how an endpoint should be consumed.
@@ -236,6 +288,174 @@ class EndpointHints(dict):
 
 
 @pulumi.output_type
+class EndpointHintsPatch(dict):
+    """
+    EndpointHints provides hints describing how an endpoint should be consumed.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "forZones":
+            suggest = "for_zones"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointHintsPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointHintsPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointHintsPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 for_zones: Optional[Sequence['outputs.ForZonePatch']] = None):
+        """
+        EndpointHints provides hints describing how an endpoint should be consumed.
+        :param Sequence['ForZonePatchArgs'] for_zones: forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+        """
+        if for_zones is not None:
+            pulumi.set(__self__, "for_zones", for_zones)
+
+    @property
+    @pulumi.getter(name="forZones")
+    def for_zones(self) -> Optional[Sequence['outputs.ForZonePatch']]:
+        """
+        forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+        """
+        return pulumi.get(self, "for_zones")
+
+
+@pulumi.output_type
+class EndpointPatch(dict):
+    """
+    Endpoint represents a single logical "backend" implementing a service.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+        elif key == "targetRef":
+            suggest = "target_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 addresses: Optional[Sequence[str]] = None,
+                 conditions: Optional['outputs.EndpointConditionsPatch'] = None,
+                 hints: Optional['outputs.EndpointHintsPatch'] = None,
+                 hostname: Optional[str] = None,
+                 node_name: Optional[str] = None,
+                 target_ref: Optional['_core.v1.outputs.ObjectReferencePatch'] = None,
+                 topology: Optional[Mapping[str, str]] = None):
+        """
+        Endpoint represents a single logical "backend" implementing a service.
+        :param Sequence[str] addresses: addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+        :param 'EndpointConditionsPatchArgs' conditions: conditions contains information about the current status of the endpoint.
+        :param 'EndpointHintsPatchArgs' hints: hints contains information associated with how an endpoint should be consumed.
+        :param str hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+        :param str node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        :param '_core.v1.ObjectReferencePatchArgs' target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
+        :param Mapping[str, str] topology: topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+                 where the endpoint is located. This should match the corresponding
+                 node label.
+               * topology.kubernetes.io/zone: the value indicates the zone where the
+                 endpoint is located. This should match the corresponding node label.
+               * topology.kubernetes.io/region: the value indicates the region where the
+                 endpoint is located. This should match the corresponding node label.
+               This field is deprecated and will be removed in future api versions.
+        """
+        if addresses is not None:
+            pulumi.set(__self__, "addresses", addresses)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if hints is not None:
+            pulumi.set(__self__, "hints", hints)
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if target_ref is not None:
+            pulumi.set(__self__, "target_ref", target_ref)
+        if topology is not None:
+            pulumi.set(__self__, "topology", topology)
+
+    @property
+    @pulumi.getter
+    def addresses(self) -> Optional[Sequence[str]]:
+        """
+        addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+        """
+        return pulumi.get(self, "addresses")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional['outputs.EndpointConditionsPatch']:
+        """
+        conditions contains information about the current status of the endpoint.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def hints(self) -> Optional['outputs.EndpointHintsPatch']:
+        """
+        hints contains information associated with how an endpoint should be consumed.
+        """
+        return pulumi.get(self, "hints")
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[str]:
+        """
+        hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+        """
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter(name="targetRef")
+    def target_ref(self) -> Optional['_core.v1.outputs.ObjectReferencePatch']:
+        """
+        targetRef is a reference to a Kubernetes object that represents this endpoint.
+        """
+        return pulumi.get(self, "target_ref")
+
+    @property
+    @pulumi.getter
+    def topology(self) -> Optional[Mapping[str, str]]:
+        """
+        topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+          where the endpoint is located. This should match the corresponding
+          node label.
+        * topology.kubernetes.io/zone: the value indicates the zone where the
+          endpoint is located. This should match the corresponding node label.
+        * topology.kubernetes.io/region: the value indicates the region where the
+          endpoint is located. This should match the corresponding node label.
+        This field is deprecated and will be removed in future api versions.
+        """
+        return pulumi.get(self, "topology")
+
+
+@pulumi.output_type
 class EndpointPort(dict):
     """
     EndpointPort represents a Port used by an EndpointSlice
@@ -255,6 +475,82 @@ class EndpointPort(dict):
 
     def get(self, key: str, default = None) -> Any:
         EndpointPort.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 app_protocol: Optional[str] = None,
+                 name: Optional[str] = None,
+                 port: Optional[int] = None,
+                 protocol: Optional[str] = None):
+        """
+        EndpointPort represents a Port used by an EndpointSlice
+        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str name: The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+        :param int port: The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+        :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+        """
+        if app_protocol is not None:
+            pulumi.set(__self__, "app_protocol", app_protocol)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @property
+    @pulumi.getter(name="appProtocol")
+    def app_protocol(self) -> Optional[str]:
+        """
+        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        """
+        return pulumi.get(self, "app_protocol")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        """
+        The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+        """
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[str]:
+        """
+        The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+        """
+        return pulumi.get(self, "protocol")
+
+
+@pulumi.output_type
+class EndpointPortPatch(dict):
+    """
+    EndpointPort represents a Port used by an EndpointSlice
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appProtocol":
+            suggest = "app_protocol"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointPortPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointPortPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointPortPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -427,6 +723,29 @@ class ForZone(dict):
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        name represents the name of the zone.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class ForZonePatch(dict):
+    """
+    ForZone provides information about which zones should consume this endpoint.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None):
+        """
+        ForZone provides information about which zones should consume this endpoint.
+        :param str name: name represents the name of the zone.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
         """
         name represents the name of the zone.
         """

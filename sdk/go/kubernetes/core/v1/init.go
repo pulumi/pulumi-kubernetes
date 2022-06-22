@@ -23,66 +23,98 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "kubernetes:core/v1:Binding":
 		r = &Binding{}
+	case "kubernetes:core/v1:BindingPatch":
+		r = &BindingPatch{}
 	case "kubernetes:core/v1:ConfigMap":
 		r = &ConfigMap{}
 	case "kubernetes:core/v1:ConfigMapList":
 		r = &ConfigMapList{}
+	case "kubernetes:core/v1:ConfigMapPatch":
+		r = &ConfigMapPatch{}
 	case "kubernetes:core/v1:Endpoints":
 		r = &Endpoints{}
 	case "kubernetes:core/v1:EndpointsList":
 		r = &EndpointsList{}
+	case "kubernetes:core/v1:EndpointsPatch":
+		r = &EndpointsPatch{}
 	case "kubernetes:core/v1:Event":
 		r = &Event{}
 	case "kubernetes:core/v1:EventList":
 		r = &EventList{}
+	case "kubernetes:core/v1:EventPatch":
+		r = &EventPatch{}
 	case "kubernetes:core/v1:LimitRange":
 		r = &LimitRange{}
 	case "kubernetes:core/v1:LimitRangeList":
 		r = &LimitRangeList{}
+	case "kubernetes:core/v1:LimitRangePatch":
+		r = &LimitRangePatch{}
 	case "kubernetes:core/v1:Namespace":
 		r = &Namespace{}
 	case "kubernetes:core/v1:NamespaceList":
 		r = &NamespaceList{}
+	case "kubernetes:core/v1:NamespacePatch":
+		r = &NamespacePatch{}
 	case "kubernetes:core/v1:Node":
 		r = &Node{}
 	case "kubernetes:core/v1:NodeList":
 		r = &NodeList{}
+	case "kubernetes:core/v1:NodePatch":
+		r = &NodePatch{}
 	case "kubernetes:core/v1:PersistentVolume":
 		r = &PersistentVolume{}
 	case "kubernetes:core/v1:PersistentVolumeClaim":
 		r = &PersistentVolumeClaim{}
 	case "kubernetes:core/v1:PersistentVolumeClaimList":
 		r = &PersistentVolumeClaimList{}
+	case "kubernetes:core/v1:PersistentVolumeClaimPatch":
+		r = &PersistentVolumeClaimPatch{}
 	case "kubernetes:core/v1:PersistentVolumeList":
 		r = &PersistentVolumeList{}
+	case "kubernetes:core/v1:PersistentVolumePatch":
+		r = &PersistentVolumePatch{}
 	case "kubernetes:core/v1:Pod":
 		r = &Pod{}
 	case "kubernetes:core/v1:PodList":
 		r = &PodList{}
+	case "kubernetes:core/v1:PodPatch":
+		r = &PodPatch{}
 	case "kubernetes:core/v1:PodTemplate":
 		r = &PodTemplate{}
 	case "kubernetes:core/v1:PodTemplateList":
 		r = &PodTemplateList{}
+	case "kubernetes:core/v1:PodTemplatePatch":
+		r = &PodTemplatePatch{}
 	case "kubernetes:core/v1:ReplicationController":
 		r = &ReplicationController{}
 	case "kubernetes:core/v1:ReplicationControllerList":
 		r = &ReplicationControllerList{}
+	case "kubernetes:core/v1:ReplicationControllerPatch":
+		r = &ReplicationControllerPatch{}
 	case "kubernetes:core/v1:ResourceQuota":
 		r = &ResourceQuota{}
 	case "kubernetes:core/v1:ResourceQuotaList":
 		r = &ResourceQuotaList{}
+	case "kubernetes:core/v1:ResourceQuotaPatch":
+		r = &ResourceQuotaPatch{}
 	case "kubernetes:core/v1:Secret":
 		r = &Secret{}
 	case "kubernetes:core/v1:SecretList":
 		r = &SecretList{}
+	case "kubernetes:core/v1:SecretPatch":
+		r = &SecretPatch{}
 	case "kubernetes:core/v1:Service":
 		r = &Service{}
 	case "kubernetes:core/v1:ServiceAccount":
 		r = &ServiceAccount{}
 	case "kubernetes:core/v1:ServiceAccountList":
 		r = &ServiceAccountList{}
+	case "kubernetes:core/v1:ServiceAccountPatch":
+		r = &ServiceAccountPatch{}
 	case "kubernetes:core/v1:ServiceList":
 		r = &ServiceList{}
+	case "kubernetes:core/v1:ServicePatch":
+		r = &ServicePatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

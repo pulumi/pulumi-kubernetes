@@ -3,6 +3,7 @@
 
 // Export members:
 export * from "./customResource";
+export * from "./customResourcePatch";
 
 // Export sub-modules:
 import * as v1 from "./v1";

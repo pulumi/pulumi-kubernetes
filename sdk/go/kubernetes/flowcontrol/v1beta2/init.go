@@ -25,10 +25,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &FlowSchema{}
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaList":
 		r = &FlowSchemaList{}
+	case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch":
+		r = &FlowSchemaPatch{}
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfiguration":
 		r = &PriorityLevelConfiguration{}
 	case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationList":
 		r = &PriorityLevelConfigurationList{}
+	case "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationPatch":
+		r = &PriorityLevelConfigurationPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

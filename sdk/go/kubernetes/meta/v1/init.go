@@ -23,6 +23,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 	switch typ {
 	case "kubernetes:meta/v1:Status":
 		r = &Status{}
+	case "kubernetes:meta/v1:StatusPatch":
+		r = &StatusPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

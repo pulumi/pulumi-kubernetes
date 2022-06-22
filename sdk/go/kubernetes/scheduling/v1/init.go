@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PriorityClass{}
 	case "kubernetes:scheduling.k8s.io/v1:PriorityClassList":
 		r = &PriorityClassList{}
+	case "kubernetes:scheduling.k8s.io/v1:PriorityClassPatch":
+		r = &PriorityClassPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

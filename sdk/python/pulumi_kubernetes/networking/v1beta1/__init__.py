@@ -8,6 +8,8 @@ import typing
 from .Ingress import *
 from .IngressClass import *
 from .IngressClassList import *
+from .IngressClassPatch import *
 from .IngressList import *
+from .IngressPatch import *
 from ._inputs import *
 from . import outputs

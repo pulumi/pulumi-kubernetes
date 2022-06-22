@@ -27,12 +27,18 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &IngressClass{}
 	case "kubernetes:networking.k8s.io/v1:IngressClassList":
 		r = &IngressClassList{}
+	case "kubernetes:networking.k8s.io/v1:IngressClassPatch":
+		r = &IngressClassPatch{}
 	case "kubernetes:networking.k8s.io/v1:IngressList":
 		r = &IngressList{}
+	case "kubernetes:networking.k8s.io/v1:IngressPatch":
+		r = &IngressPatch{}
 	case "kubernetes:networking.k8s.io/v1:NetworkPolicy":
 		r = &NetworkPolicy{}
 	case "kubernetes:networking.k8s.io/v1:NetworkPolicyList":
 		r = &NetworkPolicyList{}
+	case "kubernetes:networking.k8s.io/v1:NetworkPolicyPatch":
+		r = &NetworkPolicyPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

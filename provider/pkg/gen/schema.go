@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -251,6 +251,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		for _, version := range group.Versions() {
 			for _, kind := range version.Kinds() {
 				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)
+				var patchTok string
+				if !strings.HasSuffix(kind.kind, "List") {
+					patchTok = fmt.Sprintf("%sPatch", tok)
+				}
 
 				csharpNamespaces[kind.apiVersion] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
 				javaPackages[kind.apiVersion] = fmt.Sprintf("%s.%s", group.Group(), version.Version())
@@ -294,6 +298,44 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				pkg.Types[tok] = pschema.ComplexTypeSpec{
 					ObjectTypeSpec: objectSpec,
 				}
+
+				// Add "Patch" types corresponding to all non "List" resource kinds.
+				var patchSpec pschema.ObjectTypeSpec
+				if len(patchTok) > 0 {
+					patchSpec = pschema.ObjectTypeSpec{
+						Description: kind.Comment() + kind.PulumiComment(),
+						Type:        "object",
+						Properties:  map[string]pschema.PropertySpec{},
+						Language:    map[string]pschema.RawMessage{},
+					}
+
+					var propNames []string
+					for _, p := range kind.Properties() {
+						patchSpec.Properties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
+						propNames = append(propNames, p.name)
+					}
+
+					// Check if the current type exists in the overlays and overwrite types accordingly.
+					if overlaySpec, hasType := typeOverlays[tok]; hasType {
+						for propName, overlayProp := range overlaySpec.Properties {
+							// If overlay prop types are defined, overwrite the k8s schema prop type.
+							if len(overlayProp.OneOf) > 1 {
+								if k8sProp, propExists := patchSpec.Properties[propName]; propExists {
+									k8sProp.OneOf = overlayProp.OneOf
+									k8sProp.Ref = ""
+									k8sProp.Type = ""
+
+									patchSpec.Properties[propName] = k8sProp
+								}
+							}
+						}
+					}
+
+					pkg.Types[patchTok] = pschema.ComplexTypeSpec{
+						ObjectTypeSpec: patchSpec,
+					}
+				}
+
 				if kind.IsNested() {
 					continue
 				}
@@ -334,6 +376,45 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				pkg.Resources[tok] = resourceSpec
+
+				// Add "Patch" resources corresponding to all non "List" resource kinds.
+				if len(patchTok) > 0 {
+					patchResourceSpec := pschema.ResourceSpec{
+						ObjectTypeSpec:     patchSpec,
+						DeprecationMessage: kind.DeprecationComment(),
+						InputProperties:    map[string]pschema.PropertySpec{},
+					}
+
+					for _, p := range kind.RequiredInputProperties() {
+						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
+					}
+					for _, p := range kind.OptionalInputProperties() {
+						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
+					}
+
+					for _, t := range kind.Aliases() {
+						aliasedType := fmt.Sprintf("%sPatch", t)
+						patchResourceSpec.Aliases = append(patchResourceSpec.Aliases, pschema.AliasSpec{Type: &aliasedType})
+					}
+
+					// Check if the current resource exists in the overlays and overwrite types accordingly.
+					if overlaySpec, hasResource := resourceOverlays[patchTok]; hasResource {
+						for propName, overlayProp := range overlaySpec.InputProperties {
+							// If overlay prop types are defined, overwrite the k8s schema prop type.
+							if len(overlayProp.OneOf) > 1 {
+								if k8sProp, propExists := objectSpec.Properties[propName]; propExists {
+									k8sProp.OneOf = overlayProp.OneOf
+									k8sProp.Ref = ""
+									k8sProp.Type = ""
+
+									patchResourceSpec.InputProperties[propName] = k8sProp
+								}
+							}
+						}
+					}
+
+					pkg.Resources[patchTok] = patchResourceSpec
+				}
 			}
 		}
 
@@ -449,6 +530,17 @@ func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema
 	var typ pschema.TypeSpec
 	err := json.Unmarshal([]byte(p.SchemaType()), &typ)
 	contract.Assert(err == nil)
+
+	if strings.HasSuffix(resourceKind, "Patch") {
+		if len(typ.Ref) > 0 && !strings.Contains(typ.Ref, "pulumi.json#") {
+			typ.Ref += "Patch"
+		}
+		if typ.Type == "array" && typ.Items != nil {
+			if len(typ.Items.Ref) > 0 && !strings.Contains(typ.Items.Ref, "pulumi.json#") {
+				typ.Items.Ref += "Patch"
+			}
+		}
+	}
 
 	constValue := func() *string {
 		cv := p.ConstValue()

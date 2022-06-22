@@ -7,7 +7,9 @@ import typing
 # Export this package's modules as members:
 from .FlowSchema import *
 from .FlowSchemaList import *
+from .FlowSchemaPatch import *
 from .PriorityLevelConfiguration import *
 from .PriorityLevelConfigurationList import *
+from .PriorityLevelConfigurationPatch import *
 from ._inputs import *
 from . import outputs

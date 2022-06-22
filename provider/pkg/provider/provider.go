@@ -2556,10 +2556,11 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 			}
 
 			newObject, err = client.Patch(
-				k.canceler.context, newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
-					DryRun:       []string{metav1.DryRunAll},
-					FieldManager: fieldManager,
-					Force:        &force,
+				context.TODO(), newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
+					DryRun:          []string{metav1.DryRunAll},
+					FieldManager:    fieldManager,
+					FieldValidation: metav1.FieldValidationIgnore,
+					Force:           &force,
 				})
 			if err != nil {
 				return nil, nil, err

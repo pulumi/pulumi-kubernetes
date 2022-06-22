@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .APIService import *
 from .APIServiceList import *
+from .APIServicePatch import *
 from ._inputs import *
 from . import outputs

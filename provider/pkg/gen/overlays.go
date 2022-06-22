@@ -1285,6 +1285,71 @@ var apiextentionsCustomResource = pschema.ResourceSpec{
 	},
 }
 
+var apiextentionsCustomResourcePatch = pschema.ResourceSpec{
+	ObjectTypeSpec: pschema.ObjectTypeSpec{
+		IsOverlay:   true,
+		Description: "CustomResourcePatch represents an instance of a CustomResourceDefinition (CRD). For example, the\n CoreOS Prometheus operator exposes a CRD `monitoring.coreos.com/ServiceMonitor`; to\n instantiate this as a Pulumi resource, one could call `new CustomResourcePatch`, passing the\n `ServiceMonitor` resource definition as an argument.",
+		Properties: map[string]pschema.PropertySpec{
+			"apiVersion": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+			},
+			"kind": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+			},
+			"metadata": {
+				TypeSpec: pschema.TypeSpec{
+					Ref: "#/types/kubernetes:meta/v1:ObjectMeta",
+				},
+				Description: "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
+			},
+		},
+		Type: "object",
+		Required: []string{
+			"apiVersion",
+			"kind",
+		},
+	},
+	InputProperties: map[string]pschema.PropertySpec{
+		"apiVersion": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+		},
+		"kind": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+		},
+		"metadata": {
+			TypeSpec: pschema.TypeSpec{
+				Ref: "#/types/kubernetes:meta/v1:ObjectMeta",
+			},
+			Description: "Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.",
+		},
+		"others": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "object",
+				AdditionalProperties: &pschema.TypeSpec{
+					Ref: "pulumi.json#/Any",
+				},
+			},
+			Description: "This field is not an actual property. It is used to represent custom property names and their values that can be passed in addition to the other input properties.",
+		},
+	},
+	RequiredInputs: []string{
+		"apiVersion",
+		"kind",
+	},
+}
+
 func init() {
 	typeOverlays["kubernetes:core/v1:ServiceSpec"] = serviceSpec
 	typeOverlays["kubernetes:core/v1:ServiceSpecType"] = serviceSpecType
@@ -1296,6 +1361,7 @@ func init() {
 	typeOverlays["kubernetes:index:HelmReleaseSettings"] = helmReleaseSettings
 
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextentionsCustomResource
+	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextentionsCustomResourcePatch
 	resourceOverlays["kubernetes:helm.sh/v2:Chart"] = helmV2ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource

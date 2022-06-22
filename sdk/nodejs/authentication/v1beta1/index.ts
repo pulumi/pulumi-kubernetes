@@ -6,9 +6,11 @@ import * as utilities from "../../utilities";
 
 // Export members:
 export * from "./tokenReview";
+export * from "./tokenReviewPatch";
 
 // Import resources to register:
 import { TokenReview } from "./tokenReview";
+import { TokenReviewPatch } from "./tokenReviewPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -16,6 +18,8 @@ const _module = {
         switch (type) {
             case "kubernetes:authentication.k8s.io/v1beta1:TokenReview":
                 return new TokenReview(name, <any>undefined, { urn })
+            case "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch":
+                return new TokenReviewPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

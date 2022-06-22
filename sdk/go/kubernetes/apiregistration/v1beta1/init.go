@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &APIService{}
 	case "kubernetes:apiregistration.k8s.io/v1beta1:APIServiceList":
 		r = &APIServiceList{}
+	case "kubernetes:apiregistration.k8s.io/v1beta1:APIServicePatch":
+		r = &APIServicePatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

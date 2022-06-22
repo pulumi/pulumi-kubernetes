@@ -25,22 +25,32 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CSIDriver{}
 	case "kubernetes:storage.k8s.io/v1:CSIDriverList":
 		r = &CSIDriverList{}
+	case "kubernetes:storage.k8s.io/v1:CSIDriverPatch":
+		r = &CSIDriverPatch{}
 	case "kubernetes:storage.k8s.io/v1:CSINode":
 		r = &CSINode{}
 	case "kubernetes:storage.k8s.io/v1:CSINodeList":
 		r = &CSINodeList{}
+	case "kubernetes:storage.k8s.io/v1:CSINodePatch":
+		r = &CSINodePatch{}
 	case "kubernetes:storage.k8s.io/v1:CSIStorageCapacity":
 		r = &CSIStorageCapacity{}
 	case "kubernetes:storage.k8s.io/v1:CSIStorageCapacityList":
 		r = &CSIStorageCapacityList{}
+	case "kubernetes:storage.k8s.io/v1:CSIStorageCapacityPatch":
+		r = &CSIStorageCapacityPatch{}
 	case "kubernetes:storage.k8s.io/v1:StorageClass":
 		r = &StorageClass{}
 	case "kubernetes:storage.k8s.io/v1:StorageClassList":
 		r = &StorageClassList{}
+	case "kubernetes:storage.k8s.io/v1:StorageClassPatch":
+		r = &StorageClassPatch{}
 	case "kubernetes:storage.k8s.io/v1:VolumeAttachment":
 		r = &VolumeAttachment{}
 	case "kubernetes:storage.k8s.io/v1:VolumeAttachmentList":
 		r = &VolumeAttachmentList{}
+	case "kubernetes:storage.k8s.io/v1:VolumeAttachmentPatch":
+		r = &VolumeAttachmentPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

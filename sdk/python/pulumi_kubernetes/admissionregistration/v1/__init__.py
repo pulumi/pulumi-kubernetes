@@ -7,7 +7,9 @@ import typing
 # Export this package's modules as members:
 from .MutatingWebhookConfiguration import *
 from .MutatingWebhookConfigurationList import *
+from .MutatingWebhookConfigurationPatch import *
 from .ValidatingWebhookConfiguration import *
 from .ValidatingWebhookConfigurationList import *
+from .ValidatingWebhookConfigurationPatch import *
 from ._inputs import *
 from . import outputs

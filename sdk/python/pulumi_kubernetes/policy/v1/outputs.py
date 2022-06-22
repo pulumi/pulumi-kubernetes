@@ -14,7 +14,9 @@ from ... import meta as _meta
 __all__ = [
     'PodDisruptionBudget',
     'PodDisruptionBudgetSpec',
+    'PodDisruptionBudgetSpecPatch',
     'PodDisruptionBudgetStatus',
+    'PodDisruptionBudgetStatusPatch',
 ]
 
 @pulumi.output_type
@@ -172,6 +174,72 @@ class PodDisruptionBudgetSpec(dict):
 
 
 @pulumi.output_type
+class PodDisruptionBudgetSpecPatch(dict):
+    """
+    PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxUnavailable":
+            suggest = "max_unavailable"
+        elif key == "minAvailable":
+            suggest = "min_available"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudgetSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudgetSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudgetSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 max_unavailable: Optional[Any] = None,
+                 min_available: Optional[Any] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None):
+        """
+        PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+        :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        """
+        if max_unavailable is not None:
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
+        if min_available is not None:
+            pulumi.set(__self__, "min_available", min_available)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+
+    @property
+    @pulumi.getter(name="maxUnavailable")
+    def max_unavailable(self) -> Optional[Any]:
+        """
+        An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        """
+        return pulumi.get(self, "max_unavailable")
+
+    @property
+    @pulumi.getter(name="minAvailable")
+    def min_available(self) -> Optional[Any]:
+        """
+        An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        """
+        return pulumi.get(self, "min_available")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        """
+        return pulumi.get(self, "selector")
+
+
+@pulumi.output_type
 class PodDisruptionBudgetStatus(dict):
     """
     PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
@@ -295,6 +363,144 @@ class PodDisruptionBudgetStatus(dict):
         DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
         """
         return pulumi.get(self, "disrupted_pods")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        """
+        return pulumi.get(self, "observed_generation")
+
+
+@pulumi.output_type
+class PodDisruptionBudgetStatusPatch(dict):
+    """
+    PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentHealthy":
+            suggest = "current_healthy"
+        elif key == "desiredHealthy":
+            suggest = "desired_healthy"
+        elif key == "disruptedPods":
+            suggest = "disrupted_pods"
+        elif key == "disruptionsAllowed":
+            suggest = "disruptions_allowed"
+        elif key == "expectedPods":
+            suggest = "expected_pods"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodDisruptionBudgetStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodDisruptionBudgetStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodDisruptionBudgetStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+                 current_healthy: Optional[int] = None,
+                 desired_healthy: Optional[int] = None,
+                 disrupted_pods: Optional[Mapping[str, str]] = None,
+                 disruptions_allowed: Optional[int] = None,
+                 expected_pods: Optional[int] = None,
+                 observed_generation: Optional[int] = None):
+        """
+        PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
+                             the number of allowed disruptions. Therefore no disruptions are
+                             allowed and the status of the condition will be False.
+               - InsufficientPods: The number of pods are either at or below the number
+                                   required by the PodDisruptionBudget. No disruptions are
+                                   allowed and the status of the condition will be False.
+               - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+                                 The condition will be True, and the number of allowed
+                                 disruptions are provided by the disruptionsAllowed property.
+        :param int current_healthy: current number of healthy pods
+        :param int desired_healthy: minimum desired number of healthy pods
+        :param Mapping[str, str] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
+        :param int disruptions_allowed: Number of pod disruptions that are currently allowed.
+        :param int expected_pods: total number of pods counted by this disruption budget
+        :param int observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if current_healthy is not None:
+            pulumi.set(__self__, "current_healthy", current_healthy)
+        if desired_healthy is not None:
+            pulumi.set(__self__, "desired_healthy", desired_healthy)
+        if disrupted_pods is not None:
+            pulumi.set(__self__, "disrupted_pods", disrupted_pods)
+        if disruptions_allowed is not None:
+            pulumi.set(__self__, "disruptions_allowed", disruptions_allowed)
+        if expected_pods is not None:
+            pulumi.set(__self__, "expected_pods", expected_pods)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
+                      the number of allowed disruptions. Therefore no disruptions are
+                      allowed and the status of the condition will be False.
+        - InsufficientPods: The number of pods are either at or below the number
+                            required by the PodDisruptionBudget. No disruptions are
+                            allowed and the status of the condition will be False.
+        - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+                          The condition will be True, and the number of allowed
+                          disruptions are provided by the disruptionsAllowed property.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="currentHealthy")
+    def current_healthy(self) -> Optional[int]:
+        """
+        current number of healthy pods
+        """
+        return pulumi.get(self, "current_healthy")
+
+    @property
+    @pulumi.getter(name="desiredHealthy")
+    def desired_healthy(self) -> Optional[int]:
+        """
+        minimum desired number of healthy pods
+        """
+        return pulumi.get(self, "desired_healthy")
+
+    @property
+    @pulumi.getter(name="disruptedPods")
+    def disrupted_pods(self) -> Optional[Mapping[str, str]]:
+        """
+        DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
+        """
+        return pulumi.get(self, "disrupted_pods")
+
+    @property
+    @pulumi.getter(name="disruptionsAllowed")
+    def disruptions_allowed(self) -> Optional[int]:
+        """
+        Number of pod disruptions that are currently allowed.
+        """
+        return pulumi.get(self, "disruptions_allowed")
+
+    @property
+    @pulumi.getter(name="expectedPods")
+    def expected_pods(self) -> Optional[int]:
+        """
+        total number of pods counted by this disruption budget
+        """
+        return pulumi.get(self, "expected_pods")
 
     @property
     @pulumi.getter(name="observedGeneration")

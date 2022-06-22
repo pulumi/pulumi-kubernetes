@@ -110,7 +110,109 @@ func (o InfoOutput) Platform() pulumi.StringOutput {
 	return o.ApplyT(func(v Info) string { return v.Platform }).(pulumi.StringOutput)
 }
 
+// Info contains versioning information. how we'll want to distribute that information.
+type InfoPatch struct {
+	BuildDate    *string `pulumi:"buildDate"`
+	Compiler     *string `pulumi:"compiler"`
+	GitCommit    *string `pulumi:"gitCommit"`
+	GitTreeState *string `pulumi:"gitTreeState"`
+	GitVersion   *string `pulumi:"gitVersion"`
+	GoVersion    *string `pulumi:"goVersion"`
+	Major        *string `pulumi:"major"`
+	Minor        *string `pulumi:"minor"`
+	Platform     *string `pulumi:"platform"`
+}
+
+// InfoPatchInput is an input type that accepts InfoPatchArgs and InfoPatchOutput values.
+// You can construct a concrete instance of `InfoPatchInput` via:
+//
+//          InfoPatchArgs{...}
+type InfoPatchInput interface {
+	pulumi.Input
+
+	ToInfoPatchOutput() InfoPatchOutput
+	ToInfoPatchOutputWithContext(context.Context) InfoPatchOutput
+}
+
+// Info contains versioning information. how we'll want to distribute that information.
+type InfoPatchArgs struct {
+	BuildDate    pulumi.StringPtrInput `pulumi:"buildDate"`
+	Compiler     pulumi.StringPtrInput `pulumi:"compiler"`
+	GitCommit    pulumi.StringPtrInput `pulumi:"gitCommit"`
+	GitTreeState pulumi.StringPtrInput `pulumi:"gitTreeState"`
+	GitVersion   pulumi.StringPtrInput `pulumi:"gitVersion"`
+	GoVersion    pulumi.StringPtrInput `pulumi:"goVersion"`
+	Major        pulumi.StringPtrInput `pulumi:"major"`
+	Minor        pulumi.StringPtrInput `pulumi:"minor"`
+	Platform     pulumi.StringPtrInput `pulumi:"platform"`
+}
+
+func (InfoPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*InfoPatch)(nil)).Elem()
+}
+
+func (i InfoPatchArgs) ToInfoPatchOutput() InfoPatchOutput {
+	return i.ToInfoPatchOutputWithContext(context.Background())
+}
+
+func (i InfoPatchArgs) ToInfoPatchOutputWithContext(ctx context.Context) InfoPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InfoPatchOutput)
+}
+
+// Info contains versioning information. how we'll want to distribute that information.
+type InfoPatchOutput struct{ *pulumi.OutputState }
+
+func (InfoPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*InfoPatch)(nil)).Elem()
+}
+
+func (o InfoPatchOutput) ToInfoPatchOutput() InfoPatchOutput {
+	return o
+}
+
+func (o InfoPatchOutput) ToInfoPatchOutputWithContext(ctx context.Context) InfoPatchOutput {
+	return o
+}
+
+func (o InfoPatchOutput) BuildDate() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.BuildDate }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) Compiler() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.Compiler }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) GitCommit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.GitCommit }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) GitTreeState() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.GitTreeState }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) GitVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.GitVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) GoVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.GoVersion }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) Major() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.Major }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) Minor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.Minor }).(pulumi.StringPtrOutput)
+}
+
+func (o InfoPatchOutput) Platform() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InfoPatch) *string { return v.Platform }).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*InfoInput)(nil)).Elem(), InfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InfoPatchInput)(nil)).Elem(), InfoPatchArgs{})
 	pulumi.RegisterOutputType(InfoOutput{})
+	pulumi.RegisterOutputType(InfoPatchOutput{})
 }

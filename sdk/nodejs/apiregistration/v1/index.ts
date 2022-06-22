@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./apiservice";
 export * from "./apiserviceList";
+export * from "./apiservicePatch";
 
 // Import resources to register:
 import { APIService } from "./apiservice";
 import { APIServiceList } from "./apiserviceList";
+import { APIServicePatch } from "./apiservicePatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new APIService(name, <any>undefined, { urn })
             case "kubernetes:apiregistration.k8s.io/v1:APIServiceList":
                 return new APIServiceList(name, <any>undefined, { urn })
+            case "kubernetes:apiregistration.k8s.io/v1:APIServicePatch":
+                return new APIServicePatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

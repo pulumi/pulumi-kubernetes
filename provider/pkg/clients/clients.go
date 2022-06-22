@@ -167,7 +167,8 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet) 
 		gv = "v1"
 	}
 
-	if known, namespaced := kinds.Kind(gvk.Kind).Namespaced(); known {
+	kind := strings.TrimSuffix(gvk.Kind, "Patch") // Check using the underlying kind for Patch resources
+	if known, namespaced := kinds.Kind(kind).Namespaced(); known {
 		return namespaced, nil
 	}
 
