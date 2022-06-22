@@ -2597,6 +2597,21 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 		return nil, nil, err
 	}
 
+	if k.serverSideApplyMode {
+		objMetadata := newObject.Object["metadata"].(map[string]interface{})
+		if len(objMetadata) == 1 {
+			delete(newObject.Object, "metadata")
+		} else {
+			delete(newObject.Object["metadata"].(map[string]interface{}), "managedFields")
+		}
+		objMetadata = liveObject.Object["metadata"].(map[string]interface{})
+		if len(objMetadata) == 1 {
+			delete(liveObject.Object, "metadata")
+		} else {
+			delete(liveObject.Object["metadata"].(map[string]interface{}), "managedFields")
+		}
+	}
+
 	liveJSON, err := liveObject.MarshalJSON()
 	if err != nil {
 		return nil, nil, err
