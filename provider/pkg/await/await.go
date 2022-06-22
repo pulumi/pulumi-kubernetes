@@ -153,11 +153,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// nolint
 	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
 
-	var options metav1.CreateOptions
-	if c.DryRun {
-		options.DryRun = []string{metav1.DryRunAll}
-	}
-
 	var outputs *unstructured.Unstructured
 	var client dynamic.ResourceInterface
 	err := retry.SleepingRetry(
@@ -189,6 +184,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					FieldManager: c.FieldManager,
 					Force:        &force,
 				}
+				if c.DryRun {
+					options.DryRun = []string{metav1.DryRunAll}
+				}
 				objYAML, err := yaml.Marshal(c.Inputs.Object)
 				if err != nil {
 					return err
@@ -199,6 +197,11 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					return err
 				}
 			} else {
+				var options metav1.CreateOptions
+				if c.DryRun {
+					options.DryRun = []string{metav1.DryRunAll}
+				}
+
 				outputs, err = client.Create(context.TODO(), c.Inputs, options)
 				if err != nil {
 					// If the namespace hasn't been created yet, the preview will always fail.
