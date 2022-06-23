@@ -2204,7 +2204,7 @@ func (k *kubeProvider) Update(
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
 		Timeout:  req.Timeout,
-		DryRun:   req.GetPreview(),
+		Preview:  req.GetPreview(),
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)

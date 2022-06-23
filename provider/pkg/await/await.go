@@ -82,7 +82,7 @@ type UpdateConfig struct {
 	Previous *unstructured.Unstructured
 	Inputs   *unstructured.Unstructured
 	Timeout  float64
-	DryRun   bool
+	Preview  bool
 }
 
 type DeleteConfig struct {
@@ -389,7 +389,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		}
 
 		var options metav1.PatchOptions
-		if c.DryRun {
+		if c.Preview {
 			options.DryRun = []string{metav1.DryRunAll}
 		}
 
@@ -404,7 +404,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	if err != nil {
 		return nil, err
 	}
-	if c.DryRun {
+	if c.Preview {
 		return currentOutputs, nil
 	}
 
