@@ -11,8 +11,8 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335
-	github.com/pulumi/pulumi/pkg/v3 v3.34.1
-	github.com/pulumi/pulumi/sdk/v3 v3.34.1
+	github.com/pulumi/pulumi/pkg/v3 v3.35.0
+	github.com/pulumi/pulumi/sdk/v3 v3.35.0
 	github.com/stretchr/testify v1.7.1
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd
 	google.golang.org/grpc v1.45.0
@@ -245,7 +245,11 @@ require (
 
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
+	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/docker/cli v20.10.13+incompatible // indirect
+	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/klauspost/compress v1.15.1 // indirect
 	github.com/moby/sys/mountinfo v0.6.0 // indirect
+	github.com/natefinch/atomic v1.0.1 // indirect
+	lukechampine.com/frand v1.4.2 // indirect
 )
