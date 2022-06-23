@@ -1,7 +1,15 @@
 ## Unreleased
 
+### Deprecations
+
+- The `enableDryRun` option on the Provider is deprecated in this update and will be removed in a future release.
+  The behavior formerly enabled by this option is now part of the new `enableServerSideApply` option.
+
+### Improvements
+
 - Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
 - Add awaiter for service-account-token secret (https://github.com/pulumi/pulumi-kubernetes/pull/2048)
+- Update Python apiextensions.CustomResource to match current codegen (https://github.com/pulumi/pulumi-kubernetes/pull/2045)
 
 ## 3.19.4 (June 21, 2022)
 

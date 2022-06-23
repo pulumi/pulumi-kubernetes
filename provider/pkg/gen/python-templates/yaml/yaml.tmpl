@@ -441,7 +441,7 @@ def _parse_yaml_object(
     if opts is not None:
         opts = copy(opts)
     else:
-        opts = {}
+        opts = pulumi.ResourceOptions()
 
     # Allow users to change API objects before any validation.
     if transformations is not None:
