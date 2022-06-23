@@ -1,9 +1,20 @@
-// Copyright 2021, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2022, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package await
 
 import (
-	"context"
 	"fmt"
 	"reflect"
 	"time"
@@ -156,7 +167,7 @@ func (sia *serviceInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Service and Endpoints.
-	service, err := serviceClient.Get(context.TODO(),
+	service, err := serviceClient.Get(sia.config.ctx,
 		sia.config.currentOutputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
@@ -172,7 +183,7 @@ func (sia *serviceInitAwaiter) Read() error {
 	//
 
 	// Create endpoint watcher.
-	endpointList, err := endpointsClient.List(context.TODO(), metav1.ListOptions{})
+	endpointList, err := endpointsClient.List(sia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving ReplicaSet list for Service %q: %v",
 			service.GetName(), err)

@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -177,7 +177,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			outputs, err = client.Create(context.TODO(), c.Inputs, options)
+			outputs, err = client.Create(c.Context, c.Inputs, options)
 			if err != nil {
 				// If the namespace hasn't been created yet, the preview will always fail.
 				if c.DryRun && IsNamespaceNotFoundErr(err) {
@@ -238,7 +238,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
-	live, err := client.Get(context.TODO(), c.Inputs.GetName(), metav1.GetOptions{})
+	live, err := client.Get(c.Context, c.Inputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return outputs, nil
 	}
@@ -253,7 +253,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	}
 
 	// Retrieve live version of the object from k8s.
-	outputs, err := client.Get(context.TODO(), c.Name, metav1.GetOptions{})
+	outputs, err := client.Get(c.Context, c.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	} else if c.Inputs == nil || len(c.Inputs.Object) == 0 {
@@ -292,7 +292,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
-	live, err := client.Get(context.TODO(), c.Name, metav1.GetOptions{})
+	live, err := client.Get(c.Context, c.Name, metav1.GetOptions{})
 	if err != nil {
 		return outputs, nil
 	}
@@ -361,7 +361,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 
 	// Get the "live" version of the last submitted object. This is necessary because the server may
 	// have populated some fields automatically, updated status fields, and so on.
-	liveOldObj, err := client.Get(context.TODO(), c.Previous.GetName(), metav1.GetOptions{})
+	liveOldObj, err := client.Get(c.Context, c.Previous.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -377,7 +377,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
 		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
 		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
-		currentOutputs, err = client.Update(context.TODO(), c.Inputs, metav1.UpdateOptions{})
+		currentOutputs, err = client.Update(c.Context, c.Inputs, metav1.UpdateOptions{})
 		if err != nil {
 			return nil, err
 		}
@@ -396,7 +396,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		// Issue patch request.
 		// NOTE: We can use the same client because if the `kind` changes, this will cause
 		// a replace (i.e., destroy and create).
-		currentOutputs, err = client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, options)
+		currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), patchType, patch, options)
 		if err != nil {
 			return nil, err
 		}
@@ -449,7 +449,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// If the client fails to get the live object for some reason, DO NOT return the error. This
 	// will leak the fact that the object was successfully created. Instead, fall back to the
 	// last-seen live object.
-	live, err := client.Get(context.TODO(), c.Inputs.GetName(), metav1.GetOptions{})
+	live, err := client.Get(c.Context, c.Inputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return currentOutputs, nil
 	}
@@ -492,12 +492,12 @@ func Deletion(c DeleteConfig) error {
 	}
 
 	// Set up a watcher for the selected resource.
-	watcher, err := client.Watch(context.TODO(), listOpts)
+	watcher, err := client.Watch(c.Context, listOpts)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Name, client, cluster.TryGetServerVersion(c.ClientSet.DiscoveryClientCached))
+	err = deleteResource(c.Context, c.Name, client, cluster.TryGetServerVersion(c.ClientSet.DiscoveryClientCached))
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -530,7 +530,7 @@ func Deletion(c DeleteConfig) error {
 			select {
 			case event, ok := <-watcher.ResultChan():
 				if !ok {
-					deleted, obj := checkIfResourceDeleted(c.Name, client)
+					deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
 					if deleted {
 						_ = clearStatus(c.Context, c.Host, c.URN)
 						return nil
@@ -549,7 +549,7 @@ func Deletion(c DeleteConfig) error {
 					_ = clearStatus(c.Context, c.Host, c.URN)
 					return nil
 				case watch.Error:
-					deleted, obj := checkIfResourceDeleted(c.Name, client)
+					deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
 					if deleted {
 						_ = clearStatus(c.Context, c.Host, c.URN)
 						return nil
@@ -562,7 +562,7 @@ func Deletion(c DeleteConfig) error {
 			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
 				watcher.Stop()
 				logger.V(3).Infof("Received error deleting object %q: %#v", id, err)
-				deleted, obj := checkIfResourceDeleted(c.Name, client)
+				deleted, obj := checkIfResourceDeleted(c.Context, c.Name, client)
 				if deleted {
 					_ = clearStatus(c.Context, c.Host, c.URN)
 					return nil
@@ -578,7 +578,8 @@ func Deletion(c DeleteConfig) error {
 	return waitErr
 }
 
-func deleteResource(name string, client dynamic.ResourceInterface, version cluster.ServerVersion) error {
+func deleteResource(
+	ctx context.Context, name string, client dynamic.ResourceInterface, version cluster.ServerVersion) error {
 	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
 	deleteOpts := metav1.DeleteOptions{}
 	if version.Compare(cluster.ServerVersion{Major: 1, Minor: 6}) < 0 {
@@ -603,13 +604,14 @@ func deleteResource(name string, client dynamic.ResourceInterface, version clust
 	}
 
 	// Issue deletion request.
-	return client.Delete(context.TODO(), name, *&deleteOpts)
+	return client.Delete(ctx, name, *&deleteOpts)
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
 // Return the resource if it still exists.
-func checkIfResourceDeleted(name string, client dynamic.ResourceInterface) (bool, *unstructured.Unstructured) {
-	obj, err := client.Get(context.TODO(), name, metav1.GetOptions{})
+func checkIfResourceDeleted(
+	ctx context.Context, name string, client dynamic.ResourceInterface) (bool, *unstructured.Unstructured) {
+	obj, err := client.Get(ctx, name, metav1.GetOptions{})
 	if err != nil && is404(err) { // In case of 404, the resource no longer exists, so return success.
 		return true, nil
 	}

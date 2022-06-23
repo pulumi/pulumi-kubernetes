@@ -1,9 +1,20 @@
-// Copyright 2021, Pulumi Corporation.  All rights reserved.
+// Copyright 2016-2022, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 package await
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"reflect"
@@ -144,7 +155,7 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Ingress.
-	ingress, err := ingressClient.Get(context.TODO(), iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := ingressClient.Get(iia.config.ctx, iia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the deployment as having been deleted.
@@ -152,13 +163,13 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live version of Endpoints.
-	endpointList, err := endpointsClient.List(context.TODO(), metav1.ListOptions{})
+	endpointList, err := endpointsClient.List(iia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list endpoints needed for Ingress awaiter: %v", err)
 		endpointList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	serviceList, err := servicesClient.List(context.TODO(), metav1.ListOptions{})
+	serviceList, err := servicesClient.List(iia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Failed to list services needed for Ingress awaiter: %v", err)
 		serviceList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
