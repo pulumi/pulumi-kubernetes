@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,19 +15,10 @@
 package await
 
 import (
-	"context"
-	"log"
-	"sort"
-
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
-	"k8s.io/client-go/dynamic"
 )
 
 const trueStatus = "True"
@@ -63,79 +54,6 @@ func watchAddedEvent(obj runtime.Object) watch.Event {
 		Type:   watch.Added,
 		Object: obj,
 	}
-}
-
-// nolint
-func getLastWarningsForObject(
-	clientForEvents dynamic.ResourceInterface, namespace, name, kind string, limit int,
-) ([]v1.Event, error) {
-	m := map[string]string{
-		"involvedObject.name": name,
-		"involvedObject.kind": kind,
-	}
-	if namespace != "" {
-		m["involvedObject.namespace"] = namespace
-	}
-
-	fs := fields.Set(m).String()
-	logger.V(9).Infof("Looking up events via this selector: %q", fs)
-	out, err := clientForEvents.List(context.TODO(), metav1.ListOptions{
-		FieldSelector: fs,
-	})
-	if err != nil {
-		return nil, err
-	}
-
-	items := out.Items
-	var events []v1.Event
-	for _, item := range items {
-		// Round trip conversion from `Unstructured` to `v1.Event`. There doesn't seem to be a good way
-		// to do this conversion in client-go, and this is not a performance-critical section. When we
-		// upgrade to client-go v7, we can replace it with `runtime.DefaultUnstructuredConverter`.
-		var warning v1.Event
-		str, err := item.MarshalJSON()
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		err = warning.Unmarshal(str)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		events = append(events, warning)
-	}
-
-	// Bring latest events to the top, for easy access
-	sort.Slice(events, func(i, j int) bool {
-		return events[i].LastTimestamp.After(events[j].LastTimestamp.Time)
-	})
-
-	logger.V(9).Infof("Received '%d' events for %s/%s (%s)",
-		len(events), namespace, name, kind)
-
-	// It would be better to sort & filter on the server-side
-	// but API doesn't seem to support it
-	var warnings []v1.Event
-	warnCount := 0
-	uniqueWarnings := make(map[string]v1.Event)
-	for _, e := range events {
-		if warnCount >= limit {
-			break
-		}
-
-		if e.Type == v1.EventTypeWarning {
-			_, found := uniqueWarnings[e.Message]
-			if found {
-				continue
-			}
-			warnings = append(warnings, e)
-			uniqueWarnings[e.Message] = e
-			warnCount++
-		}
-	}
-
-	return warnings, nil
 }
 
 // --------------------------------------------------------------------------

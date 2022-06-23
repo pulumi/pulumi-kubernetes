@@ -1,4 +1,4 @@
-// Copyright 2016-2018, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ func ForObject(
 		ctx:     ctx,
 		objName: name,
 		pollFunc: func() (*unstructured.Unstructured, error) {
-			obj, err := clientForResource.Get(context.TODO(), name, metav1.GetOptions{})
+			obj, err := clientForResource.Get(ctx, name, metav1.GetOptions{})
 			if err != nil {
 				// Log the error.
 				logger.V(3).Infof("Received error polling for %q: %#v", name, err)

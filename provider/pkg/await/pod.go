@@ -15,7 +15,6 @@
 package await
 
 import (
-	"context"
 	"time"
 
 	"github.com/pkg/errors"
@@ -194,7 +193,7 @@ func (pia *podInitAwaiter) Read() error {
 			pia.config.currentInputs.GetName())
 	}
 	// Get live version of Pod.
-	pod, err := podClient.Get(context.TODO(), pia.config.currentInputs.GetName(), metav1.GetOptions{})
+	pod, err := podClient.Get(pia.config.ctx, pia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the Pod as having been deleted.
