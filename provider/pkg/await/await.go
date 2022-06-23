@@ -17,6 +17,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
@@ -25,6 +26,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/retry"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/ssa"
 	pulumiprovider "github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -35,9 +37,11 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
+	"sigs.k8s.io/yaml"
 )
 
 // --------------------------------------------------------------------------
@@ -57,7 +61,9 @@ type ProviderConfig struct {
 	Host              *pulumiprovider.HostClient
 	URN               resource.URN
 	InitialAPIVersion string
+	FieldManager      string
 	ClusterVersion    *cluster.ServerVersion
+	ServerSideApply   bool
 
 	ClientSet   *clients.DynamicClientSet
 	DedupLogger *logging.DedupLogger
@@ -147,11 +153,6 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	// nolint
 	// https://github.com/kubernetes/kubernetes/blob/54889d581a35acf940d52a8a384cccaa0b597ddc/pkg/kubectl/cmd/apply/apply.go#L94
 
-	var options metav1.CreateOptions
-	if c.DryRun {
-		options.DryRun = []string{metav1.DryRunAll}
-	}
-
 	var outputs *unstructured.Unstructured
 	var client dynamic.ResourceInterface
 	err := retry.SleepingRetry(
@@ -177,16 +178,41 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			}
 
-			outputs, err = client.Create(c.Context, c.Inputs, options)
-			if err != nil {
-				// If the namespace hasn't been created yet, the preview will always fail.
-				if c.DryRun && IsNamespaceNotFoundErr(err) {
-					return &namespaceError{c.Inputs}
+			if c.ServerSideApply {
+				force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+				options := metav1.PatchOptions{
+					FieldManager: c.FieldManager,
+					Force:        &force,
+				}
+				if c.DryRun {
+					options.DryRun = []string{metav1.DryRunAll}
+				}
+				objYAML, err := yaml.Marshal(c.Inputs.Object)
+				if err != nil {
+					return err
+				}
+				outputs, err = client.Patch(
+					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+				if err != nil {
+					return err
+				}
+			} else {
+				var options metav1.CreateOptions
+				if c.DryRun {
+					options.DryRun = []string{metav1.DryRunAll}
 				}
 
-				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
-					"Retry #%d; creation failed: %v", i, err))
-				return err
+				outputs, err = client.Create(c.Context, c.Inputs, options)
+				if err != nil {
+					// If the namespace hasn't been created yet, the preview will always fail.
+					if c.DryRun && IsNamespaceNotFoundErr(err) {
+						return &namespaceError{c.Inputs}
+					}
+
+					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
+						"Retry #%d; creation failed: %v", i, err))
+					return err
+				}
 			}
 
 			return nil
@@ -368,9 +394,6 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 
 	var currentOutputs *unstructured.Unstructured
 	if clients.IsCRD(c.Inputs) {
-		// Note: This feature is currently enabled with a provider feature flag, but is expected to eventually become
-		// the default behavior.
-
 		// CRDs require special handling to update. Rather than computing a patch, replace the CRD with a PUT
 		// operation (equivalent to running `kubectl replace`). This is accomplished by getting the `resourceVersion`
 		// of the existing CRD, setting that as the `resourceVersion` in the request, and then running an update. This
@@ -382,23 +405,47 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			return nil, err
 		}
 	} else {
-		// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
-		patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
-		if err != nil {
-			return nil, err
-		}
+		if c.ServerSideApply {
+			objYAML, err := yaml.Marshal(c.Inputs.Object)
+			if err != nil {
+				return nil, err
+			}
+			force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+			options := metav1.PatchOptions{
+				FieldManager: c.FieldManager,
+				Force:        &force,
+			}
+			if c.Preview {
+				options.DryRun = []string{metav1.DryRunAll}
+			}
 
-		var options metav1.PatchOptions
-		if c.Preview {
-			options.DryRun = []string{metav1.DryRunAll}
-		}
+			// Issue patch request.
+			// NOTE: We can use the same client because if the `kind` changes, this will cause
+			// a replace (i.e., destroy and create).
+			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+			if err != nil {
+				return nil, err
+			}
 
-		// Issue patch request.
-		// NOTE: We can use the same client because if the `kind` changes, this will cause
-		// a replace (i.e., destroy and create).
-		currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), patchType, patch, options)
-		if err != nil {
-			return nil, err
+		} else {
+			// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
+			patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
+			if err != nil {
+				return nil, err
+			}
+
+			var options metav1.PatchOptions
+			if c.Preview {
+				options.DryRun = []string{metav1.DryRunAll}
+			}
+
+			// Issue patch request.
+			// NOTE: We can use the same client because if the `kind` changes, this will cause
+			// a replace (i.e., destroy and create).
+			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), patchType, patch, options)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 	if err != nil {
@@ -482,6 +529,12 @@ func Deletion(c DeleteConfig) error {
 	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nilIfGVKDeleted(err)
+	}
+
+	patchResource := strings.HasSuffix(c.URN.Type().String(), "Patch")
+	if c.ServerSideApply && patchResource {
+		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
+		return err
 	}
 
 	timeout := metadata.TimeoutDuration(c.Timeout, c.Inputs, 300)

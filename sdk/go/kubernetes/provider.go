@@ -31,6 +31,9 @@ func NewProvider(ctx *pulumi.Context,
 	if isZero(args.EnableReplaceCRD) {
 		args.EnableReplaceCRD = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD").(bool))
 	}
+	if isZero(args.EnableServerSideApply) {
+		args.EnableServerSideApply = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").(bool))
+	}
 	if args.HelmReleaseSettings != nil {
 		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().ApplyT(func(v *HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }).(HelmReleaseSettingsPtrOutput)
 	}
@@ -68,13 +71,18 @@ type providerArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
-	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
-	// This feature is in developer preview, and is disabled by default.
+	// Deprecated. If present and set to true, enable server-side diff calculations.
+	//
+	// Deprecated: This option has been replaced by `enableServerSideApply`.
 	EnableDryRun *bool `pulumi:"enableDryRun"`
 	// Obsolete. This option has no effect.
 	//
 	// Deprecated: This option is deprecated, and will be removed in a future release.
 	EnableReplaceCRD *bool `pulumi:"enableReplaceCRD"`
+	// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+	// This feature is in developer preview, and is disabled by default.
+	EnableServerSideApply *bool `pulumi:"enableServerSideApply"`
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
 	// Options for tuning the Kubernetes client used by a Provider.
@@ -118,13 +126,18 @@ type ProviderArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable pulumi.BoolPtrInput
-	// BETA FEATURE - If present and set to true, enable server-side diff calculations.
-	// This feature is in developer preview, and is disabled by default.
+	// Deprecated. If present and set to true, enable server-side diff calculations.
+	//
+	// Deprecated: This option has been replaced by `enableServerSideApply`.
 	EnableDryRun pulumi.BoolPtrInput
 	// Obsolete. This option has no effect.
 	//
 	// Deprecated: This option is deprecated, and will be removed in a future release.
 	EnableReplaceCRD pulumi.BoolPtrInput
+	// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+	// This feature is in developer preview, and is disabled by default.
+	EnableServerSideApply pulumi.BoolPtrInput
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings HelmReleaseSettingsPtrInput
 	// Options for tuning the Kubernetes client used by a Provider.

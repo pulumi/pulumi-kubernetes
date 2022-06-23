@@ -33,6 +33,9 @@ const (
 	AnnotationInitialAPIVersion = AnnotationPrefix + "initialApiVersion"
 	AnnotationReplaceUnready    = AnnotationPrefix + "replaceUnready"
 
+	AnnotationPatchForce        = AnnotationPrefix + "patchForce"
+	AnnotationPatchFieldManager = AnnotationPrefix + "patchFieldManager"
+
 	AnnotationHelmHook = "helm.sh/hook"
 )
 
