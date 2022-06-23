@@ -192,7 +192,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					return err
 				}
 				outputs, err = client.Patch(
-					context.TODO(), c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 				if err != nil {
 					return err
 				}
@@ -202,7 +202,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
 
-				outputs, err = client.Create(context.TODO(), c.Inputs, options)
+				outputs, err = client.Create(c.Context, c.Inputs, options)
 				if err != nil {
 					// If the namespace hasn't been created yet, the preview will always fail.
 					if c.DryRun && IsNamespaceNotFoundErr(err) {
@@ -415,14 +415,14 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 				FieldManager: c.FieldManager,
 				Force:        &force,
 			}
-			if c.DryRun {
+			if c.Preview {
 				options.DryRun = []string{metav1.DryRunAll}
 			}
 
 			// Issue patch request.
 			// NOTE: We can use the same client because if the `kind` changes, this will cause
 			// a replace (i.e., destroy and create).
-			currentOutputs, err = client.Patch(context.TODO(), c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 			if err != nil {
 				return nil, err
 			}
@@ -435,14 +435,14 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			var options metav1.PatchOptions
-			if c.DryRun {
+			if c.Preview {
 				options.DryRun = []string{metav1.DryRunAll}
 			}
 
 			// Issue patch request.
 			// NOTE: We can use the same client because if the `kind` changes, this will cause
 			// a replace (i.e., destroy and create).
-			currentOutputs, err = client.Patch(context.TODO(), c.Inputs.GetName(), patchType, patch, options)
+			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), patchType, patch, options)
 			if err != nil {
 				return nil, err
 			}
@@ -533,7 +533,7 @@ func Deletion(c DeleteConfig) error {
 
 	patchResource := strings.HasSuffix(c.URN.Type().String(), "Patch")
 	if c.ServerSideApply && patchResource {
-		err = ssa.Relinquish(context.TODO(), client, c.Inputs, c.FieldManager)
+		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
 		return err
 	}
 

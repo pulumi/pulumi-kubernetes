@@ -2306,7 +2306,7 @@ func (k *kubeProvider) Update(
 				return nil, err
 			}
 
-			err = ssa.Relinquish(context.TODO(), client, newInputs, fieldManagerOld)
+			err = ssa.Relinquish(k.canceler.context, client, newInputs, fieldManagerOld)
 			if err != nil {
 				return nil, err
 			}
@@ -2556,7 +2556,7 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 			}
 
 			newObject, err = client.Patch(
-				context.TODO(), newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
+				k.canceler.context, newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
 					DryRun:       []string{metav1.DryRunAll},
 					FieldManager: fieldManager,
 					Force:        &force,
@@ -2577,7 +2577,7 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 				return nil, nil, err
 			}
 
-			newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+			newObject, err = client.Patch(k.canceler.context, newInputs.GetName(), patchType, patch, metav1.PatchOptions{
 				DryRun: []string{metav1.DryRunAll},
 			})
 			if err != nil {
