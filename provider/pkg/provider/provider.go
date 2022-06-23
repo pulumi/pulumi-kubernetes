@@ -2551,7 +2551,7 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 			}
 
 			force := metadata.IsAnnotationTrue(newInputs, metadata.AnnotationPatchForce)
-			if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchManager); len(v) > 0 {
+			if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
 				fieldManager = v
 			}
 
@@ -2692,11 +2692,7 @@ func (k *kubeProvider) tryServerSidePatch(
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if k.serverSideApplyMode {
-		return config, nil
-	}
-
-	if k.supportsDryRun(config.GroupVersionKind()) {
+	if k.serverSideApplyMode || k.supportsDryRun(config.GroupVersionKind()) {
 		// Skip last-applied-config annotation if the resource supports server-side apply.
 		return config, nil
 	}
@@ -2791,7 +2787,7 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 // 2. Value from the Pulumi state
 // 3. Randomly generated name
 func fieldManagerName(state resource.PropertyMap, inputs *unstructured.Unstructured) string {
-	if v := metadata.GetAnnotationValue(inputs, metadata.AnnotationPatchManager); len(v) > 0 {
+	if v := metadata.GetAnnotationValue(inputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
 		return v
 	}
 	if v, ok := state[fieldManagerKey]; ok {

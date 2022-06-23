@@ -34,15 +34,15 @@ import (
 func Relinquish(
 	ctx context.Context,
 	client dynamic.ResourceInterface,
-	inputs *unstructured.Unstructured,
+	input *unstructured.Unstructured,
 	fieldManager string,
 ) error {
-	// Create a minimal resource spec.
+	// Create a minimal resource spec with the same identity as the input resource.
 	obj := unstructured.Unstructured{}
-	obj.SetAPIVersion(inputs.GetAPIVersion())
-	obj.SetKind(inputs.GetKind())
-	obj.SetNamespace(inputs.GetNamespace())
-	obj.SetName(inputs.GetName())
+	obj.SetAPIVersion(input.GetAPIVersion())
+	obj.SetKind(input.GetKind())
+	obj.SetNamespace(input.GetNamespace())
+	obj.SetName(input.GetName())
 
 	yamlObj, err := yaml.Marshal(obj.Object)
 	if err != nil {
@@ -50,7 +50,7 @@ func Relinquish(
 	}
 
 	// Patching with a minimal spec tells the cluster that this field manager will no longer be managing any fields.
-	_, err = client.Patch(ctx, inputs.GetName(), types.ApplyPatchType, yamlObj,
+	_, err = client.Patch(ctx, input.GetName(), types.ApplyPatchType, yamlObj,
 		metav1.PatchOptions{
 			FieldManager: fieldManager,
 		})
