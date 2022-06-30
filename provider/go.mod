@@ -11,12 +11,12 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335
-	github.com/pulumi/pulumi/pkg/v3 v3.35.0
-	github.com/pulumi/pulumi/sdk/v3 v3.35.0
+	github.com/pulumi/pulumi/pkg/v3 v3.35.2
+	github.com/pulumi/pulumi/sdk/v3 v3.35.2
 	github.com/stretchr/testify v1.7.1
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd
-	google.golang.org/grpc v1.45.0
-	gopkg.in/yaml.v3 v3.0.0
+	google.golang.org/grpc v1.47.0
+	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.9.0
 	k8s.io/api v0.24.0
 	k8s.io/apimachinery v0.24.0
@@ -130,7 +130,7 @@ require (
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
 	github.com/hashicorp/go-sockaddr v1.0.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/hashicorp/hcl/v2 v2.11.1 // indirect
+	github.com/hashicorp/hcl/v2 v2.12.0 // indirect
 	github.com/hashicorp/vault/api v1.1.1 // indirect
 	github.com/hashicorp/vault/sdk v0.2.1 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
