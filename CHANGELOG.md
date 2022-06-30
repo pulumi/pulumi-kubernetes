@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
+- Add awaiter for service-account-token secret (https://github.com/pulumi/pulumi-kubernetes/pull/2048)
 
 ## 3.19.4 (June 21, 2022)
 

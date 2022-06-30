@@ -1098,3 +1098,23 @@ func TestReplaceDaemonSet(t *testing.T) {
 	})
 	integration.ProgramTest(t, &test)
 }
+
+func TestServiceAccountTokenSecret(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:           filepath.Join("service-account-token-secret", "step1"),
+		Quick:         true,
+		ExpectFailure: false,
+		SkipRefresh:   true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			_, err := json.Marshal(stackInfo.Deployment)
+			assert.NoError(t, err)
+
+			secretData := stackInfo.Outputs["data"].(map[string]interface{})
+
+			assert.Contains(t, secretData, "ca.crt")
+			assert.Contains(t, secretData, "token")
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
