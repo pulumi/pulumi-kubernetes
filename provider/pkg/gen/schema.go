@@ -227,6 +227,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"yaml":          "Yaml",
 		"":              "Provider",
 	}
+	javaPackages := map[string]string{
+		"helm.sh/v2": "helm.v2",
+		"helm.sh/v3": "helm.v3",
+	}
 	modToPkg := map[string]string{
 		"apiextensions.k8s.io": "apiextensions",
 		"helm.sh":              "helm",
@@ -249,6 +253,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				tok := fmt.Sprintf(`kubernetes:%s:%s`, kind.apiVersion, kind.kind)
 
 				csharpNamespaces[kind.apiVersion] = fmt.Sprintf("%s.%s", pascalCase(group.Group()), pascalCase(version.Version()))
+				javaPackages[kind.apiVersion] = fmt.Sprintf("%s.%s", group.Group(), version.Version())
 				modToPkg[kind.apiVersion] = kind.schemaPkgName
 				pkgImportAliases[fmt.Sprintf("%s/%s", goImportPath, kind.schemaPkgName)] = strings.Replace(
 					kind.schemaPkgName, "/", "", -1)
@@ -366,6 +371,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"namespaces":             csharpNamespaces,
 		"compatibility":          kubernetes20,
 		"dictionaryConstructors": true,
+	})
+
+	pkg.Language["java"] = rawMessage(map[string]interface{}{
+		"packages": javaPackages,
 	})
 
 	pkg.Language["go"] = rawMessage(map[string]interface{}{
