@@ -1,0 +1,73 @@
+on:
+    push:
+        paths:
+            - 'provider/pkg/gen/examples/upstream'
+env:
+  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
+
+jobs:
+    regenerate-examples:
+    name: Generate Examples
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+        goversion: [1.17.x]
+    steps:
+        - name: Checkout Repo
+        uses: actions/checkout@v2
+        - name: Unshallow clone for tags
+        run: git fetch --prune --unshallow --tags
+        - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+            go-version: ${{ matrix.goversion }}
+        - name: Install pulumictl
+        uses: jaxxstorm/action-install-gh-release@v1.1.0
+        with:
+            repo: pulumi/pulumictl
+        - name: Install Pulumi CLI
+        uses: pulumi/setup-pulumi@v2
+        - name: Preparing Git Branch
+        run: |
+            git config --local user.email "bot@pulumi.com"
+            git config --local user.name "pulumi-bot"
+            git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+        - name: Update pulumi/pulumi
+        id: gomod
+        run: |
+            cd provider
+            go get github.com/pulumi/pulumi/pkg/v3
+            go get github.com/pulumi/pulumi/sdk/v3
+            cd ..
+            make ensure
+            git update-index -q --refresh
+            if ! git diff-files --quiet; then
+            echo ::set-output name=changes::1
+            fi
+        - name: Generate examples
+        run: |
+            cd provider/pkg/gen/examples/upstream
+            go run ./yaml ./
+        - name: Commit changes
+        if: steps.gomod.outputs.changes != 0
+        run: |
+            git add provider/pkg/gen/examples/upstream
+            git commit -m "Updated modules"
+            git push origin update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+        - name: Create PR
+        id: create-pr
+        if: steps.gomod.outputs.changes != 0
+        uses: repo-sync/pull-request@v2.6.2
+        with:
+            source_branch: "update-pulumi/${{ github.run_id }}-${{ github.run_number }}"
+            destination_branch: ${{github.event.pull_request.head.repo.full_name}}
+            pr_title: "Automated pulumi/pulumi upgrade"
+            github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
+        - name: Set Automerge
+        if: steps.create-pr.outputs.has_changed_files
+        uses: peter-evans/enable-pull-request-automerge@v1
+        with:
+            token: ${{ secrets.PULUMI_BOT_TOKEN }}
+            pull-request-number: ${{ steps.create-pr.outputs.pr_number }}
+            repository: ${{ github.repository }}
+            merge-method: squash
