@@ -2,11 +2,7 @@ name: generate-examples
 on:
     pull-request:
         branches:
-            - main
-            - vl/yamlgen
-    push:
-        branches:
-            - harry/yamlgen
+            - master
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
 
