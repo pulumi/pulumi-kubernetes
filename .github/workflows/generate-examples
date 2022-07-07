@@ -3,6 +3,9 @@ on:
         branches:
             - main
             - vl/yamlgen
+    push:
+        branches:
+            - harry/yamlgen
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
 
