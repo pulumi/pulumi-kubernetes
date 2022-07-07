@@ -1,3 +1,4 @@
+name: generate-examples
 on:
     pull-request:
         branches:
