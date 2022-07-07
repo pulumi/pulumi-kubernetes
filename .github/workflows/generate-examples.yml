@@ -28,6 +28,8 @@ jobs:
                 repo: pulumi/pulumictl
           - name: Install Pulumi CLI
             uses: pulumi/action-install-pulumi-cli@v1.0.1
+          - name: Install Kubernetes Plugin
+            run: pulumi plugin install resource kubernetes
           - name: Preparing git branch
             run: |
                 git config --local user.email "bot@pulumi.com"
