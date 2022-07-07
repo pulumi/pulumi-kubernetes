@@ -1220,6 +1220,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
+	if !k.serverSideApplyMode && strings.HasSuffix(urn.Type().String(), "Patch") {
+		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
+			"`enableServerSideApply` Provider config")
+	}
+
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
 		knownGVKs := sets.NewString()
