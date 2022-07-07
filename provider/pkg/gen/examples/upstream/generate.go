@@ -3,21 +3,22 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
-	"gopkg.in/yaml.v3"
 	"io"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	"gopkg.in/yaml.v3"
 )
 
 //go:generate go run generate.go yaml .
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Fprintf(os.Stderr, "Usage: %s <yaml source dir path> <markdown destination path>\n", os.Args[0])
+		fmt.Fprintf(os.Stdout, "Usage: %s <yaml source dir path> <markdown destination path>\n", os.Args[0])
 		os.Exit(1)
 	}
 	yamlPath := os.Args[1]
