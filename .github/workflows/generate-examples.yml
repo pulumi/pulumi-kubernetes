@@ -36,7 +36,7 @@ jobs:
           - name: Generate examples
             run: |
                 cd provider/pkg/gen/examples/upstream
-                go run ./yaml ./
+                go run generate.go ./yaml ./
           - name: Commit changes
             if: steps.gomod.outputs.changes != 0
             run: |
