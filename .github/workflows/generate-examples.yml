@@ -14,36 +14,36 @@ jobs:
             matrix:
             goversion: [1.17.x]
         steps:
-        - name: Checkout Repo
+          - name: Checkout Repo
             uses: actions/checkout@v2
-        - name: Unshallow clone for tags
+          - name: Unshallow clone for tags
             run: git fetch --prune --unshallow --tags
-        - name: Install Go
+          - name: Install Go
             uses: actions/setup-go@v2
             with:
             go-version: ${{ matrix.goversion }}
-        - name: Install pulumictl
+          - name: Install pulumictl
             uses: jaxxstorm/action-install-gh-release@v1.1.0
             with:
             repo: pulumi/pulumictl
-        - name: Install Pulumi CLI
+          - name: Install Pulumi CLI
             uses: pulumi/action-install-pulumi-cli@v1.0.1
-        - name: Preparing git branch
+          - name: Preparing git branch
             run: |
                 git config --local user.email "bot@pulumi.com"
                 git config --local user.name "pulumi-bot"
                 git checkout -b generate-examples/${{ github.run_id }}-${{ github.run_number }}
-        - name: Generate examples
+          - name: Generate examples
             run: |
                 cd provider/pkg/gen/examples/upstream
                 go run ./yaml ./
-        - name: Commit changes
+          - name: Commit changes
             if: steps.gomod.outputs.changes != 0
             run: |
                 git add provider/pkg/gen/examples/upstream
                 git commit -m "Generated examples"
                 git push origin generate-examples/${{ github.run_id }}-${{ github.run_number }}
-        - name: Create PR
+          - name: Create PR
             id: create-pr
             if: steps.gomod.outputs.changes != 0
             uses: repo-sync/pull-request@v2.6.2
@@ -52,7 +52,7 @@ jobs:
                 destination_branch: ${{github.event.pull_request.head.repo.full_name}}
                 pr_title: "Generated Examples"
                 github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
-        - name: Set Automerge
+          - name: Set Automerge
             if: steps.create-pr.outputs.has_changed_files
             uses: peter-evans/enable-pull-request-automerge@v1
             with:
