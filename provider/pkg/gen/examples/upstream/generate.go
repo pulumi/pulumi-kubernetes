@@ -17,6 +17,7 @@ import (
 //go:generate go run generate.go yaml .
 
 func main() {
+	//Add comment to trigger Ci
 	if len(os.Args) < 3 {
 		fmt.Fprintf(os.Stdout, "Usage: %s <yaml source dir path> <markdown destination path>\n", os.Args[0])
 		os.Exit(1)
