@@ -1,7 +1,8 @@
 on:
-    push:
-        paths:
-            - 'provider/pkg/gen/examples/upstream'
+    pull-request:
+        branches:
+            - main
+            - vl/yamlgen
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
 
