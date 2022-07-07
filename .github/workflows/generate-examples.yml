@@ -21,11 +21,11 @@ jobs:
           - name: Install Go
             uses: actions/setup-go@v2
             with:
-            go-version: ${{ matrix.goversion }}
+                go-version: ${{ matrix.goversion }}
           - name: Install pulumictl
             uses: jaxxstorm/action-install-gh-release@v1.1.0
             with:
-            repo: pulumi/pulumictl
+                repo: pulumi/pulumictl
           - name: Install Pulumi CLI
             uses: pulumi/action-install-pulumi-cli@v1.0.1
           - name: Preparing git branch
