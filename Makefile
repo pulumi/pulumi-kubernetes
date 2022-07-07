@@ -41,6 +41,8 @@ schema:: k8sgen
 
 k8sprovider::
 	$(WORKING_DIR)/bin/${CODEGEN} kinds $(SCHEMA_FILE) $(CURDIR)
+	@[ ! -f "provider/cmd/${PROVIDER}/schema.go" ] || \
+		(echo "\n    Please remove provider/cmd/${PROVIDER}/schema.go, which is no longer used\n" && false)
 	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
 	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 

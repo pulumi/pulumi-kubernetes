@@ -1,4 +1,4 @@
-# Copyright 2016-2020, Pulumi Corporation.
+# Copyright 2016-2022, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,9 @@
 # limitations under the License.
 
 import pulumi_kubernetes as k8s
+from pulumi import ResourceOptions
 
 from typing import Any
-
-ns = k8s.core.v1.Namespace("ns")
 
 
 def set_namespace(namespace):
@@ -29,8 +28,13 @@ def set_namespace(namespace):
     return f
 
 
+provider = k8s.Provider("k8s")
+
+ns = k8s.core.v1.Namespace("ns", opts=ResourceOptions(provider=provider))
+
 k8s.kustomize.Directory(
     "kustomize-local",
     "helloWorld",
     transformations=[set_namespace(ns)],
+    opts=ResourceOptions(provider=provider),
 )

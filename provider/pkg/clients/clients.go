@@ -192,22 +192,23 @@ func IsNamespacedKind(gvk schema.GroupVersionKind, clientSet *DynamicClientSet) 
 
 type LogClient struct {
 	clientset *kubernetes.Clientset
+	ctx       context.Context
 }
 
-func NewLogClient(clientConfig *rest.Config) (*LogClient, error) {
+func NewLogClient(ctx context.Context, clientConfig *rest.Config) (*LogClient, error) {
 	// creates the clientset
 	clientset, err := kubernetes.NewForConfig(clientConfig)
 	if err != nil {
 		return nil, err
 	}
 
-	return &LogClient{clientset: clientset}, nil
+	return &LogClient{clientset: clientset, ctx: ctx}, nil
 }
 
 func (lc *LogClient) Logs(namespace, name string) (io.ReadCloser, error) {
 	podLogOpts := corev1.PodLogOptions{Follow: true}
 	req := lc.clientset.CoreV1().Pods(namespace).GetLogs(name, &podLogOpts)
-	return req.Stream(context.TODO())
+	return req.Stream(lc.ctx)
 }
 
 type NoNamespaceInfoErr struct {

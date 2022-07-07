@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,9 +14,11 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
+const provider = new k8s.Provider("k8s");
+
 // Create two test namespaces to allow test parallelism.
-const namespace = new k8s.core.v1.Namespace("test-namespace");
-const namespace2 = new k8s.core.v1.Namespace("test-namespace2");
+const namespace = new k8s.core.v1.Namespace("test-namespace", {}, {provider});
+const namespace2 = new k8s.core.v1.Namespace("test-namespace2", {}, {provider});
 
 function configFile(name: string, namespace: string, resourcePrefix?: string): k8s.yaml.ConfigFile {
     return new k8s.yaml.ConfigFile(name, {
@@ -33,12 +35,12 @@ function configFile(name: string, namespace: string, resourcePrefix?: string): k
                 }
             }
         ]
-    });
+    }, {provider});
 }
 
 // Create resources from standard Kubernetes guestbook YAML example in the first test namespace.
-namespace.metadata.name.apply(ns => configFile("guestbook", ns));
+namespace.metadata.name.apply((ns: string) => configFile("guestbook", ns));
 
 // Create resources from standard Kubernetes guestbook YAML example in the second test namespace.
 // Disambiguate resource names with a specified prefix.
-namespace2.metadata.name.apply(ns => configFile("guestbook", ns, "dup"));
+namespace2.metadata.name.apply((ns: string) => configFile("guestbook", ns, "dup"));

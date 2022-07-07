@@ -15,7 +15,6 @@
 package await
 
 import (
-	"context"
 	"fmt"
 	"reflect"
 	"time"
@@ -196,7 +195,7 @@ func (sia *statefulsetInitAwaiter) Read() error {
 	}
 
 	// Get live versions of StatefulSet and Pods.
-	statefulset, err := statefulSetClient.Get(context.TODO(),
+	statefulset, err := statefulSetClient.Get(sia.config.ctx,
 		sia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
@@ -211,7 +210,7 @@ func (sia *statefulsetInitAwaiter) Read() error {
 	// in a way that is useful to the user.
 	//
 
-	podList, err := podClient.List(context.TODO(), metav1.ListOptions{})
+	podList, err := podClient.List(sia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving Pod list for StatefulSet %q: %v",
 			statefulset.GetName(), err)

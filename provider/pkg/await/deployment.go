@@ -15,7 +15,6 @@
 package await
 
 import (
-	"context"
 	"fmt"
 	"strings"
 	"time"
@@ -248,7 +247,7 @@ func (dia *deploymentInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Deployment, ReplicaSets, and Pods.
-	deployment, err := deploymentClient.Get(context.TODO(),
+	deployment, err := deploymentClient.Get(dia.config.ctx,
 		dia.config.currentInputs.GetName(),
 		metav1.GetOptions{})
 	if err != nil {
@@ -263,21 +262,21 @@ func (dia *deploymentInitAwaiter) Read() error {
 	// in a way that is useful to the user.
 	//
 
-	rsList, err := replicaSetClient.List(context.TODO(), metav1.ListOptions{})
+	rsList, err := replicaSetClient.List(dia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving ReplicaSet list for Deployment %q: %v",
 			deployment.GetName(), err)
 		rsList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	podList, err := podClient.List(context.TODO(), metav1.ListOptions{})
+	podList, err := podClient.List(dia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving Pod list for Deployment %q: %v",
 			deployment.GetName(), err)
 		podList = &unstructured.UnstructuredList{Items: []unstructured.Unstructured{}}
 	}
 
-	pvcList, err := pvcClient.List(context.TODO(), metav1.ListOptions{})
+	pvcList, err := pvcClient.List(dia.config.ctx, metav1.ListOptions{})
 	if err != nil {
 		logger.V(3).Infof("Error retrieving PersistentVolumeClaims list for Deployment %q: %v",
 			deployment.GetName(), err)

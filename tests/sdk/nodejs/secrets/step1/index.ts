@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,29 +20,31 @@ const config = new pulumi.Config();
 const pw = config.requireSecret("message");
 const rawPW = config.require("message");
 
+const provider = new k8s.Provider("k8s");
+
 const cmData = new k8s.core.v1.ConfigMap("cmdata", {
     data: {
         password: pw,
     }
-});
+}, {provider});
 
 const cmBinaryData = new k8s.core.v1.ConfigMap("cmbinarydata", {
     binaryData: {
         password: pw.apply(d => Buffer.from(d).toString("base64")),
     }
-});
+}, {provider});
 
 const ssStringData = new k8s.core.v1.Secret("ssstringdata", {
     stringData: {
         password: rawPW,
     }
-});
+}, {provider});
 
 const ssData = new k8s.core.v1.Secret("ssdata", {
     data: {
         password: Buffer.from(rawPW).toString("base64"),
     }
-});
+}, {provider});
 
 const randSuffix = Math.random().toString(36).substring(7);
 const name = `test-${randSuffix}`;
@@ -57,7 +59,7 @@ stringData:
 `
 const cg = new k8s.yaml.ConfigGroup("example", {
     yaml: secretYaml,
-});
+}, {provider});
 
 export const cmDataData = cmData.data;
 export const cmBinaryDataData = cmBinaryData.binaryData;

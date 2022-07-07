@@ -18,6 +18,11 @@ func GetContext(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:context")
 }
 
+// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+func GetDeleteUnreachable(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:deleteUnreachable")
+}
+
 // BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
 // This feature is in developer preview, and is disabled by default.
 //
@@ -28,12 +33,9 @@ func GetEnableConfigMapMutable(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableConfigMapMutable")
 }
 
-// BETA FEATURE - If present and set to true, enable server-side diff calculations.
-// This feature is in developer preview, and is disabled by default.
+// Deprecated. If present and set to true, enable server-side diff calculations.
 //
-// This config can be specified in the following ways, using this precedence:
-// 1. This `enableDryRun` parameter.
-// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
+// Deprecated: This option has been replaced by `enableServerSideApply`.
 func GetEnableDryRun(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableDryRun")
 }
@@ -43,6 +45,13 @@ func GetEnableDryRun(ctx *pulumi.Context) bool {
 // Deprecated: This option is deprecated, and will be removed in a future release.
 func GetEnableReplaceCRD(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableReplaceCRD")
+}
+
+// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+// This feature is in developer preview, and is disabled by default.
+func GetEnableServerSideApply(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:enableServerSideApply")
 }
 
 // The contents of a kubeconfig file or the path to a kubeconfig file. If this is set, this config will be used instead of $KUBECONFIG.

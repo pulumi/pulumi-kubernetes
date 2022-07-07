@@ -1,3 +1,17 @@
+// Copyright 2016-2022, Pulumi Corporation.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package main
 
 import (
@@ -9,11 +23,17 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		ns, err := corev1.NewNamespace(ctx, "test", &corev1.NamespaceArgs{})
+		provider, err := k8s.NewProvider(ctx, "k8s", &k8s.ProviderArgs{
+			Kubeconfig: pulumi.String("~/.kube/config"),
+		})
 		if err != nil {
 			return err
 		}
-		provider, err := k8s.NewProvider(ctx, "k8s", &k8s.ProviderArgs{
+		ns, err := corev1.NewNamespace(ctx, "test", &corev1.NamespaceArgs{}, pulumi.Provider(provider))
+		if err != nil {
+			return err
+		}
+		nsProvider, err := k8s.NewProvider(ctx, "k8s-ns", &k8s.ProviderArgs{
 			Kubeconfig: pulumi.String("~/.kube/config"),
 			Namespace:  ns.Metadata.Name(),
 		})
@@ -23,7 +43,7 @@ func main() {
 
 		_, err = kustomize.NewDirectory(ctx, "helloWorld",
 			kustomize.DirectoryArgs{Directory: pulumi.String("helloWorld")},
-			pulumi.Provider(provider),
+			pulumi.Provider(nsProvider),
 		)
 		if err != nil {
 			return err

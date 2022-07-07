@@ -1,5 +1,17 @@
 ## Unreleased
-(None)
+
+- Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
+- Add awaiter for service-account-token secret (https://github.com/pulumi/pulumi-kubernetes/pull/2048)
+
+## 3.19.4 (June 21, 2022)
+
+- Use fully-qualified resource name for generating manifests, to avoid conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2007)
+- Upgrade helm and k8s client-go module dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2008)
+- Allow a user to opt-in to removing resources from Pulumi state when a cluster is unreachable (https://github.com/pulumi/pulumi-kubernetes/pull/2037)
+
+## 3.19.3 (June 8, 2022)
+
+- Fix a bug where the specified provider was not used for some operations on kustomize, helm, and yaml resources (https://github.com/pulumi/pulumi-kubernetes/pull/2005)
 
 ## 3.19.2 (May 25, 2022)
 

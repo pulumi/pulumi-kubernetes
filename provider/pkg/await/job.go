@@ -15,7 +15,6 @@
 package await
 
 import (
-	"context"
 	"strings"
 	"time"
 
@@ -168,7 +167,7 @@ func (jia *jobInitAwaiter) Read() error {
 			jia.config.currentInputs.GetName())
 	}
 	// Get live version of Job.
-	job, err := jobClient.Get(context.TODO(), jia.config.currentInputs.GetName(), metav1.GetOptions{})
+	job, err := jobClient.Get(jia.config.ctx, jia.config.currentInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the Pod as having been deleted.

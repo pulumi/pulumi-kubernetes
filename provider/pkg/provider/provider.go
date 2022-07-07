@@ -46,6 +46,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/ssa"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
@@ -63,6 +64,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/sets"
 	k8sresource "k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/rest"
@@ -91,6 +93,7 @@ const (
 	invokeKustomize      = "kubernetes:kustomize:directory"
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialAPIVersionKey = "__initialApiVersion"
+	fieldManagerKey      = "__fieldManager"
 )
 
 type cancellationContext struct {
@@ -120,11 +123,13 @@ type kubeProvider struct {
 	opts             kubeOpts
 	defaultNamespace string
 
+	deleteUnreachable           bool
 	enableDryRun                bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
 	suppressHelmHookWarnings    bool
+	serverSideApplyMode         bool
 
 	helmDriver               string
 	helmPluginsPath          string
@@ -142,7 +147,7 @@ type kubeProvider struct {
 	config         *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
 	kubeconfig     clientcmd.ClientConfig
 	clientSet      *clients.DynamicClientSet
-	dryRunVerifier *k8sresource.DryRunVerifier
+	dryRunVerifier *k8sresource.QueryParamVerifier
 	logClient      *clients.LogClient
 	k8sVersion     cluster.ServerVersion
 
@@ -162,9 +167,9 @@ func makeKubeProvider(
 		version:                     version,
 		pulumiSchema:                pulumiSchema,
 		providerPackage:             name,
-		enableDryRun:                false,
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
+		deleteUnreachable:           false,
 	}, nil
 }
 
@@ -271,6 +276,12 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "enableDryRun",
 				Reason:   fmt.Sprintf(errTemplate, "enableDryRun"),
+			})
+		}
+		if truthyValue("enableServerSideApply", news) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "enableServerSideApply",
+				Reason:   fmt.Sprintf(errTemplate, "enableServerSideApply"),
 			})
 		}
 
@@ -402,6 +413,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		CurrentContext: vars["kubernetes:config:context"],
 	}
 
+	deleteUnreachable := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:deleteUnreachable"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_DELETE_UNREACHABLE"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if deleteUnreachable() {
+		k.deleteUnreachable = true
+	}
+
 	enableDryRun := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:enableDryRun"]; exists {
@@ -416,6 +443,23 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if enableDryRun() {
 		k.enableDryRun = true
+	}
+
+	enableServerSideApply := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:enableServerSideApply"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if enableServerSideApply() {
+		k.enableDryRun = true
+		k.serverSideApplyMode = true
 	}
 
 	enableConfigMapMutable := func() bool {
@@ -670,8 +714,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, err
 		}
 		k.clientSet = cs
-		k.dryRunVerifier = k8sresource.NewDryRunVerifier(cs.GenericClient, cs.DiscoveryClientCached)
-		lc, err := clients.NewLogClient(k.config)
+		k.dryRunVerifier = k8sresource.NewQueryParamVerifier(
+			cs.GenericClient, cs.DiscoveryClientCached, k8sresource.QueryParamDryRun)
+		lc, err := clients.NewLogClient(k.canceler.context, k.config)
 		if err != nil {
 			return nil, err
 		}
@@ -885,7 +930,7 @@ func (k *kubeProvider) StreamInvoke(
 			return err
 		}
 
-		list, err := cl.List(context.TODO(), metav1.ListOptions{})
+		list, err := cl.List(k.canceler.context, metav1.ListOptions{})
 		if err != nil {
 			return err
 		}
@@ -979,7 +1024,7 @@ func (k *kubeProvider) StreamInvoke(
 			return err
 		}
 
-		watch, err := cl.Watch(context.TODO(), metav1.ListOptions{})
+		watch, err := cl.Watch(k.canceler.context, metav1.ListOptions{})
 		if err != nil {
 			return err
 		}
@@ -1260,7 +1305,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			}
 		}
 	} else {
-		metadata.AssignNameIfAutonamable(newInputs, news, urn, int(req.GetSequenceNumber()))
+		metadata.AssignNameIfAutonamable(newInputs, news, urn)
 
 		// Set a "managed-by: pulumi" label on all created k8s resources.
 		_, err = metadata.TrySetManagedByLabel(newInputs)
@@ -1438,10 +1483,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	newInputs := propMapToUnstructured(newResInputs)
 	oldInputs, _ := parseCheckpointObject(oldState)
 
-	gvk, err := k.gvkFromURN(urn)
-	if err != nil {
-		return nil, err
-	}
+	gvk := k.gvkFromUnstructured(newInputs)
 
 	if isHelmRelease(urn) && !hasComputedValue(newInputs) {
 		return k.helmReleaseProvider.Diff(ctx, req)
@@ -1492,8 +1534,13 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
+	fieldManager := fieldManagerName(newResInputs, newInputs)
+
 	// Try to compute a server-side patch.
-	ssPatch, ssPatchBase, ssPatchOk := k.tryServerSidePatch(oldInputs, newInputs, gvk)
+	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
+	if err != nil {
+		return nil, err
+	}
 
 	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
 	// with the server-side values.
@@ -1656,6 +1703,7 @@ func (k *kubeProvider) Create(
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
+	fieldManager := fieldManagerName(newResInputs, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -1668,7 +1716,7 @@ func (k *kubeProvider) Create(
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion)
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion, fieldManager)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1698,10 +1746,12 @@ func (k *kubeProvider) Create(
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
+			FieldManager:      fieldManager,
 			ClusterVersion:    &k.k8sVersion,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
@@ -1747,7 +1797,7 @@ func (k *kubeProvider) Create(
 		initialized = partialErr.Object()
 	}
 
-	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion)
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion, fieldManager)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1786,7 +1836,7 @@ func (k *kubeProvider) Create(
 	return &pulumirpc.CreateResponse{Id: id, Properties: inputsAndComputed}, nil
 }
 
-// Read the current live state associated with a resource.  Enough state must be include in the
+// Read the current live state associated with a resource.  Enough state must be included in the
 // inputs to uniquely identify the resource; this is typically just the resource ID, but may also
 // include some properties.
 func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
@@ -1808,8 +1858,15 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	label := fmt.Sprintf("%s.Read(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	// If the cluster is unreachable, return an error.
+	// If the cluster is unreachable, return an error unless the user has opted in to mark the resources to be deleted
 	if k.clusterUnreachable {
+		if k.deleteUnreachable {
+			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+				"configured Kubernetes cluster is unreachable and configuration is specified to ensure that "+
+					"the resources are deleted: %s", k.clusterUnreachableReason))
+			return deleteResponse, nil
+		}
+
 		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
 		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. " +
@@ -1870,11 +1927,12 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if err != nil {
 		return nil, err
 	}
+	fieldManager := fieldManagerName(oldState, oldInputs)
 
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
 		state, err := plugin.MarshalProperties(
-			checkpointObject(oldInputs, oldLive, oldState, initialAPIVersion), plugin.MarshalOptions{
+			checkpointObject(oldInputs, oldLive, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.state", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -1904,6 +1962,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
+			FieldManager:      fieldManager,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
@@ -1979,7 +2038,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Return a new "checkpoint object".
 	state, err := plugin.MarshalProperties(
-		checkpointObject(liveInputs, liveObj, oldInputsPM, initialAPIVersion), plugin.MarshalOptions{
+		checkpointObject(liveInputs, liveObj, oldInputsPM, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.state", label),
 			KeepUnknowns: true,
 			SkipNulls:    true,
@@ -2132,6 +2191,9 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
+	fieldManagerOld := fieldManagerName(oldState, oldInputs)
+	fieldManager := fieldManagerName(oldState, newInputs)
+
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
 			_ = k.host.LogStatus(ctx, diag.Warning, urn, fmt.Sprintf(
@@ -2143,7 +2205,7 @@ func (k *kubeProvider) Update(
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion)
+		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion, fieldManager)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -2171,14 +2233,16 @@ func (k *kubeProvider) Update(
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
+			FieldManager:      fieldManager,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
 		},
 		Previous: oldInputs,
 		Inputs:   annotatedInputs,
 		Timeout:  req.Timeout,
-		DryRun:   req.GetPreview(),
+		Preview:  req.GetPreview(),
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)
@@ -2210,7 +2274,7 @@ func (k *kubeProvider) Update(
 		// initialize.
 	}
 	// Return a new "checkpoint object".
-	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion)
+	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion, fieldManager)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
 			Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -2234,6 +2298,21 @@ func (k *kubeProvider) Update(
 			nil)
 	}
 
+	if k.serverSideApplyMode {
+		// For non-preview updates, drop the old fieldManager if the value changes.
+		if !req.GetPreview() && fieldManagerOld != fieldManager {
+			client, err := k.clientSet.ResourceClientForObject(newInputs)
+			if err != nil {
+				return nil, err
+			}
+
+			err = ssa.Relinquish(k.canceler.context, client, newInputs, fieldManagerOld)
+			if err != nil {
+				return nil, err
+			}
+		}
+	}
+
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 }
 
@@ -2253,6 +2332,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	if err != nil {
 		return nil, err
 	}
+	oldInputs, _ := parseCheckpointObject(oldState)
 
 	if isHelmRelease(urn) {
 		if k.clusterUnreachable {
@@ -2289,6 +2369,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	if err != nil {
 		return nil, err
 	}
+	fieldManager := fieldManagerName(oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -2300,9 +2381,11 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
+			FieldManager:      fieldManager,
 			ClientSet:         k.clientSet,
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
+			ServerSideApply:   k.serverSideApplyMode,
 		},
 		Inputs:  current,
 		Name:    name,
@@ -2326,7 +2409,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 		lastKnownState := partialErr.Object()
 
 		inputsAndComputed, err := plugin.MarshalProperties(
-			checkpointObject(current, lastKnownState, oldState, initialAPIVersion), plugin.MarshalOptions{
+			checkpointObject(current, lastKnownState, oldState, initialAPIVersion, fieldManager), plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
 				KeepUnknowns: true,
 				SkipNulls:    true,
@@ -2371,6 +2454,27 @@ func (k *kubeProvider) label() string {
 	return fmt.Sprintf("Provider[%s]", k.name)
 }
 
+func (k *kubeProvider) gvkFromUnstructured(input *unstructured.Unstructured) schema.GroupVersionKind {
+	var group, version, kind string
+
+	kind = input.GetKind()
+	gv := strings.Split(input.GetAPIVersion(), "/")
+	if len(gv) == 1 {
+		version = input.GetAPIVersion()
+	} else {
+		group, version = gv[0], gv[1]
+	}
+	if group == "core" {
+		group = ""
+	}
+
+	return schema.GroupVersionKind{
+		Group:   group,
+		Version: version,
+		Kind:    kind,
+	}
+}
+
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
 	if string(urn.Type().Package()) != k.providerPackage {
 		return schema.GroupVersionKind{}, fmt.Errorf("unrecognized resource type: %q for this provider",
@@ -2404,10 +2508,10 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 
 	// Get the "live" version of the last submitted object. This is necessary because the server may
 	// have populated some fields automatically, updated status fields, and so on.
-	return rc.Get(context.TODO(), obj.GetName(), metav1.GetOptions{})
+	return rc.Get(k.canceler.context, obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured,
+func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured, fieldManager string,
 ) ([]byte, map[string]interface{}, error) {
 
 	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
@@ -2415,27 +2519,17 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 		return nil, nil, err
 	}
 
-	liveObject, err := client.Get(context.TODO(), oldInputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return nil, nil, err
-	}
-	liveInputs := parseLiveInputs(liveObject, oldInputs)
-
-	resources, err := k.getResources()
-	if err != nil {
-		return nil, nil, err
-	}
-	patch, patchType, _, err := openapi.PatchForResourceUpdate(resources, liveInputs, newInputs, liveObject)
+	liveObject, err := client.Get(k.canceler.context, oldInputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return nil, nil, err
 	}
 
 	// If the new resource does not exist, we need to dry-run a Create rather than a Patch.
 	var newObject *unstructured.Unstructured
-	_, err = client.Get(context.TODO(), newInputs.GetName(), metav1.GetOptions{})
+	_, err = client.Get(k.canceler.context, newInputs.GetName(), metav1.GetOptions{})
 	switch {
 	case errors.IsNotFound(err):
-		newObject, err = client.Create(context.TODO(), newInputs, metav1.CreateOptions{
+		newObject, err = client.Create(k.canceler.context, newInputs, metav1.CreateOptions{
 			DryRun: []string{metav1.DryRunAll},
 		})
 	case newInputs.GetNamespace() != oldInputs.GetNamespace():
@@ -2443,16 +2537,54 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 		if err != nil {
 			return nil, nil, err
 		}
-		newObject, err = client.Create(context.TODO(), newInputs, metav1.CreateOptions{
+		newObject, err = client.Create(k.canceler.context, newInputs, metav1.CreateOptions{
 			DryRun: []string{metav1.DryRunAll},
 		})
 		if err != nil {
 			return nil, nil, err
 		}
 	case err == nil:
-		newObject, err = client.Patch(context.TODO(), newInputs.GetName(), patchType, patch, metav1.PatchOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
+		if k.serverSideApplyMode {
+			objYAML, err := yaml.Marshal(newInputs.Object)
+			if err != nil {
+				return nil, nil, err
+			}
+
+			force := metadata.IsAnnotationTrue(newInputs, metadata.AnnotationPatchForce)
+			if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
+				fieldManager = v
+			}
+
+			newObject, err = client.Patch(
+				k.canceler.context, newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
+					DryRun:       []string{metav1.DryRunAll},
+					FieldManager: fieldManager,
+					Force:        &force,
+				})
+			if err != nil {
+				return nil, nil, err
+			}
+		} else {
+			liveInputs := parseLiveInputs(liveObject, oldInputs)
+
+			resources, err := k.getResources()
+			if err != nil {
+				return nil, nil, err
+			}
+
+			patch, patchType, _, err := openapi.PatchForResourceUpdate(resources, liveInputs, newInputs, liveObject)
+			if err != nil {
+				return nil, nil, err
+			}
+
+			newObject, err = client.Patch(k.canceler.context, newInputs.GetName(), patchType, patch, metav1.PatchOptions{
+				DryRun: []string{metav1.DryRunAll},
+			})
+			if err != nil {
+				return nil, nil, err
+			}
+		}
+
 	default:
 		return nil, nil, err
 	}
@@ -2469,7 +2601,7 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 		return nil, nil, err
 	}
 
-	patch, err = jsonpatch.CreateMergePatch(liveJSON, newJSON)
+	patch, err := jsonpatch.CreateMergePatch(liveJSON, newJSON)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -2520,44 +2652,47 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 }
 
 // tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
-func (k *kubeProvider) tryServerSidePatch(oldInputs, newInputs *unstructured.Unstructured, gvk schema.GroupVersionKind,
-) ([]byte, map[string]interface{}, bool) {
+func (k *kubeProvider) tryServerSidePatch(
+	oldInputs, newInputs *unstructured.Unstructured,
+	gvk schema.GroupVersionKind,
+	fieldManager string,
+) (ssPatch []byte, ssPatchBase map[string]interface{}, ok bool, err error) {
 	// If the resource's GVK changed, so compute patch using inputs.
 	if oldInputs.GroupVersionKind().String() != gvk.String() {
-		return nil, nil, false
+		return nil, nil, false, nil
 	}
 	// If we can't dry-run the new GVK, computed the patch using inputs.
 	if !k.supportsDryRun(gvk) {
-		return nil, nil, false
+		return nil, nil, false, nil
 	}
 	// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
 	// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
 	// bug.
 	if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
-		return nil, nil, false
+		return nil, nil, false, nil
 	}
 
-	ssPatch, ssPatchBase, err := k.serverSidePatch(oldInputs, newInputs)
+	ssPatch, ssPatchBase, err = k.serverSidePatch(oldInputs, newInputs, fieldManager)
 	if k.isDryRunDisabledError(err) {
-		return nil, nil, false
+		return nil, nil, false, err
 	}
 	if se, isStatusError := err.(*errors.StatusError); isStatusError {
 		// If the resource field is immutable.
 		if se.Status().Code == http.StatusUnprocessableEntity ||
 			strings.Contains(se.ErrStatus.Message, "field is immutable") {
-			return nil, nil, false
+			return nil, nil, false, err
 		}
 	}
 	if err != nil {
-		return nil, nil, false
+		return nil, nil, false, err
 	}
 
 	// The server-side patch succeeded.
-	return ssPatch, ssPatchBase, true
+	return ssPatch, ssPatchBase, true, nil
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if k.supportsDryRun(config.GroupVersionKind()) {
+	if k.serverSideApplyMode || k.supportsDryRun(config.GroupVersionKind()) {
 		// Skip last-applied-config annotation if the resource supports server-side apply.
 		return config, nil
 	}
@@ -2646,7 +2781,28 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 	return oldConfig.GetAPIVersion(), nil
 }
 
-func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap, initialAPIVersion string) resource.PropertyMap {
+// fieldManagerName returns the name to use for the Server-Side Apply fieldManager. The values are looked up with the
+// following precedence:
+// 1. Resource annotation (this will likely change to a typed option field in the next major release)
+// 2. Value from the Pulumi state
+// 3. Randomly generated name
+func fieldManagerName(state resource.PropertyMap, inputs *unstructured.Unstructured) string {
+	if v := metadata.GetAnnotationValue(inputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
+		return v
+	}
+	if v, ok := state[fieldManagerKey]; ok {
+		return v.StringValue()
+	}
+
+	prefix := "pulumi-kubernetes-"
+	fieldManager, err := resource.NewUniqueHex(prefix, 0, 0)
+	contract.AssertNoError(err)
+
+	return fieldManager
+}
+
+func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
+	initialAPIVersion, fieldManager string) resource.PropertyMap {
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -2688,6 +2844,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 
 	object["__inputs"] = resource.NewObjectProperty(inputsPM)
 	object[initialAPIVersionKey] = resource.NewStringProperty(initialAPIVersion)
+	object[fieldManagerKey] = resource.NewStringProperty(fieldManager)
 
 	return object
 }
@@ -3118,7 +3275,12 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 		namespace = resource.GetNamespace()
 	}
 
-	fileName := fmt.Sprintf("%s-%s-%s.yaml", strings.ToLower(resource.GetKind()), namespace, resource.GetName())
+	sanitise := func(name string) string {
+		name = strings.NewReplacer("/", "_", ":", "_").Replace(name)
+		return name
+	}
+
+	fileName := fmt.Sprintf("%s-%s-%s-%s.yaml", sanitise(resource.GetAPIVersion()), strings.ToLower(resource.GetKind()), namespace, resource.GetName())
 	filepath.Join(yamlDirectory, fileName)
 
 	var path string

@@ -193,7 +193,7 @@ func (c *chart) fetch() error {
 // prefix it when URL is known, as that results in an error such as:
 //
 // failed to pull chart: chart "bitnami/apache" version "1.0.0" not
-// found in https://charts.bitnami.com/bitnami repository
+// found in https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami repository
 func normalizeChartRef(repoName string, repoURL string, originalChartRef string) string {
 
 	// If URL is known, do not prefix

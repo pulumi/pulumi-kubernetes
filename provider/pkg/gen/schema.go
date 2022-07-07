@@ -68,8 +68,17 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "If present, the default namespace to use. This flag is ignored for cluster-scoped resources.\n\nA namespace can be specified in multiple places, and the precedence is as follows:\n1. `.metadata.namespace` set on the resource.\n2. This `namespace` parameter.\n3. `namespace` set for the active context in the kubeconfig.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
+				"deleteUnreachable": {
+					Description: "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"enableDryRun": {
-					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.\n\nThis config can be specified in the following ways, using this precedence:\n1. This `enableDryRun` parameter.\n2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.",
+					Description:        "Deprecated. If present and set to true, enable server-side diff calculations.\n",
+					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
+					DeprecationMessage: "This option has been replaced by `enableServerSideApply`.",
+				},
+				"enableServerSideApply": {
+					Description: "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {
@@ -124,6 +133,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "If present, the name of the kubeconfig cluster to use.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 				},
+				"deleteUnreachable": {
+					Description: "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"namespace": {
 					Description: "If present, the default namespace to use. This flag is ignored for cluster-scoped resources.\n\nA namespace can be specified in multiple places, and the precedence is as follows:\n1. `.metadata.namespace` set on the resource.\n2. This `namespace` parameter.\n3. `namespace` set for the active context in the kubeconfig.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
@@ -134,7 +147,17 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_ENABLE_DRY_RUN",
 						},
 					},
-					Description: "BETA FEATURE - If present and set to true, enable server-side diff calculations.\nThis feature is in developer preview, and is disabled by default.",
+					Description:        "Deprecated. If present and set to true, enable server-side diff calculations.\n",
+					TypeSpec:           pschema.TypeSpec{Type: "boolean"},
+					DeprecationMessage: "This option has been replaced by `enableServerSideApply`.",
+				},
+				"enableServerSideApply": {
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY",
+						},
+					},
+					Description: "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {

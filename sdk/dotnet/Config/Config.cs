@@ -52,6 +52,16 @@ namespace Pulumi.Kubernetes
             set => _context.Set(value);
         }
 
+        private static readonly __Value<bool?> _deleteUnreachable = new __Value<bool?>(() => __config.GetBoolean("deleteUnreachable"));
+        /// <summary>
+        /// If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state
+        /// </summary>
+        public static bool? DeleteUnreachable
+        {
+            get => _deleteUnreachable.Get();
+            set => _deleteUnreachable.Set(value);
+        }
+
         private static readonly __Value<bool?> _enableConfigMapMutable = new __Value<bool?>(() => __config.GetBoolean("enableConfigMapMutable"));
         /// <summary>
         /// BETA FEATURE - If present and set to true, allow ConfigMaps to be mutated.
@@ -69,12 +79,7 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<bool?> _enableDryRun = new __Value<bool?>(() => __config.GetBoolean("enableDryRun"));
         /// <summary>
-        /// BETA FEATURE - If present and set to true, enable server-side diff calculations.
-        /// This feature is in developer preview, and is disabled by default.
-        /// 
-        /// This config can be specified in the following ways, using this precedence:
-        /// 1. This `enableDryRun` parameter.
-        /// 2. The `PULUMI_K8S_ENABLE_DRY_RUN` environment variable.
+        /// Deprecated. If present and set to true, enable server-side diff calculations.
         /// </summary>
         public static bool? EnableDryRun
         {
@@ -90,6 +95,18 @@ namespace Pulumi.Kubernetes
         {
             get => _enableReplaceCRD.Get();
             set => _enableReplaceCRD.Set(value);
+        }
+
+        private static readonly __Value<bool?> _enableServerSideApply = new __Value<bool?>(() => __config.GetBoolean("enableServerSideApply"));
+        /// <summary>
+        /// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        /// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
+        /// This feature is in developer preview, and is disabled by default.
+        /// </summary>
+        public static bool? EnableServerSideApply
+        {
+            get => _enableServerSideApply.Get();
+            set => _enableServerSideApply.Set(value);
         }
 
         private static readonly __Value<string?> _kubeconfig = new __Value<string?>(() => __config.Get("kubeconfig"));

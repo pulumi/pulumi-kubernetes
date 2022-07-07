@@ -31,22 +31,10 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	o1 := &unstructured.Unstructured{}
 	pm1 := resource.NewPropertyMap(struct{}{})
 	AssignNameIfAutonamable(o1, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
-		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 1)
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
 	assert.True(t, IsAutonamed(o1))
 	assert.True(t, strings.HasPrefix(o1.GetName(), "foo-"))
 	assert.Len(t, o1.GetName(), 12)
-	existing := o1.GetName()
-	// Call again with the same sequence number should result in the same name
-	o1Same := &unstructured.Unstructured{}
-	AssignNameIfAutonamable(o1Same, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
-		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 1)
-	assert.Equal(t, existing, o1Same.GetName())
-
-	// Call with different sequence number returns a different name
-	o1Diff := &unstructured.Unstructured{}
-	AssignNameIfAutonamable(o1Diff, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
-		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 2)
-	assert.NotEqual(t, existing, o1Diff.GetName())
 
 	// o2 has a name, so autonaming fails.
 	o2 := &unstructured.Unstructured{
@@ -58,7 +46,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 		}),
 	}
 	AssignNameIfAutonamable(o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
-		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"), 2)
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"))
 	assert.False(t, IsAutonamed(o2))
 	assert.Equal(t, "bar", o2.GetName())
 
@@ -72,7 +60,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 		}),
 	}
 	AssignNameIfAutonamable(o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
-		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"), 3)
+		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
 	assert.False(t, IsAutonamed(o3))
 	assert.Equal(t, "[Computed]", o3.GetName())
 }

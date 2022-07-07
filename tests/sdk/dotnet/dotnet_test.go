@@ -62,6 +62,13 @@ func TestDotnet_YamlUrl(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   "yaml-url",
 		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExtraRuntimeValidation: func(
 			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 		) {
@@ -76,6 +83,13 @@ func TestDotnet_YamlLocal(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   "yaml-local",
 		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExtraRuntimeValidation: func(
 			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 		) {
@@ -165,6 +179,13 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("helm-api-versions", "step1"),
 		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
@@ -218,6 +239,13 @@ func TestDotnet_Kustomize(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   "kustomize",
 		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 	})
 	integration.ProgramTest(t, &test)
 }

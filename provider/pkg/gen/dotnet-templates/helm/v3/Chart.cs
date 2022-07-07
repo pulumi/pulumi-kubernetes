@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -258,7 +258,7 @@ namespace Pulumi.Kubernetes.Helm.V3
 
                 try
                 {
-                    return ParseTemplate(chartArgs, releaseName, dependencies);
+                    return ParseTemplate(chartArgs, releaseName, dependencies, options);
                 }
                 catch (Exception e)
                 {
@@ -289,7 +289,7 @@ namespace Pulumi.Kubernetes.Helm.V3
             return string.IsNullOrEmpty(prefix) ? releaseName : $"{prefix}-{releaseName}";
         }
 
-        private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(Union<ChartArgsUnwrap, LocalChartArgsUnwrap> args, string releaseName, ImmutableHashSet<Resource> dependsOn)
+        private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(Union<ChartArgsUnwrap, LocalChartArgsUnwrap> args, string releaseName, ImmutableHashSet<Resource> dependsOn, ComponentResourceOptions? options)
         {
             // Build JSON args to Helm provider invoke.
             var serializeOptions = new JsonSerializerOptions
@@ -359,7 +359,7 @@ namespace Pulumi.Kubernetes.Helm.V3
             jsonOptsString = JsonSerializer.Serialize(jsonOpts, serializeOptions);
 
             return Invokes
-                .HelmTemplate(new HelmTemplateArgs { JsonOpts = jsonOptsString })
+                .HelmTemplate(new HelmTemplateArgs { JsonOpts = jsonOptsString }, new InvokeOptions { Provider = options?.Provider })
                 .Apply(objs =>
                 {
                     var transformations = cfgBase.Transformations;
@@ -373,7 +373,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                         Objs = objs,
                         Transformations = transformations
                     };
-                    var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray() };
+                    var opts = new ComponentResourceOptions { Parent = this, DependsOn = dependsOn.ToArray(), Provider = options?.Provider };
                     return Parser.Parse(args, opts);
                 });
         }

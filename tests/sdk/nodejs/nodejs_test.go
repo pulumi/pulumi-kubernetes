@@ -599,6 +599,13 @@ func TestKustomize(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("kustomize", "step1"),
 		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 
@@ -1007,6 +1014,13 @@ func TestSecrets(t *testing.T) {
 		Config: map[string]string{
 			"message": secretMessage,
 		},
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExpectRefreshChanges: true,
 		Quick:                true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
@@ -1028,6 +1042,13 @@ func TestYAMLURL(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("yaml-url", "step1"),
 		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 
@@ -1073,6 +1094,26 @@ func TestReplaceDaemonSet(t *testing.T) {
 					assert.True(t, daemonSetName != newDaemonSetName)
 				},
 			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
+func TestServiceAccountTokenSecret(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:           filepath.Join("service-account-token-secret", "step1"),
+		Quick:         true,
+		ExpectFailure: false,
+		SkipRefresh:   true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			_, err := json.Marshal(stackInfo.Deployment)
+			assert.NoError(t, err)
+
+			secretData := stackInfo.Outputs["data"].(map[string]interface{})
+
+			assert.Contains(t, secretData, "ca.crt")
+			assert.Contains(t, secretData, "token")
 		},
 	})
 	integration.ProgramTest(t, &test)

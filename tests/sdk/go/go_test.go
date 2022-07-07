@@ -62,6 +62,13 @@ func TestGo(t *testing.T) {
 			Dir:                  filepath.Join(cwd, "yaml"),
 			Quick:                true,
 			ExpectRefreshChanges: true,
+			OrderedConfig: []integration.ConfigValue{
+				{
+					Key:   "pulumi:disable-default-providers[0]",
+					Value: "kubernetes",
+					Path:  true,
+				},
+			},
 		})
 		integration.ProgramTest(t, &options)
 	})
@@ -259,6 +266,13 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "kustomize"),
 			Quick: true,
+			OrderedConfig: []integration.ConfigValue{
+				{
+					Key:   "pulumi:disable-default-providers[0]",
+					Value: "kubernetes",
+					Path:  true,
+				},
+			},
 		})
 		integration.ProgramTest(t, &options)
 	})
