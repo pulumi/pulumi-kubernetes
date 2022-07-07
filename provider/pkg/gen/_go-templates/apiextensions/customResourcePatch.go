@@ -45,9 +45,9 @@ type CustomResourcePatch struct {
 
 // NewCustomResourcePatch registers a new resource with the given unique name, arguments, and options.
 func NewCustomResourcePatch(ctx *pulumi.Context,
-	name string, args *CustomResourceArgs, opts ...pulumi.ResourceOption) (*CustomResourcePatch, error) {
+	name string, args *CustomResourcePatchArgs, opts ...pulumi.ResourceOption) (*CustomResourcePatch, error) {
 	if args == nil {
-		args = &CustomResourceArgs{}
+		args = &CustomResourcePatchArgs{}
 	}
 
 	untyped := kubernetes.UntypedArgs{}
@@ -77,7 +77,7 @@ type customResourcePatchArgs struct {
 	OtherFields map[string]interface{} `pulumi:""`
 }
 
-// The set of arguments for constructing a CustomResource resource.
+// The set of arguments for constructing a CustomResourcePatch resource.
 type CustomResourcePatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringInput

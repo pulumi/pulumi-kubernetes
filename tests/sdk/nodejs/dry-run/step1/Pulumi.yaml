@@ -1,3 +1,0 @@
-name: dry-run-tests
-description: Tests whether Pulumi uses dry-run support to avoid spurious diffs.
-runtime: nodejs

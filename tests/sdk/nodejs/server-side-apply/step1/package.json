@@ -1,10 +1,9 @@
 {
-    "name": "dry-run",
+    "name": "server-side-apply",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "latest"
-    },
-    "devDependencies": {
+        "@pulumi/pulumi": "latest",
+        "@pulumi/random": "latest"
     },
     "peerDependencies": {
         "@pulumi/kubernetes": "latest"

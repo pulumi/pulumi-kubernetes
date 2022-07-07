@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -297,6 +298,35 @@ func TestGo(t *testing.T) {
 				// The program converts the secret message to base64, to make a ConfigMap from it, so the state
 				// should also not contain the base64 encoding of secret message.
 				assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("ServerSideApply", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:                  filepath.Join(cwd, "server-side-apply"),
+			ExpectRefreshChanges: true,
+			OrderedConfig: []integration.ConfigValue{
+				{
+					Key:   "pulumi:disable-default-providers[0]",
+					Value: "kubernetes",
+					Path:  true,
+				},
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join("server-side-apply", "step2"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+						// Validate patched CustomResource
+						crPatchedLabels := stackInfo.Outputs["crPatchedLabels"].(map[string]interface{})
+						fooV, ok, err := unstructured.NestedString(crPatchedLabels, "foo")
+						assert.True(t, ok)
+						assert.NoError(t, err)
+						assert.Equal(t, "foo", fooV)
+					},
+				},
 			},
 		})
 		integration.ProgramTest(t, &options)

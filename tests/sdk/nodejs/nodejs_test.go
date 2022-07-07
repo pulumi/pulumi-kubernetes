@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -461,28 +462,6 @@ func TestDeploymentRollout(t *testing.T) {
 					assert.Equal(t, image.(string), "nginx:stable")
 				},
 			},
-		},
-	})
-	integration.ProgramTest(t, &test)
-}
-
-func TestDryRun(t *testing.T) {
-	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join("dry-run", "step1"),
-		EditDirs: []integration.EditDir{
-			{
-				Dir:      filepath.Join("dry-run", "step2"),
-				Additive: true,
-			},
-		},
-		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			for _, res := range stackInfo.Deployment.Resources {
-				if res.Type == "kubernetes:apps/v1:Deployment" {
-					annotations, _ := openapi.Pluck(res.Outputs, "metadata", "annotations")
-					assert.NotEmpty(t, annotations)
-					assert.NotContains(t, annotations, "kubectl.kubernetes.io/last-applied-configuration")
-				}
-			}
 		},
 	})
 	integration.ProgramTest(t, &test)
@@ -1033,6 +1012,88 @@ func TestSecrets(t *testing.T) {
 			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
 			// should also not contain the base64 encoding of secret message.
 			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
+func TestServerSideApply(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("server-side-apply", "step1"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Validate patched Namespace
+			nsPatched := stackInfo.Outputs["nsPatched"].(map[string]interface{})
+			fooV, ok, err := unstructured.NestedString(nsPatched, "metadata", "labels", "foo")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "foo", fooV)
+
+			// Validate patched CustomResource
+			crPatched := stackInfo.Outputs["crPatched"].(map[string]interface{})
+			fooV, ok, err = unstructured.NestedString(crPatched, "metadata", "labels", "foo")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "foo", fooV)
+
+			for _, res := range stackInfo.Deployment.Resources {
+				// Validate that the last-applied-configuration annotation is not present on SSA resources.
+				annotations, ok, err := unstructured.NestedStringMap(res.Outputs, "metadata", "labels")
+				assert.NoError(t, err)
+				if ok {
+					assert.NotContains(t, annotations, "kubectl.kubernetes.io/last-applied-configuration")
+				}
+
+				// Validate that the managed-by label is not present on SSA resources.
+				labels, ok, err := unstructured.NestedStringMap(res.Outputs, "metadata", "labels")
+				assert.NoError(t, err)
+				if ok {
+					assert.NotContains(t, labels, "app.kubernetes.io/managed-by")
+				}
+
+				if res.Type == "kubernetes:core/v1:ConfigMap" {
+					dataV, ok, err := unstructured.NestedString(res.Outputs, "data", "foo")
+					assert.True(t, ok)
+					assert.NoError(t, err)
+					assert.Equal(t, "bar", dataV)
+				}
+			}
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("server-side-apply", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Validate patched Deployment
+					deploymentPatched := stackInfo.Outputs["deploymentPatched"].(map[string]interface{})
+					containersV, ok, err := unstructured.NestedSlice(
+						deploymentPatched, "spec", "template", "spec", "containers")
+					assert.True(t, ok)
+					assert.NoError(t, err)
+					assert.Len(t, containersV, 1)
+					limitsV, ok, err := unstructured.NestedMap(
+						containersV[0].(map[string]interface{}), "resources", "limits")
+					assert.True(t, ok)
+					assert.NoError(t, err)
+					assert.Contains(t, limitsV, "memory")
+
+					for _, res := range stackInfo.Deployment.Resources {
+						if res.Type == "kubernetes:core/v1:ConfigMap" {
+							dataV, ok, err := unstructured.NestedString(res.Outputs, "data", "foo")
+							assert.True(t, ok)
+							assert.NoError(t, err)
+							assert.Equal(t, "baz", dataV)
+						}
+					}
+				},
+			},
 		},
 	})
 	integration.ProgramTest(t, &test)
