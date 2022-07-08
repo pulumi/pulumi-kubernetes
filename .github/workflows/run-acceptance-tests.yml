@@ -430,7 +430,7 @@ jobs:
   destroy-test-cluster:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         goversion:
         - 1.17.x
@@ -441,6 +441,7 @@ jobs:
         nodeversion:
         - 14.x
     name: teardown-test-cluster
+    if: ${{ always() }} && github.event.pull_request.head.repo.full_name == github.repository
     needs:
     - build-test-cluster
     - test
