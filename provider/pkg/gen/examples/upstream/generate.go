@@ -54,6 +54,32 @@ func main() {
 	}
 }
 
+func markdownExamples(examples []string) string {
+	s := "{{% examples %}}\n## Example Usage\n"
+	for _, example := range examples {
+		s += example
+	}
+	s += "{{% /examples %}}\n"
+	return s
+}
+
+func markdownExample(description string,
+	typescript string,
+	python string,
+	csharp string,
+	golang string,
+	yaml string) string {
+
+	return fmt.Sprintf("{{% example %}}\n %s\n"+
+		"```typescript\n%s\n```\n"+
+		"```python\n%s\n```\n"+
+		"```csharp\n%s\n```\n"+
+		"```golang\n%s\n```\n"+
+		"```yaml\n%s\n```\n"+
+		"{{% /example %}}\n",
+		description, typescript, python, csharp, golang, yaml)
+}
+
 func processYaml(path string, mdDir string) error {
 	yamlFile, err := os.Open(path)
 	if err != nil {
@@ -64,11 +90,9 @@ func processYaml(path string, mdDir string) error {
 	md := strings.NewReplacer(".yaml", ".md", ".yml", ".md").Replace(base)
 
 	buf := bytes.Buffer{}
-	_, err = buf.WriteString("{{% examples %}}\n")
-	_, err = buf.WriteString("## Example Usage\n")
-
 	defer contract.IgnoreClose(yamlFile)
 	decoder := yaml.NewDecoder(yamlFile)
+	exampleStrings := []string{}
 	for {
 		example := map[string]interface{}{}
 		err := decoder.Decode(&example)
@@ -84,152 +108,103 @@ func processYaml(path string, mdDir string) error {
 		contract.AssertNoError(err)
 
 		_, err = buf.WriteString(fmt.Sprintf("### %s\n", example["description"]))
-		contract.AssertNoError(err)
+		description := example["description"].(string)
 
-		_, err = buf.WriteString("\n")
-		contract.AssertNoError(err)
-
-		err = emitExample(example, &buf)
+		dir, err := ioutil.TempDir("", "")
 		if err != nil {
 			return err
 		}
+
+		defer func() {
+			contract.IgnoreError(os.RemoveAll(dir))
+		}()
+
+		fmt.Fprintf(os.Stderr, "New dir: %q\n", dir)
+
+		src, err := os.OpenFile(filepath.Join(dir, "Pulumi.yaml"), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+		if err != nil {
+			return err
+		}
+
+		if err = yaml.NewEncoder(src).Encode(example); err != nil {
+			return err
+		}
+		contract.AssertNoError(src.Close())
+
+		cmd := exec.Command("pulumi", "convert", "--language", "typescript", "--out",
+			filepath.Join(dir, "example-nodejs"))
+		cmd.Stderr = os.Stderr
+		cmd.Stdout = os.Stdout
+		cmd.Dir = dir
+		if err = cmd.Run(); err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "convert nodejs failed, ignoring: %+v", err)
+		}
+		content, err := ioutil.ReadFile(filepath.Join(dir, "example-nodejs", "index.ts"))
+		if err != nil {
+			return err
+		}
+		typescript := string(content)
+
+		cmd = exec.Command("pulumi", "convert", "--language", "python", "--out",
+			filepath.Join(dir, "example-py"))
+		cmd.Stderr = os.Stderr
+		cmd.Stdout = os.Stdout
+		cmd.Dir = dir
+		if err := cmd.Run(); err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "convert python failed, ignoring: %+v", err)
+		}
+		content, err = ioutil.ReadFile(filepath.Join(dir, "example-py", "__main__.py"))
+		if err != nil {
+			return err
+		}
+		python := string(content)
+
+		cmd = exec.Command("pulumi", "convert", "--language", "csharp", "--out",
+			filepath.Join(dir, "example-dotnet"))
+		cmd.Stderr = os.Stderr
+		cmd.Stdout = os.Stdout
+		cmd.Dir = dir
+		if err = cmd.Run(); err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
+		}
+		content, err = ioutil.ReadFile(filepath.Join(dir, "example-dotnet", "MyStack.cs"))
+		if err != nil {
+			return err
+		}
+		csharp := string(content)
+
+		cmd = exec.Command("pulumi", "convert", "--language", "go", "--out",
+			filepath.Join(dir, "example-go"))
+		cmd.Stderr = os.Stderr
+		cmd.Stdout = os.Stdout
+		cmd.Dir = dir
+		if err = cmd.Run(); err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
+		}
+		content, err = ioutil.ReadFile(filepath.Join(dir, "example-go", "main.go"))
+		if err != nil {
+			return err
+		}
+		golang := string(content)
+
+		// TODO add java when convert supports it.
+
+		content, err = ioutil.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
+		if err != nil {
+			return err
+		}
+		yaml := string(content)
+
+		exampleStrings = append(exampleStrings, markdownExample(description, typescript, python, csharp, golang, yaml))
+		return nil
 	}
-	_, err = buf.WriteString("{{% /examples %}}\n")
 	contract.AssertNoError(err)
 	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
 	if err != nil {
 		return err
 	}
 	defer contract.IgnoreClose(f)
-	_, err = f.Write(buf.Bytes())
-	contract.AssertNoError(err)
-	return nil
-}
-
-func emitExample(example map[string]interface{}, f io.StringWriter) error {
-	dir, err := ioutil.TempDir("", "")
-	if err != nil {
-		return err
-	}
-
-	defer func() {
-		contract.IgnoreError(os.RemoveAll(dir))
-	}()
-
-	fmt.Fprintf(os.Stderr, "New dir: %q\n", dir)
-
-	src, err := os.OpenFile(filepath.Join(dir, "Pulumi.yaml"), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
-	if err != nil {
-		return err
-	}
-
-	if err = yaml.NewEncoder(src).Encode(example); err != nil {
-		return err
-	}
-	contract.AssertNoError(src.Close())
-
-	_, err = f.WriteString("```typescript\n")
-	contract.AssertNoError(err)
-	cmd := exec.Command("pulumi", "convert", "--language", "typescript", "--out",
-		filepath.Join(dir, "example-nodejs"))
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	cmd.Dir = dir
-	if err = cmd.Run(); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "convert nodejs failed, ignoring: %+v", err)
-	}
-	content, err := ioutil.ReadFile(filepath.Join(dir, "example-nodejs", "index.ts"))
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(string(content))
-	contract.AssertNoError(err)
-	_, err = f.WriteString("```\n")
-
-	_, _ = fmt.Fprint(os.Stderr, "Converting python\n")
-	_, err = f.WriteString("```python\n")
-	contract.AssertNoError(err)
-	cmd = exec.Command("pulumi", "convert", "--language", "python", "--out",
-		filepath.Join(dir, "example-py"))
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	cmd.Dir = dir
-	if err := cmd.Run(); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "convert python failed, ignoring: %+v", err)
-	}
-	content, err = ioutil.ReadFile(filepath.Join(dir, "example-py", "__main__.py"))
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(string(content))
-	contract.AssertNoError(err)
-	_, err = f.WriteString("```\n")
-
-	_, err = f.WriteString("```csharp\n")
-	contract.AssertNoError(err)
-	cmd = exec.Command("pulumi", "convert", "--language", "csharp", "--out",
-		filepath.Join(dir, "example-dotnet"))
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	cmd.Dir = dir
-	if err = cmd.Run(); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
-	}
-	content, err = ioutil.ReadFile(filepath.Join(dir, "example-dotnet", "MyStack.cs"))
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(string(content))
-	contract.AssertNoError(err)
-	_, err = f.WriteString("```\n")
-
-	_, err = f.WriteString("```go\n")
-	contract.AssertNoError(err)
-	cmd = exec.Command("pulumi", "convert", "--language", "go", "--out",
-		filepath.Join(dir, "example-go"))
-	cmd.Stderr = os.Stderr
-	cmd.Stdout = os.Stdout
-	cmd.Dir = dir
-	if err = cmd.Run(); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
-	}
-	content, err = ioutil.ReadFile(filepath.Join(dir, "example-go", "main.go"))
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(string(content))
-	contract.AssertNoError(err)
-	_, err = f.WriteString("```\n")
-
-	// TODO add java when convert supports it.
-	//_, err = f.WriteString("```java\n")
-	//contract.AssertNoError(err)
-	//cmd = exec.Command("pulumi", "convert", "--language", "java", "--out",
-	//	filepath.Join(dir, "example-java"))
-	//cmd.Stderr = os.Stderr
-	//cmd.Stdout = os.Stdout
-	//cmd.Dir = dir
-	//if err = cmd.Run(); err != nil {
-	//	_, _ = fmt.Fprintf(os.Stderr, "convert java failed, ignoring: %+v", err)
-	//}
-	//content, err = ioutil.ReadFile(filepath.Join(dir, "example-java", "Main.java"))
-	//if err != nil {
-	//	return err
-	//}
-	//_, err = f.WriteString(string(content))
-	//contract.AssertNoError(err)
-	//_, err = f.WriteString("```\n")
-
-	_, err = f.WriteString("```yaml\n")
-	contract.AssertNoError(err)
-	content, err = ioutil.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
-	if err != nil {
-		return err
-	}
-	_, err = f.WriteString(string(content))
-	contract.AssertNoError(err)
-	_, err = f.WriteString("```\n")
-	_, err = f.WriteString("{{% /example %}}\n")
+	_, err = f.Write([]byte(markdownExamples(exampleStrings)))
 	contract.AssertNoError(err)
 	return nil
 }
