@@ -1764,7 +1764,7 @@ func (k *kubeProvider) Create(
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
-		DryRun:  req.GetPreview(),
+		Preview: req.GetPreview(),
 	}
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {

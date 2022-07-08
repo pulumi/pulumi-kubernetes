@@ -74,7 +74,7 @@ type CreateConfig struct {
 	ProviderConfig
 	Inputs  *unstructured.Unstructured
 	Timeout float64
-	DryRun  bool
+	Preview bool
 }
 
 type ReadConfig struct {
@@ -185,7 +185,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					Force:           &force,
 					FieldValidation: metav1.FieldValidationIgnore,
 				}
-				if c.DryRun {
+				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
 				objYAML, err := yaml.Marshal(c.Inputs.Object)
@@ -199,14 +199,14 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 			} else {
 				var options metav1.CreateOptions
-				if c.DryRun {
+				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
 
 				outputs, err = client.Create(c.Context, c.Inputs, options)
 				if err != nil {
 					// If the namespace hasn't been created yet, the preview will always fail.
-					if c.DryRun && IsNamespaceNotFoundErr(err) {
+					if c.Preview && IsNamespaceNotFoundErr(err) {
 						return &namespaceError{c.Inputs}
 					}
 
@@ -227,7 +227,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
-	if c.DryRun {
+	if c.Preview {
 		return outputs, nil
 	}
 
