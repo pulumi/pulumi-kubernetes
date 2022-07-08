@@ -2559,7 +2559,8 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 				return nil, nil, err
 			}
 
-			force := metadata.IsAnnotationTrue(newInputs, metadata.AnnotationPatchForce)
+			// Always force on diff to avoid erroneous conflict errors for resource replacements
+			force := true
 			if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
 				fieldManager = v
 			}
@@ -2698,6 +2699,11 @@ func (k *kubeProvider) tryServerSidePatch(
 	}
 
 	ssPatch, ssPatchBase, err = k.serverSidePatch(oldInputs, newInputs, fieldManager)
+	if err == nil {
+		// The server-side patch succeeded.
+		return ssPatch, ssPatchBase, true, nil
+	}
+
 	if k.isDryRunDisabledError(err) {
 		return nil, nil, false, err
 	}
@@ -2708,12 +2714,13 @@ func (k *kubeProvider) tryServerSidePatch(
 			return nil, nil, false, err
 		}
 	}
-	if err != nil {
-		return nil, nil, false, err
+	if err.Error() == "name is required" {
+		// If the name was removed in this update, then the resource will be replaced with an auto-named resource.
+		// Ignore this error since this case is handled by the replacement logic.
+		return nil, nil, false, nil
 	}
 
-	// The server-side patch succeeded.
-	return ssPatch, ssPatchBase, true, nil
+	return nil, nil, false, err
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {

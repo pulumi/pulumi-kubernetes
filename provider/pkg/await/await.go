@@ -179,7 +179,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			if c.ServerSideApply {
-				force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+				// Always force on preview to avoid erroneous conflict errors for resource replacements
+				force := c.Preview || metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
 					Force:           &force,
@@ -425,6 +426,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			// a replace (i.e., destroy and create).
 			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 			if err != nil {
+				if errors.IsConflict(err) {
+					err = fmt.Errorf("use `pulumi.com/patchForce` to override the conflict: %w", err)
+				}
 				return nil, err
 			}
 
