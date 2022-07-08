@@ -127,6 +127,9 @@ import * as yaml from "../../yaml/index";
  * ```
  */
 export class Chart extends yaml.CollectionComponentResource {
+    /** @internal */
+    public static readonly __pulumiType = 'kubernetes:helm.sh/v3:Chart';
+
     /**
      * Create an instance of the specified Helm chart.
      * @param releaseName Name of the Chart (e.g., nginx-ingress).
