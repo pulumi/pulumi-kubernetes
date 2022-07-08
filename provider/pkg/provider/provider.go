@@ -2077,18 +2077,21 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
-// Update updates an existing resource with new values. Currently this client supports the
-// Kubernetes-standard three-way JSON patch. See references here[1] and here[2].
+// Update updates an existing resource with new values. Currently, this client supports the
+// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
 //
 // nolint
-// [1]: https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
-// nolint
-// [2]: https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
+// [1]:
+// https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
+// [2]:
+// https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
+// [3]:
+// https://kubernetes.io/docs/reference/using-api/server-side-apply
 func (k *kubeProvider) Update(
 	ctx context.Context, req *pulumirpc.UpdateRequest,
 ) (*pulumirpc.UpdateResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 2 inputs:
+	// Behavior as of v3.20.0: We take 2 inputs:
 	//
 	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
 	//    k8s.core.v1.Service
@@ -2096,14 +2099,14 @@ func (k *kubeProvider) Update(
 	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
 	//    last computed value obtained from the Kubernetes API server.
 	//
-	// Unlike other providers, the update is computed as a three way merge between: (1) the new
+	// Unlike other providers, the update is computed as a three-way merge between: (1) the new
 	// inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
 	// main reason why the old state is an object with both the old inputs and the live version of the
 	// object.
 	//
 
 	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle and you should proceed to
+	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
 	// change them only if you understand them deeply.
 	//
 	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
@@ -2139,7 +2142,9 @@ func (k *kubeProvider) Update(
 	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
 	//       plumbing, because it expects nominal types representing the API schema, but the
 	//       discovery client is completely dynamic.)
-	// - [ ] Support server-side apply, when it comes out.
+	// - [x] Support server-side apply.
+	//
+	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
 	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
