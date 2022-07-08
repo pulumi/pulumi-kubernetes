@@ -166,11 +166,13 @@ var daemonset = append(
 		".spec.selector",
 	},
 	labelSelectorForceNewProperties(".spec.selector")...,
+	
 )
 
 var deployment = append(
 	properties{
 		".spec.selector",
+		".spec.template",
 	},
 	labelSelectorForceNewProperties(".spec.selector")...,
 )

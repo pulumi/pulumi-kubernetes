@@ -30,6 +30,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -2161,6 +2162,16 @@ func (k *kubeProvider) Update(
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
+
+	if k.enableConfigMapMutable {
+		annotations := getAnnotations(newInputs)
+		// TODO: Make this a real timestamp?
+		// TODO: The problem here is that is not being called when the Deployment thinks it hasn't changed.
+		// Changes to ONLY ConfigMap seem to make this code get skipped for the Deployment - maybe because
+		// the Deployment YAML hasn't changed?
+		annotations["pulumi.com/restartedAt"] = time.Now().String()
+		newInputs.SetAnnotations(annotations)
+	}
 
 	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
 	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
