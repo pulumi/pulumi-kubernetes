@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -70,13 +69,13 @@ func markdownExample(description string,
 	golang string,
 	yaml string) string {
 
-	return fmt.Sprintf("{{% example %}}\n %s\n"+
-		"```typescript\n%s\n```\n"+
-		"```python\n%s\n```\n"+
-		"```csharp\n%s\n```\n"+
-		"```golang\n%s\n```\n"+
-		"```yaml\n%s\n```\n"+
-		"{{% /example %}}\n",
+	return fmt.Sprintf("{{%% example %%}}\n### %s\n\n"+
+		"```typescript\n%s```\n"+
+		"```python\n%s```\n"+
+		"```csharp\n%s```\n"+
+		"```go\n%s```\n"+
+		"```yaml\n%s```\n"+
+		"{{%% /example %%}}\n",
 		description, typescript, python, csharp, golang, yaml)
 }
 
@@ -89,7 +88,6 @@ func processYaml(path string, mdDir string) error {
 	base := filepath.Base(path)
 	md := strings.NewReplacer(".yaml", ".md", ".yml", ".md").Replace(base)
 
-	buf := bytes.Buffer{}
 	defer contract.IgnoreClose(yamlFile)
 	decoder := yaml.NewDecoder(yamlFile)
 	exampleStrings := []string{}
@@ -100,16 +98,8 @@ func processYaml(path string, mdDir string) error {
 			break
 		}
 
-		if err != nil {
-			return err
-		}
-
-		_, err = buf.WriteString("{{% example %}}\n")
-		contract.AssertNoError(err)
-
-		_, err = buf.WriteString(fmt.Sprintf("### %s\n", example["description"]))
 		description := example["description"].(string)
-
+		fmt.Fprintf(os.Stdout, "Processing %s\n", description)
 		dir, err := ioutil.TempDir("", "")
 		if err != nil {
 			return err
@@ -196,10 +186,10 @@ func processYaml(path string, mdDir string) error {
 		yaml := string(content)
 
 		exampleStrings = append(exampleStrings, markdownExample(description, typescript, python, csharp, golang, yaml))
-		return nil
 	}
 	contract.AssertNoError(err)
-	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0755)
+	fmt.Fprintf(os.Stdout, "Writing %s\n", filepath.Join(mdDir, md))
+	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)
 	if err != nil {
 		return err
 	}
