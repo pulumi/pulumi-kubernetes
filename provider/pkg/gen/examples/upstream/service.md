@@ -1,7 +1,7 @@
 {{% examples %}}
 ## Example Usage
 {{% example %}}
-### Create a Service with autonaming
+### Create a Service with auto-naming
 
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
@@ -96,7 +96,7 @@ func main() {
 }
 ```
 ```yaml
-description: Create a Service with autonaming
+description: Create a Service with auto-naming
 name: yaml-example
 resources:
     service:

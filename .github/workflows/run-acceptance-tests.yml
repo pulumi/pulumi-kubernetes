@@ -525,32 +525,3 @@ jobs:
     name: lint
     if: github.event_name == 'repository_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
-  ensure-examples-gen:
-        name: Ensure Examples Generated
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                goversion: [1.17.x]
-        steps:
-          - name: Checkout Repo
-            uses: actions/checkout@v2
-          - name: Unshallow clone for tags
-            run: git fetch --prune --unshallow --tags
-          - name: Install Go
-            uses: actions/setup-go@v2
-            with:
-                go-version: ${{ matrix.goversion }}
-          - name: Install pulumictl
-            uses: jaxxstorm/action-install-gh-release@v1.1.0
-            with:
-                repo: pulumi/pulumictl
-          - name: Install Pulumi CLI
-            uses: pulumi/action-install-pulumi-cli@v1.0.1
-          - name: Install Kubernetes Plugin
-            run: pulumi plugin install resource kubernetes
-          - name: Generate examples
-            run: |
-                cd provider/pkg/gen/examples/upstream
-                go run generate.go ./yaml ./
-          - name: Check worktree clean
-            run: ./ci-scripts/ci/check-worktree-is-clean

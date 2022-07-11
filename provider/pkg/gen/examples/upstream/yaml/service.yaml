@@ -1,6 +1,6 @@
 name: yaml-example
 runtime: yaml
-description: Create a Service with autonaming
+description: Create a Service with auto-naming
 resources:
   service:
     type: kubernetes:core/v1:Service

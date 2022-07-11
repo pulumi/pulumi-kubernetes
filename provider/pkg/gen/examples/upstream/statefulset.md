@@ -1,7 +1,7 @@
 {{% examples %}}
 ## Example Usage
 {{% example %}}
-### Create a StatefulSet with autonaming
+### Create a StatefulSet with auto-naming
 
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
@@ -353,7 +353,7 @@ func main() {
 }
 ```
 ```yaml
-description: Create a StatefulSet with autonaming
+description: Create a StatefulSet with auto-naming
 name: yaml-example
 resources:
     service:
