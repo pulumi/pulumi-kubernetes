@@ -28,11 +28,11 @@ crd = k8s.apiextensions.v1.CustomResourceDefinition(
     "crd",
     args=k8s.apiextensions.v1.CustomResourceDefinitionInitArgs(
         metadata=k8s.meta.v1.ObjectMetaArgs(
-            name="tests.example.com",
+            name="tests.pyssa.example.com",
             namespace=ns.metadata.name,
         ),
         spec=k8s.apiextensions.v1.CustomResourceDefinitionSpecArgs(
-            group="example.com",
+            group="pyssa.example.com",
             versions=[
                 k8s.apiextensions.v1.CustomResourceDefinitionVersionArgs(
                     name="v1",
@@ -68,7 +68,7 @@ crd = k8s.apiextensions.v1.CustomResourceDefinition(
 
 cr = k8s.apiextensions.CustomResource(
     "cr",
-    api_version="example.com/v1",
+    api_version="pyssa.example.com/v1",
     kind="Test",
     metadata=k8s.meta.v1.ObjectMetaArgs(
         name="foo",
@@ -82,7 +82,7 @@ cr = k8s.apiextensions.CustomResource(
 
 cr_patch = k8s.apiextensions.CustomResourcePatch(
     "cr_patch",
-    api_version="example.com/v1",
+    api_version="pyssa.example.com/v1",
     kind="Test",
     metadata=k8s.meta.v1.ObjectMetaArgs(
         labels={

@@ -38,9 +38,9 @@ export const nsPatched = new k8s.core.v1.NamespacePatch("test", {
 }, {provider});
 
 const crd = new k8s.apiextensions.v1.CustomResourceDefinition("crontab", {
-    metadata: { name: "crontabs.stable.example.com" },
+    metadata: { name: "crontabs.nodessa.example.com" },
     spec: {
-        group: "stable.example.com",
+        group: "nodessa.example.com",
         versions: [
             {
                 name: "v1",
@@ -82,7 +82,7 @@ const crd = new k8s.apiextensions.v1.CustomResourceDefinition("crontab", {
 // Create a k8s CustomResource of type "CronTab".
 const cr = new k8s.apiextensions.CustomResource("my-new-cron-object",
     {
-        apiVersion: "stable.example.com/v1",
+        apiVersion: "nodessa.example.com/v1",
         kind: "CronTab",
         metadata: {
             name: "my-new-cron-object",
@@ -94,7 +94,7 @@ const cr = new k8s.apiextensions.CustomResource("my-new-cron-object",
 // Patch the CronTab CustomResource to add a label.
 export const crPatched = new k8s.apiextensions.CustomResourcePatch("label-cr",
     {
-        apiVersion: "stable.example.com/v1",
+        apiVersion: "nodessa.example.com/v1",
         kind: "CronTab",
         metadata: {
             labels: {

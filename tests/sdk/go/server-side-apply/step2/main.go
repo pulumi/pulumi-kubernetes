@@ -26,11 +26,11 @@ func main() {
 		crd, err := apiextensionsv1.NewCustomResourceDefinition(ctx, "crd",
 			&apiextensionsv1.CustomResourceDefinitionArgs{
 				Metadata: metav1.ObjectMetaArgs{
-					Name:      pulumi.String("tests.example.com"),
+					Name:      pulumi.String("tests.gossa.example.com"),
 					Namespace: ns.Metadata.Name(),
 				},
 				Spec: apiextensionsv1.CustomResourceDefinitionSpecArgs{
-					Group: pulumi.String("example.com"),
+					Group: pulumi.String("gossa.example.com"),
 					Versions: apiextensionsv1.CustomResourceDefinitionVersionArray{
 						apiextensionsv1.CustomResourceDefinitionVersionArgs{
 							Name:    pulumi.String("v1"),
@@ -66,7 +66,7 @@ func main() {
 		}
 
 		cr, err := apiextensions.NewCustomResource(ctx, "cr", &apiextensions.CustomResourceArgs{
-			ApiVersion: pulumi.String("example.com/v1"),
+			ApiVersion: pulumi.String("gossa.example.com/v1"),
 			Kind:       pulumi.String("Test"),
 			Metadata: metav1.ObjectMetaArgs{
 				Namespace: ns.Metadata.Name(),
@@ -82,7 +82,7 @@ func main() {
 		}
 
 		crPatch, err := apiextensions.NewCustomResourcePatch(ctx, "label-cr", &apiextensions.CustomResourcePatchArgs{
-			ApiVersion: pulumi.String("example.com/v1"),
+			ApiVersion: pulumi.String("gossa.example.com/v1"),
 			Kind:       pulumi.String("Test"),
 			Metadata: metav1.ObjectMetaArgs{
 				Labels: pulumi.StringMap{

@@ -27,7 +27,7 @@ class TestArgs : CustomResourceArgs
     [Input("spec")]
     public Input<TestSpecArgs>? Spec { get; set; }
 
-    public TestArgs() : base("example.com/v1", "Test")
+    public TestArgs() : base("csharpssa.example.com/v1", "Test")
     {
     }
 }
@@ -46,7 +46,7 @@ class TestPatchArgs : CustomResourcePatchArgs
     [Input("spec")]
     public Input<TestSpecArgs>? Spec { get; set; }
 
-    public TestPatchArgs() : base("example.com/v1", "Test")
+    public TestPatchArgs() : base("csharpssa.example.com/v1", "Test")
     {
     }
 }
@@ -71,12 +71,12 @@ class Program
             {
                 Metadata = new ObjectMetaArgs
                 {
-                    Name = "tests.example.com",
+                    Name = "tests.csharpssa.example.com",
                     Namespace = ns.Metadata.Apply(metadata => metadata?.Name),
                 },
                 Spec = new CustomResourceDefinitionSpecArgs
                 {
-                    Group = "example.com",
+                    Group = "csharpssa.example.com",
                     Versions = {
                         new CustomResourceDefinitionVersionArgs
                         {
