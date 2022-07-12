@@ -189,15 +189,13 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
-				objYAML, err := yaml.Marshal(c.Inputs.Object)
+				var objYAML []byte
+				objYAML, err = yaml.Marshal(c.Inputs.Object)
 				if err != nil {
 					return err
 				}
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
-				if err != nil {
-					return err
-				}
 			} else {
 				var options metav1.CreateOptions
 				if c.Preview {
@@ -205,16 +203,16 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 
 				outputs, err = client.Create(c.Context, c.Inputs, options)
-				if err != nil {
-					// If the namespace hasn't been created yet, the preview will always fail.
-					if c.Preview && IsNamespaceNotFoundErr(err) {
-						return &namespaceError{c.Inputs}
-					}
-
-					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
-						"Retry #%d; creation failed: %v", i, err))
-					return err
+			}
+			if err != nil {
+				// If the namespace hasn't been created yet, the preview will always fail.
+				if c.Preview && IsNamespaceNotFoundErr(err) {
+					return &namespaceError{c.Inputs}
 				}
+
+				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
+					"Retry #%d; creation failed: %v", i, err))
+				return err
 			}
 
 			return nil
