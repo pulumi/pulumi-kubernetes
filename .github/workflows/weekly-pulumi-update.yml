@@ -1,82 +1,143 @@
 name: weekly-pulumi-update
-"on":
+on:
   schedule:
-    - cron: 35 12 * * 4
+  - cron: 35 12 * * 4
   workflow_dispatch: {}
-
 env:
-  GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
-
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PROVIDER: kubernetes
+  PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+  PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
+  PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  TRAVIS_OS_NAME: linux
+  SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+  PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
+  AWS_REGION: us-west-2
+  PULUMI_TEST_OWNER: moolumi
+  GOLANGCI_LINT_VERSION: v1.31
+  GOLANGCI_LINT_TIMEOUT: 10m
 jobs:
-  update-go-mod:
-    name: Update Go mods
+  update_pulumi:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        goversion: [1.17.x]
+    name: update-pulumi
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
-      - name: Unshallow clone for tags
-        run: git fetch --prune --unshallow --tags
-      - name: Install Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ matrix.goversion }}
-      - name: Install pulumictl
-        uses: jaxxstorm/action-install-gh-release@v1.1.0
-        with:
-          repo: pulumi/pulumictl
-      - name: Install Pulumi CLI
-        uses: pulumi/setup-pulumi@v2
-      - name: Preparing Git Branch
-        run: |
-          git config --local user.email "bot@pulumi.com"
-          git config --local user.name "pulumi-bot"
-          git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
-      - name: Update pulumi/pulumi
-        id: gomod
-        run: |
-          cd provider
-          go get github.com/pulumi/pulumi/pkg/v3
-          go get github.com/pulumi/pulumi/sdk/v3
-          cd ..
-          make ensure
-          git update-index -q --refresh
-          if ! git diff-files --quiet; then
-            echo ::set-output name=changes::1
-          fi
-      - name: Build codegen + Schema + SDKs
-        if: steps.gomod.outputs.changes != 0
-        run: make build
-      - name: Commit changes
-        if: steps.gomod.outputs.changes != 0
-        run: |
-          git add sdk/nodejs
-          git commit -m "Regenerating Node.js SDK based on updated modules" || echo "ignore commit failure, may be empty"
-          git add sdk/python
-          git commit -m "Regenerating Python SDK based on updated modules" || echo "ignore commit failure, may be empty"
-          git add sdk/dotnet
-          git commit -m "Regenerating .NET SDK based on updated modules" || echo "ignore commit failure, may be empty"
-          git add sdk/go
-          git commit -m "Regenerating Go SDK based on updated modules" || echo "ignore commit failure, may be empty"
-          git add .
-          git commit -m "Updated modules"
-          git push origin update-pulumi/${{ github.run_id }}-${{ github.run_number }}
-      - name: Create PR
-        id: create-pr
-        if: steps.gomod.outputs.changes != 0
-        uses: repo-sync/pull-request@v2.6.2
-        with:
-          source_branch: "update-pulumi/${{ github.run_id }}-${{ github.run_number }}"
-          destination_branch: "master"
-          pr_title: "Automated pulumi/pulumi upgrade"
-          github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
-      - name: Set Automerge
-        if: steps.create-pr.outputs.has_changed_files
-        uses: peter-evans/enable-pull-request-automerge@v1
-        with:
-          token: ${{ secrets.PULUMI_BOT_TOKEN }}
-          pull-request-number: ${{ steps.create-pr.outputs.pr_number }}
-          repository: ${{ github.repository }}
-          merge-method: squash
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        lfs: true
+    - name: Unshallow clone for tags
+      run: git fetch --prune --unshallow --tags
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{matrix.goversion}}
+    - name: Install pulumictl
+      uses: jaxxstorm/action-install-gh-release@v1.5.0
+      with:
+        repo: pulumi/pulumictl
+    - name: Install Pulumi CLI
+      uses: pulumi/action-install-pulumi-cli@v2
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{matrix.dotnetversion}}
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{matrix.nodeversion}}
+        registry-url: https://registry.npmjs.org
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.pythonversion}}
+    - name: Update Pulumi/Pulumi
+      id: gomod
+      run: >-
+        git config --local user.email 'bot@pulumi.com'
+
+        git config --local user.name 'pulumi-bot'
+
+        git checkout -b update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+
+        cd provider
+
+        go get github.com/pulumi/pulumi/pkg/v3
+
+        go get github.com/pulumi/pulumi/sdk/v3
+
+        go mod download
+
+        go mod tidy
+
+        cd ../sdk
+
+        go get github.com/pulumi/pulumi/sdk/v3
+
+        go mod download
+
+        go mod tidy
+
+        cd ..
+
+        git update-index -q --refresh
+
+        if ! git diff-files --quiet; then 
+        	echo ::set-output name=changes::1 
+        fi
+    - name: Provider with Pulumi Upgrade
+      if: steps.gomod.outputs.changes != 0
+      run: >-
+        make build
+
+        git add sdk/nodejs
+
+        git commit -m "Regenerating Node.js SDK based on updated modules" || echo "ignore commit failure, may be empty"
+
+        git add sdk/python
+
+        git commit -m "Regenerating Python SDK based on updated modules" || echo "ignore commit failure, may be empty"
+
+        git add sdk/dotnet
+
+        git commit -m "Regenerating .NET SDK based on updated modules" || echo "ignore commit failure, may be empty"
+
+        git add sdk/go*
+
+        git commit -m "Regenerating Go SDK based on updated modules" || echo "ignore commit failure, may be empty"
+
+        git add .
+
+        git commit -m "Updated modules"
+
+        git push origin update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+    - name: Create PR
+      id: create-pr
+      if: steps.gomod.output.changes != 0
+      uses: repo-sync/pull-request@v2
+      with:
+        source_branch: update-pulumi/${{ github.run_id }}-${{ github.run_number }}
+        destination_branch: master
+        pr_title: Automated pulumi/pulumi upgrade
+        github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
+    - name: Set AutoMerge
+      if: steps.create-pr.outputs.has_changed_files
+      uses: peter-evans/enable-pull-request-automerge@v1
+      with:
+        token: "{{ secrets.PULUMI_BOT_TOKEN }}"
+        pull-request-number: ${{ steps.create-pr.outputs.pr_number }}
+        repository: ${{ github.repository }}
+        merge-method: squash
+    strategy:
+      fail-fast: true
+      matrix:
+        goversion:
+        - 1.18.x
+        dotnetversion:
+        - 3.1.301
+        pythonversion:
+        - "3.7"
+        nodeversion:
+        - 14.x
