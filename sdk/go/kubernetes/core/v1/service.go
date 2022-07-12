@@ -39,7 +39,7 @@ import (
 // by setting the 'customTimeouts' option on the resource.
 //
 // ## Example Usage
-// ### Create a Service with autonaming
+// ### Create a Service with auto-naming
 // ```go
 // package main
 //

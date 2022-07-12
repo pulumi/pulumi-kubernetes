@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// by setting the 'customTimeouts' option on the resource.
     /// 
     /// ## Example Usage
-    /// ### Create a StatefulSet with autonaming
+    /// ### Create a StatefulSet with auto-naming
     /// ```csharp
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;

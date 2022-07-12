@@ -38,7 +38,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// by setting the 'customTimeouts' option on the resource.
     /// 
     /// ## Example Usage
-    /// ### Create a Service with autonaming
+    /// ### Create a Service with auto-naming
     /// ```csharp
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;

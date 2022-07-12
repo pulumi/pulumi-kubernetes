@@ -117,7 +117,7 @@ class StatefulSet(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         ## Example Usage
-        ### Create a StatefulSet with autonaming
+        ### Create a StatefulSet with auto-naming
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes
@@ -290,7 +290,7 @@ class StatefulSet(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         ## Example Usage
-        ### Create a StatefulSet with autonaming
+        ### Create a StatefulSet with auto-naming
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes

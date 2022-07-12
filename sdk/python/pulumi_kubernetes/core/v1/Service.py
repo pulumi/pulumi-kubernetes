@@ -126,7 +126,7 @@ class Service(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         ## Example Usage
-        ### Create a Service with autonaming
+        ### Create a Service with auto-naming
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes
@@ -205,7 +205,7 @@ class Service(pulumi.CustomResource):
         by setting the 'customTimeouts' option on the resource.
 
         ## Example Usage
-        ### Create a Service with autonaming
+        ### Create a Service with auto-naming
         ```python
         import pulumi
         import pulumi_kubernetes as kubernetes

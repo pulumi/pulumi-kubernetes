@@ -25,7 +25,7 @@ import * as utilities from "../../utilities";
  * by setting the 'customTimeouts' option on the resource.
  *
  * ## Example Usage
- * ### Create a StatefulSet with autonaming
+ * ### Create a StatefulSet with auto-naming
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";

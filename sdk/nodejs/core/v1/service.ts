@@ -34,7 +34,7 @@ import * as utilities from "../../utilities";
  * by setting the 'customTimeouts' option on the resource.
  *
  * ## Example Usage
- * ### Create a Service with autonaming
+ * ### Create a Service with auto-naming
  *
  * ```typescript
  * import * as pulumi from "@pulumi/pulumi";

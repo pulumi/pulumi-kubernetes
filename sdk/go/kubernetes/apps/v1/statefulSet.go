@@ -30,7 +30,7 @@ import (
 // by setting the 'customTimeouts' option on the resource.
 //
 // ## Example Usage
-// ### Create a StatefulSet with autonaming
+// ### Create a StatefulSet with auto-naming
 // ```go
 // package main
 //
