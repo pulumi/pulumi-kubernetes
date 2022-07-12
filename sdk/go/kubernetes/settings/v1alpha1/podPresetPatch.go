@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -27,9 +28,12 @@ type PodPresetPatch struct {
 func NewPodPresetPatch(ctx *pulumi.Context,
 	name string, args *PodPresetPatchArgs, opts ...pulumi.ResourceOption) (*PodPresetPatch, error) {
 	if args == nil {
-		args = &PodPresetPatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
+	}
 	args.ApiVersion = pulumi.StringPtr("settings.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("PodPreset")
 	var resource PodPresetPatch
@@ -67,9 +71,9 @@ type podPresetPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     *string                 `pulumi:"kind"`
-	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	Spec     *PodPresetSpecPatch     `pulumi:"spec"`
+	Kind     *string                `pulumi:"kind"`
+	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Spec     *PodPresetSpecPatch    `pulumi:"spec"`
 }
 
 // The set of arguments for constructing a PodPresetPatch resource.
@@ -78,7 +82,7 @@ type PodPresetPatchArgs struct {
 	ApiVersion pulumi.StringPtrInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind     pulumi.StringPtrInput
-	Metadata metav1.ObjectMetaPatchPtrInput
+	Metadata metav1.ObjectMetaPatchInput
 	Spec     PodPresetSpecPatchPtrInput
 }
 

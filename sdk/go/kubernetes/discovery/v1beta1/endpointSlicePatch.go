@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -33,9 +34,12 @@ type EndpointSlicePatch struct {
 func NewEndpointSlicePatch(ctx *pulumi.Context,
 	name string, args *EndpointSlicePatchArgs, opts ...pulumi.ResourceOption) (*EndpointSlicePatch, error) {
 	if args == nil {
-		args = &EndpointSlicePatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
+	}
 	args.ApiVersion = pulumi.StringPtr("discovery.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("EndpointSlice")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -85,7 +89,7 @@ type endpointSlicePatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
 	Ports []EndpointPortPatch `pulumi:"ports"`
 }
@@ -101,7 +105,7 @@ type EndpointSlicePatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPatchPtrInput
+	Metadata metav1.ObjectMetaPatchInput
 	// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
 	Ports EndpointPortPatchArrayInput
 }

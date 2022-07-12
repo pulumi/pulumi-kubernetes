@@ -15,15 +15,20 @@ __all__ = ['CSIStorageCapacityPatchArgs', 'CSIStorageCapacityPatch']
 @pulumi.input_type
 class CSIStorageCapacityPatchArgs:
     def __init__(__self__, *,
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  capacity: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  maximum_volume_size: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
                  storage_class_name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a CSIStorageCapacityPatch resource.
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+               
+               Objects are namespaced.
+               
+               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] capacity: Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
                
@@ -32,14 +37,10 @@ class CSIStorageCapacityPatchArgs:
         :param pulumi.Input[str] maximum_volume_size: MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
                
                This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
-               
-               Objects are namespaced.
-               
-               More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] node_topology: NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
         :param pulumi.Input[str] storage_class_name: The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
         """
+        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'storage.k8s.io/v1beta1')
         if capacity is not None:
@@ -48,12 +49,26 @@ class CSIStorageCapacityPatchArgs:
             pulumi.set(__self__, "kind", 'CSIStorageCapacity')
         if maximum_volume_size is not None:
             pulumi.set(__self__, "maximum_volume_size", maximum_volume_size)
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
         if node_topology is not None:
             pulumi.set(__self__, "node_topology", node_topology)
         if storage_class_name is not None:
             pulumi.set(__self__, "storage_class_name", storage_class_name)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
+        """
+        Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
+
+        Objects are namespaced.
+
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -106,22 +121,6 @@ class CSIStorageCapacityPatchArgs:
     @maximum_volume_size.setter
     def maximum_volume_size(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "maximum_volume_size", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
-
-        Objects are namespaced.
-
-        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="nodeTopology")
@@ -194,7 +193,7 @@ class CSIStorageCapacityPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[CSIStorageCapacityPatchArgs] = None,
+                 args: CSIStorageCapacityPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
@@ -242,6 +241,8 @@ class CSIStorageCapacityPatch(pulumi.CustomResource):
             __props__.__dict__["capacity"] = capacity
             __props__.__dict__["kind"] = 'CSIStorageCapacity'
             __props__.__dict__["maximum_volume_size"] = maximum_volume_size
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["node_topology"] = node_topology
             __props__.__dict__["storage_class_name"] = storage_class_name

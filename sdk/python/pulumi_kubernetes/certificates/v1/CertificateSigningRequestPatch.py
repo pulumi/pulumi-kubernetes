@@ -17,9 +17,9 @@ __all__ = ['CertificateSigningRequestPatchArgs', 'CertificateSigningRequestPatch
 @pulumi.input_type
 class CertificateSigningRequestPatchArgs:
     def __init__(__self__, *,
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  spec: Optional[pulumi.Input['CertificateSigningRequestSpecPatchArgs']] = None):
         """
         The set of arguments for constructing a CertificateSigningRequestPatch resource.
@@ -27,14 +27,22 @@ class CertificateSigningRequestPatchArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['CertificateSigningRequestSpecPatchArgs'] spec: spec contains the certificate request, and is immutable after creation. Only the request, signerName, expirationSeconds, and usages fields can be set on creation. Other fields are derived by Kubernetes and cannot be modified by users.
         """
+        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'CertificateSigningRequest')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -59,15 +67,6 @@ class CertificateSigningRequestPatchArgs:
     @kind.setter
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
@@ -111,7 +110,7 @@ class CertificateSigningRequestPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[CertificateSigningRequestPatchArgs] = None,
+                 args: CertificateSigningRequestPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         CertificateSigningRequest objects provide a mechanism to obtain x509 certificates by submitting a certificate signing request, and having it asynchronously approved and issued.
@@ -152,6 +151,8 @@ class CertificateSigningRequestPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'certificates.k8s.io/v1'
             __props__.__dict__["kind"] = 'CertificateSigningRequest'
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None

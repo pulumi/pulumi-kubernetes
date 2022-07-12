@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -31,9 +32,12 @@ type ClusterRolePatch struct {
 func NewClusterRolePatch(ctx *pulumi.Context,
 	name string, args *ClusterRolePatchArgs, opts ...pulumi.ResourceOption) (*ClusterRolePatch, error) {
 	if args == nil {
-		args = &ClusterRolePatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
+	}
 	args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("ClusterRole")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -84,7 +88,7 @@ type clusterRolePatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Rules holds all the PolicyRules for this ClusterRole
 	Rules []PolicyRulePatch `pulumi:"rules"`
 }
@@ -98,7 +102,7 @@ type ClusterRolePatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPatchPtrInput
+	Metadata metav1.ObjectMetaPatchInput
 	// Rules holds all the PolicyRules for this ClusterRole
 	Rules PolicyRulePatchArrayInput
 }

@@ -105,8 +105,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Settings.V1Alpha1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
 
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Settings.V1Alpha1.PodPresetSpecPatchArgs>? Spec { get; set; }
