@@ -836,8 +836,8 @@ func TestRenderYAML(t *testing.T) {
 		Config: map[string]string{
 			"renderDir": dir,
 		},
-		Dir:           filepath.Join("render-yaml", "step1"),
-		Quick:         true,
+		Dir:   filepath.Join("render-yaml", "step1"),
+		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))

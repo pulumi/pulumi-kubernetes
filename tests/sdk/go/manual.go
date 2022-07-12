@@ -16,7 +16,6 @@ package test
 
 import (
 	"fmt"
-	"helm.sh/helm/v3/pkg/release"
 	"math/rand"
 	"os"
 	"path/filepath"
@@ -26,7 +25,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
-	"k8s.io/client-go/kubernetes"
+	"helm.sh/helm/v3/pkg/release"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
@@ -35,6 +34,7 @@ func getRandomNamespace(prefix string) string {
 		const letterBytes = "abcdefghijklmnopqrstuvwxyz0123456789"
 		b := make([]byte, n)
 		for i := range b {
+			//nolint: gosec
 			b[i] = letterBytes[rand.Intn(len(letterBytes))]
 		}
 		return string(b)
@@ -56,18 +56,6 @@ func namespacedKubeconfig(namespace string) (*provider.KubeConfig, error) {
 	return provider.NewKubeConfig(restConfig, kubeconfig), nil
 }
 
-func namespacedClientSet(namespace string) (*kubernetes.Clientset, error) {
-	kubeconfig, err := namespacedKubeconfig(namespace)
-	if err != nil {
-		return nil, err
-	}
-	restConfig, err := kubeconfig.ToRESTConfig()
-	if err != nil {
-		return nil, err
-	}
-	return kubernetes.NewForConfig(restConfig)
-}
-
 func createRelease(releaseName, releaseNamespace, baseDir string, createNamespace bool) error {
 	chartPath := filepath.Join(baseDir, "./nginx")
 	chart, err := loader.Load(chartPath)
@@ -82,7 +70,7 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 
 	actionConfig := new(action.Configuration)
 	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
-		fmt.Sprintf(format, v)
+		_ = fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
 	}
@@ -114,7 +102,7 @@ func listReleases(releaseNamespace string) ([]*release.Release, error) {
 	}
 	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string,
 		v ...interface{}) {
-		fmt.Sprintf(format, v)
+		_ = fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
 	}
@@ -134,7 +122,7 @@ func deleteRelease(releaseName, releaseNamespace string) error {
 
 	actionConfig := new(action.Configuration)
 	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
-		fmt.Sprintf(format, v)
+		_ = fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
 	}

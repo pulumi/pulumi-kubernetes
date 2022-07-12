@@ -277,7 +277,7 @@ func TestDotnet_Secrets(t *testing.T) {
 
 func TestDotnet_ServerSideApply(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   "server-side-apply",
+		Dir:                  "server-side-apply",
 		ExpectRefreshChanges: true,
 		OrderedConfig: []integration.ConfigValue{
 			{

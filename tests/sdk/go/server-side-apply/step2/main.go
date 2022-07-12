@@ -22,6 +22,9 @@ func main() {
 		}
 
 		ns, err := corev1.NewNamespace(ctx, "test", &corev1.NamespaceArgs{}, pulumi.Provider(provider))
+		if err != nil {
+			return err
+		}
 
 		crd, err := apiextensionsv1.NewCustomResourceDefinition(ctx, "crd",
 			&apiextensionsv1.CustomResourceDefinitionArgs{
