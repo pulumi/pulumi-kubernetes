@@ -1328,8 +1328,6 @@ github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335/go.mod
 github.com/pulumi/pulumi-java/pkg v0.1.0/go.mod h1:Dw5klQSJCD6hHaHN4BcCoOW+KjC6NafdBtDsy6sY6uc=
 github.com/pulumi/pulumi-java/pkg v0.2.0/go.mod h1:LUz8JGS7Lxn2EnPkxFhB6Rap0CwZyHTHmwLQ16NFIhc=
 github.com/pulumi/pulumi-java/pkg v0.4.0/go.mod h1:j3qzYXomeNTibPcInXJVdsaBuHYwv0ISmwTgR6q0hU0=
-github.com/pulumi/pulumi-random/sdk/v4 v4.8.0 h1:zaSdfNqcaRqKld2jTB+YZIN7O4BsQ2m/AEFx7qNZJUY=
-github.com/pulumi/pulumi-random/sdk/v4 v4.8.0/go.mod h1:czSwj+jZnn/VWovMpTLUs/RL/ZS4PFHRdmlXrkvHqeI=
 github.com/pulumi/pulumi-yaml v0.3.0/go.mod h1:6pQ0QcQqLYbq+i5vYjir/gDnpCvTkKcHqB5+mt0d3So=
 github.com/pulumi/pulumi-yaml v0.5.2/go.mod h1:VTgGg3z1WFYDeiwnq9rS3Y4qAysHiQS3M4X67wqo0RM=
 github.com/pulumi/pulumi/pkg/v3 v3.26.0/go.mod h1:L9E+MXe05AbrSmX1GjX3jIrVNpE2RrauKEjME+BNzi4=
@@ -1344,7 +1342,6 @@ github.com/pulumi/pulumi/sdk/v3 v3.19.0/go.mod h1:AnbQmAhp0ezO/MhcVjqkhvoQnxZ0+7
 github.com/pulumi/pulumi/sdk/v3 v3.26.0/go.mod h1:VsxW+TGv2VBLe/MeqsAr9r0zKzK/gbAhFT9QxYr24cY=
 github.com/pulumi/pulumi/sdk/v3 v3.28.0/go.mod h1:Oe6AnW5MjJE5X2UJeqeXm1Al7qahdLVhIPeiKuoqxAw=
 github.com/pulumi/pulumi/sdk/v3 v3.31.0/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
-github.com/pulumi/pulumi/sdk/v3 v3.31.1/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
 github.com/pulumi/pulumi/sdk/v3 v3.32.1/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
 github.com/pulumi/pulumi/sdk/v3 v3.33.1/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=
 github.com/pulumi/pulumi/sdk/v3 v3.33.2-0.20220523224435-36cbf572f457/go.mod h1:hGo/+AL1L4sPL9Ukd/i5bNFM3WHs3dHcA+GKEW7M3RA=

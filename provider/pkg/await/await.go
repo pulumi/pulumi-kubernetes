@@ -184,7 +184,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
 					Force:           &force,
-					FieldValidation: metav1.FieldValidationIgnore,
+					FieldValidation: metav1.FieldValidationWarn,
 				}
 				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
