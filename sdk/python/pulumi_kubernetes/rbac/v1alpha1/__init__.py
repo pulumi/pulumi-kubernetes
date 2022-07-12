@@ -8,10 +8,14 @@ import typing
 from .ClusterRole import *
 from .ClusterRoleBinding import *
 from .ClusterRoleBindingList import *
+from .ClusterRoleBindingPatch import *
 from .ClusterRoleList import *
+from .ClusterRolePatch import *
 from .Role import *
 from .RoleBinding import *
 from .RoleBindingList import *
+from .RoleBindingPatch import *
 from .RoleList import *
+from .RolePatch import *
 from ._inputs import *
 from . import outputs

@@ -7,13 +7,18 @@ import typing
 # Export this package's modules as members:
 from .CSIDriver import *
 from .CSIDriverList import *
+from .CSIDriverPatch import *
 from .CSINode import *
 from .CSINodeList import *
+from .CSINodePatch import *
 from .CSIStorageCapacity import *
 from .CSIStorageCapacityList import *
+from .CSIStorageCapacityPatch import *
 from .StorageClass import *
 from .StorageClassList import *
+from .StorageClassPatch import *
 from .VolumeAttachment import *
 from .VolumeAttachmentList import *
+from .VolumeAttachmentPatch import *
 from ._inputs import *
 from . import outputs

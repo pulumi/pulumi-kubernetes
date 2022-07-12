@@ -7,14 +7,18 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./podDisruptionBudget";
 export * from "./podDisruptionBudgetList";
+export * from "./podDisruptionBudgetPatch";
 export * from "./podSecurityPolicy";
 export * from "./podSecurityPolicyList";
+export * from "./podSecurityPolicyPatch";
 
 // Import resources to register:
 import { PodDisruptionBudget } from "./podDisruptionBudget";
 import { PodDisruptionBudgetList } from "./podDisruptionBudgetList";
+import { PodDisruptionBudgetPatch } from "./podDisruptionBudgetPatch";
 import { PodSecurityPolicy } from "./podSecurityPolicy";
 import { PodSecurityPolicyList } from "./podSecurityPolicyList";
+import { PodSecurityPolicyPatch } from "./podSecurityPolicyPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -24,10 +28,14 @@ const _module = {
                 return new PodDisruptionBudget(name, <any>undefined, { urn })
             case "kubernetes:policy/v1beta1:PodDisruptionBudgetList":
                 return new PodDisruptionBudgetList(name, <any>undefined, { urn })
+            case "kubernetes:policy/v1beta1:PodDisruptionBudgetPatch":
+                return new PodDisruptionBudgetPatch(name, <any>undefined, { urn })
             case "kubernetes:policy/v1beta1:PodSecurityPolicy":
                 return new PodSecurityPolicy(name, <any>undefined, { urn })
             case "kubernetes:policy/v1beta1:PodSecurityPolicyList":
                 return new PodSecurityPolicyList(name, <any>undefined, { urn })
+            case "kubernetes:policy/v1beta1:PodSecurityPolicyPatch":
+                return new PodSecurityPolicyPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

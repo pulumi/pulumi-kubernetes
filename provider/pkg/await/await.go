@@ -74,7 +74,7 @@ type CreateConfig struct {
 	ProviderConfig
 	Inputs  *unstructured.Unstructured
 	Timeout float64
-	DryRun  bool
+	Preview bool
 }
 
 type ReadConfig struct {
@@ -179,40 +179,40 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			if c.ServerSideApply {
-				force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+				// Always force on preview to avoid erroneous conflict errors for resource replacements
+				force := c.Preview || metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
 				options := metav1.PatchOptions{
-					FieldManager: c.FieldManager,
-					Force:        &force,
+					FieldManager:    c.FieldManager,
+					Force:           &force,
+					FieldValidation: metav1.FieldValidationWarn,
 				}
-				if c.DryRun {
+				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
-				objYAML, err := yaml.Marshal(c.Inputs.Object)
+				var objYAML []byte
+				objYAML, err = yaml.Marshal(c.Inputs.Object)
 				if err != nil {
 					return err
 				}
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
-				if err != nil {
-					return err
-				}
 			} else {
 				var options metav1.CreateOptions
-				if c.DryRun {
+				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
 
 				outputs, err = client.Create(c.Context, c.Inputs, options)
-				if err != nil {
-					// If the namespace hasn't been created yet, the preview will always fail.
-					if c.DryRun && IsNamespaceNotFoundErr(err) {
-						return &namespaceError{c.Inputs}
-					}
-
-					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
-						"Retry #%d; creation failed: %v", i, err))
-					return err
+			}
+			if err != nil {
+				// If the namespace hasn't been created yet, the preview will always fail.
+				if c.Preview && IsNamespaceNotFoundErr(err) {
+					return &namespaceError{c.Inputs}
 				}
+
+				_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
+					"Retry #%d; creation failed: %v", i, err))
+				return err
 			}
 
 			return nil
@@ -226,7 +226,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 	}
 	_ = clearStatus(c.Context, c.Host, c.URN)
 
-	if c.DryRun {
+	if c.Preview {
 		return outputs, nil
 	}
 
@@ -331,17 +331,19 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 // reported to be updated; (2) the update timeout has occurred; or (3) an error has occurred while
 // the resource was being updated.
 //
-// Update updates an existing resource with new values. Currently this client supports the
-// Kubernetes-standard three-way JSON patch. See references here[1] and here[2].
+// Update updates an existing resource with new values. Currently, this client supports the
+// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
 //
 // nolint
 // [1]:
 // https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
 // [2]:
 // https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
+// [3]:
+// https://kubernetes.io/docs/reference/using-api/server-side-apply
 func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle and you should proceed to
+	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
 	// change them only if you understand them deeply.
 	//
 	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
@@ -374,10 +376,12 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	// So the roadmap is:
 	//
 	// - [x] Implement `Update` using the three-way JSON merge strategy.
-	// - [ ] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
+	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
 	//       plumbing, because it expects nominal types representing the API schema, but the
 	//       discovery client is completely dynamic.)
-	// - [ ] Support server-side apply, when it comes out.
+	// - [x] Support server-side apply.
+	//
+	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
 	//
 
 	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
@@ -424,6 +428,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			// a replace (i.e., destroy and create).
 			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 			if err != nil {
+				if errors.IsConflict(err) {
+					err = fmt.Errorf("use `pulumi.com/patchForce` to override the conflict: %w", err)
+				}
 				return nil, err
 			}
 

@@ -12,10 +12,36 @@ from ... import core as _core
 from ... import meta as _meta
 
 __all__ = [
+    'OverheadPatchArgs',
     'OverheadArgs',
     'RuntimeClassArgs',
+    'SchedulingPatchArgs',
     'SchedulingArgs',
 ]
+
+@pulumi.input_type
+class OverheadPatchArgs:
+    def __init__(__self__, *,
+                 pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        """
+        Overhead structure represents the resource overhead associated with running a pod.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
+        """
+        if pod_fixed is not None:
+            pulumi.set(__self__, "pod_fixed", pod_fixed)
+
+    @property
+    @pulumi.getter(name="podFixed")
+    def pod_fixed(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        PodFixed represents the fixed resource overhead associated with running a pod.
+        """
+        return pulumi.get(self, "pod_fixed")
+
+    @pod_fixed.setter
+    def pod_fixed(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "pod_fixed", value)
+
 
 @pulumi.input_type
 class OverheadArgs:
@@ -144,6 +170,46 @@ class RuntimeClassArgs:
     @scheduling.setter
     def scheduling(self, value: Optional[pulumi.Input['SchedulingArgs']]):
         pulumi.set(self, "scheduling", value)
+
+
+@pulumi.input_type
+class SchedulingPatchArgs:
+    def __init__(__self__, *,
+                 node_selector: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None):
+        """
+        Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+
+    @property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        """
+        nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
+        """
+        return pulumi.get(self, "node_selector")
+
+    @node_selector.setter
+    def node_selector(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "node_selector", value)
+
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]:
+        """
+        tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @tolerations.setter
+    def tolerations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]]):
+        pulumi.set(self, "tolerations", value)
 
 
 @pulumi.input_type

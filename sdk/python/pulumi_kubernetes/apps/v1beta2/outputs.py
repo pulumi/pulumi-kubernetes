@@ -16,26 +16,44 @@ __all__ = [
     'ControllerRevision',
     'DaemonSet',
     'DaemonSetCondition',
+    'DaemonSetConditionPatch',
     'DaemonSetSpec',
+    'DaemonSetSpecPatch',
     'DaemonSetStatus',
+    'DaemonSetStatusPatch',
     'DaemonSetUpdateStrategy',
+    'DaemonSetUpdateStrategyPatch',
     'Deployment',
     'DeploymentCondition',
+    'DeploymentConditionPatch',
     'DeploymentSpec',
+    'DeploymentSpecPatch',
     'DeploymentStatus',
+    'DeploymentStatusPatch',
     'DeploymentStrategy',
+    'DeploymentStrategyPatch',
     'ReplicaSet',
     'ReplicaSetCondition',
+    'ReplicaSetConditionPatch',
     'ReplicaSetSpec',
+    'ReplicaSetSpecPatch',
     'ReplicaSetStatus',
+    'ReplicaSetStatusPatch',
     'RollingUpdateDaemonSet',
+    'RollingUpdateDaemonSetPatch',
     'RollingUpdateDeployment',
+    'RollingUpdateDeploymentPatch',
     'RollingUpdateStatefulSetStrategy',
+    'RollingUpdateStatefulSetStrategyPatch',
     'StatefulSet',
     'StatefulSetCondition',
+    'StatefulSetConditionPatch',
     'StatefulSetSpec',
+    'StatefulSetSpecPatch',
     'StatefulSetStatus',
+    'StatefulSetStatusPatch',
     'StatefulSetUpdateStrategy',
+    'StatefulSetUpdateStrategyPatch',
 ]
 
 @pulumi.output_type
@@ -300,6 +318,94 @@ class DaemonSetCondition(dict):
 
 
 @pulumi.output_type
+class DaemonSetConditionPatch(dict):
+    """
+    DaemonSetCondition describes the state of a DaemonSet at a certain point.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        DaemonSetCondition describes the state of a DaemonSet at a certain point.
+        :param str last_transition_time: Last time the condition transitioned from one status to another.
+        :param str message: A human readable message indicating details about the transition.
+        :param str reason: The reason for the condition's last transition.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of DaemonSet condition.
+        """
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        Last time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        A human readable message indicating details about the transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        The reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of DaemonSet condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class DaemonSetSpec(dict):
     """
     DaemonSetSpec is the specification of a daemon set.
@@ -383,6 +489,98 @@ class DaemonSetSpec(dict):
     @property
     @pulumi.getter(name="updateStrategy")
     def update_strategy(self) -> Optional['outputs.DaemonSetUpdateStrategy']:
+        """
+        An update strategy to replace existing DaemonSet pods with new pods.
+        """
+        return pulumi.get(self, "update_strategy")
+
+
+@pulumi.output_type
+class DaemonSetSpecPatch(dict):
+    """
+    DaemonSetSpec is the specification of a daemon set.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+        elif key == "updateStrategy":
+            suggest = "update_strategy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 min_ready_seconds: Optional[int] = None,
+                 revision_history_limit: Optional[int] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
+                 update_strategy: Optional['outputs.DaemonSetUpdateStrategyPatch'] = None):
+        """
+        DaemonSetSpec is the specification of a daemon set.
+        :param int min_ready_seconds: The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+        :param int revision_history_limit: The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param '_core.v1.PodTemplateSpecPatchArgs' template: An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        :param 'DaemonSetUpdateStrategyPatchArgs' update_strategy: An update strategy to replace existing DaemonSet pods with new pods.
+        """
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if revision_history_limit is not None:
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+        if update_strategy is not None:
+            pulumi.set(__self__, "update_strategy", update_strategy)
+
+    @property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> Optional[int]:
+        """
+        The minimum number of seconds for which a newly created DaemonSet pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @property
+    @pulumi.getter(name="revisionHistoryLimit")
+    def revision_history_limit(self) -> Optional[int]:
+        """
+        The number of old history to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        """
+        return pulumi.get(self, "revision_history_limit")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional['_core.v1.outputs.PodTemplateSpecPatch']:
+        """
+        An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        """
+        return pulumi.get(self, "template")
+
+    @property
+    @pulumi.getter(name="updateStrategy")
+    def update_strategy(self) -> Optional['outputs.DaemonSetUpdateStrategyPatch']:
         """
         An update strategy to replace existing DaemonSet pods with new pods.
         """
@@ -550,6 +748,170 @@ class DaemonSetStatus(dict):
 
 
 @pulumi.output_type
+class DaemonSetStatusPatch(dict):
+    """
+    DaemonSetStatus represents the current status of a daemon set.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "currentNumberScheduled":
+            suggest = "current_number_scheduled"
+        elif key == "desiredNumberScheduled":
+            suggest = "desired_number_scheduled"
+        elif key == "numberAvailable":
+            suggest = "number_available"
+        elif key == "numberMisscheduled":
+            suggest = "number_misscheduled"
+        elif key == "numberReady":
+            suggest = "number_ready"
+        elif key == "numberUnavailable":
+            suggest = "number_unavailable"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "updatedNumberScheduled":
+            suggest = "updated_number_scheduled"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 collision_count: Optional[int] = None,
+                 conditions: Optional[Sequence['outputs.DaemonSetConditionPatch']] = None,
+                 current_number_scheduled: Optional[int] = None,
+                 desired_number_scheduled: Optional[int] = None,
+                 number_available: Optional[int] = None,
+                 number_misscheduled: Optional[int] = None,
+                 number_ready: Optional[int] = None,
+                 number_unavailable: Optional[int] = None,
+                 observed_generation: Optional[int] = None,
+                 updated_number_scheduled: Optional[int] = None):
+        """
+        DaemonSetStatus represents the current status of a daemon set.
+        :param int collision_count: Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+        :param Sequence['DaemonSetConditionPatchArgs'] conditions: Represents the latest available observations of a DaemonSet's current state.
+        :param int current_number_scheduled: The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        :param int desired_number_scheduled: The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        :param int number_available: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+        :param int number_misscheduled: The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        :param int number_ready: The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+        :param int number_unavailable: The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+        :param int observed_generation: The most recent generation observed by the daemon set controller.
+        :param int updated_number_scheduled: The total number of nodes that are running updated daemon pod
+        """
+        if collision_count is not None:
+            pulumi.set(__self__, "collision_count", collision_count)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if current_number_scheduled is not None:
+            pulumi.set(__self__, "current_number_scheduled", current_number_scheduled)
+        if desired_number_scheduled is not None:
+            pulumi.set(__self__, "desired_number_scheduled", desired_number_scheduled)
+        if number_available is not None:
+            pulumi.set(__self__, "number_available", number_available)
+        if number_misscheduled is not None:
+            pulumi.set(__self__, "number_misscheduled", number_misscheduled)
+        if number_ready is not None:
+            pulumi.set(__self__, "number_ready", number_ready)
+        if number_unavailable is not None:
+            pulumi.set(__self__, "number_unavailable", number_unavailable)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if updated_number_scheduled is not None:
+            pulumi.set(__self__, "updated_number_scheduled", updated_number_scheduled)
+
+    @property
+    @pulumi.getter(name="collisionCount")
+    def collision_count(self) -> Optional[int]:
+        """
+        Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+        """
+        return pulumi.get(self, "collision_count")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.DaemonSetConditionPatch']]:
+        """
+        Represents the latest available observations of a DaemonSet's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="currentNumberScheduled")
+    def current_number_scheduled(self) -> Optional[int]:
+        """
+        The number of nodes that are running at least 1 daemon pod and are supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        """
+        return pulumi.get(self, "current_number_scheduled")
+
+    @property
+    @pulumi.getter(name="desiredNumberScheduled")
+    def desired_number_scheduled(self) -> Optional[int]:
+        """
+        The total number of nodes that should be running the daemon pod (including nodes correctly running the daemon pod). More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        """
+        return pulumi.get(self, "desired_number_scheduled")
+
+    @property
+    @pulumi.getter(name="numberAvailable")
+    def number_available(self) -> Optional[int]:
+        """
+        The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and available (ready for at least spec.minReadySeconds)
+        """
+        return pulumi.get(self, "number_available")
+
+    @property
+    @pulumi.getter(name="numberMisscheduled")
+    def number_misscheduled(self) -> Optional[int]:
+        """
+        The number of nodes that are running the daemon pod, but are not supposed to run the daemon pod. More info: https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+        """
+        return pulumi.get(self, "number_misscheduled")
+
+    @property
+    @pulumi.getter(name="numberReady")
+    def number_ready(self) -> Optional[int]:
+        """
+        The number of nodes that should be running the daemon pod and have one or more of the daemon pod running and ready.
+        """
+        return pulumi.get(self, "number_ready")
+
+    @property
+    @pulumi.getter(name="numberUnavailable")
+    def number_unavailable(self) -> Optional[int]:
+        """
+        The number of nodes that should be running the daemon pod and have none of the daemon pod running and available (ready for at least spec.minReadySeconds)
+        """
+        return pulumi.get(self, "number_unavailable")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        The most recent generation observed by the daemon set controller.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="updatedNumberScheduled")
+    def updated_number_scheduled(self) -> Optional[int]:
+        """
+        The total number of nodes that are running updated daemon pod
+        """
+        return pulumi.get(self, "updated_number_scheduled")
+
+
+@pulumi.output_type
 class DaemonSetUpdateStrategy(dict):
     """
     DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
@@ -587,6 +949,58 @@ class DaemonSetUpdateStrategy(dict):
     @property
     @pulumi.getter(name="rollingUpdate")
     def rolling_update(self) -> Optional['outputs.RollingUpdateDaemonSet']:
+        """
+        Rolling update config params. Present only if type = "RollingUpdate".
+        """
+        return pulumi.get(self, "rolling_update")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class DaemonSetUpdateStrategyPatch(dict):
+    """
+    DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonSetUpdateStrategyPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonSetUpdateStrategyPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonSetUpdateStrategyPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rolling_update: Optional['outputs.RollingUpdateDaemonSetPatch'] = None,
+                 type: Optional[str] = None):
+        """
+        DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
+        :param 'RollingUpdateDaemonSetPatchArgs' rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
+        :param str type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is RollingUpdate.
+        """
+        if rolling_update is not None:
+            pulumi.set(__self__, "rolling_update", rolling_update)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="rollingUpdate")
+    def rolling_update(self) -> Optional['outputs.RollingUpdateDaemonSetPatch']:
         """
         Rolling update config params. Present only if type = "RollingUpdate".
         """
@@ -834,6 +1248,108 @@ class DeploymentCondition(dict):
 
 
 @pulumi.output_type
+class DeploymentConditionPatch(dict):
+    """
+    DeploymentCondition describes the state of a deployment at a certain point.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+        elif key == "lastUpdateTime":
+            suggest = "last_update_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_transition_time: Optional[str] = None,
+                 last_update_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        DeploymentCondition describes the state of a deployment at a certain point.
+        :param str last_transition_time: Last time the condition transitioned from one status to another.
+        :param str last_update_time: The last time this condition was updated.
+        :param str message: A human readable message indicating details about the transition.
+        :param str reason: The reason for the condition's last transition.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of deployment condition.
+        """
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if last_update_time is not None:
+            pulumi.set(__self__, "last_update_time", last_update_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        Last time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter(name="lastUpdateTime")
+    def last_update_time(self) -> Optional[str]:
+        """
+        The last time this condition was updated.
+        """
+        return pulumi.get(self, "last_update_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        A human readable message indicating details about the transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        The reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of deployment condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class DeploymentSpec(dict):
     """
     DeploymentSpec is the specification of the desired behavior of the Deployment.
@@ -957,6 +1473,134 @@ class DeploymentSpec(dict):
         The deployment strategy to use to replace existing pods with new ones.
         """
         return pulumi.get(self, "strategy")
+
+
+@pulumi.output_type
+class DeploymentSpecPatch(dict):
+    """
+    DeploymentSpec is the specification of the desired behavior of the Deployment.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+        elif key == "progressDeadlineSeconds":
+            suggest = "progress_deadline_seconds"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 min_ready_seconds: Optional[int] = None,
+                 paused: Optional[bool] = None,
+                 progress_deadline_seconds: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 revision_history_limit: Optional[int] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 strategy: Optional['outputs.DeploymentStrategyPatch'] = None,
+                 template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None):
+        """
+        DeploymentSpec is the specification of the desired behavior of the Deployment.
+        :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param bool paused: Indicates that the deployment is paused.
+        :param int progress_deadline_seconds: The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+        :param int replicas: Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+        :param int revision_history_limit: The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+        :param 'DeploymentStrategyPatchArgs' strategy: The deployment strategy to use to replace existing pods with new ones.
+        :param '_core.v1.PodTemplateSpecPatchArgs' template: Template describes the pods that will be created.
+        """
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if paused is not None:
+            pulumi.set(__self__, "paused", paused)
+        if progress_deadline_seconds is not None:
+            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if revision_history_limit is not None:
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if strategy is not None:
+            pulumi.set(__self__, "strategy", strategy)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+
+    @property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> Optional[int]:
+        """
+        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @property
+    @pulumi.getter
+    def paused(self) -> Optional[bool]:
+        """
+        Indicates that the deployment is paused.
+        """
+        return pulumi.get(self, "paused")
+
+    @property
+    @pulumi.getter(name="progressDeadlineSeconds")
+    def progress_deadline_seconds(self) -> Optional[int]:
+        """
+        The maximum time in seconds for a deployment to make progress before it is considered to be failed. The deployment controller will continue to process failed deployments and a condition with a ProgressDeadlineExceeded reason will be surfaced in the deployment status. Note that progress will not be estimated during the time a deployment is paused. Defaults to 600s.
+        """
+        return pulumi.get(self, "progress_deadline_seconds")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        Number of desired pods. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1.
+        """
+        return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="revisionHistoryLimit")
+    def revision_history_limit(self) -> Optional[int]:
+        """
+        The number of old ReplicaSets to retain to allow rollback. This is a pointer to distinguish between explicit zero and not specified. Defaults to 10.
+        """
+        return pulumi.get(self, "revision_history_limit")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment. It must match the pod template's labels.
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter
+    def strategy(self) -> Optional['outputs.DeploymentStrategyPatch']:
+        """
+        The deployment strategy to use to replace existing pods with new ones.
+        """
+        return pulumi.get(self, "strategy")
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional['_core.v1.outputs.PodTemplateSpecPatch']:
+        """
+        Template describes the pods that will be created.
+        """
+        return pulumi.get(self, "template")
 
 
 @pulumi.output_type
@@ -1094,6 +1738,140 @@ class DeploymentStatus(dict):
 
 
 @pulumi.output_type
+class DeploymentStatusPatch(dict):
+    """
+    DeploymentStatus is the most recently observed status of the Deployment.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+        elif key == "unavailableReplicas":
+            suggest = "unavailable_replicas"
+        elif key == "updatedReplicas":
+            suggest = "updated_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 available_replicas: Optional[int] = None,
+                 collision_count: Optional[int] = None,
+                 conditions: Optional[Sequence['outputs.DeploymentConditionPatch']] = None,
+                 observed_generation: Optional[int] = None,
+                 ready_replicas: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 unavailable_replicas: Optional[int] = None,
+                 updated_replicas: Optional[int] = None):
+        """
+        DeploymentStatus is the most recently observed status of the Deployment.
+        :param int available_replicas: Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        :param int collision_count: Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
+        :param Sequence['DeploymentConditionPatchArgs'] conditions: Represents the latest available observations of a deployment's current state.
+        :param int observed_generation: The generation observed by the deployment controller.
+        :param int ready_replicas: Total number of ready pods targeted by this deployment.
+        :param int replicas: Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        :param int unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
+        :param int updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        """
+        if available_replicas is not None:
+            pulumi.set(__self__, "available_replicas", available_replicas)
+        if collision_count is not None:
+            pulumi.set(__self__, "collision_count", collision_count)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if ready_replicas is not None:
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if unavailable_replicas is not None:
+            pulumi.set(__self__, "unavailable_replicas", unavailable_replicas)
+        if updated_replicas is not None:
+            pulumi.set(__self__, "updated_replicas", updated_replicas)
+
+    @property
+    @pulumi.getter(name="availableReplicas")
+    def available_replicas(self) -> Optional[int]:
+        """
+        Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
+        """
+        return pulumi.get(self, "available_replicas")
+
+    @property
+    @pulumi.getter(name="collisionCount")
+    def collision_count(self) -> Optional[int]:
+        """
+        Count of hash collisions for the Deployment. The Deployment controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ReplicaSet.
+        """
+        return pulumi.get(self, "collision_count")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.DeploymentConditionPatch']]:
+        """
+        Represents the latest available observations of a deployment's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        The generation observed by the deployment controller.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="readyReplicas")
+    def ready_replicas(self) -> Optional[int]:
+        """
+        Total number of ready pods targeted by this deployment.
+        """
+        return pulumi.get(self, "ready_replicas")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        Total number of non-terminated pods targeted by this deployment (their labels match the selector).
+        """
+        return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="unavailableReplicas")
+    def unavailable_replicas(self) -> Optional[int]:
+        """
+        Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
+        """
+        return pulumi.get(self, "unavailable_replicas")
+
+    @property
+    @pulumi.getter(name="updatedReplicas")
+    def updated_replicas(self) -> Optional[int]:
+        """
+        Total number of non-terminated pods targeted by this deployment that have the desired template spec.
+        """
+        return pulumi.get(self, "updated_replicas")
+
+
+@pulumi.output_type
 class DeploymentStrategy(dict):
     """
     DeploymentStrategy describes how to replace existing pods with new ones.
@@ -1131,6 +1909,58 @@ class DeploymentStrategy(dict):
     @property
     @pulumi.getter(name="rollingUpdate")
     def rolling_update(self) -> Optional['outputs.RollingUpdateDeployment']:
+        """
+        Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+        """
+        return pulumi.get(self, "rolling_update")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class DeploymentStrategyPatch(dict):
+    """
+    DeploymentStrategy describes how to replace existing pods with new ones.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DeploymentStrategyPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DeploymentStrategyPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DeploymentStrategyPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rolling_update: Optional['outputs.RollingUpdateDeploymentPatch'] = None,
+                 type: Optional[str] = None):
+        """
+        DeploymentStrategy describes how to replace existing pods with new ones.
+        :param 'RollingUpdateDeploymentPatchArgs' rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
+        :param str type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
+        """
+        if rolling_update is not None:
+            pulumi.set(__self__, "rolling_update", rolling_update)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="rollingUpdate")
+    def rolling_update(self) -> Optional['outputs.RollingUpdateDeploymentPatch']:
         """
         Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         """
@@ -1320,6 +2150,94 @@ class ReplicaSetCondition(dict):
 
 
 @pulumi.output_type
+class ReplicaSetConditionPatch(dict):
+    """
+    ReplicaSetCondition describes the state of a replica set at a certain point.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSetConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSetConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSetConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        ReplicaSetCondition describes the state of a replica set at a certain point.
+        :param str last_transition_time: The last time the condition transitioned from one status to another.
+        :param str message: A human readable message indicating details about the transition.
+        :param str reason: The reason for the condition's last transition.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of replica set condition.
+        """
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        The last time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        A human readable message indicating details about the transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        The reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of replica set condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class ReplicaSetSpec(dict):
     """
     ReplicaSetSpec is the specification of a ReplicaSet.
@@ -1388,6 +2306,82 @@ class ReplicaSetSpec(dict):
     @property
     @pulumi.getter
     def template(self) -> Optional['_core.v1.outputs.PodTemplateSpec']:
+        """
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        """
+        return pulumi.get(self, "template")
+
+
+@pulumi.output_type
+class ReplicaSetSpecPatch(dict):
+    """
+    ReplicaSetSpec is the specification of a ReplicaSet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSetSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSetSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSetSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 min_ready_seconds: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None):
+        """
+        ReplicaSetSpec is the specification of a ReplicaSet.
+        :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param '_core.v1.PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        """
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+
+    @property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> Optional[int]:
+        """
+        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        """
+        return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        Selector is a label query over pods that should match the replica count. Label keys and values that must match in order to be controlled by this replica set. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional['_core.v1.outputs.PodTemplateSpecPatch']:
         """
         Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
@@ -1500,6 +2494,112 @@ class ReplicaSetStatus(dict):
 
 
 @pulumi.output_type
+class ReplicaSetStatusPatch(dict):
+    """
+    ReplicaSetStatus represents the current status of a ReplicaSet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "fullyLabeledReplicas":
+            suggest = "fully_labeled_replicas"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicaSetStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicaSetStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicaSetStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 available_replicas: Optional[int] = None,
+                 conditions: Optional[Sequence['outputs.ReplicaSetConditionPatch']] = None,
+                 fully_labeled_replicas: Optional[int] = None,
+                 observed_generation: Optional[int] = None,
+                 ready_replicas: Optional[int] = None,
+                 replicas: Optional[int] = None):
+        """
+        ReplicaSetStatus represents the current status of a ReplicaSet.
+        :param int available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        :param Sequence['ReplicaSetConditionPatchArgs'] conditions: Represents the latest available observations of a replica set's current state.
+        :param int fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replicaset.
+        :param int observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
+        :param int ready_replicas: The number of ready replicas for this replica set.
+        :param int replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        """
+        if available_replicas is not None:
+            pulumi.set(__self__, "available_replicas", available_replicas)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if fully_labeled_replicas is not None:
+            pulumi.set(__self__, "fully_labeled_replicas", fully_labeled_replicas)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if ready_replicas is not None:
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+
+    @property
+    @pulumi.getter(name="availableReplicas")
+    def available_replicas(self) -> Optional[int]:
+        """
+        The number of available replicas (ready for at least minReadySeconds) for this replica set.
+        """
+        return pulumi.get(self, "available_replicas")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.ReplicaSetConditionPatch']]:
+        """
+        Represents the latest available observations of a replica set's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="fullyLabeledReplicas")
+    def fully_labeled_replicas(self) -> Optional[int]:
+        """
+        The number of pods that have labels matching the labels of the pod template of the replicaset.
+        """
+        return pulumi.get(self, "fully_labeled_replicas")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="readyReplicas")
+    def ready_replicas(self) -> Optional[int]:
+        """
+        The number of ready replicas for this replica set.
+        """
+        return pulumi.get(self, "ready_replicas")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        """
+        return pulumi.get(self, "replicas")
+
+
+@pulumi.output_type
 class RollingUpdateDaemonSet(dict):
     """
     Spec to control the desired behavior of daemon set rolling update.
@@ -1519,6 +2619,46 @@ class RollingUpdateDaemonSet(dict):
 
     def get(self, key: str, default = None) -> Any:
         RollingUpdateDaemonSet.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 max_unavailable: Optional[Any] = None):
+        """
+        Spec to control the desired behavior of daemon set rolling update.
+        :param Union[int, str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+        """
+        if max_unavailable is not None:
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
+
+    @property
+    @pulumi.getter(name="maxUnavailable")
+    def max_unavailable(self) -> Optional[Any]:
+        """
+        The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
+        """
+        return pulumi.get(self, "max_unavailable")
+
+
+@pulumi.output_type
+class RollingUpdateDaemonSetPatch(dict):
+    """
+    Spec to control the desired behavior of daemon set rolling update.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxUnavailable":
+            suggest = "max_unavailable"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RollingUpdateDaemonSetPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RollingUpdateDaemonSetPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RollingUpdateDaemonSetPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -1594,7 +2734,84 @@ class RollingUpdateDeployment(dict):
 
 
 @pulumi.output_type
+class RollingUpdateDeploymentPatch(dict):
+    """
+    Spec to control the desired behavior of rolling update.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxSurge":
+            suggest = "max_surge"
+        elif key == "maxUnavailable":
+            suggest = "max_unavailable"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RollingUpdateDeploymentPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RollingUpdateDeploymentPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RollingUpdateDeploymentPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 max_surge: Optional[Any] = None,
+                 max_unavailable: Optional[Any] = None):
+        """
+        Spec to control the desired behavior of rolling update.
+        :param Union[int, str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+        :param Union[int, str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+        """
+        if max_surge is not None:
+            pulumi.set(__self__, "max_surge", max_surge)
+        if max_unavailable is not None:
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
+
+    @property
+    @pulumi.getter(name="maxSurge")
+    def max_surge(self) -> Optional[Any]:
+        """
+        The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
+        """
+        return pulumi.get(self, "max_surge")
+
+    @property
+    @pulumi.getter(name="maxUnavailable")
+    def max_unavailable(self) -> Optional[Any]:
+        """
+        The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
+        """
+        return pulumi.get(self, "max_unavailable")
+
+
+@pulumi.output_type
 class RollingUpdateStatefulSetStrategy(dict):
+    """
+    RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+    """
+    def __init__(__self__, *,
+                 partition: Optional[int] = None):
+        """
+        RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
+        :param int partition: Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+        """
+        if partition is not None:
+            pulumi.set(__self__, "partition", partition)
+
+    @property
+    @pulumi.getter
+    def partition(self) -> Optional[int]:
+        """
+        Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
+        """
+        return pulumi.get(self, "partition")
+
+
+@pulumi.output_type
+class RollingUpdateStatefulSetStrategyPatch(dict):
     """
     RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
     """
@@ -1819,6 +3036,94 @@ class StatefulSetCondition(dict):
 
 
 @pulumi.output_type
+class StatefulSetConditionPatch(dict):
+    """
+    StatefulSetCondition describes the state of a statefulset at a certain point.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        StatefulSetCondition describes the state of a statefulset at a certain point.
+        :param str last_transition_time: Last time the condition transitioned from one status to another.
+        :param str message: A human readable message indicating details about the transition.
+        :param str reason: The reason for the condition's last transition.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of statefulset condition.
+        """
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        Last time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        A human readable message indicating details about the transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        The reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of statefulset condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class StatefulSetSpec(dict):
     """
     A StatefulSetSpec is the specification of a StatefulSet.
@@ -1941,6 +3246,138 @@ class StatefulSetSpec(dict):
     @property
     @pulumi.getter(name="volumeClaimTemplates")
     def volume_claim_templates(self) -> Optional[Sequence['_core.v1.outputs.PersistentVolumeClaim']]:
+        """
+        volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+        """
+        return pulumi.get(self, "volume_claim_templates")
+
+
+@pulumi.output_type
+class StatefulSetSpecPatch(dict):
+    """
+    A StatefulSetSpec is the specification of a StatefulSet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podManagementPolicy":
+            suggest = "pod_management_policy"
+        elif key == "revisionHistoryLimit":
+            suggest = "revision_history_limit"
+        elif key == "serviceName":
+            suggest = "service_name"
+        elif key == "updateStrategy":
+            suggest = "update_strategy"
+        elif key == "volumeClaimTemplates":
+            suggest = "volume_claim_templates"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 pod_management_policy: Optional[str] = None,
+                 replicas: Optional[int] = None,
+                 revision_history_limit: Optional[int] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 service_name: Optional[str] = None,
+                 template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
+                 update_strategy: Optional['outputs.StatefulSetUpdateStrategyPatch'] = None,
+                 volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaimPatch']] = None):
+        """
+        A StatefulSetSpec is the specification of a StatefulSet.
+        :param str pod_management_policy: podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+        :param int replicas: replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+        :param int revision_history_limit: revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param str service_name: serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+        :param '_core.v1.PodTemplateSpecPatchArgs' template: template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+        :param 'StatefulSetUpdateStrategyPatchArgs' update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+        :param Sequence['_core.v1.PersistentVolumeClaimPatchArgs'] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
+        """
+        if pod_management_policy is not None:
+            pulumi.set(__self__, "pod_management_policy", pod_management_policy)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if revision_history_limit is not None:
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if service_name is not None:
+            pulumi.set(__self__, "service_name", service_name)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+        if update_strategy is not None:
+            pulumi.set(__self__, "update_strategy", update_strategy)
+        if volume_claim_templates is not None:
+            pulumi.set(__self__, "volume_claim_templates", volume_claim_templates)
+
+    @property
+    @pulumi.getter(name="podManagementPolicy")
+    def pod_management_policy(self) -> Optional[str]:
+        """
+        podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
+        """
+        return pulumi.get(self, "pod_management_policy")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        replicas is the desired number of replicas of the given Template. These are replicas in the sense that they are instantiations of the same Template, but individual replicas also have a consistent identity. If unspecified, defaults to 1.
+        """
+        return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="revisionHistoryLimit")
+    def revision_history_limit(self) -> Optional[int]:
+        """
+        revisionHistoryLimit is the maximum number of revisions that will be maintained in the StatefulSet's revision history. The revision history consists of all revisions not represented by a currently applied StatefulSetSpec version. The default value is 10.
+        """
+        return pulumi.get(self, "revision_history_limit")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        selector is a label query over pods that should match the replica count. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter(name="serviceName")
+    def service_name(self) -> Optional[str]:
+        """
+        serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
+        """
+        return pulumi.get(self, "service_name")
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional['_core.v1.outputs.PodTemplateSpecPatch']:
+        """
+        template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+        """
+        return pulumi.get(self, "template")
+
+    @property
+    @pulumi.getter(name="updateStrategy")
+    def update_strategy(self) -> Optional['outputs.StatefulSetUpdateStrategyPatch']:
+        """
+        updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
+        """
+        return pulumi.get(self, "update_strategy")
+
+    @property
+    @pulumi.getter(name="volumeClaimTemplates")
+    def volume_claim_templates(self) -> Optional[Sequence['_core.v1.outputs.PersistentVolumeClaimPatch']]:
         """
         volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
@@ -2095,6 +3532,154 @@ class StatefulSetStatus(dict):
 
 
 @pulumi.output_type
+class StatefulSetStatusPatch(dict):
+    """
+    StatefulSetStatus represents the current state of a StatefulSet.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "collisionCount":
+            suggest = "collision_count"
+        elif key == "currentReplicas":
+            suggest = "current_replicas"
+        elif key == "currentRevision":
+            suggest = "current_revision"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+        elif key == "updateRevision":
+            suggest = "update_revision"
+        elif key == "updatedReplicas":
+            suggest = "updated_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 collision_count: Optional[int] = None,
+                 conditions: Optional[Sequence['outputs.StatefulSetConditionPatch']] = None,
+                 current_replicas: Optional[int] = None,
+                 current_revision: Optional[str] = None,
+                 observed_generation: Optional[int] = None,
+                 ready_replicas: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 update_revision: Optional[str] = None,
+                 updated_replicas: Optional[int] = None):
+        """
+        StatefulSetStatus represents the current state of a StatefulSet.
+        :param int collision_count: collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+        :param Sequence['StatefulSetConditionPatchArgs'] conditions: Represents the latest available observations of a statefulset's current state.
+        :param int current_replicas: currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
+        :param str current_revision: currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
+        :param int observed_generation: observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
+        :param int ready_replicas: readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+        :param int replicas: replicas is the number of Pods created by the StatefulSet controller.
+        :param str update_revision: updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
+        :param int updated_replicas: updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
+        """
+        if collision_count is not None:
+            pulumi.set(__self__, "collision_count", collision_count)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if current_replicas is not None:
+            pulumi.set(__self__, "current_replicas", current_replicas)
+        if current_revision is not None:
+            pulumi.set(__self__, "current_revision", current_revision)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if ready_replicas is not None:
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if update_revision is not None:
+            pulumi.set(__self__, "update_revision", update_revision)
+        if updated_replicas is not None:
+            pulumi.set(__self__, "updated_replicas", updated_replicas)
+
+    @property
+    @pulumi.getter(name="collisionCount")
+    def collision_count(self) -> Optional[int]:
+        """
+        collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
+        """
+        return pulumi.get(self, "collision_count")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.StatefulSetConditionPatch']]:
+        """
+        Represents the latest available observations of a statefulset's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="currentReplicas")
+    def current_replicas(self) -> Optional[int]:
+        """
+        currentReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by currentRevision.
+        """
+        return pulumi.get(self, "current_replicas")
+
+    @property
+    @pulumi.getter(name="currentRevision")
+    def current_revision(self) -> Optional[str]:
+        """
+        currentRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [0,currentReplicas).
+        """
+        return pulumi.get(self, "current_revision")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        observedGeneration is the most recent generation observed for this StatefulSet. It corresponds to the StatefulSet's generation, which is updated on mutation by the API Server.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="readyReplicas")
+    def ready_replicas(self) -> Optional[int]:
+        """
+        readyReplicas is the number of Pods created by the StatefulSet controller that have a Ready Condition.
+        """
+        return pulumi.get(self, "ready_replicas")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        replicas is the number of Pods created by the StatefulSet controller.
+        """
+        return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter(name="updateRevision")
+    def update_revision(self) -> Optional[str]:
+        """
+        updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
+        """
+        return pulumi.get(self, "update_revision")
+
+    @property
+    @pulumi.getter(name="updatedReplicas")
+    def updated_replicas(self) -> Optional[int]:
+        """
+        updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
+        """
+        return pulumi.get(self, "updated_replicas")
+
+
+@pulumi.output_type
 class StatefulSetUpdateStrategy(dict):
     """
     StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
@@ -2132,6 +3717,58 @@ class StatefulSetUpdateStrategy(dict):
     @property
     @pulumi.getter(name="rollingUpdate")
     def rolling_update(self) -> Optional['outputs.RollingUpdateStatefulSetStrategy']:
+        """
+        RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
+        """
+        return pulumi.get(self, "rolling_update")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class StatefulSetUpdateStrategyPatch(dict):
+    """
+    StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdate":
+            suggest = "rolling_update"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StatefulSetUpdateStrategyPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StatefulSetUpdateStrategyPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StatefulSetUpdateStrategyPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rolling_update: Optional['outputs.RollingUpdateStatefulSetStrategyPatch'] = None,
+                 type: Optional[str] = None):
+        """
+        StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
+        :param 'RollingUpdateStatefulSetStrategyPatchArgs' rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
+        :param str type: Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+        """
+        if rolling_update is not None:
+            pulumi.set(__self__, "rolling_update", rolling_update)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="rollingUpdate")
+    def rolling_update(self) -> Optional['outputs.RollingUpdateStatefulSetStrategyPatch']:
         """
         RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         """

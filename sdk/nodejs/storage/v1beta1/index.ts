@@ -7,26 +7,36 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./csidriver";
 export * from "./csidriverList";
+export * from "./csidriverPatch";
 export * from "./csinode";
 export * from "./csinodeList";
+export * from "./csinodePatch";
 export * from "./csistorageCapacity";
 export * from "./csistorageCapacityList";
+export * from "./csistorageCapacityPatch";
 export * from "./storageClass";
 export * from "./storageClassList";
+export * from "./storageClassPatch";
 export * from "./volumeAttachment";
 export * from "./volumeAttachmentList";
+export * from "./volumeAttachmentPatch";
 
 // Import resources to register:
 import { CSIDriver } from "./csidriver";
 import { CSIDriverList } from "./csidriverList";
+import { CSIDriverPatch } from "./csidriverPatch";
 import { CSINode } from "./csinode";
 import { CSINodeList } from "./csinodeList";
+import { CSINodePatch } from "./csinodePatch";
 import { CSIStorageCapacity } from "./csistorageCapacity";
 import { CSIStorageCapacityList } from "./csistorageCapacityList";
+import { CSIStorageCapacityPatch } from "./csistorageCapacityPatch";
 import { StorageClass } from "./storageClass";
 import { StorageClassList } from "./storageClassList";
+import { StorageClassPatch } from "./storageClassPatch";
 import { VolumeAttachment } from "./volumeAttachment";
 import { VolumeAttachmentList } from "./volumeAttachmentList";
+import { VolumeAttachmentPatch } from "./volumeAttachmentPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -36,22 +46,32 @@ const _module = {
                 return new CSIDriver(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSIDriverList":
                 return new CSIDriverList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch":
+                return new CSIDriverPatch(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSINode":
                 return new CSINode(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSINodeList":
                 return new CSINodeList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSINodePatch":
+                return new CSINodePatch(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity":
                 return new CSIStorageCapacity(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList":
                 return new CSIStorageCapacityList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch":
+                return new CSIStorageCapacityPatch(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:StorageClass":
                 return new StorageClass(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:StorageClassList":
                 return new StorageClassList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:StorageClassPatch":
+                return new StorageClassPatch(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment":
                 return new VolumeAttachment(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList":
                 return new VolumeAttachmentList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch":
+                return new VolumeAttachmentPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

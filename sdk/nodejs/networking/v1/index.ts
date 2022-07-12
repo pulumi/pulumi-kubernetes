@@ -8,17 +8,23 @@ import * as utilities from "../../utilities";
 export * from "./ingress";
 export * from "./ingressClass";
 export * from "./ingressClassList";
+export * from "./ingressClassPatch";
 export * from "./ingressList";
+export * from "./ingressPatch";
 export * from "./networkPolicy";
 export * from "./networkPolicyList";
+export * from "./networkPolicyPatch";
 
 // Import resources to register:
 import { Ingress } from "./ingress";
 import { IngressClass } from "./ingressClass";
 import { IngressClassList } from "./ingressClassList";
+import { IngressClassPatch } from "./ingressClassPatch";
 import { IngressList } from "./ingressList";
+import { IngressPatch } from "./ingressPatch";
 import { NetworkPolicy } from "./networkPolicy";
 import { NetworkPolicyList } from "./networkPolicyList";
+import { NetworkPolicyPatch } from "./networkPolicyPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -30,12 +36,18 @@ const _module = {
                 return new IngressClass(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1:IngressClassList":
                 return new IngressClassList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1:IngressClassPatch":
+                return new IngressClassPatch(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1:IngressList":
                 return new IngressList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1:IngressPatch":
+                return new IngressPatch(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1:NetworkPolicy":
                 return new NetworkPolicy(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1:NetworkPolicyList":
                 return new NetworkPolicyList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1:NetworkPolicyPatch":
+                return new NetworkPolicyPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

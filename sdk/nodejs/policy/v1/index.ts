@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./podDisruptionBudget";
 export * from "./podDisruptionBudgetList";
+export * from "./podDisruptionBudgetPatch";
 
 // Import resources to register:
 import { PodDisruptionBudget } from "./podDisruptionBudget";
 import { PodDisruptionBudgetList } from "./podDisruptionBudgetList";
+import { PodDisruptionBudgetPatch } from "./podDisruptionBudgetPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new PodDisruptionBudget(name, <any>undefined, { urn })
             case "kubernetes:policy/v1:PodDisruptionBudgetList":
                 return new PodDisruptionBudgetList(name, <any>undefined, { urn })
+            case "kubernetes:policy/v1:PodDisruptionBudgetPatch":
+                return new PodDisruptionBudgetPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

@@ -25,10 +25,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &PodDisruptionBudget{}
 	case "kubernetes:policy/v1beta1:PodDisruptionBudgetList":
 		r = &PodDisruptionBudgetList{}
+	case "kubernetes:policy/v1beta1:PodDisruptionBudgetPatch":
+		r = &PodDisruptionBudgetPatch{}
 	case "kubernetes:policy/v1beta1:PodSecurityPolicy":
 		r = &PodSecurityPolicy{}
 	case "kubernetes:policy/v1beta1:PodSecurityPolicyList":
 		r = &PodSecurityPolicyList{}
+	case "kubernetes:policy/v1beta1:PodSecurityPolicyPatch":
+		r = &PodSecurityPolicyPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

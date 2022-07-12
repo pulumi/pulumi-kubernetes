@@ -25,10 +25,14 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &MutatingWebhookConfiguration{}
 	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList":
 		r = &MutatingWebhookConfigurationList{}
+	case "kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch":
+		r = &MutatingWebhookConfigurationPatch{}
 	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration":
 		r = &ValidatingWebhookConfiguration{}
 	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList":
 		r = &ValidatingWebhookConfigurationList{}
+	case "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationPatch":
+		r = &ValidatingWebhookConfigurationPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

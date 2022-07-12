@@ -15,9 +15,13 @@ from ... import meta as _meta
 __all__ = [
     'VolumeAttachment',
     'VolumeAttachmentSource',
+    'VolumeAttachmentSourcePatch',
     'VolumeAttachmentSpec',
+    'VolumeAttachmentSpecPatch',
     'VolumeAttachmentStatus',
+    'VolumeAttachmentStatusPatch',
     'VolumeError',
+    'VolumeErrorPatch',
 ]
 
 @pulumi.output_type
@@ -166,6 +170,60 @@ class VolumeAttachmentSource(dict):
 
 
 @pulumi.output_type
+class VolumeAttachmentSourcePatch(dict):
+    """
+    VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "inlineVolumeSpec":
+            suggest = "inline_volume_spec"
+        elif key == "persistentVolumeName":
+            suggest = "persistent_volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpecPatch'] = None,
+                 persistent_volume_name: Optional[str] = None):
+        """
+        VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
+        :param '_core.v1.PersistentVolumeSpecPatchArgs' inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
+        :param str persistent_volume_name: Name of the persistent volume to attach.
+        """
+        if inline_volume_spec is not None:
+            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+        if persistent_volume_name is not None:
+            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+
+    @property
+    @pulumi.getter(name="inlineVolumeSpec")
+    def inline_volume_spec(self) -> Optional['_core.v1.outputs.PersistentVolumeSpecPatch']:
+        """
+        inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
+        """
+        return pulumi.get(self, "inline_volume_spec")
+
+    @property
+    @pulumi.getter(name="persistentVolumeName")
+    def persistent_volume_name(self) -> Optional[str]:
+        """
+        Name of the persistent volume to attach.
+        """
+        return pulumi.get(self, "persistent_volume_name")
+
+
+@pulumi.output_type
 class VolumeAttachmentSpec(dict):
     """
     VolumeAttachmentSpec is the specification of a VolumeAttachment request.
@@ -220,6 +278,70 @@ class VolumeAttachmentSpec(dict):
     @property
     @pulumi.getter
     def source(self) -> 'outputs.VolumeAttachmentSource':
+        """
+        Source represents the volume that should be attached.
+        """
+        return pulumi.get(self, "source")
+
+
+@pulumi.output_type
+class VolumeAttachmentSpecPatch(dict):
+    """
+    VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 attacher: Optional[str] = None,
+                 node_name: Optional[str] = None,
+                 source: Optional['outputs.VolumeAttachmentSourcePatch'] = None):
+        """
+        VolumeAttachmentSpec is the specification of a VolumeAttachment request.
+        :param str attacher: Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        :param str node_name: The node that the volume should be attached to.
+        :param 'VolumeAttachmentSourcePatchArgs' source: Source represents the volume that should be attached.
+        """
+        if attacher is not None:
+            pulumi.set(__self__, "attacher", attacher)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if source is not None:
+            pulumi.set(__self__, "source", source)
+
+    @property
+    @pulumi.getter
+    def attacher(self) -> Optional[str]:
+        """
+        Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        """
+        return pulumi.get(self, "attacher")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        The node that the volume should be attached to.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter
+    def source(self) -> Optional['outputs.VolumeAttachmentSourcePatch']:
         """
         Source represents the volume that should be attached.
         """
@@ -306,7 +428,122 @@ class VolumeAttachmentStatus(dict):
 
 
 @pulumi.output_type
+class VolumeAttachmentStatusPatch(dict):
+    """
+    VolumeAttachmentStatus is the status of a VolumeAttachment request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "attachError":
+            suggest = "attach_error"
+        elif key == "attachmentMetadata":
+            suggest = "attachment_metadata"
+        elif key == "detachError":
+            suggest = "detach_error"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeAttachmentStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeAttachmentStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeAttachmentStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 attach_error: Optional['outputs.VolumeErrorPatch'] = None,
+                 attached: Optional[bool] = None,
+                 attachment_metadata: Optional[Mapping[str, str]] = None,
+                 detach_error: Optional['outputs.VolumeErrorPatch'] = None):
+        """
+        VolumeAttachmentStatus is the status of a VolumeAttachment request.
+        :param 'VolumeErrorPatchArgs' attach_error: The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        :param bool attached: Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        :param Mapping[str, str] attachment_metadata: Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        :param 'VolumeErrorPatchArgs' detach_error: The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+        """
+        if attach_error is not None:
+            pulumi.set(__self__, "attach_error", attach_error)
+        if attached is not None:
+            pulumi.set(__self__, "attached", attached)
+        if attachment_metadata is not None:
+            pulumi.set(__self__, "attachment_metadata", attachment_metadata)
+        if detach_error is not None:
+            pulumi.set(__self__, "detach_error", detach_error)
+
+    @property
+    @pulumi.getter(name="attachError")
+    def attach_error(self) -> Optional['outputs.VolumeErrorPatch']:
+        """
+        The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "attach_error")
+
+    @property
+    @pulumi.getter
+    def attached(self) -> Optional[bool]:
+        """
+        Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "attached")
+
+    @property
+    @pulumi.getter(name="attachmentMetadata")
+    def attachment_metadata(self) -> Optional[Mapping[str, str]]:
+        """
+        Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "attachment_metadata")
+
+    @property
+    @pulumi.getter(name="detachError")
+    def detach_error(self) -> Optional['outputs.VolumeErrorPatch']:
+        """
+        The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+        """
+        return pulumi.get(self, "detach_error")
+
+
+@pulumi.output_type
 class VolumeError(dict):
+    """
+    VolumeError captures an error encountered during a volume operation.
+    """
+    def __init__(__self__, *,
+                 message: Optional[str] = None,
+                 time: Optional[str] = None):
+        """
+        VolumeError captures an error encountered during a volume operation.
+        :param str message: String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
+        :param str time: Time the error was encountered.
+        """
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if time is not None:
+            pulumi.set(__self__, "time", time)
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def time(self) -> Optional[str]:
+        """
+        Time the error was encountered.
+        """
+        return pulumi.get(self, "time")
+
+
+@pulumi.output_type
+class VolumeErrorPatch(dict):
     """
     VolumeError captures an error encountered during a volume operation.
     """

@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Event{}
 	case "kubernetes:events.k8s.io/v1beta1:EventList":
 		r = &EventList{}
+	case "kubernetes:events.k8s.io/v1beta1:EventPatch":
+		r = &EventPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

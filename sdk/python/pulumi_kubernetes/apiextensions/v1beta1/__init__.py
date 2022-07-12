@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .CustomResourceDefinition import *
 from .CustomResourceDefinitionList import *
+from .CustomResourceDefinitionPatch import *
 from ._inputs import *
 from . import outputs

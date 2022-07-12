@@ -11,10 +11,67 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
+    'PodDisruptionBudgetSpecPatchArgs',
     'PodDisruptionBudgetSpecArgs',
     'PodDisruptionBudgetStatusArgs',
     'PodDisruptionBudgetArgs',
 ]
+
+@pulumi.input_type
+class PodDisruptionBudgetSpecPatchArgs:
+    def __init__(__self__, *,
+                 max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
+                 min_available: Optional[pulumi.Input[Union[int, str]]] = None,
+                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None):
+        """
+        PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
+        :param pulumi.Input[Union[int, str]] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        :param pulumi.Input[Union[int, str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        """
+        if max_unavailable is not None:
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
+        if min_available is not None:
+            pulumi.set(__self__, "min_available", min_available)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+
+    @property
+    @pulumi.getter(name="maxUnavailable")
+    def max_unavailable(self) -> Optional[pulumi.Input[Union[int, str]]]:
+        """
+        An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
+        """
+        return pulumi.get(self, "max_unavailable")
+
+    @max_unavailable.setter
+    def max_unavailable(self, value: Optional[pulumi.Input[Union[int, str]]]):
+        pulumi.set(self, "max_unavailable", value)
+
+    @property
+    @pulumi.getter(name="minAvailable")
+    def min_available(self) -> Optional[pulumi.Input[Union[int, str]]]:
+        """
+        An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
+        """
+        return pulumi.get(self, "min_available")
+
+    @min_available.setter
+    def min_available(self, value: Optional[pulumi.Input[Union[int, str]]]):
+        pulumi.set(self, "min_available", value)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+        """
+        Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+        pulumi.set(self, "selector", value)
+
 
 @pulumi.input_type
 class PodDisruptionBudgetSpecArgs:

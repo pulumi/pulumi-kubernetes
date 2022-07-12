@@ -14,176 +14,333 @@ from ._enums import *
 
 __all__ = [
     'AWSElasticBlockStoreVolumeSource',
+    'AWSElasticBlockStoreVolumeSourcePatch',
     'Affinity',
+    'AffinityPatch',
     'AttachedVolume',
+    'AttachedVolumePatch',
     'AzureDiskVolumeSource',
+    'AzureDiskVolumeSourcePatch',
     'AzureFilePersistentVolumeSource',
+    'AzureFilePersistentVolumeSourcePatch',
     'AzureFileVolumeSource',
+    'AzureFileVolumeSourcePatch',
     'CSIPersistentVolumeSource',
+    'CSIPersistentVolumeSourcePatch',
     'CSIVolumeSource',
+    'CSIVolumeSourcePatch',
     'Capabilities',
+    'CapabilitiesPatch',
     'CephFSPersistentVolumeSource',
+    'CephFSPersistentVolumeSourcePatch',
     'CephFSVolumeSource',
+    'CephFSVolumeSourcePatch',
     'CinderPersistentVolumeSource',
+    'CinderPersistentVolumeSourcePatch',
     'CinderVolumeSource',
+    'CinderVolumeSourcePatch',
     'ClientIPConfig',
+    'ClientIPConfigPatch',
     'ConfigMap',
     'ConfigMapEnvSource',
+    'ConfigMapEnvSourcePatch',
     'ConfigMapKeySelector',
+    'ConfigMapKeySelectorPatch',
     'ConfigMapNodeConfigSource',
+    'ConfigMapNodeConfigSourcePatch',
     'ConfigMapProjection',
+    'ConfigMapProjectionPatch',
     'ConfigMapVolumeSource',
+    'ConfigMapVolumeSourcePatch',
     'Container',
     'ContainerImage',
+    'ContainerImagePatch',
+    'ContainerPatch',
     'ContainerPort',
+    'ContainerPortPatch',
     'ContainerState',
+    'ContainerStatePatch',
     'ContainerStateRunning',
+    'ContainerStateRunningPatch',
     'ContainerStateTerminated',
+    'ContainerStateTerminatedPatch',
     'ContainerStateWaiting',
+    'ContainerStateWaitingPatch',
     'ContainerStatus',
+    'ContainerStatusPatch',
     'DaemonEndpoint',
+    'DaemonEndpointPatch',
     'DownwardAPIProjection',
+    'DownwardAPIProjectionPatch',
     'DownwardAPIVolumeFile',
+    'DownwardAPIVolumeFilePatch',
     'DownwardAPIVolumeSource',
+    'DownwardAPIVolumeSourcePatch',
     'EmptyDirVolumeSource',
+    'EmptyDirVolumeSourcePatch',
     'EndpointAddress',
+    'EndpointAddressPatch',
     'EndpointPort',
+    'EndpointPortPatch',
     'EndpointSubset',
+    'EndpointSubsetPatch',
     'Endpoints',
     'EnvFromSource',
+    'EnvFromSourcePatch',
     'EnvVar',
+    'EnvVarPatch',
     'EnvVarSource',
+    'EnvVarSourcePatch',
     'EphemeralContainer',
+    'EphemeralContainerPatch',
     'EphemeralVolumeSource',
+    'EphemeralVolumeSourcePatch',
     'Event',
     'EventSeries',
+    'EventSeriesPatch',
     'EventSource',
+    'EventSourcePatch',
     'ExecAction',
+    'ExecActionPatch',
     'FCVolumeSource',
+    'FCVolumeSourcePatch',
     'FlexPersistentVolumeSource',
+    'FlexPersistentVolumeSourcePatch',
     'FlexVolumeSource',
+    'FlexVolumeSourcePatch',
     'FlockerVolumeSource',
+    'FlockerVolumeSourcePatch',
     'GCEPersistentDiskVolumeSource',
+    'GCEPersistentDiskVolumeSourcePatch',
     'GRPCAction',
+    'GRPCActionPatch',
     'GitRepoVolumeSource',
+    'GitRepoVolumeSourcePatch',
     'GlusterfsPersistentVolumeSource',
+    'GlusterfsPersistentVolumeSourcePatch',
     'GlusterfsVolumeSource',
+    'GlusterfsVolumeSourcePatch',
     'HTTPGetAction',
+    'HTTPGetActionPatch',
     'HTTPHeader',
+    'HTTPHeaderPatch',
     'HostAlias',
+    'HostAliasPatch',
     'HostPathVolumeSource',
+    'HostPathVolumeSourcePatch',
     'ISCSIPersistentVolumeSource',
+    'ISCSIPersistentVolumeSourcePatch',
     'ISCSIVolumeSource',
+    'ISCSIVolumeSourcePatch',
     'KeyToPath',
+    'KeyToPathPatch',
     'Lifecycle',
     'LifecycleHandler',
+    'LifecycleHandlerPatch',
+    'LifecyclePatch',
     'LimitRange',
     'LimitRangeItem',
+    'LimitRangeItemPatch',
     'LimitRangeSpec',
+    'LimitRangeSpecPatch',
     'LoadBalancerIngress',
+    'LoadBalancerIngressPatch',
     'LoadBalancerStatus',
+    'LoadBalancerStatusPatch',
     'LocalObjectReference',
+    'LocalObjectReferencePatch',
     'LocalVolumeSource',
+    'LocalVolumeSourcePatch',
     'NFSVolumeSource',
+    'NFSVolumeSourcePatch',
     'Namespace',
     'NamespaceCondition',
+    'NamespaceConditionPatch',
     'NamespaceSpec',
+    'NamespaceSpecPatch',
     'NamespaceStatus',
+    'NamespaceStatusPatch',
     'Node',
     'NodeAddress',
+    'NodeAddressPatch',
     'NodeAffinity',
+    'NodeAffinityPatch',
     'NodeCondition',
+    'NodeConditionPatch',
     'NodeConfigSource',
+    'NodeConfigSourcePatch',
     'NodeConfigStatus',
+    'NodeConfigStatusPatch',
     'NodeDaemonEndpoints',
+    'NodeDaemonEndpointsPatch',
     'NodeSelector',
+    'NodeSelectorPatch',
     'NodeSelectorRequirement',
+    'NodeSelectorRequirementPatch',
     'NodeSelectorTerm',
+    'NodeSelectorTermPatch',
     'NodeSpec',
+    'NodeSpecPatch',
     'NodeStatus',
+    'NodeStatusPatch',
     'NodeSystemInfo',
+    'NodeSystemInfoPatch',
     'ObjectFieldSelector',
+    'ObjectFieldSelectorPatch',
     'ObjectReference',
+    'ObjectReferencePatch',
     'PersistentVolume',
     'PersistentVolumeClaim',
     'PersistentVolumeClaimCondition',
+    'PersistentVolumeClaimConditionPatch',
+    'PersistentVolumeClaimPatch',
     'PersistentVolumeClaimSpec',
+    'PersistentVolumeClaimSpecPatch',
     'PersistentVolumeClaimStatus',
+    'PersistentVolumeClaimStatusPatch',
     'PersistentVolumeClaimTemplate',
+    'PersistentVolumeClaimTemplatePatch',
     'PersistentVolumeClaimVolumeSource',
+    'PersistentVolumeClaimVolumeSourcePatch',
     'PersistentVolumeSpec',
+    'PersistentVolumeSpecPatch',
     'PersistentVolumeStatus',
+    'PersistentVolumeStatusPatch',
     'PhotonPersistentDiskVolumeSource',
+    'PhotonPersistentDiskVolumeSourcePatch',
     'Pod',
     'PodAffinity',
+    'PodAffinityPatch',
     'PodAffinityTerm',
+    'PodAffinityTermPatch',
     'PodAntiAffinity',
+    'PodAntiAffinityPatch',
     'PodCondition',
+    'PodConditionPatch',
     'PodDNSConfig',
     'PodDNSConfigOption',
+    'PodDNSConfigOptionPatch',
+    'PodDNSConfigPatch',
     'PodIP',
+    'PodIPPatch',
     'PodOS',
+    'PodOSPatch',
     'PodReadinessGate',
+    'PodReadinessGatePatch',
     'PodSecurityContext',
+    'PodSecurityContextPatch',
     'PodSpec',
+    'PodSpecPatch',
     'PodStatus',
+    'PodStatusPatch',
     'PodTemplate',
     'PodTemplateSpec',
+    'PodTemplateSpecPatch',
     'PortStatus',
+    'PortStatusPatch',
     'PortworxVolumeSource',
+    'PortworxVolumeSourcePatch',
     'PreferredSchedulingTerm',
+    'PreferredSchedulingTermPatch',
     'Probe',
+    'ProbePatch',
     'ProjectedVolumeSource',
+    'ProjectedVolumeSourcePatch',
     'QuobyteVolumeSource',
+    'QuobyteVolumeSourcePatch',
     'RBDPersistentVolumeSource',
+    'RBDPersistentVolumeSourcePatch',
     'RBDVolumeSource',
+    'RBDVolumeSourcePatch',
     'ReplicationController',
     'ReplicationControllerCondition',
+    'ReplicationControllerConditionPatch',
     'ReplicationControllerSpec',
+    'ReplicationControllerSpecPatch',
     'ReplicationControllerStatus',
+    'ReplicationControllerStatusPatch',
     'ResourceFieldSelector',
+    'ResourceFieldSelectorPatch',
     'ResourceQuota',
     'ResourceQuotaSpec',
+    'ResourceQuotaSpecPatch',
     'ResourceQuotaStatus',
+    'ResourceQuotaStatusPatch',
     'ResourceRequirements',
+    'ResourceRequirementsPatch',
     'SELinuxOptions',
+    'SELinuxOptionsPatch',
     'ScaleIOPersistentVolumeSource',
+    'ScaleIOPersistentVolumeSourcePatch',
     'ScaleIOVolumeSource',
+    'ScaleIOVolumeSourcePatch',
     'ScopeSelector',
+    'ScopeSelectorPatch',
     'ScopedResourceSelectorRequirement',
+    'ScopedResourceSelectorRequirementPatch',
     'SeccompProfile',
+    'SeccompProfilePatch',
     'Secret',
     'SecretEnvSource',
+    'SecretEnvSourcePatch',
     'SecretKeySelector',
+    'SecretKeySelectorPatch',
     'SecretProjection',
+    'SecretProjectionPatch',
     'SecretReference',
+    'SecretReferencePatch',
     'SecretVolumeSource',
+    'SecretVolumeSourcePatch',
     'SecurityContext',
+    'SecurityContextPatch',
     'Service',
     'ServiceAccount',
     'ServiceAccountTokenProjection',
+    'ServiceAccountTokenProjectionPatch',
     'ServicePort',
+    'ServicePortPatch',
     'ServiceSpec',
+    'ServiceSpecPatch',
     'ServiceStatus',
+    'ServiceStatusPatch',
     'SessionAffinityConfig',
+    'SessionAffinityConfigPatch',
     'StorageOSPersistentVolumeSource',
+    'StorageOSPersistentVolumeSourcePatch',
     'StorageOSVolumeSource',
+    'StorageOSVolumeSourcePatch',
     'Sysctl',
+    'SysctlPatch',
     'TCPSocketAction',
+    'TCPSocketActionPatch',
     'Taint',
+    'TaintPatch',
     'Toleration',
+    'TolerationPatch',
     'TopologySelectorLabelRequirement',
+    'TopologySelectorLabelRequirementPatch',
     'TopologySelectorTerm',
+    'TopologySelectorTermPatch',
     'TopologySpreadConstraint',
+    'TopologySpreadConstraintPatch',
     'TypedLocalObjectReference',
+    'TypedLocalObjectReferencePatch',
     'Volume',
     'VolumeDevice',
+    'VolumeDevicePatch',
     'VolumeMount',
+    'VolumeMountPatch',
     'VolumeNodeAffinity',
+    'VolumeNodeAffinityPatch',
+    'VolumePatch',
     'VolumeProjection',
+    'VolumeProjectionPatch',
     'VsphereVirtualDiskVolumeSource',
+    'VsphereVirtualDiskVolumeSourcePatch',
     'WeightedPodAffinityTerm',
+    'WeightedPodAffinityTermPatch',
     'WindowsSecurityContextOptions',
+    'WindowsSecurityContextOptionsPatch',
 ]
 
 @pulumi.output_type
@@ -270,6 +427,90 @@ class AWSElasticBlockStoreVolumeSource(dict):
 
 
 @pulumi.output_type
+class AWSElasticBlockStoreVolumeSourcePatch(dict):
+    """
+    Represents a Persistent Disk resource in AWS.
+
+    An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeID":
+            suggest = "volume_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AWSElasticBlockStoreVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AWSElasticBlockStoreVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AWSElasticBlockStoreVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 partition: Optional[int] = None,
+                 read_only: Optional[bool] = None,
+                 volume_id: Optional[str] = None):
+        """
+        Represents a Persistent Disk resource in AWS.
+
+        An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param int partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+        :param bool read_only: readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param str volume_id: volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if partition is not None:
+            pulumi.set(__self__, "partition", partition)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if volume_id is not None:
+            pulumi.set(__self__, "volume_id", volume_id)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def partition(self) -> Optional[int]:
+        """
+        partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty).
+        """
+        return pulumi.get(self, "partition")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="volumeID")
+    def volume_id(self) -> Optional[str]:
+        """
+        volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        """
+        return pulumi.get(self, "volume_id")
+
+
+@pulumi.output_type
 class Affinity(dict):
     """
     Affinity is a group of affinity scheduling rules.
@@ -338,6 +579,74 @@ class Affinity(dict):
 
 
 @pulumi.output_type
+class AffinityPatch(dict):
+    """
+    Affinity is a group of affinity scheduling rules.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeAffinity":
+            suggest = "node_affinity"
+        elif key == "podAffinity":
+            suggest = "pod_affinity"
+        elif key == "podAntiAffinity":
+            suggest = "pod_anti_affinity"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AffinityPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AffinityPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AffinityPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_affinity: Optional['outputs.NodeAffinityPatch'] = None,
+                 pod_affinity: Optional['outputs.PodAffinityPatch'] = None,
+                 pod_anti_affinity: Optional['outputs.PodAntiAffinityPatch'] = None):
+        """
+        Affinity is a group of affinity scheduling rules.
+        :param 'NodeAffinityPatchArgs' node_affinity: Describes node affinity scheduling rules for the pod.
+        :param 'PodAffinityPatchArgs' pod_affinity: Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+        :param 'PodAntiAffinityPatchArgs' pod_anti_affinity: Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+        """
+        if node_affinity is not None:
+            pulumi.set(__self__, "node_affinity", node_affinity)
+        if pod_affinity is not None:
+            pulumi.set(__self__, "pod_affinity", pod_affinity)
+        if pod_anti_affinity is not None:
+            pulumi.set(__self__, "pod_anti_affinity", pod_anti_affinity)
+
+    @property
+    @pulumi.getter(name="nodeAffinity")
+    def node_affinity(self) -> Optional['outputs.NodeAffinityPatch']:
+        """
+        Describes node affinity scheduling rules for the pod.
+        """
+        return pulumi.get(self, "node_affinity")
+
+    @property
+    @pulumi.getter(name="podAffinity")
+    def pod_affinity(self) -> Optional['outputs.PodAffinityPatch']:
+        """
+        Describes pod affinity scheduling rules (e.g. co-locate this pod in the same node, zone, etc. as some other pod(s)).
+        """
+        return pulumi.get(self, "pod_affinity")
+
+    @property
+    @pulumi.getter(name="podAntiAffinity")
+    def pod_anti_affinity(self) -> Optional['outputs.PodAntiAffinityPatch']:
+        """
+        Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s)).
+        """
+        return pulumi.get(self, "pod_anti_affinity")
+
+
+@pulumi.output_type
 class AttachedVolume(dict):
     """
     AttachedVolume describes a volume attached to a node
@@ -381,6 +690,58 @@ class AttachedVolume(dict):
     @property
     @pulumi.getter
     def name(self) -> str:
+        """
+        Name of the attached volume
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class AttachedVolumePatch(dict):
+    """
+    AttachedVolume describes a volume attached to a node
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "devicePath":
+            suggest = "device_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AttachedVolumePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AttachedVolumePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AttachedVolumePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 device_path: Optional[str] = None,
+                 name: Optional[str] = None):
+        """
+        AttachedVolume describes a volume attached to a node
+        :param str device_path: DevicePath represents the device path where the volume should be available
+        :param str name: Name of the attached volume
+        """
+        if device_path is not None:
+            pulumi.set(__self__, "device_path", device_path)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="devicePath")
+    def device_path(self) -> Optional[str]:
+        """
+        DevicePath represents the device path where the volume should be available
+        """
+        return pulumi.get(self, "device_path")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
         """
         Name of the attached volume
         """
@@ -494,6 +855,114 @@ class AzureDiskVolumeSource(dict):
 
 
 @pulumi.output_type
+class AzureDiskVolumeSourcePatch(dict):
+    """
+    AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cachingMode":
+            suggest = "caching_mode"
+        elif key == "diskName":
+            suggest = "disk_name"
+        elif key == "diskURI":
+            suggest = "disk_uri"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AzureDiskVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AzureDiskVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AzureDiskVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 caching_mode: Optional[str] = None,
+                 disk_name: Optional[str] = None,
+                 disk_uri: Optional[str] = None,
+                 fs_type: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 read_only: Optional[bool] = None):
+        """
+        AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        :param str caching_mode: cachingMode is the Host Caching mode: None, Read Only, Read Write.
+        :param str disk_name: diskName is the Name of the data disk in the blob storage
+        :param str disk_uri: diskURI is the URI of data disk in the blob storage
+        :param str fs_type: fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param str kind: kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+        :param bool read_only: readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        if caching_mode is not None:
+            pulumi.set(__self__, "caching_mode", caching_mode)
+        if disk_name is not None:
+            pulumi.set(__self__, "disk_name", disk_name)
+        if disk_uri is not None:
+            pulumi.set(__self__, "disk_uri", disk_uri)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+
+    @property
+    @pulumi.getter(name="cachingMode")
+    def caching_mode(self) -> Optional[str]:
+        """
+        cachingMode is the Host Caching mode: None, Read Only, Read Write.
+        """
+        return pulumi.get(self, "caching_mode")
+
+    @property
+    @pulumi.getter(name="diskName")
+    def disk_name(self) -> Optional[str]:
+        """
+        diskName is the Name of the data disk in the blob storage
+        """
+        return pulumi.get(self, "disk_name")
+
+    @property
+    @pulumi.getter(name="diskURI")
+    def disk_uri(self) -> Optional[str]:
+        """
+        diskURI is the URI of data disk in the blob storage
+        """
+        return pulumi.get(self, "disk_uri")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        kind expected values are Shared: multiple blob disks per storage account  Dedicated: single blob disk per storage account  Managed: azure managed data disk (only in managed availability set). defaults to shared
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
 class AzureFilePersistentVolumeSource(dict):
     """
     AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
@@ -574,6 +1043,88 @@ class AzureFilePersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class AzureFilePersistentVolumeSourcePatch(dict):
+    """
+    AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretName":
+            suggest = "secret_name"
+        elif key == "secretNamespace":
+            suggest = "secret_namespace"
+        elif key == "shareName":
+            suggest = "share_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AzureFilePersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AzureFilePersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AzureFilePersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 read_only: Optional[bool] = None,
+                 secret_name: Optional[str] = None,
+                 secret_namespace: Optional[str] = None,
+                 share_name: Optional[str] = None):
+        """
+        AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str secret_name: secretName is the name of secret that contains Azure Storage Account Name and Key
+        :param str secret_namespace: secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+        :param str share_name: shareName is the azure Share Name
+        """
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_name is not None:
+            pulumi.set(__self__, "secret_name", secret_name)
+        if secret_namespace is not None:
+            pulumi.set(__self__, "secret_namespace", secret_namespace)
+        if share_name is not None:
+            pulumi.set(__self__, "share_name", share_name)
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretName")
+    def secret_name(self) -> Optional[str]:
+        """
+        secretName is the name of secret that contains Azure Storage Account Name and Key
+        """
+        return pulumi.get(self, "secret_name")
+
+    @property
+    @pulumi.getter(name="secretNamespace")
+    def secret_namespace(self) -> Optional[str]:
+        """
+        secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
+        """
+        return pulumi.get(self, "secret_namespace")
+
+    @property
+    @pulumi.getter(name="shareName")
+    def share_name(self) -> Optional[str]:
+        """
+        shareName is the azure Share Name
+        """
+        return pulumi.get(self, "share_name")
+
+
+@pulumi.output_type
 class AzureFileVolumeSource(dict):
     """
     AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
@@ -637,6 +1188,74 @@ class AzureFileVolumeSource(dict):
         readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
         """
         return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
+class AzureFileVolumeSourcePatch(dict):
+    """
+    AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretName":
+            suggest = "secret_name"
+        elif key == "shareName":
+            suggest = "share_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AzureFileVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AzureFileVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AzureFileVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 read_only: Optional[bool] = None,
+                 secret_name: Optional[str] = None,
+                 share_name: Optional[str] = None):
+        """
+        AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str secret_name: secretName is the  name of secret that contains Azure Storage Account Name and Key
+        :param str share_name: shareName is the azure share Name
+        """
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_name is not None:
+            pulumi.set(__self__, "secret_name", secret_name)
+        if share_name is not None:
+            pulumi.set(__self__, "share_name", share_name)
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretName")
+    def secret_name(self) -> Optional[str]:
+        """
+        secretName is the  name of secret that contains Azure Storage Account Name and Key
+        """
+        return pulumi.get(self, "secret_name")
+
+    @property
+    @pulumi.getter(name="shareName")
+    def share_name(self) -> Optional[str]:
+        """
+        shareName is the azure share Name
+        """
+        return pulumi.get(self, "share_name")
 
 
 @pulumi.output_type
@@ -788,6 +1407,156 @@ class CSIPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class CSIPersistentVolumeSourcePatch(dict):
+    """
+    Represents storage that is managed by an external CSI volume driver (Beta feature)
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "controllerExpandSecretRef":
+            suggest = "controller_expand_secret_ref"
+        elif key == "controllerPublishSecretRef":
+            suggest = "controller_publish_secret_ref"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "nodePublishSecretRef":
+            suggest = "node_publish_secret_ref"
+        elif key == "nodeStageSecretRef":
+            suggest = "node_stage_secret_ref"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeAttributes":
+            suggest = "volume_attributes"
+        elif key == "volumeHandle":
+            suggest = "volume_handle"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 controller_expand_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 controller_publish_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 driver: Optional[str] = None,
+                 fs_type: Optional[str] = None,
+                 node_publish_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 node_stage_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 read_only: Optional[bool] = None,
+                 volume_attributes: Optional[Mapping[str, str]] = None,
+                 volume_handle: Optional[str] = None):
+        """
+        Represents storage that is managed by an external CSI volume driver (Beta feature)
+        :param 'SecretReferencePatchArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferencePatchArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param str driver: driver is the name of the driver to use for this volume. Required.
+        :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        :param 'SecretReferencePatchArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferencePatchArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+        :param Mapping[str, str] volume_attributes: volumeAttributes of the volume to publish.
+        :param str volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+        """
+        if controller_expand_secret_ref is not None:
+            pulumi.set(__self__, "controller_expand_secret_ref", controller_expand_secret_ref)
+        if controller_publish_secret_ref is not None:
+            pulumi.set(__self__, "controller_publish_secret_ref", controller_publish_secret_ref)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if node_publish_secret_ref is not None:
+            pulumi.set(__self__, "node_publish_secret_ref", node_publish_secret_ref)
+        if node_stage_secret_ref is not None:
+            pulumi.set(__self__, "node_stage_secret_ref", node_stage_secret_ref)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if volume_attributes is not None:
+            pulumi.set(__self__, "volume_attributes", volume_attributes)
+        if volume_handle is not None:
+            pulumi.set(__self__, "volume_handle", volume_handle)
+
+    @property
+    @pulumi.getter(name="controllerExpandSecretRef")
+    def controller_expand_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        """
+        return pulumi.get(self, "controller_expand_secret_ref")
+
+    @property
+    @pulumi.getter(name="controllerPublishSecretRef")
+    def controller_publish_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        """
+        return pulumi.get(self, "controller_publish_secret_ref")
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[str]:
+        """
+        driver is the name of the driver to use for this volume. Required.
+        """
+        return pulumi.get(self, "driver")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="nodePublishSecretRef")
+    def node_publish_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        """
+        return pulumi.get(self, "node_publish_secret_ref")
+
+    @property
+    @pulumi.getter(name="nodeStageSecretRef")
+    def node_stage_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        """
+        return pulumi.get(self, "node_stage_secret_ref")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="volumeAttributes")
+    def volume_attributes(self) -> Optional[Mapping[str, str]]:
+        """
+        volumeAttributes of the volume to publish.
+        """
+        return pulumi.get(self, "volume_attributes")
+
+    @property
+    @pulumi.getter(name="volumeHandle")
+    def volume_handle(self) -> Optional[str]:
+        """
+        volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
+        """
+        return pulumi.get(self, "volume_handle")
+
+
+@pulumi.output_type
 class CSIVolumeSource(dict):
     """
     Represents a source location of a volume to mount, managed by an external CSI driver
@@ -881,7 +1650,136 @@ class CSIVolumeSource(dict):
 
 
 @pulumi.output_type
+class CSIVolumeSourcePatch(dict):
+    """
+    Represents a source location of a volume to mount, managed by an external CSI driver
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "nodePublishSecretRef":
+            suggest = "node_publish_secret_ref"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeAttributes":
+            suggest = "volume_attributes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CSIVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CSIVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CSIVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver: Optional[str] = None,
+                 fs_type: Optional[str] = None,
+                 node_publish_secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 read_only: Optional[bool] = None,
+                 volume_attributes: Optional[Mapping[str, str]] = None):
+        """
+        Represents a source location of a volume to mount, managed by an external CSI driver
+        :param str driver: driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+        :param str fs_type: fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+        :param 'LocalObjectReferencePatchArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+        :param bool read_only: readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
+        :param Mapping[str, str] volume_attributes: volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+        """
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if node_publish_secret_ref is not None:
+            pulumi.set(__self__, "node_publish_secret_ref", node_publish_secret_ref)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if volume_attributes is not None:
+            pulumi.set(__self__, "volume_attributes", volume_attributes)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[str]:
+        """
+        driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
+        """
+        return pulumi.get(self, "driver")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType to mount. Ex. "ext4", "xfs", "ntfs". If not provided, the empty value is passed to the associated CSI driver which will determine the default filesystem to apply.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="nodePublishSecretRef")
+    def node_publish_secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and  may be empty if no secret is required. If the secret object contains more than one secret, all secret references are passed.
+        """
+        return pulumi.get(self, "node_publish_secret_ref")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly specifies a read-only configuration for the volume. Defaults to false (read/write).
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="volumeAttributes")
+    def volume_attributes(self) -> Optional[Mapping[str, str]]:
+        """
+        volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+        """
+        return pulumi.get(self, "volume_attributes")
+
+
+@pulumi.output_type
 class Capabilities(dict):
+    """
+    Adds and removes POSIX capabilities from running containers.
+    """
+    def __init__(__self__, *,
+                 add: Optional[Sequence[str]] = None,
+                 drop: Optional[Sequence[str]] = None):
+        """
+        Adds and removes POSIX capabilities from running containers.
+        :param Sequence[str] add: Added capabilities
+        :param Sequence[str] drop: Removed capabilities
+        """
+        if add is not None:
+            pulumi.set(__self__, "add", add)
+        if drop is not None:
+            pulumi.set(__self__, "drop", drop)
+
+    @property
+    @pulumi.getter
+    def add(self) -> Optional[Sequence[str]]:
+        """
+        Added capabilities
+        """
+        return pulumi.get(self, "add")
+
+    @property
+    @pulumi.getter
+    def drop(self) -> Optional[Sequence[str]]:
+        """
+        Removed capabilities
+        """
+        return pulumi.get(self, "drop")
+
+
+@pulumi.output_type
+class CapabilitiesPatch(dict):
     """
     Adds and removes POSIX capabilities from running containers.
     """
@@ -1019,6 +1917,110 @@ class CephFSPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class CephFSPersistentVolumeSourcePatch(dict):
+    """
+    Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretFile":
+            suggest = "secret_file"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CephFSPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CephFSPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CephFSPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 monitors: Optional[Sequence[str]] = None,
+                 path: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_file: Optional[str] = None,
+                 secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 user: Optional[str] = None):
+        """
+        Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+        :param Sequence[str] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str secret_file: secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param 'SecretReferencePatchArgs' secret_ref: secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str user: user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        if monitors is not None:
+            pulumi.set(__self__, "monitors", monitors)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_file is not None:
+            pulumi.set(__self__, "secret_file", secret_file)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def monitors(self) -> Optional[Sequence[str]]:
+        """
+        monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "monitors")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretFile")
+    def secret_file(self) -> Optional[str]:
+        """
+        secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "secret_file")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        """
+        user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "user")
+
+
+@pulumi.output_type
 class CephFSVolumeSource(dict):
     """
     Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
@@ -1122,6 +2124,110 @@ class CephFSVolumeSource(dict):
 
 
 @pulumi.output_type
+class CephFSVolumeSourcePatch(dict):
+    """
+    Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretFile":
+            suggest = "secret_file"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CephFSVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CephFSVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CephFSVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 monitors: Optional[Sequence[str]] = None,
+                 path: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_file: Optional[str] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 user: Optional[str] = None):
+        """
+        Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
+        :param Sequence[str] monitors: monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str path: path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str secret_file: secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        :param str user: user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        if monitors is not None:
+            pulumi.set(__self__, "monitors", monitors)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_file is not None:
+            pulumi.set(__self__, "secret_file", secret_file)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def monitors(self) -> Optional[Sequence[str]]:
+        """
+        monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "monitors")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path is Optional: Used as the mounted root, rather than the full Ceph tree, default is /
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretFile")
+    def secret_file(self) -> Optional[str]:
+        """
+        secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "secret_file")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        """
+        user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "user")
+
+
+@pulumi.output_type
 class CinderPersistentVolumeSource(dict):
     """
     Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
@@ -1200,6 +2306,88 @@ class CinderPersistentVolumeSource(dict):
         secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
         """
         return pulumi.get(self, "secret_ref")
+
+
+@pulumi.output_type
+class CinderPersistentVolumeSourcePatch(dict):
+    """
+    Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "volumeID":
+            suggest = "volume_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CinderPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CinderPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CinderPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 volume_id: Optional[str] = None):
+        """
+        Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+        :param str fs_type: fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'SecretReferencePatchArgs' secret_ref: secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
+        :param str volume_id: volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if volume_id is not None:
+            pulumi.set(__self__, "volume_id", volume_id)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType Filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="volumeID")
+    def volume_id(self) -> Optional[str]:
+        """
+        volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "volume_id")
 
 
 @pulumi.output_type
@@ -1284,6 +2472,88 @@ class CinderVolumeSource(dict):
 
 
 @pulumi.output_type
+class CinderVolumeSourcePatch(dict):
+    """
+    Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "volumeID":
+            suggest = "volume_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CinderVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CinderVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CinderVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 volume_id: Optional[str] = None):
+        """
+        Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
+        :param str volume_id: volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if volume_id is not None:
+            pulumi.set(__self__, "volume_id", volume_id)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="volumeID")
+    def volume_id(self) -> Optional[str]:
+        """
+        volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "volume_id")
+
+
+@pulumi.output_type
 class ClientIPConfig(dict):
     """
     ClientIPConfig represents the configurations of Client IP based session affinity.
@@ -1303,6 +2573,46 @@ class ClientIPConfig(dict):
 
     def get(self, key: str, default = None) -> Any:
         ClientIPConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 timeout_seconds: Optional[int] = None):
+        """
+        ClientIPConfig represents the configurations of Client IP based session affinity.
+        :param int timeout_seconds: timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+        """
+        if timeout_seconds is not None:
+            pulumi.set(__self__, "timeout_seconds", timeout_seconds)
+
+    @property
+    @pulumi.getter(name="timeoutSeconds")
+    def timeout_seconds(self) -> Optional[int]:
+        """
+        timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
+        """
+        return pulumi.get(self, "timeout_seconds")
+
+
+@pulumi.output_type
+class ClientIPConfigPatch(dict):
+    """
+    ClientIPConfig represents the configurations of Client IP based session affinity.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "timeoutSeconds":
+            suggest = "timeout_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClientIPConfigPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClientIPConfigPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClientIPConfigPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -1465,6 +2775,45 @@ class ConfigMapEnvSource(dict):
 
 
 @pulumi.output_type
+class ConfigMapEnvSourcePatch(dict):
+    """
+    ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
+
+    The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.
+
+        The contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: Specify whether the ConfigMap must be defined
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        Specify whether the ConfigMap must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
 class ConfigMapKeySelector(dict):
     """
     Selects a key from a ConfigMap.
@@ -1488,6 +2837,53 @@ class ConfigMapKeySelector(dict):
     @property
     @pulumi.getter
     def key(self) -> str:
+        """
+        The key to select.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        Specify whether the ConfigMap or its key must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
+class ConfigMapKeySelectorPatch(dict):
+    """
+    Selects a key from a ConfigMap.
+    """
+    def __init__(__self__, *,
+                 key: Optional[str] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        Selects a key from a ConfigMap.
+        :param str key: The key to select.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: Specify whether the ConfigMap or its key must be defined
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
         """
         The key to select.
         """
@@ -1598,6 +2994,96 @@ class ConfigMapNodeConfigSource(dict):
 
 
 @pulumi.output_type
+class ConfigMapNodeConfigSourcePatch(dict):
+    """
+    ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "kubeletConfigKey":
+            suggest = "kubelet_config_key"
+        elif key == "resourceVersion":
+            suggest = "resource_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConfigMapNodeConfigSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConfigMapNodeConfigSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConfigMapNodeConfigSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 kubelet_config_key: Optional[str] = None,
+                 name: Optional[str] = None,
+                 namespace: Optional[str] = None,
+                 resource_version: Optional[str] = None,
+                 uid: Optional[str] = None):
+        """
+        ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
+        :param str kubelet_config_key: KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        :param str name: Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        :param str namespace: Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        :param str resource_version: ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        :param str uid: UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        """
+        if kubelet_config_key is not None:
+            pulumi.set(__self__, "kubelet_config_key", kubelet_config_key)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+        if resource_version is not None:
+            pulumi.set(__self__, "resource_version", resource_version)
+        if uid is not None:
+            pulumi.set(__self__, "uid", uid)
+
+    @property
+    @pulumi.getter(name="kubeletConfigKey")
+    def kubelet_config_key(self) -> Optional[str]:
+        """
+        KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
+        """
+        return pulumi.get(self, "kubelet_config_key")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is the metadata.name of the referenced ConfigMap. This field is required in all cases.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def namespace(self) -> Optional[str]:
+        """
+        Namespace is the metadata.namespace of the referenced ConfigMap. This field is required in all cases.
+        """
+        return pulumi.get(self, "namespace")
+
+    @property
+    @pulumi.getter(name="resourceVersion")
+    def resource_version(self) -> Optional[str]:
+        """
+        ResourceVersion is the metadata.ResourceVersion of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        """
+        return pulumi.get(self, "resource_version")
+
+    @property
+    @pulumi.getter
+    def uid(self) -> Optional[str]:
+        """
+        UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+        """
+        return pulumi.get(self, "uid")
+
+
+@pulumi.output_type
 class ConfigMapProjection(dict):
     """
     Adapts a ConfigMap into a projected volume.
@@ -1626,6 +3112,57 @@ class ConfigMapProjection(dict):
     @property
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
+        """
+        items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        """
+        return pulumi.get(self, "items")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        optional specify whether the ConfigMap or its keys must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
+class ConfigMapProjectionPatch(dict):
+    """
+    Adapts a ConfigMap into a projected volume.
+
+    The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
+    """
+    def __init__(__self__, *,
+                 items: Optional[Sequence['outputs.KeyToPathPatch']] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        Adapts a ConfigMap into a projected volume.
+
+        The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
+        :param Sequence['KeyToPathPatchArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: optional specify whether the ConfigMap or its keys must be defined
+        """
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.KeyToPathPatch']]:
         """
         items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
@@ -1706,6 +3243,86 @@ class ConfigMapVolumeSource(dict):
     @property
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
+        """
+        items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        """
+        return pulumi.get(self, "items")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        optional specify whether the ConfigMap or its keys must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
+class ConfigMapVolumeSourcePatch(dict):
+    """
+    Adapts a ConfigMap into a volume.
+
+    The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConfigMapVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConfigMapVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConfigMapVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_mode: Optional[int] = None,
+                 items: Optional[Sequence['outputs.KeyToPathPatch']] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        Adapts a ConfigMap into a volume.
+
+        The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.
+        :param int default_mode: defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['KeyToPathPatchArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: optional specify whether the ConfigMap or its keys must be defined
+        """
+        if default_mode is not None:
+            pulumi.set(__self__, "default_mode", default_mode)
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter(name="defaultMode")
+    def default_mode(self) -> Optional[int]:
+        """
+        defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        """
+        return pulumi.get(self, "default_mode")
+
+    @property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.KeyToPathPatch']]:
         """
         items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
@@ -2093,6 +3710,372 @@ class ContainerImage(dict):
 
 
 @pulumi.output_type
+class ContainerImagePatch(dict):
+    """
+    Describe a container image
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sizeBytes":
+            suggest = "size_bytes"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerImagePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerImagePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerImagePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 names: Optional[Sequence[str]] = None,
+                 size_bytes: Optional[int] = None):
+        """
+        Describe a container image
+        :param Sequence[str] names: Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        :param int size_bytes: The size of the image in bytes.
+        """
+        if names is not None:
+            pulumi.set(__self__, "names", names)
+        if size_bytes is not None:
+            pulumi.set(__self__, "size_bytes", size_bytes)
+
+    @property
+    @pulumi.getter
+    def names(self) -> Optional[Sequence[str]]:
+        """
+        Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        """
+        return pulumi.get(self, "names")
+
+    @property
+    @pulumi.getter(name="sizeBytes")
+    def size_bytes(self) -> Optional[int]:
+        """
+        The size of the image in bytes.
+        """
+        return pulumi.get(self, "size_bytes")
+
+
+@pulumi.output_type
+class ContainerPatch(dict):
+    """
+    A single application container that you want to run within a pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envFrom":
+            suggest = "env_from"
+        elif key == "imagePullPolicy":
+            suggest = "image_pull_policy"
+        elif key == "livenessProbe":
+            suggest = "liveness_probe"
+        elif key == "readinessProbe":
+            suggest = "readiness_probe"
+        elif key == "securityContext":
+            suggest = "security_context"
+        elif key == "startupProbe":
+            suggest = "startup_probe"
+        elif key == "stdinOnce":
+            suggest = "stdin_once"
+        elif key == "terminationMessagePath":
+            suggest = "termination_message_path"
+        elif key == "terminationMessagePolicy":
+            suggest = "termination_message_policy"
+        elif key == "volumeDevices":
+            suggest = "volume_devices"
+        elif key == "volumeMounts":
+            suggest = "volume_mounts"
+        elif key == "workingDir":
+            suggest = "working_dir"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 args: Optional[Sequence[str]] = None,
+                 command: Optional[Sequence[str]] = None,
+                 env: Optional[Sequence['outputs.EnvVarPatch']] = None,
+                 env_from: Optional[Sequence['outputs.EnvFromSourcePatch']] = None,
+                 image: Optional[str] = None,
+                 image_pull_policy: Optional[str] = None,
+                 lifecycle: Optional['outputs.LifecyclePatch'] = None,
+                 liveness_probe: Optional['outputs.ProbePatch'] = None,
+                 name: Optional[str] = None,
+                 ports: Optional[Sequence['outputs.ContainerPortPatch']] = None,
+                 readiness_probe: Optional['outputs.ProbePatch'] = None,
+                 resources: Optional['outputs.ResourceRequirementsPatch'] = None,
+                 security_context: Optional['outputs.SecurityContextPatch'] = None,
+                 startup_probe: Optional['outputs.ProbePatch'] = None,
+                 stdin: Optional[bool] = None,
+                 stdin_once: Optional[bool] = None,
+                 termination_message_path: Optional[str] = None,
+                 termination_message_policy: Optional[str] = None,
+                 tty: Optional[bool] = None,
+                 volume_devices: Optional[Sequence['outputs.VolumeDevicePatch']] = None,
+                 volume_mounts: Optional[Sequence['outputs.VolumeMountPatch']] = None,
+                 working_dir: Optional[str] = None):
+        """
+        A single application container that you want to run within a pod.
+        :param Sequence[str] args: Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence[str] command: Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence['EnvVarPatchArgs'] env: List of environment variables to set in the container. Cannot be updated.
+        :param Sequence['EnvFromSourcePatchArgs'] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        :param str image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+        :param str image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+        :param 'LifecyclePatchArgs' lifecycle: Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+        :param 'ProbePatchArgs' liveness_probe: Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param str name: Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
+        :param Sequence['ContainerPortPatchArgs'] ports: List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+        :param 'ProbePatchArgs' readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param 'ResourceRequirementsPatchArgs' resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        :param 'SecurityContextPatchArgs' security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+        :param 'ProbePatchArgs' startup_probe: StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param bool stdin: Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
+        :param bool stdin_once: Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
+        :param str termination_message_path: Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
+        :param str termination_message_policy: Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+        :param bool tty: Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
+        :param Sequence['VolumeDevicePatchArgs'] volume_devices: volumeDevices is the list of block devices to be used by the container.
+        :param Sequence['VolumeMountPatchArgs'] volume_mounts: Pod volumes to mount into the container's filesystem. Cannot be updated.
+        :param str working_dir: Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
+        """
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+        if env is not None:
+            pulumi.set(__self__, "env", env)
+        if env_from is not None:
+            pulumi.set(__self__, "env_from", env_from)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if image_pull_policy is not None:
+            pulumi.set(__self__, "image_pull_policy", image_pull_policy)
+        if lifecycle is not None:
+            pulumi.set(__self__, "lifecycle", lifecycle)
+        if liveness_probe is not None:
+            pulumi.set(__self__, "liveness_probe", liveness_probe)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
+        if readiness_probe is not None:
+            pulumi.set(__self__, "readiness_probe", readiness_probe)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
+        if security_context is not None:
+            pulumi.set(__self__, "security_context", security_context)
+        if startup_probe is not None:
+            pulumi.set(__self__, "startup_probe", startup_probe)
+        if stdin is not None:
+            pulumi.set(__self__, "stdin", stdin)
+        if stdin_once is not None:
+            pulumi.set(__self__, "stdin_once", stdin_once)
+        if termination_message_path is not None:
+            pulumi.set(__self__, "termination_message_path", termination_message_path)
+        if termination_message_policy is not None:
+            pulumi.set(__self__, "termination_message_policy", termination_message_policy)
+        if tty is not None:
+            pulumi.set(__self__, "tty", tty)
+        if volume_devices is not None:
+            pulumi.set(__self__, "volume_devices", volume_devices)
+        if volume_mounts is not None:
+            pulumi.set(__self__, "volume_mounts", volume_mounts)
+        if working_dir is not None:
+            pulumi.set(__self__, "working_dir", working_dir)
+
+    @property
+    @pulumi.getter
+    def args(self) -> Optional[Sequence[str]]:
+        """
+        Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        """
+        return pulumi.get(self, "args")
+
+    @property
+    @pulumi.getter
+    def command(self) -> Optional[Sequence[str]]:
+        """
+        Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        """
+        return pulumi.get(self, "command")
+
+    @property
+    @pulumi.getter
+    def env(self) -> Optional[Sequence['outputs.EnvVarPatch']]:
+        """
+        List of environment variables to set in the container. Cannot be updated.
+        """
+        return pulumi.get(self, "env")
+
+    @property
+    @pulumi.getter(name="envFrom")
+    def env_from(self) -> Optional[Sequence['outputs.EnvFromSourcePatch']]:
+        """
+        List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        """
+        return pulumi.get(self, "env_from")
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        """
+        Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+        """
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter(name="imagePullPolicy")
+    def image_pull_policy(self) -> Optional[str]:
+        """
+        Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+        """
+        return pulumi.get(self, "image_pull_policy")
+
+    @property
+    @pulumi.getter
+    def lifecycle(self) -> Optional['outputs.LifecyclePatch']:
+        """
+        Actions that the management system should take in response to container lifecycle events. Cannot be updated.
+        """
+        return pulumi.get(self, "lifecycle")
+
+    @property
+    @pulumi.getter(name="livenessProbe")
+    def liveness_probe(self) -> Optional['outputs.ProbePatch']:
+        """
+        Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        """
+        return pulumi.get(self, "liveness_probe")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[Sequence['outputs.ContainerPortPatch']]:
+        """
+        List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+        """
+        return pulumi.get(self, "ports")
+
+    @property
+    @pulumi.getter(name="readinessProbe")
+    def readiness_probe(self) -> Optional['outputs.ProbePatch']:
+        """
+        Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        """
+        return pulumi.get(self, "readiness_probe")
+
+    @property
+    @pulumi.getter
+    def resources(self) -> Optional['outputs.ResourceRequirementsPatch']:
+        """
+        Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "resources")
+
+    @property
+    @pulumi.getter(name="securityContext")
+    def security_context(self) -> Optional['outputs.SecurityContextPatch']:
+        """
+        SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+        """
+        return pulumi.get(self, "security_context")
+
+    @property
+    @pulumi.getter(name="startupProbe")
+    def startup_probe(self) -> Optional['outputs.ProbePatch']:
+        """
+        StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        """
+        return pulumi.get(self, "startup_probe")
+
+    @property
+    @pulumi.getter
+    def stdin(self) -> Optional[bool]:
+        """
+        Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
+        """
+        return pulumi.get(self, "stdin")
+
+    @property
+    @pulumi.getter(name="stdinOnce")
+    def stdin_once(self) -> Optional[bool]:
+        """
+        Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
+        """
+        return pulumi.get(self, "stdin_once")
+
+    @property
+    @pulumi.getter(name="terminationMessagePath")
+    def termination_message_path(self) -> Optional[str]:
+        """
+        Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
+        """
+        return pulumi.get(self, "termination_message_path")
+
+    @property
+    @pulumi.getter(name="terminationMessagePolicy")
+    def termination_message_policy(self) -> Optional[str]:
+        """
+        Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+        """
+        return pulumi.get(self, "termination_message_policy")
+
+    @property
+    @pulumi.getter
+    def tty(self) -> Optional[bool]:
+        """
+        Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
+        """
+        return pulumi.get(self, "tty")
+
+    @property
+    @pulumi.getter(name="volumeDevices")
+    def volume_devices(self) -> Optional[Sequence['outputs.VolumeDevicePatch']]:
+        """
+        volumeDevices is the list of block devices to be used by the container.
+        """
+        return pulumi.get(self, "volume_devices")
+
+    @property
+    @pulumi.getter(name="volumeMounts")
+    def volume_mounts(self) -> Optional[Sequence['outputs.VolumeMountPatch']]:
+        """
+        Pod volumes to mount into the container's filesystem. Cannot be updated.
+        """
+        return pulumi.get(self, "volume_mounts")
+
+    @property
+    @pulumi.getter(name="workingDir")
+    def working_dir(self) -> Optional[str]:
+        """
+        Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
+        """
+        return pulumi.get(self, "working_dir")
+
+
+@pulumi.output_type
 class ContainerPort(dict):
     """
     ContainerPort represents a network port in a single container.
@@ -2184,6 +4167,98 @@ class ContainerPort(dict):
 
 
 @pulumi.output_type
+class ContainerPortPatch(dict):
+    """
+    ContainerPort represents a network port in a single container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerPort":
+            suggest = "container_port"
+        elif key == "hostIP":
+            suggest = "host_ip"
+        elif key == "hostPort":
+            suggest = "host_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerPortPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerPortPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerPortPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 container_port: Optional[int] = None,
+                 host_ip: Optional[str] = None,
+                 host_port: Optional[int] = None,
+                 name: Optional[str] = None,
+                 protocol: Optional[str] = None):
+        """
+        ContainerPort represents a network port in a single container.
+        :param int container_port: Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
+        :param str host_ip: What host IP to bind the external port to.
+        :param int host_port: Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+        :param str name: If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
+        :param str protocol: Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+        """
+        if container_port is not None:
+            pulumi.set(__self__, "container_port", container_port)
+        if host_ip is not None:
+            pulumi.set(__self__, "host_ip", host_ip)
+        if host_port is not None:
+            pulumi.set(__self__, "host_port", host_port)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @property
+    @pulumi.getter(name="containerPort")
+    def container_port(self) -> Optional[int]:
+        """
+        Number of port to expose on the pod's IP address. This must be a valid port number, 0 < x < 65536.
+        """
+        return pulumi.get(self, "container_port")
+
+    @property
+    @pulumi.getter(name="hostIP")
+    def host_ip(self) -> Optional[str]:
+        """
+        What host IP to bind the external port to.
+        """
+        return pulumi.get(self, "host_ip")
+
+    @property
+    @pulumi.getter(name="hostPort")
+    def host_port(self) -> Optional[int]:
+        """
+        Number of port to expose on the host. If specified, this must be a valid port number, 0 < x < 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+        """
+        return pulumi.get(self, "host_port")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[str]:
+        """
+        Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+        """
+        return pulumi.get(self, "protocol")
+
+
+@pulumi.output_type
 class ContainerState(dict):
     """
     ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
@@ -2231,6 +4306,53 @@ class ContainerState(dict):
 
 
 @pulumi.output_type
+class ContainerStatePatch(dict):
+    """
+    ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
+    """
+    def __init__(__self__, *,
+                 running: Optional['outputs.ContainerStateRunningPatch'] = None,
+                 terminated: Optional['outputs.ContainerStateTerminatedPatch'] = None,
+                 waiting: Optional['outputs.ContainerStateWaitingPatch'] = None):
+        """
+        ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
+        :param 'ContainerStateRunningPatchArgs' running: Details about a running container
+        :param 'ContainerStateTerminatedPatchArgs' terminated: Details about a terminated container
+        :param 'ContainerStateWaitingPatchArgs' waiting: Details about a waiting container
+        """
+        if running is not None:
+            pulumi.set(__self__, "running", running)
+        if terminated is not None:
+            pulumi.set(__self__, "terminated", terminated)
+        if waiting is not None:
+            pulumi.set(__self__, "waiting", waiting)
+
+    @property
+    @pulumi.getter
+    def running(self) -> Optional['outputs.ContainerStateRunningPatch']:
+        """
+        Details about a running container
+        """
+        return pulumi.get(self, "running")
+
+    @property
+    @pulumi.getter
+    def terminated(self) -> Optional['outputs.ContainerStateTerminatedPatch']:
+        """
+        Details about a terminated container
+        """
+        return pulumi.get(self, "terminated")
+
+    @property
+    @pulumi.getter
+    def waiting(self) -> Optional['outputs.ContainerStateWaitingPatch']:
+        """
+        Details about a waiting container
+        """
+        return pulumi.get(self, "waiting")
+
+
+@pulumi.output_type
 class ContainerStateRunning(dict):
     """
     ContainerStateRunning is a running state of a container.
@@ -2250,6 +4372,46 @@ class ContainerStateRunning(dict):
 
     def get(self, key: str, default = None) -> Any:
         ContainerStateRunning.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 started_at: Optional[str] = None):
+        """
+        ContainerStateRunning is a running state of a container.
+        :param str started_at: Time at which the container was last (re-)started
+        """
+        if started_at is not None:
+            pulumi.set(__self__, "started_at", started_at)
+
+    @property
+    @pulumi.getter(name="startedAt")
+    def started_at(self) -> Optional[str]:
+        """
+        Time at which the container was last (re-)started
+        """
+        return pulumi.get(self, "started_at")
+
+
+@pulumi.output_type
+class ContainerStateRunningPatch(dict):
+    """
+    ContainerStateRunning is a running state of a container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "startedAt":
+            suggest = "started_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerStateRunningPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerStateRunningPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerStateRunningPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -2388,7 +4550,160 @@ class ContainerStateTerminated(dict):
 
 
 @pulumi.output_type
+class ContainerStateTerminatedPatch(dict):
+    """
+    ContainerStateTerminated is a terminated state of a container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerID":
+            suggest = "container_id"
+        elif key == "exitCode":
+            suggest = "exit_code"
+        elif key == "finishedAt":
+            suggest = "finished_at"
+        elif key == "startedAt":
+            suggest = "started_at"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerStateTerminatedPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerStateTerminatedPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerStateTerminatedPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 container_id: Optional[str] = None,
+                 exit_code: Optional[int] = None,
+                 finished_at: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 signal: Optional[int] = None,
+                 started_at: Optional[str] = None):
+        """
+        ContainerStateTerminated is a terminated state of a container.
+        :param str container_id: Container's ID in the format '<type>://<container_id>'
+        :param int exit_code: Exit status from the last termination of the container
+        :param str finished_at: Time at which the container last terminated
+        :param str message: Message regarding the last termination of the container
+        :param str reason: (brief) reason from the last termination of the container
+        :param int signal: Signal from the last termination of the container
+        :param str started_at: Time at which previous execution of the container started
+        """
+        if container_id is not None:
+            pulumi.set(__self__, "container_id", container_id)
+        if exit_code is not None:
+            pulumi.set(__self__, "exit_code", exit_code)
+        if finished_at is not None:
+            pulumi.set(__self__, "finished_at", finished_at)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if signal is not None:
+            pulumi.set(__self__, "signal", signal)
+        if started_at is not None:
+            pulumi.set(__self__, "started_at", started_at)
+
+    @property
+    @pulumi.getter(name="containerID")
+    def container_id(self) -> Optional[str]:
+        """
+        Container's ID in the format '<type>://<container_id>'
+        """
+        return pulumi.get(self, "container_id")
+
+    @property
+    @pulumi.getter(name="exitCode")
+    def exit_code(self) -> Optional[int]:
+        """
+        Exit status from the last termination of the container
+        """
+        return pulumi.get(self, "exit_code")
+
+    @property
+    @pulumi.getter(name="finishedAt")
+    def finished_at(self) -> Optional[str]:
+        """
+        Time at which the container last terminated
+        """
+        return pulumi.get(self, "finished_at")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        Message regarding the last termination of the container
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        (brief) reason from the last termination of the container
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def signal(self) -> Optional[int]:
+        """
+        Signal from the last termination of the container
+        """
+        return pulumi.get(self, "signal")
+
+    @property
+    @pulumi.getter(name="startedAt")
+    def started_at(self) -> Optional[str]:
+        """
+        Time at which previous execution of the container started
+        """
+        return pulumi.get(self, "started_at")
+
+
+@pulumi.output_type
 class ContainerStateWaiting(dict):
+    """
+    ContainerStateWaiting is a waiting state of a container.
+    """
+    def __init__(__self__, *,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None):
+        """
+        ContainerStateWaiting is a waiting state of a container.
+        :param str message: Message regarding why the container is not yet running.
+        :param str reason: (brief) reason the container is not yet running.
+        """
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        Message regarding why the container is not yet running.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        (brief) reason the container is not yet running.
+        """
+        return pulumi.get(self, "reason")
+
+
+@pulumi.output_type
+class ContainerStateWaitingPatch(dict):
     """
     ContainerStateWaiting is a waiting state of a container.
     """
@@ -2560,6 +4875,148 @@ class ContainerStatus(dict):
 
 
 @pulumi.output_type
+class ContainerStatusPatch(dict):
+    """
+    ContainerStatus contains details for the current status of this container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerID":
+            suggest = "container_id"
+        elif key == "imageID":
+            suggest = "image_id"
+        elif key == "lastState":
+            suggest = "last_state"
+        elif key == "restartCount":
+            suggest = "restart_count"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 container_id: Optional[str] = None,
+                 image: Optional[str] = None,
+                 image_id: Optional[str] = None,
+                 last_state: Optional['outputs.ContainerStatePatch'] = None,
+                 name: Optional[str] = None,
+                 ready: Optional[bool] = None,
+                 restart_count: Optional[int] = None,
+                 started: Optional[bool] = None,
+                 state: Optional['outputs.ContainerStatePatch'] = None):
+        """
+        ContainerStatus contains details for the current status of this container.
+        :param str container_id: Container's ID in the format '<type>://<container_id>'.
+        :param str image: The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+        :param str image_id: ImageID of the container's image.
+        :param 'ContainerStatePatchArgs' last_state: Details about the container's last termination condition.
+        :param str name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        :param bool ready: Specifies whether the container has passed its readiness probe.
+        :param int restart_count: The number of times the container has been restarted.
+        :param bool started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        :param 'ContainerStatePatchArgs' state: Details about the container's current condition.
+        """
+        if container_id is not None:
+            pulumi.set(__self__, "container_id", container_id)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if image_id is not None:
+            pulumi.set(__self__, "image_id", image_id)
+        if last_state is not None:
+            pulumi.set(__self__, "last_state", last_state)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if ready is not None:
+            pulumi.set(__self__, "ready", ready)
+        if restart_count is not None:
+            pulumi.set(__self__, "restart_count", restart_count)
+        if started is not None:
+            pulumi.set(__self__, "started", started)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter(name="containerID")
+    def container_id(self) -> Optional[str]:
+        """
+        Container's ID in the format '<type>://<container_id>'.
+        """
+        return pulumi.get(self, "container_id")
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        """
+        The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+        """
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter(name="imageID")
+    def image_id(self) -> Optional[str]:
+        """
+        ImageID of the container's image.
+        """
+        return pulumi.get(self, "image_id")
+
+    @property
+    @pulumi.getter(name="lastState")
+    def last_state(self) -> Optional['outputs.ContainerStatePatch']:
+        """
+        Details about the container's last termination condition.
+        """
+        return pulumi.get(self, "last_state")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def ready(self) -> Optional[bool]:
+        """
+        Specifies whether the container has passed its readiness probe.
+        """
+        return pulumi.get(self, "ready")
+
+    @property
+    @pulumi.getter(name="restartCount")
+    def restart_count(self) -> Optional[int]:
+        """
+        The number of times the container has been restarted.
+        """
+        return pulumi.get(self, "restart_count")
+
+    @property
+    @pulumi.getter
+    def started(self) -> Optional[bool]:
+        """
+        Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        """
+        return pulumi.get(self, "started")
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional['outputs.ContainerStatePatch']:
+        """
+        Details about the container's current condition.
+        """
+        return pulumi.get(self, "state")
+
+
+@pulumi.output_type
 class DaemonEndpoint(dict):
     """
     DaemonEndpoint contains information about a single Daemon endpoint.
@@ -2599,6 +5056,46 @@ class DaemonEndpoint(dict):
 
 
 @pulumi.output_type
+class DaemonEndpointPatch(dict):
+    """
+    DaemonEndpoint contains information about a single Daemon endpoint.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "Port":
+            suggest = "port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DaemonEndpointPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DaemonEndpointPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DaemonEndpointPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 port: Optional[int] = None):
+        """
+        DaemonEndpoint contains information about a single Daemon endpoint.
+        :param int port: Port number of the given endpoint.
+        """
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @property
+    @pulumi.getter(name="Port")
+    def port(self) -> Optional[int]:
+        """
+        Port number of the given endpoint.
+        """
+        return pulumi.get(self, "port")
+
+
+@pulumi.output_type
 class DownwardAPIProjection(dict):
     """
     Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
@@ -2615,6 +5112,29 @@ class DownwardAPIProjection(dict):
     @property
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.DownwardAPIVolumeFile']]:
+        """
+        Items is a list of DownwardAPIVolume file
+        """
+        return pulumi.get(self, "items")
+
+
+@pulumi.output_type
+class DownwardAPIProjectionPatch(dict):
+    """
+    Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
+    """
+    def __init__(__self__, *,
+                 items: Optional[Sequence['outputs.DownwardAPIVolumeFilePatch']] = None):
+        """
+        Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
+        :param Sequence['DownwardAPIVolumeFilePatchArgs'] items: Items is a list of DownwardAPIVolume file
+        """
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+
+    @property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.DownwardAPIVolumeFilePatch']]:
         """
         Items is a list of DownwardAPIVolume file
         """
@@ -2699,6 +5219,84 @@ class DownwardAPIVolumeFile(dict):
 
 
 @pulumi.output_type
+class DownwardAPIVolumeFilePatch(dict):
+    """
+    DownwardAPIVolumeFile represents information to create the file containing the pod field
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fieldRef":
+            suggest = "field_ref"
+        elif key == "resourceFieldRef":
+            suggest = "resource_field_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DownwardAPIVolumeFilePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DownwardAPIVolumeFilePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DownwardAPIVolumeFilePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 field_ref: Optional['outputs.ObjectFieldSelectorPatch'] = None,
+                 mode: Optional[int] = None,
+                 path: Optional[str] = None,
+                 resource_field_ref: Optional['outputs.ResourceFieldSelectorPatch'] = None):
+        """
+        DownwardAPIVolumeFile represents information to create the file containing the pod field
+        :param 'ObjectFieldSelectorPatchArgs' field_ref: Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        :param int mode: Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param str path: Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
+        :param 'ResourceFieldSelectorPatchArgs' resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+        """
+        if field_ref is not None:
+            pulumi.set(__self__, "field_ref", field_ref)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if resource_field_ref is not None:
+            pulumi.set(__self__, "resource_field_ref", resource_field_ref)
+
+    @property
+    @pulumi.getter(name="fieldRef")
+    def field_ref(self) -> Optional['outputs.ObjectFieldSelectorPatch']:
+        """
+        Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
+        """
+        return pulumi.get(self, "field_ref")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[int]:
+        """
+        Optional: mode bits used to set permissions on this file, must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        """
+        return pulumi.get(self, "mode")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        Required: Path is  the relative path name of the file to be created. Must not be absolute or contain the '..' path. Must be utf-8 encoded. The first item of the relative path must not start with '..'
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="resourceFieldRef")
+    def resource_field_ref(self) -> Optional['outputs.ResourceFieldSelectorPatch']:
+        """
+        Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, requests.cpu and requests.memory) are currently supported.
+        """
+        return pulumi.get(self, "resource_field_ref")
+
+
+@pulumi.output_type
 class DownwardAPIVolumeSource(dict):
     """
     DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
@@ -2751,6 +5349,58 @@ class DownwardAPIVolumeSource(dict):
 
 
 @pulumi.output_type
+class DownwardAPIVolumeSourcePatch(dict):
+    """
+    DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DownwardAPIVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DownwardAPIVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DownwardAPIVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_mode: Optional[int] = None,
+                 items: Optional[Sequence['outputs.DownwardAPIVolumeFilePatch']] = None):
+        """
+        DownwardAPIVolumeSource represents a volume containing downward API info. Downward API volumes support ownership management and SELinux relabeling.
+        :param int default_mode: Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['DownwardAPIVolumeFilePatchArgs'] items: Items is a list of downward API volume file
+        """
+        if default_mode is not None:
+            pulumi.set(__self__, "default_mode", default_mode)
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+
+    @property
+    @pulumi.getter(name="defaultMode")
+    def default_mode(self) -> Optional[int]:
+        """
+        Optional: mode bits to use on created files by default. Must be a Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        """
+        return pulumi.get(self, "default_mode")
+
+    @property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.DownwardAPIVolumeFilePatch']]:
+        """
+        Items is a list of downward API volume file
+        """
+        return pulumi.get(self, "items")
+
+
+@pulumi.output_type
 class EmptyDirVolumeSource(dict):
     """
     Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
@@ -2770,6 +5420,58 @@ class EmptyDirVolumeSource(dict):
 
     def get(self, key: str, default = None) -> Any:
         EmptyDirVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 medium: Optional[str] = None,
+                 size_limit: Optional[str] = None):
+        """
+        Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+        :param str medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        :param str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        """
+        if medium is not None:
+            pulumi.set(__self__, "medium", medium)
+        if size_limit is not None:
+            pulumi.set(__self__, "size_limit", size_limit)
+
+    @property
+    @pulumi.getter
+    def medium(self) -> Optional[str]:
+        """
+        medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        """
+        return pulumi.get(self, "medium")
+
+    @property
+    @pulumi.getter(name="sizeLimit")
+    def size_limit(self) -> Optional[str]:
+        """
+        sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        """
+        return pulumi.get(self, "size_limit")
+
+
+@pulumi.output_type
+class EmptyDirVolumeSourcePatch(dict):
+    """
+    Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sizeLimit":
+            suggest = "size_limit"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EmptyDirVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EmptyDirVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EmptyDirVolumeSourcePatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -2880,6 +5582,84 @@ class EndpointAddress(dict):
 
 
 @pulumi.output_type
+class EndpointAddressPatch(dict):
+    """
+    EndpointAddress is a tuple that describes single IP address.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeName":
+            suggest = "node_name"
+        elif key == "targetRef":
+            suggest = "target_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointAddressPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointAddressPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointAddressPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hostname: Optional[str] = None,
+                 ip: Optional[str] = None,
+                 node_name: Optional[str] = None,
+                 target_ref: Optional['outputs.ObjectReferencePatch'] = None):
+        """
+        EndpointAddress is a tuple that describes single IP address.
+        :param str hostname: The Hostname of this endpoint
+        :param str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        :param str node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+        :param 'ObjectReferencePatchArgs' target_ref: Reference to object providing the endpoint.
+        """
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if ip is not None:
+            pulumi.set(__self__, "ip", ip)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if target_ref is not None:
+            pulumi.set(__self__, "target_ref", target_ref)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[str]:
+        """
+        The Hostname of this endpoint
+        """
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter
+    def ip(self) -> Optional[str]:
+        """
+        The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        """
+        return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter(name="targetRef")
+    def target_ref(self) -> Optional['outputs.ObjectReferencePatch']:
+        """
+        Reference to object providing the endpoint.
+        """
+        return pulumi.get(self, "target_ref")
+
+
+@pulumi.output_type
 class EndpointPort(dict):
     """
     EndpointPort is a tuple that describes a single port.
@@ -2944,6 +5724,82 @@ class EndpointPort(dict):
         The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[str]:
+        """
+        The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+        """
+        return pulumi.get(self, "protocol")
+
+
+@pulumi.output_type
+class EndpointPortPatch(dict):
+    """
+    EndpointPort is a tuple that describes a single port.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appProtocol":
+            suggest = "app_protocol"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointPortPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointPortPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointPortPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 app_protocol: Optional[str] = None,
+                 name: Optional[str] = None,
+                 port: Optional[int] = None,
+                 protocol: Optional[str] = None):
+        """
+        EndpointPort is a tuple that describes a single port.
+        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str name: The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
+        :param int port: The port number of the endpoint.
+        :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+        """
+        if app_protocol is not None:
+            pulumi.set(__self__, "app_protocol", app_protocol)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @property
+    @pulumi.getter(name="appProtocol")
+    def app_protocol(self) -> Optional[str]:
+        """
+        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        """
+        return pulumi.get(self, "app_protocol")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        """
+        The port number of the endpoint.
+        """
+        return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
@@ -3026,6 +5882,84 @@ class EndpointSubset(dict):
     @property
     @pulumi.getter
     def ports(self) -> Optional[Sequence['outputs.EndpointPort']]:
+        """
+        Port numbers available on the related IP addresses.
+        """
+        return pulumi.get(self, "ports")
+
+
+@pulumi.output_type
+class EndpointSubsetPatch(dict):
+    """
+    EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
+      {
+        Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+        Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+      }
+    The resulting set of endpoints can be viewed as:
+        a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+        b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "notReadyAddresses":
+            suggest = "not_ready_addresses"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EndpointSubsetPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EndpointSubsetPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EndpointSubsetPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 addresses: Optional[Sequence['outputs.EndpointAddressPatch']] = None,
+                 not_ready_addresses: Optional[Sequence['outputs.EndpointAddressPatch']] = None,
+                 ports: Optional[Sequence['outputs.EndpointPortPatch']] = None):
+        """
+        EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
+          {
+            Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+            Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+          }
+        The resulting set of endpoints can be viewed as:
+            a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+            b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+        :param Sequence['EndpointAddressPatchArgs'] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
+        :param Sequence['EndpointAddressPatchArgs'] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
+        :param Sequence['EndpointPortPatchArgs'] ports: Port numbers available on the related IP addresses.
+        """
+        if addresses is not None:
+            pulumi.set(__self__, "addresses", addresses)
+        if not_ready_addresses is not None:
+            pulumi.set(__self__, "not_ready_addresses", not_ready_addresses)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
+
+    @property
+    @pulumi.getter
+    def addresses(self) -> Optional[Sequence['outputs.EndpointAddressPatch']]:
+        """
+        IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
+        """
+        return pulumi.get(self, "addresses")
+
+    @property
+    @pulumi.getter(name="notReadyAddresses")
+    def not_ready_addresses(self) -> Optional[Sequence['outputs.EndpointAddressPatch']]:
+        """
+        IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
+        """
+        return pulumi.get(self, "not_ready_addresses")
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[Sequence['outputs.EndpointPortPatch']]:
         """
         Port numbers available on the related IP addresses.
         """
@@ -3197,6 +6131,72 @@ class EnvFromSource(dict):
 
 
 @pulumi.output_type
+class EnvFromSourcePatch(dict):
+    """
+    EnvFromSource represents the source of a set of ConfigMaps
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMapRef":
+            suggest = "config_map_ref"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EnvFromSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EnvFromSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EnvFromSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 config_map_ref: Optional['outputs.ConfigMapEnvSourcePatch'] = None,
+                 prefix: Optional[str] = None,
+                 secret_ref: Optional['outputs.SecretEnvSourcePatch'] = None):
+        """
+        EnvFromSource represents the source of a set of ConfigMaps
+        :param 'ConfigMapEnvSourcePatchArgs' config_map_ref: The ConfigMap to select from
+        :param str prefix: An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        :param 'SecretEnvSourcePatchArgs' secret_ref: The Secret to select from
+        """
+        if config_map_ref is not None:
+            pulumi.set(__self__, "config_map_ref", config_map_ref)
+        if prefix is not None:
+            pulumi.set(__self__, "prefix", prefix)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+
+    @property
+    @pulumi.getter(name="configMapRef")
+    def config_map_ref(self) -> Optional['outputs.ConfigMapEnvSourcePatch']:
+        """
+        The ConfigMap to select from
+        """
+        return pulumi.get(self, "config_map_ref")
+
+    @property
+    @pulumi.getter
+    def prefix(self) -> Optional[str]:
+        """
+        An optional identifier to prepend to each key in the ConfigMap. Must be a C_IDENTIFIER.
+        """
+        return pulumi.get(self, "prefix")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretEnvSourcePatch']:
+        """
+        The Secret to select from
+        """
+        return pulumi.get(self, "secret_ref")
+
+
+@pulumi.output_type
 class EnvVar(dict):
     """
     EnvVar represents an environment variable present in a Container.
@@ -3253,6 +6253,70 @@ class EnvVar(dict):
     @property
     @pulumi.getter(name="valueFrom")
     def value_from(self) -> Optional['outputs.EnvVarSource']:
+        """
+        Source for the environment variable's value. Cannot be used if value is not empty.
+        """
+        return pulumi.get(self, "value_from")
+
+
+@pulumi.output_type
+class EnvVarPatch(dict):
+    """
+    EnvVar represents an environment variable present in a Container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "valueFrom":
+            suggest = "value_from"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EnvVarPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EnvVarPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EnvVarPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 value: Optional[str] = None,
+                 value_from: Optional['outputs.EnvVarSourcePatch'] = None):
+        """
+        EnvVar represents an environment variable present in a Container.
+        :param str name: Name of the environment variable. Must be a C_IDENTIFIER.
+        :param str value: Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+        :param 'EnvVarSourcePatchArgs' value_from: Source for the environment variable's value. Cannot be used if value is not empty.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+        if value_from is not None:
+            pulumi.set(__self__, "value_from", value_from)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the environment variable. Must be a C_IDENTIFIER.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
+        """
+        Variable references $(VAR_NAME) are expanded using the previously defined environment variables in the container and any service environment variables. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Defaults to "".
+        """
+        return pulumi.get(self, "value")
+
+    @property
+    @pulumi.getter(name="valueFrom")
+    def value_from(self) -> Optional['outputs.EnvVarSourcePatch']:
         """
         Source for the environment variable's value. Cannot be used if value is not empty.
         """
@@ -3335,6 +6399,88 @@ class EnvVarSource(dict):
     @property
     @pulumi.getter(name="secretKeyRef")
     def secret_key_ref(self) -> Optional['outputs.SecretKeySelector']:
+        """
+        Selects a key of a secret in the pod's namespace
+        """
+        return pulumi.get(self, "secret_key_ref")
+
+
+@pulumi.output_type
+class EnvVarSourcePatch(dict):
+    """
+    EnvVarSource represents a source for the value of an EnvVar.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMapKeyRef":
+            suggest = "config_map_key_ref"
+        elif key == "fieldRef":
+            suggest = "field_ref"
+        elif key == "resourceFieldRef":
+            suggest = "resource_field_ref"
+        elif key == "secretKeyRef":
+            suggest = "secret_key_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EnvVarSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EnvVarSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EnvVarSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 config_map_key_ref: Optional['outputs.ConfigMapKeySelectorPatch'] = None,
+                 field_ref: Optional['outputs.ObjectFieldSelectorPatch'] = None,
+                 resource_field_ref: Optional['outputs.ResourceFieldSelectorPatch'] = None,
+                 secret_key_ref: Optional['outputs.SecretKeySelectorPatch'] = None):
+        """
+        EnvVarSource represents a source for the value of an EnvVar.
+        :param 'ConfigMapKeySelectorPatchArgs' config_map_key_ref: Selects a key of a ConfigMap.
+        :param 'ObjectFieldSelectorPatchArgs' field_ref: Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+        :param 'ResourceFieldSelectorPatchArgs' resource_field_ref: Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+        :param 'SecretKeySelectorPatchArgs' secret_key_ref: Selects a key of a secret in the pod's namespace
+        """
+        if config_map_key_ref is not None:
+            pulumi.set(__self__, "config_map_key_ref", config_map_key_ref)
+        if field_ref is not None:
+            pulumi.set(__self__, "field_ref", field_ref)
+        if resource_field_ref is not None:
+            pulumi.set(__self__, "resource_field_ref", resource_field_ref)
+        if secret_key_ref is not None:
+            pulumi.set(__self__, "secret_key_ref", secret_key_ref)
+
+    @property
+    @pulumi.getter(name="configMapKeyRef")
+    def config_map_key_ref(self) -> Optional['outputs.ConfigMapKeySelectorPatch']:
+        """
+        Selects a key of a ConfigMap.
+        """
+        return pulumi.get(self, "config_map_key_ref")
+
+    @property
+    @pulumi.getter(name="fieldRef")
+    def field_ref(self) -> Optional['outputs.ObjectFieldSelectorPatch']:
+        """
+        Selects a field of the pod: supports metadata.name, metadata.namespace, `metadata.labels['<KEY>']`, `metadata.annotations['<KEY>']`, spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+        """
+        return pulumi.get(self, "field_ref")
+
+    @property
+    @pulumi.getter(name="resourceFieldRef")
+    def resource_field_ref(self) -> Optional['outputs.ResourceFieldSelectorPatch']:
+        """
+        Selects a resource of the container: only resources limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu, requests.memory and requests.ephemeral-storage) are currently supported.
+        """
+        return pulumi.get(self, "resource_field_ref")
+
+    @property
+    @pulumi.getter(name="secretKeyRef")
+    def secret_key_ref(self) -> Optional['outputs.SecretKeySelectorPatch']:
         """
         Selects a key of a secret in the pod's namespace
         """
@@ -3681,6 +6827,346 @@ class EphemeralContainer(dict):
 
 
 @pulumi.output_type
+class EphemeralContainerPatch(dict):
+    """
+    An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
+
+    To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+    This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envFrom":
+            suggest = "env_from"
+        elif key == "imagePullPolicy":
+            suggest = "image_pull_policy"
+        elif key == "livenessProbe":
+            suggest = "liveness_probe"
+        elif key == "readinessProbe":
+            suggest = "readiness_probe"
+        elif key == "securityContext":
+            suggest = "security_context"
+        elif key == "startupProbe":
+            suggest = "startup_probe"
+        elif key == "stdinOnce":
+            suggest = "stdin_once"
+        elif key == "targetContainerName":
+            suggest = "target_container_name"
+        elif key == "terminationMessagePath":
+            suggest = "termination_message_path"
+        elif key == "terminationMessagePolicy":
+            suggest = "termination_message_policy"
+        elif key == "volumeDevices":
+            suggest = "volume_devices"
+        elif key == "volumeMounts":
+            suggest = "volume_mounts"
+        elif key == "workingDir":
+            suggest = "working_dir"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EphemeralContainerPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EphemeralContainerPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EphemeralContainerPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 args: Optional[Sequence[str]] = None,
+                 command: Optional[Sequence[str]] = None,
+                 env: Optional[Sequence['outputs.EnvVarPatch']] = None,
+                 env_from: Optional[Sequence['outputs.EnvFromSourcePatch']] = None,
+                 image: Optional[str] = None,
+                 image_pull_policy: Optional[str] = None,
+                 lifecycle: Optional['outputs.LifecyclePatch'] = None,
+                 liveness_probe: Optional['outputs.ProbePatch'] = None,
+                 name: Optional[str] = None,
+                 ports: Optional[Sequence['outputs.ContainerPortPatch']] = None,
+                 readiness_probe: Optional['outputs.ProbePatch'] = None,
+                 resources: Optional['outputs.ResourceRequirementsPatch'] = None,
+                 security_context: Optional['outputs.SecurityContextPatch'] = None,
+                 startup_probe: Optional['outputs.ProbePatch'] = None,
+                 stdin: Optional[bool] = None,
+                 stdin_once: Optional[bool] = None,
+                 target_container_name: Optional[str] = None,
+                 termination_message_path: Optional[str] = None,
+                 termination_message_policy: Optional[str] = None,
+                 tty: Optional[bool] = None,
+                 volume_devices: Optional[Sequence['outputs.VolumeDevicePatch']] = None,
+                 volume_mounts: Optional[Sequence['outputs.VolumeMountPatch']] = None,
+                 working_dir: Optional[str] = None):
+        """
+        An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
+
+        To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
+
+        This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param Sequence[str] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence[str] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        :param Sequence['EnvVarPatchArgs'] env: List of environment variables to set in the container. Cannot be updated.
+        :param Sequence['EnvFromSourcePatchArgs'] env_from: List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        :param str image: Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
+        :param str image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+        :param 'LifecyclePatchArgs' lifecycle: Lifecycle is not allowed for ephemeral containers.
+        :param 'ProbePatchArgs' liveness_probe: Probes are not allowed for ephemeral containers.
+        :param str name: Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
+        :param Sequence['ContainerPortPatchArgs'] ports: Ports are not allowed for ephemeral containers.
+        :param 'ProbePatchArgs' readiness_probe: Probes are not allowed for ephemeral containers.
+        :param 'ResourceRequirementsPatchArgs' resources: Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
+        :param 'SecurityContextPatchArgs' security_context: Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
+        :param 'ProbePatchArgs' startup_probe: Probes are not allowed for ephemeral containers.
+        :param bool stdin: Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
+        :param bool stdin_once: Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
+        :param str target_container_name: If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+               
+               The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
+        :param str termination_message_path: Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
+        :param str termination_message_policy: Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+        :param bool tty: Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
+        :param Sequence['VolumeDevicePatchArgs'] volume_devices: volumeDevices is the list of block devices to be used by the container.
+        :param Sequence['VolumeMountPatchArgs'] volume_mounts: Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
+        :param str working_dir: Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
+        """
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+        if env is not None:
+            pulumi.set(__self__, "env", env)
+        if env_from is not None:
+            pulumi.set(__self__, "env_from", env_from)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if image_pull_policy is not None:
+            pulumi.set(__self__, "image_pull_policy", image_pull_policy)
+        if lifecycle is not None:
+            pulumi.set(__self__, "lifecycle", lifecycle)
+        if liveness_probe is not None:
+            pulumi.set(__self__, "liveness_probe", liveness_probe)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
+        if readiness_probe is not None:
+            pulumi.set(__self__, "readiness_probe", readiness_probe)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
+        if security_context is not None:
+            pulumi.set(__self__, "security_context", security_context)
+        if startup_probe is not None:
+            pulumi.set(__self__, "startup_probe", startup_probe)
+        if stdin is not None:
+            pulumi.set(__self__, "stdin", stdin)
+        if stdin_once is not None:
+            pulumi.set(__self__, "stdin_once", stdin_once)
+        if target_container_name is not None:
+            pulumi.set(__self__, "target_container_name", target_container_name)
+        if termination_message_path is not None:
+            pulumi.set(__self__, "termination_message_path", termination_message_path)
+        if termination_message_policy is not None:
+            pulumi.set(__self__, "termination_message_policy", termination_message_policy)
+        if tty is not None:
+            pulumi.set(__self__, "tty", tty)
+        if volume_devices is not None:
+            pulumi.set(__self__, "volume_devices", volume_devices)
+        if volume_mounts is not None:
+            pulumi.set(__self__, "volume_mounts", volume_mounts)
+        if working_dir is not None:
+            pulumi.set(__self__, "working_dir", working_dir)
+
+    @property
+    @pulumi.getter
+    def args(self) -> Optional[Sequence[str]]:
+        """
+        Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        """
+        return pulumi.get(self, "args")
+
+    @property
+    @pulumi.getter
+    def command(self) -> Optional[Sequence[str]]:
+        """
+        Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+        """
+        return pulumi.get(self, "command")
+
+    @property
+    @pulumi.getter
+    def env(self) -> Optional[Sequence['outputs.EnvVarPatch']]:
+        """
+        List of environment variables to set in the container. Cannot be updated.
+        """
+        return pulumi.get(self, "env")
+
+    @property
+    @pulumi.getter(name="envFrom")
+    def env_from(self) -> Optional[Sequence['outputs.EnvFromSourcePatch']]:
+        """
+        List of sources to populate environment variables in the container. The keys defined within a source must be a C_IDENTIFIER. All invalid keys will be reported as an event when the container is starting. When a key exists in multiple sources, the value associated with the last source will take precedence. Values defined by an Env with a duplicate key will take precedence. Cannot be updated.
+        """
+        return pulumi.get(self, "env_from")
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        """
+        Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
+        """
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter(name="imagePullPolicy")
+    def image_pull_policy(self) -> Optional[str]:
+        """
+        Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
+        """
+        return pulumi.get(self, "image_pull_policy")
+
+    @property
+    @pulumi.getter
+    def lifecycle(self) -> Optional['outputs.LifecyclePatch']:
+        """
+        Lifecycle is not allowed for ephemeral containers.
+        """
+        return pulumi.get(self, "lifecycle")
+
+    @property
+    @pulumi.getter(name="livenessProbe")
+    def liveness_probe(self) -> Optional['outputs.ProbePatch']:
+        """
+        Probes are not allowed for ephemeral containers.
+        """
+        return pulumi.get(self, "liveness_probe")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[Sequence['outputs.ContainerPortPatch']]:
+        """
+        Ports are not allowed for ephemeral containers.
+        """
+        return pulumi.get(self, "ports")
+
+    @property
+    @pulumi.getter(name="readinessProbe")
+    def readiness_probe(self) -> Optional['outputs.ProbePatch']:
+        """
+        Probes are not allowed for ephemeral containers.
+        """
+        return pulumi.get(self, "readiness_probe")
+
+    @property
+    @pulumi.getter
+    def resources(self) -> Optional['outputs.ResourceRequirementsPatch']:
+        """
+        Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
+        """
+        return pulumi.get(self, "resources")
+
+    @property
+    @pulumi.getter(name="securityContext")
+    def security_context(self) -> Optional['outputs.SecurityContextPatch']:
+        """
+        Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
+        """
+        return pulumi.get(self, "security_context")
+
+    @property
+    @pulumi.getter(name="startupProbe")
+    def startup_probe(self) -> Optional['outputs.ProbePatch']:
+        """
+        Probes are not allowed for ephemeral containers.
+        """
+        return pulumi.get(self, "startup_probe")
+
+    @property
+    @pulumi.getter
+    def stdin(self) -> Optional[bool]:
+        """
+        Whether this container should allocate a buffer for stdin in the container runtime. If this is not set, reads from stdin in the container will always result in EOF. Default is false.
+        """
+        return pulumi.get(self, "stdin")
+
+    @property
+    @pulumi.getter(name="stdinOnce")
+    def stdin_once(self) -> Optional[bool]:
+        """
+        Whether the container runtime should close the stdin channel after it has been opened by a single attach. When stdin is true the stdin stream will remain open across multiple attach sessions. If stdinOnce is set to true, stdin is opened on container start, is empty until the first client attaches to stdin, and then remains open and accepts data until the client disconnects, at which time stdin is closed and remains closed until the container is restarted. If this flag is false, a container processes that reads from stdin will never receive an EOF. Default is false
+        """
+        return pulumi.get(self, "stdin_once")
+
+    @property
+    @pulumi.getter(name="targetContainerName")
+    def target_container_name(self) -> Optional[str]:
+        """
+        If set, the name of the container from PodSpec that this ephemeral container targets. The ephemeral container will be run in the namespaces (IPC, PID, etc) of this container. If not set then the ephemeral container uses the namespaces configured in the Pod spec.
+
+        The container runtime must implement support for this feature. If the runtime does not support namespace targeting then the result of setting this field is undefined.
+        """
+        return pulumi.get(self, "target_container_name")
+
+    @property
+    @pulumi.getter(name="terminationMessagePath")
+    def termination_message_path(self) -> Optional[str]:
+        """
+        Optional: Path at which the file to which the container's termination message will be written is mounted into the container's filesystem. Message written is intended to be brief final status, such as an assertion failure message. Will be truncated by the node if greater than 4096 bytes. The total message length across all containers will be limited to 12kb. Defaults to /dev/termination-log. Cannot be updated.
+        """
+        return pulumi.get(self, "termination_message_path")
+
+    @property
+    @pulumi.getter(name="terminationMessagePolicy")
+    def termination_message_policy(self) -> Optional[str]:
+        """
+        Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+        """
+        return pulumi.get(self, "termination_message_policy")
+
+    @property
+    @pulumi.getter
+    def tty(self) -> Optional[bool]:
+        """
+        Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
+        """
+        return pulumi.get(self, "tty")
+
+    @property
+    @pulumi.getter(name="volumeDevices")
+    def volume_devices(self) -> Optional[Sequence['outputs.VolumeDevicePatch']]:
+        """
+        volumeDevices is the list of block devices to be used by the container.
+        """
+        return pulumi.get(self, "volume_devices")
+
+    @property
+    @pulumi.getter(name="volumeMounts")
+    def volume_mounts(self) -> Optional[Sequence['outputs.VolumeMountPatch']]:
+        """
+        Pod volumes to mount into the container's filesystem. Subpath mounts are not allowed for ephemeral containers. Cannot be updated.
+        """
+        return pulumi.get(self, "volume_mounts")
+
+    @property
+    @pulumi.getter(name="workingDir")
+    def working_dir(self) -> Optional[str]:
+        """
+        Container's working directory. If not specified, the container runtime's default will be used, which might be configured in the container image. Cannot be updated.
+        """
+        return pulumi.get(self, "working_dir")
+
+
+@pulumi.output_type
 class EphemeralVolumeSource(dict):
     """
     Represents an ephemeral volume that is handled by a normal storage driver.
@@ -3734,6 +7220,72 @@ class EphemeralVolumeSource(dict):
     @property
     @pulumi.getter(name="volumeClaimTemplate")
     def volume_claim_template(self) -> Optional['outputs.PersistentVolumeClaimTemplate']:
+        """
+        Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+
+        An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+
+        This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+
+        Required, must not be nil.
+        """
+        return pulumi.get(self, "volume_claim_template")
+
+
+@pulumi.output_type
+class EphemeralVolumeSourcePatch(dict):
+    """
+    Represents an ephemeral volume that is handled by a normal storage driver.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeClaimTemplate":
+            suggest = "volume_claim_template"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EphemeralVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EphemeralVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EphemeralVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 read_only: Optional[bool] = None,
+                 volume_claim_template: Optional['outputs.PersistentVolumeClaimTemplatePatch'] = None):
+        """
+        Represents an ephemeral volume that is handled by a normal storage driver.
+        :param bool read_only: Specifies a read-only configuration for the volume. Defaults to false (read/write).
+        :param 'PersistentVolumeClaimTemplatePatchArgs' volume_claim_template: Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+               
+               An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+               
+               This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+               
+               Required, must not be nil.
+        """
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if volume_claim_template is not None:
+            pulumi.set(__self__, "volume_claim_template", volume_claim_template)
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        Specifies a read-only configuration for the volume. Defaults to false (read/write).
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="volumeClaimTemplate")
+    def volume_claim_template(self) -> Optional['outputs.PersistentVolumeClaimTemplatePatch']:
         """
         Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
 
@@ -4053,7 +7605,106 @@ class EventSeries(dict):
 
 
 @pulumi.output_type
+class EventSeriesPatch(dict):
+    """
+    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastObservedTime":
+            suggest = "last_observed_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EventSeriesPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EventSeriesPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EventSeriesPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 count: Optional[int] = None,
+                 last_observed_time: Optional[str] = None,
+                 state: Optional[str] = None):
+        """
+        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+        :param int count: Number of occurrences in this series up to the last heartbeat time
+        :param str last_observed_time: Time of the last occurrence observed
+        :param str state: State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
+        """
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if last_observed_time is not None:
+            pulumi.set(__self__, "last_observed_time", last_observed_time)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[int]:
+        """
+        Number of occurrences in this series up to the last heartbeat time
+        """
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="lastObservedTime")
+    def last_observed_time(self) -> Optional[str]:
+        """
+        Time of the last occurrence observed
+        """
+        return pulumi.get(self, "last_observed_time")
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[str]:
+        """
+        State of this Series: Ongoing or Finished Deprecated. Planned removal for 1.18
+        """
+        return pulumi.get(self, "state")
+
+
+@pulumi.output_type
 class EventSource(dict):
+    """
+    EventSource contains information for an event.
+    """
+    def __init__(__self__, *,
+                 component: Optional[str] = None,
+                 host: Optional[str] = None):
+        """
+        EventSource contains information for an event.
+        :param str component: Component from which the event is generated.
+        :param str host: Node name on which the event is generated.
+        """
+        if component is not None:
+            pulumi.set(__self__, "component", component)
+        if host is not None:
+            pulumi.set(__self__, "host", host)
+
+    @property
+    @pulumi.getter
+    def component(self) -> Optional[str]:
+        """
+        Component from which the event is generated.
+        """
+        return pulumi.get(self, "component")
+
+    @property
+    @pulumi.getter
+    def host(self) -> Optional[str]:
+        """
+        Node name on which the event is generated.
+        """
+        return pulumi.get(self, "host")
+
+
+@pulumi.output_type
+class EventSourcePatch(dict):
     """
     EventSource contains information for an event.
     """
@@ -4111,6 +7762,29 @@ class ExecAction(dict):
 
 
 @pulumi.output_type
+class ExecActionPatch(dict):
+    """
+    ExecAction describes a "run in container" action.
+    """
+    def __init__(__self__, *,
+                 command: Optional[Sequence[str]] = None):
+        """
+        ExecAction describes a "run in container" action.
+        :param Sequence[str] command: Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+        """
+        if command is not None:
+            pulumi.set(__self__, "command", command)
+
+    @property
+    @pulumi.getter
+    def command(self) -> Optional[Sequence[str]]:
+        """
+        Command is the command line to execute inside the container, the working directory for the command  is root ('/') in the container's filesystem. The command is simply exec'd, it is not run inside a shell, so traditional shell instructions ('|', etc) won't work. To use a shell, you need to explicitly call out to that shell. Exit status of 0 is treated as live/healthy and non-zero is unhealthy.
+        """
+        return pulumi.get(self, "command")
+
+
+@pulumi.output_type
 class FCVolumeSource(dict):
     """
     Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
@@ -4134,6 +7808,98 @@ class FCVolumeSource(dict):
 
     def get(self, key: str, default = None) -> Any:
         FCVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 lun: Optional[int] = None,
+                 read_only: Optional[bool] = None,
+                 target_wwns: Optional[Sequence[str]] = None,
+                 wwids: Optional[Sequence[str]] = None):
+        """
+        Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param int lun: lun is Optional: FC target lun number
+        :param bool read_only: readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param Sequence[str] target_wwns: targetWWNs is Optional: FC target worldwide names (WWNs)
+        :param Sequence[str] wwids: wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if lun is not None:
+            pulumi.set(__self__, "lun", lun)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if target_wwns is not None:
+            pulumi.set(__self__, "target_wwns", target_wwns)
+        if wwids is not None:
+            pulumi.set(__self__, "wwids", wwids)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def lun(self) -> Optional[int]:
+        """
+        lun is Optional: FC target lun number
+        """
+        return pulumi.get(self, "lun")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="targetWWNs")
+    def target_wwns(self) -> Optional[Sequence[str]]:
+        """
+        targetWWNs is Optional: FC target worldwide names (WWNs)
+        """
+        return pulumi.get(self, "target_wwns")
+
+    @property
+    @pulumi.getter
+    def wwids(self) -> Optional[Sequence[str]]:
+        """
+        wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
+        """
+        return pulumi.get(self, "wwids")
+
+
+@pulumi.output_type
+class FCVolumeSourcePatch(dict):
+    """
+    Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "targetWWNs":
+            suggest = "target_wwns"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FCVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FCVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FCVolumeSourcePatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -4294,6 +8060,98 @@ class FlexPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class FlexPersistentVolumeSourcePatch(dict):
+    """
+    FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlexPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlexPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlexPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver: Optional[str] = None,
+                 fs_type: Optional[str] = None,
+                 options: Optional[Mapping[str, str]] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.SecretReferencePatch'] = None):
+        """
+        FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
+        :param str driver: driver is the name of the driver to use for this volume.
+        :param str fs_type: fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        :param Mapping[str, str] options: options is Optional: this field holds extra command options if any.
+        :param bool read_only: readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'SecretReferencePatchArgs' secret_ref: secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        """
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if options is not None:
+            pulumi.set(__self__, "options", options)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[str]:
+        """
+        driver is the name of the driver to use for this volume.
+        """
+        return pulumi.get(self, "driver")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the Filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def options(self) -> Optional[Mapping[str, str]]:
+        """
+        options is Optional: this field holds extra command options if any.
+        """
+        return pulumi.get(self, "options")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        """
+        return pulumi.get(self, "secret_ref")
+
+
+@pulumi.output_type
 class FlexVolumeSource(dict):
     """
     FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
@@ -4385,6 +8243,98 @@ class FlexVolumeSource(dict):
 
 
 @pulumi.output_type
+class FlexVolumeSourcePatch(dict):
+    """
+    FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlexVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlexVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlexVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 driver: Optional[str] = None,
+                 fs_type: Optional[str] = None,
+                 options: Optional[Mapping[str, str]] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None):
+        """
+        FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        :param str driver: driver is the name of the driver to use for this volume.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        :param Mapping[str, str] options: options is Optional: this field holds extra command options if any.
+        :param bool read_only: readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        """
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if options is not None:
+            pulumi.set(__self__, "options", options)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[str]:
+        """
+        driver is the name of the driver to use for this volume.
+        """
+        return pulumi.get(self, "driver")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default filesystem depends on FlexVolume script.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def options(self) -> Optional[Mapping[str, str]]:
+        """
+        options is Optional: this field holds extra command options if any.
+        """
+        return pulumi.get(self, "options")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
+        """
+        return pulumi.get(self, "secret_ref")
+
+
+@pulumi.output_type
 class FlockerVolumeSource(dict):
     """
     Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
@@ -4406,6 +8356,60 @@ class FlockerVolumeSource(dict):
 
     def get(self, key: str, default = None) -> Any:
         FlockerVolumeSource.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 dataset_name: Optional[str] = None,
+                 dataset_uuid: Optional[str] = None):
+        """
+        Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
+        :param str dataset_name: datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+        :param str dataset_uuid: datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
+        """
+        if dataset_name is not None:
+            pulumi.set(__self__, "dataset_name", dataset_name)
+        if dataset_uuid is not None:
+            pulumi.set(__self__, "dataset_uuid", dataset_uuid)
+
+    @property
+    @pulumi.getter(name="datasetName")
+    def dataset_name(self) -> Optional[str]:
+        """
+        datasetName is Name of the dataset stored as metadata -> name on the dataset for Flocker should be considered as deprecated
+        """
+        return pulumi.get(self, "dataset_name")
+
+    @property
+    @pulumi.getter(name="datasetUUID")
+    def dataset_uuid(self) -> Optional[str]:
+        """
+        datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
+        """
+        return pulumi.get(self, "dataset_uuid")
+
+
+@pulumi.output_type
+class FlockerVolumeSourcePatch(dict):
+    """
+    Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "datasetName":
+            suggest = "dataset_name"
+        elif key == "datasetUUID":
+            suggest = "dataset_uuid"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FlockerVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FlockerVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FlockerVolumeSourcePatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -4522,6 +8526,90 @@ class GCEPersistentDiskVolumeSource(dict):
 
 
 @pulumi.output_type
+class GCEPersistentDiskVolumeSourcePatch(dict):
+    """
+    Represents a Persistent Disk resource in Google Compute Engine.
+
+    A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "pdName":
+            suggest = "pd_name"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GCEPersistentDiskVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GCEPersistentDiskVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GCEPersistentDiskVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 partition: Optional[int] = None,
+                 pd_name: Optional[str] = None,
+                 read_only: Optional[bool] = None):
+        """
+        Represents a Persistent Disk resource in Google Compute Engine.
+
+        A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.
+        :param str fs_type: fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param int partition: partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param str pd_name: pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if partition is not None:
+            pulumi.set(__self__, "partition", partition)
+        if pd_name is not None:
+            pulumi.set(__self__, "pd_name", pd_name)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def partition(self) -> Optional[int]:
+        """
+        partition is the partition in the volume that you want to mount. If omitted, the default is to mount by volume name. Examples: For volume /dev/sda1, you specify the partition as "1". Similarly, the volume partition for /dev/sda is "0" (or you can leave the property empty). More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        return pulumi.get(self, "partition")
+
+    @property
+    @pulumi.getter(name="pdName")
+    def pd_name(self) -> Optional[str]:
+        """
+        pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        return pulumi.get(self, "pd_name")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
 class GRPCAction(dict):
     def __init__(__self__, *,
                  port: int,
@@ -4539,6 +8627,41 @@ class GRPCAction(dict):
     @property
     @pulumi.getter
     def port(self) -> int:
+        """
+        Port number of the gRPC service. Number must be in the range 1 to 65535.
+        """
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def service(self) -> Optional[str]:
+        """
+        Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+
+        If this is not specified, the default behavior is defined by gRPC.
+        """
+        return pulumi.get(self, "service")
+
+
+@pulumi.output_type
+class GRPCActionPatch(dict):
+    def __init__(__self__, *,
+                 port: Optional[int] = None,
+                 service: Optional[str] = None):
+        """
+        :param int port: Port number of the gRPC service. Number must be in the range 1 to 65535.
+        :param str service: Service is the name of the service to place in the gRPC HealthCheckRequest (see https://github.com/grpc/grpc/blob/master/doc/health-checking.md).
+               
+               If this is not specified, the default behavior is defined by gRPC.
+        """
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if service is not None:
+            pulumi.set(__self__, "service", service)
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
         """
         Port number of the gRPC service. Number must be in the range 1 to 65535.
         """
@@ -4595,6 +8718,57 @@ class GitRepoVolumeSource(dict):
         directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
         """
         return pulumi.get(self, "directory")
+
+    @property
+    @pulumi.getter
+    def revision(self) -> Optional[str]:
+        """
+        revision is the commit hash for the specified revision.
+        """
+        return pulumi.get(self, "revision")
+
+
+@pulumi.output_type
+class GitRepoVolumeSourcePatch(dict):
+    """
+    Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
+
+    DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+    """
+    def __init__(__self__, *,
+                 directory: Optional[str] = None,
+                 repository: Optional[str] = None,
+                 revision: Optional[str] = None):
+        """
+        Represents a volume that is populated with the contents of a git repository. Git repo volumes do not support ownership management. Git repo volumes support SELinux relabeling.
+
+        DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        :param str directory: directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+        :param str repository: repository is the URL
+        :param str revision: revision is the commit hash for the specified revision.
+        """
+        if directory is not None:
+            pulumi.set(__self__, "directory", directory)
+        if repository is not None:
+            pulumi.set(__self__, "repository", repository)
+        if revision is not None:
+            pulumi.set(__self__, "revision", revision)
+
+    @property
+    @pulumi.getter
+    def directory(self) -> Optional[str]:
+        """
+        directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
+        """
+        return pulumi.get(self, "directory")
+
+    @property
+    @pulumi.getter
+    def repository(self) -> Optional[str]:
+        """
+        repository is the URL
+        """
+        return pulumi.get(self, "repository")
 
     @property
     @pulumi.getter
@@ -4682,6 +8856,84 @@ class GlusterfsPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class GlusterfsPersistentVolumeSourcePatch(dict):
+    """
+    Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "endpointsNamespace":
+            suggest = "endpoints_namespace"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GlusterfsPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GlusterfsPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GlusterfsPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 endpoints: Optional[str] = None,
+                 endpoints_namespace: Optional[str] = None,
+                 path: Optional[str] = None,
+                 read_only: Optional[bool] = None):
+        """
+        Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+        :param str endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str endpoints_namespace: endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param bool read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        if endpoints is not None:
+            pulumi.set(__self__, "endpoints", endpoints)
+        if endpoints_namespace is not None:
+            pulumi.set(__self__, "endpoints_namespace", endpoints_namespace)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+
+    @property
+    @pulumi.getter
+    def endpoints(self) -> Optional[str]:
+        """
+        endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "endpoints")
+
+    @property
+    @pulumi.getter(name="endpointsNamespace")
+    def endpoints_namespace(self) -> Optional[str]:
+        """
+        endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "endpoints_namespace")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
 class GlusterfsVolumeSource(dict):
     """
     Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
@@ -4729,6 +8981,70 @@ class GlusterfsVolumeSource(dict):
     @property
     @pulumi.getter
     def path(self) -> str:
+        """
+        path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
+class GlusterfsVolumeSourcePatch(dict):
+    """
+    Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in GlusterfsVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        GlusterfsVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        GlusterfsVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 endpoints: Optional[str] = None,
+                 path: Optional[str] = None,
+                 read_only: Optional[bool] = None):
+        """
+        Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
+        :param str endpoints: endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param str path: path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        :param bool read_only: readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        if endpoints is not None:
+            pulumi.set(__self__, "endpoints", endpoints)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+
+    @property
+    @pulumi.getter
+    def endpoints(self) -> Optional[str]:
+        """
+        endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+        """
+        return pulumi.get(self, "endpoints")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
         """
         path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
         """
@@ -4831,6 +9147,94 @@ class HTTPGetAction(dict):
 
 
 @pulumi.output_type
+class HTTPGetActionPatch(dict):
+    """
+    HTTPGetAction describes an action based on HTTP Get requests.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "httpHeaders":
+            suggest = "http_headers"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HTTPGetActionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HTTPGetActionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HTTPGetActionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 host: Optional[str] = None,
+                 http_headers: Optional[Sequence['outputs.HTTPHeaderPatch']] = None,
+                 path: Optional[str] = None,
+                 port: Optional[Any] = None,
+                 scheme: Optional[str] = None):
+        """
+        HTTPGetAction describes an action based on HTTP Get requests.
+        :param str host: Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
+        :param Sequence['HTTPHeaderPatchArgs'] http_headers: Custom headers to set in the request. HTTP allows repeated headers.
+        :param str path: Path to access on the HTTP server.
+        :param Union[int, str] port: Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        :param str scheme: Scheme to use for connecting to the host. Defaults to HTTP.
+        """
+        if host is not None:
+            pulumi.set(__self__, "host", host)
+        if http_headers is not None:
+            pulumi.set(__self__, "http_headers", http_headers)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if scheme is not None:
+            pulumi.set(__self__, "scheme", scheme)
+
+    @property
+    @pulumi.getter
+    def host(self) -> Optional[str]:
+        """
+        Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
+        """
+        return pulumi.get(self, "host")
+
+    @property
+    @pulumi.getter(name="httpHeaders")
+    def http_headers(self) -> Optional[Sequence['outputs.HTTPHeaderPatch']]:
+        """
+        Custom headers to set in the request. HTTP allows repeated headers.
+        """
+        return pulumi.get(self, "http_headers")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        Path to access on the HTTP server.
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[Any]:
+        """
+        Name or number of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        """
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def scheme(self) -> Optional[str]:
+        """
+        Scheme to use for connecting to the host. Defaults to HTTP.
+        """
+        return pulumi.get(self, "scheme")
+
+
+@pulumi.output_type
 class HTTPHeader(dict):
     """
     HTTPHeader describes a custom header to be used in HTTP probes
@@ -4864,7 +9268,77 @@ class HTTPHeader(dict):
 
 
 @pulumi.output_type
+class HTTPHeaderPatch(dict):
+    """
+    HTTPHeader describes a custom header to be used in HTTP probes
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 value: Optional[str] = None):
+        """
+        HTTPHeader describes a custom header to be used in HTTP probes
+        :param str name: The header field name
+        :param str value: The header field value
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        The header field name
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
+        """
+        The header field value
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
 class HostAlias(dict):
+    """
+    HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+    """
+    def __init__(__self__, *,
+                 hostnames: Optional[Sequence[str]] = None,
+                 ip: Optional[str] = None):
+        """
+        HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
+        :param Sequence[str] hostnames: Hostnames for the above IP address.
+        :param str ip: IP address of the host file entry.
+        """
+        if hostnames is not None:
+            pulumi.set(__self__, "hostnames", hostnames)
+        if ip is not None:
+            pulumi.set(__self__, "ip", ip)
+
+    @property
+    @pulumi.getter
+    def hostnames(self) -> Optional[Sequence[str]]:
+        """
+        Hostnames for the above IP address.
+        """
+        return pulumi.get(self, "hostnames")
+
+    @property
+    @pulumi.getter
+    def ip(self) -> Optional[str]:
+        """
+        IP address of the host file entry.
+        """
+        return pulumi.get(self, "ip")
+
+
+@pulumi.output_type
+class HostAliasPatch(dict):
     """
     HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
     """
@@ -4918,6 +9392,41 @@ class HostPathVolumeSource(dict):
     @property
     @pulumi.getter
     def path(self) -> str:
+        """
+        path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class HostPathVolumeSourcePatch(dict):
+    """
+    Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+    """
+    def __init__(__self__, *,
+                 path: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
+        :param str path: path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param str type: type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        """
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
         """
         path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
         """
@@ -5104,6 +9613,180 @@ class ISCSIPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class ISCSIPersistentVolumeSourcePatch(dict):
+    """
+    ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "chapAuthDiscovery":
+            suggest = "chap_auth_discovery"
+        elif key == "chapAuthSession":
+            suggest = "chap_auth_session"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "initiatorName":
+            suggest = "initiator_name"
+        elif key == "iscsiInterface":
+            suggest = "iscsi_interface"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "targetPortal":
+            suggest = "target_portal"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ISCSIPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ISCSIPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ISCSIPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 chap_auth_discovery: Optional[bool] = None,
+                 chap_auth_session: Optional[bool] = None,
+                 fs_type: Optional[str] = None,
+                 initiator_name: Optional[str] = None,
+                 iqn: Optional[str] = None,
+                 iscsi_interface: Optional[str] = None,
+                 lun: Optional[int] = None,
+                 portals: Optional[Sequence[str]] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 target_portal: Optional[str] = None):
+        """
+        ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+        :param bool chap_auth_discovery: chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
+        :param bool chap_auth_session: chapAuthSession defines whether support iSCSI Session CHAP authentication
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        :param str initiator_name: initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        :param str iqn: iqn is Target iSCSI Qualified Name.
+        :param str iscsi_interface: iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        :param int lun: lun is iSCSI Target Lun number.
+        :param Sequence[str] portals: portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        :param 'SecretReferencePatchArgs' secret_ref: secretRef is the CHAP Secret for iSCSI target and initiator authentication
+        :param str target_portal: targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        """
+        if chap_auth_discovery is not None:
+            pulumi.set(__self__, "chap_auth_discovery", chap_auth_discovery)
+        if chap_auth_session is not None:
+            pulumi.set(__self__, "chap_auth_session", chap_auth_session)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if initiator_name is not None:
+            pulumi.set(__self__, "initiator_name", initiator_name)
+        if iqn is not None:
+            pulumi.set(__self__, "iqn", iqn)
+        if iscsi_interface is not None:
+            pulumi.set(__self__, "iscsi_interface", iscsi_interface)
+        if lun is not None:
+            pulumi.set(__self__, "lun", lun)
+        if portals is not None:
+            pulumi.set(__self__, "portals", portals)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if target_portal is not None:
+            pulumi.set(__self__, "target_portal", target_portal)
+
+    @property
+    @pulumi.getter(name="chapAuthDiscovery")
+    def chap_auth_discovery(self) -> Optional[bool]:
+        """
+        chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
+        """
+        return pulumi.get(self, "chap_auth_discovery")
+
+    @property
+    @pulumi.getter(name="chapAuthSession")
+    def chap_auth_session(self) -> Optional[bool]:
+        """
+        chapAuthSession defines whether support iSCSI Session CHAP authentication
+        """
+        return pulumi.get(self, "chap_auth_session")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="initiatorName")
+    def initiator_name(self) -> Optional[str]:
+        """
+        initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        """
+        return pulumi.get(self, "initiator_name")
+
+    @property
+    @pulumi.getter
+    def iqn(self) -> Optional[str]:
+        """
+        iqn is Target iSCSI Qualified Name.
+        """
+        return pulumi.get(self, "iqn")
+
+    @property
+    @pulumi.getter(name="iscsiInterface")
+    def iscsi_interface(self) -> Optional[str]:
+        """
+        iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        """
+        return pulumi.get(self, "iscsi_interface")
+
+    @property
+    @pulumi.getter
+    def lun(self) -> Optional[int]:
+        """
+        lun is iSCSI Target Lun number.
+        """
+        return pulumi.get(self, "lun")
+
+    @property
+    @pulumi.getter
+    def portals(self) -> Optional[Sequence[str]]:
+        """
+        portals is the iSCSI Target Portal List. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        """
+        return pulumi.get(self, "portals")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        secretRef is the CHAP Secret for iSCSI target and initiator authentication
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="targetPortal")
+    def target_portal(self) -> Optional[str]:
+        """
+        targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        """
+        return pulumi.get(self, "target_portal")
+
+
+@pulumi.output_type
 class ISCSIVolumeSource(dict):
     """
     Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
@@ -5275,6 +9958,180 @@ class ISCSIVolumeSource(dict):
 
 
 @pulumi.output_type
+class ISCSIVolumeSourcePatch(dict):
+    """
+    Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "chapAuthDiscovery":
+            suggest = "chap_auth_discovery"
+        elif key == "chapAuthSession":
+            suggest = "chap_auth_session"
+        elif key == "fsType":
+            suggest = "fs_type"
+        elif key == "initiatorName":
+            suggest = "initiator_name"
+        elif key == "iscsiInterface":
+            suggest = "iscsi_interface"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "targetPortal":
+            suggest = "target_portal"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ISCSIVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ISCSIVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ISCSIVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 chap_auth_discovery: Optional[bool] = None,
+                 chap_auth_session: Optional[bool] = None,
+                 fs_type: Optional[str] = None,
+                 initiator_name: Optional[str] = None,
+                 iqn: Optional[str] = None,
+                 iscsi_interface: Optional[str] = None,
+                 lun: Optional[int] = None,
+                 portals: Optional[Sequence[str]] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 target_portal: Optional[str] = None):
+        """
+        Represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
+        :param bool chap_auth_discovery: chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
+        :param bool chap_auth_session: chapAuthSession defines whether support iSCSI Session CHAP authentication
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        :param str initiator_name: initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        :param str iqn: iqn is the target iSCSI Qualified Name.
+        :param str iscsi_interface: iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        :param int lun: lun represents iSCSI Target Lun number.
+        :param Sequence[str] portals: portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef is the CHAP Secret for iSCSI target and initiator authentication
+        :param str target_portal: targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        """
+        if chap_auth_discovery is not None:
+            pulumi.set(__self__, "chap_auth_discovery", chap_auth_discovery)
+        if chap_auth_session is not None:
+            pulumi.set(__self__, "chap_auth_session", chap_auth_session)
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if initiator_name is not None:
+            pulumi.set(__self__, "initiator_name", initiator_name)
+        if iqn is not None:
+            pulumi.set(__self__, "iqn", iqn)
+        if iscsi_interface is not None:
+            pulumi.set(__self__, "iscsi_interface", iscsi_interface)
+        if lun is not None:
+            pulumi.set(__self__, "lun", lun)
+        if portals is not None:
+            pulumi.set(__self__, "portals", portals)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if target_portal is not None:
+            pulumi.set(__self__, "target_portal", target_portal)
+
+    @property
+    @pulumi.getter(name="chapAuthDiscovery")
+    def chap_auth_discovery(self) -> Optional[bool]:
+        """
+        chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
+        """
+        return pulumi.get(self, "chap_auth_discovery")
+
+    @property
+    @pulumi.getter(name="chapAuthSession")
+    def chap_auth_session(self) -> Optional[bool]:
+        """
+        chapAuthSession defines whether support iSCSI Session CHAP authentication
+        """
+        return pulumi.get(self, "chap_auth_session")
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="initiatorName")
+    def initiator_name(self) -> Optional[str]:
+        """
+        initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface <target portal>:<volume name> will be created for the connection.
+        """
+        return pulumi.get(self, "initiator_name")
+
+    @property
+    @pulumi.getter
+    def iqn(self) -> Optional[str]:
+        """
+        iqn is the target iSCSI Qualified Name.
+        """
+        return pulumi.get(self, "iqn")
+
+    @property
+    @pulumi.getter(name="iscsiInterface")
+    def iscsi_interface(self) -> Optional[str]:
+        """
+        iscsiInterface is the interface Name that uses an iSCSI transport. Defaults to 'default' (tcp).
+        """
+        return pulumi.get(self, "iscsi_interface")
+
+    @property
+    @pulumi.getter
+    def lun(self) -> Optional[int]:
+        """
+        lun represents iSCSI Target Lun number.
+        """
+        return pulumi.get(self, "lun")
+
+    @property
+    @pulumi.getter
+    def portals(self) -> Optional[Sequence[str]]:
+        """
+        portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        """
+        return pulumi.get(self, "portals")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        secretRef is the CHAP Secret for iSCSI target and initiator authentication
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="targetPortal")
+    def target_portal(self) -> Optional[str]:
+        """
+        targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
+        """
+        return pulumi.get(self, "target_portal")
+
+
+@pulumi.output_type
 class KeyToPath(dict):
     """
     Maps a string key to a path within a volume.
@@ -5317,6 +10174,53 @@ class KeyToPath(dict):
         mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "mode")
+
+
+@pulumi.output_type
+class KeyToPathPatch(dict):
+    """
+    Maps a string key to a path within a volume.
+    """
+    def __init__(__self__, *,
+                 key: Optional[str] = None,
+                 mode: Optional[int] = None,
+                 path: Optional[str] = None):
+        """
+        Maps a string key to a path within a volume.
+        :param str key: key is the key to project.
+        :param int mode: mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param str path: path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        """
+        key is the key to project.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[int]:
+        """
+        mode is Optional: mode bits used to set permissions on this file. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. If not specified, the volume defaultMode will be used. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        """
+        return pulumi.get(self, "mode")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path is the relative path of the file to map the key to. May not be an absolute path. May not contain the path element '..'. May not start with the string '..'.
+        """
+        return pulumi.get(self, "path")
 
 
 @pulumi.output_type
@@ -5439,6 +10343,128 @@ class LifecycleHandler(dict):
         Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
         """
         return pulumi.get(self, "tcp_socket")
+
+
+@pulumi.output_type
+class LifecycleHandlerPatch(dict):
+    """
+    LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "exec":
+            suggest = "exec_"
+        elif key == "httpGet":
+            suggest = "http_get"
+        elif key == "tcpSocket":
+            suggest = "tcp_socket"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LifecycleHandlerPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LifecycleHandlerPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LifecycleHandlerPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 exec_: Optional['outputs.ExecActionPatch'] = None,
+                 http_get: Optional['outputs.HTTPGetActionPatch'] = None,
+                 tcp_socket: Optional['outputs.TCPSocketActionPatch'] = None):
+        """
+        LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
+        :param 'ExecActionPatchArgs' exec_: Exec specifies the action to take.
+        :param 'HTTPGetActionPatchArgs' http_get: HTTPGet specifies the http request to perform.
+        :param 'TCPSocketActionPatchArgs' tcp_socket: Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        """
+        if exec_ is not None:
+            pulumi.set(__self__, "exec_", exec_)
+        if http_get is not None:
+            pulumi.set(__self__, "http_get", http_get)
+        if tcp_socket is not None:
+            pulumi.set(__self__, "tcp_socket", tcp_socket)
+
+    @property
+    @pulumi.getter(name="exec")
+    def exec_(self) -> Optional['outputs.ExecActionPatch']:
+        """
+        Exec specifies the action to take.
+        """
+        return pulumi.get(self, "exec_")
+
+    @property
+    @pulumi.getter(name="httpGet")
+    def http_get(self) -> Optional['outputs.HTTPGetActionPatch']:
+        """
+        HTTPGet specifies the http request to perform.
+        """
+        return pulumi.get(self, "http_get")
+
+    @property
+    @pulumi.getter(name="tcpSocket")
+    def tcp_socket(self) -> Optional['outputs.TCPSocketActionPatch']:
+        """
+        Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified.
+        """
+        return pulumi.get(self, "tcp_socket")
+
+
+@pulumi.output_type
+class LifecyclePatch(dict):
+    """
+    Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "postStart":
+            suggest = "post_start"
+        elif key == "preStop":
+            suggest = "pre_stop"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LifecyclePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LifecyclePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LifecyclePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 post_start: Optional['outputs.LifecycleHandlerPatch'] = None,
+                 pre_stop: Optional['outputs.LifecycleHandlerPatch'] = None):
+        """
+        Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.
+        :param 'LifecycleHandlerPatchArgs' post_start: PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+        :param 'LifecycleHandlerPatchArgs' pre_stop: PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+        """
+        if post_start is not None:
+            pulumi.set(__self__, "post_start", post_start)
+        if pre_stop is not None:
+            pulumi.set(__self__, "pre_stop", pre_stop)
+
+    @property
+    @pulumi.getter(name="postStart")
+    def post_start(self) -> Optional['outputs.LifecycleHandlerPatch']:
+        """
+        PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+        """
+        return pulumi.get(self, "post_start")
+
+    @property
+    @pulumi.getter(name="preStop")
+    def pre_stop(self) -> Optional['outputs.LifecycleHandlerPatch']:
+        """
+        PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+        """
+        return pulumi.get(self, "pre_stop")
 
 
 @pulumi.output_type
@@ -5619,6 +10645,108 @@ class LimitRangeItem(dict):
 
 
 @pulumi.output_type
+class LimitRangeItemPatch(dict):
+    """
+    LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultRequest":
+            suggest = "default_request"
+        elif key == "maxLimitRequestRatio":
+            suggest = "max_limit_request_ratio"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LimitRangeItemPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LimitRangeItemPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LimitRangeItemPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default: Optional[Mapping[str, str]] = None,
+                 default_request: Optional[Mapping[str, str]] = None,
+                 max: Optional[Mapping[str, str]] = None,
+                 max_limit_request_ratio: Optional[Mapping[str, str]] = None,
+                 min: Optional[Mapping[str, str]] = None,
+                 type: Optional[str] = None):
+        """
+        LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
+        :param Mapping[str, str] default: Default resource requirement limit value by resource name if resource limit is omitted.
+        :param Mapping[str, str] default_request: DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
+        :param Mapping[str, str] max: Max usage constraints on this kind by resource name.
+        :param Mapping[str, str] max_limit_request_ratio: MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
+        :param Mapping[str, str] min: Min usage constraints on this kind by resource name.
+        :param str type: Type of resource that this limit applies to.
+        """
+        if default is not None:
+            pulumi.set(__self__, "default", default)
+        if default_request is not None:
+            pulumi.set(__self__, "default_request", default_request)
+        if max is not None:
+            pulumi.set(__self__, "max", max)
+        if max_limit_request_ratio is not None:
+            pulumi.set(__self__, "max_limit_request_ratio", max_limit_request_ratio)
+        if min is not None:
+            pulumi.set(__self__, "min", min)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def default(self) -> Optional[Mapping[str, str]]:
+        """
+        Default resource requirement limit value by resource name if resource limit is omitted.
+        """
+        return pulumi.get(self, "default")
+
+    @property
+    @pulumi.getter(name="defaultRequest")
+    def default_request(self) -> Optional[Mapping[str, str]]:
+        """
+        DefaultRequest is the default resource requirement request value by resource name if resource request is omitted.
+        """
+        return pulumi.get(self, "default_request")
+
+    @property
+    @pulumi.getter
+    def max(self) -> Optional[Mapping[str, str]]:
+        """
+        Max usage constraints on this kind by resource name.
+        """
+        return pulumi.get(self, "max")
+
+    @property
+    @pulumi.getter(name="maxLimitRequestRatio")
+    def max_limit_request_ratio(self) -> Optional[Mapping[str, str]]:
+        """
+        MaxLimitRequestRatio if specified, the named resource must have a request and limit that are both non-zero where limit divided by request is less than or equal to the enumerated value; this represents the max burst for the named resource.
+        """
+        return pulumi.get(self, "max_limit_request_ratio")
+
+    @property
+    @pulumi.getter
+    def min(self) -> Optional[Mapping[str, str]]:
+        """
+        Min usage constraints on this kind by resource name.
+        """
+        return pulumi.get(self, "min")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of resource that this limit applies to.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class LimitRangeSpec(dict):
     """
     LimitRangeSpec defines a min/max usage limit for resources that match on kind.
@@ -5634,6 +10762,29 @@ class LimitRangeSpec(dict):
     @property
     @pulumi.getter
     def limits(self) -> Sequence['outputs.LimitRangeItem']:
+        """
+        Limits is the list of LimitRangeItem objects that are enforced.
+        """
+        return pulumi.get(self, "limits")
+
+
+@pulumi.output_type
+class LimitRangeSpecPatch(dict):
+    """
+    LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+    """
+    def __init__(__self__, *,
+                 limits: Optional[Sequence['outputs.LimitRangeItemPatch']] = None):
+        """
+        LimitRangeSpec defines a min/max usage limit for resources that match on kind.
+        :param Sequence['LimitRangeItemPatchArgs'] limits: Limits is the list of LimitRangeItem objects that are enforced.
+        """
+        if limits is not None:
+            pulumi.set(__self__, "limits", limits)
+
+    @property
+    @pulumi.getter
+    def limits(self) -> Optional[Sequence['outputs.LimitRangeItemPatch']]:
         """
         Limits is the list of LimitRangeItem objects that are enforced.
         """
@@ -5688,6 +10839,53 @@ class LoadBalancerIngress(dict):
 
 
 @pulumi.output_type
+class LoadBalancerIngressPatch(dict):
+    """
+    LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
+    """
+    def __init__(__self__, *,
+                 hostname: Optional[str] = None,
+                 ip: Optional[str] = None,
+                 ports: Optional[Sequence['outputs.PortStatusPatch']] = None):
+        """
+        LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
+        :param str hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+        :param str ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+        :param Sequence['PortStatusPatchArgs'] ports: Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+        """
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if ip is not None:
+            pulumi.set(__self__, "ip", ip)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[str]:
+        """
+        Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+        """
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter
+    def ip(self) -> Optional[str]:
+        """
+        IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+        """
+        return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[Sequence['outputs.PortStatusPatch']]:
+        """
+        Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+        """
+        return pulumi.get(self, "ports")
+
+
+@pulumi.output_type
 class LoadBalancerStatus(dict):
     """
     LoadBalancerStatus represents the status of a load-balancer.
@@ -5711,7 +10909,53 @@ class LoadBalancerStatus(dict):
 
 
 @pulumi.output_type
+class LoadBalancerStatusPatch(dict):
+    """
+    LoadBalancerStatus represents the status of a load-balancer.
+    """
+    def __init__(__self__, *,
+                 ingress: Optional[Sequence['outputs.LoadBalancerIngressPatch']] = None):
+        """
+        LoadBalancerStatus represents the status of a load-balancer.
+        :param Sequence['LoadBalancerIngressPatchArgs'] ingress: Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+        """
+        if ingress is not None:
+            pulumi.set(__self__, "ingress", ingress)
+
+    @property
+    @pulumi.getter
+    def ingress(self) -> Optional[Sequence['outputs.LoadBalancerIngressPatch']]:
+        """
+        Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+        """
+        return pulumi.get(self, "ingress")
+
+
+@pulumi.output_type
 class LocalObjectReference(dict):
+    """
+    LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None):
+        """
+        LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class LocalObjectReferencePatch(dict):
     """
     LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
     """
@@ -5785,6 +11029,58 @@ class LocalVolumeSource(dict):
 
 
 @pulumi.output_type
+class LocalVolumeSourcePatch(dict):
+    """
+    Local represents directly-attached storage with node affinity (Beta feature)
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LocalVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LocalVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LocalVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 path: Optional[str] = None):
+        """
+        Local represents directly-attached storage with node affinity (Beta feature)
+        :param str fs_type: fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+        :param str path: path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path of the full path to the volume on the node. It can be either a directory or block device (disk, partition, ...).
+        """
+        return pulumi.get(self, "path")
+
+
+@pulumi.output_type
 class NFSVolumeSource(dict):
     """
     Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
@@ -5844,6 +11140,70 @@ class NFSVolumeSource(dict):
         readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
         """
         return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
+class NFSVolumeSourcePatch(dict):
+    """
+    Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NFSVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NFSVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NFSVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 path: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 server: Optional[str] = None):
+        """
+        Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
+        :param str path: path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param bool read_only: readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param str server: server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        """
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if server is not None:
+            pulumi.set(__self__, "server", server)
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        """
+        return pulumi.get(self, "path")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter
+    def server(self) -> Optional[str]:
+        """
+        server is the hostname or IP address of the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        """
+        return pulumi.get(self, "server")
 
 
 @pulumi.output_type
@@ -6009,7 +11369,106 @@ class NamespaceCondition(dict):
 
 
 @pulumi.output_type
+class NamespaceConditionPatch(dict):
+    """
+    NamespaceCondition contains details about state of namespace.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NamespaceConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NamespaceConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NamespaceConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        NamespaceCondition contains details about state of namespace.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of namespace controller condition.
+        """
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of namespace controller condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class NamespaceSpec(dict):
+    """
+    NamespaceSpec describes the attributes on a Namespace.
+    """
+    def __init__(__self__, *,
+                 finalizers: Optional[Sequence[str]] = None):
+        """
+        NamespaceSpec describes the attributes on a Namespace.
+        :param Sequence[str] finalizers: Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+        """
+        if finalizers is not None:
+            pulumi.set(__self__, "finalizers", finalizers)
+
+    @property
+    @pulumi.getter
+    def finalizers(self) -> Optional[Sequence[str]]:
+        """
+        Finalizers is an opaque list of values that must be empty to permanently remove object from storage. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+        """
+        return pulumi.get(self, "finalizers")
+
+
+@pulumi.output_type
+class NamespaceSpecPatch(dict):
     """
     NamespaceSpec describes the attributes on a Namespace.
     """
@@ -6052,6 +11511,41 @@ class NamespaceStatus(dict):
     @property
     @pulumi.getter
     def conditions(self) -> Optional[Sequence['outputs.NamespaceCondition']]:
+        """
+        Represents the latest available observations of a namespace's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def phase(self) -> Optional[str]:
+        """
+        Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+        """
+        return pulumi.get(self, "phase")
+
+
+@pulumi.output_type
+class NamespaceStatusPatch(dict):
+    """
+    NamespaceStatus is information about the current status of a Namespace.
+    """
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['outputs.NamespaceConditionPatch']] = None,
+                 phase: Optional[str] = None):
+        """
+        NamespaceStatus is information about the current status of a Namespace.
+        :param Sequence['NamespaceConditionPatchArgs'] conditions: Represents the latest available observations of a namespace's current state.
+        :param str phase: Phase is the current lifecycle phase of the namespace. More info: https://kubernetes.io/docs/tasks/administer-cluster/namespaces/
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if phase is not None:
+            pulumi.set(__self__, "phase", phase)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.NamespaceConditionPatch']]:
         """
         Represents the latest available observations of a namespace's current state.
         """
@@ -6188,6 +11682,41 @@ class NodeAddress(dict):
 
 
 @pulumi.output_type
+class NodeAddressPatch(dict):
+    """
+    NodeAddress contains information for the node's address.
+    """
+    def __init__(__self__, *,
+                 address: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        NodeAddress contains information for the node's address.
+        :param str address: The node address.
+        :param str type: Node address type, one of Hostname, ExternalIP or InternalIP.
+        """
+        if address is not None:
+            pulumi.set(__self__, "address", address)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def address(self) -> Optional[str]:
+        """
+        The node address.
+        """
+        return pulumi.get(self, "address")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Node address type, one of Hostname, ExternalIP or InternalIP.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class NodeAffinity(dict):
     """
     Node affinity is a group of node affinity scheduling rules.
@@ -6235,6 +11764,60 @@ class NodeAffinity(dict):
     @property
     @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
     def required_during_scheduling_ignored_during_execution(self) -> Optional['outputs.NodeSelector']:
+        """
+        If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+        """
+        return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
+
+
+@pulumi.output_type
+class NodeAffinityPatch(dict):
+    """
+    Node affinity is a group of node affinity scheduling rules.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecution":
+            suggest = "preferred_during_scheduling_ignored_during_execution"
+        elif key == "requiredDuringSchedulingIgnoredDuringExecution":
+            suggest = "required_during_scheduling_ignored_during_execution"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeAffinityPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeAffinityPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeAffinityPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.PreferredSchedulingTermPatch']] = None,
+                 required_during_scheduling_ignored_during_execution: Optional['outputs.NodeSelectorPatch'] = None):
+        """
+        Node affinity is a group of node affinity scheduling rules.
+        :param Sequence['PreferredSchedulingTermPatchArgs'] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
+        :param 'NodeSelectorPatchArgs' required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
+        """
+        if preferred_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_execution", preferred_during_scheduling_ignored_during_execution)
+        if required_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "required_during_scheduling_ignored_during_execution", required_during_scheduling_ignored_during_execution)
+
+    @property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
+    def preferred_during_scheduling_ignored_during_execution(self) -> Optional[Sequence['outputs.PreferredSchedulingTermPatch']]:
+        """
+        The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node matches the corresponding matchExpressions; the node(s) with the highest sum are the most preferred.
+        """
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
+
+    @property
+    @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
+    def required_during_scheduling_ignored_during_execution(self) -> Optional['outputs.NodeSelectorPatch']:
         """
         If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node.
         """
@@ -6342,6 +11925,108 @@ class NodeCondition(dict):
 
 
 @pulumi.output_type
+class NodeConditionPatch(dict):
+    """
+    NodeCondition contains condition information for a node.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastHeartbeatTime":
+            suggest = "last_heartbeat_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_heartbeat_time: Optional[str] = None,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        NodeCondition contains condition information for a node.
+        :param str last_heartbeat_time: Last time we got an update on a given condition.
+        :param str last_transition_time: Last time the condition transit from one status to another.
+        :param str message: Human readable message indicating details about last transition.
+        :param str reason: (brief) reason for the condition's last transition.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of node condition.
+        """
+        if last_heartbeat_time is not None:
+            pulumi.set(__self__, "last_heartbeat_time", last_heartbeat_time)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastHeartbeatTime")
+    def last_heartbeat_time(self) -> Optional[str]:
+        """
+        Last time we got an update on a given condition.
+        """
+        return pulumi.get(self, "last_heartbeat_time")
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        Last time the condition transit from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        Human readable message indicating details about last transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        (brief) reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of node condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class NodeConfigSource(dict):
     """
     NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
@@ -6375,6 +12060,46 @@ class NodeConfigSource(dict):
     @property
     @pulumi.getter(name="configMap")
     def config_map(self) -> Optional['outputs.ConfigMapNodeConfigSource']:
+        """
+        ConfigMap is a reference to a Node's ConfigMap
+        """
+        return pulumi.get(self, "config_map")
+
+
+@pulumi.output_type
+class NodeConfigSourcePatch(dict):
+    """
+    NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMap":
+            suggest = "config_map"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeConfigSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeConfigSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeConfigSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 config_map: Optional['outputs.ConfigMapNodeConfigSourcePatch'] = None):
+        """
+        NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
+        :param 'ConfigMapNodeConfigSourcePatchArgs' config_map: ConfigMap is a reference to a Node's ConfigMap
+        """
+        if config_map is not None:
+            pulumi.set(__self__, "config_map", config_map)
+
+    @property
+    @pulumi.getter(name="configMap")
+    def config_map(self) -> Optional['outputs.ConfigMapNodeConfigSourcePatch']:
         """
         ConfigMap is a reference to a Node's ConfigMap
         """
@@ -6458,6 +12183,82 @@ class NodeConfigStatus(dict):
 
 
 @pulumi.output_type
+class NodeConfigStatusPatch(dict):
+    """
+    NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastKnownGood":
+            suggest = "last_known_good"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeConfigStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeConfigStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeConfigStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 active: Optional['outputs.NodeConfigSourcePatch'] = None,
+                 assigned: Optional['outputs.NodeConfigSourcePatch'] = None,
+                 error: Optional[str] = None,
+                 last_known_good: Optional['outputs.NodeConfigSourcePatch'] = None):
+        """
+        NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
+        :param 'NodeConfigSourcePatchArgs' active: Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
+        :param 'NodeConfigSourcePatchArgs' assigned: Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
+        :param str error: Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.
+        :param 'NodeConfigSourcePatchArgs' last_known_good: LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
+        """
+        if active is not None:
+            pulumi.set(__self__, "active", active)
+        if assigned is not None:
+            pulumi.set(__self__, "assigned", assigned)
+        if error is not None:
+            pulumi.set(__self__, "error", error)
+        if last_known_good is not None:
+            pulumi.set(__self__, "last_known_good", last_known_good)
+
+    @property
+    @pulumi.getter
+    def active(self) -> Optional['outputs.NodeConfigSourcePatch']:
+        """
+        Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
+        """
+        return pulumi.get(self, "active")
+
+    @property
+    @pulumi.getter
+    def assigned(self) -> Optional['outputs.NodeConfigSourcePatch']:
+        """
+        Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
+        """
+        return pulumi.get(self, "assigned")
+
+    @property
+    @pulumi.getter
+    def error(self) -> Optional[str]:
+        """
+        Error describes any problems reconciling the Spec.ConfigSource to the Active config. Errors may occur, for example, attempting to checkpoint Spec.ConfigSource to the local Assigned record, attempting to checkpoint the payload associated with Spec.ConfigSource, attempting to load or validate the Assigned config, etc. Errors may occur at different points while syncing config. Earlier errors (e.g. download or checkpointing errors) will not result in a rollback to LastKnownGood, and may resolve across Kubelet retries. Later errors (e.g. loading or validating a checkpointed config) will result in a rollback to LastKnownGood. In the latter case, it is usually possible to resolve the error by fixing the config assigned in Spec.ConfigSource. You can find additional information for debugging by searching the error message in the Kubelet log. Error is a human-readable description of the error state; machines can check whether or not Error is empty, but should not rely on the stability of the Error text across Kubelet versions.
+        """
+        return pulumi.get(self, "error")
+
+    @property
+    @pulumi.getter(name="lastKnownGood")
+    def last_known_good(self) -> Optional['outputs.NodeConfigSourcePatch']:
+        """
+        LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
+        """
+        return pulumi.get(self, "last_known_good")
+
+
+@pulumi.output_type
 class NodeDaemonEndpoints(dict):
     """
     NodeDaemonEndpoints lists ports opened by daemons running on the Node.
@@ -6491,6 +12292,46 @@ class NodeDaemonEndpoints(dict):
     @property
     @pulumi.getter(name="kubeletEndpoint")
     def kubelet_endpoint(self) -> Optional['outputs.DaemonEndpoint']:
+        """
+        Endpoint on which Kubelet is listening.
+        """
+        return pulumi.get(self, "kubelet_endpoint")
+
+
+@pulumi.output_type
+class NodeDaemonEndpointsPatch(dict):
+    """
+    NodeDaemonEndpoints lists ports opened by daemons running on the Node.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "kubeletEndpoint":
+            suggest = "kubelet_endpoint"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeDaemonEndpointsPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeDaemonEndpointsPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeDaemonEndpointsPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 kubelet_endpoint: Optional['outputs.DaemonEndpointPatch'] = None):
+        """
+        NodeDaemonEndpoints lists ports opened by daemons running on the Node.
+        :param 'DaemonEndpointPatchArgs' kubelet_endpoint: Endpoint on which Kubelet is listening.
+        """
+        if kubelet_endpoint is not None:
+            pulumi.set(__self__, "kubelet_endpoint", kubelet_endpoint)
+
+    @property
+    @pulumi.getter(name="kubeletEndpoint")
+    def kubelet_endpoint(self) -> Optional['outputs.DaemonEndpointPatch']:
         """
         Endpoint on which Kubelet is listening.
         """
@@ -6537,6 +12378,46 @@ class NodeSelector(dict):
 
 
 @pulumi.output_type
+class NodeSelectorPatch(dict):
+    """
+    A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "nodeSelectorTerms":
+            suggest = "node_selector_terms"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSelectorPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSelectorPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSelectorPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 node_selector_terms: Optional[Sequence['outputs.NodeSelectorTermPatch']] = None):
+        """
+        A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
+        :param Sequence['NodeSelectorTermPatchArgs'] node_selector_terms: Required. A list of node selector terms. The terms are ORed.
+        """
+        if node_selector_terms is not None:
+            pulumi.set(__self__, "node_selector_terms", node_selector_terms)
+
+    @property
+    @pulumi.getter(name="nodeSelectorTerms")
+    def node_selector_terms(self) -> Optional[Sequence['outputs.NodeSelectorTermPatch']]:
+        """
+        Required. A list of node selector terms. The terms are ORed.
+        """
+        return pulumi.get(self, "node_selector_terms")
+
+
+@pulumi.output_type
 class NodeSelectorRequirement(dict):
     """
     A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
@@ -6567,6 +12448,53 @@ class NodeSelectorRequirement(dict):
     @property
     @pulumi.getter
     def operator(self) -> str:
+        """
+        Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+        """
+        return pulumi.get(self, "operator")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        """
+        An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class NodeSelectorRequirementPatch(dict):
+    """
+    A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+    """
+    def __init__(__self__, *,
+                 key: Optional[str] = None,
+                 operator: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
+        """
+        A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
+        :param str key: The label key that the selector applies to.
+        :param str operator: Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+        :param Sequence[str] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. If the operator is Gt or Lt, the values array must have a single element, which will be interpreted as an integer. This array is replaced during a strategic merge patch.
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        """
+        The label key that the selector applies to.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def operator(self) -> Optional[str]:
         """
         Represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
         """
@@ -6629,6 +12557,60 @@ class NodeSelectorTerm(dict):
     @property
     @pulumi.getter(name="matchFields")
     def match_fields(self) -> Optional[Sequence['outputs.NodeSelectorRequirement']]:
+        """
+        A list of node selector requirements by node's fields.
+        """
+        return pulumi.get(self, "match_fields")
+
+
+@pulumi.output_type
+class NodeSelectorTermPatch(dict):
+    """
+    A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+        elif key == "matchFields":
+            suggest = "match_fields"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSelectorTermPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSelectorTermPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSelectorTermPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 match_expressions: Optional[Sequence['outputs.NodeSelectorRequirementPatch']] = None,
+                 match_fields: Optional[Sequence['outputs.NodeSelectorRequirementPatch']] = None):
+        """
+        A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
+        :param Sequence['NodeSelectorRequirementPatchArgs'] match_expressions: A list of node selector requirements by node's labels.
+        :param Sequence['NodeSelectorRequirementPatchArgs'] match_fields: A list of node selector requirements by node's fields.
+        """
+        if match_expressions is not None:
+            pulumi.set(__self__, "match_expressions", match_expressions)
+        if match_fields is not None:
+            pulumi.set(__self__, "match_fields", match_fields)
+
+    @property
+    @pulumi.getter(name="matchExpressions")
+    def match_expressions(self) -> Optional[Sequence['outputs.NodeSelectorRequirementPatch']]:
+        """
+        A list of node selector requirements by node's labels.
+        """
+        return pulumi.get(self, "match_expressions")
+
+    @property
+    @pulumi.getter(name="matchFields")
+    def match_fields(self) -> Optional[Sequence['outputs.NodeSelectorRequirementPatch']]:
         """
         A list of node selector requirements by node's fields.
         """
@@ -6741,6 +12723,126 @@ class NodeSpec(dict):
     @property
     @pulumi.getter
     def taints(self) -> Optional[Sequence['outputs.Taint']]:
+        """
+        If specified, the node's taints.
+        """
+        return pulumi.get(self, "taints")
+
+    @property
+    @pulumi.getter
+    def unschedulable(self) -> Optional[bool]:
+        """
+        Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration
+        """
+        return pulumi.get(self, "unschedulable")
+
+
+@pulumi.output_type
+class NodeSpecPatch(dict):
+    """
+    NodeSpec describes the attributes that a node is created with.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configSource":
+            suggest = "config_source"
+        elif key == "externalID":
+            suggest = "external_id"
+        elif key == "podCIDR":
+            suggest = "pod_cidr"
+        elif key == "podCIDRs":
+            suggest = "pod_cidrs"
+        elif key == "providerID":
+            suggest = "provider_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 config_source: Optional['outputs.NodeConfigSourcePatch'] = None,
+                 external_id: Optional[str] = None,
+                 pod_cidr: Optional[str] = None,
+                 pod_cidrs: Optional[Sequence[str]] = None,
+                 provider_id: Optional[str] = None,
+                 taints: Optional[Sequence['outputs.TaintPatch']] = None,
+                 unschedulable: Optional[bool] = None):
+        """
+        NodeSpec describes the attributes that a node is created with.
+        :param 'NodeConfigSourcePatchArgs' config_source: Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+        :param str external_id: Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
+        :param str pod_cidr: PodCIDR represents the pod IP range assigned to the node.
+        :param Sequence[str] pod_cidrs: podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
+        :param str provider_id: ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
+        :param Sequence['TaintPatchArgs'] taints: If specified, the node's taints.
+        :param bool unschedulable: Unschedulable controls node schedulability of new pods. By default, node is schedulable. More info: https://kubernetes.io/docs/concepts/nodes/node/#manual-node-administration
+        """
+        if config_source is not None:
+            pulumi.set(__self__, "config_source", config_source)
+        if external_id is not None:
+            pulumi.set(__self__, "external_id", external_id)
+        if pod_cidr is not None:
+            pulumi.set(__self__, "pod_cidr", pod_cidr)
+        if pod_cidrs is not None:
+            pulumi.set(__self__, "pod_cidrs", pod_cidrs)
+        if provider_id is not None:
+            pulumi.set(__self__, "provider_id", provider_id)
+        if taints is not None:
+            pulumi.set(__self__, "taints", taints)
+        if unschedulable is not None:
+            pulumi.set(__self__, "unschedulable", unschedulable)
+
+    @property
+    @pulumi.getter(name="configSource")
+    def config_source(self) -> Optional['outputs.NodeConfigSourcePatch']:
+        """
+        Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+        """
+        return pulumi.get(self, "config_source")
+
+    @property
+    @pulumi.getter(name="externalID")
+    def external_id(self) -> Optional[str]:
+        """
+        Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966
+        """
+        return pulumi.get(self, "external_id")
+
+    @property
+    @pulumi.getter(name="podCIDR")
+    def pod_cidr(self) -> Optional[str]:
+        """
+        PodCIDR represents the pod IP range assigned to the node.
+        """
+        return pulumi.get(self, "pod_cidr")
+
+    @property
+    @pulumi.getter(name="podCIDRs")
+    def pod_cidrs(self) -> Optional[Sequence[str]]:
+        """
+        podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6.
+        """
+        return pulumi.get(self, "pod_cidrs")
+
+    @property
+    @pulumi.getter(name="providerID")
+    def provider_id(self) -> Optional[str]:
+        """
+        ID of the node assigned by the cloud provider in the format: <ProviderName>://<ProviderSpecificNodeID>
+        """
+        return pulumi.get(self, "provider_id")
+
+    @property
+    @pulumi.getter
+    def taints(self) -> Optional[Sequence['outputs.TaintPatch']]:
         """
         If specified, the node's taints.
         """
@@ -6922,6 +13024,172 @@ class NodeStatus(dict):
 
 
 @pulumi.output_type
+class NodeStatusPatch(dict):
+    """
+    NodeStatus is information about the current status of a node.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "daemonEndpoints":
+            suggest = "daemon_endpoints"
+        elif key == "nodeInfo":
+            suggest = "node_info"
+        elif key == "volumesAttached":
+            suggest = "volumes_attached"
+        elif key == "volumesInUse":
+            suggest = "volumes_in_use"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 addresses: Optional[Sequence['outputs.NodeAddressPatch']] = None,
+                 allocatable: Optional[Mapping[str, str]] = None,
+                 capacity: Optional[Mapping[str, str]] = None,
+                 conditions: Optional[Sequence['outputs.NodeConditionPatch']] = None,
+                 config: Optional['outputs.NodeConfigStatusPatch'] = None,
+                 daemon_endpoints: Optional['outputs.NodeDaemonEndpointsPatch'] = None,
+                 images: Optional[Sequence['outputs.ContainerImagePatch']] = None,
+                 node_info: Optional['outputs.NodeSystemInfoPatch'] = None,
+                 phase: Optional[str] = None,
+                 volumes_attached: Optional[Sequence['outputs.AttachedVolumePatch']] = None,
+                 volumes_in_use: Optional[Sequence[str]] = None):
+        """
+        NodeStatus is information about the current status of a node.
+        :param Sequence['NodeAddressPatchArgs'] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
+        :param Mapping[str, str] allocatable: Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
+        :param Mapping[str, str] capacity: Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        :param Sequence['NodeConditionPatchArgs'] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+        :param 'NodeConfigStatusPatchArgs' config: Status of the config assigned to the node via the dynamic Kubelet config feature.
+        :param 'NodeDaemonEndpointsPatchArgs' daemon_endpoints: Endpoints of daemons running on the Node.
+        :param Sequence['ContainerImagePatchArgs'] images: List of container images on this node
+        :param 'NodeSystemInfoPatchArgs' node_info: Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+        :param str phase: NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+        :param Sequence['AttachedVolumePatchArgs'] volumes_attached: List of volumes that are attached to the node.
+        :param Sequence[str] volumes_in_use: List of attachable volumes in use (mounted) by the node.
+        """
+        if addresses is not None:
+            pulumi.set(__self__, "addresses", addresses)
+        if allocatable is not None:
+            pulumi.set(__self__, "allocatable", allocatable)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if config is not None:
+            pulumi.set(__self__, "config", config)
+        if daemon_endpoints is not None:
+            pulumi.set(__self__, "daemon_endpoints", daemon_endpoints)
+        if images is not None:
+            pulumi.set(__self__, "images", images)
+        if node_info is not None:
+            pulumi.set(__self__, "node_info", node_info)
+        if phase is not None:
+            pulumi.set(__self__, "phase", phase)
+        if volumes_attached is not None:
+            pulumi.set(__self__, "volumes_attached", volumes_attached)
+        if volumes_in_use is not None:
+            pulumi.set(__self__, "volumes_in_use", volumes_in_use)
+
+    @property
+    @pulumi.getter
+    def addresses(self) -> Optional[Sequence['outputs.NodeAddressPatch']]:
+        """
+        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
+        """
+        return pulumi.get(self, "addresses")
+
+    @property
+    @pulumi.getter
+    def allocatable(self) -> Optional[Mapping[str, str]]:
+        """
+        Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
+        """
+        return pulumi.get(self, "allocatable")
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[Mapping[str, str]]:
+        """
+        Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        """
+        return pulumi.get(self, "capacity")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.NodeConditionPatch']]:
+        """
+        Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def config(self) -> Optional['outputs.NodeConfigStatusPatch']:
+        """
+        Status of the config assigned to the node via the dynamic Kubelet config feature.
+        """
+        return pulumi.get(self, "config")
+
+    @property
+    @pulumi.getter(name="daemonEndpoints")
+    def daemon_endpoints(self) -> Optional['outputs.NodeDaemonEndpointsPatch']:
+        """
+        Endpoints of daemons running on the Node.
+        """
+        return pulumi.get(self, "daemon_endpoints")
+
+    @property
+    @pulumi.getter
+    def images(self) -> Optional[Sequence['outputs.ContainerImagePatch']]:
+        """
+        List of container images on this node
+        """
+        return pulumi.get(self, "images")
+
+    @property
+    @pulumi.getter(name="nodeInfo")
+    def node_info(self) -> Optional['outputs.NodeSystemInfoPatch']:
+        """
+        Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info
+        """
+        return pulumi.get(self, "node_info")
+
+    @property
+    @pulumi.getter
+    def phase(self) -> Optional[str]:
+        """
+        NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+        """
+        return pulumi.get(self, "phase")
+
+    @property
+    @pulumi.getter(name="volumesAttached")
+    def volumes_attached(self) -> Optional[Sequence['outputs.AttachedVolumePatch']]:
+        """
+        List of volumes that are attached to the node.
+        """
+        return pulumi.get(self, "volumes_attached")
+
+    @property
+    @pulumi.getter(name="volumesInUse")
+    def volumes_in_use(self) -> Optional[Sequence[str]]:
+        """
+        List of attachable volumes in use (mounted) by the node.
+        """
+        return pulumi.get(self, "volumes_in_use")
+
+
+@pulumi.output_type
 class NodeSystemInfo(dict):
     """
     NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
@@ -7076,6 +13344,170 @@ class NodeSystemInfo(dict):
 
 
 @pulumi.output_type
+class NodeSystemInfoPatch(dict):
+    """
+    NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "bootID":
+            suggest = "boot_id"
+        elif key == "containerRuntimeVersion":
+            suggest = "container_runtime_version"
+        elif key == "kernelVersion":
+            suggest = "kernel_version"
+        elif key == "kubeProxyVersion":
+            suggest = "kube_proxy_version"
+        elif key == "kubeletVersion":
+            suggest = "kubelet_version"
+        elif key == "machineID":
+            suggest = "machine_id"
+        elif key == "operatingSystem":
+            suggest = "operating_system"
+        elif key == "osImage":
+            suggest = "os_image"
+        elif key == "systemUUID":
+            suggest = "system_uuid"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NodeSystemInfoPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NodeSystemInfoPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NodeSystemInfoPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 architecture: Optional[str] = None,
+                 boot_id: Optional[str] = None,
+                 container_runtime_version: Optional[str] = None,
+                 kernel_version: Optional[str] = None,
+                 kube_proxy_version: Optional[str] = None,
+                 kubelet_version: Optional[str] = None,
+                 machine_id: Optional[str] = None,
+                 operating_system: Optional[str] = None,
+                 os_image: Optional[str] = None,
+                 system_uuid: Optional[str] = None):
+        """
+        NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
+        :param str architecture: The Architecture reported by the node
+        :param str boot_id: Boot ID reported by the node.
+        :param str container_runtime_version: ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
+        :param str kernel_version: Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
+        :param str kube_proxy_version: KubeProxy Version reported by the node.
+        :param str kubelet_version: Kubelet Version reported by the node.
+        :param str machine_id: MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html
+        :param str operating_system: The Operating System reported by the node
+        :param str os_image: OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
+        :param str system_uuid: SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+        """
+        if architecture is not None:
+            pulumi.set(__self__, "architecture", architecture)
+        if boot_id is not None:
+            pulumi.set(__self__, "boot_id", boot_id)
+        if container_runtime_version is not None:
+            pulumi.set(__self__, "container_runtime_version", container_runtime_version)
+        if kernel_version is not None:
+            pulumi.set(__self__, "kernel_version", kernel_version)
+        if kube_proxy_version is not None:
+            pulumi.set(__self__, "kube_proxy_version", kube_proxy_version)
+        if kubelet_version is not None:
+            pulumi.set(__self__, "kubelet_version", kubelet_version)
+        if machine_id is not None:
+            pulumi.set(__self__, "machine_id", machine_id)
+        if operating_system is not None:
+            pulumi.set(__self__, "operating_system", operating_system)
+        if os_image is not None:
+            pulumi.set(__self__, "os_image", os_image)
+        if system_uuid is not None:
+            pulumi.set(__self__, "system_uuid", system_uuid)
+
+    @property
+    @pulumi.getter
+    def architecture(self) -> Optional[str]:
+        """
+        The Architecture reported by the node
+        """
+        return pulumi.get(self, "architecture")
+
+    @property
+    @pulumi.getter(name="bootID")
+    def boot_id(self) -> Optional[str]:
+        """
+        Boot ID reported by the node.
+        """
+        return pulumi.get(self, "boot_id")
+
+    @property
+    @pulumi.getter(name="containerRuntimeVersion")
+    def container_runtime_version(self) -> Optional[str]:
+        """
+        ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
+        """
+        return pulumi.get(self, "container_runtime_version")
+
+    @property
+    @pulumi.getter(name="kernelVersion")
+    def kernel_version(self) -> Optional[str]:
+        """
+        Kernel Version reported by the node from 'uname -r' (e.g. 3.16.0-0.bpo.4-amd64).
+        """
+        return pulumi.get(self, "kernel_version")
+
+    @property
+    @pulumi.getter(name="kubeProxyVersion")
+    def kube_proxy_version(self) -> Optional[str]:
+        """
+        KubeProxy Version reported by the node.
+        """
+        return pulumi.get(self, "kube_proxy_version")
+
+    @property
+    @pulumi.getter(name="kubeletVersion")
+    def kubelet_version(self) -> Optional[str]:
+        """
+        Kubelet Version reported by the node.
+        """
+        return pulumi.get(self, "kubelet_version")
+
+    @property
+    @pulumi.getter(name="machineID")
+    def machine_id(self) -> Optional[str]:
+        """
+        MachineID reported by the node. For unique machine identification in the cluster this field is preferred. Learn more from man(5) machine-id: http://man7.org/linux/man-pages/man5/machine-id.5.html
+        """
+        return pulumi.get(self, "machine_id")
+
+    @property
+    @pulumi.getter(name="operatingSystem")
+    def operating_system(self) -> Optional[str]:
+        """
+        The Operating System reported by the node
+        """
+        return pulumi.get(self, "operating_system")
+
+    @property
+    @pulumi.getter(name="osImage")
+    def os_image(self) -> Optional[str]:
+        """
+        OS Image reported by the node from /etc/os-release (e.g. Debian GNU/Linux 7 (wheezy)).
+        """
+        return pulumi.get(self, "os_image")
+
+    @property
+    @pulumi.getter(name="systemUUID")
+    def system_uuid(self) -> Optional[str]:
+        """
+        SystemUUID reported by the node. For unique machine identification MachineID is preferred. This field is specific to Red Hat hosts https://access.redhat.com/documentation/en-us/red_hat_subscription_management/1/html/rhsm/uuid
+        """
+        return pulumi.get(self, "system_uuid")
+
+
+@pulumi.output_type
 class ObjectFieldSelector(dict):
     """
     ObjectFieldSelector selects an APIVersioned field of an object.
@@ -7129,6 +13561,60 @@ class ObjectFieldSelector(dict):
 
 
 @pulumi.output_type
+class ObjectFieldSelectorPatch(dict):
+    """
+    ObjectFieldSelector selects an APIVersioned field of an object.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "fieldPath":
+            suggest = "field_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectFieldSelectorPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectFieldSelectorPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectFieldSelectorPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 field_path: Optional[str] = None):
+        """
+        ObjectFieldSelector selects an APIVersioned field of an object.
+        :param str api_version: Version of the schema the FieldPath is written in terms of, defaults to "v1".
+        :param str field_path: Path of the field to select in the specified API version.
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if field_path is not None:
+            pulumi.set(__self__, "field_path", field_path)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        Version of the schema the FieldPath is written in terms of, defaults to "v1".
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter(name="fieldPath")
+    def field_path(self) -> Optional[str]:
+        """
+        Path of the field to select in the specified API version.
+        """
+        return pulumi.get(self, "field_path")
+
+
+@pulumi.output_type
 class ObjectReference(dict):
     """
     ObjectReference contains enough information to let you inspect or modify the referred object.
@@ -7152,6 +13638,122 @@ class ObjectReference(dict):
 
     def get(self, key: str, default = None) -> Any:
         ObjectReference.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 field_path: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 name: Optional[str] = None,
+                 namespace: Optional[str] = None,
+                 resource_version: Optional[str] = None,
+                 uid: Optional[str] = None):
+        """
+        ObjectReference contains enough information to let you inspect or modify the referred object.
+        :param str api_version: API version of the referent.
+        :param str field_path: If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers to the name of the container that triggered the event) or if no container name is specified "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.
+        :param str kind: Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param str namespace: Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+        :param str resource_version: Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+        :param str uid: UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if field_path is not None:
+            pulumi.set(__self__, "field_path", field_path)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+        if resource_version is not None:
+            pulumi.set(__self__, "resource_version", resource_version)
+        if uid is not None:
+            pulumi.set(__self__, "uid", uid)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        API version of the referent.
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter(name="fieldPath")
+    def field_path(self) -> Optional[str]:
+        """
+        If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers to the name of the container that triggered the event) or if no container name is specified "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object.
+        """
+        return pulumi.get(self, "field_path")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def namespace(self) -> Optional[str]:
+        """
+        Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+        """
+        return pulumi.get(self, "namespace")
+
+    @property
+    @pulumi.getter(name="resourceVersion")
+    def resource_version(self) -> Optional[str]:
+        """
+        Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency
+        """
+        return pulumi.get(self, "resource_version")
+
+    @property
+    @pulumi.getter
+    def uid(self) -> Optional[str]:
+        """
+        UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids
+        """
+        return pulumi.get(self, "uid")
+
+
+@pulumi.output_type
+class ObjectReferencePatch(dict):
+    """
+    ObjectReference contains enough information to let you inspect or modify the referred object.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+        elif key == "fieldPath":
+            suggest = "field_path"
+        elif key == "resourceVersion":
+            suggest = "resource_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ObjectReferencePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ObjectReferencePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ObjectReferencePatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
@@ -7513,6 +14115,188 @@ class PersistentVolumeClaimCondition(dict):
 
 
 @pulumi.output_type
+class PersistentVolumeClaimConditionPatch(dict):
+    """
+    PersistentVolumeClaimCondition contails details about state of pvc
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastProbeTime":
+            suggest = "last_probe_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_probe_time: Optional[str] = None,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        PersistentVolumeClaimCondition contails details about state of pvc
+        :param str last_probe_time: lastProbeTime is the time we probed the condition.
+        :param str last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
+        :param str message: message is the human-readable message indicating details about last transition.
+        :param str reason: reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        """
+        if last_probe_time is not None:
+            pulumi.set(__self__, "last_probe_time", last_probe_time)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastProbeTime")
+    def last_probe_time(self) -> Optional[str]:
+        """
+        lastProbeTime is the time we probed the condition.
+        """
+        return pulumi.get(self, "last_probe_time")
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        lastTransitionTime is the time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        message is the human-readable message indicating details about last transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        reason is a unique, this should be a short, machine understandable string that gives the reason for condition's last transition. If it reports "ResizeStarted" that means the underlying persistent volume is being resized.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class PersistentVolumeClaimPatch(dict):
+    """
+    PersistentVolumeClaim is a user's request for and claim to a persistent volume
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
+                 spec: Optional['outputs.PersistentVolumeClaimSpecPatch'] = None,
+                 status: Optional['outputs.PersistentVolumeClaimStatusPatch'] = None):
+        """
+        PersistentVolumeClaim is a user's request for and claim to a persistent volume
+        :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param '_meta.v1.ObjectMetaPatchArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param 'PersistentVolumeClaimSpecPatchArgs' spec: spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param 'PersistentVolumeClaimStatusPatchArgs' status: status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", 'v1')
+        if kind is not None:
+            pulumi.set(__self__, "kind", 'PersistentVolumeClaim')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMetaPatch']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional['outputs.PersistentVolumeClaimSpecPatch']:
+        """
+        spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.PersistentVolumeClaimStatusPatch']:
+        """
+        status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        return pulumi.get(self, "status")
+
+
+@pulumi.output_type
 class PersistentVolumeClaimSpec(dict):
     """
     PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
@@ -7657,6 +14441,150 @@ class PersistentVolumeClaimSpec(dict):
 
 
 @pulumi.output_type
+class PersistentVolumeClaimSpecPatch(dict):
+    """
+    PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessModes":
+            suggest = "access_modes"
+        elif key == "dataSource":
+            suggest = "data_source"
+        elif key == "dataSourceRef":
+            suggest = "data_source_ref"
+        elif key == "storageClassName":
+            suggest = "storage_class_name"
+        elif key == "volumeMode":
+            suggest = "volume_mode"
+        elif key == "volumeName":
+            suggest = "volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 access_modes: Optional[Sequence[str]] = None,
+                 data_source: Optional['outputs.TypedLocalObjectReferencePatch'] = None,
+                 data_source_ref: Optional['outputs.TypedLocalObjectReferencePatch'] = None,
+                 resources: Optional['outputs.ResourceRequirementsPatch'] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 storage_class_name: Optional[str] = None,
+                 volume_mode: Optional[str] = None,
+                 volume_name: Optional[str] = None):
+        """
+        PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
+        :param Sequence[str] access_modes: accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        :param 'TypedLocalObjectReferencePatchArgs' data_source: dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+        :param 'TypedLocalObjectReferencePatchArgs' data_source_ref: dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+                 allows any non-core object, as well as PersistentVolumeClaim objects.
+               * While DataSource ignores disallowed values (dropping them), DataSourceRef
+                 preserves all values, and generates an error if a disallowed value is
+                 specified.
+               (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+        :param 'ResourceRequirementsPatchArgs' resources: resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is a label query over volumes to consider for binding.
+        :param str storage_class_name: storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+        :param str volume_mode: volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+        :param str volume_name: volumeName is the binding reference to the PersistentVolume backing this claim.
+        """
+        if access_modes is not None:
+            pulumi.set(__self__, "access_modes", access_modes)
+        if data_source is not None:
+            pulumi.set(__self__, "data_source", data_source)
+        if data_source_ref is not None:
+            pulumi.set(__self__, "data_source_ref", data_source_ref)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if storage_class_name is not None:
+            pulumi.set(__self__, "storage_class_name", storage_class_name)
+        if volume_mode is not None:
+            pulumi.set(__self__, "volume_mode", volume_mode)
+        if volume_name is not None:
+            pulumi.set(__self__, "volume_name", volume_name)
+
+    @property
+    @pulumi.getter(name="accessModes")
+    def access_modes(self) -> Optional[Sequence[str]]:
+        """
+        accessModes contains the desired access modes the volume should have. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        """
+        return pulumi.get(self, "access_modes")
+
+    @property
+    @pulumi.getter(name="dataSource")
+    def data_source(self) -> Optional['outputs.TypedLocalObjectReferencePatch']:
+        """
+        dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+        """
+        return pulumi.get(self, "data_source")
+
+    @property
+    @pulumi.getter(name="dataSourceRef")
+    def data_source_ref(self) -> Optional['outputs.TypedLocalObjectReferencePatch']:
+        """
+        dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+          allows any non-core object, as well as PersistentVolumeClaim objects.
+        * While DataSource ignores disallowed values (dropping them), DataSourceRef
+          preserves all values, and generates an error if a disallowed value is
+          specified.
+        (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+        """
+        return pulumi.get(self, "data_source_ref")
+
+    @property
+    @pulumi.getter
+    def resources(self) -> Optional['outputs.ResourceRequirementsPatch']:
+        """
+        resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
+        """
+        return pulumi.get(self, "resources")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        selector is a label query over volumes to consider for binding.
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter(name="storageClassName")
+    def storage_class_name(self) -> Optional[str]:
+        """
+        storageClassName is the name of the StorageClass required by the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#class-1
+        """
+        return pulumi.get(self, "storage_class_name")
+
+    @property
+    @pulumi.getter(name="volumeMode")
+    def volume_mode(self) -> Optional[str]:
+        """
+        volumeMode defines what type of volume is required by the claim. Value of Filesystem is implied when not included in claim spec.
+        """
+        return pulumi.get(self, "volume_mode")
+
+    @property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> Optional[str]:
+        """
+        volumeName is the binding reference to the PersistentVolume backing this claim.
+        """
+        return pulumi.get(self, "volume_name")
+
+
+@pulumi.output_type
 class PersistentVolumeClaimStatus(dict):
     """
     PersistentVolumeClaimStatus is the current status of a persistent volume claim.
@@ -7761,6 +14689,110 @@ class PersistentVolumeClaimStatus(dict):
 
 
 @pulumi.output_type
+class PersistentVolumeClaimStatusPatch(dict):
+    """
+    PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessModes":
+            suggest = "access_modes"
+        elif key == "allocatedResources":
+            suggest = "allocated_resources"
+        elif key == "resizeStatus":
+            suggest = "resize_status"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 access_modes: Optional[Sequence[str]] = None,
+                 allocated_resources: Optional[Mapping[str, str]] = None,
+                 capacity: Optional[Mapping[str, str]] = None,
+                 conditions: Optional[Sequence['outputs.PersistentVolumeClaimConditionPatch']] = None,
+                 phase: Optional[str] = None,
+                 resize_status: Optional[str] = None):
+        """
+        PersistentVolumeClaimStatus is the current status of a persistent volume claim.
+        :param Sequence[str] access_modes: accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        :param Mapping[str, str] allocated_resources: allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        :param Mapping[str, str] capacity: capacity represents the actual resources of the underlying volume.
+        :param Sequence['PersistentVolumeClaimConditionPatchArgs'] conditions: conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        :param str phase: phase represents the current phase of PersistentVolumeClaim.
+        :param str resize_status: resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        """
+        if access_modes is not None:
+            pulumi.set(__self__, "access_modes", access_modes)
+        if allocated_resources is not None:
+            pulumi.set(__self__, "allocated_resources", allocated_resources)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if phase is not None:
+            pulumi.set(__self__, "phase", phase)
+        if resize_status is not None:
+            pulumi.set(__self__, "resize_status", resize_status)
+
+    @property
+    @pulumi.getter(name="accessModes")
+    def access_modes(self) -> Optional[Sequence[str]]:
+        """
+        accessModes contains the actual access modes the volume backing the PVC has. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes-1
+        """
+        return pulumi.get(self, "access_modes")
+
+    @property
+    @pulumi.getter(name="allocatedResources")
+    def allocated_resources(self) -> Optional[Mapping[str, str]]:
+        """
+        allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        """
+        return pulumi.get(self, "allocated_resources")
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[Mapping[str, str]]:
+        """
+        capacity represents the actual resources of the underlying volume.
+        """
+        return pulumi.get(self, "capacity")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.PersistentVolumeClaimConditionPatch']]:
+        """
+        conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def phase(self) -> Optional[str]:
+        """
+        phase represents the current phase of PersistentVolumeClaim.
+        """
+        return pulumi.get(self, "phase")
+
+    @property
+    @pulumi.getter(name="resizeStatus")
+    def resize_status(self) -> Optional[str]:
+        """
+        resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+        """
+        return pulumi.get(self, "resize_status")
+
+
+@pulumi.output_type
 class PersistentVolumeClaimTemplate(dict):
     """
     PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
@@ -7792,6 +14824,41 @@ class PersistentVolumeClaimTemplate(dict):
         May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         """
         return pulumi.get(self, "metadata")
+
+
+@pulumi.output_type
+class PersistentVolumeClaimTemplatePatch(dict):
+    """
+    PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+    """
+    def __init__(__self__, *,
+                 metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
+                 spec: Optional['outputs.PersistentVolumeClaimSpecPatch'] = None):
+        """
+        PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
+        :param '_meta.v1.ObjectMetaPatchArgs' metadata: May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        :param 'PersistentVolumeClaimSpecPatchArgs' spec: The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+        """
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMetaPatch']:
+        """
+        May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional['outputs.PersistentVolumeClaimSpecPatch']:
+        """
+        The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+        """
+        return pulumi.get(self, "spec")
 
 
 @pulumi.output_type
@@ -7833,6 +14900,60 @@ class PersistentVolumeClaimVolumeSource(dict):
     @property
     @pulumi.getter(name="claimName")
     def claim_name(self) -> str:
+        """
+        claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        return pulumi.get(self, "claim_name")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
+        """
+        return pulumi.get(self, "read_only")
+
+
+@pulumi.output_type
+class PersistentVolumeClaimVolumeSourcePatch(dict):
+    """
+    PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "claimName":
+            suggest = "claim_name"
+        elif key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeClaimVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeClaimVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeClaimVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 claim_name: Optional[str] = None,
+                 read_only: Optional[bool] = None):
+        """
+        PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).
+        :param str claim_name: claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param bool read_only: readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
+        """
+        if claim_name is not None:
+            pulumi.set(__self__, "claim_name", claim_name)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+
+    @property
+    @pulumi.getter(name="claimName")
+    def claim_name(self) -> Optional[str]:
         """
         claimName is the name of a PersistentVolumeClaim in the same namespace as the pod using this volume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
         """
@@ -8268,7 +15389,474 @@ class PersistentVolumeSpec(dict):
 
 
 @pulumi.output_type
+class PersistentVolumeSpecPatch(dict):
+    """
+    PersistentVolumeSpec is the specification of a persistent volume.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessModes":
+            suggest = "access_modes"
+        elif key == "awsElasticBlockStore":
+            suggest = "aws_elastic_block_store"
+        elif key == "azureDisk":
+            suggest = "azure_disk"
+        elif key == "azureFile":
+            suggest = "azure_file"
+        elif key == "claimRef":
+            suggest = "claim_ref"
+        elif key == "flexVolume":
+            suggest = "flex_volume"
+        elif key == "gcePersistentDisk":
+            suggest = "gce_persistent_disk"
+        elif key == "hostPath":
+            suggest = "host_path"
+        elif key == "mountOptions":
+            suggest = "mount_options"
+        elif key == "nodeAffinity":
+            suggest = "node_affinity"
+        elif key == "persistentVolumeReclaimPolicy":
+            suggest = "persistent_volume_reclaim_policy"
+        elif key == "photonPersistentDisk":
+            suggest = "photon_persistent_disk"
+        elif key == "portworxVolume":
+            suggest = "portworx_volume"
+        elif key == "scaleIO":
+            suggest = "scale_io"
+        elif key == "storageClassName":
+            suggest = "storage_class_name"
+        elif key == "volumeMode":
+            suggest = "volume_mode"
+        elif key == "vsphereVolume":
+            suggest = "vsphere_volume"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PersistentVolumeSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PersistentVolumeSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PersistentVolumeSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 access_modes: Optional[Sequence[str]] = None,
+                 aws_elastic_block_store: Optional['outputs.AWSElasticBlockStoreVolumeSourcePatch'] = None,
+                 azure_disk: Optional['outputs.AzureDiskVolumeSourcePatch'] = None,
+                 azure_file: Optional['outputs.AzureFilePersistentVolumeSourcePatch'] = None,
+                 capacity: Optional[Mapping[str, str]] = None,
+                 cephfs: Optional['outputs.CephFSPersistentVolumeSourcePatch'] = None,
+                 cinder: Optional['outputs.CinderPersistentVolumeSourcePatch'] = None,
+                 claim_ref: Optional['outputs.ObjectReferencePatch'] = None,
+                 csi: Optional['outputs.CSIPersistentVolumeSourcePatch'] = None,
+                 fc: Optional['outputs.FCVolumeSourcePatch'] = None,
+                 flex_volume: Optional['outputs.FlexPersistentVolumeSourcePatch'] = None,
+                 flocker: Optional['outputs.FlockerVolumeSourcePatch'] = None,
+                 gce_persistent_disk: Optional['outputs.GCEPersistentDiskVolumeSourcePatch'] = None,
+                 glusterfs: Optional['outputs.GlusterfsPersistentVolumeSourcePatch'] = None,
+                 host_path: Optional['outputs.HostPathVolumeSourcePatch'] = None,
+                 iscsi: Optional['outputs.ISCSIPersistentVolumeSourcePatch'] = None,
+                 local: Optional['outputs.LocalVolumeSourcePatch'] = None,
+                 mount_options: Optional[Sequence[str]] = None,
+                 nfs: Optional['outputs.NFSVolumeSourcePatch'] = None,
+                 node_affinity: Optional['outputs.VolumeNodeAffinityPatch'] = None,
+                 persistent_volume_reclaim_policy: Optional[str] = None,
+                 photon_persistent_disk: Optional['outputs.PhotonPersistentDiskVolumeSourcePatch'] = None,
+                 portworx_volume: Optional['outputs.PortworxVolumeSourcePatch'] = None,
+                 quobyte: Optional['outputs.QuobyteVolumeSourcePatch'] = None,
+                 rbd: Optional['outputs.RBDPersistentVolumeSourcePatch'] = None,
+                 scale_io: Optional['outputs.ScaleIOPersistentVolumeSourcePatch'] = None,
+                 storage_class_name: Optional[str] = None,
+                 storageos: Optional['outputs.StorageOSPersistentVolumeSourcePatch'] = None,
+                 volume_mode: Optional[str] = None,
+                 vsphere_volume: Optional['outputs.VsphereVirtualDiskVolumeSourcePatch'] = None):
+        """
+        PersistentVolumeSpec is the specification of a persistent volume.
+        :param Sequence[str] access_modes: accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+        :param 'AWSElasticBlockStoreVolumeSourcePatchArgs' aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param 'AzureDiskVolumeSourcePatchArgs' azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        :param 'AzureFilePersistentVolumeSourcePatchArgs' azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param Mapping[str, str] capacity: capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        :param 'CephFSPersistentVolumeSourcePatchArgs' cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        :param 'CinderPersistentVolumeSourcePatchArgs' cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'ObjectReferencePatchArgs' claim_ref: claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+        :param 'CSIPersistentVolumeSourcePatchArgs' csi: csi represents storage that is handled by an external CSI driver (Beta feature).
+        :param 'FCVolumeSourcePatchArgs' fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        :param 'FlexPersistentVolumeSourcePatchArgs' flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        :param 'FlockerVolumeSourcePatchArgs' flocker: flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        :param 'GCEPersistentDiskVolumeSourcePatchArgs' gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param 'GlusterfsPersistentVolumeSourcePatchArgs' glusterfs: glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param 'HostPathVolumeSourcePatchArgs' host_path: hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param 'ISCSIPersistentVolumeSourcePatchArgs' iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+        :param 'LocalVolumeSourcePatchArgs' local: local represents directly-attached storage with node affinity
+        :param Sequence[str] mount_options: mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+        :param 'NFSVolumeSourcePatchArgs' nfs: nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param 'VolumeNodeAffinityPatchArgs' node_affinity: nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        :param str persistent_volume_reclaim_policy: persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+        :param 'PhotonPersistentDiskVolumeSourcePatchArgs' photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        :param 'PortworxVolumeSourcePatchArgs' portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        :param 'QuobyteVolumeSourcePatchArgs' quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        :param 'RBDPersistentVolumeSourcePatchArgs' rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param 'ScaleIOPersistentVolumeSourcePatchArgs' scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param str storage_class_name: storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+        :param 'StorageOSPersistentVolumeSourcePatchArgs' storageos: storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        :param str volume_mode: volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
+        :param 'VsphereVirtualDiskVolumeSourcePatchArgs' vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        """
+        if access_modes is not None:
+            pulumi.set(__self__, "access_modes", access_modes)
+        if aws_elastic_block_store is not None:
+            pulumi.set(__self__, "aws_elastic_block_store", aws_elastic_block_store)
+        if azure_disk is not None:
+            pulumi.set(__self__, "azure_disk", azure_disk)
+        if azure_file is not None:
+            pulumi.set(__self__, "azure_file", azure_file)
+        if capacity is not None:
+            pulumi.set(__self__, "capacity", capacity)
+        if cephfs is not None:
+            pulumi.set(__self__, "cephfs", cephfs)
+        if cinder is not None:
+            pulumi.set(__self__, "cinder", cinder)
+        if claim_ref is not None:
+            pulumi.set(__self__, "claim_ref", claim_ref)
+        if csi is not None:
+            pulumi.set(__self__, "csi", csi)
+        if fc is not None:
+            pulumi.set(__self__, "fc", fc)
+        if flex_volume is not None:
+            pulumi.set(__self__, "flex_volume", flex_volume)
+        if flocker is not None:
+            pulumi.set(__self__, "flocker", flocker)
+        if gce_persistent_disk is not None:
+            pulumi.set(__self__, "gce_persistent_disk", gce_persistent_disk)
+        if glusterfs is not None:
+            pulumi.set(__self__, "glusterfs", glusterfs)
+        if host_path is not None:
+            pulumi.set(__self__, "host_path", host_path)
+        if iscsi is not None:
+            pulumi.set(__self__, "iscsi", iscsi)
+        if local is not None:
+            pulumi.set(__self__, "local", local)
+        if mount_options is not None:
+            pulumi.set(__self__, "mount_options", mount_options)
+        if nfs is not None:
+            pulumi.set(__self__, "nfs", nfs)
+        if node_affinity is not None:
+            pulumi.set(__self__, "node_affinity", node_affinity)
+        if persistent_volume_reclaim_policy is not None:
+            pulumi.set(__self__, "persistent_volume_reclaim_policy", persistent_volume_reclaim_policy)
+        if photon_persistent_disk is not None:
+            pulumi.set(__self__, "photon_persistent_disk", photon_persistent_disk)
+        if portworx_volume is not None:
+            pulumi.set(__self__, "portworx_volume", portworx_volume)
+        if quobyte is not None:
+            pulumi.set(__self__, "quobyte", quobyte)
+        if rbd is not None:
+            pulumi.set(__self__, "rbd", rbd)
+        if scale_io is not None:
+            pulumi.set(__self__, "scale_io", scale_io)
+        if storage_class_name is not None:
+            pulumi.set(__self__, "storage_class_name", storage_class_name)
+        if storageos is not None:
+            pulumi.set(__self__, "storageos", storageos)
+        if volume_mode is not None:
+            pulumi.set(__self__, "volume_mode", volume_mode)
+        if vsphere_volume is not None:
+            pulumi.set(__self__, "vsphere_volume", vsphere_volume)
+
+    @property
+    @pulumi.getter(name="accessModes")
+    def access_modes(self) -> Optional[Sequence[str]]:
+        """
+        accessModes contains all ways the volume can be mounted. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#access-modes
+        """
+        return pulumi.get(self, "access_modes")
+
+    @property
+    @pulumi.getter(name="awsElasticBlockStore")
+    def aws_elastic_block_store(self) -> Optional['outputs.AWSElasticBlockStoreVolumeSourcePatch']:
+        """
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        """
+        return pulumi.get(self, "aws_elastic_block_store")
+
+    @property
+    @pulumi.getter(name="azureDisk")
+    def azure_disk(self) -> Optional['outputs.AzureDiskVolumeSourcePatch']:
+        """
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        """
+        return pulumi.get(self, "azure_disk")
+
+    @property
+    @pulumi.getter(name="azureFile")
+    def azure_file(self) -> Optional['outputs.AzureFilePersistentVolumeSourcePatch']:
+        """
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        """
+        return pulumi.get(self, "azure_file")
+
+    @property
+    @pulumi.getter
+    def capacity(self) -> Optional[Mapping[str, str]]:
+        """
+        capacity is the description of the persistent volume's resources and capacity. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
+        """
+        return pulumi.get(self, "capacity")
+
+    @property
+    @pulumi.getter
+    def cephfs(self) -> Optional['outputs.CephFSPersistentVolumeSourcePatch']:
+        """
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        """
+        return pulumi.get(self, "cephfs")
+
+    @property
+    @pulumi.getter
+    def cinder(self) -> Optional['outputs.CinderPersistentVolumeSourcePatch']:
+        """
+        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "cinder")
+
+    @property
+    @pulumi.getter(name="claimRef")
+    def claim_ref(self) -> Optional['outputs.ObjectReferencePatch']:
+        """
+        claimRef is part of a bi-directional binding between PersistentVolume and PersistentVolumeClaim. Expected to be non-nil when bound. claim.VolumeName is the authoritative bind between PV and PVC. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#binding
+        """
+        return pulumi.get(self, "claim_ref")
+
+    @property
+    @pulumi.getter
+    def csi(self) -> Optional['outputs.CSIPersistentVolumeSourcePatch']:
+        """
+        csi represents storage that is handled by an external CSI driver (Beta feature).
+        """
+        return pulumi.get(self, "csi")
+
+    @property
+    @pulumi.getter
+    def fc(self) -> Optional['outputs.FCVolumeSourcePatch']:
+        """
+        fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        """
+        return pulumi.get(self, "fc")
+
+    @property
+    @pulumi.getter(name="flexVolume")
+    def flex_volume(self) -> Optional['outputs.FlexPersistentVolumeSourcePatch']:
+        """
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        """
+        return pulumi.get(self, "flex_volume")
+
+    @property
+    @pulumi.getter
+    def flocker(self) -> Optional['outputs.FlockerVolumeSourcePatch']:
+        """
+        flocker represents a Flocker volume attached to a kubelet's host machine and exposed to the pod for its usage. This depends on the Flocker control service being running
+        """
+        return pulumi.get(self, "flocker")
+
+    @property
+    @pulumi.getter(name="gcePersistentDisk")
+    def gce_persistent_disk(self) -> Optional['outputs.GCEPersistentDiskVolumeSourcePatch']:
+        """
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        return pulumi.get(self, "gce_persistent_disk")
+
+    @property
+    @pulumi.getter
+    def glusterfs(self) -> Optional['outputs.GlusterfsPersistentVolumeSourcePatch']:
+        """
+        glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        """
+        return pulumi.get(self, "glusterfs")
+
+    @property
+    @pulumi.getter(name="hostPath")
+    def host_path(self) -> Optional['outputs.HostPathVolumeSourcePatch']:
+        """
+        hostPath represents a directory on the host. Provisioned by a developer or tester. This is useful for single-node development and testing only! On-host storage is not supported in any way and WILL NOT WORK in a multi-node cluster. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        """
+        return pulumi.get(self, "host_path")
+
+    @property
+    @pulumi.getter
+    def iscsi(self) -> Optional['outputs.ISCSIPersistentVolumeSourcePatch']:
+        """
+        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
+        """
+        return pulumi.get(self, "iscsi")
+
+    @property
+    @pulumi.getter
+    def local(self) -> Optional['outputs.LocalVolumeSourcePatch']:
+        """
+        local represents directly-attached storage with node affinity
+        """
+        return pulumi.get(self, "local")
+
+    @property
+    @pulumi.getter(name="mountOptions")
+    def mount_options(self) -> Optional[Sequence[str]]:
+        """
+        mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
+        """
+        return pulumi.get(self, "mount_options")
+
+    @property
+    @pulumi.getter
+    def nfs(self) -> Optional['outputs.NFSVolumeSourcePatch']:
+        """
+        nfs represents an NFS mount on the host. Provisioned by an admin. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        """
+        return pulumi.get(self, "nfs")
+
+    @property
+    @pulumi.getter(name="nodeAffinity")
+    def node_affinity(self) -> Optional['outputs.VolumeNodeAffinityPatch']:
+        """
+        nodeAffinity defines constraints that limit what nodes this volume can be accessed from. This field influences the scheduling of pods that use this volume.
+        """
+        return pulumi.get(self, "node_affinity")
+
+    @property
+    @pulumi.getter(name="persistentVolumeReclaimPolicy")
+    def persistent_volume_reclaim_policy(self) -> Optional[str]:
+        """
+        persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
+        """
+        return pulumi.get(self, "persistent_volume_reclaim_policy")
+
+    @property
+    @pulumi.getter(name="photonPersistentDisk")
+    def photon_persistent_disk(self) -> Optional['outputs.PhotonPersistentDiskVolumeSourcePatch']:
+        """
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        """
+        return pulumi.get(self, "photon_persistent_disk")
+
+    @property
+    @pulumi.getter(name="portworxVolume")
+    def portworx_volume(self) -> Optional['outputs.PortworxVolumeSourcePatch']:
+        """
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        """
+        return pulumi.get(self, "portworx_volume")
+
+    @property
+    @pulumi.getter
+    def quobyte(self) -> Optional['outputs.QuobyteVolumeSourcePatch']:
+        """
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        """
+        return pulumi.get(self, "quobyte")
+
+    @property
+    @pulumi.getter
+    def rbd(self) -> Optional['outputs.RBDPersistentVolumeSourcePatch']:
+        """
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        """
+        return pulumi.get(self, "rbd")
+
+    @property
+    @pulumi.getter(name="scaleIO")
+    def scale_io(self) -> Optional['outputs.ScaleIOPersistentVolumeSourcePatch']:
+        """
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        """
+        return pulumi.get(self, "scale_io")
+
+    @property
+    @pulumi.getter(name="storageClassName")
+    def storage_class_name(self) -> Optional[str]:
+        """
+        storageClassName is the name of StorageClass to which this persistent volume belongs. Empty value means that this volume does not belong to any StorageClass.
+        """
+        return pulumi.get(self, "storage_class_name")
+
+    @property
+    @pulumi.getter
+    def storageos(self) -> Optional['outputs.StorageOSPersistentVolumeSourcePatch']:
+        """
+        storageOS represents a StorageOS volume that is attached to the kubelet's host machine and mounted into the pod More info: https://examples.k8s.io/volumes/storageos/README.md
+        """
+        return pulumi.get(self, "storageos")
+
+    @property
+    @pulumi.getter(name="volumeMode")
+    def volume_mode(self) -> Optional[str]:
+        """
+        volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
+        """
+        return pulumi.get(self, "volume_mode")
+
+    @property
+    @pulumi.getter(name="vsphereVolume")
+    def vsphere_volume(self) -> Optional['outputs.VsphereVirtualDiskVolumeSourcePatch']:
+        """
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        """
+        return pulumi.get(self, "vsphere_volume")
+
+
+@pulumi.output_type
 class PersistentVolumeStatus(dict):
+    """
+    PersistentVolumeStatus is the current status of a persistent volume.
+    """
+    def __init__(__self__, *,
+                 message: Optional[str] = None,
+                 phase: Optional[str] = None,
+                 reason: Optional[str] = None):
+        """
+        PersistentVolumeStatus is the current status of a persistent volume.
+        :param str message: message is a human-readable message indicating details about why the volume is in this state.
+        :param str phase: phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+        :param str reason: reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+        """
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if phase is not None:
+            pulumi.set(__self__, "phase", phase)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        message is a human-readable message indicating details about why the volume is in this state.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def phase(self) -> Optional[str]:
+        """
+        phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
+        """
+        return pulumi.get(self, "phase")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
+        """
+        return pulumi.get(self, "reason")
+
+
+@pulumi.output_type
+class PersistentVolumeStatusPatch(dict):
     """
     PersistentVolumeStatus is the current status of a persistent volume.
     """
@@ -8365,6 +15953,60 @@ class PhotonPersistentDiskVolumeSource(dict):
         fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
         """
         return pulumi.get(self, "fs_type")
+
+
+@pulumi.output_type
+class PhotonPersistentDiskVolumeSourcePatch(dict):
+    """
+    Represents a Photon Controller persistent disk resource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "pdID":
+            suggest = "pd_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PhotonPersistentDiskVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PhotonPersistentDiskVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PhotonPersistentDiskVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 pd_id: Optional[str] = None):
+        """
+        Represents a Photon Controller persistent disk resource.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param str pd_id: pdID is the ID that identifies Photon Controller persistent disk
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if pd_id is not None:
+            pulumi.set(__self__, "pd_id", pd_id)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="pdID")
+    def pd_id(self) -> Optional[str]:
+        """
+        pdID is the ID that identifies Photon Controller persistent disk
+        """
+        return pulumi.get(self, "pd_id")
 
 
 @pulumi.output_type
@@ -8540,6 +16182,60 @@ class PodAffinity(dict):
 
 
 @pulumi.output_type
+class PodAffinityPatch(dict):
+    """
+    Pod affinity is a group of inter pod affinity scheduling rules.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecution":
+            suggest = "preferred_during_scheduling_ignored_during_execution"
+        elif key == "requiredDuringSchedulingIgnoredDuringExecution":
+            suggest = "required_during_scheduling_ignored_during_execution"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodAffinityPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodAffinityPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodAffinityPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.WeightedPodAffinityTermPatch']] = None,
+                 required_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.PodAffinityTermPatch']] = None):
+        """
+        Pod affinity is a group of inter pod affinity scheduling rules.
+        :param Sequence['WeightedPodAffinityTermPatchArgs'] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        :param Sequence['PodAffinityTermPatchArgs'] required_during_scheduling_ignored_during_execution: If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        """
+        if preferred_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_execution", preferred_during_scheduling_ignored_during_execution)
+        if required_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "required_during_scheduling_ignored_during_execution", required_during_scheduling_ignored_during_execution)
+
+    @property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
+    def preferred_during_scheduling_ignored_during_execution(self) -> Optional[Sequence['outputs.WeightedPodAffinityTermPatch']]:
+        """
+        The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        """
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
+
+    @property
+    @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
+    def required_during_scheduling_ignored_during_execution(self) -> Optional[Sequence['outputs.PodAffinityTermPatch']]:
+        """
+        If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        """
+        return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
+
+
+@pulumi.output_type
 class PodAffinityTerm(dict):
     """
     Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
@@ -8619,6 +16315,86 @@ class PodAffinityTerm(dict):
 
 
 @pulumi.output_type
+class PodAffinityTermPatch(dict):
+    """
+    Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "labelSelector":
+            suggest = "label_selector"
+        elif key == "namespaceSelector":
+            suggest = "namespace_selector"
+        elif key == "topologyKey":
+            suggest = "topology_key"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodAffinityTermPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodAffinityTermPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodAffinityTermPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 label_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 namespace_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 namespaces: Optional[Sequence[str]] = None,
+                 topology_key: Optional[str] = None):
+        """
+        Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running
+        :param '_meta.v1.LabelSelectorPatchArgs' label_selector: A label query over a set of resources, in this case pods.
+        :param '_meta.v1.LabelSelectorPatchArgs' namespace_selector: A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+        :param Sequence[str] namespaces: namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
+        :param str topology_key: This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+        """
+        if label_selector is not None:
+            pulumi.set(__self__, "label_selector", label_selector)
+        if namespace_selector is not None:
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
+        if namespaces is not None:
+            pulumi.set(__self__, "namespaces", namespaces)
+        if topology_key is not None:
+            pulumi.set(__self__, "topology_key", topology_key)
+
+    @property
+    @pulumi.getter(name="labelSelector")
+    def label_selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        A label query over a set of resources, in this case pods.
+        """
+        return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter(name="namespaceSelector")
+    def namespace_selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
+        """
+        return pulumi.get(self, "namespace_selector")
+
+    @property
+    @pulumi.getter
+    def namespaces(self) -> Optional[Sequence[str]]:
+        """
+        namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
+        """
+        return pulumi.get(self, "namespaces")
+
+    @property
+    @pulumi.getter(name="topologyKey")
+    def topology_key(self) -> Optional[str]:
+        """
+        This pod should be co-located (affinity) or not co-located (anti-affinity) with the pods matching the labelSelector in the specified namespaces, where co-located is defined as running on a node whose value of the label with key topologyKey matches that of any node on which any of the selected pods is running. Empty topologyKey is not allowed.
+        """
+        return pulumi.get(self, "topology_key")
+
+
+@pulumi.output_type
 class PodAntiAffinity(dict):
     """
     Pod anti affinity is a group of inter pod anti affinity scheduling rules.
@@ -8666,6 +16442,60 @@ class PodAntiAffinity(dict):
     @property
     @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
     def required_during_scheduling_ignored_during_execution(self) -> Optional[Sequence['outputs.PodAffinityTerm']]:
+        """
+        If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        """
+        return pulumi.get(self, "required_during_scheduling_ignored_during_execution")
+
+
+@pulumi.output_type
+class PodAntiAffinityPatch(dict):
+    """
+    Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "preferredDuringSchedulingIgnoredDuringExecution":
+            suggest = "preferred_during_scheduling_ignored_during_execution"
+        elif key == "requiredDuringSchedulingIgnoredDuringExecution":
+            suggest = "required_during_scheduling_ignored_during_execution"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodAntiAffinityPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodAntiAffinityPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodAntiAffinityPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 preferred_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.WeightedPodAffinityTermPatch']] = None,
+                 required_during_scheduling_ignored_during_execution: Optional[Sequence['outputs.PodAffinityTermPatch']] = None):
+        """
+        Pod anti affinity is a group of inter pod anti affinity scheduling rules.
+        :param Sequence['WeightedPodAffinityTermPatchArgs'] preferred_during_scheduling_ignored_during_execution: The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        :param Sequence['PodAffinityTermPatchArgs'] required_during_scheduling_ignored_during_execution: If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+        """
+        if preferred_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "preferred_during_scheduling_ignored_during_execution", preferred_during_scheduling_ignored_during_execution)
+        if required_during_scheduling_ignored_during_execution is not None:
+            pulumi.set(__self__, "required_during_scheduling_ignored_during_execution", required_during_scheduling_ignored_during_execution)
+
+    @property
+    @pulumi.getter(name="preferredDuringSchedulingIgnoredDuringExecution")
+    def preferred_during_scheduling_ignored_during_execution(self) -> Optional[Sequence['outputs.WeightedPodAffinityTermPatch']]:
+        """
+        The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+        """
+        return pulumi.get(self, "preferred_during_scheduling_ignored_during_execution")
+
+    @property
+    @pulumi.getter(name="requiredDuringSchedulingIgnoredDuringExecution")
+    def required_during_scheduling_ignored_during_execution(self) -> Optional[Sequence['outputs.PodAffinityTermPatch']]:
         """
         If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
         """
@@ -8773,6 +16603,108 @@ class PodCondition(dict):
 
 
 @pulumi.output_type
+class PodConditionPatch(dict):
+    """
+    PodCondition contains details for the current condition of this pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastProbeTime":
+            suggest = "last_probe_time"
+        elif key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_probe_time: Optional[str] = None,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        PodCondition contains details for the current condition of this pod.
+        :param str last_probe_time: Last time we probed the condition.
+        :param str last_transition_time: Last time the condition transitioned from one status to another.
+        :param str message: Human-readable message indicating details about last transition.
+        :param str reason: Unique, one-word, CamelCase reason for the condition's last transition.
+        :param str status: Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+        :param str type: Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+        """
+        if last_probe_time is not None:
+            pulumi.set(__self__, "last_probe_time", last_probe_time)
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastProbeTime")
+    def last_probe_time(self) -> Optional[str]:
+        """
+        Last time we probed the condition.
+        """
+        return pulumi.get(self, "last_probe_time")
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        Last time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        Human-readable message indicating details about last transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        Unique, one-word, CamelCase reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status is the status of the condition. Can be True, False, Unknown. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class PodDNSConfig(dict):
     """
     PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
@@ -8851,7 +16783,110 @@ class PodDNSConfigOption(dict):
 
 
 @pulumi.output_type
+class PodDNSConfigOptionPatch(dict):
+    """
+    PodDNSConfigOption defines DNS resolver options of a pod.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 value: Optional[str] = None):
+        """
+        PodDNSConfigOption defines DNS resolver options of a pod.
+        :param str name: Required.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Required.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class PodDNSConfigPatch(dict):
+    """
+    PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+    """
+    def __init__(__self__, *,
+                 nameservers: Optional[Sequence[str]] = None,
+                 options: Optional[Sequence['outputs.PodDNSConfigOptionPatch']] = None,
+                 searches: Optional[Sequence[str]] = None):
+        """
+        PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+        :param Sequence[str] nameservers: A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
+        :param Sequence['PodDNSConfigOptionPatchArgs'] options: A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
+        :param Sequence[str] searches: A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
+        """
+        if nameservers is not None:
+            pulumi.set(__self__, "nameservers", nameservers)
+        if options is not None:
+            pulumi.set(__self__, "options", options)
+        if searches is not None:
+            pulumi.set(__self__, "searches", searches)
+
+    @property
+    @pulumi.getter
+    def nameservers(self) -> Optional[Sequence[str]]:
+        """
+        A list of DNS name server IP addresses. This will be appended to the base nameservers generated from DNSPolicy. Duplicated nameservers will be removed.
+        """
+        return pulumi.get(self, "nameservers")
+
+    @property
+    @pulumi.getter
+    def options(self) -> Optional[Sequence['outputs.PodDNSConfigOptionPatch']]:
+        """
+        A list of DNS resolver options. This will be merged with the base options generated from DNSPolicy. Duplicated entries will be removed. Resolution options given in Options will override those that appear in the base DNSPolicy.
+        """
+        return pulumi.get(self, "options")
+
+    @property
+    @pulumi.getter
+    def searches(self) -> Optional[Sequence[str]]:
+        """
+        A list of DNS search domains for host-name lookup. This will be appended to the base search paths generated from DNSPolicy. Duplicated search paths will be removed.
+        """
+        return pulumi.get(self, "searches")
+
+
+@pulumi.output_type
 class PodIP(dict):
+    """
+    IP address information for entries in the (plural) PodIPs field. Each entry includes:
+       IP: An IP address allocated to the pod. Routable at least within the cluster.
+    """
+    def __init__(__self__, *,
+                 ip: Optional[str] = None):
+        """
+        IP address information for entries in the (plural) PodIPs field. Each entry includes:
+           IP: An IP address allocated to the pod. Routable at least within the cluster.
+        :param str ip: ip is an IP address (IPv4 or IPv6) assigned to the pod
+        """
+        if ip is not None:
+            pulumi.set(__self__, "ip", ip)
+
+    @property
+    @pulumi.getter
+    def ip(self) -> Optional[str]:
+        """
+        ip is an IP address (IPv4 or IPv6) assigned to the pod
+        """
+        return pulumi.get(self, "ip")
+
+
+@pulumi.output_type
+class PodIPPatch(dict):
     """
     IP address information for entries in the (plural) PodIPs field. Each entry includes:
        IP: An IP address allocated to the pod. Routable at least within the cluster.
@@ -8898,6 +16933,29 @@ class PodOS(dict):
 
 
 @pulumi.output_type
+class PodOSPatch(dict):
+    """
+    PodOS defines the OS parameters of a pod.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None):
+        """
+        PodOS defines the OS parameters of a pod.
+        :param str name: Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
 class PodReadinessGate(dict):
     """
     PodReadinessGate contains the reference to a pod condition
@@ -8930,6 +16988,46 @@ class PodReadinessGate(dict):
     @property
     @pulumi.getter(name="conditionType")
     def condition_type(self) -> str:
+        """
+        ConditionType refers to a condition in the pod's condition list with matching type.
+        """
+        return pulumi.get(self, "condition_type")
+
+
+@pulumi.output_type
+class PodReadinessGatePatch(dict):
+    """
+    PodReadinessGate contains the reference to a pod condition
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "conditionType":
+            suggest = "condition_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodReadinessGatePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodReadinessGatePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodReadinessGatePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 condition_type: Optional[str] = None):
+        """
+        PodReadinessGate contains the reference to a pod condition
+        :param str condition_type: ConditionType refers to a condition in the pod's condition list with matching type.
+        """
+        if condition_type is not None:
+            pulumi.set(__self__, "condition_type", condition_type)
+
+    @property
+    @pulumi.getter(name="conditionType")
+    def condition_type(self) -> Optional[str]:
         """
         ConditionType refers to a condition in the pod's condition list with matching type.
         """
@@ -9102,6 +17200,178 @@ class PodSecurityContext(dict):
     @property
     @pulumi.getter(name="windowsOptions")
     def windows_options(self) -> Optional['outputs.WindowsSecurityContextOptions']:
+        """
+        The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+        """
+        return pulumi.get(self, "windows_options")
+
+
+@pulumi.output_type
+class PodSecurityContextPatch(dict):
+    """
+    PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsGroup":
+            suggest = "fs_group"
+        elif key == "fsGroupChangePolicy":
+            suggest = "fs_group_change_policy"
+        elif key == "runAsGroup":
+            suggest = "run_as_group"
+        elif key == "runAsNonRoot":
+            suggest = "run_as_non_root"
+        elif key == "runAsUser":
+            suggest = "run_as_user"
+        elif key == "seLinuxOptions":
+            suggest = "se_linux_options"
+        elif key == "seccompProfile":
+            suggest = "seccomp_profile"
+        elif key == "supplementalGroups":
+            suggest = "supplemental_groups"
+        elif key == "windowsOptions":
+            suggest = "windows_options"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSecurityContextPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSecurityContextPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSecurityContextPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_group: Optional[int] = None,
+                 fs_group_change_policy: Optional[str] = None,
+                 run_as_group: Optional[int] = None,
+                 run_as_non_root: Optional[bool] = None,
+                 run_as_user: Optional[int] = None,
+                 se_linux_options: Optional['outputs.SELinuxOptionsPatch'] = None,
+                 seccomp_profile: Optional['outputs.SeccompProfilePatch'] = None,
+                 supplemental_groups: Optional[Sequence[int]] = None,
+                 sysctls: Optional[Sequence['outputs.SysctlPatch']] = None,
+                 windows_options: Optional['outputs.WindowsSecurityContextOptionsPatch'] = None):
+        """
+        PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+        :param int fs_group: A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+               
+               1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+               
+               If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
+        :param str fs_group_change_policy: fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
+        :param int run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        :param bool run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        :param int run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        :param 'SELinuxOptionsPatchArgs' se_linux_options: The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        :param 'SeccompProfilePatchArgs' seccomp_profile: The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+        :param Sequence[int] supplemental_groups: A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+        :param Sequence['SysctlPatchArgs'] sysctls: Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
+        :param 'WindowsSecurityContextOptionsPatchArgs' windows_options: The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+        """
+        if fs_group is not None:
+            pulumi.set(__self__, "fs_group", fs_group)
+        if fs_group_change_policy is not None:
+            pulumi.set(__self__, "fs_group_change_policy", fs_group_change_policy)
+        if run_as_group is not None:
+            pulumi.set(__self__, "run_as_group", run_as_group)
+        if run_as_non_root is not None:
+            pulumi.set(__self__, "run_as_non_root", run_as_non_root)
+        if run_as_user is not None:
+            pulumi.set(__self__, "run_as_user", run_as_user)
+        if se_linux_options is not None:
+            pulumi.set(__self__, "se_linux_options", se_linux_options)
+        if seccomp_profile is not None:
+            pulumi.set(__self__, "seccomp_profile", seccomp_profile)
+        if supplemental_groups is not None:
+            pulumi.set(__self__, "supplemental_groups", supplemental_groups)
+        if sysctls is not None:
+            pulumi.set(__self__, "sysctls", sysctls)
+        if windows_options is not None:
+            pulumi.set(__self__, "windows_options", windows_options)
+
+    @property
+    @pulumi.getter(name="fsGroup")
+    def fs_group(self) -> Optional[int]:
+        """
+        A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
+
+        1. The owning GID will be the FSGroup 2. The setgid bit is set (new files created in the volume will be owned by FSGroup) 3. The permission bits are OR'd with rw-rw----
+
+        If unset, the Kubelet will not modify the ownership and permissions of any volume. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "fs_group")
+
+    @property
+    @pulumi.getter(name="fsGroupChangePolicy")
+    def fs_group_change_policy(self) -> Optional[str]:
+        """
+        fsGroupChangePolicy defines behavior of changing ownership and permission of the volume before being exposed inside Pod. This field will only apply to volume types which support fsGroup based ownership(and permissions). It will have no effect on ephemeral volume types such as: secret, configmaps and emptydir. Valid values are "OnRootMismatch" and "Always". If not specified, "Always" is used. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "fs_group_change_policy")
+
+    @property
+    @pulumi.getter(name="runAsGroup")
+    def run_as_group(self) -> Optional[int]:
+        """
+        The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "run_as_group")
+
+    @property
+    @pulumi.getter(name="runAsNonRoot")
+    def run_as_non_root(self) -> Optional[bool]:
+        """
+        Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        """
+        return pulumi.get(self, "run_as_non_root")
+
+    @property
+    @pulumi.getter(name="runAsUser")
+    def run_as_user(self) -> Optional[int]:
+        """
+        The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "run_as_user")
+
+    @property
+    @pulumi.getter(name="seLinuxOptions")
+    def se_linux_options(self) -> Optional['outputs.SELinuxOptionsPatch']:
+        """
+        The SELinux context to be applied to all containers. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in SecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence for that container. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "se_linux_options")
+
+    @property
+    @pulumi.getter(name="seccompProfile")
+    def seccomp_profile(self) -> Optional['outputs.SeccompProfilePatch']:
+        """
+        The seccomp options to use by the containers in this pod. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "seccomp_profile")
+
+    @property
+    @pulumi.getter(name="supplementalGroups")
+    def supplemental_groups(self) -> Optional[Sequence[int]]:
+        """
+        A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "supplemental_groups")
+
+    @property
+    @pulumi.getter
+    def sysctls(self) -> Optional[Sequence['outputs.SysctlPatch']]:
+        """
+        Sysctls hold a list of namespaced sysctls used for the pod. Pods with unsupported sysctls (by the container runtime) might fail to launch. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "sysctls")
+
+    @property
+    @pulumi.getter(name="windowsOptions")
+    def windows_options(self) -> Optional['outputs.WindowsSecurityContextOptionsPatch']:
         """
         The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
         """
@@ -9628,6 +17898,526 @@ class PodSpec(dict):
 
 
 @pulumi.output_type
+class PodSpecPatch(dict):
+    """
+    PodSpec is a description of a pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "activeDeadlineSeconds":
+            suggest = "active_deadline_seconds"
+        elif key == "automountServiceAccountToken":
+            suggest = "automount_service_account_token"
+        elif key == "dnsConfig":
+            suggest = "dns_config"
+        elif key == "dnsPolicy":
+            suggest = "dns_policy"
+        elif key == "enableServiceLinks":
+            suggest = "enable_service_links"
+        elif key == "ephemeralContainers":
+            suggest = "ephemeral_containers"
+        elif key == "hostAliases":
+            suggest = "host_aliases"
+        elif key == "hostIPC":
+            suggest = "host_ipc"
+        elif key == "hostNetwork":
+            suggest = "host_network"
+        elif key == "hostPID":
+            suggest = "host_pid"
+        elif key == "imagePullSecrets":
+            suggest = "image_pull_secrets"
+        elif key == "initContainers":
+            suggest = "init_containers"
+        elif key == "nodeName":
+            suggest = "node_name"
+        elif key == "nodeSelector":
+            suggest = "node_selector"
+        elif key == "preemptionPolicy":
+            suggest = "preemption_policy"
+        elif key == "priorityClassName":
+            suggest = "priority_class_name"
+        elif key == "readinessGates":
+            suggest = "readiness_gates"
+        elif key == "restartPolicy":
+            suggest = "restart_policy"
+        elif key == "runtimeClassName":
+            suggest = "runtime_class_name"
+        elif key == "schedulerName":
+            suggest = "scheduler_name"
+        elif key == "securityContext":
+            suggest = "security_context"
+        elif key == "serviceAccount":
+            suggest = "service_account"
+        elif key == "serviceAccountName":
+            suggest = "service_account_name"
+        elif key == "setHostnameAsFQDN":
+            suggest = "set_hostname_as_fqdn"
+        elif key == "shareProcessNamespace":
+            suggest = "share_process_namespace"
+        elif key == "terminationGracePeriodSeconds":
+            suggest = "termination_grace_period_seconds"
+        elif key == "topologySpreadConstraints":
+            suggest = "topology_spread_constraints"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 active_deadline_seconds: Optional[int] = None,
+                 affinity: Optional['outputs.AffinityPatch'] = None,
+                 automount_service_account_token: Optional[bool] = None,
+                 containers: Optional[Sequence['outputs.ContainerPatch']] = None,
+                 dns_config: Optional['outputs.PodDNSConfigPatch'] = None,
+                 dns_policy: Optional[str] = None,
+                 enable_service_links: Optional[bool] = None,
+                 ephemeral_containers: Optional[Sequence['outputs.EphemeralContainerPatch']] = None,
+                 host_aliases: Optional[Sequence['outputs.HostAliasPatch']] = None,
+                 host_ipc: Optional[bool] = None,
+                 host_network: Optional[bool] = None,
+                 host_pid: Optional[bool] = None,
+                 hostname: Optional[str] = None,
+                 image_pull_secrets: Optional[Sequence['outputs.LocalObjectReferencePatch']] = None,
+                 init_containers: Optional[Sequence['outputs.ContainerPatch']] = None,
+                 node_name: Optional[str] = None,
+                 node_selector: Optional[Mapping[str, str]] = None,
+                 os: Optional['outputs.PodOSPatch'] = None,
+                 overhead: Optional[Mapping[str, str]] = None,
+                 preemption_policy: Optional[str] = None,
+                 priority: Optional[int] = None,
+                 priority_class_name: Optional[str] = None,
+                 readiness_gates: Optional[Sequence['outputs.PodReadinessGatePatch']] = None,
+                 restart_policy: Optional[str] = None,
+                 runtime_class_name: Optional[str] = None,
+                 scheduler_name: Optional[str] = None,
+                 security_context: Optional['outputs.PodSecurityContextPatch'] = None,
+                 service_account: Optional[str] = None,
+                 service_account_name: Optional[str] = None,
+                 set_hostname_as_fqdn: Optional[bool] = None,
+                 share_process_namespace: Optional[bool] = None,
+                 subdomain: Optional[str] = None,
+                 termination_grace_period_seconds: Optional[int] = None,
+                 tolerations: Optional[Sequence['outputs.TolerationPatch']] = None,
+                 topology_spread_constraints: Optional[Sequence['outputs.TopologySpreadConstraintPatch']] = None,
+                 volumes: Optional[Sequence['outputs.VolumePatch']] = None):
+        """
+        PodSpec is a description of a pod.
+        :param int active_deadline_seconds: Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
+        :param 'AffinityPatchArgs' affinity: If specified, the pod's scheduling constraints
+        :param bool automount_service_account_token: AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
+        :param Sequence['ContainerPatchArgs'] containers: List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
+        :param 'PodDNSConfigPatchArgs' dns_config: Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
+        :param str dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+        :param bool enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
+        :param Sequence['EphemeralContainerPatchArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param Sequence['HostAliasPatchArgs'] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+        :param bool host_ipc: Use the host's ipc namespace. Optional: Default to false.
+        :param bool host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        :param bool host_pid: Use the host's pid namespace. Optional: Default to false.
+        :param str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
+        :param Sequence['LocalObjectReferencePatchArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+        :param Sequence['ContainerPatchArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+        :param str node_name: NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
+        :param Mapping[str, str] node_selector: NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+        :param 'PodOSPatchArgs' os: Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+               
+               If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+               
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+        :param Mapping[str, str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+        :param str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        :param int priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
+        :param str priority_class_name: If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
+        :param Sequence['PodReadinessGatePatchArgs'] readiness_gates: If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
+        :param str restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+        :param str runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
+        :param str scheduler_name: If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
+        :param 'PodSecurityContextPatchArgs' security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
+        :param str service_account: DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+        :param str service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+        :param bool set_hostname_as_fqdn: If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        :param bool share_process_namespace: Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
+        :param str subdomain: If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
+        :param int termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
+        :param Sequence['TolerationPatchArgs'] tolerations: If specified, the pod's tolerations.
+        :param Sequence['TopologySpreadConstraintPatchArgs'] topology_spread_constraints: TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
+        :param Sequence['VolumePatchArgs'] volumes: List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
+        """
+        if active_deadline_seconds is not None:
+            pulumi.set(__self__, "active_deadline_seconds", active_deadline_seconds)
+        if affinity is not None:
+            pulumi.set(__self__, "affinity", affinity)
+        if automount_service_account_token is not None:
+            pulumi.set(__self__, "automount_service_account_token", automount_service_account_token)
+        if containers is not None:
+            pulumi.set(__self__, "containers", containers)
+        if dns_config is not None:
+            pulumi.set(__self__, "dns_config", dns_config)
+        if dns_policy is not None:
+            pulumi.set(__self__, "dns_policy", dns_policy)
+        if enable_service_links is not None:
+            pulumi.set(__self__, "enable_service_links", enable_service_links)
+        if ephemeral_containers is not None:
+            pulumi.set(__self__, "ephemeral_containers", ephemeral_containers)
+        if host_aliases is not None:
+            pulumi.set(__self__, "host_aliases", host_aliases)
+        if host_ipc is not None:
+            pulumi.set(__self__, "host_ipc", host_ipc)
+        if host_network is not None:
+            pulumi.set(__self__, "host_network", host_network)
+        if host_pid is not None:
+            pulumi.set(__self__, "host_pid", host_pid)
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if image_pull_secrets is not None:
+            pulumi.set(__self__, "image_pull_secrets", image_pull_secrets)
+        if init_containers is not None:
+            pulumi.set(__self__, "init_containers", init_containers)
+        if node_name is not None:
+            pulumi.set(__self__, "node_name", node_name)
+        if node_selector is not None:
+            pulumi.set(__self__, "node_selector", node_selector)
+        if os is not None:
+            pulumi.set(__self__, "os", os)
+        if overhead is not None:
+            pulumi.set(__self__, "overhead", overhead)
+        if preemption_policy is not None:
+            pulumi.set(__self__, "preemption_policy", preemption_policy)
+        if priority is not None:
+            pulumi.set(__self__, "priority", priority)
+        if priority_class_name is not None:
+            pulumi.set(__self__, "priority_class_name", priority_class_name)
+        if readiness_gates is not None:
+            pulumi.set(__self__, "readiness_gates", readiness_gates)
+        if restart_policy is not None:
+            pulumi.set(__self__, "restart_policy", restart_policy)
+        if runtime_class_name is not None:
+            pulumi.set(__self__, "runtime_class_name", runtime_class_name)
+        if scheduler_name is not None:
+            pulumi.set(__self__, "scheduler_name", scheduler_name)
+        if security_context is not None:
+            pulumi.set(__self__, "security_context", security_context)
+        if service_account is not None:
+            pulumi.set(__self__, "service_account", service_account)
+        if service_account_name is not None:
+            pulumi.set(__self__, "service_account_name", service_account_name)
+        if set_hostname_as_fqdn is not None:
+            pulumi.set(__self__, "set_hostname_as_fqdn", set_hostname_as_fqdn)
+        if share_process_namespace is not None:
+            pulumi.set(__self__, "share_process_namespace", share_process_namespace)
+        if subdomain is not None:
+            pulumi.set(__self__, "subdomain", subdomain)
+        if termination_grace_period_seconds is not None:
+            pulumi.set(__self__, "termination_grace_period_seconds", termination_grace_period_seconds)
+        if tolerations is not None:
+            pulumi.set(__self__, "tolerations", tolerations)
+        if topology_spread_constraints is not None:
+            pulumi.set(__self__, "topology_spread_constraints", topology_spread_constraints)
+        if volumes is not None:
+            pulumi.set(__self__, "volumes", volumes)
+
+    @property
+    @pulumi.getter(name="activeDeadlineSeconds")
+    def active_deadline_seconds(self) -> Optional[int]:
+        """
+        Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
+        """
+        return pulumi.get(self, "active_deadline_seconds")
+
+    @property
+    @pulumi.getter
+    def affinity(self) -> Optional['outputs.AffinityPatch']:
+        """
+        If specified, the pod's scheduling constraints
+        """
+        return pulumi.get(self, "affinity")
+
+    @property
+    @pulumi.getter(name="automountServiceAccountToken")
+    def automount_service_account_token(self) -> Optional[bool]:
+        """
+        AutomountServiceAccountToken indicates whether a service account token should be automatically mounted.
+        """
+        return pulumi.get(self, "automount_service_account_token")
+
+    @property
+    @pulumi.getter
+    def containers(self) -> Optional[Sequence['outputs.ContainerPatch']]:
+        """
+        List of containers belonging to the pod. Containers cannot currently be added or removed. There must be at least one container in a Pod. Cannot be updated.
+        """
+        return pulumi.get(self, "containers")
+
+    @property
+    @pulumi.getter(name="dnsConfig")
+    def dns_config(self) -> Optional['outputs.PodDNSConfigPatch']:
+        """
+        Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
+        """
+        return pulumi.get(self, "dns_config")
+
+    @property
+    @pulumi.getter(name="dnsPolicy")
+    def dns_policy(self) -> Optional[str]:
+        """
+        Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
+        """
+        return pulumi.get(self, "dns_policy")
+
+    @property
+    @pulumi.getter(name="enableServiceLinks")
+    def enable_service_links(self) -> Optional[bool]:
+        """
+        EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
+        """
+        return pulumi.get(self, "enable_service_links")
+
+    @property
+    @pulumi.getter(name="ephemeralContainers")
+    def ephemeral_containers(self) -> Optional[Sequence['outputs.EphemeralContainerPatch']]:
+        """
+        List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        """
+        return pulumi.get(self, "ephemeral_containers")
+
+    @property
+    @pulumi.getter(name="hostAliases")
+    def host_aliases(self) -> Optional[Sequence['outputs.HostAliasPatch']]:
+        """
+        HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
+        """
+        return pulumi.get(self, "host_aliases")
+
+    @property
+    @pulumi.getter(name="hostIPC")
+    def host_ipc(self) -> Optional[bool]:
+        """
+        Use the host's ipc namespace. Optional: Default to false.
+        """
+        return pulumi.get(self, "host_ipc")
+
+    @property
+    @pulumi.getter(name="hostNetwork")
+    def host_network(self) -> Optional[bool]:
+        """
+        Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
+        """
+        return pulumi.get(self, "host_network")
+
+    @property
+    @pulumi.getter(name="hostPID")
+    def host_pid(self) -> Optional[bool]:
+        """
+        Use the host's pid namespace. Optional: Default to false.
+        """
+        return pulumi.get(self, "host_pid")
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[str]:
+        """
+        Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
+        """
+        return pulumi.get(self, "hostname")
+
+    @property
+    @pulumi.getter(name="imagePullSecrets")
+    def image_pull_secrets(self) -> Optional[Sequence['outputs.LocalObjectReferencePatch']]:
+        """
+        ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+        """
+        return pulumi.get(self, "image_pull_secrets")
+
+    @property
+    @pulumi.getter(name="initContainers")
+    def init_containers(self) -> Optional[Sequence['outputs.ContainerPatch']]:
+        """
+        List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+        """
+        return pulumi.get(self, "init_containers")
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> Optional[str]:
+        """
+        NodeName is a request to schedule this pod onto a specific node. If it is non-empty, the scheduler simply schedules this pod onto that node, assuming that it fits resource requirements.
+        """
+        return pulumi.get(self, "node_name")
+
+    @property
+    @pulumi.getter(name="nodeSelector")
+    def node_selector(self) -> Optional[Mapping[str, str]]:
+        """
+        NodeSelector is a selector which must be true for the pod to fit on a node. Selector which must match a node's labels for the pod to be scheduled on that node. More info: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+        """
+        return pulumi.get(self, "node_selector")
+
+    @property
+    @pulumi.getter
+    def os(self) -> Optional['outputs.PodOSPatch']:
+        """
+        Specifies the OS of the containers in the pod. Some pod and container fields are restricted if this is set.
+
+        If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
+
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+        """
+        return pulumi.get(self, "os")
+
+    @property
+    @pulumi.getter
+    def overhead(self) -> Optional[Mapping[str, str]]:
+        """
+        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+        """
+        return pulumi.get(self, "overhead")
+
+    @property
+    @pulumi.getter(name="preemptionPolicy")
+    def preemption_policy(self) -> Optional[str]:
+        """
+        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        """
+        return pulumi.get(self, "preemption_policy")
+
+    @property
+    @pulumi.getter
+    def priority(self) -> Optional[int]:
+        """
+        The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
+        """
+        return pulumi.get(self, "priority")
+
+    @property
+    @pulumi.getter(name="priorityClassName")
+    def priority_class_name(self) -> Optional[str]:
+        """
+        If specified, indicates the pod's priority. "system-node-critical" and "system-cluster-critical" are two special keywords which indicate the highest priorities with the former being the highest priority. Any other name must be defined by creating a PriorityClass object with that name. If not specified, the pod priority will be default or zero if there is no default.
+        """
+        return pulumi.get(self, "priority_class_name")
+
+    @property
+    @pulumi.getter(name="readinessGates")
+    def readiness_gates(self) -> Optional[Sequence['outputs.PodReadinessGatePatch']]:
+        """
+        If specified, all readiness gates will be evaluated for pod readiness. A pod is ready when all its containers are ready AND all conditions specified in the readiness gates have status equal to "True" More info: https://git.k8s.io/enhancements/keps/sig-network/580-pod-readiness-gates
+        """
+        return pulumi.get(self, "readiness_gates")
+
+    @property
+    @pulumi.getter(name="restartPolicy")
+    def restart_policy(self) -> Optional[str]:
+        """
+        Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+        """
+        return pulumi.get(self, "restart_policy")
+
+    @property
+    @pulumi.getter(name="runtimeClassName")
+    def runtime_class_name(self) -> Optional[str]:
+        """
+        RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
+        """
+        return pulumi.get(self, "runtime_class_name")
+
+    @property
+    @pulumi.getter(name="schedulerName")
+    def scheduler_name(self) -> Optional[str]:
+        """
+        If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
+        """
+        return pulumi.get(self, "scheduler_name")
+
+    @property
+    @pulumi.getter(name="securityContext")
+    def security_context(self) -> Optional['outputs.PodSecurityContextPatch']:
+        """
+        SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
+        """
+        return pulumi.get(self, "security_context")
+
+    @property
+    @pulumi.getter(name="serviceAccount")
+    def service_account(self) -> Optional[str]:
+        """
+        DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
+        """
+        return pulumi.get(self, "service_account")
+
+    @property
+    @pulumi.getter(name="serviceAccountName")
+    def service_account_name(self) -> Optional[str]:
+        """
+        ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+        """
+        return pulumi.get(self, "service_account_name")
+
+    @property
+    @pulumi.getter(name="setHostnameAsFQDN")
+    def set_hostname_as_fqdn(self) -> Optional[bool]:
+        """
+        If true the pod's hostname will be configured as the pod's FQDN, rather than the leaf name (the default). In Linux containers, this means setting the FQDN in the hostname field of the kernel (the nodename field of struct utsname). In Windows containers, this means setting the registry value of hostname for the registry key HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters to FQDN. If a pod does not have FQDN, this has no effect. Default to false.
+        """
+        return pulumi.get(self, "set_hostname_as_fqdn")
+
+    @property
+    @pulumi.getter(name="shareProcessNamespace")
+    def share_process_namespace(self) -> Optional[bool]:
+        """
+        Share a single process namespace between all of the containers in a pod. When this is set containers will be able to view and signal processes from other containers in the same pod, and the first process in each container will not be assigned PID 1. HostPID and ShareProcessNamespace cannot both be set. Optional: Default to false.
+        """
+        return pulumi.get(self, "share_process_namespace")
+
+    @property
+    @pulumi.getter
+    def subdomain(self) -> Optional[str]:
+        """
+        If specified, the fully qualified Pod hostname will be "<hostname>.<subdomain>.<pod namespace>.svc.<cluster domain>". If not specified, the pod will not have a domainname at all.
+        """
+        return pulumi.get(self, "subdomain")
+
+    @property
+    @pulumi.getter(name="terminationGracePeriodSeconds")
+    def termination_grace_period_seconds(self) -> Optional[int]:
+        """
+        Optional duration in seconds the pod needs to terminate gracefully. May be decreased in delete request. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). If this value is nil, the default grace period will be used instead. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. Defaults to 30 seconds.
+        """
+        return pulumi.get(self, "termination_grace_period_seconds")
+
+    @property
+    @pulumi.getter
+    def tolerations(self) -> Optional[Sequence['outputs.TolerationPatch']]:
+        """
+        If specified, the pod's tolerations.
+        """
+        return pulumi.get(self, "tolerations")
+
+    @property
+    @pulumi.getter(name="topologySpreadConstraints")
+    def topology_spread_constraints(self) -> Optional[Sequence['outputs.TopologySpreadConstraintPatch']]:
+        """
+        TopologySpreadConstraints describes how a group of pods ought to spread across topology domains. Scheduler will schedule pods in a way which abides by the constraints. All topologySpreadConstraints are ANDed.
+        """
+        return pulumi.get(self, "topology_spread_constraints")
+
+    @property
+    @pulumi.getter
+    def volumes(self) -> Optional[Sequence['outputs.VolumePatch']]:
+        """
+        List of volumes that can be mounted by containers belonging to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes
+        """
+        return pulumi.get(self, "volumes")
+
+
+@pulumi.output_type
 class PodStatus(dict):
     """
     PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
@@ -9836,6 +18626,214 @@ class PodStatus(dict):
 
 
 @pulumi.output_type
+class PodStatusPatch(dict):
+    """
+    PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerStatuses":
+            suggest = "container_statuses"
+        elif key == "ephemeralContainerStatuses":
+            suggest = "ephemeral_container_statuses"
+        elif key == "hostIP":
+            suggest = "host_ip"
+        elif key == "initContainerStatuses":
+            suggest = "init_container_statuses"
+        elif key == "nominatedNodeName":
+            suggest = "nominated_node_name"
+        elif key == "podIP":
+            suggest = "pod_ip"
+        elif key == "podIPs":
+            suggest = "pod_ips"
+        elif key == "qosClass":
+            suggest = "qos_class"
+        elif key == "startTime":
+            suggest = "start_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['outputs.PodConditionPatch']] = None,
+                 container_statuses: Optional[Sequence['outputs.ContainerStatusPatch']] = None,
+                 ephemeral_container_statuses: Optional[Sequence['outputs.ContainerStatusPatch']] = None,
+                 host_ip: Optional[str] = None,
+                 init_container_statuses: Optional[Sequence['outputs.ContainerStatusPatch']] = None,
+                 message: Optional[str] = None,
+                 nominated_node_name: Optional[str] = None,
+                 phase: Optional[str] = None,
+                 pod_ip: Optional[str] = None,
+                 pod_ips: Optional[Sequence['outputs.PodIPPatch']] = None,
+                 qos_class: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 start_time: Optional[str] = None):
+        """
+        PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
+        :param Sequence['PodConditionPatchArgs'] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+        :param Sequence['ContainerStatusPatchArgs'] container_statuses: The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        :param Sequence['ContainerStatusPatchArgs'] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param str host_ip: IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+        :param Sequence['ContainerStatusPatchArgs'] init_container_statuses: The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        :param str message: A human readable message indicating details about why the pod is in this condition.
+        :param str nominated_node_name: nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
+        :param str phase: The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
+               
+               Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
+               
+               More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+        :param str pod_ip: IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+        :param Sequence['PodIPPatchArgs'] pod_ips: podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
+        :param str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        :param str reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
+        :param str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if container_statuses is not None:
+            pulumi.set(__self__, "container_statuses", container_statuses)
+        if ephemeral_container_statuses is not None:
+            pulumi.set(__self__, "ephemeral_container_statuses", ephemeral_container_statuses)
+        if host_ip is not None:
+            pulumi.set(__self__, "host_ip", host_ip)
+        if init_container_statuses is not None:
+            pulumi.set(__self__, "init_container_statuses", init_container_statuses)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if nominated_node_name is not None:
+            pulumi.set(__self__, "nominated_node_name", nominated_node_name)
+        if phase is not None:
+            pulumi.set(__self__, "phase", phase)
+        if pod_ip is not None:
+            pulumi.set(__self__, "pod_ip", pod_ip)
+        if pod_ips is not None:
+            pulumi.set(__self__, "pod_ips", pod_ips)
+        if qos_class is not None:
+            pulumi.set(__self__, "qos_class", qos_class)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if start_time is not None:
+            pulumi.set(__self__, "start_time", start_time)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.PodConditionPatch']]:
+        """
+        Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="containerStatuses")
+    def container_statuses(self) -> Optional[Sequence['outputs.ContainerStatusPatch']]:
+        """
+        The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        """
+        return pulumi.get(self, "container_statuses")
+
+    @property
+    @pulumi.getter(name="ephemeralContainerStatuses")
+    def ephemeral_container_statuses(self) -> Optional[Sequence['outputs.ContainerStatusPatch']]:
+        """
+        Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        """
+        return pulumi.get(self, "ephemeral_container_statuses")
+
+    @property
+    @pulumi.getter(name="hostIP")
+    def host_ip(self) -> Optional[str]:
+        """
+        IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+        """
+        return pulumi.get(self, "host_ip")
+
+    @property
+    @pulumi.getter(name="initContainerStatuses")
+    def init_container_statuses(self) -> Optional[Sequence['outputs.ContainerStatusPatch']]:
+        """
+        The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+        """
+        return pulumi.get(self, "init_container_statuses")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        A human readable message indicating details about why the pod is in this condition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter(name="nominatedNodeName")
+    def nominated_node_name(self) -> Optional[str]:
+        """
+        nominatedNodeName is set only when this pod preempts other pods on the node, but it cannot be scheduled right away as preemption victims receive their graceful termination periods. This field does not guarantee that the pod will be scheduled on this node. Scheduler may decide to place the pod elsewhere if other nodes become available sooner. Scheduler may also decide to give the resources on this node to a higher priority pod that is created after preemption. As a result, this field may be different than PodSpec.nodeName when the pod is scheduled.
+        """
+        return pulumi.get(self, "nominated_node_name")
+
+    @property
+    @pulumi.getter
+    def phase(self) -> Optional[str]:
+        """
+        The phase of a Pod is a simple, high-level summary of where the Pod is in its lifecycle. The conditions array, the reason and message fields, and the individual container status arrays contain more detail about the pod's status. There are five possible phase values:
+
+        Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
+
+        More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+        """
+        return pulumi.get(self, "phase")
+
+    @property
+    @pulumi.getter(name="podIP")
+    def pod_ip(self) -> Optional[str]:
+        """
+        IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+        """
+        return pulumi.get(self, "pod_ip")
+
+    @property
+    @pulumi.getter(name="podIPs")
+    def pod_ips(self) -> Optional[Sequence['outputs.PodIPPatch']]:
+        """
+        podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
+        """
+        return pulumi.get(self, "pod_ips")
+
+    @property
+    @pulumi.getter(name="qosClass")
+    def qos_class(self) -> Optional[str]:
+        """
+        The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        """
+        return pulumi.get(self, "qos_class")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter(name="startTime")
+    def start_time(self) -> Optional[str]:
+        """
+        RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
+        """
+        return pulumi.get(self, "start_time")
+
+
+@pulumi.output_type
 class PodTemplate(dict):
     """
     PodTemplate describes a template for creating copies of a predefined pod.
@@ -9947,6 +18945,41 @@ class PodTemplateSpec(dict):
 
 
 @pulumi.output_type
+class PodTemplateSpecPatch(dict):
+    """
+    PodTemplateSpec describes the data a pod should have when created from a template
+    """
+    def __init__(__self__, *,
+                 metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
+                 spec: Optional['outputs.PodSpecPatch'] = None):
+        """
+        PodTemplateSpec describes the data a pod should have when created from a template
+        :param '_meta.v1.ObjectMetaPatchArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        :param 'PodSpecPatchArgs' spec: Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
+        if spec is not None:
+            pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional['_meta.v1.outputs.ObjectMetaPatch']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> Optional['outputs.PodSpecPatch']:
+        """
+        Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        """
+        return pulumi.get(self, "spec")
+
+
+@pulumi.output_type
 class PortStatus(dict):
     def __init__(__self__, *,
                  port: int,
@@ -9991,6 +19024,55 @@ class PortStatus(dict):
           format foo.example.com/CamelCase.
         """
         return pulumi.get(self, "error")
+
+
+@pulumi.output_type
+class PortStatusPatch(dict):
+    def __init__(__self__, *,
+                 error: Optional[str] = None,
+                 port: Optional[int] = None,
+                 protocol: Optional[str] = None):
+        """
+        :param str error: Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+                 CamelCase names
+               - cloud provider specific error values must have names that comply with the
+                 format foo.example.com/CamelCase.
+        :param int port: Port is the port number of the service port of which status is recorded here
+        :param str protocol: Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        """
+        if error is not None:
+            pulumi.set(__self__, "error", error)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @property
+    @pulumi.getter
+    def error(self) -> Optional[str]:
+        """
+        Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+          CamelCase names
+        - cloud provider specific error values must have names that comply with the
+          format foo.example.com/CamelCase.
+        """
+        return pulumi.get(self, "error")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        """
+        Port is the port number of the service port of which status is recorded here
+        """
+        return pulumi.get(self, "port")
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[str]:
+        """
+        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        """
+        return pulumi.get(self, "protocol")
 
 
 @pulumi.output_type
@@ -10061,6 +19143,74 @@ class PortworxVolumeSource(dict):
 
 
 @pulumi.output_type
+class PortworxVolumeSourcePatch(dict):
+    """
+    PortworxVolumeSource represents a Portworx volume resource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "volumeID":
+            suggest = "volume_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PortworxVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PortworxVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PortworxVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 volume_id: Optional[str] = None):
+        """
+        PortworxVolumeSource represents a Portworx volume resource.
+        :param str fs_type: fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param str volume_id: volumeID uniquely identifies a Portworx volume
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if volume_id is not None:
+            pulumi.set(__self__, "volume_id", volume_id)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="volumeID")
+    def volume_id(self) -> Optional[str]:
+        """
+        volumeID uniquely identifies a Portworx volume
+        """
+        return pulumi.get(self, "volume_id")
+
+
+@pulumi.output_type
 class PreferredSchedulingTerm(dict):
     """
     An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
@@ -10087,6 +19237,41 @@ class PreferredSchedulingTerm(dict):
     @property
     @pulumi.getter
     def weight(self) -> int:
+        """
+        Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
+        """
+        return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
+class PreferredSchedulingTermPatch(dict):
+    """
+    An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+    """
+    def __init__(__self__, *,
+                 preference: Optional['outputs.NodeSelectorTermPatch'] = None,
+                 weight: Optional[int] = None):
+        """
+        An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).
+        :param 'NodeSelectorTermPatchArgs' preference: A node selector term, associated with the corresponding weight.
+        :param int weight: Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
+        """
+        if preference is not None:
+            pulumi.set(__self__, "preference", preference)
+        if weight is not None:
+            pulumi.set(__self__, "weight", weight)
+
+    @property
+    @pulumi.getter
+    def preference(self) -> Optional['outputs.NodeSelectorTermPatch']:
+        """
+        A node selector term, associated with the corresponding weight.
+        """
+        return pulumi.get(self, "preference")
+
+    @property
+    @pulumi.getter
+    def weight(self) -> Optional[int]:
         """
         Weight associated with matching the corresponding nodeSelectorTerm, in the range 1-100.
         """
@@ -10258,6 +19443,170 @@ class Probe(dict):
 
 
 @pulumi.output_type
+class ProbePatch(dict):
+    """
+    Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "exec":
+            suggest = "exec_"
+        elif key == "failureThreshold":
+            suggest = "failure_threshold"
+        elif key == "httpGet":
+            suggest = "http_get"
+        elif key == "initialDelaySeconds":
+            suggest = "initial_delay_seconds"
+        elif key == "periodSeconds":
+            suggest = "period_seconds"
+        elif key == "successThreshold":
+            suggest = "success_threshold"
+        elif key == "tcpSocket":
+            suggest = "tcp_socket"
+        elif key == "terminationGracePeriodSeconds":
+            suggest = "termination_grace_period_seconds"
+        elif key == "timeoutSeconds":
+            suggest = "timeout_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProbePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProbePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProbePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 exec_: Optional['outputs.ExecActionPatch'] = None,
+                 failure_threshold: Optional[int] = None,
+                 grpc: Optional['outputs.GRPCActionPatch'] = None,
+                 http_get: Optional['outputs.HTTPGetActionPatch'] = None,
+                 initial_delay_seconds: Optional[int] = None,
+                 period_seconds: Optional[int] = None,
+                 success_threshold: Optional[int] = None,
+                 tcp_socket: Optional['outputs.TCPSocketActionPatch'] = None,
+                 termination_grace_period_seconds: Optional[int] = None,
+                 timeout_seconds: Optional[int] = None):
+        """
+        Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
+        :param 'ExecActionPatchArgs' exec_: Exec specifies the action to take.
+        :param int failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
+        :param 'GRPCActionPatchArgs' grpc: GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        :param 'HTTPGetActionPatchArgs' http_get: HTTPGet specifies the http request to perform.
+        :param int initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param int period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+        :param int success_threshold: Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
+        :param 'TCPSocketActionPatchArgs' tcp_socket: TCPSocket specifies an action involving a TCP port.
+        :param int termination_grace_period_seconds: Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
+        :param int timeout_seconds: Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        """
+        if exec_ is not None:
+            pulumi.set(__self__, "exec_", exec_)
+        if failure_threshold is not None:
+            pulumi.set(__self__, "failure_threshold", failure_threshold)
+        if grpc is not None:
+            pulumi.set(__self__, "grpc", grpc)
+        if http_get is not None:
+            pulumi.set(__self__, "http_get", http_get)
+        if initial_delay_seconds is not None:
+            pulumi.set(__self__, "initial_delay_seconds", initial_delay_seconds)
+        if period_seconds is not None:
+            pulumi.set(__self__, "period_seconds", period_seconds)
+        if success_threshold is not None:
+            pulumi.set(__self__, "success_threshold", success_threshold)
+        if tcp_socket is not None:
+            pulumi.set(__self__, "tcp_socket", tcp_socket)
+        if termination_grace_period_seconds is not None:
+            pulumi.set(__self__, "termination_grace_period_seconds", termination_grace_period_seconds)
+        if timeout_seconds is not None:
+            pulumi.set(__self__, "timeout_seconds", timeout_seconds)
+
+    @property
+    @pulumi.getter(name="exec")
+    def exec_(self) -> Optional['outputs.ExecActionPatch']:
+        """
+        Exec specifies the action to take.
+        """
+        return pulumi.get(self, "exec_")
+
+    @property
+    @pulumi.getter(name="failureThreshold")
+    def failure_threshold(self) -> Optional[int]:
+        """
+        Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
+        """
+        return pulumi.get(self, "failure_threshold")
+
+    @property
+    @pulumi.getter
+    def grpc(self) -> Optional['outputs.GRPCActionPatch']:
+        """
+        GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        """
+        return pulumi.get(self, "grpc")
+
+    @property
+    @pulumi.getter(name="httpGet")
+    def http_get(self) -> Optional['outputs.HTTPGetActionPatch']:
+        """
+        HTTPGet specifies the http request to perform.
+        """
+        return pulumi.get(self, "http_get")
+
+    @property
+    @pulumi.getter(name="initialDelaySeconds")
+    def initial_delay_seconds(self) -> Optional[int]:
+        """
+        Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        """
+        return pulumi.get(self, "initial_delay_seconds")
+
+    @property
+    @pulumi.getter(name="periodSeconds")
+    def period_seconds(self) -> Optional[int]:
+        """
+        How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
+        """
+        return pulumi.get(self, "period_seconds")
+
+    @property
+    @pulumi.getter(name="successThreshold")
+    def success_threshold(self) -> Optional[int]:
+        """
+        Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1.
+        """
+        return pulumi.get(self, "success_threshold")
+
+    @property
+    @pulumi.getter(name="tcpSocket")
+    def tcp_socket(self) -> Optional['outputs.TCPSocketActionPatch']:
+        """
+        TCPSocket specifies an action involving a TCP port.
+        """
+        return pulumi.get(self, "tcp_socket")
+
+    @property
+    @pulumi.getter(name="terminationGracePeriodSeconds")
+    def termination_grace_period_seconds(self) -> Optional[int]:
+        """
+        Optional duration in seconds the pod needs to terminate gracefully upon probe failure. The grace period is the duration in seconds after the processes running in the pod are sent a termination signal and the time when the processes are forcibly halted with a kill signal. Set this value longer than the expected cleanup time for your process. If this value is nil, the pod's terminationGracePeriodSeconds will be used. Otherwise, this value overrides the value provided by the pod spec. Value must be non-negative integer. The value zero indicates stop immediately via the kill signal (no opportunity to shut down). This is a beta field and requires enabling ProbeTerminationGracePeriod feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds is used if unset.
+        """
+        return pulumi.get(self, "termination_grace_period_seconds")
+
+    @property
+    @pulumi.getter(name="timeoutSeconds")
+    def timeout_seconds(self) -> Optional[int]:
+        """
+        Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        """
+        return pulumi.get(self, "timeout_seconds")
+
+
+@pulumi.output_type
 class ProjectedVolumeSource(dict):
     """
     Represents a projected volume source
@@ -10306,6 +19655,58 @@ class ProjectedVolumeSource(dict):
         defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
         """
         return pulumi.get(self, "default_mode")
+
+
+@pulumi.output_type
+class ProjectedVolumeSourcePatch(dict):
+    """
+    Represents a projected volume source
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProjectedVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProjectedVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProjectedVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_mode: Optional[int] = None,
+                 sources: Optional[Sequence['outputs.VolumeProjectionPatch']] = None):
+        """
+        Represents a projected volume source
+        :param int default_mode: defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['VolumeProjectionPatchArgs'] sources: sources is the list of volume projections
+        """
+        if default_mode is not None:
+            pulumi.set(__self__, "default_mode", default_mode)
+        if sources is not None:
+            pulumi.set(__self__, "sources", sources)
+
+    @property
+    @pulumi.getter(name="defaultMode")
+    def default_mode(self) -> Optional[int]:
+        """
+        defaultMode are the mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        """
+        return pulumi.get(self, "default_mode")
+
+    @property
+    @pulumi.getter
+    def sources(self) -> Optional[Sequence['outputs.VolumeProjectionPatch']]:
+        """
+        sources is the list of volume projections
+        """
+        return pulumi.get(self, "sources")
 
 
 @pulumi.output_type
@@ -10404,6 +19805,106 @@ class QuobyteVolumeSource(dict):
         user to map volume access to Defaults to serivceaccount user
         """
         return pulumi.get(self, "user")
+
+
+@pulumi.output_type
+class QuobyteVolumeSourcePatch(dict):
+    """
+    Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "readOnly":
+            suggest = "read_only"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in QuobyteVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        QuobyteVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        QuobyteVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 group: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 registry: Optional[str] = None,
+                 tenant: Optional[str] = None,
+                 user: Optional[str] = None,
+                 volume: Optional[str] = None):
+        """
+        Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
+        :param str group: group to map volume access to Default is no group
+        :param bool read_only: readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+        :param str registry: registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+        :param str tenant: tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+        :param str user: user to map volume access to Defaults to serivceaccount user
+        :param str volume: volume is a string that references an already created Quobyte volume by name.
+        """
+        if group is not None:
+            pulumi.set(__self__, "group", group)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if registry is not None:
+            pulumi.set(__self__, "registry", registry)
+        if tenant is not None:
+            pulumi.set(__self__, "tenant", tenant)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
+
+    @property
+    @pulumi.getter
+    def group(self) -> Optional[str]:
+        """
+        group to map volume access to Default is no group
+        """
+        return pulumi.get(self, "group")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the Quobyte volume to be mounted with read-only permissions. Defaults to false.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter
+    def registry(self) -> Optional[str]:
+        """
+        registry represents a single or multiple Quobyte Registry services specified as a string as host:port pair (multiple entries are separated with commas) which acts as the central registry for volumes
+        """
+        return pulumi.get(self, "registry")
+
+    @property
+    @pulumi.getter
+    def tenant(self) -> Optional[str]:
+        """
+        tenant owning the given Quobyte volume in the Backend Used with dynamically provisioned Quobyte volumes, value is set by the plugin
+        """
+        return pulumi.get(self, "tenant")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        """
+        user to map volume access to Defaults to serivceaccount user
+        """
+        return pulumi.get(self, "user")
+
+    @property
+    @pulumi.getter
+    def volume(self) -> Optional[str]:
+        """
+        volume is a string that references an already created Quobyte volume by name.
+        """
+        return pulumi.get(self, "volume")
 
 
 @pulumi.output_type
@@ -10533,6 +20034,134 @@ class RBDPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class RBDPersistentVolumeSourcePatch(dict):
+    """
+    Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RBDPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RBDPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RBDPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 image: Optional[str] = None,
+                 keyring: Optional[str] = None,
+                 monitors: Optional[Sequence[str]] = None,
+                 pool: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 user: Optional[str] = None):
+        """
+        Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        :param str image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str keyring: keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param Sequence[str] monitors: monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str pool: pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param 'SecretReferencePatchArgs' secret_ref: secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str user: user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if keyring is not None:
+            pulumi.set(__self__, "keyring", keyring)
+        if monitors is not None:
+            pulumi.set(__self__, "monitors", monitors)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        """
+        image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter
+    def keyring(self) -> Optional[str]:
+        """
+        keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "keyring")
+
+    @property
+    @pulumi.getter
+    def monitors(self) -> Optional[Sequence[str]]:
+        """
+        monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "monitors")
+
+    @property
+    @pulumi.getter
+    def pool(self) -> Optional[str]:
+        """
+        pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "pool")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        """
+        user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "user")
+
+
+@pulumi.output_type
 class RBDVolumeSource(dict):
     """
     Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
@@ -10644,6 +20273,134 @@ class RBDVolumeSource(dict):
     @property
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.LocalObjectReference']:
+        """
+        secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        """
+        user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "user")
+
+
+@pulumi.output_type
+class RBDVolumeSourcePatch(dict):
+    """
+    Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RBDVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RBDVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RBDVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 image: Optional[str] = None,
+                 keyring: Optional[str] = None,
+                 monitors: Optional[Sequence[str]] = None,
+                 pool: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 user: Optional[str] = None):
+        """
+        Represents a Rados Block Device mount that lasts the lifetime of a pod. RBD volumes support ownership management and SELinux relabeling.
+        :param str fs_type: fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        :param str image: image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str keyring: keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param Sequence[str] monitors: monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str pool: pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param bool read_only: readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        :param str user: user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if image is not None:
+            pulumi.set(__self__, "image", image)
+        if keyring is not None:
+            pulumi.set(__self__, "keyring", keyring)
+        if monitors is not None:
+            pulumi.set(__self__, "monitors", monitors)
+        if pool is not None:
+            pulumi.set(__self__, "pool", pool)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def image(self) -> Optional[str]:
+        """
+        image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "image")
+
+    @property
+    @pulumi.getter
+    def keyring(self) -> Optional[str]:
+        """
+        keyring is the path to key ring for RBDUser. Default is /etc/ceph/keyring. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "keyring")
+
+    @property
+    @pulumi.getter
+    def monitors(self) -> Optional[Sequence[str]]:
+        """
+        monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "monitors")
+
+    @property
+    @pulumi.getter
+    def pool(self) -> Optional[str]:
+        """
+        pool is the rados pool name. Default is rbd. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "pool")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
         """
         secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
         """
@@ -10833,6 +20590,94 @@ class ReplicationControllerCondition(dict):
 
 
 @pulumi.output_type
+class ReplicationControllerConditionPatch(dict):
+    """
+    ReplicationControllerCondition describes the state of a replication controller at a certain point.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastTransitionTime":
+            suggest = "last_transition_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationControllerConditionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationControllerConditionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationControllerConditionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 last_transition_time: Optional[str] = None,
+                 message: Optional[str] = None,
+                 reason: Optional[str] = None,
+                 status: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        ReplicationControllerCondition describes the state of a replication controller at a certain point.
+        :param str last_transition_time: The last time the condition transitioned from one status to another.
+        :param str message: A human readable message indicating details about the transition.
+        :param str reason: The reason for the condition's last transition.
+        :param str status: Status of the condition, one of True, False, Unknown.
+        :param str type: Type of replication controller condition.
+        """
+        if last_transition_time is not None:
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
+        if message is not None:
+            pulumi.set(__self__, "message", message)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="lastTransitionTime")
+    def last_transition_time(self) -> Optional[str]:
+        """
+        The last time the condition transitioned from one status to another.
+        """
+        return pulumi.get(self, "last_transition_time")
+
+    @property
+    @pulumi.getter
+    def message(self) -> Optional[str]:
+        """
+        A human readable message indicating details about the transition.
+        """
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[str]:
+        """
+        The reason for the condition's last transition.
+        """
+        return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[str]:
+        """
+        Status of the condition, one of True, False, Unknown.
+        """
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type of replication controller condition.
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class ReplicationControllerSpec(dict):
     """
     ReplicationControllerSpec is the specification of a replication controller.
@@ -10902,6 +20747,82 @@ class ReplicationControllerSpec(dict):
     @property
     @pulumi.getter
     def template(self) -> Optional['outputs.PodTemplateSpec']:
+        """
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        """
+        return pulumi.get(self, "template")
+
+
+@pulumi.output_type
+class ReplicationControllerSpecPatch(dict):
+    """
+    ReplicationControllerSpec is the specification of a replication controller.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "minReadySeconds":
+            suggest = "min_ready_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationControllerSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationControllerSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationControllerSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 min_ready_seconds: Optional[int] = None,
+                 replicas: Optional[int] = None,
+                 selector: Optional[Mapping[str, str]] = None,
+                 template: Optional['outputs.PodTemplateSpecPatch'] = None):
+        """
+        ReplicationControllerSpec is the specification of a replication controller.
+        :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        :param int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        :param Mapping[str, str] selector: Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        :param 'PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        """
+        if min_ready_seconds is not None:
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if template is not None:
+            pulumi.set(__self__, "template", template)
+
+    @property
+    @pulumi.getter(name="minReadySeconds")
+    def min_ready_seconds(self) -> Optional[int]:
+        """
+        Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
+        """
+        return pulumi.get(self, "min_ready_seconds")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        """
+        return pulumi.get(self, "replicas")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[Mapping[str, str]]:
+        """
+        Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter
+    def template(self) -> Optional['outputs.PodTemplateSpecPatch']:
         """
         Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
@@ -11014,6 +20935,112 @@ class ReplicationControllerStatus(dict):
 
 
 @pulumi.output_type
+class ReplicationControllerStatusPatch(dict):
+    """
+    ReplicationControllerStatus represents the current status of a replication controller.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "availableReplicas":
+            suggest = "available_replicas"
+        elif key == "fullyLabeledReplicas":
+            suggest = "fully_labeled_replicas"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "readyReplicas":
+            suggest = "ready_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ReplicationControllerStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ReplicationControllerStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ReplicationControllerStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 available_replicas: Optional[int] = None,
+                 conditions: Optional[Sequence['outputs.ReplicationControllerConditionPatch']] = None,
+                 fully_labeled_replicas: Optional[int] = None,
+                 observed_generation: Optional[int] = None,
+                 ready_replicas: Optional[int] = None,
+                 replicas: Optional[int] = None):
+        """
+        ReplicationControllerStatus represents the current status of a replication controller.
+        :param int available_replicas: The number of available replicas (ready for at least minReadySeconds) for this replication controller.
+        :param Sequence['ReplicationControllerConditionPatchArgs'] conditions: Represents the latest available observations of a replication controller's current state.
+        :param int fully_labeled_replicas: The number of pods that have labels matching the labels of the pod template of the replication controller.
+        :param int observed_generation: ObservedGeneration reflects the generation of the most recently observed replication controller.
+        :param int ready_replicas: The number of ready replicas for this replication controller.
+        :param int replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        """
+        if available_replicas is not None:
+            pulumi.set(__self__, "available_replicas", available_replicas)
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if fully_labeled_replicas is not None:
+            pulumi.set(__self__, "fully_labeled_replicas", fully_labeled_replicas)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if ready_replicas is not None:
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+
+    @property
+    @pulumi.getter(name="availableReplicas")
+    def available_replicas(self) -> Optional[int]:
+        """
+        The number of available replicas (ready for at least minReadySeconds) for this replication controller.
+        """
+        return pulumi.get(self, "available_replicas")
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.ReplicationControllerConditionPatch']]:
+        """
+        Represents the latest available observations of a replication controller's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="fullyLabeledReplicas")
+    def fully_labeled_replicas(self) -> Optional[int]:
+        """
+        The number of pods that have labels matching the labels of the pod template of the replication controller.
+        """
+        return pulumi.get(self, "fully_labeled_replicas")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        ObservedGeneration reflects the generation of the most recently observed replication controller.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="readyReplicas")
+    def ready_replicas(self) -> Optional[int]:
+        """
+        The number of ready replicas for this replication controller.
+        """
+        return pulumi.get(self, "ready_replicas")
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[int]:
+        """
+        Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        """
+        return pulumi.get(self, "replicas")
+
+
+@pulumi.output_type
 class ResourceFieldSelector(dict):
     """
     ResourceFieldSelector represents container resources (cpu, memory) and their output format
@@ -11074,6 +21101,70 @@ class ResourceFieldSelector(dict):
         Specifies the output format of the exposed resources, defaults to "1"
         """
         return pulumi.get(self, "divisor")
+
+
+@pulumi.output_type
+class ResourceFieldSelectorPatch(dict):
+    """
+    ResourceFieldSelector represents container resources (cpu, memory) and their output format
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "containerName":
+            suggest = "container_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceFieldSelectorPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceFieldSelectorPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceFieldSelectorPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 container_name: Optional[str] = None,
+                 divisor: Optional[str] = None,
+                 resource: Optional[str] = None):
+        """
+        ResourceFieldSelector represents container resources (cpu, memory) and their output format
+        :param str container_name: Container name: required for volumes, optional for env vars
+        :param str divisor: Specifies the output format of the exposed resources, defaults to "1"
+        :param str resource: Required: resource to select
+        """
+        if container_name is not None:
+            pulumi.set(__self__, "container_name", container_name)
+        if divisor is not None:
+            pulumi.set(__self__, "divisor", divisor)
+        if resource is not None:
+            pulumi.set(__self__, "resource", resource)
+
+    @property
+    @pulumi.getter(name="containerName")
+    def container_name(self) -> Optional[str]:
+        """
+        Container name: required for volumes, optional for env vars
+        """
+        return pulumi.get(self, "container_name")
+
+    @property
+    @pulumi.getter
+    def divisor(self) -> Optional[str]:
+        """
+        Specifies the output format of the exposed resources, defaults to "1"
+        """
+        return pulumi.get(self, "divisor")
+
+    @property
+    @pulumi.getter
+    def resource(self) -> Optional[str]:
+        """
+        Required: resource to select
+        """
+        return pulumi.get(self, "resource")
 
 
 @pulumi.output_type
@@ -11229,7 +21320,106 @@ class ResourceQuotaSpec(dict):
 
 
 @pulumi.output_type
+class ResourceQuotaSpecPatch(dict):
+    """
+    ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "scopeSelector":
+            suggest = "scope_selector"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ResourceQuotaSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ResourceQuotaSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ResourceQuotaSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 hard: Optional[Mapping[str, str]] = None,
+                 scope_selector: Optional['outputs.ScopeSelectorPatch'] = None,
+                 scopes: Optional[Sequence[str]] = None):
+        """
+        ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
+        :param Mapping[str, str] hard: hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+        :param 'ScopeSelectorPatchArgs' scope_selector: scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
+        :param Sequence[str] scopes: A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
+        """
+        if hard is not None:
+            pulumi.set(__self__, "hard", hard)
+        if scope_selector is not None:
+            pulumi.set(__self__, "scope_selector", scope_selector)
+        if scopes is not None:
+            pulumi.set(__self__, "scopes", scopes)
+
+    @property
+    @pulumi.getter
+    def hard(self) -> Optional[Mapping[str, str]]:
+        """
+        hard is the set of desired hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+        """
+        return pulumi.get(self, "hard")
+
+    @property
+    @pulumi.getter(name="scopeSelector")
+    def scope_selector(self) -> Optional['outputs.ScopeSelectorPatch']:
+        """
+        scopeSelector is also a collection of filters like scopes that must match each object tracked by a quota but expressed using ScopeSelectorOperator in combination with possible values. For a resource to match, both scopes AND scopeSelector (if specified in spec), must be matched.
+        """
+        return pulumi.get(self, "scope_selector")
+
+    @property
+    @pulumi.getter
+    def scopes(self) -> Optional[Sequence[str]]:
+        """
+        A collection of filters that must match each object tracked by a quota. If not specified, the quota matches all objects.
+        """
+        return pulumi.get(self, "scopes")
+
+
+@pulumi.output_type
 class ResourceQuotaStatus(dict):
+    """
+    ResourceQuotaStatus defines the enforced hard limits and observed use.
+    """
+    def __init__(__self__, *,
+                 hard: Optional[Mapping[str, str]] = None,
+                 used: Optional[Mapping[str, str]] = None):
+        """
+        ResourceQuotaStatus defines the enforced hard limits and observed use.
+        :param Mapping[str, str] hard: Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+        :param Mapping[str, str] used: Used is the current observed total usage of the resource in the namespace.
+        """
+        if hard is not None:
+            pulumi.set(__self__, "hard", hard)
+        if used is not None:
+            pulumi.set(__self__, "used", used)
+
+    @property
+    @pulumi.getter
+    def hard(self) -> Optional[Mapping[str, str]]:
+        """
+        Hard is the set of enforced hard limits for each named resource. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
+        """
+        return pulumi.get(self, "hard")
+
+    @property
+    @pulumi.getter
+    def used(self) -> Optional[Mapping[str, str]]:
+        """
+        Used is the current observed total usage of the resource in the namespace.
+        """
+        return pulumi.get(self, "used")
+
+
+@pulumi.output_type
+class ResourceQuotaStatusPatch(dict):
     """
     ResourceQuotaStatus defines the enforced hard limits and observed use.
     """
@@ -11299,7 +21489,101 @@ class ResourceRequirements(dict):
 
 
 @pulumi.output_type
+class ResourceRequirementsPatch(dict):
+    """
+    ResourceRequirements describes the compute resource requirements.
+    """
+    def __init__(__self__, *,
+                 limits: Optional[Mapping[str, str]] = None,
+                 requests: Optional[Mapping[str, str]] = None):
+        """
+        ResourceRequirements describes the compute resource requirements.
+        :param Mapping[str, str] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        if limits is not None:
+            pulumi.set(__self__, "limits", limits)
+        if requests is not None:
+            pulumi.set(__self__, "requests", requests)
+
+    @property
+    @pulumi.getter
+    def limits(self) -> Optional[Mapping[str, str]]:
+        """
+        Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "limits")
+
+    @property
+    @pulumi.getter
+    def requests(self) -> Optional[Mapping[str, str]]:
+        """
+        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        """
+        return pulumi.get(self, "requests")
+
+
+@pulumi.output_type
 class SELinuxOptions(dict):
+    """
+    SELinuxOptions are the labels to be applied to the container
+    """
+    def __init__(__self__, *,
+                 level: Optional[str] = None,
+                 role: Optional[str] = None,
+                 type: Optional[str] = None,
+                 user: Optional[str] = None):
+        """
+        SELinuxOptions are the labels to be applied to the container
+        :param str level: Level is SELinux level label that applies to the container.
+        :param str role: Role is a SELinux role label that applies to the container.
+        :param str type: Type is a SELinux type label that applies to the container.
+        :param str user: User is a SELinux user label that applies to the container.
+        """
+        if level is not None:
+            pulumi.set(__self__, "level", level)
+        if role is not None:
+            pulumi.set(__self__, "role", role)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if user is not None:
+            pulumi.set(__self__, "user", user)
+
+    @property
+    @pulumi.getter
+    def level(self) -> Optional[str]:
+        """
+        Level is SELinux level label that applies to the container.
+        """
+        return pulumi.get(self, "level")
+
+    @property
+    @pulumi.getter
+    def role(self) -> Optional[str]:
+        """
+        Role is a SELinux role label that applies to the container.
+        """
+        return pulumi.get(self, "role")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        Type is a SELinux type label that applies to the container.
+        """
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
+    def user(self) -> Optional[str]:
+        """
+        User is a SELinux user label that applies to the container.
+        """
+        return pulumi.get(self, "user")
+
+
+@pulumi.output_type
+class SELinuxOptionsPatch(dict):
     """
     SELinuxOptions are the labels to be applied to the container
     """
@@ -11517,6 +21801,168 @@ class ScaleIOPersistentVolumeSource(dict):
 
 
 @pulumi.output_type
+class ScaleIOPersistentVolumeSourcePatch(dict):
+    """
+    ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "protectionDomain":
+            suggest = "protection_domain"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "sslEnabled":
+            suggest = "ssl_enabled"
+        elif key == "storageMode":
+            suggest = "storage_mode"
+        elif key == "storagePool":
+            suggest = "storage_pool"
+        elif key == "volumeName":
+            suggest = "volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScaleIOPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScaleIOPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScaleIOPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 gateway: Optional[str] = None,
+                 protection_domain: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.SecretReferencePatch'] = None,
+                 ssl_enabled: Optional[bool] = None,
+                 storage_mode: Optional[str] = None,
+                 storage_pool: Optional[str] = None,
+                 system: Optional[str] = None,
+                 volume_name: Optional[str] = None):
+        """
+        ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+        :param str gateway: gateway is the host address of the ScaleIO API Gateway.
+        :param str protection_domain: protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'SecretReferencePatchArgs' secret_ref: secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        :param bool ssl_enabled: sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
+        :param str storage_mode: storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        :param str storage_pool: storagePool is the ScaleIO Storage Pool associated with the protection domain.
+        :param str system: system is the name of the storage system as configured in ScaleIO.
+        :param str volume_name: volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if gateway is not None:
+            pulumi.set(__self__, "gateway", gateway)
+        if protection_domain is not None:
+            pulumi.set(__self__, "protection_domain", protection_domain)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if ssl_enabled is not None:
+            pulumi.set(__self__, "ssl_enabled", ssl_enabled)
+        if storage_mode is not None:
+            pulumi.set(__self__, "storage_mode", storage_mode)
+        if storage_pool is not None:
+            pulumi.set(__self__, "storage_pool", storage_pool)
+        if system is not None:
+            pulumi.set(__self__, "system", system)
+        if volume_name is not None:
+            pulumi.set(__self__, "volume_name", volume_name)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def gateway(self) -> Optional[str]:
+        """
+        gateway is the host address of the ScaleIO API Gateway.
+        """
+        return pulumi.get(self, "gateway")
+
+    @property
+    @pulumi.getter(name="protectionDomain")
+    def protection_domain(self) -> Optional[str]:
+        """
+        protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
+        """
+        return pulumi.get(self, "protection_domain")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="sslEnabled")
+    def ssl_enabled(self) -> Optional[bool]:
+        """
+        sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
+        """
+        return pulumi.get(self, "ssl_enabled")
+
+    @property
+    @pulumi.getter(name="storageMode")
+    def storage_mode(self) -> Optional[str]:
+        """
+        storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        """
+        return pulumi.get(self, "storage_mode")
+
+    @property
+    @pulumi.getter(name="storagePool")
+    def storage_pool(self) -> Optional[str]:
+        """
+        storagePool is the ScaleIO Storage Pool associated with the protection domain.
+        """
+        return pulumi.get(self, "storage_pool")
+
+    @property
+    @pulumi.getter
+    def system(self) -> Optional[str]:
+        """
+        system is the name of the storage system as configured in ScaleIO.
+        """
+        return pulumi.get(self, "system")
+
+    @property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> Optional[str]:
+        """
+        volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
+        """
+        return pulumi.get(self, "volume_name")
+
+
+@pulumi.output_type
 class ScaleIOVolumeSource(dict):
     """
     ScaleIOVolumeSource represents a persistent ScaleIO volume
@@ -11676,6 +22122,168 @@ class ScaleIOVolumeSource(dict):
 
 
 @pulumi.output_type
+class ScaleIOVolumeSourcePatch(dict):
+    """
+    ScaleIOVolumeSource represents a persistent ScaleIO volume
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "protectionDomain":
+            suggest = "protection_domain"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "sslEnabled":
+            suggest = "ssl_enabled"
+        elif key == "storageMode":
+            suggest = "storage_mode"
+        elif key == "storagePool":
+            suggest = "storage_pool"
+        elif key == "volumeName":
+            suggest = "volume_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScaleIOVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScaleIOVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScaleIOVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 gateway: Optional[str] = None,
+                 protection_domain: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 ssl_enabled: Optional[bool] = None,
+                 storage_mode: Optional[str] = None,
+                 storage_pool: Optional[str] = None,
+                 system: Optional[str] = None,
+                 volume_name: Optional[str] = None):
+        """
+        ScaleIOVolumeSource represents a persistent ScaleIO volume
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+        :param str gateway: gateway is the host address of the ScaleIO API Gateway.
+        :param str protection_domain: protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
+        :param bool read_only: readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        :param bool ssl_enabled: sslEnabled Flag enable/disable SSL communication with Gateway, default false
+        :param str storage_mode: storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        :param str storage_pool: storagePool is the ScaleIO Storage Pool associated with the protection domain.
+        :param str system: system is the name of the storage system as configured in ScaleIO.
+        :param str volume_name: volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if gateway is not None:
+            pulumi.set(__self__, "gateway", gateway)
+        if protection_domain is not None:
+            pulumi.set(__self__, "protection_domain", protection_domain)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if ssl_enabled is not None:
+            pulumi.set(__self__, "ssl_enabled", ssl_enabled)
+        if storage_mode is not None:
+            pulumi.set(__self__, "storage_mode", storage_mode)
+        if storage_pool is not None:
+            pulumi.set(__self__, "storage_pool", storage_pool)
+        if system is not None:
+            pulumi.set(__self__, "system", system)
+        if volume_name is not None:
+            pulumi.set(__self__, "volume_name", volume_name)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter
+    def gateway(self) -> Optional[str]:
+        """
+        gateway is the host address of the ScaleIO API Gateway.
+        """
+        return pulumi.get(self, "gateway")
+
+    @property
+    @pulumi.getter(name="protectionDomain")
+    def protection_domain(self) -> Optional[str]:
+        """
+        protectionDomain is the name of the ScaleIO Protection Domain for the configured storage.
+        """
+        return pulumi.get(self, "protection_domain")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="sslEnabled")
+    def ssl_enabled(self) -> Optional[bool]:
+        """
+        sslEnabled Flag enable/disable SSL communication with Gateway, default false
+        """
+        return pulumi.get(self, "ssl_enabled")
+
+    @property
+    @pulumi.getter(name="storageMode")
+    def storage_mode(self) -> Optional[str]:
+        """
+        storageMode indicates whether the storage for a volume should be ThickProvisioned or ThinProvisioned. Default is ThinProvisioned.
+        """
+        return pulumi.get(self, "storage_mode")
+
+    @property
+    @pulumi.getter(name="storagePool")
+    def storage_pool(self) -> Optional[str]:
+        """
+        storagePool is the ScaleIO Storage Pool associated with the protection domain.
+        """
+        return pulumi.get(self, "storage_pool")
+
+    @property
+    @pulumi.getter
+    def system(self) -> Optional[str]:
+        """
+        system is the name of the storage system as configured in ScaleIO.
+        """
+        return pulumi.get(self, "system")
+
+    @property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> Optional[str]:
+        """
+        volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
+        """
+        return pulumi.get(self, "volume_name")
+
+
+@pulumi.output_type
 class ScopeSelector(dict):
     """
     A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
@@ -11709,6 +22317,46 @@ class ScopeSelector(dict):
     @property
     @pulumi.getter(name="matchExpressions")
     def match_expressions(self) -> Optional[Sequence['outputs.ScopedResourceSelectorRequirement']]:
+        """
+        A list of scope selector requirements by scope of the resources.
+        """
+        return pulumi.get(self, "match_expressions")
+
+
+@pulumi.output_type
+class ScopeSelectorPatch(dict):
+    """
+    A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchExpressions":
+            suggest = "match_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScopeSelectorPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScopeSelectorPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScopeSelectorPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 match_expressions: Optional[Sequence['outputs.ScopedResourceSelectorRequirementPatch']] = None):
+        """
+        A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
+        :param Sequence['ScopedResourceSelectorRequirementPatchArgs'] match_expressions: A list of scope selector requirements by scope of the resources.
+        """
+        if match_expressions is not None:
+            pulumi.set(__self__, "match_expressions", match_expressions)
+
+    @property
+    @pulumi.getter(name="matchExpressions")
+    def match_expressions(self) -> Optional[Sequence['outputs.ScopedResourceSelectorRequirementPatch']]:
         """
         A list of scope selector requirements by scope of the resources.
         """
@@ -11778,6 +22426,70 @@ class ScopedResourceSelectorRequirement(dict):
 
 
 @pulumi.output_type
+class ScopedResourceSelectorRequirementPatch(dict):
+    """
+    A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "scopeName":
+            suggest = "scope_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ScopedResourceSelectorRequirementPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ScopedResourceSelectorRequirementPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ScopedResourceSelectorRequirementPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 operator: Optional[str] = None,
+                 scope_name: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
+        """
+        A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
+        :param str operator: Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+        :param str scope_name: The name of the scope that the selector applies to.
+        :param Sequence[str] values: An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+        """
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if scope_name is not None:
+            pulumi.set(__self__, "scope_name", scope_name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> Optional[str]:
+        """
+        Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
+        """
+        return pulumi.get(self, "operator")
+
+    @property
+    @pulumi.getter(name="scopeName")
+    def scope_name(self) -> Optional[str]:
+        """
+        The name of the scope that the selector applies to.
+        """
+        return pulumi.get(self, "scope_name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        """
+        An array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
 class SeccompProfile(dict):
     """
     SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
@@ -11830,6 +22542,62 @@ class SeccompProfile(dict):
         localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
         """
         return pulumi.get(self, "localhost_profile")
+
+
+@pulumi.output_type
+class SeccompProfilePatch(dict):
+    """
+    SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "localhostProfile":
+            suggest = "localhost_profile"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SeccompProfilePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SeccompProfilePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SeccompProfilePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 localhost_profile: Optional[str] = None,
+                 type: Optional[str] = None):
+        """
+        SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+        :param str localhost_profile: localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+        :param str type: type indicates which kind of seccomp profile will be applied. Valid options are:
+               
+               Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+        """
+        if localhost_profile is not None:
+            pulumi.set(__self__, "localhost_profile", localhost_profile)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="localhostProfile")
+    def localhost_profile(self) -> Optional[str]:
+        """
+        localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
+        """
+        return pulumi.get(self, "localhost_profile")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        type indicates which kind of seccomp profile will be applied. Valid options are:
+
+        Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
+        """
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type
@@ -12006,6 +22774,45 @@ class SecretEnvSource(dict):
 
 
 @pulumi.output_type
+class SecretEnvSourcePatch(dict):
+    """
+    SecretEnvSource selects a Secret to populate the environment variables with.
+
+    The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        SecretEnvSource selects a Secret to populate the environment variables with.
+
+        The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: Specify whether the Secret must be defined
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        Specify whether the Secret must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
 class SecretKeySelector(dict):
     """
     SecretKeySelector selects a key of a Secret.
@@ -12029,6 +22836,53 @@ class SecretKeySelector(dict):
     @property
     @pulumi.getter
     def key(self) -> str:
+        """
+        The key of the secret to select from.  Must be a valid secret key.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        Specify whether the Secret or its key must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
+class SecretKeySelectorPatch(dict):
+    """
+    SecretKeySelector selects a key of a Secret.
+    """
+    def __init__(__self__, *,
+                 key: Optional[str] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        SecretKeySelector selects a key of a Secret.
+        :param str key: The key of the secret to select from.  Must be a valid secret key.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: Specify whether the Secret or its key must be defined
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
         """
         The key of the secret to select from.  Must be a valid secret key.
         """
@@ -12103,7 +22957,93 @@ class SecretProjection(dict):
 
 
 @pulumi.output_type
+class SecretProjectionPatch(dict):
+    """
+    Adapts a secret into a projected volume.
+
+    The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
+    """
+    def __init__(__self__, *,
+                 items: Optional[Sequence['outputs.KeyToPathPatch']] = None,
+                 name: Optional[str] = None,
+                 optional: Optional[bool] = None):
+        """
+        Adapts a secret into a projected volume.
+
+        The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
+        :param Sequence['KeyToPathPatchArgs'] items: items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param bool optional: optional field specify whether the Secret or its key must be defined
+        """
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+
+    @property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.KeyToPathPatch']]:
+        """
+        items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        """
+        return pulumi.get(self, "items")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        optional field specify whether the Secret or its key must be defined
+        """
+        return pulumi.get(self, "optional")
+
+
+@pulumi.output_type
 class SecretReference(dict):
+    """
+    SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 namespace: Optional[str] = None):
+        """
+        SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
+        :param str name: name is unique within a namespace to reference a secret resource.
+        :param str namespace: namespace defines the space within which the secret name must be unique.
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if namespace is not None:
+            pulumi.set(__self__, "namespace", namespace)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        name is unique within a namespace to reference a secret resource.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def namespace(self) -> Optional[str]:
+        """
+        namespace defines the space within which the secret name must be unique.
+        """
+        return pulumi.get(self, "namespace")
+
+
+@pulumi.output_type
+class SecretReferencePatch(dict):
     """
     SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
     """
@@ -12197,6 +23137,88 @@ class SecretVolumeSource(dict):
     @property
     @pulumi.getter
     def items(self) -> Optional[Sequence['outputs.KeyToPath']]:
+        """
+        items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        """
+        return pulumi.get(self, "items")
+
+    @property
+    @pulumi.getter
+    def optional(self) -> Optional[bool]:
+        """
+        optional field specify whether the Secret or its keys must be defined
+        """
+        return pulumi.get(self, "optional")
+
+    @property
+    @pulumi.getter(name="secretName")
+    def secret_name(self) -> Optional[str]:
+        """
+        secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        """
+        return pulumi.get(self, "secret_name")
+
+
+@pulumi.output_type
+class SecretVolumeSourcePatch(dict):
+    """
+    Adapts a Secret into a volume.
+
+    The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "defaultMode":
+            suggest = "default_mode"
+        elif key == "secretName":
+            suggest = "secret_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SecretVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SecretVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SecretVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 default_mode: Optional[int] = None,
+                 items: Optional[Sequence['outputs.KeyToPathPatch']] = None,
+                 optional: Optional[bool] = None,
+                 secret_name: Optional[str] = None):
+        """
+        Adapts a Secret into a volume.
+
+        The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
+        :param int default_mode: defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        :param Sequence['KeyToPathPatchArgs'] items: items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
+        :param bool optional: optional field specify whether the Secret or its keys must be defined
+        :param str secret_name: secretName is the name of the secret in the pod's namespace to use. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        """
+        if default_mode is not None:
+            pulumi.set(__self__, "default_mode", default_mode)
+        if items is not None:
+            pulumi.set(__self__, "items", items)
+        if optional is not None:
+            pulumi.set(__self__, "optional", optional)
+        if secret_name is not None:
+            pulumi.set(__self__, "secret_name", secret_name)
+
+    @property
+    @pulumi.getter(name="defaultMode")
+    def default_mode(self) -> Optional[int]:
+        """
+        defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
+        """
+        return pulumi.get(self, "default_mode")
+
+    @property
+    @pulumi.getter
+    def items(self) -> Optional[Sequence['outputs.KeyToPathPatch']]:
         """
         items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
         """
@@ -12389,6 +23411,182 @@ class SecurityContext(dict):
     @property
     @pulumi.getter(name="windowsOptions")
     def windows_options(self) -> Optional['outputs.WindowsSecurityContextOptions']:
+        """
+        The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+        """
+        return pulumi.get(self, "windows_options")
+
+
+@pulumi.output_type
+class SecurityContextPatch(dict):
+    """
+    SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allowPrivilegeEscalation":
+            suggest = "allow_privilege_escalation"
+        elif key == "procMount":
+            suggest = "proc_mount"
+        elif key == "readOnlyRootFilesystem":
+            suggest = "read_only_root_filesystem"
+        elif key == "runAsGroup":
+            suggest = "run_as_group"
+        elif key == "runAsNonRoot":
+            suggest = "run_as_non_root"
+        elif key == "runAsUser":
+            suggest = "run_as_user"
+        elif key == "seLinuxOptions":
+            suggest = "se_linux_options"
+        elif key == "seccompProfile":
+            suggest = "seccomp_profile"
+        elif key == "windowsOptions":
+            suggest = "windows_options"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SecurityContextPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SecurityContextPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SecurityContextPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 allow_privilege_escalation: Optional[bool] = None,
+                 capabilities: Optional['outputs.CapabilitiesPatch'] = None,
+                 privileged: Optional[bool] = None,
+                 proc_mount: Optional[str] = None,
+                 read_only_root_filesystem: Optional[bool] = None,
+                 run_as_group: Optional[int] = None,
+                 run_as_non_root: Optional[bool] = None,
+                 run_as_user: Optional[int] = None,
+                 se_linux_options: Optional['outputs.SELinuxOptionsPatch'] = None,
+                 seccomp_profile: Optional['outputs.SeccompProfilePatch'] = None,
+                 windows_options: Optional['outputs.WindowsSecurityContextOptionsPatch'] = None):
+        """
+        SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
+        :param bool allow_privilege_escalation: AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
+        :param 'CapabilitiesPatchArgs' capabilities: The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+        :param bool privileged: Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
+        :param str proc_mount: procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+        :param bool read_only_root_filesystem: Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
+        :param int run_as_group: The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+        :param bool run_as_non_root: Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        :param int run_as_user: The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+        :param 'SELinuxOptionsPatchArgs' se_linux_options: The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+        :param 'SeccompProfilePatchArgs' seccomp_profile: The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+        :param 'WindowsSecurityContextOptionsPatchArgs' windows_options: The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
+        """
+        if allow_privilege_escalation is not None:
+            pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
+        if capabilities is not None:
+            pulumi.set(__self__, "capabilities", capabilities)
+        if privileged is not None:
+            pulumi.set(__self__, "privileged", privileged)
+        if proc_mount is not None:
+            pulumi.set(__self__, "proc_mount", proc_mount)
+        if read_only_root_filesystem is not None:
+            pulumi.set(__self__, "read_only_root_filesystem", read_only_root_filesystem)
+        if run_as_group is not None:
+            pulumi.set(__self__, "run_as_group", run_as_group)
+        if run_as_non_root is not None:
+            pulumi.set(__self__, "run_as_non_root", run_as_non_root)
+        if run_as_user is not None:
+            pulumi.set(__self__, "run_as_user", run_as_user)
+        if se_linux_options is not None:
+            pulumi.set(__self__, "se_linux_options", se_linux_options)
+        if seccomp_profile is not None:
+            pulumi.set(__self__, "seccomp_profile", seccomp_profile)
+        if windows_options is not None:
+            pulumi.set(__self__, "windows_options", windows_options)
+
+    @property
+    @pulumi.getter(name="allowPrivilegeEscalation")
+    def allow_privilege_escalation(self) -> Optional[bool]:
+        """
+        AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "allow_privilege_escalation")
+
+    @property
+    @pulumi.getter
+    def capabilities(self) -> Optional['outputs.CapabilitiesPatch']:
+        """
+        The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "capabilities")
+
+    @property
+    @pulumi.getter
+    def privileged(self) -> Optional[bool]:
+        """
+        Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. Defaults to false. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "privileged")
+
+    @property
+    @pulumi.getter(name="procMount")
+    def proc_mount(self) -> Optional[str]:
+        """
+        procMount denotes the type of proc mount to use for the containers. The default is DefaultProcMount which uses the container runtime defaults for readonly paths and masked paths. This requires the ProcMountType feature flag to be enabled. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "proc_mount")
+
+    @property
+    @pulumi.getter(name="readOnlyRootFilesystem")
+    def read_only_root_filesystem(self) -> Optional[bool]:
+        """
+        Whether this container has a read-only root filesystem. Default is false. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "read_only_root_filesystem")
+
+    @property
+    @pulumi.getter(name="runAsGroup")
+    def run_as_group(self) -> Optional[int]:
+        """
+        The GID to run the entrypoint of the container process. Uses runtime default if unset. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "run_as_group")
+
+    @property
+    @pulumi.getter(name="runAsNonRoot")
+    def run_as_non_root(self) -> Optional[bool]:
+        """
+        Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        """
+        return pulumi.get(self, "run_as_non_root")
+
+    @property
+    @pulumi.getter(name="runAsUser")
+    def run_as_user(self) -> Optional[int]:
+        """
+        The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "run_as_user")
+
+    @property
+    @pulumi.getter(name="seLinuxOptions")
+    def se_linux_options(self) -> Optional['outputs.SELinuxOptionsPatch']:
+        """
+        The SELinux context to be applied to the container. If unspecified, the container runtime will allocate a random SELinux context for each container.  May also be set in PodSecurityContext.  If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "se_linux_options")
+
+    @property
+    @pulumi.getter(name="seccompProfile")
+    def seccomp_profile(self) -> Optional['outputs.SeccompProfilePatch']:
+        """
+        The seccomp options to use by this container. If seccomp options are provided at both the pod & container level, the container options override the pod options. Note that this field cannot be set when spec.os.name is windows.
+        """
+        return pulumi.get(self, "seccomp_profile")
+
+    @property
+    @pulumi.getter(name="windowsOptions")
+    def windows_options(self) -> Optional['outputs.WindowsSecurityContextOptionsPatch']:
         """
         The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux.
         """
@@ -12701,6 +23899,70 @@ class ServiceAccountTokenProjection(dict):
 
 
 @pulumi.output_type
+class ServiceAccountTokenProjectionPatch(dict):
+    """
+    ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expirationSeconds":
+            suggest = "expiration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceAccountTokenProjectionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceAccountTokenProjectionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceAccountTokenProjectionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 audience: Optional[str] = None,
+                 expiration_seconds: Optional[int] = None,
+                 path: Optional[str] = None):
+        """
+        ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
+        :param str audience: audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+        :param int expiration_seconds: expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        :param str path: path is the path relative to the mount point of the file to project the token into.
+        """
+        if audience is not None:
+            pulumi.set(__self__, "audience", audience)
+        if expiration_seconds is not None:
+            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+        if path is not None:
+            pulumi.set(__self__, "path", path)
+
+    @property
+    @pulumi.getter
+    def audience(self) -> Optional[str]:
+        """
+        audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
+        """
+        return pulumi.get(self, "audience")
+
+    @property
+    @pulumi.getter(name="expirationSeconds")
+    def expiration_seconds(self) -> Optional[int]:
+        """
+        expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
+        """
+        return pulumi.get(self, "expiration_seconds")
+
+    @property
+    @pulumi.getter
+    def path(self) -> Optional[str]:
+        """
+        path is the path relative to the mount point of the file to project the token into.
+        """
+        return pulumi.get(self, "path")
+
+
+@pulumi.output_type
 class ServicePort(dict):
     """
     ServicePort contains information on service's port.
@@ -12785,6 +24047,110 @@ class ServicePort(dict):
         The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
         """
         return pulumi.get(self, "node_port")
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[str]:
+        """
+        The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+        """
+        return pulumi.get(self, "protocol")
+
+    @property
+    @pulumi.getter(name="targetPort")
+    def target_port(self) -> Optional[Any]:
+        """
+        Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+        """
+        return pulumi.get(self, "target_port")
+
+
+@pulumi.output_type
+class ServicePortPatch(dict):
+    """
+    ServicePort contains information on service's port.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "appProtocol":
+            suggest = "app_protocol"
+        elif key == "nodePort":
+            suggest = "node_port"
+        elif key == "targetPort":
+            suggest = "target_port"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServicePortPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServicePortPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServicePortPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 app_protocol: Optional[str] = None,
+                 name: Optional[str] = None,
+                 node_port: Optional[int] = None,
+                 port: Optional[int] = None,
+                 protocol: Optional[str] = None,
+                 target_port: Optional[Any] = None):
+        """
+        ServicePort contains information on service's port.
+        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str name: The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
+        :param int node_port: The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+        :param int port: The port that will be exposed by this service.
+        :param str protocol: The IP protocol for this port. Supports "TCP", "UDP", and "SCTP". Default is TCP.
+        :param Union[int, str] target_port: Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME. If this is a string, it will be looked up as a named port in the target Pod's container ports. If this is not specified, the value of the 'port' field is used (an identity map). This field is ignored for services with clusterIP=None, and should be omitted or set equal to the 'port' field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+        """
+        if app_protocol is not None:
+            pulumi.set(__self__, "app_protocol", app_protocol)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if node_port is not None:
+            pulumi.set(__self__, "node_port", node_port)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+        if target_port is not None:
+            pulumi.set(__self__, "target_port", target_port)
+
+    @property
+    @pulumi.getter(name="appProtocol")
+    def app_protocol(self) -> Optional[str]:
+        """
+        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        """
+        return pulumi.get(self, "app_protocol")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        The name of this port within the service. This must be a DNS_LABEL. All ports within a ServiceSpec must have unique names. When considering the endpoints for a Service, this must match the 'name' field in the EndpointPort. Optional if only one ServicePort is defined on this service.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="nodePort")
+    def node_port(self) -> Optional[int]:
+        """
+        The port on each node on which this service is exposed when type is NodePort or LoadBalancer.  Usually assigned by the system. If a value is specified, in-range, and not in use it will be used, otherwise the operation will fail.  If not specified, a port will be allocated if this Service requires one.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type from NodePort to ClusterIP). More info: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+        """
+        return pulumi.get(self, "node_port")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        """
+        The port that will be exposed by this service.
+        """
+        return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
@@ -13126,6 +24492,328 @@ class ServiceSpec(dict):
 
 
 @pulumi.output_type
+class ServiceSpecPatch(dict):
+    """
+    ServiceSpec describes the attributes that a user creates on a service.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allocateLoadBalancerNodePorts":
+            suggest = "allocate_load_balancer_node_ports"
+        elif key == "clusterIP":
+            suggest = "cluster_ip"
+        elif key == "clusterIPs":
+            suggest = "cluster_ips"
+        elif key == "externalIPs":
+            suggest = "external_ips"
+        elif key == "externalName":
+            suggest = "external_name"
+        elif key == "externalTrafficPolicy":
+            suggest = "external_traffic_policy"
+        elif key == "healthCheckNodePort":
+            suggest = "health_check_node_port"
+        elif key == "internalTrafficPolicy":
+            suggest = "internal_traffic_policy"
+        elif key == "ipFamilies":
+            suggest = "ip_families"
+        elif key == "ipFamily":
+            suggest = "ip_family"
+        elif key == "ipFamilyPolicy":
+            suggest = "ip_family_policy"
+        elif key == "loadBalancerClass":
+            suggest = "load_balancer_class"
+        elif key == "loadBalancerIP":
+            suggest = "load_balancer_ip"
+        elif key == "loadBalancerSourceRanges":
+            suggest = "load_balancer_source_ranges"
+        elif key == "publishNotReadyAddresses":
+            suggest = "publish_not_ready_addresses"
+        elif key == "sessionAffinity":
+            suggest = "session_affinity"
+        elif key == "sessionAffinityConfig":
+            suggest = "session_affinity_config"
+        elif key == "topologyKeys":
+            suggest = "topology_keys"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 allocate_load_balancer_node_ports: Optional[bool] = None,
+                 cluster_ip: Optional[str] = None,
+                 cluster_ips: Optional[Sequence[str]] = None,
+                 external_ips: Optional[Sequence[str]] = None,
+                 external_name: Optional[str] = None,
+                 external_traffic_policy: Optional[str] = None,
+                 health_check_node_port: Optional[int] = None,
+                 internal_traffic_policy: Optional[str] = None,
+                 ip_families: Optional[Sequence[str]] = None,
+                 ip_family: Optional[str] = None,
+                 ip_family_policy: Optional[str] = None,
+                 load_balancer_class: Optional[str] = None,
+                 load_balancer_ip: Optional[str] = None,
+                 load_balancer_source_ranges: Optional[Sequence[str]] = None,
+                 ports: Optional[Sequence['outputs.ServicePortPatch']] = None,
+                 publish_not_ready_addresses: Optional[bool] = None,
+                 selector: Optional[Mapping[str, str]] = None,
+                 session_affinity: Optional[str] = None,
+                 session_affinity_config: Optional['outputs.SessionAffinityConfigPatch'] = None,
+                 topology_keys: Optional[Sequence[str]] = None,
+                 type: Optional[str] = None):
+        """
+        ServiceSpec describes the attributes that a user creates on a service.
+        :param bool allocate_load_balancer_node_ports: allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
+        :param str cluster_ip: clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        :param Sequence[str] cluster_ips: ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+               
+               This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        :param Sequence[str] external_ips: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
+        :param str external_name: externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
+        :param str external_traffic_policy: externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+        :param int health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
+        :param str internal_traffic_policy: InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+        :param Sequence[str] ip_families: IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
+               
+               This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+        :param str ip_family: ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+        :param str ip_family_policy: IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
+        :param str load_balancer_class: loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
+        :param str load_balancer_ip: Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
+        :param Sequence[str] load_balancer_source_ranges: If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
+        :param Sequence['ServicePortPatchArgs'] ports: The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        :param bool publish_not_ready_addresses: publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
+        :param Mapping[str, str] selector: Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
+        :param str session_affinity: Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        :param 'SessionAffinityConfigPatchArgs' session_affinity_config: sessionAffinityConfig contains the configurations of session affinity.
+        :param Sequence[str] topology_keys: topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        :param Union[str, 'ServiceSpecType'] type: type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+        """
+        if allocate_load_balancer_node_ports is not None:
+            pulumi.set(__self__, "allocate_load_balancer_node_ports", allocate_load_balancer_node_ports)
+        if cluster_ip is not None:
+            pulumi.set(__self__, "cluster_ip", cluster_ip)
+        if cluster_ips is not None:
+            pulumi.set(__self__, "cluster_ips", cluster_ips)
+        if external_ips is not None:
+            pulumi.set(__self__, "external_ips", external_ips)
+        if external_name is not None:
+            pulumi.set(__self__, "external_name", external_name)
+        if external_traffic_policy is not None:
+            pulumi.set(__self__, "external_traffic_policy", external_traffic_policy)
+        if health_check_node_port is not None:
+            pulumi.set(__self__, "health_check_node_port", health_check_node_port)
+        if internal_traffic_policy is not None:
+            pulumi.set(__self__, "internal_traffic_policy", internal_traffic_policy)
+        if ip_families is not None:
+            pulumi.set(__self__, "ip_families", ip_families)
+        if ip_family is not None:
+            pulumi.set(__self__, "ip_family", ip_family)
+        if ip_family_policy is not None:
+            pulumi.set(__self__, "ip_family_policy", ip_family_policy)
+        if load_balancer_class is not None:
+            pulumi.set(__self__, "load_balancer_class", load_balancer_class)
+        if load_balancer_ip is not None:
+            pulumi.set(__self__, "load_balancer_ip", load_balancer_ip)
+        if load_balancer_source_ranges is not None:
+            pulumi.set(__self__, "load_balancer_source_ranges", load_balancer_source_ranges)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
+        if publish_not_ready_addresses is not None:
+            pulumi.set(__self__, "publish_not_ready_addresses", publish_not_ready_addresses)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if session_affinity is not None:
+            pulumi.set(__self__, "session_affinity", session_affinity)
+        if session_affinity_config is not None:
+            pulumi.set(__self__, "session_affinity_config", session_affinity_config)
+        if topology_keys is not None:
+            pulumi.set(__self__, "topology_keys", topology_keys)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="allocateLoadBalancerNodePorts")
+    def allocate_load_balancer_node_ports(self) -> Optional[bool]:
+        """
+        allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
+        """
+        return pulumi.get(self, "allocate_load_balancer_node_ports")
+
+    @property
+    @pulumi.getter(name="clusterIP")
+    def cluster_ip(self) -> Optional[str]:
+        """
+        clusterIP is the IP address of the service and is usually assigned randomly. If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be blank) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address. Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        """
+        return pulumi.get(self, "cluster_ip")
+
+    @property
+    @pulumi.getter(name="clusterIPs")
+    def cluster_ips(self) -> Optional[Sequence[str]]:
+        """
+        ClusterIPs is a list of IP addresses assigned to this service, and are usually assigned randomly.  If an address is specified manually, is in-range (as per system configuration), and is not in use, it will be allocated to the service; otherwise creation of the service will fail. This field may not be changed through updates unless the type field is also being changed to ExternalName (which requires this field to be empty) or the type field is being changed from ExternalName (in which case this field may optionally be specified, as describe above).  Valid values are "None", empty string (""), or a valid IP address.  Setting this to "None" makes a "headless service" (no virtual IP), which is useful when direct endpoint connections are preferred and proxying is not required.  Only applies to types ClusterIP, NodePort, and LoadBalancer. If this field is specified when creating a Service of type ExternalName, creation will fail. This field will be wiped when updating a Service to type ExternalName.  If this field is not specified, it will be initialized from the clusterIP field.  If this field is specified, clients must ensure that clusterIPs[0] and clusterIP have the same value.
+
+        This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        """
+        return pulumi.get(self, "cluster_ips")
+
+    @property
+    @pulumi.getter(name="externalIPs")
+    def external_ips(self) -> Optional[Sequence[str]]:
+        """
+        externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
+        """
+        return pulumi.get(self, "external_ips")
+
+    @property
+    @pulumi.getter(name="externalName")
+    def external_name(self) -> Optional[str]:
+        """
+        externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
+        """
+        return pulumi.get(self, "external_name")
+
+    @property
+    @pulumi.getter(name="externalTrafficPolicy")
+    def external_traffic_policy(self) -> Optional[str]:
+        """
+        externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+        """
+        return pulumi.get(self, "external_traffic_policy")
+
+    @property
+    @pulumi.getter(name="healthCheckNodePort")
+    def health_check_node_port(self) -> Optional[int]:
+        """
+        healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
+        """
+        return pulumi.get(self, "health_check_node_port")
+
+    @property
+    @pulumi.getter(name="internalTrafficPolicy")
+    def internal_traffic_policy(self) -> Optional[str]:
+        """
+        InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+        """
+        return pulumi.get(self, "internal_traffic_policy")
+
+    @property
+    @pulumi.getter(name="ipFamilies")
+    def ip_families(self) -> Optional[Sequence[str]]:
+        """
+        IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
+
+        This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
+        """
+        return pulumi.get(self, "ip_families")
+
+    @property
+    @pulumi.getter(name="ipFamily")
+    def ip_family(self) -> Optional[str]:
+        """
+        ipFamily specifies whether this Service has a preference for a particular IP family (e.g. IPv4 vs. IPv6).  If a specific IP family is requested, the clusterIP field will be allocated from that family, if it is available in the cluster.  If no IP family is requested, the cluster's primary IP family will be used. Other IP fields (loadBalancerIP, loadBalancerSourceRanges, externalIPs) and controllers which allocate external load-balancers should use the same IP family.  Endpoints for this Service will be of this family.  This field is immutable after creation. Assigning a ServiceIPFamily not available in the cluster (e.g. IPv6 in IPv4 only cluster) is an error condition and will fail during clusterIP assignment.
+        """
+        return pulumi.get(self, "ip_family")
+
+    @property
+    @pulumi.getter(name="ipFamilyPolicy")
+    def ip_family_policy(self) -> Optional[str]:
+        """
+        IPFamilyPolicy represents the dual-stack-ness requested or required by this Service. If there is no value provided, then this field will be set to SingleStack. Services can be "SingleStack" (a single IP family), "PreferDualStack" (two IP families on dual-stack configured clusters or a single IP family on single-stack clusters), or "RequireDualStack" (two IP families on dual-stack configured clusters, otherwise fail). The ipFamilies and clusterIPs fields depend on the value of this field. This field will be wiped when updating a service to type ExternalName.
+        """
+        return pulumi.get(self, "ip_family_policy")
+
+    @property
+    @pulumi.getter(name="loadBalancerClass")
+    def load_balancer_class(self) -> Optional[str]:
+        """
+        loadBalancerClass is the class of the load balancer implementation this Service belongs to. If specified, the value of this field must be a label-style identifier, with an optional prefix, e.g. "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users. This field can only be set when the Service type is 'LoadBalancer'. If not set, the default load balancer implementation is used, today this is typically done through the cloud provider integration, but should apply for any default implementation. If set, it is assumed that a load balancer implementation is watching for Services with a matching class. Any default load balancer implementation (e.g. cloud providers) should ignore Services that set this field. This field can only be set when creating or updating a Service to type 'LoadBalancer'. Once set, it can not be changed. This field will be wiped when a service is updated to a non 'LoadBalancer' type.
+        """
+        return pulumi.get(self, "load_balancer_class")
+
+    @property
+    @pulumi.getter(name="loadBalancerIP")
+    def load_balancer_ip(self) -> Optional[str]:
+        """
+        Only applies to Service Type: LoadBalancer. This feature depends on whether the underlying cloud-provider supports specifying the loadBalancerIP when a load balancer is created. This field will be ignored if the cloud-provider does not support the feature. Deprecated: This field was under-specified and its meaning varies across implementations, and it cannot support dual-stack. As of Kubernetes v1.24, users are encouraged to use implementation-specific annotations when available. This field may be removed in a future API version.
+        """
+        return pulumi.get(self, "load_balancer_ip")
+
+    @property
+    @pulumi.getter(name="loadBalancerSourceRanges")
+    def load_balancer_source_ranges(self) -> Optional[Sequence[str]]:
+        """
+        If specified and supported by the platform, this will restrict traffic through the cloud-provider load-balancer will be restricted to the specified client IPs. This field will be ignored if the cloud-provider does not support the feature." More info: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/
+        """
+        return pulumi.get(self, "load_balancer_source_ranges")
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[Sequence['outputs.ServicePortPatch']]:
+        """
+        The list of ports that are exposed by this service. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        """
+        return pulumi.get(self, "ports")
+
+    @property
+    @pulumi.getter(name="publishNotReadyAddresses")
+    def publish_not_ready_addresses(self) -> Optional[bool]:
+        """
+        publishNotReadyAddresses indicates that any agent which deals with endpoints for this Service should disregard any indications of ready/not-ready. The primary use case for setting this field is for a StatefulSet's Headless Service to propagate SRV DNS records for its Pods for the purpose of peer discovery. The Kubernetes controllers that generate Endpoints and EndpointSlice resources for Services interpret this to mean that all endpoints are considered "ready" even if the Pods themselves are not. Agents which consume only Kubernetes generated endpoints through the Endpoints or EndpointSlice resources can safely assume this behavior.
+        """
+        return pulumi.get(self, "publish_not_ready_addresses")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[Mapping[str, str]]:
+        """
+        Route service traffic to pods with label keys and values matching this selector. If empty or not present, the service is assumed to have an external process managing its endpoints, which Kubernetes will not modify. Only applies to types ClusterIP, NodePort, and LoadBalancer. Ignored if type is ExternalName. More info: https://kubernetes.io/docs/concepts/services-networking/service/
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter(name="sessionAffinity")
+    def session_affinity(self) -> Optional[str]:
+        """
+        Supports "ClientIP" and "None". Used to maintain session affinity. Enable client IP based session affinity. Must be ClientIP or None. Defaults to None. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
+        """
+        return pulumi.get(self, "session_affinity")
+
+    @property
+    @pulumi.getter(name="sessionAffinityConfig")
+    def session_affinity_config(self) -> Optional['outputs.SessionAffinityConfigPatch']:
+        """
+        sessionAffinityConfig contains the configurations of session affinity.
+        """
+        return pulumi.get(self, "session_affinity_config")
+
+    @property
+    @pulumi.getter(name="topologyKeys")
+    def topology_keys(self) -> Optional[Sequence[str]]:
+        """
+        topologyKeys is a preference-order list of topology keys which implementations of services should use to preferentially sort endpoints when accessing this Service, it can not be used at the same time as externalTrafficPolicy=Local. Topology keys must be valid label keys and at most 16 keys may be specified. Endpoints are chosen based on the first topology key with available backends. If this field is specified and all entries have no backends that match the topology of the client, the service has no backends for that client and connections should fail. The special value "*" may be used to mean "any topology". This catch-all value, if used, only makes sense as the last value in the list. If this is not specified or empty, no topology constraints will be applied.
+        """
+        return pulumi.get(self, "topology_keys")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        """
+        type determines how the Service is exposed. Defaults to ClusterIP. Valid options are ExternalName, ClusterIP, NodePort, and LoadBalancer. "ClusterIP" allocates a cluster-internal IP address for load-balancing to endpoints. Endpoints are determined by the selector or if that is not specified, by manual construction of an Endpoints object or EndpointSlice objects. If clusterIP is "None", no virtual IP is allocated and the endpoints are published as a set of endpoints rather than a virtual IP. "NodePort" builds on ClusterIP and allocates a port on every node which routes to the same endpoints as the clusterIP. "LoadBalancer" builds on NodePort and creates an external load-balancer (if supported in the current cloud) which routes to the same endpoints as the clusterIP. "ExternalName" aliases this service to the specified externalName. Several other fields do not apply to ExternalName services. More info: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+        """
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
 class ServiceStatus(dict):
     """
     ServiceStatus represents the current status of a service.
@@ -13178,6 +24866,58 @@ class ServiceStatus(dict):
 
 
 @pulumi.output_type
+class ServiceStatusPatch(dict):
+    """
+    ServiceStatus represents the current status of a service.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "loadBalancer":
+            suggest = "load_balancer"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ServiceStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ServiceStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ServiceStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+                 load_balancer: Optional['outputs.LoadBalancerStatusPatch'] = None):
+        """
+        ServiceStatus represents the current status of a service.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Current service state
+        :param 'LoadBalancerStatusPatchArgs' load_balancer: LoadBalancer contains the current status of the load-balancer, if one is present.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if load_balancer is not None:
+            pulumi.set(__self__, "load_balancer", load_balancer)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        Current service state
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="loadBalancer")
+    def load_balancer(self) -> Optional['outputs.LoadBalancerStatusPatch']:
+        """
+        LoadBalancer contains the current status of the load-balancer, if one is present.
+        """
+        return pulumi.get(self, "load_balancer")
+
+
+@pulumi.output_type
 class SessionAffinityConfig(dict):
     """
     SessionAffinityConfig represents the configurations of session affinity.
@@ -13211,6 +24951,46 @@ class SessionAffinityConfig(dict):
     @property
     @pulumi.getter(name="clientIP")
     def client_ip(self) -> Optional['outputs.ClientIPConfig']:
+        """
+        clientIP contains the configurations of Client IP based session affinity.
+        """
+        return pulumi.get(self, "client_ip")
+
+
+@pulumi.output_type
+class SessionAffinityConfigPatch(dict):
+    """
+    SessionAffinityConfig represents the configurations of session affinity.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "clientIP":
+            suggest = "client_ip"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SessionAffinityConfigPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SessionAffinityConfigPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SessionAffinityConfigPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 client_ip: Optional['outputs.ClientIPConfigPatch'] = None):
+        """
+        SessionAffinityConfig represents the configurations of session affinity.
+        :param 'ClientIPConfigPatchArgs' client_ip: clientIP contains the configurations of Client IP based session affinity.
+        """
+        if client_ip is not None:
+            pulumi.set(__self__, "client_ip", client_ip)
+
+    @property
+    @pulumi.getter(name="clientIP")
+    def client_ip(self) -> Optional['outputs.ClientIPConfigPatch']:
         """
         clientIP contains the configurations of Client IP based session affinity.
         """
@@ -13291,6 +25071,102 @@ class StorageOSPersistentVolumeSource(dict):
     @property
     @pulumi.getter(name="secretRef")
     def secret_ref(self) -> Optional['outputs.ObjectReference']:
+        """
+        secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> Optional[str]:
+        """
+        volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        """
+        return pulumi.get(self, "volume_name")
+
+    @property
+    @pulumi.getter(name="volumeNamespace")
+    def volume_namespace(self) -> Optional[str]:
+        """
+        volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        """
+        return pulumi.get(self, "volume_namespace")
+
+
+@pulumi.output_type
+class StorageOSPersistentVolumeSourcePatch(dict):
+    """
+    Represents a StorageOS persistent volume resource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "volumeName":
+            suggest = "volume_name"
+        elif key == "volumeNamespace":
+            suggest = "volume_namespace"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StorageOSPersistentVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StorageOSPersistentVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StorageOSPersistentVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.ObjectReferencePatch'] = None,
+                 volume_name: Optional[str] = None,
+                 volume_namespace: Optional[str] = None):
+        """
+        Represents a StorageOS persistent volume resource.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'ObjectReferencePatchArgs' secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        :param str volume_name: volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        :param str volume_namespace: volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if volume_name is not None:
+            pulumi.set(__self__, "volume_name", volume_name)
+        if volume_namespace is not None:
+            pulumi.set(__self__, "volume_namespace", volume_namespace)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.ObjectReferencePatch']:
         """
         secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
         """
@@ -13410,6 +25286,102 @@ class StorageOSVolumeSource(dict):
 
 
 @pulumi.output_type
+class StorageOSVolumeSourcePatch(dict):
+    """
+    Represents a StorageOS persistent volume resource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "secretRef":
+            suggest = "secret_ref"
+        elif key == "volumeName":
+            suggest = "volume_name"
+        elif key == "volumeNamespace":
+            suggest = "volume_namespace"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StorageOSVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StorageOSVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StorageOSVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 secret_ref: Optional['outputs.LocalObjectReferencePatch'] = None,
+                 volume_name: Optional[str] = None,
+                 volume_namespace: Optional[str] = None):
+        """
+        Represents a StorageOS persistent volume resource.
+        :param str fs_type: fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param bool read_only: readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        :param 'LocalObjectReferencePatchArgs' secret_ref: secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        :param str volume_name: volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        :param str volume_namespace: volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if secret_ref is not None:
+            pulumi.set(__self__, "secret_ref", secret_ref)
+        if volume_name is not None:
+            pulumi.set(__self__, "volume_name", volume_name)
+        if volume_namespace is not None:
+            pulumi.set(__self__, "volume_namespace", volume_namespace)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="secretRef")
+    def secret_ref(self) -> Optional['outputs.LocalObjectReferencePatch']:
+        """
+        secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
+        """
+        return pulumi.get(self, "secret_ref")
+
+    @property
+    @pulumi.getter(name="volumeName")
+    def volume_name(self) -> Optional[str]:
+        """
+        volumeName is the human-readable name of the StorageOS volume.  Volume names are only unique within a namespace.
+        """
+        return pulumi.get(self, "volume_name")
+
+    @property
+    @pulumi.getter(name="volumeNamespace")
+    def volume_namespace(self) -> Optional[str]:
+        """
+        volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
+        """
+        return pulumi.get(self, "volume_namespace")
+
+
+@pulumi.output_type
 class Sysctl(dict):
     """
     Sysctl defines a kernel parameter to be set
@@ -13436,6 +25408,41 @@ class Sysctl(dict):
     @property
     @pulumi.getter
     def value(self) -> str:
+        """
+        Value of a property to set
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class SysctlPatch(dict):
+    """
+    Sysctl defines a kernel parameter to be set
+    """
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 value: Optional[str] = None):
+        """
+        Sysctl defines a kernel parameter to be set
+        :param str name: Name of a property to set
+        :param str value: Value of a property to set
+        """
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of a property to set
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
         """
         Value of a property to set
         """
@@ -13474,6 +25481,41 @@ class TCPSocketAction(dict):
         Optional: Host name to connect to, defaults to the pod IP.
         """
         return pulumi.get(self, "host")
+
+
+@pulumi.output_type
+class TCPSocketActionPatch(dict):
+    """
+    TCPSocketAction describes an action based on opening a socket
+    """
+    def __init__(__self__, *,
+                 host: Optional[str] = None,
+                 port: Optional[Any] = None):
+        """
+        TCPSocketAction describes an action based on opening a socket
+        :param str host: Optional: Host name to connect to, defaults to the pod IP.
+        :param Union[int, str] port: Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        """
+        if host is not None:
+            pulumi.set(__self__, "host", host)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @property
+    @pulumi.getter
+    def host(self) -> Optional[str]:
+        """
+        Optional: Host name to connect to, defaults to the pod IP.
+        """
+        return pulumi.get(self, "host")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[Any]:
+        """
+        Number or name of the port to access on the container. Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.
+        """
+        return pulumi.get(self, "port")
 
 
 @pulumi.output_type
@@ -13528,6 +25570,82 @@ class Taint(dict):
     @property
     @pulumi.getter
     def key(self) -> str:
+        """
+        Required. The taint key to be applied to a node.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter(name="timeAdded")
+    def time_added(self) -> Optional[str]:
+        """
+        TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        """
+        return pulumi.get(self, "time_added")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
+        """
+        The taint value corresponding to the taint key.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class TaintPatch(dict):
+    """
+    The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "timeAdded":
+            suggest = "time_added"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TaintPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TaintPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TaintPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 effect: Optional[str] = None,
+                 key: Optional[str] = None,
+                 time_added: Optional[str] = None,
+                 value: Optional[str] = None):
+        """
+        The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.
+        :param str effect: Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+        :param str key: Required. The taint key to be applied to a node.
+        :param str time_added: TimeAdded represents the time at which the taint was added. It is only written for NoExecute taints.
+        :param str value: The taint value corresponding to the taint key.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if time_added is not None:
+            pulumi.set(__self__, "time_added", time_added)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[str]:
+        """
+        Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+        """
+        return pulumi.get(self, "effect")
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
         """
         Required. The taint key to be applied to a node.
         """
@@ -13639,6 +25757,94 @@ class Toleration(dict):
 
 
 @pulumi.output_type
+class TolerationPatch(dict):
+    """
+    The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "tolerationSeconds":
+            suggest = "toleration_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TolerationPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TolerationPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TolerationPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 effect: Optional[str] = None,
+                 key: Optional[str] = None,
+                 operator: Optional[str] = None,
+                 toleration_seconds: Optional[int] = None,
+                 value: Optional[str] = None):
+        """
+        The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.
+        :param str effect: Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+        :param str key: Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+        :param str operator: Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        :param int toleration_seconds: TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
+        :param str value: Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
+        """
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if toleration_seconds is not None:
+            pulumi.set(__self__, "toleration_seconds", toleration_seconds)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[str]:
+        """
+        Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
+        """
+        return pulumi.get(self, "effect")
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        """
+        Key is the taint key that the toleration applies to. Empty means match all taint keys. If the key is empty, operator must be Exists; this combination means to match all values and all keys.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def operator(self) -> Optional[str]:
+        """
+        Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
+        """
+        return pulumi.get(self, "operator")
+
+    @property
+    @pulumi.getter(name="tolerationSeconds")
+    def toleration_seconds(self) -> Optional[int]:
+        """
+        TolerationSeconds represents the period of time the toleration (which must be of effect NoExecute, otherwise this field is ignored) tolerates the taint. By default, it is not set, which means tolerate the taint forever (do not evict). Zero and negative values will be treated as 0 (evict immediately) by the system.
+        """
+        return pulumi.get(self, "toleration_seconds")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[str]:
+        """
+        Value is the taint value the toleration matches to. If the operator is Exists, the value should be empty, otherwise just a regular string.
+        """
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
 class TopologySelectorLabelRequirement(dict):
     """
     A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
@@ -13665,6 +25871,41 @@ class TopologySelectorLabelRequirement(dict):
     @property
     @pulumi.getter
     def values(self) -> Sequence[str]:
+        """
+        An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
+        """
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class TopologySelectorLabelRequirementPatch(dict):
+    """
+    A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+    """
+    def __init__(__self__, *,
+                 key: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
+        """
+        A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
+        :param str key: The label key that the selector applies to.
+        :param Sequence[str] values: An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        """
+        The label key that the selector applies to.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
         """
         An array of string values. One value must match the label to be selected. Each entry in Values is ORed.
         """
@@ -13705,6 +25946,46 @@ class TopologySelectorTerm(dict):
     @property
     @pulumi.getter(name="matchLabelExpressions")
     def match_label_expressions(self) -> Optional[Sequence['outputs.TopologySelectorLabelRequirement']]:
+        """
+        A list of topology selector requirements by labels.
+        """
+        return pulumi.get(self, "match_label_expressions")
+
+
+@pulumi.output_type
+class TopologySelectorTermPatch(dict):
+    """
+    A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "matchLabelExpressions":
+            suggest = "match_label_expressions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TopologySelectorTermPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TopologySelectorTermPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TopologySelectorTermPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 match_label_expressions: Optional[Sequence['outputs.TopologySelectorLabelRequirementPatch']] = None):
+        """
+        A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.
+        :param Sequence['TopologySelectorLabelRequirementPatchArgs'] match_label_expressions: A list of topology selector requirements by labels.
+        """
+        if match_label_expressions is not None:
+            pulumi.set(__self__, "match_label_expressions", match_label_expressions)
+
+    @property
+    @pulumi.getter(name="matchLabelExpressions")
+    def match_label_expressions(self) -> Optional[Sequence['outputs.TopologySelectorLabelRequirementPatch']]:
         """
         A list of topology selector requirements by labels.
         """
@@ -13819,6 +26100,116 @@ class TopologySpreadConstraint(dict):
 
 
 @pulumi.output_type
+class TopologySpreadConstraintPatch(dict):
+    """
+    TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "labelSelector":
+            suggest = "label_selector"
+        elif key == "maxSkew":
+            suggest = "max_skew"
+        elif key == "minDomains":
+            suggest = "min_domains"
+        elif key == "topologyKey":
+            suggest = "topology_key"
+        elif key == "whenUnsatisfiable":
+            suggest = "when_unsatisfiable"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TopologySpreadConstraintPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TopologySpreadConstraintPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TopologySpreadConstraintPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 label_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 max_skew: Optional[int] = None,
+                 min_domains: Optional[int] = None,
+                 topology_key: Optional[str] = None,
+                 when_unsatisfiable: Optional[str] = None):
+        """
+        TopologySpreadConstraint specifies how to spread matching pods among the given topology.
+        :param '_meta.v1.LabelSelectorPatchArgs' label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+        :param int max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+        :param int min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+               
+               For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+               
+               This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+        :param str when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+                 but giving higher precedence to topologies that would help reduce the
+                 skew.
+               A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+        """
+        if label_selector is not None:
+            pulumi.set(__self__, "label_selector", label_selector)
+        if max_skew is not None:
+            pulumi.set(__self__, "max_skew", max_skew)
+        if min_domains is not None:
+            pulumi.set(__self__, "min_domains", min_domains)
+        if topology_key is not None:
+            pulumi.set(__self__, "topology_key", topology_key)
+        if when_unsatisfiable is not None:
+            pulumi.set(__self__, "when_unsatisfiable", when_unsatisfiable)
+
+    @property
+    @pulumi.getter(name="labelSelector")
+    def label_selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+        """
+        return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter(name="maxSkew")
+    def max_skew(self) -> Optional[int]:
+        """
+        MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+        """
+        return pulumi.get(self, "max_skew")
+
+    @property
+    @pulumi.getter(name="minDomains")
+    def min_domains(self) -> Optional[int]:
+        """
+        MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+
+        For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+
+        This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+        """
+        return pulumi.get(self, "min_domains")
+
+    @property
+    @pulumi.getter(name="topologyKey")
+    def topology_key(self) -> Optional[str]:
+        """
+        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+        """
+        return pulumi.get(self, "topology_key")
+
+    @property
+    @pulumi.getter(name="whenUnsatisfiable")
+    def when_unsatisfiable(self) -> Optional[str]:
+        """
+        WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+          but giving higher precedence to topologies that would help reduce the
+          skew.
+        A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
+        """
+        return pulumi.get(self, "when_unsatisfiable")
+
+
+@pulumi.output_type
 class TypedLocalObjectReference(dict):
     """
     TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
@@ -13878,6 +26269,70 @@ class TypedLocalObjectReference(dict):
         APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
         """
         return pulumi.get(self, "api_group")
+
+
+@pulumi.output_type
+class TypedLocalObjectReferencePatch(dict):
+    """
+    TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiGroup":
+            suggest = "api_group"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TypedLocalObjectReferencePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TypedLocalObjectReferencePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TypedLocalObjectReferencePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_group: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 name: Optional[str] = None):
+        """
+        TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
+        :param str api_group: APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+        :param str kind: Kind is the type of resource being referenced
+        :param str name: Name is the name of resource being referenced
+        """
+        if api_group is not None:
+            pulumi.set(__self__, "api_group", api_group)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="apiGroup")
+    def api_group(self) -> Optional[str]:
+        """
+        APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+        """
+        return pulumi.get(self, "api_group")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind is the type of resource being referenced
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is the name of resource being referenced
+        """
+        return pulumi.get(self, "name")
 
 
 @pulumi.output_type
@@ -14372,6 +26827,58 @@ class VolumeDevice(dict):
 
 
 @pulumi.output_type
+class VolumeDevicePatch(dict):
+    """
+    volumeDevice describes a mapping of a raw block device within a container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "devicePath":
+            suggest = "device_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeDevicePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeDevicePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeDevicePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 device_path: Optional[str] = None,
+                 name: Optional[str] = None):
+        """
+        volumeDevice describes a mapping of a raw block device within a container.
+        :param str device_path: devicePath is the path inside of the container that the device will be mapped to.
+        :param str name: name must match the name of a persistentVolumeClaim in the pod
+        """
+        if device_path is not None:
+            pulumi.set(__self__, "device_path", device_path)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="devicePath")
+    def device_path(self) -> Optional[str]:
+        """
+        devicePath is the path inside of the container that the device will be mapped to.
+        """
+        return pulumi.get(self, "device_path")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        name must match the name of a persistentVolumeClaim in the pod
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
 class VolumeMount(dict):
     """
     VolumeMount describes a mounting of a Volume within a container.
@@ -14478,6 +26985,114 @@ class VolumeMount(dict):
 
 
 @pulumi.output_type
+class VolumeMountPatch(dict):
+    """
+    VolumeMount describes a mounting of a Volume within a container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "mountPath":
+            suggest = "mount_path"
+        elif key == "mountPropagation":
+            suggest = "mount_propagation"
+        elif key == "readOnly":
+            suggest = "read_only"
+        elif key == "subPath":
+            suggest = "sub_path"
+        elif key == "subPathExpr":
+            suggest = "sub_path_expr"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeMountPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeMountPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeMountPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 mount_path: Optional[str] = None,
+                 mount_propagation: Optional[str] = None,
+                 name: Optional[str] = None,
+                 read_only: Optional[bool] = None,
+                 sub_path: Optional[str] = None,
+                 sub_path_expr: Optional[str] = None):
+        """
+        VolumeMount describes a mounting of a Volume within a container.
+        :param str mount_path: Path within the container at which the volume should be mounted.  Must not contain ':'.
+        :param str mount_propagation: mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        :param str name: This must match the Name of a Volume.
+        :param bool read_only: Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+        :param str sub_path: Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+        :param str sub_path_expr: Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
+        """
+        if mount_path is not None:
+            pulumi.set(__self__, "mount_path", mount_path)
+        if mount_propagation is not None:
+            pulumi.set(__self__, "mount_propagation", mount_propagation)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if read_only is not None:
+            pulumi.set(__self__, "read_only", read_only)
+        if sub_path is not None:
+            pulumi.set(__self__, "sub_path", sub_path)
+        if sub_path_expr is not None:
+            pulumi.set(__self__, "sub_path_expr", sub_path_expr)
+
+    @property
+    @pulumi.getter(name="mountPath")
+    def mount_path(self) -> Optional[str]:
+        """
+        Path within the container at which the volume should be mounted.  Must not contain ':'.
+        """
+        return pulumi.get(self, "mount_path")
+
+    @property
+    @pulumi.getter(name="mountPropagation")
+    def mount_propagation(self) -> Optional[str]:
+        """
+        mountPropagation determines how mounts are propagated from the host to container and the other way around. When not set, MountPropagationNone is used. This field is beta in 1.10.
+        """
+        return pulumi.get(self, "mount_propagation")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        This must match the Name of a Volume.
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="readOnly")
+    def read_only(self) -> Optional[bool]:
+        """
+        Mounted read-only if true, read-write otherwise (false or unspecified). Defaults to false.
+        """
+        return pulumi.get(self, "read_only")
+
+    @property
+    @pulumi.getter(name="subPath")
+    def sub_path(self) -> Optional[str]:
+        """
+        Path within the volume from which the container's volume should be mounted. Defaults to "" (volume's root).
+        """
+        return pulumi.get(self, "sub_path")
+
+    @property
+    @pulumi.getter(name="subPathExpr")
+    def sub_path_expr(self) -> Optional[str]:
+        """
+        Expanded path within the volume from which the container's volume should be mounted. Behaves similarly to SubPath but environment variable references $(VAR_NAME) are expanded using the container's environment. Defaults to "" (volume's root). SubPathExpr and SubPath are mutually exclusive.
+        """
+        return pulumi.get(self, "sub_path_expr")
+
+
+@pulumi.output_type
 class VolumeNodeAffinity(dict):
     """
     VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
@@ -14498,6 +27113,471 @@ class VolumeNodeAffinity(dict):
         required specifies hard node constraints that must be met.
         """
         return pulumi.get(self, "required")
+
+
+@pulumi.output_type
+class VolumeNodeAffinityPatch(dict):
+    """
+    VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+    """
+    def __init__(__self__, *,
+                 required: Optional['outputs.NodeSelectorPatch'] = None):
+        """
+        VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
+        :param 'NodeSelectorPatchArgs' required: required specifies hard node constraints that must be met.
+        """
+        if required is not None:
+            pulumi.set(__self__, "required", required)
+
+    @property
+    @pulumi.getter
+    def required(self) -> Optional['outputs.NodeSelectorPatch']:
+        """
+        required specifies hard node constraints that must be met.
+        """
+        return pulumi.get(self, "required")
+
+
+@pulumi.output_type
+class VolumePatch(dict):
+    """
+    Volume represents a named volume in a pod that may be accessed by any container in the pod.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "awsElasticBlockStore":
+            suggest = "aws_elastic_block_store"
+        elif key == "azureDisk":
+            suggest = "azure_disk"
+        elif key == "azureFile":
+            suggest = "azure_file"
+        elif key == "configMap":
+            suggest = "config_map"
+        elif key == "downwardAPI":
+            suggest = "downward_api"
+        elif key == "emptyDir":
+            suggest = "empty_dir"
+        elif key == "flexVolume":
+            suggest = "flex_volume"
+        elif key == "gcePersistentDisk":
+            suggest = "gce_persistent_disk"
+        elif key == "gitRepo":
+            suggest = "git_repo"
+        elif key == "hostPath":
+            suggest = "host_path"
+        elif key == "persistentVolumeClaim":
+            suggest = "persistent_volume_claim"
+        elif key == "photonPersistentDisk":
+            suggest = "photon_persistent_disk"
+        elif key == "portworxVolume":
+            suggest = "portworx_volume"
+        elif key == "scaleIO":
+            suggest = "scale_io"
+        elif key == "vsphereVolume":
+            suggest = "vsphere_volume"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 aws_elastic_block_store: Optional['outputs.AWSElasticBlockStoreVolumeSourcePatch'] = None,
+                 azure_disk: Optional['outputs.AzureDiskVolumeSourcePatch'] = None,
+                 azure_file: Optional['outputs.AzureFileVolumeSourcePatch'] = None,
+                 cephfs: Optional['outputs.CephFSVolumeSourcePatch'] = None,
+                 cinder: Optional['outputs.CinderVolumeSourcePatch'] = None,
+                 config_map: Optional['outputs.ConfigMapVolumeSourcePatch'] = None,
+                 csi: Optional['outputs.CSIVolumeSourcePatch'] = None,
+                 downward_api: Optional['outputs.DownwardAPIVolumeSourcePatch'] = None,
+                 empty_dir: Optional['outputs.EmptyDirVolumeSourcePatch'] = None,
+                 ephemeral: Optional['outputs.EphemeralVolumeSourcePatch'] = None,
+                 fc: Optional['outputs.FCVolumeSourcePatch'] = None,
+                 flex_volume: Optional['outputs.FlexVolumeSourcePatch'] = None,
+                 flocker: Optional['outputs.FlockerVolumeSourcePatch'] = None,
+                 gce_persistent_disk: Optional['outputs.GCEPersistentDiskVolumeSourcePatch'] = None,
+                 git_repo: Optional['outputs.GitRepoVolumeSourcePatch'] = None,
+                 glusterfs: Optional['outputs.GlusterfsVolumeSourcePatch'] = None,
+                 host_path: Optional['outputs.HostPathVolumeSourcePatch'] = None,
+                 iscsi: Optional['outputs.ISCSIVolumeSourcePatch'] = None,
+                 name: Optional[str] = None,
+                 nfs: Optional['outputs.NFSVolumeSourcePatch'] = None,
+                 persistent_volume_claim: Optional['outputs.PersistentVolumeClaimVolumeSourcePatch'] = None,
+                 photon_persistent_disk: Optional['outputs.PhotonPersistentDiskVolumeSourcePatch'] = None,
+                 portworx_volume: Optional['outputs.PortworxVolumeSourcePatch'] = None,
+                 projected: Optional['outputs.ProjectedVolumeSourcePatch'] = None,
+                 quobyte: Optional['outputs.QuobyteVolumeSourcePatch'] = None,
+                 rbd: Optional['outputs.RBDVolumeSourcePatch'] = None,
+                 scale_io: Optional['outputs.ScaleIOVolumeSourcePatch'] = None,
+                 secret: Optional['outputs.SecretVolumeSourcePatch'] = None,
+                 storageos: Optional['outputs.StorageOSVolumeSourcePatch'] = None,
+                 vsphere_volume: Optional['outputs.VsphereVirtualDiskVolumeSourcePatch'] = None):
+        """
+        Volume represents a named volume in a pod that may be accessed by any container in the pod.
+        :param 'AWSElasticBlockStoreVolumeSourcePatchArgs' aws_elastic_block_store: awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        :param 'AzureDiskVolumeSourcePatchArgs' azure_disk: azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        :param 'AzureFileVolumeSourcePatchArgs' azure_file: azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        :param 'CephFSVolumeSourcePatchArgs' cephfs: cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        :param 'CinderVolumeSourcePatchArgs' cinder: cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        :param 'ConfigMapVolumeSourcePatchArgs' config_map: configMap represents a configMap that should populate this volume
+        :param 'CSIVolumeSourcePatchArgs' csi: csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        :param 'DownwardAPIVolumeSourcePatchArgs' downward_api: downwardAPI represents downward API about the pod that should populate this volume
+        :param 'EmptyDirVolumeSourcePatchArgs' empty_dir: emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        :param 'EphemeralVolumeSourcePatchArgs' ephemeral: ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+               
+               Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+                  tracking are needed,
+               c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+                  a PersistentVolumeClaim (see EphemeralVolumeSource for more
+                  information on the connection between this volume type
+                  and PersistentVolumeClaim).
+               
+               Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+               
+               Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+               
+               A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+        :param 'FCVolumeSourcePatchArgs' fc: fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        :param 'FlexVolumeSourcePatchArgs' flex_volume: flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        :param 'FlockerVolumeSourcePatchArgs' flocker: flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        :param 'GCEPersistentDiskVolumeSourcePatchArgs' gce_persistent_disk: gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        :param 'GitRepoVolumeSourcePatchArgs' git_repo: gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        :param 'GlusterfsVolumeSourcePatchArgs' glusterfs: glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        :param 'HostPathVolumeSourcePatchArgs' host_path: hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        :param 'ISCSIVolumeSourcePatchArgs' iscsi: iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        :param str name: name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param 'NFSVolumeSourcePatchArgs' nfs: nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        :param 'PersistentVolumeClaimVolumeSourcePatchArgs' persistent_volume_claim: persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        :param 'PhotonPersistentDiskVolumeSourcePatchArgs' photon_persistent_disk: photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        :param 'PortworxVolumeSourcePatchArgs' portworx_volume: portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        :param 'ProjectedVolumeSourcePatchArgs' projected: projected items for all in one resources secrets, configmaps, and downward API
+        :param 'QuobyteVolumeSourcePatchArgs' quobyte: quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        :param 'RBDVolumeSourcePatchArgs' rbd: rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        :param 'ScaleIOVolumeSourcePatchArgs' scale_io: scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        :param 'SecretVolumeSourcePatchArgs' secret: secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        :param 'StorageOSVolumeSourcePatchArgs' storageos: storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        :param 'VsphereVirtualDiskVolumeSourcePatchArgs' vsphere_volume: vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        """
+        if aws_elastic_block_store is not None:
+            pulumi.set(__self__, "aws_elastic_block_store", aws_elastic_block_store)
+        if azure_disk is not None:
+            pulumi.set(__self__, "azure_disk", azure_disk)
+        if azure_file is not None:
+            pulumi.set(__self__, "azure_file", azure_file)
+        if cephfs is not None:
+            pulumi.set(__self__, "cephfs", cephfs)
+        if cinder is not None:
+            pulumi.set(__self__, "cinder", cinder)
+        if config_map is not None:
+            pulumi.set(__self__, "config_map", config_map)
+        if csi is not None:
+            pulumi.set(__self__, "csi", csi)
+        if downward_api is not None:
+            pulumi.set(__self__, "downward_api", downward_api)
+        if empty_dir is not None:
+            pulumi.set(__self__, "empty_dir", empty_dir)
+        if ephemeral is not None:
+            pulumi.set(__self__, "ephemeral", ephemeral)
+        if fc is not None:
+            pulumi.set(__self__, "fc", fc)
+        if flex_volume is not None:
+            pulumi.set(__self__, "flex_volume", flex_volume)
+        if flocker is not None:
+            pulumi.set(__self__, "flocker", flocker)
+        if gce_persistent_disk is not None:
+            pulumi.set(__self__, "gce_persistent_disk", gce_persistent_disk)
+        if git_repo is not None:
+            pulumi.set(__self__, "git_repo", git_repo)
+        if glusterfs is not None:
+            pulumi.set(__self__, "glusterfs", glusterfs)
+        if host_path is not None:
+            pulumi.set(__self__, "host_path", host_path)
+        if iscsi is not None:
+            pulumi.set(__self__, "iscsi", iscsi)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if nfs is not None:
+            pulumi.set(__self__, "nfs", nfs)
+        if persistent_volume_claim is not None:
+            pulumi.set(__self__, "persistent_volume_claim", persistent_volume_claim)
+        if photon_persistent_disk is not None:
+            pulumi.set(__self__, "photon_persistent_disk", photon_persistent_disk)
+        if portworx_volume is not None:
+            pulumi.set(__self__, "portworx_volume", portworx_volume)
+        if projected is not None:
+            pulumi.set(__self__, "projected", projected)
+        if quobyte is not None:
+            pulumi.set(__self__, "quobyte", quobyte)
+        if rbd is not None:
+            pulumi.set(__self__, "rbd", rbd)
+        if scale_io is not None:
+            pulumi.set(__self__, "scale_io", scale_io)
+        if secret is not None:
+            pulumi.set(__self__, "secret", secret)
+        if storageos is not None:
+            pulumi.set(__self__, "storageos", storageos)
+        if vsphere_volume is not None:
+            pulumi.set(__self__, "vsphere_volume", vsphere_volume)
+
+    @property
+    @pulumi.getter(name="awsElasticBlockStore")
+    def aws_elastic_block_store(self) -> Optional['outputs.AWSElasticBlockStoreVolumeSourcePatch']:
+        """
+        awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
+        """
+        return pulumi.get(self, "aws_elastic_block_store")
+
+    @property
+    @pulumi.getter(name="azureDisk")
+    def azure_disk(self) -> Optional['outputs.AzureDiskVolumeSourcePatch']:
+        """
+        azureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
+        """
+        return pulumi.get(self, "azure_disk")
+
+    @property
+    @pulumi.getter(name="azureFile")
+    def azure_file(self) -> Optional['outputs.AzureFileVolumeSourcePatch']:
+        """
+        azureFile represents an Azure File Service mount on the host and bind mount to the pod.
+        """
+        return pulumi.get(self, "azure_file")
+
+    @property
+    @pulumi.getter
+    def cephfs(self) -> Optional['outputs.CephFSVolumeSourcePatch']:
+        """
+        cephFS represents a Ceph FS mount on the host that shares a pod's lifetime
+        """
+        return pulumi.get(self, "cephfs")
+
+    @property
+    @pulumi.getter
+    def cinder(self) -> Optional['outputs.CinderVolumeSourcePatch']:
+        """
+        cinder represents a cinder volume attached and mounted on kubelets host machine. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
+        """
+        return pulumi.get(self, "cinder")
+
+    @property
+    @pulumi.getter(name="configMap")
+    def config_map(self) -> Optional['outputs.ConfigMapVolumeSourcePatch']:
+        """
+        configMap represents a configMap that should populate this volume
+        """
+        return pulumi.get(self, "config_map")
+
+    @property
+    @pulumi.getter
+    def csi(self) -> Optional['outputs.CSIVolumeSourcePatch']:
+        """
+        csi (Container Storage Interface) represents ephemeral storage that is handled by certain external CSI drivers (Beta feature).
+        """
+        return pulumi.get(self, "csi")
+
+    @property
+    @pulumi.getter(name="downwardAPI")
+    def downward_api(self) -> Optional['outputs.DownwardAPIVolumeSourcePatch']:
+        """
+        downwardAPI represents downward API about the pod that should populate this volume
+        """
+        return pulumi.get(self, "downward_api")
+
+    @property
+    @pulumi.getter(name="emptyDir")
+    def empty_dir(self) -> Optional['outputs.EmptyDirVolumeSourcePatch']:
+        """
+        emptyDir represents a temporary directory that shares a pod's lifetime. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
+        """
+        return pulumi.get(self, "empty_dir")
+
+    @property
+    @pulumi.getter
+    def ephemeral(self) -> Optional['outputs.EphemeralVolumeSourcePatch']:
+        """
+        ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+
+        Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+           tracking are needed,
+        c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+           a PersistentVolumeClaim (see EphemeralVolumeSource for more
+           information on the connection between this volume type
+           and PersistentVolumeClaim).
+
+        Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+
+        Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+
+        A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+        """
+        return pulumi.get(self, "ephemeral")
+
+    @property
+    @pulumi.getter
+    def fc(self) -> Optional['outputs.FCVolumeSourcePatch']:
+        """
+        fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
+        """
+        return pulumi.get(self, "fc")
+
+    @property
+    @pulumi.getter(name="flexVolume")
+    def flex_volume(self) -> Optional['outputs.FlexVolumeSourcePatch']:
+        """
+        flexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
+        """
+        return pulumi.get(self, "flex_volume")
+
+    @property
+    @pulumi.getter
+    def flocker(self) -> Optional['outputs.FlockerVolumeSourcePatch']:
+        """
+        flocker represents a Flocker volume attached to a kubelet's host machine. This depends on the Flocker control service being running
+        """
+        return pulumi.get(self, "flocker")
+
+    @property
+    @pulumi.getter(name="gcePersistentDisk")
+    def gce_persistent_disk(self) -> Optional['outputs.GCEPersistentDiskVolumeSourcePatch']:
+        """
+        gcePersistentDisk represents a GCE Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
+        """
+        return pulumi.get(self, "gce_persistent_disk")
+
+    @property
+    @pulumi.getter(name="gitRepo")
+    def git_repo(self) -> Optional['outputs.GitRepoVolumeSourcePatch']:
+        """
+        gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
+        """
+        return pulumi.get(self, "git_repo")
+
+    @property
+    @pulumi.getter
+    def glusterfs(self) -> Optional['outputs.GlusterfsVolumeSourcePatch']:
+        """
+        glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+        """
+        return pulumi.get(self, "glusterfs")
+
+    @property
+    @pulumi.getter(name="hostPath")
+    def host_path(self) -> Optional['outputs.HostPathVolumeSourcePatch']:
+        """
+        hostPath represents a pre-existing file or directory on the host machine that is directly exposed to the container. This is generally used for system agents or other privileged things that are allowed to see the host machine. Most containers will NOT need this. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
+        """
+        return pulumi.get(self, "host_path")
+
+    @property
+    @pulumi.getter
+    def iscsi(self) -> Optional['outputs.ISCSIVolumeSourcePatch']:
+        """
+        iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
+        """
+        return pulumi.get(self, "iscsi")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        name of the volume. Must be a DNS_LABEL and unique within the pod. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        """
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def nfs(self) -> Optional['outputs.NFSVolumeSourcePatch']:
+        """
+        nfs represents an NFS mount on the host that shares a pod's lifetime More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
+        """
+        return pulumi.get(self, "nfs")
+
+    @property
+    @pulumi.getter(name="persistentVolumeClaim")
+    def persistent_volume_claim(self) -> Optional['outputs.PersistentVolumeClaimVolumeSourcePatch']:
+        """
+        persistentVolumeClaimVolumeSource represents a reference to a PersistentVolumeClaim in the same namespace. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
+        """
+        return pulumi.get(self, "persistent_volume_claim")
+
+    @property
+    @pulumi.getter(name="photonPersistentDisk")
+    def photon_persistent_disk(self) -> Optional['outputs.PhotonPersistentDiskVolumeSourcePatch']:
+        """
+        photonPersistentDisk represents a PhotonController persistent disk attached and mounted on kubelets host machine
+        """
+        return pulumi.get(self, "photon_persistent_disk")
+
+    @property
+    @pulumi.getter(name="portworxVolume")
+    def portworx_volume(self) -> Optional['outputs.PortworxVolumeSourcePatch']:
+        """
+        portworxVolume represents a portworx volume attached and mounted on kubelets host machine
+        """
+        return pulumi.get(self, "portworx_volume")
+
+    @property
+    @pulumi.getter
+    def projected(self) -> Optional['outputs.ProjectedVolumeSourcePatch']:
+        """
+        projected items for all in one resources secrets, configmaps, and downward API
+        """
+        return pulumi.get(self, "projected")
+
+    @property
+    @pulumi.getter
+    def quobyte(self) -> Optional['outputs.QuobyteVolumeSourcePatch']:
+        """
+        quobyte represents a Quobyte mount on the host that shares a pod's lifetime
+        """
+        return pulumi.get(self, "quobyte")
+
+    @property
+    @pulumi.getter
+    def rbd(self) -> Optional['outputs.RBDVolumeSourcePatch']:
+        """
+        rbd represents a Rados Block Device mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/rbd/README.md
+        """
+        return pulumi.get(self, "rbd")
+
+    @property
+    @pulumi.getter(name="scaleIO")
+    def scale_io(self) -> Optional['outputs.ScaleIOVolumeSourcePatch']:
+        """
+        scaleIO represents a ScaleIO persistent volume attached and mounted on Kubernetes nodes.
+        """
+        return pulumi.get(self, "scale_io")
+
+    @property
+    @pulumi.getter
+    def secret(self) -> Optional['outputs.SecretVolumeSourcePatch']:
+        """
+        secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
+        """
+        return pulumi.get(self, "secret")
+
+    @property
+    @pulumi.getter
+    def storageos(self) -> Optional['outputs.StorageOSVolumeSourcePatch']:
+        """
+        storageOS represents a StorageOS volume attached and mounted on Kubernetes nodes.
+        """
+        return pulumi.get(self, "storageos")
+
+    @property
+    @pulumi.getter(name="vsphereVolume")
+    def vsphere_volume(self) -> Optional['outputs.VsphereVirtualDiskVolumeSourcePatch']:
+        """
+        vsphereVolume represents a vSphere volume attached and mounted on kubelets host machine
+        """
+        return pulumi.get(self, "vsphere_volume")
 
 
 @pulumi.output_type
@@ -14574,6 +27654,86 @@ class VolumeProjection(dict):
     @property
     @pulumi.getter(name="serviceAccountToken")
     def service_account_token(self) -> Optional['outputs.ServiceAccountTokenProjection']:
+        """
+        serviceAccountToken is information about the serviceAccountToken data to project
+        """
+        return pulumi.get(self, "service_account_token")
+
+
+@pulumi.output_type
+class VolumeProjectionPatch(dict):
+    """
+    Projection that may be projected along with other supported volume types
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "configMap":
+            suggest = "config_map"
+        elif key == "downwardAPI":
+            suggest = "downward_api"
+        elif key == "serviceAccountToken":
+            suggest = "service_account_token"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VolumeProjectionPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VolumeProjectionPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VolumeProjectionPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 config_map: Optional['outputs.ConfigMapProjectionPatch'] = None,
+                 downward_api: Optional['outputs.DownwardAPIProjectionPatch'] = None,
+                 secret: Optional['outputs.SecretProjectionPatch'] = None,
+                 service_account_token: Optional['outputs.ServiceAccountTokenProjectionPatch'] = None):
+        """
+        Projection that may be projected along with other supported volume types
+        :param 'ConfigMapProjectionPatchArgs' config_map: configMap information about the configMap data to project
+        :param 'DownwardAPIProjectionPatchArgs' downward_api: downwardAPI information about the downwardAPI data to project
+        :param 'SecretProjectionPatchArgs' secret: secret information about the secret data to project
+        :param 'ServiceAccountTokenProjectionPatchArgs' service_account_token: serviceAccountToken is information about the serviceAccountToken data to project
+        """
+        if config_map is not None:
+            pulumi.set(__self__, "config_map", config_map)
+        if downward_api is not None:
+            pulumi.set(__self__, "downward_api", downward_api)
+        if secret is not None:
+            pulumi.set(__self__, "secret", secret)
+        if service_account_token is not None:
+            pulumi.set(__self__, "service_account_token", service_account_token)
+
+    @property
+    @pulumi.getter(name="configMap")
+    def config_map(self) -> Optional['outputs.ConfigMapProjectionPatch']:
+        """
+        configMap information about the configMap data to project
+        """
+        return pulumi.get(self, "config_map")
+
+    @property
+    @pulumi.getter(name="downwardAPI")
+    def downward_api(self) -> Optional['outputs.DownwardAPIProjectionPatch']:
+        """
+        downwardAPI information about the downwardAPI data to project
+        """
+        return pulumi.get(self, "downward_api")
+
+    @property
+    @pulumi.getter
+    def secret(self) -> Optional['outputs.SecretProjectionPatch']:
+        """
+        secret information about the secret data to project
+        """
+        return pulumi.get(self, "secret")
+
+    @property
+    @pulumi.getter(name="serviceAccountToken")
+    def service_account_token(self) -> Optional['outputs.ServiceAccountTokenProjectionPatch']:
         """
         serviceAccountToken is information about the serviceAccountToken data to project
         """
@@ -14662,6 +27822,88 @@ class VsphereVirtualDiskVolumeSource(dict):
 
 
 @pulumi.output_type
+class VsphereVirtualDiskVolumeSourcePatch(dict):
+    """
+    Represents a vSphere volume resource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fsType":
+            suggest = "fs_type"
+        elif key == "storagePolicyID":
+            suggest = "storage_policy_id"
+        elif key == "storagePolicyName":
+            suggest = "storage_policy_name"
+        elif key == "volumePath":
+            suggest = "volume_path"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in VsphereVirtualDiskVolumeSourcePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        VsphereVirtualDiskVolumeSourcePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        VsphereVirtualDiskVolumeSourcePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 fs_type: Optional[str] = None,
+                 storage_policy_id: Optional[str] = None,
+                 storage_policy_name: Optional[str] = None,
+                 volume_path: Optional[str] = None):
+        """
+        Represents a vSphere volume resource.
+        :param str fs_type: fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        :param str storage_policy_id: storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+        :param str storage_policy_name: storagePolicyName is the storage Policy Based Management (SPBM) profile name.
+        :param str volume_path: volumePath is the path that identifies vSphere volume vmdk
+        """
+        if fs_type is not None:
+            pulumi.set(__self__, "fs_type", fs_type)
+        if storage_policy_id is not None:
+            pulumi.set(__self__, "storage_policy_id", storage_policy_id)
+        if storage_policy_name is not None:
+            pulumi.set(__self__, "storage_policy_name", storage_policy_name)
+        if volume_path is not None:
+            pulumi.set(__self__, "volume_path", volume_path)
+
+    @property
+    @pulumi.getter(name="fsType")
+    def fs_type(self) -> Optional[str]:
+        """
+        fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
+        """
+        return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="storagePolicyID")
+    def storage_policy_id(self) -> Optional[str]:
+        """
+        storagePolicyID is the storage Policy Based Management (SPBM) profile ID associated with the StoragePolicyName.
+        """
+        return pulumi.get(self, "storage_policy_id")
+
+    @property
+    @pulumi.getter(name="storagePolicyName")
+    def storage_policy_name(self) -> Optional[str]:
+        """
+        storagePolicyName is the storage Policy Based Management (SPBM) profile name.
+        """
+        return pulumi.get(self, "storage_policy_name")
+
+    @property
+    @pulumi.getter(name="volumePath")
+    def volume_path(self) -> Optional[str]:
+        """
+        volumePath is the path that identifies vSphere volume vmdk
+        """
+        return pulumi.get(self, "volume_path")
+
+
+@pulumi.output_type
 class WeightedPodAffinityTerm(dict):
     """
     The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
@@ -14712,6 +27954,58 @@ class WeightedPodAffinityTerm(dict):
 
 
 @pulumi.output_type
+class WeightedPodAffinityTermPatch(dict):
+    """
+    The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "podAffinityTerm":
+            suggest = "pod_affinity_term"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WeightedPodAffinityTermPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WeightedPodAffinityTermPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WeightedPodAffinityTermPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 pod_affinity_term: Optional['outputs.PodAffinityTermPatch'] = None,
+                 weight: Optional[int] = None):
+        """
+        The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
+        :param 'PodAffinityTermPatchArgs' pod_affinity_term: Required. A pod affinity term, associated with the corresponding weight.
+        :param int weight: weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+        """
+        if pod_affinity_term is not None:
+            pulumi.set(__self__, "pod_affinity_term", pod_affinity_term)
+        if weight is not None:
+            pulumi.set(__self__, "weight", weight)
+
+    @property
+    @pulumi.getter(name="podAffinityTerm")
+    def pod_affinity_term(self) -> Optional['outputs.PodAffinityTermPatch']:
+        """
+        Required. A pod affinity term, associated with the corresponding weight.
+        """
+        return pulumi.get(self, "pod_affinity_term")
+
+    @property
+    @pulumi.getter
+    def weight(self) -> Optional[int]:
+        """
+        weight associated with matching the corresponding podAffinityTerm, in the range 1-100.
+        """
+        return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
 class WindowsSecurityContextOptions(dict):
     """
     WindowsSecurityContextOptions contain Windows-specific options and credentials.
@@ -14737,6 +28031,88 @@ class WindowsSecurityContextOptions(dict):
 
     def get(self, key: str, default = None) -> Any:
         WindowsSecurityContextOptions.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 gmsa_credential_spec: Optional[str] = None,
+                 gmsa_credential_spec_name: Optional[str] = None,
+                 host_process: Optional[bool] = None,
+                 run_as_user_name: Optional[str] = None):
+        """
+        WindowsSecurityContextOptions contain Windows-specific options and credentials.
+        :param str gmsa_credential_spec: GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
+        :param str gmsa_credential_spec_name: GMSACredentialSpecName is the name of the GMSA credential spec to use.
+        :param bool host_process: HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+        :param str run_as_user_name: The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        """
+        if gmsa_credential_spec is not None:
+            pulumi.set(__self__, "gmsa_credential_spec", gmsa_credential_spec)
+        if gmsa_credential_spec_name is not None:
+            pulumi.set(__self__, "gmsa_credential_spec_name", gmsa_credential_spec_name)
+        if host_process is not None:
+            pulumi.set(__self__, "host_process", host_process)
+        if run_as_user_name is not None:
+            pulumi.set(__self__, "run_as_user_name", run_as_user_name)
+
+    @property
+    @pulumi.getter(name="gmsaCredentialSpec")
+    def gmsa_credential_spec(self) -> Optional[str]:
+        """
+        GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
+        """
+        return pulumi.get(self, "gmsa_credential_spec")
+
+    @property
+    @pulumi.getter(name="gmsaCredentialSpecName")
+    def gmsa_credential_spec_name(self) -> Optional[str]:
+        """
+        GMSACredentialSpecName is the name of the GMSA credential spec to use.
+        """
+        return pulumi.get(self, "gmsa_credential_spec_name")
+
+    @property
+    @pulumi.getter(name="hostProcess")
+    def host_process(self) -> Optional[bool]:
+        """
+        HostProcess determines if a container should be run as a 'Host Process' container. This field is alpha-level and will only be honored by components that enable the WindowsHostProcessContainers feature flag. Setting this field without the feature flag will result in errors when validating the Pod. All of a Pod's containers must have the same effective HostProcess value (it is not allowed to have a mix of HostProcess containers and non-HostProcess containers).  In addition, if HostProcess is true then HostNetwork must also be set to true.
+        """
+        return pulumi.get(self, "host_process")
+
+    @property
+    @pulumi.getter(name="runAsUserName")
+    def run_as_user_name(self) -> Optional[str]:
+        """
+        The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+        """
+        return pulumi.get(self, "run_as_user_name")
+
+
+@pulumi.output_type
+class WindowsSecurityContextOptionsPatch(dict):
+    """
+    WindowsSecurityContextOptions contain Windows-specific options and credentials.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "gmsaCredentialSpec":
+            suggest = "gmsa_credential_spec"
+        elif key == "gmsaCredentialSpecName":
+            suggest = "gmsa_credential_spec_name"
+        elif key == "hostProcess":
+            suggest = "host_process"
+        elif key == "runAsUserName":
+            suggest = "run_as_user_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WindowsSecurityContextOptionsPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WindowsSecurityContextOptionsPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WindowsSecurityContextOptionsPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,

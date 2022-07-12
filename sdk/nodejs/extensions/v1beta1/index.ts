@@ -7,30 +7,42 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./daemonSet";
 export * from "./daemonSetList";
+export * from "./daemonSetPatch";
 export * from "./deployment";
 export * from "./deploymentList";
+export * from "./deploymentPatch";
 export * from "./ingress";
 export * from "./ingressList";
+export * from "./ingressPatch";
 export * from "./networkPolicy";
 export * from "./networkPolicyList";
+export * from "./networkPolicyPatch";
 export * from "./podSecurityPolicy";
 export * from "./podSecurityPolicyList";
+export * from "./podSecurityPolicyPatch";
 export * from "./replicaSet";
 export * from "./replicaSetList";
+export * from "./replicaSetPatch";
 
 // Import resources to register:
 import { DaemonSet } from "./daemonSet";
 import { DaemonSetList } from "./daemonSetList";
+import { DaemonSetPatch } from "./daemonSetPatch";
 import { Deployment } from "./deployment";
 import { DeploymentList } from "./deploymentList";
+import { DeploymentPatch } from "./deploymentPatch";
 import { Ingress } from "./ingress";
 import { IngressList } from "./ingressList";
+import { IngressPatch } from "./ingressPatch";
 import { NetworkPolicy } from "./networkPolicy";
 import { NetworkPolicyList } from "./networkPolicyList";
+import { NetworkPolicyPatch } from "./networkPolicyPatch";
 import { PodSecurityPolicy } from "./podSecurityPolicy";
 import { PodSecurityPolicyList } from "./podSecurityPolicyList";
+import { PodSecurityPolicyPatch } from "./podSecurityPolicyPatch";
 import { ReplicaSet } from "./replicaSet";
 import { ReplicaSetList } from "./replicaSetList";
+import { ReplicaSetPatch } from "./replicaSetPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -40,26 +52,38 @@ const _module = {
                 return new DaemonSet(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:DaemonSetList":
                 return new DaemonSetList(name, <any>undefined, { urn })
+            case "kubernetes:extensions/v1beta1:DaemonSetPatch":
+                return new DaemonSetPatch(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:Deployment":
                 return new Deployment(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:DeploymentList":
                 return new DeploymentList(name, <any>undefined, { urn })
+            case "kubernetes:extensions/v1beta1:DeploymentPatch":
+                return new DeploymentPatch(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:Ingress":
                 return new Ingress(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:IngressList":
                 return new IngressList(name, <any>undefined, { urn })
+            case "kubernetes:extensions/v1beta1:IngressPatch":
+                return new IngressPatch(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:NetworkPolicy":
                 return new NetworkPolicy(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:NetworkPolicyList":
                 return new NetworkPolicyList(name, <any>undefined, { urn })
+            case "kubernetes:extensions/v1beta1:NetworkPolicyPatch":
+                return new NetworkPolicyPatch(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:PodSecurityPolicy":
                 return new PodSecurityPolicy(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:PodSecurityPolicyList":
                 return new PodSecurityPolicyList(name, <any>undefined, { urn })
+            case "kubernetes:extensions/v1beta1:PodSecurityPolicyPatch":
+                return new PodSecurityPolicyPatch(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:ReplicaSet":
                 return new ReplicaSet(name, <any>undefined, { urn })
             case "kubernetes:extensions/v1beta1:ReplicaSetList":
                 return new ReplicaSetList(name, <any>undefined, { urn })
+            case "kubernetes:extensions/v1beta1:ReplicaSetPatch":
+                return new ReplicaSetPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

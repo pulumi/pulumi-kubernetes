@@ -272,18 +272,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 				Reason:   fmt.Sprintf(errTemplate, "kubeconfig"),
 			})
 		}
-		if truthyValue("enableDryRun", news) {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Property: "enableDryRun",
-				Reason:   fmt.Sprintf(errTemplate, "enableDryRun"),
-			})
-		}
-		if truthyValue("enableServerSideApply", news) {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Property: "enableServerSideApply",
-				Reason:   fmt.Sprintf(errTemplate, "enableServerSideApply"),
-			})
-		}
 
 		if len(failures) > 0 {
 			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
@@ -1220,6 +1208,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
+	if !k.serverSideApplyMode && strings.HasSuffix(urn.Type().String(), "Patch") {
+		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
+			"`enableServerSideApply` Provider config")
+	}
+
 	// Utilities for determining whether a resource's GVK exists.
 	gvkExists := func(gvk schema.GroupVersionKind) bool {
 		knownGVKs := sets.NewString()
@@ -1298,20 +1291,24 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// a resource that was created out-of-band. In this case, we do not add the `managed-by` label here, as doing
 		// so would result in a persistent failure to import due to a diff that the user cannot correct.
 		if metadata.HasManagedByLabel(oldInputs) {
-			_, err = metadata.TrySetManagedByLabel(newInputs)
-			if err != nil {
-				return nil, pkgerrors.Wrapf(err,
-					"Failed to create object because of a problem setting managed-by labels")
+			if !k.serverSideApplyMode {
+				_, err = metadata.TrySetManagedByLabel(newInputs)
+				if err != nil {
+					return nil, pkgerrors.Wrapf(err,
+						"Failed to create object because of a problem setting managed-by labels")
+				}
 			}
 		}
 	} else {
 		metadata.AssignNameIfAutonamable(newInputs, news, urn)
 
-		// Set a "managed-by: pulumi" label on all created k8s resources.
-		_, err = metadata.TrySetManagedByLabel(newInputs)
-		if err != nil {
-			return nil, pkgerrors.Wrapf(err,
-				"Failed to create object because of a problem setting managed-by labels")
+		if !k.serverSideApplyMode {
+			// Set a "managed-by: pulumi" label on all created k8s resources.
+			_, err = metadata.TrySetManagedByLabel(newInputs)
+			if err != nil {
+				return nil, pkgerrors.Wrapf(err,
+					"Failed to create object because of a problem setting managed-by labels")
+			}
 		}
 	}
 
@@ -1755,7 +1752,7 @@ func (k *kubeProvider) Create(
 		},
 		Inputs:  annotatedInputs,
 		Timeout: req.Timeout,
-		DryRun:  req.GetPreview(),
+		Preview: req.GetPreview(),
 	}
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
@@ -2068,18 +2065,21 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
-// Update updates an existing resource with new values. Currently this client supports the
-// Kubernetes-standard three-way JSON patch. See references here[1] and here[2].
+// Update updates an existing resource with new values. Currently, this client supports the
+// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
 //
 // nolint
-// [1]: https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
-// nolint
-// [2]: https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
+// [1]:
+// https://kubernetes.io/docs/tasks/run-application/update-api-object-kubectl-patch/#use-a-json-merge-patch-to-update-a-deployment
+// [2]:
+// https://kubernetes.io/docs/concepts/overview/object-management-kubectl/declarative-config/#how-apply-calculates-differences-and-merges-changes
+// [3]:
+// https://kubernetes.io/docs/reference/using-api/server-side-apply
 func (k *kubeProvider) Update(
 	ctx context.Context, req *pulumirpc.UpdateRequest,
 ) (*pulumirpc.UpdateResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 2 inputs:
+	// Behavior as of v3.20.0: We take 2 inputs:
 	//
 	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
 	//    k8s.core.v1.Service
@@ -2087,14 +2087,14 @@ func (k *kubeProvider) Update(
 	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
 	//    last computed value obtained from the Kubernetes API server.
 	//
-	// Unlike other providers, the update is computed as a three way merge between: (1) the new
+	// Unlike other providers, the update is computed as a three-way merge between: (1) the new
 	// inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
 	// main reason why the old state is an object with both the old inputs and the live version of the
 	// object.
 	//
 
 	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle and you should proceed to
+	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
 	// change them only if you understand them deeply.
 	//
 	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
@@ -2130,7 +2130,9 @@ func (k *kubeProvider) Update(
 	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
 	//       plumbing, because it expects nominal types representing the API schema, but the
 	//       discovery client is completely dynamic.)
-	// - [ ] Support server-side apply, when it comes out.
+	// - [x] Support server-side apply.
+	//
+	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
 	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
@@ -2550,16 +2552,18 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 				return nil, nil, err
 			}
 
-			force := metadata.IsAnnotationTrue(newInputs, metadata.AnnotationPatchForce)
+			// Always force on diff to avoid erroneous conflict errors for resource replacements
+			force := true
 			if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
 				fieldManager = v
 			}
 
 			newObject, err = client.Patch(
 				k.canceler.context, newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
-					DryRun:       []string{metav1.DryRunAll},
-					FieldManager: fieldManager,
-					Force:        &force,
+					DryRun:          []string{metav1.DryRunAll},
+					FieldManager:    fieldManager,
+					FieldValidation: metav1.FieldValidationWarn,
+					Force:           &force,
 				})
 			if err != nil {
 				return nil, nil, err
@@ -2590,6 +2594,21 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 	}
 	if err != nil {
 		return nil, nil, err
+	}
+
+	if k.serverSideApplyMode {
+		objMetadata := newObject.Object["metadata"].(map[string]interface{})
+		if len(objMetadata) == 1 {
+			delete(newObject.Object, "metadata")
+		} else {
+			delete(newObject.Object["metadata"].(map[string]interface{}), "managedFields")
+		}
+		objMetadata = liveObject.Object["metadata"].(map[string]interface{})
+		if len(objMetadata) == 1 {
+			delete(liveObject.Object, "metadata")
+		} else {
+			delete(liveObject.Object["metadata"].(map[string]interface{}), "managedFields")
+		}
 	}
 
 	liveJSON, err := liveObject.MarshalJSON()
@@ -2673,6 +2692,11 @@ func (k *kubeProvider) tryServerSidePatch(
 	}
 
 	ssPatch, ssPatchBase, err = k.serverSidePatch(oldInputs, newInputs, fieldManager)
+	if err == nil {
+		// The server-side patch succeeded.
+		return ssPatch, ssPatchBase, true, nil
+	}
+
 	if k.isDryRunDisabledError(err) {
 		return nil, nil, false, err
 	}
@@ -2683,12 +2707,13 @@ func (k *kubeProvider) tryServerSidePatch(
 			return nil, nil, false, err
 		}
 	}
-	if err != nil {
-		return nil, nil, false, err
+	if err.Error() == "name is required" {
+		// If the name was removed in this update, then the resource will be replaced with an auto-named resource.
+		// Ignore this error since this case is handled by the replacement logic.
+		return nil, nil, false, nil
 	}
 
-	// The server-side patch succeeded.
-	return ssPatch, ssPatchBase, true, nil
+	return nil, nil, false, err
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {

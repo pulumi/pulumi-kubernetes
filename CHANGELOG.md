@@ -1,8 +1,9 @@
 ## Unreleased
 
 - Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
+- Add Patch resources to all SDKs (https://github.com/pulumi/pulumi-kubernetes/pull/2043)
 - Add awaiter for service-account-token secret (https://github.com/pulumi/pulumi-kubernetes/pull/2048)
-- All Java packages changed to be more intuitive, unfortunately this is a breaking change for Java version (https://github.com/pulumi/pulumi-kubernetes/pull/2055)
+- Add Java packages overrides to schema (https://github.com/pulumi/pulumi-kubernetes/pull/2055)
 
 ## 3.19.4 (June 21, 2022)
 

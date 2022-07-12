@@ -24,6 +24,8 @@ import (
 	"strings"
 	"testing"
 
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
@@ -511,6 +513,33 @@ func TestSecrets(t *testing.T) {
 			// The program converts the secret message to base64, to make a ConfigMap from it, so the state
 			// should also not contain the base64 encoding of secret message.
 			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
+
+func TestServerSideApply(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(cwd, "server-side-apply"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Validate patched CustomResource
+			crPatched := stackInfo.Outputs["crPatched"].(map[string]interface{})
+			fooV, ok, err := unstructured.NestedString(crPatched, "metadata", "labels", "foo")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "foo", fooV)
 		},
 	})
 	integration.ProgramTest(t, &options)

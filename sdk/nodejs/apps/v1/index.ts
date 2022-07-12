@@ -7,26 +7,36 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./controllerRevision";
 export * from "./controllerRevisionList";
+export * from "./controllerRevisionPatch";
 export * from "./daemonSet";
 export * from "./daemonSetList";
+export * from "./daemonSetPatch";
 export * from "./deployment";
 export * from "./deploymentList";
+export * from "./deploymentPatch";
 export * from "./replicaSet";
 export * from "./replicaSetList";
+export * from "./replicaSetPatch";
 export * from "./statefulSet";
 export * from "./statefulSetList";
+export * from "./statefulSetPatch";
 
 // Import resources to register:
 import { ControllerRevision } from "./controllerRevision";
 import { ControllerRevisionList } from "./controllerRevisionList";
+import { ControllerRevisionPatch } from "./controllerRevisionPatch";
 import { DaemonSet } from "./daemonSet";
 import { DaemonSetList } from "./daemonSetList";
+import { DaemonSetPatch } from "./daemonSetPatch";
 import { Deployment } from "./deployment";
 import { DeploymentList } from "./deploymentList";
+import { DeploymentPatch } from "./deploymentPatch";
 import { ReplicaSet } from "./replicaSet";
 import { ReplicaSetList } from "./replicaSetList";
+import { ReplicaSetPatch } from "./replicaSetPatch";
 import { StatefulSet } from "./statefulSet";
 import { StatefulSetList } from "./statefulSetList";
+import { StatefulSetPatch } from "./statefulSetPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -36,22 +46,32 @@ const _module = {
                 return new ControllerRevision(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:ControllerRevisionList":
                 return new ControllerRevisionList(name, <any>undefined, { urn })
+            case "kubernetes:apps/v1:ControllerRevisionPatch":
+                return new ControllerRevisionPatch(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:DaemonSet":
                 return new DaemonSet(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:DaemonSetList":
                 return new DaemonSetList(name, <any>undefined, { urn })
+            case "kubernetes:apps/v1:DaemonSetPatch":
+                return new DaemonSetPatch(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:Deployment":
                 return new Deployment(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:DeploymentList":
                 return new DeploymentList(name, <any>undefined, { urn })
+            case "kubernetes:apps/v1:DeploymentPatch":
+                return new DeploymentPatch(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:ReplicaSet":
                 return new ReplicaSet(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:ReplicaSetList":
                 return new ReplicaSetList(name, <any>undefined, { urn })
+            case "kubernetes:apps/v1:ReplicaSetPatch":
+                return new ReplicaSetPatch(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:StatefulSet":
                 return new StatefulSet(name, <any>undefined, { urn })
             case "kubernetes:apps/v1:StatefulSetList":
                 return new StatefulSetList(name, <any>undefined, { urn })
+            case "kubernetes:apps/v1:StatefulSetPatch":
+                return new StatefulSetPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

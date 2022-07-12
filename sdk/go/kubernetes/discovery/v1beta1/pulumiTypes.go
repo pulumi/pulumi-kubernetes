@@ -365,6 +365,184 @@ func (o EndpointConditionsPtrOutput) Terminating() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+// EndpointConditions represents the current condition of an endpoint.
+type EndpointConditionsPatch struct {
+	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+	Ready *bool `pulumi:"ready"`
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Serving *bool `pulumi:"serving"`
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Terminating *bool `pulumi:"terminating"`
+}
+
+// EndpointConditionsPatchInput is an input type that accepts EndpointConditionsPatchArgs and EndpointConditionsPatchOutput values.
+// You can construct a concrete instance of `EndpointConditionsPatchInput` via:
+//
+//          EndpointConditionsPatchArgs{...}
+type EndpointConditionsPatchInput interface {
+	pulumi.Input
+
+	ToEndpointConditionsPatchOutput() EndpointConditionsPatchOutput
+	ToEndpointConditionsPatchOutputWithContext(context.Context) EndpointConditionsPatchOutput
+}
+
+// EndpointConditions represents the current condition of an endpoint.
+type EndpointConditionsPatchArgs struct {
+	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+	Ready pulumi.BoolPtrInput `pulumi:"ready"`
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Serving pulumi.BoolPtrInput `pulumi:"serving"`
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	Terminating pulumi.BoolPtrInput `pulumi:"terminating"`
+}
+
+func (EndpointConditionsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointConditionsPatch)(nil)).Elem()
+}
+
+func (i EndpointConditionsPatchArgs) ToEndpointConditionsPatchOutput() EndpointConditionsPatchOutput {
+	return i.ToEndpointConditionsPatchOutputWithContext(context.Background())
+}
+
+func (i EndpointConditionsPatchArgs) ToEndpointConditionsPatchOutputWithContext(ctx context.Context) EndpointConditionsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPatchOutput)
+}
+
+func (i EndpointConditionsPatchArgs) ToEndpointConditionsPatchPtrOutput() EndpointConditionsPatchPtrOutput {
+	return i.ToEndpointConditionsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i EndpointConditionsPatchArgs) ToEndpointConditionsPatchPtrOutputWithContext(ctx context.Context) EndpointConditionsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPatchOutput).ToEndpointConditionsPatchPtrOutputWithContext(ctx)
+}
+
+// EndpointConditionsPatchPtrInput is an input type that accepts EndpointConditionsPatchArgs, EndpointConditionsPatchPtr and EndpointConditionsPatchPtrOutput values.
+// You can construct a concrete instance of `EndpointConditionsPatchPtrInput` via:
+//
+//          EndpointConditionsPatchArgs{...}
+//
+//  or:
+//
+//          nil
+type EndpointConditionsPatchPtrInput interface {
+	pulumi.Input
+
+	ToEndpointConditionsPatchPtrOutput() EndpointConditionsPatchPtrOutput
+	ToEndpointConditionsPatchPtrOutputWithContext(context.Context) EndpointConditionsPatchPtrOutput
+}
+
+type endpointConditionsPatchPtrType EndpointConditionsPatchArgs
+
+func EndpointConditionsPatchPtr(v *EndpointConditionsPatchArgs) EndpointConditionsPatchPtrInput {
+	return (*endpointConditionsPatchPtrType)(v)
+}
+
+func (*endpointConditionsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointConditionsPatch)(nil)).Elem()
+}
+
+func (i *endpointConditionsPatchPtrType) ToEndpointConditionsPatchPtrOutput() EndpointConditionsPatchPtrOutput {
+	return i.ToEndpointConditionsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *endpointConditionsPatchPtrType) ToEndpointConditionsPatchPtrOutputWithContext(ctx context.Context) EndpointConditionsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPatchPtrOutput)
+}
+
+// EndpointConditions represents the current condition of an endpoint.
+type EndpointConditionsPatchOutput struct{ *pulumi.OutputState }
+
+func (EndpointConditionsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointConditionsPatch)(nil)).Elem()
+}
+
+func (o EndpointConditionsPatchOutput) ToEndpointConditionsPatchOutput() EndpointConditionsPatchOutput {
+	return o
+}
+
+func (o EndpointConditionsPatchOutput) ToEndpointConditionsPatchOutputWithContext(ctx context.Context) EndpointConditionsPatchOutput {
+	return o
+}
+
+func (o EndpointConditionsPatchOutput) ToEndpointConditionsPatchPtrOutput() EndpointConditionsPatchPtrOutput {
+	return o.ToEndpointConditionsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o EndpointConditionsPatchOutput) ToEndpointConditionsPatchPtrOutputWithContext(ctx context.Context) EndpointConditionsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointConditionsPatch) *EndpointConditionsPatch {
+		return &v
+	}).(EndpointConditionsPatchPtrOutput)
+}
+
+// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+func (o EndpointConditionsPatchOutput) Ready() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EndpointConditionsPatch) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
+}
+
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsPatchOutput) Serving() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EndpointConditionsPatch) *bool { return v.Serving }).(pulumi.BoolPtrOutput)
+}
+
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsPatchOutput) Terminating() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v EndpointConditionsPatch) *bool { return v.Terminating }).(pulumi.BoolPtrOutput)
+}
+
+type EndpointConditionsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (EndpointConditionsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointConditionsPatch)(nil)).Elem()
+}
+
+func (o EndpointConditionsPatchPtrOutput) ToEndpointConditionsPatchPtrOutput() EndpointConditionsPatchPtrOutput {
+	return o
+}
+
+func (o EndpointConditionsPatchPtrOutput) ToEndpointConditionsPatchPtrOutputWithContext(ctx context.Context) EndpointConditionsPatchPtrOutput {
+	return o
+}
+
+func (o EndpointConditionsPatchPtrOutput) Elem() EndpointConditionsPatchOutput {
+	return o.ApplyT(func(v *EndpointConditionsPatch) EndpointConditionsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret EndpointConditionsPatch
+		return ret
+	}).(EndpointConditionsPatchOutput)
+}
+
+// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+func (o EndpointConditionsPatchPtrOutput) Ready() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EndpointConditionsPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Ready
+	}).(pulumi.BoolPtrOutput)
+}
+
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsPatchPtrOutput) Serving() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EndpointConditionsPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Serving
+	}).(pulumi.BoolPtrOutput)
+}
+
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+func (o EndpointConditionsPatchPtrOutput) Terminating() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *EndpointConditionsPatch) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.Terminating
+	}).(pulumi.BoolPtrOutput)
+}
+
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHints struct {
 	// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
@@ -505,6 +683,321 @@ func (o EndpointHintsPtrOutput) ForZones() ForZoneArrayOutput {
 	}).(ForZoneArrayOutput)
 }
 
+// EndpointHints provides hints describing how an endpoint should be consumed.
+type EndpointHintsPatch struct {
+	// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+	ForZones []ForZonePatch `pulumi:"forZones"`
+}
+
+// EndpointHintsPatchInput is an input type that accepts EndpointHintsPatchArgs and EndpointHintsPatchOutput values.
+// You can construct a concrete instance of `EndpointHintsPatchInput` via:
+//
+//          EndpointHintsPatchArgs{...}
+type EndpointHintsPatchInput interface {
+	pulumi.Input
+
+	ToEndpointHintsPatchOutput() EndpointHintsPatchOutput
+	ToEndpointHintsPatchOutputWithContext(context.Context) EndpointHintsPatchOutput
+}
+
+// EndpointHints provides hints describing how an endpoint should be consumed.
+type EndpointHintsPatchArgs struct {
+	// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+	ForZones ForZonePatchArrayInput `pulumi:"forZones"`
+}
+
+func (EndpointHintsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointHintsPatch)(nil)).Elem()
+}
+
+func (i EndpointHintsPatchArgs) ToEndpointHintsPatchOutput() EndpointHintsPatchOutput {
+	return i.ToEndpointHintsPatchOutputWithContext(context.Background())
+}
+
+func (i EndpointHintsPatchArgs) ToEndpointHintsPatchOutputWithContext(ctx context.Context) EndpointHintsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPatchOutput)
+}
+
+func (i EndpointHintsPatchArgs) ToEndpointHintsPatchPtrOutput() EndpointHintsPatchPtrOutput {
+	return i.ToEndpointHintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i EndpointHintsPatchArgs) ToEndpointHintsPatchPtrOutputWithContext(ctx context.Context) EndpointHintsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPatchOutput).ToEndpointHintsPatchPtrOutputWithContext(ctx)
+}
+
+// EndpointHintsPatchPtrInput is an input type that accepts EndpointHintsPatchArgs, EndpointHintsPatchPtr and EndpointHintsPatchPtrOutput values.
+// You can construct a concrete instance of `EndpointHintsPatchPtrInput` via:
+//
+//          EndpointHintsPatchArgs{...}
+//
+//  or:
+//
+//          nil
+type EndpointHintsPatchPtrInput interface {
+	pulumi.Input
+
+	ToEndpointHintsPatchPtrOutput() EndpointHintsPatchPtrOutput
+	ToEndpointHintsPatchPtrOutputWithContext(context.Context) EndpointHintsPatchPtrOutput
+}
+
+type endpointHintsPatchPtrType EndpointHintsPatchArgs
+
+func EndpointHintsPatchPtr(v *EndpointHintsPatchArgs) EndpointHintsPatchPtrInput {
+	return (*endpointHintsPatchPtrType)(v)
+}
+
+func (*endpointHintsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointHintsPatch)(nil)).Elem()
+}
+
+func (i *endpointHintsPatchPtrType) ToEndpointHintsPatchPtrOutput() EndpointHintsPatchPtrOutput {
+	return i.ToEndpointHintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *endpointHintsPatchPtrType) ToEndpointHintsPatchPtrOutputWithContext(ctx context.Context) EndpointHintsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPatchPtrOutput)
+}
+
+// EndpointHints provides hints describing how an endpoint should be consumed.
+type EndpointHintsPatchOutput struct{ *pulumi.OutputState }
+
+func (EndpointHintsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointHintsPatch)(nil)).Elem()
+}
+
+func (o EndpointHintsPatchOutput) ToEndpointHintsPatchOutput() EndpointHintsPatchOutput {
+	return o
+}
+
+func (o EndpointHintsPatchOutput) ToEndpointHintsPatchOutputWithContext(ctx context.Context) EndpointHintsPatchOutput {
+	return o
+}
+
+func (o EndpointHintsPatchOutput) ToEndpointHintsPatchPtrOutput() EndpointHintsPatchPtrOutput {
+	return o.ToEndpointHintsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o EndpointHintsPatchOutput) ToEndpointHintsPatchPtrOutputWithContext(ctx context.Context) EndpointHintsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointHintsPatch) *EndpointHintsPatch {
+		return &v
+	}).(EndpointHintsPatchPtrOutput)
+}
+
+// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+func (o EndpointHintsPatchOutput) ForZones() ForZonePatchArrayOutput {
+	return o.ApplyT(func(v EndpointHintsPatch) []ForZonePatch { return v.ForZones }).(ForZonePatchArrayOutput)
+}
+
+type EndpointHintsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (EndpointHintsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**EndpointHintsPatch)(nil)).Elem()
+}
+
+func (o EndpointHintsPatchPtrOutput) ToEndpointHintsPatchPtrOutput() EndpointHintsPatchPtrOutput {
+	return o
+}
+
+func (o EndpointHintsPatchPtrOutput) ToEndpointHintsPatchPtrOutputWithContext(ctx context.Context) EndpointHintsPatchPtrOutput {
+	return o
+}
+
+func (o EndpointHintsPatchPtrOutput) Elem() EndpointHintsPatchOutput {
+	return o.ApplyT(func(v *EndpointHintsPatch) EndpointHintsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret EndpointHintsPatch
+		return ret
+	}).(EndpointHintsPatchOutput)
+}
+
+// forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
+func (o EndpointHintsPatchPtrOutput) ForZones() ForZonePatchArrayOutput {
+	return o.ApplyT(func(v *EndpointHintsPatch) []ForZonePatch {
+		if v == nil {
+			return nil
+		}
+		return v.ForZones
+	}).(ForZonePatchArrayOutput)
+}
+
+// Endpoint represents a single logical "backend" implementing a service.
+type EndpointPatch struct {
+	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+	Addresses []string `pulumi:"addresses"`
+	// conditions contains information about the current status of the endpoint.
+	Conditions *EndpointConditionsPatch `pulumi:"conditions"`
+	// hints contains information associated with how an endpoint should be consumed.
+	Hints *EndpointHintsPatch `pulumi:"hints"`
+	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+	Hostname *string `pulumi:"hostname"`
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	NodeName *string `pulumi:"nodeName"`
+	// targetRef is a reference to a Kubernetes object that represents this endpoint.
+	TargetRef *corev1.ObjectReferencePatch `pulumi:"targetRef"`
+	// topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+	//   where the endpoint is located. This should match the corresponding
+	//   node label.
+	// * topology.kubernetes.io/zone: the value indicates the zone where the
+	//   endpoint is located. This should match the corresponding node label.
+	// * topology.kubernetes.io/region: the value indicates the region where the
+	//   endpoint is located. This should match the corresponding node label.
+	//   This field is deprecated and will be removed in future api versions.
+	Topology map[string]string `pulumi:"topology"`
+}
+
+// EndpointPatchInput is an input type that accepts EndpointPatchArgs and EndpointPatchOutput values.
+// You can construct a concrete instance of `EndpointPatchInput` via:
+//
+//          EndpointPatchArgs{...}
+type EndpointPatchInput interface {
+	pulumi.Input
+
+	ToEndpointPatchOutput() EndpointPatchOutput
+	ToEndpointPatchOutputWithContext(context.Context) EndpointPatchOutput
+}
+
+// Endpoint represents a single logical "backend" implementing a service.
+type EndpointPatchArgs struct {
+	// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+	Addresses pulumi.StringArrayInput `pulumi:"addresses"`
+	// conditions contains information about the current status of the endpoint.
+	Conditions EndpointConditionsPatchPtrInput `pulumi:"conditions"`
+	// hints contains information associated with how an endpoint should be consumed.
+	Hints EndpointHintsPatchPtrInput `pulumi:"hints"`
+	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
+	// targetRef is a reference to a Kubernetes object that represents this endpoint.
+	TargetRef corev1.ObjectReferencePatchPtrInput `pulumi:"targetRef"`
+	// topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+	//   where the endpoint is located. This should match the corresponding
+	//   node label.
+	// * topology.kubernetes.io/zone: the value indicates the zone where the
+	//   endpoint is located. This should match the corresponding node label.
+	// * topology.kubernetes.io/region: the value indicates the region where the
+	//   endpoint is located. This should match the corresponding node label.
+	//   This field is deprecated and will be removed in future api versions.
+	Topology pulumi.StringMapInput `pulumi:"topology"`
+}
+
+func (EndpointPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointPatch)(nil)).Elem()
+}
+
+func (i EndpointPatchArgs) ToEndpointPatchOutput() EndpointPatchOutput {
+	return i.ToEndpointPatchOutputWithContext(context.Background())
+}
+
+func (i EndpointPatchArgs) ToEndpointPatchOutputWithContext(ctx context.Context) EndpointPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointPatchOutput)
+}
+
+// EndpointPatchArrayInput is an input type that accepts EndpointPatchArray and EndpointPatchArrayOutput values.
+// You can construct a concrete instance of `EndpointPatchArrayInput` via:
+//
+//          EndpointPatchArray{ EndpointPatchArgs{...} }
+type EndpointPatchArrayInput interface {
+	pulumi.Input
+
+	ToEndpointPatchArrayOutput() EndpointPatchArrayOutput
+	ToEndpointPatchArrayOutputWithContext(context.Context) EndpointPatchArrayOutput
+}
+
+type EndpointPatchArray []EndpointPatchInput
+
+func (EndpointPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointPatch)(nil)).Elem()
+}
+
+func (i EndpointPatchArray) ToEndpointPatchArrayOutput() EndpointPatchArrayOutput {
+	return i.ToEndpointPatchArrayOutputWithContext(context.Background())
+}
+
+func (i EndpointPatchArray) ToEndpointPatchArrayOutputWithContext(ctx context.Context) EndpointPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointPatchArrayOutput)
+}
+
+// Endpoint represents a single logical "backend" implementing a service.
+type EndpointPatchOutput struct{ *pulumi.OutputState }
+
+func (EndpointPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointPatch)(nil)).Elem()
+}
+
+func (o EndpointPatchOutput) ToEndpointPatchOutput() EndpointPatchOutput {
+	return o
+}
+
+func (o EndpointPatchOutput) ToEndpointPatchOutputWithContext(ctx context.Context) EndpointPatchOutput {
+	return o
+}
+
+// addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+func (o EndpointPatchOutput) Addresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v EndpointPatch) []string { return v.Addresses }).(pulumi.StringArrayOutput)
+}
+
+// conditions contains information about the current status of the endpoint.
+func (o EndpointPatchOutput) Conditions() EndpointConditionsPatchPtrOutput {
+	return o.ApplyT(func(v EndpointPatch) *EndpointConditionsPatch { return v.Conditions }).(EndpointConditionsPatchPtrOutput)
+}
+
+// hints contains information associated with how an endpoint should be consumed.
+func (o EndpointPatchOutput) Hints() EndpointHintsPatchPtrOutput {
+	return o.ApplyT(func(v EndpointPatch) *EndpointHintsPatch { return v.Hints }).(EndpointHintsPatchPtrOutput)
+}
+
+// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+func (o EndpointPatchOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointPatch) *string { return v.Hostname }).(pulumi.StringPtrOutput)
+}
+
+// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+func (o EndpointPatchOutput) NodeName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointPatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
+}
+
+// targetRef is a reference to a Kubernetes object that represents this endpoint.
+func (o EndpointPatchOutput) TargetRef() corev1.ObjectReferencePatchPtrOutput {
+	return o.ApplyT(func(v EndpointPatch) *corev1.ObjectReferencePatch { return v.TargetRef }).(corev1.ObjectReferencePatchPtrOutput)
+}
+
+// topology contains arbitrary topology information associated with the endpoint. These key/value pairs must conform with the label format. https://kubernetes.io/docs/concepts/overview/working-with-objects/labels Topology may include a maximum of 16 key/value pairs. This includes, but is not limited to the following well known keys: * kubernetes.io/hostname: the value indicates the hostname of the node
+//   where the endpoint is located. This should match the corresponding
+//   node label.
+// * topology.kubernetes.io/zone: the value indicates the zone where the
+//   endpoint is located. This should match the corresponding node label.
+// * topology.kubernetes.io/region: the value indicates the region where the
+//   endpoint is located. This should match the corresponding node label.
+//   This field is deprecated and will be removed in future api versions.
+func (o EndpointPatchOutput) Topology() pulumi.StringMapOutput {
+	return o.ApplyT(func(v EndpointPatch) map[string]string { return v.Topology }).(pulumi.StringMapOutput)
+}
+
+type EndpointPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (EndpointPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointPatch)(nil)).Elem()
+}
+
+func (o EndpointPatchArrayOutput) ToEndpointPatchArrayOutput() EndpointPatchArrayOutput {
+	return o
+}
+
+func (o EndpointPatchArrayOutput) ToEndpointPatchArrayOutputWithContext(ctx context.Context) EndpointPatchArrayOutput {
+	return o
+}
+
+func (o EndpointPatchArrayOutput) Index(i pulumi.IntInput) EndpointPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointPatch {
+		return vs[0].([]EndpointPatch)[vs[1].(int)]
+	}).(EndpointPatchOutput)
+}
+
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPort struct {
 	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
@@ -630,6 +1123,133 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointPort {
 		return vs[0].([]EndpointPort)[vs[1].(int)]
 	}).(EndpointPortOutput)
+}
+
+// EndpointPort represents a Port used by an EndpointSlice
+type EndpointPortPatch struct {
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	AppProtocol *string `pulumi:"appProtocol"`
+	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+	Name *string `pulumi:"name"`
+	// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+	Port *int `pulumi:"port"`
+	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	Protocol *string `pulumi:"protocol"`
+}
+
+// EndpointPortPatchInput is an input type that accepts EndpointPortPatchArgs and EndpointPortPatchOutput values.
+// You can construct a concrete instance of `EndpointPortPatchInput` via:
+//
+//          EndpointPortPatchArgs{...}
+type EndpointPortPatchInput interface {
+	pulumi.Input
+
+	ToEndpointPortPatchOutput() EndpointPortPatchOutput
+	ToEndpointPortPatchOutputWithContext(context.Context) EndpointPortPatchOutput
+}
+
+// EndpointPort represents a Port used by an EndpointSlice
+type EndpointPortPatchArgs struct {
+	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
+	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
+}
+
+func (EndpointPortPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointPortPatch)(nil)).Elem()
+}
+
+func (i EndpointPortPatchArgs) ToEndpointPortPatchOutput() EndpointPortPatchOutput {
+	return i.ToEndpointPortPatchOutputWithContext(context.Background())
+}
+
+func (i EndpointPortPatchArgs) ToEndpointPortPatchOutputWithContext(ctx context.Context) EndpointPortPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortPatchOutput)
+}
+
+// EndpointPortPatchArrayInput is an input type that accepts EndpointPortPatchArray and EndpointPortPatchArrayOutput values.
+// You can construct a concrete instance of `EndpointPortPatchArrayInput` via:
+//
+//          EndpointPortPatchArray{ EndpointPortPatchArgs{...} }
+type EndpointPortPatchArrayInput interface {
+	pulumi.Input
+
+	ToEndpointPortPatchArrayOutput() EndpointPortPatchArrayOutput
+	ToEndpointPortPatchArrayOutputWithContext(context.Context) EndpointPortPatchArrayOutput
+}
+
+type EndpointPortPatchArray []EndpointPortPatchInput
+
+func (EndpointPortPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointPortPatch)(nil)).Elem()
+}
+
+func (i EndpointPortPatchArray) ToEndpointPortPatchArrayOutput() EndpointPortPatchArrayOutput {
+	return i.ToEndpointPortPatchArrayOutputWithContext(context.Background())
+}
+
+func (i EndpointPortPatchArray) ToEndpointPortPatchArrayOutputWithContext(ctx context.Context) EndpointPortPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortPatchArrayOutput)
+}
+
+// EndpointPort represents a Port used by an EndpointSlice
+type EndpointPortPatchOutput struct{ *pulumi.OutputState }
+
+func (EndpointPortPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointPortPatch)(nil)).Elem()
+}
+
+func (o EndpointPortPatchOutput) ToEndpointPortPatchOutput() EndpointPortPatchOutput {
+	return o
+}
+
+func (o EndpointPortPatchOutput) ToEndpointPortPatchOutputWithContext(ctx context.Context) EndpointPortPatchOutput {
+	return o
+}
+
+// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+func (o EndpointPortPatchOutput) AppProtocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointPortPatch) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
+}
+
+// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+func (o EndpointPortPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointPortPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+func (o EndpointPortPatchOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v EndpointPortPatch) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+func (o EndpointPortPatchOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointPortPatch) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+type EndpointPortPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (EndpointPortPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]EndpointPortPatch)(nil)).Elem()
+}
+
+func (o EndpointPortPatchArrayOutput) ToEndpointPortPatchArrayOutput() EndpointPortPatchArrayOutput {
+	return o
+}
+
+func (o EndpointPortPatchArrayOutput) ToEndpointPortPatchArrayOutputWithContext(ctx context.Context) EndpointPortPatchArrayOutput {
+	return o
+}
+
+func (o EndpointPortPatchArrayOutput) Index(i pulumi.IntInput) EndpointPortPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EndpointPortPatch {
+		return vs[0].([]EndpointPortPatch)[vs[1].(int)]
+	}).(EndpointPortPatchOutput)
 }
 
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
@@ -859,6 +1479,106 @@ func (o EndpointSliceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v EndpointSliceListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+type EndpointSlicePatchType struct {
+	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+	AddressType *string `pulumi:"addressType"`
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
+	Endpoints []EndpointPatch `pulumi:"endpoints"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata.
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
+	Ports []EndpointPortPatch `pulumi:"ports"`
+}
+
+// EndpointSlicePatchTypeInput is an input type that accepts EndpointSlicePatchTypeArgs and EndpointSlicePatchTypeOutput values.
+// You can construct a concrete instance of `EndpointSlicePatchTypeInput` via:
+//
+//          EndpointSlicePatchTypeArgs{...}
+type EndpointSlicePatchTypeInput interface {
+	pulumi.Input
+
+	ToEndpointSlicePatchTypeOutput() EndpointSlicePatchTypeOutput
+	ToEndpointSlicePatchTypeOutputWithContext(context.Context) EndpointSlicePatchTypeOutput
+}
+
+// EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+type EndpointSlicePatchTypeArgs struct {
+	// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+	AddressType pulumi.StringPtrInput `pulumi:"addressType"`
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
+	Endpoints EndpointPatchArrayInput `pulumi:"endpoints"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata.
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
+	Ports EndpointPortPatchArrayInput `pulumi:"ports"`
+}
+
+func (EndpointSlicePatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSlicePatchType)(nil)).Elem()
+}
+
+func (i EndpointSlicePatchTypeArgs) ToEndpointSlicePatchTypeOutput() EndpointSlicePatchTypeOutput {
+	return i.ToEndpointSlicePatchTypeOutputWithContext(context.Background())
+}
+
+func (i EndpointSlicePatchTypeArgs) ToEndpointSlicePatchTypeOutputWithContext(ctx context.Context) EndpointSlicePatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(EndpointSlicePatchTypeOutput)
+}
+
+// EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
+type EndpointSlicePatchTypeOutput struct{ *pulumi.OutputState }
+
+func (EndpointSlicePatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*EndpointSlicePatchType)(nil)).Elem()
+}
+
+func (o EndpointSlicePatchTypeOutput) ToEndpointSlicePatchTypeOutput() EndpointSlicePatchTypeOutput {
+	return o
+}
+
+func (o EndpointSlicePatchTypeOutput) ToEndpointSlicePatchTypeOutputWithContext(ctx context.Context) EndpointSlicePatchTypeOutput {
+	return o
+}
+
+// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
+func (o EndpointSlicePatchTypeOutput) AddressType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSlicePatchType) *string { return v.AddressType }).(pulumi.StringPtrOutput)
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o EndpointSlicePatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSlicePatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// endpoints is a list of unique endpoints in this slice. Each slice may include a maximum of 1000 endpoints.
+func (o EndpointSlicePatchTypeOutput) Endpoints() EndpointPatchArrayOutput {
+	return o.ApplyT(func(v EndpointSlicePatchType) []EndpointPatch { return v.Endpoints }).(EndpointPatchArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o EndpointSlicePatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v EndpointSlicePatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata.
+func (o EndpointSlicePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v EndpointSlicePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
+func (o EndpointSlicePatchTypeOutput) Ports() EndpointPortPatchArrayOutput {
+	return o.ApplyT(func(v EndpointSlicePatchType) []EndpointPortPatch { return v.Ports }).(EndpointPortPatchArrayOutput)
+}
+
 // ForZone provides information about which zones should consume this endpoint.
 type ForZone struct {
 	// name represents the name of the zone.
@@ -959,31 +1679,153 @@ func (o ForZoneArrayOutput) Index(i pulumi.IntInput) ForZoneOutput {
 	}).(ForZoneOutput)
 }
 
+// ForZone provides information about which zones should consume this endpoint.
+type ForZonePatch struct {
+	// name represents the name of the zone.
+	Name *string `pulumi:"name"`
+}
+
+// ForZonePatchInput is an input type that accepts ForZonePatchArgs and ForZonePatchOutput values.
+// You can construct a concrete instance of `ForZonePatchInput` via:
+//
+//          ForZonePatchArgs{...}
+type ForZonePatchInput interface {
+	pulumi.Input
+
+	ToForZonePatchOutput() ForZonePatchOutput
+	ToForZonePatchOutputWithContext(context.Context) ForZonePatchOutput
+}
+
+// ForZone provides information about which zones should consume this endpoint.
+type ForZonePatchArgs struct {
+	// name represents the name of the zone.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (ForZonePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ForZonePatch)(nil)).Elem()
+}
+
+func (i ForZonePatchArgs) ToForZonePatchOutput() ForZonePatchOutput {
+	return i.ToForZonePatchOutputWithContext(context.Background())
+}
+
+func (i ForZonePatchArgs) ToForZonePatchOutputWithContext(ctx context.Context) ForZonePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ForZonePatchOutput)
+}
+
+// ForZonePatchArrayInput is an input type that accepts ForZonePatchArray and ForZonePatchArrayOutput values.
+// You can construct a concrete instance of `ForZonePatchArrayInput` via:
+//
+//          ForZonePatchArray{ ForZonePatchArgs{...} }
+type ForZonePatchArrayInput interface {
+	pulumi.Input
+
+	ToForZonePatchArrayOutput() ForZonePatchArrayOutput
+	ToForZonePatchArrayOutputWithContext(context.Context) ForZonePatchArrayOutput
+}
+
+type ForZonePatchArray []ForZonePatchInput
+
+func (ForZonePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ForZonePatch)(nil)).Elem()
+}
+
+func (i ForZonePatchArray) ToForZonePatchArrayOutput() ForZonePatchArrayOutput {
+	return i.ToForZonePatchArrayOutputWithContext(context.Background())
+}
+
+func (i ForZonePatchArray) ToForZonePatchArrayOutputWithContext(ctx context.Context) ForZonePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ForZonePatchArrayOutput)
+}
+
+// ForZone provides information about which zones should consume this endpoint.
+type ForZonePatchOutput struct{ *pulumi.OutputState }
+
+func (ForZonePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ForZonePatch)(nil)).Elem()
+}
+
+func (o ForZonePatchOutput) ToForZonePatchOutput() ForZonePatchOutput {
+	return o
+}
+
+func (o ForZonePatchOutput) ToForZonePatchOutputWithContext(ctx context.Context) ForZonePatchOutput {
+	return o
+}
+
+// name represents the name of the zone.
+func (o ForZonePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ForZonePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type ForZonePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (ForZonePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ForZonePatch)(nil)).Elem()
+}
+
+func (o ForZonePatchArrayOutput) ToForZonePatchArrayOutput() ForZonePatchArrayOutput {
+	return o
+}
+
+func (o ForZonePatchArrayOutput) ToForZonePatchArrayOutputWithContext(ctx context.Context) ForZonePatchArrayOutput {
+	return o
+}
+
+func (o ForZonePatchArrayOutput) Index(i pulumi.IntInput) ForZonePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ForZonePatch {
+		return vs[0].([]ForZonePatch)[vs[1].(int)]
+	}).(ForZonePatchOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointInput)(nil)).Elem(), EndpointArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointArrayInput)(nil)).Elem(), EndpointArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointConditionsInput)(nil)).Elem(), EndpointConditionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointConditionsPtrInput)(nil)).Elem(), EndpointConditionsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointConditionsPatchInput)(nil)).Elem(), EndpointConditionsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointConditionsPatchPtrInput)(nil)).Elem(), EndpointConditionsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointHintsInput)(nil)).Elem(), EndpointHintsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointHintsPtrInput)(nil)).Elem(), EndpointHintsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointHintsPatchInput)(nil)).Elem(), EndpointHintsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointHintsPatchPtrInput)(nil)).Elem(), EndpointHintsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPatchInput)(nil)).Elem(), EndpointPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPatchArrayInput)(nil)).Elem(), EndpointPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortInput)(nil)).Elem(), EndpointPortArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortArrayInput)(nil)).Elem(), EndpointPortArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortPatchInput)(nil)).Elem(), EndpointPortPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointPortPatchArrayInput)(nil)).Elem(), EndpointPortPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceTypeInput)(nil)).Elem(), EndpointSliceTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceTypeArrayInput)(nil)).Elem(), EndpointSliceTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSliceListTypeInput)(nil)).Elem(), EndpointSliceListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*EndpointSlicePatchTypeInput)(nil)).Elem(), EndpointSlicePatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ForZoneInput)(nil)).Elem(), ForZoneArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ForZoneArrayInput)(nil)).Elem(), ForZoneArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ForZonePatchInput)(nil)).Elem(), ForZonePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ForZonePatchArrayInput)(nil)).Elem(), ForZonePatchArray{})
 	pulumi.RegisterOutputType(EndpointOutput{})
 	pulumi.RegisterOutputType(EndpointArrayOutput{})
 	pulumi.RegisterOutputType(EndpointConditionsOutput{})
 	pulumi.RegisterOutputType(EndpointConditionsPtrOutput{})
+	pulumi.RegisterOutputType(EndpointConditionsPatchOutput{})
+	pulumi.RegisterOutputType(EndpointConditionsPatchPtrOutput{})
 	pulumi.RegisterOutputType(EndpointHintsOutput{})
 	pulumi.RegisterOutputType(EndpointHintsPtrOutput{})
+	pulumi.RegisterOutputType(EndpointHintsPatchOutput{})
+	pulumi.RegisterOutputType(EndpointHintsPatchPtrOutput{})
+	pulumi.RegisterOutputType(EndpointPatchOutput{})
+	pulumi.RegisterOutputType(EndpointPatchArrayOutput{})
 	pulumi.RegisterOutputType(EndpointPortOutput{})
 	pulumi.RegisterOutputType(EndpointPortArrayOutput{})
+	pulumi.RegisterOutputType(EndpointPortPatchOutput{})
+	pulumi.RegisterOutputType(EndpointPortPatchArrayOutput{})
 	pulumi.RegisterOutputType(EndpointSliceTypeOutput{})
 	pulumi.RegisterOutputType(EndpointSliceTypeArrayOutput{})
 	pulumi.RegisterOutputType(EndpointSliceListTypeOutput{})
+	pulumi.RegisterOutputType(EndpointSlicePatchTypeOutput{})
 	pulumi.RegisterOutputType(ForZoneOutput{})
 	pulumi.RegisterOutputType(ForZoneArrayOutput{})
+	pulumi.RegisterOutputType(ForZonePatchOutput{})
+	pulumi.RegisterOutputType(ForZonePatchArrayOutput{})
 }

@@ -247,11 +247,122 @@ func (o PriorityClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v PriorityClassListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+type PriorityClassPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// description is an arbitrary string that usually provides guidelines on when this priority class should be used.
+	Description *string `pulumi:"description"`
+	// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
+	GlobalDefault *bool `pulumi:"globalDefault"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
+	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	Value *int `pulumi:"value"`
+}
+
+// PriorityClassPatchTypeInput is an input type that accepts PriorityClassPatchTypeArgs and PriorityClassPatchTypeOutput values.
+// You can construct a concrete instance of `PriorityClassPatchTypeInput` via:
+//
+//          PriorityClassPatchTypeArgs{...}
+type PriorityClassPatchTypeInput interface {
+	pulumi.Input
+
+	ToPriorityClassPatchTypeOutput() PriorityClassPatchTypeOutput
+	ToPriorityClassPatchTypeOutputWithContext(context.Context) PriorityClassPatchTypeOutput
+}
+
+// DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+type PriorityClassPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// description is an arbitrary string that usually provides guidelines on when this priority class should be used.
+	Description pulumi.StringPtrInput `pulumi:"description"`
+	// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
+	GlobalDefault pulumi.BoolPtrInput `pulumi:"globalDefault"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
+	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	Value pulumi.IntPtrInput `pulumi:"value"`
+}
+
+func (PriorityClassPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityClassPatchType)(nil)).Elem()
+}
+
+func (i PriorityClassPatchTypeArgs) ToPriorityClassPatchTypeOutput() PriorityClassPatchTypeOutput {
+	return i.ToPriorityClassPatchTypeOutputWithContext(context.Background())
+}
+
+func (i PriorityClassPatchTypeArgs) ToPriorityClassPatchTypeOutputWithContext(ctx context.Context) PriorityClassPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassPatchTypeOutput)
+}
+
+// DEPRECATED - This group version of PriorityClass is deprecated by scheduling.k8s.io/v1/PriorityClass. PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
+type PriorityClassPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (PriorityClassPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PriorityClassPatchType)(nil)).Elem()
+}
+
+func (o PriorityClassPatchTypeOutput) ToPriorityClassPatchTypeOutput() PriorityClassPatchTypeOutput {
+	return o
+}
+
+func (o PriorityClassPatchTypeOutput) ToPriorityClassPatchTypeOutputWithContext(ctx context.Context) PriorityClassPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o PriorityClassPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// description is an arbitrary string that usually provides guidelines on when this priority class should be used.
+func (o PriorityClassPatchTypeOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
+func (o PriorityClassPatchTypeOutput) GlobalDefault() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *bool { return v.GlobalDefault }).(pulumi.BoolPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o PriorityClassPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o PriorityClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+func (o PriorityClassPatchTypeOutput) PreemptionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+}
+
+// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+func (o PriorityClassPatchTypeOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v PriorityClassPatchType) *int { return v.Value }).(pulumi.IntPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeInput)(nil)).Elem(), PriorityClassTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassTypeArrayInput)(nil)).Elem(), PriorityClassTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassListTypeInput)(nil)).Elem(), PriorityClassListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PriorityClassPatchTypeInput)(nil)).Elem(), PriorityClassPatchTypeArgs{})
 	pulumi.RegisterOutputType(PriorityClassTypeOutput{})
 	pulumi.RegisterOutputType(PriorityClassTypeArrayOutput{})
 	pulumi.RegisterOutputType(PriorityClassListTypeOutput{})
+	pulumi.RegisterOutputType(PriorityClassPatchTypeOutput{})
 }

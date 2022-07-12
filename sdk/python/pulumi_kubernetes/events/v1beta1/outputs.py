@@ -15,6 +15,7 @@ from ... import meta as _meta
 __all__ = [
     'Event',
     'EventSeries',
+    'EventSeriesPatch',
 ]
 
 @pulumi.output_type
@@ -310,6 +311,70 @@ class EventSeries(dict):
     @property
     @pulumi.getter(name="lastObservedTime")
     def last_observed_time(self) -> str:
+        """
+        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        """
+        return pulumi.get(self, "last_observed_time")
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[str]:
+        """
+        Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+        """
+        return pulumi.get(self, "state")
+
+
+@pulumi.output_type
+class EventSeriesPatch(dict):
+    """
+    EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "lastObservedTime":
+            suggest = "last_observed_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in EventSeriesPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        EventSeriesPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        EventSeriesPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 count: Optional[int] = None,
+                 last_observed_time: Optional[str] = None,
+                 state: Optional[str] = None):
+        """
+        EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
+        :param int count: count is the number of occurrences in this series up to the last heartbeat time.
+        :param str last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        :param str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
+        """
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if last_observed_time is not None:
+            pulumi.set(__self__, "last_observed_time", last_observed_time)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[int]:
+        """
+        count is the number of occurrences in this series up to the last heartbeat time.
+        """
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="lastObservedTime")
+    def last_observed_time(self) -> Optional[str]:
         """
         lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         """

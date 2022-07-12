@@ -8,21 +8,29 @@ import * as utilities from "../../utilities";
 export * from "./clusterRole";
 export * from "./clusterRoleBinding";
 export * from "./clusterRoleBindingList";
+export * from "./clusterRoleBindingPatch";
 export * from "./clusterRoleList";
+export * from "./clusterRolePatch";
 export * from "./role";
 export * from "./roleBinding";
 export * from "./roleBindingList";
+export * from "./roleBindingPatch";
 export * from "./roleList";
+export * from "./rolePatch";
 
 // Import resources to register:
 import { ClusterRole } from "./clusterRole";
 import { ClusterRoleBinding } from "./clusterRoleBinding";
 import { ClusterRoleBindingList } from "./clusterRoleBindingList";
+import { ClusterRoleBindingPatch } from "./clusterRoleBindingPatch";
 import { ClusterRoleList } from "./clusterRoleList";
+import { ClusterRolePatch } from "./clusterRolePatch";
 import { Role } from "./role";
 import { RoleBinding } from "./roleBinding";
 import { RoleBindingList } from "./roleBindingList";
+import { RoleBindingPatch } from "./roleBindingPatch";
 import { RoleList } from "./roleList";
+import { RolePatch } from "./rolePatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -34,16 +42,24 @@ const _module = {
                 return new ClusterRoleBinding(name, <any>undefined, { urn })
             case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingList":
                 return new ClusterRoleBindingList(name, <any>undefined, { urn })
+            case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleBindingPatch":
+                return new ClusterRoleBindingPatch(name, <any>undefined, { urn })
             case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRoleList":
                 return new ClusterRoleList(name, <any>undefined, { urn })
+            case "kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRolePatch":
+                return new ClusterRolePatch(name, <any>undefined, { urn })
             case "kubernetes:rbac.authorization.k8s.io/v1alpha1:Role":
                 return new Role(name, <any>undefined, { urn })
             case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding":
                 return new RoleBinding(name, <any>undefined, { urn })
             case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingList":
                 return new RoleBindingList(name, <any>undefined, { urn })
+            case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingPatch":
+                return new RoleBindingPatch(name, <any>undefined, { urn })
             case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleList":
                 return new RoleList(name, <any>undefined, { urn })
+            case "kubernetes:rbac.authorization.k8s.io/v1alpha1:RolePatch":
+                return new RolePatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

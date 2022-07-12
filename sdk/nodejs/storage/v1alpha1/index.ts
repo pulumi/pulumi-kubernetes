@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./volumeAttachment";
 export * from "./volumeAttachmentList";
+export * from "./volumeAttachmentPatch";
 
 // Import resources to register:
 import { VolumeAttachment } from "./volumeAttachment";
 import { VolumeAttachmentList } from "./volumeAttachmentList";
+import { VolumeAttachmentPatch } from "./volumeAttachmentPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new VolumeAttachment(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentList":
                 return new VolumeAttachmentList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1alpha1:VolumeAttachmentPatch":
+                return new VolumeAttachmentPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

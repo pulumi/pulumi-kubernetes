@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .CronJob import *
 from .CronJobList import *
+from .CronJobPatch import *
 from ._inputs import *
 from . import outputs

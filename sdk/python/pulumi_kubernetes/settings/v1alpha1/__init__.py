@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .PodPreset import *
 from .PodPresetList import *
+from .PodPresetPatch import *
 from ._inputs import *
 from . import outputs

@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &HorizontalPodAutoscaler{}
 	case "kubernetes:autoscaling/v1:HorizontalPodAutoscalerList":
 		r = &HorizontalPodAutoscalerList{}
+	case "kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch":
+		r = &HorizontalPodAutoscalerPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

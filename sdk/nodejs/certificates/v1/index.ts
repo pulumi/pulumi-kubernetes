@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./certificateSigningRequest";
 export * from "./certificateSigningRequestList";
+export * from "./certificateSigningRequestPatch";
 
 // Import resources to register:
 import { CertificateSigningRequest } from "./certificateSigningRequest";
 import { CertificateSigningRequestList } from "./certificateSigningRequestList";
+import { CertificateSigningRequestPatch } from "./certificateSigningRequestPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new CertificateSigningRequest(name, <any>undefined, { urn })
             case "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList":
                 return new CertificateSigningRequestList(name, <any>undefined, { urn })
+            case "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch":
+                return new CertificateSigningRequestPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

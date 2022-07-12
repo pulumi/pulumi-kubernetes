@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./auditSink";
 export * from "./auditSinkList";
+export * from "./auditSinkPatch";
 
 // Import resources to register:
 import { AuditSink } from "./auditSink";
 import { AuditSinkList } from "./auditSinkList";
+import { AuditSinkPatch } from "./auditSinkPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new AuditSink(name, <any>undefined, { urn })
             case "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList":
                 return new AuditSinkList(name, <any>undefined, { urn })
+            case "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch":
+                return new AuditSinkPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

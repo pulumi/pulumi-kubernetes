@@ -12,6 +12,7 @@ from ... import meta as _meta
 
 __all__ = [
     'CertificateSigningRequestConditionArgs',
+    'CertificateSigningRequestSpecPatchArgs',
     'CertificateSigningRequestSpecArgs',
     'CertificateSigningRequestStatusArgs',
     'CertificateSigningRequestArgs',
@@ -117,6 +118,140 @@ class CertificateSigningRequestConditionArgs:
     @status.setter
     def status(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "status", value)
+
+
+@pulumi.input_type
+class CertificateSigningRequestSpecPatchArgs:
+    def __init__(__self__, *,
+                 extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
+                 groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 request: Optional[pulumi.Input[str]] = None,
+                 signer_name: Optional[pulumi.Input[str]] = None,
+                 uid: Optional[pulumi.Input[str]] = None,
+                 usages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 username: Optional[pulumi.Input[str]] = None):
+        """
+        This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
+        :param pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]] extra: Extra information about the requesting user. See user.Info interface for details.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] groups: Group information about the requesting user. See user.Info interface for details.
+        :param pulumi.Input[str] request: Base64-encoded PKCS#10 CSR data
+        :param pulumi.Input[str] signer_name: Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
+                1. If it's a kubelet client certificate, it is assigned
+                   "kubernetes.io/kube-apiserver-client-kubelet".
+                2. If it's a kubelet serving certificate, it is assigned
+                   "kubernetes.io/kubelet-serving".
+                3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+               Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        :param pulumi.Input[str] uid: UID information about the requesting user. See user.Info interface for details.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] usages: allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+                    https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+        :param pulumi.Input[str] username: Information about the requesting user. See user.Info interface for details.
+        """
+        if extra is not None:
+            pulumi.set(__self__, "extra", extra)
+        if groups is not None:
+            pulumi.set(__self__, "groups", groups)
+        if request is not None:
+            pulumi.set(__self__, "request", request)
+        if signer_name is not None:
+            pulumi.set(__self__, "signer_name", signer_name)
+        if uid is not None:
+            pulumi.set(__self__, "uid", uid)
+        if usages is not None:
+            pulumi.set(__self__, "usages", usages)
+        if username is not None:
+            pulumi.set(__self__, "username", username)
+
+    @property
+    @pulumi.getter
+    def extra(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]:
+        """
+        Extra information about the requesting user. See user.Info interface for details.
+        """
+        return pulumi.get(self, "extra")
+
+    @extra.setter
+    def extra(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]]):
+        pulumi.set(self, "extra", value)
+
+    @property
+    @pulumi.getter
+    def groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Group information about the requesting user. See user.Info interface for details.
+        """
+        return pulumi.get(self, "groups")
+
+    @groups.setter
+    def groups(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "groups", value)
+
+    @property
+    @pulumi.getter
+    def request(self) -> Optional[pulumi.Input[str]]:
+        """
+        Base64-encoded PKCS#10 CSR data
+        """
+        return pulumi.get(self, "request")
+
+    @request.setter
+    def request(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "request", value)
+
+    @property
+    @pulumi.getter(name="signerName")
+    def signer_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Requested signer for the request. It is a qualified name in the form: `scope-hostname.io/name`. If empty, it will be defaulted:
+         1. If it's a kubelet client certificate, it is assigned
+            "kubernetes.io/kube-apiserver-client-kubelet".
+         2. If it's a kubelet serving certificate, it is assigned
+            "kubernetes.io/kubelet-serving".
+         3. Otherwise, it is assigned "kubernetes.io/legacy-unknown".
+        Distribution of trust for signers happens out of band. You can select on this field using `spec.signerName`.
+        """
+        return pulumi.get(self, "signer_name")
+
+    @signer_name.setter
+    def signer_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "signer_name", value)
+
+    @property
+    @pulumi.getter
+    def uid(self) -> Optional[pulumi.Input[str]]:
+        """
+        UID information about the requesting user. See user.Info interface for details.
+        """
+        return pulumi.get(self, "uid")
+
+    @uid.setter
+    def uid(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "uid", value)
+
+    @property
+    @pulumi.getter
+    def usages(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
+             https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+        """
+        return pulumi.get(self, "usages")
+
+    @usages.setter
+    def usages(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "usages", value)
+
+    @property
+    @pulumi.getter
+    def username(self) -> Optional[pulumi.Input[str]]:
+        """
+        Information about the requesting user. See user.Info interface for details.
+        """
+        return pulumi.get(self, "username")
+
+    @username.setter
+    def username(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "username", value)
 
 
 @pulumi.input_type

@@ -15,6 +15,7 @@ from ... import meta as _meta
 __all__ = [
     'PodPreset',
     'PodPresetSpec',
+    'PodPresetSpecPatch',
 ]
 
 @pulumi.output_type
@@ -169,6 +170,96 @@ class PodPresetSpec(dict):
     @property
     @pulumi.getter
     def volumes(self) -> Optional[Sequence['_core.v1.outputs.Volume']]:
+        """
+        Volumes defines the collection of Volume to inject into the pod.
+        """
+        return pulumi.get(self, "volumes")
+
+
+@pulumi.output_type
+class PodPresetSpecPatch(dict):
+    """
+    PodPresetSpec is a description of a pod preset.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "envFrom":
+            suggest = "env_from"
+        elif key == "volumeMounts":
+            suggest = "volume_mounts"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in PodPresetSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        PodPresetSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        PodPresetSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 env: Optional[Sequence['_core.v1.outputs.EnvVarPatch']] = None,
+                 env_from: Optional[Sequence['_core.v1.outputs.EnvFromSourcePatch']] = None,
+                 selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 volume_mounts: Optional[Sequence['_core.v1.outputs.VolumeMountPatch']] = None,
+                 volumes: Optional[Sequence['_core.v1.outputs.VolumePatch']] = None):
+        """
+        PodPresetSpec is a description of a pod preset.
+        :param Sequence['_core.v1.EnvVarPatchArgs'] env: Env defines the collection of EnvVar to inject into containers.
+        :param Sequence['_core.v1.EnvFromSourcePatchArgs'] env_from: EnvFrom defines the collection of EnvFromSource to inject into containers.
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over a set of resources, in this case pods. Required.
+        :param Sequence['_core.v1.VolumeMountPatchArgs'] volume_mounts: VolumeMounts defines the collection of VolumeMount to inject into containers.
+        :param Sequence['_core.v1.VolumePatchArgs'] volumes: Volumes defines the collection of Volume to inject into the pod.
+        """
+        if env is not None:
+            pulumi.set(__self__, "env", env)
+        if env_from is not None:
+            pulumi.set(__self__, "env_from", env_from)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
+        if volume_mounts is not None:
+            pulumi.set(__self__, "volume_mounts", volume_mounts)
+        if volumes is not None:
+            pulumi.set(__self__, "volumes", volumes)
+
+    @property
+    @pulumi.getter
+    def env(self) -> Optional[Sequence['_core.v1.outputs.EnvVarPatch']]:
+        """
+        Env defines the collection of EnvVar to inject into containers.
+        """
+        return pulumi.get(self, "env")
+
+    @property
+    @pulumi.getter(name="envFrom")
+    def env_from(self) -> Optional[Sequence['_core.v1.outputs.EnvFromSourcePatch']]:
+        """
+        EnvFrom defines the collection of EnvFromSource to inject into containers.
+        """
+        return pulumi.get(self, "env_from")
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
+        """
+        Selector is a label query over a set of resources, in this case pods. Required.
+        """
+        return pulumi.get(self, "selector")
+
+    @property
+    @pulumi.getter(name="volumeMounts")
+    def volume_mounts(self) -> Optional[Sequence['_core.v1.outputs.VolumeMountPatch']]:
+        """
+        VolumeMounts defines the collection of VolumeMount to inject into containers.
+        """
+        return pulumi.get(self, "volume_mounts")
+
+    @property
+    @pulumi.getter
+    def volumes(self) -> Optional[Sequence['_core.v1.outputs.VolumePatch']]:
         """
         Volumes defines the collection of Volume to inject into the pod.
         """

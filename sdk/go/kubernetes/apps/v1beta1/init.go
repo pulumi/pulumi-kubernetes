@@ -25,14 +25,20 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ControllerRevision{}
 	case "kubernetes:apps/v1beta1:ControllerRevisionList":
 		r = &ControllerRevisionList{}
+	case "kubernetes:apps/v1beta1:ControllerRevisionPatch":
+		r = &ControllerRevisionPatch{}
 	case "kubernetes:apps/v1beta1:Deployment":
 		r = &Deployment{}
 	case "kubernetes:apps/v1beta1:DeploymentList":
 		r = &DeploymentList{}
+	case "kubernetes:apps/v1beta1:DeploymentPatch":
+		r = &DeploymentPatch{}
 	case "kubernetes:apps/v1beta1:StatefulSet":
 		r = &StatefulSet{}
 	case "kubernetes:apps/v1beta1:StatefulSetList":
 		r = &StatefulSetList{}
+	case "kubernetes:apps/v1beta1:StatefulSetPatch":
+		r = &StatefulSetPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

@@ -6,6 +6,8 @@ from ... import _utilities
 import typing
 # Export this package's modules as members:
 from .TokenRequest import *
+from .TokenRequestPatch import *
 from .TokenReview import *
+from .TokenReviewPatch import *
 from ._inputs import *
 from . import outputs

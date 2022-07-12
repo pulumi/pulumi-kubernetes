@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./endpointSlice";
 export * from "./endpointSliceList";
+export * from "./endpointSlicePatch";
 
 // Import resources to register:
 import { EndpointSlice } from "./endpointSlice";
 import { EndpointSliceList } from "./endpointSliceList";
+import { EndpointSlicePatch } from "./endpointSlicePatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new EndpointSlice(name, <any>undefined, { urn })
             case "kubernetes:discovery.k8s.io/v1:EndpointSliceList":
                 return new EndpointSliceList(name, <any>undefined, { urn })
+            case "kubernetes:discovery.k8s.io/v1:EndpointSlicePatch":
+                return new EndpointSlicePatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

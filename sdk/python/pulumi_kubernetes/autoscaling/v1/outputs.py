@@ -13,9 +13,12 @@ from ... import meta as _meta
 
 __all__ = [
     'CrossVersionObjectReference',
+    'CrossVersionObjectReferencePatch',
     'HorizontalPodAutoscaler',
     'HorizontalPodAutoscalerSpec',
+    'HorizontalPodAutoscalerSpecPatch',
     'HorizontalPodAutoscalerStatus',
+    'HorizontalPodAutoscalerStatusPatch',
 ]
 
 @pulumi.output_type
@@ -78,6 +81,70 @@ class CrossVersionObjectReference(dict):
         API version of the referent
         """
         return pulumi.get(self, "api_version")
+
+
+@pulumi.output_type
+class CrossVersionObjectReferencePatch(dict):
+    """
+    CrossVersionObjectReference contains enough information to let you identify the referred resource.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "apiVersion":
+            suggest = "api_version"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CrossVersionObjectReferencePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CrossVersionObjectReferencePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CrossVersionObjectReferencePatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 api_version: Optional[str] = None,
+                 kind: Optional[str] = None,
+                 name: Optional[str] = None):
+        """
+        CrossVersionObjectReference contains enough information to let you identify the referred resource.
+        :param str api_version: API version of the referent
+        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        """
+        if api_version is not None:
+            pulumi.set(__self__, "api_version", api_version)
+        if kind is not None:
+            pulumi.set(__self__, "kind", kind)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> Optional[str]:
+        """
+        API version of the referent
+        """
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def kind(self) -> Optional[str]:
+        """
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        """
+        return pulumi.get(self, "kind")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        """
+        return pulumi.get(self, "name")
 
 
 @pulumi.output_type
@@ -249,6 +316,88 @@ class HorizontalPodAutoscalerSpec(dict):
 
 
 @pulumi.output_type
+class HorizontalPodAutoscalerSpecPatch(dict):
+    """
+    specification of a horizontal pod autoscaler.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxReplicas":
+            suggest = "max_replicas"
+        elif key == "minReplicas":
+            suggest = "min_replicas"
+        elif key == "scaleTargetRef":
+            suggest = "scale_target_ref"
+        elif key == "targetCPUUtilizationPercentage":
+            suggest = "target_cpu_utilization_percentage"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerSpecPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 max_replicas: Optional[int] = None,
+                 min_replicas: Optional[int] = None,
+                 scale_target_ref: Optional['outputs.CrossVersionObjectReferencePatch'] = None,
+                 target_cpu_utilization_percentage: Optional[int] = None):
+        """
+        specification of a horizontal pod autoscaler.
+        :param int max_replicas: upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+        :param int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+        :param 'CrossVersionObjectReferencePatchArgs' scale_target_ref: reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        :param int target_cpu_utilization_percentage: target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+        """
+        if max_replicas is not None:
+            pulumi.set(__self__, "max_replicas", max_replicas)
+        if min_replicas is not None:
+            pulumi.set(__self__, "min_replicas", min_replicas)
+        if scale_target_ref is not None:
+            pulumi.set(__self__, "scale_target_ref", scale_target_ref)
+        if target_cpu_utilization_percentage is not None:
+            pulumi.set(__self__, "target_cpu_utilization_percentage", target_cpu_utilization_percentage)
+
+    @property
+    @pulumi.getter(name="maxReplicas")
+    def max_replicas(self) -> Optional[int]:
+        """
+        upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+        """
+        return pulumi.get(self, "max_replicas")
+
+    @property
+    @pulumi.getter(name="minReplicas")
+    def min_replicas(self) -> Optional[int]:
+        """
+        minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
+        """
+        return pulumi.get(self, "min_replicas")
+
+    @property
+    @pulumi.getter(name="scaleTargetRef")
+    def scale_target_ref(self) -> Optional['outputs.CrossVersionObjectReferencePatch']:
+        """
+        reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
+        """
+        return pulumi.get(self, "scale_target_ref")
+
+    @property
+    @pulumi.getter(name="targetCPUUtilizationPercentage")
+    def target_cpu_utilization_percentage(self) -> Optional[int]:
+        """
+        target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+        """
+        return pulumi.get(self, "target_cpu_utilization_percentage")
+
+
+@pulumi.output_type
 class HorizontalPodAutoscalerStatus(dict):
     """
     current status of a horizontal pod autoscaler
@@ -324,6 +473,102 @@ class HorizontalPodAutoscalerStatus(dict):
         current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
         """
         return pulumi.get(self, "current_cpu_utilization_percentage")
+
+    @property
+    @pulumi.getter(name="lastScaleTime")
+    def last_scale_time(self) -> Optional[str]:
+        """
+        last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+        """
+        return pulumi.get(self, "last_scale_time")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        most recent generation observed by this autoscaler.
+        """
+        return pulumi.get(self, "observed_generation")
+
+
+@pulumi.output_type
+class HorizontalPodAutoscalerStatusPatch(dict):
+    """
+    current status of a horizontal pod autoscaler
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "currentCPUUtilizationPercentage":
+            suggest = "current_cpu_utilization_percentage"
+        elif key == "currentReplicas":
+            suggest = "current_replicas"
+        elif key == "desiredReplicas":
+            suggest = "desired_replicas"
+        elif key == "lastScaleTime":
+            suggest = "last_scale_time"
+        elif key == "observedGeneration":
+            suggest = "observed_generation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in HorizontalPodAutoscalerStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        HorizontalPodAutoscalerStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        HorizontalPodAutoscalerStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 current_cpu_utilization_percentage: Optional[int] = None,
+                 current_replicas: Optional[int] = None,
+                 desired_replicas: Optional[int] = None,
+                 last_scale_time: Optional[str] = None,
+                 observed_generation: Optional[int] = None):
+        """
+        current status of a horizontal pod autoscaler
+        :param int current_cpu_utilization_percentage: current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+        :param int current_replicas: current number of replicas of pods managed by this autoscaler.
+        :param int desired_replicas: desired number of replicas of pods managed by this autoscaler.
+        :param str last_scale_time: last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+        :param int observed_generation: most recent generation observed by this autoscaler.
+        """
+        if current_cpu_utilization_percentage is not None:
+            pulumi.set(__self__, "current_cpu_utilization_percentage", current_cpu_utilization_percentage)
+        if current_replicas is not None:
+            pulumi.set(__self__, "current_replicas", current_replicas)
+        if desired_replicas is not None:
+            pulumi.set(__self__, "desired_replicas", desired_replicas)
+        if last_scale_time is not None:
+            pulumi.set(__self__, "last_scale_time", last_scale_time)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+
+    @property
+    @pulumi.getter(name="currentCPUUtilizationPercentage")
+    def current_cpu_utilization_percentage(self) -> Optional[int]:
+        """
+        current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+        """
+        return pulumi.get(self, "current_cpu_utilization_percentage")
+
+    @property
+    @pulumi.getter(name="currentReplicas")
+    def current_replicas(self) -> Optional[int]:
+        """
+        current number of replicas of pods managed by this autoscaler.
+        """
+        return pulumi.get(self, "current_replicas")
+
+    @property
+    @pulumi.getter(name="desiredReplicas")
+    def desired_replicas(self) -> Optional[int]:
+        """
+        desired number of replicas of pods managed by this autoscaler.
+        """
+        return pulumi.get(self, "desired_replicas")
 
     @property
     @pulumi.getter(name="lastScaleTime")

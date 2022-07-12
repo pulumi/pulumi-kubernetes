@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./podPreset";
 export * from "./podPresetList";
+export * from "./podPresetPatch";
 
 // Import resources to register:
 import { PodPreset } from "./podPreset";
 import { PodPresetList } from "./podPresetList";
+import { PodPresetPatch } from "./podPresetPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new PodPreset(name, <any>undefined, { urn })
             case "kubernetes:settings.k8s.io/v1alpha1:PodPresetList":
                 return new PodPresetList(name, <any>undefined, { urn })
+            case "kubernetes:settings.k8s.io/v1alpha1:PodPresetPatch":
+                return new PodPresetPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

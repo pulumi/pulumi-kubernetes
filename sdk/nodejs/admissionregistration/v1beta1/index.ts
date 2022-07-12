@@ -7,14 +7,18 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./mutatingWebhookConfiguration";
 export * from "./mutatingWebhookConfigurationList";
+export * from "./mutatingWebhookConfigurationPatch";
 export * from "./validatingWebhookConfiguration";
 export * from "./validatingWebhookConfigurationList";
+export * from "./validatingWebhookConfigurationPatch";
 
 // Import resources to register:
 import { MutatingWebhookConfiguration } from "./mutatingWebhookConfiguration";
 import { MutatingWebhookConfigurationList } from "./mutatingWebhookConfigurationList";
+import { MutatingWebhookConfigurationPatch } from "./mutatingWebhookConfigurationPatch";
 import { ValidatingWebhookConfiguration } from "./validatingWebhookConfiguration";
 import { ValidatingWebhookConfigurationList } from "./validatingWebhookConfigurationList";
+import { ValidatingWebhookConfigurationPatch } from "./validatingWebhookConfigurationPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -24,10 +28,14 @@ const _module = {
                 return new MutatingWebhookConfiguration(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList":
                 return new MutatingWebhookConfigurationList(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch":
+                return new MutatingWebhookConfigurationPatch(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration":
                 return new ValidatingWebhookConfiguration(name, <any>undefined, { urn })
             case "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList":
                 return new ValidatingWebhookConfigurationList(name, <any>undefined, { urn })
+            case "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch":
+                return new ValidatingWebhookConfigurationPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./lease";
 export * from "./leaseList";
+export * from "./leasePatch";
 
 // Import resources to register:
 import { Lease } from "./lease";
 import { LeaseList } from "./leaseList";
+import { LeasePatch } from "./leasePatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new Lease(name, <any>undefined, { urn })
             case "kubernetes:coordination.k8s.io/v1beta1:LeaseList":
                 return new LeaseList(name, <any>undefined, { urn })
+            case "kubernetes:coordination.k8s.io/v1beta1:LeasePatch":
+                return new LeasePatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

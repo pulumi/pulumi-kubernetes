@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CertificateSigningRequest{}
 	case "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList":
 		r = &CertificateSigningRequestList{}
+	case "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch":
+		r = &CertificateSigningRequestPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

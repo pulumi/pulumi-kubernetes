@@ -25,6 +25,8 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &EndpointSlice{}
 	case "kubernetes:discovery.k8s.io/v1:EndpointSliceList":
 		r = &EndpointSliceList{}
+	case "kubernetes:discovery.k8s.io/v1:EndpointSlicePatch":
+		r = &EndpointSlicePatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

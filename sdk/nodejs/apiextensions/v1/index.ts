@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./customResourceDefinition";
 export * from "./customResourceDefinitionList";
+export * from "./customResourceDefinitionPatch";
 
 // Import resources to register:
 import { CustomResourceDefinition } from "./customResourceDefinition";
 import { CustomResourceDefinitionList } from "./customResourceDefinitionList";
+import { CustomResourceDefinitionPatch } from "./customResourceDefinitionPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new CustomResourceDefinition(name, <any>undefined, { urn })
             case "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList":
                 return new CustomResourceDefinitionList(name, <any>undefined, { urn })
+            case "kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch":
+                return new CustomResourceDefinitionPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

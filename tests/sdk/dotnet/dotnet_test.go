@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -271,6 +271,30 @@ func TestDotnet_Secrets(t *testing.T) {
 			// should also not contain the base64 encoding of secret message.
 			assert.NotContains(t, string(state), b64.StdEncoding.EncodeToString([]byte(secretMessage)))
 		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
+func TestDotnet_ServerSideApply(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  "server-side-apply",
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		// TODO: Need to support CustomResource.Get to get the required info here.
+		//ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+		//	// Validate patched CustomResource
+		//	crPatched := stackInfo.Outputs["crPatched"].(map[string]interface{})
+		//	fooV, ok, err := unstructured.NestedString(crPatched, "metadata", "labels", "foo")
+		//	assert.True(t, ok)
+		//	assert.NoError(t, err)
+		//	assert.Equal(t, "foo", fooV)
+		//},
 	})
 	integration.ProgramTest(t, &test)
 }

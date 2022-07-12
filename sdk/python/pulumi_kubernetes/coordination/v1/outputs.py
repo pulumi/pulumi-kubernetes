@@ -14,6 +14,7 @@ from ... import meta as _meta
 __all__ = [
     'Lease',
     'LeaseSpec',
+    'LeaseSpecPatch',
 ]
 
 @pulumi.output_type
@@ -120,6 +121,102 @@ class LeaseSpec(dict):
 
     def get(self, key: str, default = None) -> Any:
         LeaseSpec.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 acquire_time: Optional[str] = None,
+                 holder_identity: Optional[str] = None,
+                 lease_duration_seconds: Optional[int] = None,
+                 lease_transitions: Optional[int] = None,
+                 renew_time: Optional[str] = None):
+        """
+        LeaseSpec is a specification of a Lease.
+        :param str acquire_time: acquireTime is a time when the current lease was acquired.
+        :param str holder_identity: holderIdentity contains the identity of the holder of a current lease.
+        :param int lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        :param int lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
+        :param str renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
+        """
+        if acquire_time is not None:
+            pulumi.set(__self__, "acquire_time", acquire_time)
+        if holder_identity is not None:
+            pulumi.set(__self__, "holder_identity", holder_identity)
+        if lease_duration_seconds is not None:
+            pulumi.set(__self__, "lease_duration_seconds", lease_duration_seconds)
+        if lease_transitions is not None:
+            pulumi.set(__self__, "lease_transitions", lease_transitions)
+        if renew_time is not None:
+            pulumi.set(__self__, "renew_time", renew_time)
+
+    @property
+    @pulumi.getter(name="acquireTime")
+    def acquire_time(self) -> Optional[str]:
+        """
+        acquireTime is a time when the current lease was acquired.
+        """
+        return pulumi.get(self, "acquire_time")
+
+    @property
+    @pulumi.getter(name="holderIdentity")
+    def holder_identity(self) -> Optional[str]:
+        """
+        holderIdentity contains the identity of the holder of a current lease.
+        """
+        return pulumi.get(self, "holder_identity")
+
+    @property
+    @pulumi.getter(name="leaseDurationSeconds")
+    def lease_duration_seconds(self) -> Optional[int]:
+        """
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        """
+        return pulumi.get(self, "lease_duration_seconds")
+
+    @property
+    @pulumi.getter(name="leaseTransitions")
+    def lease_transitions(self) -> Optional[int]:
+        """
+        leaseTransitions is the number of transitions of a lease between holders.
+        """
+        return pulumi.get(self, "lease_transitions")
+
+    @property
+    @pulumi.getter(name="renewTime")
+    def renew_time(self) -> Optional[str]:
+        """
+        renewTime is a time when the current holder of a lease has last updated the lease.
+        """
+        return pulumi.get(self, "renew_time")
+
+
+@pulumi.output_type
+class LeaseSpecPatch(dict):
+    """
+    LeaseSpec is a specification of a Lease.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "acquireTime":
+            suggest = "acquire_time"
+        elif key == "holderIdentity":
+            suggest = "holder_identity"
+        elif key == "leaseDurationSeconds":
+            suggest = "lease_duration_seconds"
+        elif key == "leaseTransitions":
+            suggest = "lease_transitions"
+        elif key == "renewTime":
+            suggest = "renew_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LeaseSpecPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LeaseSpecPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LeaseSpecPatch.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,

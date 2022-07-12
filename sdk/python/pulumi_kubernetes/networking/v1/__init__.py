@@ -8,8 +8,11 @@ import typing
 from .Ingress import *
 from .IngressClass import *
 from .IngressClassList import *
+from .IngressClassPatch import *
 from .IngressList import *
+from .IngressPatch import *
 from .NetworkPolicy import *
 from .NetworkPolicyList import *
+from .NetworkPolicyPatch import *
 from ._inputs import *
 from . import outputs

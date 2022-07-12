@@ -7,10 +7,12 @@ import * as utilities from "../../utilities";
 // Export members:
 export * from "./event";
 export * from "./eventList";
+export * from "./eventPatch";
 
 // Import resources to register:
 import { Event } from "./event";
 import { EventList } from "./eventList";
+import { EventPatch } from "./eventPatch";
 
 const _module = {
     version: utilities.getVersion(),
@@ -20,6 +22,8 @@ const _module = {
                 return new Event(name, <any>undefined, { urn })
             case "kubernetes:events.k8s.io/v1beta1:EventList":
                 return new EventList(name, <any>undefined, { urn })
+            case "kubernetes:events.k8s.io/v1beta1:EventPatch":
+                return new EventPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

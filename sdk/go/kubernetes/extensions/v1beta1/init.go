@@ -25,26 +25,38 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &DaemonSet{}
 	case "kubernetes:extensions/v1beta1:DaemonSetList":
 		r = &DaemonSetList{}
+	case "kubernetes:extensions/v1beta1:DaemonSetPatch":
+		r = &DaemonSetPatch{}
 	case "kubernetes:extensions/v1beta1:Deployment":
 		r = &Deployment{}
 	case "kubernetes:extensions/v1beta1:DeploymentList":
 		r = &DeploymentList{}
+	case "kubernetes:extensions/v1beta1:DeploymentPatch":
+		r = &DeploymentPatch{}
 	case "kubernetes:extensions/v1beta1:Ingress":
 		r = &Ingress{}
 	case "kubernetes:extensions/v1beta1:IngressList":
 		r = &IngressList{}
+	case "kubernetes:extensions/v1beta1:IngressPatch":
+		r = &IngressPatch{}
 	case "kubernetes:extensions/v1beta1:NetworkPolicy":
 		r = &NetworkPolicy{}
 	case "kubernetes:extensions/v1beta1:NetworkPolicyList":
 		r = &NetworkPolicyList{}
+	case "kubernetes:extensions/v1beta1:NetworkPolicyPatch":
+		r = &NetworkPolicyPatch{}
 	case "kubernetes:extensions/v1beta1:PodSecurityPolicy":
 		r = &PodSecurityPolicy{}
 	case "kubernetes:extensions/v1beta1:PodSecurityPolicyList":
 		r = &PodSecurityPolicyList{}
+	case "kubernetes:extensions/v1beta1:PodSecurityPolicyPatch":
+		r = &PodSecurityPolicyPatch{}
 	case "kubernetes:extensions/v1beta1:ReplicaSet":
 		r = &ReplicaSet{}
 	case "kubernetes:extensions/v1beta1:ReplicaSetList":
 		r = &ReplicaSetList{}
+	case "kubernetes:extensions/v1beta1:ReplicaSetPatch":
+		r = &ReplicaSetPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

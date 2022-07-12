@@ -7,5 +7,6 @@ import typing
 # Export this package's modules as members:
 from .PodDisruptionBudget import *
 from .PodDisruptionBudgetList import *
+from .PodDisruptionBudgetPatch import *
 from ._inputs import *
 from . import outputs

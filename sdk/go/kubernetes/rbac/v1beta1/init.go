@@ -27,16 +27,24 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &ClusterRoleBinding{}
 	case "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingList":
 		r = &ClusterRoleBindingList{}
+	case "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleBindingPatch":
+		r = &ClusterRoleBindingPatch{}
 	case "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRoleList":
 		r = &ClusterRoleList{}
+	case "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRolePatch":
+		r = &ClusterRolePatch{}
 	case "kubernetes:rbac.authorization.k8s.io/v1beta1:Role":
 		r = &Role{}
 	case "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding":
 		r = &RoleBinding{}
 	case "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingList":
 		r = &RoleBindingList{}
+	case "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingPatch":
+		r = &RoleBindingPatch{}
 	case "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList":
 		r = &RoleList{}
+	case "kubernetes:rbac.authorization.k8s.io/v1beta1:RolePatch":
+		r = &RolePatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
