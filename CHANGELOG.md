@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.20.0 (July 12, 2022)
+
 - Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
 - Add Patch resources to all SDKs (https://github.com/pulumi/pulumi-kubernetes/pull/2043) (https://github.com/pulumi/pulumi-kubernetes/pull/2068)
 - Add awaiter for service-account-token secret (https://github.com/pulumi/pulumi-kubernetes/pull/2048)
