@@ -91,6 +91,9 @@ export class CSIStorageCapacityPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "storage.k8s.io/v1";
             resourceInputs["capacity"] = args ? args.capacity : undefined;
             resourceInputs["kind"] = "CSIStorageCapacity";
@@ -145,7 +148,7 @@ export interface CSIStorageCapacityPatchArgs {
      *
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
      */

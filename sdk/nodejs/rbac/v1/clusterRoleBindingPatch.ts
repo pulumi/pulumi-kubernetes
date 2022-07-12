@@ -67,6 +67,9 @@ export class ClusterRoleBindingPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1";
             resourceInputs["kind"] = "ClusterRoleBinding";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -101,7 +104,7 @@ export interface ClusterRoleBindingPatchArgs {
     /**
      * Standard object's metadata.
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      */

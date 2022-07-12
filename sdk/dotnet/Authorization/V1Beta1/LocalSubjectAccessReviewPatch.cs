@@ -118,8 +118,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.

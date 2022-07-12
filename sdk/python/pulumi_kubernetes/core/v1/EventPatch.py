@@ -17,6 +17,7 @@ __all__ = ['EventPatchArgs', 'EventPatch']
 @pulumi.input_type
 class EventPatchArgs:
     def __init__(__self__, *,
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  action: Optional[pulumi.Input[str]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  count: Optional[pulumi.Input[int]] = None,
@@ -26,7 +27,6 @@ class EventPatchArgs:
                  kind: Optional[pulumi.Input[str]] = None,
                  last_timestamp: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  reason: Optional[pulumi.Input[str]] = None,
                  related: Optional[pulumi.Input['ObjectReferencePatchArgs']] = None,
                  reporting_component: Optional[pulumi.Input[str]] = None,
@@ -36,6 +36,7 @@ class EventPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a EventPatch resource.
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] action: What action was taken/failed regarding to the Regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[int] count: The number of times this event has occurred.
@@ -45,7 +46,6 @@ class EventPatchArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] last_timestamp: The time at which the most recent occurrence of this event was recorded.
         :param pulumi.Input[str] message: A human-readable description of the status of this operation.
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] reason: This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
         :param pulumi.Input['ObjectReferencePatchArgs'] related: Optional secondary object for more complex actions.
         :param pulumi.Input[str] reporting_component: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
@@ -54,6 +54,7 @@ class EventPatchArgs:
         :param pulumi.Input['EventSourcePatchArgs'] source: The component reporting this event. Should be a short machine understandable string.
         :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future
         """
+        pulumi.set(__self__, "metadata", metadata)
         if action is not None:
             pulumi.set(__self__, "action", action)
         if api_version is not None:
@@ -72,8 +73,6 @@ class EventPatchArgs:
             pulumi.set(__self__, "last_timestamp", last_timestamp)
         if message is not None:
             pulumi.set(__self__, "message", message)
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
         if related is not None:
@@ -88,6 +87,18 @@ class EventPatchArgs:
             pulumi.set(__self__, "source", source)
         if type is not None:
             pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
@@ -196,18 +207,6 @@ class EventPatchArgs:
     @message.setter
     def message(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "message", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
@@ -344,7 +343,7 @@ class EventPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[EventPatchArgs] = None,
+                 args: EventPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
@@ -399,6 +398,8 @@ class EventPatch(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'Event'
             __props__.__dict__["last_timestamp"] = last_timestamp
             __props__.__dict__["message"] = message
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["reason"] = reason
             __props__.__dict__["related"] = related

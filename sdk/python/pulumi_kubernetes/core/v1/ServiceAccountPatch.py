@@ -17,21 +17,22 @@ __all__ = ['ServiceAccountPatchArgs', 'ServiceAccountPatch']
 @pulumi.input_type
 class ServiceAccountPatchArgs:
     def __init__(__self__, *,
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  automount_service_account_token: Optional[pulumi.Input[bool]] = None,
                  image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]] = None):
         """
         The set of arguments for constructing a ServiceAccountPatch resource.
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[bool] automount_service_account_token: AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
         :param pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]] image_pull_secrets: ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]] secrets: Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
+        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
         if automount_service_account_token is not None:
@@ -40,10 +41,20 @@ class ServiceAccountPatchArgs:
             pulumi.set(__self__, "image_pull_secrets", image_pull_secrets)
         if kind is not None:
             pulumi.set(__self__, "kind", 'ServiceAccount')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
         if secrets is not None:
             pulumi.set(__self__, "secrets", secrets)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -95,18 +106,6 @@ class ServiceAccountPatchArgs:
 
     @property
     @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
-
-    @property
-    @pulumi.getter
     def secrets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]]:
         """
         Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
@@ -146,7 +145,7 @@ class ServiceAccountPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ServiceAccountPatchArgs] = None,
+                 args: ServiceAccountPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ServiceAccount binds together: * a name, understood by users, and perhaps by peripheral systems, for an identity * a principal that can be authenticated and authorized * a set of secrets
@@ -185,6 +184,8 @@ class ServiceAccountPatch(pulumi.CustomResource):
             __props__.__dict__["automount_service_account_token"] = automount_service_account_token
             __props__.__dict__["image_pull_secrets"] = image_pull_secrets
             __props__.__dict__["kind"] = 'ServiceAccount'
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["secrets"] = secrets
         super(ServiceAccountPatch, __self__).__init__(

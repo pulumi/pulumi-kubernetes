@@ -115,6 +115,9 @@ export class EventPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["action"] = args ? args.action : undefined;
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["count"] = args ? args.count : undefined;
@@ -201,7 +204,7 @@ export interface EventPatchArgs {
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
      */

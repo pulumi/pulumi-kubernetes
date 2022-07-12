@@ -15,21 +15,22 @@ __all__ = ['ConfigMapPatchArgs', 'ConfigMapPatch']
 @pulumi.input_type
 class ConfigMapPatchArgs:
     def __init__(__self__, *,
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  binary_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  immutable: Optional[pulumi.Input[bool]] = None,
-                 kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None):
+                 kind: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a ConfigMapPatch resource.
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] binary_data: BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] data: Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
         :param pulumi.Input[bool] immutable: Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
+        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
         if binary_data is not None:
@@ -40,8 +41,18 @@ class ConfigMapPatchArgs:
             pulumi.set(__self__, "immutable", immutable)
         if kind is not None:
             pulumi.set(__self__, "kind", 'ConfigMap')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -103,18 +114,6 @@ class ConfigMapPatchArgs:
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
 
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
-
 
 class ConfigMapPatch(pulumi.CustomResource):
     @overload
@@ -144,7 +143,7 @@ class ConfigMapPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[ConfigMapPatchArgs] = None,
+                 args: ConfigMapPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         ConfigMap holds configuration data for pods to consume.
@@ -184,6 +183,8 @@ class ConfigMapPatch(pulumi.CustomResource):
             __props__.__dict__["data"] = data
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'ConfigMap'
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
         super(ConfigMapPatch, __self__).__init__(
             'kubernetes:core/v1:ConfigMapPatch',

@@ -137,8 +137,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Beta1
         /// <summary>
         /// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md

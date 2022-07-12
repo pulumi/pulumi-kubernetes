@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -29,9 +30,12 @@ type MutatingWebhookConfigurationPatch struct {
 func NewMutatingWebhookConfigurationPatch(ctx *pulumi.Context,
 	name string, args *MutatingWebhookConfigurationPatchArgs, opts ...pulumi.ResourceOption) (*MutatingWebhookConfigurationPatch, error) {
 	if args == nil {
-		args = &MutatingWebhookConfigurationPatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
+	}
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("MutatingWebhookConfiguration")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -77,7 +81,7 @@ type mutatingWebhookConfigurationPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Webhooks is a list of webhooks and the affected resources and operations.
 	Webhooks []MutatingWebhookPatch `pulumi:"webhooks"`
 }
@@ -89,7 +93,7 @@ type MutatingWebhookConfigurationPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata metav1.ObjectMetaPatchPtrInput
+	Metadata metav1.ObjectMetaPatchInput
 	// Webhooks is a list of webhooks and the affected resources and operations.
 	Webhooks MutatingWebhookPatchArrayInput
 }

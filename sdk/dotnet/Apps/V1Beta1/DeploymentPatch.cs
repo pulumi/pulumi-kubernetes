@@ -149,8 +149,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
         /// <summary>
         /// Standard object metadata.
         /// </summary>
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// Specification of the desired behavior of the Deployment.

@@ -1,7 +1,7 @@
 ## Unreleased
 
 - Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)
-- Add Patch resources to all SDKs (https://github.com/pulumi/pulumi-kubernetes/pull/2043)
+- Add Patch resources to all SDKs (https://github.com/pulumi/pulumi-kubernetes/pull/2043) (https://github.com/pulumi/pulumi-kubernetes/pull/2068)
 - Add awaiter for service-account-token secret (https://github.com/pulumi/pulumi-kubernetes/pull/2048)
 - Add Java packages overrides to schema (https://github.com/pulumi/pulumi-kubernetes/pull/2055)
 

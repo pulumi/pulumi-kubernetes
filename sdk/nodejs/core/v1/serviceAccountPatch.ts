@@ -71,6 +71,9 @@ export class ServiceAccountPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["automountServiceAccountToken"] = args ? args.automountServiceAccountToken : undefined;
             resourceInputs["imagePullSecrets"] = args ? args.imagePullSecrets : undefined;
@@ -113,7 +116,7 @@ export interface ServiceAccountPatchArgs {
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
      */

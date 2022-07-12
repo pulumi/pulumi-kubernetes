@@ -63,6 +63,9 @@ export class PodSecurityPolicyPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "extensions/v1beta1";
             resourceInputs["kind"] = "PodSecurityPolicy";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -95,7 +98,7 @@ export interface PodSecurityPolicyPatchArgs {
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * spec defines the policy enforced.
      */

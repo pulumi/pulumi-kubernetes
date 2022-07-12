@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pkg/errors"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -44,9 +45,12 @@ type StorageClassPatch struct {
 func NewStorageClassPatch(ctx *pulumi.Context,
 	name string, args *StorageClassPatchArgs, opts ...pulumi.ResourceOption) (*StorageClassPatch, error) {
 	if args == nil {
-		args = &StorageClassPatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
+	}
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("StorageClass")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -96,7 +100,7 @@ type storageClassPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions []string `pulumi:"mountOptions"`
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
@@ -120,7 +124,7 @@ type StorageClassPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPatchPtrInput
+	Metadata metav1.ObjectMetaPatchInput
 	// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions pulumi.StringArrayInput
 	// Parameters holds the parameters for the provisioner that should create volumes of this storage class.

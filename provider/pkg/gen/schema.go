@@ -300,6 +300,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				// Add "Patch" types corresponding to all non "List" resource kinds.
+				// All fields except for name are made optional by leaving off the required schema field.
 				var patchSpec pschema.ObjectTypeSpec
 				if len(patchTok) > 0 {
 					patchSpec = pschema.ObjectTypeSpec{
@@ -315,6 +316,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						propNames = append(propNames, p.name)
 					}
 
+					patchSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
+
 					// Check if the current type exists in the overlays and overwrite types accordingly.
 					if overlaySpec, hasType := typeOverlays[tok]; hasType {
 						for propName, overlayProp := range overlaySpec.Properties {
@@ -329,6 +332,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 								}
 							}
 						}
+					}
+
+					if patchTok == "kubernetes:meta/v1:ObjectMetaPatch" {
+						patchSpec.Required = []string{"name"}
 					}
 
 					pkg.Types[patchTok] = pschema.ComplexTypeSpec{
@@ -378,6 +385,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				pkg.Resources[tok] = resourceSpec
 
 				// Add "Patch" resources corresponding to all non "List" resource kinds.
+				// All fields except for metadata are made optional by leaving off the requiredInputs schema field.
 				if len(patchTok) > 0 {
 					patchResourceSpec := pschema.ResourceSpec{
 						ObjectTypeSpec:     patchSpec,
@@ -391,6 +399,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					for _, p := range kind.OptionalInputProperties() {
 						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
 					}
+
+					patchResourceSpec.RequiredInputs = []string{"metadata"}
 
 					for _, t := range kind.Aliases() {
 						aliasedType := fmt.Sprintf("%sPatch", t)

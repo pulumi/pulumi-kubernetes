@@ -15,23 +15,24 @@ __all__ = ['PriorityClassPatchArgs', 'PriorityClassPatch']
 @pulumi.input_type
 class PriorityClassPatchArgs:
     def __init__(__self__, *,
+                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  global_default: Optional[pulumi.Input[bool]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
-                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  preemption_policy: Optional[pulumi.Input[str]] = None,
                  value: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a PriorityClassPatch resource.
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] description: description is an arbitrary string that usually provides guidelines on when this priority class should be used.
         :param pulumi.Input[bool] global_default: globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param pulumi.Input[int] value: The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """
+        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1')
         if description is not None:
@@ -40,12 +41,22 @@ class PriorityClassPatchArgs:
             pulumi.set(__self__, "global_default", global_default)
         if kind is not None:
             pulumi.set(__self__, "kind", 'PriorityClass')
-        if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
         if preemption_policy is not None:
             pulumi.set(__self__, "preemption_policy", preemption_policy)
         if value is not None:
             pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -94,18 +105,6 @@ class PriorityClassPatchArgs:
     @kind.setter
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="preemptionPolicy")
@@ -162,7 +161,7 @@ class PriorityClassPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[PriorityClassPatchArgs] = None,
+                 args: PriorityClassPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
@@ -202,6 +201,8 @@ class PriorityClassPatch(pulumi.CustomResource):
             __props__.__dict__["description"] = description
             __props__.__dict__["global_default"] = global_default
             __props__.__dict__["kind"] = 'PriorityClass'
+            if metadata is None and not opts.urn:
+                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["preemption_policy"] = preemption_policy
             __props__.__dict__["value"] = value

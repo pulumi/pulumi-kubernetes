@@ -118,8 +118,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         /// <summary>
         /// metadata.name must be the Kubernetes node name.
         /// </summary>
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// spec is the specification of CSINode

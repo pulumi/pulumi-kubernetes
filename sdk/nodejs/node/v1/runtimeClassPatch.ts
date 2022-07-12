@@ -72,6 +72,9 @@ export class RuntimeClassPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "node.k8s.io/v1";
             resourceInputs["handler"] = args ? args.handler : undefined;
             resourceInputs["kind"] = "RuntimeClass";
@@ -112,7 +115,7 @@ export interface RuntimeClassPatchArgs {
     /**
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
      *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/

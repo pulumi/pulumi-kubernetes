@@ -63,6 +63,9 @@ export class RolePatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
             resourceInputs["kind"] = "Role";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -95,7 +98,7 @@ export interface RolePatchArgs {
     /**
      * Standard object's metadata.
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Rules holds all the PolicyRules for this Role
      */

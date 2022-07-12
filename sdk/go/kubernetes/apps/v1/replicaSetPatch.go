@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -31,9 +32,12 @@ type ReplicaSetPatch struct {
 func NewReplicaSetPatch(ctx *pulumi.Context,
 	name string, args *ReplicaSetPatchArgs, opts ...pulumi.ResourceOption) (*ReplicaSetPatch, error) {
 	if args == nil {
-		args = &ReplicaSetPatchArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Metadata == nil {
+		return nil, errors.New("invalid value for required argument 'Metadata'")
+	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("ReplicaSet")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -82,7 +86,7 @@ type replicaSetPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ReplicaSetSpecPatch `pulumi:"spec"`
 }
@@ -94,7 +98,7 @@ type ReplicaSetPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// If the Labels of a ReplicaSet are empty, they are defaulted to be the same as the Pod(s) that the ReplicaSet manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPatchPtrInput
+	Metadata metav1.ObjectMetaPatchInput
 	// Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ReplicaSetSpecPatchPtrInput
 }

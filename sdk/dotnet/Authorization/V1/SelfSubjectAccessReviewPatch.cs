@@ -124,8 +124,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
         /// <summary>
         /// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        [Input("metadata")]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
+        [Input("metadata", required: true)]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
 
         /// <summary>
         /// Spec holds information about the request being evaluated.  user and groups must be empty

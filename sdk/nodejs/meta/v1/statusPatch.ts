@@ -79,6 +79,9 @@ export class StatusPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.metadata === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'metadata'");
+            }
             resourceInputs["apiVersion"] = "v1";
             resourceInputs["code"] = args ? args.code : undefined;
             resourceInputs["details"] = args ? args.details : undefined;
@@ -129,7 +132,7 @@ export interface StatusPatchArgs {
     /**
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
-    metadata?: pulumi.Input<inputs.meta.v1.ListMetaPatch>;
+    metadata: pulumi.Input<inputs.meta.v1.ListMetaPatch>;
     /**
      * A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
      */
