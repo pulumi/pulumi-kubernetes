@@ -316,6 +316,8 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						propNames = append(propNames, p.name)
 					}
 
+					patchSpec.Language["nodejs"] = rawMessage(map[string][]string{"requiredOutputs": propNames})
+
 					// Check if the current type exists in the overlays and overwrite types accordingly.
 					if overlaySpec, hasType := typeOverlays[tok]; hasType {
 						for propName, overlayProp := range overlaySpec.Properties {
