@@ -7,24 +7,25 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const job = new kubernetes.batch.v1.Job("pi", {
+const job = new kubernetes.batch.v1.Job("job", {
+    metadata: undefined,
     spec: {
+        backoffLimit: 4,
         template: {
             spec: {
                 containers: [{
-                    name: "pi",
-                    image: "perl",
                     command: [
                         "perl",
                         "-Mbignum=bpi",
                         "-wle",
                         "print bpi(2000)",
                     ],
+                    image: "perl",
+                    name: "pi",
                 }],
                 restartPolicy: "Never",
             },
         },
-        backoffLimit: 4,
     },
 });
 ```
@@ -32,25 +33,25 @@ const job = new kubernetes.batch.v1.Job("pi", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-job = kubernetes.batch.v1.Job(
-    "pi",
+job = kubernetes.batch.v1.Job("job",
+    metadata=None,
     spec=kubernetes.batch.v1.JobSpecArgs(
+        backoff_limit=4,
         template=kubernetes.core.v1.PodTemplateSpecArgs(
             spec=kubernetes.core.v1.PodSpecArgs(
                 containers=[kubernetes.core.v1.ContainerArgs(
-                    name="pi",
-                    image="perl",
                     command=[
                         "perl",
                         "-Mbignum=bpi",
                         "-wle",
                         "print bpi(2000)",
                     ],
+                    image="perl",
+                    name="pi",
                 )],
                 restart_policy="Never",
             ),
         ),
-        backoff_limit=4,
     ))
 ```
 ```csharp
@@ -61,10 +62,12 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var piJob = new Kubernetes.Batch.V1.Job("pi", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+        var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
         {
+            Metadata = null,
             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
             {
+                BackoffLimit = 4,
                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
                 {
                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
@@ -73,8 +76,6 @@ class MyStack : Stack
                         {
                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                             {
-                                Name = "pi",
-                                Image = "perl",
                                 Command = 
                                 {
                                     "perl",
@@ -82,15 +83,17 @@ class MyStack : Stack
                                     "-wle",
                                     "print bpi(2000)",
                                 },
+                                Image = "perl",
+                                Name = "pi",
                             },
                         },
                         RestartPolicy = "Never",
                     },
                 },
-                BackoffLimit = 4,
             },
         });
     }
+
 }
 ```
 ```go
@@ -105,26 +108,27 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := batchv1.NewJob(ctx, "pi", &batchv1.JobArgs{
+		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
+			Metadata: nil,
 			Spec: &batchv1.JobSpecArgs{
+				BackoffLimit: pulumi.Int(4),
 				Template: &corev1.PodTemplateSpecArgs{
 					Spec: &corev1.PodSpecArgs{
 						Containers: corev1.ContainerArray{
 							&corev1.ContainerArgs{
-								Name:  pulumi.String("pi"),
-								Image: pulumi.String("perl"),
 								Command: pulumi.StringArray{
 									pulumi.String("perl"),
 									pulumi.String("-Mbignum=bpi"),
 									pulumi.String("-wle"),
 									pulumi.String("print bpi(2000)"),
 								},
+								Image: pulumi.String("perl"),
+								Name:  pulumi.String("pi"),
 							},
 						},
 						RestartPolicy: pulumi.String("Never"),
 					},
 				},
-				BackoffLimit: pulumi.Int(4),
 			},
 		})
 		if err != nil {
@@ -133,6 +137,29 @@ func main() {
 		return nil
 	})
 }
+```
+```yaml
+description: Create a Job with auto-naming
+name: yaml-example
+resources:
+    job:
+        properties:
+            metadata: null
+            spec:
+                backoffLimit: 4
+                template:
+                    spec:
+                        containers:
+                            - command:
+                                - perl
+                                - -Mbignum=bpi
+                                - -wle
+                                - print bpi(2000)
+                              image: perl
+                              name: pi
+                        restartPolicy: Never
+        type: kubernetes:batch/v1:Job
+runtime: yaml
 ```
 {{% /example %}}
 {{% example %}}
@@ -142,27 +169,27 @@ func main() {
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const job = new kubernetes.batch.v1.Job("pi", {
+const job = new kubernetes.batch.v1.Job("job", {
     metadata: {
         name: "pi",
     },
     spec: {
+        backoffLimit: 4,
         template: {
             spec: {
                 containers: [{
-                    name: "pi",
-                    image: "perl",
                     command: [
                         "perl",
                         "-Mbignum=bpi",
                         "-wle",
                         "print bpi(2000)",
                     ],
+                    image: "perl",
+                    name: "pi",
                 }],
                 restartPolicy: "Never",
             },
         },
-        backoffLimit: 4,
     },
 });
 ```
@@ -170,28 +197,27 @@ const job = new kubernetes.batch.v1.Job("pi", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-job = kubernetes.batch.v1.Job(
-    "pi",
+job = kubernetes.batch.v1.Job("job",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
         name="pi",
     ),
     spec=kubernetes.batch.v1.JobSpecArgs(
+        backoff_limit=4,
         template=kubernetes.core.v1.PodTemplateSpecArgs(
             spec=kubernetes.core.v1.PodSpecArgs(
                 containers=[kubernetes.core.v1.ContainerArgs(
-                    name="pi",
-                    image="perl",
                     command=[
                         "perl",
                         "-Mbignum=bpi",
                         "-wle",
                         "print bpi(2000)",
                     ],
+                    image="perl",
+                    name="pi",
                 )],
                 restart_policy="Never",
             ),
         ),
-        backoff_limit=4,
     ))
 ```
 ```csharp
@@ -202,7 +228,7 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var piJob = new Kubernetes.Batch.V1.Job("pi", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+        var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
@@ -210,6 +236,7 @@ class MyStack : Stack
             },
             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
             {
+                BackoffLimit = 4,
                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
                 {
                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
@@ -218,8 +245,6 @@ class MyStack : Stack
                         {
                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                             {
-                                Name = "pi",
-                                Image = "perl",
                                 Command = 
                                 {
                                     "perl",
@@ -227,15 +252,17 @@ class MyStack : Stack
                                     "-wle",
                                     "print bpi(2000)",
                                 },
+                                Image = "perl",
+                                Name = "pi",
                             },
                         },
                         RestartPolicy = "Never",
                     },
                 },
-                BackoffLimit = 4,
             },
         });
     }
+
 }
 ```
 ```go
@@ -250,29 +277,29 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := batchv1.NewJob(ctx, "pi", &batchv1.JobArgs{
+		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
 			Metadata: &metav1.ObjectMetaArgs{
 				Name: pulumi.String("pi"),
 			},
 			Spec: &batchv1.JobSpecArgs{
+				BackoffLimit: pulumi.Int(4),
 				Template: &corev1.PodTemplateSpecArgs{
 					Spec: &corev1.PodSpecArgs{
 						Containers: corev1.ContainerArray{
 							&corev1.ContainerArgs{
-								Name:  pulumi.String("pi"),
-								Image: pulumi.String("perl"),
 								Command: pulumi.StringArray{
 									pulumi.String("perl"),
 									pulumi.String("-Mbignum=bpi"),
 									pulumi.String("-wle"),
 									pulumi.String("print bpi(2000)"),
 								},
+								Image: pulumi.String("perl"),
+								Name:  pulumi.String("pi"),
 							},
 						},
 						RestartPolicy: pulumi.String("Never"),
 					},
 				},
-				BackoffLimit: pulumi.Int(4),
 			},
 		})
 		if err != nil {
@@ -282,5 +309,29 @@ func main() {
 	})
 }
 ```
+```yaml
+description: Create a Job with a user-specified name
+name: yaml-example
+resources:
+    job:
+        properties:
+            metadata:
+                name: pi
+            spec:
+                backoffLimit: 4
+                template:
+                    spec:
+                        containers:
+                            - command:
+                                - perl
+                                - -Mbignum=bpi
+                                - -wle
+                                - print bpi(2000)
+                              image: perl
+                              name: pi
+                        restartPolicy: Never
+        type: kubernetes:batch/v1:Job
+runtime: yaml
+```
 {{% /example %}}
-{% /examples %}}
+{{% /examples %}}

@@ -7,33 +7,29 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
-    spec: {
-        containers: [{
-            name: "nginx",
-            image: "nginx:1.14.2",
-            ports: [{
-                containerPort: 80,
-            }],
+const pod = new kubernetes.core.v1.Pod("pod", {spec: {
+    containers: [{
+        image: "nginx:1.14.2",
+        name: "nginx",
+        ports: [{
+            containerPort: 80,
         }],
-    },
-});
+    }],
+}});
 ```
 ```python
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-nginx_pod = kubernetes.core.v1.Pod(
-    "nginxPod",
-    spec=kubernetes.core.v1.PodSpecArgs(
-        containers=[kubernetes.core.v1.ContainerArgs(
-            name="nginx",
-            image="nginx:1.14.2",
-            ports=[kubernetes.core.v1.ContainerPortArgs(
-                container_port=80,
-            )],
+pod = kubernetes.core.v1.Pod("pod", spec=kubernetes.core.v1.PodSpecArgs(
+    containers=[kubernetes.core.v1.ContainerArgs(
+        image="nginx:1.14.2",
+        name="nginx",
+        ports=[kubernetes.core.v1.ContainerPortArgs(
+            container_port=80,
         )],
-    ))
+    )],
+))
 ```
 ```csharp
 using Pulumi;
@@ -43,7 +39,7 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var nginxPod = new Kubernetes.Core.V1.Pod("nginxPod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+        var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
         {
             Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
             {
@@ -51,8 +47,8 @@ class MyStack : Stack
                 {
                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                     {
-                        Name = "nginx",
                         Image = "nginx:1.14.2",
+                        Name = "nginx",
                         Ports = 
                         {
                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
@@ -65,6 +61,7 @@ class MyStack : Stack
             },
         });
     }
+
 }
 ```
 ```go
@@ -72,18 +69,17 @@ package main
 
 import (
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := corev1.NewPod(ctx, "nginxPod", &corev1.PodArgs{
+		_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
 			Spec: &corev1.PodSpecArgs{
 				Containers: corev1.ContainerArray{
 					&corev1.ContainerArgs{
-						Name:  pulumi.String("nginx"),
 						Image: pulumi.String("nginx:1.14.2"),
+						Name:  pulumi.String("nginx"),
 						Ports: corev1.ContainerPortArray{
 							&corev1.ContainerPortArgs{
 								ContainerPort: pulumi.Int(80),
@@ -100,6 +96,21 @@ func main() {
 	})
 }
 ```
+```yaml
+description: Create a Pod with auto-naming
+name: yaml-example
+resources:
+    pod:
+        properties:
+            spec:
+                containers:
+                    - image: nginx:1.14.2
+                      name: nginx
+                      ports:
+                        - containerPort: 80
+        type: kubernetes:core/v1:Pod
+runtime: yaml
+```
 {{% /example %}}
 {{% example %}}
 ### Create a Pod with a user-specified name
@@ -108,14 +119,14 @@ func main() {
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
+const pod = new kubernetes.core.v1.Pod("pod", {
     metadata: {
         name: "nginx",
     },
     spec: {
         containers: [{
-            name: "nginx",
             image: "nginx:1.14.2",
+            name: "nginx",
             ports: [{
                 containerPort: 80,
             }],
@@ -127,15 +138,14 @@ const nginxPod = new kubernetes.core.v1.Pod("nginxPod", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-nginx_pod = kubernetes.core.v1.Pod(
-    "nginxPod",
+pod = kubernetes.core.v1.Pod("pod",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
         name="nginx",
     ),
     spec=kubernetes.core.v1.PodSpecArgs(
         containers=[kubernetes.core.v1.ContainerArgs(
-            name="nginx",
             image="nginx:1.14.2",
+            name="nginx",
             ports=[kubernetes.core.v1.ContainerPortArgs(
                 container_port=80,
             )],
@@ -150,7 +160,7 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var nginxPod = new Kubernetes.Core.V1.Pod("nginxPod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+        var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
@@ -162,8 +172,8 @@ class MyStack : Stack
                 {
                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                     {
-                        Name = "nginx",
                         Image = "nginx:1.14.2",
+                        Name = "nginx",
                         Ports = 
                         {
                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
@@ -176,6 +186,7 @@ class MyStack : Stack
             },
         });
     }
+
 }
 ```
 ```go
@@ -189,15 +200,15 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := corev1.NewPod(ctx, "nginxPod", &corev1.PodArgs{
+		_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
 			Metadata: &metav1.ObjectMetaArgs{
 				Name: pulumi.String("nginx"),
 			},
 			Spec: &corev1.PodSpecArgs{
 				Containers: corev1.ContainerArray{
 					&corev1.ContainerArgs{
-						Name:  pulumi.String("nginx"),
 						Image: pulumi.String("nginx:1.14.2"),
+						Name:  pulumi.String("nginx"),
 						Ports: corev1.ContainerPortArray{
 							&corev1.ContainerPortArgs{
 								ContainerPort: pulumi.Int(80),
@@ -214,5 +225,22 @@ func main() {
 	})
 }
 ```
+```yaml
+description: Create a Pod with a user-specified name
+name: yaml-example
+resources:
+    pod:
+        properties:
+            metadata:
+                name: nginx
+            spec:
+                containers:
+                    - image: nginx:1.14.2
+                      name: nginx
+                      ports:
+                        - containerPort: 80
+        type: kubernetes:core/v1:Pod
+runtime: yaml
+```
 {{% /example %}}
-{% /examples %}}
+{{% /examples %}}

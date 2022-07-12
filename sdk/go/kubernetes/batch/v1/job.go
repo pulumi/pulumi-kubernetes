@@ -47,26 +47,27 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := batchv1.NewJob(ctx, "pi", &batchv1.JobArgs{
+// 		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
+// 			Metadata: nil,
 // 			Spec: &batchv1.JobSpecArgs{
+// 				BackoffLimit: pulumi.Int(4),
 // 				Template: &corev1.PodTemplateSpecArgs{
 // 					Spec: &corev1.PodSpecArgs{
 // 						Containers: corev1.ContainerArray{
 // 							&corev1.ContainerArgs{
-// 								Name:  pulumi.String("pi"),
-// 								Image: pulumi.String("perl"),
 // 								Command: pulumi.StringArray{
 // 									pulumi.String("perl"),
 // 									pulumi.String("-Mbignum=bpi"),
 // 									pulumi.String("-wle"),
 // 									pulumi.String("print bpi(2000)"),
 // 								},
+// 								Image: pulumi.String("perl"),
+// 								Name:  pulumi.String("pi"),
 // 							},
 // 						},
 // 						RestartPolicy: pulumi.String("Never"),
 // 					},
 // 				},
-// 				BackoffLimit: pulumi.Int(4),
 // 			},
 // 		})
 // 		if err != nil {
@@ -89,29 +90,29 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := batchv1.NewJob(ctx, "pi", &batchv1.JobArgs{
+// 		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Name: pulumi.String("pi"),
 // 			},
 // 			Spec: &batchv1.JobSpecArgs{
+// 				BackoffLimit: pulumi.Int(4),
 // 				Template: &corev1.PodTemplateSpecArgs{
 // 					Spec: &corev1.PodSpecArgs{
 // 						Containers: corev1.ContainerArray{
 // 							&corev1.ContainerArgs{
-// 								Name:  pulumi.String("pi"),
-// 								Image: pulumi.String("perl"),
 // 								Command: pulumi.StringArray{
 // 									pulumi.String("perl"),
 // 									pulumi.String("-Mbignum=bpi"),
 // 									pulumi.String("-wle"),
 // 									pulumi.String("print bpi(2000)"),
 // 								},
+// 								Image: pulumi.String("perl"),
+// 								Name:  pulumi.String("pi"),
 // 							},
 // 						},
 // 						RestartPolicy: pulumi.String("Never"),
 // 					},
 // 				},
-// 				BackoffLimit: pulumi.Int(4),
 // 			},
 // 		})
 // 		if err != nil {
@@ -121,7 +122,6 @@ import (
 // 	})
 // }
 // ```
-// {% /examples %}}
 type Job struct {
 	pulumi.CustomResourceState
 

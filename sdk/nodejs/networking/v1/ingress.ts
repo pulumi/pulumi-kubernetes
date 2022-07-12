@@ -29,7 +29,7 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
+ * const ingress = new kubernetes.networking.v1.Ingress("ingress", {
  *     metadata: {
  *         annotations: {
  *             "nginx.ingress.kubernetes.io/rewrite-target": "/",
@@ -39,8 +39,6 @@ import * as utilities from "../../utilities";
  *         rules: [{
  *             http: {
  *                 paths: [{
- *                     path: "/testpath",
- *                     pathType: "Prefix",
  *                     backend: {
  *                         service: {
  *                             name: "test",
@@ -49,6 +47,8 @@ import * as utilities from "../../utilities";
  *                             },
  *                         },
  *                     },
+ *                     path: "/testpath",
+ *                     pathType: "Prefix",
  *                 }],
  *             },
  *         }],
@@ -61,19 +61,17 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const ingress = new kubernetes.networking.v1.Ingress("minimal_ingress", {
+ * const ingress = new kubernetes.networking.v1.Ingress("ingress", {
  *     metadata: {
- *         name: "minimal-ingress",
  *         annotations: {
  *             "nginx.ingress.kubernetes.io/rewrite-target": "/",
  *         },
+ *         name: "minimal-ingress",
  *     },
  *     spec: {
  *         rules: [{
  *             http: {
  *                 paths: [{
- *                     path: "/testpath",
- *                     pathType: "Prefix",
  *                     backend: {
  *                         service: {
  *                             name: "test",
@@ -82,13 +80,14 @@ import * as utilities from "../../utilities";
  *                             },
  *                         },
  *                     },
+ *                     path: "/testpath",
+ *                     pathType: "Prefix",
  *                 }],
  *             },
  *         }],
  *     },
  * });
  * ```
- * {% /examples %}}
  */
 export class Ingress extends pulumi.CustomResource {
     /**

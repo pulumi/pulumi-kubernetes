@@ -126,25 +126,25 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job(
-            "pi",
+        job = kubernetes.batch.v1.Job("job",
+            metadata=None,
             spec=kubernetes.batch.v1.JobSpecArgs(
+                backoff_limit=4,
                 template=kubernetes.core.v1.PodTemplateSpecArgs(
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="pi",
-                            image="perl",
                             command=[
                                 "perl",
                                 "-Mbignum=bpi",
                                 "-wle",
                                 "print bpi(2000)",
                             ],
+                            image="perl",
+                            name="pi",
                         )],
                         restart_policy="Never",
                     ),
                 ),
-                backoff_limit=4,
             ))
         ```
         ### Create a Job with a user-specified name
@@ -152,31 +152,29 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job(
-            "pi",
+        job = kubernetes.batch.v1.Job("job",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 name="pi",
             ),
             spec=kubernetes.batch.v1.JobSpecArgs(
+                backoff_limit=4,
                 template=kubernetes.core.v1.PodTemplateSpecArgs(
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="pi",
-                            image="perl",
                             command=[
                                 "perl",
                                 "-Mbignum=bpi",
                                 "-wle",
                                 "print bpi(2000)",
                             ],
+                            image="perl",
+                            name="pi",
                         )],
                         restart_policy="Never",
                     ),
                 ),
-                backoff_limit=4,
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -220,25 +218,25 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job(
-            "pi",
+        job = kubernetes.batch.v1.Job("job",
+            metadata=None,
             spec=kubernetes.batch.v1.JobSpecArgs(
+                backoff_limit=4,
                 template=kubernetes.core.v1.PodTemplateSpecArgs(
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="pi",
-                            image="perl",
                             command=[
                                 "perl",
                                 "-Mbignum=bpi",
                                 "-wle",
                                 "print bpi(2000)",
                             ],
+                            image="perl",
+                            name="pi",
                         )],
                         restart_policy="Never",
                     ),
                 ),
-                backoff_limit=4,
             ))
         ```
         ### Create a Job with a user-specified name
@@ -246,31 +244,29 @@ class Job(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        job = kubernetes.batch.v1.Job(
-            "pi",
+        job = kubernetes.batch.v1.Job("job",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 name="pi",
             ),
             spec=kubernetes.batch.v1.JobSpecArgs(
+                backoff_limit=4,
                 template=kubernetes.core.v1.PodTemplateSpecArgs(
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="pi",
-                            image="perl",
                             command=[
                                 "perl",
                                 "-Mbignum=bpi",
                                 "-wle",
                                 "print bpi(2000)",
                             ],
+                            image="perl",
+                            name="pi",
                         )],
                         restart_policy="Never",
                     ),
                 ),
-                backoff_limit=4,
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param JobInitArgs args: The arguments to use to populate this resource's properties.

@@ -42,10 +42,12 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var piJob = new Kubernetes.Batch.V1.Job("pi", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+    ///         var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
     ///         {
+    ///             Metadata = null,
     ///             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
     ///             {
+    ///                 BackoffLimit = 4,
     ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///                 {
     ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
@@ -54,8 +56,6 @@ namespace Pulumi.Kubernetes.Batch.V1
     ///                         {
     ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                             {
-    ///                                 Name = "pi",
-    ///                                 Image = "perl",
     ///                                 Command = 
     ///                                 {
     ///                                     "perl",
@@ -63,15 +63,17 @@ namespace Pulumi.Kubernetes.Batch.V1
     ///                                     "-wle",
     ///                                     "print bpi(2000)",
     ///                                 },
+    ///                                 Image = "perl",
+    ///                                 Name = "pi",
     ///                             },
     ///                         },
     ///                         RestartPolicy = "Never",
     ///                     },
     ///                 },
-    ///                 BackoffLimit = 4,
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
     /// ### Create a Job with a user-specified name
@@ -83,7 +85,7 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var piJob = new Kubernetes.Batch.V1.Job("pi", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+    ///         var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
     ///         {
     ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///             {
@@ -91,6 +93,7 @@ namespace Pulumi.Kubernetes.Batch.V1
     ///             },
     ///             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
     ///             {
+    ///                 BackoffLimit = 4,
     ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///                 {
     ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
@@ -99,8 +102,6 @@ namespace Pulumi.Kubernetes.Batch.V1
     ///                         {
     ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                             {
-    ///                                 Name = "pi",
-    ///                                 Image = "perl",
     ///                                 Command = 
     ///                                 {
     ///                                     "perl",
@@ -108,18 +109,19 @@ namespace Pulumi.Kubernetes.Batch.V1
     ///                                     "-wle",
     ///                                     "print bpi(2000)",
     ///                                 },
+    ///                                 Image = "perl",
+    ///                                 Name = "pi",
     ///                             },
     ///                         },
     ///                         RestartPolicy = "Never",
     ///                     },
     ///                 },
-    ///                 BackoffLimit = 4,
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
-    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:batch/v1:Job")]
     public partial class Job : KubernetesResource

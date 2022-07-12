@@ -47,26 +47,27 @@ namespace Pulumi.Kubernetes.Core.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var service = new Kubernetes.Core.V1.Service("my_service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         var service = new Kubernetes.Core.V1.Service("service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
     ///         {
     ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
     ///             {
-    ///                 Selector = 
-    ///                 {
-    ///                     { "app", "MyApp" },
-    ///                 },
     ///                 Ports = 
     ///                 {
     ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
     ///                     {
-    ///                         Protocol = "TCP",
     ///                         Port = 80,
+    ///                         Protocol = "TCP",
     ///                         TargetPort = 9376,
     ///                     },
+    ///                 },
+    ///                 Selector = 
+    ///                 {
+    ///                     { "app", "MyApp" },
     ///                 },
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
     /// ### Create a Service with a user-specified name
@@ -78,7 +79,7 @@ namespace Pulumi.Kubernetes.Core.V1
     /// {
     ///     public MyStack()
     ///     {
-    ///         var service = new Kubernetes.Core.V1.Service("my_service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         var service = new Kubernetes.Core.V1.Service("service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
     ///         {
     ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///             {
@@ -86,25 +87,25 @@ namespace Pulumi.Kubernetes.Core.V1
     ///             },
     ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
     ///             {
-    ///                 Selector = 
-    ///                 {
-    ///                     { "app", "MyApp" },
-    ///                 },
     ///                 Ports = 
     ///                 {
     ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
     ///                     {
-    ///                         Protocol = "TCP",
     ///                         Port = 80,
+    ///                         Protocol = "TCP",
     ///                         TargetPort = 9376,
     ///                     },
+    ///                 },
+    ///                 Selector = 
+    ///                 {
+    ///                     { "app", "MyApp" },
     ///                 },
     ///             },
     ///         });
     ///     }
+    /// 
     /// }
     /// ```
-    /// {% /examples %}}
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Service")]
     public partial class Service : KubernetesResource

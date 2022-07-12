@@ -7,35 +7,31 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const my_service = new kubernetes.core.v1.Service("my_service", {
-    spec: {
-        selector: {
-            app: "MyApp",
-        },
-        ports: [{
-            protocol: "TCP",
-            port: 80,
-            targetPort: 9376,
-        }],
+const service = new kubernetes.core.v1.Service("service", {spec: {
+    ports: [{
+        port: 80,
+        protocol: "TCP",
+        targetPort: 9376,
+    }],
+    selector: {
+        app: "MyApp",
     },
-});
+}});
 ```
 ```python
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-my_service = kubernetes.core.v1.Service(
-    "my_service",
-    spec=kubernetes.core.v1.ServiceSpecArgs(
-        selector={
-            "app": "MyApp",
-        },
-        ports=[kubernetes.core.v1.ServicePortArgs(
-            protocol="TCP",
-            port=80,
-            target_port=9376,
-        )],
-    ))
+service = kubernetes.core.v1.Service("service", spec=kubernetes.core.v1.ServiceSpecArgs(
+    ports=[kubernetes.core.v1.ServicePortArgs(
+        port=80,
+        protocol="TCP",
+        target_port=9376,
+    )],
+    selector={
+        "app": "MyApp",
+    },
+))
 ```
 ```csharp
 using Pulumi;
@@ -45,26 +41,27 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var service = new Kubernetes.Core.V1.Service("my_service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+        var service = new Kubernetes.Core.V1.Service("service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
         {
             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
             {
-                Selector = 
-                {
-                    { "app", "MyApp" },
-                },
                 Ports = 
                 {
                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
                     {
-                        Protocol = "TCP",
                         Port = 80,
+                        Protocol = "TCP",
                         TargetPort = 9376,
                     },
+                },
+                Selector = 
+                {
+                    { "app", "MyApp" },
                 },
             },
         });
     }
+
 }
 ```
 ```go
@@ -72,23 +69,22 @@ package main
 
 import (
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := corev1.NewService(ctx, "my_service", &corev1.ServiceArgs{
+		_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
 			Spec: &corev1.ServiceSpecArgs{
-				Selector: pulumi.StringMap{
-					"app": pulumi.String("MyApp"),
-				},
 				Ports: corev1.ServicePortArray{
 					&corev1.ServicePortArgs{
-						Protocol:   pulumi.String("TCP"),
 						Port:       pulumi.Int(80),
-						TargetPort: pulumi.Int(9376),
+						Protocol:   pulumi.String("TCP"),
+						TargetPort: pulumi.Any(9376),
 					},
+				},
+				Selector: pulumi.StringMap{
+					"app": pulumi.String("MyApp"),
 				},
 			},
 		})
@@ -98,6 +94,22 @@ func main() {
 		return nil
 	})
 }
+```
+```yaml
+description: Create a Service with auto-naming
+name: yaml-example
+resources:
+    service:
+        properties:
+            spec:
+                ports:
+                    - port: 80
+                      protocol: TCP
+                      targetPort: 9376
+                selector:
+                    app: MyApp
+        type: kubernetes:core/v1:Service
+runtime: yaml
 ```
 {{% /example %}}
 {{% example %}}
@@ -107,19 +119,19 @@ func main() {
 import * as pulumi from "@pulumi/pulumi";
 import * as kubernetes from "@pulumi/kubernetes";
 
-const my_service = new kubernetes.core.v1.Service("my_service", {
+const service = new kubernetes.core.v1.Service("service", {
     metadata: {
         name: "my-service",
     },
     spec: {
+        ports: [{
+            port: 80,
+            protocol: "TCP",
+            targetPort: 9376,
+        }],
         selector: {
             app: "MyApp",
         },
-        ports: [{
-            protocol: "TCP",
-            port: 80,
-            targetPort: 9376,
-        }],
     },
 });
 ```
@@ -127,20 +139,19 @@ const my_service = new kubernetes.core.v1.Service("my_service", {
 import pulumi
 import pulumi_kubernetes as kubernetes
 
-my_service = kubernetes.core.v1.Service(
-    "my_service",
+service = kubernetes.core.v1.Service("service",
     metadata=kubernetes.meta.v1.ObjectMetaArgs(
         name="my-service",
     ),
     spec=kubernetes.core.v1.ServiceSpecArgs(
+        ports=[kubernetes.core.v1.ServicePortArgs(
+            port=80,
+            protocol="TCP",
+            target_port=9376,
+        )],
         selector={
             "app": "MyApp",
         },
-        ports=[kubernetes.core.v1.ServicePortArgs(
-            protocol="TCP",
-            port=80,
-            target_port=9376,
-        )],
     ))
 ```
 ```csharp
@@ -151,7 +162,7 @@ class MyStack : Stack
 {
     public MyStack()
     {
-        var service = new Kubernetes.Core.V1.Service("my_service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+        var service = new Kubernetes.Core.V1.Service("service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
         {
             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
             {
@@ -159,22 +170,23 @@ class MyStack : Stack
             },
             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
             {
-                Selector = 
-                {
-                    { "app", "MyApp" },
-                },
                 Ports = 
                 {
                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
                     {
-                        Protocol = "TCP",
                         Port = 80,
+                        Protocol = "TCP",
                         TargetPort = 9376,
                     },
+                },
+                Selector = 
+                {
+                    { "app", "MyApp" },
                 },
             },
         });
     }
+
 }
 ```
 ```go
@@ -188,20 +200,20 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := corev1.NewService(ctx, "my_service", &corev1.ServiceArgs{
+		_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
 			Metadata: &metav1.ObjectMetaArgs{
 				Name: pulumi.String("my-service"),
 			},
 			Spec: &corev1.ServiceSpecArgs{
-				Selector: pulumi.StringMap{
-					"app": pulumi.String("MyApp"),
-				},
 				Ports: corev1.ServicePortArray{
 					&corev1.ServicePortArgs{
-						Protocol:   pulumi.String("TCP"),
 						Port:       pulumi.Int(80),
-						TargetPort: pulumi.Int(9376),
+						Protocol:   pulumi.String("TCP"),
+						TargetPort: pulumi.Any(9376),
 					},
+				},
+				Selector: pulumi.StringMap{
+					"app": pulumi.String("MyApp"),
 				},
 			},
 		})
@@ -212,5 +224,23 @@ func main() {
 	})
 }
 ```
+```yaml
+description: Create a Service with a user-specified name
+name: yaml-example
+resources:
+    service:
+        properties:
+            metadata:
+                name: my-service
+            spec:
+                ports:
+                    - port: 80
+                      protocol: TCP
+                      targetPort: 9376
+                selector:
+                    app: MyApp
+        type: kubernetes:core/v1:Service
+runtime: yaml
+```
 {{% /example %}}
-{% /examples %}}
+{{% /examples %}}

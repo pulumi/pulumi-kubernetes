@@ -37,7 +37,7 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const nginx = new kubernetes.apps.v1.Deployment("nginx", {
+ * const deployment = new kubernetes.apps.v1.Deployment("deployment", {
  *     metadata: {
  *         labels: {
  *             app: "nginx",
@@ -58,8 +58,8 @@ import * as utilities from "../../utilities";
  *             },
  *             spec: {
  *                 containers: [{
- *                     name: "nginx",
  *                     image: "nginx:1.14.2",
+ *                     name: "nginx",
  *                     ports: [{
  *                         containerPort: 80,
  *                     }],
@@ -75,12 +75,12 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const nginx = new kubernetes.apps.v1.Deployment("nginx", {
+ * const deployment = new kubernetes.apps.v1.Deployment("deployment", {
  *     metadata: {
- *         name: "nginx-deployment",
  *         labels: {
  *             app: "nginx",
  *         },
+ *         name: "nginx-deployment",
  *     },
  *     spec: {
  *         replicas: 3,
@@ -97,8 +97,8 @@ import * as utilities from "../../utilities";
  *             },
  *             spec: {
  *                 containers: [{
- *                     name: "nginx",
  *                     image: "nginx:1.14.2",
+ *                     name: "nginx",
  *                     ports: [{
  *                         containerPort: 80,
  *                     }],
@@ -108,7 +108,6 @@ import * as utilities from "../../utilities";
  *     },
  * });
  * ```
- * {% /examples %}}
  */
 export class Deployment extends pulumi.CustomResource {
     /**

@@ -40,18 +40,16 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const my_service = new kubernetes.core.v1.Service("my_service", {
- *     spec: {
- *         selector: {
- *             app: "MyApp",
- *         },
- *         ports: [{
- *             protocol: "TCP",
- *             port: 80,
- *             targetPort: 9376,
- *         }],
+ * const service = new kubernetes.core.v1.Service("service", {spec: {
+ *     ports: [{
+ *         port: 80,
+ *         protocol: "TCP",
+ *         targetPort: 9376,
+ *     }],
+ *     selector: {
+ *         app: "MyApp",
  *     },
- * });
+ * }});
  * ```
  * ### Create a Service with a user-specified name
  *
@@ -59,23 +57,22 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const my_service = new kubernetes.core.v1.Service("my_service", {
+ * const service = new kubernetes.core.v1.Service("service", {
  *     metadata: {
  *         name: "my-service",
  *     },
  *     spec: {
+ *         ports: [{
+ *             port: 80,
+ *             protocol: "TCP",
+ *             targetPort: 9376,
+ *         }],
  *         selector: {
  *             app: "MyApp",
  *         },
- *         ports: [{
- *             protocol: "TCP",
- *             port: 80,
- *             targetPort: 9376,
- *         }],
  *     },
  * });
  * ```
- * {% /examples %}}
  */
 export class Service extends pulumi.CustomResource {
     /**

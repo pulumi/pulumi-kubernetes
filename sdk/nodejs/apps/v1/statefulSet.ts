@@ -31,70 +31,68 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const nginxService = new kubernetes.core.v1.Service("nginxService", {
+ * const service = new kubernetes.core.v1.Service("service", {
  *     metadata: {
  *         labels: {
  *             app: "nginx",
  *         },
  *     },
  *     spec: {
- *         ports: [{
- *             port: 80,
- *             name: "web",
- *         }],
  *         clusterIP: "None",
+ *         ports: [{
+ *             name: "web",
+ *             port: 80,
+ *         }],
  *         selector: {
  *             app: "nginx",
  *         },
  *     },
  * });
- * const wwwStatefulSet = new kubernetes.apps.v1.StatefulSet("wwwStatefulSet", {
- *     spec: {
- *         selector: {
- *             matchLabels: {
+ * const statefulset = new kubernetes.apps.v1.StatefulSet("statefulset", {spec: {
+ *     replicas: 3,
+ *     selector: {
+ *         matchLabels: {
+ *             app: "nginx",
+ *         },
+ *     },
+ *     serviceName: service.metadata.apply(metadata => metadata?.name),
+ *     template: {
+ *         metadata: {
+ *             labels: {
  *                 app: "nginx",
  *             },
  *         },
- *         serviceName: nginxService.metadata.name,
- *         replicas: 3,
- *         template: {
- *             metadata: {
- *                 labels: {
- *                     app: "nginx",
- *                 },
- *             },
- *             spec: {
- *                 terminationGracePeriodSeconds: 10,
- *                 containers: [{
- *                     name: "nginx",
- *                     image: "k8s.gcr.io/nginx-slim:0.8",
- *                     ports: [{
- *                         containerPort: 80,
- *                         name: "web",
- *                     }],
- *                     volumeMounts: [{
- *                         name: "www",
- *                         mountPath: "/usr/share/nginx/html",
- *                     }],
+ *         spec: {
+ *             containers: [{
+ *                 image: "k8s.gcr.io/nginx-slim:0.8",
+ *                 name: "nginx",
+ *                 ports: [{
+ *                     containerPort: 80,
+ *                     name: "web",
  *                 }],
- *             },
+ *                 volumeMounts: [{
+ *                     mountPath: "/usr/share/nginx/html",
+ *                     name: "www",
+ *                 }],
+ *             }],
+ *             terminationGracePeriodSeconds: 10,
  *         },
- *         volumeClaimTemplates: [{
- *             metadata: {
- *                 name: "www",
- *             },
- *             spec: {
- *                 accessModes: ["ReadWriteOnce"],
- *                 storageClassName: "my-storage-class",
- *                 resources: {
- *                     requests: {
- *                         storage: "1Gi",
- *                     },
+ *     },
+ *     volumeClaimTemplates: [{
+ *         metadata: {
+ *             name: "www",
+ *         },
+ *         spec: {
+ *             accessModes: ["ReadWriteOnce"],
+ *             resources: {
+ *                 requests: {
+ *                     storage: "1Gi",
  *                 },
  *             },
- *         }],
- *     },
- * });
+ *             storageClassName: "my-storage-class",
+ *         },
+ *     }],
+ * }});
  * ```
  * ### Create a StatefulSet with a user-specified name
  *
@@ -102,36 +100,36 @@ import * as utilities from "../../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as kubernetes from "@pulumi/kubernetes";
  *
- * const nginxService = new kubernetes.core.v1.Service("nginxService", {
+ * const service = new kubernetes.core.v1.Service("service", {
  *     metadata: {
- *         name: "nginx",
  *         labels: {
  *             app: "nginx",
  *         },
+ *         name: "nginx",
  *     },
  *     spec: {
- *         ports: [{
- *             port: 80,
- *             name: "web",
- *         }],
  *         clusterIP: "None",
+ *         ports: [{
+ *             name: "web",
+ *             port: 80,
+ *         }],
  *         selector: {
  *             app: "nginx",
  *         },
  *     },
  * });
- * const wwwStatefulSet = new kubernetes.apps.v1.StatefulSet("wwwStatefulSet", {
+ * const statefulset = new kubernetes.apps.v1.StatefulSet("statefulset", {
  *     metadata: {
  *         name: "web",
  *     },
  *     spec: {
+ *         replicas: 3,
  *         selector: {
  *             matchLabels: {
  *                 app: "nginx",
  *             },
  *         },
- *         serviceName: nginxService.metadata.name,
- *         replicas: 3,
+ *         serviceName: service.metadata.apply(metadata => metadata?.name),
  *         template: {
  *             metadata: {
  *                 labels: {
@@ -139,19 +137,19 @@ import * as utilities from "../../utilities";
  *                 },
  *             },
  *             spec: {
- *                 terminationGracePeriodSeconds: 10,
  *                 containers: [{
- *                     name: "nginx",
  *                     image: "k8s.gcr.io/nginx-slim:0.8",
+ *                     name: "nginx",
  *                     ports: [{
  *                         containerPort: 80,
  *                         name: "web",
  *                     }],
  *                     volumeMounts: [{
- *                         name: "www",
  *                         mountPath: "/usr/share/nginx/html",
+ *                         name: "www",
  *                     }],
  *                 }],
+ *                 terminationGracePeriodSeconds: 10,
  *             },
  *         },
  *         volumeClaimTemplates: [{
@@ -160,18 +158,17 @@ import * as utilities from "../../utilities";
  *             },
  *             spec: {
  *                 accessModes: ["ReadWriteOnce"],
- *                 storageClassName: "my-storage-class",
  *                 resources: {
  *                     requests: {
  *                         storage: "1Gi",
  *                     },
  *                 },
+ *                 storageClassName: "my-storage-class",
  *             },
  *         }],
  *     },
  * });
  * ```
- * {% /examples %}}
  */
 export class StatefulSet extends pulumi.CustomResource {
     /**

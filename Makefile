@@ -136,3 +136,6 @@ install_go_sdk::
 install_nodejs_sdk::
 	-yarn unlink --cwd $(WORKING_DIR)/sdk/nodejs/bin
 	yarn link --cwd $(WORKING_DIR)/sdk/nodejs/bin
+
+examples::
+	cd provider/pkg/gen/examples/upstream && go run generate.go ./yaml ./

@@ -128,8 +128,7 @@ class Deployment(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        nginx = kubernetes.apps.v1.Deployment(
-            "nginx",
+        deployment = kubernetes.apps.v1.Deployment("deployment",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 labels={
                     "app": "nginx",
@@ -150,8 +149,8 @@ class Deployment(pulumi.CustomResource):
                     ),
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="nginx",
                             image="nginx:1.14.2",
+                            name="nginx",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=80,
                             )],
@@ -165,13 +164,12 @@ class Deployment(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        nginx = kubernetes.apps.v1.Deployment(
-            "nginx",
+        deployment = kubernetes.apps.v1.Deployment("deployment",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="nginx-deployment",
                 labels={
                     "app": "nginx",
                 },
+                name="nginx-deployment",
             ),
             spec=kubernetes.apps.v1.DeploymentSpecArgs(
                 replicas=3,
@@ -188,8 +186,8 @@ class Deployment(pulumi.CustomResource):
                     ),
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="nginx",
                             image="nginx:1.14.2",
+                            name="nginx",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=80,
                             )],
@@ -198,7 +196,6 @@ class Deployment(pulumi.CustomResource):
                 ),
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -244,8 +241,7 @@ class Deployment(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        nginx = kubernetes.apps.v1.Deployment(
-            "nginx",
+        deployment = kubernetes.apps.v1.Deployment("deployment",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
                 labels={
                     "app": "nginx",
@@ -266,8 +262,8 @@ class Deployment(pulumi.CustomResource):
                     ),
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="nginx",
                             image="nginx:1.14.2",
+                            name="nginx",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=80,
                             )],
@@ -281,13 +277,12 @@ class Deployment(pulumi.CustomResource):
         import pulumi
         import pulumi_kubernetes as kubernetes
 
-        nginx = kubernetes.apps.v1.Deployment(
-            "nginx",
+        deployment = kubernetes.apps.v1.Deployment("deployment",
             metadata=kubernetes.meta.v1.ObjectMetaArgs(
-                name="nginx-deployment",
                 labels={
                     "app": "nginx",
                 },
+                name="nginx-deployment",
             ),
             spec=kubernetes.apps.v1.DeploymentSpecArgs(
                 replicas=3,
@@ -304,8 +299,8 @@ class Deployment(pulumi.CustomResource):
                     ),
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            name="nginx",
                             image="nginx:1.14.2",
+                            name="nginx",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=80,
                             )],
@@ -314,7 +309,6 @@ class Deployment(pulumi.CustomResource):
                 ),
             ))
         ```
-        {% /examples %}}
 
         :param str resource_name: The name of the resource.
         :param DeploymentInitArgs args: The arguments to use to populate this resource's properties.

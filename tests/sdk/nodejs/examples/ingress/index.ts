@@ -29,6 +29,7 @@ const ingressController = new k8s.helm.v3.Release(
     name: "nginx-ingress",
     namespace: ingressNs.metadata.name,
     chart: "ingress-nginx",
+    version: "4.1.4",
     repositoryOpts: {
         repo: "https://kubernetes.github.io/ingress-nginx",
     },

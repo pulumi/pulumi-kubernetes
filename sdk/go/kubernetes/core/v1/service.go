@@ -45,23 +45,22 @@ import (
 //
 // import (
 // 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 // 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 // )
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewService(ctx, "my_service", &corev1.ServiceArgs{
+// 		_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
 // 			Spec: &corev1.ServiceSpecArgs{
-// 				Selector: pulumi.StringMap{
-// 					"app": pulumi.String("MyApp"),
-// 				},
 // 				Ports: corev1.ServicePortArray{
 // 					&corev1.ServicePortArgs{
-// 						Protocol:   pulumi.String("TCP"),
 // 						Port:       pulumi.Int(80),
-// 						TargetPort: pulumi.Int(9376),
+// 						Protocol:   pulumi.String("TCP"),
+// 						TargetPort: pulumi.Any(9376),
 // 					},
+// 				},
+// 				Selector: pulumi.StringMap{
+// 					"app": pulumi.String("MyApp"),
 // 				},
 // 			},
 // 		})
@@ -84,20 +83,20 @@ import (
 //
 // func main() {
 // 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewService(ctx, "my_service", &corev1.ServiceArgs{
+// 		_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
 // 			Metadata: &metav1.ObjectMetaArgs{
 // 				Name: pulumi.String("my-service"),
 // 			},
 // 			Spec: &corev1.ServiceSpecArgs{
-// 				Selector: pulumi.StringMap{
-// 					"app": pulumi.String("MyApp"),
-// 				},
 // 				Ports: corev1.ServicePortArray{
 // 					&corev1.ServicePortArgs{
-// 						Protocol:   pulumi.String("TCP"),
 // 						Port:       pulumi.Int(80),
-// 						TargetPort: pulumi.Int(9376),
+// 						Protocol:   pulumi.String("TCP"),
+// 						TargetPort: pulumi.Any(9376),
 // 					},
+// 				},
+// 				Selector: pulumi.StringMap{
+// 					"app": pulumi.String("MyApp"),
 // 				},
 // 			},
 // 		})
@@ -108,7 +107,6 @@ import (
 // 	})
 // }
 // ```
-// {% /examples %}}
 type Service struct {
 	pulumi.CustomResourceState
 
