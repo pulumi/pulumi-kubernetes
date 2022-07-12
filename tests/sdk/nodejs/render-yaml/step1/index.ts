@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,8 +13,29 @@
 // limitations under the License.
 
 import * as k8s from "@pulumi/kubernetes";
+import * as pulumi from "@pulumi/pulumi";
+
+let config = new pulumi.Config();
+let renderDir: string = config.require("renderDir");
 
 const provider = new k8s.Provider("render-yaml", {
-    renderYamlToDirectory: "rendered-yaml",
-    enableDryRun: true,
+    renderYamlToDirectory: renderDir,
 });
+
+const appLabels = {app: "nginx"};
+const deployment = new k8s.apps.v1.Deployment("nginx", {
+    spec: {
+        selector: {matchLabels: appLabels},
+        replicas: 1,
+        template: {
+            metadata: {labels: appLabels},
+            spec: {containers: [{name: "nginx", image: "nginx", ports: [{containerPort: 80}]}]}
+        }
+    }
+}, {provider});
+const service = new k8s.core.v1.Service("nginx", {
+    spec: {
+        ports: [{port: 80, protocol: "TCP"}],
+        selector: deployment.metadata.labels,
+    }
+}, {provider});

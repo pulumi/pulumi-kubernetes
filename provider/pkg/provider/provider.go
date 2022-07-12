@@ -272,18 +272,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 				Reason:   fmt.Sprintf(errTemplate, "kubeconfig"),
 			})
 		}
-		if truthyValue("enableDryRun", news) {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Property: "enableDryRun",
-				Reason:   fmt.Sprintf(errTemplate, "enableDryRun"),
-			})
-		}
-		if truthyValue("enableServerSideApply", news) {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Property: "enableServerSideApply",
-				Reason:   fmt.Sprintf(errTemplate, "enableServerSideApply"),
-			})
-		}
 
 		if len(failures) > 0 {
 			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil

@@ -838,32 +838,24 @@ func TestRenderYAML(t *testing.T) {
 		},
 		Dir:           filepath.Join("render-yaml", "step1"),
 		Quick:         true,
-		ExpectFailure: true, // step1 should fail because of an invalid Provider config.
-		EditDirs: []integration.EditDir{
-			{
-				Dir:           filepath.Join("render-yaml", "step2"),
-				Additive:      true,
-				ExpectFailure: false,
-				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+			assert.Equal(t, 4, len(stackInfo.Deployment.Resources))
 
-					// Verify that YAML directory was created.
-					files, err := ioutil.ReadDir(dir)
-					assert.NoError(t, err)
-					assert.Equal(t, len(files), 2)
+			// Verify that YAML directory was created.
+			files, err := ioutil.ReadDir(dir)
+			assert.NoError(t, err)
+			assert.Equal(t, len(files), 2)
 
-					// Verify that CRD manifest directory was created.
-					files, err = ioutil.ReadDir(filepath.Join(dir, "0-crd"))
-					assert.NoError(t, err)
-					assert.Equal(t, len(files), 0)
+			// Verify that CRD manifest directory was created.
+			files, err = ioutil.ReadDir(filepath.Join(dir, "0-crd"))
+			assert.NoError(t, err)
+			assert.Equal(t, len(files), 0)
 
-					// Verify that manifest directory was created.
-					files, err = ioutil.ReadDir(filepath.Join(dir, "1-manifest"))
-					assert.NoError(t, err)
-					assert.Equal(t, len(files), 2)
-				},
-			},
+			// Verify that manifest directory was created.
+			files, err = ioutil.ReadDir(filepath.Join(dir, "1-manifest"))
+			assert.NoError(t, err)
+			assert.Equal(t, len(files), 2)
 		},
 	})
 	integration.ProgramTest(t, &test)
