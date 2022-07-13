@@ -20,6 +20,7 @@ import * as k8s from "@pulumi/kubernetes";
 // 3. Upsert a Deployment resource that already exists.
 // 4. Patch the Deployment with a partially-specified configuration.
 // 5. Replace a statically-named ConfigMap resource by changing the data on a subsequent update.
+// 6. Ignore changes specified in the ignoreChanges resource option.
 
 // Create provider with SSA enabled.
 const provider = new k8s.Provider("k8s", {enableServerSideApply: true});

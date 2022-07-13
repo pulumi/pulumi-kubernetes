@@ -1569,12 +1569,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	var changes, replaces []string
 	var detailedDiff map[string]*pulumirpc.PropertyDiff
 	if len(patchObj) != 0 {
-		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
-
-		for k := range patchObj {
-			changes = append(changes, k)
-		}
-
 		forceNewFields := k.forceNewProperties(oldInputs)
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
@@ -1583,10 +1577,35 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
 
-		for k, v := range detailedDiff {
-			switch v.Kind {
-			case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
-				replaces = append(replaces, k)
+		// Remove any ignored changes from the computed diff.
+		for _, ignore := range req.IgnoreChanges {
+			ignorePath, err := resource.ParsePropertyPath(ignore)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse ignore path: %w", err)
+			}
+			for p := range detailedDiff {
+				diffPath, err := resource.ParsePropertyPath(p)
+				if err != nil {
+					return nil, fmt.Errorf("failed to parse diff path: %w", err)
+				}
+				if ignorePath.Contains(diffPath) {
+					delete(detailedDiff, p)
+				}
+			}
+		}
+
+		if len(detailedDiff) > 0 {
+			for k := range patchObj {
+				changes = append(changes, k)
+			}
+
+			hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+
+			for k, v := range detailedDiff {
+				switch v.Kind {
+				case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+					replaces = append(replaces, k)
+				}
 			}
 		}
 	}
