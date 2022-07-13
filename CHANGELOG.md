@@ -1,4 +1,5 @@
 ## Unreleased
+- Update the provider and tests to use Go 1.18.
 
 ## 3.20.0 (July 12, 2022)
 
