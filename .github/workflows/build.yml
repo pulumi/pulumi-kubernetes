@@ -408,6 +408,11 @@ jobs:
       uses: actions/checkout@v2
       with:
         lfs: true
+    - name: Checkout Scripts Repo
+      uses: actions/checkout@v2
+      with:
+        path: ci-scripts
+        repository: pulumi/scripts
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -420,29 +425,54 @@ jobs:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
+    - name: Setup Node
+      uses: actions/setup-node@v2
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-region: us-east-2
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        role-duration-seconds: 7200
-        role-session-name: ${{ env.PROVIDER }}@githubActions
-        role-external-id: upload-pulumi-release
-        role-to-assume: ${{ secrets.AWS_UPLOAD_ROLE_ARN }}
-    - name: Set PreRelease Version
-      run: echo "GORELEASER_CURRENT_TAG=v$(pulumictl get version --language generic)"
-        >> $GITHUB_ENV
-    - name: Run GoReleaser
-      uses: goreleaser/goreleaser-action@v2
+        node-version: ${{matrix.nodeversion}}
+        registry-url: https://registry.npmjs.org
+    - name: Setup DotNet
+      uses: actions/setup-dotnet@v1
       with:
-        args: -p 3 release --rm-dist --timeout 60m0s
-        version: latest
+        dotnet-version: ${{matrix.dotnetversion}}
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{matrix.pythonversion}}
+    - name: Download python SDK
+      uses: actions/download-artifact@v2
+      with:
+        name: python-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Uncompress python SDK
+      run: tar -zxf ${{github.workspace}}/sdk/python.tar.gz -C
+        ${{github.workspace}}/sdk/python
+    - name: Download dotnet SDK
+      uses: actions/download-artifact@v2
+      with:
+        name: dotnet-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Uncompress dotnet SDK
+      run: tar -zxf ${{github.workspace}}/sdk/dotnet.tar.gz -C
+        ${{github.workspace}}/sdk/dotnet
+    - name: Download nodejs SDK
+      uses: actions/download-artifact@v2
+      with:
+        name: nodejs-sdk.tar.gz
+        path: ${{ github.workspace}}/sdk/
+    - name: Uncompress nodejs SDK
+      run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
+        ${{github.workspace}}/sdk/nodejs
+    - name: Install Twine
+      run: python -m pip install pip twine
+    - name: Publish SDKs
+      run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
       with:
-        author_name: Failure in publishing binaries
+        author_name: Failure in publishing SDK
         fields: repo,commit,author,action
         status: ${{ job.status }}
   build-test-cluster:
