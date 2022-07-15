@@ -1578,18 +1578,27 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		}
 
 		// Remove any ignored changes from the computed diff.
+		var ignorePaths []resource.PropertyPath
 		for _, ignore := range req.IgnoreChanges {
 			ignorePath, err := resource.ParsePropertyPath(ignore)
 			if err != nil {
 				return nil, fmt.Errorf("failed to parse ignore path: %w", err)
 			}
-			for p := range detailedDiff {
-				diffPath, err := resource.ParsePropertyPath(p)
-				if err != nil {
-					return nil, fmt.Errorf("failed to parse diff path: %w", err)
-				}
+			ignorePaths = append(ignorePaths, ignorePath)
+		}
+		var diffPaths []resource.PropertyPath
+		for p := range detailedDiff {
+			diffPath, err := resource.ParsePropertyPath(p)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse diff path: %w", err)
+			}
+			diffPaths = append(diffPaths, diffPath)
+		}
+		for _, ignorePath := range ignorePaths {
+			for _, diffPath := range diffPaths {
 				if ignorePath.Contains(diffPath) {
-					delete(detailedDiff, p)
+					delete(detailedDiff, diffPath.String())
+					break
 				}
 			}
 		}
