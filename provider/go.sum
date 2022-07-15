@@ -960,10 +960,10 @@ github.com/prometheus/procfs v0.7.3/go.mod h1:cz+aTbrPOrUb4q7XlbU9ygM+/jj0fzG6c1
 github.com/prometheus/tsdb v0.7.1/go.mod h1:qhTCs0VvXwvX/y3TZrWD7rabWM+ijKTux40TwIPHuXU=
 github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335 h1:Lujy/rTbyRE1ZM8bkwm26Q1THtUELJ/Zy36BMlPzk+A=
 github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335/go.mod h1:C6HmNtth9oPAWKyRJveZSU4rK/tvzhSGuoOV5y+S17g=
-github.com/pulumi/pulumi/pkg/v3 v3.35.3 h1:bRHnGd8NE30fsBzQ1mXy+n/QzPpK9Jj1jRigMuwLILg=
-github.com/pulumi/pulumi/pkg/v3 v3.35.3/go.mod h1:/ItZHWjJ8l/HvuEQIFlbVAgl4Pi2TkwaaGk3tmKKIUg=
-github.com/pulumi/pulumi/sdk/v3 v3.35.3 h1:rGW71RQelwaMqgl6WtjYgdmRgiP7qNV1iMZ+6GvG9gs=
-github.com/pulumi/pulumi/sdk/v3 v3.35.3/go.mod h1:e1xuPnh9aKzCesrFf96DEzcybLdRWRMhKeKVBmb2lm0=
+github.com/pulumi/pulumi/pkg/v3 v3.36.0 h1:lsKclMmsdas+IDrpMCcjr4iu/+F3WspZDpMQRkgI3us=
+github.com/pulumi/pulumi/pkg/v3 v3.36.0/go.mod h1:tKeUmcAqWDJhgc4dAbWx7eiJ5oF5DHvy2fujT/aipvw=
+github.com/pulumi/pulumi/sdk/v3 v3.36.0 h1:ErXvg+PXrVGvAVeLCgy/i2E0468+a/s5jURnMeXMvKY=
+github.com/pulumi/pulumi/sdk/v3 v3.36.0/go.mod h1:e1xuPnh9aKzCesrFf96DEzcybLdRWRMhKeKVBmb2lm0=
 github.com/rivo/uniseg v0.2.0 h1:S1pD9weZBuJdFmowNwbpi7BJ8TNftyUImj/0WQi72jY=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rjeczalik/notify v0.9.2 h1:MiTWrPj55mNDHEiIX5YUSKefw/+lCQVoAFmD6oQm5w8=
