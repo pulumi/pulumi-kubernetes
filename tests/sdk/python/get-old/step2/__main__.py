@@ -1,4 +1,4 @@
-# Copyright 2016-2019, Pulumi Corporation.
+# Copyright 2016-2022, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 
 import pulumi
 from pulumi_kubernetes.apiextensions.CustomResource import CustomResource
-from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import CustomResourceDefinition
+from pulumi_kubernetes.apiextensions.v1.CustomResourceDefinition import CustomResourceDefinition
 from pulumi_kubernetes.core.v1 import Service
 from pulumi_kubernetes.core.v1.Namespace import Namespace
 
@@ -25,7 +25,28 @@ crd = CustomResourceDefinition(
     metadata={"name": "gettests.python.test"},
     spec={
         "group": "python.test",
-        "version": "v1",
+        "versions": [
+            {
+                "name": "v1",
+                "served": True,
+                "storage": True,
+                "schema": {
+                    "open_apiv3_schema": {
+                        "type": "object",
+                        "properties": {
+                            "spec": {
+                                "type": "object",
+                                "properties": {
+                                    "foo": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+            },
+        ],
         "scope": "Namespaced",
         "names": {
             "plural": "gettests",

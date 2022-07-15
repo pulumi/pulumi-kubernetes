@@ -1,4 +1,4 @@
-﻿// Copyright 2016-2019, Pulumi Corporation.  All rights reserved.
+﻿// Copyright 2016-2022, Pulumi Corporation.  All rights reserved.
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
 using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
-using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1;
+using Pulumi.Kubernetes.Types.Inputs.ApiExtensions;
 
 class Program
 {
@@ -47,54 +47,51 @@ class Program
 
             // CRDs and in particular JSONSchemaProps are particularly complex mappings, so test these out as well. Example from:
             // https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition
-            var mycrd = new Pulumi.Kubernetes.ApiExtensions.V1Beta1.CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
+            var crd = new CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
             {
                 Metadata = new ObjectMetaArgs
                 {
-                    Name = "crontabs.stable.example.com",
+                    Name = "tests.csharpbasic.example.com",
+                    Namespace = ns.Metadata.Apply(metadata => metadata?.Name),
                 },
                 Spec = new CustomResourceDefinitionSpecArgs
                 {
-                    Group = "stable.example.com",
+                    Group = "csharpbasic.example.com",
                     Versions = {
                         new CustomResourceDefinitionVersionArgs
                         {
                             Name = "v1",
                             Served = true,
                             Storage = true,
-                        }
+                            Schema = new CustomResourceValidationArgs
+                            {
+                                OpenAPIV3Schema = new JSONSchemaPropsArgs
+                                {
+                                    Type = "object",
+                                    Properties = new InputMap<JSONSchemaPropsArgs> {
+                                        ["spec"] = new JSONSchemaPropsArgs
+                                        {
+                                            Type = "object",
+                                            Properties = new InputMap<JSONSchemaPropsArgs> {
+                                                 ["foo"] = new JSONSchemaPropsArgs
+                                                    {
+                                                        Type = "string",
+                                                    },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
                     },
                     Scope = "Namespaced",
                     Names = new CustomResourceDefinitionNamesArgs
                     {
-                        Plural = "crontabs",
-                        Singular = "crontab",
-                        Kind = "CronTab",
-                        ShortNames = { "ct" },
+                        Plural = "tests",
+                        Singular = "test",
+                        Kind = "Test",
                     },
-                    PreserveUnknownFields = false,
-                    Validation = new CustomResourceValidationArgs
-                    {
-                        OpenAPIV3Schema = new JSONSchemaPropsArgs
-                        {
-                            Type = "object",
-                            Properties = {
-                                {"spec", new JSONSchemaPropsArgs 
-                                    {
-                                        Type = "object",
-                                        Properties = {
-                                            { "cronSpec", new JSONSchemaPropsArgs
-                                                {
-                                                    Type = "string",
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                    },
-                }
+                },
             });
 
             // TODO: Re-enable these tests once CI GKE account has the appropriate permissions to create the RoleBinding below.

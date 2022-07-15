@@ -1,4 +1,4 @@
-# Copyright 2016-2020, Pulumi Corporation.
+# Copyright 2016-2022, Pulumi Corporation.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,13 @@
 
 import pulumi
 from pulumi_kubernetes.apiextensions.CustomResource import CustomResource
-from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import (
+from pulumi_kubernetes.apiextensions.v1.CustomResourceDefinition import (
     CustomResourceDefinition,
     CustomResourceDefinitionNamesArgs,
     CustomResourceDefinitionSpecArgs,
+    CustomResourceDefinitionVersionArgs,
+    CustomResourceValidationArgs,
+    JSONSchemaPropsArgs,
 )
 from pulumi_kubernetes.core.v1 import Service
 from pulumi_kubernetes.core.v1.Namespace import Namespace
@@ -30,7 +33,28 @@ crd = CustomResourceDefinition(
     metadata=ObjectMetaArgs(name="gettests.python.test"),
     spec=CustomResourceDefinitionSpecArgs(
         group="python.test",
-        version="v1",
+        versions=[
+            CustomResourceDefinitionVersionArgs(
+                name="v1",
+                served=True,
+                storage=True,
+                schema=CustomResourceValidationArgs(
+                    open_apiv3_schema=JSONSchemaPropsArgs(
+                        type="object",
+                        properties={
+                            "spec": JSONSchemaPropsArgs(
+                                type="object",
+                                properties={
+                                    "foo": JSONSchemaPropsArgs(
+                                        type="string",
+                                    )
+                                }
+                            ),
+                        }
+                    )
+                )
+            )
+        ],
         scope="Namespaced",
         names=CustomResourceDefinitionNamesArgs(
             plural="gettests",

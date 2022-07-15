@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,11 +20,35 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // Create a CustomResourceDefinition and a CustomResource.
 //
 
-new k8s.apiextensions.v1beta1.CustomResourceDefinition("foobar", {
+new k8s.apiextensions.v1.CustomResourceDefinition("foobar", {
     metadata: { name: "foobars.stable.example.com" },
     spec: {
         group: "stable.example.com",
-        version: "v1",
+        versions: [
+            {
+                name: "v1",
+                served: true,
+                storage: true,
+                schema: {
+                    openAPIV3Schema: {
+                        type: "object",
+                        properties: {
+                            spec: {
+                                type: "object",
+                                properties: {
+                                    foo: {
+                                        type: "string"
+                                    },
+                                    bar: {
+                                        type: "string"
+                                    },
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+        ],
         scope: "Namespaced",
         names: {
             plural: "foobars",
