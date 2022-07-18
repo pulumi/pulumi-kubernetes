@@ -10,6 +10,12 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Storage.V1Beta1
 {
     /// <summary>
+    /// Patch resources are used to modify existing Kubernetes resources by using
+    /// Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+    /// one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+    /// Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+    /// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+    /// additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
     /// VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
     /// 
     /// VolumeAttachment objects are non-namespaced.
