@@ -134,6 +134,9 @@ import * as yaml from "../../yaml/index";
  * @deprecated helm/v2/Chart is deprecated by helm/v3/Chart and will be removed in a future release.
  */
 export class Chart extends yaml.CollectionComponentResource {
+    /** @internal */
+    public static readonly __pulumiType = 'kubernetes:helm.sh/v2:Chart';
+
     /**
      * Create an instance of the specified Helm chart.
      * @param releaseName Name of the Chart (e.g., nginx-ingress).

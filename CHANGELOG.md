@@ -1,5 +1,6 @@
 ## Unreleased
 - Update the provider and tests to use Go 1.18.
+- Fix Helm Chart not working with Crossguard (#2057)
 
 ## 3.20.0 (July 12, 2022)
 
