@@ -2,6 +2,8 @@
 - Update the provider and tests to use Go 1.18.
 - Fix Helm Chart not working with Crossguard (#2057)
 
+- Handle ignoreChanges for Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2074)
+
 ## 3.20.0 (July 12, 2022)
 
 - Implement Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2029)

@@ -177,5 +177,5 @@ new k8s.core.v1.ConfigMap("test", {
         name: "foo", // Specify the name to force resource replacement on change.
         namespace: ns.metadata.name,
     },
-    data: {foo: "baz"}, // <-- Updated value
-}, {provider});
+    data: {foo: "bar"}, // <-- Updated value
+}, {provider, ignoreChanges: ["data.*"]}); // <-- Ignore updated value

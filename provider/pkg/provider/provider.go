@@ -1566,15 +1566,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
 
-	var changes, replaces []string
+	var replaces []string
 	var detailedDiff map[string]*pulumirpc.PropertyDiff
 	if len(patchObj) != 0 {
-		hasChanges = pulumirpc.DiffResponse_DIFF_SOME
-
-		for k := range patchObj {
-			changes = append(changes, k)
-		}
-
 		forceNewFields := k.forceNewProperties(oldInputs)
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
@@ -1583,10 +1577,41 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 				newInputs.GetNamespace(), newInputs.GetName())
 		}
 
-		for k, v := range detailedDiff {
-			switch v.Kind {
-			case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
-				replaces = append(replaces, k)
+		// Remove any ignored changes from the computed diff.
+		var ignorePaths []resource.PropertyPath
+		for _, ignore := range req.IgnoreChanges {
+			ignorePath, err := resource.ParsePropertyPath(ignore)
+			if err != nil {
+				return nil, fmt.Errorf("failed to parse ignore path: %w", err)
+			}
+			ignorePaths = append(ignorePaths, ignorePath)
+		}
+		if len(ignorePaths) > 0 {
+			var diffPaths []resource.PropertyPath
+			for p := range detailedDiff {
+				diffPath, err := resource.ParsePropertyPath(p)
+				if err != nil {
+					return nil, fmt.Errorf("failed to parse diff path: %w", err)
+				}
+				diffPaths = append(diffPaths, diffPath)
+			}
+			for _, ignorePath := range ignorePaths {
+				for _, diffPath := range diffPaths {
+					if ignorePath.Contains(diffPath) {
+						delete(detailedDiff, diffPath.String())
+					}
+				}
+			}
+		}
+
+		if len(detailedDiff) > 0 {
+			hasChanges = pulumirpc.DiffResponse_DIFF_SOME
+
+			for k, v := range detailedDiff {
+				switch v.Kind {
+				case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
+					replaces = append(replaces, k)
+				}
 			}
 		}
 	}
@@ -1629,7 +1654,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		Replaces:            replaces,
 		Stables:             []string{},
 		DeleteBeforeReplace: deleteBeforeReplace,
-		Diffs:               changes,
 		DetailedDiff:        detailedDiff,
 		HasDetailedDiff:     true,
 	}, nil

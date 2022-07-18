@@ -1086,6 +1086,20 @@ func TestServerSideApply(t *testing.T) {
 					}
 				},
 			},
+			{
+				Dir:      filepath.Join("server-side-apply", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					for _, res := range stackInfo.Deployment.Resources {
+						if res.Type == "kubernetes:core/v1:ConfigMap" {
+							dataV, ok, err := unstructured.NestedString(res.Outputs, "data", "foo")
+							assert.True(t, ok)
+							assert.NoError(t, err)
+							assert.Equal(t, "baz", dataV) // Data should be unchanged from step2.
+						}
+					}
+				},
+			},
 		},
 	})
 	integration.ProgramTest(t, &test)
