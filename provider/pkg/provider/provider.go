@@ -1566,7 +1566,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
 
-	var changes, replaces []string
+	var replaces []string
 	var detailedDiff map[string]*pulumirpc.PropertyDiff
 	if len(patchObj) != 0 {
 		forceNewFields := k.forceNewProperties(oldInputs)
@@ -1599,17 +1599,12 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 				for _, diffPath := range diffPaths {
 					if ignorePath.Contains(diffPath) {
 						delete(detailedDiff, diffPath.String())
-						break
 					}
 				}
 			}
 		}
 
 		if len(detailedDiff) > 0 {
-			for k := range patchObj {
-				changes = append(changes, k)
-			}
-
 			hasChanges = pulumirpc.DiffResponse_DIFF_SOME
 
 			for k, v := range detailedDiff {
@@ -1659,7 +1654,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		Replaces:            replaces,
 		Stables:             []string{},
 		DeleteBeforeReplace: deleteBeforeReplace,
-		Diffs:               changes,
 		DetailedDiff:        detailedDiff,
 		HasDetailedDiff:     true,
 	}, nil
