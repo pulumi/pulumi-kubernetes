@@ -197,6 +197,12 @@ class StorageClassPatch(pulumi.CustomResource):
                  volume_binding_mode: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
+        Patch resources are used to modify existing Kubernetes resources by using
+        Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+        one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+        Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.
@@ -221,6 +227,12 @@ class StorageClassPatch(pulumi.CustomResource):
                  args: StorageClassPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Patch resources are used to modify existing Kubernetes resources by using
+        Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+        one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+        Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
 
         StorageClasses are non-namespaced; the name of the storage class according to etcd is in ObjectMeta.Name.

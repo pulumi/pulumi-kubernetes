@@ -10,6 +10,12 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.ApiExtensions.V1
 {
     /// <summary>
+    /// Patch resources are used to modify existing Kubernetes resources by using
+    /// Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+    /// one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+    /// Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+    /// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+    /// additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
     /// CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format &lt;.spec.name&gt;.&lt;.spec.group&gt;.
     /// </summary>
     [KubernetesResourceType("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch")]

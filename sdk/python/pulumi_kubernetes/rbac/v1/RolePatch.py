@@ -96,6 +96,12 @@ class RolePatch(pulumi.CustomResource):
                  rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['PolicyRulePatchArgs']]]]] = None,
                  __props__=None):
         """
+        Patch resources are used to modify existing Kubernetes resources by using
+        Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+        one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+        Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
 
         :param str resource_name: The name of the resource.
@@ -112,6 +118,12 @@ class RolePatch(pulumi.CustomResource):
                  args: RolePatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Patch resources are used to modify existing Kubernetes resources by using
+        Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+        one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+        Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
 
         :param str resource_name: The name of the resource.

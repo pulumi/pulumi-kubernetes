@@ -96,6 +96,12 @@ class HorizontalPodAutoscalerPatch(pulumi.CustomResource):
                  spec: Optional[pulumi.Input[pulumi.InputType['HorizontalPodAutoscalerSpecPatchArgs']]] = None,
                  __props__=None):
         """
+        Patch resources are used to modify existing Kubernetes resources by using
+        Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+        one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+        Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
 
         :param str resource_name: The name of the resource.
@@ -112,6 +118,12 @@ class HorizontalPodAutoscalerPatch(pulumi.CustomResource):
                  args: HorizontalPodAutoscalerPatchArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
+        Patch resources are used to modify existing Kubernetes resources by using
+        Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
+        one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
+        Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         HorizontalPodAutoscaler is the configuration for a horizontal pod autoscaler, which automatically manages the replica count of any resource implementing the scale subresource based on the metrics specified.
 
         :param str resource_name: The name of the resource.
