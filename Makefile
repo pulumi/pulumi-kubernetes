@@ -19,6 +19,9 @@ OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
+JAVA_GEN 		 := pulumi-java-gen
+JAVA_GEN_VERSION := v0.5.2
+
 WORKING_DIR     := $(shell pwd)
 TESTPARALLELISM := 4
 
@@ -57,6 +60,7 @@ dotnet_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${DOTNET_VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
 	rm -rf sdk/dotnet/bin/Debug
 	cd ${PACKDIR}/dotnet/&& \
+		echo "module fake_dotnet_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		echo "${DOTNET_VERSION}" >version.txt && \
 		dotnet build /p:Version=${DOTNET_VERSION}
 
@@ -69,6 +73,7 @@ nodejs_sdk:: VERSION := $(shell pulumictl get version --language javascript)
 nodejs_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
+		echo "module fake_nodejs_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		yarn install && \
 		yarn run tsc
 	cp README.md LICENSE ${PACKDIR}/nodejs/package.json ${PACKDIR}/nodejs/yarn.lock ${PACKDIR}/nodejs/bin/
@@ -81,14 +86,25 @@ python_sdk::
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
 	cd ${PACKDIR}/python/ && \
+		echo "module fake_python_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		python3 setup.py clean --all 2>/dev/null && \
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
 		cd ./bin && python3 setup.py build sdist
 
+java_sdk:: PACKAGE_VERSION := $(shell pulumictl get version --language generic)
+java_sdk:: bin/pulumi-java-gen
+	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
+	cd ${PACKDIR}/java/ && \
+		echo "module fake_java_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
+		gradle --console=plain build
+
+bin/pulumi-java-gen::
+	$(shell pulumictl download-binary -n pulumi-language-java -v $(JAVA_GEN_VERSION) -r pulumi/pulumi-java)
+
 .PHONY: build
-build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk
+build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk java_sdk
 
 # Required for the codegen action that runs in pulumi/pulumi
 only_build:: build
@@ -131,6 +147,9 @@ install_python_sdk::
 	#target intentionally blank
 
 install_go_sdk::
+	#target intentionally blank
+
+install_java_sdk::
 	#target intentionally blank
 
 install_nodejs_sdk::
