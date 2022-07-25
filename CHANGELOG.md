@@ -1,11 +1,14 @@
 ## Unreleased
 
+## 3.20.2 (July 25, 2022)
+
+- Add Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2096)
 - Fix ServiceAccount readiness logic for k8s v1.24+ (https://github.com/pulumi/pulumi-kubernetes/issues/2099)
 
 ## 3.20.1 (July 19, 2022)
 
-- Update the provider and tests to use Go 1.18. (https://github.com/pulumi/pulumi-kubernetes/issues/2073)
-- Fix Helm Chart not working with Crossguard (https://github.com/pulumi/pulumi-kubernetes/issues/2057)
+- Update the provider and tests to use Go 1.18. (https://github.com/pulumi/pulumi-kubernetes/pull/2073)
+- Fix Helm Chart not working with Crossguard (https://github.com/pulumi/pulumi-kubernetes/pull/2057)
 - Handle ignoreChanges for Server-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2074)
 
 ## 3.20.0 (July 12, 2022)
