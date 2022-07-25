@@ -4,12 +4,17 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
+  PUBLISH_REPO_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+  PUBLISH_REPO_USERNAME: ${{ secrets.OSSRH_USERNAME }}
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+  SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
+  SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
+  SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
   TRAVIS_OS_NAME: linux
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
