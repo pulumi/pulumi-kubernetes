@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix ServiceAccount readiness logic for k8s v1.24+ (https://github.com/pulumi/pulumi-kubernetes/issues/2099)
+
 ## 3.20.1 (July 19, 2022)
 
 - Update the provider and tests to use Go 1.18. (https://github.com/pulumi/pulumi-kubernetes/issues/2073)

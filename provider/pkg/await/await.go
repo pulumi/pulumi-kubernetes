@@ -249,6 +249,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,
+					clusterVersion:    c.ClusterVersion,
 				}
 				waitErr := awaiter.awaitCreation(conf)
 				if waitErr != nil {
@@ -303,6 +304,7 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 					currentInputs:     c.Inputs,
 					currentOutputs:    outputs,
 					logger:            c.DedupLogger,
+					clusterVersion:    c.ClusterVersion,
 				}
 				waitErr := awaiter.awaitRead(conf)
 				if waitErr != nil {
@@ -482,6 +484,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 						currentOutputs:    currentOutputs,
 						logger:            c.DedupLogger,
 						timeout:           c.Timeout,
+						clusterVersion:    c.ClusterVersion,
 					},
 					lastInputs:  c.Previous,
 					lastOutputs: liveOldObj,
@@ -581,6 +584,7 @@ func Deletion(c DeleteConfig) error {
 					currentInputs:     c.Inputs,
 					logger:            c.DedupLogger,
 					timeout:           c.Timeout,
+					clusterVersion:    c.ClusterVersion,
 				},
 				clientForResource: client,
 			})
