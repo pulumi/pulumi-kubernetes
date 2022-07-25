@@ -22,6 +22,7 @@ import (
 
 	checkerlog "github.com/pulumi/cloud-ready-checks/pkg/checker/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
@@ -53,6 +54,7 @@ type createAwaitConfig struct {
 	currentInputs     *unstructured.Unstructured
 	currentOutputs    *unstructured.Unstructured
 	timeout           float64
+	clusterVersion    *cluster.ServerVersion
 }
 
 func (cac *createAwaitConfig) logStatus(sev diag.Severity, message string) {
@@ -658,6 +660,13 @@ func untilCoreV1SecretInitialized(c createAwaitConfig) error {
 // --------------------------------------------------------------------------
 
 func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
+	// k8s v1.24 changed the default secret provisioning behavior for ServiceAccount resources, so don't wait for
+	// clusters >= v1.24 to provision a secret before marking the resource as ready.
+	// https://github.com/kubernetes/kubernetes/blob/v1.24.3/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes
+	if c.clusterVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 24}) >= 0 {
+		return nil
+	}
+
 	//
 	// A ServiceAccount is considered initialized when the controller adds the default secret to the
 	// secrets array (i.e., in addition to the secrets specified by the user).
