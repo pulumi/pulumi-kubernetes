@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     /// <summary>
     /// HorizontalPodAutoscalerCondition describes the state of a HorizontalPodAutoscaler at a certain point.
     /// </summary>
-    public class HorizontalPodAutoscalerConditionArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// lastTransitionTime is the last time the condition transitioned from one status to another
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public HorizontalPodAutoscalerConditionArgs()
         {
         }
+        public static new HorizontalPodAutoscalerConditionArgs Empty => new HorizontalPodAutoscalerConditionArgs();
     }
 }

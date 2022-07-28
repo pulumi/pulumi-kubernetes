@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
     /// <summary>
     /// DeploymentStrategy describes how to replace existing pods with new ones.
     /// </summary>
-    public class DeploymentStrategyPatchArgs : Pulumi.ResourceArgs
+    public class DeploymentStrategyPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
         public DeploymentStrategyPatchArgs()
         {
         }
+        public static new DeploymentStrategyPatchArgs Empty => new DeploymentStrategyPatchArgs();
     }
 }

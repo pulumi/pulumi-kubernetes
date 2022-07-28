@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
     /// <summary>
     /// UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
     /// </summary>
-    public class UncountedTerminatedPodsArgs : Pulumi.ResourceArgs
+    public class UncountedTerminatedPodsArgs : global::Pulumi.ResourceArgs
     {
         [Input("failed")]
         private InputList<string>? _failed;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public UncountedTerminatedPodsArgs()
         {
         }
+        public static new UncountedTerminatedPodsArgs Empty => new UncountedTerminatedPodsArgs();
     }
 }

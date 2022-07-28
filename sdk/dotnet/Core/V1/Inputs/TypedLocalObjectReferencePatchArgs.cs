@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.
     /// </summary>
-    public class TypedLocalObjectReferencePatchArgs : Pulumi.ResourceArgs
+    public class TypedLocalObjectReferencePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public TypedLocalObjectReferencePatchArgs()
         {
         }
+        public static new TypedLocalObjectReferencePatchArgs Empty => new TypedLocalObjectReferencePatchArgs();
     }
 }

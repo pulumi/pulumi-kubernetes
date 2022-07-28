@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)
     /// </summary>
-    public class WeightedPodAffinityTermPatchArgs : Pulumi.ResourceArgs
+    public class WeightedPodAffinityTermPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Required. A pod affinity term, associated with the corresponding weight.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public WeightedPodAffinityTermPatchArgs()
         {
         }
+        public static new WeightedPodAffinityTermPatchArgs Empty => new WeightedPodAffinityTermPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
     /// </summary>
-    public class PodDNSConfigArgs : Pulumi.ResourceArgs
+    public class PodDNSConfigArgs : global::Pulumi.ResourceArgs
     {
         [Input("nameservers")]
         private InputList<string>? _nameservers;
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodDNSConfigArgs()
         {
         }
+        public static new PodDNSConfigArgs Empty => new PodDNSConfigArgs();
     }
 }

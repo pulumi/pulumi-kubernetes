@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
     /// <summary>
     /// SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
-    public class SelfSubjectAccessReviewSpecPatchArgs : Pulumi.ResourceArgs
+    public class SelfSubjectAccessReviewSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// NonResourceAttributes describes information for a non-resource access request
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
         public SelfSubjectAccessReviewSpecPatchArgs()
         {
         }
+        public static new SelfSubjectAccessReviewSpecPatchArgs Empty => new SelfSubjectAccessReviewSpecPatchArgs();
     }
 }

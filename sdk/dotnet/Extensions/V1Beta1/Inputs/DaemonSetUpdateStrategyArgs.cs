@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
 {
 
-    public class DaemonSetUpdateStrategyArgs : Pulumi.ResourceArgs
+    public class DaemonSetUpdateStrategyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
@@ -27,5 +27,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public DaemonSetUpdateStrategyArgs()
         {
         }
+        public static new DaemonSetUpdateStrategyArgs Empty => new DaemonSetUpdateStrategyArgs();
     }
 }

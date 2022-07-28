@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// CustomResourceColumnDefinition specifies a column for server side printing.
     /// </summary>
-    public class CustomResourceColumnDefinitionPatchArgs : Pulumi.ResourceArgs
+    public class CustomResourceColumnDefinitionPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// description is a human readable description of this column.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public CustomResourceColumnDefinitionPatchArgs()
         {
         }
+        public static new CustomResourceColumnDefinitionPatchArgs Empty => new CustomResourceColumnDefinitionPatchArgs();
     }
 }

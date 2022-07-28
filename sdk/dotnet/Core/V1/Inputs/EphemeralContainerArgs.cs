@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
     /// </summary>
-    public class EphemeralContainerArgs : Pulumi.ResourceArgs
+    public class EphemeralContainerArgs : global::Pulumi.ResourceArgs
     {
         [Input("args")]
         private InputList<string>? _args;
@@ -204,5 +204,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EphemeralContainerArgs()
         {
         }
+        public static new EphemeralContainerArgs Empty => new EphemeralContainerArgs();
     }
 }

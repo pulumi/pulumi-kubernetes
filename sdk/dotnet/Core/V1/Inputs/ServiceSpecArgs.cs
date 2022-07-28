@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ServiceSpec describes the attributes that a user creates on a service.
     /// </summary>
-    public class ServiceSpecArgs : Pulumi.ResourceArgs
+    public class ServiceSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// allocateLoadBalancerNodePorts defines if NodePorts will be automatically allocated for services with type LoadBalancer.  Default is "true". It may be set to "false" if the cluster load-balancer does not rely on NodePorts.  If the caller requests specific NodePorts (by specifying a value), those requests will be respected, regardless of this field. This field may only be set for services with type LoadBalancer and will be cleared if the type is changed to any other type.
@@ -190,5 +190,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ServiceSpecArgs()
         {
         }
+        public static new ServiceSpecArgs Empty => new ServiceSpecArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodReadinessGate contains the reference to a pod condition
     /// </summary>
-    public class PodReadinessGatePatchArgs : Pulumi.ResourceArgs
+    public class PodReadinessGatePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// ConditionType refers to a condition in the pod's condition list with matching type.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodReadinessGatePatchArgs()
         {
         }
+        public static new PodReadinessGatePatchArgs Empty => new PodReadinessGatePatchArgs();
     }
 }

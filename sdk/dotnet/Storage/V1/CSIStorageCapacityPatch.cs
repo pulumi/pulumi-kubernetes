@@ -116,8 +116,8 @@ namespace Pulumi.Kubernetes.Storage.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch"},
-                    new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -142,7 +142,7 @@ namespace Pulumi.Kubernetes.Storage.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
 {
 
-    public class CSIStorageCapacityPatchArgs : Pulumi.ResourceArgs
+    public class CSIStorageCapacityPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -197,5 +197,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public CSIStorageCapacityPatchArgs()
         {
         }
+        public static new CSIStorageCapacityPatchArgs Empty => new CSIStorageCapacityPatchArgs();
     }
 }

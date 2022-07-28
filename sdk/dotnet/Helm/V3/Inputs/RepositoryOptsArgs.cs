@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
     /// <summary>
     /// Specification defining the Helm chart repository to use.
     /// </summary>
-    public class RepositoryOptsArgs : Pulumi.ResourceArgs
+    public class RepositoryOptsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The Repository's CA File
@@ -64,5 +64,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public RepositoryOptsArgs()
         {
         }
+        public static new RepositoryOptsArgs Empty => new RepositoryOptsArgs();
     }
 }

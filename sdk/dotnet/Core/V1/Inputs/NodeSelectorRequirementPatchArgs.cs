@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
     /// </summary>
-    public class NodeSelectorRequirementPatchArgs : Pulumi.ResourceArgs
+    public class NodeSelectorRequirementPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The label key that the selector applies to.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeSelectorRequirementPatchArgs()
         {
         }
+        public static new NodeSelectorRequirementPatchArgs Empty => new NodeSelectorRequirementPatchArgs();
     }
 }

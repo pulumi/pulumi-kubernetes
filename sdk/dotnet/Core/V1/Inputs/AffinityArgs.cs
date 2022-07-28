@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Affinity is a group of affinity scheduling rules.
     /// </summary>
-    public class AffinityArgs : Pulumi.ResourceArgs
+    public class AffinityArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Describes node affinity scheduling rules for the pod.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public AffinityArgs()
         {
         }
+        public static new AffinityArgs Empty => new AffinityArgs();
     }
 }

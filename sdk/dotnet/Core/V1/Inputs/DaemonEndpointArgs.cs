@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// DaemonEndpoint contains information about a single Daemon endpoint.
     /// </summary>
-    public class DaemonEndpointArgs : Pulumi.ResourceArgs
+    public class DaemonEndpointArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Port number of the given endpoint.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public DaemonEndpointArgs()
         {
         }
+        public static new DaemonEndpointArgs Empty => new DaemonEndpointArgs();
     }
 }

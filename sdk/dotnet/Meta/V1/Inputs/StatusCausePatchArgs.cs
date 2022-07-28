@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
     /// </summary>
-    public class StatusCausePatchArgs : Pulumi.ResourceArgs
+    public class StatusCausePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
@@ -40,5 +40,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public StatusCausePatchArgs()
         {
         }
+        public static new StatusCausePatchArgs Empty => new StatusCausePatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
     /// <summary>
     /// CertificateSigningRequestSpec contains the certificate request.
     /// </summary>
-    public class CertificateSigningRequestSpecPatchArgs : Pulumi.ResourceArgs
+    public class CertificateSigningRequestSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// expirationSeconds is the requested duration of validity of the issued certificate. The certificate signer may issue a certificate with a different validity duration so a client must check the delta between the notBefore and and notAfter fields in the issued certificate to determine the actual duration.
@@ -128,5 +128,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
         public CertificateSigningRequestSpecPatchArgs()
         {
         }
+        public static new CertificateSigningRequestSpecPatchArgs Empty => new CertificateSigningRequestSpecPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes
     /// </summary>
-    public class PersistentVolumeClaimSpecArgs : Pulumi.ResourceArgs
+    public class PersistentVolumeClaimSpecArgs : global::Pulumi.ResourceArgs
     {
         [Input("accessModes")]
         private InputList<string>? _accessModes;
@@ -77,5 +77,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PersistentVolumeClaimSpecArgs()
         {
         }
+        public static new PersistentVolumeClaimSpecArgs Empty => new PersistentVolumeClaimSpecArgs();
     }
 }

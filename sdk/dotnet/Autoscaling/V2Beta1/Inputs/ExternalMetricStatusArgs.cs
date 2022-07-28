@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
     /// <summary>
     /// ExternalMetricStatus indicates the current value of a global metric not associated with any Kubernetes object.
     /// </summary>
-    public class ExternalMetricStatusArgs : Pulumi.ResourceArgs
+    public class ExternalMetricStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// currentAverageValue is the current value of metric averaged over autoscaled pods.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public ExternalMetricStatusArgs()
         {
         }
+        public static new ExternalMetricStatusArgs Empty => new ExternalMetricStatusArgs();
     }
 }

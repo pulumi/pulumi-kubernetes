@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// Condition contains details for one aspect of the current state of this API Resource.
     /// </summary>
-    public class ConditionArgs : Pulumi.ResourceArgs
+    public class ConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public ConditionArgs()
         {
         }
+        public static new ConditionArgs Empty => new ConditionArgs();
     }
 }

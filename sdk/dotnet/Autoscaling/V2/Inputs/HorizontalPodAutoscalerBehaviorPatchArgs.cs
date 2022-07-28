@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     /// <summary>
     /// HorizontalPodAutoscalerBehavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively).
     /// </summary>
-    public class HorizontalPodAutoscalerBehaviorPatchArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerBehaviorPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// scaleDown is scaling policy for scaling Down. If not set, the default value is to allow to scale down to minReplicas pods, with a 300 second stabilization window (i.e., the highest recommendation for the last 300sec is used).
@@ -33,5 +33,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public HorizontalPodAutoscalerBehaviorPatchArgs()
         {
         }
+        public static new HorizontalPodAutoscalerBehaviorPatchArgs Empty => new HorizontalPodAutoscalerBehaviorPatchArgs();
     }
 }

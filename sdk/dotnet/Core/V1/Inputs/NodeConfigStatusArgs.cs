@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.
     /// </summary>
-    public class NodeConfigStatusArgs : Pulumi.ResourceArgs
+    public class NodeConfigStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeConfigStatusArgs()
         {
         }
+        public static new NodeConfigStatusArgs Empty => new NodeConfigStatusArgs();
     }
 }

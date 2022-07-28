@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Adds and removes POSIX capabilities from running containers.
     /// </summary>
-    public class CapabilitiesArgs : Pulumi.ResourceArgs
+    public class CapabilitiesArgs : global::Pulumi.ResourceArgs
     {
         [Input("add")]
         private InputList<string>? _add;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public CapabilitiesArgs()
         {
         }
+        public static new CapabilitiesArgs Empty => new CapabilitiesArgs();
     }
 }

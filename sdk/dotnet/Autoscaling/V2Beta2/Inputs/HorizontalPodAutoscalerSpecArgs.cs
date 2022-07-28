@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// <summary>
     /// HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
     /// </summary>
-    public class HorizontalPodAutoscalerSpecArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// behavior configures the scaling behavior of the target in both Up and Down directions (scaleUp and scaleDown fields respectively). If not set, the default HPAScalingRules for scale up and scale down are used.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
         public HorizontalPodAutoscalerSpecArgs()
         {
         }
+        public static new HorizontalPodAutoscalerSpecArgs Empty => new HorizontalPodAutoscalerSpecArgs();
     }
 }

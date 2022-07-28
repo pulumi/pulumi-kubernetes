@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeStatus is information about the current status of a node.
     /// </summary>
-    public class NodeStatusArgs : Pulumi.ResourceArgs
+    public class NodeStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("addresses")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeAddressArgs>? _addresses;
@@ -126,5 +126,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeStatusArgs()
         {
         }
+        public static new NodeStatusArgs Empty => new NodeStatusArgs();
     }
 }

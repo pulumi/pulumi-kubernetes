@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
     /// <summary>
     /// BoundObjectReference is a reference to an object that a token is bound to.
     /// </summary>
-    public class BoundObjectReferenceArgs : Pulumi.ResourceArgs
+    public class BoundObjectReferenceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// API version of the referent.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
         public BoundObjectReferenceArgs()
         {
         }
+        public static new BoundObjectReferenceArgs Empty => new BoundObjectReferenceArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// CustomResourceDefinitionVersion describes a version for CRD.
     /// </summary>
-    public class CustomResourceDefinitionVersionArgs : Pulumi.ResourceArgs
+    public class CustomResourceDefinitionVersionArgs : global::Pulumi.ResourceArgs
     {
         [Input("additionalPrinterColumns")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1.CustomResourceColumnDefinitionArgs>? _additionalPrinterColumns;
@@ -72,5 +72,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public CustomResourceDefinitionVersionArgs()
         {
         }
+        public static new CustomResourceDefinitionVersionArgs Empty => new CustomResourceDefinitionVersionArgs();
     }
 }

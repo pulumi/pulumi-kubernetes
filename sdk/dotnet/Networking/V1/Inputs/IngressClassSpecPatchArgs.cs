@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// IngressClassSpec provides information about the class of an Ingress.
     /// </summary>
-    public class IngressClassSpecPatchArgs : Pulumi.ResourceArgs
+    public class IngressClassSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public IngressClassSpecPatchArgs()
         {
         }
+        public static new IngressClassSpecPatchArgs Empty => new IngressClassSpecPatchArgs();
     }
 }

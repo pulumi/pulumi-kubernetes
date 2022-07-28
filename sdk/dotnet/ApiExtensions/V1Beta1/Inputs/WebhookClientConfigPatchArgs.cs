@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// WebhookClientConfig contains the information to make a TLS connection with the webhook.
     /// </summary>
-    public class WebhookClientConfigPatchArgs : Pulumi.ResourceArgs
+    public class WebhookClientConfigPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public WebhookClientConfigPatchArgs()
         {
         }
+        public static new WebhookClientConfigPatchArgs Empty => new WebhookClientConfigPatchArgs();
     }
 }

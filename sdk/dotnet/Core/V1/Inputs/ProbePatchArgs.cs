@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
     /// </summary>
-    public class ProbePatchArgs : Pulumi.ResourceArgs
+    public class ProbePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Exec specifies the action to take.
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ProbePatchArgs()
         {
         }
+        public static new ProbePatchArgs Empty => new ProbePatchArgs();
     }
 }

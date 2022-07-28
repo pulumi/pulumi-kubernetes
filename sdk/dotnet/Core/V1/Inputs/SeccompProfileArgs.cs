@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
     /// </summary>
-    public class SeccompProfileArgs : Pulumi.ResourceArgs
+    public class SeccompProfileArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet's configured seccomp profile location. Must only be set if type is "Localhost".
@@ -32,5 +32,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SeccompProfileArgs()
         {
         }
+        public static new SeccompProfileArgs Empty => new SeccompProfileArgs();
     }
 }

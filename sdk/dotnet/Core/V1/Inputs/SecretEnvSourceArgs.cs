@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// The contents of the target Secret's Data field will represent the key-value pairs as environment variables.
     /// </summary>
-    public class SecretEnvSourceArgs : Pulumi.ResourceArgs
+    public class SecretEnvSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -32,5 +32,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecretEnvSourceArgs()
         {
         }
+        public static new SecretEnvSourceArgs Empty => new SecretEnvSourceArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
     /// <summary>
     /// APIServiceStatus contains derived information about an API server
     /// </summary>
-    public class APIServiceStatusArgs : Pulumi.ResourceArgs
+    public class APIServiceStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1.APIServiceConditionArgs>? _conditions;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
         public APIServiceStatusArgs()
         {
         }
+        public static new APIServiceStatusArgs Empty => new APIServiceStatusArgs();
     }
 }

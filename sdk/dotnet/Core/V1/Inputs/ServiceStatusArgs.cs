@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ServiceStatus represents the current status of a service.
     /// </summary>
-    public class ServiceStatusArgs : Pulumi.ResourceArgs
+    public class ServiceStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>? _conditions;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ServiceStatusArgs()
         {
         }
+        public static new ServiceStatusArgs Empty => new ServiceStatusArgs();
     }
 }

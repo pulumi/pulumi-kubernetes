@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// DaemonSetStatus represents the current status of a daemon set.
     /// </summary>
-    public class DaemonSetStatusArgs : Pulumi.ResourceArgs
+    public class DaemonSetStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Count of hash collisions for the DaemonSet. The DaemonSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -84,5 +84,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public DaemonSetStatusArgs()
         {
         }
+        public static new DaemonSetStatusArgs Empty => new DaemonSetStatusArgs();
     }
 }

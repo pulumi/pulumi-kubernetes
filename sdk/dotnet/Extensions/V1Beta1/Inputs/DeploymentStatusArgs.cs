@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DeploymentStatus is the most recently observed status of the Deployment.
     /// </summary>
-    public class DeploymentStatusArgs : Pulumi.ResourceArgs
+    public class DeploymentStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this deployment.
@@ -72,5 +72,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public DeploymentStatusArgs()
         {
         }
+        public static new DeploymentStatusArgs Empty => new DeploymentStatusArgs();
     }
 }

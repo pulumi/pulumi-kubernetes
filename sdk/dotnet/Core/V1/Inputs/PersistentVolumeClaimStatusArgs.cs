@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PersistentVolumeClaimStatus is the current status of a persistent volume claim.
     /// </summary>
-    public class PersistentVolumeClaimStatusArgs : Pulumi.ResourceArgs
+    public class PersistentVolumeClaimStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("accessModes")]
         private InputList<string>? _accessModes;
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PersistentVolumeClaimStatusArgs()
         {
         }
+        public static new PersistentVolumeClaimStatusArgs Empty => new PersistentVolumeClaimStatusArgs();
     }
 }

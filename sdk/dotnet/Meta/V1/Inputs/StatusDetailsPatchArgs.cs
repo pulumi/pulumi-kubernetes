@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
     /// </summary>
-    public class StatusDetailsPatchArgs : Pulumi.ResourceArgs
+    public class StatusDetailsPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("causes")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.StatusCausePatchArgs>? _causes;
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public StatusDetailsPatchArgs()
         {
         }
+        public static new StatusDetailsPatchArgs Empty => new StatusDetailsPatchArgs();
     }
 }

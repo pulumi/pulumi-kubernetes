@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
     /// <summary>
     /// RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
     /// </summary>
-    public class RollingUpdateStatefulSetStrategyPatchArgs : Pulumi.ResourceArgs
+    public class RollingUpdateStatefulSetStrategyPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Partition indicates the ordinal at which the StatefulSet should be partitioned. Default value is 0.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
         public RollingUpdateStatefulSetStrategyPatchArgs()
         {
         }
+        public static new RollingUpdateStatefulSetStrategyPatchArgs Empty => new RollingUpdateStatefulSetStrategyPatchArgs();
     }
 }

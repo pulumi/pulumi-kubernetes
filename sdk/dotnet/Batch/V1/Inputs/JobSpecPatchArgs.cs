@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
     /// <summary>
     /// JobSpec describes how the job execution will look like.
     /// </summary>
-    public class JobSpecPatchArgs : Pulumi.ResourceArgs
+    public class JobSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Specifies the duration in seconds relative to the startTime that the job may be continuously active before the system tries to terminate it; value must be positive integer. If a Job is suspended (at creation or through an update), this timer will effectively be stopped and reset when the Job is resumed again.
@@ -84,5 +84,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public JobSpecPatchArgs()
         {
         }
+        public static new JobSpecPatchArgs Empty => new JobSpecPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// LimitRangeItem defines a min/max usage limit for any resource that matches on kind.
     /// </summary>
-    public class LimitRangeItemArgs : Pulumi.ResourceArgs
+    public class LimitRangeItemArgs : global::Pulumi.ResourceArgs
     {
         [Input("default")]
         private InputMap<string>? _default;
@@ -84,5 +84,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LimitRangeItemArgs()
         {
         }
+        public static new LimitRangeItemArgs Empty => new LimitRangeItemArgs();
     }
 }

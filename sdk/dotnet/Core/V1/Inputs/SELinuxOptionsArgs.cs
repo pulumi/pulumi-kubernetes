@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// SELinuxOptions are the labels to be applied to the container
     /// </summary>
-    public class SELinuxOptionsArgs : Pulumi.ResourceArgs
+    public class SELinuxOptionsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Level is SELinux level label that applies to the container.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SELinuxOptionsArgs()
         {
         }
+        public static new SELinuxOptionsArgs Empty => new SELinuxOptionsArgs();
     }
 }

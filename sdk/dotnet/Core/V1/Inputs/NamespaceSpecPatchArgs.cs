@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NamespaceSpec describes the attributes on a Namespace.
     /// </summary>
-    public class NamespaceSpecPatchArgs : Pulumi.ResourceArgs
+    public class NamespaceSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("finalizers")]
         private InputList<string>? _finalizers;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NamespaceSpecPatchArgs()
         {
         }
+        public static new NamespaceSpecPatchArgs Empty => new NamespaceSpecPatchArgs();
     }
 }

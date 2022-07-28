@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// WebhookConversion describes how to call a conversion webhook
     /// </summary>
-    public class WebhookConversionArgs : Pulumi.ResourceArgs
+    public class WebhookConversionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// clientConfig is the instructions for how to call the webhook if strategy is `Webhook`.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public WebhookConversionArgs()
         {
         }
+        public static new WebhookConversionArgs Empty => new WebhookConversionArgs();
     }
 }

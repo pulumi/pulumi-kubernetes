@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22
     /// </summary>
-    public class NodeConfigSourceArgs : Pulumi.ResourceArgs
+    public class NodeConfigSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// ConfigMap is a reference to a Node's ConfigMap
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeConfigSourceArgs()
         {
         }
+        public static new NodeConfigSourceArgs Empty => new NodeConfigSourceArgs();
     }
 }

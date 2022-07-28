@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// VolumeMount describes a mounting of a Volume within a container.
     /// </summary>
-    public class VolumeMountArgs : Pulumi.ResourceArgs
+    public class VolumeMountArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Path within the container at which the volume should be mounted.  Must not contain ':'.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public VolumeMountArgs()
         {
         }
+        public static new VolumeMountArgs Empty => new VolumeMountArgs();
     }
 }

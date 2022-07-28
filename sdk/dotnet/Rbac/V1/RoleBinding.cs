@@ -82,8 +82,8 @@ namespace Pulumi.Kubernetes.Rbac.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding"},
-                    new Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding"},
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBinding"},
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -108,7 +108,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
 {
 
-    public class RoleBindingArgs : Pulumi.ResourceArgs
+    public class RoleBindingArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -149,5 +149,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         public RoleBindingArgs()
         {
         }
+        public static new RoleBindingArgs Empty => new RoleBindingArgs();
     }
 }

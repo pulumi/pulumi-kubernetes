@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// SessionAffinityConfig represents the configurations of session affinity.
     /// </summary>
-    public class SessionAffinityConfigArgs : Pulumi.ResourceArgs
+    public class SessionAffinityConfigArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// clientIP contains the configurations of Client IP based session affinity.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SessionAffinityConfigArgs()
         {
         }
+        public static new SessionAffinityConfigArgs Empty => new SessionAffinityConfigArgs();
     }
 }

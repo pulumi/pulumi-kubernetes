@@ -88,9 +88,9 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch"},
-                    new Pulumi.Alias { Type = "kubernetes:autoscaling/v2:HorizontalPodAutoscalerPatch"},
-                    new Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2:HorizontalPodAutoscalerPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:autoscaling/v2beta2:HorizontalPodAutoscalerPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -115,7 +115,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
 {
 
-    public class HorizontalPodAutoscalerPatchArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -144,5 +144,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public HorizontalPodAutoscalerPatchArgs()
         {
         }
+        public static new HorizontalPodAutoscalerPatchArgs Empty => new HorizontalPodAutoscalerPatchArgs();
     }
 }

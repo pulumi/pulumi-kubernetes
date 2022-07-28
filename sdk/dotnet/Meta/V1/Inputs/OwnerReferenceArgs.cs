@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
     /// </summary>
-    public class OwnerReferenceArgs : Pulumi.ResourceArgs
+    public class OwnerReferenceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// API version of the referent.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public OwnerReferenceArgs()
         {
         }
+        public static new OwnerReferenceArgs Empty => new OwnerReferenceArgs();
     }
 }

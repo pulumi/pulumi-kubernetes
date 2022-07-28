@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// NetworkPolicySpec provides the specification of a NetworkPolicy
     /// </summary>
-    public class NetworkPolicySpecPatchArgs : Pulumi.ResourceArgs
+    public class NetworkPolicySpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("egress")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.NetworkPolicyEgressRulePatchArgs>? _egress;
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public NetworkPolicySpecPatchArgs()
         {
         }
+        public static new NetworkPolicySpecPatchArgs Empty => new NetworkPolicySpecPatchArgs();
     }
 }

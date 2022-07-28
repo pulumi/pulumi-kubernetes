@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodSpec is a description of a pod.
     /// </summary>
-    public class PodSpecPatchArgs : Pulumi.ResourceArgs
+    public class PodSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Optional duration in seconds the pod may be active on the node relative to StartTime before the system will actively try to mark it failed and kill associated containers. Value must be a positive integer.
@@ -304,5 +304,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodSpecPatchArgs()
         {
         }
+        public static new PodSpecPatchArgs Empty => new PodSpecPatchArgs();
     }
 }

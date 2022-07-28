@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
     /// </summary>
-    public class ResourcePolicyRuleArgs : Pulumi.ResourceArgs
+    public class ResourcePolicyRuleArgs : global::Pulumi.ResourceArgs
     {
         [Input("apiGroups", required: true)]
         private InputList<string>? _apiGroups;
@@ -72,5 +72,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public ResourcePolicyRuleArgs()
         {
         }
+        public static new ResourcePolicyRuleArgs Empty => new ResourcePolicyRuleArgs();
     }
 }

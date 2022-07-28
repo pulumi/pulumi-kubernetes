@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// ServiceBackendPort is the service port being referenced.
     /// </summary>
-    public class ServiceBackendPortArgs : Pulumi.ResourceArgs
+    public class ServiceBackendPortArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public ServiceBackendPortArgs()
         {
         }
+        public static new ServiceBackendPortArgs Empty => new ServiceBackendPortArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
     /// <summary>
     /// ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
     /// </summary>
-    public class ContainerResourceMetricStatusArgs : Pulumi.ResourceArgs
+    public class ContainerResourceMetricStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// container is the name of the container in the pods of the scaling target
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public ContainerResourceMetricStatusArgs()
         {
         }
+        public static new ContainerResourceMetricStatusArgs Empty => new ContainerResourceMetricStatusArgs();
     }
 }

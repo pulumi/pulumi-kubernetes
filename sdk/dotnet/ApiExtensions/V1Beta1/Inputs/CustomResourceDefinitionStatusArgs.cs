@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
     /// </summary>
-    public class CustomResourceDefinitionStatusArgs : Pulumi.ResourceArgs
+    public class CustomResourceDefinitionStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public CustomResourceDefinitionStatusArgs()
         {
         }
+        public static new CustomResourceDefinitionStatusArgs Empty => new CustomResourceDefinitionStatusArgs();
     }
 }

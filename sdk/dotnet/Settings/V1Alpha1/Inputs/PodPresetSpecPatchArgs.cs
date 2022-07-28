@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Settings.V1Alpha1
     /// <summary>
     /// PodPresetSpec is a description of a pod preset.
     /// </summary>
-    public class PodPresetSpecPatchArgs : Pulumi.ResourceArgs
+    public class PodPresetSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("env")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.EnvVarPatchArgs>? _env;
@@ -72,5 +72,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Settings.V1Alpha1
         public PodPresetSpecPatchArgs()
         {
         }
+        public static new PodPresetSpecPatchArgs Empty => new PodPresetSpecPatchArgs();
     }
 }

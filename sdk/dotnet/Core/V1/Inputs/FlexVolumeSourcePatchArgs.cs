@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// FlexVolume represents a generic volume resource that is provisioned/attached using an exec based plugin.
     /// </summary>
-    public class FlexVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class FlexVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// driver is the name of the driver to use for this volume.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public FlexVolumeSourcePatchArgs()
         {
         }
+        public static new FlexVolumeSourcePatchArgs Empty => new FlexVolumeSourcePatchArgs();
     }
 }

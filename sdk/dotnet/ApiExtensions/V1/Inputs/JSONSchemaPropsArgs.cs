@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
     /// </summary>
-    public class JSONSchemaPropsArgs : Pulumi.ResourceArgs
+    public class JSONSchemaPropsArgs : global::Pulumi.ResourceArgs
     {
         [Input("$ref")]
         public Input<string>? Ref { get; set; }
@@ -269,5 +269,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public JSONSchemaPropsArgs()
         {
         }
+        public static new JSONSchemaPropsArgs Empty => new JSONSchemaPropsArgs();
     }
 }

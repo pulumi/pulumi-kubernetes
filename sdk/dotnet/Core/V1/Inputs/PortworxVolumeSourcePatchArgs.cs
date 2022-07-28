@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PortworxVolumeSource represents a Portworx volume resource.
     /// </summary>
-    public class PortworxVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class PortworxVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fSType represents the filesystem type to mount Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs". Implicitly inferred to be "ext4" if unspecified.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PortworxVolumeSourcePatchArgs()
         {
         }
+        public static new PortworxVolumeSourcePatchArgs Empty => new PortworxVolumeSourcePatchArgs();
     }
 }

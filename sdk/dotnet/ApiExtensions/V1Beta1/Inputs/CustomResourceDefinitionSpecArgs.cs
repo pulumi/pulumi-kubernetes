@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
-    public class CustomResourceDefinitionSpecArgs : Pulumi.ResourceArgs
+    public class CustomResourceDefinitionSpecArgs : global::Pulumi.ResourceArgs
     {
         [Input("additionalPrinterColumns")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1.CustomResourceColumnDefinitionArgs>? _additionalPrinterColumns;
@@ -90,5 +90,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public CustomResourceDefinitionSpecArgs()
         {
         }
+        public static new CustomResourceDefinitionSpecArgs Empty => new CustomResourceDefinitionSpecArgs();
     }
 }

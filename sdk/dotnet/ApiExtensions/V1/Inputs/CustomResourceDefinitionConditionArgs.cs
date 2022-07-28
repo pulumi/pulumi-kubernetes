@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// CustomResourceDefinitionCondition contains details for the current condition of this pod.
     /// </summary>
-    public class CustomResourceDefinitionConditionArgs : Pulumi.ResourceArgs
+    public class CustomResourceDefinitionConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// lastTransitionTime last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public CustomResourceDefinitionConditionArgs()
         {
         }
+        public static new CustomResourceDefinitionConditionArgs Empty => new CustomResourceDefinitionConditionArgs();
     }
 }

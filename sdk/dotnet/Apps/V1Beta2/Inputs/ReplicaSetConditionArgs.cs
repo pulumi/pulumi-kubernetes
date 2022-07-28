@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
     /// <summary>
     /// ReplicaSetCondition describes the state of a replica set at a certain point.
     /// </summary>
-    public class ReplicaSetConditionArgs : Pulumi.ResourceArgs
+    public class ReplicaSetConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
         public ReplicaSetConditionArgs()
         {
         }
+        public static new ReplicaSetConditionArgs Empty => new ReplicaSetConditionArgs();
     }
 }

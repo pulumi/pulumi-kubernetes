@@ -105,9 +105,9 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:apps/v1:Deployment"},
-                    new Pulumi.Alias { Type = "kubernetes:apps/v1beta1:Deployment"},
-                    new Pulumi.Alias { Type = "kubernetes:apps/v1beta2:Deployment"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1:Deployment"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1beta1:Deployment"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1beta2:Deployment"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -132,7 +132,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
 {
 
-    public class DeploymentArgs : Pulumi.ResourceArgs
+    public class DeploymentArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -161,5 +161,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public DeploymentArgs()
         {
         }
+        public static new DeploymentArgs Empty => new DeploymentArgs();
     }
 }

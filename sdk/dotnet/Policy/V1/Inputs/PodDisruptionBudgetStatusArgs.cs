@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
     /// <summary>
     /// PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
     /// </summary>
-    public class PodDisruptionBudgetStatusArgs : Pulumi.ResourceArgs
+    public class PodDisruptionBudgetStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>? _conditions;
@@ -80,5 +80,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
         public PodDisruptionBudgetStatusArgs()
         {
         }
+        public static new PodDisruptionBudgetStatusArgs Empty => new PodDisruptionBudgetStatusArgs();
     }
 }

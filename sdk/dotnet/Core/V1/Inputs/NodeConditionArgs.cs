@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeCondition contains condition information for a node.
     /// </summary>
-    public class NodeConditionArgs : Pulumi.ResourceArgs
+    public class NodeConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time we got an update on a given condition.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeConditionArgs()
         {
         }
+        public static new NodeConditionArgs Empty => new NodeConditionArgs();
     }
 }

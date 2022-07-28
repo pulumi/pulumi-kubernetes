@@ -76,7 +76,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:NetworkPolicy"},
+                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:NetworkPolicy"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -101,7 +101,7 @@ namespace Pulumi.Kubernetes.Extensions.V1Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
 {
 
-    public class NetworkPolicyArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -130,5 +130,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public NetworkPolicyArgs()
         {
         }
+        public static new NetworkPolicyArgs Empty => new NetworkPolicyArgs();
     }
 }

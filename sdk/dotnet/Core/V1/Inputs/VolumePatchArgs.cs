@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Volume represents a named volume in a pod that may be accessed by any container in the pod.
     /// </summary>
-    public class VolumePatchArgs : Pulumi.ResourceArgs
+    public class VolumePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// awsElasticBlockStore represents an AWS Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
@@ -211,5 +211,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public VolumePatchArgs()
         {
         }
+        public static new VolumePatchArgs Empty => new VolumePatchArgs();
     }
 }

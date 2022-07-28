@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
     /// <summary>
     /// LeaseSpec is a specification of a Lease.
     /// </summary>
-    public class LeaseSpecPatchArgs : Pulumi.ResourceArgs
+    public class LeaseSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// acquireTime is a time when the current lease was acquired.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public LeaseSpecPatchArgs()
         {
         }
+        public static new LeaseSpecPatchArgs Empty => new LeaseSpecPatchArgs();
     }
 }

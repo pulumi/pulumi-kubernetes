@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.
     /// </summary>
-    public class ConfigMapProjectionPatchArgs : Pulumi.ResourceArgs
+    public class ConfigMapProjectionPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("items")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.KeyToPathPatchArgs>? _items;
@@ -44,5 +44,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ConfigMapProjectionPatchArgs()
         {
         }
+        public static new ConfigMapProjectionPatchArgs Empty => new ConfigMapProjectionPatchArgs();
     }
 }

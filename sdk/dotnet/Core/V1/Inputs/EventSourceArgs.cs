@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// EventSource contains information for an event.
     /// </summary>
-    public class EventSourceArgs : Pulumi.ResourceArgs
+    public class EventSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Component from which the event is generated.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EventSourceArgs()
         {
         }
+        public static new EventSourceArgs Empty => new EventSourceArgs();
     }
 }

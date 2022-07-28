@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyPort is deprecated by networking/v1/NetworkPolicyPort.
     /// </summary>
-    public class NetworkPolicyPortArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyPortArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public NetworkPolicyPortArgs()
         {
         }
+        public static new NetworkPolicyPortArgs Empty => new NetworkPolicyPortArgs();
     }
 }

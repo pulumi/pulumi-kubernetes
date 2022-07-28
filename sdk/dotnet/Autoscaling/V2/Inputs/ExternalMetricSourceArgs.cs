@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     /// <summary>
     /// ExternalMetricSource indicates how to scale on a metric not associated with any Kubernetes object (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
     /// </summary>
-    public class ExternalMetricSourceArgs : Pulumi.ResourceArgs
+    public class ExternalMetricSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// metric identifies the target metric by name and selector
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public ExternalMetricSourceArgs()
         {
         }
+        public static new ExternalMetricSourceArgs Empty => new ExternalMetricSourceArgs();
     }
 }

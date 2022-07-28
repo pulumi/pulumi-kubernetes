@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NamespaceCondition contains details about state of namespace.
     /// </summary>
-    public class NamespaceConditionArgs : Pulumi.ResourceArgs
+    public class NamespaceConditionArgs : global::Pulumi.ResourceArgs
     {
         [Input("lastTransitionTime")]
         public Input<string>? LastTransitionTime { get; set; }
@@ -39,5 +39,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NamespaceConditionArgs()
         {
         }
+        public static new NamespaceConditionArgs Empty => new NamespaceConditionArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a source location of a volume to mount, managed by an external CSI driver
     /// </summary>
-    public class CSIVolumeSourceArgs : Pulumi.ResourceArgs
+    public class CSIVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// driver is the name of the CSI driver that handles this volume. Consult with your admin for the correct name as registered in the cluster.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public CSIVolumeSourceArgs()
         {
         }
+        public static new CSIVolumeSourceArgs Empty => new CSIVolumeSourceArgs();
     }
 }

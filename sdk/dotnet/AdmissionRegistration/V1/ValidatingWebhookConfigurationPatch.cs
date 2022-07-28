@@ -82,7 +82,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -107,7 +107,7 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1
 namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
 {
 
-    public class ValidatingWebhookConfigurationPatchArgs : Pulumi.ResourceArgs
+    public class ValidatingWebhookConfigurationPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -142,5 +142,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public ValidatingWebhookConfigurationPatchArgs()
         {
         }
+        public static new ValidatingWebhookConfigurationPatchArgs Empty => new ValidatingWebhookConfigurationPatchArgs();
     }
 }

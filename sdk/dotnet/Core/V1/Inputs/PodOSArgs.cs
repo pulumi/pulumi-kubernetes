@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodOS defines the OS parameters of a pod.
     /// </summary>
-    public class PodOSArgs : Pulumi.ResourceArgs
+    public class PodOSArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name is the name of the operating system. The currently supported values are linux and windows. Additional value may be defined in future and can be one of: https://github.com/opencontainers/runtime-spec/blob/master/config.md#platform-specific-configuration Clients should expect to handle additional values and treat unrecognized values in this field as os: null
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodOSArgs()
         {
         }
+        public static new PodOSArgs Empty => new PodOSArgs();
     }
 }

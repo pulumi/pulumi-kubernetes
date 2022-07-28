@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// FlowSchemaStatus represents the current state of a FlowSchema.
     /// </summary>
-    public class FlowSchemaStatusArgs : Pulumi.ResourceArgs
+    public class FlowSchemaStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1.FlowSchemaConditionArgs>? _conditions;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public FlowSchemaStatusArgs()
         {
         }
+        public static new FlowSchemaStatusArgs Empty => new FlowSchemaStatusArgs();
     }
 }

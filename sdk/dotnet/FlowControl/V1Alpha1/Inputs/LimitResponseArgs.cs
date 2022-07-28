@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// LimitResponse defines how to handle requests that can not be executed right now.
     /// </summary>
-    public class LimitResponseArgs : Pulumi.ResourceArgs
+    public class LimitResponseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public LimitResponseArgs()
         {
         }
+        public static new LimitResponseArgs Empty => new LimitResponseArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
     /// <summary>
     /// ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
     /// </summary>
-    public class ValidatingWebhookArgs : Pulumi.ResourceArgs
+    public class ValidatingWebhookArgs : global::Pulumi.ResourceArgs
     {
         [Input("admissionReviewVersions", required: true)]
         private InputList<string>? _admissionReviewVersions;
@@ -126,5 +126,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public ValidatingWebhookArgs()
         {
         }
+        public static new ValidatingWebhookArgs Empty => new ValidatingWebhookArgs();
     }
 }

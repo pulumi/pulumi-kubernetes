@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyIngressRule is deprecated by networking/v1/NetworkPolicyIngressRule. This NetworkPolicyIngressRule matches traffic if and only if the traffic matches both ports AND from.
     /// </summary>
-    public class NetworkPolicyIngressRuleArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyIngressRuleArgs : global::Pulumi.ResourceArgs
     {
         [Input("from")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1.NetworkPolicyPeerArgs>? _from;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public NetworkPolicyIngressRuleArgs()
         {
         }
+        public static new NetworkPolicyIngressRuleArgs Empty => new NetworkPolicyIngressRuleArgs();
     }
 }

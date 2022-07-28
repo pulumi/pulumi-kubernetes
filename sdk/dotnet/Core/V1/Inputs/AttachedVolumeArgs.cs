@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// AttachedVolume describes a volume attached to a node
     /// </summary>
-    public class AttachedVolumeArgs : Pulumi.ResourceArgs
+    public class AttachedVolumeArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// DevicePath represents the device path where the volume should be available
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public AttachedVolumeArgs()
         {
         }
+        public static new AttachedVolumeArgs Empty => new AttachedVolumeArgs();
     }
 }

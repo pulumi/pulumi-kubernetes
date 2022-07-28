@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.
     /// </summary>
-    public class AzureDiskVolumeSourceArgs : Pulumi.ResourceArgs
+    public class AzureDiskVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// cachingMode is the Host Caching mode: None, Read Only, Read Write.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public AzureDiskVolumeSourceArgs()
         {
         }
+        public static new AzureDiskVolumeSourceArgs Empty => new AzureDiskVolumeSourceArgs();
     }
 }

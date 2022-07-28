@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ContainerPort represents a network port in a single container.
     /// </summary>
-    public class ContainerPortArgs : Pulumi.ResourceArgs
+    public class ContainerPortArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Number of port to expose on the pod's IP address. This must be a valid port number, 0 &lt; x &lt; 65536.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerPortArgs()
         {
         }
+        public static new ContainerPortArgs Empty => new ContainerPortArgs();
     }
 }

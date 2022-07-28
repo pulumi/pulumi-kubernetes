@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
     /// </summary>
-    public class EmptyDirVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class EmptyDirVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EmptyDirVolumeSourcePatchArgs()
         {
         }
+        public static new EmptyDirVolumeSourcePatchArgs Empty => new EmptyDirVolumeSourcePatchArgs();
     }
 }

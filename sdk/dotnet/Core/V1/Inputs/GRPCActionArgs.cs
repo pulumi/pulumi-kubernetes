@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
-    public class GRPCActionArgs : Pulumi.ResourceArgs
+    public class GRPCActionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Port number of the gRPC service. Number must be in the range 1 to 65535.
@@ -29,5 +29,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public GRPCActionArgs()
         {
         }
+        public static new GRPCActionArgs Empty => new GRPCActionArgs();
     }
 }

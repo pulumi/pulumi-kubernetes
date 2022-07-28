@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
     /// </summary>
-    public class LabelSelectorRequirementArgs : Pulumi.ResourceArgs
+    public class LabelSelectorRequirementArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// key is the label key that the selector applies to.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public LabelSelectorRequirementArgs()
         {
         }
+        public static new LabelSelectorRequirementArgs Empty => new LabelSelectorRequirementArgs();
     }
 }

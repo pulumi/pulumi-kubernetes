@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.
     /// </summary>
-    public class SecurityContextPatchArgs : Pulumi.ResourceArgs
+    public class SecurityContextPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// AllowPrivilegeEscalation controls whether a process can gain more privileges than its parent process. This bool directly controls if the no_new_privs flag will be set on the container process. AllowPrivilegeEscalation is true always when the container is: 1) run as Privileged 2) has CAP_SYS_ADMIN Note that this field cannot be set when spec.os.name is windows.
@@ -84,5 +84,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecurityContextPatchArgs()
         {
         }
+        public static new SecurityContextPatchArgs Empty => new SecurityContextPatchArgs();
     }
 }

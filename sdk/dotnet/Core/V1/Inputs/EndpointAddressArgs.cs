@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// EndpointAddress is a tuple that describes single IP address.
     /// </summary>
-    public class EndpointAddressArgs : Pulumi.ResourceArgs
+    public class EndpointAddressArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The Hostname of this endpoint
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EndpointAddressArgs()
         {
         }
+        public static new EndpointAddressArgs Empty => new EndpointAddressArgs();
     }
 }

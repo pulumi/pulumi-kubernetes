@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.
     /// </summary>
-    public class FlexPersistentVolumeSourceArgs : Pulumi.ResourceArgs
+    public class FlexPersistentVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// driver is the name of the driver to use for this volume.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public FlexPersistentVolumeSourceArgs()
         {
         }
+        public static new FlexPersistentVolumeSourceArgs Empty => new FlexPersistentVolumeSourceArgs();
     }
 }

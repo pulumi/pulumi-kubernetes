@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
     /// </summary>
-    public class ContainerStateArgs : Pulumi.ResourceArgs
+    public class ContainerStateArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Details about a running container
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerStateArgs()
         {
         }
+        public static new ContainerStateArgs Empty => new ContainerStateArgs();
     }
 }

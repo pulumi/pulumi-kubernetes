@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
     /// </summary>
-    public class IngressRuleArgs : Pulumi.ResourceArgs
+    public class IngressRuleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
@@ -32,5 +32,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public IngressRuleArgs()
         {
         }
+        public static new IngressRuleArgs Empty => new IngressRuleArgs();
     }
 }

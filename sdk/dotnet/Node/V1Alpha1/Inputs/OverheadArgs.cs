@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
     /// <summary>
     /// Overhead structure represents the resource overhead associated with running a pod.
     /// </summary>
-    public class OverheadArgs : Pulumi.ResourceArgs
+    public class OverheadArgs : global::Pulumi.ResourceArgs
     {
         [Input("podFixed")]
         private InputMap<string>? _podFixed;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
         public OverheadArgs()
         {
         }
+        public static new OverheadArgs Empty => new OverheadArgs();
     }
 }

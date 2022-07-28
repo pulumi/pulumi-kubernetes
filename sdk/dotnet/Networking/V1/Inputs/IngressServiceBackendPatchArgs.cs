@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// IngressServiceBackend references a Kubernetes Service as a Backend.
     /// </summary>
-    public class IngressServiceBackendPatchArgs : Pulumi.ResourceArgs
+    public class IngressServiceBackendPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public IngressServiceBackendPatchArgs()
         {
         }
+        public static new IngressServiceBackendPatchArgs Empty => new IngressServiceBackendPatchArgs();
     }
 }

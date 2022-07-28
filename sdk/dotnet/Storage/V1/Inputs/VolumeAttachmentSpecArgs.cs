@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     /// <summary>
     /// VolumeAttachmentSpec is the specification of a VolumeAttachment request.
     /// </summary>
-    public class VolumeAttachmentSpecArgs : Pulumi.ResourceArgs
+    public class VolumeAttachmentSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public VolumeAttachmentSpecArgs()
         {
         }
+        public static new VolumeAttachmentSpecArgs Empty => new VolumeAttachmentSpecArgs();
     }
 }

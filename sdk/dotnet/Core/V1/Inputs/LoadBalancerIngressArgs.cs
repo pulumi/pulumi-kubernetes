@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
     /// </summary>
-    public class LoadBalancerIngressArgs : Pulumi.ResourceArgs
+    public class LoadBalancerIngressArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LoadBalancerIngressArgs()
         {
         }
+        public static new LoadBalancerIngressArgs Empty => new LoadBalancerIngressArgs();
     }
 }

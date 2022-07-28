@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
     /// <summary>
     /// CrossVersionObjectReference contains enough information to let you identify the referred resource.
     /// </summary>
-    public class CrossVersionObjectReferencePatchArgs : Pulumi.ResourceArgs
+    public class CrossVersionObjectReferencePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// API version of the referent
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         public CrossVersionObjectReferencePatchArgs()
         {
         }
+        public static new CrossVersionObjectReferencePatchArgs Empty => new CrossVersionObjectReferencePatchArgs();
     }
 }

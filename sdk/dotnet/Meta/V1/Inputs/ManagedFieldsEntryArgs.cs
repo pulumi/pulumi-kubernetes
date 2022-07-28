@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
     /// </summary>
-    public class ManagedFieldsEntryArgs : Pulumi.ResourceArgs
+    public class ManagedFieldsEntryArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public ManagedFieldsEntryArgs()
         {
         }
+        public static new ManagedFieldsEntryArgs Empty => new ManagedFieldsEntryArgs();
     }
 }

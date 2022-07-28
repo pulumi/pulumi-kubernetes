@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Describe a container image
     /// </summary>
-    public class ContainerImageArgs : Pulumi.ResourceArgs
+    public class ContainerImageArgs : global::Pulumi.ResourceArgs
     {
         [Input("names", required: true)]
         private InputList<string>? _names;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerImageArgs()
         {
         }
+        public static new ContainerImageArgs Empty => new ContainerImageArgs();
     }
 }

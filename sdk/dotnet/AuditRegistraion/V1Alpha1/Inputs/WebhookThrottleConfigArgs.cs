@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
     /// <summary>
     /// WebhookThrottleConfig holds the configuration for throttling events
     /// </summary>
-    public class WebhookThrottleConfigArgs : Pulumi.ResourceArgs
+    public class WebhookThrottleConfigArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
         public WebhookThrottleConfigArgs()
         {
         }
+        public static new WebhookThrottleConfigArgs Empty => new WebhookThrottleConfigArgs();
     }
 }

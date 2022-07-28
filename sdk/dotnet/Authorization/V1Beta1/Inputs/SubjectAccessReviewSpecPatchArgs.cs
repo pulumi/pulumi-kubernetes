@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
     /// <summary>
     /// SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
     /// </summary>
-    public class SubjectAccessReviewSpecPatchArgs : Pulumi.ResourceArgs
+    public class SubjectAccessReviewSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("extra")]
         private InputMap<ImmutableArray<string>>? _extra;
@@ -66,5 +66,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
         public SubjectAccessReviewSpecPatchArgs()
         {
         }
+        public static new SubjectAccessReviewSpecPatchArgs Empty => new SubjectAccessReviewSpecPatchArgs();
     }
 }

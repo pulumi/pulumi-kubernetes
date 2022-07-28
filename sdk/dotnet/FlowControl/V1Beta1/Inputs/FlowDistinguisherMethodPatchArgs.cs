@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// FlowDistinguisherMethod specifies the method of a flow distinguisher.
     /// </summary>
-    public class FlowDistinguisherMethodPatchArgs : Pulumi.ResourceArgs
+    public class FlowDistinguisherMethodPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public FlowDistinguisherMethodPatchArgs()
         {
         }
+        public static new FlowDistinguisherMethodPatchArgs Empty => new FlowDistinguisherMethodPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
     /// <summary>
     /// Webhook holds the configuration of the webhook
     /// </summary>
-    public class WebhookPatchArgs : Pulumi.ResourceArgs
+    public class WebhookPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// ClientConfig holds the connection parameters for the webhook required
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
         public WebhookPatchArgs()
         {
         }
+        public static new WebhookPatchArgs Empty => new WebhookPatchArgs();
     }
 }

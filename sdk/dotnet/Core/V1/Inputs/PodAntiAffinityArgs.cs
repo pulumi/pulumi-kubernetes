@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Pod anti affinity is a group of inter pod anti affinity scheduling rules.
     /// </summary>
-    public class PodAntiAffinityArgs : Pulumi.ResourceArgs
+    public class PodAntiAffinityArgs : global::Pulumi.ResourceArgs
     {
         [Input("preferredDuringSchedulingIgnoredDuringExecution")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.WeightedPodAffinityTermArgs>? _preferredDuringSchedulingIgnoredDuringExecution;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodAntiAffinityArgs()
         {
         }
+        public static new PodAntiAffinityArgs Empty => new PodAntiAffinityArgs();
     }
 }

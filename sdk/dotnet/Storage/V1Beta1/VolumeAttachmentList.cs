@@ -97,7 +97,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
 {
 
-    public class VolumeAttachmentListArgs : Pulumi.ResourceArgs
+    public class VolumeAttachmentListArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -132,5 +132,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         public VolumeAttachmentListArgs()
         {
         }
+        public static new VolumeAttachmentListArgs Empty => new VolumeAttachmentListArgs();
     }
 }

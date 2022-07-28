@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
     /// <summary>
     /// VolumeAttachmentStatus is the status of a VolumeAttachment request.
     /// </summary>
-    public class VolumeAttachmentStatusArgs : Pulumi.ResourceArgs
+    public class VolumeAttachmentStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         public VolumeAttachmentStatusArgs()
         {
         }
+        public static new VolumeAttachmentStatusArgs Empty => new VolumeAttachmentStatusArgs();
     }
 }

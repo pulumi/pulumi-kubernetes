@@ -76,7 +76,7 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:IngressClass"},
+                    new global::Pulumi.Alias { Type = "kubernetes:networking.k8s.io/v1:IngressClass"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -101,7 +101,7 @@ namespace Pulumi.Kubernetes.Networking.V1Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
 {
 
-    public class IngressClassArgs : Pulumi.ResourceArgs
+    public class IngressClassArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -130,5 +130,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
         public IngressClassArgs()
         {
         }
+        public static new IngressClassArgs Empty => new IngressClassArgs();
     }
 }

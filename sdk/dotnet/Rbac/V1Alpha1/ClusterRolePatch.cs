@@ -88,8 +88,8 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:ClusterRolePatch"},
-                    new Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRolePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1:ClusterRolePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRolePatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -114,7 +114,7 @@ namespace Pulumi.Kubernetes.Rbac.V1Alpha1
 namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
 {
 
-    public class ClusterRolePatchArgs : Pulumi.ResourceArgs
+    public class ClusterRolePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
@@ -155,5 +155,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
         public ClusterRolePatchArgs()
         {
         }
+        public static new ClusterRolePatchArgs Empty => new ClusterRolePatchArgs();
     }
 }

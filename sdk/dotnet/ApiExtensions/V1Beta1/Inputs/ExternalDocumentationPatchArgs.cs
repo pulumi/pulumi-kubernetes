@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// ExternalDocumentation allows referencing an external resource for extended documentation.
     /// </summary>
-    public class ExternalDocumentationPatchArgs : Pulumi.ResourceArgs
+    public class ExternalDocumentationPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("description")]
         public Input<string>? Description { get; set; }
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public ExternalDocumentationPatchArgs()
         {
         }
+        public static new ExternalDocumentationPatchArgs Empty => new ExternalDocumentationPatchArgs();
     }
 }

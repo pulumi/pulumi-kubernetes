@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// SupplementalGroupsStrategyOptions defines the strategy type and options used to create the strategy. Deprecated: use SupplementalGroupsStrategyOptions from policy API Group instead.
     /// </summary>
-    public class SupplementalGroupsStrategyOptionsArgs : Pulumi.ResourceArgs
+    public class SupplementalGroupsStrategyOptionsArgs : global::Pulumi.ResourceArgs
     {
         [Input("ranges")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1.IDRangeArgs>? _ranges;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public SupplementalGroupsStrategyOptionsArgs()
         {
         }
+        public static new SupplementalGroupsStrategyOptionsArgs Empty => new SupplementalGroupsStrategyOptionsArgs();
     }
 }

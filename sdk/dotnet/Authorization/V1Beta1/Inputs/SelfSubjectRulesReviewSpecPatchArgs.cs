@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
 {
 
-    public class SelfSubjectRulesReviewSpecPatchArgs : Pulumi.ResourceArgs
+    public class SelfSubjectRulesReviewSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Namespace to evaluate rules for. Required.
@@ -21,5 +21,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
         public SelfSubjectRulesReviewSpecPatchArgs()
         {
         }
+        public static new SelfSubjectRulesReviewSpecPatchArgs Empty => new SelfSubjectRulesReviewSpecPatchArgs();
     }
 }

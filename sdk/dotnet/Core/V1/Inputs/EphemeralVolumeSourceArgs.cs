@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents an ephemeral volume that is handled by a normal storage driver.
     /// </summary>
-    public class EphemeralVolumeSourceArgs : Pulumi.ResourceArgs
+    public class EphemeralVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Specifies a read-only configuration for the volume. Defaults to false (read/write).
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EphemeralVolumeSourceArgs()
         {
         }
+        public static new EphemeralVolumeSourceArgs Empty => new EphemeralVolumeSourceArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use AllowedFlexVolume from policy API Group instead.
     /// </summary>
-    public class AllowedFlexVolumeArgs : Pulumi.ResourceArgs
+    public class AllowedFlexVolumeArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// driver is the name of the Flexvolume driver.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public AllowedFlexVolumeArgs()
         {
         }
+        public static new AllowedFlexVolumeArgs Empty => new AllowedFlexVolumeArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration
     /// </summary>
-    public class ConfigMapNodeConfigSourceArgs : Pulumi.ResourceArgs
+    public class ConfigMapNodeConfigSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// KubeletConfigKey declares which key of the referenced ConfigMap corresponds to the KubeletConfiguration structure This field is required in all cases.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ConfigMapNodeConfigSourceArgs()
         {
         }
+        public static new ConfigMapNodeConfigSourceArgs Empty => new ConfigMapNodeConfigSourceArgs();
     }
 }

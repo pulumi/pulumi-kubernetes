@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://&lt;host&gt;/&lt;path&gt;?&lt;searchpart&gt; -&gt; backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
     /// </summary>
-    public class HTTPIngressRuleValuePatchArgs : Pulumi.ResourceArgs
+    public class HTTPIngressRuleValuePatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("paths")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathPatchArgs>? _paths;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public HTTPIngressRuleValuePatchArgs()
         {
         }
+        public static new HTTPIngressRuleValuePatchArgs Empty => new HTTPIngressRuleValuePatchArgs();
     }
 }

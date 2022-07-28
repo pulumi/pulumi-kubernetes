@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
     /// <summary>
     /// HorizontalPodAutoscalerSpec describes the desired functionality of the HorizontalPodAutoscaler.
     /// </summary>
-    public class HorizontalPodAutoscalerSpecPatchArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// maxReplicas is the upper limit for the number of replicas to which the autoscaler can scale up. It cannot be less that minReplicas.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public HorizontalPodAutoscalerSpecPatchArgs()
         {
         }
+        public static new HorizontalPodAutoscalerSpecPatchArgs Empty => new HorizontalPodAutoscalerSpecPatchArgs();
     }
 }

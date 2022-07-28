@@ -14,7 +14,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// IP address information for entries in the (plural) PodIPs field. Each entry includes:
     ///    IP: An IP address allocated to the pod. Routable at least within the cluster.
     /// </summary>
-    public class PodIPArgs : Pulumi.ResourceArgs
+    public class PodIPArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// ip is an IP address (IPv4 or IPv6) assigned to the pod
@@ -25,5 +25,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodIPArgs()
         {
         }
+        public static new PodIPArgs Empty => new PodIPArgs();
     }
 }

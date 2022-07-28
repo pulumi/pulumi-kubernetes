@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// NetworkPolicyStatus describe the current state of the NetworkPolicy.
     /// </summary>
-    public class NetworkPolicyStatusArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>? _conditions;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public NetworkPolicyStatusArgs()
         {
         }
+        public static new NetworkPolicyStatusArgs Empty => new NetworkPolicyStatusArgs();
     }
 }

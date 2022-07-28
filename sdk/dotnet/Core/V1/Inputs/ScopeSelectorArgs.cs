@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A scope selector represents the AND of the selectors represented by the scoped-resource selector requirements.
     /// </summary>
-    public class ScopeSelectorArgs : Pulumi.ResourceArgs
+    public class ScopeSelectorArgs : global::Pulumi.ResourceArgs
     {
         [Input("matchExpressions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ScopedResourceSelectorRequirementArgs>? _matchExpressions;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ScopeSelectorArgs()
         {
         }
+        public static new ScopeSelectorArgs Empty => new ScopeSelectorArgs();
     }
 }

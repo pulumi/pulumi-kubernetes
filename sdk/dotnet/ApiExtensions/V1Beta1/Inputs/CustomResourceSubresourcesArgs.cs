@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceSubresources defines the status and scale subresources for CustomResources.
     /// </summary>
-    public class CustomResourceSubresourcesArgs : Pulumi.ResourceArgs
+    public class CustomResourceSubresourcesArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public CustomResourceSubresourcesArgs()
         {
         }
+        public static new CustomResourceSubresourcesArgs Empty => new CustomResourceSubresourcesArgs();
     }
 }

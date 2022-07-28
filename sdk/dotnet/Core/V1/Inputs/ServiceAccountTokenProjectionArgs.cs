@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ServiceAccountTokenProjection represents a projected service account token volume. This projection can be used to insert a service account token into the pods runtime filesystem for use against APIs (Kubernetes API Server or otherwise).
     /// </summary>
-    public class ServiceAccountTokenProjectionArgs : Pulumi.ResourceArgs
+    public class ServiceAccountTokenProjectionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// audience is the intended audience of the token. A recipient of a token must identify itself with an identifier specified in the audience of the token, and otherwise should reject the token. The audience defaults to the identifier of the apiserver.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ServiceAccountTokenProjectionArgs()
         {
         }
+        public static new ServiceAccountTokenProjectionArgs Empty => new ServiceAccountTokenProjectionArgs();
     }
 }

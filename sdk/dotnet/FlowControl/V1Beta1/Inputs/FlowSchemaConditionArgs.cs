@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// FlowSchemaCondition describes conditions for a FlowSchema.
     /// </summary>
-    public class FlowSchemaConditionArgs : Pulumi.ResourceArgs
+    public class FlowSchemaConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public FlowSchemaConditionArgs()
         {
         }
+        public static new FlowSchemaConditionArgs Empty => new FlowSchemaConditionArgs();
     }
 }

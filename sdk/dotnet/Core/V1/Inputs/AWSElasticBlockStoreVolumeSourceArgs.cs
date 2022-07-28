@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.
     /// </summary>
-    public class AWSElasticBlockStoreVolumeSourceArgs : Pulumi.ResourceArgs
+    public class AWSElasticBlockStoreVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
@@ -44,5 +44,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public AWSElasticBlockStoreVolumeSourceArgs()
         {
         }
+        public static new AWSElasticBlockStoreVolumeSourceArgs Empty => new AWSElasticBlockStoreVolumeSourceArgs();
     }
 }

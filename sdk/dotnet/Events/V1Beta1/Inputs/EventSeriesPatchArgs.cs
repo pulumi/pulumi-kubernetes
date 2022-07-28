@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
     /// <summary>
     /// EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
     /// </summary>
-    public class EventSeriesPatchArgs : Pulumi.ResourceArgs
+    public class EventSeriesPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// count is the number of occurrences in this series up to the last heartbeat time.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         public EventSeriesPatchArgs()
         {
         }
+        public static new EventSeriesPatchArgs Empty => new EventSeriesPatchArgs();
     }
 }

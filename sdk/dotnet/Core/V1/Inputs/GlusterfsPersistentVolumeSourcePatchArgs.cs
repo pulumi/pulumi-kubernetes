@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.
     /// </summary>
-    public class GlusterfsPersistentVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class GlusterfsPersistentVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public GlusterfsPersistentVolumeSourcePatchArgs()
         {
         }
+        public static new GlusterfsPersistentVolumeSourcePatchArgs Empty => new GlusterfsPersistentVolumeSourcePatchArgs();
     }
 }

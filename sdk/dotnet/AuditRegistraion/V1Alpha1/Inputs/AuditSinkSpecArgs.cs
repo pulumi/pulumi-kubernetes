@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
     /// <summary>
     /// AuditSinkSpec holds the spec for the audit sink
     /// </summary>
-    public class AuditSinkSpecArgs : Pulumi.ResourceArgs
+    public class AuditSinkSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Policy defines the policy for selecting which events should be sent to the webhook required
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
         public AuditSinkSpecArgs()
         {
         }
+        public static new AuditSinkSpecArgs Empty => new AuditSinkSpecArgs();
     }
 }

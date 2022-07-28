@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
     /// <summary>
     /// NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
     /// </summary>
-    public class NonResourceAttributesArgs : Pulumi.ResourceArgs
+    public class NonResourceAttributesArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Path is the URL path of the request
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
         public NonResourceAttributesArgs()
         {
         }
+        public static new NonResourceAttributesArgs Empty => new NonResourceAttributesArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ReplicationControllerStatus represents the current status of a replication controller.
     /// </summary>
-    public class ReplicationControllerStatusArgs : Pulumi.ResourceArgs
+    public class ReplicationControllerStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replication controller.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ReplicationControllerStatusArgs()
         {
         }
+        public static new ReplicationControllerStatusArgs Empty => new ReplicationControllerStatusArgs();
     }
 }

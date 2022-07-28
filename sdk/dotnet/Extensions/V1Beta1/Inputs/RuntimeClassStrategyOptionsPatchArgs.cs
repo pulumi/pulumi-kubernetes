@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
     /// </summary>
-    public class RuntimeClassStrategyOptionsPatchArgs : Pulumi.ResourceArgs
+    public class RuntimeClassStrategyOptionsPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("allowedRuntimeClassNames")]
         private InputList<string>? _allowedRuntimeClassNames;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public RuntimeClassStrategyOptionsPatchArgs()
         {
         }
+        public static new RuntimeClassStrategyOptionsPatchArgs Empty => new RuntimeClassStrategyOptionsPatchArgs();
     }
 }

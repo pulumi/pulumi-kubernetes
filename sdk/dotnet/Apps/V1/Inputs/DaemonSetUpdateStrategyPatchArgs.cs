@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// DaemonSetUpdateStrategy is a struct used to control the update strategy for a DaemonSet.
     /// </summary>
-    public class DaemonSetUpdateStrategyPatchArgs : Pulumi.ResourceArgs
+    public class DaemonSetUpdateStrategyPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Rolling update config params. Present only if type = "RollingUpdate".
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public DaemonSetUpdateStrategyPatchArgs()
         {
         }
+        public static new DaemonSetUpdateStrategyPatchArgs Empty => new DaemonSetUpdateStrategyPatchArgs();
     }
 }

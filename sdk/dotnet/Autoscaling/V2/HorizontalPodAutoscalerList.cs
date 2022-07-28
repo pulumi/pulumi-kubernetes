@@ -97,7 +97,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V2
 namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
 {
 
-    public class HorizontalPodAutoscalerListArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerListArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -132,5 +132,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public HorizontalPodAutoscalerListArgs()
         {
         }
+        public static new HorizontalPodAutoscalerListArgs Empty => new HorizontalPodAutoscalerListArgs();
     }
 }

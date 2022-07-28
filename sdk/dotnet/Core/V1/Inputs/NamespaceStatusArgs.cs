@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NamespaceStatus is information about the current status of a Namespace.
     /// </summary>
-    public class NamespaceStatusArgs : Pulumi.ResourceArgs
+    public class NamespaceStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NamespaceConditionArgs>? _conditions;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NamespaceStatusArgs()
         {
         }
+        public static new NamespaceStatusArgs Empty => new NamespaceStatusArgs();
     }
 }

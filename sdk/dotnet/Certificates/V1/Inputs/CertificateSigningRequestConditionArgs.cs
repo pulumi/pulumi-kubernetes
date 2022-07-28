@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
     /// <summary>
     /// CertificateSigningRequestCondition describes a condition of a CertificateSigningRequest object
     /// </summary>
-    public class CertificateSigningRequestConditionArgs : Pulumi.ResourceArgs
+    public class CertificateSigningRequestConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
@@ -64,5 +64,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
         public CertificateSigningRequestConditionArgs()
         {
         }
+        public static new CertificateSigningRequestConditionArgs Empty => new CertificateSigningRequestConditionArgs();
     }
 }

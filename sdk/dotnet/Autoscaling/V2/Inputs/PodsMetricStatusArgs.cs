@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     /// <summary>
     /// PodsMetricStatus indicates the current value of a metric describing each pod in the current scale target (for example, transactions-processed-per-second).
     /// </summary>
-    public class PodsMetricStatusArgs : Pulumi.ResourceArgs
+    public class PodsMetricStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// current contains the current value for the given metric
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public PodsMetricStatusArgs()
         {
         }
+        public static new PodsMetricStatusArgs Empty => new PodsMetricStatusArgs();
     }
 }

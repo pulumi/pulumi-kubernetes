@@ -88,7 +88,7 @@ namespace Pulumi.Kubernetes.Discovery.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:discovery.k8s.io/v1beta1:EndpointSlice"},
+                    new global::Pulumi.Alias { Type = "kubernetes:discovery.k8s.io/v1beta1:EndpointSlice"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -113,7 +113,7 @@ namespace Pulumi.Kubernetes.Discovery.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
 {
 
-    public class EndpointSliceArgs : Pulumi.ResourceArgs
+    public class EndpointSliceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
@@ -166,5 +166,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         public EndpointSliceArgs()
         {
         }
+        public static new EndpointSliceArgs Empty => new EndpointSliceArgs();
     }
 }

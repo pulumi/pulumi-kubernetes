@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Sysctl defines a kernel parameter to be set
     /// </summary>
-    public class SysctlArgs : Pulumi.ResourceArgs
+    public class SysctlArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name of a property to set
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SysctlArgs()
         {
         }
+        public static new SysctlArgs Empty => new SysctlArgs();
     }
 }

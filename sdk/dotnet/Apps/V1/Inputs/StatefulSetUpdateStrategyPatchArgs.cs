@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// StatefulSetUpdateStrategy indicates the strategy that the StatefulSet controller will use to perform updates. It includes any additional parameters necessary to perform the update for the indicated strategy.
     /// </summary>
-    public class StatefulSetUpdateStrategyPatchArgs : Pulumi.ResourceArgs
+    public class StatefulSetUpdateStrategyPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public StatefulSetUpdateStrategyPatchArgs()
         {
         }
+        public static new StatefulSetUpdateStrategyPatchArgs Empty => new StatefulSetUpdateStrategyPatchArgs();
     }
 }

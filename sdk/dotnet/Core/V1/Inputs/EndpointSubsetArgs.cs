@@ -20,7 +20,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     ///     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
     ///     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
     /// </summary>
-    public class EndpointSubsetArgs : Pulumi.ResourceArgs
+    public class EndpointSubsetArgs : global::Pulumi.ResourceArgs
     {
         [Input("addresses")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.EndpointAddressArgs>? _addresses;
@@ -61,5 +61,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EndpointSubsetArgs()
         {
         }
+        public static new EndpointSubsetArgs Empty => new EndpointSubsetArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
     /// <summary>
     /// Options to configure the Helm Release resource.
     /// </summary>
-    public class HelmReleaseSettingsArgs : Pulumi.ResourceArgs
+    public class HelmReleaseSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
@@ -53,5 +53,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
             RepositoryCache = Utilities.GetEnv("PULUMI_K8S_HELM_REPOSITORY_CACHE");
             RepositoryConfigPath = Utilities.GetEnv("PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH");
         }
+        public static new HelmReleaseSettingsArgs Empty => new HelmReleaseSettingsArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
     /// <summary>
     /// TokenReviewSpec is a description of the token authentication request.
     /// </summary>
-    public class TokenReviewSpecPatchArgs : Pulumi.ResourceArgs
+    public class TokenReviewSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("audiences")]
         private InputList<string>? _audiences;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
         public TokenReviewSpecPatchArgs()
         {
         }
+        public static new TokenReviewSpecPatchArgs Empty => new TokenReviewSpecPatchArgs();
     }
 }

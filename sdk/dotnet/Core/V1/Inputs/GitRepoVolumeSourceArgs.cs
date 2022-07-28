@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
     /// </summary>
-    public class GitRepoVolumeSourceArgs : Pulumi.ResourceArgs
+    public class GitRepoVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// directory is the target directory name. Must not contain or start with '..'.  If '.' is supplied, the volume directory will be the git repository.  Otherwise, if specified, the volume will contain the git repository in the subdirectory with the given name.
@@ -38,5 +38,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public GitRepoVolumeSourceArgs()
         {
         }
+        public static new GitRepoVolumeSourceArgs Empty => new GitRepoVolumeSourceArgs();
     }
 }

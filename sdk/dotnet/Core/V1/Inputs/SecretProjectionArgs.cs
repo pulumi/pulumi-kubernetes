@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// The contents of the target Secret's Data field will be presented in a projected volume as files using the keys in the Data field as the file names. Note that this is identical to a secret volume source without the default mode.
     /// </summary>
-    public class SecretProjectionArgs : Pulumi.ResourceArgs
+    public class SecretProjectionArgs : global::Pulumi.ResourceArgs
     {
         [Input("items")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.KeyToPathArgs>? _items;
@@ -44,5 +44,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecretProjectionArgs()
         {
         }
+        public static new SecretProjectionArgs Empty => new SecretProjectionArgs();
     }
 }

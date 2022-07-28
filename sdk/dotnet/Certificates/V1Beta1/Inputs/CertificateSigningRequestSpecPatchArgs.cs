@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
     /// <summary>
     /// This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
     /// </summary>
-    public class CertificateSigningRequestSpecPatchArgs : Pulumi.ResourceArgs
+    public class CertificateSigningRequestSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("extra")]
         private InputMap<ImmutableArray<string>>? _extra;
@@ -85,5 +85,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
         public CertificateSigningRequestSpecPatchArgs()
         {
         }
+        public static new CertificateSigningRequestSpecPatchArgs Empty => new CertificateSigningRequestSpecPatchArgs();
     }
 }

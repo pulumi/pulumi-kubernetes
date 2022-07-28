@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ServicePort contains information on service's port.
     /// </summary>
-    public class ServicePortPatchArgs : Pulumi.ResourceArgs
+    public class ServicePortPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ServicePortPatchArgs()
         {
         }
+        public static new ServicePortPatchArgs Empty => new ServicePortPatchArgs();
     }
 }
