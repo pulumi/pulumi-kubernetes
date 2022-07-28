@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// 
     /// The contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.
     /// </summary>
-    public class SecretVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class SecretVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// defaultMode is Optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
@@ -50,5 +50,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecretVolumeSourcePatchArgs()
         {
         }
+        public static new SecretVolumeSourcePatchArgs Empty => new SecretVolumeSourcePatchArgs();
     }
 }

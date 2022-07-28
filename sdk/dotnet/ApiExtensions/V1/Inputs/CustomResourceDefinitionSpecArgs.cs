@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// CustomResourceDefinitionSpec describes how a user wants their resource to appear
     /// </summary>
-    public class CustomResourceDefinitionSpecArgs : Pulumi.ResourceArgs
+    public class CustomResourceDefinitionSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// conversion defines conversion settings for the CRD.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public CustomResourceDefinitionSpecArgs()
         {
         }
+        public static new CustomResourceDefinitionSpecArgs Empty => new CustomResourceDefinitionSpecArgs();
     }
 }

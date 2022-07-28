@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeDaemonEndpoints lists ports opened by daemons running on the Node.
     /// </summary>
-    public class NodeDaemonEndpointsArgs : Pulumi.ResourceArgs
+    public class NodeDaemonEndpointsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Endpoint on which Kubelet is listening.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeDaemonEndpointsArgs()
         {
         }
+        public static new NodeDaemonEndpointsArgs Empty => new NodeDaemonEndpointsArgs();
     }
 }

@@ -82,8 +82,8 @@ namespace Pulumi.Kubernetes.FlowControl.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema"},
-                    new Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema"},
+                    new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema"},
+                    new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -108,7 +108,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
 {
 
-    public class FlowSchemaArgs : Pulumi.ResourceArgs
+    public class FlowSchemaArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -137,5 +137,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public FlowSchemaArgs()
         {
         }
+        public static new FlowSchemaArgs Empty => new FlowSchemaArgs();
     }
 }

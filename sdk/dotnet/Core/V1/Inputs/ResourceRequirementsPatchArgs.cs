@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ResourceRequirements describes the compute resource requirements.
     /// </summary>
-    public class ResourceRequirementsPatchArgs : Pulumi.ResourceArgs
+    public class ResourceRequirementsPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("limits")]
         private InputMap<string>? _limits;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ResourceRequirementsPatchArgs()
         {
         }
+        public static new ResourceRequirementsPatchArgs Empty => new ResourceRequirementsPatchArgs();
     }
 }

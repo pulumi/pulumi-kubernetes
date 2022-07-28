@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
     /// <summary>
     /// CSINodeSpec holds information about the specification of all CSI drivers installed on a node
     /// </summary>
-    public class CSINodeSpecPatchArgs : Pulumi.ResourceArgs
+    public class CSINodeSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("drivers")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1.CSINodeDriverPatchArgs>? _drivers;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         public CSINodeSpecPatchArgs()
         {
         }
+        public static new CSINodeSpecPatchArgs Empty => new CSINodeSpecPatchArgs();
     }
 }

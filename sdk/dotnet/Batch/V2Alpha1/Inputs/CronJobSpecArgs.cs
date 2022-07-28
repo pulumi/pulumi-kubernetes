@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
     /// <summary>
     /// CronJobSpec describes how the job execution will look like and when it will actually run.
     /// </summary>
-    public class CronJobSpecArgs : Pulumi.ResourceArgs
+    public class CronJobSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
         public CronJobSpecArgs()
         {
         }
+        public static new CronJobSpecArgs Empty => new CronJobSpecArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// TCPSocketAction describes an action based on opening a socket
     /// </summary>
-    public class TCPSocketActionPatchArgs : Pulumi.ResourceArgs
+    public class TCPSocketActionPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Optional: Host name to connect to, defaults to the pod IP.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public TCPSocketActionPatchArgs()
         {
         }
+        public static new TCPSocketActionPatchArgs Empty => new TCPSocketActionPatchArgs();
     }
 }

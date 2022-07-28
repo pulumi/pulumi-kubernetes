@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
     /// <summary>
     /// IngressBackend describes all endpoints for a given service and port.
     /// </summary>
-    public class IngressBackendArgs : Pulumi.ResourceArgs
+    public class IngressBackendArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
         public IngressBackendArgs()
         {
         }
+        public static new IngressBackendArgs Empty => new IngressBackendArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// EnvVarSource represents a source for the value of an EnvVar.
     /// </summary>
-    public class EnvVarSourcePatchArgs : Pulumi.ResourceArgs
+    public class EnvVarSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Selects a key of a ConfigMap.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EnvVarSourcePatchArgs()
         {
         }
+        public static new EnvVarSourcePatchArgs Empty => new EnvVarSourcePatchArgs();
     }
 }

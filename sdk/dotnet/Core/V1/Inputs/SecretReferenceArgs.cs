@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace
     /// </summary>
-    public class SecretReferenceArgs : Pulumi.ResourceArgs
+    public class SecretReferenceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// name is unique within a namespace to reference a secret resource.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecretReferenceArgs()
         {
         }
+        public static new SecretReferenceArgs Empty => new SecretReferenceArgs();
     }
 }

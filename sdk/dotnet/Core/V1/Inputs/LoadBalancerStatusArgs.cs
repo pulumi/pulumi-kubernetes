@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// LoadBalancerStatus represents the status of a load-balancer.
     /// </summary>
-    public class LoadBalancerStatusArgs : Pulumi.ResourceArgs
+    public class LoadBalancerStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("ingress")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.LoadBalancerIngressArgs>? _ingress;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LoadBalancerStatusArgs()
         {
         }
+        public static new LoadBalancerStatusArgs Empty => new LoadBalancerStatusArgs();
     }
 }

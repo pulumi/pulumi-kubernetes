@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
     /// <summary>
     /// ServiceReference holds a reference to Service.legacy.k8s.io
     /// </summary>
-    public class ServiceReferenceArgs : Pulumi.ResourceArgs
+    public class ServiceReferenceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `name` is the name of the service. Required
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Beta1
         public ServiceReferenceArgs()
         {
         }
+        public static new ServiceReferenceArgs Empty => new ServiceReferenceArgs();
     }
 }

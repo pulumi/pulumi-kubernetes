@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     /// </summary>
-    public class ResourceQuotaSpecArgs : Pulumi.ResourceArgs
+    public class ResourceQuotaSpecArgs : global::Pulumi.ResourceArgs
     {
         [Input("hard")]
         private InputMap<string>? _hard;
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ResourceQuotaSpecArgs()
         {
         }
+        public static new ResourceQuotaSpecArgs Empty => new ResourceQuotaSpecArgs();
     }
 }

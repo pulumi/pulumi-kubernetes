@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ContainerStateTerminated is a terminated state of a container.
     /// </summary>
-    public class ContainerStateTerminatedArgs : Pulumi.ResourceArgs
+    public class ContainerStateTerminatedArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Container's ID in the format '&lt;type&gt;://&lt;container_id&gt;'
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerStateTerminatedArgs()
         {
         }
+        public static new ContainerStateTerminatedArgs Empty => new ContainerStateTerminatedArgs();
     }
 }

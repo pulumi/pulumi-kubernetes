@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
     /// <summary>
     /// IngressTLS describes the transport layer security associated with an Ingress.
     /// </summary>
-    public class IngressTLSPatchArgs : Pulumi.ResourceArgs
+    public class IngressTLSPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("hosts")]
         private InputList<string>? _hosts;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1Beta1
         public IngressTLSPatchArgs()
         {
         }
+        public static new IngressTLSPatchArgs Empty => new IngressTLSPatchArgs();
     }
 }

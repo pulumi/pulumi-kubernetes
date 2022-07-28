@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
     /// </summary>
-    public class PodSecurityContextPatchArgs : Pulumi.ResourceArgs
+    public class PodSecurityContextPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// A special supplemental group that applies to all containers in a pod. Some volume types allow the Kubelet to change the ownership of that volume to be owned by the pod:
@@ -94,5 +94,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodSecurityContextPatchArgs()
         {
         }
+        public static new PodSecurityContextPatchArgs Empty => new PodSecurityContextPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
     /// <summary>
     /// CertificateSigningRequestStatus contains conditions used to indicate approved/denied/failed status of the request, and the issued certificate.
     /// </summary>
-    public class CertificateSigningRequestStatusArgs : Pulumi.ResourceArgs
+    public class CertificateSigningRequestStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// certificate is populated with an issued certificate by the signer after an Approved condition is present. This field is set via the /status subresource. Once populated, this field is immutable.
@@ -57,5 +57,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1
         public CertificateSigningRequestStatusArgs()
         {
         }
+        public static new CertificateSigningRequestStatusArgs Empty => new CertificateSigningRequestStatusArgs();
     }
 }

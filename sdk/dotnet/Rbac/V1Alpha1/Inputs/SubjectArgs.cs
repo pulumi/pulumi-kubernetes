@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
     /// <summary>
     /// Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
     /// </summary>
-    public class SubjectArgs : Pulumi.ResourceArgs
+    public class SubjectArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion holds the API group and version of the referenced subject. Defaults to "v1" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io/v1alpha1" for User and Group subjects.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
         public SubjectArgs()
         {
         }
+        public static new SubjectArgs Empty => new SubjectArgs();
     }
 }

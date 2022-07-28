@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
     /// <summary>
     /// ReplicaSetStatus represents the current status of a ReplicaSet.
     /// </summary>
-    public class ReplicaSetStatusArgs : Pulumi.ResourceArgs
+    public class ReplicaSetStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The number of available replicas (ready for at least minReadySeconds) for this replica set.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
         public ReplicaSetStatusArgs()
         {
         }
+        public static new ReplicaSetStatusArgs Empty => new ReplicaSetStatusArgs();
     }
 }

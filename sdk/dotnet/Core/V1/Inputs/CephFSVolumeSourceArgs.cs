@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.
     /// </summary>
-    public class CephFSVolumeSourceArgs : Pulumi.ResourceArgs
+    public class CephFSVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         [Input("monitors", required: true)]
         private InputList<string>? _monitors;
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public CephFSVolumeSourceArgs()
         {
         }
+        public static new CephFSVolumeSourceArgs Empty => new CephFSVolumeSourceArgs();
     }
 }

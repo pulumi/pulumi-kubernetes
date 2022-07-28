@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// HTTPHeader describes a custom header to be used in HTTP probes
     /// </summary>
-    public class HTTPHeaderArgs : Pulumi.ResourceArgs
+    public class HTTPHeaderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The header field name
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public HTTPHeaderArgs()
         {
         }
+        public static new HTTPHeaderArgs Empty => new HTTPHeaderArgs();
     }
 }

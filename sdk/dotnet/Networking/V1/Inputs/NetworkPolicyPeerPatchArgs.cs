@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
     /// </summary>
-    public class NetworkPolicyPeerPatchArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyPeerPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
@@ -40,5 +40,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public NetworkPolicyPeerPatchArgs()
         {
         }
+        public static new NetworkPolicyPeerPatchArgs Empty => new NetworkPolicyPeerPatchArgs();
     }
 }

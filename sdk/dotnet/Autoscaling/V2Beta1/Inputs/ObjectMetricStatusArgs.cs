@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
     /// <summary>
     /// ObjectMetricStatus indicates the current value of a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
     /// </summary>
-    public class ObjectMetricStatusArgs : Pulumi.ResourceArgs
+    public class ObjectMetricStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public ObjectMetricStatusArgs()
         {
         }
+        public static new ObjectMetricStatusArgs Empty => new ObjectMetricStatusArgs();
     }
 }

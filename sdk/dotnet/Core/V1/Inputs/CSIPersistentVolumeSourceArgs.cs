@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents storage that is managed by an external CSI volume driver (Beta feature)
     /// </summary>
-    public class CSIPersistentVolumeSourceArgs : Pulumi.ResourceArgs
+    public class CSIPersistentVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public CSIPersistentVolumeSourceArgs()
         {
         }
+        public static new CSIPersistentVolumeSourceArgs Empty => new CSIPersistentVolumeSourceArgs();
     }
 }

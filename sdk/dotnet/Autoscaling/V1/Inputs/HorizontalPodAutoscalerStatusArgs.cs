@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
     /// <summary>
     /// current status of a horizontal pod autoscaler
     /// </summary>
-    public class HorizontalPodAutoscalerStatusArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         public HorizontalPodAutoscalerStatusArgs()
         {
         }
+        public static new HorizontalPodAutoscalerStatusArgs Empty => new HorizontalPodAutoscalerStatusArgs();
     }
 }

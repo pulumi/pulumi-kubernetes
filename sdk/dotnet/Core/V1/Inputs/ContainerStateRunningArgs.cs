@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ContainerStateRunning is a running state of a container.
     /// </summary>
-    public class ContainerStateRunningArgs : Pulumi.ResourceArgs
+    public class ContainerStateRunningArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Time at which the container was last (re-)started
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerStateRunningArgs()
         {
         }
+        public static new ContainerStateRunningArgs Empty => new ContainerStateRunningArgs();
     }
 }

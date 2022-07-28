@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// GroupSubject holds detailed information for group-kind subject.
     /// </summary>
-    public class GroupSubjectPatchArgs : Pulumi.ResourceArgs
+    public class GroupSubjectPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public GroupSubjectPatchArgs()
         {
         }
+        public static new GroupSubjectPatchArgs Empty => new GroupSubjectPatchArgs();
     }
 }

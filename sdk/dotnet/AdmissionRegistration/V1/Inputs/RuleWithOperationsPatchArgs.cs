@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
     /// <summary>
     /// RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
     /// </summary>
-    public class RuleWithOperationsPatchArgs : Pulumi.ResourceArgs
+    public class RuleWithOperationsPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("apiGroups")]
         private InputList<string>? _apiGroups;
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public RuleWithOperationsPatchArgs()
         {
         }
+        public static new RuleWithOperationsPatchArgs Empty => new RuleWithOperationsPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.
     /// </summary>
-    public class HostPathVolumeSourceArgs : Pulumi.ResourceArgs
+    public class HostPathVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// path of the directory on the host. If the path is a symlink, it will follow the link to the real path. More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public HostPathVolumeSourceArgs()
         {
         }
+        public static new HostPathVolumeSourceArgs Empty => new HostPathVolumeSourceArgs();
     }
 }

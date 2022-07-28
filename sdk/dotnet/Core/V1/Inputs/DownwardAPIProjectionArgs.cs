@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents downward API info for projecting into a projected volume. Note that this is identical to a downwardAPI volume source without the default mode.
     /// </summary>
-    public class DownwardAPIProjectionArgs : Pulumi.ResourceArgs
+    public class DownwardAPIProjectionArgs : global::Pulumi.ResourceArgs
     {
         [Input("items")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.DownwardAPIVolumeFileArgs>? _items;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public DownwardAPIProjectionArgs()
         {
         }
+        public static new DownwardAPIProjectionArgs Empty => new DownwardAPIProjectionArgs();
     }
 }

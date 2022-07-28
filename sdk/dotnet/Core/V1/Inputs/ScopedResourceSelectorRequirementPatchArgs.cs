@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A scoped-resource selector requirement is a selector that contains values, a scope name, and an operator that relates the scope name and values.
     /// </summary>
-    public class ScopedResourceSelectorRequirementPatchArgs : Pulumi.ResourceArgs
+    public class ScopedResourceSelectorRequirementPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ScopedResourceSelectorRequirementPatchArgs()
         {
         }
+        public static new ScopedResourceSelectorRequirementPatchArgs Empty => new ScopedResourceSelectorRequirementPatchArgs();
     }
 }

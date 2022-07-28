@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.
     /// </summary>
-    public class ISCSIPersistentVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class ISCSIPersistentVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
@@ -90,5 +90,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ISCSIPersistentVolumeSourcePatchArgs()
         {
         }
+        public static new ISCSIPersistentVolumeSourcePatchArgs Empty => new ISCSIPersistentVolumeSourcePatchArgs();
     }
 }

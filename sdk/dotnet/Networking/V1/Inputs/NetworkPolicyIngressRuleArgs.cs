@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
     /// </summary>
-    public class NetworkPolicyIngressRuleArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyIngressRuleArgs : global::Pulumi.ResourceArgs
     {
         [Input("from")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.NetworkPolicyPeerArgs>? _from;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public NetworkPolicyIngressRuleArgs()
         {
         }
+        public static new NetworkPolicyIngressRuleArgs Empty => new NetworkPolicyIngressRuleArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
     /// <summary>
     /// JobStatus represents the current state of a Job.
     /// </summary>
-    public class JobStatusArgs : Pulumi.ResourceArgs
+    public class JobStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The number of pending and running pods.
@@ -85,5 +85,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public JobStatusArgs()
         {
         }
+        public static new JobStatusArgs Empty => new JobStatusArgs();
     }
 }

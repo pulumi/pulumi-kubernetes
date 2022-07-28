@@ -130,7 +130,7 @@ namespace Pulumi.Kubernetes.Core.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
-    public class SecretArgs : Pulumi.ResourceArgs
+    public class SecretArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -197,5 +197,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecretArgs()
         {
         }
+        public static new SecretArgs Empty => new SecretArgs();
     }
 }

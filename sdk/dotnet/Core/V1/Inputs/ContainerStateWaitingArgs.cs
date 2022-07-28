@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ContainerStateWaiting is a waiting state of a container.
     /// </summary>
-    public class ContainerStateWaitingArgs : Pulumi.ResourceArgs
+    public class ContainerStateWaitingArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Message regarding why the container is not yet running.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerStateWaitingArgs()
         {
         }
+        public static new ContainerStateWaitingArgs Empty => new ContainerStateWaitingArgs();
     }
 }

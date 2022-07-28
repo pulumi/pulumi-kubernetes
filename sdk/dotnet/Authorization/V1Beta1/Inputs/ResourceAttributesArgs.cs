@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
     /// <summary>
     /// ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
     /// </summary>
-    public class ResourceAttributesArgs : Pulumi.ResourceArgs
+    public class ResourceAttributesArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Group is the API Group of the Resource.  "*" means all.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1Beta1
         public ResourceAttributesArgs()
         {
         }
+        public static new ResourceAttributesArgs Empty => new ResourceAttributesArgs();
     }
 }

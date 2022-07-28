@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodTemplateSpec describes the data a pod should have when created from a template
     /// </summary>
-    public class PodTemplateSpecArgs : Pulumi.ResourceArgs
+    public class PodTemplateSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodTemplateSpecArgs()
         {
         }
+        public static new PodTemplateSpecArgs Empty => new PodTemplateSpecArgs();
     }
 }

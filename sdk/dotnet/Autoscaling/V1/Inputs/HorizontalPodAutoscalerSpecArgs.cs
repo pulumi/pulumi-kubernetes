@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
     /// <summary>
     /// specification of a horizontal pod autoscaler.
     /// </summary>
-    public class HorizontalPodAutoscalerSpecArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         public HorizontalPodAutoscalerSpecArgs()
         {
         }
+        public static new HorizontalPodAutoscalerSpecArgs Empty => new HorizontalPodAutoscalerSpecArgs();
     }
 }

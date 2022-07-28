@@ -160,8 +160,8 @@ namespace Pulumi.Kubernetes.Events.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:core/v1:EventPatch"},
-                    new Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1beta1:EventPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:core/v1:EventPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1beta1:EventPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -186,7 +186,7 @@ namespace Pulumi.Kubernetes.Events.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Events.V1
 {
 
-    public class EventPatchArgs : Pulumi.ResourceArgs
+    public class EventPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
@@ -293,5 +293,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1
         public EventPatchArgs()
         {
         }
+        public static new EventPatchArgs Empty => new EventPatchArgs();
     }
 }

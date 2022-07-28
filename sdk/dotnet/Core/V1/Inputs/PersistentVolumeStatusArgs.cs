@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PersistentVolumeStatus is the current status of a persistent volume.
     /// </summary>
-    public class PersistentVolumeStatusArgs : Pulumi.ResourceArgs
+    public class PersistentVolumeStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// message is a human-readable message indicating details about why the volume is in this state.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PersistentVolumeStatusArgs()
         {
         }
+        public static new PersistentVolumeStatusArgs Empty => new PersistentVolumeStatusArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a vSphere volume resource.
     /// </summary>
-    public class VsphereVirtualDiskVolumeSourceArgs : Pulumi.ResourceArgs
+    public class VsphereVirtualDiskVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fsType is filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public VsphereVirtualDiskVolumeSourceArgs()
         {
         }
+        public static new VsphereVirtualDiskVolumeSourceArgs Empty => new VsphereVirtualDiskVolumeSourceArgs();
     }
 }

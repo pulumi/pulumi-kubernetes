@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Projection that may be projected along with other supported volume types
     /// </summary>
-    public class VolumeProjectionArgs : Pulumi.ResourceArgs
+    public class VolumeProjectionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// configMap information about the configMap data to project
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public VolumeProjectionArgs()
         {
         }
+        public static new VolumeProjectionArgs Empty => new VolumeProjectionArgs();
     }
 }

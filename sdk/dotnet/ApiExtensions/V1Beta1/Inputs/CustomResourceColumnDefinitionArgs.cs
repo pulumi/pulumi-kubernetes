@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceColumnDefinition specifies a column for server side printing.
     /// </summary>
-    public class CustomResourceColumnDefinitionArgs : Pulumi.ResourceArgs
+    public class CustomResourceColumnDefinitionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public CustomResourceColumnDefinitionArgs()
         {
         }
+        public static new CustomResourceColumnDefinitionArgs Empty => new CustomResourceColumnDefinitionArgs();
     }
 }

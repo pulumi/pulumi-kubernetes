@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ContainerStatus contains details for the current status of this container.
     /// </summary>
-    public class ContainerStatusArgs : Pulumi.ResourceArgs
+    public class ContainerStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Container's ID in the format '&lt;type&gt;://&lt;container_id&gt;'.
@@ -72,5 +72,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerStatusArgs()
         {
         }
+        public static new ContainerStatusArgs Empty => new ContainerStatusArgs();
     }
 }

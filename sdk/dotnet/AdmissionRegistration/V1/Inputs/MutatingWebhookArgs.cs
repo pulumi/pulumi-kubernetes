@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
     /// <summary>
     /// MutatingWebhook describes an admission webhook and the resources and operations it applies to.
     /// </summary>
-    public class MutatingWebhookArgs : Pulumi.ResourceArgs
+    public class MutatingWebhookArgs : global::Pulumi.ResourceArgs
     {
         [Input("admissionReviewVersions", required: true)]
         private InputList<string>? _admissionReviewVersions;
@@ -138,5 +138,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1
         public MutatingWebhookArgs()
         {
         }
+        public static new MutatingWebhookArgs Empty => new MutatingWebhookArgs();
     }
 }

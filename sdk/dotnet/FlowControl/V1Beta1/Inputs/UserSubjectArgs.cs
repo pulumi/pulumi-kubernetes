@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// UserSubject holds detailed information for user-kind subject.
     /// </summary>
-    public class UserSubjectArgs : Pulumi.ResourceArgs
+    public class UserSubjectArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `name` is the username that matches, or "*" to match all usernames. Required.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public UserSubjectArgs()
         {
         }
+        public static new UserSubjectArgs Empty => new UserSubjectArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodDNSConfigOption defines DNS resolver options of a pod.
     /// </summary>
-    public class PodDNSConfigOptionPatchArgs : Pulumi.ResourceArgs
+    public class PodDNSConfigOptionPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Required.
@@ -27,5 +27,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodDNSConfigOptionPatchArgs()
         {
         }
+        public static new PodDNSConfigOptionPatchArgs Empty => new PodDNSConfigOptionPatchArgs();
     }
 }

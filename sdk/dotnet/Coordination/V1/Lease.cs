@@ -76,7 +76,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1beta1:Lease"},
+                    new global::Pulumi.Alias { Type = "kubernetes:coordination.k8s.io/v1beta1:Lease"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -101,7 +101,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
 {
 
-    public class LeaseArgs : Pulumi.ResourceArgs
+    public class LeaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -130,5 +130,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public LeaseArgs()
         {
         }
+        public static new LeaseArgs Empty => new LeaseArgs();
     }
 }

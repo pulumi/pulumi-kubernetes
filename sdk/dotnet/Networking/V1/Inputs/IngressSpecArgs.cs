@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// IngressSpec describes the Ingress the user wishes to exist.
     /// </summary>
-    public class IngressSpecArgs : Pulumi.ResourceArgs
+    public class IngressSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public IngressSpecArgs()
         {
         }
+        public static new IngressSpecArgs Empty => new IngressSpecArgs();
     }
 }

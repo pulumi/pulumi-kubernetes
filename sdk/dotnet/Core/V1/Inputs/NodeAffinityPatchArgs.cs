@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Node affinity is a group of node affinity scheduling rules.
     /// </summary>
-    public class NodeAffinityPatchArgs : Pulumi.ResourceArgs
+    public class NodeAffinityPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("preferredDuringSchedulingIgnoredDuringExecution")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PreferredSchedulingTermPatchArgs>? _preferredDuringSchedulingIgnoredDuringExecution;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeAffinityPatchArgs()
         {
         }
+        public static new NodeAffinityPatchArgs Empty => new NodeAffinityPatchArgs();
     }
 }

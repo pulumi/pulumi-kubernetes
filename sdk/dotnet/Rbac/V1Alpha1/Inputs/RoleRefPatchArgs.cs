@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
     /// <summary>
     /// RoleRef contains information that points to the role being used
     /// </summary>
-    public class RoleRefPatchArgs : Pulumi.ResourceArgs
+    public class RoleRefPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIGroup is the group for the resource being referenced
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Alpha1
         public RoleRefPatchArgs()
         {
         }
+        public static new RoleRefPatchArgs Empty => new RoleRefPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// The pod this Toleration is attached to tolerates any taint that matches the triple &lt;key,value,effect&gt; using the matching operator &lt;operator&gt;.
     /// </summary>
-    public class TolerationArgs : Pulumi.ResourceArgs
+    public class TolerationArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public TolerationArgs()
         {
         }
+        public static new TolerationArgs Empty => new TolerationArgs();
     }
 }

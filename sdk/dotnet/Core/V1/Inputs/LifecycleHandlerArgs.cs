@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.
     /// </summary>
-    public class LifecycleHandlerArgs : Pulumi.ResourceArgs
+    public class LifecycleHandlerArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Exec specifies the action to take.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LifecycleHandlerArgs()
         {
         }
+        public static new LifecycleHandlerArgs Empty => new LifecycleHandlerArgs();
     }
 }

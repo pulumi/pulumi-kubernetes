@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// <summary>
     /// MetricIdentifier defines the name and optionally selector for a metric
     /// </summary>
-    public class MetricIdentifierArgs : Pulumi.ResourceArgs
+    public class MetricIdentifierArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// name is the name of the given metric
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
         public MetricIdentifierArgs()
         {
         }
+        public static new MetricIdentifierArgs Empty => new MetricIdentifierArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyEgressRule is deprecated by networking/v1/NetworkPolicyEgressRule. NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     /// </summary>
-    public class NetworkPolicyEgressRuleArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyEgressRuleArgs : global::Pulumi.ResourceArgs
     {
         [Input("ports")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1.NetworkPolicyPortArgs>? _ports;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public NetworkPolicyEgressRuleArgs()
         {
         }
+        public static new NetworkPolicyEgressRuleArgs Empty => new NetworkPolicyEgressRuleArgs();
     }
 }

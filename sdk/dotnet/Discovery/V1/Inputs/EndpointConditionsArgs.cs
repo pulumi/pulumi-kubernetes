@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
     /// <summary>
     /// EndpointConditions represents the current condition of an endpoint.
     /// </summary>
-    public class EndpointConditionsArgs : Pulumi.ResourceArgs
+    public class EndpointConditionsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         public EndpointConditionsArgs()
         {
         }
+        public static new EndpointConditionsArgs Empty => new EndpointConditionsArgs();
     }
 }

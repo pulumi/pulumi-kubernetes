@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// FlowSchemaSpec describes how the FlowSchema's specification looks like.
     /// </summary>
-    public class FlowSchemaSpecPatchArgs : Pulumi.ResourceArgs
+    public class FlowSchemaSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public FlowSchemaSpecPatchArgs()
         {
         }
+        public static new FlowSchemaSpecPatchArgs Empty => new FlowSchemaSpecPatchArgs();
     }
 }

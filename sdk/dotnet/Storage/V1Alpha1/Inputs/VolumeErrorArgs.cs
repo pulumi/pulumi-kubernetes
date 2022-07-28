@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Alpha1
     /// <summary>
     /// VolumeError captures an error encountered during a volume operation.
     /// </summary>
-    public class VolumeErrorArgs : Pulumi.ResourceArgs
+    public class VolumeErrorArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Alpha1
         public VolumeErrorArgs()
         {
         }
+        public static new VolumeErrorArgs Empty => new VolumeErrorArgs();
     }
 }

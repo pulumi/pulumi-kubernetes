@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
-    public class StatefulSetStatusArgs : Pulumi.ResourceArgs
+    public class StatefulSetStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
@@ -84,5 +84,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public StatefulSetStatusArgs()
         {
         }
+        public static new StatefulSetStatusArgs Empty => new StatefulSetStatusArgs();
     }
 }

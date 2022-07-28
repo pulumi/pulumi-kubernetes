@@ -339,8 +339,8 @@ namespace Pulumi.Kubernetes.Apps.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:apps/v1beta1:StatefulSet"},
-                    new Pulumi.Alias { Type = "kubernetes:apps/v1beta2:StatefulSet"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1beta1:StatefulSet"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apps/v1beta2:StatefulSet"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -365,7 +365,7 @@ namespace Pulumi.Kubernetes.Apps.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
 {
 
-    public class StatefulSetArgs : Pulumi.ResourceArgs
+    public class StatefulSetArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -394,5 +394,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public StatefulSetArgs()
         {
         }
+        public static new StatefulSetArgs Empty => new StatefulSetArgs();
     }
 }

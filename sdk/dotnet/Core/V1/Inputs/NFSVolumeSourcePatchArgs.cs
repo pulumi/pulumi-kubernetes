@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents an NFS mount that lasts the lifetime of a pod. NFS volumes do not support ownership management or SELinux relabeling.
     /// </summary>
-    public class NFSVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class NFSVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// path that is exported by the NFS server. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NFSVolumeSourcePatchArgs()
         {
         }
+        public static new NFSVolumeSourcePatchArgs Empty => new NFSVolumeSourcePatchArgs();
     }
 }

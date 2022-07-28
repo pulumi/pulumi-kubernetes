@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
     /// <summary>
     /// PodsMetricSource indicates how to scale on a metric describing each pod in the current scale target (for example, transactions-processed-per-second). The values will be averaged together before being compared to the target value.
     /// </summary>
-    public class PodsMetricSourcePatchArgs : Pulumi.ResourceArgs
+    public class PodsMetricSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// metricName is the name of the metric in question
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta1
         public PodsMetricSourcePatchArgs()
         {
         }
+        public static new PodsMetricSourcePatchArgs Empty => new PodsMetricSourcePatchArgs();
     }
 }

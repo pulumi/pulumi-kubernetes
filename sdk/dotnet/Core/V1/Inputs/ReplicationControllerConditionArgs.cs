@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ReplicationControllerCondition describes the state of a replication controller at a certain point.
     /// </summary>
-    public class ReplicationControllerConditionArgs : Pulumi.ResourceArgs
+    public class ReplicationControllerConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ReplicationControllerConditionArgs()
         {
         }
+        public static new ReplicationControllerConditionArgs Empty => new ReplicationControllerConditionArgs();
     }
 }

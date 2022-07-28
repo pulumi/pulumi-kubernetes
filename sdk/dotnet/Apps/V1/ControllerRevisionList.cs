@@ -97,7 +97,7 @@ namespace Pulumi.Kubernetes.Apps.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
 {
 
-    public class ControllerRevisionListArgs : Pulumi.ResourceArgs
+    public class ControllerRevisionListArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -132,5 +132,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public ControllerRevisionListArgs()
         {
         }
+        public static new ControllerRevisionListArgs Empty => new ControllerRevisionListArgs();
     }
 }

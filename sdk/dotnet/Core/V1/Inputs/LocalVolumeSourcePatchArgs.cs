@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Local represents directly-attached storage with node affinity (Beta feature)
     /// </summary>
-    public class LocalVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class LocalVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LocalVolumeSourcePatchArgs()
         {
         }
+        public static new LocalVolumeSourcePatchArgs Empty => new LocalVolumeSourcePatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// DownwardAPIVolumeFile represents information to create the file containing the pod field
     /// </summary>
-    public class DownwardAPIVolumeFilePatchArgs : Pulumi.ResourceArgs
+    public class DownwardAPIVolumeFilePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Required: Selects a field of the pod: only annotations, labels, name and namespace are supported.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public DownwardAPIVolumeFilePatchArgs()
         {
         }
+        public static new DownwardAPIVolumeFilePatchArgs Empty => new DownwardAPIVolumeFilePatchArgs();
     }
 }

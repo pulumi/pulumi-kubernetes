@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
     /// <summary>
     /// FSGroupStrategyOptions defines the strategy type and options used to create the strategy.
     /// </summary>
-    public class FSGroupStrategyOptionsArgs : Pulumi.ResourceArgs
+    public class FSGroupStrategyOptionsArgs : global::Pulumi.ResourceArgs
     {
         [Input("ranges")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.IDRangeArgs>? _ranges;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         public FSGroupStrategyOptionsArgs()
         {
         }
+        public static new FSGroupStrategyOptionsArgs Empty => new FSGroupStrategyOptionsArgs();
     }
 }

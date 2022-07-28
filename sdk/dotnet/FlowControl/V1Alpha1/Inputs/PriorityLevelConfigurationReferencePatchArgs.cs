@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
     /// </summary>
-    public class PriorityLevelConfigurationReferencePatchArgs : Pulumi.ResourceArgs
+    public class PriorityLevelConfigurationReferencePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `name` is the name of the priority level configuration being referenced Required.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public PriorityLevelConfigurationReferencePatchArgs()
         {
         }
+        public static new PriorityLevelConfigurationReferencePatchArgs Empty => new PriorityLevelConfigurationReferencePatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodCondition contains details for the current condition of this pod.
     /// </summary>
-    public class PodConditionArgs : Pulumi.ResourceArgs
+    public class PodConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time we probed the condition.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodConditionArgs()
         {
         }
+        public static new PodConditionArgs Empty => new PodConditionArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// AllowedHostPath defines the host volume conditions that will be enabled by a policy for pods to use. It requires the path prefix to be defined. Deprecated: use AllowedHostPath from policy API Group instead.
     /// </summary>
-    public class AllowedHostPathPatchArgs : Pulumi.ResourceArgs
+    public class AllowedHostPathPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// pathPrefix is the path prefix that the host volume must match. It does not support `*`. Trailing slashes are trimmed when validating the path prefix with a host path.
@@ -32,5 +32,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public AllowedHostPathPatchArgs()
         {
         }
+        public static new AllowedHostPathPatchArgs Empty => new AllowedHostPathPatchArgs();
     }
 }

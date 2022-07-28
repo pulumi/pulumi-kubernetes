@@ -154,8 +154,8 @@ namespace Pulumi.Kubernetes.Core.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1:Event"},
-                    new Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1beta1:Event"},
+                    new global::Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1:Event"},
+                    new global::Pulumi.Alias { Type = "kubernetes:events.k8s.io/v1beta1:Event"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -180,7 +180,7 @@ namespace Pulumi.Kubernetes.Core.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
-    public class EventArgs : Pulumi.ResourceArgs
+    public class EventArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// What action was taken/failed regarding to the Regarding object.
@@ -287,5 +287,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EventArgs()
         {
         }
+        public static new EventArgs Empty => new EventArgs();
     }
 }

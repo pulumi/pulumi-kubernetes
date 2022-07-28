@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     /// <summary>
     /// TokenRequest contains parameters of a service account token.
     /// </summary>
-    public class TokenRequestPatchArgs : Pulumi.ResourceArgs
+    public class TokenRequestPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public TokenRequestPatchArgs()
         {
         }
+        public static new TokenRequestPatchArgs Empty => new TokenRequestPatchArgs();
     }
 }

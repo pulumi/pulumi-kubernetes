@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
     /// <summary>
     /// Options for tuning the Kubernetes client used by a Provider.
     /// </summary>
-    public class KubeClientSettingsArgs : Pulumi.ResourceArgs
+    public class KubeClientSettingsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Maximum burst for throttle. Default value is 10.
@@ -32,5 +32,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
             Burst = Utilities.GetEnvInt32("PULUMI_K8S_CLIENT_BURST");
             Qps = Utilities.GetEnvDouble("PULUMI_K8S_CLIENT_QPS");
         }
+        public static new KubeClientSettingsArgs Empty => new KubeClientSettingsArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DaemonSetCondition describes the state of a DaemonSet at a certain point.
     /// </summary>
-    public class DaemonSetConditionArgs : Pulumi.ResourceArgs
+    public class DaemonSetConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public DaemonSetConditionArgs()
         {
         }
+        public static new DaemonSetConditionArgs Empty => new DaemonSetConditionArgs();
     }
 }

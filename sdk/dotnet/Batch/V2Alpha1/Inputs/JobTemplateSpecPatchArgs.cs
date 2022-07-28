@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
     /// <summary>
     /// JobTemplateSpec describes the data a Job should have when created from a template
     /// </summary>
-    public class JobTemplateSpecPatchArgs : Pulumi.ResourceArgs
+    public class JobTemplateSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
         public JobTemplateSpecPatchArgs()
         {
         }
+        public static new JobTemplateSpecPatchArgs Empty => new JobTemplateSpecPatchArgs();
     }
 }

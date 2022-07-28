@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ResourceFieldSelector represents container resources (cpu, memory) and their output format
     /// </summary>
-    public class ResourceFieldSelectorArgs : Pulumi.ResourceArgs
+    public class ResourceFieldSelectorArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Container name: required for volumes, optional for env vars
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ResourceFieldSelectorArgs()
         {
         }
+        public static new ResourceFieldSelectorArgs Empty => new ResourceFieldSelectorArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
     /// <summary>
     /// AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
     /// </summary>
-    public class AggregationRuleArgs : Pulumi.ResourceArgs
+    public class AggregationRuleArgs : global::Pulumi.ResourceArgs
     {
         [Input("clusterRoleSelectors")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs>? _clusterRoleSelectors;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
         public AggregationRuleArgs()
         {
         }
+        public static new AggregationRuleArgs Empty => new AggregationRuleArgs();
     }
 }

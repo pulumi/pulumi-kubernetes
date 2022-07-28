@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
     /// </summary>
-    public class NetworkPolicyEgressRulePatchArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyEgressRulePatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("ports")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.NetworkPolicyPortPatchArgs>? _ports;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public NetworkPolicyEgressRulePatchArgs()
         {
         }
+        public static new NetworkPolicyEgressRulePatchArgs Empty => new NetworkPolicyEgressRulePatchArgs();
     }
 }

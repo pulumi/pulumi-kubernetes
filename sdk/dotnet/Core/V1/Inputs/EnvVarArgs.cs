@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// EnvVar represents an environment variable present in a Container.
     /// </summary>
-    public class EnvVarArgs : Pulumi.ResourceArgs
+    public class EnvVarArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name of the environment variable. Must be a C_IDENTIFIER.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EnvVarArgs()
         {
         }
+        public static new EnvVarArgs Empty => new EnvVarArgs();
     }
 }

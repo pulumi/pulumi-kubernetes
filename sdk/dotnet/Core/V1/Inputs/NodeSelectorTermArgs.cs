@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.
     /// </summary>
-    public class NodeSelectorTermArgs : Pulumi.ResourceArgs
+    public class NodeSelectorTermArgs : global::Pulumi.ResourceArgs
     {
         [Input("matchExpressions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSelectorRequirementArgs>? _matchExpressions;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeSelectorTermArgs()
         {
         }
+        public static new NodeSelectorTermArgs Empty => new NodeSelectorTermArgs();
     }
 }

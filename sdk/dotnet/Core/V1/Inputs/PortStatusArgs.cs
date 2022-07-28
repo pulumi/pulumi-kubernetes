@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
-    public class PortStatusArgs : Pulumi.ResourceArgs
+    public class PortStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PortStatusArgs()
         {
         }
+        public static new PortStatusArgs Empty => new PortStatusArgs();
     }
 }

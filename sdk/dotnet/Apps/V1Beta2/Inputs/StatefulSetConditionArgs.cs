@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
     /// <summary>
     /// StatefulSetCondition describes the state of a statefulset at a certain point.
     /// </summary>
-    public class StatefulSetConditionArgs : Pulumi.ResourceArgs
+    public class StatefulSetConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
         public StatefulSetConditionArgs()
         {
         }
+        public static new StatefulSetConditionArgs Empty => new StatefulSetConditionArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.
     /// </summary>
-    public class NodeSelectorPatchArgs : Pulumi.ResourceArgs
+    public class NodeSelectorPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("nodeSelectorTerms")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeSelectorTermPatchArgs>? _nodeSelectorTerms;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeSelectorPatchArgs()
         {
         }
+        public static new NodeSelectorPatchArgs Empty => new NodeSelectorPatchArgs();
     }
 }

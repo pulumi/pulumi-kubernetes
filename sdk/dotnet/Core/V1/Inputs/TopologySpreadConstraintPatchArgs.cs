@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// TopologySpreadConstraint specifies how to spread matching pods among the given topology.
     /// </summary>
-    public class TopologySpreadConstraintPatchArgs : Pulumi.ResourceArgs
+    public class TopologySpreadConstraintPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
@@ -55,5 +55,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public TopologySpreadConstraintPatchArgs()
         {
         }
+        public static new TopologySpreadConstraintPatchArgs Empty => new TopologySpreadConstraintPatchArgs();
     }
 }

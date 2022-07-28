@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Selects a key from a ConfigMap.
     /// </summary>
-    public class ConfigMapKeySelectorPatchArgs : Pulumi.ResourceArgs
+    public class ConfigMapKeySelectorPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The key to select.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ConfigMapKeySelectorPatchArgs()
         {
         }
+        public static new ConfigMapKeySelectorPatchArgs Empty => new ConfigMapKeySelectorPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ObjectFieldSelector selects an APIVersioned field of an object.
     /// </summary>
-    public class ObjectFieldSelectorPatchArgs : Pulumi.ResourceArgs
+    public class ObjectFieldSelectorPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Version of the schema the FieldPath is written in terms of, defaults to "v1".
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ObjectFieldSelectorPatchArgs()
         {
         }
+        public static new ObjectFieldSelectorPatchArgs Empty => new ObjectFieldSelectorPatchArgs();
     }
 }

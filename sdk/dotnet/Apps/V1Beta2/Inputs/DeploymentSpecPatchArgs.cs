@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
     /// <summary>
     /// DeploymentSpec is the specification of the desired behavior of the Deployment.
     /// </summary>
-    public class DeploymentSpecPatchArgs : Pulumi.ResourceArgs
+    public class DeploymentSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
@@ -66,5 +66,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
         public DeploymentSpecPatchArgs()
         {
         }
+        public static new DeploymentSpecPatchArgs Empty => new DeploymentSpecPatchArgs();
     }
 }

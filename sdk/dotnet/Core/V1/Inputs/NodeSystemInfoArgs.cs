@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeSystemInfo is a set of ids/uuids to uniquely identify the node.
     /// </summary>
-    public class NodeSystemInfoArgs : Pulumi.ResourceArgs
+    public class NodeSystemInfoArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The Architecture reported by the node
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeSystemInfoArgs()
         {
         }
+        public static new NodeSystemInfoArgs Empty => new NodeSystemInfoArgs();
     }
 }

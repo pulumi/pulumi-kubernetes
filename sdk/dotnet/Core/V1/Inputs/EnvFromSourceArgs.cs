@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// EnvFromSource represents the source of a set of ConfigMaps
     /// </summary>
-    public class EnvFromSourceArgs : Pulumi.ResourceArgs
+    public class EnvFromSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The ConfigMap to select from
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public EnvFromSourceArgs()
         {
         }
+        public static new EnvFromSourceArgs Empty => new EnvFromSourceArgs();
     }
 }

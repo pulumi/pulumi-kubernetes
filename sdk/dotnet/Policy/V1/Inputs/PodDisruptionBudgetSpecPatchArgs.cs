@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
     /// <summary>
     /// PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
     /// </summary>
-    public class PodDisruptionBudgetSpecPatchArgs : Pulumi.ResourceArgs
+    public class PodDisruptionBudgetSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
         public PodDisruptionBudgetSpecPatchArgs()
         {
         }
+        public static new PodDisruptionBudgetSpecPatchArgs Empty => new PodDisruptionBudgetSpecPatchArgs();
     }
 }

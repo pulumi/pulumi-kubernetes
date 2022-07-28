@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
     /// <summary>
     /// SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
     /// </summary>
-    public class SelfSubjectRulesReviewSpecArgs : Pulumi.ResourceArgs
+    public class SelfSubjectRulesReviewSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Namespace to evaluate rules for. Required.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authorization.V1
         public SelfSubjectRulesReviewSpecArgs()
         {
         }
+        public static new SelfSubjectRulesReviewSpecArgs Empty => new SelfSubjectRulesReviewSpecArgs();
     }
 }

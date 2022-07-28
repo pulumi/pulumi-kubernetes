@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ScaleIOPersistentVolumeSource represents a persistent ScaleIO volume
     /// </summary>
-    public class ScaleIOPersistentVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class ScaleIOPersistentVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs"
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ScaleIOPersistentVolumeSourcePatchArgs()
         {
         }
+        public static new ScaleIOPersistentVolumeSourcePatchArgs Empty => new ScaleIOPersistentVolumeSourcePatchArgs();
     }
 }

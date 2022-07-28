@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// volumeDevice describes a mapping of a raw block device within a container.
     /// </summary>
-    public class VolumeDeviceArgs : Pulumi.ResourceArgs
+    public class VolumeDeviceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// devicePath is the path inside of the container that the device will be mapped to.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public VolumeDeviceArgs()
         {
         }
+        public static new VolumeDeviceArgs Empty => new VolumeDeviceArgs();
     }
 }

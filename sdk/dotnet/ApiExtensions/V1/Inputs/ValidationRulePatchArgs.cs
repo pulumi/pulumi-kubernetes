@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// ValidationRule describes a validation rule written in the CEL expression language.
     /// </summary>
-    public class ValidationRulePatchArgs : Pulumi.ResourceArgs
+    public class ValidationRulePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public ValidationRulePatchArgs()
         {
         }
+        public static new ValidationRulePatchArgs Empty => new ValidationRulePatchArgs();
     }
 }

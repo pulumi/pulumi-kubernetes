@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A single application container that you want to run within a pod.
     /// </summary>
-    public class ContainerArgs : Pulumi.ResourceArgs
+    public class ContainerArgs : global::Pulumi.ResourceArgs
     {
         [Input("args")]
         private InputList<string>? _args;
@@ -192,5 +192,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ContainerArgs()
         {
         }
+        public static new ContainerArgs Empty => new ContainerArgs();
     }
 }

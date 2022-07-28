@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
-    public class CustomResourceConversionArgs : Pulumi.ResourceArgs
+    public class CustomResourceConversionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
@@ -31,5 +31,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public CustomResourceConversionArgs()
         {
         }
+        public static new CustomResourceConversionArgs Empty => new CustomResourceConversionArgs();
     }
 }

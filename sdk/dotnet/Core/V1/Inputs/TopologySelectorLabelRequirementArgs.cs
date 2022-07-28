@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// A topology selector requirement is a selector that matches given label. This is an alpha feature and may change in the future.
     /// </summary>
-    public class TopologySelectorLabelRequirementArgs : Pulumi.ResourceArgs
+    public class TopologySelectorLabelRequirementArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The label key that the selector applies to.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public TopologySelectorLabelRequirementArgs()
         {
         }
+        public static new TopologySelectorLabelRequirementArgs Empty => new TopologySelectorLabelRequirementArgs();
     }
 }

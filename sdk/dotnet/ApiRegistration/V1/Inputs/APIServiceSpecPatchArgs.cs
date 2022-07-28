@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
     /// <summary>
     /// APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
     /// </summary>
-    public class APIServiceSpecPatchArgs : Pulumi.ResourceArgs
+    public class APIServiceSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
         public APIServiceSpecPatchArgs()
         {
         }
+        public static new APIServiceSpecPatchArgs Empty => new APIServiceSpecPatchArgs();
     }
 }

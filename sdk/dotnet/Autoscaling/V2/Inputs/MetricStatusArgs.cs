@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     /// <summary>
     /// MetricStatus describes the last-read state of a single metric.
     /// </summary>
-    public class MetricStatusArgs : Pulumi.ResourceArgs
+    public class MetricStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public MetricStatusArgs()
         {
         }
+        public static new MetricStatusArgs Empty => new MetricStatusArgs();
     }
 }

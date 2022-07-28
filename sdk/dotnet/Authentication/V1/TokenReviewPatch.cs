@@ -88,7 +88,7 @@ namespace Pulumi.Kubernetes.Authentication.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -113,7 +113,7 @@ namespace Pulumi.Kubernetes.Authentication.V1
 namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
 {
 
-    public class TokenReviewPatchArgs : Pulumi.ResourceArgs
+    public class TokenReviewPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -142,5 +142,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
         public TokenReviewPatchArgs()
         {
         }
+        public static new TokenReviewPatchArgs Empty => new TokenReviewPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeAddress contains information for the node's address.
     /// </summary>
-    public class NodeAddressArgs : Pulumi.ResourceArgs
+    public class NodeAddressArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The node address.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeAddressArgs()
         {
         }
+        public static new NodeAddressArgs Empty => new NodeAddressArgs();
     }
 }

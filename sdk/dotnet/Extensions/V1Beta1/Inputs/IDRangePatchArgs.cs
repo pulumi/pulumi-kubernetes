@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// IDRange provides a min/max of an allowed range of IDs. Deprecated: use IDRange from policy API Group instead.
     /// </summary>
-    public class IDRangePatchArgs : Pulumi.ResourceArgs
+    public class IDRangePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// max is the end of the range, inclusive.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public IDRangePatchArgs()
         {
         }
+        public static new IDRangePatchArgs Empty => new IDRangePatchArgs();
     }
 }

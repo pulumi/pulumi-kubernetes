@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1Beta1
     /// <summary>
     /// APIServiceCondition describes the state of an APIService at a particular point
     /// </summary>
-    public class APIServiceConditionArgs : Pulumi.ResourceArgs
+    public class APIServiceConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1Beta1
         public APIServiceConditionArgs()
         {
         }
+        public static new APIServiceConditionArgs Empty => new APIServiceConditionArgs();
     }
 }

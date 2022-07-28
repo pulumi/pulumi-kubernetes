@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
     /// </summary>
-    public class SubjectArgs : Pulumi.ResourceArgs
+    public class SubjectArgs : global::Pulumi.ResourceArgs
     {
         [Input("group")]
         public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1.GroupSubjectArgs>? Group { get; set; }
@@ -33,5 +33,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public SubjectArgs()
         {
         }
+        public static new SubjectArgs Empty => new SubjectArgs();
     }
 }

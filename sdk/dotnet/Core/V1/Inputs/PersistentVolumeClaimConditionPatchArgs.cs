@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PersistentVolumeClaimCondition contails details about state of pvc
     /// </summary>
-    public class PersistentVolumeClaimConditionPatchArgs : Pulumi.ResourceArgs
+    public class PersistentVolumeClaimConditionPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// lastProbeTime is the time we probed the condition.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PersistentVolumeClaimConditionPatchArgs()
         {
         }
+        public static new PersistentVolumeClaimConditionPatchArgs Empty => new PersistentVolumeClaimConditionPatchArgs();
     }
 }

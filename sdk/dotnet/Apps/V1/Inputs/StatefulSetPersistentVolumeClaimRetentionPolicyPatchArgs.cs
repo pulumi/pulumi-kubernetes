@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
     /// </summary>
-    public class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs : Pulumi.ResourceArgs
+    public class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// WhenDeleted specifies what happens to PVCs created from StatefulSet VolumeClaimTemplates when the StatefulSet is deleted. The default policy of `Retain` causes PVCs to not be affected by StatefulSet deletion. The `Delete` policy causes those PVCs to be deleted.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs()
         {
         }
+        public static new StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs Empty => new StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs();
     }
 }

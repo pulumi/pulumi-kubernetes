@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ExecAction describes a "run in container" action.
     /// </summary>
-    public class ExecActionArgs : Pulumi.ResourceArgs
+    public class ExecActionArgs : global::Pulumi.ResourceArgs
     {
         [Input("command")]
         private InputList<string>? _command;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ExecActionArgs()
         {
         }
+        public static new ExecActionArgs Empty => new ExecActionArgs();
     }
 }

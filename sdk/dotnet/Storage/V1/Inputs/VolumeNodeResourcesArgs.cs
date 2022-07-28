@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     /// <summary>
     /// VolumeNodeResources is a set of resource limits for scheduling of volumes.
     /// </summary>
-    public class VolumeNodeResourcesArgs : Pulumi.ResourceArgs
+    public class VolumeNodeResourcesArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public VolumeNodeResourcesArgs()
         {
         }
+        public static new VolumeNodeResourcesArgs Empty => new VolumeNodeResourcesArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
     /// <summary>
     /// Endpoint represents a single logical "backend" implementing a service.
     /// </summary>
-    public class EndpointPatchArgs : Pulumi.ResourceArgs
+    public class EndpointPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("addresses")]
         private InputList<string>? _addresses;
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         public EndpointPatchArgs()
         {
         }
+        public static new EndpointPatchArgs Empty => new EndpointPatchArgs();
     }
 }

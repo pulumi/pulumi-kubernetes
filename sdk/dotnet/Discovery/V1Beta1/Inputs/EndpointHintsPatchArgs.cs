@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
     /// <summary>
     /// EndpointHints provides hints describing how an endpoint should be consumed.
     /// </summary>
-    public class EndpointHintsPatchArgs : Pulumi.ResourceArgs
+    public class EndpointHintsPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("forZones")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1.ForZonePatchArgs>? _forZones;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
         public EndpointHintsPatchArgs()
         {
         }
+        public static new EndpointHintsPatchArgs Empty => new EndpointHintsPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// NodeSpec describes the attributes that a node is created with.
     /// </summary>
-    public class NodeSpecArgs : Pulumi.ResourceArgs
+    public class NodeSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
@@ -72,5 +72,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public NodeSpecArgs()
         {
         }
+        public static new NodeSpecArgs Empty => new NodeSpecArgs();
     }
 }

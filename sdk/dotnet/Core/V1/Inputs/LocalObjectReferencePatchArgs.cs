@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.
     /// </summary>
-    public class LocalObjectReferencePatchArgs : Pulumi.ResourceArgs
+    public class LocalObjectReferencePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LocalObjectReferencePatchArgs()
         {
         }
+        public static new LocalObjectReferencePatchArgs Empty => new LocalObjectReferencePatchArgs();
     }
 }

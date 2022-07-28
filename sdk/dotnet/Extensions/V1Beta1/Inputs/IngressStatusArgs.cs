@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// IngressStatus describe the current state of the Ingress.
     /// </summary>
-    public class IngressStatusArgs : Pulumi.ResourceArgs
+    public class IngressStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// LoadBalancer contains the current status of the load-balancer.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public IngressStatusArgs()
         {
         }
+        public static new IngressStatusArgs Empty => new IngressStatusArgs();
     }
 }

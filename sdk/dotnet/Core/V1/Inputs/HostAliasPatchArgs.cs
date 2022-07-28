@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.
     /// </summary>
-    public class HostAliasPatchArgs : Pulumi.ResourceArgs
+    public class HostAliasPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("hostnames")]
         private InputList<string>? _hostnames;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public HostAliasPatchArgs()
         {
         }
+        public static new HostAliasPatchArgs Empty => new HostAliasPatchArgs();
     }
 }

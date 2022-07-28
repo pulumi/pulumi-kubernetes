@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Maps a string key to a path within a volume.
     /// </summary>
-    public class KeyToPathArgs : Pulumi.ResourceArgs
+    public class KeyToPathArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// key is the key to project.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public KeyToPathArgs()
         {
         }
+        public static new KeyToPathArgs Empty => new KeyToPathArgs();
     }
 }

@@ -514,7 +514,7 @@ namespace Pulumi.Kubernetes.Helm.V3
 namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
 {
 
-    public class ReleaseArgs : Pulumi.ResourceArgs
+    public class ReleaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
@@ -744,5 +744,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         public ReleaseArgs()
         {
         }
+        public static new ReleaseArgs Empty => new ReleaseArgs();
     }
 }

@@ -10,7 +10,7 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
 {
 
-    public class CertificateSigningRequestStatusArgs : Pulumi.ResourceArgs
+    public class CertificateSigningRequestStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// If request was approved, the controller will place the issued certificate here.
@@ -33,5 +33,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Certificates.V1Beta1
         public CertificateSigningRequestStatusArgs()
         {
         }
+        public static new CertificateSigningRequestStatusArgs Empty => new CertificateSigningRequestStatusArgs();
     }
 }

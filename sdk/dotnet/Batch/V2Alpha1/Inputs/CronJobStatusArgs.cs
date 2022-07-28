@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
     /// <summary>
     /// CronJobStatus represents the current state of a cron job.
     /// </summary>
-    public class CronJobStatusArgs : Pulumi.ResourceArgs
+    public class CronJobStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("active")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectReferenceArgs>? _active;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V2Alpha1
         public CronJobStatusArgs()
         {
         }
+        public static new CronJobStatusArgs Empty => new CronJobStatusArgs();
     }
 }

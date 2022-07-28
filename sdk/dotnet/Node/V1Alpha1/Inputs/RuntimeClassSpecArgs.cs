@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
     /// <summary>
     /// RuntimeClassSpec is a specification of a RuntimeClass. It contains parameters that are required to describe the RuntimeClass to the Container Runtime Interface (CRI) implementation, as well as any other components that need to understand how the pod will be run. The RuntimeClassSpec is immutable.
     /// </summary>
-    public class RuntimeClassSpecArgs : Pulumi.ResourceArgs
+    public class RuntimeClassSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
         public RuntimeClassSpecArgs()
         {
         }
+        public static new RuntimeClassSpecArgs Empty => new RuntimeClassSpecArgs();
     }
 }

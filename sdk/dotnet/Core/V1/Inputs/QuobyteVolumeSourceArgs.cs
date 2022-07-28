@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a Quobyte mount that lasts the lifetime of a pod. Quobyte volumes do not support ownership management or SELinux relabeling.
     /// </summary>
-    public class QuobyteVolumeSourceArgs : Pulumi.ResourceArgs
+    public class QuobyteVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// group to map volume access to Default is no group
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public QuobyteVolumeSourceArgs()
         {
         }
+        public static new QuobyteVolumeSourceArgs Empty => new QuobyteVolumeSourceArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ClientIPConfig represents the configurations of Client IP based session affinity.
     /// </summary>
-    public class ClientIPConfigPatchArgs : Pulumi.ResourceArgs
+    public class ClientIPConfigPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// timeoutSeconds specifies the seconds of ClientIP type session sticky time. The value must be &gt;0 &amp;&amp; &lt;=86400(for 1 day) if ServiceAffinity == "ClientIP". Default value is 10800(for 3 hours).
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ClientIPConfigPatchArgs()
         {
         }
+        public static new ClientIPConfigPatchArgs Empty => new ClientIPConfigPatchArgs();
     }
 }

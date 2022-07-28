@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
     /// <summary>
     /// DEPRECATED.
     /// </summary>
-    public class RollbackConfigArgs : Pulumi.ResourceArgs
+    public class RollbackConfigArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The revision to rollback to. If set to 0, rollback to the last revision.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta1
         public RollbackConfigArgs()
         {
         }
+        public static new RollbackConfigArgs Empty => new RollbackConfigArgs();
     }
 }

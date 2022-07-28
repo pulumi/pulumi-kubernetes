@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes
     /// The provider type for the kubernetes package.
     /// </summary>
     [KubernetesResourceType("pulumi:providers:kubernetes")]
-    public partial class Provider : Pulumi.ProviderResource
+    public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
         /// Create a Provider resource with the given unique name, arguments, and options.
@@ -44,7 +44,7 @@ namespace Pulumi.Kubernetes
         }
     }
 
-    public sealed class ProviderArgs : Pulumi.ResourceArgs
+    public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// If present, the name of the kubeconfig cluster to use.
@@ -159,5 +159,6 @@ namespace Pulumi.Kubernetes
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
             SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");
         }
+        public static new ProviderArgs Empty => new ProviderArgs();
     }
 }

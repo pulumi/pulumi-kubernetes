@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ObjectReference contains enough information to let you inspect or modify the referred object.
     /// </summary>
-    public class ObjectReferenceArgs : Pulumi.ResourceArgs
+    public class ObjectReferenceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// API version of the referent.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ObjectReferenceArgs()
         {
         }
+        public static new ObjectReferenceArgs Empty => new ObjectReferenceArgs();
     }
 }

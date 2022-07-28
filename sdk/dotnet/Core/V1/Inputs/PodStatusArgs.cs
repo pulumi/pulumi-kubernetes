@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
     /// </summary>
-    public class PodStatusArgs : Pulumi.ResourceArgs
+    public class PodStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodConditionArgs>? _conditions;
@@ -130,5 +130,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodStatusArgs()
         {
         }
+        public static new PodStatusArgs Empty => new PodStatusArgs();
     }
 }

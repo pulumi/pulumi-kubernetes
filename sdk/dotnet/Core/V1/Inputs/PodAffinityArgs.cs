@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Pod affinity is a group of inter pod affinity scheduling rules.
     /// </summary>
-    public class PodAffinityArgs : Pulumi.ResourceArgs
+    public class PodAffinityArgs : global::Pulumi.ResourceArgs
     {
         [Input("preferredDuringSchedulingIgnoredDuringExecution")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.WeightedPodAffinityTermArgs>? _preferredDuringSchedulingIgnoredDuringExecution;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PodAffinityArgs()
         {
         }
+        public static new PodAffinityArgs Empty => new PodAffinityArgs();
     }
 }

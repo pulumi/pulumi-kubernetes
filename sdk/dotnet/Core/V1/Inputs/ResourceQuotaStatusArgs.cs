@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// ResourceQuotaStatus defines the enforced hard limits and observed use.
     /// </summary>
-    public class ResourceQuotaStatusArgs : Pulumi.ResourceArgs
+    public class ResourceQuotaStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("hard")]
         private InputMap<string>? _hard;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public ResourceQuotaStatusArgs()
         {
         }
+        public static new ResourceQuotaStatusArgs Empty => new ResourceQuotaStatusArgs();
     }
 }

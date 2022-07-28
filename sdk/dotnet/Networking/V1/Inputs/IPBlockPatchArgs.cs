@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
     /// </summary>
-    public class IPBlockPatchArgs : Pulumi.ResourceArgs
+    public class IPBlockPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public IPBlockPatchArgs()
         {
         }
+        public static new IPBlockPatchArgs Empty => new IPBlockPatchArgs();
     }
 }

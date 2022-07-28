@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
     /// <summary>
     /// TokenRequestSpec contains client provided parameters of a token request.
     /// </summary>
-    public class TokenRequestSpecArgs : Pulumi.ResourceArgs
+    public class TokenRequestSpecArgs : global::Pulumi.ResourceArgs
     {
         [Input("audiences", required: true)]
         private InputList<string>? _audiences;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Authentication.V1
         public TokenRequestSpecArgs()
         {
         }
+        public static new TokenRequestSpecArgs Empty => new TokenRequestSpecArgs();
     }
 }

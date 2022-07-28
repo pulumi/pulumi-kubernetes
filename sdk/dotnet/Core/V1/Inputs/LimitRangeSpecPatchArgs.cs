@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// LimitRangeSpec defines a min/max usage limit for resources that match on kind.
     /// </summary>
-    public class LimitRangeSpecPatchArgs : Pulumi.ResourceArgs
+    public class LimitRangeSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("limits")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.LimitRangeItemPatchArgs>? _limits;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public LimitRangeSpecPatchArgs()
         {
         }
+        public static new LimitRangeSpecPatchArgs Empty => new LimitRangeSpecPatchArgs();
     }
 }

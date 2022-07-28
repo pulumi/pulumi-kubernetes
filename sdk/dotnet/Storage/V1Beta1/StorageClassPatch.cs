@@ -120,7 +120,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1:StorageClassPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:storage.k8s.io/v1:StorageClassPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -145,7 +145,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
 namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
 {
 
-    public class StorageClassPatchArgs : Pulumi.ResourceArgs
+    public class StorageClassPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// AllowVolumeExpansion shows whether the storage class allow volume expand
@@ -228,5 +228,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         public StorageClassPatchArgs()
         {
         }
+        public static new StorageClassPatchArgs Empty => new StorageClassPatchArgs();
     }
 }

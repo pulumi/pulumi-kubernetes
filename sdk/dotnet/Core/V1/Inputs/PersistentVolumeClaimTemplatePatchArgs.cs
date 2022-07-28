@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.
     /// </summary>
-    public class PersistentVolumeClaimTemplatePatchArgs : Pulumi.ResourceArgs
+    public class PersistentVolumeClaimTemplatePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PersistentVolumeClaimTemplatePatchArgs()
         {
         }
+        public static new PersistentVolumeClaimTemplatePatchArgs Empty => new PersistentVolumeClaimTemplatePatchArgs();
     }
 }

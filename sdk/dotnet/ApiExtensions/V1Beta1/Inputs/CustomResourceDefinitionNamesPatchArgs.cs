@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
     /// </summary>
-    public class CustomResourceDefinitionNamesPatchArgs : Pulumi.ResourceArgs
+    public class CustomResourceDefinitionNamesPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("categories")]
         private InputList<string>? _categories;
@@ -66,5 +66,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public CustomResourceDefinitionNamesPatchArgs()
         {
         }
+        public static new CustomResourceDefinitionNamesPatchArgs Empty => new CustomResourceDefinitionNamesPatchArgs();
     }
 }

@@ -88,9 +88,9 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
                 Version = Utilities.Version,
                 Aliases =
                 {
-                    new Pulumi.Alias { Type = "kubernetes:apiregistration.k8s.io/v1beta1:APIServicePatch"},
-                    new Pulumi.Alias { Type = "kubernetes:apiregistration/v1beta1:APIServicePatch"},
-                    new Pulumi.Alias { Type = "kubernetes:apiregistration/v1:APIServicePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration.k8s.io/v1beta1:APIServicePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1beta1:APIServicePatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:apiregistration/v1:APIServicePatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
@@ -115,7 +115,7 @@ namespace Pulumi.Kubernetes.ApiRegistration.V1
 namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
 {
 
-    public class APIServicePatchArgs : Pulumi.ResourceArgs
+    public class APIServicePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -144,5 +144,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiRegistration.V1
         public APIServicePatchArgs()
         {
         }
+        public static new APIServicePatchArgs Empty => new APIServicePatchArgs();
     }
 }

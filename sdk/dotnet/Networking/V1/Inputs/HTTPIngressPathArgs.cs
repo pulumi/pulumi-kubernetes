@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     /// <summary>
     /// HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
     /// </summary>
-    public class HTTPIngressPathArgs : Pulumi.ResourceArgs
+    public class HTTPIngressPathArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
@@ -46,5 +46,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public HTTPIngressPathArgs()
         {
         }
+        public static new HTTPIngressPathArgs Empty => new HTTPIngressPathArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta2
     /// <summary>
     /// PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
     /// </summary>
-    public class PolicyRulesWithSubjectsArgs : Pulumi.ResourceArgs
+    public class PolicyRulesWithSubjectsArgs : global::Pulumi.ResourceArgs
     {
         [Input("nonResourceRules")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta2.NonResourcePolicyRuleArgs>? _nonResourceRules;
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta2
         public PolicyRulesWithSubjectsArgs()
         {
         }
+        public static new PolicyRulesWithSubjectsArgs Empty => new PolicyRulesWithSubjectsArgs();
     }
 }

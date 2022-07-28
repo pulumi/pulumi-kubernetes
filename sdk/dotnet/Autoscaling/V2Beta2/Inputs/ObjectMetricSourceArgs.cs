@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// <summary>
     /// ObjectMetricSource indicates how to scale on a metric describing a kubernetes object (for example, hits-per-second on an Ingress object).
     /// </summary>
-    public class ObjectMetricSourceArgs : Pulumi.ResourceArgs
+    public class ObjectMetricSourceArgs : global::Pulumi.ResourceArgs
     {
         [Input("describedObject", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2.CrossVersionObjectReferenceArgs> DescribedObject { get; set; } = null!;
@@ -33,5 +33,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
         public ObjectMetricSourceArgs()
         {
         }
+        public static new ObjectMetricSourceArgs Empty => new ObjectMetricSourceArgs();
     }
 }

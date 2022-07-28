@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicySpec is deprecated by networking/v1/NetworkPolicySpec.
     /// </summary>
-    public class NetworkPolicySpecPatchArgs : Pulumi.ResourceArgs
+    public class NetworkPolicySpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("egress")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1.NetworkPolicyEgressRulePatchArgs>? _egress;
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public NetworkPolicySpecPatchArgs()
         {
         }
+        public static new NetworkPolicySpecPatchArgs Empty => new NetworkPolicySpecPatchArgs();
     }
 }

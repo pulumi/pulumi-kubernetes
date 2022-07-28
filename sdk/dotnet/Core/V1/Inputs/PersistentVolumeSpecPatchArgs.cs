@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// PersistentVolumeSpec is the specification of a persistent volume.
     /// </summary>
-    public class PersistentVolumeSpecPatchArgs : Pulumi.ResourceArgs
+    public class PersistentVolumeSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         [Input("accessModes")]
         private InputList<string>? _accessModes;
@@ -216,5 +216,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public PersistentVolumeSpecPatchArgs()
         {
         }
+        public static new PersistentVolumeSpecPatchArgs Empty => new PersistentVolumeSpecPatchArgs();
     }
 }

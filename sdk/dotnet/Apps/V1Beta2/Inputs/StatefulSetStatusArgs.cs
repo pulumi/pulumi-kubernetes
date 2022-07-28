@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
     /// <summary>
     /// StatefulSetStatus represents the current state of a StatefulSet.
     /// </summary>
-    public class StatefulSetStatusArgs : Pulumi.ResourceArgs
+    public class StatefulSetStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
@@ -78,5 +78,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1Beta2
         public StatefulSetStatusArgs()
         {
         }
+        public static new StatefulSetStatusArgs Empty => new StatefulSetStatusArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// HTTPGetAction describes an action based on HTTP Get requests.
     /// </summary>
-    public class HTTPGetActionPatchArgs : Pulumi.ResourceArgs
+    public class HTTPGetActionPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Host name to connect to, defaults to the pod IP. You probably want to set "Host" in httpHeaders instead.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public HTTPGetActionPatchArgs()
         {
         }
+        public static new HTTPGetActionPatchArgs Empty => new HTTPGetActionPatchArgs();
     }
 }

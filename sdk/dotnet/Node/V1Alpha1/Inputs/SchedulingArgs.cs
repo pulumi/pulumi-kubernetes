@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
     /// <summary>
     /// Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
     /// </summary>
-    public class SchedulingArgs : Pulumi.ResourceArgs
+    public class SchedulingArgs : global::Pulumi.ResourceArgs
     {
         [Input("nodeSelector")]
         private InputMap<string>? _nodeSelector;
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1Alpha1
         public SchedulingArgs()
         {
         }
+        public static new SchedulingArgs Empty => new SchedulingArgs();
     }
 }

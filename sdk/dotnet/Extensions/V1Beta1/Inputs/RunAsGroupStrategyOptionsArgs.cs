@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// RunAsGroupStrategyOptions defines the strategy type and any options used to create the strategy. Deprecated: use RunAsGroupStrategyOptions from policy API Group instead.
     /// </summary>
-    public class RunAsGroupStrategyOptionsArgs : Pulumi.ResourceArgs
+    public class RunAsGroupStrategyOptionsArgs : global::Pulumi.ResourceArgs
     {
         [Input("ranges")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1.IDRangeArgs>? _ranges;
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public RunAsGroupStrategyOptionsArgs()
         {
         }
+        public static new RunAsGroupStrategyOptionsArgs Empty => new RunAsGroupStrategyOptionsArgs();
     }
 }

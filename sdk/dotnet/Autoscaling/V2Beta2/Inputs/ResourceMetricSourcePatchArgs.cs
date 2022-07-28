@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// <summary>
     /// ResourceMetricSource indicates how to scale on a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  The values will be averaged together before being compared to the target.  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.  Only one "target" type should be set.
     /// </summary>
-    public class ResourceMetricSourcePatchArgs : Pulumi.ResourceArgs
+    public class ResourceMetricSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// name is the name of the resource in question.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
         public ResourceMetricSourcePatchArgs()
         {
         }
+        public static new ResourceMetricSourcePatchArgs Empty => new ResourceMetricSourcePatchArgs();
     }
 }

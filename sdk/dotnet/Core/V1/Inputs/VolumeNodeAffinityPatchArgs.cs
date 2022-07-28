@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.
     /// </summary>
-    public class VolumeNodeAffinityPatchArgs : Pulumi.ResourceArgs
+    public class VolumeNodeAffinityPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// required specifies hard node constraints that must be met.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public VolumeNodeAffinityPatchArgs()
         {
         }
+        public static new VolumeNodeAffinityPatchArgs Empty => new VolumeNodeAffinityPatchArgs();
     }
 }

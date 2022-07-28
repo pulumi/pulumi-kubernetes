@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
     /// <summary>
     /// JobCondition describes current state of a job.
     /// </summary>
-    public class JobConditionArgs : Pulumi.ResourceArgs
+    public class JobConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time the condition was checked.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public JobConditionArgs()
         {
         }
+        public static new JobConditionArgs Empty => new JobConditionArgs();
     }
 }

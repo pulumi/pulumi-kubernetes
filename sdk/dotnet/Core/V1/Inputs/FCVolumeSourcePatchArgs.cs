@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.
     /// </summary>
-    public class FCVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class FCVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -60,5 +60,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public FCVolumeSourcePatchArgs()
         {
         }
+        public static new FCVolumeSourcePatchArgs Empty => new FCVolumeSourcePatchArgs();
     }
 }

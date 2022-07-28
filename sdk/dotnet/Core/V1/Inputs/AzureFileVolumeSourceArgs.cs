@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// AzureFile represents an Azure File Service mount on the host and bind mount to the pod.
     /// </summary>
-    public class AzureFileVolumeSourceArgs : Pulumi.ResourceArgs
+    public class AzureFileVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public AzureFileVolumeSourceArgs()
         {
         }
+        public static new AzureFileVolumeSourceArgs Empty => new AzureFileVolumeSourceArgs();
     }
 }

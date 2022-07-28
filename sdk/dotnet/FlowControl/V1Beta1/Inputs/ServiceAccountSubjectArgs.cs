@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// ServiceAccountSubject holds detailed information for service-account-kind subject.
     /// </summary>
-    public class ServiceAccountSubjectArgs : Pulumi.ResourceArgs
+    public class ServiceAccountSubjectArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public ServiceAccountSubjectArgs()
         {
         }
+        public static new ServiceAccountSubjectArgs Empty => new ServiceAccountSubjectArgs();
     }
 }

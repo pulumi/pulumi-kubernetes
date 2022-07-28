@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// <summary>
     /// HPAScalingPolicy is a single policy which must hold true for a specified past interval.
     /// </summary>
-    public class HPAScalingPolicyArgs : Pulumi.ResourceArgs
+    public class HPAScalingPolicyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
         public HPAScalingPolicyArgs()
         {
         }
+        public static new HPAScalingPolicyArgs Empty => new HPAScalingPolicyArgs();
     }
 }

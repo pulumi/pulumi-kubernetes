@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a Flocker volume mounted by the Flocker agent. One and only one of datasetName and datasetUUID should be set. Flocker volumes do not support ownership management or SELinux relabeling.
     /// </summary>
-    public class FlockerVolumeSourceArgs : Pulumi.ResourceArgs
+    public class FlockerVolumeSourceArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// datasetName is Name of the dataset stored as metadata -&gt; name on the dataset for Flocker should be considered as deprecated
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public FlockerVolumeSourceArgs()
         {
         }
+        public static new FlockerVolumeSourceArgs Empty => new FlockerVolumeSourceArgs();
     }
 }

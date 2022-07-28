@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
     /// <summary>
     /// CustomResourceValidation is a list of validation methods for CustomResources.
     /// </summary>
-    public class CustomResourceValidationPatchArgs : Pulumi.ResourceArgs
+    public class CustomResourceValidationPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1
         public CustomResourceValidationPatchArgs()
         {
         }
+        public static new CustomResourceValidationPatchArgs Empty => new CustomResourceValidationPatchArgs();
     }
 }

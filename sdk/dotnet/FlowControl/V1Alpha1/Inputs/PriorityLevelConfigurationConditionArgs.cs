@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// PriorityLevelConfigurationCondition defines the condition of priority level.
     /// </summary>
-    public class PriorityLevelConfigurationConditionArgs : Pulumi.ResourceArgs
+    public class PriorityLevelConfigurationConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public PriorityLevelConfigurationConditionArgs()
         {
         }
+        public static new PriorityLevelConfigurationConditionArgs Empty => new PriorityLevelConfigurationConditionArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// HostPortRange defines a range of host ports that will be enabled by a policy for pods to use.  It requires both the start and end to be defined. Deprecated: use HostPortRange from policy API Group instead.
     /// </summary>
-    public class HostPortRangePatchArgs : Pulumi.ResourceArgs
+    public class HostPortRangePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// max is the end of the range, inclusive.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public HostPortRangePatchArgs()
         {
         }
+        public static new HostPortRangePatchArgs Empty => new HostPortRangePatchArgs();
     }
 }

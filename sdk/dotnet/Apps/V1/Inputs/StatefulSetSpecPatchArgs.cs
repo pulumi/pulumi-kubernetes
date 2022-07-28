@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// A StatefulSetSpec is the specification of a StatefulSet.
     /// </summary>
-    public class StatefulSetSpecPatchArgs : Pulumi.ResourceArgs
+    public class StatefulSetSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
@@ -84,5 +84,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public StatefulSetSpecPatchArgs()
         {
         }
+        public static new StatefulSetSpecPatchArgs Empty => new StatefulSetSpecPatchArgs();
     }
 }

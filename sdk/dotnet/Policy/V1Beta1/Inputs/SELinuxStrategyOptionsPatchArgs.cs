@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
     /// <summary>
     /// SELinuxStrategyOptions defines the strategy type and any options used to create the strategy.
     /// </summary>
-    public class SELinuxStrategyOptionsPatchArgs : Pulumi.ResourceArgs
+    public class SELinuxStrategyOptionsPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// rule is the strategy that will dictate the allowable labels that may be set.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         public SELinuxStrategyOptionsPatchArgs()
         {
         }
+        public static new SELinuxStrategyOptionsPatchArgs Empty => new SELinuxStrategyOptionsPatchArgs();
     }
 }

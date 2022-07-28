@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// SecretKeySelector selects a key of a Secret.
     /// </summary>
-    public class SecretKeySelectorArgs : Pulumi.ResourceArgs
+    public class SecretKeySelectorArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The key of the secret to select from.  Must be a valid secret key.
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public SecretKeySelectorArgs()
         {
         }
+        public static new SecretKeySelectorArgs Empty => new SecretKeySelectorArgs();
     }
 }

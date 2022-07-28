@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
     /// <summary>
     /// PodSecurityPolicySpec defines the policy enforced.
     /// </summary>
-    public class PodSecurityPolicySpecPatchArgs : Pulumi.ResourceArgs
+    public class PodSecurityPolicySpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
@@ -232,5 +232,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         public PodSecurityPolicySpecPatchArgs()
         {
         }
+        public static new PodSecurityPolicySpecPatchArgs Empty => new PodSecurityPolicySpecPatchArgs();
     }
 }

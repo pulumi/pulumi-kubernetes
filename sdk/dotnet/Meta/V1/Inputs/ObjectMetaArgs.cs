@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
     /// <summary>
     /// ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
     /// </summary>
-    public class ObjectMetaArgs : Pulumi.ResourceArgs
+    public class ObjectMetaArgs : global::Pulumi.ResourceArgs
     {
         [Input("annotations")]
         private InputMap<string>? _annotations;
@@ -160,5 +160,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public ObjectMetaArgs()
         {
         }
+        public static new ObjectMetaArgs Empty => new ObjectMetaArgs();
     }
 }

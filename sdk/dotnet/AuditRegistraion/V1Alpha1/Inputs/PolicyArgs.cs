@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
     /// <summary>
     /// Policy defines the configuration of how audit events are logged
     /// </summary>
-    public class PolicyArgs : Pulumi.ResourceArgs
+    public class PolicyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.AuditRegistraion.V1Alpha1
         public PolicyArgs()
         {
         }
+        public static new PolicyArgs Empty => new PolicyArgs();
     }
 }

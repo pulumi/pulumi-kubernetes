@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// <summary>
     /// PriorityLevelConfigurationSpec specifies the configuration of a priority level.
     /// </summary>
-    public class PriorityLevelConfigurationSpecPatchArgs : Pulumi.ResourceArgs
+    public class PriorityLevelConfigurationSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
         public PriorityLevelConfigurationSpecPatchArgs()
         {
         }
+        public static new PriorityLevelConfigurationSpecPatchArgs Empty => new PriorityLevelConfigurationSpecPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     /// <summary>
     /// DeploymentCondition describes the state of a deployment at a certain point.
     /// </summary>
-    public class DeploymentConditionArgs : Pulumi.ResourceArgs
+    public class DeploymentConditionArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// Last time the condition transitioned from one status to another.
@@ -54,5 +54,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public DeploymentConditionArgs()
         {
         }
+        public static new DeploymentConditionArgs Empty => new DeploymentConditionArgs();
     }
 }

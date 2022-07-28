@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// WindowsSecurityContextOptions contain Windows-specific options and credentials.
     /// </summary>
-    public class WindowsSecurityContextOptionsPatchArgs : Pulumi.ResourceArgs
+    public class WindowsSecurityContextOptionsPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// GMSACredentialSpec is where the GMSA admission webhook (https://github.com/kubernetes-sigs/windows-gmsa) inlines the contents of the GMSA credential spec named by the GMSACredentialSpecName field.
@@ -42,5 +42,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public WindowsSecurityContextOptionsPatchArgs()
         {
         }
+        public static new WindowsSecurityContextOptionsPatchArgs Empty => new WindowsSecurityContextOptionsPatchArgs();
     }
 }

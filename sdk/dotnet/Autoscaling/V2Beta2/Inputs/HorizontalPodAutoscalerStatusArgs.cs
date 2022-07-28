@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// <summary>
     /// HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
     /// </summary>
-    public class HorizontalPodAutoscalerStatusArgs : Pulumi.ResourceArgs
+    public class HorizontalPodAutoscalerStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerConditionArgs>? _conditions;
@@ -66,5 +66,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
         public HorizontalPodAutoscalerStatusArgs()
         {
         }
+        public static new HorizontalPodAutoscalerStatusArgs Empty => new HorizontalPodAutoscalerStatusArgs();
     }
 }

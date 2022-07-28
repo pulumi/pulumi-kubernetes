@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
     /// <summary>
     /// DEPRECATED 1.9 - This group version of NetworkPolicyPeer is deprecated by networking/v1/NetworkPolicyPeer.
     /// </summary>
-    public class NetworkPolicyPeerArgs : Pulumi.ResourceArgs
+    public class NetworkPolicyPeerArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
@@ -40,5 +40,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Extensions.V1Beta1
         public NetworkPolicyPeerArgs()
         {
         }
+        public static new NetworkPolicyPeerArgs Empty => new NetworkPolicyPeerArgs();
     }
 }

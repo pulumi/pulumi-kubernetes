@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// <summary>
     /// Represents a StorageOS persistent volume resource.
     /// </summary>
-    public class StorageOSVolumeSourcePatchArgs : Pulumi.ResourceArgs
+    public class StorageOSVolumeSourcePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public StorageOSVolumeSourcePatchArgs()
         {
         }
+        public static new StorageOSVolumeSourcePatchArgs Empty => new StorageOSVolumeSourcePatchArgs();
     }
 }

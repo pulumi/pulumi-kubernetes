@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
     /// <summary>
     /// ForZone provides information about which zones should consume this endpoint.
     /// </summary>
-    public class ForZonePatchArgs : Pulumi.ResourceArgs
+    public class ForZonePatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// name represents the name of the zone.
@@ -24,5 +24,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         public ForZonePatchArgs()
         {
         }
+        public static new ForZonePatchArgs Empty => new ForZonePatchArgs();
     }
 }

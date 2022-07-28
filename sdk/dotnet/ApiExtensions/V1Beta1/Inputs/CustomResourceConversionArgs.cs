@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
     /// <summary>
     /// CustomResourceConversion describes how to convert different versions of a CR.
     /// </summary>
-    public class CustomResourceConversionArgs : Pulumi.ResourceArgs
+    public class CustomResourceConversionArgs : global::Pulumi.ResourceArgs
     {
         [Input("conversionReviewVersions")]
         private InputList<string>? _conversionReviewVersions;
@@ -43,5 +43,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         public CustomResourceConversionArgs()
         {
         }
+        public static new CustomResourceConversionArgs Empty => new CustomResourceConversionArgs();
     }
 }

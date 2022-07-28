@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
     /// <summary>
     /// PriorityLevelConfigurationStatus represents the current state of a "request-priority".
     /// </summary>
-    public class PriorityLevelConfigurationStatusArgs : Pulumi.ResourceArgs
+    public class PriorityLevelConfigurationStatusArgs : global::Pulumi.ResourceArgs
     {
         [Input("conditions")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1.PriorityLevelConfigurationConditionArgs>? _conditions;
@@ -30,5 +30,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Alpha1
         public PriorityLevelConfigurationStatusArgs()
         {
         }
+        public static new PriorityLevelConfigurationStatusArgs Empty => new PriorityLevelConfigurationStatusArgs();
     }
 }

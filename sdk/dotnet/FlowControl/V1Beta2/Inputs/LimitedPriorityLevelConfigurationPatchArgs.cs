@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta2
     ///  * How are requests for this priority level limited?
     ///  * What should be done with requests that exceed the limit?
     /// </summary>
-    public class LimitedPriorityLevelConfigurationPatchArgs : Pulumi.ResourceArgs
+    public class LimitedPriorityLevelConfigurationPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
@@ -36,5 +36,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta2
         public LimitedPriorityLevelConfigurationPatchArgs()
         {
         }
+        public static new LimitedPriorityLevelConfigurationPatchArgs Empty => new LimitedPriorityLevelConfigurationPatchArgs();
     }
 }

@@ -13,7 +13,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
     /// <summary>
     /// CSINodeDriver holds information about the specification of one CSI driver installed on a node
     /// </summary>
-    public class CSINodeDriverArgs : Pulumi.ResourceArgs
+    public class CSINodeDriverArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
         /// allocatable represents the volume resources of a node that are available for scheduling.
@@ -48,5 +48,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         public CSINodeDriverArgs()
         {
         }
+        public static new CSINodeDriverArgs Empty => new CSINodeDriverArgs();
     }
 }
