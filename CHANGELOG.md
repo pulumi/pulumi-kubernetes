@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Add a descriptive message for an invalid Patch delete (https://github.com/pulumi/pulumi-kubernetes/pull/2111)
+
 ## 3.20.2 (July 25, 2022)
 
 - Add Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2096)

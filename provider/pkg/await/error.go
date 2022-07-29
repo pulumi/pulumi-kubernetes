@@ -4,6 +4,7 @@ package await
 
 import (
 	"fmt"
+	"strings"
 
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -128,4 +129,10 @@ func IsResourceExistsErr(err error) bool {
 	}
 
 	return errors.IsAlreadyExists(err)
+}
+
+// IsDeleteRequiredFieldErr is true if the user attempted to delete a Patch resource that was the sole manager of a
+// required field.
+func IsDeleteRequiredFieldErr(err error) bool {
+	return errors.IsInvalid(err) && strings.Contains(err.Error(), "Required value")
 }
