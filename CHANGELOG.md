@@ -1,4 +1,5 @@
 ## Unreleased
+- Add chart v2 deprecation note to schema/docs (https://github.com/pulumi/pulumi-kubernetes/pull/2114)
 
 ## 3.20.2 (July 25, 2022)
 
