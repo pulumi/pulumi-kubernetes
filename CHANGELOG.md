@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix erroneous resourceVersion diff for CRDs managed with SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2121)
+
 ## 3.20.2 (July 25, 2022)
 
 - Add Java SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2096)
