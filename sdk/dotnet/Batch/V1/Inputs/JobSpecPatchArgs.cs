@@ -58,6 +58,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<int>? Parallelism { get; set; }
 
         /// <summary>
+        /// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+        /// 
+        /// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+        /// </summary>
+        [Input("podFailurePolicy")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Batch.V1.PodFailurePolicyPatchArgs>? PodFailurePolicy { get; set; }
+
+        /// <summary>
         /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         /// </summary>
         [Input("selector")]

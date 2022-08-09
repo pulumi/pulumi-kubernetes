@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Authentication.V1
     public sealed class TokenRequestSpec
     {
         /// <summary>
-        /// Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+        /// Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         /// </summary>
         public readonly ImmutableArray<string> Audiences;
         /// <summary>

@@ -30,8 +30,7 @@ class CronJobSpecPatchArgs:
                  schedule: Optional[pulumi.Input[str]] = None,
                  starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
                  successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
-                 suspend: Optional[pulumi.Input[bool]] = None,
-                 time_zone: Optional[pulumi.Input[str]] = None):
+                 suspend: Optional[pulumi.Input[bool]] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
         :param pulumi.Input[str] concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -41,7 +40,6 @@ class CronJobSpecPatchArgs:
         :param pulumi.Input[int] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param pulumi.Input[int] successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-        :param pulumi.Input[str] time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
         """
         if concurrency_policy is not None:
             pulumi.set(__self__, "concurrency_policy", concurrency_policy)
@@ -57,8 +55,6 @@ class CronJobSpecPatchArgs:
             pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
-        if time_zone is not None:
-            pulumi.set(__self__, "time_zone", time_zone)
 
     @property
     @pulumi.getter(name="concurrencyPolicy")
@@ -144,18 +140,6 @@ class CronJobSpecPatchArgs:
     def suspend(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "suspend", value)
 
-    @property
-    @pulumi.getter(name="timeZone")
-    def time_zone(self) -> Optional[pulumi.Input[str]]:
-        """
-        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-        """
-        return pulumi.get(self, "time_zone")
-
-    @time_zone.setter
-    def time_zone(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "time_zone", value)
-
 
 @pulumi.input_type
 class CronJobSpecArgs:
@@ -166,8 +150,7 @@ class CronJobSpecArgs:
                  failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
                  starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
                  successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
-                 suspend: Optional[pulumi.Input[bool]] = None,
-                 time_zone: Optional[pulumi.Input[str]] = None):
+                 suspend: Optional[pulumi.Input[bool]] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
         :param pulumi.Input['JobTemplateSpecArgs'] job_template: Specifies the job that will be created when executing a CronJob.
@@ -177,7 +160,6 @@ class CronJobSpecArgs:
         :param pulumi.Input[int] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param pulumi.Input[int] successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-        :param pulumi.Input[str] time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
         """
         pulumi.set(__self__, "job_template", job_template)
         pulumi.set(__self__, "schedule", schedule)
@@ -191,8 +173,6 @@ class CronJobSpecArgs:
             pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
-        if time_zone is not None:
-            pulumi.set(__self__, "time_zone", time_zone)
 
     @property
     @pulumi.getter(name="jobTemplate")
@@ -278,37 +258,21 @@ class CronJobSpecArgs:
     def suspend(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "suspend", value)
 
-    @property
-    @pulumi.getter(name="timeZone")
-    def time_zone(self) -> Optional[pulumi.Input[str]]:
-        """
-        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-        """
-        return pulumi.get(self, "time_zone")
-
-    @time_zone.setter
-    def time_zone(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "time_zone", value)
-
 
 @pulumi.input_type
 class CronJobStatusArgs:
     def __init__(__self__, *,
                  active: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
-                 last_schedule_time: Optional[pulumi.Input[str]] = None,
-                 last_successful_time: Optional[pulumi.Input[str]] = None):
+                 last_schedule_time: Optional[pulumi.Input[str]] = None):
         """
         CronJobStatus represents the current state of a cron job.
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]] active: A list of pointers to currently running jobs.
         :param pulumi.Input[str] last_schedule_time: Information when was the last time the job was successfully scheduled.
-        :param pulumi.Input[str] last_successful_time: Information when was the last time the job successfully completed.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
             pulumi.set(__self__, "last_schedule_time", last_schedule_time)
-        if last_successful_time is not None:
-            pulumi.set(__self__, "last_successful_time", last_successful_time)
 
     @property
     @pulumi.getter
@@ -333,18 +297,6 @@ class CronJobStatusArgs:
     @last_schedule_time.setter
     def last_schedule_time(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "last_schedule_time", value)
-
-    @property
-    @pulumi.getter(name="lastSuccessfulTime")
-    def last_successful_time(self) -> Optional[pulumi.Input[str]]:
-        """
-        Information when was the last time the job successfully completed.
-        """
-        return pulumi.get(self, "last_successful_time")
-
-    @last_successful_time.setter
-    def last_successful_time(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "last_successful_time", value)
 
 
 @pulumi.input_type

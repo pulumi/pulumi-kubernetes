@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class StatefulSetStatus {
     /**
-     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
      * 
      */
     private @Nullable Integer availableReplicas;
@@ -67,7 +67,7 @@ public final class StatefulSetStatus {
 
     private StatefulSetStatus() {}
     /**
-     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
      * 
      */
     public Optional<Integer> availableReplicas() {

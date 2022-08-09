@@ -505,6 +505,12 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(Networking.V1.NetworkPolicyList):
                     groupVersionKind = "networking.k8s.io/v1/NetworkPolicyList";
                     break;
+                case var t when t == typeof(Networking.V1Alpha1.ClusterCIDR):
+                    groupVersionKind = "networking.k8s.io/v1alpha1/ClusterCIDR";
+                    break;
+                case var t when t == typeof(Networking.V1Alpha1.ClusterCIDRList):
+                    groupVersionKind = "networking.k8s.io/v1alpha1/ClusterCIDRList";
+                    break;
                 case var t when t == typeof(Networking.V1Beta1.Ingress):
                     groupVersionKind = "networking.k8s.io/v1beta1/Ingress";
                     break;
@@ -991,6 +997,7 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "networking.k8s.io/v1/IngressClassList"
                 || gvk == "networking.k8s.io/v1/IngressList"
                 || gvk == "networking.k8s.io/v1/NetworkPolicyList"
+                || gvk == "networking.k8s.io/v1alpha1/ClusterCIDRList"
                 || gvk == "networking.k8s.io/v1beta1/IngressClassList"
                 || gvk == "networking.k8s.io/v1beta1/IngressList"
                 || gvk == "node.k8s.io/v1/RuntimeClassList"
@@ -1550,6 +1557,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"networking.k8s.io/v1/NetworkPolicy::{id}",
                                 new Networking.V1.NetworkPolicy(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "networking.k8s.io/v1alpha1/ClusterCIDR":
+                        return new[]
+                        {
+                            id.Apply(id => ($"networking.k8s.io/v1alpha1/ClusterCIDR::{id}",
+                                new Networking.V1Alpha1.ClusterCIDR(id, obj!, opts) as KubernetesResource))
                         };
                     case "networking.k8s.io/v1beta1/Ingress":
                         return new[]

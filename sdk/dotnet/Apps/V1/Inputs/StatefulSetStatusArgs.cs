@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
     public class StatefulSetStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+        /// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
         /// </summary>
         [Input("availableReplicas")]
         public Input<int>? AvailableReplicas { get; set; }

@@ -21,9 +21,6 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         [Output("apiVersion")]
         public Output<string> ApiVersion { get; private set; } = null!;
 
-        /// <summary>
-        /// items list individual PodDisruptionBudget objects
-        /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1.PodDisruptionBudget>> Items { get; private set; } = null!;
 
@@ -33,9 +30,6 @@ namespace Pulumi.Kubernetes.Policy.V1Beta1
         [Output("kind")]
         public Output<string> Kind { get; private set; } = null!;
 
-        /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ListMeta> Metadata { get; private set; } = null!;
 
@@ -107,10 +101,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
 
         [Input("items", required: true)]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetArgs>? _items;
-
-        /// <summary>
-        /// items list individual PodDisruptionBudget objects
-        /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetArgs> Items
         {
             get => _items ?? (_items = new InputList<Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1.PodDisruptionBudgetArgs>());
@@ -123,9 +113,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ListMetaArgs>? Metadata { get; set; }
 

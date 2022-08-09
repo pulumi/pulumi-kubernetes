@@ -28,9 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         }
 
         /// <summary>
-        /// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-        /// 
-        /// The name in the go struct is changed to help clients detect accidental use.
+        /// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         /// </summary>
         [Input("clusterName")]
         public Input<string>? ClusterName { get; set; }

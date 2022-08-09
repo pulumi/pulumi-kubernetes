@@ -27,15 +27,15 @@ public final class HorizontalPodAutoscalerStatusArgs extends com.pulumi.resource
      * conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
      * 
      */
-    @Import(name="conditions")
-    private @Nullable Output<List<HorizontalPodAutoscalerConditionArgs>> conditions;
+    @Import(name="conditions", required=true)
+    private Output<List<HorizontalPodAutoscalerConditionArgs>> conditions;
 
     /**
      * @return conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
      * 
      */
-    public Optional<Output<List<HorizontalPodAutoscalerConditionArgs>>> conditions() {
-        return Optional.ofNullable(this.conditions);
+    public Output<List<HorizontalPodAutoscalerConditionArgs>> conditions() {
+        return this.conditions;
     }
 
     /**
@@ -148,7 +148,7 @@ public final class HorizontalPodAutoscalerStatusArgs extends com.pulumi.resource
          * @return builder
          * 
          */
-        public Builder conditions(@Nullable Output<List<HorizontalPodAutoscalerConditionArgs>> conditions) {
+        public Builder conditions(Output<List<HorizontalPodAutoscalerConditionArgs>> conditions) {
             $.conditions = conditions;
             return this;
         }
@@ -289,6 +289,7 @@ public final class HorizontalPodAutoscalerStatusArgs extends com.pulumi.resource
         }
 
         public HorizontalPodAutoscalerStatusArgs build() {
+            $.conditions = Objects.requireNonNull($.conditions, "expected parameter 'conditions' to be non-null");
             $.currentReplicas = Objects.requireNonNull($.currentReplicas, "expected parameter 'currentReplicas' to be non-null");
             $.desiredReplicas = Objects.requireNonNull($.desiredReplicas, "expected parameter 'desiredReplicas' to be non-null");
             return $;

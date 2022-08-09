@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -37,6 +38,21 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
     }
 
     /**
+     * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don&#39;t exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+     * 
+     */
+    @Import(name="matchLabelKeys")
+    private @Nullable Output<List<String>> matchLabelKeys;
+
+    /**
+     * @return MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don&#39;t exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+     * 
+     */
+    public Optional<Output<List<String>>> matchLabelKeys() {
+        return Optional.ofNullable(this.matchLabelKeys);
+    }
+
+    /**
      * MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It&#39;s a required field. Default value is 1 and 0 is not allowed.
      * 
      */
@@ -56,7 +72,7 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
      * 
      * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so &#34;global minimum&#34; is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
      * 
-     * This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+     * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
      * 
      */
     @Import(name="minDomains")
@@ -67,7 +83,7 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
      * 
      * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so &#34;global minimum&#34; is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
      * 
-     * This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+     * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
      * 
      */
     public Optional<Output<Integer>> minDomains() {
@@ -75,14 +91,52 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
     }
 
     /**
-     * TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
+     * NodeAffinityPolicy indicates how we will treat Pod&#39;s nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+     * 
+     * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * 
+     */
+    @Import(name="nodeAffinityPolicy")
+    private @Nullable Output<String> nodeAffinityPolicy;
+
+    /**
+     * @return NodeAffinityPolicy indicates how we will treat Pod&#39;s nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+     * 
+     * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * 
+     */
+    public Optional<Output<String>> nodeAffinityPolicy() {
+        return Optional.ofNullable(this.nodeAffinityPolicy);
+    }
+
+    /**
+     * NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+     * 
+     * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * 
+     */
+    @Import(name="nodeTaintsPolicy")
+    private @Nullable Output<String> nodeTaintsPolicy;
+
+    /**
+     * @return NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+     * 
+     * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+     * 
+     */
+    public Optional<Output<String>> nodeTaintsPolicy() {
+        return Optional.ofNullable(this.nodeTaintsPolicy);
+    }
+
+    /**
+     * TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
      * 
      */
     @Import(name="topologyKey", required=true)
     private Output<String> topologyKey;
 
     /**
-     * @return TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
+     * @return TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
      * 
      */
     public Output<String> topologyKey() {
@@ -114,8 +168,11 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
 
     private TopologySpreadConstraintArgs(TopologySpreadConstraintArgs $) {
         this.labelSelector = $.labelSelector;
+        this.matchLabelKeys = $.matchLabelKeys;
         this.maxSkew = $.maxSkew;
         this.minDomains = $.minDomains;
+        this.nodeAffinityPolicy = $.nodeAffinityPolicy;
+        this.nodeTaintsPolicy = $.nodeTaintsPolicy;
         this.topologyKey = $.topologyKey;
         this.whenUnsatisfiable = $.whenUnsatisfiable;
     }
@@ -160,6 +217,37 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
         }
 
         /**
+         * @param matchLabelKeys MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don&#39;t exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchLabelKeys(@Nullable Output<List<String>> matchLabelKeys) {
+            $.matchLabelKeys = matchLabelKeys;
+            return this;
+        }
+
+        /**
+         * @param matchLabelKeys MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don&#39;t exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchLabelKeys(List<String> matchLabelKeys) {
+            return matchLabelKeys(Output.of(matchLabelKeys));
+        }
+
+        /**
+         * @param matchLabelKeys MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don&#39;t exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchLabelKeys(String... matchLabelKeys) {
+            return matchLabelKeys(List.of(matchLabelKeys));
+        }
+
+        /**
          * @param maxSkew MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It&#39;s a required field. Default value is 1 and 0 is not allowed.
          * 
          * @return builder
@@ -185,7 +273,7 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
          * 
          * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so &#34;global minimum&#34; is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
          * 
-         * This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+         * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -200,7 +288,7 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
          * 
          * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so &#34;global minimum&#34; is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
          * 
-         * This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+         * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -210,7 +298,57 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param topologyKey TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
+         * @param nodeAffinityPolicy NodeAffinityPolicy indicates how we will treat Pod&#39;s nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+         * 
+         * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAffinityPolicy(@Nullable Output<String> nodeAffinityPolicy) {
+            $.nodeAffinityPolicy = nodeAffinityPolicy;
+            return this;
+        }
+
+        /**
+         * @param nodeAffinityPolicy NodeAffinityPolicy indicates how we will treat Pod&#39;s nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+         * 
+         * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeAffinityPolicy(String nodeAffinityPolicy) {
+            return nodeAffinityPolicy(Output.of(nodeAffinityPolicy));
+        }
+
+        /**
+         * @param nodeTaintsPolicy NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+         * 
+         * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeTaintsPolicy(@Nullable Output<String> nodeTaintsPolicy) {
+            $.nodeTaintsPolicy = nodeTaintsPolicy;
+            return this;
+        }
+
+        /**
+         * @param nodeTaintsPolicy NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+         * 
+         * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder nodeTaintsPolicy(String nodeTaintsPolicy) {
+            return nodeTaintsPolicy(Output.of(nodeTaintsPolicy));
+        }
+
+        /**
+         * @param topologyKey TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
          * 
          * @return builder
          * 
@@ -221,7 +359,7 @@ public final class TopologySpreadConstraintArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param topologyKey TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
+         * @param topologyKey TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each &lt;key, value&gt; as a &#34;bucket&#34;, and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is &#34;kubernetes.io/hostname&#34;, each Node is a domain of that topology. And, if TopologyKey is &#34;topology.kubernetes.io/zone&#34;, each zone is a domain of that topology. It&#39;s a required field.
          * 
          * @return builder
          * 

@@ -41,6 +41,8 @@ const (
 	CSIStorageCapacityList             Kind = "CSIStorageCapacityList"
 	CertificateSigningRequest          Kind = "CertificateSigningRequest"
 	CertificateSigningRequestList      Kind = "CertificateSigningRequestList"
+	ClusterCIDR                        Kind = "ClusterCIDR"
+	ClusterCIDRList                    Kind = "ClusterCIDRList"
 	ClusterRole                        Kind = "ClusterRole"
 	ClusterRoleBinding                 Kind = "ClusterRoleBinding"
 	ClusterRoleBindingList             Kind = "ClusterRoleBindingList"
@@ -243,6 +245,7 @@ const (
 	FlowcontrolV1B2           groupVersion = "flowcontrol.apiserver.k8s.io/v1beta2"
 	MetaV1                    groupVersion = "meta/v1"
 	NetworkingV1              groupVersion = "networking.k8s.io/v1"
+	NetworkingV1A1            groupVersion = "networking.k8s.io/v1alpha1"
 	NetworkingV1B1            groupVersion = "networking.k8s.io/v1beta1"
 	NodeV1                    groupVersion = "node.k8s.io/v1"
 	NodeV1A1                  groupVersion = "node.k8s.io/v1alpha1"
@@ -311,6 +314,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"flowcontrol.apiserver.k8s.io/v1beta2",
 	"meta/v1",
 	"networking.k8s.io/v1",
+	"networking.k8s.io/v1alpha1",
 	"networking.k8s.io/v1beta1",
 	"node.k8s.io/v1",
 	"node.k8s.io/v1alpha1",

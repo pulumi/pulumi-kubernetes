@@ -51,27 +51,11 @@ public final class CronJobStatusArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.lastScheduleTime);
     }
 
-    /**
-     * Information when was the last time the job successfully completed.
-     * 
-     */
-    @Import(name="lastSuccessfulTime")
-    private @Nullable Output<String> lastSuccessfulTime;
-
-    /**
-     * @return Information when was the last time the job successfully completed.
-     * 
-     */
-    public Optional<Output<String>> lastSuccessfulTime() {
-        return Optional.ofNullable(this.lastSuccessfulTime);
-    }
-
     private CronJobStatusArgs() {}
 
     private CronJobStatusArgs(CronJobStatusArgs $) {
         this.active = $.active;
         this.lastScheduleTime = $.lastScheduleTime;
-        this.lastSuccessfulTime = $.lastSuccessfulTime;
     }
 
     public static Builder builder() {
@@ -142,27 +126,6 @@ public final class CronJobStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder lastScheduleTime(String lastScheduleTime) {
             return lastScheduleTime(Output.of(lastScheduleTime));
-        }
-
-        /**
-         * @param lastSuccessfulTime Information when was the last time the job successfully completed.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder lastSuccessfulTime(@Nullable Output<String> lastSuccessfulTime) {
-            $.lastSuccessfulTime = lastSuccessfulTime;
-            return this;
-        }
-
-        /**
-         * @param lastSuccessfulTime Information when was the last time the job successfully completed.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder lastSuccessfulTime(String lastSuccessfulTime) {
-            return lastSuccessfulTime(Output.of(lastSuccessfulTime));
         }
 
         public CronJobStatusArgs build() {

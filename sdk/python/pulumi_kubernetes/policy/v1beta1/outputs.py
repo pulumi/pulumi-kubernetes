@@ -489,7 +489,6 @@ class PodDisruptionBudget(dict):
         PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'PodDisruptionBudgetSpecArgs' spec: Specification of the desired behavior of the PodDisruptionBudget.
         :param 'PodDisruptionBudgetStatusArgs' status: Most recently observed status of the PodDisruptionBudget.
         """
@@ -523,9 +522,6 @@ class PodDisruptionBudget(dict):
     @property
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
         return pulumi.get(self, "metadata")
 
     @property
@@ -577,7 +573,7 @@ class PodDisruptionBudgetSpec(dict):
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
         :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-        :param '_meta.v1.LabelSelectorArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+        :param '_meta.v1.LabelSelectorArgs' selector: Label query over pods whose evictions are managed by the disruption budget.
         """
         if max_unavailable is not None:
             pulumi.set(__self__, "max_unavailable", max_unavailable)
@@ -606,7 +602,7 @@ class PodDisruptionBudgetSpec(dict):
     @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelector']:
         """
-        Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+        Label query over pods whose evictions are managed by the disruption budget.
         """
         return pulumi.get(self, "selector")
 
@@ -643,7 +639,7 @@ class PodDisruptionBudgetSpecPatch(dict):
         PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
         :param Union[int, str] max_unavailable: An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
         :param Union[int, str] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
-        :param '_meta.v1.LabelSelectorPatchArgs' selector: Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+        :param '_meta.v1.LabelSelectorPatchArgs' selector: Label query over pods whose evictions are managed by the disruption budget.
         """
         if max_unavailable is not None:
             pulumi.set(__self__, "max_unavailable", max_unavailable)
@@ -672,7 +668,7 @@ class PodDisruptionBudgetSpecPatch(dict):
     @pulumi.getter
     def selector(self) -> Optional['_meta.v1.outputs.LabelSelectorPatch']:
         """
-        Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+        Label query over pods whose evictions are managed by the disruption budget.
         """
         return pulumi.get(self, "selector")
 
@@ -714,7 +710,6 @@ class PodDisruptionBudgetStatus(dict):
                  desired_healthy: int,
                  disruptions_allowed: int,
                  expected_pods: int,
-                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
                  disrupted_pods: Optional[Mapping[str, str]] = None,
                  observed_generation: Optional[int] = None):
         """
@@ -723,24 +718,13 @@ class PodDisruptionBudgetStatus(dict):
         :param int desired_healthy: minimum desired number of healthy pods
         :param int disruptions_allowed: Number of pod disruptions that are currently allowed.
         :param int expected_pods: total number of pods counted by this disruption budget
-        :param Sequence['_meta.v1.ConditionArgs'] conditions: Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-                             the number of allowed disruptions. Therefore no disruptions are
-                             allowed and the status of the condition will be False.
-               - InsufficientPods: The number of pods are either at or below the number
-                                   required by the PodDisruptionBudget. No disruptions are
-                                   allowed and the status of the condition will be False.
-               - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-                                 The condition will be True, and the number of allowed
-                                 disruptions are provided by the disruptionsAllowed property.
         :param Mapping[str, str] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
-        :param int observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        :param int observed_generation: Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         pulumi.set(__self__, "current_healthy", current_healthy)
         pulumi.set(__self__, "desired_healthy", desired_healthy)
         pulumi.set(__self__, "disruptions_allowed", disruptions_allowed)
         pulumi.set(__self__, "expected_pods", expected_pods)
-        if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
         if disrupted_pods is not None:
             pulumi.set(__self__, "disrupted_pods", disrupted_pods)
         if observed_generation is not None:
@@ -779,22 +763,6 @@ class PodDisruptionBudgetStatus(dict):
         return pulumi.get(self, "expected_pods")
 
     @property
-    @pulumi.getter
-    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
-        """
-        Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-                      the number of allowed disruptions. Therefore no disruptions are
-                      allowed and the status of the condition will be False.
-        - InsufficientPods: The number of pods are either at or below the number
-                            required by the PodDisruptionBudget. No disruptions are
-                            allowed and the status of the condition will be False.
-        - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-                          The condition will be True, and the number of allowed
-                          disruptions are provided by the disruptionsAllowed property.
-        """
-        return pulumi.get(self, "conditions")
-
-    @property
     @pulumi.getter(name="disruptedPods")
     def disrupted_pods(self) -> Optional[Mapping[str, str]]:
         """
@@ -806,7 +774,7 @@ class PodDisruptionBudgetStatus(dict):
     @pulumi.getter(name="observedGeneration")
     def observed_generation(self) -> Optional[int]:
         """
-        Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         return pulumi.get(self, "observed_generation")
 
@@ -844,7 +812,6 @@ class PodDisruptionBudgetStatusPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
                  current_healthy: Optional[int] = None,
                  desired_healthy: Optional[int] = None,
                  disrupted_pods: Optional[Mapping[str, str]] = None,
@@ -853,24 +820,13 @@ class PodDisruptionBudgetStatusPatch(dict):
                  observed_generation: Optional[int] = None):
         """
         PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
-        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-                             the number of allowed disruptions. Therefore no disruptions are
-                             allowed and the status of the condition will be False.
-               - InsufficientPods: The number of pods are either at or below the number
-                                   required by the PodDisruptionBudget. No disruptions are
-                                   allowed and the status of the condition will be False.
-               - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-                                 The condition will be True, and the number of allowed
-                                 disruptions are provided by the disruptionsAllowed property.
         :param int current_healthy: current number of healthy pods
         :param int desired_healthy: minimum desired number of healthy pods
         :param Mapping[str, str] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
         :param int disruptions_allowed: Number of pod disruptions that are currently allowed.
         :param int expected_pods: total number of pods counted by this disruption budget
-        :param int observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        :param int observed_generation: Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
-        if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
         if current_healthy is not None:
             pulumi.set(__self__, "current_healthy", current_healthy)
         if desired_healthy is not None:
@@ -883,22 +839,6 @@ class PodDisruptionBudgetStatusPatch(dict):
             pulumi.set(__self__, "expected_pods", expected_pods)
         if observed_generation is not None:
             pulumi.set(__self__, "observed_generation", observed_generation)
-
-    @property
-    @pulumi.getter
-    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
-        """
-        Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-                      the number of allowed disruptions. Therefore no disruptions are
-                      allowed and the status of the condition will be False.
-        - InsufficientPods: The number of pods are either at or below the number
-                            required by the PodDisruptionBudget. No disruptions are
-                            allowed and the status of the condition will be False.
-        - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-                          The condition will be True, and the number of allowed
-                          disruptions are provided by the disruptionsAllowed property.
-        """
-        return pulumi.get(self, "conditions")
 
     @property
     @pulumi.getter(name="currentHealthy")
@@ -944,7 +884,7 @@ class PodDisruptionBudgetStatusPatch(dict):
     @pulumi.getter(name="observedGeneration")
     def observed_generation(self) -> Optional[int]:
         """
-        Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
         return pulumi.get(self, "observed_generation")
 
@@ -952,7 +892,7 @@ class PodDisruptionBudgetStatusPatch(dict):
 @pulumi.output_type
 class PodSecurityPolicy(dict):
     """
-    PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+    PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -977,7 +917,7 @@ class PodSecurityPolicy(dict):
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
                  spec: Optional['outputs.PodSecurityPolicySpec'] = None):
         """
-        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1121,12 +1061,12 @@ class PodSecurityPolicySpec(dict):
         :param 'SELinuxStrategyOptionsArgs' se_linux: seLinux is the strategy that will dictate the allowable labels that may be set.
         :param 'SupplementalGroupsStrategyOptionsArgs' supplemental_groups: supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
         :param bool allow_privilege_escalation: allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
-        :param Sequence['AllowedCSIDriverArgs'] allowed_csi_drivers: AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+        :param Sequence['AllowedCSIDriverArgs'] allowed_csi_drivers: AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         :param Sequence[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
-        :param Sequence['AllowedFlexVolumeArgs'] allowed_flex_volumes: allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
-        :param Sequence['AllowedHostPathArgs'] allowed_host_paths: allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
-        :param Sequence[str] allowed_proc_mount_types: AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
-        :param Sequence[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+        :param Sequence['AllowedFlexVolumeArgs'] allowed_flex_volumes: allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        :param Sequence['AllowedHostPathArgs'] allowed_host_paths: allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+        :param Sequence[str] allowed_proc_mount_types: AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        :param Sequence[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
                
                Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
         :param Sequence[str] default_add_capabilities: defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
@@ -1143,7 +1083,7 @@ class PodSecurityPolicySpec(dict):
         :param Sequence[str] required_drop_capabilities: requiredDropCapabilities are the capabilities that will be dropped from the container.  These are required to be dropped and cannot be added.
         :param 'RunAsGroupStrategyOptionsArgs' run_as_group: RunAsGroup is the strategy that will dictate the allowable RunAsGroup values that may be set. If this field is omitted, the pod's RunAsGroup can take any value. This field requires the RunAsGroup feature gate to be enabled.
         :param 'RuntimeClassStrategyOptionsArgs' runtime_class: runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
-        :param Sequence[str] volumes: volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        :param Sequence[str] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
         pulumi.set(__self__, "fs_group", fs_group)
         pulumi.set(__self__, "run_as_user", run_as_user)
@@ -1234,7 +1174,7 @@ class PodSecurityPolicySpec(dict):
     @pulumi.getter(name="allowedCSIDrivers")
     def allowed_csi_drivers(self) -> Optional[Sequence['outputs.AllowedCSIDriver']]:
         """
-        AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+        AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         """
         return pulumi.get(self, "allowed_csi_drivers")
 
@@ -1250,7 +1190,7 @@ class PodSecurityPolicySpec(dict):
     @pulumi.getter(name="allowedFlexVolumes")
     def allowed_flex_volumes(self) -> Optional[Sequence['outputs.AllowedFlexVolume']]:
         """
-        allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
         """
         return pulumi.get(self, "allowed_flex_volumes")
 
@@ -1258,7 +1198,7 @@ class PodSecurityPolicySpec(dict):
     @pulumi.getter(name="allowedHostPaths")
     def allowed_host_paths(self) -> Optional[Sequence['outputs.AllowedHostPath']]:
         """
-        allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+        allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
         """
         return pulumi.get(self, "allowed_host_paths")
 
@@ -1266,7 +1206,7 @@ class PodSecurityPolicySpec(dict):
     @pulumi.getter(name="allowedProcMountTypes")
     def allowed_proc_mount_types(self) -> Optional[Sequence[str]]:
         """
-        AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
         """
         return pulumi.get(self, "allowed_proc_mount_types")
 
@@ -1274,7 +1214,7 @@ class PodSecurityPolicySpec(dict):
     @pulumi.getter(name="allowedUnsafeSysctls")
     def allowed_unsafe_sysctls(self) -> Optional[Sequence[str]]:
         """
-        allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+        allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 
         Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
         """
@@ -1382,7 +1322,7 @@ class PodSecurityPolicySpec(dict):
     @pulumi.getter
     def volumes(self) -> Optional[Sequence[str]]:
         """
-        volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
         return pulumi.get(self, "volumes")
 
@@ -1479,12 +1419,12 @@ class PodSecurityPolicySpecPatch(dict):
         """
         PodSecurityPolicySpec defines the policy enforced.
         :param bool allow_privilege_escalation: allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
-        :param Sequence['AllowedCSIDriverPatchArgs'] allowed_csi_drivers: AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+        :param Sequence['AllowedCSIDriverPatchArgs'] allowed_csi_drivers: AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         :param Sequence[str] allowed_capabilities: allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
-        :param Sequence['AllowedFlexVolumePatchArgs'] allowed_flex_volumes: allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
-        :param Sequence['AllowedHostPathPatchArgs'] allowed_host_paths: allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
-        :param Sequence[str] allowed_proc_mount_types: AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
-        :param Sequence[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+        :param Sequence['AllowedFlexVolumePatchArgs'] allowed_flex_volumes: allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        :param Sequence['AllowedHostPathPatchArgs'] allowed_host_paths: allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
+        :param Sequence[str] allowed_proc_mount_types: AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        :param Sequence[str] allowed_unsafe_sysctls: allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
                
                Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
         :param Sequence[str] default_add_capabilities: defaultAddCapabilities is the default set of capabilities that will be added to the container unless the pod spec specifically drops the capability.  You may not list a capability in both defaultAddCapabilities and requiredDropCapabilities. Capabilities added here are implicitly allowed, and need not be included in the allowedCapabilities list.
@@ -1505,7 +1445,7 @@ class PodSecurityPolicySpecPatch(dict):
         :param 'RuntimeClassStrategyOptionsPatchArgs' runtime_class: runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
         :param 'SELinuxStrategyOptionsPatchArgs' se_linux: seLinux is the strategy that will dictate the allowable labels that may be set.
         :param 'SupplementalGroupsStrategyOptionsPatchArgs' supplemental_groups: supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
-        :param Sequence[str] volumes: volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        :param Sequence[str] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
         if allow_privilege_escalation is not None:
             pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
@@ -1568,7 +1508,7 @@ class PodSecurityPolicySpecPatch(dict):
     @pulumi.getter(name="allowedCSIDrivers")
     def allowed_csi_drivers(self) -> Optional[Sequence['outputs.AllowedCSIDriverPatch']]:
         """
-        AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+        AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
         """
         return pulumi.get(self, "allowed_csi_drivers")
 
@@ -1584,7 +1524,7 @@ class PodSecurityPolicySpecPatch(dict):
     @pulumi.getter(name="allowedFlexVolumes")
     def allowed_flex_volumes(self) -> Optional[Sequence['outputs.AllowedFlexVolumePatch']]:
         """
-        allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+        allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
         """
         return pulumi.get(self, "allowed_flex_volumes")
 
@@ -1592,7 +1532,7 @@ class PodSecurityPolicySpecPatch(dict):
     @pulumi.getter(name="allowedHostPaths")
     def allowed_host_paths(self) -> Optional[Sequence['outputs.AllowedHostPathPatch']]:
         """
-        allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+        allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
         """
         return pulumi.get(self, "allowed_host_paths")
 
@@ -1600,7 +1540,7 @@ class PodSecurityPolicySpecPatch(dict):
     @pulumi.getter(name="allowedProcMountTypes")
     def allowed_proc_mount_types(self) -> Optional[Sequence[str]]:
         """
-        AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+        AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
         """
         return pulumi.get(self, "allowed_proc_mount_types")
 
@@ -1608,7 +1548,7 @@ class PodSecurityPolicySpecPatch(dict):
     @pulumi.getter(name="allowedUnsafeSysctls")
     def allowed_unsafe_sysctls(self) -> Optional[Sequence[str]]:
         """
-        allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+        allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 
         Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
         """
@@ -1748,7 +1688,7 @@ class PodSecurityPolicySpecPatch(dict):
     @pulumi.getter
     def volumes(self) -> Optional[Sequence[str]]:
         """
-        volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+        volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
         return pulumi.get(self, "volumes")
 
@@ -1920,7 +1860,7 @@ class RuntimeClassStrategyOptions(dict):
                  default_runtime_class_name: Optional[str] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
-        :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
         pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
@@ -1931,7 +1871,7 @@ class RuntimeClassStrategyOptions(dict):
     @pulumi.getter(name="allowedRuntimeClassNames")
     def allowed_runtime_class_names(self) -> Sequence[str]:
         """
-        allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         """
         return pulumi.get(self, "allowed_runtime_class_names")
 
@@ -1973,7 +1913,7 @@ class RuntimeClassStrategyOptionsPatch(dict):
                  default_runtime_class_name: Optional[str] = None):
         """
         RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
-        :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
         if allowed_runtime_class_names is not None:
@@ -1985,7 +1925,7 @@ class RuntimeClassStrategyOptionsPatch(dict):
     @pulumi.getter(name="allowedRuntimeClassNames")
     def allowed_runtime_class_names(self) -> Optional[Sequence[str]]:
         """
-        allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+        allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         """
         return pulumi.get(self, "allowed_runtime_class_names")
 

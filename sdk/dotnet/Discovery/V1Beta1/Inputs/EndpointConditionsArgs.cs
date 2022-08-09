@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
     public class EndpointConditionsArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+        /// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
         /// </summary>
         [Input("ready")]
         public Input<bool>? Ready { get; set; }

@@ -3447,9 +3447,7 @@ func (o ManagedFieldsEntryPatchArrayOutput) Index(i pulumi.IntInput) ManagedFiel
 type ObjectMeta struct {
 	// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
 	Annotations map[string]string `pulumi:"annotations"`
-	// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-	//
-	// The name in the go struct is changed to help clients detect accidental use.
+	// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 	ClusterName *string `pulumi:"clusterName"`
 	// CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3510,9 +3508,7 @@ type ObjectMetaInput interface {
 type ObjectMetaArgs struct {
 	// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
 	Annotations pulumi.StringMapInput `pulumi:"annotations"`
-	// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-	//
-	// The name in the go struct is changed to help clients detect accidental use.
+	// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 	ClusterName pulumi.StringPtrInput `pulumi:"clusterName"`
 	// CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3641,9 +3637,7 @@ func (o ObjectMetaOutput) Annotations() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ObjectMeta) map[string]string { return v.Annotations }).(pulumi.StringMapOutput)
 }
 
-// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-//
-// The name in the go struct is changed to help clients detect accidental use.
+// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 func (o ObjectMetaOutput) ClusterName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ObjectMeta) *string { return v.ClusterName }).(pulumi.StringPtrOutput)
 }
@@ -3766,9 +3760,7 @@ func (o ObjectMetaPtrOutput) Annotations() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-//
-// The name in the go struct is changed to help clients detect accidental use.
+// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 func (o ObjectMetaPtrOutput) ClusterName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ObjectMeta) *string {
 		if v == nil {
@@ -3936,9 +3928,7 @@ func (o ObjectMetaPtrOutput) Uid() pulumi.StringPtrOutput {
 type ObjectMetaPatch struct {
 	// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
 	Annotations map[string]string `pulumi:"annotations"`
-	// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-	//
-	// The name in the go struct is changed to help clients detect accidental use.
+	// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 	ClusterName *string `pulumi:"clusterName"`
 	// CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 	//
@@ -3999,9 +3989,7 @@ type ObjectMetaPatchInput interface {
 type ObjectMetaPatchArgs struct {
 	// Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
 	Annotations pulumi.StringMapInput `pulumi:"annotations"`
-	// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-	//
-	// The name in the go struct is changed to help clients detect accidental use.
+	// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 	ClusterName pulumi.StringPtrInput `pulumi:"clusterName"`
 	// CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
 	//
@@ -4130,9 +4118,7 @@ func (o ObjectMetaPatchOutput) Annotations() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ObjectMetaPatch) map[string]string { return v.Annotations }).(pulumi.StringMapOutput)
 }
 
-// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-//
-// The name in the go struct is changed to help clients detect accidental use.
+// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 func (o ObjectMetaPatchOutput) ClusterName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ObjectMetaPatch) *string { return v.ClusterName }).(pulumi.StringPtrOutput)
 }
@@ -4255,9 +4241,7 @@ func (o ObjectMetaPatchPtrOutput) Annotations() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-//
-// The name in the go struct is changed to help clients detect accidental use.
+// The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
 func (o ObjectMetaPatchPtrOutput) ClusterName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ObjectMetaPatch) *string {
 		if v == nil {

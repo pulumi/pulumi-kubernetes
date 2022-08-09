@@ -24,7 +24,7 @@ type Endpoint struct {
 	Hints *EndpointHints `pulumi:"hints"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname *string `pulumi:"hostname"`
-	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 	NodeName *string `pulumi:"nodeName"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef *corev1.ObjectReference `pulumi:"targetRef"`
@@ -55,7 +55,7 @@ type EndpointArgs struct {
 	Hints EndpointHintsPtrInput `pulumi:"hints"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef corev1.ObjectReferencePtrInput `pulumi:"targetRef"`
@@ -140,7 +140,7 @@ func (o EndpointOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Endpoint) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 func (o EndpointOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Endpoint) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }
@@ -823,7 +823,7 @@ type EndpointPatch struct {
 	Hints *EndpointHintsPatch `pulumi:"hints"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname *string `pulumi:"hostname"`
-	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 	NodeName *string `pulumi:"nodeName"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef *corev1.ObjectReferencePatch `pulumi:"targetRef"`
@@ -854,7 +854,7 @@ type EndpointPatchArgs struct {
 	Hints EndpointHintsPatchPtrInput `pulumi:"hints"`
 	// hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+	// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
 	// targetRef is a reference to a Kubernetes object that represents this endpoint.
 	TargetRef corev1.ObjectReferencePatchPtrInput `pulumi:"targetRef"`
@@ -939,7 +939,7 @@ func (o EndpointPatchOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPatch) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
 func (o EndpointPatchOutput) NodeName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPatch) *string { return v.NodeName }).(pulumi.StringPtrOutput)
 }

@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
     public class EventSeriesPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// count is the number of occurrences in this series up to the last heartbeat time.
+        /// Number of occurrences in this series up to the last heartbeat time
         /// </summary>
         [Input("count")]
         public Input<int>? Count { get; set; }
 
         /// <summary>
-        /// lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        /// Time when last Event from the series was seen before last heartbeat.
         /// </summary>
         [Input("lastObservedTime")]
         public Input<string>? LastObservedTime { get; set; }

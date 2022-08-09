@@ -42,7 +42,7 @@ public final class MetricSpec {
      */
     private @Nullable ResourceMetricSource resource;
     /**
-     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+     * @return type is the type of metric source.  It should be one of &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
      * 
      */
     private String type;
@@ -84,7 +84,7 @@ public final class MetricSpec {
         return Optional.ofNullable(this.resource);
     }
     /**
-     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+     * @return type is the type of metric source.  It should be one of &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
      * 
      */
     public String type() {

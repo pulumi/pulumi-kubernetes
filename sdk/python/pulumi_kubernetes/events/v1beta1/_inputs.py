@@ -25,8 +25,8 @@ class EventSeriesPatchArgs:
                  state: Optional[pulumi.Input[str]] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
+        :param pulumi.Input[str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
         if count is not None:
@@ -40,7 +40,7 @@ class EventSeriesPatchArgs:
     @pulumi.getter
     def count(self) -> Optional[pulumi.Input[int]]:
         """
-        count is the number of occurrences in this series up to the last heartbeat time.
+        Number of occurrences in this series up to the last heartbeat time
         """
         return pulumi.get(self, "count")
 
@@ -52,7 +52,7 @@ class EventSeriesPatchArgs:
     @pulumi.getter(name="lastObservedTime")
     def last_observed_time(self) -> Optional[pulumi.Input[str]]:
         """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        Time when last Event from the series was seen before last heartbeat.
         """
         return pulumi.get(self, "last_observed_time")
 
@@ -78,23 +78,22 @@ class EventSeriesArgs:
     def __init__(__self__, *,
                  count: pulumi.Input[int],
                  last_observed_time: pulumi.Input[str],
-                 state: Optional[pulumi.Input[str]] = None):
+                 state: pulumi.Input[str]):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        :param pulumi.Input[int] count: Number of occurrences in this series up to the last heartbeat time
+        :param pulumi.Input[str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
         pulumi.set(__self__, "count", count)
         pulumi.set(__self__, "last_observed_time", last_observed_time)
-        if state is not None:
-            pulumi.set(__self__, "state", state)
+        pulumi.set(__self__, "state", state)
 
     @property
     @pulumi.getter
     def count(self) -> pulumi.Input[int]:
         """
-        count is the number of occurrences in this series up to the last heartbeat time.
+        Number of occurrences in this series up to the last heartbeat time
         """
         return pulumi.get(self, "count")
 
@@ -106,7 +105,7 @@ class EventSeriesArgs:
     @pulumi.getter(name="lastObservedTime")
     def last_observed_time(self) -> pulumi.Input[str]:
         """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        Time when last Event from the series was seen before last heartbeat.
         """
         return pulumi.get(self, "last_observed_time")
 
@@ -116,14 +115,14 @@ class EventSeriesArgs:
 
     @property
     @pulumi.getter
-    def state(self) -> Optional[pulumi.Input[str]]:
+    def state(self) -> pulumi.Input[str]:
         """
         Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
         return pulumi.get(self, "state")
 
     @state.setter
-    def state(self, value: Optional[pulumi.Input[str]]):
+    def state(self, value: pulumi.Input[str]):
         pulumi.set(self, "state", value)
 
 
@@ -148,24 +147,23 @@ class EventArgs:
                  series: Optional[pulumi.Input['EventSeriesArgs']] = None,
                  type: Optional[pulumi.Input[str]] = None):
         """
-        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
-        :param pulumi.Input[str] event_time: eventTime is the time when this Event was first observed. It is required.
-        :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+        :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
+        :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[int] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input['_core.v1.EventSourceArgs'] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param pulumi.Input[int] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input['_core.v1.EventSourceArgs'] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[str] note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
-        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] related: related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-        :param pulumi.Input[str] reporting_controller: reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
-        :param pulumi.Input[str] reporting_instance: reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
-        :param pulumi.Input['EventSeriesArgs'] series: series is data about the Event series this event represents or nil if it's a singleton Event.
-        :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        :param pulumi.Input[str] note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        :param pulumi.Input[str] reason: Why the action was taken.
+        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input['_core.v1.ObjectReferenceArgs'] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param pulumi.Input[str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+        :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
+        :param pulumi.Input['EventSeriesArgs'] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         pulumi.set(__self__, "event_time", event_time)
         if action is not None:
@@ -205,7 +203,7 @@ class EventArgs:
     @pulumi.getter(name="eventTime")
     def event_time(self) -> pulumi.Input[str]:
         """
-        eventTime is the time when this Event was first observed. It is required.
+        Required. Time when this Event was first observed.
         """
         return pulumi.get(self, "event_time")
 
@@ -217,7 +215,7 @@ class EventArgs:
     @pulumi.getter
     def action(self) -> Optional[pulumi.Input[str]]:
         """
-        action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        What action was taken/failed regarding to the regarding object.
         """
         return pulumi.get(self, "action")
 
@@ -241,7 +239,7 @@ class EventArgs:
     @pulumi.getter(name="deprecatedCount")
     def deprecated_count(self) -> Optional[pulumi.Input[int]]:
         """
-        deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_count")
 
@@ -253,7 +251,7 @@ class EventArgs:
     @pulumi.getter(name="deprecatedFirstTimestamp")
     def deprecated_first_timestamp(self) -> Optional[pulumi.Input[str]]:
         """
-        deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_first_timestamp")
 
@@ -265,7 +263,7 @@ class EventArgs:
     @pulumi.getter(name="deprecatedLastTimestamp")
     def deprecated_last_timestamp(self) -> Optional[pulumi.Input[str]]:
         """
-        deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_last_timestamp")
 
@@ -277,7 +275,7 @@ class EventArgs:
     @pulumi.getter(name="deprecatedSource")
     def deprecated_source(self) -> Optional[pulumi.Input['_core.v1.EventSourceArgs']]:
         """
-        deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_source")
 
@@ -300,9 +298,6 @@ class EventArgs:
     @property
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
@@ -313,7 +308,7 @@ class EventArgs:
     @pulumi.getter
     def note(self) -> Optional[pulumi.Input[str]]:
         """
-        note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         """
         return pulumi.get(self, "note")
 
@@ -325,7 +320,7 @@ class EventArgs:
     @pulumi.getter
     def reason(self) -> Optional[pulumi.Input[str]]:
         """
-        reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        Why the action was taken.
         """
         return pulumi.get(self, "reason")
 
@@ -337,7 +332,7 @@ class EventArgs:
     @pulumi.getter
     def regarding(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
         """
-        regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         """
         return pulumi.get(self, "regarding")
 
@@ -349,7 +344,7 @@ class EventArgs:
     @pulumi.getter
     def related(self) -> Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']]:
         """
-        related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         """
         return pulumi.get(self, "related")
 
@@ -361,7 +356,7 @@ class EventArgs:
     @pulumi.getter(name="reportingController")
     def reporting_controller(self) -> Optional[pulumi.Input[str]]:
         """
-        reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
         return pulumi.get(self, "reporting_controller")
 
@@ -373,7 +368,7 @@ class EventArgs:
     @pulumi.getter(name="reportingInstance")
     def reporting_instance(self) -> Optional[pulumi.Input[str]]:
         """
-        reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        ID of the controller instance, e.g. `kubelet-xyzf`.
         """
         return pulumi.get(self, "reporting_instance")
 
@@ -385,7 +380,7 @@ class EventArgs:
     @pulumi.getter
     def series(self) -> Optional[pulumi.Input['EventSeriesArgs']]:
         """
-        series is data about the Event series this event represents or nil if it's a singleton Event.
+        Data about the Event series this event represents or nil if it's a singleton Event.
         """
         return pulumi.get(self, "series")
 
@@ -397,7 +392,7 @@ class EventArgs:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
-        type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        Type of this event (Normal, Warning), new types could be added in the future.
         """
         return pulumi.get(self, "type")
 

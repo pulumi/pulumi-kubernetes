@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
     public sealed class StatefulSetSpec
     {
         /// <summary>
-        /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+        /// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         /// </summary>
         public readonly int MinReadySeconds;
         /// <summary>

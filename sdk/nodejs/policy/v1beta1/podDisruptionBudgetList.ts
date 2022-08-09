@@ -39,17 +39,11 @@ export class PodDisruptionBudgetList extends pulumi.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     public readonly apiVersion!: pulumi.Output<"policy/v1beta1">;
-    /**
-     * items list individual PodDisruptionBudget objects
-     */
     public readonly items!: pulumi.Output<outputs.policy.v1beta1.PodDisruptionBudget[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     public readonly kind!: pulumi.Output<"PodDisruptionBudgetList">;
-    /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ListMeta>;
 
     /**
@@ -89,16 +83,10 @@ export interface PodDisruptionBudgetListArgs {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      */
     apiVersion?: pulumi.Input<"policy/v1beta1">;
-    /**
-     * items list individual PodDisruptionBudget objects
-     */
     items: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.PodDisruptionBudget>[]>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind?: pulumi.Input<"PodDisruptionBudgetList">;
-    /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     */
     metadata?: pulumi.Input<inputs.meta.v1.ListMeta>;
 }

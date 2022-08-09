@@ -53,17 +53,9 @@ public final class PodDisruptionBudgetArgs extends com.pulumi.resources.Resource
         return Optional.ofNullable(this.kind);
     }
 
-    /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Optional<Output<ObjectMetaArgs>> metadata() {
         return Optional.ofNullable(this.metadata);
     }
@@ -168,23 +160,11 @@ public final class PodDisruptionBudgetArgs extends com.pulumi.resources.Resource
             return kind(Output.of(kind));
         }
 
-        /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-         * 
-         * @return builder
-         * 
-         */
         public Builder metadata(@Nullable Output<ObjectMetaArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
 
-        /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-         * 
-         * @return builder
-         * 
-         */
         public Builder metadata(ObjectMetaArgs metadata) {
             return metadata(Output.of(metadata));
         }

@@ -24,10 +24,6 @@ public final class PodDisruptionBudget {
      * 
      */
     private @Nullable String kind;
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     private @Nullable ObjectMeta metadata;
     /**
      * @return Specification of the desired behavior of the PodDisruptionBudget.
@@ -55,10 +51,6 @@ public final class PodDisruptionBudget {
     public Optional<String> kind() {
         return Optional.ofNullable(this.kind);
     }
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }

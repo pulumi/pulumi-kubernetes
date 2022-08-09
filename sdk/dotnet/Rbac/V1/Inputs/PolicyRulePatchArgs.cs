@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         private InputList<string>? _apiGroups;
 
         /// <summary>
-        /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+        /// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         /// </summary>
         public InputList<string> ApiGroups
         {

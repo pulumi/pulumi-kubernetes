@@ -27,14 +27,14 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
     public static final StatefulSetSpecArgs Empty = new StatefulSetSpecArgs();
 
     /**
-     * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+     * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
      * 
      */
     @Import(name="minReadySeconds")
     private @Nullable Output<Integer> minReadySeconds;
 
     /**
-     * @return Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+     * @return Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
      * 
      */
     public Optional<Output<Integer>> minReadySeconds() {
@@ -210,7 +210,7 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param minReadySeconds Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+         * @param minReadySeconds Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
          * 
          * @return builder
          * 
@@ -221,7 +221,7 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param minReadySeconds Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+         * @param minReadySeconds Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
          * 
          * @return builder
          * 

@@ -1383,6 +1383,18 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"networking.k8s.io/v1/NetworkPolicyList:{x}",
                        NetworkPolicyList(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1alpha1/ClusterCIDR":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1alpha1 import ClusterCIDR
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1alpha1/ClusterCIDR:{x}",
+                       ClusterCIDR(f"{x}", opts, **obj)))]
+    if gvk == "networking.k8s.io/v1alpha1/ClusterCIDRList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.networking.v1alpha1 import ClusterCIDRList
+        return [identifier.apply(
+            lambda x: (f"networking.k8s.io/v1alpha1/ClusterCIDRList:{x}",
+                       ClusterCIDRList(f"{x}", opts, **obj)))]
     if gvk == "networking.k8s.io/v1beta1/Ingress":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.networking.v1beta1 import Ingress

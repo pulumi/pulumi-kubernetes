@@ -127,21 +127,6 @@ public final class CronJobSpecPatchArgs extends com.pulumi.resources.ResourceArg
         return Optional.ofNullable(this.suspend);
     }
 
-    /**
-     * The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-     * 
-     */
-    @Import(name="timeZone")
-    private @Nullable Output<String> timeZone;
-
-    /**
-     * @return The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-     * 
-     */
-    public Optional<Output<String>> timeZone() {
-        return Optional.ofNullable(this.timeZone);
-    }
-
     private CronJobSpecPatchArgs() {}
 
     private CronJobSpecPatchArgs(CronJobSpecPatchArgs $) {
@@ -152,7 +137,6 @@ public final class CronJobSpecPatchArgs extends com.pulumi.resources.ResourceArg
         this.startingDeadlineSeconds = $.startingDeadlineSeconds;
         this.successfulJobsHistoryLimit = $.successfulJobsHistoryLimit;
         this.suspend = $.suspend;
-        this.timeZone = $.timeZone;
     }
 
     public static Builder builder() {
@@ -318,27 +302,6 @@ public final class CronJobSpecPatchArgs extends com.pulumi.resources.ResourceArg
          */
         public Builder suspend(Boolean suspend) {
             return suspend(Output.of(suspend));
-        }
-
-        /**
-         * @param timeZone The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder timeZone(@Nullable Output<String> timeZone) {
-            $.timeZone = timeZone;
-            return this;
-        }
-
-        /**
-         * @param timeZone The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder timeZone(String timeZone) {
-            return timeZone(Output.of(timeZone));
         }
 
         public CronJobSpecPatchArgs build() {

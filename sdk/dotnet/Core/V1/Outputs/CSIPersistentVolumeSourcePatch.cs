@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class CSIPersistentVolumeSourcePatch
     {
         /// <summary>
-        /// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        /// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReferencePatch ControllerExpandSecretRef;
         /// <summary>
@@ -32,6 +32,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
         /// </summary>
         public readonly string FsType;
+        /// <summary>
+        /// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReferencePatch NodeExpandSecretRef;
         /// <summary>
         /// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         /// </summary>
@@ -63,6 +67,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string fsType,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReferencePatch nodeExpandSecretRef,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReferencePatch nodePublishSecretRef,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SecretReferencePatch nodeStageSecretRef,
@@ -77,6 +83,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             ControllerPublishSecretRef = controllerPublishSecretRef;
             Driver = driver;
             FsType = fsType;
+            NodeExpandSecretRef = nodeExpandSecretRef;
             NodePublishSecretRef = nodePublishSecretRef;
             NodeStageSecretRef = nodeStageSecretRef;
             ReadOnly = readOnly;

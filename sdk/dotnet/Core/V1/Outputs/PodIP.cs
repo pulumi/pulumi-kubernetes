@@ -12,7 +12,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
     /// <summary>
     /// IP address information for entries in the (plural) PodIPs field. Each entry includes:
-    ///    IP: An IP address allocated to the pod. Routable at least within the cluster.
+    /// 
+    /// 	IP: An IP address allocated to the pod. Routable at least within the cluster.
     /// </summary>
     [OutputType]
     public sealed class PodIP

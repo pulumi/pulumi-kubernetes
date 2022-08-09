@@ -6,7 +6,7 @@ import { input as inputs, output as outputs, enums } from "../../types";
 import * as utilities from "../../utilities";
 
 /**
- * PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+ * PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
  */
 export class PodSecurityPolicy extends pulumi.CustomResource {
     /**

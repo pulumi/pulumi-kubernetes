@@ -63,6 +63,7 @@ import (
 	flowcontrolv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta2"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
+	networkingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1alpha1"
 	networkingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1beta1"
 	nodev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/node/v1"
 	nodev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/node/v1alpha1"
@@ -309,6 +310,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
 		"networking.k8s.io/v1/NetworkPolicyList",
+		"networking.k8s.io/v1alpha1/ClusterCIDRList",
 		"networking.k8s.io/v1beta1/IngressClassList",
 		"networking.k8s.io/v1beta1/IngressList",
 		"node.k8s.io/v1/RuntimeClassList",
@@ -962,6 +964,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "networking.k8s.io/v1/NetworkPolicy":
 		var res networkingv1.NetworkPolicy
 		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicy", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "networking.k8s.io/v1alpha1/ClusterCIDR":
+		var res networkingv1alpha1.ClusterCIDR
+		err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

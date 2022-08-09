@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
         /// </summary>
         public readonly string Hostname;
         /// <summary>
-        /// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        /// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
         /// </summary>
         public readonly string NodeName;
         /// <summary>

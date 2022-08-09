@@ -7,7 +7,6 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ObjectReferenceArgs;
 import com.pulumi.kubernetes.discovery.v1beta1.inputs.EndpointConditionsArgs;
-import com.pulumi.kubernetes.discovery.v1beta1.inputs.EndpointHintsArgs;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -25,14 +24,14 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
     public static final EndpointArgs Empty = new EndpointArgs();
 
     /**
-     * addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+     * addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
      * 
      */
     @Import(name="addresses", required=true)
     private Output<List<String>> addresses;
 
     /**
-     * @return addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+     * @return addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
      * 
      */
     public Output<List<String>> addresses() {
@@ -55,29 +54,14 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * hints contains information associated with how an endpoint should be consumed.
-     * 
-     */
-    @Import(name="hints")
-    private @Nullable Output<EndpointHintsArgs> hints;
-
-    /**
-     * @return hints contains information associated with how an endpoint should be consumed.
-     * 
-     */
-    public Optional<Output<EndpointHintsArgs>> hints() {
-        return Optional.ofNullable(this.hints);
-    }
-
-    /**
-     * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+     * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
      * 
      */
     @Import(name="hostname")
     private @Nullable Output<String> hostname;
 
     /**
-     * @return hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+     * @return hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
      * 
      */
     public Optional<Output<String>> hostname() {
@@ -122,7 +106,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
      *   endpoint is located. This should match the corresponding node label.
      * * topology.kubernetes.io/region: the value indicates the region where the
      *   endpoint is located. This should match the corresponding node label.
-     *   This field is deprecated and will be removed in future api versions.
      * 
      */
     @Import(name="topology")
@@ -136,7 +119,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
      *   endpoint is located. This should match the corresponding node label.
      * * topology.kubernetes.io/region: the value indicates the region where the
      *   endpoint is located. This should match the corresponding node label.
-     *   This field is deprecated and will be removed in future api versions.
      * 
      */
     public Optional<Output<Map<String,String>>> topology() {
@@ -148,7 +130,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
     private EndpointArgs(EndpointArgs $) {
         this.addresses = $.addresses;
         this.conditions = $.conditions;
-        this.hints = $.hints;
         this.hostname = $.hostname;
         this.nodeName = $.nodeName;
         this.targetRef = $.targetRef;
@@ -174,7 +155,7 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param addresses addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+         * @param addresses addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
          * 
          * @return builder
          * 
@@ -185,7 +166,7 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param addresses addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+         * @param addresses addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
          * 
          * @return builder
          * 
@@ -195,7 +176,7 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param addresses addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+         * @param addresses addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
          * 
          * @return builder
          * 
@@ -226,28 +207,7 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hints hints contains information associated with how an endpoint should be consumed.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder hints(@Nullable Output<EndpointHintsArgs> hints) {
-            $.hints = hints;
-            return this;
-        }
-
-        /**
-         * @param hints hints contains information associated with how an endpoint should be consumed.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder hints(EndpointHintsArgs hints) {
-            return hints(Output.of(hints));
-        }
-
-        /**
-         * @param hostname hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+         * @param hostname hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
          * 
          * @return builder
          * 
@@ -258,7 +218,7 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostname hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+         * @param hostname hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
          * 
          * @return builder
          * 
@@ -317,7 +277,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
          *   endpoint is located. This should match the corresponding node label.
          * * topology.kubernetes.io/region: the value indicates the region where the
          *   endpoint is located. This should match the corresponding node label.
-         *   This field is deprecated and will be removed in future api versions.
          * 
          * @return builder
          * 
@@ -335,7 +294,6 @@ public final class EndpointArgs extends com.pulumi.resources.ResourceArgs {
          *   endpoint is located. This should match the corresponding node label.
          * * topology.kubernetes.io/region: the value indicates the region where the
          *   endpoint is located. This should match the corresponding node label.
-         *   This field is deprecated and will be removed in future api versions.
          * 
          * @return builder
          * 

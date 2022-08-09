@@ -203,7 +203,7 @@ class EndpointPatchArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] deprecated_topology: deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
         :param pulumi.Input['EndpointHintsPatchArgs'] hints: hints contains information associated with how an endpoint should be consumed.
         :param pulumi.Input[str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
-        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
         :param pulumi.Input['_core.v1.ObjectReferencePatchArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
         :param pulumi.Input[str] zone: zone is the name of the Zone this endpoint exists in.
         """
@@ -288,7 +288,7 @@ class EndpointPatchArgs:
     @pulumi.getter(name="nodeName")
     def node_name(self) -> Optional[pulumi.Input[str]]:
         """
-        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
         """
         return pulumi.get(self, "node_name")
 
@@ -585,7 +585,7 @@ class EndpointArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] deprecated_topology: deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
         :param pulumi.Input['EndpointHintsArgs'] hints: hints contains information associated with how an endpoint should be consumed.
         :param pulumi.Input[str] hostname: hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
-        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        :param pulumi.Input[str] node_name: nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
         :param pulumi.Input['_core.v1.ObjectReferenceArgs'] target_ref: targetRef is a reference to a Kubernetes object that represents this endpoint.
         :param pulumi.Input[str] zone: zone is the name of the Zone this endpoint exists in.
         """
@@ -669,7 +669,7 @@ class EndpointArgs:
     @pulumi.getter(name="nodeName")
     def node_name(self) -> Optional[pulumi.Input[str]]:
         """
-        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
         """
         return pulumi.get(self, "node_name")
 

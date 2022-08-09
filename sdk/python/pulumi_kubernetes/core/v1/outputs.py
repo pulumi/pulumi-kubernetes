@@ -1274,6 +1274,8 @@ class CSIPersistentVolumeSource(dict):
             suggest = "controller_publish_secret_ref"
         elif key == "fsType":
             suggest = "fs_type"
+        elif key == "nodeExpandSecretRef":
+            suggest = "node_expand_secret_ref"
         elif key == "nodePublishSecretRef":
             suggest = "node_publish_secret_ref"
         elif key == "nodeStageSecretRef":
@@ -1300,6 +1302,7 @@ class CSIPersistentVolumeSource(dict):
                  controller_expand_secret_ref: Optional['outputs.SecretReference'] = None,
                  controller_publish_secret_ref: Optional['outputs.SecretReference'] = None,
                  fs_type: Optional[str] = None,
+                 node_expand_secret_ref: Optional['outputs.SecretReference'] = None,
                  node_publish_secret_ref: Optional['outputs.SecretReference'] = None,
                  node_stage_secret_ref: Optional['outputs.SecretReference'] = None,
                  read_only: Optional[bool] = None,
@@ -1308,9 +1311,10 @@ class CSIPersistentVolumeSource(dict):
         Represents storage that is managed by an external CSI volume driver (Beta feature)
         :param str driver: driver is the name of the driver to use for this volume. Required.
         :param str volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
-        :param 'SecretReferenceArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferenceArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        :param 'SecretReferenceArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
@@ -1324,6 +1328,8 @@ class CSIPersistentVolumeSource(dict):
             pulumi.set(__self__, "controller_publish_secret_ref", controller_publish_secret_ref)
         if fs_type is not None:
             pulumi.set(__self__, "fs_type", fs_type)
+        if node_expand_secret_ref is not None:
+            pulumi.set(__self__, "node_expand_secret_ref", node_expand_secret_ref)
         if node_publish_secret_ref is not None:
             pulumi.set(__self__, "node_publish_secret_ref", node_publish_secret_ref)
         if node_stage_secret_ref is not None:
@@ -1353,7 +1359,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -1372,6 +1378,14 @@ class CSIPersistentVolumeSource(dict):
         fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
         """
         return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="nodeExpandSecretRef")
+    def node_expand_secret_ref(self) -> Optional['outputs.SecretReference']:
+        """
+        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        """
+        return pulumi.get(self, "node_expand_secret_ref")
 
     @property
     @pulumi.getter(name="nodePublishSecretRef")
@@ -1420,6 +1434,8 @@ class CSIPersistentVolumeSourcePatch(dict):
             suggest = "controller_publish_secret_ref"
         elif key == "fsType":
             suggest = "fs_type"
+        elif key == "nodeExpandSecretRef":
+            suggest = "node_expand_secret_ref"
         elif key == "nodePublishSecretRef":
             suggest = "node_publish_secret_ref"
         elif key == "nodeStageSecretRef":
@@ -1447,6 +1463,7 @@ class CSIPersistentVolumeSourcePatch(dict):
                  controller_publish_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
                  driver: Optional[str] = None,
                  fs_type: Optional[str] = None,
+                 node_expand_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
                  node_publish_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
                  node_stage_secret_ref: Optional['outputs.SecretReferencePatch'] = None,
                  read_only: Optional[bool] = None,
@@ -1454,10 +1471,11 @@ class CSIPersistentVolumeSourcePatch(dict):
                  volume_handle: Optional[str] = None):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
-        :param 'SecretReferencePatchArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferencePatchArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param str driver: driver is the name of the driver to use for this volume. Required.
         :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
+        :param 'SecretReferencePatchArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
@@ -1472,6 +1490,8 @@ class CSIPersistentVolumeSourcePatch(dict):
             pulumi.set(__self__, "driver", driver)
         if fs_type is not None:
             pulumi.set(__self__, "fs_type", fs_type)
+        if node_expand_secret_ref is not None:
+            pulumi.set(__self__, "node_expand_secret_ref", node_expand_secret_ref)
         if node_publish_secret_ref is not None:
             pulumi.set(__self__, "node_publish_secret_ref", node_publish_secret_ref)
         if node_stage_secret_ref is not None:
@@ -1487,7 +1507,7 @@ class CSIPersistentVolumeSourcePatch(dict):
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
         """
-        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -1514,6 +1534,14 @@ class CSIPersistentVolumeSourcePatch(dict):
         fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
         """
         return pulumi.get(self, "fs_type")
+
+    @property
+    @pulumi.getter(name="nodeExpandSecretRef")
+    def node_expand_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
+        """
+        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        """
+        return pulumi.get(self, "node_expand_secret_ref")
 
     @property
     @pulumi.getter(name="nodePublishSecretRef")
@@ -3423,7 +3451,7 @@ class Container(dict):
         :param str image_pull_policy: Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
         :param 'LifecycleArgs' lifecycle: Actions that the management system should take in response to container lifecycle events. Cannot be updated.
         :param 'ProbeArgs' liveness_probe: Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
-        :param Sequence['ContainerPortArgs'] ports: List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+        :param Sequence['ContainerPortArgs'] ports: List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         :param 'ProbeArgs' readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param 'ResourceRequirementsArgs' resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         :param 'SecurityContextArgs' security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -3557,7 +3585,7 @@ class Container(dict):
     @pulumi.getter
     def ports(self) -> Optional[Sequence['outputs.ContainerPort']]:
         """
-        List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+        List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         """
         return pulumi.get(self, "ports")
 
@@ -3685,7 +3713,7 @@ class ContainerImage(dict):
                  size_bytes: Optional[int] = None):
         """
         Describe a container image
-        :param Sequence[str] names: Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        :param Sequence[str] names: Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
         :param int size_bytes: The size of the image in bytes.
         """
         pulumi.set(__self__, "names", names)
@@ -3696,7 +3724,7 @@ class ContainerImage(dict):
     @pulumi.getter
     def names(self) -> Sequence[str]:
         """
-        Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
         """
         return pulumi.get(self, "names")
 
@@ -3736,7 +3764,7 @@ class ContainerImagePatch(dict):
                  size_bytes: Optional[int] = None):
         """
         Describe a container image
-        :param Sequence[str] names: Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        :param Sequence[str] names: Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
         :param int size_bytes: The size of the image in bytes.
         """
         if names is not None:
@@ -3748,7 +3776,7 @@ class ContainerImagePatch(dict):
     @pulumi.getter
     def names(self) -> Optional[Sequence[str]]:
         """
-        Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
         """
         return pulumi.get(self, "names")
 
@@ -3839,7 +3867,7 @@ class ContainerPatch(dict):
         :param 'LifecyclePatchArgs' lifecycle: Actions that the management system should take in response to container lifecycle events. Cannot be updated.
         :param 'ProbePatchArgs' liveness_probe: Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param str name: Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
-        :param Sequence['ContainerPortPatchArgs'] ports: List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+        :param Sequence['ContainerPortPatchArgs'] ports: List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         :param 'ProbePatchArgs' readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param 'ResourceRequirementsPatchArgs' resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         :param 'SecurityContextPatchArgs' security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -3974,7 +4002,7 @@ class ContainerPatch(dict):
     @pulumi.getter
     def ports(self) -> Optional[Sequence['outputs.ContainerPortPatch']]:
         """
-        List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+        List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         """
         return pulumi.get(self, "ports")
 
@@ -5814,13 +5842,16 @@ class EndpointPortPatch(dict):
 class EndpointSubset(dict):
     """
     EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-      {
-        Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-        Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-      }
+
+    	{
+    	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+    	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    	}
+
     The resulting set of endpoints can be viewed as:
-        a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-        b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+    	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+    	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
     """
     @staticmethod
     def __key_warning(key: str):
@@ -5845,13 +5876,16 @@ class EndpointSubset(dict):
                  ports: Optional[Sequence['outputs.EndpointPort']] = None):
         """
         EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-          {
-            Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-            Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-          }
+
+        	{
+        	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+        	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+        	}
+
         The resulting set of endpoints can be viewed as:
-            a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-            b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+        	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
         :param Sequence['EndpointAddressArgs'] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
         :param Sequence['EndpointAddressArgs'] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
         :param Sequence['EndpointPortArgs'] ports: Port numbers available on the related IP addresses.
@@ -5892,13 +5926,16 @@ class EndpointSubset(dict):
 class EndpointSubsetPatch(dict):
     """
     EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-      {
-        Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-        Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-      }
+
+    	{
+    	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+    	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    	}
+
     The resulting set of endpoints can be viewed as:
-        a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-        b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+    	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+    	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
     """
     @staticmethod
     def __key_warning(key: str):
@@ -5923,13 +5960,16 @@ class EndpointSubsetPatch(dict):
                  ports: Optional[Sequence['outputs.EndpointPortPatch']] = None):
         """
         EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-          {
-            Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-            Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-          }
+
+        	{
+        	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+        	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+        	}
+
         The resulting set of endpoints can be viewed as:
-            a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-            b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+
+        	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+        	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
         :param Sequence['EndpointAddressPatchArgs'] addresses: IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
         :param Sequence['EndpointAddressPatchArgs'] not_ready_addresses: IP addresses which offer the related ports but are not currently marked as ready because they have not yet finished starting, have recently failed a readiness check, or have recently failed a liveness check.
         :param Sequence['EndpointPortPatchArgs'] ports: Port numbers available on the related IP addresses.
@@ -5970,17 +6010,18 @@ class EndpointSubsetPatch(dict):
 class Endpoints(dict):
     """
     Endpoints is a collection of endpoints that implement the actual service. Example:
-      Name: "mysvc",
-      Subsets: [
-        {
-          Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-          Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-        },
-        {
-          Addresses: [{"ip": "10.10.3.3"}],
-          Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-        },
-     ]
+
+    	 Name: "mysvc",
+    	 Subsets: [
+    	   {
+    	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+    	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+    	   },
+    	   {
+    	     Addresses: [{"ip": "10.10.3.3"}],
+    	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+    	   },
+    	]
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6006,17 +6047,18 @@ class Endpoints(dict):
                  subsets: Optional[Sequence['outputs.EndpointSubset']] = None):
         """
         Endpoints is a collection of endpoints that implement the actual service. Example:
-          Name: "mysvc",
-          Subsets: [
-            {
-              Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-              Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-            },
-            {
-              Addresses: [{"ip": "10.10.3.3"}],
-              Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-            },
-         ]
+
+        	 Name: "mysvc",
+        	 Subsets: [
+        	   {
+        	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+        	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+        	   },
+        	   {
+        	     Addresses: [{"ip": "10.10.3.3"}],
+        	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+        	   },
+        	]
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -6493,8 +6535,6 @@ class EphemeralContainer(dict):
     An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
     To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-
-    This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6565,8 +6605,6 @@ class EphemeralContainer(dict):
         An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
         To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-
-        This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
         :param str name: Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
         :param Sequence[str] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param Sequence[str] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
@@ -6832,8 +6870,6 @@ class EphemeralContainerPatch(dict):
     An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
     To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-
-    This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -6904,8 +6940,6 @@ class EphemeralContainerPatch(dict):
         An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
 
         To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-
-        This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
         :param Sequence[str] args: Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param Sequence[str] command: Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
         :param Sequence['EnvVarPatchArgs'] env: List of environment variables to set in the container. Cannot be updated.
@@ -16864,13 +16898,15 @@ class PodDNSConfigPatch(dict):
 class PodIP(dict):
     """
     IP address information for entries in the (plural) PodIPs field. Each entry includes:
-       IP: An IP address allocated to the pod. Routable at least within the cluster.
+
+    	IP: An IP address allocated to the pod. Routable at least within the cluster.
     """
     def __init__(__self__, *,
                  ip: Optional[str] = None):
         """
         IP address information for entries in the (plural) PodIPs field. Each entry includes:
-           IP: An IP address allocated to the pod. Routable at least within the cluster.
+
+        	IP: An IP address allocated to the pod. Routable at least within the cluster.
         :param str ip: ip is an IP address (IPv4 or IPv6) assigned to the pod
         """
         if ip is not None:
@@ -16889,13 +16925,15 @@ class PodIP(dict):
 class PodIPPatch(dict):
     """
     IP address information for entries in the (plural) PodIPs field. Each entry includes:
-       IP: An IP address allocated to the pod. Routable at least within the cluster.
+
+    	IP: An IP address allocated to the pod. Routable at least within the cluster.
     """
     def __init__(__self__, *,
                  ip: Optional[str] = None):
         """
         IP address information for entries in the (plural) PodIPs field. Each entry includes:
-           IP: An IP address allocated to the pod. Routable at least within the cluster.
+
+        	IP: An IP address allocated to the pod. Routable at least within the cluster.
         :param str ip: ip is an IP address (IPv4 or IPv6) assigned to the pod
         """
         if ip is not None:
@@ -17406,6 +17444,8 @@ class PodSpec(dict):
             suggest = "host_network"
         elif key == "hostPID":
             suggest = "host_pid"
+        elif key == "hostUsers":
+            suggest = "host_users"
         elif key == "imagePullSecrets":
             suggest = "image_pull_secrets"
         elif key == "initContainers":
@@ -17465,6 +17505,7 @@ class PodSpec(dict):
                  host_ipc: Optional[bool] = None,
                  host_network: Optional[bool] = None,
                  host_pid: Optional[bool] = None,
+                 host_users: Optional[bool] = None,
                  hostname: Optional[str] = None,
                  image_pull_secrets: Optional[Sequence['outputs.LocalObjectReference']] = None,
                  init_containers: Optional[Sequence['outputs.Container']] = None,
@@ -17498,11 +17539,12 @@ class PodSpec(dict):
         :param 'PodDNSConfigArgs' dns_config: Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
         :param str dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
         :param bool enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
-        :param Sequence['EphemeralContainerArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param Sequence['EphemeralContainerArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
         :param Sequence['HostAliasArgs'] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
         :param bool host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param bool host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
         :param bool host_pid: Use the host's pid namespace. Optional: Default to false.
+        :param bool host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
         :param str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param Sequence['LocalObjectReferenceArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param Sequence['ContainerArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
@@ -17512,7 +17554,7 @@ class PodSpec(dict):
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param Mapping[str, str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         :param str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param int priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
@@ -17555,6 +17597,8 @@ class PodSpec(dict):
             pulumi.set(__self__, "host_network", host_network)
         if host_pid is not None:
             pulumi.set(__self__, "host_pid", host_pid)
+        if host_users is not None:
+            pulumi.set(__self__, "host_users", host_users)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if image_pull_secrets is not None:
@@ -17664,7 +17708,7 @@ class PodSpec(dict):
     @pulumi.getter(name="ephemeralContainers")
     def ephemeral_containers(self) -> Optional[Sequence['outputs.EphemeralContainer']]:
         """
-        List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
         """
         return pulumi.get(self, "ephemeral_containers")
 
@@ -17699,6 +17743,14 @@ class PodSpec(dict):
         Use the host's pid namespace. Optional: Default to false.
         """
         return pulumi.get(self, "host_pid")
+
+    @property
+    @pulumi.getter(name="hostUsers")
+    def host_users(self) -> Optional[bool]:
+        """
+        Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        """
+        return pulumi.get(self, "host_users")
 
     @property
     @pulumi.getter
@@ -17748,7 +17800,7 @@ class PodSpec(dict):
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         """
         return pulumi.get(self, "os")
 
@@ -17925,6 +17977,8 @@ class PodSpecPatch(dict):
             suggest = "host_network"
         elif key == "hostPID":
             suggest = "host_pid"
+        elif key == "hostUsers":
+            suggest = "host_users"
         elif key == "imagePullSecrets":
             suggest = "image_pull_secrets"
         elif key == "initContainers":
@@ -17984,6 +18038,7 @@ class PodSpecPatch(dict):
                  host_ipc: Optional[bool] = None,
                  host_network: Optional[bool] = None,
                  host_pid: Optional[bool] = None,
+                 host_users: Optional[bool] = None,
                  hostname: Optional[str] = None,
                  image_pull_secrets: Optional[Sequence['outputs.LocalObjectReferencePatch']] = None,
                  init_containers: Optional[Sequence['outputs.ContainerPatch']] = None,
@@ -18017,11 +18072,12 @@ class PodSpecPatch(dict):
         :param 'PodDNSConfigPatchArgs' dns_config: Specifies the DNS parameters of a pod. Parameters specified here will be merged to the generated DNS configuration based on DNSPolicy.
         :param str dns_policy: Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
         :param bool enable_service_links: EnableServiceLinks indicates whether information about services should be injected into pod's environment variables, matching the syntax of Docker links. Optional: Defaults to true.
-        :param Sequence['EphemeralContainerPatchArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param Sequence['EphemeralContainerPatchArgs'] ephemeral_containers: List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
         :param Sequence['HostAliasPatchArgs'] host_aliases: HostAliases is an optional list of hosts and IPs that will be injected into the pod's hosts file if specified. This is only valid for non-hostNetwork pods.
         :param bool host_ipc: Use the host's ipc namespace. Optional: Default to false.
         :param bool host_network: Host networking requested for this pod. Use the host's network namespace. If this option is set, the ports that will be used must be specified. Default to false.
         :param bool host_pid: Use the host's pid namespace. Optional: Default to false.
+        :param bool host_users: Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
         :param str hostname: Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
         :param Sequence['LocalObjectReferencePatchArgs'] image_pull_secrets: ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
         :param Sequence['ContainerPatchArgs'] init_containers: List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
@@ -18031,7 +18087,7 @@ class PodSpecPatch(dict):
                
                If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
                
-               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+               If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         :param Mapping[str, str] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
         :param str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param int priority: The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
@@ -18075,6 +18131,8 @@ class PodSpecPatch(dict):
             pulumi.set(__self__, "host_network", host_network)
         if host_pid is not None:
             pulumi.set(__self__, "host_pid", host_pid)
+        if host_users is not None:
+            pulumi.set(__self__, "host_users", host_users)
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if image_pull_secrets is not None:
@@ -18184,7 +18242,7 @@ class PodSpecPatch(dict):
     @pulumi.getter(name="ephemeralContainers")
     def ephemeral_containers(self) -> Optional[Sequence['outputs.EphemeralContainerPatch']]:
         """
-        List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
         """
         return pulumi.get(self, "ephemeral_containers")
 
@@ -18219,6 +18277,14 @@ class PodSpecPatch(dict):
         Use the host's pid namespace. Optional: Default to false.
         """
         return pulumi.get(self, "host_pid")
+
+    @property
+    @pulumi.getter(name="hostUsers")
+    def host_users(self) -> Optional[bool]:
+        """
+        Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+        """
+        return pulumi.get(self, "host_users")
 
     @property
     @pulumi.getter
@@ -18268,7 +18334,7 @@ class PodSpecPatch(dict):
 
         If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
 
-        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+        If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
         """
         return pulumi.get(self, "os")
 
@@ -18473,7 +18539,7 @@ class PodStatus(dict):
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
         :param Sequence['PodConditionArgs'] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param Sequence['ContainerStatusArgs'] container_statuses: The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
-        :param Sequence['ContainerStatusArgs'] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param Sequence['ContainerStatusArgs'] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod.
         :param str host_ip: IP address of the host to which the pod is assigned. Empty if not yet scheduled.
         :param Sequence['ContainerStatusArgs'] init_container_statuses: The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         :param str message: A human readable message indicating details about why the pod is in this condition.
@@ -18536,7 +18602,7 @@ class PodStatus(dict):
     @pulumi.getter(name="ephemeralContainerStatuses")
     def ephemeral_container_statuses(self) -> Optional[Sequence['outputs.ContainerStatus']]:
         """
-        Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        Status for any ephemeral containers that have run in this pod.
         """
         return pulumi.get(self, "ephemeral_container_statuses")
 
@@ -18681,7 +18747,7 @@ class PodStatusPatch(dict):
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
         :param Sequence['PodConditionPatchArgs'] conditions: Current service state of pod. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
         :param Sequence['ContainerStatusPatchArgs'] container_statuses: The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
-        :param Sequence['ContainerStatusPatchArgs'] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        :param Sequence['ContainerStatusPatchArgs'] ephemeral_container_statuses: Status for any ephemeral containers that have run in this pod.
         :param str host_ip: IP address of the host to which the pod is assigned. Empty if not yet scheduled.
         :param Sequence['ContainerStatusPatchArgs'] init_container_statuses: The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         :param str message: A human readable message indicating details about why the pod is in this condition.
@@ -18744,7 +18810,7 @@ class PodStatusPatch(dict):
     @pulumi.getter(name="ephemeralContainerStatuses")
     def ephemeral_container_statuses(self) -> Optional[Sequence['outputs.ContainerStatusPatch']]:
         """
-        Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        Status for any ephemeral containers that have run in this pod.
         """
         return pulumi.get(self, "ephemeral_container_statuses")
 
@@ -24256,9 +24322,9 @@ class ServiceSpec(dict):
                This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param Sequence[str] external_ips: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
         :param str external_name: externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
-        :param str external_traffic_policy: externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-        :param int health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
-        :param str internal_traffic_policy: InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+        :param str external_traffic_policy: externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
+        :param int health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
+        :param str internal_traffic_policy: InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
         :param Sequence[str] ip_families: IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
                
                This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
@@ -24364,7 +24430,7 @@ class ServiceSpec(dict):
     @pulumi.getter(name="externalTrafficPolicy")
     def external_traffic_policy(self) -> Optional[str]:
         """
-        externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+        externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
         """
         return pulumi.get(self, "external_traffic_policy")
 
@@ -24372,7 +24438,7 @@ class ServiceSpec(dict):
     @pulumi.getter(name="healthCheckNodePort")
     def health_check_node_port(self) -> Optional[int]:
         """
-        healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
+        healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
         """
         return pulumi.get(self, "health_check_node_port")
 
@@ -24380,7 +24446,7 @@ class ServiceSpec(dict):
     @pulumi.getter(name="internalTrafficPolicy")
     def internal_traffic_policy(self) -> Optional[str]:
         """
-        InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+        InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
         """
         return pulumi.get(self, "internal_traffic_policy")
 
@@ -24578,9 +24644,9 @@ class ServiceSpecPatch(dict):
                This field may hold a maximum of two entries (dual-stack IPs, in either order). These IPs must correspond to the values of the ipFamilies field. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field. More info: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
         :param Sequence[str] external_ips: externalIPs is a list of IP addresses for which nodes in the cluster will also accept traffic for this service.  These IPs are not managed by Kubernetes.  The user is responsible for ensuring that traffic arrives at a node with this IP.  A common example is external load-balancers that are not part of the Kubernetes system.
         :param str external_name: externalName is the external reference that discovery mechanisms will return as an alias for this service (e.g. a DNS CNAME record). No proxying will be involved.  Must be a lowercase RFC-1123 hostname (https://tools.ietf.org/html/rfc1123) and requires `type` to be "ExternalName".
-        :param str external_traffic_policy: externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
-        :param int health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
-        :param str internal_traffic_policy: InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+        :param str external_traffic_policy: externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
+        :param int health_check_node_port: healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
+        :param str internal_traffic_policy: InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
         :param Sequence[str] ip_families: IPFamilies is a list of IP families (e.g. IPv4, IPv6) assigned to this service. This field is usually assigned automatically based on cluster configuration and the ipFamilyPolicy field. If this field is specified manually, the requested family is available in the cluster, and ipFamilyPolicy allows it, it will be used; otherwise creation of the service will fail. This field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service. Valid values are "IPv4" and "IPv6".  This field only applies to Services of types ClusterIP, NodePort, and LoadBalancer, and does apply to "headless" services. This field will be wiped when updating a Service to type ExternalName.
                
                This field may hold a maximum of two entries (dual-stack families, in either order).  These families must correspond to the values of the clusterIPs field, if specified. Both clusterIPs and ipFamilies are governed by the ipFamilyPolicy field.
@@ -24686,7 +24752,7 @@ class ServiceSpecPatch(dict):
     @pulumi.getter(name="externalTrafficPolicy")
     def external_traffic_policy(self) -> Optional[str]:
         """
-        externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+        externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
         """
         return pulumi.get(self, "external_traffic_policy")
 
@@ -24694,7 +24760,7 @@ class ServiceSpecPatch(dict):
     @pulumi.getter(name="healthCheckNodePort")
     def health_check_node_port(self) -> Optional[int]:
         """
-        healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
+        healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
         """
         return pulumi.get(self, "health_check_node_port")
 
@@ -24702,7 +24768,7 @@ class ServiceSpecPatch(dict):
     @pulumi.getter(name="internalTrafficPolicy")
     def internal_traffic_policy(self) -> Optional[str]:
         """
-        InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+        InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
         """
         return pulumi.get(self, "internal_traffic_policy")
 
@@ -26008,8 +26074,14 @@ class TopologySpreadConstraint(dict):
             suggest = "when_unsatisfiable"
         elif key == "labelSelector":
             suggest = "label_selector"
+        elif key == "matchLabelKeys":
+            suggest = "match_label_keys"
         elif key == "minDomains":
             suggest = "min_domains"
+        elif key == "nodeAffinityPolicy":
+            suggest = "node_affinity_policy"
+        elif key == "nodeTaintsPolicy":
+            suggest = "node_taints_policy"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in TopologySpreadConstraint. Access the value via the '{suggest}' property getter instead.")
@@ -26027,29 +26099,45 @@ class TopologySpreadConstraint(dict):
                  topology_key: str,
                  when_unsatisfiable: str,
                  label_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-                 min_domains: Optional[int] = None):
+                 match_label_keys: Optional[Sequence[str]] = None,
+                 min_domains: Optional[int] = None,
+                 node_affinity_policy: Optional[str] = None,
+                 node_taints_policy: Optional[str] = None):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
         :param int max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
-        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         :param str when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
                  but giving higher precedence to topologies that would help reduce the
                  skew.
                A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
         :param '_meta.v1.LabelSelectorArgs' label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
         :param int min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
                
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
                
-               This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+               This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
+        :param str node_affinity_policy: NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+               
+               If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        :param str node_taints_policy: NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+               
+               If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
         """
         pulumi.set(__self__, "max_skew", max_skew)
         pulumi.set(__self__, "topology_key", topology_key)
         pulumi.set(__self__, "when_unsatisfiable", when_unsatisfiable)
         if label_selector is not None:
             pulumi.set(__self__, "label_selector", label_selector)
+        if match_label_keys is not None:
+            pulumi.set(__self__, "match_label_keys", match_label_keys)
         if min_domains is not None:
             pulumi.set(__self__, "min_domains", min_domains)
+        if node_affinity_policy is not None:
+            pulumi.set(__self__, "node_affinity_policy", node_affinity_policy)
+        if node_taints_policy is not None:
+            pulumi.set(__self__, "node_taints_policy", node_taints_policy)
 
     @property
     @pulumi.getter(name="maxSkew")
@@ -26063,7 +26151,7 @@ class TopologySpreadConstraint(dict):
     @pulumi.getter(name="topologyKey")
     def topology_key(self) -> str:
         """
-        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         """
         return pulumi.get(self, "topology_key")
 
@@ -26087,6 +26175,14 @@ class TopologySpreadConstraint(dict):
         return pulumi.get(self, "label_selector")
 
     @property
+    @pulumi.getter(name="matchLabelKeys")
+    def match_label_keys(self) -> Optional[Sequence[str]]:
+        """
+        MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+        """
+        return pulumi.get(self, "match_label_keys")
+
+    @property
     @pulumi.getter(name="minDomains")
     def min_domains(self) -> Optional[int]:
         """
@@ -26094,9 +26190,29 @@ class TopologySpreadConstraint(dict):
 
         For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
 
-        This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+        This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
         """
         return pulumi.get(self, "min_domains")
+
+    @property
+    @pulumi.getter(name="nodeAffinityPolicy")
+    def node_affinity_policy(self) -> Optional[str]:
+        """
+        NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+
+        If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        """
+        return pulumi.get(self, "node_affinity_policy")
+
+    @property
+    @pulumi.getter(name="nodeTaintsPolicy")
+    def node_taints_policy(self) -> Optional[str]:
+        """
+        NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+
+        If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        """
+        return pulumi.get(self, "node_taints_policy")
 
 
 @pulumi.output_type
@@ -26109,10 +26225,16 @@ class TopologySpreadConstraintPatch(dict):
         suggest = None
         if key == "labelSelector":
             suggest = "label_selector"
+        elif key == "matchLabelKeys":
+            suggest = "match_label_keys"
         elif key == "maxSkew":
             suggest = "max_skew"
         elif key == "minDomains":
             suggest = "min_domains"
+        elif key == "nodeAffinityPolicy":
+            suggest = "node_affinity_policy"
+        elif key == "nodeTaintsPolicy":
+            suggest = "node_taints_policy"
         elif key == "topologyKey":
             suggest = "topology_key"
         elif key == "whenUnsatisfiable":
@@ -26131,20 +26253,30 @@ class TopologySpreadConstraintPatch(dict):
 
     def __init__(__self__, *,
                  label_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+                 match_label_keys: Optional[Sequence[str]] = None,
                  max_skew: Optional[int] = None,
                  min_domains: Optional[int] = None,
+                 node_affinity_policy: Optional[str] = None,
+                 node_taints_policy: Optional[str] = None,
                  topology_key: Optional[str] = None,
                  when_unsatisfiable: Optional[str] = None):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
         :param '_meta.v1.LabelSelectorPatchArgs' label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
         :param int max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
         :param int min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
                
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
                
-               This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
-        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+               This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
+        :param str node_affinity_policy: NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+               
+               If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        :param str node_taints_policy: NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+               
+               If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        :param str topology_key: TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         :param str when_unsatisfiable: WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
                  but giving higher precedence to topologies that would help reduce the
                  skew.
@@ -26152,10 +26284,16 @@ class TopologySpreadConstraintPatch(dict):
         """
         if label_selector is not None:
             pulumi.set(__self__, "label_selector", label_selector)
+        if match_label_keys is not None:
+            pulumi.set(__self__, "match_label_keys", match_label_keys)
         if max_skew is not None:
             pulumi.set(__self__, "max_skew", max_skew)
         if min_domains is not None:
             pulumi.set(__self__, "min_domains", min_domains)
+        if node_affinity_policy is not None:
+            pulumi.set(__self__, "node_affinity_policy", node_affinity_policy)
+        if node_taints_policy is not None:
+            pulumi.set(__self__, "node_taints_policy", node_taints_policy)
         if topology_key is not None:
             pulumi.set(__self__, "topology_key", topology_key)
         if when_unsatisfiable is not None:
@@ -26168,6 +26306,14 @@ class TopologySpreadConstraintPatch(dict):
         LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
         """
         return pulumi.get(self, "label_selector")
+
+    @property
+    @pulumi.getter(name="matchLabelKeys")
+    def match_label_keys(self) -> Optional[Sequence[str]]:
+        """
+        MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+        """
+        return pulumi.get(self, "match_label_keys")
 
     @property
     @pulumi.getter(name="maxSkew")
@@ -26185,15 +26331,35 @@ class TopologySpreadConstraintPatch(dict):
 
         For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
 
-        This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+        This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
         """
         return pulumi.get(self, "min_domains")
+
+    @property
+    @pulumi.getter(name="nodeAffinityPolicy")
+    def node_affinity_policy(self) -> Optional[str]:
+        """
+        NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+
+        If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        """
+        return pulumi.get(self, "node_affinity_policy")
+
+    @property
+    @pulumi.getter(name="nodeTaintsPolicy")
+    def node_taints_policy(self) -> Optional[str]:
+        """
+        NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+
+        If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+        """
+        return pulumi.get(self, "node_taints_policy")
 
     @property
     @pulumi.getter(name="topologyKey")
     def topology_key(self) -> Optional[str]:
         """
-        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+        TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
         """
         return pulumi.get(self, "topology_key")
 

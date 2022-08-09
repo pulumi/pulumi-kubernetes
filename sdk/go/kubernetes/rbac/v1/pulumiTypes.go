@@ -911,7 +911,7 @@ func (o ClusterRolePatchTypeOutput) Rules() PolicyRulePatchArrayOutput {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRule struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups []string `pulumi:"apiGroups"`
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
@@ -936,7 +936,7 @@ type PolicyRuleInput interface {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRuleArgs struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
@@ -1000,7 +1000,7 @@ func (o PolicyRuleOutput) ToPolicyRuleOutputWithContext(ctx context.Context) Pol
 	return o
 }
 
-// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 func (o PolicyRuleOutput) ApiGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRule) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }
@@ -1047,7 +1047,7 @@ func (o PolicyRuleArrayOutput) Index(i pulumi.IntInput) PolicyRuleOutput {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRulePatch struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups []string `pulumi:"apiGroups"`
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs []string `pulumi:"nonResourceURLs"`
@@ -1072,7 +1072,7 @@ type PolicyRulePatchInput interface {
 
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRulePatchArgs struct {
-	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+	// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
 	// NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 	NonResourceURLs pulumi.StringArrayInput `pulumi:"nonResourceURLs"`
@@ -1136,7 +1136,7 @@ func (o PolicyRulePatchOutput) ToPolicyRulePatchOutputWithContext(ctx context.Co
 	return o
 }
 
-// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+// APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
 func (o PolicyRulePatchOutput) ApiGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PolicyRulePatch) []string { return v.ApiGroups }).(pulumi.StringArrayOutput)
 }

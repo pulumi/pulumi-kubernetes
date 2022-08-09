@@ -170,7 +170,7 @@ class TokenRequestSpecPatchArgs:
                  expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         TokenRequestSpec contains client provided parameters of a token request.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         :param pulumi.Input['BoundObjectReferencePatchArgs'] bound_object_ref: BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
         :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
         """
@@ -185,7 +185,7 @@ class TokenRequestSpecPatchArgs:
     @pulumi.getter
     def audiences(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+        Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         """
         return pulumi.get(self, "audiences")
 
@@ -226,7 +226,7 @@ class TokenRequestSpecArgs:
                  expiration_seconds: Optional[pulumi.Input[int]] = None):
         """
         TokenRequestSpec contains client provided parameters of a token request.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] audiences: Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         :param pulumi.Input['BoundObjectReferenceArgs'] bound_object_ref: BoundObjectRef is a reference to an object that the token will be bound to. The token will only be valid for as long as the bound object exists. NOTE: The API server's TokenReview endpoint will validate the BoundObjectRef, but other audiences may not. Keep ExpirationSeconds small if you want prompt revocation.
         :param pulumi.Input[int] expiration_seconds: ExpirationSeconds is the requested duration of validity of the request. The token issuer may return a token with a different validity duration so a client needs to check the 'expiration' field in a response.
         """
@@ -240,7 +240,7 @@ class TokenRequestSpecArgs:
     @pulumi.getter
     def audiences(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
         """
-        Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+        Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
         """
         return pulumi.get(self, "audiences")
 

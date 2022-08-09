@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PolicyRule {
     /**
-     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
      * 
      */
     private @Nullable List<String> apiGroups;
@@ -39,7 +39,7 @@ public final class PolicyRule {
 
     private PolicyRule() {}
     /**
-     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
      * 
      */
     public List<String> apiGroups() {

@@ -54,14 +54,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+     * Status for any ephemeral containers that have run in this pod.
      * 
      */
     @Import(name="ephemeralContainerStatuses")
     private @Nullable Output<List<ContainerStatusArgs>> ephemeralContainerStatuses;
 
     /**
-     * @return Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+     * @return Status for any ephemeral containers that have run in this pod.
      * 
      */
     public Optional<Output<List<ContainerStatusArgs>>> ephemeralContainerStatuses() {
@@ -325,7 +325,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
          * 
          * @return builder
          * 
@@ -336,7 +336,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
          * 
          * @return builder
          * 
@@ -346,7 +346,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+         * @param ephemeralContainerStatuses Status for any ephemeral containers that have run in this pod.
          * 
          * @return builder
          * 

@@ -4,10 +4,8 @@
 package com.pulumi.kubernetes.policy.v1beta1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.kubernetes.meta.v1.outputs.Condition;
 import java.lang.Integer;
 import java.lang.String;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -15,19 +13,6 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class PodDisruptionBudgetStatus {
-    /**
-     * @return Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-     *               the number of allowed disruptions. Therefore no disruptions are
-     *               allowed and the status of the condition will be False.
-     * - InsufficientPods: The number of pods are either at or below the number
-     *                     required by the PodDisruptionBudget. No disruptions are
-     *                     allowed and the status of the condition will be False.
-     * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-     *                   The condition will be True, and the number of allowed
-     *                   disruptions are provided by the disruptionsAllowed property.
-     * 
-     */
-    private @Nullable List<Condition> conditions;
     /**
      * @return current number of healthy pods
      * 
@@ -54,27 +39,12 @@ public final class PodDisruptionBudgetStatus {
      */
     private Integer expectedPods;
     /**
-     * @return Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
+     * @return Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
      * 
      */
     private @Nullable Integer observedGeneration;
 
     private PodDisruptionBudgetStatus() {}
-    /**
-     * @return Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-     *               the number of allowed disruptions. Therefore no disruptions are
-     *               allowed and the status of the condition will be False.
-     * - InsufficientPods: The number of pods are either at or below the number
-     *                     required by the PodDisruptionBudget. No disruptions are
-     *                     allowed and the status of the condition will be False.
-     * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-     *                   The condition will be True, and the number of allowed
-     *                   disruptions are provided by the disruptionsAllowed property.
-     * 
-     */
-    public List<Condition> conditions() {
-        return this.conditions == null ? List.of() : this.conditions;
-    }
     /**
      * @return current number of healthy pods
      * 
@@ -111,7 +81,7 @@ public final class PodDisruptionBudgetStatus {
         return this.expectedPods;
     }
     /**
-     * @return Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
+     * @return Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
      * 
      */
     public Optional<Integer> observedGeneration() {
@@ -127,7 +97,6 @@ public final class PodDisruptionBudgetStatus {
     }
     @CustomType.Builder
     public static final class Builder {
-        private @Nullable List<Condition> conditions;
         private Integer currentHealthy;
         private Integer desiredHealthy;
         private @Nullable Map<String,String> disruptedPods;
@@ -137,7 +106,6 @@ public final class PodDisruptionBudgetStatus {
         public Builder() {}
         public Builder(PodDisruptionBudgetStatus defaults) {
     	      Objects.requireNonNull(defaults);
-    	      this.conditions = defaults.conditions;
     	      this.currentHealthy = defaults.currentHealthy;
     	      this.desiredHealthy = defaults.desiredHealthy;
     	      this.disruptedPods = defaults.disruptedPods;
@@ -146,14 +114,6 @@ public final class PodDisruptionBudgetStatus {
     	      this.observedGeneration = defaults.observedGeneration;
         }
 
-        @CustomType.Setter
-        public Builder conditions(@Nullable List<Condition> conditions) {
-            this.conditions = conditions;
-            return this;
-        }
-        public Builder conditions(Condition... conditions) {
-            return conditions(List.of(conditions));
-        }
         @CustomType.Setter
         public Builder currentHealthy(Integer currentHealthy) {
             this.currentHealthy = Objects.requireNonNull(currentHealthy);
@@ -186,7 +146,6 @@ public final class PodDisruptionBudgetStatus {
         }
         public PodDisruptionBudgetStatus build() {
             final var o = new PodDisruptionBudgetStatus();
-            o.conditions = conditions;
             o.currentHealthy = currentHealthy;
             o.desiredHealthy = desiredHealthy;
             o.disruptedPods = disruptedPods;

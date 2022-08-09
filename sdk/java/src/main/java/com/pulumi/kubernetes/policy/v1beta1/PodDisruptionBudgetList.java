@@ -36,17 +36,9 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
     public Output<Optional<String>> apiVersion() {
         return Codegen.optional(this.apiVersion);
     }
-    /**
-     * items list individual PodDisruptionBudget objects
-     * 
-     */
     @Export(name="items", type=List.class, parameters={PodDisruptionBudget.class})
     private Output<List<PodDisruptionBudget>> items;
 
-    /**
-     * @return items list individual PodDisruptionBudget objects
-     * 
-     */
     public Output<List<PodDisruptionBudget>> items() {
         return this.items;
     }
@@ -64,17 +56,9 @@ public class PodDisruptionBudgetList extends com.pulumi.resources.CustomResource
     public Output<Optional<String>> kind() {
         return Codegen.optional(this.kind);
     }
-    /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     @Export(name="metadata", type=ListMeta.class, parameters={})
     private Output</* @Nullable */ ListMeta> metadata;
 
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Output<Optional<ListMeta>> metadata() {
         return Codegen.optional(this.metadata);
     }

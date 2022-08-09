@@ -18,7 +18,7 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
- * PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+ * PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
  * 
  */
 @ResourceType(type="kubernetes:policy/v1beta1:PodSecurityPolicy")

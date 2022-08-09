@@ -105,9 +105,10 @@ class StatefulSetPatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-         - Network: A single stable DNS and hostname.
-         - Storage: As many VolumeClaims as requested.
-           The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+          - Network: A single stable DNS and hostname.
+          - Storage: As many VolumeClaims as requested.
+
+        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
         This resource waits until its status is ready before registering success
         for create/update, and populating output properties from the current state of the resource.
@@ -143,9 +144,10 @@ class StatefulSetPatch(pulumi.CustomResource):
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-         - Network: A single stable DNS and hostname.
-         - Storage: As many VolumeClaims as requested.
-           The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+          - Network: A single stable DNS and hostname.
+          - Storage: As many VolumeClaims as requested.
+
+        The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 
         This resource waits until its status is ready before registering success
         for create/update, and populating output properties from the current state of the resource.

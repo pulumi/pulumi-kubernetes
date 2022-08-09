@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class CSIPersistentVolumeSourcePatch {
     /**
-     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     private @Nullable SecretReferencePatch controllerExpandSecretRef;
@@ -34,6 +34,11 @@ public final class CSIPersistentVolumeSourcePatch {
      * 
      */
     private @Nullable String fsType;
+    /**
+     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * 
+     */
+    private @Nullable SecretReferencePatch nodeExpandSecretRef;
     /**
      * @return nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
@@ -62,7 +67,7 @@ public final class CSIPersistentVolumeSourcePatch {
 
     private CSIPersistentVolumeSourcePatch() {}
     /**
-     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     public Optional<SecretReferencePatch> controllerExpandSecretRef() {
@@ -88,6 +93,13 @@ public final class CSIPersistentVolumeSourcePatch {
      */
     public Optional<String> fsType() {
         return Optional.ofNullable(this.fsType);
+    }
+    /**
+     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * 
+     */
+    public Optional<SecretReferencePatch> nodeExpandSecretRef() {
+        return Optional.ofNullable(this.nodeExpandSecretRef);
     }
     /**
      * @return nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -138,6 +150,7 @@ public final class CSIPersistentVolumeSourcePatch {
         private @Nullable SecretReferencePatch controllerPublishSecretRef;
         private @Nullable String driver;
         private @Nullable String fsType;
+        private @Nullable SecretReferencePatch nodeExpandSecretRef;
         private @Nullable SecretReferencePatch nodePublishSecretRef;
         private @Nullable SecretReferencePatch nodeStageSecretRef;
         private @Nullable Boolean readOnly;
@@ -150,6 +163,7 @@ public final class CSIPersistentVolumeSourcePatch {
     	      this.controllerPublishSecretRef = defaults.controllerPublishSecretRef;
     	      this.driver = defaults.driver;
     	      this.fsType = defaults.fsType;
+    	      this.nodeExpandSecretRef = defaults.nodeExpandSecretRef;
     	      this.nodePublishSecretRef = defaults.nodePublishSecretRef;
     	      this.nodeStageSecretRef = defaults.nodeStageSecretRef;
     	      this.readOnly = defaults.readOnly;
@@ -175,6 +189,11 @@ public final class CSIPersistentVolumeSourcePatch {
         @CustomType.Setter
         public Builder fsType(@Nullable String fsType) {
             this.fsType = fsType;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder nodeExpandSecretRef(@Nullable SecretReferencePatch nodeExpandSecretRef) {
+            this.nodeExpandSecretRef = nodeExpandSecretRef;
             return this;
         }
         @CustomType.Setter
@@ -208,6 +227,7 @@ public final class CSIPersistentVolumeSourcePatch {
             o.controllerPublishSecretRef = controllerPublishSecretRef;
             o.driver = driver;
             o.fsType = fsType;
+            o.nodeExpandSecretRef = nodeExpandSecretRef;
             o.nodePublishSecretRef = nodePublishSecretRef;
             o.nodeStageSecretRef = nodeStageSecretRef;
             o.readOnly = readOnly;

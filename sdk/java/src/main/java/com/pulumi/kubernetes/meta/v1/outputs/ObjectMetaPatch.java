@@ -22,9 +22,7 @@ public final class ObjectMetaPatch {
      */
     private @Nullable Map<String,String> annotations;
     /**
-     * @return Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-     * 
-     * The name in the go struct is changed to help clients detect accidental use.
+     * @return The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
      * 
      */
     private @Nullable String clusterName;
@@ -122,9 +120,7 @@ public final class ObjectMetaPatch {
         return this.annotations == null ? Map.of() : this.annotations;
     }
     /**
-     * @return Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-     * 
-     * The name in the go struct is changed to help clients detect accidental use.
+     * @return The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
      * 
      */
     public Optional<String> clusterName() {

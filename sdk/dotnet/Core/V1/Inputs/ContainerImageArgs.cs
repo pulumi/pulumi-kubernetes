@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<string>? _names;
 
         /// <summary>
-        /// Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+        /// Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
         /// </summary>
         public InputList<string> Names
         {

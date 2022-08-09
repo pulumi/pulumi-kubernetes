@@ -22,14 +22,14 @@ public final class ContainerImageArgs extends com.pulumi.resources.ResourceArgs 
     public static final ContainerImageArgs Empty = new ContainerImageArgs();
 
     /**
-     * Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+     * Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
      * 
      */
     @Import(name="names", required=true)
     private Output<List<String>> names;
 
     /**
-     * @return Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+     * @return Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
      * 
      */
     public Output<List<String>> names() {
@@ -77,7 +77,7 @@ public final class ContainerImageArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param names Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+         * @param names Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
          * 
          * @return builder
          * 
@@ -88,7 +88,7 @@ public final class ContainerImageArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param names Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+         * @param names Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
          * 
          * @return builder
          * 
@@ -98,7 +98,7 @@ public final class ContainerImageArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param names Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+         * @param names Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
          * 
          * @return builder
          * 

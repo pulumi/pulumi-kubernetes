@@ -63,7 +63,7 @@ public final class PodSpec {
      */
     private @Nullable Boolean enableServiceLinks;
     /**
-     * @return List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod&#39;s ephemeralcontainers subresource. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+     * @return List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod&#39;s ephemeralcontainers subresource.
      * 
      */
     private @Nullable List<EphemeralContainer> ephemeralContainers;
@@ -87,6 +87,11 @@ public final class PodSpec {
      * 
      */
     private @Nullable Boolean hostPID;
+    /**
+     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * 
+     */
+    private @Nullable Boolean hostUsers;
     /**
      * @return Specifies the hostname of the Pod If not specified, the pod&#39;s hostname will be set to a system-defined value.
      * 
@@ -117,7 +122,7 @@ public final class PodSpec {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     private @Nullable PodOS os;
@@ -263,7 +268,7 @@ public final class PodSpec {
         return Optional.ofNullable(this.enableServiceLinks);
     }
     /**
-     * @return List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod&#39;s ephemeralcontainers subresource. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+     * @return List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod&#39;s ephemeralcontainers subresource.
      * 
      */
     public List<EphemeralContainer> ephemeralContainers() {
@@ -296,6 +301,13 @@ public final class PodSpec {
      */
     public Optional<Boolean> hostPID() {
         return Optional.ofNullable(this.hostPID);
+    }
+    /**
+     * @return Use the host&#39;s user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+     * 
+     */
+    public Optional<Boolean> hostUsers() {
+        return Optional.ofNullable(this.hostUsers);
     }
     /**
      * @return Specifies the hostname of the Pod If not specified, the pod&#39;s hostname will be set to a system-defined value.
@@ -337,7 +349,7 @@ public final class PodSpec {
      * 
      * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
      * 
-     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+     * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
      * 
      */
     public Optional<PodOS> os() {
@@ -491,6 +503,7 @@ public final class PodSpec {
         private @Nullable Boolean hostIPC;
         private @Nullable Boolean hostNetwork;
         private @Nullable Boolean hostPID;
+        private @Nullable Boolean hostUsers;
         private @Nullable String hostname;
         private @Nullable List<LocalObjectReference> imagePullSecrets;
         private @Nullable List<Container> initContainers;
@@ -530,6 +543,7 @@ public final class PodSpec {
     	      this.hostIPC = defaults.hostIPC;
     	      this.hostNetwork = defaults.hostNetwork;
     	      this.hostPID = defaults.hostPID;
+    	      this.hostUsers = defaults.hostUsers;
     	      this.hostname = defaults.hostname;
     	      this.imagePullSecrets = defaults.imagePullSecrets;
     	      this.initContainers = defaults.initContainers;
@@ -623,6 +637,11 @@ public final class PodSpec {
         @CustomType.Setter
         public Builder hostPID(@Nullable Boolean hostPID) {
             this.hostPID = hostPID;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder hostUsers(@Nullable Boolean hostUsers) {
+            this.hostUsers = hostUsers;
             return this;
         }
         @CustomType.Setter
@@ -777,6 +796,7 @@ public final class PodSpec {
             o.hostIPC = hostIPC;
             o.hostNetwork = hostNetwork;
             o.hostPID = hostPID;
+            o.hostUsers = hostUsers;
             o.hostname = hostname;
             o.imagePullSecrets = imagePullSecrets;
             o.initContainers = initContainers;

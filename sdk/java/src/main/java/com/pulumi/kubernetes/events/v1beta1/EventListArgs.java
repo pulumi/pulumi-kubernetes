@@ -35,14 +35,14 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * items is a list of schema objects.
+     * Items is a list of schema objects.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<EventArgs>> items;
 
     /**
-     * @return items is a list of schema objects.
+     * @return Items is a list of schema objects.
      * 
      */
     public Output<List<EventArgs>> items() {
@@ -128,7 +128,7 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items items is a list of schema objects.
+         * @param items Items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items items is a list of schema objects.
+         * @param items Items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class EventListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items items is a list of schema objects.
+         * @param items Items is a list of schema objects.
          * 
          * @return builder
          * 

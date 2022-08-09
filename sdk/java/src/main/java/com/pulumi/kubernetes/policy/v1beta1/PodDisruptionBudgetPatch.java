@@ -58,17 +58,9 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
     public Output<Optional<String>> kind() {
         return Codegen.optional(this.kind);
     }
-    /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Output<Optional<ObjectMetaPatch>> metadata() {
         return Codegen.optional(this.metadata);
     }

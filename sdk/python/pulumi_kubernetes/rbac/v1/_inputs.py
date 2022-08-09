@@ -258,7 +258,7 @@ class PolicyRulePatchArgs:
                  verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] non_resource_urls: NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources is a list of resources this rule applies to. '*' represents all resources.
@@ -279,7 +279,7 @@ class PolicyRulePatchArgs:
     @pulumi.getter(name="apiGroups")
     def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         """
         return pulumi.get(self, "api_groups")
 
@@ -347,7 +347,7 @@ class PolicyRuleArgs:
         """
         PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] verbs: Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] non_resource_urls: NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: Resources is a list of resources this rule applies to. '*' represents all resources.
@@ -378,7 +378,7 @@ class PolicyRuleArgs:
     @pulumi.getter(name="apiGroups")
     def api_groups(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+        APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
         """
         return pulumi.get(self, "api_groups")
 

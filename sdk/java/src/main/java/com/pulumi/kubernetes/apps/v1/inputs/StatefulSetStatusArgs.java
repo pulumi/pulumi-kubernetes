@@ -23,14 +23,14 @@ public final class StatefulSetStatusArgs extends com.pulumi.resources.ResourceAr
     public static final StatefulSetStatusArgs Empty = new StatefulSetStatusArgs();
 
     /**
-     * Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+     * Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
      * 
      */
     @Import(name="availableReplicas")
     private @Nullable Output<Integer> availableReplicas;
 
     /**
-     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+     * @return Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
      * 
      */
     public Optional<Output<Integer>> availableReplicas() {
@@ -206,7 +206,7 @@ public final class StatefulSetStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param availableReplicas Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+         * @param availableReplicas Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
          * 
          * @return builder
          * 
@@ -217,7 +217,7 @@ public final class StatefulSetStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param availableReplicas Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+         * @param availableReplicas Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
          * 
          * @return builder
          * 

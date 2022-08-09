@@ -49,11 +49,6 @@ public final class CronJobSpecPatch {
      * 
      */
     private @Nullable Boolean suspend;
-    /**
-     * @return The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-     * 
-     */
-    private @Nullable String timeZone;
 
     private CronJobSpecPatch() {}
     /**
@@ -105,13 +100,6 @@ public final class CronJobSpecPatch {
     public Optional<Boolean> suspend() {
         return Optional.ofNullable(this.suspend);
     }
-    /**
-     * @return The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-     * 
-     */
-    public Optional<String> timeZone() {
-        return Optional.ofNullable(this.timeZone);
-    }
 
     public static Builder builder() {
         return new Builder();
@@ -129,7 +117,6 @@ public final class CronJobSpecPatch {
         private @Nullable Integer startingDeadlineSeconds;
         private @Nullable Integer successfulJobsHistoryLimit;
         private @Nullable Boolean suspend;
-        private @Nullable String timeZone;
         public Builder() {}
         public Builder(CronJobSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
@@ -140,7 +127,6 @@ public final class CronJobSpecPatch {
     	      this.startingDeadlineSeconds = defaults.startingDeadlineSeconds;
     	      this.successfulJobsHistoryLimit = defaults.successfulJobsHistoryLimit;
     	      this.suspend = defaults.suspend;
-    	      this.timeZone = defaults.timeZone;
         }
 
         @CustomType.Setter
@@ -178,11 +164,6 @@ public final class CronJobSpecPatch {
             this.suspend = suspend;
             return this;
         }
-        @CustomType.Setter
-        public Builder timeZone(@Nullable String timeZone) {
-            this.timeZone = timeZone;
-            return this;
-        }
         public CronJobSpecPatch build() {
             final var o = new CronJobSpecPatch();
             o.concurrencyPolicy = concurrencyPolicy;
@@ -192,7 +173,6 @@ public final class CronJobSpecPatch {
             o.startingDeadlineSeconds = startingDeadlineSeconds;
             o.successfulJobsHistoryLimit = successfulJobsHistoryLimit;
             o.suspend = suspend;
-            o.timeZone = timeZone;
             return o;
         }
     }

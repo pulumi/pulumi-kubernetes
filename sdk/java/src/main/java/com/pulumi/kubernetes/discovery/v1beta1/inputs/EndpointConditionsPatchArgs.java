@@ -20,14 +20,14 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
     public static final EndpointConditionsPatchArgs Empty = new EndpointConditionsPatchArgs();
 
     /**
-     * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints.
+     * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
      * 
      */
     @Import(name="ready")
     private @Nullable Output<Boolean> ready;
 
     /**
-     * @return ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints.
+     * @return ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
      * 
      */
     public Optional<Output<Boolean>> ready() {
@@ -91,7 +91,7 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param ready ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints.
+         * @param ready ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
          * 
          * @return builder
          * 
@@ -102,7 +102,7 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param ready ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints.
+         * @param ready ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
          * 
          * @return builder
          * 

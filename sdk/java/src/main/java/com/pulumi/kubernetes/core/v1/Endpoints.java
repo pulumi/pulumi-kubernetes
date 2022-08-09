@@ -18,17 +18,18 @@ import javax.annotation.Nullable;
 
 /**
  * Endpoints is a collection of endpoints that implement the actual service. Example:
- *   Name: &#34;mysvc&#34;,
- *   Subsets: [
- *     {
- *       Addresses: [{&#34;ip&#34;: &#34;10.10.1.1&#34;}, {&#34;ip&#34;: &#34;10.10.2.2&#34;}],
- *       Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 8675}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 309}]
- *     },
- *     {
- *       Addresses: [{&#34;ip&#34;: &#34;10.10.3.3&#34;}],
- *       Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 93}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 76}]
- *     },
- *  ]
+ * 
+ *      Name: &#34;mysvc&#34;,
+ *      Subsets: [
+ *        {
+ *          Addresses: [{&#34;ip&#34;: &#34;10.10.1.1&#34;}, {&#34;ip&#34;: &#34;10.10.2.2&#34;}],
+ *          Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 8675}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 309}]
+ *        },
+ *        {
+ *          Addresses: [{&#34;ip&#34;: &#34;10.10.3.3&#34;}],
+ *          Ports: [{&#34;name&#34;: &#34;a&#34;, &#34;port&#34;: 93}, {&#34;name&#34;: &#34;b&#34;, &#34;port&#34;: 76}]
+ *        },
+ *     ]
  * 
  */
 @ResourceType(type="kubernetes:core/v1:Endpoints")

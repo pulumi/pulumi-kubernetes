@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 3.21.0 (August 23, 2022)
+
+- Update Kubernetes support to Kubernetes v1.25.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2129)
+
 ## 3.20.5 (August 16, 2022)
 
 - Update autonaming to use NewUniqueName for deterministic update plans. (https://github.com/pulumi/pulumi-kubernetes/pull/2137)

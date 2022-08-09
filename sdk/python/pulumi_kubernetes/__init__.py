@@ -588,6 +588,16 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "networking.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.networking.v1alpha1",
+  "classes": {
+   "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR": "ClusterCIDR",
+   "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList": "ClusterCIDRList",
+   "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch": "ClusterCIDRPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "networking.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.networking.v1beta1",
   "classes": {

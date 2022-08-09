@@ -33,12 +33,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1Beta1
         [Input("lastScheduleTime")]
         public Input<string>? LastScheduleTime { get; set; }
 
-        /// <summary>
-        /// Information when was the last time the job successfully completed.
-        /// </summary>
-        [Input("lastSuccessfulTime")]
-        public Input<string>? LastSuccessfulTime { get; set; }
-
         public CronJobStatusArgs()
         {
         }

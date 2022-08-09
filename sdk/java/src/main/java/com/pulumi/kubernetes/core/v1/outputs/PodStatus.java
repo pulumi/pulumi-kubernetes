@@ -26,7 +26,7 @@ public final class PodStatus {
      */
     private @Nullable List<ContainerStatus> containerStatuses;
     /**
-     * @return Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+     * @return Status for any ephemeral containers that have run in this pod.
      * 
      */
     private @Nullable List<ContainerStatus> ephemeralContainerStatuses;
@@ -101,7 +101,7 @@ public final class PodStatus {
         return this.containerStatuses == null ? List.of() : this.containerStatuses;
     }
     /**
-     * @return Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
+     * @return Status for any ephemeral containers that have run in this pod.
      * 
      */
     public List<ContainerStatus> ephemeralContainerStatuses() {

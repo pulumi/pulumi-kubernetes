@@ -25,7 +25,7 @@ public final class PodDisruptionBudgetSpecPatch {
      */
     private @Nullable Either<Integer,String> minAvailable;
     /**
-     * @return Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+     * @return Label query over pods whose evictions are managed by the disruption budget.
      * 
      */
     private @Nullable LabelSelectorPatch selector;
@@ -46,7 +46,7 @@ public final class PodDisruptionBudgetSpecPatch {
         return Optional.ofNullable(this.minAvailable);
     }
     /**
-     * @return Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+     * @return Label query over pods whose evictions are managed by the disruption budget.
      * 
      */
     public Optional<LabelSelectorPatch> selector() {

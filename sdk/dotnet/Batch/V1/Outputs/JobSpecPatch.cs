@@ -47,6 +47,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// </summary>
         public readonly int Parallelism;
         /// <summary>
+        /// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+        /// 
+        /// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Batch.V1.PodFailurePolicyPatch PodFailurePolicy;
+        /// <summary>
         /// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelectorPatch Selector;
@@ -77,6 +83,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
 
             int parallelism,
 
+            Pulumi.Kubernetes.Types.Outputs.Batch.V1.PodFailurePolicyPatch podFailurePolicy,
+
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.LabelSelectorPatch selector,
 
             bool suspend,
@@ -91,6 +99,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
             Completions = completions;
             ManualSelector = manualSelector;
             Parallelism = parallelism;
+            PodFailurePolicy = podFailurePolicy;
             Selector = selector;
             Suspend = suspend;
             Template = template;

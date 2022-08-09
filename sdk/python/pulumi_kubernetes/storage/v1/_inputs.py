@@ -42,6 +42,7 @@ class CSIDriverSpecPatchArgs:
                  fs_group_policy: Optional[pulumi.Input[str]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[bool]] = None,
                  requires_republish: Optional[pulumi.Input[bool]] = None,
+                 se_linux_mount: Optional[pulumi.Input[bool]] = None,
                  storage_capacity: Optional[pulumi.Input[bool]] = None,
                  token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestPatchArgs']]]] = None,
                  volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
@@ -64,6 +65,13 @@ class CSIDriverSpecPatchArgs:
         :param pulumi.Input[bool] requires_republish: RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
                
                Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+        :param pulumi.Input[bool] se_linux_mount: SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+               
+               When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+               
+               When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+               
+               Default is "false".
         :param pulumi.Input[bool] storage_capacity: If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
                
                The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -92,6 +100,8 @@ class CSIDriverSpecPatchArgs:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
         if requires_republish is not None:
             pulumi.set(__self__, "requires_republish", requires_republish)
+        if se_linux_mount is not None:
+            pulumi.set(__self__, "se_linux_mount", se_linux_mount)
         if storage_capacity is not None:
             pulumi.set(__self__, "storage_capacity", storage_capacity)
         if token_requests is not None:
@@ -159,6 +169,24 @@ class CSIDriverSpecPatchArgs:
     @requires_republish.setter
     def requires_republish(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "requires_republish", value)
+
+    @property
+    @pulumi.getter(name="seLinuxMount")
+    def se_linux_mount(self) -> Optional[pulumi.Input[bool]]:
+        """
+        SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+
+        When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+
+        When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+
+        Default is "false".
+        """
+        return pulumi.get(self, "se_linux_mount")
+
+    @se_linux_mount.setter
+    def se_linux_mount(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "se_linux_mount", value)
 
     @property
     @pulumi.getter(name="storageCapacity")
@@ -220,6 +248,7 @@ class CSIDriverSpecArgs:
                  fs_group_policy: Optional[pulumi.Input[str]] = None,
                  pod_info_on_mount: Optional[pulumi.Input[bool]] = None,
                  requires_republish: Optional[pulumi.Input[bool]] = None,
+                 se_linux_mount: Optional[pulumi.Input[bool]] = None,
                  storage_capacity: Optional[pulumi.Input[bool]] = None,
                  token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]]] = None,
                  volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
@@ -242,6 +271,13 @@ class CSIDriverSpecArgs:
         :param pulumi.Input[bool] requires_republish: RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
                
                Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
+        :param pulumi.Input[bool] se_linux_mount: SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+               
+               When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+               
+               When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+               
+               Default is "false".
         :param pulumi.Input[bool] storage_capacity: If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
                
                The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -270,6 +306,8 @@ class CSIDriverSpecArgs:
             pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
         if requires_republish is not None:
             pulumi.set(__self__, "requires_republish", requires_republish)
+        if se_linux_mount is not None:
+            pulumi.set(__self__, "se_linux_mount", se_linux_mount)
         if storage_capacity is not None:
             pulumi.set(__self__, "storage_capacity", storage_capacity)
         if token_requests is not None:
@@ -337,6 +375,24 @@ class CSIDriverSpecArgs:
     @requires_republish.setter
     def requires_republish(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "requires_republish", value)
+
+    @property
+    @pulumi.getter(name="seLinuxMount")
+    def se_linux_mount(self) -> Optional[pulumi.Input[bool]]:
+        """
+        SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+
+        When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+
+        When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+
+        Default is "false".
+        """
+        return pulumi.get(self, "se_linux_mount")
+
+    @se_linux_mount.setter
+    def se_linux_mount(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "se_linux_mount", value)
 
     @property
     @pulumi.getter(name="storageCapacity")

@@ -27,8 +27,6 @@ import javax.annotation.Nullable;
  * 
  * To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
  * 
- * This is a beta feature available on clusters that haven&#39;t disabled the EphemeralContainers feature gate.
- * 
  */
 public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceArgs {
 

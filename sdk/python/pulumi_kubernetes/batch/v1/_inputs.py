@@ -23,6 +23,14 @@ __all__ = [
     'JobTemplateSpecPatchArgs',
     'JobTemplateSpecArgs',
     'JobArgs',
+    'PodFailurePolicyOnExitCodesRequirementPatchArgs',
+    'PodFailurePolicyOnExitCodesRequirementArgs',
+    'PodFailurePolicyOnPodConditionsPatternPatchArgs',
+    'PodFailurePolicyOnPodConditionsPatternArgs',
+    'PodFailurePolicyPatchArgs',
+    'PodFailurePolicyRulePatchArgs',
+    'PodFailurePolicyRuleArgs',
+    'PodFailurePolicyArgs',
     'UncountedTerminatedPodsArgs',
 ]
 
@@ -46,7 +54,7 @@ class CronJobSpecPatchArgs:
         :param pulumi.Input[int] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param pulumi.Input[int] successful_jobs_history_limit: The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-        :param pulumi.Input[str] time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+        :param pulumi.Input[str] time_zone: The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
         """
         if concurrency_policy is not None:
             pulumi.set(__self__, "concurrency_policy", concurrency_policy)
@@ -153,7 +161,7 @@ class CronJobSpecPatchArgs:
     @pulumi.getter(name="timeZone")
     def time_zone(self) -> Optional[pulumi.Input[str]]:
         """
-        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+        The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
         """
         return pulumi.get(self, "time_zone")
 
@@ -182,7 +190,7 @@ class CronJobSpecArgs:
         :param pulumi.Input[int] starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param pulumi.Input[int] successful_jobs_history_limit: The number of successful finished jobs to retain. Value must be non-negative integer. Defaults to 3.
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-        :param pulumi.Input[str] time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+        :param pulumi.Input[str] time_zone: The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
         """
         pulumi.set(__self__, "job_template", job_template)
         pulumi.set(__self__, "schedule", schedule)
@@ -287,7 +295,7 @@ class CronJobSpecArgs:
     @pulumi.getter(name="timeZone")
     def time_zone(self) -> Optional[pulumi.Input[str]]:
         """
-        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+        The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
         """
         return pulumi.get(self, "time_zone")
 
@@ -551,6 +559,7 @@ class JobSpecPatchArgs:
                  completions: Optional[pulumi.Input[int]] = None,
                  manual_selector: Optional[pulumi.Input[bool]] = None,
                  parallelism: Optional[pulumi.Input[int]] = None,
+                 pod_failure_policy: Optional[pulumi.Input['PodFailurePolicyPatchArgs']] = None,
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
                  suspend: Optional[pulumi.Input[bool]] = None,
                  template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
@@ -569,6 +578,9 @@ class JobSpecPatchArgs:
         :param pulumi.Input[int] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param pulumi.Input[int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param pulumi.Input['PodFailurePolicyPatchArgs'] pod_failure_policy: Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+               
+               This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input[bool] suspend: Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param pulumi.Input['_core.v1.PodTemplateSpecPatchArgs'] template: Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
@@ -586,6 +598,8 @@ class JobSpecPatchArgs:
             pulumi.set(__self__, "manual_selector", manual_selector)
         if parallelism is not None:
             pulumi.set(__self__, "parallelism", parallelism)
+        if pod_failure_policy is not None:
+            pulumi.set(__self__, "pod_failure_policy", pod_failure_policy)
         if selector is not None:
             pulumi.set(__self__, "selector", selector)
         if suspend is not None:
@@ -674,6 +688,20 @@ class JobSpecPatchArgs:
         pulumi.set(self, "parallelism", value)
 
     @property
+    @pulumi.getter(name="podFailurePolicy")
+    def pod_failure_policy(self) -> Optional[pulumi.Input['PodFailurePolicyPatchArgs']]:
+        """
+        Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+
+        This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+        """
+        return pulumi.get(self, "pod_failure_policy")
+
+    @pod_failure_policy.setter
+    def pod_failure_policy(self, value: Optional[pulumi.Input['PodFailurePolicyPatchArgs']]):
+        pulumi.set(self, "pod_failure_policy", value)
+
+    @property
     @pulumi.getter
     def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
         """
@@ -732,6 +760,7 @@ class JobSpecArgs:
                  completions: Optional[pulumi.Input[int]] = None,
                  manual_selector: Optional[pulumi.Input[bool]] = None,
                  parallelism: Optional[pulumi.Input[int]] = None,
+                 pod_failure_policy: Optional[pulumi.Input['PodFailurePolicyArgs']] = None,
                  selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
                  suspend: Optional[pulumi.Input[bool]] = None,
                  ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None):
@@ -750,6 +779,9 @@ class JobSpecArgs:
         :param pulumi.Input[int] completions: Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[bool] manual_selector: manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
         :param pulumi.Input[int] parallelism: Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        :param pulumi.Input['PodFailurePolicyArgs'] pod_failure_policy: Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+               
+               This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param pulumi.Input[bool] suspend: Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param pulumi.Input[int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
@@ -767,6 +799,8 @@ class JobSpecArgs:
             pulumi.set(__self__, "manual_selector", manual_selector)
         if parallelism is not None:
             pulumi.set(__self__, "parallelism", parallelism)
+        if pod_failure_policy is not None:
+            pulumi.set(__self__, "pod_failure_policy", pod_failure_policy)
         if selector is not None:
             pulumi.set(__self__, "selector", selector)
         if suspend is not None:
@@ -863,6 +897,20 @@ class JobSpecArgs:
     @parallelism.setter
     def parallelism(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "parallelism", value)
+
+    @property
+    @pulumi.getter(name="podFailurePolicy")
+    def pod_failure_policy(self) -> Optional[pulumi.Input['PodFailurePolicyArgs']]:
+        """
+        Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+
+        This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+        """
+        return pulumi.get(self, "pod_failure_policy")
+
+    @pod_failure_policy.setter
+    def pod_failure_policy(self, value: Optional[pulumi.Input['PodFailurePolicyArgs']]):
+        pulumi.set(self, "pod_failure_policy", value)
 
     @property
     @pulumi.getter
@@ -1253,6 +1301,399 @@ class JobArgs:
     @status.setter
     def status(self, value: Optional[pulumi.Input['JobStatusArgs']]):
         pulumi.set(self, "status", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyOnExitCodesRequirementPatchArgs:
+    def __init__(__self__, *,
+                 container_name: Optional[pulumi.Input[str]] = None,
+                 operator: Optional[pulumi.Input[str]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None):
+        """
+        PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+        :param pulumi.Input[str] container_name: Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+        :param pulumi.Input[str] operator: Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+                 (might be multiple if there are multiple containers not restricted
+                 by the 'containerName' field) is in the set of specified values.
+               - NotIn: the requirement is satisfied if at least one container exit code
+                 (might be multiple if there are multiple containers not restricted
+                 by the 'containerName' field) is not in the set of specified values.
+               Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        :param pulumi.Input[Sequence[pulumi.Input[int]]] values: Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+        """
+        if container_name is not None:
+            pulumi.set(__self__, "container_name", container_name)
+        if operator is not None:
+            pulumi.set(__self__, "operator", operator)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter(name="containerName")
+    def container_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+        """
+        return pulumi.get(self, "container_name")
+
+    @container_name.setter
+    def container_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "container_name", value)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> Optional[pulumi.Input[str]]:
+        """
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is in the set of specified values.
+        - NotIn: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is not in the set of specified values.
+        Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "operator", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[int]]]]:
+        """
+        Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]]):
+        pulumi.set(self, "values", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyOnExitCodesRequirementArgs:
+    def __init__(__self__, *,
+                 operator: pulumi.Input[str],
+                 values: pulumi.Input[Sequence[pulumi.Input[int]]],
+                 container_name: Optional[pulumi.Input[str]] = None):
+        """
+        PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+        :param pulumi.Input[str] operator: Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+                 (might be multiple if there are multiple containers not restricted
+                 by the 'containerName' field) is in the set of specified values.
+               - NotIn: the requirement is satisfied if at least one container exit code
+                 (might be multiple if there are multiple containers not restricted
+                 by the 'containerName' field) is not in the set of specified values.
+               Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        :param pulumi.Input[Sequence[pulumi.Input[int]]] values: Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+        :param pulumi.Input[str] container_name: Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+        """
+        pulumi.set(__self__, "operator", operator)
+        pulumi.set(__self__, "values", values)
+        if container_name is not None:
+            pulumi.set(__self__, "container_name", container_name)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[str]:
+        """
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is in the set of specified values.
+        - NotIn: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is not in the set of specified values.
+        Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        """
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[str]):
+        pulumi.set(self, "operator", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input[int]]]:
+        """
+        Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+        """
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input[int]]]):
+        pulumi.set(self, "values", value)
+
+    @property
+    @pulumi.getter(name="containerName")
+    def container_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+        """
+        return pulumi.get(self, "container_name")
+
+    @container_name.setter
+    def container_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "container_name", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyOnPodConditionsPatternPatchArgs:
+    def __init__(__self__, *,
+                 status: Optional[pulumi.Input[str]] = None,
+                 type: Optional[pulumi.Input[str]] = None):
+        """
+        PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+        :param pulumi.Input[str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+        :param pulumi.Input[str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+        """
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "status", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyOnPodConditionsPatternArgs:
+    def __init__(__self__, *,
+                 status: pulumi.Input[str],
+                 type: pulumi.Input[str]):
+        """
+        PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+        :param pulumi.Input[str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+        :param pulumi.Input[str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+        """
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[str]:
+        """
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+        """
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[str]):
+        pulumi.set(self, "status", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        """
+        Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyPatchArgs:
+    def __init__(__self__, *,
+                 rules: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]] = None):
+        """
+        PodFailurePolicy describes how failed pods influence the backoffLimit.
+        :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]] rules: A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+        """
+        if rules is not None:
+            pulumi.set(__self__, "rules", rules)
+
+    @property
+    @pulumi.getter
+    def rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]]:
+        """
+        A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+        """
+        return pulumi.get(self, "rules")
+
+    @rules.setter
+    def rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]]):
+        pulumi.set(self, "rules", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyRulePatchArgs:
+    def __init__(__self__, *,
+                 action: Optional[pulumi.Input[str]] = None,
+                 on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs']] = None,
+                 on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]] = None):
+        """
+        PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+        :param pulumi.Input[str] action: Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+                 running pods are terminated.
+               - Ignore: indicates that the counter towards the .backoffLimit is not
+                 incremented and a replacement pod is created.
+               - Count: indicates that the pod is handled in the default way - the
+                 counter towards the .backoffLimit is incremented.
+               Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+        :param pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs'] on_exit_codes: Represents the requirement on the container exit codes.
+        :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]] on_pod_conditions: Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+        """
+        if action is not None:
+            pulumi.set(__self__, "action", action)
+        if on_exit_codes is not None:
+            pulumi.set(__self__, "on_exit_codes", on_exit_codes)
+        if on_pod_conditions is not None:
+            pulumi.set(__self__, "on_pod_conditions", on_pod_conditions)
+
+    @property
+    @pulumi.getter
+    def action(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+          running pods are terminated.
+        - Ignore: indicates that the counter towards the .backoffLimit is not
+          incremented and a replacement pod is created.
+        - Count: indicates that the pod is handled in the default way - the
+          counter towards the .backoffLimit is incremented.
+        Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "action", value)
+
+    @property
+    @pulumi.getter(name="onExitCodes")
+    def on_exit_codes(self) -> Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs']]:
+        """
+        Represents the requirement on the container exit codes.
+        """
+        return pulumi.get(self, "on_exit_codes")
+
+    @on_exit_codes.setter
+    def on_exit_codes(self, value: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs']]):
+        pulumi.set(self, "on_exit_codes", value)
+
+    @property
+    @pulumi.getter(name="onPodConditions")
+    def on_pod_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]]:
+        """
+        Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+        """
+        return pulumi.get(self, "on_pod_conditions")
+
+    @on_pod_conditions.setter
+    def on_pod_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]]):
+        pulumi.set(self, "on_pod_conditions", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyRuleArgs:
+    def __init__(__self__, *,
+                 action: pulumi.Input[str],
+                 on_pod_conditions: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]],
+                 on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs']] = None):
+        """
+        PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+        :param pulumi.Input[str] action: Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+                 running pods are terminated.
+               - Ignore: indicates that the counter towards the .backoffLimit is not
+                 incremented and a replacement pod is created.
+               - Count: indicates that the pod is handled in the default way - the
+                 counter towards the .backoffLimit is incremented.
+               Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+        :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]] on_pod_conditions: Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+        :param pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs'] on_exit_codes: Represents the requirement on the container exit codes.
+        """
+        pulumi.set(__self__, "action", action)
+        pulumi.set(__self__, "on_pod_conditions", on_pod_conditions)
+        if on_exit_codes is not None:
+            pulumi.set(__self__, "on_exit_codes", on_exit_codes)
+
+    @property
+    @pulumi.getter
+    def action(self) -> pulumi.Input[str]:
+        """
+        Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+          running pods are terminated.
+        - Ignore: indicates that the counter towards the .backoffLimit is not
+          incremented and a replacement pod is created.
+        - Count: indicates that the pod is handled in the default way - the
+          counter towards the .backoffLimit is incremented.
+        Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+        """
+        return pulumi.get(self, "action")
+
+    @action.setter
+    def action(self, value: pulumi.Input[str]):
+        pulumi.set(self, "action", value)
+
+    @property
+    @pulumi.getter(name="onPodConditions")
+    def on_pod_conditions(self) -> pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]]:
+        """
+        Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+        """
+        return pulumi.get(self, "on_pod_conditions")
+
+    @on_pod_conditions.setter
+    def on_pod_conditions(self, value: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]]):
+        pulumi.set(self, "on_pod_conditions", value)
+
+    @property
+    @pulumi.getter(name="onExitCodes")
+    def on_exit_codes(self) -> Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs']]:
+        """
+        Represents the requirement on the container exit codes.
+        """
+        return pulumi.get(self, "on_exit_codes")
+
+    @on_exit_codes.setter
+    def on_exit_codes(self, value: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs']]):
+        pulumi.set(self, "on_exit_codes", value)
+
+
+@pulumi.input_type
+class PodFailurePolicyArgs:
+    def __init__(__self__, *,
+                 rules: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]]):
+        """
+        PodFailurePolicy describes how failed pods influence the backoffLimit.
+        :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]] rules: A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+        """
+        pulumi.set(__self__, "rules", rules)
+
+    @property
+    @pulumi.getter
+    def rules(self) -> pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]]:
+        """
+        A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+        """
+        return pulumi.get(self, "rules")
+
+    @rules.setter
+    def rules(self, value: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]]):
+        pulumi.set(self, "rules", value)
 
 
 @pulumi.input_type

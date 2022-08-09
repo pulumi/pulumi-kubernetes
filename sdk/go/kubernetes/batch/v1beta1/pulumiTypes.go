@@ -338,8 +338,6 @@ type CronJobSpec struct {
 	SuccessfulJobsHistoryLimit *int `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-	TimeZone *string `pulumi:"timeZone"`
 }
 
 // CronJobSpecInput is an input type that accepts CronJobSpecArgs and CronJobSpecOutput values.
@@ -369,8 +367,6 @@ type CronJobSpecArgs struct {
 	SuccessfulJobsHistoryLimit pulumi.IntPtrInput `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-	TimeZone pulumi.StringPtrInput `pulumi:"timeZone"`
 }
 
 func (CronJobSpecArgs) ElementType() reflect.Type {
@@ -486,11 +482,6 @@ func (o CronJobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-func (o CronJobSpecOutput) TimeZone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobSpec) *string { return v.TimeZone }).(pulumi.StringPtrOutput)
-}
-
 type CronJobSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecPtrOutput) ElementType() reflect.Type {
@@ -585,16 +576,6 @@ func (o CronJobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-func (o CronJobSpecPtrOutput) TimeZone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobSpec) *string {
-		if v == nil {
-			return nil
-		}
-		return v.TimeZone
-	}).(pulumi.StringPtrOutput)
-}
-
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecPatch struct {
 	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -611,8 +592,6 @@ type CronJobSpecPatch struct {
 	SuccessfulJobsHistoryLimit *int `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-	TimeZone *string `pulumi:"timeZone"`
 }
 
 // CronJobSpecPatchInput is an input type that accepts CronJobSpecPatchArgs and CronJobSpecPatchOutput values.
@@ -642,8 +621,6 @@ type CronJobSpecPatchArgs struct {
 	SuccessfulJobsHistoryLimit pulumi.IntPtrInput `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-	TimeZone pulumi.StringPtrInput `pulumi:"timeZone"`
 }
 
 func (CronJobSpecPatchArgs) ElementType() reflect.Type {
@@ -759,11 +736,6 @@ func (o CronJobSpecPatchOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CronJobSpecPatch) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-func (o CronJobSpecPatchOutput) TimeZone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobSpecPatch) *string { return v.TimeZone }).(pulumi.StringPtrOutput)
-}
-
 type CronJobSpecPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobSpecPatchPtrOutput) ElementType() reflect.Type {
@@ -858,24 +830,12 @@ func (o CronJobSpecPatchPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-func (o CronJobSpecPatchPtrOutput) TimeZone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobSpecPatch) *string {
-		if v == nil {
-			return nil
-		}
-		return v.TimeZone
-	}).(pulumi.StringPtrOutput)
-}
-
 // CronJobStatus represents the current state of a cron job.
 type CronJobStatus struct {
 	// A list of pointers to currently running jobs.
 	Active []corev1.ObjectReference `pulumi:"active"`
 	// Information when was the last time the job was successfully scheduled.
 	LastScheduleTime *string `pulumi:"lastScheduleTime"`
-	// Information when was the last time the job successfully completed.
-	LastSuccessfulTime *string `pulumi:"lastSuccessfulTime"`
 }
 
 // CronJobStatusInput is an input type that accepts CronJobStatusArgs and CronJobStatusOutput values.
@@ -895,8 +855,6 @@ type CronJobStatusArgs struct {
 	Active corev1.ObjectReferenceArrayInput `pulumi:"active"`
 	// Information when was the last time the job was successfully scheduled.
 	LastScheduleTime pulumi.StringPtrInput `pulumi:"lastScheduleTime"`
-	// Information when was the last time the job successfully completed.
-	LastSuccessfulTime pulumi.StringPtrInput `pulumi:"lastSuccessfulTime"`
 }
 
 func (CronJobStatusArgs) ElementType() reflect.Type {
@@ -987,11 +945,6 @@ func (o CronJobStatusOutput) LastScheduleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobStatus) *string { return v.LastScheduleTime }).(pulumi.StringPtrOutput)
 }
 
-// Information when was the last time the job successfully completed.
-func (o CronJobStatusOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobStatus) *string { return v.LastSuccessfulTime }).(pulumi.StringPtrOutput)
-}
-
 type CronJobStatusPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusPtrOutput) ElementType() reflect.Type {
@@ -1036,24 +989,12 @@ func (o CronJobStatusPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Information when was the last time the job successfully completed.
-func (o CronJobStatusPtrOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobStatus) *string {
-		if v == nil {
-			return nil
-		}
-		return v.LastSuccessfulTime
-	}).(pulumi.StringPtrOutput)
-}
-
 // CronJobStatus represents the current state of a cron job.
 type CronJobStatusPatch struct {
 	// A list of pointers to currently running jobs.
 	Active []corev1.ObjectReferencePatch `pulumi:"active"`
 	// Information when was the last time the job was successfully scheduled.
 	LastScheduleTime *string `pulumi:"lastScheduleTime"`
-	// Information when was the last time the job successfully completed.
-	LastSuccessfulTime *string `pulumi:"lastSuccessfulTime"`
 }
 
 // CronJobStatusPatchInput is an input type that accepts CronJobStatusPatchArgs and CronJobStatusPatchOutput values.
@@ -1073,8 +1014,6 @@ type CronJobStatusPatchArgs struct {
 	Active corev1.ObjectReferencePatchArrayInput `pulumi:"active"`
 	// Information when was the last time the job was successfully scheduled.
 	LastScheduleTime pulumi.StringPtrInput `pulumi:"lastScheduleTime"`
-	// Information when was the last time the job successfully completed.
-	LastSuccessfulTime pulumi.StringPtrInput `pulumi:"lastSuccessfulTime"`
 }
 
 func (CronJobStatusPatchArgs) ElementType() reflect.Type {
@@ -1165,11 +1104,6 @@ func (o CronJobStatusPatchOutput) LastScheduleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobStatusPatch) *string { return v.LastScheduleTime }).(pulumi.StringPtrOutput)
 }
 
-// Information when was the last time the job successfully completed.
-func (o CronJobStatusPatchOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v CronJobStatusPatch) *string { return v.LastSuccessfulTime }).(pulumi.StringPtrOutput)
-}
-
 type CronJobStatusPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (CronJobStatusPatchPtrOutput) ElementType() reflect.Type {
@@ -1211,16 +1145,6 @@ func (o CronJobStatusPatchPtrOutput) LastScheduleTime() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.LastScheduleTime
-	}).(pulumi.StringPtrOutput)
-}
-
-// Information when was the last time the job successfully completed.
-func (o CronJobStatusPatchPtrOutput) LastSuccessfulTime() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CronJobStatusPatch) *string {
-		if v == nil {
-			return nil
-		}
-		return v.LastSuccessfulTime
 	}).(pulumi.StringPtrOutput)
 }
 

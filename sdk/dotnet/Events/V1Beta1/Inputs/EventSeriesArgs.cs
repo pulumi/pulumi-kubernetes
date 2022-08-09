@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
     public class EventSeriesArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// count is the number of occurrences in this series up to the last heartbeat time.
+        /// Number of occurrences in this series up to the last heartbeat time
         /// </summary>
         [Input("count", required: true)]
         public Input<int> Count { get; set; } = null!;
 
         /// <summary>
-        /// lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        /// Time when last Event from the series was seen before last heartbeat.
         /// </summary>
         [Input("lastObservedTime", required: true)]
         public Input<string> LastObservedTime { get; set; } = null!;
@@ -30,8 +30,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         /// <summary>
         /// Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         /// </summary>
-        [Input("state")]
-        public Input<string>? State { get; set; }
+        [Input("state", required: true)]
+        public Input<string> State { get; set; } = null!;
 
         public EventSeriesArgs()
         {

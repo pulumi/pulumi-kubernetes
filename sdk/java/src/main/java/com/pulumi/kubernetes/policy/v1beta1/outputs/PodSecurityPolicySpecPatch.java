@@ -29,7 +29,7 @@ public final class PodSecurityPolicySpecPatch {
      */
     private @Nullable Boolean allowPrivilegeEscalation;
     /**
-     * @return AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+     * @return AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
      * 
      */
     private @Nullable List<AllowedCSIDriverPatch> allowedCSIDrivers;
@@ -39,22 +39,22 @@ public final class PodSecurityPolicySpecPatch {
      */
     private @Nullable List<String> allowedCapabilities;
     /**
-     * @return allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+     * @return allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
      * 
      */
     private @Nullable List<AllowedFlexVolumePatch> allowedFlexVolumes;
     /**
-     * @return allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+     * @return allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
      * 
      */
     private @Nullable List<AllowedHostPathPatch> allowedHostPaths;
     /**
-     * @return AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+     * @return AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
      * 
      */
     private @Nullable List<String> allowedProcMountTypes;
     /**
-     * @return allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+     * @return allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
      * 
      * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
      * 
@@ -143,7 +143,7 @@ public final class PodSecurityPolicySpecPatch {
      */
     private @Nullable SupplementalGroupsStrategyOptionsPatch supplementalGroups;
     /**
-     * @return volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+     * @return volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
      * 
      */
     private @Nullable List<String> volumes;
@@ -157,7 +157,7 @@ public final class PodSecurityPolicySpecPatch {
         return Optional.ofNullable(this.allowPrivilegeEscalation);
     }
     /**
-     * @return AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+     * @return AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
      * 
      */
     public List<AllowedCSIDriverPatch> allowedCSIDrivers() {
@@ -171,28 +171,28 @@ public final class PodSecurityPolicySpecPatch {
         return this.allowedCapabilities == null ? List.of() : this.allowedCapabilities;
     }
     /**
-     * @return allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+     * @return allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
      * 
      */
     public List<AllowedFlexVolumePatch> allowedFlexVolumes() {
         return this.allowedFlexVolumes == null ? List.of() : this.allowedFlexVolumes;
     }
     /**
-     * @return allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+     * @return allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
      * 
      */
     public List<AllowedHostPathPatch> allowedHostPaths() {
         return this.allowedHostPaths == null ? List.of() : this.allowedHostPaths;
     }
     /**
-     * @return AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+     * @return AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
      * 
      */
     public List<String> allowedProcMountTypes() {
         return this.allowedProcMountTypes == null ? List.of() : this.allowedProcMountTypes;
     }
     /**
-     * @return allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+     * @return allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
      * 
      * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
      * 
@@ -315,7 +315,7 @@ public final class PodSecurityPolicySpecPatch {
         return Optional.ofNullable(this.supplementalGroups);
     }
     /**
-     * @return volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+     * @return volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
      * 
      */
     public List<String> volumes() {
