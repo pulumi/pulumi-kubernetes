@@ -2432,6 +2432,14 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			// to consider the CR to be deleted as well in this case.
 			return &pbempty.Empty{}, nil
 		}
+		if strings.HasSuffix(urn.Type().String(), "Patch") && await.IsDeleteRequiredFieldErr(awaitErr) {
+			if cause, ok := errors.StatusCause(awaitErr, metav1.CauseTypeFieldValueRequired); ok {
+				awaitErr = fmt.Errorf(
+					"this Patch resource is currently managing a required field, so it can't be deleted "+
+						"directly. Either set the `retainOnDelete` resource option, or transfer ownership of the "+
+						"field before deleting: %s", cause.Field)
+			}
+		}
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// There was an error executing the delete operation. The resource is still present and tracked.
