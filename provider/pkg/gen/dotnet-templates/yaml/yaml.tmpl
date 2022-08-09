@@ -55,11 +55,17 @@ namespace Pulumi.Kubernetes.Yaml
             where T : KubernetesResource
         {
             var type = typeof(T);
-            var groupVersionKind =
+            string groupVersionKind;
+            switch(type)
+            {
 {{- range .Resources}}
-                type == typeof({{.Package}}.{{.Name}}) ? "{{.GVK}}" :
+                case var t when t == typeof({{.Package}}.{{.Name}}):
+                    groupVersionKind = "{{.GVK}}";
+                    break;
 {{- end}}
-                throw new ArgumentException($"Unknown resource type {typeof(T).FullName}");
+                default:
+                    throw new ArgumentException($"Unknown resource type {typeof(T).FullName}");
+            }
             var id = namespaceName != null ? $"{namespaceName}/{name}" : name;
             return Resources.Apply(r =>
             {

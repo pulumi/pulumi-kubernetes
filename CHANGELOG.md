@@ -3,6 +3,7 @@
 
 - Add a descriptive message for an invalid Patch delete (https://github.com/pulumi/pulumi-kubernetes/pull/2111)
 - Fix erroneous resourceVersion diff for CRDs managed with SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2121)
+- Update C# YAML GetResource implementation to compile with .NET v6 (https://github.com/pulumi/pulumi-kubernetes/pull/2122)
 
 ## 3.20.2 (July 25, 2022)
 
