@@ -4,6 +4,8 @@ The Chart can be fetched from any source that is accessible to the `helm` comman
 
 `Chart` does not use Tiller. The Chart specified is copied and expanded locally; the semantics are equivalent to running `helm template` and then using Pulumi to manage the resulting YAML manifests. Any values that would be retrieved in-cluster are assigned fake values, and none of Tiller's server-side validity testing is executed.
 
+**Note**: `helm/v2/Chart` has been deprecated and superceded by `helm/v3/Chart` and will be removed in a future release.
+
 {{% examples %}}
 ## Example Usage
 {{% example %}}

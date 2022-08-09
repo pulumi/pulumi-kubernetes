@@ -1,4 +1,5 @@
 ## Unreleased
+- Add chart v2 deprecation note to schema/docs (https://github.com/pulumi/pulumi-kubernetes/pull/2114)
 
 - Add a descriptive message for an invalid Patch delete (https://github.com/pulumi/pulumi-kubernetes/pull/2111)
 - Fix erroneous resourceVersion diff for CRDs managed with SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2121)
