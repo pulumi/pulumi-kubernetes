@@ -2801,8 +2801,31 @@ func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
 	return nil, false
 }
 
+// mapReplUnderscoreToDash is needed to work around cases where SDKs don't allow dashes in variable names, and so the
+// parameter is renamed with an underscore during schema generation. This function normalizes those keys to the format
+// expected by the cluster.
+func mapReplUnderscoreToDash(v string) (string, bool) {
+	switch v {
+	case "x_kubernetes_embedded_resource":
+		return "x-kubernetes-embedded-resource", true
+	case "x_kubernetes_int_or_string":
+		return "x-kubernetes-int-or-string", true
+	case "x_kubernetes_list_map_keys":
+		return "x-kubernetes-list-map-keys", true
+	case "x_kubernetes_list_type":
+		return "x-kubernetes-list-type", true
+	case "x_kubernetes_map_type":
+		return "x-kubernetes-map-type", true
+	case "x_kubernetes_preserve_unknown_fields":
+		return "x-kubernetes-preserve-unknown-fields", true
+	case "x_kubernetes_validations":
+		return "x-kubernetes-validations", true
+	}
+	return "", false
+}
+
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
-	return &unstructured.Unstructured{Object: pm.MapRepl(nil, mapReplStripSecrets)}
+	return &unstructured.Unstructured{Object: pm.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)}
 }
 
 func getAnnotations(config *unstructured.Unstructured) map[string]string {
