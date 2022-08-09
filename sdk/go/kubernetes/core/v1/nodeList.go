@@ -118,7 +118,7 @@ func (i *NodeList) ToNodeListOutputWithContext(ctx context.Context) NodeListOutp
 // NodeListArrayInput is an input type that accepts NodeListArray and NodeListArrayOutput values.
 // You can construct a concrete instance of `NodeListArrayInput` via:
 //
-//          NodeListArray{ NodeListArgs{...} }
+//	NodeListArray{ NodeListArgs{...} }
 type NodeListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i NodeListArray) ToNodeListArrayOutputWithContext(ctx context.Context) Nod
 // NodeListMapInput is an input type that accepts NodeListMap and NodeListMapOutput values.
 // You can construct a concrete instance of `NodeListMapInput` via:
 //
-//          NodeListMap{ "key": NodeListArgs{...} }
+//	NodeListMap{ "key": NodeListArgs{...} }
 type NodeListMapInput interface {
 	pulumi.Input
 

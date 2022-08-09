@@ -82,7 +82,7 @@ type MutatingWebhook struct {
 // MutatingWebhookInput is an input type that accepts MutatingWebhookArgs and MutatingWebhookOutput values.
 // You can construct a concrete instance of `MutatingWebhookInput` via:
 //
-//          MutatingWebhookArgs{...}
+//	MutatingWebhookArgs{...}
 type MutatingWebhookInput interface {
 	pulumi.Input
 
@@ -173,7 +173,7 @@ func (i MutatingWebhookArgs) ToMutatingWebhookOutputWithContext(ctx context.Cont
 // MutatingWebhookArrayInput is an input type that accepts MutatingWebhookArray and MutatingWebhookArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookArrayInput` via:
 //
-//          MutatingWebhookArray{ MutatingWebhookArgs{...} }
+//	MutatingWebhookArray{ MutatingWebhookArgs{...} }
 type MutatingWebhookArrayInput interface {
 	pulumi.Input
 
@@ -243,31 +243,31 @@ func (o MutatingWebhookOutput) Name() pulumi.StringOutput {
 
 // NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
 //
-// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "runlevel",
-//       "operator": "NotIn",
-//       "values": [
-//         "0",
-//         "1"
-//       ]
-//     }
-//   ]
-// }
+//	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "runlevel",
+//	      "operator": "NotIn",
+//	      "values": [
+//	        "0",
+//	        "1"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
-// If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "environment",
-//       "operator": "In",
-//       "values": [
-//         "prod",
-//         "staging"
-//       ]
-//     }
-//   ]
-// }
+//	If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "environment",
+//	      "operator": "In",
+//	      "values": [
+//	        "prod",
+//	        "staging"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 //
@@ -342,7 +342,7 @@ type MutatingWebhookConfigurationType struct {
 // MutatingWebhookConfigurationTypeInput is an input type that accepts MutatingWebhookConfigurationTypeArgs and MutatingWebhookConfigurationTypeOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationTypeInput` via:
 //
-//          MutatingWebhookConfigurationTypeArgs{...}
+//	MutatingWebhookConfigurationTypeArgs{...}
 type MutatingWebhookConfigurationTypeInput interface {
 	pulumi.Input
 
@@ -377,7 +377,7 @@ func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationType
 // MutatingWebhookConfigurationTypeArrayInput is an input type that accepts MutatingWebhookConfigurationTypeArray and MutatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationTypeArrayInput` via:
 //
-//          MutatingWebhookConfigurationTypeArray{ MutatingWebhookConfigurationTypeArgs{...} }
+//	MutatingWebhookConfigurationTypeArray{ MutatingWebhookConfigurationTypeArgs{...} }
 type MutatingWebhookConfigurationTypeArrayInput interface {
 	pulumi.Input
 
@@ -469,7 +469,7 @@ type MutatingWebhookConfigurationListType struct {
 // MutatingWebhookConfigurationListTypeInput is an input type that accepts MutatingWebhookConfigurationListTypeArgs and MutatingWebhookConfigurationListTypeOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationListTypeInput` via:
 //
-//          MutatingWebhookConfigurationListTypeArgs{...}
+//	MutatingWebhookConfigurationListTypeArgs{...}
 type MutatingWebhookConfigurationListTypeInput interface {
 	pulumi.Input
 
@@ -551,7 +551,7 @@ type MutatingWebhookConfigurationPatchType struct {
 // MutatingWebhookConfigurationPatchTypeInput is an input type that accepts MutatingWebhookConfigurationPatchTypeArgs and MutatingWebhookConfigurationPatchTypeOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationPatchTypeInput` via:
 //
-//          MutatingWebhookConfigurationPatchTypeArgs{...}
+//	MutatingWebhookConfigurationPatchTypeArgs{...}
 type MutatingWebhookConfigurationPatchTypeInput interface {
 	pulumi.Input
 
@@ -689,7 +689,7 @@ type MutatingWebhookPatch struct {
 // MutatingWebhookPatchInput is an input type that accepts MutatingWebhookPatchArgs and MutatingWebhookPatchOutput values.
 // You can construct a concrete instance of `MutatingWebhookPatchInput` via:
 //
-//          MutatingWebhookPatchArgs{...}
+//	MutatingWebhookPatchArgs{...}
 type MutatingWebhookPatchInput interface {
 	pulumi.Input
 
@@ -780,7 +780,7 @@ func (i MutatingWebhookPatchArgs) ToMutatingWebhookPatchOutputWithContext(ctx co
 // MutatingWebhookPatchArrayInput is an input type that accepts MutatingWebhookPatchArray and MutatingWebhookPatchArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookPatchArrayInput` via:
 //
-//          MutatingWebhookPatchArray{ MutatingWebhookPatchArgs{...} }
+//	MutatingWebhookPatchArray{ MutatingWebhookPatchArgs{...} }
 type MutatingWebhookPatchArrayInput interface {
 	pulumi.Input
 
@@ -850,31 +850,31 @@ func (o MutatingWebhookPatchOutput) Name() pulumi.StringPtrOutput {
 
 // NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
 //
-// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "runlevel",
-//       "operator": "NotIn",
-//       "values": [
-//         "0",
-//         "1"
-//       ]
-//     }
-//   ]
-// }
+//	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "runlevel",
+//	      "operator": "NotIn",
+//	      "values": [
+//	        "0",
+//	        "1"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
-// If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "environment",
-//       "operator": "In",
-//       "values": [
-//         "prod",
-//         "staging"
-//       ]
-//     }
-//   ]
-// }
+//	If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "environment",
+//	      "operator": "In",
+//	      "values": [
+//	        "prod",
+//	        "staging"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
 //
@@ -957,7 +957,7 @@ type RuleWithOperations struct {
 // RuleWithOperationsInput is an input type that accepts RuleWithOperationsArgs and RuleWithOperationsOutput values.
 // You can construct a concrete instance of `RuleWithOperationsInput` via:
 //
-//          RuleWithOperationsArgs{...}
+//	RuleWithOperationsArgs{...}
 type RuleWithOperationsInput interface {
 	pulumi.Input
 
@@ -1000,7 +1000,7 @@ func (i RuleWithOperationsArgs) ToRuleWithOperationsOutputWithContext(ctx contex
 // RuleWithOperationsArrayInput is an input type that accepts RuleWithOperationsArray and RuleWithOperationsArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsArrayInput` via:
 //
-//          RuleWithOperationsArray{ RuleWithOperationsArgs{...} }
+//	RuleWithOperationsArray{ RuleWithOperationsArgs{...} }
 type RuleWithOperationsArrayInput interface {
 	pulumi.Input
 
@@ -1111,7 +1111,7 @@ type RuleWithOperationsPatch struct {
 // RuleWithOperationsPatchInput is an input type that accepts RuleWithOperationsPatchArgs and RuleWithOperationsPatchOutput values.
 // You can construct a concrete instance of `RuleWithOperationsPatchInput` via:
 //
-//          RuleWithOperationsPatchArgs{...}
+//	RuleWithOperationsPatchArgs{...}
 type RuleWithOperationsPatchInput interface {
 	pulumi.Input
 
@@ -1154,7 +1154,7 @@ func (i RuleWithOperationsPatchArgs) ToRuleWithOperationsPatchOutputWithContext(
 // RuleWithOperationsPatchArrayInput is an input type that accepts RuleWithOperationsPatchArray and RuleWithOperationsPatchArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsPatchArrayInput` via:
 //
-//          RuleWithOperationsPatchArray{ RuleWithOperationsPatchArgs{...} }
+//	RuleWithOperationsPatchArray{ RuleWithOperationsPatchArgs{...} }
 type RuleWithOperationsPatchArrayInput interface {
 	pulumi.Input
 
@@ -1257,7 +1257,7 @@ type ServiceReference struct {
 // ServiceReferenceInput is an input type that accepts ServiceReferenceArgs and ServiceReferenceOutput values.
 // You can construct a concrete instance of `ServiceReferenceInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	ServiceReferenceArgs{...}
 type ServiceReferenceInput interface {
 	pulumi.Input
 
@@ -1300,11 +1300,11 @@ func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context
 // ServiceReferencePtrInput is an input type that accepts ServiceReferenceArgs, ServiceReferencePtr and ServiceReferencePtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePtrInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	        ServiceReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePtrInput interface {
 	pulumi.Input
 
@@ -1454,7 +1454,7 @@ type ServiceReferencePatch struct {
 // ServiceReferencePatchInput is an input type that accepts ServiceReferencePatchArgs and ServiceReferencePatchOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	ServiceReferencePatchArgs{...}
 type ServiceReferencePatchInput interface {
 	pulumi.Input
 
@@ -1497,11 +1497,11 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutputWithContext(c
 // ServiceReferencePatchPtrInput is an input type that accepts ServiceReferencePatchArgs, ServiceReferencePatchPtr and ServiceReferencePatchPtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchPtrInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	        ServiceReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -1699,7 +1699,7 @@ type ValidatingWebhook struct {
 // ValidatingWebhookInput is an input type that accepts ValidatingWebhookArgs and ValidatingWebhookOutput values.
 // You can construct a concrete instance of `ValidatingWebhookInput` via:
 //
-//          ValidatingWebhookArgs{...}
+//	ValidatingWebhookArgs{...}
 type ValidatingWebhookInput interface {
 	pulumi.Input
 
@@ -1782,7 +1782,7 @@ func (i ValidatingWebhookArgs) ToValidatingWebhookOutputWithContext(ctx context.
 // ValidatingWebhookArrayInput is an input type that accepts ValidatingWebhookArray and ValidatingWebhookArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookArrayInput` via:
 //
-//          ValidatingWebhookArray{ ValidatingWebhookArgs{...} }
+//	ValidatingWebhookArray{ ValidatingWebhookArgs{...} }
 type ValidatingWebhookArrayInput interface {
 	pulumi.Input
 
@@ -1852,31 +1852,31 @@ func (o ValidatingWebhookOutput) Name() pulumi.StringOutput {
 
 // NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
 //
-// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "runlevel",
-//       "operator": "NotIn",
-//       "values": [
-//         "0",
-//         "1"
-//       ]
-//     }
-//   ]
-// }
+//	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "runlevel",
+//	      "operator": "NotIn",
+//	      "values": [
+//	        "0",
+//	        "1"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
-// If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "environment",
-//       "operator": "In",
-//       "values": [
-//         "prod",
-//         "staging"
-//       ]
-//     }
-//   ]
-// }
+//	If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "environment",
+//	      "operator": "In",
+//	      "values": [
+//	        "prod",
+//	        "staging"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 //
@@ -1940,7 +1940,7 @@ type ValidatingWebhookConfigurationType struct {
 // ValidatingWebhookConfigurationTypeInput is an input type that accepts ValidatingWebhookConfigurationTypeArgs and ValidatingWebhookConfigurationTypeOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationTypeInput` via:
 //
-//          ValidatingWebhookConfigurationTypeArgs{...}
+//	ValidatingWebhookConfigurationTypeArgs{...}
 type ValidatingWebhookConfigurationTypeInput interface {
 	pulumi.Input
 
@@ -1975,7 +1975,7 @@ func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfiguration
 // ValidatingWebhookConfigurationTypeArrayInput is an input type that accepts ValidatingWebhookConfigurationTypeArray and ValidatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationTypeArrayInput` via:
 //
-//          ValidatingWebhookConfigurationTypeArray{ ValidatingWebhookConfigurationTypeArgs{...} }
+//	ValidatingWebhookConfigurationTypeArray{ ValidatingWebhookConfigurationTypeArgs{...} }
 type ValidatingWebhookConfigurationTypeArrayInput interface {
 	pulumi.Input
 
@@ -2067,7 +2067,7 @@ type ValidatingWebhookConfigurationListType struct {
 // ValidatingWebhookConfigurationListTypeInput is an input type that accepts ValidatingWebhookConfigurationListTypeArgs and ValidatingWebhookConfigurationListTypeOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationListTypeInput` via:
 //
-//          ValidatingWebhookConfigurationListTypeArgs{...}
+//	ValidatingWebhookConfigurationListTypeArgs{...}
 type ValidatingWebhookConfigurationListTypeInput interface {
 	pulumi.Input
 
@@ -2149,7 +2149,7 @@ type ValidatingWebhookConfigurationPatchType struct {
 // ValidatingWebhookConfigurationPatchTypeInput is an input type that accepts ValidatingWebhookConfigurationPatchTypeArgs and ValidatingWebhookConfigurationPatchTypeOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationPatchTypeInput` via:
 //
-//          ValidatingWebhookConfigurationPatchTypeArgs{...}
+//	ValidatingWebhookConfigurationPatchTypeArgs{...}
 type ValidatingWebhookConfigurationPatchTypeInput interface {
 	pulumi.Input
 
@@ -2279,7 +2279,7 @@ type ValidatingWebhookPatch struct {
 // ValidatingWebhookPatchInput is an input type that accepts ValidatingWebhookPatchArgs and ValidatingWebhookPatchOutput values.
 // You can construct a concrete instance of `ValidatingWebhookPatchInput` via:
 //
-//          ValidatingWebhookPatchArgs{...}
+//	ValidatingWebhookPatchArgs{...}
 type ValidatingWebhookPatchInput interface {
 	pulumi.Input
 
@@ -2362,7 +2362,7 @@ func (i ValidatingWebhookPatchArgs) ToValidatingWebhookPatchOutputWithContext(ct
 // ValidatingWebhookPatchArrayInput is an input type that accepts ValidatingWebhookPatchArray and ValidatingWebhookPatchArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookPatchArrayInput` via:
 //
-//          ValidatingWebhookPatchArray{ ValidatingWebhookPatchArgs{...} }
+//	ValidatingWebhookPatchArray{ ValidatingWebhookPatchArgs{...} }
 type ValidatingWebhookPatchArrayInput interface {
 	pulumi.Input
 
@@ -2432,31 +2432,31 @@ func (o ValidatingWebhookPatchOutput) Name() pulumi.StringPtrOutput {
 
 // NamespaceSelector decides whether to run the webhook on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the webhook.
 //
-// For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "runlevel",
-//       "operator": "NotIn",
-//       "values": [
-//         "0",
-//         "1"
-//       ]
-//     }
-//   ]
-// }
+//	For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "runlevel",
+//	      "operator": "NotIn",
+//	      "values": [
+//	        "0",
+//	        "1"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
-// If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
-//   "matchExpressions": [
-//     {
-//       "key": "environment",
-//       "operator": "In",
-//       "values": [
-//         "prod",
-//         "staging"
-//       ]
-//     }
-//   ]
-// }
+//	If instead you want to only run the webhook on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+//	  "matchExpressions": [
+//	    {
+//	      "key": "environment",
+//	      "operator": "In",
+//	      "values": [
+//	        "prod",
+//	        "staging"
+//	      ]
+//	    }
+//	  ]
+//	}
 //
 // See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels for more examples of label selectors.
 //
@@ -2530,7 +2530,7 @@ type WebhookClientConfig struct {
 // WebhookClientConfigInput is an input type that accepts WebhookClientConfigArgs and WebhookClientConfigOutput values.
 // You can construct a concrete instance of `WebhookClientConfigInput` via:
 //
-//          WebhookClientConfigArgs{...}
+//	WebhookClientConfigArgs{...}
 type WebhookClientConfigInput interface {
 	pulumi.Input
 
@@ -2639,7 +2639,7 @@ type WebhookClientConfigPatch struct {
 // WebhookClientConfigPatchInput is an input type that accepts WebhookClientConfigPatchArgs and WebhookClientConfigPatchOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPatchInput` via:
 //
-//          WebhookClientConfigPatchArgs{...}
+//	WebhookClientConfigPatchArgs{...}
 type WebhookClientConfigPatchInput interface {
 	pulumi.Input
 
@@ -2692,11 +2692,11 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutputWithCon
 // WebhookClientConfigPatchPtrInput is an input type that accepts WebhookClientConfigPatchArgs, WebhookClientConfigPatchPtr and WebhookClientConfigPatchPtrOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPatchPtrInput` via:
 //
-//          WebhookClientConfigPatchArgs{...}
+//	        WebhookClientConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookClientConfigPatchPtrInput interface {
 	pulumi.Input
 

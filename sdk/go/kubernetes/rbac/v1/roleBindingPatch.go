@@ -139,7 +139,7 @@ func (i *RoleBindingPatch) ToRoleBindingPatchOutputWithContext(ctx context.Conte
 // RoleBindingPatchArrayInput is an input type that accepts RoleBindingPatchArray and RoleBindingPatchArrayOutput values.
 // You can construct a concrete instance of `RoleBindingPatchArrayInput` via:
 //
-//          RoleBindingPatchArray{ RoleBindingPatchArgs{...} }
+//	RoleBindingPatchArray{ RoleBindingPatchArgs{...} }
 type RoleBindingPatchArrayInput interface {
 	pulumi.Input
 
@@ -164,7 +164,7 @@ func (i RoleBindingPatchArray) ToRoleBindingPatchArrayOutputWithContext(ctx cont
 // RoleBindingPatchMapInput is an input type that accepts RoleBindingPatchMap and RoleBindingPatchMapOutput values.
 // You can construct a concrete instance of `RoleBindingPatchMapInput` via:
 //
-//          RoleBindingPatchMap{ "key": RoleBindingPatchArgs{...} }
+//	RoleBindingPatchMap{ "key": RoleBindingPatchArgs{...} }
 type RoleBindingPatchMapInput interface {
 	pulumi.Input
 

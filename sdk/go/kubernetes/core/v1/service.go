@@ -18,12 +18,12 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -44,68 +44,74 @@ import (
 // package main
 //
 // import (
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
-// 			Spec: &corev1.ServiceSpecArgs{
-// 				Ports: corev1.ServicePortArray{
-// 					&corev1.ServicePortArgs{
-// 						Port:       pulumi.Int(80),
-// 						Protocol:   pulumi.String("TCP"),
-// 						TargetPort: pulumi.Any(9376),
-// 					},
-// 				},
-// 				Selector: pulumi.StringMap{
-// 					"app": pulumi.String("MyApp"),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
+//				Spec: &corev1.ServiceSpecArgs{
+//					Ports: corev1.ServicePortArray{
+//						&corev1.ServicePortArgs{
+//							Port:       pulumi.Int(80),
+//							Protocol:   pulumi.String("TCP"),
+//							TargetPort: pulumi.Any(9376),
+//						},
+//					},
+//					Selector: pulumi.StringMap{
+//						"app": pulumi.String("MyApp"),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Create a Service with a user-specified name
 // ```go
 // package main
 //
 // import (
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
-// 			Metadata: &metav1.ObjectMetaArgs{
-// 				Name: pulumi.String("my-service"),
-// 			},
-// 			Spec: &corev1.ServiceSpecArgs{
-// 				Ports: corev1.ServicePortArray{
-// 					&corev1.ServicePortArgs{
-// 						Port:       pulumi.Int(80),
-// 						Protocol:   pulumi.String("TCP"),
-// 						TargetPort: pulumi.Any(9376),
-// 					},
-// 				},
-// 				Selector: pulumi.StringMap{
-// 					"app": pulumi.String("MyApp"),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := corev1.NewService(ctx, "service", &corev1.ServiceArgs{
+//				Metadata: &metav1.ObjectMetaArgs{
+//					Name: pulumi.String("my-service"),
+//				},
+//				Spec: &corev1.ServiceSpecArgs{
+//					Ports: corev1.ServicePortArray{
+//						&corev1.ServicePortArgs{
+//							Port:       pulumi.Int(80),
+//							Protocol:   pulumi.String("TCP"),
+//							TargetPort: pulumi.Any(9376),
+//						},
+//					},
+//					Selector: pulumi.StringMap{
+//						"app": pulumi.String("MyApp"),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type Service struct {
 	pulumi.CustomResourceState
@@ -211,7 +217,7 @@ func (i *Service) ToServiceOutputWithContext(ctx context.Context) ServiceOutput 
 // ServiceArrayInput is an input type that accepts ServiceArray and ServiceArrayOutput values.
 // You can construct a concrete instance of `ServiceArrayInput` via:
 //
-//          ServiceArray{ ServiceArgs{...} }
+//	ServiceArray{ ServiceArgs{...} }
 type ServiceArrayInput interface {
 	pulumi.Input
 
@@ -236,7 +242,7 @@ func (i ServiceArray) ToServiceArrayOutputWithContext(ctx context.Context) Servi
 // ServiceMapInput is an input type that accepts ServiceMap and ServiceMapOutput values.
 // You can construct a concrete instance of `ServiceMapInput` via:
 //
-//          ServiceMap{ "key": ServiceArgs{...} }
+//	ServiceMap{ "key": ServiceArgs{...} }
 type ServiceMapInput interface {
 	pulumi.Input
 

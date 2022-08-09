@@ -18,11 +18,11 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -34,70 +34,76 @@ import (
 // package main
 //
 // import (
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
-// 			Spec: &corev1.PodSpecArgs{
-// 				Containers: corev1.ContainerArray{
-// 					&corev1.ContainerArgs{
-// 						Image: pulumi.String("nginx:1.14.2"),
-// 						Name:  pulumi.String("nginx"),
-// 						Ports: corev1.ContainerPortArray{
-// 							&corev1.ContainerPortArgs{
-// 								ContainerPort: pulumi.Int(80),
-// 							},
-// 						},
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
+//				Spec: &corev1.PodSpecArgs{
+//					Containers: corev1.ContainerArray{
+//						&corev1.ContainerArgs{
+//							Image: pulumi.String("nginx:1.14.2"),
+//							Name:  pulumi.String("nginx"),
+//							Ports: corev1.ContainerPortArray{
+//								&corev1.ContainerPortArgs{
+//									ContainerPort: pulumi.Int(80),
+//								},
+//							},
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Create a Pod with a user-specified name
 // ```go
 // package main
 //
 // import (
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
-// 			Metadata: &metav1.ObjectMetaArgs{
-// 				Name: pulumi.String("nginx"),
-// 			},
-// 			Spec: &corev1.PodSpecArgs{
-// 				Containers: corev1.ContainerArray{
-// 					&corev1.ContainerArgs{
-// 						Image: pulumi.String("nginx:1.14.2"),
-// 						Name:  pulumi.String("nginx"),
-// 						Ports: corev1.ContainerPortArray{
-// 							&corev1.ContainerPortArgs{
-// 								ContainerPort: pulumi.Int(80),
-// 							},
-// 						},
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := corev1.NewPod(ctx, "pod", &corev1.PodArgs{
+//				Metadata: &metav1.ObjectMetaArgs{
+//					Name: pulumi.String("nginx"),
+//				},
+//				Spec: &corev1.PodSpecArgs{
+//					Containers: corev1.ContainerArray{
+//						&corev1.ContainerArgs{
+//							Image: pulumi.String("nginx:1.14.2"),
+//							Name:  pulumi.String("nginx"),
+//							Ports: corev1.ContainerPortArray{
+//								&corev1.ContainerPortArgs{
+//									ContainerPort: pulumi.Int(80),
+//								},
+//							},
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type Pod struct {
 	pulumi.CustomResourceState
@@ -203,7 +209,7 @@ func (i *Pod) ToPodOutputWithContext(ctx context.Context) PodOutput {
 // PodArrayInput is an input type that accepts PodArray and PodArrayOutput values.
 // You can construct a concrete instance of `PodArrayInput` via:
 //
-//          PodArray{ PodArgs{...} }
+//	PodArray{ PodArgs{...} }
 type PodArrayInput interface {
 	pulumi.Input
 
@@ -228,7 +234,7 @@ func (i PodArray) ToPodArrayOutputWithContext(ctx context.Context) PodArrayOutpu
 // PodMapInput is an input type that accepts PodMap and PodMapOutput values.
 // You can construct a concrete instance of `PodMapInput` via:
 //
-//          PodMap{ "key": PodArgs{...} }
+//	PodMap{ "key": PodArgs{...} }
 type PodMapInput interface {
 	pulumi.Input
 

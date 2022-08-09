@@ -18,18 +18,18 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Deployment has begun to be updated by the Deployment controller. If the current
-//    generation of the Deployment is > 1, then this means that the current generation must
-//    be different from the generation reported by the last outputs.
-// 2. There exists a ReplicaSet whose revision is equal to the current revision of the
-//    Deployment.
-// 3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
-//    member is set to 'True'.
-// 4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
-//    'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
-//    'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
-//    because it doesn't do a rollout (i.e., it simply creates the Deployment and
-//    corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
+//  1. The Deployment has begun to be updated by the Deployment controller. If the current
+//     generation of the Deployment is > 1, then this means that the current generation must
+//     be different from the generation reported by the last outputs.
+//  2. There exists a ReplicaSet whose revision is equal to the current revision of the
+//     Deployment.
+//  3. The Deployment's '.status.conditions' has a status of type 'Available' whose 'status'
+//     member is set to 'True'.
+//  4. If the Deployment has generation > 1, then '.status.conditions' has a status of type
+//     'Progressing', whose 'status' member is set to 'True', and whose 'reason' is
+//     'NewReplicaSetAvailable'. For generation <= 1, this status field does not exist,
+//     because it doesn't do a rollout (i.e., it simply creates the Deployment and
+//     corresponding ReplicaSet), and therefore there is no rollout to mark as 'Progressing'.
 //
 // If the Deployment has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -152,7 +152,7 @@ func (i *Deployment) ToDeploymentOutputWithContext(ctx context.Context) Deployme
 // DeploymentArrayInput is an input type that accepts DeploymentArray and DeploymentArrayOutput values.
 // You can construct a concrete instance of `DeploymentArrayInput` via:
 //
-//          DeploymentArray{ DeploymentArgs{...} }
+//	DeploymentArray{ DeploymentArgs{...} }
 type DeploymentArrayInput interface {
 	pulumi.Input
 
@@ -177,7 +177,7 @@ func (i DeploymentArray) ToDeploymentArrayOutputWithContext(ctx context.Context)
 // DeploymentMapInput is an input type that accepts DeploymentMap and DeploymentMapOutput values.
 // You can construct a concrete instance of `DeploymentMapInput` via:
 //
-//          DeploymentMap{ "key": DeploymentArgs{...} }
+//	DeploymentMap{ "key": DeploymentArgs{...} }
 type DeploymentMapInput interface {
 	pulumi.Input
 

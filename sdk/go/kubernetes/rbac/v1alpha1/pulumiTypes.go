@@ -20,7 +20,7 @@ type AggregationRule struct {
 // AggregationRuleInput is an input type that accepts AggregationRuleArgs and AggregationRuleOutput values.
 // You can construct a concrete instance of `AggregationRuleInput` via:
 //
-//          AggregationRuleArgs{...}
+//	AggregationRuleArgs{...}
 type AggregationRuleInput interface {
 	pulumi.Input
 
@@ -57,11 +57,11 @@ func (i AggregationRuleArgs) ToAggregationRulePtrOutputWithContext(ctx context.C
 // AggregationRulePtrInput is an input type that accepts AggregationRuleArgs, AggregationRulePtr and AggregationRulePtrOutput values.
 // You can construct a concrete instance of `AggregationRulePtrInput` via:
 //
-//          AggregationRuleArgs{...}
+//	        AggregationRuleArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AggregationRulePtrInput interface {
 	pulumi.Input
 
@@ -160,7 +160,7 @@ type AggregationRulePatch struct {
 // AggregationRulePatchInput is an input type that accepts AggregationRulePatchArgs and AggregationRulePatchOutput values.
 // You can construct a concrete instance of `AggregationRulePatchInput` via:
 //
-//          AggregationRulePatchArgs{...}
+//	AggregationRulePatchArgs{...}
 type AggregationRulePatchInput interface {
 	pulumi.Input
 
@@ -197,11 +197,11 @@ func (i AggregationRulePatchArgs) ToAggregationRulePatchPtrOutputWithContext(ctx
 // AggregationRulePatchPtrInput is an input type that accepts AggregationRulePatchArgs, AggregationRulePatchPtr and AggregationRulePatchPtrOutput values.
 // You can construct a concrete instance of `AggregationRulePatchPtrInput` via:
 //
-//          AggregationRulePatchArgs{...}
+//	        AggregationRulePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AggregationRulePatchPtrInput interface {
 	pulumi.Input
 
@@ -308,7 +308,7 @@ type ClusterRoleType struct {
 // ClusterRoleTypeInput is an input type that accepts ClusterRoleTypeArgs and ClusterRoleTypeOutput values.
 // You can construct a concrete instance of `ClusterRoleTypeInput` via:
 //
-//          ClusterRoleTypeArgs{...}
+//	ClusterRoleTypeArgs{...}
 type ClusterRoleTypeInput interface {
 	pulumi.Input
 
@@ -345,7 +345,7 @@ func (i ClusterRoleTypeArgs) ToClusterRoleTypeOutputWithContext(ctx context.Cont
 // ClusterRoleTypeArrayInput is an input type that accepts ClusterRoleTypeArray and ClusterRoleTypeArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleTypeArrayInput` via:
 //
-//          ClusterRoleTypeArray{ ClusterRoleTypeArgs{...} }
+//	ClusterRoleTypeArray{ ClusterRoleTypeArgs{...} }
 type ClusterRoleTypeArrayInput interface {
 	pulumi.Input
 
@@ -444,7 +444,7 @@ type ClusterRoleBindingType struct {
 // ClusterRoleBindingTypeInput is an input type that accepts ClusterRoleBindingTypeArgs and ClusterRoleBindingTypeOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingTypeInput` via:
 //
-//          ClusterRoleBindingTypeArgs{...}
+//	ClusterRoleBindingTypeArgs{...}
 type ClusterRoleBindingTypeInput interface {
 	pulumi.Input
 
@@ -481,7 +481,7 @@ func (i ClusterRoleBindingTypeArgs) ToClusterRoleBindingTypeOutputWithContext(ct
 // ClusterRoleBindingTypeArrayInput is an input type that accepts ClusterRoleBindingTypeArray and ClusterRoleBindingTypeArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingTypeArrayInput` via:
 //
-//          ClusterRoleBindingTypeArray{ ClusterRoleBindingTypeArgs{...} }
+//	ClusterRoleBindingTypeArray{ ClusterRoleBindingTypeArgs{...} }
 type ClusterRoleBindingTypeArrayInput interface {
 	pulumi.Input
 
@@ -578,7 +578,7 @@ type ClusterRoleBindingListType struct {
 // ClusterRoleBindingListTypeInput is an input type that accepts ClusterRoleBindingListTypeArgs and ClusterRoleBindingListTypeOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingListTypeInput` via:
 //
-//          ClusterRoleBindingListTypeArgs{...}
+//	ClusterRoleBindingListTypeArgs{...}
 type ClusterRoleBindingListTypeInput interface {
 	pulumi.Input
 
@@ -662,7 +662,7 @@ type ClusterRoleBindingPatchType struct {
 // ClusterRoleBindingPatchTypeInput is an input type that accepts ClusterRoleBindingPatchTypeArgs and ClusterRoleBindingPatchTypeOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingPatchTypeInput` via:
 //
-//          ClusterRoleBindingPatchTypeArgs{...}
+//	ClusterRoleBindingPatchTypeArgs{...}
 type ClusterRoleBindingPatchTypeInput interface {
 	pulumi.Input
 
@@ -751,7 +751,7 @@ type ClusterRoleListType struct {
 // ClusterRoleListTypeInput is an input type that accepts ClusterRoleListTypeArgs and ClusterRoleListTypeOutput values.
 // You can construct a concrete instance of `ClusterRoleListTypeInput` via:
 //
-//          ClusterRoleListTypeArgs{...}
+//	ClusterRoleListTypeArgs{...}
 type ClusterRoleListTypeInput interface {
 	pulumi.Input
 
@@ -835,7 +835,7 @@ type ClusterRolePatchType struct {
 // ClusterRolePatchTypeInput is an input type that accepts ClusterRolePatchTypeArgs and ClusterRolePatchTypeOutput values.
 // You can construct a concrete instance of `ClusterRolePatchTypeInput` via:
 //
-//          ClusterRolePatchTypeArgs{...}
+//	ClusterRolePatchTypeArgs{...}
 type ClusterRolePatchTypeInput interface {
 	pulumi.Input
 
@@ -926,7 +926,7 @@ type PolicyRule struct {
 // PolicyRuleInput is an input type that accepts PolicyRuleArgs and PolicyRuleOutput values.
 // You can construct a concrete instance of `PolicyRuleInput` via:
 //
-//          PolicyRuleArgs{...}
+//	PolicyRuleArgs{...}
 type PolicyRuleInput interface {
 	pulumi.Input
 
@@ -963,7 +963,7 @@ func (i PolicyRuleArgs) ToPolicyRuleOutputWithContext(ctx context.Context) Polic
 // PolicyRuleArrayInput is an input type that accepts PolicyRuleArray and PolicyRuleArrayOutput values.
 // You can construct a concrete instance of `PolicyRuleArrayInput` via:
 //
-//          PolicyRuleArray{ PolicyRuleArgs{...} }
+//	PolicyRuleArray{ PolicyRuleArgs{...} }
 type PolicyRuleArrayInput interface {
 	pulumi.Input
 
@@ -1062,7 +1062,7 @@ type PolicyRulePatch struct {
 // PolicyRulePatchInput is an input type that accepts PolicyRulePatchArgs and PolicyRulePatchOutput values.
 // You can construct a concrete instance of `PolicyRulePatchInput` via:
 //
-//          PolicyRulePatchArgs{...}
+//	PolicyRulePatchArgs{...}
 type PolicyRulePatchInput interface {
 	pulumi.Input
 
@@ -1099,7 +1099,7 @@ func (i PolicyRulePatchArgs) ToPolicyRulePatchOutputWithContext(ctx context.Cont
 // PolicyRulePatchArrayInput is an input type that accepts PolicyRulePatchArray and PolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `PolicyRulePatchArrayInput` via:
 //
-//          PolicyRulePatchArray{ PolicyRulePatchArgs{...} }
+//	PolicyRulePatchArray{ PolicyRulePatchArgs{...} }
 type PolicyRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -1196,7 +1196,7 @@ type RoleType struct {
 // RoleTypeInput is an input type that accepts RoleTypeArgs and RoleTypeOutput values.
 // You can construct a concrete instance of `RoleTypeInput` via:
 //
-//          RoleTypeArgs{...}
+//	RoleTypeArgs{...}
 type RoleTypeInput interface {
 	pulumi.Input
 
@@ -1231,7 +1231,7 @@ func (i RoleTypeArgs) ToRoleTypeOutputWithContext(ctx context.Context) RoleTypeO
 // RoleTypeArrayInput is an input type that accepts RoleTypeArray and RoleTypeArrayOutput values.
 // You can construct a concrete instance of `RoleTypeArrayInput` via:
 //
-//          RoleTypeArray{ RoleTypeArgs{...} }
+//	RoleTypeArray{ RoleTypeArgs{...} }
 type RoleTypeArrayInput interface {
 	pulumi.Input
 
@@ -1325,7 +1325,7 @@ type RoleBindingType struct {
 // RoleBindingTypeInput is an input type that accepts RoleBindingTypeArgs and RoleBindingTypeOutput values.
 // You can construct a concrete instance of `RoleBindingTypeInput` via:
 //
-//          RoleBindingTypeArgs{...}
+//	RoleBindingTypeArgs{...}
 type RoleBindingTypeInput interface {
 	pulumi.Input
 
@@ -1362,7 +1362,7 @@ func (i RoleBindingTypeArgs) ToRoleBindingTypeOutputWithContext(ctx context.Cont
 // RoleBindingTypeArrayInput is an input type that accepts RoleBindingTypeArray and RoleBindingTypeArrayOutput values.
 // You can construct a concrete instance of `RoleBindingTypeArrayInput` via:
 //
-//          RoleBindingTypeArray{ RoleBindingTypeArgs{...} }
+//	RoleBindingTypeArray{ RoleBindingTypeArgs{...} }
 type RoleBindingTypeArrayInput interface {
 	pulumi.Input
 
@@ -1459,7 +1459,7 @@ type RoleBindingListType struct {
 // RoleBindingListTypeInput is an input type that accepts RoleBindingListTypeArgs and RoleBindingListTypeOutput values.
 // You can construct a concrete instance of `RoleBindingListTypeInput` via:
 //
-//          RoleBindingListTypeArgs{...}
+//	RoleBindingListTypeArgs{...}
 type RoleBindingListTypeInput interface {
 	pulumi.Input
 
@@ -1543,7 +1543,7 @@ type RoleBindingPatchType struct {
 // RoleBindingPatchTypeInput is an input type that accepts RoleBindingPatchTypeArgs and RoleBindingPatchTypeOutput values.
 // You can construct a concrete instance of `RoleBindingPatchTypeInput` via:
 //
-//          RoleBindingPatchTypeArgs{...}
+//	RoleBindingPatchTypeArgs{...}
 type RoleBindingPatchTypeInput interface {
 	pulumi.Input
 
@@ -1632,7 +1632,7 @@ type RoleListType struct {
 // RoleListTypeInput is an input type that accepts RoleListTypeArgs and RoleListTypeOutput values.
 // You can construct a concrete instance of `RoleListTypeInput` via:
 //
-//          RoleListTypeArgs{...}
+//	RoleListTypeArgs{...}
 type RoleListTypeInput interface {
 	pulumi.Input
 
@@ -1714,7 +1714,7 @@ type RolePatchType struct {
 // RolePatchTypeInput is an input type that accepts RolePatchTypeArgs and RolePatchTypeOutput values.
 // You can construct a concrete instance of `RolePatchTypeInput` via:
 //
-//          RolePatchTypeArgs{...}
+//	RolePatchTypeArgs{...}
 type RolePatchTypeInput interface {
 	pulumi.Input
 
@@ -1794,7 +1794,7 @@ type RoleRef struct {
 // RoleRefInput is an input type that accepts RoleRefArgs and RoleRefOutput values.
 // You can construct a concrete instance of `RoleRefInput` via:
 //
-//          RoleRefArgs{...}
+//	RoleRefArgs{...}
 type RoleRefInput interface {
 	pulumi.Input
 
@@ -1867,7 +1867,7 @@ type RoleRefPatch struct {
 // RoleRefPatchInput is an input type that accepts RoleRefPatchArgs and RoleRefPatchOutput values.
 // You can construct a concrete instance of `RoleRefPatchInput` via:
 //
-//          RoleRefPatchArgs{...}
+//	RoleRefPatchArgs{...}
 type RoleRefPatchInput interface {
 	pulumi.Input
 
@@ -1908,11 +1908,11 @@ func (i RoleRefPatchArgs) ToRoleRefPatchPtrOutputWithContext(ctx context.Context
 // RoleRefPatchPtrInput is an input type that accepts RoleRefPatchArgs, RoleRefPatchPtr and RoleRefPatchPtrOutput values.
 // You can construct a concrete instance of `RoleRefPatchPtrInput` via:
 //
-//          RoleRefPatchArgs{...}
+//	        RoleRefPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RoleRefPatchPtrInput interface {
 	pulumi.Input
 
@@ -2047,7 +2047,7 @@ type Subject struct {
 // SubjectInput is an input type that accepts SubjectArgs and SubjectOutput values.
 // You can construct a concrete instance of `SubjectInput` via:
 //
-//          SubjectArgs{...}
+//	SubjectArgs{...}
 type SubjectInput interface {
 	pulumi.Input
 
@@ -2082,7 +2082,7 @@ func (i SubjectArgs) ToSubjectOutputWithContext(ctx context.Context) SubjectOutp
 // SubjectArrayInput is an input type that accepts SubjectArray and SubjectArrayOutput values.
 // You can construct a concrete instance of `SubjectArrayInput` via:
 //
-//          SubjectArray{ SubjectArgs{...} }
+//	SubjectArray{ SubjectArgs{...} }
 type SubjectArrayInput interface {
 	pulumi.Input
 
@@ -2174,7 +2174,7 @@ type SubjectPatch struct {
 // SubjectPatchInput is an input type that accepts SubjectPatchArgs and SubjectPatchOutput values.
 // You can construct a concrete instance of `SubjectPatchInput` via:
 //
-//          SubjectPatchArgs{...}
+//	SubjectPatchArgs{...}
 type SubjectPatchInput interface {
 	pulumi.Input
 
@@ -2209,7 +2209,7 @@ func (i SubjectPatchArgs) ToSubjectPatchOutputWithContext(ctx context.Context) S
 // SubjectPatchArrayInput is an input type that accepts SubjectPatchArray and SubjectPatchArrayOutput values.
 // You can construct a concrete instance of `SubjectPatchArrayInput` via:
 //
-//          SubjectPatchArray{ SubjectPatchArgs{...} }
+//	SubjectPatchArray{ SubjectPatchArgs{...} }
 type SubjectPatchArrayInput interface {
 	pulumi.Input
 

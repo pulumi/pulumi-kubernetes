@@ -30,7 +30,7 @@ type CronJobType struct {
 // CronJobTypeInput is an input type that accepts CronJobTypeArgs and CronJobTypeOutput values.
 // You can construct a concrete instance of `CronJobTypeInput` via:
 //
-//          CronJobTypeArgs{...}
+//	CronJobTypeArgs{...}
 type CronJobTypeInput interface {
 	pulumi.Input
 
@@ -67,7 +67,7 @@ func (i CronJobTypeArgs) ToCronJobTypeOutputWithContext(ctx context.Context) Cro
 // CronJobTypeArrayInput is an input type that accepts CronJobTypeArray and CronJobTypeArrayOutput values.
 // You can construct a concrete instance of `CronJobTypeArrayInput` via:
 //
-//          CronJobTypeArray{ CronJobTypeArgs{...} }
+//	CronJobTypeArray{ CronJobTypeArgs{...} }
 type CronJobTypeArrayInput interface {
 	pulumi.Input
 
@@ -164,7 +164,7 @@ type CronJobListType struct {
 // CronJobListTypeInput is an input type that accepts CronJobListTypeArgs and CronJobListTypeOutput values.
 // You can construct a concrete instance of `CronJobListTypeInput` via:
 //
-//          CronJobListTypeArgs{...}
+//	CronJobListTypeArgs{...}
 type CronJobListTypeInput interface {
 	pulumi.Input
 
@@ -248,7 +248,7 @@ type CronJobPatchType struct {
 // CronJobPatchTypeInput is an input type that accepts CronJobPatchTypeArgs and CronJobPatchTypeOutput values.
 // You can construct a concrete instance of `CronJobPatchTypeInput` via:
 //
-//          CronJobPatchTypeArgs{...}
+//	CronJobPatchTypeArgs{...}
 type CronJobPatchTypeInput interface {
 	pulumi.Input
 
@@ -343,7 +343,7 @@ type CronJobSpec struct {
 // CronJobSpecInput is an input type that accepts CronJobSpecArgs and CronJobSpecOutput values.
 // You can construct a concrete instance of `CronJobSpecInput` via:
 //
-//          CronJobSpecArgs{...}
+//	CronJobSpecArgs{...}
 type CronJobSpecInput interface {
 	pulumi.Input
 
@@ -392,11 +392,11 @@ func (i CronJobSpecArgs) ToCronJobSpecPtrOutputWithContext(ctx context.Context) 
 // CronJobSpecPtrInput is an input type that accepts CronJobSpecArgs, CronJobSpecPtr and CronJobSpecPtrOutput values.
 // You can construct a concrete instance of `CronJobSpecPtrInput` via:
 //
-//          CronJobSpecArgs{...}
+//	        CronJobSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobSpecPtrInput interface {
 	pulumi.Input
 
@@ -597,7 +597,7 @@ type CronJobSpecPatch struct {
 // CronJobSpecPatchInput is an input type that accepts CronJobSpecPatchArgs and CronJobSpecPatchOutput values.
 // You can construct a concrete instance of `CronJobSpecPatchInput` via:
 //
-//          CronJobSpecPatchArgs{...}
+//	CronJobSpecPatchArgs{...}
 type CronJobSpecPatchInput interface {
 	pulumi.Input
 
@@ -646,11 +646,11 @@ func (i CronJobSpecPatchArgs) ToCronJobSpecPatchPtrOutputWithContext(ctx context
 // CronJobSpecPatchPtrInput is an input type that accepts CronJobSpecPatchArgs, CronJobSpecPatchPtr and CronJobSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CronJobSpecPatchPtrInput` via:
 //
-//          CronJobSpecPatchArgs{...}
+//	        CronJobSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -841,7 +841,7 @@ type CronJobStatus struct {
 // CronJobStatusInput is an input type that accepts CronJobStatusArgs and CronJobStatusOutput values.
 // You can construct a concrete instance of `CronJobStatusInput` via:
 //
-//          CronJobStatusArgs{...}
+//	CronJobStatusArgs{...}
 type CronJobStatusInput interface {
 	pulumi.Input
 
@@ -880,11 +880,11 @@ func (i CronJobStatusArgs) ToCronJobStatusPtrOutputWithContext(ctx context.Conte
 // CronJobStatusPtrInput is an input type that accepts CronJobStatusArgs, CronJobStatusPtr and CronJobStatusPtrOutput values.
 // You can construct a concrete instance of `CronJobStatusPtrInput` via:
 //
-//          CronJobStatusArgs{...}
+//	        CronJobStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobStatusPtrInput interface {
 	pulumi.Input
 
@@ -1000,7 +1000,7 @@ type CronJobStatusPatch struct {
 // CronJobStatusPatchInput is an input type that accepts CronJobStatusPatchArgs and CronJobStatusPatchOutput values.
 // You can construct a concrete instance of `CronJobStatusPatchInput` via:
 //
-//          CronJobStatusPatchArgs{...}
+//	CronJobStatusPatchArgs{...}
 type CronJobStatusPatchInput interface {
 	pulumi.Input
 
@@ -1039,11 +1039,11 @@ func (i CronJobStatusPatchArgs) ToCronJobStatusPatchPtrOutputWithContext(ctx con
 // CronJobStatusPatchPtrInput is an input type that accepts CronJobStatusPatchArgs, CronJobStatusPatchPtr and CronJobStatusPatchPtrOutput values.
 // You can construct a concrete instance of `CronJobStatusPatchPtrInput` via:
 //
-//          CronJobStatusPatchArgs{...}
+//	        CronJobStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1159,7 +1159,7 @@ type JobTemplateSpec struct {
 // JobTemplateSpecInput is an input type that accepts JobTemplateSpecArgs and JobTemplateSpecOutput values.
 // You can construct a concrete instance of `JobTemplateSpecInput` via:
 //
-//          JobTemplateSpecArgs{...}
+//	JobTemplateSpecArgs{...}
 type JobTemplateSpecInput interface {
 	pulumi.Input
 
@@ -1198,11 +1198,11 @@ func (i JobTemplateSpecArgs) ToJobTemplateSpecPtrOutputWithContext(ctx context.C
 // JobTemplateSpecPtrInput is an input type that accepts JobTemplateSpecArgs, JobTemplateSpecPtr and JobTemplateSpecPtrOutput values.
 // You can construct a concrete instance of `JobTemplateSpecPtrInput` via:
 //
-//          JobTemplateSpecArgs{...}
+//	        JobTemplateSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobTemplateSpecPtrInput interface {
 	pulumi.Input
 
@@ -1318,7 +1318,7 @@ type JobTemplateSpecPatch struct {
 // JobTemplateSpecPatchInput is an input type that accepts JobTemplateSpecPatchArgs and JobTemplateSpecPatchOutput values.
 // You can construct a concrete instance of `JobTemplateSpecPatchInput` via:
 //
-//          JobTemplateSpecPatchArgs{...}
+//	JobTemplateSpecPatchArgs{...}
 type JobTemplateSpecPatchInput interface {
 	pulumi.Input
 
@@ -1357,11 +1357,11 @@ func (i JobTemplateSpecPatchArgs) ToJobTemplateSpecPatchPtrOutputWithContext(ctx
 // JobTemplateSpecPatchPtrInput is an input type that accepts JobTemplateSpecPatchArgs, JobTemplateSpecPatchPtr and JobTemplateSpecPatchPtrOutput values.
 // You can construct a concrete instance of `JobTemplateSpecPatchPtrInput` via:
 //
-//          JobTemplateSpecPatchArgs{...}
+//	        JobTemplateSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobTemplateSpecPatchPtrInput interface {
 	pulumi.Input
 

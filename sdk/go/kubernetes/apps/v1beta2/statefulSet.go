@@ -12,18 +12,18 @@ import (
 )
 
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-//  - Network: A single stable DNS and hostname.
-//  - Storage: As many VolumeClaims as requested.
-//    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//   - Network: A single stable DNS and hostname.
+//   - Storage: As many VolumeClaims as requested.
+//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-//    and '.status.readyReplicas'.
-// 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+//  1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+//     and '.status.readyReplicas'.
+//  2. The value of '.status.updateRevision' matches '.status.currentRevision'.
 //
 // If the StatefulSet has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -140,7 +140,7 @@ func (i *StatefulSet) ToStatefulSetOutputWithContext(ctx context.Context) Statef
 // StatefulSetArrayInput is an input type that accepts StatefulSetArray and StatefulSetArrayOutput values.
 // You can construct a concrete instance of `StatefulSetArrayInput` via:
 //
-//          StatefulSetArray{ StatefulSetArgs{...} }
+//	StatefulSetArray{ StatefulSetArgs{...} }
 type StatefulSetArrayInput interface {
 	pulumi.Input
 
@@ -165,7 +165,7 @@ func (i StatefulSetArray) ToStatefulSetArrayOutputWithContext(ctx context.Contex
 // StatefulSetMapInput is an input type that accepts StatefulSetMap and StatefulSetMapOutput values.
 // You can construct a concrete instance of `StatefulSetMapInput` via:
 //
-//          StatefulSetMap{ "key": StatefulSetArgs{...} }
+//	StatefulSetMap{ "key": StatefulSetArgs{...} }
 type StatefulSetMapInput interface {
 	pulumi.Input
 

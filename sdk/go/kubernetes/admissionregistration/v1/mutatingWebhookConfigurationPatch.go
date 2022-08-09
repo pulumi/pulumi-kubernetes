@@ -130,7 +130,7 @@ func (i *MutatingWebhookConfigurationPatch) ToMutatingWebhookConfigurationPatchO
 // MutatingWebhookConfigurationPatchArrayInput is an input type that accepts MutatingWebhookConfigurationPatchArray and MutatingWebhookConfigurationPatchArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationPatchArrayInput` via:
 //
-//          MutatingWebhookConfigurationPatchArray{ MutatingWebhookConfigurationPatchArgs{...} }
+//	MutatingWebhookConfigurationPatchArray{ MutatingWebhookConfigurationPatchArgs{...} }
 type MutatingWebhookConfigurationPatchArrayInput interface {
 	pulumi.Input
 
@@ -155,7 +155,7 @@ func (i MutatingWebhookConfigurationPatchArray) ToMutatingWebhookConfigurationPa
 // MutatingWebhookConfigurationPatchMapInput is an input type that accepts MutatingWebhookConfigurationPatchMap and MutatingWebhookConfigurationPatchMapOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationPatchMapInput` via:
 //
-//          MutatingWebhookConfigurationPatchMap{ "key": MutatingWebhookConfigurationPatchArgs{...} }
+//	MutatingWebhookConfigurationPatchMap{ "key": MutatingWebhookConfigurationPatchArgs{...} }
 type MutatingWebhookConfigurationPatchMapInput interface {
 	pulumi.Input
 

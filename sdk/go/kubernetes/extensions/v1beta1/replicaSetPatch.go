@@ -137,7 +137,7 @@ func (i *ReplicaSetPatch) ToReplicaSetPatchOutputWithContext(ctx context.Context
 // ReplicaSetPatchArrayInput is an input type that accepts ReplicaSetPatchArray and ReplicaSetPatchArrayOutput values.
 // You can construct a concrete instance of `ReplicaSetPatchArrayInput` via:
 //
-//          ReplicaSetPatchArray{ ReplicaSetPatchArgs{...} }
+//	ReplicaSetPatchArray{ ReplicaSetPatchArgs{...} }
 type ReplicaSetPatchArrayInput interface {
 	pulumi.Input
 
@@ -162,7 +162,7 @@ func (i ReplicaSetPatchArray) ToReplicaSetPatchArrayOutputWithContext(ctx contex
 // ReplicaSetPatchMapInput is an input type that accepts ReplicaSetPatchMap and ReplicaSetPatchMapOutput values.
 // You can construct a concrete instance of `ReplicaSetPatchMapInput` via:
 //
-//          ReplicaSetPatchMap{ "key": ReplicaSetPatchArgs{...} }
+//	ReplicaSetPatchMap{ "key": ReplicaSetPatchArgs{...} }
 type ReplicaSetPatchMapInput interface {
 	pulumi.Input
 

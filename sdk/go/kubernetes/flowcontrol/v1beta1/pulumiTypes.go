@@ -20,7 +20,7 @@ type FlowDistinguisherMethod struct {
 // FlowDistinguisherMethodInput is an input type that accepts FlowDistinguisherMethodArgs and FlowDistinguisherMethodOutput values.
 // You can construct a concrete instance of `FlowDistinguisherMethodInput` via:
 //
-//          FlowDistinguisherMethodArgs{...}
+//	FlowDistinguisherMethodArgs{...}
 type FlowDistinguisherMethodInput interface {
 	pulumi.Input
 
@@ -57,11 +57,11 @@ func (i FlowDistinguisherMethodArgs) ToFlowDistinguisherMethodPtrOutputWithConte
 // FlowDistinguisherMethodPtrInput is an input type that accepts FlowDistinguisherMethodArgs, FlowDistinguisherMethodPtr and FlowDistinguisherMethodPtrOutput values.
 // You can construct a concrete instance of `FlowDistinguisherMethodPtrInput` via:
 //
-//          FlowDistinguisherMethodArgs{...}
+//	        FlowDistinguisherMethodArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlowDistinguisherMethodPtrInput interface {
 	pulumi.Input
 
@@ -160,7 +160,7 @@ type FlowDistinguisherMethodPatch struct {
 // FlowDistinguisherMethodPatchInput is an input type that accepts FlowDistinguisherMethodPatchArgs and FlowDistinguisherMethodPatchOutput values.
 // You can construct a concrete instance of `FlowDistinguisherMethodPatchInput` via:
 //
-//          FlowDistinguisherMethodPatchArgs{...}
+//	FlowDistinguisherMethodPatchArgs{...}
 type FlowDistinguisherMethodPatchInput interface {
 	pulumi.Input
 
@@ -197,11 +197,11 @@ func (i FlowDistinguisherMethodPatchArgs) ToFlowDistinguisherMethodPatchPtrOutpu
 // FlowDistinguisherMethodPatchPtrInput is an input type that accepts FlowDistinguisherMethodPatchArgs, FlowDistinguisherMethodPatchPtr and FlowDistinguisherMethodPatchPtrOutput values.
 // You can construct a concrete instance of `FlowDistinguisherMethodPatchPtrInput` via:
 //
-//          FlowDistinguisherMethodPatchArgs{...}
+//	        FlowDistinguisherMethodPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlowDistinguisherMethodPatchPtrInput interface {
 	pulumi.Input
 
@@ -308,7 +308,7 @@ type FlowSchemaType struct {
 // FlowSchemaTypeInput is an input type that accepts FlowSchemaTypeArgs and FlowSchemaTypeOutput values.
 // You can construct a concrete instance of `FlowSchemaTypeInput` via:
 //
-//          FlowSchemaTypeArgs{...}
+//	FlowSchemaTypeArgs{...}
 type FlowSchemaTypeInput interface {
 	pulumi.Input
 
@@ -345,7 +345,7 @@ func (i FlowSchemaTypeArgs) ToFlowSchemaTypeOutputWithContext(ctx context.Contex
 // FlowSchemaTypeArrayInput is an input type that accepts FlowSchemaTypeArray and FlowSchemaTypeArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaTypeArrayInput` via:
 //
-//          FlowSchemaTypeArray{ FlowSchemaTypeArgs{...} }
+//	FlowSchemaTypeArray{ FlowSchemaTypeArgs{...} }
 type FlowSchemaTypeArrayInput interface {
 	pulumi.Input
 
@@ -444,7 +444,7 @@ type FlowSchemaCondition struct {
 // FlowSchemaConditionInput is an input type that accepts FlowSchemaConditionArgs and FlowSchemaConditionOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionInput` via:
 //
-//          FlowSchemaConditionArgs{...}
+//	FlowSchemaConditionArgs{...}
 type FlowSchemaConditionInput interface {
 	pulumi.Input
 
@@ -481,7 +481,7 @@ func (i FlowSchemaConditionArgs) ToFlowSchemaConditionOutputWithContext(ctx cont
 // FlowSchemaConditionArrayInput is an input type that accepts FlowSchemaConditionArray and FlowSchemaConditionArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionArrayInput` via:
 //
-//          FlowSchemaConditionArray{ FlowSchemaConditionArgs{...} }
+//	FlowSchemaConditionArray{ FlowSchemaConditionArgs{...} }
 type FlowSchemaConditionArrayInput interface {
 	pulumi.Input
 
@@ -580,7 +580,7 @@ type FlowSchemaConditionPatch struct {
 // FlowSchemaConditionPatchInput is an input type that accepts FlowSchemaConditionPatchArgs and FlowSchemaConditionPatchOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionPatchInput` via:
 //
-//          FlowSchemaConditionPatchArgs{...}
+//	FlowSchemaConditionPatchArgs{...}
 type FlowSchemaConditionPatchInput interface {
 	pulumi.Input
 
@@ -617,7 +617,7 @@ func (i FlowSchemaConditionPatchArgs) ToFlowSchemaConditionPatchOutputWithContex
 // FlowSchemaConditionPatchArrayInput is an input type that accepts FlowSchemaConditionPatchArray and FlowSchemaConditionPatchArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionPatchArrayInput` via:
 //
-//          FlowSchemaConditionPatchArray{ FlowSchemaConditionPatchArgs{...} }
+//	FlowSchemaConditionPatchArray{ FlowSchemaConditionPatchArgs{...} }
 type FlowSchemaConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -714,7 +714,7 @@ type FlowSchemaListType struct {
 // FlowSchemaListTypeInput is an input type that accepts FlowSchemaListTypeArgs and FlowSchemaListTypeOutput values.
 // You can construct a concrete instance of `FlowSchemaListTypeInput` via:
 //
-//          FlowSchemaListTypeArgs{...}
+//	FlowSchemaListTypeArgs{...}
 type FlowSchemaListTypeInput interface {
 	pulumi.Input
 
@@ -798,7 +798,7 @@ type FlowSchemaPatchType struct {
 // FlowSchemaPatchTypeInput is an input type that accepts FlowSchemaPatchTypeArgs and FlowSchemaPatchTypeOutput values.
 // You can construct a concrete instance of `FlowSchemaPatchTypeInput` via:
 //
-//          FlowSchemaPatchTypeArgs{...}
+//	FlowSchemaPatchTypeArgs{...}
 type FlowSchemaPatchTypeInput interface {
 	pulumi.Input
 
@@ -887,7 +887,7 @@ type FlowSchemaSpec struct {
 // FlowSchemaSpecInput is an input type that accepts FlowSchemaSpecArgs and FlowSchemaSpecOutput values.
 // You can construct a concrete instance of `FlowSchemaSpecInput` via:
 //
-//          FlowSchemaSpecArgs{...}
+//	FlowSchemaSpecArgs{...}
 type FlowSchemaSpecInput interface {
 	pulumi.Input
 
@@ -930,11 +930,11 @@ func (i FlowSchemaSpecArgs) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Con
 // FlowSchemaSpecPtrInput is an input type that accepts FlowSchemaSpecArgs, FlowSchemaSpecPtr and FlowSchemaSpecPtrOutput values.
 // You can construct a concrete instance of `FlowSchemaSpecPtrInput` via:
 //
-//          FlowSchemaSpecArgs{...}
+//	        FlowSchemaSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlowSchemaSpecPtrInput interface {
 	pulumi.Input
 
@@ -1084,7 +1084,7 @@ type FlowSchemaSpecPatch struct {
 // FlowSchemaSpecPatchInput is an input type that accepts FlowSchemaSpecPatchArgs and FlowSchemaSpecPatchOutput values.
 // You can construct a concrete instance of `FlowSchemaSpecPatchInput` via:
 //
-//          FlowSchemaSpecPatchArgs{...}
+//	FlowSchemaSpecPatchArgs{...}
 type FlowSchemaSpecPatchInput interface {
 	pulumi.Input
 
@@ -1127,11 +1127,11 @@ func (i FlowSchemaSpecPatchArgs) ToFlowSchemaSpecPatchPtrOutputWithContext(ctx c
 // FlowSchemaSpecPatchPtrInput is an input type that accepts FlowSchemaSpecPatchArgs, FlowSchemaSpecPatchPtr and FlowSchemaSpecPatchPtrOutput values.
 // You can construct a concrete instance of `FlowSchemaSpecPatchPtrInput` via:
 //
-//          FlowSchemaSpecPatchArgs{...}
+//	        FlowSchemaSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlowSchemaSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1277,7 +1277,7 @@ type FlowSchemaStatus struct {
 // FlowSchemaStatusInput is an input type that accepts FlowSchemaStatusArgs and FlowSchemaStatusOutput values.
 // You can construct a concrete instance of `FlowSchemaStatusInput` via:
 //
-//          FlowSchemaStatusArgs{...}
+//	FlowSchemaStatusArgs{...}
 type FlowSchemaStatusInput interface {
 	pulumi.Input
 
@@ -1314,11 +1314,11 @@ func (i FlowSchemaStatusArgs) ToFlowSchemaStatusPtrOutputWithContext(ctx context
 // FlowSchemaStatusPtrInput is an input type that accepts FlowSchemaStatusArgs, FlowSchemaStatusPtr and FlowSchemaStatusPtrOutput values.
 // You can construct a concrete instance of `FlowSchemaStatusPtrInput` via:
 //
-//          FlowSchemaStatusArgs{...}
+//	        FlowSchemaStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlowSchemaStatusPtrInput interface {
 	pulumi.Input
 
@@ -1417,7 +1417,7 @@ type FlowSchemaStatusPatch struct {
 // FlowSchemaStatusPatchInput is an input type that accepts FlowSchemaStatusPatchArgs and FlowSchemaStatusPatchOutput values.
 // You can construct a concrete instance of `FlowSchemaStatusPatchInput` via:
 //
-//          FlowSchemaStatusPatchArgs{...}
+//	FlowSchemaStatusPatchArgs{...}
 type FlowSchemaStatusPatchInput interface {
 	pulumi.Input
 
@@ -1454,11 +1454,11 @@ func (i FlowSchemaStatusPatchArgs) ToFlowSchemaStatusPatchPtrOutputWithContext(c
 // FlowSchemaStatusPatchPtrInput is an input type that accepts FlowSchemaStatusPatchArgs, FlowSchemaStatusPatchPtr and FlowSchemaStatusPatchPtrOutput values.
 // You can construct a concrete instance of `FlowSchemaStatusPatchPtrInput` via:
 //
-//          FlowSchemaStatusPatchArgs{...}
+//	        FlowSchemaStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlowSchemaStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1557,7 +1557,7 @@ type GroupSubject struct {
 // GroupSubjectInput is an input type that accepts GroupSubjectArgs and GroupSubjectOutput values.
 // You can construct a concrete instance of `GroupSubjectInput` via:
 //
-//          GroupSubjectArgs{...}
+//	GroupSubjectArgs{...}
 type GroupSubjectInput interface {
 	pulumi.Input
 
@@ -1594,11 +1594,11 @@ func (i GroupSubjectArgs) ToGroupSubjectPtrOutputWithContext(ctx context.Context
 // GroupSubjectPtrInput is an input type that accepts GroupSubjectArgs, GroupSubjectPtr and GroupSubjectPtrOutput values.
 // You can construct a concrete instance of `GroupSubjectPtrInput` via:
 //
-//          GroupSubjectArgs{...}
+//	        GroupSubjectArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GroupSubjectPtrInput interface {
 	pulumi.Input
 
@@ -1697,7 +1697,7 @@ type GroupSubjectPatch struct {
 // GroupSubjectPatchInput is an input type that accepts GroupSubjectPatchArgs and GroupSubjectPatchOutput values.
 // You can construct a concrete instance of `GroupSubjectPatchInput` via:
 //
-//          GroupSubjectPatchArgs{...}
+//	GroupSubjectPatchArgs{...}
 type GroupSubjectPatchInput interface {
 	pulumi.Input
 
@@ -1734,11 +1734,11 @@ func (i GroupSubjectPatchArgs) ToGroupSubjectPatchPtrOutputWithContext(ctx conte
 // GroupSubjectPatchPtrInput is an input type that accepts GroupSubjectPatchArgs, GroupSubjectPatchPtr and GroupSubjectPatchPtrOutput values.
 // You can construct a concrete instance of `GroupSubjectPatchPtrInput` via:
 //
-//          GroupSubjectPatchArgs{...}
+//	        GroupSubjectPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GroupSubjectPatchPtrInput interface {
 	pulumi.Input
 
@@ -1839,7 +1839,7 @@ type LimitResponse struct {
 // LimitResponseInput is an input type that accepts LimitResponseArgs and LimitResponseOutput values.
 // You can construct a concrete instance of `LimitResponseInput` via:
 //
-//          LimitResponseArgs{...}
+//	LimitResponseArgs{...}
 type LimitResponseInput interface {
 	pulumi.Input
 
@@ -1878,11 +1878,11 @@ func (i LimitResponseArgs) ToLimitResponsePtrOutputWithContext(ctx context.Conte
 // LimitResponsePtrInput is an input type that accepts LimitResponseArgs, LimitResponsePtr and LimitResponsePtrOutput values.
 // You can construct a concrete instance of `LimitResponsePtrInput` via:
 //
-//          LimitResponseArgs{...}
+//	        LimitResponseArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LimitResponsePtrInput interface {
 	pulumi.Input
 
@@ -1998,7 +1998,7 @@ type LimitResponsePatch struct {
 // LimitResponsePatchInput is an input type that accepts LimitResponsePatchArgs and LimitResponsePatchOutput values.
 // You can construct a concrete instance of `LimitResponsePatchInput` via:
 //
-//          LimitResponsePatchArgs{...}
+//	LimitResponsePatchArgs{...}
 type LimitResponsePatchInput interface {
 	pulumi.Input
 
@@ -2037,11 +2037,11 @@ func (i LimitResponsePatchArgs) ToLimitResponsePatchPtrOutputWithContext(ctx con
 // LimitResponsePatchPtrInput is an input type that accepts LimitResponsePatchArgs, LimitResponsePatchPtr and LimitResponsePatchPtrOutput values.
 // You can construct a concrete instance of `LimitResponsePatchPtrInput` via:
 //
-//          LimitResponsePatchArgs{...}
+//	        LimitResponsePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LimitResponsePatchPtrInput interface {
 	pulumi.Input
 
@@ -2147,8 +2147,8 @@ func (o LimitResponsePatchPtrOutput) Type() pulumi.StringPtrOutput {
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-//  * How are requests for this priority level limited?
-//  * What should be done with requests that exceed the limit?
+//   - How are requests for this priority level limited?
+//   - What should be done with requests that exceed the limit?
 type LimitedPriorityLevelConfiguration struct {
 	// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 	//
@@ -2163,7 +2163,7 @@ type LimitedPriorityLevelConfiguration struct {
 // LimitedPriorityLevelConfigurationInput is an input type that accepts LimitedPriorityLevelConfigurationArgs and LimitedPriorityLevelConfigurationOutput values.
 // You can construct a concrete instance of `LimitedPriorityLevelConfigurationInput` via:
 //
-//          LimitedPriorityLevelConfigurationArgs{...}
+//	LimitedPriorityLevelConfigurationArgs{...}
 type LimitedPriorityLevelConfigurationInput interface {
 	pulumi.Input
 
@@ -2172,8 +2172,8 @@ type LimitedPriorityLevelConfigurationInput interface {
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-//  * How are requests for this priority level limited?
-//  * What should be done with requests that exceed the limit?
+//   - How are requests for this priority level limited?
+//   - What should be done with requests that exceed the limit?
 type LimitedPriorityLevelConfigurationArgs struct {
 	// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 	//
@@ -2208,11 +2208,11 @@ func (i LimitedPriorityLevelConfigurationArgs) ToLimitedPriorityLevelConfigurati
 // LimitedPriorityLevelConfigurationPtrInput is an input type that accepts LimitedPriorityLevelConfigurationArgs, LimitedPriorityLevelConfigurationPtr and LimitedPriorityLevelConfigurationPtrOutput values.
 // You can construct a concrete instance of `LimitedPriorityLevelConfigurationPtrInput` via:
 //
-//          LimitedPriorityLevelConfigurationArgs{...}
+//	        LimitedPriorityLevelConfigurationArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LimitedPriorityLevelConfigurationPtrInput interface {
 	pulumi.Input
 
@@ -2239,8 +2239,8 @@ func (i *limitedPriorityLevelConfigurationPtrType) ToLimitedPriorityLevelConfigu
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-//  * How are requests for this priority level limited?
-//  * What should be done with requests that exceed the limit?
+//   - How are requests for this priority level limited?
+//   - What should be done with requests that exceed the limit?
 type LimitedPriorityLevelConfigurationOutput struct{ *pulumi.OutputState }
 
 func (LimitedPriorityLevelConfigurationOutput) ElementType() reflect.Type {
@@ -2267,7 +2267,7 @@ func (o LimitedPriorityLevelConfigurationOutput) ToLimitedPriorityLevelConfigura
 
 // `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 //
-//             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+//	ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
 //
 // bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
 func (o LimitedPriorityLevelConfigurationOutput) AssuredConcurrencyShares() pulumi.IntPtrOutput {
@@ -2305,7 +2305,7 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) Elem() LimitedPriorityLevelC
 
 // `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 //
-//             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+//	ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
 //
 // bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
 func (o LimitedPriorityLevelConfigurationPtrOutput) AssuredConcurrencyShares() pulumi.IntPtrOutput {
@@ -2328,8 +2328,8 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) LimitResponse() LimitRespons
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-//  * How are requests for this priority level limited?
-//  * What should be done with requests that exceed the limit?
+//   - How are requests for this priority level limited?
+//   - What should be done with requests that exceed the limit?
 type LimitedPriorityLevelConfigurationPatch struct {
 	// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 	//
@@ -2344,7 +2344,7 @@ type LimitedPriorityLevelConfigurationPatch struct {
 // LimitedPriorityLevelConfigurationPatchInput is an input type that accepts LimitedPriorityLevelConfigurationPatchArgs and LimitedPriorityLevelConfigurationPatchOutput values.
 // You can construct a concrete instance of `LimitedPriorityLevelConfigurationPatchInput` via:
 //
-//          LimitedPriorityLevelConfigurationPatchArgs{...}
+//	LimitedPriorityLevelConfigurationPatchArgs{...}
 type LimitedPriorityLevelConfigurationPatchInput interface {
 	pulumi.Input
 
@@ -2353,8 +2353,8 @@ type LimitedPriorityLevelConfigurationPatchInput interface {
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-//  * How are requests for this priority level limited?
-//  * What should be done with requests that exceed the limit?
+//   - How are requests for this priority level limited?
+//   - What should be done with requests that exceed the limit?
 type LimitedPriorityLevelConfigurationPatchArgs struct {
 	// `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 	//
@@ -2389,11 +2389,11 @@ func (i LimitedPriorityLevelConfigurationPatchArgs) ToLimitedPriorityLevelConfig
 // LimitedPriorityLevelConfigurationPatchPtrInput is an input type that accepts LimitedPriorityLevelConfigurationPatchArgs, LimitedPriorityLevelConfigurationPatchPtr and LimitedPriorityLevelConfigurationPatchPtrOutput values.
 // You can construct a concrete instance of `LimitedPriorityLevelConfigurationPatchPtrInput` via:
 //
-//          LimitedPriorityLevelConfigurationPatchArgs{...}
+//	        LimitedPriorityLevelConfigurationPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LimitedPriorityLevelConfigurationPatchPtrInput interface {
 	pulumi.Input
 
@@ -2420,8 +2420,8 @@ func (i *limitedPriorityLevelConfigurationPatchPtrType) ToLimitedPriorityLevelCo
 }
 
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-//  * How are requests for this priority level limited?
-//  * What should be done with requests that exceed the limit?
+//   - How are requests for this priority level limited?
+//   - What should be done with requests that exceed the limit?
 type LimitedPriorityLevelConfigurationPatchOutput struct{ *pulumi.OutputState }
 
 func (LimitedPriorityLevelConfigurationPatchOutput) ElementType() reflect.Type {
@@ -2448,7 +2448,7 @@ func (o LimitedPriorityLevelConfigurationPatchOutput) ToLimitedPriorityLevelConf
 
 // `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 //
-//             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+//	ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
 //
 // bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
 func (o LimitedPriorityLevelConfigurationPatchOutput) AssuredConcurrencyShares() pulumi.IntPtrOutput {
@@ -2486,7 +2486,7 @@ func (o LimitedPriorityLevelConfigurationPatchPtrOutput) Elem() LimitedPriorityL
 
 // `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
 //
-//             ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
+//	ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
 //
 // bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
 func (o LimitedPriorityLevelConfigurationPatchPtrOutput) AssuredConcurrencyShares() pulumi.IntPtrOutput {
@@ -2525,7 +2525,7 @@ type NonResourcePolicyRule struct {
 // NonResourcePolicyRuleInput is an input type that accepts NonResourcePolicyRuleArgs and NonResourcePolicyRuleOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRuleInput` via:
 //
-//          NonResourcePolicyRuleArgs{...}
+//	NonResourcePolicyRuleArgs{...}
 type NonResourcePolicyRuleInput interface {
 	pulumi.Input
 
@@ -2562,7 +2562,7 @@ func (i NonResourcePolicyRuleArgs) ToNonResourcePolicyRuleOutputWithContext(ctx 
 // NonResourcePolicyRuleArrayInput is an input type that accepts NonResourcePolicyRuleArray and NonResourcePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRuleArrayInput` via:
 //
-//          NonResourcePolicyRuleArray{ NonResourcePolicyRuleArgs{...} }
+//	NonResourcePolicyRuleArray{ NonResourcePolicyRuleArgs{...} }
 type NonResourcePolicyRuleArrayInput interface {
 	pulumi.Input
 
@@ -2652,7 +2652,7 @@ type NonResourcePolicyRulePatch struct {
 // NonResourcePolicyRulePatchInput is an input type that accepts NonResourcePolicyRulePatchArgs and NonResourcePolicyRulePatchOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRulePatchInput` via:
 //
-//          NonResourcePolicyRulePatchArgs{...}
+//	NonResourcePolicyRulePatchArgs{...}
 type NonResourcePolicyRulePatchInput interface {
 	pulumi.Input
 
@@ -2689,7 +2689,7 @@ func (i NonResourcePolicyRulePatchArgs) ToNonResourcePolicyRulePatchOutputWithCo
 // NonResourcePolicyRulePatchArrayInput is an input type that accepts NonResourcePolicyRulePatchArray and NonResourcePolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRulePatchArrayInput` via:
 //
-//          NonResourcePolicyRulePatchArray{ NonResourcePolicyRulePatchArgs{...} }
+//	NonResourcePolicyRulePatchArray{ NonResourcePolicyRulePatchArgs{...} }
 type NonResourcePolicyRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -2775,7 +2775,7 @@ type PolicyRulesWithSubjects struct {
 // PolicyRulesWithSubjectsInput is an input type that accepts PolicyRulesWithSubjectsArgs and PolicyRulesWithSubjectsOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsInput` via:
 //
-//          PolicyRulesWithSubjectsArgs{...}
+//	PolicyRulesWithSubjectsArgs{...}
 type PolicyRulesWithSubjectsInput interface {
 	pulumi.Input
 
@@ -2808,7 +2808,7 @@ func (i PolicyRulesWithSubjectsArgs) ToPolicyRulesWithSubjectsOutputWithContext(
 // PolicyRulesWithSubjectsArrayInput is an input type that accepts PolicyRulesWithSubjectsArray and PolicyRulesWithSubjectsArrayOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsArrayInput` via:
 //
-//          PolicyRulesWithSubjectsArray{ PolicyRulesWithSubjectsArgs{...} }
+//	PolicyRulesWithSubjectsArray{ PolicyRulesWithSubjectsArgs{...} }
 type PolicyRulesWithSubjectsArrayInput interface {
 	pulumi.Input
 
@@ -2893,7 +2893,7 @@ type PolicyRulesWithSubjectsPatch struct {
 // PolicyRulesWithSubjectsPatchInput is an input type that accepts PolicyRulesWithSubjectsPatchArgs and PolicyRulesWithSubjectsPatchOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsPatchInput` via:
 //
-//          PolicyRulesWithSubjectsPatchArgs{...}
+//	PolicyRulesWithSubjectsPatchArgs{...}
 type PolicyRulesWithSubjectsPatchInput interface {
 	pulumi.Input
 
@@ -2926,7 +2926,7 @@ func (i PolicyRulesWithSubjectsPatchArgs) ToPolicyRulesWithSubjectsPatchOutputWi
 // PolicyRulesWithSubjectsPatchArrayInput is an input type that accepts PolicyRulesWithSubjectsPatchArray and PolicyRulesWithSubjectsPatchArrayOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsPatchArrayInput` via:
 //
-//          PolicyRulesWithSubjectsPatchArray{ PolicyRulesWithSubjectsPatchArgs{...} }
+//	PolicyRulesWithSubjectsPatchArray{ PolicyRulesWithSubjectsPatchArgs{...} }
 type PolicyRulesWithSubjectsPatchArrayInput interface {
 	pulumi.Input
 
@@ -3015,7 +3015,7 @@ type PriorityLevelConfigurationType struct {
 // PriorityLevelConfigurationTypeInput is an input type that accepts PriorityLevelConfigurationTypeArgs and PriorityLevelConfigurationTypeOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationTypeInput` via:
 //
-//          PriorityLevelConfigurationTypeArgs{...}
+//	PriorityLevelConfigurationTypeArgs{...}
 type PriorityLevelConfigurationTypeInput interface {
 	pulumi.Input
 
@@ -3052,7 +3052,7 @@ func (i PriorityLevelConfigurationTypeArgs) ToPriorityLevelConfigurationTypeOutp
 // PriorityLevelConfigurationTypeArrayInput is an input type that accepts PriorityLevelConfigurationTypeArray and PriorityLevelConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationTypeArrayInput` via:
 //
-//          PriorityLevelConfigurationTypeArray{ PriorityLevelConfigurationTypeArgs{...} }
+//	PriorityLevelConfigurationTypeArray{ PriorityLevelConfigurationTypeArgs{...} }
 type PriorityLevelConfigurationTypeArrayInput interface {
 	pulumi.Input
 
@@ -3151,7 +3151,7 @@ type PriorityLevelConfigurationCondition struct {
 // PriorityLevelConfigurationConditionInput is an input type that accepts PriorityLevelConfigurationConditionArgs and PriorityLevelConfigurationConditionOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionInput` via:
 //
-//          PriorityLevelConfigurationConditionArgs{...}
+//	PriorityLevelConfigurationConditionArgs{...}
 type PriorityLevelConfigurationConditionInput interface {
 	pulumi.Input
 
@@ -3188,7 +3188,7 @@ func (i PriorityLevelConfigurationConditionArgs) ToPriorityLevelConfigurationCon
 // PriorityLevelConfigurationConditionArrayInput is an input type that accepts PriorityLevelConfigurationConditionArray and PriorityLevelConfigurationConditionArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionArrayInput` via:
 //
-//          PriorityLevelConfigurationConditionArray{ PriorityLevelConfigurationConditionArgs{...} }
+//	PriorityLevelConfigurationConditionArray{ PriorityLevelConfigurationConditionArgs{...} }
 type PriorityLevelConfigurationConditionArrayInput interface {
 	pulumi.Input
 
@@ -3287,7 +3287,7 @@ type PriorityLevelConfigurationConditionPatch struct {
 // PriorityLevelConfigurationConditionPatchInput is an input type that accepts PriorityLevelConfigurationConditionPatchArgs and PriorityLevelConfigurationConditionPatchOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionPatchInput` via:
 //
-//          PriorityLevelConfigurationConditionPatchArgs{...}
+//	PriorityLevelConfigurationConditionPatchArgs{...}
 type PriorityLevelConfigurationConditionPatchInput interface {
 	pulumi.Input
 
@@ -3324,7 +3324,7 @@ func (i PriorityLevelConfigurationConditionPatchArgs) ToPriorityLevelConfigurati
 // PriorityLevelConfigurationConditionPatchArrayInput is an input type that accepts PriorityLevelConfigurationConditionPatchArray and PriorityLevelConfigurationConditionPatchArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionPatchArrayInput` via:
 //
-//          PriorityLevelConfigurationConditionPatchArray{ PriorityLevelConfigurationConditionPatchArgs{...} }
+//	PriorityLevelConfigurationConditionPatchArray{ PriorityLevelConfigurationConditionPatchArgs{...} }
 type PriorityLevelConfigurationConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -3421,7 +3421,7 @@ type PriorityLevelConfigurationListType struct {
 // PriorityLevelConfigurationListTypeInput is an input type that accepts PriorityLevelConfigurationListTypeArgs and PriorityLevelConfigurationListTypeOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationListTypeInput` via:
 //
-//          PriorityLevelConfigurationListTypeArgs{...}
+//	PriorityLevelConfigurationListTypeArgs{...}
 type PriorityLevelConfigurationListTypeInput interface {
 	pulumi.Input
 
@@ -3505,7 +3505,7 @@ type PriorityLevelConfigurationPatchType struct {
 // PriorityLevelConfigurationPatchTypeInput is an input type that accepts PriorityLevelConfigurationPatchTypeArgs and PriorityLevelConfigurationPatchTypeOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationPatchTypeInput` via:
 //
-//          PriorityLevelConfigurationPatchTypeArgs{...}
+//	PriorityLevelConfigurationPatchTypeArgs{...}
 type PriorityLevelConfigurationPatchTypeInput interface {
 	pulumi.Input
 
@@ -3588,7 +3588,7 @@ type PriorityLevelConfigurationReference struct {
 // PriorityLevelConfigurationReferenceInput is an input type that accepts PriorityLevelConfigurationReferenceArgs and PriorityLevelConfigurationReferenceOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationReferenceInput` via:
 //
-//          PriorityLevelConfigurationReferenceArgs{...}
+//	PriorityLevelConfigurationReferenceArgs{...}
 type PriorityLevelConfigurationReferenceInput interface {
 	pulumi.Input
 
@@ -3625,11 +3625,11 @@ func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationRef
 // PriorityLevelConfigurationReferencePtrInput is an input type that accepts PriorityLevelConfigurationReferenceArgs, PriorityLevelConfigurationReferencePtr and PriorityLevelConfigurationReferencePtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationReferencePtrInput` via:
 //
-//          PriorityLevelConfigurationReferenceArgs{...}
+//	        PriorityLevelConfigurationReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PriorityLevelConfigurationReferencePtrInput interface {
 	pulumi.Input
 
@@ -3728,7 +3728,7 @@ type PriorityLevelConfigurationReferencePatch struct {
 // PriorityLevelConfigurationReferencePatchInput is an input type that accepts PriorityLevelConfigurationReferencePatchArgs and PriorityLevelConfigurationReferencePatchOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationReferencePatchInput` via:
 //
-//          PriorityLevelConfigurationReferencePatchArgs{...}
+//	PriorityLevelConfigurationReferencePatchArgs{...}
 type PriorityLevelConfigurationReferencePatchInput interface {
 	pulumi.Input
 
@@ -3765,11 +3765,11 @@ func (i PriorityLevelConfigurationReferencePatchArgs) ToPriorityLevelConfigurati
 // PriorityLevelConfigurationReferencePatchPtrInput is an input type that accepts PriorityLevelConfigurationReferencePatchArgs, PriorityLevelConfigurationReferencePatchPtr and PriorityLevelConfigurationReferencePatchPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationReferencePatchPtrInput` via:
 //
-//          PriorityLevelConfigurationReferencePatchArgs{...}
+//	        PriorityLevelConfigurationReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PriorityLevelConfigurationReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -3870,7 +3870,7 @@ type PriorityLevelConfigurationSpec struct {
 // PriorityLevelConfigurationSpecInput is an input type that accepts PriorityLevelConfigurationSpecArgs and PriorityLevelConfigurationSpecOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationSpecInput` via:
 //
-//          PriorityLevelConfigurationSpecArgs{...}
+//	PriorityLevelConfigurationSpecArgs{...}
 type PriorityLevelConfigurationSpecInput interface {
 	pulumi.Input
 
@@ -3909,11 +3909,11 @@ func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecPtrO
 // PriorityLevelConfigurationSpecPtrInput is an input type that accepts PriorityLevelConfigurationSpecArgs, PriorityLevelConfigurationSpecPtr and PriorityLevelConfigurationSpecPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationSpecPtrInput` via:
 //
-//          PriorityLevelConfigurationSpecArgs{...}
+//	        PriorityLevelConfigurationSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PriorityLevelConfigurationSpecPtrInput interface {
 	pulumi.Input
 
@@ -4029,7 +4029,7 @@ type PriorityLevelConfigurationSpecPatch struct {
 // PriorityLevelConfigurationSpecPatchInput is an input type that accepts PriorityLevelConfigurationSpecPatchArgs and PriorityLevelConfigurationSpecPatchOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationSpecPatchInput` via:
 //
-//          PriorityLevelConfigurationSpecPatchArgs{...}
+//	PriorityLevelConfigurationSpecPatchArgs{...}
 type PriorityLevelConfigurationSpecPatchInput interface {
 	pulumi.Input
 
@@ -4068,11 +4068,11 @@ func (i PriorityLevelConfigurationSpecPatchArgs) ToPriorityLevelConfigurationSpe
 // PriorityLevelConfigurationSpecPatchPtrInput is an input type that accepts PriorityLevelConfigurationSpecPatchArgs, PriorityLevelConfigurationSpecPatchPtr and PriorityLevelConfigurationSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationSpecPatchPtrInput` via:
 //
-//          PriorityLevelConfigurationSpecPatchArgs{...}
+//	        PriorityLevelConfigurationSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PriorityLevelConfigurationSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -4186,7 +4186,7 @@ type PriorityLevelConfigurationStatus struct {
 // PriorityLevelConfigurationStatusInput is an input type that accepts PriorityLevelConfigurationStatusArgs and PriorityLevelConfigurationStatusOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationStatusInput` via:
 //
-//          PriorityLevelConfigurationStatusArgs{...}
+//	PriorityLevelConfigurationStatusArgs{...}
 type PriorityLevelConfigurationStatusInput interface {
 	pulumi.Input
 
@@ -4223,11 +4223,11 @@ func (i PriorityLevelConfigurationStatusArgs) ToPriorityLevelConfigurationStatus
 // PriorityLevelConfigurationStatusPtrInput is an input type that accepts PriorityLevelConfigurationStatusArgs, PriorityLevelConfigurationStatusPtr and PriorityLevelConfigurationStatusPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationStatusPtrInput` via:
 //
-//          PriorityLevelConfigurationStatusArgs{...}
+//	        PriorityLevelConfigurationStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PriorityLevelConfigurationStatusPtrInput interface {
 	pulumi.Input
 
@@ -4326,7 +4326,7 @@ type PriorityLevelConfigurationStatusPatch struct {
 // PriorityLevelConfigurationStatusPatchInput is an input type that accepts PriorityLevelConfigurationStatusPatchArgs and PriorityLevelConfigurationStatusPatchOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationStatusPatchInput` via:
 //
-//          PriorityLevelConfigurationStatusPatchArgs{...}
+//	PriorityLevelConfigurationStatusPatchArgs{...}
 type PriorityLevelConfigurationStatusPatchInput interface {
 	pulumi.Input
 
@@ -4363,11 +4363,11 @@ func (i PriorityLevelConfigurationStatusPatchArgs) ToPriorityLevelConfigurationS
 // PriorityLevelConfigurationStatusPatchPtrInput is an input type that accepts PriorityLevelConfigurationStatusPatchArgs, PriorityLevelConfigurationStatusPatchPtr and PriorityLevelConfigurationStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationStatusPatchPtrInput` via:
 //
-//          PriorityLevelConfigurationStatusPatchArgs{...}
+//	        PriorityLevelConfigurationStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PriorityLevelConfigurationStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -4472,7 +4472,7 @@ type QueuingConfiguration struct {
 // QueuingConfigurationInput is an input type that accepts QueuingConfigurationArgs and QueuingConfigurationOutput values.
 // You can construct a concrete instance of `QueuingConfigurationInput` via:
 //
-//          QueuingConfigurationArgs{...}
+//	QueuingConfigurationArgs{...}
 type QueuingConfigurationInput interface {
 	pulumi.Input
 
@@ -4513,11 +4513,11 @@ func (i QueuingConfigurationArgs) ToQueuingConfigurationPtrOutputWithContext(ctx
 // QueuingConfigurationPtrInput is an input type that accepts QueuingConfigurationArgs, QueuingConfigurationPtr and QueuingConfigurationPtrOutput values.
 // You can construct a concrete instance of `QueuingConfigurationPtrInput` via:
 //
-//          QueuingConfigurationArgs{...}
+//	        QueuingConfigurationArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type QueuingConfigurationPtrInput interface {
 	pulumi.Input
 
@@ -4650,7 +4650,7 @@ type QueuingConfigurationPatch struct {
 // QueuingConfigurationPatchInput is an input type that accepts QueuingConfigurationPatchArgs and QueuingConfigurationPatchOutput values.
 // You can construct a concrete instance of `QueuingConfigurationPatchInput` via:
 //
-//          QueuingConfigurationPatchArgs{...}
+//	QueuingConfigurationPatchArgs{...}
 type QueuingConfigurationPatchInput interface {
 	pulumi.Input
 
@@ -4691,11 +4691,11 @@ func (i QueuingConfigurationPatchArgs) ToQueuingConfigurationPatchPtrOutputWithC
 // QueuingConfigurationPatchPtrInput is an input type that accepts QueuingConfigurationPatchArgs, QueuingConfigurationPatchPtr and QueuingConfigurationPatchPtrOutput values.
 // You can construct a concrete instance of `QueuingConfigurationPatchPtrInput` via:
 //
-//          QueuingConfigurationPatchArgs{...}
+//	        QueuingConfigurationPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type QueuingConfigurationPatchPtrInput interface {
 	pulumi.Input
 
@@ -4832,7 +4832,7 @@ type ResourcePolicyRule struct {
 // ResourcePolicyRuleInput is an input type that accepts ResourcePolicyRuleArgs and ResourcePolicyRuleOutput values.
 // You can construct a concrete instance of `ResourcePolicyRuleInput` via:
 //
-//          ResourcePolicyRuleArgs{...}
+//	ResourcePolicyRuleArgs{...}
 type ResourcePolicyRuleInput interface {
 	pulumi.Input
 
@@ -4869,7 +4869,7 @@ func (i ResourcePolicyRuleArgs) ToResourcePolicyRuleOutputWithContext(ctx contex
 // ResourcePolicyRuleArrayInput is an input type that accepts ResourcePolicyRuleArray and ResourcePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `ResourcePolicyRuleArrayInput` via:
 //
-//          ResourcePolicyRuleArray{ ResourcePolicyRuleArgs{...} }
+//	ResourcePolicyRuleArray{ ResourcePolicyRuleArgs{...} }
 type ResourcePolicyRuleArrayInput interface {
 	pulumi.Input
 
@@ -4968,7 +4968,7 @@ type ResourcePolicyRulePatch struct {
 // ResourcePolicyRulePatchInput is an input type that accepts ResourcePolicyRulePatchArgs and ResourcePolicyRulePatchOutput values.
 // You can construct a concrete instance of `ResourcePolicyRulePatchInput` via:
 //
-//          ResourcePolicyRulePatchArgs{...}
+//	ResourcePolicyRulePatchArgs{...}
 type ResourcePolicyRulePatchInput interface {
 	pulumi.Input
 
@@ -5005,7 +5005,7 @@ func (i ResourcePolicyRulePatchArgs) ToResourcePolicyRulePatchOutputWithContext(
 // ResourcePolicyRulePatchArrayInput is an input type that accepts ResourcePolicyRulePatchArray and ResourcePolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `ResourcePolicyRulePatchArrayInput` via:
 //
-//          ResourcePolicyRulePatchArray{ ResourcePolicyRulePatchArgs{...} }
+//	ResourcePolicyRulePatchArray{ ResourcePolicyRulePatchArgs{...} }
 type ResourcePolicyRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -5098,7 +5098,7 @@ type ServiceAccountSubject struct {
 // ServiceAccountSubjectInput is an input type that accepts ServiceAccountSubjectArgs and ServiceAccountSubjectOutput values.
 // You can construct a concrete instance of `ServiceAccountSubjectInput` via:
 //
-//          ServiceAccountSubjectArgs{...}
+//	ServiceAccountSubjectArgs{...}
 type ServiceAccountSubjectInput interface {
 	pulumi.Input
 
@@ -5137,11 +5137,11 @@ func (i ServiceAccountSubjectArgs) ToServiceAccountSubjectPtrOutputWithContext(c
 // ServiceAccountSubjectPtrInput is an input type that accepts ServiceAccountSubjectArgs, ServiceAccountSubjectPtr and ServiceAccountSubjectPtrOutput values.
 // You can construct a concrete instance of `ServiceAccountSubjectPtrInput` via:
 //
-//          ServiceAccountSubjectArgs{...}
+//	        ServiceAccountSubjectArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceAccountSubjectPtrInput interface {
 	pulumi.Input
 
@@ -5257,7 +5257,7 @@ type ServiceAccountSubjectPatch struct {
 // ServiceAccountSubjectPatchInput is an input type that accepts ServiceAccountSubjectPatchArgs and ServiceAccountSubjectPatchOutput values.
 // You can construct a concrete instance of `ServiceAccountSubjectPatchInput` via:
 //
-//          ServiceAccountSubjectPatchArgs{...}
+//	ServiceAccountSubjectPatchArgs{...}
 type ServiceAccountSubjectPatchInput interface {
 	pulumi.Input
 
@@ -5296,11 +5296,11 @@ func (i ServiceAccountSubjectPatchArgs) ToServiceAccountSubjectPatchPtrOutputWit
 // ServiceAccountSubjectPatchPtrInput is an input type that accepts ServiceAccountSubjectPatchArgs, ServiceAccountSubjectPatchPtr and ServiceAccountSubjectPatchPtrOutput values.
 // You can construct a concrete instance of `ServiceAccountSubjectPatchPtrInput` via:
 //
-//          ServiceAccountSubjectPatchArgs{...}
+//	        ServiceAccountSubjectPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceAccountSubjectPatchPtrInput interface {
 	pulumi.Input
 
@@ -5420,7 +5420,7 @@ type Subject struct {
 // SubjectInput is an input type that accepts SubjectArgs and SubjectOutput values.
 // You can construct a concrete instance of `SubjectInput` via:
 //
-//          SubjectArgs{...}
+//	SubjectArgs{...}
 type SubjectInput interface {
 	pulumi.Input
 
@@ -5455,7 +5455,7 @@ func (i SubjectArgs) ToSubjectOutputWithContext(ctx context.Context) SubjectOutp
 // SubjectArrayInput is an input type that accepts SubjectArray and SubjectArrayOutput values.
 // You can construct a concrete instance of `SubjectArrayInput` via:
 //
-//          SubjectArray{ SubjectArgs{...} }
+//	SubjectArray{ SubjectArgs{...} }
 type SubjectArrayInput interface {
 	pulumi.Input
 
@@ -5547,7 +5547,7 @@ type SubjectPatch struct {
 // SubjectPatchInput is an input type that accepts SubjectPatchArgs and SubjectPatchOutput values.
 // You can construct a concrete instance of `SubjectPatchInput` via:
 //
-//          SubjectPatchArgs{...}
+//	SubjectPatchArgs{...}
 type SubjectPatchInput interface {
 	pulumi.Input
 
@@ -5582,7 +5582,7 @@ func (i SubjectPatchArgs) ToSubjectPatchOutputWithContext(ctx context.Context) S
 // SubjectPatchArrayInput is an input type that accepts SubjectPatchArray and SubjectPatchArrayOutput values.
 // You can construct a concrete instance of `SubjectPatchArrayInput` via:
 //
-//          SubjectPatchArray{ SubjectPatchArgs{...} }
+//	SubjectPatchArray{ SubjectPatchArgs{...} }
 type SubjectPatchArrayInput interface {
 	pulumi.Input
 
@@ -5668,7 +5668,7 @@ type UserSubject struct {
 // UserSubjectInput is an input type that accepts UserSubjectArgs and UserSubjectOutput values.
 // You can construct a concrete instance of `UserSubjectInput` via:
 //
-//          UserSubjectArgs{...}
+//	UserSubjectArgs{...}
 type UserSubjectInput interface {
 	pulumi.Input
 
@@ -5705,11 +5705,11 @@ func (i UserSubjectArgs) ToUserSubjectPtrOutputWithContext(ctx context.Context) 
 // UserSubjectPtrInput is an input type that accepts UserSubjectArgs, UserSubjectPtr and UserSubjectPtrOutput values.
 // You can construct a concrete instance of `UserSubjectPtrInput` via:
 //
-//          UserSubjectArgs{...}
+//	        UserSubjectArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type UserSubjectPtrInput interface {
 	pulumi.Input
 
@@ -5808,7 +5808,7 @@ type UserSubjectPatch struct {
 // UserSubjectPatchInput is an input type that accepts UserSubjectPatchArgs and UserSubjectPatchOutput values.
 // You can construct a concrete instance of `UserSubjectPatchInput` via:
 //
-//          UserSubjectPatchArgs{...}
+//	UserSubjectPatchArgs{...}
 type UserSubjectPatchInput interface {
 	pulumi.Input
 
@@ -5845,11 +5845,11 @@ func (i UserSubjectPatchArgs) ToUserSubjectPatchPtrOutputWithContext(ctx context
 // UserSubjectPatchPtrInput is an input type that accepts UserSubjectPatchArgs, UserSubjectPatchPtr and UserSubjectPatchPtrOutput values.
 // You can construct a concrete instance of `UserSubjectPatchPtrInput` via:
 //
-//          UserSubjectPatchArgs{...}
+//	        UserSubjectPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type UserSubjectPatchPtrInput interface {
 	pulumi.Input
 

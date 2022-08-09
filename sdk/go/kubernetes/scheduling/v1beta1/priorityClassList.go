@@ -118,7 +118,7 @@ func (i *PriorityClassList) ToPriorityClassListOutputWithContext(ctx context.Con
 // PriorityClassListArrayInput is an input type that accepts PriorityClassListArray and PriorityClassListArrayOutput values.
 // You can construct a concrete instance of `PriorityClassListArrayInput` via:
 //
-//          PriorityClassListArray{ PriorityClassListArgs{...} }
+//	PriorityClassListArray{ PriorityClassListArgs{...} }
 type PriorityClassListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PriorityClassListArray) ToPriorityClassListArrayOutputWithContext(ctx co
 // PriorityClassListMapInput is an input type that accepts PriorityClassListMap and PriorityClassListMapOutput values.
 // You can construct a concrete instance of `PriorityClassListMapInput` via:
 //
-//          PriorityClassListMap{ "key": PriorityClassListArgs{...} }
+//	PriorityClassListMap{ "key": PriorityClassListArgs{...} }
 type PriorityClassListMapInput interface {
 	pulumi.Input
 

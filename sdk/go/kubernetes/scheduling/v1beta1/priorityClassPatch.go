@@ -151,7 +151,7 @@ func (i *PriorityClassPatch) ToPriorityClassPatchOutputWithContext(ctx context.C
 // PriorityClassPatchArrayInput is an input type that accepts PriorityClassPatchArray and PriorityClassPatchArrayOutput values.
 // You can construct a concrete instance of `PriorityClassPatchArrayInput` via:
 //
-//          PriorityClassPatchArray{ PriorityClassPatchArgs{...} }
+//	PriorityClassPatchArray{ PriorityClassPatchArgs{...} }
 type PriorityClassPatchArrayInput interface {
 	pulumi.Input
 
@@ -176,7 +176,7 @@ func (i PriorityClassPatchArray) ToPriorityClassPatchArrayOutputWithContext(ctx 
 // PriorityClassPatchMapInput is an input type that accepts PriorityClassPatchMap and PriorityClassPatchMapOutput values.
 // You can construct a concrete instance of `PriorityClassPatchMapInput` via:
 //
-//          PriorityClassPatchMap{ "key": PriorityClassPatchArgs{...} }
+//	PriorityClassPatchMap{ "key": PriorityClassPatchArgs{...} }
 type PriorityClassPatchMapInput interface {
 	pulumi.Input
 

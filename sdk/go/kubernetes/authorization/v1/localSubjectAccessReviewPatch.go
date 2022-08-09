@@ -132,7 +132,7 @@ func (i *LocalSubjectAccessReviewPatch) ToLocalSubjectAccessReviewPatchOutputWit
 // LocalSubjectAccessReviewPatchArrayInput is an input type that accepts LocalSubjectAccessReviewPatchArray and LocalSubjectAccessReviewPatchArrayOutput values.
 // You can construct a concrete instance of `LocalSubjectAccessReviewPatchArrayInput` via:
 //
-//          LocalSubjectAccessReviewPatchArray{ LocalSubjectAccessReviewPatchArgs{...} }
+//	LocalSubjectAccessReviewPatchArray{ LocalSubjectAccessReviewPatchArgs{...} }
 type LocalSubjectAccessReviewPatchArrayInput interface {
 	pulumi.Input
 
@@ -157,7 +157,7 @@ func (i LocalSubjectAccessReviewPatchArray) ToLocalSubjectAccessReviewPatchArray
 // LocalSubjectAccessReviewPatchMapInput is an input type that accepts LocalSubjectAccessReviewPatchMap and LocalSubjectAccessReviewPatchMapOutput values.
 // You can construct a concrete instance of `LocalSubjectAccessReviewPatchMapInput` via:
 //
-//          LocalSubjectAccessReviewPatchMap{ "key": LocalSubjectAccessReviewPatchArgs{...} }
+//	LocalSubjectAccessReviewPatchMap{ "key": LocalSubjectAccessReviewPatchArgs{...} }
 type LocalSubjectAccessReviewPatchMapInput interface {
 	pulumi.Input
 

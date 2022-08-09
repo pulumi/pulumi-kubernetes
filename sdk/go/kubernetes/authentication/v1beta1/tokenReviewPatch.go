@@ -129,7 +129,7 @@ func (i *TokenReviewPatch) ToTokenReviewPatchOutputWithContext(ctx context.Conte
 // TokenReviewPatchArrayInput is an input type that accepts TokenReviewPatchArray and TokenReviewPatchArrayOutput values.
 // You can construct a concrete instance of `TokenReviewPatchArrayInput` via:
 //
-//          TokenReviewPatchArray{ TokenReviewPatchArgs{...} }
+//	TokenReviewPatchArray{ TokenReviewPatchArgs{...} }
 type TokenReviewPatchArrayInput interface {
 	pulumi.Input
 
@@ -154,7 +154,7 @@ func (i TokenReviewPatchArray) ToTokenReviewPatchArrayOutputWithContext(ctx cont
 // TokenReviewPatchMapInput is an input type that accepts TokenReviewPatchMap and TokenReviewPatchMapOutput values.
 // You can construct a concrete instance of `TokenReviewPatchMapInput` via:
 //
-//          TokenReviewPatchMap{ "key": TokenReviewPatchArgs{...} }
+//	TokenReviewPatchMap{ "key": TokenReviewPatchArgs{...} }
 type TokenReviewPatchMapInput interface {
 	pulumi.Input
 

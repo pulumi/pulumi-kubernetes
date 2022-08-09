@@ -169,7 +169,7 @@ func (i *StorageClassPatch) ToStorageClassPatchOutputWithContext(ctx context.Con
 // StorageClassPatchArrayInput is an input type that accepts StorageClassPatchArray and StorageClassPatchArrayOutput values.
 // You can construct a concrete instance of `StorageClassPatchArrayInput` via:
 //
-//          StorageClassPatchArray{ StorageClassPatchArgs{...} }
+//	StorageClassPatchArray{ StorageClassPatchArgs{...} }
 type StorageClassPatchArrayInput interface {
 	pulumi.Input
 
@@ -194,7 +194,7 @@ func (i StorageClassPatchArray) ToStorageClassPatchArrayOutputWithContext(ctx co
 // StorageClassPatchMapInput is an input type that accepts StorageClassPatchMap and StorageClassPatchMapOutput values.
 // You can construct a concrete instance of `StorageClassPatchMapInput` via:
 //
-//          StorageClassPatchMap{ "key": StorageClassPatchArgs{...} }
+//	StorageClassPatchMap{ "key": StorageClassPatchArgs{...} }
 type StorageClassPatchMapInput interface {
 	pulumi.Input
 

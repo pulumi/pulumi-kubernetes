@@ -135,7 +135,7 @@ func (i *PriorityLevelConfigurationPatch) ToPriorityLevelConfigurationPatchOutpu
 // PriorityLevelConfigurationPatchArrayInput is an input type that accepts PriorityLevelConfigurationPatchArray and PriorityLevelConfigurationPatchArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationPatchArrayInput` via:
 //
-//          PriorityLevelConfigurationPatchArray{ PriorityLevelConfigurationPatchArgs{...} }
+//	PriorityLevelConfigurationPatchArray{ PriorityLevelConfigurationPatchArgs{...} }
 type PriorityLevelConfigurationPatchArrayInput interface {
 	pulumi.Input
 
@@ -160,7 +160,7 @@ func (i PriorityLevelConfigurationPatchArray) ToPriorityLevelConfigurationPatchA
 // PriorityLevelConfigurationPatchMapInput is an input type that accepts PriorityLevelConfigurationPatchMap and PriorityLevelConfigurationPatchMapOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationPatchMapInput` via:
 //
-//          PriorityLevelConfigurationPatchMap{ "key": PriorityLevelConfigurationPatchArgs{...} }
+//	PriorityLevelConfigurationPatchMap{ "key": PriorityLevelConfigurationPatchArgs{...} }
 type PriorityLevelConfigurationPatchMapInput interface {
 	pulumi.Input
 

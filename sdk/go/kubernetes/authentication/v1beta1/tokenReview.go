@@ -123,7 +123,7 @@ func (i *TokenReview) ToTokenReviewOutputWithContext(ctx context.Context) TokenR
 // TokenReviewArrayInput is an input type that accepts TokenReviewArray and TokenReviewArrayOutput values.
 // You can construct a concrete instance of `TokenReviewArrayInput` via:
 //
-//          TokenReviewArray{ TokenReviewArgs{...} }
+//	TokenReviewArray{ TokenReviewArgs{...} }
 type TokenReviewArrayInput interface {
 	pulumi.Input
 
@@ -148,7 +148,7 @@ func (i TokenReviewArray) ToTokenReviewArrayOutputWithContext(ctx context.Contex
 // TokenReviewMapInput is an input type that accepts TokenReviewMap and TokenReviewMapOutput values.
 // You can construct a concrete instance of `TokenReviewMapInput` via:
 //
-//          TokenReviewMap{ "key": TokenReviewArgs{...} }
+//	TokenReviewMap{ "key": TokenReviewArgs{...} }
 type TokenReviewMapInput interface {
 	pulumi.Input
 

@@ -19,18 +19,18 @@ import (
 // [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
 // additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-//  - Network: A single stable DNS and hostname.
-//  - Storage: As many VolumeClaims as requested.
-//    The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//   - Network: A single stable DNS and hostname.
+//   - Storage: As many VolumeClaims as requested.
+//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
-//    and '.status.readyReplicas'.
-// 2. The value of '.status.updateRevision' matches '.status.currentRevision'.
+//  1. The value of 'spec.replicas' matches '.status.replicas', '.status.currentReplicas',
+//     and '.status.readyReplicas'.
+//  2. The value of '.status.updateRevision' matches '.status.currentRevision'.
 //
 // If the StatefulSet has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -150,7 +150,7 @@ func (i *StatefulSetPatch) ToStatefulSetPatchOutputWithContext(ctx context.Conte
 // StatefulSetPatchArrayInput is an input type that accepts StatefulSetPatchArray and StatefulSetPatchArrayOutput values.
 // You can construct a concrete instance of `StatefulSetPatchArrayInput` via:
 //
-//          StatefulSetPatchArray{ StatefulSetPatchArgs{...} }
+//	StatefulSetPatchArray{ StatefulSetPatchArgs{...} }
 type StatefulSetPatchArrayInput interface {
 	pulumi.Input
 
@@ -175,7 +175,7 @@ func (i StatefulSetPatchArray) ToStatefulSetPatchArrayOutputWithContext(ctx cont
 // StatefulSetPatchMapInput is an input type that accepts StatefulSetPatchMap and StatefulSetPatchMapOutput values.
 // You can construct a concrete instance of `StatefulSetPatchMapInput` via:
 //
-//          StatefulSetPatchMap{ "key": StatefulSetPatchArgs{...} }
+//	StatefulSetPatchMap{ "key": StatefulSetPatchArgs{...} }
 type StatefulSetPatchMapInput interface {
 	pulumi.Input
 

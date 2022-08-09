@@ -27,7 +27,7 @@ type CSIDriverType struct {
 // CSIDriverTypeInput is an input type that accepts CSIDriverTypeArgs and CSIDriverTypeOutput values.
 // You can construct a concrete instance of `CSIDriverTypeInput` via:
 //
-//          CSIDriverTypeArgs{...}
+//	CSIDriverTypeArgs{...}
 type CSIDriverTypeInput interface {
 	pulumi.Input
 
@@ -62,7 +62,7 @@ func (i CSIDriverTypeArgs) ToCSIDriverTypeOutputWithContext(ctx context.Context)
 // CSIDriverTypeArrayInput is an input type that accepts CSIDriverTypeArray and CSIDriverTypeArrayOutput values.
 // You can construct a concrete instance of `CSIDriverTypeArrayInput` via:
 //
-//          CSIDriverTypeArray{ CSIDriverTypeArgs{...} }
+//	CSIDriverTypeArray{ CSIDriverTypeArgs{...} }
 type CSIDriverTypeArrayInput interface {
 	pulumi.Input
 
@@ -154,7 +154,7 @@ type CSIDriverListType struct {
 // CSIDriverListTypeInput is an input type that accepts CSIDriverListTypeArgs and CSIDriverListTypeOutput values.
 // You can construct a concrete instance of `CSIDriverListTypeInput` via:
 //
-//          CSIDriverListTypeArgs{...}
+//	CSIDriverListTypeArgs{...}
 type CSIDriverListTypeInput interface {
 	pulumi.Input
 
@@ -236,7 +236,7 @@ type CSIDriverPatchType struct {
 // CSIDriverPatchTypeInput is an input type that accepts CSIDriverPatchTypeArgs and CSIDriverPatchTypeOutput values.
 // You can construct a concrete instance of `CSIDriverPatchTypeInput` via:
 //
-//          CSIDriverPatchTypeArgs{...}
+//	CSIDriverPatchTypeArgs{...}
 type CSIDriverPatchTypeInput interface {
 	pulumi.Input
 
@@ -347,7 +347,7 @@ type CSIDriverSpec struct {
 // CSIDriverSpecInput is an input type that accepts CSIDriverSpecArgs and CSIDriverSpecOutput values.
 // You can construct a concrete instance of `CSIDriverSpecInput` via:
 //
-//          CSIDriverSpecArgs{...}
+//	CSIDriverSpecArgs{...}
 type CSIDriverSpecInput interface {
 	pulumi.Input
 
@@ -434,7 +434,8 @@ func (o CSIDriverSpecOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 }
 
 // If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
-//                                 defined by a CSIVolumeSource, otherwise "false"
+//
+//	defined by a CSIVolumeSource, otherwise "false"
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 func (o CSIDriverSpecOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
@@ -461,13 +462,13 @@ func (o CSIDriverSpecOutput) StorageCapacity() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpec) *bool { return v.StorageCapacity }).(pulumi.BoolPtrOutput)
 }
 
-// TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
-//   "<audience>": {
-//     "token": <token>,
-//     "expirationTimestamp": <expiration timestamp in RFC3339>,
-//   },
-//   ...
-// }
+//	TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+//	  "<audience>": {
+//	    "token": <token>,
+//	    "expirationTimestamp": <expiration timestamp in RFC3339>,
+//	  },
+//	  ...
+//	}
 //
 // Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
 //
@@ -525,7 +526,7 @@ type CSIDriverSpecPatch struct {
 // CSIDriverSpecPatchInput is an input type that accepts CSIDriverSpecPatchArgs and CSIDriverSpecPatchOutput values.
 // You can construct a concrete instance of `CSIDriverSpecPatchInput` via:
 //
-//          CSIDriverSpecPatchArgs{...}
+//	CSIDriverSpecPatchArgs{...}
 type CSIDriverSpecPatchInput interface {
 	pulumi.Input
 
@@ -597,11 +598,11 @@ func (i CSIDriverSpecPatchArgs) ToCSIDriverSpecPatchPtrOutputWithContext(ctx con
 // CSIDriverSpecPatchPtrInput is an input type that accepts CSIDriverSpecPatchArgs, CSIDriverSpecPatchPtr and CSIDriverSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CSIDriverSpecPatchPtrInput` via:
 //
-//          CSIDriverSpecPatchArgs{...}
+//	        CSIDriverSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CSIDriverSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -663,7 +664,8 @@ func (o CSIDriverSpecPatchOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 }
 
 // If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
-//                                 defined by a CSIVolumeSource, otherwise "false"
+//
+//	defined by a CSIVolumeSource, otherwise "false"
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 func (o CSIDriverSpecPatchOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
@@ -690,13 +692,13 @@ func (o CSIDriverSpecPatchOutput) StorageCapacity() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CSIDriverSpecPatch) *bool { return v.StorageCapacity }).(pulumi.BoolPtrOutput)
 }
 
-// TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
-//   "<audience>": {
-//     "token": <token>,
-//     "expirationTimestamp": <expiration timestamp in RFC3339>,
-//   },
-//   ...
-// }
+//	TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+//	  "<audience>": {
+//	    "token": <token>,
+//	    "expirationTimestamp": <expiration timestamp in RFC3339>,
+//	  },
+//	  ...
+//	}
 //
 // Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
 //
@@ -755,7 +757,8 @@ func (o CSIDriverSpecPatchPtrOutput) FsGroupPolicy() pulumi.StringPtrOutput {
 }
 
 // If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" iff the volume is an ephemeral inline volume
-//                                 defined by a CSIVolumeSource, otherwise "false"
+//
+//	defined by a CSIVolumeSource, otherwise "false"
 //
 // "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
 func (o CSIDriverSpecPatchPtrOutput) PodInfoOnMount() pulumi.BoolPtrOutput {
@@ -797,13 +800,13 @@ func (o CSIDriverSpecPatchPtrOutput) StorageCapacity() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
-//   "<audience>": {
-//     "token": <token>,
-//     "expirationTimestamp": <expiration timestamp in RFC3339>,
-//   },
-//   ...
-// }
+//	TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+//	  "<audience>": {
+//	    "token": <token>,
+//	    "expirationTimestamp": <expiration timestamp in RFC3339>,
+//	  },
+//	  ...
+//	}
 //
 // Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
 //
@@ -842,7 +845,7 @@ type CSINodeType struct {
 // CSINodeTypeInput is an input type that accepts CSINodeTypeArgs and CSINodeTypeOutput values.
 // You can construct a concrete instance of `CSINodeTypeInput` via:
 //
-//          CSINodeTypeArgs{...}
+//	CSINodeTypeArgs{...}
 type CSINodeTypeInput interface {
 	pulumi.Input
 
@@ -877,7 +880,7 @@ func (i CSINodeTypeArgs) ToCSINodeTypeOutputWithContext(ctx context.Context) CSI
 // CSINodeTypeArrayInput is an input type that accepts CSINodeTypeArray and CSINodeTypeArrayOutput values.
 // You can construct a concrete instance of `CSINodeTypeArrayInput` via:
 //
-//          CSINodeTypeArray{ CSINodeTypeArgs{...} }
+//	CSINodeTypeArray{ CSINodeTypeArgs{...} }
 type CSINodeTypeArrayInput interface {
 	pulumi.Input
 
@@ -969,7 +972,7 @@ type CSINodeDriver struct {
 // CSINodeDriverInput is an input type that accepts CSINodeDriverArgs and CSINodeDriverOutput values.
 // You can construct a concrete instance of `CSINodeDriverInput` via:
 //
-//          CSINodeDriverArgs{...}
+//	CSINodeDriverArgs{...}
 type CSINodeDriverInput interface {
 	pulumi.Input
 
@@ -1004,7 +1007,7 @@ func (i CSINodeDriverArgs) ToCSINodeDriverOutputWithContext(ctx context.Context)
 // CSINodeDriverArrayInput is an input type that accepts CSINodeDriverArray and CSINodeDriverArrayOutput values.
 // You can construct a concrete instance of `CSINodeDriverArrayInput` via:
 //
-//          CSINodeDriverArray{ CSINodeDriverArgs{...} }
+//	CSINodeDriverArray{ CSINodeDriverArgs{...} }
 type CSINodeDriverArrayInput interface {
 	pulumi.Input
 
@@ -1096,7 +1099,7 @@ type CSINodeDriverPatch struct {
 // CSINodeDriverPatchInput is an input type that accepts CSINodeDriverPatchArgs and CSINodeDriverPatchOutput values.
 // You can construct a concrete instance of `CSINodeDriverPatchInput` via:
 //
-//          CSINodeDriverPatchArgs{...}
+//	CSINodeDriverPatchArgs{...}
 type CSINodeDriverPatchInput interface {
 	pulumi.Input
 
@@ -1131,7 +1134,7 @@ func (i CSINodeDriverPatchArgs) ToCSINodeDriverPatchOutputWithContext(ctx contex
 // CSINodeDriverPatchArrayInput is an input type that accepts CSINodeDriverPatchArray and CSINodeDriverPatchArrayOutput values.
 // You can construct a concrete instance of `CSINodeDriverPatchArrayInput` via:
 //
-//          CSINodeDriverPatchArray{ CSINodeDriverPatchArgs{...} }
+//	CSINodeDriverPatchArray{ CSINodeDriverPatchArgs{...} }
 type CSINodeDriverPatchArrayInput interface {
 	pulumi.Input
 
@@ -1223,7 +1226,7 @@ type CSINodeListType struct {
 // CSINodeListTypeInput is an input type that accepts CSINodeListTypeArgs and CSINodeListTypeOutput values.
 // You can construct a concrete instance of `CSINodeListTypeInput` via:
 //
-//          CSINodeListTypeArgs{...}
+//	CSINodeListTypeArgs{...}
 type CSINodeListTypeInput interface {
 	pulumi.Input
 
@@ -1305,7 +1308,7 @@ type CSINodePatchType struct {
 // CSINodePatchTypeInput is an input type that accepts CSINodePatchTypeArgs and CSINodePatchTypeOutput values.
 // You can construct a concrete instance of `CSINodePatchTypeInput` via:
 //
-//          CSINodePatchTypeArgs{...}
+//	CSINodePatchTypeArgs{...}
 type CSINodePatchTypeInput interface {
 	pulumi.Input
 
@@ -1381,7 +1384,7 @@ type CSINodeSpec struct {
 // CSINodeSpecInput is an input type that accepts CSINodeSpecArgs and CSINodeSpecOutput values.
 // You can construct a concrete instance of `CSINodeSpecInput` via:
 //
-//          CSINodeSpecArgs{...}
+//	CSINodeSpecArgs{...}
 type CSINodeSpecInput interface {
 	pulumi.Input
 
@@ -1436,7 +1439,7 @@ type CSINodeSpecPatch struct {
 // CSINodeSpecPatchInput is an input type that accepts CSINodeSpecPatchArgs and CSINodeSpecPatchOutput values.
 // You can construct a concrete instance of `CSINodeSpecPatchInput` via:
 //
-//          CSINodeSpecPatchArgs{...}
+//	CSINodeSpecPatchArgs{...}
 type CSINodeSpecPatchInput interface {
 	pulumi.Input
 
@@ -1473,11 +1476,11 @@ func (i CSINodeSpecPatchArgs) ToCSINodeSpecPatchPtrOutputWithContext(ctx context
 // CSINodeSpecPatchPtrInput is an input type that accepts CSINodeSpecPatchArgs, CSINodeSpecPatchPtr and CSINodeSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CSINodeSpecPatchPtrInput` via:
 //
-//          CSINodeSpecPatchArgs{...}
+//	        CSINodeSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CSINodeSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1604,7 +1607,7 @@ type CSIStorageCapacityType struct {
 // CSIStorageCapacityTypeInput is an input type that accepts CSIStorageCapacityTypeArgs and CSIStorageCapacityTypeOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityTypeInput` via:
 //
-//          CSIStorageCapacityTypeArgs{...}
+//	CSIStorageCapacityTypeArgs{...}
 type CSIStorageCapacityTypeInput interface {
 	pulumi.Input
 
@@ -1661,7 +1664,7 @@ func (i CSIStorageCapacityTypeArgs) ToCSIStorageCapacityTypeOutputWithContext(ct
 // CSIStorageCapacityTypeArrayInput is an input type that accepts CSIStorageCapacityTypeArray and CSIStorageCapacityTypeArrayOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityTypeArrayInput` via:
 //
-//          CSIStorageCapacityTypeArray{ CSIStorageCapacityTypeArgs{...} }
+//	CSIStorageCapacityTypeArray{ CSIStorageCapacityTypeArgs{...} }
 type CSIStorageCapacityTypeArrayInput interface {
 	pulumi.Input
 
@@ -1784,7 +1787,7 @@ type CSIStorageCapacityListType struct {
 // CSIStorageCapacityListTypeInput is an input type that accepts CSIStorageCapacityListTypeArgs and CSIStorageCapacityListTypeOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityListTypeInput` via:
 //
-//          CSIStorageCapacityListTypeArgs{...}
+//	CSIStorageCapacityListTypeArgs{...}
 type CSIStorageCapacityListTypeInput interface {
 	pulumi.Input
 
@@ -1888,7 +1891,7 @@ type CSIStorageCapacityPatchType struct {
 // CSIStorageCapacityPatchTypeInput is an input type that accepts CSIStorageCapacityPatchTypeArgs and CSIStorageCapacityPatchTypeOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityPatchTypeInput` via:
 //
-//          CSIStorageCapacityPatchTypeArgs{...}
+//	CSIStorageCapacityPatchTypeArgs{...}
 type CSIStorageCapacityPatchTypeInput interface {
 	pulumi.Input
 
@@ -2037,7 +2040,7 @@ type StorageClassType struct {
 // StorageClassTypeInput is an input type that accepts StorageClassTypeArgs and StorageClassTypeOutput values.
 // You can construct a concrete instance of `StorageClassTypeInput` via:
 //
-//          StorageClassTypeArgs{...}
+//	StorageClassTypeArgs{...}
 type StorageClassTypeInput interface {
 	pulumi.Input
 
@@ -2086,7 +2089,7 @@ func (i StorageClassTypeArgs) ToStorageClassTypeOutputWithContext(ctx context.Co
 // StorageClassTypeArrayInput is an input type that accepts StorageClassTypeArray and StorageClassTypeArrayOutput values.
 // You can construct a concrete instance of `StorageClassTypeArrayInput` via:
 //
-//          StorageClassTypeArray{ StorageClassTypeArgs{...} }
+//	StorageClassTypeArray{ StorageClassTypeArgs{...} }
 type StorageClassTypeArrayInput interface {
 	pulumi.Input
 
@@ -2210,7 +2213,7 @@ type StorageClassListType struct {
 // StorageClassListTypeInput is an input type that accepts StorageClassListTypeArgs and StorageClassListTypeOutput values.
 // You can construct a concrete instance of `StorageClassListTypeInput` via:
 //
-//          StorageClassListTypeArgs{...}
+//	StorageClassListTypeArgs{...}
 type StorageClassListTypeInput interface {
 	pulumi.Input
 
@@ -2306,7 +2309,7 @@ type StorageClassPatchType struct {
 // StorageClassPatchTypeInput is an input type that accepts StorageClassPatchTypeArgs and StorageClassPatchTypeOutput values.
 // You can construct a concrete instance of `StorageClassPatchTypeInput` via:
 //
-//          StorageClassPatchTypeArgs{...}
+//	StorageClassPatchTypeArgs{...}
 type StorageClassPatchTypeInput interface {
 	pulumi.Input
 
@@ -2430,7 +2433,7 @@ type TokenRequest struct {
 // TokenRequestInput is an input type that accepts TokenRequestArgs and TokenRequestOutput values.
 // You can construct a concrete instance of `TokenRequestInput` via:
 //
-//          TokenRequestArgs{...}
+//	TokenRequestArgs{...}
 type TokenRequestInput interface {
 	pulumi.Input
 
@@ -2461,7 +2464,7 @@ func (i TokenRequestArgs) ToTokenRequestOutputWithContext(ctx context.Context) T
 // TokenRequestArrayInput is an input type that accepts TokenRequestArray and TokenRequestArrayOutput values.
 // You can construct a concrete instance of `TokenRequestArrayInput` via:
 //
-//          TokenRequestArray{ TokenRequestArgs{...} }
+//	TokenRequestArray{ TokenRequestArgs{...} }
 type TokenRequestArrayInput interface {
 	pulumi.Input
 
@@ -2539,7 +2542,7 @@ type TokenRequestPatch struct {
 // TokenRequestPatchInput is an input type that accepts TokenRequestPatchArgs and TokenRequestPatchOutput values.
 // You can construct a concrete instance of `TokenRequestPatchInput` via:
 //
-//          TokenRequestPatchArgs{...}
+//	TokenRequestPatchArgs{...}
 type TokenRequestPatchInput interface {
 	pulumi.Input
 
@@ -2570,7 +2573,7 @@ func (i TokenRequestPatchArgs) ToTokenRequestPatchOutputWithContext(ctx context.
 // TokenRequestPatchArrayInput is an input type that accepts TokenRequestPatchArray and TokenRequestPatchArrayOutput values.
 // You can construct a concrete instance of `TokenRequestPatchArrayInput` via:
 //
-//          TokenRequestPatchArray{ TokenRequestPatchArgs{...} }
+//	TokenRequestPatchArray{ TokenRequestPatchArgs{...} }
 type TokenRequestPatchArrayInput interface {
 	pulumi.Input
 
@@ -2656,7 +2659,7 @@ type VolumeAttachmentType struct {
 // VolumeAttachmentTypeInput is an input type that accepts VolumeAttachmentTypeArgs and VolumeAttachmentTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeInput` via:
 //
-//          VolumeAttachmentTypeArgs{...}
+//	VolumeAttachmentTypeArgs{...}
 type VolumeAttachmentTypeInput interface {
 	pulumi.Input
 
@@ -2695,7 +2698,7 @@ func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx co
 // VolumeAttachmentTypeArrayInput is an input type that accepts VolumeAttachmentTypeArray and VolumeAttachmentTypeArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeArrayInput` via:
 //
-//          VolumeAttachmentTypeArray{ VolumeAttachmentTypeArgs{...} }
+//	VolumeAttachmentTypeArray{ VolumeAttachmentTypeArgs{...} }
 type VolumeAttachmentTypeArrayInput interface {
 	pulumi.Input
 
@@ -2794,7 +2797,7 @@ type VolumeAttachmentListType struct {
 // VolumeAttachmentListTypeInput is an input type that accepts VolumeAttachmentListTypeArgs and VolumeAttachmentListTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentListTypeInput` via:
 //
-//          VolumeAttachmentListTypeArgs{...}
+//	VolumeAttachmentListTypeArgs{...}
 type VolumeAttachmentListTypeInput interface {
 	pulumi.Input
 
@@ -2880,7 +2883,7 @@ type VolumeAttachmentPatchType struct {
 // VolumeAttachmentPatchTypeInput is an input type that accepts VolumeAttachmentPatchTypeArgs and VolumeAttachmentPatchTypeOutput values.
 // You can construct a concrete instance of `VolumeAttachmentPatchTypeInput` via:
 //
-//          VolumeAttachmentPatchTypeArgs{...}
+//	VolumeAttachmentPatchTypeArgs{...}
 type VolumeAttachmentPatchTypeInput interface {
 	pulumi.Input
 
@@ -2969,7 +2972,7 @@ type VolumeAttachmentSource struct {
 // VolumeAttachmentSourceInput is an input type that accepts VolumeAttachmentSourceArgs and VolumeAttachmentSourceOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourceInput` via:
 //
-//          VolumeAttachmentSourceArgs{...}
+//	VolumeAttachmentSourceArgs{...}
 type VolumeAttachmentSourceInput interface {
 	pulumi.Input
 
@@ -3033,7 +3036,7 @@ type VolumeAttachmentSourcePatch struct {
 // VolumeAttachmentSourcePatchInput is an input type that accepts VolumeAttachmentSourcePatchArgs and VolumeAttachmentSourcePatchOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourcePatchInput` via:
 //
-//          VolumeAttachmentSourcePatchArgs{...}
+//	VolumeAttachmentSourcePatchArgs{...}
 type VolumeAttachmentSourcePatchInput interface {
 	pulumi.Input
 
@@ -3072,11 +3075,11 @@ func (i VolumeAttachmentSourcePatchArgs) ToVolumeAttachmentSourcePatchPtrOutputW
 // VolumeAttachmentSourcePatchPtrInput is an input type that accepts VolumeAttachmentSourcePatchArgs, VolumeAttachmentSourcePatchPtr and VolumeAttachmentSourcePatchPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSourcePatchPtrInput` via:
 //
-//          VolumeAttachmentSourcePatchArgs{...}
+//	        VolumeAttachmentSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeAttachmentSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -3194,7 +3197,7 @@ type VolumeAttachmentSpec struct {
 // VolumeAttachmentSpecInput is an input type that accepts VolumeAttachmentSpecArgs and VolumeAttachmentSpecOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecInput` via:
 //
-//          VolumeAttachmentSpecArgs{...}
+//	VolumeAttachmentSpecArgs{...}
 type VolumeAttachmentSpecInput interface {
 	pulumi.Input
 
@@ -3267,7 +3270,7 @@ type VolumeAttachmentSpecPatch struct {
 // VolumeAttachmentSpecPatchInput is an input type that accepts VolumeAttachmentSpecPatchArgs and VolumeAttachmentSpecPatchOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecPatchInput` via:
 //
-//          VolumeAttachmentSpecPatchArgs{...}
+//	VolumeAttachmentSpecPatchArgs{...}
 type VolumeAttachmentSpecPatchInput interface {
 	pulumi.Input
 
@@ -3308,11 +3311,11 @@ func (i VolumeAttachmentSpecPatchArgs) ToVolumeAttachmentSpecPatchPtrOutputWithC
 // VolumeAttachmentSpecPatchPtrInput is an input type that accepts VolumeAttachmentSpecPatchArgs, VolumeAttachmentSpecPatchPtr and VolumeAttachmentSpecPatchPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentSpecPatchPtrInput` via:
 //
-//          VolumeAttachmentSpecPatchArgs{...}
+//	        VolumeAttachmentSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeAttachmentSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -3447,7 +3450,7 @@ type VolumeAttachmentStatus struct {
 // VolumeAttachmentStatusInput is an input type that accepts VolumeAttachmentStatusArgs and VolumeAttachmentStatusOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusInput` via:
 //
-//          VolumeAttachmentStatusArgs{...}
+//	VolumeAttachmentStatusArgs{...}
 type VolumeAttachmentStatusInput interface {
 	pulumi.Input
 
@@ -3490,11 +3493,11 @@ func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusPtrOutputWithContext
 // VolumeAttachmentStatusPtrInput is an input type that accepts VolumeAttachmentStatusArgs, VolumeAttachmentStatusPtr and VolumeAttachmentStatusPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusPtrInput` via:
 //
-//          VolumeAttachmentStatusArgs{...}
+//	        VolumeAttachmentStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeAttachmentStatusPtrInput interface {
 	pulumi.Input
 
@@ -3644,7 +3647,7 @@ type VolumeAttachmentStatusPatch struct {
 // VolumeAttachmentStatusPatchInput is an input type that accepts VolumeAttachmentStatusPatchArgs and VolumeAttachmentStatusPatchOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusPatchInput` via:
 //
-//          VolumeAttachmentStatusPatchArgs{...}
+//	VolumeAttachmentStatusPatchArgs{...}
 type VolumeAttachmentStatusPatchInput interface {
 	pulumi.Input
 
@@ -3687,11 +3690,11 @@ func (i VolumeAttachmentStatusPatchArgs) ToVolumeAttachmentStatusPatchPtrOutputW
 // VolumeAttachmentStatusPatchPtrInput is an input type that accepts VolumeAttachmentStatusPatchArgs, VolumeAttachmentStatusPatchPtr and VolumeAttachmentStatusPatchPtrOutput values.
 // You can construct a concrete instance of `VolumeAttachmentStatusPatchPtrInput` via:
 //
-//          VolumeAttachmentStatusPatchArgs{...}
+//	        VolumeAttachmentStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeAttachmentStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -3837,7 +3840,7 @@ type VolumeError struct {
 // VolumeErrorInput is an input type that accepts VolumeErrorArgs and VolumeErrorOutput values.
 // You can construct a concrete instance of `VolumeErrorInput` via:
 //
-//          VolumeErrorArgs{...}
+//	VolumeErrorArgs{...}
 type VolumeErrorInput interface {
 	pulumi.Input
 
@@ -3876,11 +3879,11 @@ func (i VolumeErrorArgs) ToVolumeErrorPtrOutputWithContext(ctx context.Context) 
 // VolumeErrorPtrInput is an input type that accepts VolumeErrorArgs, VolumeErrorPtr and VolumeErrorPtrOutput values.
 // You can construct a concrete instance of `VolumeErrorPtrInput` via:
 //
-//          VolumeErrorArgs{...}
+//	        VolumeErrorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeErrorPtrInput interface {
 	pulumi.Input
 
@@ -3996,7 +3999,7 @@ type VolumeErrorPatch struct {
 // VolumeErrorPatchInput is an input type that accepts VolumeErrorPatchArgs and VolumeErrorPatchOutput values.
 // You can construct a concrete instance of `VolumeErrorPatchInput` via:
 //
-//          VolumeErrorPatchArgs{...}
+//	VolumeErrorPatchArgs{...}
 type VolumeErrorPatchInput interface {
 	pulumi.Input
 
@@ -4035,11 +4038,11 @@ func (i VolumeErrorPatchArgs) ToVolumeErrorPatchPtrOutputWithContext(ctx context
 // VolumeErrorPatchPtrInput is an input type that accepts VolumeErrorPatchArgs, VolumeErrorPatchPtr and VolumeErrorPatchPtrOutput values.
 // You can construct a concrete instance of `VolumeErrorPatchPtrInput` via:
 //
-//          VolumeErrorPatchArgs{...}
+//	        VolumeErrorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeErrorPatchPtrInput interface {
 	pulumi.Input
 
@@ -4153,7 +4156,7 @@ type VolumeNodeResources struct {
 // VolumeNodeResourcesInput is an input type that accepts VolumeNodeResourcesArgs and VolumeNodeResourcesOutput values.
 // You can construct a concrete instance of `VolumeNodeResourcesInput` via:
 //
-//          VolumeNodeResourcesArgs{...}
+//	VolumeNodeResourcesArgs{...}
 type VolumeNodeResourcesInput interface {
 	pulumi.Input
 
@@ -4190,11 +4193,11 @@ func (i VolumeNodeResourcesArgs) ToVolumeNodeResourcesPtrOutputWithContext(ctx c
 // VolumeNodeResourcesPtrInput is an input type that accepts VolumeNodeResourcesArgs, VolumeNodeResourcesPtr and VolumeNodeResourcesPtrOutput values.
 // You can construct a concrete instance of `VolumeNodeResourcesPtrInput` via:
 //
-//          VolumeNodeResourcesArgs{...}
+//	        VolumeNodeResourcesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeNodeResourcesPtrInput interface {
 	pulumi.Input
 
@@ -4293,7 +4296,7 @@ type VolumeNodeResourcesPatch struct {
 // VolumeNodeResourcesPatchInput is an input type that accepts VolumeNodeResourcesPatchArgs and VolumeNodeResourcesPatchOutput values.
 // You can construct a concrete instance of `VolumeNodeResourcesPatchInput` via:
 //
-//          VolumeNodeResourcesPatchArgs{...}
+//	VolumeNodeResourcesPatchArgs{...}
 type VolumeNodeResourcesPatchInput interface {
 	pulumi.Input
 
@@ -4330,11 +4333,11 @@ func (i VolumeNodeResourcesPatchArgs) ToVolumeNodeResourcesPatchPtrOutputWithCon
 // VolumeNodeResourcesPatchPtrInput is an input type that accepts VolumeNodeResourcesPatchArgs, VolumeNodeResourcesPatchPtr and VolumeNodeResourcesPatchPtrOutput values.
 // You can construct a concrete instance of `VolumeNodeResourcesPatchPtrInput` via:
 //
-//          VolumeNodeResourcesPatchArgs{...}
+//	        VolumeNodeResourcesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeNodeResourcesPatchPtrInput interface {
 	pulumi.Input
 

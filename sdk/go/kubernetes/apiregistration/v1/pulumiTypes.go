@@ -28,7 +28,7 @@ type APIServiceType struct {
 // APIServiceTypeInput is an input type that accepts APIServiceTypeArgs and APIServiceTypeOutput values.
 // You can construct a concrete instance of `APIServiceTypeInput` via:
 //
-//          APIServiceTypeArgs{...}
+//	APIServiceTypeArgs{...}
 type APIServiceTypeInput interface {
 	pulumi.Input
 
@@ -65,7 +65,7 @@ func (i APIServiceTypeArgs) ToAPIServiceTypeOutputWithContext(ctx context.Contex
 // APIServiceTypeArrayInput is an input type that accepts APIServiceTypeArray and APIServiceTypeArrayOutput values.
 // You can construct a concrete instance of `APIServiceTypeArrayInput` via:
 //
-//          APIServiceTypeArray{ APIServiceTypeArgs{...} }
+//	APIServiceTypeArray{ APIServiceTypeArgs{...} }
 type APIServiceTypeArrayInput interface {
 	pulumi.Input
 
@@ -164,7 +164,7 @@ type APIServiceCondition struct {
 // APIServiceConditionInput is an input type that accepts APIServiceConditionArgs and APIServiceConditionOutput values.
 // You can construct a concrete instance of `APIServiceConditionInput` via:
 //
-//          APIServiceConditionArgs{...}
+//	APIServiceConditionArgs{...}
 type APIServiceConditionInput interface {
 	pulumi.Input
 
@@ -201,7 +201,7 @@ func (i APIServiceConditionArgs) ToAPIServiceConditionOutputWithContext(ctx cont
 // APIServiceConditionArrayInput is an input type that accepts APIServiceConditionArray and APIServiceConditionArrayOutput values.
 // You can construct a concrete instance of `APIServiceConditionArrayInput` via:
 //
-//          APIServiceConditionArray{ APIServiceConditionArgs{...} }
+//	APIServiceConditionArray{ APIServiceConditionArgs{...} }
 type APIServiceConditionArrayInput interface {
 	pulumi.Input
 
@@ -300,7 +300,7 @@ type APIServiceConditionPatch struct {
 // APIServiceConditionPatchInput is an input type that accepts APIServiceConditionPatchArgs and APIServiceConditionPatchOutput values.
 // You can construct a concrete instance of `APIServiceConditionPatchInput` via:
 //
-//          APIServiceConditionPatchArgs{...}
+//	APIServiceConditionPatchArgs{...}
 type APIServiceConditionPatchInput interface {
 	pulumi.Input
 
@@ -337,7 +337,7 @@ func (i APIServiceConditionPatchArgs) ToAPIServiceConditionPatchOutputWithContex
 // APIServiceConditionPatchArrayInput is an input type that accepts APIServiceConditionPatchArray and APIServiceConditionPatchArrayOutput values.
 // You can construct a concrete instance of `APIServiceConditionPatchArrayInput` via:
 //
-//          APIServiceConditionPatchArray{ APIServiceConditionPatchArgs{...} }
+//	APIServiceConditionPatchArray{ APIServiceConditionPatchArgs{...} }
 type APIServiceConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -434,7 +434,7 @@ type APIServiceListType struct {
 // APIServiceListTypeInput is an input type that accepts APIServiceListTypeArgs and APIServiceListTypeOutput values.
 // You can construct a concrete instance of `APIServiceListTypeInput` via:
 //
-//          APIServiceListTypeArgs{...}
+//	APIServiceListTypeArgs{...}
 type APIServiceListTypeInput interface {
 	pulumi.Input
 
@@ -518,7 +518,7 @@ type APIServicePatchType struct {
 // APIServicePatchTypeInput is an input type that accepts APIServicePatchTypeArgs and APIServicePatchTypeOutput values.
 // You can construct a concrete instance of `APIServicePatchTypeInput` via:
 //
-//          APIServicePatchTypeArgs{...}
+//	APIServicePatchTypeArgs{...}
 type APIServicePatchTypeInput interface {
 	pulumi.Input
 
@@ -613,7 +613,7 @@ type APIServiceSpec struct {
 // APIServiceSpecInput is an input type that accepts APIServiceSpecArgs and APIServiceSpecOutput values.
 // You can construct a concrete instance of `APIServiceSpecInput` via:
 //
-//          APIServiceSpecArgs{...}
+//	APIServiceSpecArgs{...}
 type APIServiceSpecInput interface {
 	pulumi.Input
 
@@ -662,11 +662,11 @@ func (i APIServiceSpecArgs) ToAPIServiceSpecPtrOutputWithContext(ctx context.Con
 // APIServiceSpecPtrInput is an input type that accepts APIServiceSpecArgs, APIServiceSpecPtr and APIServiceSpecPtrOutput values.
 // You can construct a concrete instance of `APIServiceSpecPtrInput` via:
 //
-//          APIServiceSpecArgs{...}
+//	        APIServiceSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type APIServiceSpecPtrInput interface {
 	pulumi.Input
 
@@ -867,7 +867,7 @@ type APIServiceSpecPatch struct {
 // APIServiceSpecPatchInput is an input type that accepts APIServiceSpecPatchArgs and APIServiceSpecPatchOutput values.
 // You can construct a concrete instance of `APIServiceSpecPatchInput` via:
 //
-//          APIServiceSpecPatchArgs{...}
+//	APIServiceSpecPatchArgs{...}
 type APIServiceSpecPatchInput interface {
 	pulumi.Input
 
@@ -916,11 +916,11 @@ func (i APIServiceSpecPatchArgs) ToAPIServiceSpecPatchPtrOutputWithContext(ctx c
 // APIServiceSpecPatchPtrInput is an input type that accepts APIServiceSpecPatchArgs, APIServiceSpecPatchPtr and APIServiceSpecPatchPtrOutput values.
 // You can construct a concrete instance of `APIServiceSpecPatchPtrInput` via:
 //
-//          APIServiceSpecPatchArgs{...}
+//	        APIServiceSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type APIServiceSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1109,7 +1109,7 @@ type APIServiceStatus struct {
 // APIServiceStatusInput is an input type that accepts APIServiceStatusArgs and APIServiceStatusOutput values.
 // You can construct a concrete instance of `APIServiceStatusInput` via:
 //
-//          APIServiceStatusArgs{...}
+//	APIServiceStatusArgs{...}
 type APIServiceStatusInput interface {
 	pulumi.Input
 
@@ -1146,11 +1146,11 @@ func (i APIServiceStatusArgs) ToAPIServiceStatusPtrOutputWithContext(ctx context
 // APIServiceStatusPtrInput is an input type that accepts APIServiceStatusArgs, APIServiceStatusPtr and APIServiceStatusPtrOutput values.
 // You can construct a concrete instance of `APIServiceStatusPtrInput` via:
 //
-//          APIServiceStatusArgs{...}
+//	        APIServiceStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type APIServiceStatusPtrInput interface {
 	pulumi.Input
 
@@ -1249,7 +1249,7 @@ type APIServiceStatusPatch struct {
 // APIServiceStatusPatchInput is an input type that accepts APIServiceStatusPatchArgs and APIServiceStatusPatchOutput values.
 // You can construct a concrete instance of `APIServiceStatusPatchInput` via:
 //
-//          APIServiceStatusPatchArgs{...}
+//	APIServiceStatusPatchArgs{...}
 type APIServiceStatusPatchInput interface {
 	pulumi.Input
 
@@ -1286,11 +1286,11 @@ func (i APIServiceStatusPatchArgs) ToAPIServiceStatusPatchPtrOutputWithContext(c
 // APIServiceStatusPatchPtrInput is an input type that accepts APIServiceStatusPatchArgs, APIServiceStatusPatchPtr and APIServiceStatusPatchPtrOutput values.
 // You can construct a concrete instance of `APIServiceStatusPatchPtrInput` via:
 //
-//          APIServiceStatusPatchArgs{...}
+//	        APIServiceStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type APIServiceStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1393,7 +1393,7 @@ type ServiceReference struct {
 // ServiceReferenceInput is an input type that accepts ServiceReferenceArgs and ServiceReferenceOutput values.
 // You can construct a concrete instance of `ServiceReferenceInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	ServiceReferenceArgs{...}
 type ServiceReferenceInput interface {
 	pulumi.Input
 
@@ -1434,11 +1434,11 @@ func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context
 // ServiceReferencePtrInput is an input type that accepts ServiceReferenceArgs, ServiceReferencePtr and ServiceReferencePtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePtrInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	        ServiceReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePtrInput interface {
 	pulumi.Input
 
@@ -1571,7 +1571,7 @@ type ServiceReferencePatch struct {
 // ServiceReferencePatchInput is an input type that accepts ServiceReferencePatchArgs and ServiceReferencePatchOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	ServiceReferencePatchArgs{...}
 type ServiceReferencePatchInput interface {
 	pulumi.Input
 
@@ -1612,11 +1612,11 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutputWithContext(c
 // ServiceReferencePatchPtrInput is an input type that accepts ServiceReferencePatchArgs, ServiceReferencePatchPtr and ServiceReferencePatchPtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchPtrInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	        ServiceReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePatchPtrInput interface {
 	pulumi.Input
 

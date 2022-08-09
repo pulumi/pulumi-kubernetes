@@ -118,7 +118,7 @@ func (i *PersistentVolumeList) ToPersistentVolumeListOutputWithContext(ctx conte
 // PersistentVolumeListArrayInput is an input type that accepts PersistentVolumeListArray and PersistentVolumeListArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeListArrayInput` via:
 //
-//          PersistentVolumeListArray{ PersistentVolumeListArgs{...} }
+//	PersistentVolumeListArray{ PersistentVolumeListArgs{...} }
 type PersistentVolumeListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PersistentVolumeListArray) ToPersistentVolumeListArrayOutputWithContext(
 // PersistentVolumeListMapInput is an input type that accepts PersistentVolumeListMap and PersistentVolumeListMapOutput values.
 // You can construct a concrete instance of `PersistentVolumeListMapInput` via:
 //
-//          PersistentVolumeListMap{ "key": PersistentVolumeListArgs{...} }
+//	PersistentVolumeListMap{ "key": PersistentVolumeListArgs{...} }
 type PersistentVolumeListMapInput interface {
 	pulumi.Input
 

@@ -136,7 +136,7 @@ func (i *ServiceAccountPatch) ToServiceAccountPatchOutputWithContext(ctx context
 // ServiceAccountPatchArrayInput is an input type that accepts ServiceAccountPatchArray and ServiceAccountPatchArrayOutput values.
 // You can construct a concrete instance of `ServiceAccountPatchArrayInput` via:
 //
-//          ServiceAccountPatchArray{ ServiceAccountPatchArgs{...} }
+//	ServiceAccountPatchArray{ ServiceAccountPatchArgs{...} }
 type ServiceAccountPatchArrayInput interface {
 	pulumi.Input
 
@@ -161,7 +161,7 @@ func (i ServiceAccountPatchArray) ToServiceAccountPatchArrayOutputWithContext(ct
 // ServiceAccountPatchMapInput is an input type that accepts ServiceAccountPatchMap and ServiceAccountPatchMapOutput values.
 // You can construct a concrete instance of `ServiceAccountPatchMapInput` via:
 //
-//          ServiceAccountPatchMap{ "key": ServiceAccountPatchArgs{...} }
+//	ServiceAccountPatchMap{ "key": ServiceAccountPatchArgs{...} }
 type ServiceAccountPatchMapInput interface {
 	pulumi.Input
 

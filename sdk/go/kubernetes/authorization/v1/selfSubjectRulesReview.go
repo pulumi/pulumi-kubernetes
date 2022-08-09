@@ -126,7 +126,7 @@ func (i *SelfSubjectRulesReview) ToSelfSubjectRulesReviewOutputWithContext(ctx c
 // SelfSubjectRulesReviewArrayInput is an input type that accepts SelfSubjectRulesReviewArray and SelfSubjectRulesReviewArrayOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewArrayInput` via:
 //
-//          SelfSubjectRulesReviewArray{ SelfSubjectRulesReviewArgs{...} }
+//	SelfSubjectRulesReviewArray{ SelfSubjectRulesReviewArgs{...} }
 type SelfSubjectRulesReviewArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i SelfSubjectRulesReviewArray) ToSelfSubjectRulesReviewArrayOutputWithCont
 // SelfSubjectRulesReviewMapInput is an input type that accepts SelfSubjectRulesReviewMap and SelfSubjectRulesReviewMapOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewMapInput` via:
 //
-//          SelfSubjectRulesReviewMap{ "key": SelfSubjectRulesReviewArgs{...} }
+//	SelfSubjectRulesReviewMap{ "key": SelfSubjectRulesReviewArgs{...} }
 type SelfSubjectRulesReviewMapInput interface {
 	pulumi.Input
 

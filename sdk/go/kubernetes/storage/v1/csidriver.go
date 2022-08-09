@@ -124,7 +124,7 @@ func (i *CSIDriver) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverO
 // CSIDriverArrayInput is an input type that accepts CSIDriverArray and CSIDriverArrayOutput values.
 // You can construct a concrete instance of `CSIDriverArrayInput` via:
 //
-//          CSIDriverArray{ CSIDriverArgs{...} }
+//	CSIDriverArray{ CSIDriverArgs{...} }
 type CSIDriverArrayInput interface {
 	pulumi.Input
 
@@ -149,7 +149,7 @@ func (i CSIDriverArray) ToCSIDriverArrayOutputWithContext(ctx context.Context) C
 // CSIDriverMapInput is an input type that accepts CSIDriverMap and CSIDriverMapOutput values.
 // You can construct a concrete instance of `CSIDriverMapInput` via:
 //
-//          CSIDriverMap{ "key": CSIDriverArgs{...} }
+//	CSIDriverMap{ "key": CSIDriverArgs{...} }
 type CSIDriverMapInput interface {
 	pulumi.Input
 

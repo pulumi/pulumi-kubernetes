@@ -118,7 +118,7 @@ func (i *DeploymentList) ToDeploymentListOutputWithContext(ctx context.Context) 
 // DeploymentListArrayInput is an input type that accepts DeploymentListArray and DeploymentListArrayOutput values.
 // You can construct a concrete instance of `DeploymentListArrayInput` via:
 //
-//          DeploymentListArray{ DeploymentListArgs{...} }
+//	DeploymentListArray{ DeploymentListArgs{...} }
 type DeploymentListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i DeploymentListArray) ToDeploymentListArrayOutputWithContext(ctx context.
 // DeploymentListMapInput is an input type that accepts DeploymentListMap and DeploymentListMapOutput values.
 // You can construct a concrete instance of `DeploymentListMapInput` via:
 //
-//          DeploymentListMap{ "key": DeploymentListArgs{...} }
+//	DeploymentListMap{ "key": DeploymentListArgs{...} }
 type DeploymentListMapInput interface {
 	pulumi.Input
 

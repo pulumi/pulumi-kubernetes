@@ -118,7 +118,7 @@ func (i *ConfigMapList) ToConfigMapListOutputWithContext(ctx context.Context) Co
 // ConfigMapListArrayInput is an input type that accepts ConfigMapListArray and ConfigMapListArrayOutput values.
 // You can construct a concrete instance of `ConfigMapListArrayInput` via:
 //
-//          ConfigMapListArray{ ConfigMapListArgs{...} }
+//	ConfigMapListArray{ ConfigMapListArgs{...} }
 type ConfigMapListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i ConfigMapListArray) ToConfigMapListArrayOutputWithContext(ctx context.Co
 // ConfigMapListMapInput is an input type that accepts ConfigMapListMap and ConfigMapListMapOutput values.
 // You can construct a concrete instance of `ConfigMapListMapInput` via:
 //
-//          ConfigMapListMap{ "key": ConfigMapListArgs{...} }
+//	ConfigMapListMap{ "key": ConfigMapListArgs{...} }
 type ConfigMapListMapInput interface {
 	pulumi.Input
 

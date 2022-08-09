@@ -27,7 +27,7 @@ type CertificateSigningRequestType struct {
 // CertificateSigningRequestTypeInput is an input type that accepts CertificateSigningRequestTypeArgs and CertificateSigningRequestTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeInput` via:
 //
-//          CertificateSigningRequestTypeArgs{...}
+//	CertificateSigningRequestTypeArgs{...}
 type CertificateSigningRequestTypeInput interface {
 	pulumi.Input
 
@@ -63,7 +63,7 @@ func (i CertificateSigningRequestTypeArgs) ToCertificateSigningRequestTypeOutput
 // CertificateSigningRequestTypeArrayInput is an input type that accepts CertificateSigningRequestTypeArray and CertificateSigningRequestTypeArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeArrayInput` via:
 //
-//          CertificateSigningRequestTypeArray{ CertificateSigningRequestTypeArgs{...} }
+//	CertificateSigningRequestTypeArray{ CertificateSigningRequestTypeArgs{...} }
 type CertificateSigningRequestTypeArrayInput interface {
 	pulumi.Input
 
@@ -162,7 +162,7 @@ type CertificateSigningRequestCondition struct {
 // CertificateSigningRequestConditionInput is an input type that accepts CertificateSigningRequestConditionArgs and CertificateSigningRequestConditionOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionInput` via:
 //
-//          CertificateSigningRequestConditionArgs{...}
+//	CertificateSigningRequestConditionArgs{...}
 type CertificateSigningRequestConditionInput interface {
 	pulumi.Input
 
@@ -200,7 +200,7 @@ func (i CertificateSigningRequestConditionArgs) ToCertificateSigningRequestCondi
 // CertificateSigningRequestConditionArrayInput is an input type that accepts CertificateSigningRequestConditionArray and CertificateSigningRequestConditionArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionArrayInput` via:
 //
-//          CertificateSigningRequestConditionArray{ CertificateSigningRequestConditionArgs{...} }
+//	CertificateSigningRequestConditionArray{ CertificateSigningRequestConditionArgs{...} }
 type CertificateSigningRequestConditionArrayInput interface {
 	pulumi.Input
 
@@ -304,7 +304,7 @@ type CertificateSigningRequestConditionPatch struct {
 // CertificateSigningRequestConditionPatchInput is an input type that accepts CertificateSigningRequestConditionPatchArgs and CertificateSigningRequestConditionPatchOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionPatchInput` via:
 //
-//          CertificateSigningRequestConditionPatchArgs{...}
+//	CertificateSigningRequestConditionPatchArgs{...}
 type CertificateSigningRequestConditionPatchInput interface {
 	pulumi.Input
 
@@ -342,7 +342,7 @@ func (i CertificateSigningRequestConditionPatchArgs) ToCertificateSigningRequest
 // CertificateSigningRequestConditionPatchArrayInput is an input type that accepts CertificateSigningRequestConditionPatchArray and CertificateSigningRequestConditionPatchArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionPatchArrayInput` via:
 //
-//          CertificateSigningRequestConditionPatchArray{ CertificateSigningRequestConditionPatchArgs{...} }
+//	CertificateSigningRequestConditionPatchArray{ CertificateSigningRequestConditionPatchArgs{...} }
 type CertificateSigningRequestConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -440,7 +440,7 @@ type CertificateSigningRequestListType struct {
 // CertificateSigningRequestListTypeInput is an input type that accepts CertificateSigningRequestListTypeArgs and CertificateSigningRequestListTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestListTypeInput` via:
 //
-//          CertificateSigningRequestListTypeArgs{...}
+//	CertificateSigningRequestListTypeArgs{...}
 type CertificateSigningRequestListTypeInput interface {
 	pulumi.Input
 
@@ -517,7 +517,7 @@ type CertificateSigningRequestPatchType struct {
 // CertificateSigningRequestPatchTypeInput is an input type that accepts CertificateSigningRequestPatchTypeArgs and CertificateSigningRequestPatchTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestPatchTypeInput` via:
 //
-//          CertificateSigningRequestPatchTypeArgs{...}
+//	CertificateSigningRequestPatchTypeArgs{...}
 type CertificateSigningRequestPatchTypeInput interface {
 	pulumi.Input
 
@@ -617,7 +617,7 @@ type CertificateSigningRequestSpec struct {
 // CertificateSigningRequestSpecInput is an input type that accepts CertificateSigningRequestSpecArgs and CertificateSigningRequestSpecOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecInput` via:
 //
-//          CertificateSigningRequestSpecArgs{...}
+//	CertificateSigningRequestSpecArgs{...}
 type CertificateSigningRequestSpecInput interface {
 	pulumi.Input
 
@@ -673,11 +673,11 @@ func (i CertificateSigningRequestSpecArgs) ToCertificateSigningRequestSpecPtrOut
 // CertificateSigningRequestSpecPtrInput is an input type that accepts CertificateSigningRequestSpecArgs, CertificateSigningRequestSpecPtr and CertificateSigningRequestSpecPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecPtrInput` via:
 //
-//          CertificateSigningRequestSpecArgs{...}
+//	        CertificateSigningRequestSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestSpecPtrInput interface {
 	pulumi.Input
 
@@ -760,7 +760,8 @@ func (o CertificateSigningRequestSpecOutput) Uid() pulumi.StringPtrOutput {
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-//      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+//
+//	https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
@@ -851,7 +852,8 @@ func (o CertificateSigningRequestSpecPtrOutput) Uid() pulumi.StringPtrOutput {
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-//      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+//
+//	https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecPtrOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestSpec) []string {
 		if v == nil {
@@ -899,7 +901,7 @@ type CertificateSigningRequestSpecPatch struct {
 // CertificateSigningRequestSpecPatchInput is an input type that accepts CertificateSigningRequestSpecPatchArgs and CertificateSigningRequestSpecPatchOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecPatchInput` via:
 //
-//          CertificateSigningRequestSpecPatchArgs{...}
+//	CertificateSigningRequestSpecPatchArgs{...}
 type CertificateSigningRequestSpecPatchInput interface {
 	pulumi.Input
 
@@ -955,11 +957,11 @@ func (i CertificateSigningRequestSpecPatchArgs) ToCertificateSigningRequestSpecP
 // CertificateSigningRequestSpecPatchPtrInput is an input type that accepts CertificateSigningRequestSpecPatchArgs, CertificateSigningRequestSpecPatchPtr and CertificateSigningRequestSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecPatchPtrInput` via:
 //
-//          CertificateSigningRequestSpecPatchArgs{...}
+//	        CertificateSigningRequestSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1042,7 +1044,8 @@ func (o CertificateSigningRequestSpecPatchOutput) Uid() pulumi.StringPtrOutput {
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-//      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+//
+//	https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecPatchOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpecPatch) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
@@ -1133,7 +1136,8 @@ func (o CertificateSigningRequestSpecPatchPtrOutput) Uid() pulumi.StringPtrOutpu
 }
 
 // allowedUsages specifies a set of usage contexts the key will be valid for. See: https://tools.ietf.org/html/rfc5280#section-4.2.1.3
-//      https://tools.ietf.org/html/rfc5280#section-4.2.1.12
+//
+//	https://tools.ietf.org/html/rfc5280#section-4.2.1.12
 func (o CertificateSigningRequestSpecPatchPtrOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestSpecPatch) []string {
 		if v == nil {
@@ -1163,7 +1167,7 @@ type CertificateSigningRequestStatus struct {
 // CertificateSigningRequestStatusInput is an input type that accepts CertificateSigningRequestStatusArgs and CertificateSigningRequestStatusOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusInput` via:
 //
-//          CertificateSigningRequestStatusArgs{...}
+//	CertificateSigningRequestStatusArgs{...}
 type CertificateSigningRequestStatusInput interface {
 	pulumi.Input
 
@@ -1201,11 +1205,11 @@ func (i CertificateSigningRequestStatusArgs) ToCertificateSigningRequestStatusPt
 // CertificateSigningRequestStatusPtrInput is an input type that accepts CertificateSigningRequestStatusArgs, CertificateSigningRequestStatusPtr and CertificateSigningRequestStatusPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPtrInput` via:
 //
-//          CertificateSigningRequestStatusArgs{...}
+//	        CertificateSigningRequestStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestStatusPtrInput interface {
 	pulumi.Input
 
@@ -1319,7 +1323,7 @@ type CertificateSigningRequestStatusPatch struct {
 // CertificateSigningRequestStatusPatchInput is an input type that accepts CertificateSigningRequestStatusPatchArgs and CertificateSigningRequestStatusPatchOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPatchInput` via:
 //
-//          CertificateSigningRequestStatusPatchArgs{...}
+//	CertificateSigningRequestStatusPatchArgs{...}
 type CertificateSigningRequestStatusPatchInput interface {
 	pulumi.Input
 
@@ -1357,11 +1361,11 @@ func (i CertificateSigningRequestStatusPatchArgs) ToCertificateSigningRequestSta
 // CertificateSigningRequestStatusPatchPtrInput is an input type that accepts CertificateSigningRequestStatusPatchArgs, CertificateSigningRequestStatusPatchPtr and CertificateSigningRequestStatusPatchPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPatchPtrInput` via:
 //
-//          CertificateSigningRequestStatusPatchArgs{...}
+//	        CertificateSigningRequestStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestStatusPatchPtrInput interface {
 	pulumi.Input
 

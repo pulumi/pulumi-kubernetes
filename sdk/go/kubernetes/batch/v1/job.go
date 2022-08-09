@@ -18,10 +18,10 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -39,88 +39,94 @@ import (
 // package main
 //
 // import (
-// 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
-// 			Metadata: nil,
-// 			Spec: &batchv1.JobSpecArgs{
-// 				BackoffLimit: pulumi.Int(4),
-// 				Template: &corev1.PodTemplateSpecArgs{
-// 					Spec: &corev1.PodSpecArgs{
-// 						Containers: corev1.ContainerArray{
-// 							&corev1.ContainerArgs{
-// 								Command: pulumi.StringArray{
-// 									pulumi.String("perl"),
-// 									pulumi.String("-Mbignum=bpi"),
-// 									pulumi.String("-wle"),
-// 									pulumi.String("print bpi(2000)"),
-// 								},
-// 								Image: pulumi.String("perl"),
-// 								Name:  pulumi.String("pi"),
-// 							},
-// 						},
-// 						RestartPolicy: pulumi.String("Never"),
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
+//				Metadata: nil,
+//				Spec: &batchv1.JobSpecArgs{
+//					BackoffLimit: pulumi.Int(4),
+//					Template: &corev1.PodTemplateSpecArgs{
+//						Spec: &corev1.PodSpecArgs{
+//							Containers: corev1.ContainerArray{
+//								&corev1.ContainerArgs{
+//									Command: pulumi.StringArray{
+//										pulumi.String("perl"),
+//										pulumi.String("-Mbignum=bpi"),
+//										pulumi.String("-wle"),
+//										pulumi.String("print bpi(2000)"),
+//									},
+//									Image: pulumi.String("perl"),
+//									Name:  pulumi.String("pi"),
+//								},
+//							},
+//							RestartPolicy: pulumi.String("Never"),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Create a Job with a user-specified name
 // ```go
 // package main
 //
 // import (
-// 	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	batchv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/batch/v1"
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
-// 			Metadata: &metav1.ObjectMetaArgs{
-// 				Name: pulumi.String("pi"),
-// 			},
-// 			Spec: &batchv1.JobSpecArgs{
-// 				BackoffLimit: pulumi.Int(4),
-// 				Template: &corev1.PodTemplateSpecArgs{
-// 					Spec: &corev1.PodSpecArgs{
-// 						Containers: corev1.ContainerArray{
-// 							&corev1.ContainerArgs{
-// 								Command: pulumi.StringArray{
-// 									pulumi.String("perl"),
-// 									pulumi.String("-Mbignum=bpi"),
-// 									pulumi.String("-wle"),
-// 									pulumi.String("print bpi(2000)"),
-// 								},
-// 								Image: pulumi.String("perl"),
-// 								Name:  pulumi.String("pi"),
-// 							},
-// 						},
-// 						RestartPolicy: pulumi.String("Never"),
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := batchv1.NewJob(ctx, "job", &batchv1.JobArgs{
+//				Metadata: &metav1.ObjectMetaArgs{
+//					Name: pulumi.String("pi"),
+//				},
+//				Spec: &batchv1.JobSpecArgs{
+//					BackoffLimit: pulumi.Int(4),
+//					Template: &corev1.PodTemplateSpecArgs{
+//						Spec: &corev1.PodSpecArgs{
+//							Containers: corev1.ContainerArray{
+//								&corev1.ContainerArgs{
+//									Command: pulumi.StringArray{
+//										pulumi.String("perl"),
+//										pulumi.String("-Mbignum=bpi"),
+//										pulumi.String("-wle"),
+//										pulumi.String("print bpi(2000)"),
+//									},
+//									Image: pulumi.String("perl"),
+//									Name:  pulumi.String("pi"),
+//								},
+//							},
+//							RestartPolicy: pulumi.String("Never"),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type Job struct {
 	pulumi.CustomResourceState
@@ -226,7 +232,7 @@ func (i *Job) ToJobOutputWithContext(ctx context.Context) JobOutput {
 // JobArrayInput is an input type that accepts JobArray and JobArrayOutput values.
 // You can construct a concrete instance of `JobArrayInput` via:
 //
-//          JobArray{ JobArgs{...} }
+//	JobArray{ JobArgs{...} }
 type JobArrayInput interface {
 	pulumi.Input
 
@@ -251,7 +257,7 @@ func (i JobArray) ToJobArrayOutputWithContext(ctx context.Context) JobArrayOutpu
 // JobMapInput is an input type that accepts JobMap and JobMapOutput values.
 // You can construct a concrete instance of `JobMapInput` via:
 //
-//          JobMap{ "key": JobArgs{...} }
+//	JobMap{ "key": JobArgs{...} }
 type JobMapInput interface {
 	pulumi.Input
 

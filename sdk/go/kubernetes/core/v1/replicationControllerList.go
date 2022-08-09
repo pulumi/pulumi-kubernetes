@@ -118,7 +118,7 @@ func (i *ReplicationControllerList) ToReplicationControllerListOutputWithContext
 // ReplicationControllerListArrayInput is an input type that accepts ReplicationControllerListArray and ReplicationControllerListArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerListArrayInput` via:
 //
-//          ReplicationControllerListArray{ ReplicationControllerListArgs{...} }
+//	ReplicationControllerListArray{ ReplicationControllerListArgs{...} }
 type ReplicationControllerListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i ReplicationControllerListArray) ToReplicationControllerListArrayOutputWi
 // ReplicationControllerListMapInput is an input type that accepts ReplicationControllerListMap and ReplicationControllerListMapOutput values.
 // You can construct a concrete instance of `ReplicationControllerListMapInput` via:
 //
-//          ReplicationControllerListMap{ "key": ReplicationControllerListArgs{...} }
+//	ReplicationControllerListMap{ "key": ReplicationControllerListArgs{...} }
 type ReplicationControllerListMapInput interface {
 	pulumi.Input
 

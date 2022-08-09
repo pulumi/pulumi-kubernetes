@@ -25,12 +25,12 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -151,7 +151,7 @@ func (i *ServicePatch) ToServicePatchOutputWithContext(ctx context.Context) Serv
 // ServicePatchArrayInput is an input type that accepts ServicePatchArray and ServicePatchArrayOutput values.
 // You can construct a concrete instance of `ServicePatchArrayInput` via:
 //
-//          ServicePatchArray{ ServicePatchArgs{...} }
+//	ServicePatchArray{ ServicePatchArgs{...} }
 type ServicePatchArrayInput interface {
 	pulumi.Input
 
@@ -176,7 +176,7 @@ func (i ServicePatchArray) ToServicePatchArrayOutputWithContext(ctx context.Cont
 // ServicePatchMapInput is an input type that accepts ServicePatchMap and ServicePatchMapOutput values.
 // You can construct a concrete instance of `ServicePatchMapInput` via:
 //
-//          ServicePatchMap{ "key": ServicePatchArgs{...} }
+//	ServicePatchMap{ "key": ServicePatchArgs{...} }
 type ServicePatchMapInput interface {
 	pulumi.Input
 

@@ -118,7 +118,7 @@ func (i *PodPresetPatch) ToPodPresetPatchOutputWithContext(ctx context.Context) 
 // PodPresetPatchArrayInput is an input type that accepts PodPresetPatchArray and PodPresetPatchArrayOutput values.
 // You can construct a concrete instance of `PodPresetPatchArrayInput` via:
 //
-//          PodPresetPatchArray{ PodPresetPatchArgs{...} }
+//	PodPresetPatchArray{ PodPresetPatchArgs{...} }
 type PodPresetPatchArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PodPresetPatchArray) ToPodPresetPatchArrayOutputWithContext(ctx context.
 // PodPresetPatchMapInput is an input type that accepts PodPresetPatchMap and PodPresetPatchMapOutput values.
 // You can construct a concrete instance of `PodPresetPatchMapInput` via:
 //
-//          PodPresetPatchMap{ "key": PodPresetPatchArgs{...} }
+//	PodPresetPatchMap{ "key": PodPresetPatchArgs{...} }
 type PodPresetPatchMapInput interface {
 	pulumi.Input
 

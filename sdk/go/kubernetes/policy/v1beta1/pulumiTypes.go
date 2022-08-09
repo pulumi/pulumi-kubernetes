@@ -21,7 +21,7 @@ type AllowedCSIDriver struct {
 // AllowedCSIDriverInput is an input type that accepts AllowedCSIDriverArgs and AllowedCSIDriverOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverInput` via:
 //
-//          AllowedCSIDriverArgs{...}
+//	AllowedCSIDriverArgs{...}
 type AllowedCSIDriverInput interface {
 	pulumi.Input
 
@@ -50,7 +50,7 @@ func (i AllowedCSIDriverArgs) ToAllowedCSIDriverOutputWithContext(ctx context.Co
 // AllowedCSIDriverArrayInput is an input type that accepts AllowedCSIDriverArray and AllowedCSIDriverArrayOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverArrayInput` via:
 //
-//          AllowedCSIDriverArray{ AllowedCSIDriverArgs{...} }
+//	AllowedCSIDriverArray{ AllowedCSIDriverArgs{...} }
 type AllowedCSIDriverArrayInput interface {
 	pulumi.Input
 
@@ -121,7 +121,7 @@ type AllowedCSIDriverPatch struct {
 // AllowedCSIDriverPatchInput is an input type that accepts AllowedCSIDriverPatchArgs and AllowedCSIDriverPatchOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverPatchInput` via:
 //
-//          AllowedCSIDriverPatchArgs{...}
+//	AllowedCSIDriverPatchArgs{...}
 type AllowedCSIDriverPatchInput interface {
 	pulumi.Input
 
@@ -150,7 +150,7 @@ func (i AllowedCSIDriverPatchArgs) ToAllowedCSIDriverPatchOutputWithContext(ctx 
 // AllowedCSIDriverPatchArrayInput is an input type that accepts AllowedCSIDriverPatchArray and AllowedCSIDriverPatchArrayOutput values.
 // You can construct a concrete instance of `AllowedCSIDriverPatchArrayInput` via:
 //
-//          AllowedCSIDriverPatchArray{ AllowedCSIDriverPatchArgs{...} }
+//	AllowedCSIDriverPatchArray{ AllowedCSIDriverPatchArgs{...} }
 type AllowedCSIDriverPatchArrayInput interface {
 	pulumi.Input
 
@@ -221,7 +221,7 @@ type AllowedFlexVolume struct {
 // AllowedFlexVolumeInput is an input type that accepts AllowedFlexVolumeArgs and AllowedFlexVolumeOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumeInput` via:
 //
-//          AllowedFlexVolumeArgs{...}
+//	AllowedFlexVolumeArgs{...}
 type AllowedFlexVolumeInput interface {
 	pulumi.Input
 
@@ -250,7 +250,7 @@ func (i AllowedFlexVolumeArgs) ToAllowedFlexVolumeOutputWithContext(ctx context.
 // AllowedFlexVolumeArrayInput is an input type that accepts AllowedFlexVolumeArray and AllowedFlexVolumeArrayOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumeArrayInput` via:
 //
-//          AllowedFlexVolumeArray{ AllowedFlexVolumeArgs{...} }
+//	AllowedFlexVolumeArray{ AllowedFlexVolumeArgs{...} }
 type AllowedFlexVolumeArrayInput interface {
 	pulumi.Input
 
@@ -321,7 +321,7 @@ type AllowedFlexVolumePatch struct {
 // AllowedFlexVolumePatchInput is an input type that accepts AllowedFlexVolumePatchArgs and AllowedFlexVolumePatchOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumePatchInput` via:
 //
-//          AllowedFlexVolumePatchArgs{...}
+//	AllowedFlexVolumePatchArgs{...}
 type AllowedFlexVolumePatchInput interface {
 	pulumi.Input
 
@@ -350,7 +350,7 @@ func (i AllowedFlexVolumePatchArgs) ToAllowedFlexVolumePatchOutputWithContext(ct
 // AllowedFlexVolumePatchArrayInput is an input type that accepts AllowedFlexVolumePatchArray and AllowedFlexVolumePatchArrayOutput values.
 // You can construct a concrete instance of `AllowedFlexVolumePatchArrayInput` via:
 //
-//          AllowedFlexVolumePatchArray{ AllowedFlexVolumePatchArgs{...} }
+//	AllowedFlexVolumePatchArray{ AllowedFlexVolumePatchArgs{...} }
 type AllowedFlexVolumePatchArrayInput interface {
 	pulumi.Input
 
@@ -425,7 +425,7 @@ type AllowedHostPath struct {
 // AllowedHostPathInput is an input type that accepts AllowedHostPathArgs and AllowedHostPathOutput values.
 // You can construct a concrete instance of `AllowedHostPathInput` via:
 //
-//          AllowedHostPathArgs{...}
+//	AllowedHostPathArgs{...}
 type AllowedHostPathInput interface {
 	pulumi.Input
 
@@ -458,7 +458,7 @@ func (i AllowedHostPathArgs) ToAllowedHostPathOutputWithContext(ctx context.Cont
 // AllowedHostPathArrayInput is an input type that accepts AllowedHostPathArray and AllowedHostPathArrayOutput values.
 // You can construct a concrete instance of `AllowedHostPathArrayInput` via:
 //
-//          AllowedHostPathArray{ AllowedHostPathArgs{...} }
+//	AllowedHostPathArray{ AllowedHostPathArgs{...} }
 type AllowedHostPathArrayInput interface {
 	pulumi.Input
 
@@ -540,7 +540,7 @@ type AllowedHostPathPatch struct {
 // AllowedHostPathPatchInput is an input type that accepts AllowedHostPathPatchArgs and AllowedHostPathPatchOutput values.
 // You can construct a concrete instance of `AllowedHostPathPatchInput` via:
 //
-//          AllowedHostPathPatchArgs{...}
+//	AllowedHostPathPatchArgs{...}
 type AllowedHostPathPatchInput interface {
 	pulumi.Input
 
@@ -573,7 +573,7 @@ func (i AllowedHostPathPatchArgs) ToAllowedHostPathPatchOutputWithContext(ctx co
 // AllowedHostPathPatchArrayInput is an input type that accepts AllowedHostPathPatchArray and AllowedHostPathPatchArrayOutput values.
 // You can construct a concrete instance of `AllowedHostPathPatchArrayInput` via:
 //
-//          AllowedHostPathPatchArray{ AllowedHostPathPatchArgs{...} }
+//	AllowedHostPathPatchArray{ AllowedHostPathPatchArgs{...} }
 type AllowedHostPathPatchArrayInput interface {
 	pulumi.Input
 
@@ -657,7 +657,7 @@ type Eviction struct {
 // EvictionInput is an input type that accepts EvictionArgs and EvictionOutput values.
 // You can construct a concrete instance of `EvictionInput` via:
 //
-//          EvictionArgs{...}
+//	EvictionArgs{...}
 type EvictionInput interface {
 	pulumi.Input
 
@@ -739,7 +739,7 @@ type EvictionPatch struct {
 // EvictionPatchInput is an input type that accepts EvictionPatchArgs and EvictionPatchOutput values.
 // You can construct a concrete instance of `EvictionPatchInput` via:
 //
-//          EvictionPatchArgs{...}
+//	EvictionPatchArgs{...}
 type EvictionPatchInput interface {
 	pulumi.Input
 
@@ -817,7 +817,7 @@ type FSGroupStrategyOptions struct {
 // FSGroupStrategyOptionsInput is an input type that accepts FSGroupStrategyOptionsArgs and FSGroupStrategyOptionsOutput values.
 // You can construct a concrete instance of `FSGroupStrategyOptionsInput` via:
 //
-//          FSGroupStrategyOptionsArgs{...}
+//	FSGroupStrategyOptionsArgs{...}
 type FSGroupStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -856,11 +856,11 @@ func (i FSGroupStrategyOptionsArgs) ToFSGroupStrategyOptionsPtrOutputWithContext
 // FSGroupStrategyOptionsPtrInput is an input type that accepts FSGroupStrategyOptionsArgs, FSGroupStrategyOptionsPtr and FSGroupStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `FSGroupStrategyOptionsPtrInput` via:
 //
-//          FSGroupStrategyOptionsArgs{...}
+//	        FSGroupStrategyOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FSGroupStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -976,7 +976,7 @@ type FSGroupStrategyOptionsPatch struct {
 // FSGroupStrategyOptionsPatchInput is an input type that accepts FSGroupStrategyOptionsPatchArgs and FSGroupStrategyOptionsPatchOutput values.
 // You can construct a concrete instance of `FSGroupStrategyOptionsPatchInput` via:
 //
-//          FSGroupStrategyOptionsPatchArgs{...}
+//	FSGroupStrategyOptionsPatchArgs{...}
 type FSGroupStrategyOptionsPatchInput interface {
 	pulumi.Input
 
@@ -1015,11 +1015,11 @@ func (i FSGroupStrategyOptionsPatchArgs) ToFSGroupStrategyOptionsPatchPtrOutputW
 // FSGroupStrategyOptionsPatchPtrInput is an input type that accepts FSGroupStrategyOptionsPatchArgs, FSGroupStrategyOptionsPatchPtr and FSGroupStrategyOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `FSGroupStrategyOptionsPatchPtrInput` via:
 //
-//          FSGroupStrategyOptionsPatchArgs{...}
+//	        FSGroupStrategyOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FSGroupStrategyOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -1135,7 +1135,7 @@ type HostPortRange struct {
 // HostPortRangeInput is an input type that accepts HostPortRangeArgs and HostPortRangeOutput values.
 // You can construct a concrete instance of `HostPortRangeInput` via:
 //
-//          HostPortRangeArgs{...}
+//	HostPortRangeArgs{...}
 type HostPortRangeInput interface {
 	pulumi.Input
 
@@ -1166,7 +1166,7 @@ func (i HostPortRangeArgs) ToHostPortRangeOutputWithContext(ctx context.Context)
 // HostPortRangeArrayInput is an input type that accepts HostPortRangeArray and HostPortRangeArrayOutput values.
 // You can construct a concrete instance of `HostPortRangeArrayInput` via:
 //
-//          HostPortRangeArray{ HostPortRangeArgs{...} }
+//	HostPortRangeArray{ HostPortRangeArgs{...} }
 type HostPortRangeArrayInput interface {
 	pulumi.Input
 
@@ -1244,7 +1244,7 @@ type HostPortRangePatch struct {
 // HostPortRangePatchInput is an input type that accepts HostPortRangePatchArgs and HostPortRangePatchOutput values.
 // You can construct a concrete instance of `HostPortRangePatchInput` via:
 //
-//          HostPortRangePatchArgs{...}
+//	HostPortRangePatchArgs{...}
 type HostPortRangePatchInput interface {
 	pulumi.Input
 
@@ -1275,7 +1275,7 @@ func (i HostPortRangePatchArgs) ToHostPortRangePatchOutputWithContext(ctx contex
 // HostPortRangePatchArrayInput is an input type that accepts HostPortRangePatchArray and HostPortRangePatchArrayOutput values.
 // You can construct a concrete instance of `HostPortRangePatchArrayInput` via:
 //
-//          HostPortRangePatchArray{ HostPortRangePatchArgs{...} }
+//	HostPortRangePatchArray{ HostPortRangePatchArgs{...} }
 type HostPortRangePatchArrayInput interface {
 	pulumi.Input
 
@@ -1353,7 +1353,7 @@ type IDRange struct {
 // IDRangeInput is an input type that accepts IDRangeArgs and IDRangeOutput values.
 // You can construct a concrete instance of `IDRangeInput` via:
 //
-//          IDRangeArgs{...}
+//	IDRangeArgs{...}
 type IDRangeInput interface {
 	pulumi.Input
 
@@ -1384,7 +1384,7 @@ func (i IDRangeArgs) ToIDRangeOutputWithContext(ctx context.Context) IDRangeOutp
 // IDRangeArrayInput is an input type that accepts IDRangeArray and IDRangeArrayOutput values.
 // You can construct a concrete instance of `IDRangeArrayInput` via:
 //
-//          IDRangeArray{ IDRangeArgs{...} }
+//	IDRangeArray{ IDRangeArgs{...} }
 type IDRangeArrayInput interface {
 	pulumi.Input
 
@@ -1462,7 +1462,7 @@ type IDRangePatch struct {
 // IDRangePatchInput is an input type that accepts IDRangePatchArgs and IDRangePatchOutput values.
 // You can construct a concrete instance of `IDRangePatchInput` via:
 //
-//          IDRangePatchArgs{...}
+//	IDRangePatchArgs{...}
 type IDRangePatchInput interface {
 	pulumi.Input
 
@@ -1493,7 +1493,7 @@ func (i IDRangePatchArgs) ToIDRangePatchOutputWithContext(ctx context.Context) I
 // IDRangePatchArrayInput is an input type that accepts IDRangePatchArray and IDRangePatchArrayOutput values.
 // You can construct a concrete instance of `IDRangePatchArrayInput` via:
 //
-//          IDRangePatchArray{ IDRangePatchArgs{...} }
+//	IDRangePatchArray{ IDRangePatchArgs{...} }
 type IDRangePatchArrayInput interface {
 	pulumi.Input
 
@@ -1577,7 +1577,7 @@ type PodDisruptionBudgetType struct {
 // PodDisruptionBudgetTypeInput is an input type that accepts PodDisruptionBudgetTypeArgs and PodDisruptionBudgetTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeInput` via:
 //
-//          PodDisruptionBudgetTypeArgs{...}
+//	PodDisruptionBudgetTypeArgs{...}
 type PodDisruptionBudgetTypeInput interface {
 	pulumi.Input
 
@@ -1614,7 +1614,7 @@ func (i PodDisruptionBudgetTypeArgs) ToPodDisruptionBudgetTypeOutputWithContext(
 // PodDisruptionBudgetTypeArrayInput is an input type that accepts PodDisruptionBudgetTypeArray and PodDisruptionBudgetTypeArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeArrayInput` via:
 //
-//          PodDisruptionBudgetTypeArray{ PodDisruptionBudgetTypeArgs{...} }
+//	PodDisruptionBudgetTypeArray{ PodDisruptionBudgetTypeArgs{...} }
 type PodDisruptionBudgetTypeArrayInput interface {
 	pulumi.Input
 
@@ -1711,7 +1711,7 @@ type PodDisruptionBudgetListType struct {
 // PodDisruptionBudgetListTypeInput is an input type that accepts PodDisruptionBudgetListTypeArgs and PodDisruptionBudgetListTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetListTypeInput` via:
 //
-//          PodDisruptionBudgetListTypeArgs{...}
+//	PodDisruptionBudgetListTypeArgs{...}
 type PodDisruptionBudgetListTypeInput interface {
 	pulumi.Input
 
@@ -1795,7 +1795,7 @@ type PodDisruptionBudgetPatchType struct {
 // PodDisruptionBudgetPatchTypeInput is an input type that accepts PodDisruptionBudgetPatchTypeArgs and PodDisruptionBudgetPatchTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetPatchTypeInput` via:
 //
-//          PodDisruptionBudgetPatchTypeArgs{...}
+//	PodDisruptionBudgetPatchTypeArgs{...}
 type PodDisruptionBudgetPatchTypeInput interface {
 	pulumi.Input
 
@@ -1882,7 +1882,7 @@ type PodDisruptionBudgetSpec struct {
 // PodDisruptionBudgetSpecInput is an input type that accepts PodDisruptionBudgetSpecArgs and PodDisruptionBudgetSpecOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecInput` via:
 //
-//          PodDisruptionBudgetSpecArgs{...}
+//	PodDisruptionBudgetSpecArgs{...}
 type PodDisruptionBudgetSpecInput interface {
 	pulumi.Input
 
@@ -1923,11 +1923,11 @@ func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecPtrOutputWithConte
 // PodDisruptionBudgetSpecPtrInput is an input type that accepts PodDisruptionBudgetSpecArgs, PodDisruptionBudgetSpecPtr and PodDisruptionBudgetSpecPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPtrInput` via:
 //
-//          PodDisruptionBudgetSpecArgs{...}
+//	        PodDisruptionBudgetSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetSpecPtrInput interface {
 	pulumi.Input
 
@@ -2060,7 +2060,7 @@ type PodDisruptionBudgetSpecPatch struct {
 // PodDisruptionBudgetSpecPatchInput is an input type that accepts PodDisruptionBudgetSpecPatchArgs and PodDisruptionBudgetSpecPatchOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPatchInput` via:
 //
-//          PodDisruptionBudgetSpecPatchArgs{...}
+//	PodDisruptionBudgetSpecPatchArgs{...}
 type PodDisruptionBudgetSpecPatchInput interface {
 	pulumi.Input
 
@@ -2101,11 +2101,11 @@ func (i PodDisruptionBudgetSpecPatchArgs) ToPodDisruptionBudgetSpecPatchPtrOutpu
 // PodDisruptionBudgetSpecPatchPtrInput is an input type that accepts PodDisruptionBudgetSpecPatchArgs, PodDisruptionBudgetSpecPatchPtr and PodDisruptionBudgetSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPatchPtrInput` via:
 //
-//          PodDisruptionBudgetSpecPatchArgs{...}
+//	        PodDisruptionBudgetSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -2254,7 +2254,7 @@ type PodDisruptionBudgetStatus struct {
 // PodDisruptionBudgetStatusInput is an input type that accepts PodDisruptionBudgetStatusArgs and PodDisruptionBudgetStatusOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusInput` via:
 //
-//          PodDisruptionBudgetStatusArgs{...}
+//	PodDisruptionBudgetStatusArgs{...}
 type PodDisruptionBudgetStatusInput interface {
 	pulumi.Input
 
@@ -2311,11 +2311,11 @@ func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusPtrOutputWithC
 // PodDisruptionBudgetStatusPtrInput is an input type that accepts PodDisruptionBudgetStatusArgs, PodDisruptionBudgetStatusPtr and PodDisruptionBudgetStatusPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPtrInput` via:
 //
-//          PodDisruptionBudgetStatusArgs{...}
+//	        PodDisruptionBudgetStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetStatusPtrInput interface {
 	pulumi.Input
 
@@ -2367,14 +2367,15 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
 }
@@ -2434,14 +2435,15 @@ func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutp
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatus) []metav1.Condition {
 		if v == nil {
@@ -2540,7 +2542,7 @@ type PodDisruptionBudgetStatusPatch struct {
 // PodDisruptionBudgetStatusPatchInput is an input type that accepts PodDisruptionBudgetStatusPatchArgs and PodDisruptionBudgetStatusPatchOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPatchInput` via:
 //
-//          PodDisruptionBudgetStatusPatchArgs{...}
+//	PodDisruptionBudgetStatusPatchArgs{...}
 type PodDisruptionBudgetStatusPatchInput interface {
 	pulumi.Input
 
@@ -2597,11 +2599,11 @@ func (i PodDisruptionBudgetStatusPatchArgs) ToPodDisruptionBudgetStatusPatchPtrO
 // PodDisruptionBudgetStatusPatchPtrInput is an input type that accepts PodDisruptionBudgetStatusPatchArgs, PodDisruptionBudgetStatusPatchPtr and PodDisruptionBudgetStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPatchPtrInput` via:
 //
-//          PodDisruptionBudgetStatusPatchArgs{...}
+//	        PodDisruptionBudgetStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -2653,14 +2655,15 @@ func (o PodDisruptionBudgetStatusPatchOutput) ToPodDisruptionBudgetStatusPatchPt
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
 }
@@ -2720,14 +2723,15 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) Elem() PodDisruptionBudgetStatu
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatusPatch) []metav1.ConditionPatch {
 		if v == nil {
@@ -2812,7 +2816,7 @@ type PodSecurityPolicyType struct {
 // PodSecurityPolicyTypeInput is an input type that accepts PodSecurityPolicyTypeArgs and PodSecurityPolicyTypeOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyTypeInput` via:
 //
-//          PodSecurityPolicyTypeArgs{...}
+//	PodSecurityPolicyTypeArgs{...}
 type PodSecurityPolicyTypeInput interface {
 	pulumi.Input
 
@@ -2847,7 +2851,7 @@ func (i PodSecurityPolicyTypeArgs) ToPodSecurityPolicyTypeOutputWithContext(ctx 
 // PodSecurityPolicyTypeArrayInput is an input type that accepts PodSecurityPolicyTypeArray and PodSecurityPolicyTypeArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyTypeArrayInput` via:
 //
-//          PodSecurityPolicyTypeArray{ PodSecurityPolicyTypeArgs{...} }
+//	PodSecurityPolicyTypeArray{ PodSecurityPolicyTypeArgs{...} }
 type PodSecurityPolicyTypeArrayInput interface {
 	pulumi.Input
 
@@ -2939,7 +2943,7 @@ type PodSecurityPolicyListType struct {
 // PodSecurityPolicyListTypeInput is an input type that accepts PodSecurityPolicyListTypeArgs and PodSecurityPolicyListTypeOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyListTypeInput` via:
 //
-//          PodSecurityPolicyListTypeArgs{...}
+//	PodSecurityPolicyListTypeArgs{...}
 type PodSecurityPolicyListTypeInput interface {
 	pulumi.Input
 
@@ -3021,7 +3025,7 @@ type PodSecurityPolicyPatchType struct {
 // PodSecurityPolicyPatchTypeInput is an input type that accepts PodSecurityPolicyPatchTypeArgs and PodSecurityPolicyPatchTypeOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyPatchTypeInput` via:
 //
-//          PodSecurityPolicyPatchTypeArgs{...}
+//	PodSecurityPolicyPatchTypeArgs{...}
 type PodSecurityPolicyPatchTypeInput interface {
 	pulumi.Input
 
@@ -3147,7 +3151,7 @@ type PodSecurityPolicySpec struct {
 // PodSecurityPolicySpecInput is an input type that accepts PodSecurityPolicySpecArgs and PodSecurityPolicySpecOutput values.
 // You can construct a concrete instance of `PodSecurityPolicySpecInput` via:
 //
-//          PodSecurityPolicySpecArgs{...}
+//	PodSecurityPolicySpecArgs{...}
 type PodSecurityPolicySpecInput interface {
 	pulumi.Input
 
@@ -3234,11 +3238,11 @@ func (i PodSecurityPolicySpecArgs) ToPodSecurityPolicySpecPtrOutputWithContext(c
 // PodSecurityPolicySpecPtrInput is an input type that accepts PodSecurityPolicySpecArgs, PodSecurityPolicySpecPtr and PodSecurityPolicySpecPtrOutput values.
 // You can construct a concrete instance of `PodSecurityPolicySpecPtrInput` via:
 //
-//          PodSecurityPolicySpecArgs{...}
+//	        PodSecurityPolicySpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodSecurityPolicySpecPtrInput interface {
 	pulumi.Input
 
@@ -3740,7 +3744,7 @@ type PodSecurityPolicySpecPatch struct {
 // PodSecurityPolicySpecPatchInput is an input type that accepts PodSecurityPolicySpecPatchArgs and PodSecurityPolicySpecPatchOutput values.
 // You can construct a concrete instance of `PodSecurityPolicySpecPatchInput` via:
 //
-//          PodSecurityPolicySpecPatchArgs{...}
+//	PodSecurityPolicySpecPatchArgs{...}
 type PodSecurityPolicySpecPatchInput interface {
 	pulumi.Input
 
@@ -3827,11 +3831,11 @@ func (i PodSecurityPolicySpecPatchArgs) ToPodSecurityPolicySpecPatchPtrOutputWit
 // PodSecurityPolicySpecPatchPtrInput is an input type that accepts PodSecurityPolicySpecPatchArgs, PodSecurityPolicySpecPatchPtr and PodSecurityPolicySpecPatchPtrOutput values.
 // You can construct a concrete instance of `PodSecurityPolicySpecPatchPtrInput` via:
 //
-//          PodSecurityPolicySpecPatchArgs{...}
+//	        PodSecurityPolicySpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodSecurityPolicySpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -4287,7 +4291,7 @@ type RunAsGroupStrategyOptions struct {
 // RunAsGroupStrategyOptionsInput is an input type that accepts RunAsGroupStrategyOptionsArgs and RunAsGroupStrategyOptionsOutput values.
 // You can construct a concrete instance of `RunAsGroupStrategyOptionsInput` via:
 //
-//          RunAsGroupStrategyOptionsArgs{...}
+//	RunAsGroupStrategyOptionsArgs{...}
 type RunAsGroupStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -4326,11 +4330,11 @@ func (i RunAsGroupStrategyOptionsArgs) ToRunAsGroupStrategyOptionsPtrOutputWithC
 // RunAsGroupStrategyOptionsPtrInput is an input type that accepts RunAsGroupStrategyOptionsArgs, RunAsGroupStrategyOptionsPtr and RunAsGroupStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `RunAsGroupStrategyOptionsPtrInput` via:
 //
-//          RunAsGroupStrategyOptionsArgs{...}
+//	        RunAsGroupStrategyOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RunAsGroupStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -4446,7 +4450,7 @@ type RunAsGroupStrategyOptionsPatch struct {
 // RunAsGroupStrategyOptionsPatchInput is an input type that accepts RunAsGroupStrategyOptionsPatchArgs and RunAsGroupStrategyOptionsPatchOutput values.
 // You can construct a concrete instance of `RunAsGroupStrategyOptionsPatchInput` via:
 //
-//          RunAsGroupStrategyOptionsPatchArgs{...}
+//	RunAsGroupStrategyOptionsPatchArgs{...}
 type RunAsGroupStrategyOptionsPatchInput interface {
 	pulumi.Input
 
@@ -4485,11 +4489,11 @@ func (i RunAsGroupStrategyOptionsPatchArgs) ToRunAsGroupStrategyOptionsPatchPtrO
 // RunAsGroupStrategyOptionsPatchPtrInput is an input type that accepts RunAsGroupStrategyOptionsPatchArgs, RunAsGroupStrategyOptionsPatchPtr and RunAsGroupStrategyOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `RunAsGroupStrategyOptionsPatchPtrInput` via:
 //
-//          RunAsGroupStrategyOptionsPatchArgs{...}
+//	        RunAsGroupStrategyOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RunAsGroupStrategyOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -4605,7 +4609,7 @@ type RunAsUserStrategyOptions struct {
 // RunAsUserStrategyOptionsInput is an input type that accepts RunAsUserStrategyOptionsArgs and RunAsUserStrategyOptionsOutput values.
 // You can construct a concrete instance of `RunAsUserStrategyOptionsInput` via:
 //
-//          RunAsUserStrategyOptionsArgs{...}
+//	RunAsUserStrategyOptionsArgs{...}
 type RunAsUserStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -4644,11 +4648,11 @@ func (i RunAsUserStrategyOptionsArgs) ToRunAsUserStrategyOptionsPtrOutputWithCon
 // RunAsUserStrategyOptionsPtrInput is an input type that accepts RunAsUserStrategyOptionsArgs, RunAsUserStrategyOptionsPtr and RunAsUserStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `RunAsUserStrategyOptionsPtrInput` via:
 //
-//          RunAsUserStrategyOptionsArgs{...}
+//	        RunAsUserStrategyOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RunAsUserStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -4764,7 +4768,7 @@ type RunAsUserStrategyOptionsPatch struct {
 // RunAsUserStrategyOptionsPatchInput is an input type that accepts RunAsUserStrategyOptionsPatchArgs and RunAsUserStrategyOptionsPatchOutput values.
 // You can construct a concrete instance of `RunAsUserStrategyOptionsPatchInput` via:
 //
-//          RunAsUserStrategyOptionsPatchArgs{...}
+//	RunAsUserStrategyOptionsPatchArgs{...}
 type RunAsUserStrategyOptionsPatchInput interface {
 	pulumi.Input
 
@@ -4803,11 +4807,11 @@ func (i RunAsUserStrategyOptionsPatchArgs) ToRunAsUserStrategyOptionsPatchPtrOut
 // RunAsUserStrategyOptionsPatchPtrInput is an input type that accepts RunAsUserStrategyOptionsPatchArgs, RunAsUserStrategyOptionsPatchPtr and RunAsUserStrategyOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `RunAsUserStrategyOptionsPatchPtrInput` via:
 //
-//          RunAsUserStrategyOptionsPatchArgs{...}
+//	        RunAsUserStrategyOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RunAsUserStrategyOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -4923,7 +4927,7 @@ type RuntimeClassStrategyOptions struct {
 // RuntimeClassStrategyOptionsInput is an input type that accepts RuntimeClassStrategyOptionsArgs and RuntimeClassStrategyOptionsOutput values.
 // You can construct a concrete instance of `RuntimeClassStrategyOptionsInput` via:
 //
-//          RuntimeClassStrategyOptionsArgs{...}
+//	RuntimeClassStrategyOptionsArgs{...}
 type RuntimeClassStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -4962,11 +4966,11 @@ func (i RuntimeClassStrategyOptionsArgs) ToRuntimeClassStrategyOptionsPtrOutputW
 // RuntimeClassStrategyOptionsPtrInput is an input type that accepts RuntimeClassStrategyOptionsArgs, RuntimeClassStrategyOptionsPtr and RuntimeClassStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `RuntimeClassStrategyOptionsPtrInput` via:
 //
-//          RuntimeClassStrategyOptionsArgs{...}
+//	        RuntimeClassStrategyOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RuntimeClassStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -5082,7 +5086,7 @@ type RuntimeClassStrategyOptionsPatch struct {
 // RuntimeClassStrategyOptionsPatchInput is an input type that accepts RuntimeClassStrategyOptionsPatchArgs and RuntimeClassStrategyOptionsPatchOutput values.
 // You can construct a concrete instance of `RuntimeClassStrategyOptionsPatchInput` via:
 //
-//          RuntimeClassStrategyOptionsPatchArgs{...}
+//	RuntimeClassStrategyOptionsPatchArgs{...}
 type RuntimeClassStrategyOptionsPatchInput interface {
 	pulumi.Input
 
@@ -5121,11 +5125,11 @@ func (i RuntimeClassStrategyOptionsPatchArgs) ToRuntimeClassStrategyOptionsPatch
 // RuntimeClassStrategyOptionsPatchPtrInput is an input type that accepts RuntimeClassStrategyOptionsPatchArgs, RuntimeClassStrategyOptionsPatchPtr and RuntimeClassStrategyOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `RuntimeClassStrategyOptionsPatchPtrInput` via:
 //
-//          RuntimeClassStrategyOptionsPatchArgs{...}
+//	        RuntimeClassStrategyOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RuntimeClassStrategyOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -5241,7 +5245,7 @@ type SELinuxStrategyOptions struct {
 // SELinuxStrategyOptionsInput is an input type that accepts SELinuxStrategyOptionsArgs and SELinuxStrategyOptionsOutput values.
 // You can construct a concrete instance of `SELinuxStrategyOptionsInput` via:
 //
-//          SELinuxStrategyOptionsArgs{...}
+//	SELinuxStrategyOptionsArgs{...}
 type SELinuxStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -5280,11 +5284,11 @@ func (i SELinuxStrategyOptionsArgs) ToSELinuxStrategyOptionsPtrOutputWithContext
 // SELinuxStrategyOptionsPtrInput is an input type that accepts SELinuxStrategyOptionsArgs, SELinuxStrategyOptionsPtr and SELinuxStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `SELinuxStrategyOptionsPtrInput` via:
 //
-//          SELinuxStrategyOptionsArgs{...}
+//	        SELinuxStrategyOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SELinuxStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -5400,7 +5404,7 @@ type SELinuxStrategyOptionsPatch struct {
 // SELinuxStrategyOptionsPatchInput is an input type that accepts SELinuxStrategyOptionsPatchArgs and SELinuxStrategyOptionsPatchOutput values.
 // You can construct a concrete instance of `SELinuxStrategyOptionsPatchInput` via:
 //
-//          SELinuxStrategyOptionsPatchArgs{...}
+//	SELinuxStrategyOptionsPatchArgs{...}
 type SELinuxStrategyOptionsPatchInput interface {
 	pulumi.Input
 
@@ -5439,11 +5443,11 @@ func (i SELinuxStrategyOptionsPatchArgs) ToSELinuxStrategyOptionsPatchPtrOutputW
 // SELinuxStrategyOptionsPatchPtrInput is an input type that accepts SELinuxStrategyOptionsPatchArgs, SELinuxStrategyOptionsPatchPtr and SELinuxStrategyOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `SELinuxStrategyOptionsPatchPtrInput` via:
 //
-//          SELinuxStrategyOptionsPatchArgs{...}
+//	        SELinuxStrategyOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SELinuxStrategyOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -5559,7 +5563,7 @@ type SupplementalGroupsStrategyOptions struct {
 // SupplementalGroupsStrategyOptionsInput is an input type that accepts SupplementalGroupsStrategyOptionsArgs and SupplementalGroupsStrategyOptionsOutput values.
 // You can construct a concrete instance of `SupplementalGroupsStrategyOptionsInput` via:
 //
-//          SupplementalGroupsStrategyOptionsArgs{...}
+//	SupplementalGroupsStrategyOptionsArgs{...}
 type SupplementalGroupsStrategyOptionsInput interface {
 	pulumi.Input
 
@@ -5598,11 +5602,11 @@ func (i SupplementalGroupsStrategyOptionsArgs) ToSupplementalGroupsStrategyOptio
 // SupplementalGroupsStrategyOptionsPtrInput is an input type that accepts SupplementalGroupsStrategyOptionsArgs, SupplementalGroupsStrategyOptionsPtr and SupplementalGroupsStrategyOptionsPtrOutput values.
 // You can construct a concrete instance of `SupplementalGroupsStrategyOptionsPtrInput` via:
 //
-//          SupplementalGroupsStrategyOptionsArgs{...}
+//	        SupplementalGroupsStrategyOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SupplementalGroupsStrategyOptionsPtrInput interface {
 	pulumi.Input
 
@@ -5718,7 +5722,7 @@ type SupplementalGroupsStrategyOptionsPatch struct {
 // SupplementalGroupsStrategyOptionsPatchInput is an input type that accepts SupplementalGroupsStrategyOptionsPatchArgs and SupplementalGroupsStrategyOptionsPatchOutput values.
 // You can construct a concrete instance of `SupplementalGroupsStrategyOptionsPatchInput` via:
 //
-//          SupplementalGroupsStrategyOptionsPatchArgs{...}
+//	SupplementalGroupsStrategyOptionsPatchArgs{...}
 type SupplementalGroupsStrategyOptionsPatchInput interface {
 	pulumi.Input
 
@@ -5757,11 +5761,11 @@ func (i SupplementalGroupsStrategyOptionsPatchArgs) ToSupplementalGroupsStrategy
 // SupplementalGroupsStrategyOptionsPatchPtrInput is an input type that accepts SupplementalGroupsStrategyOptionsPatchArgs, SupplementalGroupsStrategyOptionsPatchPtr and SupplementalGroupsStrategyOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `SupplementalGroupsStrategyOptionsPatchPtrInput` via:
 //
-//          SupplementalGroupsStrategyOptionsPatchArgs{...}
+//	        SupplementalGroupsStrategyOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SupplementalGroupsStrategyOptionsPatchPtrInput interface {
 	pulumi.Input
 

@@ -19,17 +19,18 @@ import (
 // [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
 // additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsPatch struct {
 	pulumi.CustomResourceState
 
@@ -135,7 +136,7 @@ func (i *EndpointsPatch) ToEndpointsPatchOutputWithContext(ctx context.Context) 
 // EndpointsPatchArrayInput is an input type that accepts EndpointsPatchArray and EndpointsPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointsPatchArrayInput` via:
 //
-//          EndpointsPatchArray{ EndpointsPatchArgs{...} }
+//	EndpointsPatchArray{ EndpointsPatchArgs{...} }
 type EndpointsPatchArrayInput interface {
 	pulumi.Input
 
@@ -160,7 +161,7 @@ func (i EndpointsPatchArray) ToEndpointsPatchArrayOutputWithContext(ctx context.
 // EndpointsPatchMapInput is an input type that accepts EndpointsPatchMap and EndpointsPatchMapOutput values.
 // You can construct a concrete instance of `EndpointsPatchMapInput` via:
 //
-//          EndpointsPatchMap{ "key": EndpointsPatchArgs{...} }
+//	EndpointsPatchMap{ "key": EndpointsPatchArgs{...} }
 type EndpointsPatchMapInput interface {
 	pulumi.Input
 

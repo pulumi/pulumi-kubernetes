@@ -120,7 +120,7 @@ func (i *TokenRequest) ToTokenRequestOutputWithContext(ctx context.Context) Toke
 // TokenRequestArrayInput is an input type that accepts TokenRequestArray and TokenRequestArrayOutput values.
 // You can construct a concrete instance of `TokenRequestArrayInput` via:
 //
-//          TokenRequestArray{ TokenRequestArgs{...} }
+//	TokenRequestArray{ TokenRequestArgs{...} }
 type TokenRequestArrayInput interface {
 	pulumi.Input
 
@@ -145,7 +145,7 @@ func (i TokenRequestArray) ToTokenRequestArrayOutputWithContext(ctx context.Cont
 // TokenRequestMapInput is an input type that accepts TokenRequestMap and TokenRequestMapOutput values.
 // You can construct a concrete instance of `TokenRequestMapInput` via:
 //
-//          TokenRequestMap{ "key": TokenRequestArgs{...} }
+//	TokenRequestMap{ "key": TokenRequestArgs{...} }
 type TokenRequestMapInput interface {
 	pulumi.Input
 

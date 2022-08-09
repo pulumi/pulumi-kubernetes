@@ -123,7 +123,7 @@ func (i *SubjectAccessReview) ToSubjectAccessReviewOutputWithContext(ctx context
 // SubjectAccessReviewArrayInput is an input type that accepts SubjectAccessReviewArray and SubjectAccessReviewArrayOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewArrayInput` via:
 //
-//          SubjectAccessReviewArray{ SubjectAccessReviewArgs{...} }
+//	SubjectAccessReviewArray{ SubjectAccessReviewArgs{...} }
 type SubjectAccessReviewArrayInput interface {
 	pulumi.Input
 
@@ -148,7 +148,7 @@ func (i SubjectAccessReviewArray) ToSubjectAccessReviewArrayOutputWithContext(ct
 // SubjectAccessReviewMapInput is an input type that accepts SubjectAccessReviewMap and SubjectAccessReviewMapOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewMapInput` via:
 //
-//          SubjectAccessReviewMap{ "key": SubjectAccessReviewArgs{...} }
+//	SubjectAccessReviewMap{ "key": SubjectAccessReviewArgs{...} }
 type SubjectAccessReviewMapInput interface {
 	pulumi.Input
 

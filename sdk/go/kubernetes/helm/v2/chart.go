@@ -52,22 +52,25 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//             Path: pulumi.String("./nginx-ingress"),
-//         })
-//         if err != nil {
-//             return err
-//         }
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//	            Path: pulumi.String("./nginx-ingress"),
+//	        })
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 // ### Remote Chart
 //
@@ -75,26 +78,29 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//             Chart:   pulumi.String("nginx-ingress"),
-//             Version: pulumi.String("1.24.4"),
-//             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
-//             },
-//         })
-//         if err != nil {
-//             return err
-//         }
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//	            Chart:   pulumi.String("nginx-ingress"),
+//	            Version: pulumi.String("1.24.4"),
+//	            FetchArgs: helm.FetchArgs{
+//	                Repo: pulumi.String("https://charts.helm.sh/stable"),
+//	            },
+//	        })
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 // ### Set Chart values
 //
@@ -102,33 +108,36 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//             Chart:   pulumi.String("nginx-ingress"),
-//             Version: pulumi.String("1.24.4"),
-//             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
-//             },
-//             Values: pulumi.Map{
-//                 "controller": pulumi.Map{
-//                     "metrics": pulumi.Map{
-//                         "enabled": pulumi.Bool(true),
-//                     },
-//                 },
-//             },
-//         })
-//         if err != nil {
-//             return err
-//         }
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//	            Chart:   pulumi.String("nginx-ingress"),
+//	            Version: pulumi.String("1.24.4"),
+//	            FetchArgs: helm.FetchArgs{
+//	                Repo: pulumi.String("https://charts.helm.sh/stable"),
+//	            },
+//	            Values: pulumi.Map{
+//	                "controller": pulumi.Map{
+//	                    "metrics": pulumi.Map{
+//	                        "enabled": pulumi.Bool(true),
+//	                    },
+//	                },
+//	            },
+//	        })
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 // ### Deploy Chart into Namespace
 //
@@ -136,27 +145,30 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//             Chart:     pulumi.String("nginx-ingress"),
-//             Version:   pulumi.String("1.24.4"),
-//             Namespace: pulumi.String("test-namespace"),
-//             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
-//             },
-//         })
-//         if err != nil {
-//             return err
-//         }
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//	            Chart:     pulumi.String("nginx-ingress"),
+//	            Version:   pulumi.String("1.24.4"),
+//	            Namespace: pulumi.String("test-namespace"),
+//	            FetchArgs: helm.FetchArgs{
+//	                Repo: pulumi.String("https://charts.helm.sh/stable"),
+//	            },
+//	        })
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 // ### Chart with Transformations
 //
@@ -164,59 +176,62 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
-//             Chart:   pulumi.String("nginx-ingress"),
-//             Version: pulumi.String("1.24.4"),
-//             FetchArgs: helm.FetchArgs{
-//                 Repo: pulumi.String("https://charts.helm.sh/stable"),
-//             },
-//             Transformations: []yaml.Transformation{
-//                 // Make every service private to the cluster, i.e., turn all services into ClusterIP
-//                 // instead of LoadBalancer.
-//                 func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//                     if state["kind"] == "Service" {
-//                         spec := state["spec"].(map[string]interface{})
-//                         spec["type"] = "ClusterIP"
-//                     }
-//                 },
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := helm.NewChart(ctx, "nginx-ingress", helm.ChartArgs{
+//	            Chart:   pulumi.String("nginx-ingress"),
+//	            Version: pulumi.String("1.24.4"),
+//	            FetchArgs: helm.FetchArgs{
+//	                Repo: pulumi.String("https://charts.helm.sh/stable"),
+//	            },
+//	            Transformations: []yaml.Transformation{
+//	                // Make every service private to the cluster, i.e., turn all services into ClusterIP
+//	                // instead of LoadBalancer.
+//	                func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//	                    if state["kind"] == "Service" {
+//	                        spec := state["spec"].(map[string]interface{})
+//	                        spec["type"] = "ClusterIP"
+//	                    }
+//	                },
 //
-//                 // Set a resource alias for a previous name.
-//                 func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//                     if state["kind"] == "Deployment" {
-//                         aliases := pulumi.Aliases([]pulumi.Alias{
-//                             {
-//                                 Name: pulumi.String("oldName"),
-//                             },
-//                         })
-//                         opts = append(opts, aliases)
-//                     }
-//                 },
+//	                // Set a resource alias for a previous name.
+//	                func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//	                    if state["kind"] == "Deployment" {
+//	                        aliases := pulumi.Aliases([]pulumi.Alias{
+//	                            {
+//	                                Name: pulumi.String("oldName"),
+//	                            },
+//	                        })
+//	                        opts = append(opts, aliases)
+//	                    }
+//	                },
 //
-//                 // Omit a resource from the Chart by transforming the specified resource definition
-//                 // to an empty List.
-//                 func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//                     name := state["metadata"].(map[string]interface{})["name"]
-//                     if state["kind"] == "Pod" && name == "test" {
-//                         state["apiVersion"] = "core/v1"
-//                         state["kind"] = "List"
-//                     }
-//                 },
-//             },
-//         })
-//         if err != nil {
-//             return err
-//         }
+//	                // Omit a resource from the Chart by transforming the specified resource definition
+//	                // to an empty List.
+//	                func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//	                    name := state["metadata"].(map[string]interface{})["name"]
+//	                    if state["kind"] == "Pod" && name == "test" {
+//	                        state["apiVersion"] = "core/v1"
+//	                        state["kind"] = "List"
+//	                    }
+//	                },
+//	            },
+//	        })
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 // Deprecated: helm/v2/Chart is deprecated by helm/v3/Chart and will be removed in a future release.
 type Chart struct {

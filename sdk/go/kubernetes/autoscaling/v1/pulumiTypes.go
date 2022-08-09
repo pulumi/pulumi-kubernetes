@@ -24,7 +24,7 @@ type CrossVersionObjectReference struct {
 // CrossVersionObjectReferenceInput is an input type that accepts CrossVersionObjectReferenceArgs and CrossVersionObjectReferenceOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferenceInput` via:
 //
-//          CrossVersionObjectReferenceArgs{...}
+//	CrossVersionObjectReferenceArgs{...}
 type CrossVersionObjectReferenceInput interface {
 	pulumi.Input
 
@@ -65,11 +65,11 @@ func (i CrossVersionObjectReferenceArgs) ToCrossVersionObjectReferencePtrOutputW
 // CrossVersionObjectReferencePtrInput is an input type that accepts CrossVersionObjectReferenceArgs, CrossVersionObjectReferencePtr and CrossVersionObjectReferencePtrOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferencePtrInput` via:
 //
-//          CrossVersionObjectReferenceArgs{...}
+//	        CrossVersionObjectReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CrossVersionObjectReferencePtrInput interface {
 	pulumi.Input
 
@@ -202,7 +202,7 @@ type CrossVersionObjectReferencePatch struct {
 // CrossVersionObjectReferencePatchInput is an input type that accepts CrossVersionObjectReferencePatchArgs and CrossVersionObjectReferencePatchOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferencePatchInput` via:
 //
-//          CrossVersionObjectReferencePatchArgs{...}
+//	CrossVersionObjectReferencePatchArgs{...}
 type CrossVersionObjectReferencePatchInput interface {
 	pulumi.Input
 
@@ -243,11 +243,11 @@ func (i CrossVersionObjectReferencePatchArgs) ToCrossVersionObjectReferencePatch
 // CrossVersionObjectReferencePatchPtrInput is an input type that accepts CrossVersionObjectReferencePatchArgs, CrossVersionObjectReferencePatchPtr and CrossVersionObjectReferencePatchPtrOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferencePatchPtrInput` via:
 //
-//          CrossVersionObjectReferencePatchArgs{...}
+//	        CrossVersionObjectReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CrossVersionObjectReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -384,7 +384,7 @@ type HorizontalPodAutoscalerType struct {
 // HorizontalPodAutoscalerTypeInput is an input type that accepts HorizontalPodAutoscalerTypeArgs and HorizontalPodAutoscalerTypeOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerTypeInput` via:
 //
-//          HorizontalPodAutoscalerTypeArgs{...}
+//	HorizontalPodAutoscalerTypeArgs{...}
 type HorizontalPodAutoscalerTypeInput interface {
 	pulumi.Input
 
@@ -421,7 +421,7 @@ func (i HorizontalPodAutoscalerTypeArgs) ToHorizontalPodAutoscalerTypeOutputWith
 // HorizontalPodAutoscalerTypeArrayInput is an input type that accepts HorizontalPodAutoscalerTypeArray and HorizontalPodAutoscalerTypeArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerTypeArrayInput` via:
 //
-//          HorizontalPodAutoscalerTypeArray{ HorizontalPodAutoscalerTypeArgs{...} }
+//	HorizontalPodAutoscalerTypeArray{ HorizontalPodAutoscalerTypeArgs{...} }
 type HorizontalPodAutoscalerTypeArrayInput interface {
 	pulumi.Input
 
@@ -518,7 +518,7 @@ type HorizontalPodAutoscalerListType struct {
 // HorizontalPodAutoscalerListTypeInput is an input type that accepts HorizontalPodAutoscalerListTypeArgs and HorizontalPodAutoscalerListTypeOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerListTypeInput` via:
 //
-//          HorizontalPodAutoscalerListTypeArgs{...}
+//	HorizontalPodAutoscalerListTypeArgs{...}
 type HorizontalPodAutoscalerListTypeInput interface {
 	pulumi.Input
 
@@ -602,7 +602,7 @@ type HorizontalPodAutoscalerPatchType struct {
 // HorizontalPodAutoscalerPatchTypeInput is an input type that accepts HorizontalPodAutoscalerPatchTypeArgs and HorizontalPodAutoscalerPatchTypeOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerPatchTypeInput` via:
 //
-//          HorizontalPodAutoscalerPatchTypeArgs{...}
+//	HorizontalPodAutoscalerPatchTypeArgs{...}
 type HorizontalPodAutoscalerPatchTypeInput interface {
 	pulumi.Input
 
@@ -691,7 +691,7 @@ type HorizontalPodAutoscalerSpec struct {
 // HorizontalPodAutoscalerSpecInput is an input type that accepts HorizontalPodAutoscalerSpecArgs and HorizontalPodAutoscalerSpecOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecInput` via:
 //
-//          HorizontalPodAutoscalerSpecArgs{...}
+//	HorizontalPodAutoscalerSpecArgs{...}
 type HorizontalPodAutoscalerSpecInput interface {
 	pulumi.Input
 
@@ -734,11 +734,11 @@ func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecPtrOutputW
 // HorizontalPodAutoscalerSpecPtrInput is an input type that accepts HorizontalPodAutoscalerSpecArgs, HorizontalPodAutoscalerSpecPtr and HorizontalPodAutoscalerSpecPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecPtrInput` via:
 //
-//          HorizontalPodAutoscalerSpecArgs{...}
+//	        HorizontalPodAutoscalerSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerSpecPtrInput interface {
 	pulumi.Input
 
@@ -888,7 +888,7 @@ type HorizontalPodAutoscalerSpecPatch struct {
 // HorizontalPodAutoscalerSpecPatchInput is an input type that accepts HorizontalPodAutoscalerSpecPatchArgs and HorizontalPodAutoscalerSpecPatchOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecPatchInput` via:
 //
-//          HorizontalPodAutoscalerSpecPatchArgs{...}
+//	HorizontalPodAutoscalerSpecPatchArgs{...}
 type HorizontalPodAutoscalerSpecPatchInput interface {
 	pulumi.Input
 
@@ -931,11 +931,11 @@ func (i HorizontalPodAutoscalerSpecPatchArgs) ToHorizontalPodAutoscalerSpecPatch
 // HorizontalPodAutoscalerSpecPatchPtrInput is an input type that accepts HorizontalPodAutoscalerSpecPatchArgs, HorizontalPodAutoscalerSpecPatchPtr and HorizontalPodAutoscalerSpecPatchPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecPatchPtrInput` via:
 //
-//          HorizontalPodAutoscalerSpecPatchArgs{...}
+//	        HorizontalPodAutoscalerSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1087,7 +1087,7 @@ type HorizontalPodAutoscalerStatus struct {
 // HorizontalPodAutoscalerStatusInput is an input type that accepts HorizontalPodAutoscalerStatusArgs and HorizontalPodAutoscalerStatusOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusInput` via:
 //
-//          HorizontalPodAutoscalerStatusArgs{...}
+//	HorizontalPodAutoscalerStatusArgs{...}
 type HorizontalPodAutoscalerStatusInput interface {
 	pulumi.Input
 
@@ -1132,11 +1132,11 @@ func (i HorizontalPodAutoscalerStatusArgs) ToHorizontalPodAutoscalerStatusPtrOut
 // HorizontalPodAutoscalerStatusPtrInput is an input type that accepts HorizontalPodAutoscalerStatusArgs, HorizontalPodAutoscalerStatusPtr and HorizontalPodAutoscalerStatusPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusPtrInput` via:
 //
-//          HorizontalPodAutoscalerStatusArgs{...}
+//	        HorizontalPodAutoscalerStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerStatusPtrInput interface {
 	pulumi.Input
 
@@ -1303,7 +1303,7 @@ type HorizontalPodAutoscalerStatusPatch struct {
 // HorizontalPodAutoscalerStatusPatchInput is an input type that accepts HorizontalPodAutoscalerStatusPatchArgs and HorizontalPodAutoscalerStatusPatchOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusPatchInput` via:
 //
-//          HorizontalPodAutoscalerStatusPatchArgs{...}
+//	HorizontalPodAutoscalerStatusPatchArgs{...}
 type HorizontalPodAutoscalerStatusPatchInput interface {
 	pulumi.Input
 
@@ -1348,11 +1348,11 @@ func (i HorizontalPodAutoscalerStatusPatchArgs) ToHorizontalPodAutoscalerStatusP
 // HorizontalPodAutoscalerStatusPatchPtrInput is an input type that accepts HorizontalPodAutoscalerStatusPatchArgs, HorizontalPodAutoscalerStatusPatchPtr and HorizontalPodAutoscalerStatusPatchPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusPatchPtrInput` via:
 //
-//          HorizontalPodAutoscalerStatusPatchArgs{...}
+//	        HorizontalPodAutoscalerStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1519,7 +1519,7 @@ type Scale struct {
 // ScaleInput is an input type that accepts ScaleArgs and ScaleOutput values.
 // You can construct a concrete instance of `ScaleInput` via:
 //
-//          ScaleArgs{...}
+//	ScaleArgs{...}
 type ScaleInput interface {
 	pulumi.Input
 
@@ -1610,7 +1610,7 @@ type ScalePatch struct {
 // ScalePatchInput is an input type that accepts ScalePatchArgs and ScalePatchOutput values.
 // You can construct a concrete instance of `ScalePatchInput` via:
 //
-//          ScalePatchArgs{...}
+//	ScalePatchArgs{...}
 type ScalePatchInput interface {
 	pulumi.Input
 
@@ -1693,7 +1693,7 @@ type ScaleSpec struct {
 // ScaleSpecInput is an input type that accepts ScaleSpecArgs and ScaleSpecOutput values.
 // You can construct a concrete instance of `ScaleSpecInput` via:
 //
-//          ScaleSpecArgs{...}
+//	ScaleSpecArgs{...}
 type ScaleSpecInput interface {
 	pulumi.Input
 
@@ -1730,11 +1730,11 @@ func (i ScaleSpecArgs) ToScaleSpecPtrOutputWithContext(ctx context.Context) Scal
 // ScaleSpecPtrInput is an input type that accepts ScaleSpecArgs, ScaleSpecPtr and ScaleSpecPtrOutput values.
 // You can construct a concrete instance of `ScaleSpecPtrInput` via:
 //
-//          ScaleSpecArgs{...}
+//	        ScaleSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleSpecPtrInput interface {
 	pulumi.Input
 
@@ -1833,7 +1833,7 @@ type ScaleSpecPatch struct {
 // ScaleSpecPatchInput is an input type that accepts ScaleSpecPatchArgs and ScaleSpecPatchOutput values.
 // You can construct a concrete instance of `ScaleSpecPatchInput` via:
 //
-//          ScaleSpecPatchArgs{...}
+//	ScaleSpecPatchArgs{...}
 type ScaleSpecPatchInput interface {
 	pulumi.Input
 
@@ -1870,11 +1870,11 @@ func (i ScaleSpecPatchArgs) ToScaleSpecPatchPtrOutputWithContext(ctx context.Con
 // ScaleSpecPatchPtrInput is an input type that accepts ScaleSpecPatchArgs, ScaleSpecPatchPtr and ScaleSpecPatchPtrOutput values.
 // You can construct a concrete instance of `ScaleSpecPatchPtrInput` via:
 //
-//          ScaleSpecPatchArgs{...}
+//	        ScaleSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1975,7 +1975,7 @@ type ScaleStatus struct {
 // ScaleStatusInput is an input type that accepts ScaleStatusArgs and ScaleStatusOutput values.
 // You can construct a concrete instance of `ScaleStatusInput` via:
 //
-//          ScaleStatusArgs{...}
+//	ScaleStatusArgs{...}
 type ScaleStatusInput interface {
 	pulumi.Input
 
@@ -2014,11 +2014,11 @@ func (i ScaleStatusArgs) ToScaleStatusPtrOutputWithContext(ctx context.Context) 
 // ScaleStatusPtrInput is an input type that accepts ScaleStatusArgs, ScaleStatusPtr and ScaleStatusPtrOutput values.
 // You can construct a concrete instance of `ScaleStatusPtrInput` via:
 //
-//          ScaleStatusArgs{...}
+//	        ScaleStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleStatusPtrInput interface {
 	pulumi.Input
 
@@ -2134,7 +2134,7 @@ type ScaleStatusPatch struct {
 // ScaleStatusPatchInput is an input type that accepts ScaleStatusPatchArgs and ScaleStatusPatchOutput values.
 // You can construct a concrete instance of `ScaleStatusPatchInput` via:
 //
-//          ScaleStatusPatchArgs{...}
+//	ScaleStatusPatchArgs{...}
 type ScaleStatusPatchInput interface {
 	pulumi.Input
 
@@ -2173,11 +2173,11 @@ func (i ScaleStatusPatchArgs) ToScaleStatusPatchPtrOutputWithContext(ctx context
 // ScaleStatusPatchPtrInput is an input type that accepts ScaleStatusPatchArgs, ScaleStatusPatchPtr and ScaleStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ScaleStatusPatchPtrInput` via:
 //
-//          ScaleStatusPatchArgs{...}
+//	        ScaleStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleStatusPatchPtrInput interface {
 	pulumi.Input
 

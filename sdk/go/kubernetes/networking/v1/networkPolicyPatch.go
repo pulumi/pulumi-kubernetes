@@ -132,7 +132,7 @@ func (i *NetworkPolicyPatch) ToNetworkPolicyPatchOutputWithContext(ctx context.C
 // NetworkPolicyPatchArrayInput is an input type that accepts NetworkPolicyPatchArray and NetworkPolicyPatchArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPatchArrayInput` via:
 //
-//          NetworkPolicyPatchArray{ NetworkPolicyPatchArgs{...} }
+//	NetworkPolicyPatchArray{ NetworkPolicyPatchArgs{...} }
 type NetworkPolicyPatchArrayInput interface {
 	pulumi.Input
 
@@ -157,7 +157,7 @@ func (i NetworkPolicyPatchArray) ToNetworkPolicyPatchArrayOutputWithContext(ctx 
 // NetworkPolicyPatchMapInput is an input type that accepts NetworkPolicyPatchMap and NetworkPolicyPatchMapOutput values.
 // You can construct a concrete instance of `NetworkPolicyPatchMapInput` via:
 //
-//          NetworkPolicyPatchMap{ "key": NetworkPolicyPatchArgs{...} }
+//	NetworkPolicyPatchMap{ "key": NetworkPolicyPatchArgs{...} }
 type NetworkPolicyPatchMapInput interface {
 	pulumi.Input
 

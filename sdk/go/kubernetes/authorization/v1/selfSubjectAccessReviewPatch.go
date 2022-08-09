@@ -132,7 +132,7 @@ func (i *SelfSubjectAccessReviewPatch) ToSelfSubjectAccessReviewPatchOutputWithC
 // SelfSubjectAccessReviewPatchArrayInput is an input type that accepts SelfSubjectAccessReviewPatchArray and SelfSubjectAccessReviewPatchArrayOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewPatchArrayInput` via:
 //
-//          SelfSubjectAccessReviewPatchArray{ SelfSubjectAccessReviewPatchArgs{...} }
+//	SelfSubjectAccessReviewPatchArray{ SelfSubjectAccessReviewPatchArgs{...} }
 type SelfSubjectAccessReviewPatchArrayInput interface {
 	pulumi.Input
 
@@ -157,7 +157,7 @@ func (i SelfSubjectAccessReviewPatchArray) ToSelfSubjectAccessReviewPatchArrayOu
 // SelfSubjectAccessReviewPatchMapInput is an input type that accepts SelfSubjectAccessReviewPatchMap and SelfSubjectAccessReviewPatchMapOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewPatchMapInput` via:
 //
-//          SelfSubjectAccessReviewPatchMap{ "key": SelfSubjectAccessReviewPatchArgs{...} }
+//	SelfSubjectAccessReviewPatchMap{ "key": SelfSubjectAccessReviewPatchArgs{...} }
 type SelfSubjectAccessReviewPatchMapInput interface {
 	pulumi.Input
 

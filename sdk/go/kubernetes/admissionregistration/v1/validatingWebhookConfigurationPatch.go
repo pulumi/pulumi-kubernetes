@@ -130,7 +130,7 @@ func (i *ValidatingWebhookConfigurationPatch) ToValidatingWebhookConfigurationPa
 // ValidatingWebhookConfigurationPatchArrayInput is an input type that accepts ValidatingWebhookConfigurationPatchArray and ValidatingWebhookConfigurationPatchArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationPatchArrayInput` via:
 //
-//          ValidatingWebhookConfigurationPatchArray{ ValidatingWebhookConfigurationPatchArgs{...} }
+//	ValidatingWebhookConfigurationPatchArray{ ValidatingWebhookConfigurationPatchArgs{...} }
 type ValidatingWebhookConfigurationPatchArrayInput interface {
 	pulumi.Input
 
@@ -155,7 +155,7 @@ func (i ValidatingWebhookConfigurationPatchArray) ToValidatingWebhookConfigurati
 // ValidatingWebhookConfigurationPatchMapInput is an input type that accepts ValidatingWebhookConfigurationPatchMap and ValidatingWebhookConfigurationPatchMapOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationPatchMapInput` via:
 //
-//          ValidatingWebhookConfigurationPatchMap{ "key": ValidatingWebhookConfigurationPatchArgs{...} }
+//	ValidatingWebhookConfigurationPatchMap{ "key": ValidatingWebhookConfigurationPatchArgs{...} }
 type ValidatingWebhookConfigurationPatchMapInput interface {
 	pulumi.Input
 

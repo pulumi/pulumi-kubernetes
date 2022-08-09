@@ -118,7 +118,7 @@ func (i *StorageClassList) ToStorageClassListOutputWithContext(ctx context.Conte
 // StorageClassListArrayInput is an input type that accepts StorageClassListArray and StorageClassListArrayOutput values.
 // You can construct a concrete instance of `StorageClassListArrayInput` via:
 //
-//          StorageClassListArray{ StorageClassListArgs{...} }
+//	StorageClassListArray{ StorageClassListArgs{...} }
 type StorageClassListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i StorageClassListArray) ToStorageClassListArrayOutputWithContext(ctx cont
 // StorageClassListMapInput is an input type that accepts StorageClassListMap and StorageClassListMapOutput values.
 // You can construct a concrete instance of `StorageClassListMapInput` via:
 //
-//          StorageClassListMap{ "key": StorageClassListArgs{...} }
+//	StorageClassListMap{ "key": StorageClassListArgs{...} }
 type StorageClassListMapInput interface {
 	pulumi.Input
 

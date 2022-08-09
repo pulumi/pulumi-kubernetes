@@ -129,7 +129,7 @@ func (i *SubjectAccessReviewPatch) ToSubjectAccessReviewPatchOutputWithContext(c
 // SubjectAccessReviewPatchArrayInput is an input type that accepts SubjectAccessReviewPatchArray and SubjectAccessReviewPatchArrayOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewPatchArrayInput` via:
 //
-//          SubjectAccessReviewPatchArray{ SubjectAccessReviewPatchArgs{...} }
+//	SubjectAccessReviewPatchArray{ SubjectAccessReviewPatchArgs{...} }
 type SubjectAccessReviewPatchArrayInput interface {
 	pulumi.Input
 
@@ -154,7 +154,7 @@ func (i SubjectAccessReviewPatchArray) ToSubjectAccessReviewPatchArrayOutputWith
 // SubjectAccessReviewPatchMapInput is an input type that accepts SubjectAccessReviewPatchMap and SubjectAccessReviewPatchMapOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewPatchMapInput` via:
 //
-//          SubjectAccessReviewPatchMap{ "key": SubjectAccessReviewPatchArgs{...} }
+//	SubjectAccessReviewPatchMap{ "key": SubjectAccessReviewPatchArgs{...} }
 type SubjectAccessReviewPatchMapInput interface {
 	pulumi.Input
 

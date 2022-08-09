@@ -183,7 +183,7 @@ func (i *CSIStorageCapacityPatch) ToCSIStorageCapacityPatchOutputWithContext(ctx
 // CSIStorageCapacityPatchArrayInput is an input type that accepts CSIStorageCapacityPatchArray and CSIStorageCapacityPatchArrayOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityPatchArrayInput` via:
 //
-//          CSIStorageCapacityPatchArray{ CSIStorageCapacityPatchArgs{...} }
+//	CSIStorageCapacityPatchArray{ CSIStorageCapacityPatchArgs{...} }
 type CSIStorageCapacityPatchArrayInput interface {
 	pulumi.Input
 
@@ -208,7 +208,7 @@ func (i CSIStorageCapacityPatchArray) ToCSIStorageCapacityPatchArrayOutputWithCo
 // CSIStorageCapacityPatchMapInput is an input type that accepts CSIStorageCapacityPatchMap and CSIStorageCapacityPatchMapOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityPatchMapInput` via:
 //
-//          CSIStorageCapacityPatchMap{ "key": CSIStorageCapacityPatchArgs{...} }
+//	CSIStorageCapacityPatchMap{ "key": CSIStorageCapacityPatchArgs{...} }
 type CSIStorageCapacityPatchMapInput interface {
 	pulumi.Input
 

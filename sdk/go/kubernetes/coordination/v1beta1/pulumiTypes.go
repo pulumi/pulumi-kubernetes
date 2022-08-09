@@ -26,7 +26,7 @@ type LeaseType struct {
 // LeaseTypeInput is an input type that accepts LeaseTypeArgs and LeaseTypeOutput values.
 // You can construct a concrete instance of `LeaseTypeInput` via:
 //
-//          LeaseTypeArgs{...}
+//	LeaseTypeArgs{...}
 type LeaseTypeInput interface {
 	pulumi.Input
 
@@ -61,7 +61,7 @@ func (i LeaseTypeArgs) ToLeaseTypeOutputWithContext(ctx context.Context) LeaseTy
 // LeaseTypeArrayInput is an input type that accepts LeaseTypeArray and LeaseTypeArrayOutput values.
 // You can construct a concrete instance of `LeaseTypeArrayInput` via:
 //
-//          LeaseTypeArray{ LeaseTypeArgs{...} }
+//	LeaseTypeArray{ LeaseTypeArgs{...} }
 type LeaseTypeArrayInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ type LeaseListType struct {
 // LeaseListTypeInput is an input type that accepts LeaseListTypeArgs and LeaseListTypeOutput values.
 // You can construct a concrete instance of `LeaseListTypeInput` via:
 //
-//          LeaseListTypeArgs{...}
+//	LeaseListTypeArgs{...}
 type LeaseListTypeInput interface {
 	pulumi.Input
 
@@ -235,7 +235,7 @@ type LeasePatchType struct {
 // LeasePatchTypeInput is an input type that accepts LeasePatchTypeArgs and LeasePatchTypeOutput values.
 // You can construct a concrete instance of `LeasePatchTypeInput` via:
 //
-//          LeasePatchTypeArgs{...}
+//	LeasePatchTypeArgs{...}
 type LeasePatchTypeInput interface {
 	pulumi.Input
 
@@ -319,7 +319,7 @@ type LeaseSpec struct {
 // LeaseSpecInput is an input type that accepts LeaseSpecArgs and LeaseSpecOutput values.
 // You can construct a concrete instance of `LeaseSpecInput` via:
 //
-//          LeaseSpecArgs{...}
+//	LeaseSpecArgs{...}
 type LeaseSpecInput interface {
 	pulumi.Input
 
@@ -364,11 +364,11 @@ func (i LeaseSpecArgs) ToLeaseSpecPtrOutputWithContext(ctx context.Context) Leas
 // LeaseSpecPtrInput is an input type that accepts LeaseSpecArgs, LeaseSpecPtr and LeaseSpecPtrOutput values.
 // You can construct a concrete instance of `LeaseSpecPtrInput` via:
 //
-//          LeaseSpecArgs{...}
+//	        LeaseSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LeaseSpecPtrInput interface {
 	pulumi.Input
 
@@ -535,7 +535,7 @@ type LeaseSpecPatch struct {
 // LeaseSpecPatchInput is an input type that accepts LeaseSpecPatchArgs and LeaseSpecPatchOutput values.
 // You can construct a concrete instance of `LeaseSpecPatchInput` via:
 //
-//          LeaseSpecPatchArgs{...}
+//	LeaseSpecPatchArgs{...}
 type LeaseSpecPatchInput interface {
 	pulumi.Input
 
@@ -580,11 +580,11 @@ func (i LeaseSpecPatchArgs) ToLeaseSpecPatchPtrOutputWithContext(ctx context.Con
 // LeaseSpecPatchPtrInput is an input type that accepts LeaseSpecPatchArgs, LeaseSpecPatchPtr and LeaseSpecPatchPtrOutput values.
 // You can construct a concrete instance of `LeaseSpecPatchPtrInput` via:
 //
-//          LeaseSpecPatchArgs{...}
+//	        LeaseSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LeaseSpecPatchPtrInput interface {
 	pulumi.Input
 

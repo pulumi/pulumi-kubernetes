@@ -211,7 +211,7 @@ func (i *EventPatch) ToEventPatchOutputWithContext(ctx context.Context) EventPat
 // EventPatchArrayInput is an input type that accepts EventPatchArray and EventPatchArrayOutput values.
 // You can construct a concrete instance of `EventPatchArrayInput` via:
 //
-//          EventPatchArray{ EventPatchArgs{...} }
+//	EventPatchArray{ EventPatchArgs{...} }
 type EventPatchArrayInput interface {
 	pulumi.Input
 
@@ -236,7 +236,7 @@ func (i EventPatchArray) ToEventPatchArrayOutputWithContext(ctx context.Context)
 // EventPatchMapInput is an input type that accepts EventPatchMap and EventPatchMapOutput values.
 // You can construct a concrete instance of `EventPatchMapInput` via:
 //
-//          EventPatchMap{ "key": EventPatchArgs{...} }
+//	EventPatchMap{ "key": EventPatchArgs{...} }
 type EventPatchMapInput interface {
 	pulumi.Input
 

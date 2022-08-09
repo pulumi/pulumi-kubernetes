@@ -126,7 +126,7 @@ func (i *ResourceQuotaPatch) ToResourceQuotaPatchOutputWithContext(ctx context.C
 // ResourceQuotaPatchArrayInput is an input type that accepts ResourceQuotaPatchArray and ResourceQuotaPatchArrayOutput values.
 // You can construct a concrete instance of `ResourceQuotaPatchArrayInput` via:
 //
-//          ResourceQuotaPatchArray{ ResourceQuotaPatchArgs{...} }
+//	ResourceQuotaPatchArray{ ResourceQuotaPatchArgs{...} }
 type ResourceQuotaPatchArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i ResourceQuotaPatchArray) ToResourceQuotaPatchArrayOutputWithContext(ctx 
 // ResourceQuotaPatchMapInput is an input type that accepts ResourceQuotaPatchMap and ResourceQuotaPatchMapOutput values.
 // You can construct a concrete instance of `ResourceQuotaPatchMapInput` via:
 //
-//          ResourceQuotaPatchMap{ "key": ResourceQuotaPatchArgs{...} }
+//	ResourceQuotaPatchMap{ "key": ResourceQuotaPatchArgs{...} }
 type ResourceQuotaPatchMapInput interface {
 	pulumi.Input
 

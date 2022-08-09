@@ -25,10 +25,10 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -149,7 +149,7 @@ func (i *IngressPatch) ToIngressPatchOutputWithContext(ctx context.Context) Ingr
 // IngressPatchArrayInput is an input type that accepts IngressPatchArray and IngressPatchArrayOutput values.
 // You can construct a concrete instance of `IngressPatchArrayInput` via:
 //
-//          IngressPatchArray{ IngressPatchArgs{...} }
+//	IngressPatchArray{ IngressPatchArgs{...} }
 type IngressPatchArrayInput interface {
 	pulumi.Input
 
@@ -174,7 +174,7 @@ func (i IngressPatchArray) ToIngressPatchArrayOutputWithContext(ctx context.Cont
 // IngressPatchMapInput is an input type that accepts IngressPatchMap and IngressPatchMapOutput values.
 // You can construct a concrete instance of `IngressPatchMapInput` via:
 //
-//          IngressPatchMap{ "key": IngressPatchArgs{...} }
+//	IngressPatchMap{ "key": IngressPatchArgs{...} }
 type IngressPatchMapInput interface {
 	pulumi.Input
 

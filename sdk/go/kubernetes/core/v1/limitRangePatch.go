@@ -124,7 +124,7 @@ func (i *LimitRangePatch) ToLimitRangePatchOutputWithContext(ctx context.Context
 // LimitRangePatchArrayInput is an input type that accepts LimitRangePatchArray and LimitRangePatchArrayOutput values.
 // You can construct a concrete instance of `LimitRangePatchArrayInput` via:
 //
-//          LimitRangePatchArray{ LimitRangePatchArgs{...} }
+//	LimitRangePatchArray{ LimitRangePatchArgs{...} }
 type LimitRangePatchArrayInput interface {
 	pulumi.Input
 
@@ -149,7 +149,7 @@ func (i LimitRangePatchArray) ToLimitRangePatchArrayOutputWithContext(ctx contex
 // LimitRangePatchMapInput is an input type that accepts LimitRangePatchMap and LimitRangePatchMapOutput values.
 // You can construct a concrete instance of `LimitRangePatchMapInput` via:
 //
-//          LimitRangePatchMap{ "key": LimitRangePatchArgs{...} }
+//	LimitRangePatchMap{ "key": LimitRangePatchArgs{...} }
 type LimitRangePatchMapInput interface {
 	pulumi.Input
 

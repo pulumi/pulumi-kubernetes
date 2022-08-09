@@ -30,7 +30,7 @@ type ReleaseStatus struct {
 // ReleaseStatusInput is an input type that accepts ReleaseStatusArgs and ReleaseStatusOutput values.
 // You can construct a concrete instance of `ReleaseStatusInput` via:
 //
-//          ReleaseStatusArgs{...}
+//	ReleaseStatusArgs{...}
 type ReleaseStatusInput interface {
 	pulumi.Input
 
@@ -135,7 +135,7 @@ type RepositoryOpts struct {
 // RepositoryOptsInput is an input type that accepts RepositoryOptsArgs and RepositoryOptsOutput values.
 // You can construct a concrete instance of `RepositoryOptsInput` via:
 //
-//          RepositoryOptsArgs{...}
+//	RepositoryOptsArgs{...}
 type RepositoryOptsInput interface {
 	pulumi.Input
 
@@ -182,11 +182,11 @@ func (i RepositoryOptsArgs) ToRepositoryOptsPtrOutputWithContext(ctx context.Con
 // RepositoryOptsPtrInput is an input type that accepts RepositoryOptsArgs, RepositoryOptsPtr and RepositoryOptsPtrOutput values.
 // You can construct a concrete instance of `RepositoryOptsPtrInput` via:
 //
-//          RepositoryOptsArgs{...}
+//	        RepositoryOptsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RepositoryOptsPtrInput interface {
 	pulumi.Input
 

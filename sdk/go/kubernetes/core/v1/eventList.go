@@ -118,7 +118,7 @@ func (i *EventList) ToEventListOutputWithContext(ctx context.Context) EventListO
 // EventListArrayInput is an input type that accepts EventListArray and EventListArrayOutput values.
 // You can construct a concrete instance of `EventListArrayInput` via:
 //
-//          EventListArray{ EventListArgs{...} }
+//	EventListArray{ EventListArgs{...} }
 type EventListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i EventListArray) ToEventListArrayOutputWithContext(ctx context.Context) E
 // EventListMapInput is an input type that accepts EventListMap and EventListMapOutput values.
 // You can construct a concrete instance of `EventListMapInput` via:
 //
-//          EventListMap{ "key": EventListArgs{...} }
+//	EventListMap{ "key": EventListArgs{...} }
 type EventListMapInput interface {
 	pulumi.Input
 

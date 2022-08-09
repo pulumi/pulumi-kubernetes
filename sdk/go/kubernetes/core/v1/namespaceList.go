@@ -118,7 +118,7 @@ func (i *NamespaceList) ToNamespaceListOutputWithContext(ctx context.Context) Na
 // NamespaceListArrayInput is an input type that accepts NamespaceListArray and NamespaceListArrayOutput values.
 // You can construct a concrete instance of `NamespaceListArrayInput` via:
 //
-//          NamespaceListArray{ NamespaceListArgs{...} }
+//	NamespaceListArray{ NamespaceListArgs{...} }
 type NamespaceListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i NamespaceListArray) ToNamespaceListArrayOutputWithContext(ctx context.Co
 // NamespaceListMapInput is an input type that accepts NamespaceListMap and NamespaceListMapOutput values.
 // You can construct a concrete instance of `NamespaceListMapInput` via:
 //
-//          NamespaceListMap{ "key": NamespaceListArgs{...} }
+//	NamespaceListMap{ "key": NamespaceListArgs{...} }
 type NamespaceListMapInput interface {
 	pulumi.Input
 

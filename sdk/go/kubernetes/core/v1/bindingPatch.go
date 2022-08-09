@@ -124,7 +124,7 @@ func (i *BindingPatch) ToBindingPatchOutputWithContext(ctx context.Context) Bind
 // BindingPatchArrayInput is an input type that accepts BindingPatchArray and BindingPatchArrayOutput values.
 // You can construct a concrete instance of `BindingPatchArrayInput` via:
 //
-//          BindingPatchArray{ BindingPatchArgs{...} }
+//	BindingPatchArray{ BindingPatchArgs{...} }
 type BindingPatchArrayInput interface {
 	pulumi.Input
 
@@ -149,7 +149,7 @@ func (i BindingPatchArray) ToBindingPatchArrayOutputWithContext(ctx context.Cont
 // BindingPatchMapInput is an input type that accepts BindingPatchMap and BindingPatchMapOutput values.
 // You can construct a concrete instance of `BindingPatchMapInput` via:
 //
-//          BindingPatchMap{ "key": BindingPatchArgs{...} }
+//	BindingPatchMap{ "key": BindingPatchArgs{...} }
 type BindingPatchMapInput interface {
 	pulumi.Input
 

@@ -130,7 +130,7 @@ func (i *CSIDriverPatch) ToCSIDriverPatchOutputWithContext(ctx context.Context) 
 // CSIDriverPatchArrayInput is an input type that accepts CSIDriverPatchArray and CSIDriverPatchArrayOutput values.
 // You can construct a concrete instance of `CSIDriverPatchArrayInput` via:
 //
-//          CSIDriverPatchArray{ CSIDriverPatchArgs{...} }
+//	CSIDriverPatchArray{ CSIDriverPatchArgs{...} }
 type CSIDriverPatchArrayInput interface {
 	pulumi.Input
 
@@ -155,7 +155,7 @@ func (i CSIDriverPatchArray) ToCSIDriverPatchArrayOutputWithContext(ctx context.
 // CSIDriverPatchMapInput is an input type that accepts CSIDriverPatchMap and CSIDriverPatchMapOutput values.
 // You can construct a concrete instance of `CSIDriverPatchMapInput` via:
 //
-//          CSIDriverPatchMap{ "key": CSIDriverPatchArgs{...} }
+//	CSIDriverPatchMap{ "key": CSIDriverPatchArgs{...} }
 type CSIDriverPatchMapInput interface {
 	pulumi.Input
 

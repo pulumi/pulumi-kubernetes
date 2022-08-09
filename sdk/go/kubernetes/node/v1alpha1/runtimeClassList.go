@@ -118,7 +118,7 @@ func (i *RuntimeClassList) ToRuntimeClassListOutputWithContext(ctx context.Conte
 // RuntimeClassListArrayInput is an input type that accepts RuntimeClassListArray and RuntimeClassListArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassListArrayInput` via:
 //
-//          RuntimeClassListArray{ RuntimeClassListArgs{...} }
+//	RuntimeClassListArray{ RuntimeClassListArgs{...} }
 type RuntimeClassListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i RuntimeClassListArray) ToRuntimeClassListArrayOutputWithContext(ctx cont
 // RuntimeClassListMapInput is an input type that accepts RuntimeClassListMap and RuntimeClassListMapOutput values.
 // You can construct a concrete instance of `RuntimeClassListMapInput` via:
 //
-//          RuntimeClassListMap{ "key": RuntimeClassListArgs{...} }
+//	RuntimeClassListMap{ "key": RuntimeClassListArgs{...} }
 type RuntimeClassListMapInput interface {
 	pulumi.Input
 

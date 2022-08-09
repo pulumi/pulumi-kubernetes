@@ -126,7 +126,7 @@ func (i *PersistentVolumePatch) ToPersistentVolumePatchOutputWithContext(ctx con
 // PersistentVolumePatchArrayInput is an input type that accepts PersistentVolumePatchArray and PersistentVolumePatchArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumePatchArrayInput` via:
 //
-//          PersistentVolumePatchArray{ PersistentVolumePatchArgs{...} }
+//	PersistentVolumePatchArray{ PersistentVolumePatchArgs{...} }
 type PersistentVolumePatchArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i PersistentVolumePatchArray) ToPersistentVolumePatchArrayOutputWithContex
 // PersistentVolumePatchMapInput is an input type that accepts PersistentVolumePatchMap and PersistentVolumePatchMapOutput values.
 // You can construct a concrete instance of `PersistentVolumePatchMapInput` via:
 //
-//          PersistentVolumePatchMap{ "key": PersistentVolumePatchArgs{...} }
+//	PersistentVolumePatchMap{ "key": PersistentVolumePatchArgs{...} }
 type PersistentVolumePatchMapInput interface {
 	pulumi.Input
 

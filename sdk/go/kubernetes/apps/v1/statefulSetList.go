@@ -118,7 +118,7 @@ func (i *StatefulSetList) ToStatefulSetListOutputWithContext(ctx context.Context
 // StatefulSetListArrayInput is an input type that accepts StatefulSetListArray and StatefulSetListArrayOutput values.
 // You can construct a concrete instance of `StatefulSetListArrayInput` via:
 //
-//          StatefulSetListArray{ StatefulSetListArgs{...} }
+//	StatefulSetListArray{ StatefulSetListArgs{...} }
 type StatefulSetListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i StatefulSetListArray) ToStatefulSetListArrayOutputWithContext(ctx contex
 // StatefulSetListMapInput is an input type that accepts StatefulSetListMap and StatefulSetListMapOutput values.
 // You can construct a concrete instance of `StatefulSetListMapInput` via:
 //
-//          StatefulSetListMap{ "key": StatefulSetListArgs{...} }
+//	StatefulSetListMap{ "key": StatefulSetListArgs{...} }
 type StatefulSetListMapInput interface {
 	pulumi.Input
 

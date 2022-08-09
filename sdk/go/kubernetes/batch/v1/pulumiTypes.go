@@ -29,7 +29,7 @@ type CronJobType struct {
 // CronJobTypeInput is an input type that accepts CronJobTypeArgs and CronJobTypeOutput values.
 // You can construct a concrete instance of `CronJobTypeInput` via:
 //
-//          CronJobTypeArgs{...}
+//	CronJobTypeArgs{...}
 type CronJobTypeInput interface {
 	pulumi.Input
 
@@ -66,7 +66,7 @@ func (i CronJobTypeArgs) ToCronJobTypeOutputWithContext(ctx context.Context) Cro
 // CronJobTypeArrayInput is an input type that accepts CronJobTypeArray and CronJobTypeArrayOutput values.
 // You can construct a concrete instance of `CronJobTypeArrayInput` via:
 //
-//          CronJobTypeArray{ CronJobTypeArgs{...} }
+//	CronJobTypeArray{ CronJobTypeArgs{...} }
 type CronJobTypeArrayInput interface {
 	pulumi.Input
 
@@ -163,7 +163,7 @@ type CronJobListType struct {
 // CronJobListTypeInput is an input type that accepts CronJobListTypeArgs and CronJobListTypeOutput values.
 // You can construct a concrete instance of `CronJobListTypeInput` via:
 //
-//          CronJobListTypeArgs{...}
+//	CronJobListTypeArgs{...}
 type CronJobListTypeInput interface {
 	pulumi.Input
 
@@ -247,7 +247,7 @@ type CronJobPatchType struct {
 // CronJobPatchTypeInput is an input type that accepts CronJobPatchTypeArgs and CronJobPatchTypeOutput values.
 // You can construct a concrete instance of `CronJobPatchTypeInput` via:
 //
-//          CronJobPatchTypeArgs{...}
+//	CronJobPatchTypeArgs{...}
 type CronJobPatchTypeInput interface {
 	pulumi.Input
 
@@ -344,7 +344,7 @@ type CronJobSpec struct {
 // CronJobSpecInput is an input type that accepts CronJobSpecArgs and CronJobSpecOutput values.
 // You can construct a concrete instance of `CronJobSpecInput` via:
 //
-//          CronJobSpecArgs{...}
+//	CronJobSpecArgs{...}
 type CronJobSpecInput interface {
 	pulumi.Input
 
@@ -395,11 +395,11 @@ func (i CronJobSpecArgs) ToCronJobSpecPtrOutputWithContext(ctx context.Context) 
 // CronJobSpecPtrInput is an input type that accepts CronJobSpecArgs, CronJobSpecPtr and CronJobSpecPtrOutput values.
 // You can construct a concrete instance of `CronJobSpecPtrInput` via:
 //
-//          CronJobSpecArgs{...}
+//	        CronJobSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobSpecPtrInput interface {
 	pulumi.Input
 
@@ -617,7 +617,7 @@ type CronJobSpecPatch struct {
 // CronJobSpecPatchInput is an input type that accepts CronJobSpecPatchArgs and CronJobSpecPatchOutput values.
 // You can construct a concrete instance of `CronJobSpecPatchInput` via:
 //
-//          CronJobSpecPatchArgs{...}
+//	CronJobSpecPatchArgs{...}
 type CronJobSpecPatchInput interface {
 	pulumi.Input
 
@@ -668,11 +668,11 @@ func (i CronJobSpecPatchArgs) ToCronJobSpecPatchPtrOutputWithContext(ctx context
 // CronJobSpecPatchPtrInput is an input type that accepts CronJobSpecPatchArgs, CronJobSpecPatchPtr and CronJobSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CronJobSpecPatchPtrInput` via:
 //
-//          CronJobSpecPatchArgs{...}
+//	        CronJobSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -880,7 +880,7 @@ type CronJobStatus struct {
 // CronJobStatusInput is an input type that accepts CronJobStatusArgs and CronJobStatusOutput values.
 // You can construct a concrete instance of `CronJobStatusInput` via:
 //
-//          CronJobStatusArgs{...}
+//	CronJobStatusArgs{...}
 type CronJobStatusInput interface {
 	pulumi.Input
 
@@ -921,11 +921,11 @@ func (i CronJobStatusArgs) ToCronJobStatusPtrOutputWithContext(ctx context.Conte
 // CronJobStatusPtrInput is an input type that accepts CronJobStatusArgs, CronJobStatusPtr and CronJobStatusPtrOutput values.
 // You can construct a concrete instance of `CronJobStatusPtrInput` via:
 //
-//          CronJobStatusArgs{...}
+//	        CronJobStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobStatusPtrInput interface {
 	pulumi.Input
 
@@ -1058,7 +1058,7 @@ type CronJobStatusPatch struct {
 // CronJobStatusPatchInput is an input type that accepts CronJobStatusPatchArgs and CronJobStatusPatchOutput values.
 // You can construct a concrete instance of `CronJobStatusPatchInput` via:
 //
-//          CronJobStatusPatchArgs{...}
+//	CronJobStatusPatchArgs{...}
 type CronJobStatusPatchInput interface {
 	pulumi.Input
 
@@ -1099,11 +1099,11 @@ func (i CronJobStatusPatchArgs) ToCronJobStatusPatchPtrOutputWithContext(ctx con
 // CronJobStatusPatchPtrInput is an input type that accepts CronJobStatusPatchArgs, CronJobStatusPatchPtr and CronJobStatusPatchPtrOutput values.
 // You can construct a concrete instance of `CronJobStatusPatchPtrInput` via:
 //
-//          CronJobStatusPatchArgs{...}
+//	        CronJobStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CronJobStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1230,10 +1230,10 @@ func (o CronJobStatusPatchPtrOutput) LastSuccessfulTime() pulumi.StringPtrOutput
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -1260,7 +1260,7 @@ type JobType struct {
 // JobTypeInput is an input type that accepts JobTypeArgs and JobTypeOutput values.
 // You can construct a concrete instance of `JobTypeInput` via:
 //
-//          JobTypeArgs{...}
+//	JobTypeArgs{...}
 type JobTypeInput interface {
 	pulumi.Input
 
@@ -1275,10 +1275,10 @@ type JobTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -1317,7 +1317,7 @@ func (i JobTypeArgs) ToJobTypeOutputWithContext(ctx context.Context) JobTypeOutp
 // JobTypeArrayInput is an input type that accepts JobTypeArray and JobTypeArrayOutput values.
 // You can construct a concrete instance of `JobTypeArrayInput` via:
 //
-//          JobTypeArray{ JobTypeArgs{...} }
+//	JobTypeArray{ JobTypeArgs{...} }
 type JobTypeArrayInput interface {
 	pulumi.Input
 
@@ -1346,10 +1346,10 @@ func (i JobTypeArray) ToJobTypeArrayOutputWithContext(ctx context.Context) JobTy
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -1438,7 +1438,7 @@ type JobCondition struct {
 // JobConditionInput is an input type that accepts JobConditionArgs and JobConditionOutput values.
 // You can construct a concrete instance of `JobConditionInput` via:
 //
-//          JobConditionArgs{...}
+//	JobConditionArgs{...}
 type JobConditionInput interface {
 	pulumi.Input
 
@@ -1477,7 +1477,7 @@ func (i JobConditionArgs) ToJobConditionOutputWithContext(ctx context.Context) J
 // JobConditionArrayInput is an input type that accepts JobConditionArray and JobConditionArrayOutput values.
 // You can construct a concrete instance of `JobConditionArrayInput` via:
 //
-//          JobConditionArray{ JobConditionArgs{...} }
+//	JobConditionArray{ JobConditionArgs{...} }
 type JobConditionArrayInput interface {
 	pulumi.Input
 
@@ -1583,7 +1583,7 @@ type JobConditionPatch struct {
 // JobConditionPatchInput is an input type that accepts JobConditionPatchArgs and JobConditionPatchOutput values.
 // You can construct a concrete instance of `JobConditionPatchInput` via:
 //
-//          JobConditionPatchArgs{...}
+//	JobConditionPatchArgs{...}
 type JobConditionPatchInput interface {
 	pulumi.Input
 
@@ -1622,7 +1622,7 @@ func (i JobConditionPatchArgs) ToJobConditionPatchOutputWithContext(ctx context.
 // JobConditionPatchArrayInput is an input type that accepts JobConditionPatchArray and JobConditionPatchArrayOutput values.
 // You can construct a concrete instance of `JobConditionPatchArrayInput` via:
 //
-//          JobConditionPatchArray{ JobConditionPatchArgs{...} }
+//	JobConditionPatchArray{ JobConditionPatchArgs{...} }
 type JobConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -1724,7 +1724,7 @@ type JobListType struct {
 // JobListTypeInput is an input type that accepts JobListTypeArgs and JobListTypeOutput values.
 // You can construct a concrete instance of `JobListTypeInput` via:
 //
-//          JobListTypeArgs{...}
+//	JobListTypeArgs{...}
 type JobListTypeInput interface {
 	pulumi.Input
 
@@ -1798,10 +1798,10 @@ func (o JobListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -1828,7 +1828,7 @@ type JobPatchType struct {
 // JobPatchTypeInput is an input type that accepts JobPatchTypeArgs and JobPatchTypeOutput values.
 // You can construct a concrete instance of `JobPatchTypeInput` via:
 //
-//          JobPatchTypeArgs{...}
+//	JobPatchTypeArgs{...}
 type JobPatchTypeInput interface {
 	pulumi.Input
 
@@ -1843,10 +1843,10 @@ type JobPatchTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -1889,10 +1889,10 @@ func (i JobPatchTypeArgs) ToJobPatchTypeOutputWithContext(ctx context.Context) J
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -1975,7 +1975,7 @@ type JobSpec struct {
 // JobSpecInput is an input type that accepts JobSpecArgs and JobSpecOutput values.
 // You can construct a concrete instance of `JobSpecInput` via:
 //
-//          JobSpecArgs{...}
+//	JobSpecArgs{...}
 type JobSpecInput interface {
 	pulumi.Input
 
@@ -2036,11 +2036,11 @@ func (i JobSpecArgs) ToJobSpecPtrOutputWithContext(ctx context.Context) JobSpecP
 // JobSpecPtrInput is an input type that accepts JobSpecArgs, JobSpecPtr and JobSpecPtrOutput values.
 // You can construct a concrete instance of `JobSpecPtrInput` via:
 //
-//          JobSpecArgs{...}
+//	        JobSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobSpecPtrInput interface {
 	pulumi.Input
 
@@ -2310,7 +2310,7 @@ type JobSpecPatch struct {
 // JobSpecPatchInput is an input type that accepts JobSpecPatchArgs and JobSpecPatchOutput values.
 // You can construct a concrete instance of `JobSpecPatchInput` via:
 //
-//          JobSpecPatchArgs{...}
+//	JobSpecPatchArgs{...}
 type JobSpecPatchInput interface {
 	pulumi.Input
 
@@ -2371,11 +2371,11 @@ func (i JobSpecPatchArgs) ToJobSpecPatchPtrOutputWithContext(ctx context.Context
 // JobSpecPatchPtrInput is an input type that accepts JobSpecPatchArgs, JobSpecPatchPtr and JobSpecPatchPtrOutput values.
 // You can construct a concrete instance of `JobSpecPatchPtrInput` via:
 //
-//          JobSpecPatchArgs{...}
+//	        JobSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -2644,7 +2644,7 @@ type JobStatus struct {
 // JobStatusInput is an input type that accepts JobStatusArgs and JobStatusOutput values.
 // You can construct a concrete instance of `JobStatusInput` via:
 //
-//          JobStatusArgs{...}
+//	JobStatusArgs{...}
 type JobStatusInput interface {
 	pulumi.Input
 
@@ -2704,11 +2704,11 @@ func (i JobStatusArgs) ToJobStatusPtrOutputWithContext(ctx context.Context) JobS
 // JobStatusPtrInput is an input type that accepts JobStatusArgs, JobStatusPtr and JobStatusPtrOutput values.
 // You can construct a concrete instance of `JobStatusPtrInput` via:
 //
-//          JobStatusArgs{...}
+//	        JobStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobStatusPtrInput interface {
 	pulumi.Input
 
@@ -2804,7 +2804,8 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 // UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
 // The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
-//     counter.
+//
+//	counter.
 //
 // This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
@@ -2920,7 +2921,8 @@ func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
 // UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
 // The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
-//     counter.
+//
+//	counter.
 //
 // This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
@@ -2964,7 +2966,7 @@ type JobStatusPatch struct {
 // JobStatusPatchInput is an input type that accepts JobStatusPatchArgs and JobStatusPatchOutput values.
 // You can construct a concrete instance of `JobStatusPatchInput` via:
 //
-//          JobStatusPatchArgs{...}
+//	JobStatusPatchArgs{...}
 type JobStatusPatchInput interface {
 	pulumi.Input
 
@@ -3024,11 +3026,11 @@ func (i JobStatusPatchArgs) ToJobStatusPatchPtrOutputWithContext(ctx context.Con
 // JobStatusPatchPtrInput is an input type that accepts JobStatusPatchArgs, JobStatusPatchPtr and JobStatusPatchPtrOutput values.
 // You can construct a concrete instance of `JobStatusPatchPtrInput` via:
 //
-//          JobStatusPatchArgs{...}
+//	        JobStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -3124,7 +3126,8 @@ func (o JobStatusPatchOutput) Succeeded() pulumi.IntPtrOutput {
 // UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
 // The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
-//     counter.
+//
+//	counter.
 //
 // This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPatchOutput) UncountedTerminatedPods() UncountedTerminatedPodsPatchPtrOutput {
@@ -3240,7 +3243,8 @@ func (o JobStatusPatchPtrOutput) Succeeded() pulumi.IntPtrOutput {
 // UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
 // The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
-//     counter.
+//
+//	counter.
 //
 // This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPatchPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPatchPtrOutput {
@@ -3263,7 +3267,7 @@ type JobTemplateSpec struct {
 // JobTemplateSpecInput is an input type that accepts JobTemplateSpecArgs and JobTemplateSpecOutput values.
 // You can construct a concrete instance of `JobTemplateSpecInput` via:
 //
-//          JobTemplateSpecArgs{...}
+//	JobTemplateSpecArgs{...}
 type JobTemplateSpecInput interface {
 	pulumi.Input
 
@@ -3302,11 +3306,11 @@ func (i JobTemplateSpecArgs) ToJobTemplateSpecPtrOutputWithContext(ctx context.C
 // JobTemplateSpecPtrInput is an input type that accepts JobTemplateSpecArgs, JobTemplateSpecPtr and JobTemplateSpecPtrOutput values.
 // You can construct a concrete instance of `JobTemplateSpecPtrInput` via:
 //
-//          JobTemplateSpecArgs{...}
+//	        JobTemplateSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobTemplateSpecPtrInput interface {
 	pulumi.Input
 
@@ -3422,7 +3426,7 @@ type JobTemplateSpecPatch struct {
 // JobTemplateSpecPatchInput is an input type that accepts JobTemplateSpecPatchArgs and JobTemplateSpecPatchOutput values.
 // You can construct a concrete instance of `JobTemplateSpecPatchInput` via:
 //
-//          JobTemplateSpecPatchArgs{...}
+//	JobTemplateSpecPatchArgs{...}
 type JobTemplateSpecPatchInput interface {
 	pulumi.Input
 
@@ -3461,11 +3465,11 @@ func (i JobTemplateSpecPatchArgs) ToJobTemplateSpecPatchPtrOutputWithContext(ctx
 // JobTemplateSpecPatchPtrInput is an input type that accepts JobTemplateSpecPatchArgs, JobTemplateSpecPatchPtr and JobTemplateSpecPatchPtrOutput values.
 // You can construct a concrete instance of `JobTemplateSpecPatchPtrInput` via:
 //
-//          JobTemplateSpecPatchArgs{...}
+//	        JobTemplateSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JobTemplateSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -3581,7 +3585,7 @@ type UncountedTerminatedPods struct {
 // UncountedTerminatedPodsInput is an input type that accepts UncountedTerminatedPodsArgs and UncountedTerminatedPodsOutput values.
 // You can construct a concrete instance of `UncountedTerminatedPodsInput` via:
 //
-//          UncountedTerminatedPodsArgs{...}
+//	UncountedTerminatedPodsArgs{...}
 type UncountedTerminatedPodsInput interface {
 	pulumi.Input
 
@@ -3620,11 +3624,11 @@ func (i UncountedTerminatedPodsArgs) ToUncountedTerminatedPodsPtrOutputWithConte
 // UncountedTerminatedPodsPtrInput is an input type that accepts UncountedTerminatedPodsArgs, UncountedTerminatedPodsPtr and UncountedTerminatedPodsPtrOutput values.
 // You can construct a concrete instance of `UncountedTerminatedPodsPtrInput` via:
 //
-//          UncountedTerminatedPodsArgs{...}
+//	        UncountedTerminatedPodsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type UncountedTerminatedPodsPtrInput interface {
 	pulumi.Input
 
@@ -3740,7 +3744,7 @@ type UncountedTerminatedPodsPatch struct {
 // UncountedTerminatedPodsPatchInput is an input type that accepts UncountedTerminatedPodsPatchArgs and UncountedTerminatedPodsPatchOutput values.
 // You can construct a concrete instance of `UncountedTerminatedPodsPatchInput` via:
 //
-//          UncountedTerminatedPodsPatchArgs{...}
+//	UncountedTerminatedPodsPatchArgs{...}
 type UncountedTerminatedPodsPatchInput interface {
 	pulumi.Input
 
@@ -3779,11 +3783,11 @@ func (i UncountedTerminatedPodsPatchArgs) ToUncountedTerminatedPodsPatchPtrOutpu
 // UncountedTerminatedPodsPatchPtrInput is an input type that accepts UncountedTerminatedPodsPatchArgs, UncountedTerminatedPodsPatchPtr and UncountedTerminatedPodsPatchPtrOutput values.
 // You can construct a concrete instance of `UncountedTerminatedPodsPatchPtrInput` via:
 //
-//          UncountedTerminatedPodsPatchArgs{...}
+//	        UncountedTerminatedPodsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type UncountedTerminatedPodsPatchPtrInput interface {
 	pulumi.Input
 

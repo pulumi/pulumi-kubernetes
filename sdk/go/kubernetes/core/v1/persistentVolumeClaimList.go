@@ -118,7 +118,7 @@ func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListOutputWithContext
 // PersistentVolumeClaimListArrayInput is an input type that accepts PersistentVolumeClaimListArray and PersistentVolumeClaimListArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimListArrayInput` via:
 //
-//          PersistentVolumeClaimListArray{ PersistentVolumeClaimListArgs{...} }
+//	PersistentVolumeClaimListArray{ PersistentVolumeClaimListArgs{...} }
 type PersistentVolumeClaimListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PersistentVolumeClaimListArray) ToPersistentVolumeClaimListArrayOutputWi
 // PersistentVolumeClaimListMapInput is an input type that accepts PersistentVolumeClaimListMap and PersistentVolumeClaimListMapOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimListMapInput` via:
 //
-//          PersistentVolumeClaimListMap{ "key": PersistentVolumeClaimListArgs{...} }
+//	PersistentVolumeClaimListMap{ "key": PersistentVolumeClaimListArgs{...} }
 type PersistentVolumeClaimListMapInput interface {
 	pulumi.Input
 

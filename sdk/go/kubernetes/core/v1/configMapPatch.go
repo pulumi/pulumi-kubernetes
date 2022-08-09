@@ -136,7 +136,7 @@ func (i *ConfigMapPatch) ToConfigMapPatchOutputWithContext(ctx context.Context) 
 // ConfigMapPatchArrayInput is an input type that accepts ConfigMapPatchArray and ConfigMapPatchArrayOutput values.
 // You can construct a concrete instance of `ConfigMapPatchArrayInput` via:
 //
-//          ConfigMapPatchArray{ ConfigMapPatchArgs{...} }
+//	ConfigMapPatchArray{ ConfigMapPatchArgs{...} }
 type ConfigMapPatchArrayInput interface {
 	pulumi.Input
 
@@ -161,7 +161,7 @@ func (i ConfigMapPatchArray) ToConfigMapPatchArrayOutputWithContext(ctx context.
 // ConfigMapPatchMapInput is an input type that accepts ConfigMapPatchMap and ConfigMapPatchMapOutput values.
 // You can construct a concrete instance of `ConfigMapPatchMapInput` via:
 //
-//          ConfigMapPatchMap{ "key": ConfigMapPatchArgs{...} }
+//	ConfigMapPatchMap{ "key": ConfigMapPatchArgs{...} }
 type ConfigMapPatchMapInput interface {
 	pulumi.Input
 

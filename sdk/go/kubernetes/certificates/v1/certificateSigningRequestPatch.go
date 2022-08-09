@@ -135,7 +135,7 @@ func (i *CertificateSigningRequestPatch) ToCertificateSigningRequestPatchOutputW
 // CertificateSigningRequestPatchArrayInput is an input type that accepts CertificateSigningRequestPatchArray and CertificateSigningRequestPatchArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestPatchArrayInput` via:
 //
-//          CertificateSigningRequestPatchArray{ CertificateSigningRequestPatchArgs{...} }
+//	CertificateSigningRequestPatchArray{ CertificateSigningRequestPatchArgs{...} }
 type CertificateSigningRequestPatchArrayInput interface {
 	pulumi.Input
 
@@ -160,7 +160,7 @@ func (i CertificateSigningRequestPatchArray) ToCertificateSigningRequestPatchArr
 // CertificateSigningRequestPatchMapInput is an input type that accepts CertificateSigningRequestPatchMap and CertificateSigningRequestPatchMapOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestPatchMapInput` via:
 //
-//          CertificateSigningRequestPatchMap{ "key": CertificateSigningRequestPatchArgs{...} }
+//	CertificateSigningRequestPatchMap{ "key": CertificateSigningRequestPatchArgs{...} }
 type CertificateSigningRequestPatchMapInput interface {
 	pulumi.Input
 

@@ -118,7 +118,7 @@ func (i *HorizontalPodAutoscalerList) ToHorizontalPodAutoscalerListOutputWithCon
 // HorizontalPodAutoscalerListArrayInput is an input type that accepts HorizontalPodAutoscalerListArray and HorizontalPodAutoscalerListArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerListArrayInput` via:
 //
-//          HorizontalPodAutoscalerListArray{ HorizontalPodAutoscalerListArgs{...} }
+//	HorizontalPodAutoscalerListArray{ HorizontalPodAutoscalerListArgs{...} }
 type HorizontalPodAutoscalerListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i HorizontalPodAutoscalerListArray) ToHorizontalPodAutoscalerListArrayOutp
 // HorizontalPodAutoscalerListMapInput is an input type that accepts HorizontalPodAutoscalerListMap and HorizontalPodAutoscalerListMapOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerListMapInput` via:
 //
-//          HorizontalPodAutoscalerListMap{ "key": HorizontalPodAutoscalerListArgs{...} }
+//	HorizontalPodAutoscalerListMap{ "key": HorizontalPodAutoscalerListArgs{...} }
 type HorizontalPodAutoscalerListMapInput interface {
 	pulumi.Input
 

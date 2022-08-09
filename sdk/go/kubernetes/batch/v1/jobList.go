@@ -118,7 +118,7 @@ func (i *JobList) ToJobListOutputWithContext(ctx context.Context) JobListOutput 
 // JobListArrayInput is an input type that accepts JobListArray and JobListArrayOutput values.
 // You can construct a concrete instance of `JobListArrayInput` via:
 //
-//          JobListArray{ JobListArgs{...} }
+//	JobListArray{ JobListArgs{...} }
 type JobListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i JobListArray) ToJobListArrayOutputWithContext(ctx context.Context) JobLi
 // JobListMapInput is an input type that accepts JobListMap and JobListMapOutput values.
 // You can construct a concrete instance of `JobListMapInput` via:
 //
-//          JobListMap{ "key": JobListArgs{...} }
+//	JobListMap{ "key": JobListArgs{...} }
 type JobListMapInput interface {
 	pulumi.Input
 

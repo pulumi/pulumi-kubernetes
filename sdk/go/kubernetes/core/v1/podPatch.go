@@ -25,11 +25,11 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -141,7 +141,7 @@ func (i *PodPatch) ToPodPatchOutputWithContext(ctx context.Context) PodPatchOutp
 // PodPatchArrayInput is an input type that accepts PodPatchArray and PodPatchArrayOutput values.
 // You can construct a concrete instance of `PodPatchArrayInput` via:
 //
-//          PodPatchArray{ PodPatchArgs{...} }
+//	PodPatchArray{ PodPatchArgs{...} }
 type PodPatchArrayInput interface {
 	pulumi.Input
 
@@ -166,7 +166,7 @@ func (i PodPatchArray) ToPodPatchArrayOutputWithContext(ctx context.Context) Pod
 // PodPatchMapInput is an input type that accepts PodPatchMap and PodPatchMapOutput values.
 // You can construct a concrete instance of `PodPatchMapInput` via:
 //
-//          PodPatchMap{ "key": PodPatchArgs{...} }
+//	PodPatchMap{ "key": PodPatchArgs{...} }
 type PodPatchMapInput interface {
 	pulumi.Input
 
