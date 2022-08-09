@@ -15,17 +15,12 @@ on:
 env:
   GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
   PROVIDER: kubernetes
-  PUBLISH_REPO_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-  PUBLISH_REPO_USERNAME: ${{ secrets.OSSRH_USERNAME }}
   PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
   PULUMI_LOCAL_NUGET: ${{ github.workspace }}/nuget
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   NUGET_PUBLISH_KEY: ${{ secrets.NUGET_PUBLISH_KEY }}
   PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-  SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
-  SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
-  SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
   TRAVIS_OS_NAME: linux
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   PULUMI_GO_DEP_ROOT: ${{ github.workspace }}/..
@@ -40,7 +35,7 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
         dotnetversion:
         - 3.1.301
         pythonversion:
@@ -136,21 +131,18 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
         dotnetversion:
         - 3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
         - 14.x
-        javaversion:
-        - 11
         language:
         - nodejs
         - python
         - dotnet
         - go
-        - java
     name: build_sdks
     steps:
     - name: Checkout Repo
@@ -187,12 +179,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{matrix.pythonversion}}
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        cache: gradle
-        distribution: temurin
-        java-version: ${{matrix.javaversion}}
     - name: Download provider + tfgen binaries
       uses: actions/download-artifact@v2
       with:
@@ -232,7 +218,7 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
         dotnetversion:
         - 3.1.301
         pythonversion:
@@ -371,7 +357,7 @@ jobs:
     strategy:
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
     name: publish
     steps:
     - name: Checkout Repo
@@ -423,15 +409,13 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
         dotnetversion:
         - 3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
         - 14.x
-        javaversion:
-        - 11
     name: publish_sdk
     steps:
     - name: Checkout Repo
@@ -468,12 +452,6 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{matrix.pythonversion}}
-    - name: Setup Java
-      uses: actions/setup-java@v3
-      with:
-        cache: gradle
-        distribution: temurin
-        java-version: ${{matrix.javaversion}}
     - name: Download python SDK
       uses: actions/download-artifact@v2
       with:
@@ -498,29 +476,12 @@ jobs:
     - name: Uncompress nodejs SDK
       run: tar -zxf ${{github.workspace}}/sdk/nodejs.tar.gz -C
         ${{github.workspace}}/sdk/nodejs
-    - name: Download java SDK
-      uses: actions/download-artifact@v2
-      with:
-        name: java-sdk.tar.gz
-        path: ${{ github.workspace}}/sdk/
-    - name: Uncompress java SDK
-      run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
-        ${{github.workspace}}/sdk/java
     - name: Install Twine
       run: python -m pip install pip twine
     - name: Publish SDKs
       run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - name: Set PACKAGE_VERSION to Env
-      run: echo "PACKAGE_VERSION=$(pulumictl get version --language generic)" >>
-        $GITHUB_ENV
-    - name: Publish Java SDK
-      uses: gradle/gradle-build-action@9b814496b50909128c6a52622b416c5ffa04db49
-      with:
-        arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
-        build-root-directory: ./sdk/java
-        gradle-version: 7.4.1
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
@@ -534,7 +495,7 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
         dotnetversion:
         - 3.1.301
         pythonversion:
@@ -607,7 +568,7 @@ jobs:
       fail-fast: false
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
         dotnetversion:
         - 3.1.301
         pythonversion:
@@ -678,7 +639,7 @@ jobs:
       fail-fast: true
       matrix:
         goversion:
-        - 1.18.x
+        - 1.19.x
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
