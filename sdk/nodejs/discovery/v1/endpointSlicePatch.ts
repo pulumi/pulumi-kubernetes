@@ -77,9 +77,6 @@ export class EndpointSlicePatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["addressType"] = args ? args.addressType : undefined;
             resourceInputs["apiVersion"] = "discovery.k8s.io/v1";
             resourceInputs["endpoints"] = args ? args.endpoints : undefined;
@@ -124,7 +121,7 @@ export interface EndpointSlicePatchArgs {
     /**
      * Standard object's metadata.
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
      */

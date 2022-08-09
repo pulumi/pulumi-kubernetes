@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,12 +37,9 @@ type RoleBindingPatch struct {
 func NewRoleBindingPatch(ctx *pulumi.Context,
 	name string, args *RoleBindingPatchArgs, opts ...pulumi.ResourceOption) (*RoleBindingPatch, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &RoleBindingPatchArgs{}
 	}
 
-	if args.Metadata == nil {
-		return nil, errors.New("invalid value for required argument 'Metadata'")
-	}
 	args.ApiVersion = pulumi.StringPtr("rbac.authorization.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("RoleBinding")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -92,7 +88,7 @@ type roleBindingPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
 	RoleRef *RoleRefPatch `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
@@ -106,7 +102,7 @@ type RoleBindingPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPatchInput
+	Metadata metav1.ObjectMetaPatchPtrInput
 	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
 	RoleRef RoleRefPatchPtrInput
 	// Subjects holds references to the objects the role applies to.

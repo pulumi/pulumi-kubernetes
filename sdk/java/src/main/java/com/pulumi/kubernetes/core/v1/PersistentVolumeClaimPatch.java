@@ -111,7 +111,7 @@ public class PersistentVolumeClaimPatch extends com.pulumi.resources.CustomResou
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PersistentVolumeClaimPatch(String name, PersistentVolumeClaimPatchArgs args) {
+    public PersistentVolumeClaimPatch(String name, @Nullable PersistentVolumeClaimPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,7 +120,7 @@ public class PersistentVolumeClaimPatch extends com.pulumi.resources.CustomResou
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PersistentVolumeClaimPatch(String name, PersistentVolumeClaimPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public PersistentVolumeClaimPatch(String name, @Nullable PersistentVolumeClaimPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:PersistentVolumeClaimPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -128,7 +128,7 @@ public class PersistentVolumeClaimPatch extends com.pulumi.resources.CustomResou
         super("kubernetes:core/v1:PersistentVolumeClaimPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PersistentVolumeClaimPatchArgs makeArgs(PersistentVolumeClaimPatchArgs args) {
+    private static PersistentVolumeClaimPatchArgs makeArgs(@Nullable PersistentVolumeClaimPatchArgs args) {
         var builder = args == null ? PersistentVolumeClaimPatchArgs.builder() : PersistentVolumeClaimPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

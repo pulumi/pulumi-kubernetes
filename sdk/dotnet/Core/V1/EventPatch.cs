@@ -245,8 +245,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// <summary>
         /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         /// </summary>
-        [Input("metadata", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
+        [Input("metadata")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         /// <summary>
         /// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.

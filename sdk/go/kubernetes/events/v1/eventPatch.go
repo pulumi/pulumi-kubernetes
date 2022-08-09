@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -63,12 +62,9 @@ type EventPatch struct {
 func NewEventPatch(ctx *pulumi.Context,
 	name string, args *EventPatchArgs, opts ...pulumi.ResourceOption) (*EventPatch, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &EventPatchArgs{}
 	}
 
-	if args.Metadata == nil {
-		return nil, errors.New("invalid value for required argument 'Metadata'")
-	}
 	args.ApiVersion = pulumi.StringPtr("events.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("Event")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -129,7 +125,7 @@ type eventPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note *string `pulumi:"note"`
 	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
@@ -167,7 +163,7 @@ type EventPatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPatchInput
+	Metadata metav1.ObjectMetaPatchPtrInput
 	// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
 	Note pulumi.StringPtrInput
 	// reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.

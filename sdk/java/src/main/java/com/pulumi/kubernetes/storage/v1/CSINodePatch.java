@@ -98,7 +98,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CSINodePatch(String name, CSINodePatchArgs args) {
+    public CSINodePatch(String name, @Nullable CSINodePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CSINodePatch(String name, CSINodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CSINodePatch(String name, @Nullable CSINodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:CSINodePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:storage.k8s.io/v1:CSINodePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSINodePatchArgs makeArgs(CSINodePatchArgs args) {
+    private static CSINodePatchArgs makeArgs(@Nullable CSINodePatchArgs args) {
         var builder = args == null ? CSINodePatchArgs.builder() : CSINodePatchArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

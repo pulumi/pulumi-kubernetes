@@ -16,11 +16,11 @@ __all__ = ['StorageClassPatchArgs', 'StorageClassPatch']
 @pulumi.input_type
 class StorageClassPatchArgs:
     def __init__(__self__, *,
-                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  allow_volume_expansion: Optional[pulumi.Input[bool]] = None,
                  allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]]] = None,
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  provisioner: Optional[pulumi.Input[str]] = None,
@@ -28,18 +28,17 @@ class StorageClassPatchArgs:
                  volume_binding_mode: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a StorageClassPatch resource.
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermPatchArgs']]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: Parameters holds the parameters for the provisioner that should create volumes of this storage class.
         :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
         :param pulumi.Input[str] reclaim_policy: Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
         :param pulumi.Input[str] volume_binding_mode: VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
-        pulumi.set(__self__, "metadata", metadata)
         if allow_volume_expansion is not None:
             pulumi.set(__self__, "allow_volume_expansion", allow_volume_expansion)
         if allowed_topologies is not None:
@@ -48,6 +47,8 @@ class StorageClassPatchArgs:
             pulumi.set(__self__, "api_version", 'storage.k8s.io/v1beta1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'StorageClass')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
         if mount_options is not None:
             pulumi.set(__self__, "mount_options", mount_options)
         if parameters is not None:
@@ -58,18 +59,6 @@ class StorageClassPatchArgs:
             pulumi.set(__self__, "reclaim_policy", reclaim_policy)
         if volume_binding_mode is not None:
             pulumi.set(__self__, "volume_binding_mode", volume_binding_mode)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="allowVolumeExpansion")
@@ -118,6 +107,18 @@ class StorageClassPatchArgs:
     @kind.setter
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
+        """
+        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="mountOptions")
@@ -224,7 +225,7 @@ class StorageClassPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: StorageClassPatchArgs,
+                 args: Optional[StorageClassPatchArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -275,8 +276,6 @@ class StorageClassPatch(pulumi.CustomResource):
             __props__.__dict__["allowed_topologies"] = allowed_topologies
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'StorageClass'
-            if metadata is None and not opts.urn:
-                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["mount_options"] = mount_options
             __props__.__dict__["parameters"] = parameters

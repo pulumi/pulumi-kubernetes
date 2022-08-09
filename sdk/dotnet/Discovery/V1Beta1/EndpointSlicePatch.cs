@@ -154,8 +154,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
-        [Input("metadata", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
+        [Input("metadata")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         [Input("ports")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1Beta1.EndpointPortPatchArgs>? _ports;

@@ -113,7 +113,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ClusterRoleBindingPatch(String name, ClusterRoleBindingPatchArgs args) {
+    public ClusterRoleBindingPatch(String name, @Nullable ClusterRoleBindingPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ClusterRoleBindingPatch(String name, ClusterRoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ClusterRoleBindingPatch(String name, @Nullable ClusterRoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
         super("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ClusterRoleBindingPatchArgs makeArgs(ClusterRoleBindingPatchArgs args) {
+    private static ClusterRoleBindingPatchArgs makeArgs(@Nullable ClusterRoleBindingPatchArgs args) {
         var builder = args == null ? ClusterRoleBindingPatchArgs.builder() : ClusterRoleBindingPatchArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1")

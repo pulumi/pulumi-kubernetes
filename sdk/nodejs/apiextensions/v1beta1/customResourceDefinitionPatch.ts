@@ -70,9 +70,6 @@ export class CustomResourceDefinitionPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["apiVersion"] = "apiextensions.k8s.io/v1beta1";
             resourceInputs["kind"] = "CustomResourceDefinition";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -104,7 +101,7 @@ export interface CustomResourceDefinitionPatchArgs {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind?: pulumi.Input<"CustomResourceDefinition">;
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * spec describes how the user wants the resources to appear
      */

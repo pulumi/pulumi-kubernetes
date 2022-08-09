@@ -113,7 +113,7 @@ public class TokenReviewPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public TokenReviewPatch(String name, TokenReviewPatchArgs args) {
+    public TokenReviewPatch(String name, @Nullable TokenReviewPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class TokenReviewPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public TokenReviewPatch(String name, TokenReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public TokenReviewPatch(String name, @Nullable TokenReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:authentication.k8s.io/v1:TokenReviewPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class TokenReviewPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:authentication.k8s.io/v1:TokenReviewPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static TokenReviewPatchArgs makeArgs(TokenReviewPatchArgs args) {
+    private static TokenReviewPatchArgs makeArgs(@Nullable TokenReviewPatchArgs args) {
         var builder = args == null ? TokenReviewPatchArgs.builder() : TokenReviewPatchArgs.builder(args);
         return builder
             .apiVersion("authentication.k8s.io/v1")

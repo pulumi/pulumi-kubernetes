@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,12 +37,9 @@ type CSINodePatch struct {
 func NewCSINodePatch(ctx *pulumi.Context,
 	name string, args *CSINodePatchArgs, opts ...pulumi.ResourceOption) (*CSINodePatch, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &CSINodePatchArgs{}
 	}
 
-	if args.Metadata == nil {
-		return nil, errors.New("invalid value for required argument 'Metadata'")
-	}
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("CSINode")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -89,7 +85,7 @@ type csinodePatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// metadata.name must be the Kubernetes node name.
-	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec is the specification of CSINode
 	Spec *CSINodeSpecPatch `pulumi:"spec"`
 }
@@ -101,7 +97,7 @@ type CSINodePatchArgs struct {
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
 	// metadata.name must be the Kubernetes node name.
-	Metadata metav1.ObjectMetaPatchInput
+	Metadata metav1.ObjectMetaPatchPtrInput
 	// spec is the specification of CSINode
 	Spec CSINodeSpecPatchPtrInput
 }

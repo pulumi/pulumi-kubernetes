@@ -73,9 +73,6 @@ export class HorizontalPodAutoscalerPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["apiVersion"] = "autoscaling/v2";
             resourceInputs["kind"] = "HorizontalPodAutoscaler";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -110,7 +107,7 @@ export interface HorizontalPodAutoscalerPatchArgs {
     /**
      * metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      */

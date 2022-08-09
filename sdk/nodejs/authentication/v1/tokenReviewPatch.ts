@@ -73,9 +73,6 @@ export class TokenReviewPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["apiVersion"] = "authentication.k8s.io/v1";
             resourceInputs["kind"] = "TokenReview";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -110,7 +107,7 @@ export interface TokenReviewPatchArgs {
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Spec holds information about the request being evaluated
      */

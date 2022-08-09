@@ -153,7 +153,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public StatusPatch(String name, StatusPatchArgs args) {
+    public StatusPatch(String name, @Nullable StatusPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -162,7 +162,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public StatusPatch(String name, StatusPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public StatusPatch(String name, @Nullable StatusPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:meta/v1:StatusPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -170,7 +170,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:meta/v1:StatusPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static StatusPatchArgs makeArgs(StatusPatchArgs args) {
+    private static StatusPatchArgs makeArgs(@Nullable StatusPatchArgs args) {
         var builder = args == null ? StatusPatchArgs.builder() : StatusPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

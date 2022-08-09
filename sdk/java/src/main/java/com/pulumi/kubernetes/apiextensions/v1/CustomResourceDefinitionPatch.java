@@ -113,7 +113,7 @@ public class CustomResourceDefinitionPatch extends com.pulumi.resources.CustomRe
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CustomResourceDefinitionPatch(String name, CustomResourceDefinitionPatchArgs args) {
+    public CustomResourceDefinitionPatch(String name, @Nullable CustomResourceDefinitionPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class CustomResourceDefinitionPatch extends com.pulumi.resources.CustomRe
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CustomResourceDefinitionPatch(String name, CustomResourceDefinitionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CustomResourceDefinitionPatch(String name, @Nullable CustomResourceDefinitionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class CustomResourceDefinitionPatch extends com.pulumi.resources.CustomRe
         super("kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static CustomResourceDefinitionPatchArgs makeArgs(CustomResourceDefinitionPatchArgs args) {
+    private static CustomResourceDefinitionPatchArgs makeArgs(@Nullable CustomResourceDefinitionPatchArgs args) {
         var builder = args == null ? CustomResourceDefinitionPatchArgs.builder() : CustomResourceDefinitionPatchArgs.builder(args);
         return builder
             .apiVersion("apiextensions.k8s.io/v1")

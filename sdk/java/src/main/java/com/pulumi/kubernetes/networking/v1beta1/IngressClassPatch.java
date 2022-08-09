@@ -98,7 +98,7 @@ public class IngressClassPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public IngressClassPatch(String name, IngressClassPatchArgs args) {
+    public IngressClassPatch(String name, @Nullable IngressClassPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class IngressClassPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public IngressClassPatch(String name, IngressClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public IngressClassPatch(String name, @Nullable IngressClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1beta1:IngressClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class IngressClassPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:networking.k8s.io/v1beta1:IngressClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static IngressClassPatchArgs makeArgs(IngressClassPatchArgs args) {
+    private static IngressClassPatchArgs makeArgs(@Nullable IngressClassPatchArgs args) {
         var builder = args == null ? IngressClassPatchArgs.builder() : IngressClassPatchArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1beta1")

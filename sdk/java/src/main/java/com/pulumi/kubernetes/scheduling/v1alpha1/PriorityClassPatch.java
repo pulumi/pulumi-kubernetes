@@ -141,7 +141,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PriorityClassPatch(String name, PriorityClassPatchArgs args) {
+    public PriorityClassPatch(String name, @Nullable PriorityClassPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -150,7 +150,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PriorityClassPatch(String name, PriorityClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public PriorityClassPatch(String name, @Nullable PriorityClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -158,7 +158,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:scheduling.k8s.io/v1alpha1:PriorityClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PriorityClassPatchArgs makeArgs(PriorityClassPatchArgs args) {
+    private static PriorityClassPatchArgs makeArgs(@Nullable PriorityClassPatchArgs args) {
         var builder = args == null ? PriorityClassPatchArgs.builder() : PriorityClassPatchArgs.builder(args);
         return builder
             .apiVersion("scheduling.k8s.io/v1alpha1")

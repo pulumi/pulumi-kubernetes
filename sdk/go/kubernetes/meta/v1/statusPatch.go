@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -43,12 +42,9 @@ type StatusPatch struct {
 func NewStatusPatch(ctx *pulumi.Context,
 	name string, args *StatusPatchArgs, opts ...pulumi.ResourceOption) (*StatusPatch, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &StatusPatchArgs{}
 	}
 
-	if args.Metadata == nil {
-		return nil, errors.New("invalid value for required argument 'Metadata'")
-	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Status")
 	var resource StatusPatch
@@ -94,7 +90,7 @@ type statusPatchArgs struct {
 	// A human-readable description of the status of this operation.
 	Message *string `pulumi:"message"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata ListMetaPatch `pulumi:"metadata"`
+	Metadata *ListMetaPatch `pulumi:"metadata"`
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason *string `pulumi:"reason"`
 }
@@ -112,7 +108,7 @@ type StatusPatchArgs struct {
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrInput
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata ListMetaPatchInput
+	Metadata ListMetaPatchPtrInput
 	// A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
 	Reason pulumi.StringPtrInput
 }

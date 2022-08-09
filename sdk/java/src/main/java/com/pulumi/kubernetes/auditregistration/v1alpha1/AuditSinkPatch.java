@@ -88,7 +88,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public AuditSinkPatch(String name, AuditSinkPatchArgs args) {
+    public AuditSinkPatch(String name, @Nullable AuditSinkPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -97,7 +97,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public AuditSinkPatch(String name, AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public AuditSinkPatch(String name, @Nullable AuditSinkPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -105,7 +105,7 @@ public class AuditSinkPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static AuditSinkPatchArgs makeArgs(AuditSinkPatchArgs args) {
+    private static AuditSinkPatchArgs makeArgs(@Nullable AuditSinkPatchArgs args) {
         var builder = args == null ? AuditSinkPatchArgs.builder() : AuditSinkPatchArgs.builder(args);
         return builder
             .apiVersion("auditregistration.k8s.io/v1alpha1")

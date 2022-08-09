@@ -111,7 +111,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ReplicationControllerPatch(String name, ReplicationControllerPatchArgs args) {
+    public ReplicationControllerPatch(String name, @Nullable ReplicationControllerPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,7 +120,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ReplicationControllerPatch(String name, ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ReplicationControllerPatch(String name, @Nullable ReplicationControllerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ReplicationControllerPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -128,7 +128,7 @@ public class ReplicationControllerPatch extends com.pulumi.resources.CustomResou
         super("kubernetes:core/v1:ReplicationControllerPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReplicationControllerPatchArgs makeArgs(ReplicationControllerPatchArgs args) {
+    private static ReplicationControllerPatchArgs makeArgs(@Nullable ReplicationControllerPatchArgs args) {
         var builder = args == null ? ReplicationControllerPatchArgs.builder() : ReplicationControllerPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

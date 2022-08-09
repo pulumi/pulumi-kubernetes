@@ -98,7 +98,7 @@ public class CSIDriverPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CSIDriverPatch(String name, CSIDriverPatchArgs args) {
+    public CSIDriverPatch(String name, @Nullable CSIDriverPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class CSIDriverPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CSIDriverPatch(String name, CSIDriverPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CSIDriverPatch(String name, @Nullable CSIDriverPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class CSIDriverPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:storage.k8s.io/v1beta1:CSIDriverPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSIDriverPatchArgs makeArgs(CSIDriverPatchArgs args) {
+    private static CSIDriverPatchArgs makeArgs(@Nullable CSIDriverPatchArgs args) {
         var builder = args == null ? CSIDriverPatchArgs.builder() : CSIDriverPatchArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1beta1")

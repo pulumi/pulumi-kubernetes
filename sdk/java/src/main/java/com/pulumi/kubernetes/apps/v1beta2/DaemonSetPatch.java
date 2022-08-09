@@ -117,7 +117,7 @@ public class DaemonSetPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public DaemonSetPatch(String name, DaemonSetPatchArgs args) {
+    public DaemonSetPatch(String name, @Nullable DaemonSetPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -126,7 +126,7 @@ public class DaemonSetPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public DaemonSetPatch(String name, DaemonSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public DaemonSetPatch(String name, @Nullable DaemonSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1beta2:DaemonSetPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -134,7 +134,7 @@ public class DaemonSetPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:apps/v1beta2:DaemonSetPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static DaemonSetPatchArgs makeArgs(DaemonSetPatchArgs args) {
+    private static DaemonSetPatchArgs makeArgs(@Nullable DaemonSetPatchArgs args) {
         var builder = args == null ? DaemonSetPatchArgs.builder() : DaemonSetPatchArgs.builder(args);
         return builder
             .apiVersion("apps/v1beta2")

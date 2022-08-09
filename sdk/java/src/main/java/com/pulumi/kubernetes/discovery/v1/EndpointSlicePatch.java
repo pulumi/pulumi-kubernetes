@@ -127,7 +127,7 @@ public class EndpointSlicePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public EndpointSlicePatch(String name, EndpointSlicePatchArgs args) {
+    public EndpointSlicePatch(String name, @Nullable EndpointSlicePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -136,7 +136,7 @@ public class EndpointSlicePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public EndpointSlicePatch(String name, EndpointSlicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public EndpointSlicePatch(String name, @Nullable EndpointSlicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:discovery.k8s.io/v1:EndpointSlicePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -144,7 +144,7 @@ public class EndpointSlicePatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:discovery.k8s.io/v1:EndpointSlicePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static EndpointSlicePatchArgs makeArgs(EndpointSlicePatchArgs args) {
+    private static EndpointSlicePatchArgs makeArgs(@Nullable EndpointSlicePatchArgs args) {
         var builder = args == null ? EndpointSlicePatchArgs.builder() : EndpointSlicePatchArgs.builder(args);
         return builder
             .apiVersion("discovery.k8s.io/v1")

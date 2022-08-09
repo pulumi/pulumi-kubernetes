@@ -105,7 +105,7 @@ public class SelfSubjectRulesReviewPatch extends com.pulumi.resources.CustomReso
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public SelfSubjectRulesReviewPatch(String name, SelfSubjectRulesReviewPatchArgs args) {
+    public SelfSubjectRulesReviewPatch(String name, @Nullable SelfSubjectRulesReviewPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -114,7 +114,7 @@ public class SelfSubjectRulesReviewPatch extends com.pulumi.resources.CustomReso
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public SelfSubjectRulesReviewPatch(String name, SelfSubjectRulesReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public SelfSubjectRulesReviewPatch(String name, @Nullable SelfSubjectRulesReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -122,7 +122,7 @@ public class SelfSubjectRulesReviewPatch extends com.pulumi.resources.CustomReso
         super("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static SelfSubjectRulesReviewPatchArgs makeArgs(SelfSubjectRulesReviewPatchArgs args) {
+    private static SelfSubjectRulesReviewPatchArgs makeArgs(@Nullable SelfSubjectRulesReviewPatchArgs args) {
         var builder = args == null ? SelfSubjectRulesReviewPatchArgs.builder() : SelfSubjectRulesReviewPatchArgs.builder(args);
         return builder
             .apiVersion("authorization.k8s.io/v1beta1")

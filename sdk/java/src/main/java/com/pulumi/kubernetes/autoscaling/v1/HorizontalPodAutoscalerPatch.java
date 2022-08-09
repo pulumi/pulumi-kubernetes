@@ -113,7 +113,7 @@ public class HorizontalPodAutoscalerPatch extends com.pulumi.resources.CustomRes
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public HorizontalPodAutoscalerPatch(String name, HorizontalPodAutoscalerPatchArgs args) {
+    public HorizontalPodAutoscalerPatch(String name, @Nullable HorizontalPodAutoscalerPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class HorizontalPodAutoscalerPatch extends com.pulumi.resources.CustomRes
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public HorizontalPodAutoscalerPatch(String name, HorizontalPodAutoscalerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public HorizontalPodAutoscalerPatch(String name, @Nullable HorizontalPodAutoscalerPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class HorizontalPodAutoscalerPatch extends com.pulumi.resources.CustomRes
         super("kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static HorizontalPodAutoscalerPatchArgs makeArgs(HorizontalPodAutoscalerPatchArgs args) {
+    private static HorizontalPodAutoscalerPatchArgs makeArgs(@Nullable HorizontalPodAutoscalerPatchArgs args) {
         var builder = args == null ? HorizontalPodAutoscalerPatchArgs.builder() : HorizontalPodAutoscalerPatchArgs.builder(args);
         return builder
             .apiVersion("autoscaling/v1")

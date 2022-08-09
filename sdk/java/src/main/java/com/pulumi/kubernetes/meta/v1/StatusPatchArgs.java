@@ -98,15 +98,15 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Import(name="metadata", required=true)
-    private Output<ListMetaPatchArgs> metadata;
+    @Import(name="metadata")
+    private @Nullable Output<ListMetaPatchArgs> metadata;
 
     /**
      * @return Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<ListMetaPatchArgs> metadata() {
-        return this.metadata;
+    public Optional<Output<ListMetaPatchArgs>> metadata() {
+        return Optional.ofNullable(this.metadata);
     }
 
     /**
@@ -265,7 +265,7 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder metadata(Output<ListMetaPatchArgs> metadata) {
+        public Builder metadata(@Nullable Output<ListMetaPatchArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
@@ -304,7 +304,6 @@ public final class StatusPatchArgs extends com.pulumi.resources.ResourceArgs {
         public StatusPatchArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.metadata = Objects.requireNonNull($.metadata, "expected parameter 'metadata' to be non-null");
             return $;
         }
     }

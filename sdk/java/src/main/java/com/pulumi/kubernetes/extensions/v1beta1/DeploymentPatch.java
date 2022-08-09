@@ -139,7 +139,7 @@ public class DeploymentPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public DeploymentPatch(String name, DeploymentPatchArgs args) {
+    public DeploymentPatch(String name, @Nullable DeploymentPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -148,7 +148,7 @@ public class DeploymentPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public DeploymentPatch(String name, DeploymentPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public DeploymentPatch(String name, @Nullable DeploymentPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:extensions/v1beta1:DeploymentPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -156,7 +156,7 @@ public class DeploymentPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:extensions/v1beta1:DeploymentPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static DeploymentPatchArgs makeArgs(DeploymentPatchArgs args) {
+    private static DeploymentPatchArgs makeArgs(@Nullable DeploymentPatchArgs args) {
         var builder = args == null ? DeploymentPatchArgs.builder() : DeploymentPatchArgs.builder(args);
         return builder
             .apiVersion("extensions/v1beta1")

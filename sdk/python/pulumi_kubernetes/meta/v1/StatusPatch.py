@@ -16,24 +16,23 @@ __all__ = ['StatusPatchArgs', 'StatusPatch']
 @pulumi.input_type
 class StatusPatchArgs:
     def __init__(__self__, *,
-                 metadata: pulumi.Input['ListMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  code: Optional[pulumi.Input[int]] = None,
                  details: Optional[pulumi.Input['StatusDetailsPatchArgs']] = None,
                  kind: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['ListMetaPatchArgs']] = None,
                  reason: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a StatusPatch resource.
-        :param pulumi.Input['ListMetaPatchArgs'] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[int] code: Suggested HTTP return code for this status, 0 if not set.
         :param pulumi.Input['StatusDetailsPatchArgs'] details: Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] message: A human-readable description of the status of this operation.
+        :param pulumi.Input['ListMetaPatchArgs'] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] reason: A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
         """
-        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'v1')
         if code is not None:
@@ -44,20 +43,10 @@ class StatusPatchArgs:
             pulumi.set(__self__, "kind", 'Status')
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input['ListMetaPatchArgs']:
-        """
-        Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        """
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input['ListMetaPatchArgs']):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -121,6 +110,18 @@ class StatusPatchArgs:
 
     @property
     @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['ListMetaPatchArgs']]:
+        """
+        Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        """
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['ListMetaPatchArgs']]):
+        pulumi.set(self, "metadata", value)
+
+    @property
+    @pulumi.getter
     def reason(self) -> Optional[pulumi.Input[str]]:
         """
         A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
@@ -168,7 +169,7 @@ class StatusPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: StatusPatchArgs,
+                 args: Optional[StatusPatchArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -215,8 +216,6 @@ class StatusPatch(pulumi.CustomResource):
             __props__.__dict__["details"] = details
             __props__.__dict__["kind"] = 'Status'
             __props__.__dict__["message"] = message
-            if metadata is None and not opts.urn:
-                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["reason"] = reason
             __props__.__dict__["status"] = None

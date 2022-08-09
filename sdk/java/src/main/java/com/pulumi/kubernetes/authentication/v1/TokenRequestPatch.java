@@ -111,7 +111,7 @@ public class TokenRequestPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public TokenRequestPatch(String name, TokenRequestPatchArgs args) {
+    public TokenRequestPatch(String name, @Nullable TokenRequestPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,7 +120,7 @@ public class TokenRequestPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public TokenRequestPatch(String name, TokenRequestPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public TokenRequestPatch(String name, @Nullable TokenRequestPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:authentication.k8s.io/v1:TokenRequestPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -128,7 +128,7 @@ public class TokenRequestPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:authentication.k8s.io/v1:TokenRequestPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static TokenRequestPatchArgs makeArgs(TokenRequestPatchArgs args) {
+    private static TokenRequestPatchArgs makeArgs(@Nullable TokenRequestPatchArgs args) {
         var builder = args == null ? TokenRequestPatchArgs.builder() : TokenRequestPatchArgs.builder(args);
         return builder
             .apiVersion("authentication.k8s.io/v1")

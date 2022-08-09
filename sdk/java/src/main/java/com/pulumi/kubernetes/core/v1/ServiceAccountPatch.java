@@ -127,7 +127,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ServiceAccountPatch(String name, ServiceAccountPatchArgs args) {
+    public ServiceAccountPatch(String name, @Nullable ServiceAccountPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -136,7 +136,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ServiceAccountPatch(String name, ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ServiceAccountPatch(String name, @Nullable ServiceAccountPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:ServiceAccountPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -144,7 +144,7 @@ public class ServiceAccountPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:core/v1:ServiceAccountPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ServiceAccountPatchArgs makeArgs(ServiceAccountPatchArgs args) {
+    private static ServiceAccountPatchArgs makeArgs(@Nullable ServiceAccountPatchArgs args) {
         var builder = args == null ? ServiceAccountPatchArgs.builder() : ServiceAccountPatchArgs.builder(args);
         return builder
             .apiVersion("v1")

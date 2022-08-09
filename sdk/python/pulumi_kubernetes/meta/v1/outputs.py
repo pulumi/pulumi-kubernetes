@@ -1133,7 +1133,6 @@ class ObjectMetaPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 name: str,
                  annotations: Optional[Mapping[str, str]] = None,
                  cluster_name: Optional[str] = None,
                  creation_timestamp: Optional[str] = None,
@@ -1144,6 +1143,7 @@ class ObjectMetaPatch(dict):
                  generation: Optional[int] = None,
                  labels: Optional[Mapping[str, str]] = None,
                  managed_fields: Optional[Sequence['outputs.ManagedFieldsEntryPatch']] = None,
+                 name: Optional[str] = None,
                  namespace: Optional[str] = None,
                  owner_references: Optional[Sequence['outputs.OwnerReferencePatch']] = None,
                  resource_version: Optional[str] = None,
@@ -1151,7 +1151,6 @@ class ObjectMetaPatch(dict):
                  uid: Optional[str] = None):
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
-        :param str name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param Mapping[str, str] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
         :param str cluster_name: Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
                
@@ -1172,6 +1171,7 @@ class ObjectMetaPatch(dict):
         :param int generation: A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
         :param Mapping[str, str] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
         :param Sequence['ManagedFieldsEntryPatchArgs'] managed_fields: ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
+        :param str name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param str namespace: Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
                
                Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
@@ -1184,7 +1184,6 @@ class ObjectMetaPatch(dict):
                
                Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
         """
-        pulumi.set(__self__, "name", name)
         if annotations is not None:
             pulumi.set(__self__, "annotations", annotations)
         if cluster_name is not None:
@@ -1205,6 +1204,8 @@ class ObjectMetaPatch(dict):
             pulumi.set(__self__, "labels", labels)
         if managed_fields is not None:
             pulumi.set(__self__, "managed_fields", managed_fields)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
         if owner_references is not None:
@@ -1215,14 +1216,6 @@ class ObjectMetaPatch(dict):
             pulumi.set(__self__, "self_link", self_link)
         if uid is not None:
             pulumi.set(__self__, "uid", uid)
-
-    @property
-    @pulumi.getter
-    def name(self) -> str:
-        """
-        Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-        """
-        return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
@@ -1313,6 +1306,14 @@ class ObjectMetaPatch(dict):
         ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
         """
         return pulumi.get(self, "managed_fields")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        """
+        return pulumi.get(self, "name")
 
     @property
     @pulumi.getter

@@ -113,7 +113,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public APIServicePatch(String name, APIServicePatchArgs args) {
+    public APIServicePatch(String name, @Nullable APIServicePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public APIServicePatch(String name, APIServicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public APIServicePatch(String name, @Nullable APIServicePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apiregistration.k8s.io/v1:APIServicePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class APIServicePatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:apiregistration.k8s.io/v1:APIServicePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static APIServicePatchArgs makeArgs(APIServicePatchArgs args) {
+    private static APIServicePatchArgs makeArgs(@Nullable APIServicePatchArgs args) {
         var builder = args == null ? APIServicePatchArgs.builder() : APIServicePatchArgs.builder(args);
         return builder
             .apiVersion("apiregistration.k8s.io/v1")

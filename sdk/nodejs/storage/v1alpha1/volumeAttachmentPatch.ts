@@ -75,9 +75,6 @@ export class VolumeAttachmentPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["apiVersion"] = "storage.k8s.io/v1alpha1";
             resourceInputs["kind"] = "VolumeAttachment";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -112,7 +109,7 @@ export interface VolumeAttachmentPatchArgs {
     /**
      * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      */
