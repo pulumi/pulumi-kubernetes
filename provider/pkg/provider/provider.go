@@ -1511,6 +1511,12 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	if oldInputs.GroupVersionKind().Empty() {
 		oldInputs.SetGroupVersionKind(gvk)
 	}
+	// If a resource was created without SSA enabled, and then the related provider was changed to enable SSA, a
+	// resourceVersion may have been set on the old resource state. This produces erroneous diffs, so remove the
+	// value from the oldInputs prior to computing the diff.
+	if k.serverSideApplyMode && len(oldInputs.GetResourceVersion()) > 0 {
+		oldInputs.SetResourceVersion("")
+	}
 
 	var patch []byte
 	var patchBase map[string]interface{}
