@@ -3965,7 +3965,7 @@ type ObjectMetaPatch struct {
 	// ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
 	ManagedFields []ManagedFieldsEntryPatch `pulumi:"managedFields"`
 	// Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-	Name string `pulumi:"name"`
+	Name *string `pulumi:"name"`
 	// Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 	//
 	// Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
@@ -4028,7 +4028,7 @@ type ObjectMetaPatchArgs struct {
 	// ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
 	ManagedFields ManagedFieldsEntryPatchArrayInput `pulumi:"managedFields"`
 	// Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-	Name pulumi.StringInput `pulumi:"name"`
+	Name pulumi.StringPtrInput `pulumi:"name"`
 	// Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 	//
 	// Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
@@ -4186,8 +4186,8 @@ func (o ObjectMetaPatchOutput) ManagedFields() ManagedFieldsEntryPatchArrayOutpu
 }
 
 // Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-func (o ObjectMetaPatchOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v ObjectMetaPatch) string { return v.Name }).(pulumi.StringOutput)
+func (o ObjectMetaPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ObjectMetaPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
 // Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
@@ -4361,7 +4361,7 @@ func (o ObjectMetaPatchPtrOutput) Name() pulumi.StringPtrOutput {
 		if v == nil {
 			return nil
 		}
-		return &v.Name
+		return v.Name
 	}).(pulumi.StringPtrOutput)
 }
 

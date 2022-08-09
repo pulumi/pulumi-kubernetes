@@ -111,7 +111,7 @@ public class NodePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public NodePatch(String name, NodePatchArgs args) {
+    public NodePatch(String name, @Nullable NodePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -120,7 +120,7 @@ public class NodePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public NodePatch(String name, NodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public NodePatch(String name, @Nullable NodePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:NodePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -128,7 +128,7 @@ public class NodePatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:core/v1:NodePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static NodePatchArgs makeArgs(NodePatchArgs args) {
+    private static NodePatchArgs makeArgs(@Nullable NodePatchArgs args) {
         var builder = args == null ? NodePatchArgs.builder() : NodePatchArgs.builder(args);
         return builder
             .apiVersion("v1")

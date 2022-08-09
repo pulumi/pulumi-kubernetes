@@ -98,7 +98,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ValidatingWebhookConfigurationPatch(String name, ValidatingWebhookConfigurationPatchArgs args) {
+    public ValidatingWebhookConfigurationPatch(String name, @Nullable ValidatingWebhookConfigurationPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ValidatingWebhookConfigurationPatch(String name, ValidatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ValidatingWebhookConfigurationPatch(String name, @Nullable ValidatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class ValidatingWebhookConfigurationPatch extends com.pulumi.resources.Cu
         super("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ValidatingWebhookConfigurationPatchArgs makeArgs(ValidatingWebhookConfigurationPatchArgs args) {
+    private static ValidatingWebhookConfigurationPatchArgs makeArgs(@Nullable ValidatingWebhookConfigurationPatchArgs args) {
         var builder = args == null ? ValidatingWebhookConfigurationPatchArgs.builder() : ValidatingWebhookConfigurationPatchArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1beta1")

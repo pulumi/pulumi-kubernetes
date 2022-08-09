@@ -117,7 +117,7 @@ public class ControllerRevisionPatch extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ControllerRevisionPatch(String name, ControllerRevisionPatchArgs args) {
+    public ControllerRevisionPatch(String name, @Nullable ControllerRevisionPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -126,7 +126,7 @@ public class ControllerRevisionPatch extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ControllerRevisionPatch(String name, ControllerRevisionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ControllerRevisionPatch(String name, @Nullable ControllerRevisionPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:apps/v1beta2:ControllerRevisionPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -134,7 +134,7 @@ public class ControllerRevisionPatch extends com.pulumi.resources.CustomResource
         super("kubernetes:apps/v1beta2:ControllerRevisionPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ControllerRevisionPatchArgs makeArgs(ControllerRevisionPatchArgs args) {
+    private static ControllerRevisionPatchArgs makeArgs(@Nullable ControllerRevisionPatchArgs args) {
         var builder = args == null ? ControllerRevisionPatchArgs.builder() : ControllerRevisionPatchArgs.builder(args);
         return builder
             .apiVersion("apps/v1beta2")

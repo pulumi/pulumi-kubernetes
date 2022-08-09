@@ -125,8 +125,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1
         /// <summary>
         /// Standard object's metadata.
         /// </summary>
-        [Input("metadata", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
+        [Input("metadata")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         [Input("rules")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Rbac.V1Beta1.PolicyRulePatchArgs>? _rules;

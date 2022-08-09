@@ -80,7 +80,7 @@ public class PodPresetPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodPresetPatch(String name, PodPresetPatchArgs args) {
+    public PodPresetPatch(String name, @Nullable PodPresetPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -89,7 +89,7 @@ public class PodPresetPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodPresetPatch(String name, PodPresetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public PodPresetPatch(String name, @Nullable PodPresetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:settings.k8s.io/v1alpha1:PodPresetPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -97,7 +97,7 @@ public class PodPresetPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:settings.k8s.io/v1alpha1:PodPresetPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodPresetPatchArgs makeArgs(PodPresetPatchArgs args) {
+    private static PodPresetPatchArgs makeArgs(@Nullable PodPresetPatchArgs args) {
         var builder = args == null ? PodPresetPatchArgs.builder() : PodPresetPatchArgs.builder(args);
         return builder
             .apiVersion("settings.k8s.io/v1alpha1")

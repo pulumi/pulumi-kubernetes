@@ -98,9 +98,6 @@ export class DeploymentPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["apiVersion"] = "apps/v1beta1";
             resourceInputs["kind"] = "Deployment";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -135,7 +132,7 @@ export interface DeploymentPatchArgs {
     /**
      * Standard object metadata.
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Specification of the desired behavior of the Deployment.
      */

@@ -105,7 +105,7 @@ public class LocalSubjectAccessReviewPatch extends com.pulumi.resources.CustomRe
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public LocalSubjectAccessReviewPatch(String name, LocalSubjectAccessReviewPatchArgs args) {
+    public LocalSubjectAccessReviewPatch(String name, @Nullable LocalSubjectAccessReviewPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -114,7 +114,7 @@ public class LocalSubjectAccessReviewPatch extends com.pulumi.resources.CustomRe
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public LocalSubjectAccessReviewPatch(String name, LocalSubjectAccessReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public LocalSubjectAccessReviewPatch(String name, @Nullable LocalSubjectAccessReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReviewPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -122,7 +122,7 @@ public class LocalSubjectAccessReviewPatch extends com.pulumi.resources.CustomRe
         super("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReviewPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static LocalSubjectAccessReviewPatchArgs makeArgs(LocalSubjectAccessReviewPatchArgs args) {
+    private static LocalSubjectAccessReviewPatchArgs makeArgs(@Nullable LocalSubjectAccessReviewPatchArgs args) {
         var builder = args == null ? LocalSubjectAccessReviewPatchArgs.builder() : LocalSubjectAccessReviewPatchArgs.builder(args);
         return builder
             .apiVersion("authorization.k8s.io/v1beta1")

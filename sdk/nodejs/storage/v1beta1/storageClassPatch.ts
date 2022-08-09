@@ -95,9 +95,6 @@ export class StorageClassPatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["allowVolumeExpansion"] = args ? args.allowVolumeExpansion : undefined;
             resourceInputs["allowedTopologies"] = args ? args.allowedTopologies : undefined;
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
@@ -150,7 +147,7 @@ export interface StorageClassPatchArgs {
     /**
      * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
      */

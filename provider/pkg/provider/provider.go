@@ -1262,6 +1262,12 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
+	if k.serverSideApplyMode && strings.HasSuffix(urn.Type().String(), "Patch") {
+		if len(newInputs.GetName()) == 0 {
+			return nil, fmt.Errorf("patch resources require the resource `.metadata.name` to be set")
+		}
+	}
+
 	var failures []*pulumirpc.CheckFailure
 
 	k.helmHookWarning(ctx, newInputs, urn)

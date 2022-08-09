@@ -124,8 +124,8 @@ namespace Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        [Input("metadata", required: true)]
-        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs> Metadata { get; set; } = null!;
+        [Input("metadata")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         /// <summary>
         /// spec describes how the user wants the resources to appear

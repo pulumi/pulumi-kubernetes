@@ -113,7 +113,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodDisruptionBudgetPatch(String name, PodDisruptionBudgetPatchArgs args) {
+    public PodDisruptionBudgetPatch(String name, @Nullable PodDisruptionBudgetPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodDisruptionBudgetPatch(String name, PodDisruptionBudgetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public PodDisruptionBudgetPatch(String name, @Nullable PodDisruptionBudgetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:policy/v1beta1:PodDisruptionBudgetPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
         super("kubernetes:policy/v1beta1:PodDisruptionBudgetPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodDisruptionBudgetPatchArgs makeArgs(PodDisruptionBudgetPatchArgs args) {
+    private static PodDisruptionBudgetPatchArgs makeArgs(@Nullable PodDisruptionBudgetPatchArgs args) {
         var builder = args == null ? PodDisruptionBudgetPatchArgs.builder() : PodDisruptionBudgetPatchArgs.builder(args);
         return builder
             .apiVersion("policy/v1beta1")

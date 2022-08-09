@@ -94,8 +94,8 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Import(name="metadata", required=true)
-    private Output<ObjectMetaPatchArgs> metadata;
+    @Import(name="metadata")
+    private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
     /**
      * @return Standard object&#39;s metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
@@ -105,8 +105,8 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    public Output<ObjectMetaPatchArgs> metadata() {
-        return this.metadata;
+    public Optional<Output<ObjectMetaPatchArgs>> metadata() {
+        return Optional.ofNullable(this.metadata);
     }
 
     /**
@@ -271,7 +271,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
          * @return builder
          * 
          */
-        public Builder metadata(Output<ObjectMetaPatchArgs> metadata) {
+        public Builder metadata(@Nullable Output<ObjectMetaPatchArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
@@ -335,7 +335,6 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         public CSIStorageCapacityPatchArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.metadata = Objects.requireNonNull($.metadata, "expected parameter 'metadata' to be non-null");
             return $;
         }
     }

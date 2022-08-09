@@ -48,11 +48,11 @@ public final class PodPresetPatchArgs extends com.pulumi.resources.ResourceArgs 
         return Optional.ofNullable(this.kind);
     }
 
-    @Import(name="metadata", required=true)
-    private Output<ObjectMetaPatchArgs> metadata;
+    @Import(name="metadata")
+    private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
-    public Output<ObjectMetaPatchArgs> metadata() {
-        return this.metadata;
+    public Optional<Output<ObjectMetaPatchArgs>> metadata() {
+        return Optional.ofNullable(this.metadata);
     }
 
     @Import(name="spec")
@@ -131,7 +131,7 @@ public final class PodPresetPatchArgs extends com.pulumi.resources.ResourceArgs 
             return kind(Output.of(kind));
         }
 
-        public Builder metadata(Output<ObjectMetaPatchArgs> metadata) {
+        public Builder metadata(@Nullable Output<ObjectMetaPatchArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
@@ -152,7 +152,6 @@ public final class PodPresetPatchArgs extends com.pulumi.resources.ResourceArgs 
         public PodPresetPatchArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.metadata = Objects.requireNonNull($.metadata, "expected parameter 'metadata' to be non-null");
             return $;
         }
     }

@@ -17,9 +17,9 @@ __all__ = ['TokenReviewPatchArgs', 'TokenReviewPatch']
 @pulumi.input_type
 class TokenReviewPatchArgs:
     def __init__(__self__, *,
-                 metadata: pulumi.Input['_meta.v1.ObjectMetaPatchArgs'],
                  api_version: Optional[pulumi.Input[str]] = None,
                  kind: Optional[pulumi.Input[str]] = None,
+                 metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
                  spec: Optional[pulumi.Input['TokenReviewSpecPatchArgs']] = None):
         """
         The set of arguments for constructing a TokenReviewPatch resource.
@@ -27,22 +27,14 @@ class TokenReviewPatchArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['TokenReviewSpecPatchArgs'] spec: Spec holds information about the request being evaluated
         """
-        pulumi.set(__self__, "metadata", metadata)
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'authentication.k8s.io/v1beta1')
         if kind is not None:
             pulumi.set(__self__, "kind", 'TokenReview')
+        if metadata is not None:
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
-
-    @property
-    @pulumi.getter
-    def metadata(self) -> pulumi.Input['_meta.v1.ObjectMetaPatchArgs']:
-        return pulumi.get(self, "metadata")
-
-    @metadata.setter
-    def metadata(self, value: pulumi.Input['_meta.v1.ObjectMetaPatchArgs']):
-        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -67,6 +59,15 @@ class TokenReviewPatchArgs:
     @kind.setter
     def kind(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kind", value)
+
+    @property
+    @pulumi.getter
+    def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
+        return pulumi.get(self, "metadata")
+
+    @metadata.setter
+    def metadata(self, value: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]):
+        pulumi.set(self, "metadata", value)
 
     @property
     @pulumi.getter
@@ -110,7 +111,7 @@ class TokenReviewPatch(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: TokenReviewPatchArgs,
+                 args: Optional[TokenReviewPatchArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         Patch resources are used to modify existing Kubernetes resources by using
@@ -151,8 +152,6 @@ class TokenReviewPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'authentication.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'TokenReview'
-            if metadata is None and not opts.urn:
-                raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None

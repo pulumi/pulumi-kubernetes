@@ -96,7 +96,7 @@ public class PodTemplatePatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodTemplatePatch(String name, PodTemplatePatchArgs args) {
+    public PodTemplatePatch(String name, @Nullable PodTemplatePatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -105,7 +105,7 @@ public class PodTemplatePatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodTemplatePatch(String name, PodTemplatePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public PodTemplatePatch(String name, @Nullable PodTemplatePatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:core/v1:PodTemplatePatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -113,7 +113,7 @@ public class PodTemplatePatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:core/v1:PodTemplatePatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodTemplatePatchArgs makeArgs(PodTemplatePatchArgs args) {
+    private static PodTemplatePatchArgs makeArgs(@Nullable PodTemplatePatchArgs args) {
         var builder = args == null ? PodTemplatePatchArgs.builder() : PodTemplatePatchArgs.builder(args);
         return builder
             .apiVersion("v1")

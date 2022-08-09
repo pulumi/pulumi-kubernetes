@@ -84,15 +84,15 @@ public final class EndpointSlicePatchArgs extends com.pulumi.resources.ResourceA
      * Standard object&#39;s metadata.
      * 
      */
-    @Import(name="metadata", required=true)
-    private Output<ObjectMetaPatchArgs> metadata;
+    @Import(name="metadata")
+    private @Nullable Output<ObjectMetaPatchArgs> metadata;
 
     /**
      * @return Standard object&#39;s metadata.
      * 
      */
-    public Output<ObjectMetaPatchArgs> metadata() {
-        return this.metadata;
+    public Optional<Output<ObjectMetaPatchArgs>> metadata() {
+        return Optional.ofNullable(this.metadata);
     }
 
     /**
@@ -239,7 +239,7 @@ public final class EndpointSlicePatchArgs extends com.pulumi.resources.ResourceA
          * @return builder
          * 
          */
-        public Builder metadata(Output<ObjectMetaPatchArgs> metadata) {
+        public Builder metadata(@Nullable Output<ObjectMetaPatchArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
@@ -288,7 +288,6 @@ public final class EndpointSlicePatchArgs extends com.pulumi.resources.ResourceA
         public EndpointSlicePatchArgs build() {
             $.apiVersion = Codegen.stringProp("apiVersion").output().arg($.apiVersion).getNullable();
             $.kind = Codegen.stringProp("kind").output().arg($.kind).getNullable();
-            $.metadata = Objects.requireNonNull($.metadata, "expected parameter 'metadata' to be non-null");
             return $;
         }
     }

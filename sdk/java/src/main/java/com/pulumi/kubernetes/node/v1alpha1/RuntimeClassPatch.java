@@ -98,7 +98,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public RuntimeClassPatch(String name, RuntimeClassPatchArgs args) {
+    public RuntimeClassPatch(String name, @Nullable RuntimeClassPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public RuntimeClassPatch(String name, RuntimeClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public RuntimeClassPatch(String name, @Nullable RuntimeClassPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static RuntimeClassPatchArgs makeArgs(RuntimeClassPatchArgs args) {
+    private static RuntimeClassPatchArgs makeArgs(@Nullable RuntimeClassPatchArgs args) {
         var builder = args == null ? RuntimeClassPatchArgs.builder() : RuntimeClassPatchArgs.builder(args);
         return builder
             .apiVersion("node.k8s.io/v1alpha1")

@@ -164,7 +164,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public CSIStorageCapacityPatch(String name, CSIStorageCapacityPatchArgs args) {
+    public CSIStorageCapacityPatch(String name, @Nullable CSIStorageCapacityPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -173,7 +173,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public CSIStorageCapacityPatch(String name, CSIStorageCapacityPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public CSIStorageCapacityPatch(String name, @Nullable CSIStorageCapacityPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:storage.k8s.io/v1:CSIStorageCapacityPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -181,7 +181,7 @@ public class CSIStorageCapacityPatch extends com.pulumi.resources.CustomResource
         super("kubernetes:storage.k8s.io/v1:CSIStorageCapacityPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static CSIStorageCapacityPatchArgs makeArgs(CSIStorageCapacityPatchArgs args) {
+    private static CSIStorageCapacityPatchArgs makeArgs(@Nullable CSIStorageCapacityPatchArgs args) {
         var builder = args == null ? CSIStorageCapacityPatchArgs.builder() : CSIStorageCapacityPatchArgs.builder(args);
         return builder
             .apiVersion("storage.k8s.io/v1")

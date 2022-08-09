@@ -73,9 +73,6 @@ export class ClusterRolePatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["aggregationRule"] = args ? args.aggregationRule : undefined;
             resourceInputs["apiVersion"] = "rbac.authorization.k8s.io/v1beta1";
             resourceInputs["kind"] = "ClusterRole";
@@ -114,7 +111,7 @@ export interface ClusterRolePatchArgs {
     /**
      * Standard object's metadata.
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * Rules holds all the PolicyRules for this ClusterRole
      */

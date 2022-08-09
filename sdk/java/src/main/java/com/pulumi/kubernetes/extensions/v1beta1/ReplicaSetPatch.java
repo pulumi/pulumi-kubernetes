@@ -117,7 +117,7 @@ public class ReplicaSetPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public ReplicaSetPatch(String name, ReplicaSetPatchArgs args) {
+    public ReplicaSetPatch(String name, @Nullable ReplicaSetPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -126,7 +126,7 @@ public class ReplicaSetPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public ReplicaSetPatch(String name, ReplicaSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public ReplicaSetPatch(String name, @Nullable ReplicaSetPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:extensions/v1beta1:ReplicaSetPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -134,7 +134,7 @@ public class ReplicaSetPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:extensions/v1beta1:ReplicaSetPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static ReplicaSetPatchArgs makeArgs(ReplicaSetPatchArgs args) {
+    private static ReplicaSetPatchArgs makeArgs(@Nullable ReplicaSetPatchArgs args) {
         var builder = args == null ? ReplicaSetPatchArgs.builder() : ReplicaSetPatchArgs.builder(args);
         return builder
             .apiVersion("extensions/v1beta1")

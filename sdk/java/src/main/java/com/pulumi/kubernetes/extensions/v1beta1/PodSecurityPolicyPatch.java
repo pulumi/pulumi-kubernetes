@@ -98,7 +98,7 @@ public class PodSecurityPolicyPatch extends com.pulumi.resources.CustomResource 
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public PodSecurityPolicyPatch(String name, PodSecurityPolicyPatchArgs args) {
+    public PodSecurityPolicyPatch(String name, @Nullable PodSecurityPolicyPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class PodSecurityPolicyPatch extends com.pulumi.resources.CustomResource 
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public PodSecurityPolicyPatch(String name, PodSecurityPolicyPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public PodSecurityPolicyPatch(String name, @Nullable PodSecurityPolicyPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:extensions/v1beta1:PodSecurityPolicyPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class PodSecurityPolicyPatch extends com.pulumi.resources.CustomResource 
         super("kubernetes:extensions/v1beta1:PodSecurityPolicyPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static PodSecurityPolicyPatchArgs makeArgs(PodSecurityPolicyPatchArgs args) {
+    private static PodSecurityPolicyPatchArgs makeArgs(@Nullable PodSecurityPolicyPatchArgs args) {
         var builder = args == null ? PodSecurityPolicyPatchArgs.builder() : PodSecurityPolicyPatchArgs.builder(args);
         return builder
             .apiVersion("extensions/v1beta1")

@@ -7,7 +7,6 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pkg/errors"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -62,12 +61,9 @@ type EventPatch struct {
 func NewEventPatch(ctx *pulumi.Context,
 	name string, args *EventPatchArgs, opts ...pulumi.ResourceOption) (*EventPatch, error) {
 	if args == nil {
-		return nil, errors.New("missing one or more required arguments")
+		args = &EventPatchArgs{}
 	}
 
-	if args.Metadata == nil {
-		return nil, errors.New("invalid value for required argument 'Metadata'")
-	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Event")
 	aliases := pulumi.Aliases([]pulumi.Alias{
@@ -130,7 +126,7 @@ type eventPatchArgs struct {
 	// A human-readable description of the status of this operation.
 	Message *string `pulumi:"message"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPatch `pulumi:"metadata"`
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason *string `pulumi:"reason"`
 	// Optional secondary object for more complex actions.
@@ -168,7 +164,7 @@ type EventPatchArgs struct {
 	// A human-readable description of the status of this operation.
 	Message pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPatchInput
+	Metadata metav1.ObjectMetaPatchPtrInput
 	// This should be a short, machine understandable string that gives the reason for the transition into the object's current status.
 	Reason pulumi.StringPtrInput
 	// Optional secondary object for more complex actions.

@@ -113,7 +113,7 @@ public class NetworkPolicyPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public NetworkPolicyPatch(String name, NetworkPolicyPatchArgs args) {
+    public NetworkPolicyPatch(String name, @Nullable NetworkPolicyPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class NetworkPolicyPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public NetworkPolicyPatch(String name, NetworkPolicyPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public NetworkPolicyPatch(String name, @Nullable NetworkPolicyPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:networking.k8s.io/v1:NetworkPolicyPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class NetworkPolicyPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:networking.k8s.io/v1:NetworkPolicyPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static NetworkPolicyPatchArgs makeArgs(NetworkPolicyPatchArgs args) {
+    private static NetworkPolicyPatchArgs makeArgs(@Nullable NetworkPolicyPatchArgs args) {
         var builder = args == null ? NetworkPolicyPatchArgs.builder() : NetworkPolicyPatchArgs.builder(args);
         return builder
             .apiVersion("networking.k8s.io/v1")

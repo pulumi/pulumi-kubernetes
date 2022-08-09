@@ -80,7 +80,7 @@ public final class ObjectMetaPatch {
      * @return Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
      * 
      */
-    private String name;
+    private @Nullable String name;
     /**
      * @return Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
      * 
@@ -198,8 +198,8 @@ public final class ObjectMetaPatch {
      * @return Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
      * 
      */
-    public String name() {
-        return this.name;
+    public Optional<String> name() {
+        return Optional.ofNullable(this.name);
     }
     /**
      * @return Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
@@ -262,7 +262,7 @@ public final class ObjectMetaPatch {
         private @Nullable Integer generation;
         private @Nullable Map<String,String> labels;
         private @Nullable List<ManagedFieldsEntryPatch> managedFields;
-        private String name;
+        private @Nullable String name;
         private @Nullable String namespace;
         private @Nullable List<OwnerReferencePatch> ownerReferences;
         private @Nullable String resourceVersion;
@@ -346,8 +346,8 @@ public final class ObjectMetaPatch {
             return managedFields(List.of(managedFields));
         }
         @CustomType.Setter
-        public Builder name(String name) {
-            this.name = Objects.requireNonNull(name);
+        public Builder name(@Nullable String name) {
+            this.name = name;
             return this;
         }
         @CustomType.Setter

@@ -72,9 +72,6 @@ export class CSINodePatch extends pulumi.CustomResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
-            if ((!args || args.metadata === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'metadata'");
-            }
             resourceInputs["apiVersion"] = "storage.k8s.io/v1beta1";
             resourceInputs["kind"] = "CSINode";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
@@ -107,7 +104,7 @@ export interface CSINodePatchArgs {
     /**
      * metadata.name must be the Kubernetes node name.
      */
-    metadata: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+    metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
      * spec is the specification of CSINode
      */

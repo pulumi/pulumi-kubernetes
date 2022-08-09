@@ -113,7 +113,7 @@ public class SubjectAccessReviewPatch extends com.pulumi.resources.CustomResourc
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public SubjectAccessReviewPatch(String name, SubjectAccessReviewPatchArgs args) {
+    public SubjectAccessReviewPatch(String name, @Nullable SubjectAccessReviewPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class SubjectAccessReviewPatch extends com.pulumi.resources.CustomResourc
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public SubjectAccessReviewPatch(String name, SubjectAccessReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public SubjectAccessReviewPatch(String name, @Nullable SubjectAccessReviewPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:authorization.k8s.io/v1:SubjectAccessReviewPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class SubjectAccessReviewPatch extends com.pulumi.resources.CustomResourc
         super("kubernetes:authorization.k8s.io/v1:SubjectAccessReviewPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static SubjectAccessReviewPatchArgs makeArgs(SubjectAccessReviewPatchArgs args) {
+    private static SubjectAccessReviewPatchArgs makeArgs(@Nullable SubjectAccessReviewPatchArgs args) {
         var builder = args == null ? SubjectAccessReviewPatchArgs.builder() : SubjectAccessReviewPatchArgs.builder(args);
         return builder
             .apiVersion("authorization.k8s.io/v1")

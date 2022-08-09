@@ -334,10 +334,6 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						}
 					}
 
-					if patchTok == "kubernetes:meta/v1:ObjectMetaPatch" {
-						patchSpec.Required = []string{"name"}
-					}
-
 					pkg.Types[patchTok] = pschema.ComplexTypeSpec{
 						ObjectTypeSpec: patchSpec,
 					}
@@ -399,8 +395,6 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					for _, p := range kind.OptionalInputProperties() {
 						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
 					}
-
-					patchResourceSpec.RequiredInputs = []string{"metadata"}
 
 					for _, t := range kind.Aliases() {
 						aliasedType := fmt.Sprintf("%sPatch", t)

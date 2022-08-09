@@ -1,9 +1,10 @@
 ## Unreleased
-- Add chart v2 deprecation note to schema/docs (https://github.com/pulumi/pulumi-kubernetes/pull/2114)
 
+- Add chart v2 deprecation note to schema/docs (https://github.com/pulumi/pulumi-kubernetes/pull/2114)
 - Add a descriptive message for an invalid Patch delete (https://github.com/pulumi/pulumi-kubernetes/pull/2111)
 - Fix erroneous resourceVersion diff for CRDs managed with SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2121)
 - Update C# YAML GetResource implementation to compile with .NET v6 (https://github.com/pulumi/pulumi-kubernetes/pull/2122)
+- Change .metadata.name to optional for all Patch resources (https://github.com/pulumi/pulumi-kubernetes/pull/2126)
 
 ## 3.20.2 (July 25, 2022)
 

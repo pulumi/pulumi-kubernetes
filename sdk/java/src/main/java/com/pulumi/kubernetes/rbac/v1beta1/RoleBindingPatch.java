@@ -113,7 +113,7 @@ public class RoleBindingPatch extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public RoleBindingPatch(String name, RoleBindingPatchArgs args) {
+    public RoleBindingPatch(String name, @Nullable RoleBindingPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -122,7 +122,7 @@ public class RoleBindingPatch extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public RoleBindingPatch(String name, RoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public RoleBindingPatch(String name, @Nullable RoleBindingPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -130,7 +130,7 @@ public class RoleBindingPatch extends com.pulumi.resources.CustomResource {
         super("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static RoleBindingPatchArgs makeArgs(RoleBindingPatchArgs args) {
+    private static RoleBindingPatchArgs makeArgs(@Nullable RoleBindingPatchArgs args) {
         var builder = args == null ? RoleBindingPatchArgs.builder() : RoleBindingPatchArgs.builder(args);
         return builder
             .apiVersion("rbac.authorization.k8s.io/v1beta1")

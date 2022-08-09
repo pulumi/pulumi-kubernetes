@@ -98,7 +98,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public MutatingWebhookConfigurationPatch(String name, MutatingWebhookConfigurationPatchArgs args) {
+    public MutatingWebhookConfigurationPatch(String name, @Nullable MutatingWebhookConfigurationPatchArgs args) {
         this(name, args, null);
     }
     /**
@@ -107,7 +107,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public MutatingWebhookConfigurationPatch(String name, MutatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public MutatingWebhookConfigurationPatch(String name, @Nullable MutatingWebhookConfigurationPatchArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch", name, makeArgs(args), makeResourceOptions(options, Codegen.empty()));
     }
 
@@ -115,7 +115,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
         super("kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch", name, null, makeResourceOptions(options, id));
     }
 
-    private static MutatingWebhookConfigurationPatchArgs makeArgs(MutatingWebhookConfigurationPatchArgs args) {
+    private static MutatingWebhookConfigurationPatchArgs makeArgs(@Nullable MutatingWebhookConfigurationPatchArgs args) {
         var builder = args == null ? MutatingWebhookConfigurationPatchArgs.builder() : MutatingWebhookConfigurationPatchArgs.builder(args);
         return builder
             .apiVersion("admissionregistration.k8s.io/v1")
