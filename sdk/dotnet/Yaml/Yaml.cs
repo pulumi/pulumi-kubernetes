@@ -55,227 +55,669 @@ namespace Pulumi.Kubernetes.Yaml
             where T : KubernetesResource
         {
             var type = typeof(T);
-            var groupVersionKind =
-                type == typeof(AdmissionRegistration.V1.MutatingWebhookConfiguration) ? "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration" :
-                type == typeof(AdmissionRegistration.V1.MutatingWebhookConfigurationList) ? "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList" :
-                type == typeof(AdmissionRegistration.V1.ValidatingWebhookConfiguration) ? "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration" :
-                type == typeof(AdmissionRegistration.V1.ValidatingWebhookConfigurationList) ? "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList" :
-                type == typeof(AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration) ? "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration" :
-                type == typeof(AdmissionRegistration.V1Beta1.MutatingWebhookConfigurationList) ? "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList" :
-                type == typeof(AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration) ? "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration" :
-                type == typeof(AdmissionRegistration.V1Beta1.ValidatingWebhookConfigurationList) ? "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList" :
-                type == typeof(ApiExtensions.V1.CustomResourceDefinition) ? "apiextensions.k8s.io/v1/CustomResourceDefinition" :
-                type == typeof(ApiExtensions.V1.CustomResourceDefinitionList) ? "apiextensions.k8s.io/v1/CustomResourceDefinitionList" :
-                type == typeof(ApiExtensions.V1Beta1.CustomResourceDefinition) ? "apiextensions.k8s.io/v1beta1/CustomResourceDefinition" :
-                type == typeof(ApiExtensions.V1Beta1.CustomResourceDefinitionList) ? "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList" :
-                type == typeof(ApiRegistration.V1.APIService) ? "apiregistration.k8s.io/v1/APIService" :
-                type == typeof(ApiRegistration.V1.APIServiceList) ? "apiregistration.k8s.io/v1/APIServiceList" :
-                type == typeof(ApiRegistration.V1Beta1.APIService) ? "apiregistration.k8s.io/v1beta1/APIService" :
-                type == typeof(ApiRegistration.V1Beta1.APIServiceList) ? "apiregistration.k8s.io/v1beta1/APIServiceList" :
-                type == typeof(Apps.V1.ControllerRevision) ? "apps/v1/ControllerRevision" :
-                type == typeof(Apps.V1.ControllerRevisionList) ? "apps/v1/ControllerRevisionList" :
-                type == typeof(Apps.V1.DaemonSet) ? "apps/v1/DaemonSet" :
-                type == typeof(Apps.V1.DaemonSetList) ? "apps/v1/DaemonSetList" :
-                type == typeof(Apps.V1.Deployment) ? "apps/v1/Deployment" :
-                type == typeof(Apps.V1.DeploymentList) ? "apps/v1/DeploymentList" :
-                type == typeof(Apps.V1.ReplicaSet) ? "apps/v1/ReplicaSet" :
-                type == typeof(Apps.V1.ReplicaSetList) ? "apps/v1/ReplicaSetList" :
-                type == typeof(Apps.V1.StatefulSet) ? "apps/v1/StatefulSet" :
-                type == typeof(Apps.V1.StatefulSetList) ? "apps/v1/StatefulSetList" :
-                type == typeof(Apps.V1Beta1.ControllerRevision) ? "apps/v1beta1/ControllerRevision" :
-                type == typeof(Apps.V1Beta1.ControllerRevisionList) ? "apps/v1beta1/ControllerRevisionList" :
-                type == typeof(Apps.V1Beta1.Deployment) ? "apps/v1beta1/Deployment" :
-                type == typeof(Apps.V1Beta1.DeploymentList) ? "apps/v1beta1/DeploymentList" :
-                type == typeof(Apps.V1Beta1.StatefulSet) ? "apps/v1beta1/StatefulSet" :
-                type == typeof(Apps.V1Beta1.StatefulSetList) ? "apps/v1beta1/StatefulSetList" :
-                type == typeof(Apps.V1Beta2.ControllerRevision) ? "apps/v1beta2/ControllerRevision" :
-                type == typeof(Apps.V1Beta2.ControllerRevisionList) ? "apps/v1beta2/ControllerRevisionList" :
-                type == typeof(Apps.V1Beta2.DaemonSet) ? "apps/v1beta2/DaemonSet" :
-                type == typeof(Apps.V1Beta2.DaemonSetList) ? "apps/v1beta2/DaemonSetList" :
-                type == typeof(Apps.V1Beta2.Deployment) ? "apps/v1beta2/Deployment" :
-                type == typeof(Apps.V1Beta2.DeploymentList) ? "apps/v1beta2/DeploymentList" :
-                type == typeof(Apps.V1Beta2.ReplicaSet) ? "apps/v1beta2/ReplicaSet" :
-                type == typeof(Apps.V1Beta2.ReplicaSetList) ? "apps/v1beta2/ReplicaSetList" :
-                type == typeof(Apps.V1Beta2.StatefulSet) ? "apps/v1beta2/StatefulSet" :
-                type == typeof(Apps.V1Beta2.StatefulSetList) ? "apps/v1beta2/StatefulSetList" :
-                type == typeof(AuditRegistraion.V1Alpha1.AuditSink) ? "auditregistration.k8s.io/v1alpha1/AuditSink" :
-                type == typeof(AuditRegistraion.V1Alpha1.AuditSinkList) ? "auditregistration.k8s.io/v1alpha1/AuditSinkList" :
-                type == typeof(Authentication.V1.TokenRequest) ? "authentication.k8s.io/v1/TokenRequest" :
-                type == typeof(Authentication.V1.TokenReview) ? "authentication.k8s.io/v1/TokenReview" :
-                type == typeof(Authentication.V1Beta1.TokenReview) ? "authentication.k8s.io/v1beta1/TokenReview" :
-                type == typeof(Authorization.V1.LocalSubjectAccessReview) ? "authorization.k8s.io/v1/LocalSubjectAccessReview" :
-                type == typeof(Authorization.V1.SelfSubjectAccessReview) ? "authorization.k8s.io/v1/SelfSubjectAccessReview" :
-                type == typeof(Authorization.V1.SelfSubjectRulesReview) ? "authorization.k8s.io/v1/SelfSubjectRulesReview" :
-                type == typeof(Authorization.V1.SubjectAccessReview) ? "authorization.k8s.io/v1/SubjectAccessReview" :
-                type == typeof(Authorization.V1Beta1.LocalSubjectAccessReview) ? "authorization.k8s.io/v1beta1/LocalSubjectAccessReview" :
-                type == typeof(Authorization.V1Beta1.SelfSubjectAccessReview) ? "authorization.k8s.io/v1beta1/SelfSubjectAccessReview" :
-                type == typeof(Authorization.V1Beta1.SelfSubjectRulesReview) ? "authorization.k8s.io/v1beta1/SelfSubjectRulesReview" :
-                type == typeof(Authorization.V1Beta1.SubjectAccessReview) ? "authorization.k8s.io/v1beta1/SubjectAccessReview" :
-                type == typeof(Autoscaling.V1.HorizontalPodAutoscaler) ? "autoscaling/v1/HorizontalPodAutoscaler" :
-                type == typeof(Autoscaling.V1.HorizontalPodAutoscalerList) ? "autoscaling/v1/HorizontalPodAutoscalerList" :
-                type == typeof(Autoscaling.V2.HorizontalPodAutoscaler) ? "autoscaling/v2/HorizontalPodAutoscaler" :
-                type == typeof(Autoscaling.V2.HorizontalPodAutoscalerList) ? "autoscaling/v2/HorizontalPodAutoscalerList" :
-                type == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscaler) ? "autoscaling/v2beta1/HorizontalPodAutoscaler" :
-                type == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscalerList) ? "autoscaling/v2beta1/HorizontalPodAutoscalerList" :
-                type == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscaler) ? "autoscaling/v2beta2/HorizontalPodAutoscaler" :
-                type == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscalerList) ? "autoscaling/v2beta2/HorizontalPodAutoscalerList" :
-                type == typeof(Batch.V1.CronJob) ? "batch/v1/CronJob" :
-                type == typeof(Batch.V1.CronJobList) ? "batch/v1/CronJobList" :
-                type == typeof(Batch.V1.Job) ? "batch/v1/Job" :
-                type == typeof(Batch.V1.JobList) ? "batch/v1/JobList" :
-                type == typeof(Batch.V1Beta1.CronJob) ? "batch/v1beta1/CronJob" :
-                type == typeof(Batch.V1Beta1.CronJobList) ? "batch/v1beta1/CronJobList" :
-                type == typeof(Batch.V2Alpha1.CronJob) ? "batch/v2alpha1/CronJob" :
-                type == typeof(Batch.V2Alpha1.CronJobList) ? "batch/v2alpha1/CronJobList" :
-                type == typeof(Certificates.V1.CertificateSigningRequest) ? "certificates.k8s.io/v1/CertificateSigningRequest" :
-                type == typeof(Certificates.V1.CertificateSigningRequestList) ? "certificates.k8s.io/v1/CertificateSigningRequestList" :
-                type == typeof(Certificates.V1Beta1.CertificateSigningRequest) ? "certificates.k8s.io/v1beta1/CertificateSigningRequest" :
-                type == typeof(Certificates.V1Beta1.CertificateSigningRequestList) ? "certificates.k8s.io/v1beta1/CertificateSigningRequestList" :
-                type == typeof(Coordination.V1.Lease) ? "coordination.k8s.io/v1/Lease" :
-                type == typeof(Coordination.V1.LeaseList) ? "coordination.k8s.io/v1/LeaseList" :
-                type == typeof(Coordination.V1Beta1.Lease) ? "coordination.k8s.io/v1beta1/Lease" :
-                type == typeof(Coordination.V1Beta1.LeaseList) ? "coordination.k8s.io/v1beta1/LeaseList" :
-                type == typeof(Core.V1.Binding) ? "v1/Binding" :
-                type == typeof(Core.V1.ConfigMap) ? "v1/ConfigMap" :
-                type == typeof(Core.V1.ConfigMapList) ? "v1/ConfigMapList" :
-                type == typeof(Core.V1.Endpoints) ? "v1/Endpoints" :
-                type == typeof(Core.V1.EndpointsList) ? "v1/EndpointsList" :
-                type == typeof(Core.V1.Event) ? "v1/Event" :
-                type == typeof(Core.V1.EventList) ? "v1/EventList" :
-                type == typeof(Core.V1.LimitRange) ? "v1/LimitRange" :
-                type == typeof(Core.V1.LimitRangeList) ? "v1/LimitRangeList" :
-                type == typeof(Core.V1.Namespace) ? "v1/Namespace" :
-                type == typeof(Core.V1.NamespaceList) ? "v1/NamespaceList" :
-                type == typeof(Core.V1.Node) ? "v1/Node" :
-                type == typeof(Core.V1.NodeList) ? "v1/NodeList" :
-                type == typeof(Core.V1.PersistentVolume) ? "v1/PersistentVolume" :
-                type == typeof(Core.V1.PersistentVolumeClaim) ? "v1/PersistentVolumeClaim" :
-                type == typeof(Core.V1.PersistentVolumeClaimList) ? "v1/PersistentVolumeClaimList" :
-                type == typeof(Core.V1.PersistentVolumeList) ? "v1/PersistentVolumeList" :
-                type == typeof(Core.V1.Pod) ? "v1/Pod" :
-                type == typeof(Core.V1.PodList) ? "v1/PodList" :
-                type == typeof(Core.V1.PodTemplate) ? "v1/PodTemplate" :
-                type == typeof(Core.V1.PodTemplateList) ? "v1/PodTemplateList" :
-                type == typeof(Core.V1.ReplicationController) ? "v1/ReplicationController" :
-                type == typeof(Core.V1.ReplicationControllerList) ? "v1/ReplicationControllerList" :
-                type == typeof(Core.V1.ResourceQuota) ? "v1/ResourceQuota" :
-                type == typeof(Core.V1.ResourceQuotaList) ? "v1/ResourceQuotaList" :
-                type == typeof(Core.V1.Secret) ? "v1/Secret" :
-                type == typeof(Core.V1.SecretList) ? "v1/SecretList" :
-                type == typeof(Core.V1.Service) ? "v1/Service" :
-                type == typeof(Core.V1.ServiceAccount) ? "v1/ServiceAccount" :
-                type == typeof(Core.V1.ServiceAccountList) ? "v1/ServiceAccountList" :
-                type == typeof(Core.V1.ServiceList) ? "v1/ServiceList" :
-                type == typeof(Discovery.V1.EndpointSlice) ? "discovery.k8s.io/v1/EndpointSlice" :
-                type == typeof(Discovery.V1.EndpointSliceList) ? "discovery.k8s.io/v1/EndpointSliceList" :
-                type == typeof(Discovery.V1Beta1.EndpointSlice) ? "discovery.k8s.io/v1beta1/EndpointSlice" :
-                type == typeof(Discovery.V1Beta1.EndpointSliceList) ? "discovery.k8s.io/v1beta1/EndpointSliceList" :
-                type == typeof(Events.V1.Event) ? "events.k8s.io/v1/Event" :
-                type == typeof(Events.V1.EventList) ? "events.k8s.io/v1/EventList" :
-                type == typeof(Events.V1Beta1.Event) ? "events.k8s.io/v1beta1/Event" :
-                type == typeof(Events.V1Beta1.EventList) ? "events.k8s.io/v1beta1/EventList" :
-                type == typeof(Extensions.V1Beta1.DaemonSet) ? "extensions/v1beta1/DaemonSet" :
-                type == typeof(Extensions.V1Beta1.DaemonSetList) ? "extensions/v1beta1/DaemonSetList" :
-                type == typeof(Extensions.V1Beta1.Deployment) ? "extensions/v1beta1/Deployment" :
-                type == typeof(Extensions.V1Beta1.DeploymentList) ? "extensions/v1beta1/DeploymentList" :
-                type == typeof(Extensions.V1Beta1.Ingress) ? "extensions/v1beta1/Ingress" :
-                type == typeof(Extensions.V1Beta1.IngressList) ? "extensions/v1beta1/IngressList" :
-                type == typeof(Extensions.V1Beta1.NetworkPolicy) ? "extensions/v1beta1/NetworkPolicy" :
-                type == typeof(Extensions.V1Beta1.NetworkPolicyList) ? "extensions/v1beta1/NetworkPolicyList" :
-                type == typeof(Extensions.V1Beta1.PodSecurityPolicy) ? "extensions/v1beta1/PodSecurityPolicy" :
-                type == typeof(Extensions.V1Beta1.PodSecurityPolicyList) ? "extensions/v1beta1/PodSecurityPolicyList" :
-                type == typeof(Extensions.V1Beta1.ReplicaSet) ? "extensions/v1beta1/ReplicaSet" :
-                type == typeof(Extensions.V1Beta1.ReplicaSetList) ? "extensions/v1beta1/ReplicaSetList" :
-                type == typeof(FlowControl.V1Alpha1.FlowSchema) ? "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema" :
-                type == typeof(FlowControl.V1Alpha1.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList" :
-                type == typeof(FlowControl.V1Alpha1.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration" :
-                type == typeof(FlowControl.V1Alpha1.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList" :
-                type == typeof(FlowControl.V1Beta1.FlowSchema) ? "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchema" :
-                type == typeof(FlowControl.V1Beta1.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList" :
-                type == typeof(FlowControl.V1Beta1.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration" :
-                type == typeof(FlowControl.V1Beta1.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList" :
-                type == typeof(FlowControl.V1Beta2.FlowSchema) ? "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchema" :
-                type == typeof(FlowControl.V1Beta2.FlowSchemaList) ? "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList" :
-                type == typeof(FlowControl.V1Beta2.PriorityLevelConfiguration) ? "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration" :
-                type == typeof(FlowControl.V1Beta2.PriorityLevelConfigurationList) ? "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList" :
-                type == typeof(Meta.V1.Status) ? "meta/v1/Status" :
-                type == typeof(Networking.V1.Ingress) ? "networking.k8s.io/v1/Ingress" :
-                type == typeof(Networking.V1.IngressClass) ? "networking.k8s.io/v1/IngressClass" :
-                type == typeof(Networking.V1.IngressClassList) ? "networking.k8s.io/v1/IngressClassList" :
-                type == typeof(Networking.V1.IngressList) ? "networking.k8s.io/v1/IngressList" :
-                type == typeof(Networking.V1.NetworkPolicy) ? "networking.k8s.io/v1/NetworkPolicy" :
-                type == typeof(Networking.V1.NetworkPolicyList) ? "networking.k8s.io/v1/NetworkPolicyList" :
-                type == typeof(Networking.V1Beta1.Ingress) ? "networking.k8s.io/v1beta1/Ingress" :
-                type == typeof(Networking.V1Beta1.IngressClass) ? "networking.k8s.io/v1beta1/IngressClass" :
-                type == typeof(Networking.V1Beta1.IngressClassList) ? "networking.k8s.io/v1beta1/IngressClassList" :
-                type == typeof(Networking.V1Beta1.IngressList) ? "networking.k8s.io/v1beta1/IngressList" :
-                type == typeof(Node.V1.RuntimeClass) ? "node.k8s.io/v1/RuntimeClass" :
-                type == typeof(Node.V1.RuntimeClassList) ? "node.k8s.io/v1/RuntimeClassList" :
-                type == typeof(Node.V1Alpha1.RuntimeClass) ? "node.k8s.io/v1alpha1/RuntimeClass" :
-                type == typeof(Node.V1Alpha1.RuntimeClassList) ? "node.k8s.io/v1alpha1/RuntimeClassList" :
-                type == typeof(Node.V1Beta1.RuntimeClass) ? "node.k8s.io/v1beta1/RuntimeClass" :
-                type == typeof(Node.V1Beta1.RuntimeClassList) ? "node.k8s.io/v1beta1/RuntimeClassList" :
-                type == typeof(Policy.V1.PodDisruptionBudget) ? "policy/v1/PodDisruptionBudget" :
-                type == typeof(Policy.V1.PodDisruptionBudgetList) ? "policy/v1/PodDisruptionBudgetList" :
-                type == typeof(Policy.V1Beta1.PodDisruptionBudget) ? "policy/v1beta1/PodDisruptionBudget" :
-                type == typeof(Policy.V1Beta1.PodDisruptionBudgetList) ? "policy/v1beta1/PodDisruptionBudgetList" :
-                type == typeof(Policy.V1Beta1.PodSecurityPolicy) ? "policy/v1beta1/PodSecurityPolicy" :
-                type == typeof(Policy.V1Beta1.PodSecurityPolicyList) ? "policy/v1beta1/PodSecurityPolicyList" :
-                type == typeof(Rbac.V1.ClusterRole) ? "rbac.authorization.k8s.io/v1/ClusterRole" :
-                type == typeof(Rbac.V1.ClusterRoleBinding) ? "rbac.authorization.k8s.io/v1/ClusterRoleBinding" :
-                type == typeof(Rbac.V1.ClusterRoleBindingList) ? "rbac.authorization.k8s.io/v1/ClusterRoleBindingList" :
-                type == typeof(Rbac.V1.ClusterRoleList) ? "rbac.authorization.k8s.io/v1/ClusterRoleList" :
-                type == typeof(Rbac.V1.Role) ? "rbac.authorization.k8s.io/v1/Role" :
-                type == typeof(Rbac.V1.RoleBinding) ? "rbac.authorization.k8s.io/v1/RoleBinding" :
-                type == typeof(Rbac.V1.RoleBindingList) ? "rbac.authorization.k8s.io/v1/RoleBindingList" :
-                type == typeof(Rbac.V1.RoleList) ? "rbac.authorization.k8s.io/v1/RoleList" :
-                type == typeof(Rbac.V1Alpha1.ClusterRole) ? "rbac.authorization.k8s.io/v1alpha1/ClusterRole" :
-                type == typeof(Rbac.V1Alpha1.ClusterRoleBinding) ? "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding" :
-                type == typeof(Rbac.V1Alpha1.ClusterRoleBindingList) ? "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList" :
-                type == typeof(Rbac.V1Alpha1.ClusterRoleList) ? "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList" :
-                type == typeof(Rbac.V1Alpha1.Role) ? "rbac.authorization.k8s.io/v1alpha1/Role" :
-                type == typeof(Rbac.V1Alpha1.RoleBinding) ? "rbac.authorization.k8s.io/v1alpha1/RoleBinding" :
-                type == typeof(Rbac.V1Alpha1.RoleBindingList) ? "rbac.authorization.k8s.io/v1alpha1/RoleBindingList" :
-                type == typeof(Rbac.V1Alpha1.RoleList) ? "rbac.authorization.k8s.io/v1alpha1/RoleList" :
-                type == typeof(Rbac.V1Beta1.ClusterRole) ? "rbac.authorization.k8s.io/v1beta1/ClusterRole" :
-                type == typeof(Rbac.V1Beta1.ClusterRoleBinding) ? "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding" :
-                type == typeof(Rbac.V1Beta1.ClusterRoleBindingList) ? "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList" :
-                type == typeof(Rbac.V1Beta1.ClusterRoleList) ? "rbac.authorization.k8s.io/v1beta1/ClusterRoleList" :
-                type == typeof(Rbac.V1Beta1.Role) ? "rbac.authorization.k8s.io/v1beta1/Role" :
-                type == typeof(Rbac.V1Beta1.RoleBinding) ? "rbac.authorization.k8s.io/v1beta1/RoleBinding" :
-                type == typeof(Rbac.V1Beta1.RoleBindingList) ? "rbac.authorization.k8s.io/v1beta1/RoleBindingList" :
-                type == typeof(Rbac.V1Beta1.RoleList) ? "rbac.authorization.k8s.io/v1beta1/RoleList" :
-                type == typeof(Scheduling.V1.PriorityClass) ? "scheduling.k8s.io/v1/PriorityClass" :
-                type == typeof(Scheduling.V1.PriorityClassList) ? "scheduling.k8s.io/v1/PriorityClassList" :
-                type == typeof(Scheduling.V1Alpha1.PriorityClass) ? "scheduling.k8s.io/v1alpha1/PriorityClass" :
-                type == typeof(Scheduling.V1Alpha1.PriorityClassList) ? "scheduling.k8s.io/v1alpha1/PriorityClassList" :
-                type == typeof(Scheduling.V1Beta1.PriorityClass) ? "scheduling.k8s.io/v1beta1/PriorityClass" :
-                type == typeof(Scheduling.V1Beta1.PriorityClassList) ? "scheduling.k8s.io/v1beta1/PriorityClassList" :
-                type == typeof(Settings.V1Alpha1.PodPreset) ? "settings.k8s.io/v1alpha1/PodPreset" :
-                type == typeof(Settings.V1Alpha1.PodPresetList) ? "settings.k8s.io/v1alpha1/PodPresetList" :
-                type == typeof(Storage.V1.CSIDriver) ? "storage.k8s.io/v1/CSIDriver" :
-                type == typeof(Storage.V1.CSIDriverList) ? "storage.k8s.io/v1/CSIDriverList" :
-                type == typeof(Storage.V1.CSINode) ? "storage.k8s.io/v1/CSINode" :
-                type == typeof(Storage.V1.CSINodeList) ? "storage.k8s.io/v1/CSINodeList" :
-                type == typeof(Storage.V1.CSIStorageCapacity) ? "storage.k8s.io/v1/CSIStorageCapacity" :
-                type == typeof(Storage.V1.CSIStorageCapacityList) ? "storage.k8s.io/v1/CSIStorageCapacityList" :
-                type == typeof(Storage.V1.StorageClass) ? "storage.k8s.io/v1/StorageClass" :
-                type == typeof(Storage.V1.StorageClassList) ? "storage.k8s.io/v1/StorageClassList" :
-                type == typeof(Storage.V1.VolumeAttachment) ? "storage.k8s.io/v1/VolumeAttachment" :
-                type == typeof(Storage.V1.VolumeAttachmentList) ? "storage.k8s.io/v1/VolumeAttachmentList" :
-                type == typeof(Storage.V1Alpha1.VolumeAttachment) ? "storage.k8s.io/v1alpha1/VolumeAttachment" :
-                type == typeof(Storage.V1Alpha1.VolumeAttachmentList) ? "storage.k8s.io/v1alpha1/VolumeAttachmentList" :
-                type == typeof(Storage.V1Beta1.CSIDriver) ? "storage.k8s.io/v1beta1/CSIDriver" :
-                type == typeof(Storage.V1Beta1.CSIDriverList) ? "storage.k8s.io/v1beta1/CSIDriverList" :
-                type == typeof(Storage.V1Beta1.CSINode) ? "storage.k8s.io/v1beta1/CSINode" :
-                type == typeof(Storage.V1Beta1.CSINodeList) ? "storage.k8s.io/v1beta1/CSINodeList" :
-                type == typeof(Storage.V1Beta1.CSIStorageCapacity) ? "storage.k8s.io/v1beta1/CSIStorageCapacity" :
-                type == typeof(Storage.V1Beta1.CSIStorageCapacityList) ? "storage.k8s.io/v1beta1/CSIStorageCapacityList" :
-                type == typeof(Storage.V1Beta1.StorageClass) ? "storage.k8s.io/v1beta1/StorageClass" :
-                type == typeof(Storage.V1Beta1.StorageClassList) ? "storage.k8s.io/v1beta1/StorageClassList" :
-                type == typeof(Storage.V1Beta1.VolumeAttachment) ? "storage.k8s.io/v1beta1/VolumeAttachment" :
-                type == typeof(Storage.V1Beta1.VolumeAttachmentList) ? "storage.k8s.io/v1beta1/VolumeAttachmentList" :
-                throw new ArgumentException($"Unknown resource type {typeof(T).FullName}");
+            string groupVersionKind;
+            switch(type)
+            {
+                case var t when t == typeof(AdmissionRegistration.V1.MutatingWebhookConfiguration):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/MutatingWebhookConfiguration";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.MutatingWebhookConfigurationList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.ValidatingWebhookConfiguration):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1.ValidatingWebhookConfigurationList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.MutatingWebhookConfigurationList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingWebhookConfigurationList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList";
+                    break;
+                case var t when t == typeof(ApiExtensions.V1.CustomResourceDefinition):
+                    groupVersionKind = "apiextensions.k8s.io/v1/CustomResourceDefinition";
+                    break;
+                case var t when t == typeof(ApiExtensions.V1.CustomResourceDefinitionList):
+                    groupVersionKind = "apiextensions.k8s.io/v1/CustomResourceDefinitionList";
+                    break;
+                case var t when t == typeof(ApiExtensions.V1Beta1.CustomResourceDefinition):
+                    groupVersionKind = "apiextensions.k8s.io/v1beta1/CustomResourceDefinition";
+                    break;
+                case var t when t == typeof(ApiExtensions.V1Beta1.CustomResourceDefinitionList):
+                    groupVersionKind = "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList";
+                    break;
+                case var t when t == typeof(ApiRegistration.V1.APIService):
+                    groupVersionKind = "apiregistration.k8s.io/v1/APIService";
+                    break;
+                case var t when t == typeof(ApiRegistration.V1.APIServiceList):
+                    groupVersionKind = "apiregistration.k8s.io/v1/APIServiceList";
+                    break;
+                case var t when t == typeof(ApiRegistration.V1Beta1.APIService):
+                    groupVersionKind = "apiregistration.k8s.io/v1beta1/APIService";
+                    break;
+                case var t when t == typeof(ApiRegistration.V1Beta1.APIServiceList):
+                    groupVersionKind = "apiregistration.k8s.io/v1beta1/APIServiceList";
+                    break;
+                case var t when t == typeof(Apps.V1.ControllerRevision):
+                    groupVersionKind = "apps/v1/ControllerRevision";
+                    break;
+                case var t when t == typeof(Apps.V1.ControllerRevisionList):
+                    groupVersionKind = "apps/v1/ControllerRevisionList";
+                    break;
+                case var t when t == typeof(Apps.V1.DaemonSet):
+                    groupVersionKind = "apps/v1/DaemonSet";
+                    break;
+                case var t when t == typeof(Apps.V1.DaemonSetList):
+                    groupVersionKind = "apps/v1/DaemonSetList";
+                    break;
+                case var t when t == typeof(Apps.V1.Deployment):
+                    groupVersionKind = "apps/v1/Deployment";
+                    break;
+                case var t when t == typeof(Apps.V1.DeploymentList):
+                    groupVersionKind = "apps/v1/DeploymentList";
+                    break;
+                case var t when t == typeof(Apps.V1.ReplicaSet):
+                    groupVersionKind = "apps/v1/ReplicaSet";
+                    break;
+                case var t when t == typeof(Apps.V1.ReplicaSetList):
+                    groupVersionKind = "apps/v1/ReplicaSetList";
+                    break;
+                case var t when t == typeof(Apps.V1.StatefulSet):
+                    groupVersionKind = "apps/v1/StatefulSet";
+                    break;
+                case var t when t == typeof(Apps.V1.StatefulSetList):
+                    groupVersionKind = "apps/v1/StatefulSetList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta1.ControllerRevision):
+                    groupVersionKind = "apps/v1beta1/ControllerRevision";
+                    break;
+                case var t when t == typeof(Apps.V1Beta1.ControllerRevisionList):
+                    groupVersionKind = "apps/v1beta1/ControllerRevisionList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta1.Deployment):
+                    groupVersionKind = "apps/v1beta1/Deployment";
+                    break;
+                case var t when t == typeof(Apps.V1Beta1.DeploymentList):
+                    groupVersionKind = "apps/v1beta1/DeploymentList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta1.StatefulSet):
+                    groupVersionKind = "apps/v1beta1/StatefulSet";
+                    break;
+                case var t when t == typeof(Apps.V1Beta1.StatefulSetList):
+                    groupVersionKind = "apps/v1beta1/StatefulSetList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.ControllerRevision):
+                    groupVersionKind = "apps/v1beta2/ControllerRevision";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.ControllerRevisionList):
+                    groupVersionKind = "apps/v1beta2/ControllerRevisionList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.DaemonSet):
+                    groupVersionKind = "apps/v1beta2/DaemonSet";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.DaemonSetList):
+                    groupVersionKind = "apps/v1beta2/DaemonSetList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.Deployment):
+                    groupVersionKind = "apps/v1beta2/Deployment";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.DeploymentList):
+                    groupVersionKind = "apps/v1beta2/DeploymentList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.ReplicaSet):
+                    groupVersionKind = "apps/v1beta2/ReplicaSet";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.ReplicaSetList):
+                    groupVersionKind = "apps/v1beta2/ReplicaSetList";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.StatefulSet):
+                    groupVersionKind = "apps/v1beta2/StatefulSet";
+                    break;
+                case var t when t == typeof(Apps.V1Beta2.StatefulSetList):
+                    groupVersionKind = "apps/v1beta2/StatefulSetList";
+                    break;
+                case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSink):
+                    groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSink";
+                    break;
+                case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSinkList):
+                    groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSinkList";
+                    break;
+                case var t when t == typeof(Authentication.V1.TokenRequest):
+                    groupVersionKind = "authentication.k8s.io/v1/TokenRequest";
+                    break;
+                case var t when t == typeof(Authentication.V1.TokenReview):
+                    groupVersionKind = "authentication.k8s.io/v1/TokenReview";
+                    break;
+                case var t when t == typeof(Authentication.V1Beta1.TokenReview):
+                    groupVersionKind = "authentication.k8s.io/v1beta1/TokenReview";
+                    break;
+                case var t when t == typeof(Authorization.V1.LocalSubjectAccessReview):
+                    groupVersionKind = "authorization.k8s.io/v1/LocalSubjectAccessReview";
+                    break;
+                case var t when t == typeof(Authorization.V1.SelfSubjectAccessReview):
+                    groupVersionKind = "authorization.k8s.io/v1/SelfSubjectAccessReview";
+                    break;
+                case var t when t == typeof(Authorization.V1.SelfSubjectRulesReview):
+                    groupVersionKind = "authorization.k8s.io/v1/SelfSubjectRulesReview";
+                    break;
+                case var t when t == typeof(Authorization.V1.SubjectAccessReview):
+                    groupVersionKind = "authorization.k8s.io/v1/SubjectAccessReview";
+                    break;
+                case var t when t == typeof(Authorization.V1Beta1.LocalSubjectAccessReview):
+                    groupVersionKind = "authorization.k8s.io/v1beta1/LocalSubjectAccessReview";
+                    break;
+                case var t when t == typeof(Authorization.V1Beta1.SelfSubjectAccessReview):
+                    groupVersionKind = "authorization.k8s.io/v1beta1/SelfSubjectAccessReview";
+                    break;
+                case var t when t == typeof(Authorization.V1Beta1.SelfSubjectRulesReview):
+                    groupVersionKind = "authorization.k8s.io/v1beta1/SelfSubjectRulesReview";
+                    break;
+                case var t when t == typeof(Authorization.V1Beta1.SubjectAccessReview):
+                    groupVersionKind = "authorization.k8s.io/v1beta1/SubjectAccessReview";
+                    break;
+                case var t when t == typeof(Autoscaling.V1.HorizontalPodAutoscaler):
+                    groupVersionKind = "autoscaling/v1/HorizontalPodAutoscaler";
+                    break;
+                case var t when t == typeof(Autoscaling.V1.HorizontalPodAutoscalerList):
+                    groupVersionKind = "autoscaling/v1/HorizontalPodAutoscalerList";
+                    break;
+                case var t when t == typeof(Autoscaling.V2.HorizontalPodAutoscaler):
+                    groupVersionKind = "autoscaling/v2/HorizontalPodAutoscaler";
+                    break;
+                case var t when t == typeof(Autoscaling.V2.HorizontalPodAutoscalerList):
+                    groupVersionKind = "autoscaling/v2/HorizontalPodAutoscalerList";
+                    break;
+                case var t when t == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscaler):
+                    groupVersionKind = "autoscaling/v2beta1/HorizontalPodAutoscaler";
+                    break;
+                case var t when t == typeof(Autoscaling.V2Beta1.HorizontalPodAutoscalerList):
+                    groupVersionKind = "autoscaling/v2beta1/HorizontalPodAutoscalerList";
+                    break;
+                case var t when t == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscaler):
+                    groupVersionKind = "autoscaling/v2beta2/HorizontalPodAutoscaler";
+                    break;
+                case var t when t == typeof(Autoscaling.V2Beta2.HorizontalPodAutoscalerList):
+                    groupVersionKind = "autoscaling/v2beta2/HorizontalPodAutoscalerList";
+                    break;
+                case var t when t == typeof(Batch.V1.CronJob):
+                    groupVersionKind = "batch/v1/CronJob";
+                    break;
+                case var t when t == typeof(Batch.V1.CronJobList):
+                    groupVersionKind = "batch/v1/CronJobList";
+                    break;
+                case var t when t == typeof(Batch.V1.Job):
+                    groupVersionKind = "batch/v1/Job";
+                    break;
+                case var t when t == typeof(Batch.V1.JobList):
+                    groupVersionKind = "batch/v1/JobList";
+                    break;
+                case var t when t == typeof(Batch.V1Beta1.CronJob):
+                    groupVersionKind = "batch/v1beta1/CronJob";
+                    break;
+                case var t when t == typeof(Batch.V1Beta1.CronJobList):
+                    groupVersionKind = "batch/v1beta1/CronJobList";
+                    break;
+                case var t when t == typeof(Batch.V2Alpha1.CronJob):
+                    groupVersionKind = "batch/v2alpha1/CronJob";
+                    break;
+                case var t when t == typeof(Batch.V2Alpha1.CronJobList):
+                    groupVersionKind = "batch/v2alpha1/CronJobList";
+                    break;
+                case var t when t == typeof(Certificates.V1.CertificateSigningRequest):
+                    groupVersionKind = "certificates.k8s.io/v1/CertificateSigningRequest";
+                    break;
+                case var t when t == typeof(Certificates.V1.CertificateSigningRequestList):
+                    groupVersionKind = "certificates.k8s.io/v1/CertificateSigningRequestList";
+                    break;
+                case var t when t == typeof(Certificates.V1Beta1.CertificateSigningRequest):
+                    groupVersionKind = "certificates.k8s.io/v1beta1/CertificateSigningRequest";
+                    break;
+                case var t when t == typeof(Certificates.V1Beta1.CertificateSigningRequestList):
+                    groupVersionKind = "certificates.k8s.io/v1beta1/CertificateSigningRequestList";
+                    break;
+                case var t when t == typeof(Coordination.V1.Lease):
+                    groupVersionKind = "coordination.k8s.io/v1/Lease";
+                    break;
+                case var t when t == typeof(Coordination.V1.LeaseList):
+                    groupVersionKind = "coordination.k8s.io/v1/LeaseList";
+                    break;
+                case var t when t == typeof(Coordination.V1Beta1.Lease):
+                    groupVersionKind = "coordination.k8s.io/v1beta1/Lease";
+                    break;
+                case var t when t == typeof(Coordination.V1Beta1.LeaseList):
+                    groupVersionKind = "coordination.k8s.io/v1beta1/LeaseList";
+                    break;
+                case var t when t == typeof(Core.V1.Binding):
+                    groupVersionKind = "v1/Binding";
+                    break;
+                case var t when t == typeof(Core.V1.ConfigMap):
+                    groupVersionKind = "v1/ConfigMap";
+                    break;
+                case var t when t == typeof(Core.V1.ConfigMapList):
+                    groupVersionKind = "v1/ConfigMapList";
+                    break;
+                case var t when t == typeof(Core.V1.Endpoints):
+                    groupVersionKind = "v1/Endpoints";
+                    break;
+                case var t when t == typeof(Core.V1.EndpointsList):
+                    groupVersionKind = "v1/EndpointsList";
+                    break;
+                case var t when t == typeof(Core.V1.Event):
+                    groupVersionKind = "v1/Event";
+                    break;
+                case var t when t == typeof(Core.V1.EventList):
+                    groupVersionKind = "v1/EventList";
+                    break;
+                case var t when t == typeof(Core.V1.LimitRange):
+                    groupVersionKind = "v1/LimitRange";
+                    break;
+                case var t when t == typeof(Core.V1.LimitRangeList):
+                    groupVersionKind = "v1/LimitRangeList";
+                    break;
+                case var t when t == typeof(Core.V1.Namespace):
+                    groupVersionKind = "v1/Namespace";
+                    break;
+                case var t when t == typeof(Core.V1.NamespaceList):
+                    groupVersionKind = "v1/NamespaceList";
+                    break;
+                case var t when t == typeof(Core.V1.Node):
+                    groupVersionKind = "v1/Node";
+                    break;
+                case var t when t == typeof(Core.V1.NodeList):
+                    groupVersionKind = "v1/NodeList";
+                    break;
+                case var t when t == typeof(Core.V1.PersistentVolume):
+                    groupVersionKind = "v1/PersistentVolume";
+                    break;
+                case var t when t == typeof(Core.V1.PersistentVolumeClaim):
+                    groupVersionKind = "v1/PersistentVolumeClaim";
+                    break;
+                case var t when t == typeof(Core.V1.PersistentVolumeClaimList):
+                    groupVersionKind = "v1/PersistentVolumeClaimList";
+                    break;
+                case var t when t == typeof(Core.V1.PersistentVolumeList):
+                    groupVersionKind = "v1/PersistentVolumeList";
+                    break;
+                case var t when t == typeof(Core.V1.Pod):
+                    groupVersionKind = "v1/Pod";
+                    break;
+                case var t when t == typeof(Core.V1.PodList):
+                    groupVersionKind = "v1/PodList";
+                    break;
+                case var t when t == typeof(Core.V1.PodTemplate):
+                    groupVersionKind = "v1/PodTemplate";
+                    break;
+                case var t when t == typeof(Core.V1.PodTemplateList):
+                    groupVersionKind = "v1/PodTemplateList";
+                    break;
+                case var t when t == typeof(Core.V1.ReplicationController):
+                    groupVersionKind = "v1/ReplicationController";
+                    break;
+                case var t when t == typeof(Core.V1.ReplicationControllerList):
+                    groupVersionKind = "v1/ReplicationControllerList";
+                    break;
+                case var t when t == typeof(Core.V1.ResourceQuota):
+                    groupVersionKind = "v1/ResourceQuota";
+                    break;
+                case var t when t == typeof(Core.V1.ResourceQuotaList):
+                    groupVersionKind = "v1/ResourceQuotaList";
+                    break;
+                case var t when t == typeof(Core.V1.Secret):
+                    groupVersionKind = "v1/Secret";
+                    break;
+                case var t when t == typeof(Core.V1.SecretList):
+                    groupVersionKind = "v1/SecretList";
+                    break;
+                case var t when t == typeof(Core.V1.Service):
+                    groupVersionKind = "v1/Service";
+                    break;
+                case var t when t == typeof(Core.V1.ServiceAccount):
+                    groupVersionKind = "v1/ServiceAccount";
+                    break;
+                case var t when t == typeof(Core.V1.ServiceAccountList):
+                    groupVersionKind = "v1/ServiceAccountList";
+                    break;
+                case var t when t == typeof(Core.V1.ServiceList):
+                    groupVersionKind = "v1/ServiceList";
+                    break;
+                case var t when t == typeof(Discovery.V1.EndpointSlice):
+                    groupVersionKind = "discovery.k8s.io/v1/EndpointSlice";
+                    break;
+                case var t when t == typeof(Discovery.V1.EndpointSliceList):
+                    groupVersionKind = "discovery.k8s.io/v1/EndpointSliceList";
+                    break;
+                case var t when t == typeof(Discovery.V1Beta1.EndpointSlice):
+                    groupVersionKind = "discovery.k8s.io/v1beta1/EndpointSlice";
+                    break;
+                case var t when t == typeof(Discovery.V1Beta1.EndpointSliceList):
+                    groupVersionKind = "discovery.k8s.io/v1beta1/EndpointSliceList";
+                    break;
+                case var t when t == typeof(Events.V1.Event):
+                    groupVersionKind = "events.k8s.io/v1/Event";
+                    break;
+                case var t when t == typeof(Events.V1.EventList):
+                    groupVersionKind = "events.k8s.io/v1/EventList";
+                    break;
+                case var t when t == typeof(Events.V1Beta1.Event):
+                    groupVersionKind = "events.k8s.io/v1beta1/Event";
+                    break;
+                case var t when t == typeof(Events.V1Beta1.EventList):
+                    groupVersionKind = "events.k8s.io/v1beta1/EventList";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.DaemonSet):
+                    groupVersionKind = "extensions/v1beta1/DaemonSet";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.DaemonSetList):
+                    groupVersionKind = "extensions/v1beta1/DaemonSetList";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.Deployment):
+                    groupVersionKind = "extensions/v1beta1/Deployment";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.DeploymentList):
+                    groupVersionKind = "extensions/v1beta1/DeploymentList";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.Ingress):
+                    groupVersionKind = "extensions/v1beta1/Ingress";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.IngressList):
+                    groupVersionKind = "extensions/v1beta1/IngressList";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.NetworkPolicy):
+                    groupVersionKind = "extensions/v1beta1/NetworkPolicy";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.NetworkPolicyList):
+                    groupVersionKind = "extensions/v1beta1/NetworkPolicyList";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.PodSecurityPolicy):
+                    groupVersionKind = "extensions/v1beta1/PodSecurityPolicy";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.PodSecurityPolicyList):
+                    groupVersionKind = "extensions/v1beta1/PodSecurityPolicyList";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.ReplicaSet):
+                    groupVersionKind = "extensions/v1beta1/ReplicaSet";
+                    break;
+                case var t when t == typeof(Extensions.V1Beta1.ReplicaSetList):
+                    groupVersionKind = "extensions/v1beta1/ReplicaSetList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Alpha1.FlowSchema):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchema";
+                    break;
+                case var t when t == typeof(FlowControl.V1Alpha1.FlowSchemaList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1alpha1/FlowSchemaList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Alpha1.PriorityLevelConfiguration):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfiguration";
+                    break;
+                case var t when t == typeof(FlowControl.V1Alpha1.PriorityLevelConfigurationList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1alpha1/PriorityLevelConfigurationList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta1.FlowSchema):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchema";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta1.FlowSchemaList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta1/FlowSchemaList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta1.PriorityLevelConfiguration):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfiguration";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta1.PriorityLevelConfigurationList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta2.FlowSchema):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchema";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta2.FlowSchemaList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta2.PriorityLevelConfiguration):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta2.PriorityLevelConfigurationList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList";
+                    break;
+                case var t when t == typeof(Meta.V1.Status):
+                    groupVersionKind = "meta/v1/Status";
+                    break;
+                case var t when t == typeof(Networking.V1.Ingress):
+                    groupVersionKind = "networking.k8s.io/v1/Ingress";
+                    break;
+                case var t when t == typeof(Networking.V1.IngressClass):
+                    groupVersionKind = "networking.k8s.io/v1/IngressClass";
+                    break;
+                case var t when t == typeof(Networking.V1.IngressClassList):
+                    groupVersionKind = "networking.k8s.io/v1/IngressClassList";
+                    break;
+                case var t when t == typeof(Networking.V1.IngressList):
+                    groupVersionKind = "networking.k8s.io/v1/IngressList";
+                    break;
+                case var t when t == typeof(Networking.V1.NetworkPolicy):
+                    groupVersionKind = "networking.k8s.io/v1/NetworkPolicy";
+                    break;
+                case var t when t == typeof(Networking.V1.NetworkPolicyList):
+                    groupVersionKind = "networking.k8s.io/v1/NetworkPolicyList";
+                    break;
+                case var t when t == typeof(Networking.V1Beta1.Ingress):
+                    groupVersionKind = "networking.k8s.io/v1beta1/Ingress";
+                    break;
+                case var t when t == typeof(Networking.V1Beta1.IngressClass):
+                    groupVersionKind = "networking.k8s.io/v1beta1/IngressClass";
+                    break;
+                case var t when t == typeof(Networking.V1Beta1.IngressClassList):
+                    groupVersionKind = "networking.k8s.io/v1beta1/IngressClassList";
+                    break;
+                case var t when t == typeof(Networking.V1Beta1.IngressList):
+                    groupVersionKind = "networking.k8s.io/v1beta1/IngressList";
+                    break;
+                case var t when t == typeof(Node.V1.RuntimeClass):
+                    groupVersionKind = "node.k8s.io/v1/RuntimeClass";
+                    break;
+                case var t when t == typeof(Node.V1.RuntimeClassList):
+                    groupVersionKind = "node.k8s.io/v1/RuntimeClassList";
+                    break;
+                case var t when t == typeof(Node.V1Alpha1.RuntimeClass):
+                    groupVersionKind = "node.k8s.io/v1alpha1/RuntimeClass";
+                    break;
+                case var t when t == typeof(Node.V1Alpha1.RuntimeClassList):
+                    groupVersionKind = "node.k8s.io/v1alpha1/RuntimeClassList";
+                    break;
+                case var t when t == typeof(Node.V1Beta1.RuntimeClass):
+                    groupVersionKind = "node.k8s.io/v1beta1/RuntimeClass";
+                    break;
+                case var t when t == typeof(Node.V1Beta1.RuntimeClassList):
+                    groupVersionKind = "node.k8s.io/v1beta1/RuntimeClassList";
+                    break;
+                case var t when t == typeof(Policy.V1.PodDisruptionBudget):
+                    groupVersionKind = "policy/v1/PodDisruptionBudget";
+                    break;
+                case var t when t == typeof(Policy.V1.PodDisruptionBudgetList):
+                    groupVersionKind = "policy/v1/PodDisruptionBudgetList";
+                    break;
+                case var t when t == typeof(Policy.V1Beta1.PodDisruptionBudget):
+                    groupVersionKind = "policy/v1beta1/PodDisruptionBudget";
+                    break;
+                case var t when t == typeof(Policy.V1Beta1.PodDisruptionBudgetList):
+                    groupVersionKind = "policy/v1beta1/PodDisruptionBudgetList";
+                    break;
+                case var t when t == typeof(Policy.V1Beta1.PodSecurityPolicy):
+                    groupVersionKind = "policy/v1beta1/PodSecurityPolicy";
+                    break;
+                case var t when t == typeof(Policy.V1Beta1.PodSecurityPolicyList):
+                    groupVersionKind = "policy/v1beta1/PodSecurityPolicyList";
+                    break;
+                case var t when t == typeof(Rbac.V1.ClusterRole):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/ClusterRole";
+                    break;
+                case var t when t == typeof(Rbac.V1.ClusterRoleBinding):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/ClusterRoleBinding";
+                    break;
+                case var t when t == typeof(Rbac.V1.ClusterRoleBindingList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/ClusterRoleBindingList";
+                    break;
+                case var t when t == typeof(Rbac.V1.ClusterRoleList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/ClusterRoleList";
+                    break;
+                case var t when t == typeof(Rbac.V1.Role):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/Role";
+                    break;
+                case var t when t == typeof(Rbac.V1.RoleBinding):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/RoleBinding";
+                    break;
+                case var t when t == typeof(Rbac.V1.RoleBindingList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/RoleBindingList";
+                    break;
+                case var t when t == typeof(Rbac.V1.RoleList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1/RoleList";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.ClusterRole):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/ClusterRole";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.ClusterRoleBinding):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBinding";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.ClusterRoleBindingList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/ClusterRoleBindingList";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.ClusterRoleList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/ClusterRoleList";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.Role):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/Role";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.RoleBinding):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/RoleBinding";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.RoleBindingList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/RoleBindingList";
+                    break;
+                case var t when t == typeof(Rbac.V1Alpha1.RoleList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1alpha1/RoleList";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.ClusterRole):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/ClusterRole";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.ClusterRoleBinding):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/ClusterRoleBinding";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.ClusterRoleBindingList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/ClusterRoleBindingList";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.ClusterRoleList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/ClusterRoleList";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.Role):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/Role";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.RoleBinding):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/RoleBinding";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.RoleBindingList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/RoleBindingList";
+                    break;
+                case var t when t == typeof(Rbac.V1Beta1.RoleList):
+                    groupVersionKind = "rbac.authorization.k8s.io/v1beta1/RoleList";
+                    break;
+                case var t when t == typeof(Scheduling.V1.PriorityClass):
+                    groupVersionKind = "scheduling.k8s.io/v1/PriorityClass";
+                    break;
+                case var t when t == typeof(Scheduling.V1.PriorityClassList):
+                    groupVersionKind = "scheduling.k8s.io/v1/PriorityClassList";
+                    break;
+                case var t when t == typeof(Scheduling.V1Alpha1.PriorityClass):
+                    groupVersionKind = "scheduling.k8s.io/v1alpha1/PriorityClass";
+                    break;
+                case var t when t == typeof(Scheduling.V1Alpha1.PriorityClassList):
+                    groupVersionKind = "scheduling.k8s.io/v1alpha1/PriorityClassList";
+                    break;
+                case var t when t == typeof(Scheduling.V1Beta1.PriorityClass):
+                    groupVersionKind = "scheduling.k8s.io/v1beta1/PriorityClass";
+                    break;
+                case var t when t == typeof(Scheduling.V1Beta1.PriorityClassList):
+                    groupVersionKind = "scheduling.k8s.io/v1beta1/PriorityClassList";
+                    break;
+                case var t when t == typeof(Settings.V1Alpha1.PodPreset):
+                    groupVersionKind = "settings.k8s.io/v1alpha1/PodPreset";
+                    break;
+                case var t when t == typeof(Settings.V1Alpha1.PodPresetList):
+                    groupVersionKind = "settings.k8s.io/v1alpha1/PodPresetList";
+                    break;
+                case var t when t == typeof(Storage.V1.CSIDriver):
+                    groupVersionKind = "storage.k8s.io/v1/CSIDriver";
+                    break;
+                case var t when t == typeof(Storage.V1.CSIDriverList):
+                    groupVersionKind = "storage.k8s.io/v1/CSIDriverList";
+                    break;
+                case var t when t == typeof(Storage.V1.CSINode):
+                    groupVersionKind = "storage.k8s.io/v1/CSINode";
+                    break;
+                case var t when t == typeof(Storage.V1.CSINodeList):
+                    groupVersionKind = "storage.k8s.io/v1/CSINodeList";
+                    break;
+                case var t when t == typeof(Storage.V1.CSIStorageCapacity):
+                    groupVersionKind = "storage.k8s.io/v1/CSIStorageCapacity";
+                    break;
+                case var t when t == typeof(Storage.V1.CSIStorageCapacityList):
+                    groupVersionKind = "storage.k8s.io/v1/CSIStorageCapacityList";
+                    break;
+                case var t when t == typeof(Storage.V1.StorageClass):
+                    groupVersionKind = "storage.k8s.io/v1/StorageClass";
+                    break;
+                case var t when t == typeof(Storage.V1.StorageClassList):
+                    groupVersionKind = "storage.k8s.io/v1/StorageClassList";
+                    break;
+                case var t when t == typeof(Storage.V1.VolumeAttachment):
+                    groupVersionKind = "storage.k8s.io/v1/VolumeAttachment";
+                    break;
+                case var t when t == typeof(Storage.V1.VolumeAttachmentList):
+                    groupVersionKind = "storage.k8s.io/v1/VolumeAttachmentList";
+                    break;
+                case var t when t == typeof(Storage.V1Alpha1.VolumeAttachment):
+                    groupVersionKind = "storage.k8s.io/v1alpha1/VolumeAttachment";
+                    break;
+                case var t when t == typeof(Storage.V1Alpha1.VolumeAttachmentList):
+                    groupVersionKind = "storage.k8s.io/v1alpha1/VolumeAttachmentList";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.CSIDriver):
+                    groupVersionKind = "storage.k8s.io/v1beta1/CSIDriver";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.CSIDriverList):
+                    groupVersionKind = "storage.k8s.io/v1beta1/CSIDriverList";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.CSINode):
+                    groupVersionKind = "storage.k8s.io/v1beta1/CSINode";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.CSINodeList):
+                    groupVersionKind = "storage.k8s.io/v1beta1/CSINodeList";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.CSIStorageCapacity):
+                    groupVersionKind = "storage.k8s.io/v1beta1/CSIStorageCapacity";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.CSIStorageCapacityList):
+                    groupVersionKind = "storage.k8s.io/v1beta1/CSIStorageCapacityList";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.StorageClass):
+                    groupVersionKind = "storage.k8s.io/v1beta1/StorageClass";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.StorageClassList):
+                    groupVersionKind = "storage.k8s.io/v1beta1/StorageClassList";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.VolumeAttachment):
+                    groupVersionKind = "storage.k8s.io/v1beta1/VolumeAttachment";
+                    break;
+                case var t when t == typeof(Storage.V1Beta1.VolumeAttachmentList):
+                    groupVersionKind = "storage.k8s.io/v1beta1/VolumeAttachmentList";
+                    break;
+                default:
+                    throw new ArgumentException($"Unknown resource type {typeof(T).FullName}");
+            }
             var id = namespaceName != null ? $"{namespaceName}/{name}" : name;
             return Resources.Apply(r =>
             {
