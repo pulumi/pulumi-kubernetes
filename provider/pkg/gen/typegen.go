@@ -562,7 +562,23 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 					schemaType := makeSchemaType(prop, canonicalGroups)
 
 					// `-` is invalid in variable names, so replace with `_`
-					propName = strings.ReplaceAll(propName, "-", "_")
+					switch propName {
+					case "x-kubernetes-embedded-resource":
+						propName = "x_kubernetes_embedded_resource"
+					case "x-kubernetes-int-or-string":
+						propName = "x_kubernetes_int_or_string"
+					case "x-kubernetes-list-map-keys":
+						propName = "x_kubernetes_list_map_keys"
+					case "x-kubernetes-list-type":
+						propName = "x_kubernetes_list_type"
+					case "x-kubernetes-map-type":
+						propName = "x_kubernetes_map_type"
+					case "x-kubernetes-preserve-unknown-fields":
+						propName = "x_kubernetes_preserve_unknown_fields"
+					case "x-kubernetes-validations":
+						propName = "x_kubernetes_validations"
+					}
+					contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
 
 					// Create a const value for the field.
 					var constValue string

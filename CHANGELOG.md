@@ -5,6 +5,7 @@
 - Fix erroneous resourceVersion diff for CRDs managed with SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2121)
 - Update C# YAML GetResource implementation to compile with .NET v6 (https://github.com/pulumi/pulumi-kubernetes/pull/2122)
 - Change .metadata.name to optional for all Patch resources (https://github.com/pulumi/pulumi-kubernetes/pull/2126)
+- Fix field names in CRD schemas (https://github.com/pulumi/pulumi-kubernetes/pull/2128)
 
 ## 3.20.2 (July 25, 2022)
 
