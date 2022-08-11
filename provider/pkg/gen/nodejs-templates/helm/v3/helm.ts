@@ -131,6 +131,17 @@ export class Chart extends yaml.CollectionComponentResource {
     public static readonly __pulumiType = 'kubernetes:helm.sh/v3:Chart';
 
     /**
+     * Returns true if the given object is an instance of Chart.  This is designed to work even
+     * when multiple copies of the Pulumi SDK have been loaded into the same process.
+     */
+    public static isInstance(obj: any): obj is Chart {
+        if (obj === undefined || obj === null) {
+            return false;
+        }
+        return obj['__pulumiType'] === Chart.__pulumiType;
+    }
+
+    /**
      * Create an instance of the specified Helm chart.
      * @param releaseName Name of the Chart (e.g., nginx-ingress).
      * @param config Configuration options for the Chart.
@@ -145,7 +156,7 @@ export class Chart extends yaml.CollectionComponentResource {
             releaseName = `${config.resourcePrefix}-${releaseName}`
         }
         const aliasOpts: pulumi.ComponentResourceOptions = {...opts, aliases: [{type: "kubernetes:helm.sh/v2:Chart"}]}
-        super("kubernetes:helm.sh/v3:Chart", releaseName, config, aliasOpts);
+        super(Chart.__pulumiType, releaseName, config, aliasOpts);
 
         const allConfig = pulumi.output(config);
 
