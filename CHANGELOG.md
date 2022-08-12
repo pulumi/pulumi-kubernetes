@@ -1,5 +1,7 @@
 ## Unreleased
 
+-  Fix Helm charts being ignored by policy packs. (https://github.com/pulumi/pulumi-kubernetes/pull/2133)
+
 ## 3.20.3 (August 9, 2022)
 
 - Add chart v2 deprecation note to schema/docs (https://github.com/pulumi/pulumi-kubernetes/pull/2114)
