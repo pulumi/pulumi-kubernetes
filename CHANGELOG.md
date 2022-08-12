@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.20.4 (August 15, 2022)
+
 - Fix Helm charts being ignored by policy packs. (https://github.com/pulumi/pulumi-kubernetes/pull/2133)
 - Fixes to allow import of helm release (https://github.com/pulumi/pulumi-kubernetes/pull/2136)
 - Keep managed-by label in SSA mode if already present (https://github.com/pulumi/pulumi-kubernetes/pull/2138)
