@@ -1306,7 +1306,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 			}
 		}
 	} else {
-		metadata.AssignNameIfAutonamable(newInputs, news, urn)
+		metadata.AssignNameIfAutonamable(req.RandomSeed, newInputs, news, urn)
 
 		if !k.serverSideApplyMode {
 			// Set a "managed-by: pulumi" label on all created k8s resources.
@@ -1543,7 +1543,8 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	fieldManager := fieldManagerName(newResInputs, newInputs)
+	// TODO: This is wrong, we shouldn't have randomness in diff, we need to resolve this in Check.
+	fieldManager := fieldManagerName(nil, newResInputs, newInputs)
 
 	// Try to compute a server-side patch.
 	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
@@ -1736,7 +1737,8 @@ func (k *kubeProvider) Create(
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
-	fieldManager := fieldManagerName(newResInputs, newInputs)
+	// TODO: This is wrong, we shouldn't have randomness in create, we need to resolve this in Check.
+	fieldManager := fieldManagerName(nil, newResInputs, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -1960,7 +1962,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	fieldManager := fieldManagerName(oldState, oldInputs)
+	// TODO: This is wrong, we shouldn't have randomness in read, we need to resolve this in Check.
+	fieldManager := fieldManagerName(nil, oldState, oldInputs)
 
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
@@ -2229,8 +2232,9 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	fieldManagerOld := fieldManagerName(oldState, oldInputs)
-	fieldManager := fieldManagerName(oldState, newInputs)
+	// TODO: This is wrong, we shouldn't have randomness in update, we need to resolve this in Check.
+	fieldManagerOld := fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := fieldManagerName(nil, oldState, newInputs)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -2407,7 +2411,8 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	if err != nil {
 		return nil, err
 	}
-	fieldManager := fieldManagerName(oldState, oldInputs)
+	// TODO: This is wrong, we shouldn't have randomness in delete, we need to resolve this in Check.
+	fieldManager := fieldManagerName(nil, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -2878,7 +2883,7 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 // 1. Resource annotation (this will likely change to a typed option field in the next major release)
 // 2. Value from the Pulumi state
 // 3. Randomly generated name
-func fieldManagerName(state resource.PropertyMap, inputs *unstructured.Unstructured) string {
+func fieldManagerName(randomSeed []byte, state resource.PropertyMap, inputs *unstructured.Unstructured) string {
 	if v := metadata.GetAnnotationValue(inputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
 		return v
 	}
@@ -2887,7 +2892,7 @@ func fieldManagerName(state resource.PropertyMap, inputs *unstructured.Unstructu
 	}
 
 	prefix := "pulumi-kubernetes-"
-	fieldManager, err := resource.NewUniqueHex(prefix, 0, 0)
+	fieldManager, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 	contract.AssertNoError(err)
 
 	return fieldManager
