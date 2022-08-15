@@ -1543,7 +1543,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	// TODO: This is wrong, we shouldn't have randomness in diff, we need to resolve this in Check.
 	fieldManager := fieldManagerName(nil, newResInputs, newInputs)
 
 	// Try to compute a server-side patch.
@@ -1737,7 +1736,6 @@ func (k *kubeProvider) Create(
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
-	// TODO: This is wrong, we shouldn't have randomness in create, we need to resolve this in Check.
 	fieldManager := fieldManagerName(nil, newResInputs, newInputs)
 
 	if k.yamlRenderMode {
@@ -1962,7 +1960,6 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	// TODO: This is wrong, we shouldn't have randomness in read, we need to resolve this in Check.
 	fieldManager := fieldManagerName(nil, oldState, oldInputs)
 
 	if k.yamlRenderMode {
@@ -2232,7 +2229,6 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	// TODO: This is wrong, we shouldn't have randomness in update, we need to resolve this in Check.
 	fieldManagerOld := fieldManagerName(nil, oldState, oldInputs)
 	fieldManager := fieldManagerName(nil, oldState, newInputs)
 
@@ -2411,7 +2407,6 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	if err != nil {
 		return nil, err
 	}
-	// TODO: This is wrong, we shouldn't have randomness in delete, we need to resolve this in Check.
 	fieldManager := fieldManagerName(nil, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
@@ -2892,6 +2887,9 @@ func fieldManagerName(randomSeed []byte, state resource.PropertyMap, inputs *uns
 	}
 
 	prefix := "pulumi-kubernetes-"
+	// This function is called from other provider function apart from Check and so doesn't have a randomSeed
+	// for those calls, but the field manager name should have already been filled in via Check so this case
+	// shouldn't actually get hit.
 	fieldManager, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 	contract.AssertNoError(err)
 
