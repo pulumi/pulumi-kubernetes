@@ -1,7 +1,12 @@
 ## Unreleased
 
--  Fix Helm charts being ignored by policy packs. (https://github.com/pulumi/pulumi-kubernetes/pull/2133)
--  Update autonaming to use NewUniqueName for deterministic update plans. (https://github.com/pulumi/pulumi-kubernetes/pull/2137)
+- Update autonaming to use NewUniqueName for deterministic update plans. (https://github.com/pulumi/pulumi-kubernetes/pull/2137)
+
+## 3.20.4 (August 15, 2022)
+
+- Fix Helm charts being ignored by policy packs. (https://github.com/pulumi/pulumi-kubernetes/pull/2133)
+- Fixes to allow import of helm release (https://github.com/pulumi/pulumi-kubernetes/pull/2136)
+- Keep managed-by label in SSA mode if already present (https://github.com/pulumi/pulumi-kubernetes/pull/2138)
 
 ## 3.20.3 (August 9, 2022)
 

@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -347,10 +348,18 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 		}
 
 		resourceNames, err := r.computeResourceNames(new)
-		if err != nil {
+		if err != nil && errors.Is(err, fs.ErrNotExist) {
+			// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
+			// Declare bankruptcy in being able to determine the underlying resources and hope for the best
+			// further down the operations.
+			resourceNames = nil
+		} else if err != nil {
 			return nil, err
 		}
-		new.ResourceNames = resourceNames
+
+		if len(new.ResourceNames) == 0 {
+			new.ResourceNames = resourceNames
+		}
 		logger.V(9).Infof("New: %+v", new)
 		news = resource.NewPropertyMap(new)
 	}
@@ -389,8 +398,9 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 
 	skipAwaitVal, ok := target["skipAwait"]
 	if !ok || (skipAwaitVal.IsBool() && !skipAwaitVal.BoolValue()) {
-		timeout, has := target["timeout"]
-		if !has || (timeout.IsNumber() && timeout.NumberValue() == 0) {
+		// If timeout is specified (even if zero value), use that. Otherwise use default.
+		_, has := target["timeout"]
+		if !has {
 			target["timeout"] = resource.NewNumberProperty(defaultTimeoutSeconds)
 		}
 	}

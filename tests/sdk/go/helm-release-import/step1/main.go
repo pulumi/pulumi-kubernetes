@@ -18,7 +18,8 @@ func main() {
 			Chart:     pulumi.String("nginx"),
 			Version:   pulumi.String("6.0.5"),
 			Values:    pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
-			Timeout:   pulumi.Int(300),
+			// Timeouts are not recorded in the release by Helm either.
+			Timeout: pulumi.Int(0),
 		}, pulumi.Import(pulumi.ID(fmt.Sprintf("%s/mynginx", namespace))))
 		if err != nil {
 			return err

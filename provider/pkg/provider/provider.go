@@ -1308,8 +1308,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	} else {
 		metadata.AssignNameIfAutonamable(req.RandomSeed, newInputs, news, urn)
 
-		if !k.serverSideApplyMode {
-			// Set a "managed-by: pulumi" label on all created k8s resources.
+		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. To avoid churn on previously
+		// created resources, keep the label in SSA mode if it's already present on the resource.
+		if !k.serverSideApplyMode || metadata.HasManagedByLabel(oldInputs) {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
 				return nil, pkgerrors.Wrapf(err,
