@@ -1297,20 +1297,18 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		// a resource that was created out-of-band. In this case, we do not add the `managed-by` label here, as doing
 		// so would result in a persistent failure to import due to a diff that the user cannot correct.
 		if metadata.HasManagedByLabel(oldInputs) {
-			if !k.serverSideApplyMode {
-				_, err = metadata.TrySetManagedByLabel(newInputs)
-				if err != nil {
-					return nil, pkgerrors.Wrapf(err,
-						"Failed to create object because of a problem setting managed-by labels")
-				}
+			_, err = metadata.TrySetManagedByLabel(newInputs)
+			if err != nil {
+				return nil, pkgerrors.Wrapf(err,
+					"Failed to create object because of a problem setting managed-by labels")
 			}
 		}
 	} else {
 		metadata.AssignNameIfAutonamable(req.RandomSeed, newInputs, news, urn)
 
-		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. To avoid churn on previously
-		// created resources, keep the label in SSA mode if it's already present on the resource.
-		if !k.serverSideApplyMode || metadata.HasManagedByLabel(oldInputs) {
+		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. Do not set this label for SSA
+		// resources since the fieldManagers field contains granular information about the managers.
+		if !k.serverSideApplyMode {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
 				return nil, pkgerrors.Wrapf(err,
