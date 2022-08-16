@@ -1293,9 +1293,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		contract.Assert(oldInputs.GetName() != "")
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 
-		// If this resource does not have a "managed-by: pulumi" label in its inputs, it is likely we are importing
-		// a resource that was created out-of-band. In this case, we do not add the `managed-by` label here, as doing
-		// so would result in a persistent failure to import due to a diff that the user cannot correct.
+		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This
+		// avoids causing diffs for cases where the resource is being imported, or was created using SSA. The goal in
+		// both cases is to leave the resource unchanged. The label is added if already present, or omitted if not.
 		if metadata.HasManagedByLabel(oldInputs) {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
