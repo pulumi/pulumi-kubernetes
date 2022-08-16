@@ -27,7 +27,7 @@ var dns1123Alphabet = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
-func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
+func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
 	contract.Assert(urn.Name().String() != "")
 	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
@@ -38,7 +38,7 @@ func AssignNameIfAutonamable(obj *unstructured.Unstructured, propMap resource.Pr
 
 	if obj.GetName() == "" {
 		prefix := urn.Name().String() + "-"
-		autoname, err := resource.NewUniqueHex(prefix, 0, 0)
+		autoname, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
 		contract.AssertNoError(err)
 		obj.SetName(autoname)
 		SetAnnotationTrue(obj, AnnotationAutonamed)

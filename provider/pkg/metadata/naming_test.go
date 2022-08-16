@@ -30,7 +30,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 	// o1 has no name, so autonaming succeeds.
 	o1 := &unstructured.Unstructured{}
 	pm1 := resource.NewPropertyMap(struct{}{})
-	AssignNameIfAutonamable(o1, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	AssignNameIfAutonamable(nil, o1, pm1, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
 	assert.True(t, IsAutonamed(o1))
 	assert.True(t, strings.HasPrefix(o1.GetName(), "foo-"))
@@ -45,7 +45,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 			"name": resource.NewStringProperty("bar"),
 		}),
 	}
-	AssignNameIfAutonamable(o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	AssignNameIfAutonamable(nil, o2, pm2, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:AnotherResource"), "bar"))
 	assert.False(t, IsAutonamed(o2))
 	assert.Equal(t, "bar", o2.GetName())
@@ -59,7 +59,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 			"name": resource.MakeComputed(resource.NewStringProperty("bar")),
 		}),
 	}
-	AssignNameIfAutonamable(o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
+	AssignNameIfAutonamable(nil, o3, pm3, resource.NewURN(tokens.QName("teststack"), tokens.PackageName("testproj"),
 		tokens.Type(""), tokens.Type("bang:boom/fizzle:MajorResource"), "foo"))
 	assert.False(t, IsAutonamed(o3))
 	assert.Equal(t, "[Computed]", o3.GetName())

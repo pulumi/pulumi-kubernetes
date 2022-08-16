@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Update autonaming to use NewUniqueName for deterministic update plans. (https://github.com/pulumi/pulumi-kubernetes/pull/2137)
+
 ## 3.20.4 (August 15, 2022)
 
 - Fix Helm charts being ignored by policy packs. (https://github.com/pulumi/pulumi-kubernetes/pull/2133)
@@ -138,7 +140,7 @@ Note: The `kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity` API was remove
 
 - Helm Release: Helm Release imports support (https://github.com/pulumi/pulumi-kubernetes/pull/1818)
 - Helm Release: fix username fetch option (https://github.com/pulumi/pulumi-kubernetes/pull/1824)
-- Helm Release: Use URN name as base for autonaming, Drop warning, fix default value for 
+- Helm Release: Use URN name as base for autonaming, Drop warning, fix default value for
   keyring (https://github.com/pulumi/pulumi-kubernetes/pull/1826)
 - Helm Release: Add support for loading values from yaml files (https://github.com/pulumi/pulumi-kubernetes/pull/1828)
 
