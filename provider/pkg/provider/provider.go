@@ -1293,24 +1293,22 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		contract.Assert(oldInputs.GetName() != "")
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 
-		// If this resource does not have a "managed-by: pulumi" label in its inputs, it is likely we are importing
-		// a resource that was created out-of-band. In this case, we do not add the `managed-by` label here, as doing
-		// so would result in a persistent failure to import due to a diff that the user cannot correct.
+		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This
+		// avoids causing diffs for cases where the resource is being imported, or was created using SSA. The goal in
+		// both cases is to leave the resource unchanged. The label is added if already present, or omitted if not.
 		if metadata.HasManagedByLabel(oldInputs) {
-			if !k.serverSideApplyMode {
-				_, err = metadata.TrySetManagedByLabel(newInputs)
-				if err != nil {
-					return nil, pkgerrors.Wrapf(err,
-						"Failed to create object because of a problem setting managed-by labels")
-				}
+			_, err = metadata.TrySetManagedByLabel(newInputs)
+			if err != nil {
+				return nil, pkgerrors.Wrapf(err,
+					"Failed to create object because of a problem setting managed-by labels")
 			}
 		}
 	} else {
 		metadata.AssignNameIfAutonamable(req.RandomSeed, newInputs, news, urn)
 
-		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. To avoid churn on previously
-		// created resources, keep the label in SSA mode if it's already present on the resource.
-		if !k.serverSideApplyMode || metadata.HasManagedByLabel(oldInputs) {
+		// Set a "managed-by: pulumi" label on resources created with Client-Side Apply. Do not set this label for SSA
+		// resources since the fieldManagers field contains granular information about the managers.
+		if !k.serverSideApplyMode {
 			_, err = metadata.TrySetManagedByLabel(newInputs)
 			if err != nil {
 				return nil, pkgerrors.Wrapf(err,

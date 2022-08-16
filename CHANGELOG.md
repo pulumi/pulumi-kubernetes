@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Update autonaming to use NewUniqueName for deterministic update plans. (https://github.com/pulumi/pulumi-kubernetes/pull/2137)
+- Another fix for managed-by label in SSA mode. (https://github.com/pulumi/pulumi-kubernetes/pull/2140)
 
 ## 3.20.4 (August 15, 2022)
 
