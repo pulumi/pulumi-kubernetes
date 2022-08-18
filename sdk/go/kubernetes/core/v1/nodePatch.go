@@ -122,7 +122,7 @@ func (i *NodePatch) ToNodePatchOutputWithContext(ctx context.Context) NodePatchO
 // NodePatchArrayInput is an input type that accepts NodePatchArray and NodePatchArrayOutput values.
 // You can construct a concrete instance of `NodePatchArrayInput` via:
 //
-//          NodePatchArray{ NodePatchArgs{...} }
+//	NodePatchArray{ NodePatchArgs{...} }
 type NodePatchArrayInput interface {
 	pulumi.Input
 
@@ -147,7 +147,7 @@ func (i NodePatchArray) ToNodePatchArrayOutputWithContext(ctx context.Context) N
 // NodePatchMapInput is an input type that accepts NodePatchMap and NodePatchMapOutput values.
 // You can construct a concrete instance of `NodePatchMapInput` via:
 //
-//          NodePatchMap{ "key": NodePatchArgs{...} }
+//	NodePatchMap{ "key": NodePatchArgs{...} }
 type NodePatchMapInput interface {
 	pulumi.Input
 

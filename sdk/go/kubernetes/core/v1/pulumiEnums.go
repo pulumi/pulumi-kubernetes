@@ -141,7 +141,7 @@ func (o ServiceSpecTypePtrOutput) ToStringPtrOutputWithContext(ctx context.Conte
 // ServiceSpecTypeInput is an input type that accepts ServiceSpecTypeArgs and ServiceSpecTypeOutput values.
 // You can construct a concrete instance of `ServiceSpecTypeInput` via:
 //
-//          ServiceSpecTypeArgs{...}
+//	ServiceSpecTypeArgs{...}
 type ServiceSpecTypeInput interface {
 	pulumi.Input
 

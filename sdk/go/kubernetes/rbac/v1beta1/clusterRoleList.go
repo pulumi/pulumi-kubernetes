@@ -118,7 +118,7 @@ func (i *ClusterRoleList) ToClusterRoleListOutputWithContext(ctx context.Context
 // ClusterRoleListArrayInput is an input type that accepts ClusterRoleListArray and ClusterRoleListArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleListArrayInput` via:
 //
-//          ClusterRoleListArray{ ClusterRoleListArgs{...} }
+//	ClusterRoleListArray{ ClusterRoleListArgs{...} }
 type ClusterRoleListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i ClusterRoleListArray) ToClusterRoleListArrayOutputWithContext(ctx contex
 // ClusterRoleListMapInput is an input type that accepts ClusterRoleListMap and ClusterRoleListMapOutput values.
 // You can construct a concrete instance of `ClusterRoleListMapInput` via:
 //
-//          ClusterRoleListMap{ "key": ClusterRoleListArgs{...} }
+//	ClusterRoleListMap{ "key": ClusterRoleListArgs{...} }
 type ClusterRoleListMapInput interface {
 	pulumi.Input
 

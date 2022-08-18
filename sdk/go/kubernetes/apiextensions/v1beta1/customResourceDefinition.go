@@ -123,7 +123,7 @@ func (i *CustomResourceDefinition) ToCustomResourceDefinitionOutputWithContext(c
 // CustomResourceDefinitionArrayInput is an input type that accepts CustomResourceDefinitionArray and CustomResourceDefinitionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionArrayInput` via:
 //
-//          CustomResourceDefinitionArray{ CustomResourceDefinitionArgs{...} }
+//	CustomResourceDefinitionArray{ CustomResourceDefinitionArgs{...} }
 type CustomResourceDefinitionArrayInput interface {
 	pulumi.Input
 
@@ -148,7 +148,7 @@ func (i CustomResourceDefinitionArray) ToCustomResourceDefinitionArrayOutputWith
 // CustomResourceDefinitionMapInput is an input type that accepts CustomResourceDefinitionMap and CustomResourceDefinitionMapOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionMapInput` via:
 //
-//          CustomResourceDefinitionMap{ "key": CustomResourceDefinitionArgs{...} }
+//	CustomResourceDefinitionMap{ "key": CustomResourceDefinitionArgs{...} }
 type CustomResourceDefinitionMapInput interface {
 	pulumi.Input
 

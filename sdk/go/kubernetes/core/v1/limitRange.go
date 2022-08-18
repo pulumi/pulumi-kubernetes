@@ -114,7 +114,7 @@ func (i *LimitRange) ToLimitRangeOutputWithContext(ctx context.Context) LimitRan
 // LimitRangeArrayInput is an input type that accepts LimitRangeArray and LimitRangeArrayOutput values.
 // You can construct a concrete instance of `LimitRangeArrayInput` via:
 //
-//          LimitRangeArray{ LimitRangeArgs{...} }
+//	LimitRangeArray{ LimitRangeArgs{...} }
 type LimitRangeArrayInput interface {
 	pulumi.Input
 
@@ -139,7 +139,7 @@ func (i LimitRangeArray) ToLimitRangeArrayOutputWithContext(ctx context.Context)
 // LimitRangeMapInput is an input type that accepts LimitRangeMap and LimitRangeMapOutput values.
 // You can construct a concrete instance of `LimitRangeMapInput` via:
 //
-//          LimitRangeMap{ "key": LimitRangeArgs{...} }
+//	LimitRangeMap{ "key": LimitRangeArgs{...} }
 type LimitRangeMapInput interface {
 	pulumi.Input
 

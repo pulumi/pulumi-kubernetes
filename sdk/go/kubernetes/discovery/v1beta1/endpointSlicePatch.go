@@ -138,7 +138,7 @@ func (i *EndpointSlicePatch) ToEndpointSlicePatchOutputWithContext(ctx context.C
 // EndpointSlicePatchArrayInput is an input type that accepts EndpointSlicePatchArray and EndpointSlicePatchArrayOutput values.
 // You can construct a concrete instance of `EndpointSlicePatchArrayInput` via:
 //
-//          EndpointSlicePatchArray{ EndpointSlicePatchArgs{...} }
+//	EndpointSlicePatchArray{ EndpointSlicePatchArgs{...} }
 type EndpointSlicePatchArrayInput interface {
 	pulumi.Input
 
@@ -163,7 +163,7 @@ func (i EndpointSlicePatchArray) ToEndpointSlicePatchArrayOutputWithContext(ctx 
 // EndpointSlicePatchMapInput is an input type that accepts EndpointSlicePatchMap and EndpointSlicePatchMapOutput values.
 // You can construct a concrete instance of `EndpointSlicePatchMapInput` via:
 //
-//          EndpointSlicePatchMap{ "key": EndpointSlicePatchArgs{...} }
+//	EndpointSlicePatchMap{ "key": EndpointSlicePatchArgs{...} }
 type EndpointSlicePatchMapInput interface {
 	pulumi.Input
 

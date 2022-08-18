@@ -134,7 +134,7 @@ func (i *HorizontalPodAutoscalerPatch) ToHorizontalPodAutoscalerPatchOutputWithC
 // HorizontalPodAutoscalerPatchArrayInput is an input type that accepts HorizontalPodAutoscalerPatchArray and HorizontalPodAutoscalerPatchArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerPatchArrayInput` via:
 //
-//          HorizontalPodAutoscalerPatchArray{ HorizontalPodAutoscalerPatchArgs{...} }
+//	HorizontalPodAutoscalerPatchArray{ HorizontalPodAutoscalerPatchArgs{...} }
 type HorizontalPodAutoscalerPatchArrayInput interface {
 	pulumi.Input
 
@@ -159,7 +159,7 @@ func (i HorizontalPodAutoscalerPatchArray) ToHorizontalPodAutoscalerPatchArrayOu
 // HorizontalPodAutoscalerPatchMapInput is an input type that accepts HorizontalPodAutoscalerPatchMap and HorizontalPodAutoscalerPatchMapOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerPatchMapInput` via:
 //
-//          HorizontalPodAutoscalerPatchMap{ "key": HorizontalPodAutoscalerPatchArgs{...} }
+//	HorizontalPodAutoscalerPatchMap{ "key": HorizontalPodAutoscalerPatchArgs{...} }
 type HorizontalPodAutoscalerPatchMapInput interface {
 	pulumi.Input
 

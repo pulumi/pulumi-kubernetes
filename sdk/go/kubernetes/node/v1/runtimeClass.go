@@ -142,7 +142,7 @@ func (i *RuntimeClass) ToRuntimeClassOutputWithContext(ctx context.Context) Runt
 // RuntimeClassArrayInput is an input type that accepts RuntimeClassArray and RuntimeClassArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassArrayInput` via:
 //
-//          RuntimeClassArray{ RuntimeClassArgs{...} }
+//	RuntimeClassArray{ RuntimeClassArgs{...} }
 type RuntimeClassArrayInput interface {
 	pulumi.Input
 
@@ -167,7 +167,7 @@ func (i RuntimeClassArray) ToRuntimeClassArrayOutputWithContext(ctx context.Cont
 // RuntimeClassMapInput is an input type that accepts RuntimeClassMap and RuntimeClassMapOutput values.
 // You can construct a concrete instance of `RuntimeClassMapInput` via:
 //
-//          RuntimeClassMap{ "key": RuntimeClassArgs{...} }
+//	RuntimeClassMap{ "key": RuntimeClassArgs{...} }
 type RuntimeClassMapInput interface {
 	pulumi.Input
 
@@ -224,7 +224,8 @@ func (o RuntimeClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
 }
 
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
-//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
+//
+//	https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
 func (o RuntimeClassOutput) Overhead() OverheadPtrOutput {
 	return o.ApplyT(func(v *RuntimeClass) OverheadPtrOutput { return v.Overhead }).(OverheadPtrOutput)
 }

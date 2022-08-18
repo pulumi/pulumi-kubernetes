@@ -126,7 +126,7 @@ func (i *LeasePatch) ToLeasePatchOutputWithContext(ctx context.Context) LeasePat
 // LeasePatchArrayInput is an input type that accepts LeasePatchArray and LeasePatchArrayOutput values.
 // You can construct a concrete instance of `LeasePatchArrayInput` via:
 //
-//          LeasePatchArray{ LeasePatchArgs{...} }
+//	LeasePatchArray{ LeasePatchArgs{...} }
 type LeasePatchArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i LeasePatchArray) ToLeasePatchArrayOutputWithContext(ctx context.Context)
 // LeasePatchMapInput is an input type that accepts LeasePatchMap and LeasePatchMapOutput values.
 // You can construct a concrete instance of `LeasePatchMapInput` via:
 //
-//          LeasePatchMap{ "key": LeasePatchArgs{...} }
+//	LeasePatchMap{ "key": LeasePatchArgs{...} }
 type LeasePatchMapInput interface {
 	pulumi.Input
 

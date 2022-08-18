@@ -120,7 +120,7 @@ func (i *Lease) ToLeaseOutputWithContext(ctx context.Context) LeaseOutput {
 // LeaseArrayInput is an input type that accepts LeaseArray and LeaseArrayOutput values.
 // You can construct a concrete instance of `LeaseArrayInput` via:
 //
-//          LeaseArray{ LeaseArgs{...} }
+//	LeaseArray{ LeaseArgs{...} }
 type LeaseArrayInput interface {
 	pulumi.Input
 
@@ -145,7 +145,7 @@ func (i LeaseArray) ToLeaseArrayOutputWithContext(ctx context.Context) LeaseArra
 // LeaseMapInput is an input type that accepts LeaseMap and LeaseMapOutput values.
 // You can construct a concrete instance of `LeaseMapInput` via:
 //
-//          LeaseMap{ "key": LeaseArgs{...} }
+//	LeaseMap{ "key": LeaseArgs{...} }
 type LeaseMapInput interface {
 	pulumi.Input
 

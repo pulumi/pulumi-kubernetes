@@ -125,7 +125,7 @@ func (i *PriorityLevelConfiguration) ToPriorityLevelConfigurationOutputWithConte
 // PriorityLevelConfigurationArrayInput is an input type that accepts PriorityLevelConfigurationArray and PriorityLevelConfigurationArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationArrayInput` via:
 //
-//          PriorityLevelConfigurationArray{ PriorityLevelConfigurationArgs{...} }
+//	PriorityLevelConfigurationArray{ PriorityLevelConfigurationArgs{...} }
 type PriorityLevelConfigurationArrayInput interface {
 	pulumi.Input
 
@@ -150,7 +150,7 @@ func (i PriorityLevelConfigurationArray) ToPriorityLevelConfigurationArrayOutput
 // PriorityLevelConfigurationMapInput is an input type that accepts PriorityLevelConfigurationMap and PriorityLevelConfigurationMapOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationMapInput` via:
 //
-//          PriorityLevelConfigurationMap{ "key": PriorityLevelConfigurationArgs{...} }
+//	PriorityLevelConfigurationMap{ "key": PriorityLevelConfigurationArgs{...} }
 type PriorityLevelConfigurationMapInput interface {
 	pulumi.Input
 

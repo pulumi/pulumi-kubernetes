@@ -118,7 +118,7 @@ func (i *Binding) ToBindingOutputWithContext(ctx context.Context) BindingOutput 
 // BindingArrayInput is an input type that accepts BindingArray and BindingArrayOutput values.
 // You can construct a concrete instance of `BindingArrayInput` via:
 //
-//          BindingArray{ BindingArgs{...} }
+//	BindingArray{ BindingArgs{...} }
 type BindingArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i BindingArray) ToBindingArrayOutputWithContext(ctx context.Context) Bindi
 // BindingMapInput is an input type that accepts BindingMap and BindingMapOutput values.
 // You can construct a concrete instance of `BindingMapInput` via:
 //
-//          BindingMap{ "key": BindingArgs{...} }
+//	BindingMap{ "key": BindingArgs{...} }
 type BindingMapInput interface {
 	pulumi.Input
 

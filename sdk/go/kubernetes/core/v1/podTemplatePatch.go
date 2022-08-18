@@ -120,7 +120,7 @@ func (i *PodTemplatePatch) ToPodTemplatePatchOutputWithContext(ctx context.Conte
 // PodTemplatePatchArrayInput is an input type that accepts PodTemplatePatchArray and PodTemplatePatchArrayOutput values.
 // You can construct a concrete instance of `PodTemplatePatchArrayInput` via:
 //
-//          PodTemplatePatchArray{ PodTemplatePatchArgs{...} }
+//	PodTemplatePatchArray{ PodTemplatePatchArgs{...} }
 type PodTemplatePatchArrayInput interface {
 	pulumi.Input
 
@@ -145,7 +145,7 @@ func (i PodTemplatePatchArray) ToPodTemplatePatchArrayOutputWithContext(ctx cont
 // PodTemplatePatchMapInput is an input type that accepts PodTemplatePatchMap and PodTemplatePatchMapOutput values.
 // You can construct a concrete instance of `PodTemplatePatchMapInput` via:
 //
-//          PodTemplatePatchMap{ "key": PodTemplatePatchArgs{...} }
+//	PodTemplatePatchMap{ "key": PodTemplatePatchArgs{...} }
 type PodTemplatePatchMapInput interface {
 	pulumi.Input
 

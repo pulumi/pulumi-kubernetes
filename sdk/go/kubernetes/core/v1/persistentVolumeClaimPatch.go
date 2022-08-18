@@ -122,7 +122,7 @@ func (i *PersistentVolumeClaimPatch) ToPersistentVolumeClaimPatchOutputWithConte
 // PersistentVolumeClaimPatchArrayInput is an input type that accepts PersistentVolumeClaimPatchArray and PersistentVolumeClaimPatchArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimPatchArrayInput` via:
 //
-//          PersistentVolumeClaimPatchArray{ PersistentVolumeClaimPatchArgs{...} }
+//	PersistentVolumeClaimPatchArray{ PersistentVolumeClaimPatchArgs{...} }
 type PersistentVolumeClaimPatchArrayInput interface {
 	pulumi.Input
 
@@ -147,7 +147,7 @@ func (i PersistentVolumeClaimPatchArray) ToPersistentVolumeClaimPatchArrayOutput
 // PersistentVolumeClaimPatchMapInput is an input type that accepts PersistentVolumeClaimPatchMap and PersistentVolumeClaimPatchMapOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimPatchMapInput` via:
 //
-//          PersistentVolumeClaimPatchMap{ "key": PersistentVolumeClaimPatchArgs{...} }
+//	PersistentVolumeClaimPatchMap{ "key": PersistentVolumeClaimPatchArgs{...} }
 type PersistentVolumeClaimPatchMapInput interface {
 	pulumi.Input
 

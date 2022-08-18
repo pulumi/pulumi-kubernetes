@@ -26,7 +26,7 @@ type Eviction struct {
 // EvictionInput is an input type that accepts EvictionArgs and EvictionOutput values.
 // You can construct a concrete instance of `EvictionInput` via:
 //
-//          EvictionArgs{...}
+//	EvictionArgs{...}
 type EvictionInput interface {
 	pulumi.Input
 
@@ -108,7 +108,7 @@ type EvictionPatch struct {
 // EvictionPatchInput is an input type that accepts EvictionPatchArgs and EvictionPatchOutput values.
 // You can construct a concrete instance of `EvictionPatchInput` via:
 //
-//          EvictionPatchArgs{...}
+//	EvictionPatchArgs{...}
 type EvictionPatchInput interface {
 	pulumi.Input
 
@@ -192,7 +192,7 @@ type PodDisruptionBudgetType struct {
 // PodDisruptionBudgetTypeInput is an input type that accepts PodDisruptionBudgetTypeArgs and PodDisruptionBudgetTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeInput` via:
 //
-//          PodDisruptionBudgetTypeArgs{...}
+//	PodDisruptionBudgetTypeArgs{...}
 type PodDisruptionBudgetTypeInput interface {
 	pulumi.Input
 
@@ -229,7 +229,7 @@ func (i PodDisruptionBudgetTypeArgs) ToPodDisruptionBudgetTypeOutputWithContext(
 // PodDisruptionBudgetTypeArrayInput is an input type that accepts PodDisruptionBudgetTypeArray and PodDisruptionBudgetTypeArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeArrayInput` via:
 //
-//          PodDisruptionBudgetTypeArray{ PodDisruptionBudgetTypeArgs{...} }
+//	PodDisruptionBudgetTypeArray{ PodDisruptionBudgetTypeArgs{...} }
 type PodDisruptionBudgetTypeArrayInput interface {
 	pulumi.Input
 
@@ -326,7 +326,7 @@ type PodDisruptionBudgetListType struct {
 // PodDisruptionBudgetListTypeInput is an input type that accepts PodDisruptionBudgetListTypeArgs and PodDisruptionBudgetListTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetListTypeInput` via:
 //
-//          PodDisruptionBudgetListTypeArgs{...}
+//	PodDisruptionBudgetListTypeArgs{...}
 type PodDisruptionBudgetListTypeInput interface {
 	pulumi.Input
 
@@ -410,7 +410,7 @@ type PodDisruptionBudgetPatchType struct {
 // PodDisruptionBudgetPatchTypeInput is an input type that accepts PodDisruptionBudgetPatchTypeArgs and PodDisruptionBudgetPatchTypeOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetPatchTypeInput` via:
 //
-//          PodDisruptionBudgetPatchTypeArgs{...}
+//	PodDisruptionBudgetPatchTypeArgs{...}
 type PodDisruptionBudgetPatchTypeInput interface {
 	pulumi.Input
 
@@ -497,7 +497,7 @@ type PodDisruptionBudgetSpec struct {
 // PodDisruptionBudgetSpecInput is an input type that accepts PodDisruptionBudgetSpecArgs and PodDisruptionBudgetSpecOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecInput` via:
 //
-//          PodDisruptionBudgetSpecArgs{...}
+//	PodDisruptionBudgetSpecArgs{...}
 type PodDisruptionBudgetSpecInput interface {
 	pulumi.Input
 
@@ -538,11 +538,11 @@ func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecPtrOutputWithConte
 // PodDisruptionBudgetSpecPtrInput is an input type that accepts PodDisruptionBudgetSpecArgs, PodDisruptionBudgetSpecPtr and PodDisruptionBudgetSpecPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPtrInput` via:
 //
-//          PodDisruptionBudgetSpecArgs{...}
+//	        PodDisruptionBudgetSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetSpecPtrInput interface {
 	pulumi.Input
 
@@ -675,7 +675,7 @@ type PodDisruptionBudgetSpecPatch struct {
 // PodDisruptionBudgetSpecPatchInput is an input type that accepts PodDisruptionBudgetSpecPatchArgs and PodDisruptionBudgetSpecPatchOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPatchInput` via:
 //
-//          PodDisruptionBudgetSpecPatchArgs{...}
+//	PodDisruptionBudgetSpecPatchArgs{...}
 type PodDisruptionBudgetSpecPatchInput interface {
 	pulumi.Input
 
@@ -716,11 +716,11 @@ func (i PodDisruptionBudgetSpecPatchArgs) ToPodDisruptionBudgetSpecPatchPtrOutpu
 // PodDisruptionBudgetSpecPatchPtrInput is an input type that accepts PodDisruptionBudgetSpecPatchArgs, PodDisruptionBudgetSpecPatchPtr and PodDisruptionBudgetSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetSpecPatchPtrInput` via:
 //
-//          PodDisruptionBudgetSpecPatchArgs{...}
+//	        PodDisruptionBudgetSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -869,7 +869,7 @@ type PodDisruptionBudgetStatus struct {
 // PodDisruptionBudgetStatusInput is an input type that accepts PodDisruptionBudgetStatusArgs and PodDisruptionBudgetStatusOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusInput` via:
 //
-//          PodDisruptionBudgetStatusArgs{...}
+//	PodDisruptionBudgetStatusArgs{...}
 type PodDisruptionBudgetStatusInput interface {
 	pulumi.Input
 
@@ -926,11 +926,11 @@ func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusPtrOutputWithC
 // PodDisruptionBudgetStatusPtrInput is an input type that accepts PodDisruptionBudgetStatusArgs, PodDisruptionBudgetStatusPtr and PodDisruptionBudgetStatusPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPtrInput` via:
 //
-//          PodDisruptionBudgetStatusArgs{...}
+//	        PodDisruptionBudgetStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetStatusPtrInput interface {
 	pulumi.Input
 
@@ -982,14 +982,15 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
 }
@@ -1049,14 +1050,15 @@ func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutp
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatus) []metav1.Condition {
 		if v == nil {
@@ -1155,7 +1157,7 @@ type PodDisruptionBudgetStatusPatch struct {
 // PodDisruptionBudgetStatusPatchInput is an input type that accepts PodDisruptionBudgetStatusPatchArgs and PodDisruptionBudgetStatusPatchOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPatchInput` via:
 //
-//          PodDisruptionBudgetStatusPatchArgs{...}
+//	PodDisruptionBudgetStatusPatchArgs{...}
 type PodDisruptionBudgetStatusPatchInput interface {
 	pulumi.Input
 
@@ -1212,11 +1214,11 @@ func (i PodDisruptionBudgetStatusPatchArgs) ToPodDisruptionBudgetStatusPatchPtrO
 // PodDisruptionBudgetStatusPatchPtrInput is an input type that accepts PodDisruptionBudgetStatusPatchArgs, PodDisruptionBudgetStatusPatchPtr and PodDisruptionBudgetStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetStatusPatchPtrInput` via:
 //
-//          PodDisruptionBudgetStatusPatchArgs{...}
+//	        PodDisruptionBudgetStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDisruptionBudgetStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1268,14 +1270,15 @@ func (o PodDisruptionBudgetStatusPatchOutput) ToPodDisruptionBudgetStatusPatchPt
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
 }
@@ -1335,14 +1338,15 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) Elem() PodDisruptionBudgetStatu
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//               the number of allowed disruptions. Therefore no disruptions are
-//               allowed and the status of the condition will be False.
-// - InsufficientPods: The number of pods are either at or below the number
-//                     required by the PodDisruptionBudget. No disruptions are
-//                     allowed and the status of the condition will be False.
-// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//                   The condition will be True, and the number of allowed
-//                   disruptions are provided by the disruptionsAllowed property.
+//
+//	the number of allowed disruptions. Therefore no disruptions are
+//	allowed and the status of the condition will be False.
+//   - InsufficientPods: The number of pods are either at or below the number
+//     required by the PodDisruptionBudget. No disruptions are
+//     allowed and the status of the condition will be False.
+//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
+//     The condition will be True, and the number of allowed
+//     disruptions are provided by the disruptionsAllowed property.
 func (o PodDisruptionBudgetStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatusPatch) []metav1.ConditionPatch {
 		if v == nil {

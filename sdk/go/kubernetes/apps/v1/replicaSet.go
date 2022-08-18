@@ -125,7 +125,7 @@ func (i *ReplicaSet) ToReplicaSetOutputWithContext(ctx context.Context) ReplicaS
 // ReplicaSetArrayInput is an input type that accepts ReplicaSetArray and ReplicaSetArrayOutput values.
 // You can construct a concrete instance of `ReplicaSetArrayInput` via:
 //
-//          ReplicaSetArray{ ReplicaSetArgs{...} }
+//	ReplicaSetArray{ ReplicaSetArgs{...} }
 type ReplicaSetArrayInput interface {
 	pulumi.Input
 
@@ -150,7 +150,7 @@ func (i ReplicaSetArray) ToReplicaSetArrayOutputWithContext(ctx context.Context)
 // ReplicaSetMapInput is an input type that accepts ReplicaSetMap and ReplicaSetMapOutput values.
 // You can construct a concrete instance of `ReplicaSetMapInput` via:
 //
-//          ReplicaSetMap{ "key": ReplicaSetArgs{...} }
+//	ReplicaSetMap{ "key": ReplicaSetArgs{...} }
 type ReplicaSetMapInput interface {
 	pulumi.Input
 

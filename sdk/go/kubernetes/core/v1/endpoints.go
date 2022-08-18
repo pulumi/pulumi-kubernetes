@@ -12,17 +12,18 @@ import (
 )
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type Endpoints struct {
 	pulumi.CustomResourceState
 
@@ -125,7 +126,7 @@ func (i *Endpoints) ToEndpointsOutputWithContext(ctx context.Context) EndpointsO
 // EndpointsArrayInput is an input type that accepts EndpointsArray and EndpointsArrayOutput values.
 // You can construct a concrete instance of `EndpointsArrayInput` via:
 //
-//          EndpointsArray{ EndpointsArgs{...} }
+//	EndpointsArray{ EndpointsArgs{...} }
 type EndpointsArrayInput interface {
 	pulumi.Input
 
@@ -150,7 +151,7 @@ func (i EndpointsArray) ToEndpointsArrayOutputWithContext(ctx context.Context) E
 // EndpointsMapInput is an input type that accepts EndpointsMap and EndpointsMapOutput values.
 // You can construct a concrete instance of `EndpointsMapInput` via:
 //
-//          EndpointsMap{ "key": EndpointsArgs{...} }
+//	EndpointsMap{ "key": EndpointsArgs{...} }
 type EndpointsMapInput interface {
 	pulumi.Input
 

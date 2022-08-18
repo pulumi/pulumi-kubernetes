@@ -128,7 +128,7 @@ func (i *APIService) ToAPIServiceOutputWithContext(ctx context.Context) APIServi
 // APIServiceArrayInput is an input type that accepts APIServiceArray and APIServiceArrayOutput values.
 // You can construct a concrete instance of `APIServiceArrayInput` via:
 //
-//          APIServiceArray{ APIServiceArgs{...} }
+//	APIServiceArray{ APIServiceArgs{...} }
 type APIServiceArrayInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ func (i APIServiceArray) ToAPIServiceArrayOutputWithContext(ctx context.Context)
 // APIServiceMapInput is an input type that accepts APIServiceMap and APIServiceMapOutput values.
 // You can construct a concrete instance of `APIServiceMapInput` via:
 //
-//          APIServiceMap{ "key": APIServiceArgs{...} }
+//	APIServiceMap{ "key": APIServiceArgs{...} }
 type APIServiceMapInput interface {
 	pulumi.Input
 

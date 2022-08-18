@@ -133,7 +133,7 @@ func (i *VolumeAttachmentPatch) ToVolumeAttachmentPatchOutputWithContext(ctx con
 // VolumeAttachmentPatchArrayInput is an input type that accepts VolumeAttachmentPatchArray and VolumeAttachmentPatchArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentPatchArrayInput` via:
 //
-//          VolumeAttachmentPatchArray{ VolumeAttachmentPatchArgs{...} }
+//	VolumeAttachmentPatchArray{ VolumeAttachmentPatchArgs{...} }
 type VolumeAttachmentPatchArrayInput interface {
 	pulumi.Input
 
@@ -158,7 +158,7 @@ func (i VolumeAttachmentPatchArray) ToVolumeAttachmentPatchArrayOutputWithContex
 // VolumeAttachmentPatchMapInput is an input type that accepts VolumeAttachmentPatchMap and VolumeAttachmentPatchMapOutput values.
 // You can construct a concrete instance of `VolumeAttachmentPatchMapInput` via:
 //
-//          VolumeAttachmentPatchMap{ "key": VolumeAttachmentPatchArgs{...} }
+//	VolumeAttachmentPatchMap{ "key": VolumeAttachmentPatchArgs{...} }
 type VolumeAttachmentPatchMapInput interface {
 	pulumi.Input
 

@@ -32,7 +32,7 @@ type PriorityClassType struct {
 // PriorityClassTypeInput is an input type that accepts PriorityClassTypeArgs and PriorityClassTypeOutput values.
 // You can construct a concrete instance of `PriorityClassTypeInput` via:
 //
-//          PriorityClassTypeArgs{...}
+//	PriorityClassTypeArgs{...}
 type PriorityClassTypeInput interface {
 	pulumi.Input
 
@@ -73,7 +73,7 @@ func (i PriorityClassTypeArgs) ToPriorityClassTypeOutputWithContext(ctx context.
 // PriorityClassTypeArrayInput is an input type that accepts PriorityClassTypeArray and PriorityClassTypeArrayOutput values.
 // You can construct a concrete instance of `PriorityClassTypeArrayInput` via:
 //
-//          PriorityClassTypeArray{ PriorityClassTypeArgs{...} }
+//	PriorityClassTypeArray{ PriorityClassTypeArgs{...} }
 type PriorityClassTypeArrayInput interface {
 	pulumi.Input
 
@@ -180,7 +180,7 @@ type PriorityClassListType struct {
 // PriorityClassListTypeInput is an input type that accepts PriorityClassListTypeArgs and PriorityClassListTypeOutput values.
 // You can construct a concrete instance of `PriorityClassListTypeInput` via:
 //
-//          PriorityClassListTypeArgs{...}
+//	PriorityClassListTypeArgs{...}
 type PriorityClassListTypeInput interface {
 	pulumi.Input
 
@@ -268,7 +268,7 @@ type PriorityClassPatchType struct {
 // PriorityClassPatchTypeInput is an input type that accepts PriorityClassPatchTypeArgs and PriorityClassPatchTypeOutput values.
 // You can construct a concrete instance of `PriorityClassPatchTypeInput` via:
 //
-//          PriorityClassPatchTypeArgs{...}
+//	PriorityClassPatchTypeArgs{...}
 type PriorityClassPatchTypeInput interface {
 	pulumi.Input
 

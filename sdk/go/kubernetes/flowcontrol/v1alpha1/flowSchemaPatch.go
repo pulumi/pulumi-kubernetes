@@ -131,7 +131,7 @@ func (i *FlowSchemaPatch) ToFlowSchemaPatchOutputWithContext(ctx context.Context
 // FlowSchemaPatchArrayInput is an input type that accepts FlowSchemaPatchArray and FlowSchemaPatchArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaPatchArrayInput` via:
 //
-//          FlowSchemaPatchArray{ FlowSchemaPatchArgs{...} }
+//	FlowSchemaPatchArray{ FlowSchemaPatchArgs{...} }
 type FlowSchemaPatchArrayInput interface {
 	pulumi.Input
 
@@ -156,7 +156,7 @@ func (i FlowSchemaPatchArray) ToFlowSchemaPatchArrayOutputWithContext(ctx contex
 // FlowSchemaPatchMapInput is an input type that accepts FlowSchemaPatchMap and FlowSchemaPatchMapOutput values.
 // You can construct a concrete instance of `FlowSchemaPatchMapInput` via:
 //
-//          FlowSchemaPatchMap{ "key": FlowSchemaPatchArgs{...} }
+//	FlowSchemaPatchMap{ "key": FlowSchemaPatchArgs{...} }
 type FlowSchemaPatchMapInput interface {
 	pulumi.Input
 

@@ -24,7 +24,7 @@ type ContainerResourceMetricSource struct {
 // ContainerResourceMetricSourceInput is an input type that accepts ContainerResourceMetricSourceArgs and ContainerResourceMetricSourceOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricSourceInput` via:
 //
-//          ContainerResourceMetricSourceArgs{...}
+//	ContainerResourceMetricSourceArgs{...}
 type ContainerResourceMetricSourceInput interface {
 	pulumi.Input
 
@@ -65,11 +65,11 @@ func (i ContainerResourceMetricSourceArgs) ToContainerResourceMetricSourcePtrOut
 // ContainerResourceMetricSourcePtrInput is an input type that accepts ContainerResourceMetricSourceArgs, ContainerResourceMetricSourcePtr and ContainerResourceMetricSourcePtrOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricSourcePtrInput` via:
 //
-//          ContainerResourceMetricSourceArgs{...}
+//	        ContainerResourceMetricSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerResourceMetricSourcePtrInput interface {
 	pulumi.Input
 
@@ -202,7 +202,7 @@ type ContainerResourceMetricSourcePatch struct {
 // ContainerResourceMetricSourcePatchInput is an input type that accepts ContainerResourceMetricSourcePatchArgs and ContainerResourceMetricSourcePatchOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricSourcePatchInput` via:
 //
-//          ContainerResourceMetricSourcePatchArgs{...}
+//	ContainerResourceMetricSourcePatchArgs{...}
 type ContainerResourceMetricSourcePatchInput interface {
 	pulumi.Input
 
@@ -243,11 +243,11 @@ func (i ContainerResourceMetricSourcePatchArgs) ToContainerResourceMetricSourceP
 // ContainerResourceMetricSourcePatchPtrInput is an input type that accepts ContainerResourceMetricSourcePatchArgs, ContainerResourceMetricSourcePatchPtr and ContainerResourceMetricSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricSourcePatchPtrInput` via:
 //
-//          ContainerResourceMetricSourcePatchArgs{...}
+//	        ContainerResourceMetricSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerResourceMetricSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -380,7 +380,7 @@ type ContainerResourceMetricStatus struct {
 // ContainerResourceMetricStatusInput is an input type that accepts ContainerResourceMetricStatusArgs and ContainerResourceMetricStatusOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricStatusInput` via:
 //
-//          ContainerResourceMetricStatusArgs{...}
+//	ContainerResourceMetricStatusArgs{...}
 type ContainerResourceMetricStatusInput interface {
 	pulumi.Input
 
@@ -421,11 +421,11 @@ func (i ContainerResourceMetricStatusArgs) ToContainerResourceMetricStatusPtrOut
 // ContainerResourceMetricStatusPtrInput is an input type that accepts ContainerResourceMetricStatusArgs, ContainerResourceMetricStatusPtr and ContainerResourceMetricStatusPtrOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricStatusPtrInput` via:
 //
-//          ContainerResourceMetricStatusArgs{...}
+//	        ContainerResourceMetricStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerResourceMetricStatusPtrInput interface {
 	pulumi.Input
 
@@ -558,7 +558,7 @@ type ContainerResourceMetricStatusPatch struct {
 // ContainerResourceMetricStatusPatchInput is an input type that accepts ContainerResourceMetricStatusPatchArgs and ContainerResourceMetricStatusPatchOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricStatusPatchInput` via:
 //
-//          ContainerResourceMetricStatusPatchArgs{...}
+//	ContainerResourceMetricStatusPatchArgs{...}
 type ContainerResourceMetricStatusPatchInput interface {
 	pulumi.Input
 
@@ -599,11 +599,11 @@ func (i ContainerResourceMetricStatusPatchArgs) ToContainerResourceMetricStatusP
 // ContainerResourceMetricStatusPatchPtrInput is an input type that accepts ContainerResourceMetricStatusPatchArgs, ContainerResourceMetricStatusPatchPtr and ContainerResourceMetricStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ContainerResourceMetricStatusPatchPtrInput` via:
 //
-//          ContainerResourceMetricStatusPatchArgs{...}
+//	        ContainerResourceMetricStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerResourceMetricStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -736,7 +736,7 @@ type CrossVersionObjectReference struct {
 // CrossVersionObjectReferenceInput is an input type that accepts CrossVersionObjectReferenceArgs and CrossVersionObjectReferenceOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferenceInput` via:
 //
-//          CrossVersionObjectReferenceArgs{...}
+//	CrossVersionObjectReferenceArgs{...}
 type CrossVersionObjectReferenceInput interface {
 	pulumi.Input
 
@@ -777,11 +777,11 @@ func (i CrossVersionObjectReferenceArgs) ToCrossVersionObjectReferencePtrOutputW
 // CrossVersionObjectReferencePtrInput is an input type that accepts CrossVersionObjectReferenceArgs, CrossVersionObjectReferencePtr and CrossVersionObjectReferencePtrOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferencePtrInput` via:
 //
-//          CrossVersionObjectReferenceArgs{...}
+//	        CrossVersionObjectReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CrossVersionObjectReferencePtrInput interface {
 	pulumi.Input
 
@@ -914,7 +914,7 @@ type CrossVersionObjectReferencePatch struct {
 // CrossVersionObjectReferencePatchInput is an input type that accepts CrossVersionObjectReferencePatchArgs and CrossVersionObjectReferencePatchOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferencePatchInput` via:
 //
-//          CrossVersionObjectReferencePatchArgs{...}
+//	CrossVersionObjectReferencePatchArgs{...}
 type CrossVersionObjectReferencePatchInput interface {
 	pulumi.Input
 
@@ -955,11 +955,11 @@ func (i CrossVersionObjectReferencePatchArgs) ToCrossVersionObjectReferencePatch
 // CrossVersionObjectReferencePatchPtrInput is an input type that accepts CrossVersionObjectReferencePatchArgs, CrossVersionObjectReferencePatchPtr and CrossVersionObjectReferencePatchPtrOutput values.
 // You can construct a concrete instance of `CrossVersionObjectReferencePatchPtrInput` via:
 //
-//          CrossVersionObjectReferencePatchArgs{...}
+//	        CrossVersionObjectReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CrossVersionObjectReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -1090,7 +1090,7 @@ type ExternalMetricSource struct {
 // ExternalMetricSourceInput is an input type that accepts ExternalMetricSourceArgs and ExternalMetricSourceOutput values.
 // You can construct a concrete instance of `ExternalMetricSourceInput` via:
 //
-//          ExternalMetricSourceArgs{...}
+//	ExternalMetricSourceArgs{...}
 type ExternalMetricSourceInput interface {
 	pulumi.Input
 
@@ -1129,11 +1129,11 @@ func (i ExternalMetricSourceArgs) ToExternalMetricSourcePtrOutputWithContext(ctx
 // ExternalMetricSourcePtrInput is an input type that accepts ExternalMetricSourceArgs, ExternalMetricSourcePtr and ExternalMetricSourcePtrOutput values.
 // You can construct a concrete instance of `ExternalMetricSourcePtrInput` via:
 //
-//          ExternalMetricSourceArgs{...}
+//	        ExternalMetricSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExternalMetricSourcePtrInput interface {
 	pulumi.Input
 
@@ -1249,7 +1249,7 @@ type ExternalMetricSourcePatch struct {
 // ExternalMetricSourcePatchInput is an input type that accepts ExternalMetricSourcePatchArgs and ExternalMetricSourcePatchOutput values.
 // You can construct a concrete instance of `ExternalMetricSourcePatchInput` via:
 //
-//          ExternalMetricSourcePatchArgs{...}
+//	ExternalMetricSourcePatchArgs{...}
 type ExternalMetricSourcePatchInput interface {
 	pulumi.Input
 
@@ -1288,11 +1288,11 @@ func (i ExternalMetricSourcePatchArgs) ToExternalMetricSourcePatchPtrOutputWithC
 // ExternalMetricSourcePatchPtrInput is an input type that accepts ExternalMetricSourcePatchArgs, ExternalMetricSourcePatchPtr and ExternalMetricSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ExternalMetricSourcePatchPtrInput` via:
 //
-//          ExternalMetricSourcePatchArgs{...}
+//	        ExternalMetricSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExternalMetricSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -1408,7 +1408,7 @@ type ExternalMetricStatus struct {
 // ExternalMetricStatusInput is an input type that accepts ExternalMetricStatusArgs and ExternalMetricStatusOutput values.
 // You can construct a concrete instance of `ExternalMetricStatusInput` via:
 //
-//          ExternalMetricStatusArgs{...}
+//	ExternalMetricStatusArgs{...}
 type ExternalMetricStatusInput interface {
 	pulumi.Input
 
@@ -1447,11 +1447,11 @@ func (i ExternalMetricStatusArgs) ToExternalMetricStatusPtrOutputWithContext(ctx
 // ExternalMetricStatusPtrInput is an input type that accepts ExternalMetricStatusArgs, ExternalMetricStatusPtr and ExternalMetricStatusPtrOutput values.
 // You can construct a concrete instance of `ExternalMetricStatusPtrInput` via:
 //
-//          ExternalMetricStatusArgs{...}
+//	        ExternalMetricStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExternalMetricStatusPtrInput interface {
 	pulumi.Input
 
@@ -1567,7 +1567,7 @@ type ExternalMetricStatusPatch struct {
 // ExternalMetricStatusPatchInput is an input type that accepts ExternalMetricStatusPatchArgs and ExternalMetricStatusPatchOutput values.
 // You can construct a concrete instance of `ExternalMetricStatusPatchInput` via:
 //
-//          ExternalMetricStatusPatchArgs{...}
+//	ExternalMetricStatusPatchArgs{...}
 type ExternalMetricStatusPatchInput interface {
 	pulumi.Input
 
@@ -1606,11 +1606,11 @@ func (i ExternalMetricStatusPatchArgs) ToExternalMetricStatusPatchPtrOutputWithC
 // ExternalMetricStatusPatchPtrInput is an input type that accepts ExternalMetricStatusPatchArgs, ExternalMetricStatusPatchPtr and ExternalMetricStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ExternalMetricStatusPatchPtrInput` via:
 //
-//          ExternalMetricStatusPatchArgs{...}
+//	        ExternalMetricStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExternalMetricStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1728,7 +1728,7 @@ type HPAScalingPolicy struct {
 // HPAScalingPolicyInput is an input type that accepts HPAScalingPolicyArgs and HPAScalingPolicyOutput values.
 // You can construct a concrete instance of `HPAScalingPolicyInput` via:
 //
-//          HPAScalingPolicyArgs{...}
+//	HPAScalingPolicyArgs{...}
 type HPAScalingPolicyInput interface {
 	pulumi.Input
 
@@ -1761,7 +1761,7 @@ func (i HPAScalingPolicyArgs) ToHPAScalingPolicyOutputWithContext(ctx context.Co
 // HPAScalingPolicyArrayInput is an input type that accepts HPAScalingPolicyArray and HPAScalingPolicyArrayOutput values.
 // You can construct a concrete instance of `HPAScalingPolicyArrayInput` via:
 //
-//          HPAScalingPolicyArray{ HPAScalingPolicyArgs{...} }
+//	HPAScalingPolicyArray{ HPAScalingPolicyArgs{...} }
 type HPAScalingPolicyArrayInput interface {
 	pulumi.Input
 
@@ -1846,7 +1846,7 @@ type HPAScalingPolicyPatch struct {
 // HPAScalingPolicyPatchInput is an input type that accepts HPAScalingPolicyPatchArgs and HPAScalingPolicyPatchOutput values.
 // You can construct a concrete instance of `HPAScalingPolicyPatchInput` via:
 //
-//          HPAScalingPolicyPatchArgs{...}
+//	HPAScalingPolicyPatchArgs{...}
 type HPAScalingPolicyPatchInput interface {
 	pulumi.Input
 
@@ -1879,7 +1879,7 @@ func (i HPAScalingPolicyPatchArgs) ToHPAScalingPolicyPatchOutputWithContext(ctx 
 // HPAScalingPolicyPatchArrayInput is an input type that accepts HPAScalingPolicyPatchArray and HPAScalingPolicyPatchArrayOutput values.
 // You can construct a concrete instance of `HPAScalingPolicyPatchArrayInput` via:
 //
-//          HPAScalingPolicyPatchArray{ HPAScalingPolicyPatchArgs{...} }
+//	HPAScalingPolicyPatchArray{ HPAScalingPolicyPatchArgs{...} }
 type HPAScalingPolicyPatchArrayInput interface {
 	pulumi.Input
 
@@ -1964,7 +1964,7 @@ type HPAScalingRules struct {
 // HPAScalingRulesInput is an input type that accepts HPAScalingRulesArgs and HPAScalingRulesOutput values.
 // You can construct a concrete instance of `HPAScalingRulesInput` via:
 //
-//          HPAScalingRulesArgs{...}
+//	HPAScalingRulesArgs{...}
 type HPAScalingRulesInput interface {
 	pulumi.Input
 
@@ -2005,11 +2005,11 @@ func (i HPAScalingRulesArgs) ToHPAScalingRulesPtrOutputWithContext(ctx context.C
 // HPAScalingRulesPtrInput is an input type that accepts HPAScalingRulesArgs, HPAScalingRulesPtr and HPAScalingRulesPtrOutput values.
 // You can construct a concrete instance of `HPAScalingRulesPtrInput` via:
 //
-//          HPAScalingRulesArgs{...}
+//	        HPAScalingRulesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HPAScalingRulesPtrInput interface {
 	pulumi.Input
 
@@ -2142,7 +2142,7 @@ type HPAScalingRulesPatch struct {
 // HPAScalingRulesPatchInput is an input type that accepts HPAScalingRulesPatchArgs and HPAScalingRulesPatchOutput values.
 // You can construct a concrete instance of `HPAScalingRulesPatchInput` via:
 //
-//          HPAScalingRulesPatchArgs{...}
+//	HPAScalingRulesPatchArgs{...}
 type HPAScalingRulesPatchInput interface {
 	pulumi.Input
 
@@ -2183,11 +2183,11 @@ func (i HPAScalingRulesPatchArgs) ToHPAScalingRulesPatchPtrOutputWithContext(ctx
 // HPAScalingRulesPatchPtrInput is an input type that accepts HPAScalingRulesPatchArgs, HPAScalingRulesPatchPtr and HPAScalingRulesPatchPtrOutput values.
 // You can construct a concrete instance of `HPAScalingRulesPatchPtrInput` via:
 //
-//          HPAScalingRulesPatchArgs{...}
+//	        HPAScalingRulesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HPAScalingRulesPatchPtrInput interface {
 	pulumi.Input
 
@@ -2324,7 +2324,7 @@ type HorizontalPodAutoscalerType struct {
 // HorizontalPodAutoscalerTypeInput is an input type that accepts HorizontalPodAutoscalerTypeArgs and HorizontalPodAutoscalerTypeOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerTypeInput` via:
 //
-//          HorizontalPodAutoscalerTypeArgs{...}
+//	HorizontalPodAutoscalerTypeArgs{...}
 type HorizontalPodAutoscalerTypeInput interface {
 	pulumi.Input
 
@@ -2361,7 +2361,7 @@ func (i HorizontalPodAutoscalerTypeArgs) ToHorizontalPodAutoscalerTypeOutputWith
 // HorizontalPodAutoscalerTypeArrayInput is an input type that accepts HorizontalPodAutoscalerTypeArray and HorizontalPodAutoscalerTypeArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerTypeArrayInput` via:
 //
-//          HorizontalPodAutoscalerTypeArray{ HorizontalPodAutoscalerTypeArgs{...} }
+//	HorizontalPodAutoscalerTypeArray{ HorizontalPodAutoscalerTypeArgs{...} }
 type HorizontalPodAutoscalerTypeArrayInput interface {
 	pulumi.Input
 
@@ -2457,7 +2457,7 @@ type HorizontalPodAutoscalerBehavior struct {
 // HorizontalPodAutoscalerBehaviorInput is an input type that accepts HorizontalPodAutoscalerBehaviorArgs and HorizontalPodAutoscalerBehaviorOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerBehaviorInput` via:
 //
-//          HorizontalPodAutoscalerBehaviorArgs{...}
+//	HorizontalPodAutoscalerBehaviorArgs{...}
 type HorizontalPodAutoscalerBehaviorInput interface {
 	pulumi.Input
 
@@ -2499,11 +2499,11 @@ func (i HorizontalPodAutoscalerBehaviorArgs) ToHorizontalPodAutoscalerBehaviorPt
 // HorizontalPodAutoscalerBehaviorPtrInput is an input type that accepts HorizontalPodAutoscalerBehaviorArgs, HorizontalPodAutoscalerBehaviorPtr and HorizontalPodAutoscalerBehaviorPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerBehaviorPtrInput` via:
 //
-//          HorizontalPodAutoscalerBehaviorArgs{...}
+//	        HorizontalPodAutoscalerBehaviorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerBehaviorPtrInput interface {
 	pulumi.Input
 
@@ -2560,8 +2560,8 @@ func (o HorizontalPodAutoscalerBehaviorOutput) ScaleDown() HPAScalingRulesPtrOut
 }
 
 // scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
-//   * increase no more than 4 pods per 60 seconds
-//   * double the number of pods per 60 seconds
+//   - increase no more than 4 pods per 60 seconds
+//   - double the number of pods per 60 seconds
 //     No stabilization is used.
 func (o HorizontalPodAutoscalerBehaviorOutput) ScaleUp() HPAScalingRulesPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerBehavior) *HPAScalingRules { return v.ScaleUp }).(HPAScalingRulesPtrOutput)
@@ -2602,8 +2602,8 @@ func (o HorizontalPodAutoscalerBehaviorPtrOutput) ScaleDown() HPAScalingRulesPtr
 }
 
 // scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
-//   * increase no more than 4 pods per 60 seconds
-//   * double the number of pods per 60 seconds
+//   - increase no more than 4 pods per 60 seconds
+//   - double the number of pods per 60 seconds
 //     No stabilization is used.
 func (o HorizontalPodAutoscalerBehaviorPtrOutput) ScaleUp() HPAScalingRulesPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerBehavior) *HPAScalingRules {
@@ -2628,7 +2628,7 @@ type HorizontalPodAutoscalerBehaviorPatch struct {
 // HorizontalPodAutoscalerBehaviorPatchInput is an input type that accepts HorizontalPodAutoscalerBehaviorPatchArgs and HorizontalPodAutoscalerBehaviorPatchOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerBehaviorPatchInput` via:
 //
-//          HorizontalPodAutoscalerBehaviorPatchArgs{...}
+//	HorizontalPodAutoscalerBehaviorPatchArgs{...}
 type HorizontalPodAutoscalerBehaviorPatchInput interface {
 	pulumi.Input
 
@@ -2670,11 +2670,11 @@ func (i HorizontalPodAutoscalerBehaviorPatchArgs) ToHorizontalPodAutoscalerBehav
 // HorizontalPodAutoscalerBehaviorPatchPtrInput is an input type that accepts HorizontalPodAutoscalerBehaviorPatchArgs, HorizontalPodAutoscalerBehaviorPatchPtr and HorizontalPodAutoscalerBehaviorPatchPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerBehaviorPatchPtrInput` via:
 //
-//          HorizontalPodAutoscalerBehaviorPatchArgs{...}
+//	        HorizontalPodAutoscalerBehaviorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerBehaviorPatchPtrInput interface {
 	pulumi.Input
 
@@ -2731,8 +2731,8 @@ func (o HorizontalPodAutoscalerBehaviorPatchOutput) ScaleDown() HPAScalingRulesP
 }
 
 // scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
-//   * increase no more than 4 pods per 60 seconds
-//   * double the number of pods per 60 seconds
+//   - increase no more than 4 pods per 60 seconds
+//   - double the number of pods per 60 seconds
 //     No stabilization is used.
 func (o HorizontalPodAutoscalerBehaviorPatchOutput) ScaleUp() HPAScalingRulesPatchPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerBehaviorPatch) *HPAScalingRulesPatch { return v.ScaleUp }).(HPAScalingRulesPatchPtrOutput)
@@ -2773,8 +2773,8 @@ func (o HorizontalPodAutoscalerBehaviorPatchPtrOutput) ScaleDown() HPAScalingRul
 }
 
 // scaleUp is scaling policy for scaling Up. If not set, the default value is the higher of:
-//   * increase no more than 4 pods per 60 seconds
-//   * double the number of pods per 60 seconds
+//   - increase no more than 4 pods per 60 seconds
+//   - double the number of pods per 60 seconds
 //     No stabilization is used.
 func (o HorizontalPodAutoscalerBehaviorPatchPtrOutput) ScaleUp() HPAScalingRulesPatchPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerBehaviorPatch) *HPAScalingRulesPatch {
@@ -2802,7 +2802,7 @@ type HorizontalPodAutoscalerCondition struct {
 // HorizontalPodAutoscalerConditionInput is an input type that accepts HorizontalPodAutoscalerConditionArgs and HorizontalPodAutoscalerConditionOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerConditionInput` via:
 //
-//          HorizontalPodAutoscalerConditionArgs{...}
+//	HorizontalPodAutoscalerConditionArgs{...}
 type HorizontalPodAutoscalerConditionInput interface {
 	pulumi.Input
 
@@ -2839,7 +2839,7 @@ func (i HorizontalPodAutoscalerConditionArgs) ToHorizontalPodAutoscalerCondition
 // HorizontalPodAutoscalerConditionArrayInput is an input type that accepts HorizontalPodAutoscalerConditionArray and HorizontalPodAutoscalerConditionArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerConditionArrayInput` via:
 //
-//          HorizontalPodAutoscalerConditionArray{ HorizontalPodAutoscalerConditionArgs{...} }
+//	HorizontalPodAutoscalerConditionArray{ HorizontalPodAutoscalerConditionArgs{...} }
 type HorizontalPodAutoscalerConditionArrayInput interface {
 	pulumi.Input
 
@@ -2938,7 +2938,7 @@ type HorizontalPodAutoscalerConditionPatch struct {
 // HorizontalPodAutoscalerConditionPatchInput is an input type that accepts HorizontalPodAutoscalerConditionPatchArgs and HorizontalPodAutoscalerConditionPatchOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerConditionPatchInput` via:
 //
-//          HorizontalPodAutoscalerConditionPatchArgs{...}
+//	HorizontalPodAutoscalerConditionPatchArgs{...}
 type HorizontalPodAutoscalerConditionPatchInput interface {
 	pulumi.Input
 
@@ -2975,7 +2975,7 @@ func (i HorizontalPodAutoscalerConditionPatchArgs) ToHorizontalPodAutoscalerCond
 // HorizontalPodAutoscalerConditionPatchArrayInput is an input type that accepts HorizontalPodAutoscalerConditionPatchArray and HorizontalPodAutoscalerConditionPatchArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerConditionPatchArrayInput` via:
 //
-//          HorizontalPodAutoscalerConditionPatchArray{ HorizontalPodAutoscalerConditionPatchArgs{...} }
+//	HorizontalPodAutoscalerConditionPatchArray{ HorizontalPodAutoscalerConditionPatchArgs{...} }
 type HorizontalPodAutoscalerConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -3072,7 +3072,7 @@ type HorizontalPodAutoscalerListType struct {
 // HorizontalPodAutoscalerListTypeInput is an input type that accepts HorizontalPodAutoscalerListTypeArgs and HorizontalPodAutoscalerListTypeOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerListTypeInput` via:
 //
-//          HorizontalPodAutoscalerListTypeArgs{...}
+//	HorizontalPodAutoscalerListTypeArgs{...}
 type HorizontalPodAutoscalerListTypeInput interface {
 	pulumi.Input
 
@@ -3156,7 +3156,7 @@ type HorizontalPodAutoscalerPatchType struct {
 // HorizontalPodAutoscalerPatchTypeInput is an input type that accepts HorizontalPodAutoscalerPatchTypeArgs and HorizontalPodAutoscalerPatchTypeOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerPatchTypeInput` via:
 //
-//          HorizontalPodAutoscalerPatchTypeArgs{...}
+//	HorizontalPodAutoscalerPatchTypeArgs{...}
 type HorizontalPodAutoscalerPatchTypeInput interface {
 	pulumi.Input
 
@@ -3247,7 +3247,7 @@ type HorizontalPodAutoscalerSpec struct {
 // HorizontalPodAutoscalerSpecInput is an input type that accepts HorizontalPodAutoscalerSpecArgs and HorizontalPodAutoscalerSpecOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecInput` via:
 //
-//          HorizontalPodAutoscalerSpecArgs{...}
+//	HorizontalPodAutoscalerSpecArgs{...}
 type HorizontalPodAutoscalerSpecInput interface {
 	pulumi.Input
 
@@ -3292,11 +3292,11 @@ func (i HorizontalPodAutoscalerSpecArgs) ToHorizontalPodAutoscalerSpecPtrOutputW
 // HorizontalPodAutoscalerSpecPtrInput is an input type that accepts HorizontalPodAutoscalerSpecArgs, HorizontalPodAutoscalerSpecPtr and HorizontalPodAutoscalerSpecPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecPtrInput` via:
 //
-//          HorizontalPodAutoscalerSpecArgs{...}
+//	        HorizontalPodAutoscalerSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerSpecPtrInput interface {
 	pulumi.Input
 
@@ -3463,7 +3463,7 @@ type HorizontalPodAutoscalerSpecPatch struct {
 // HorizontalPodAutoscalerSpecPatchInput is an input type that accepts HorizontalPodAutoscalerSpecPatchArgs and HorizontalPodAutoscalerSpecPatchOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecPatchInput` via:
 //
-//          HorizontalPodAutoscalerSpecPatchArgs{...}
+//	HorizontalPodAutoscalerSpecPatchArgs{...}
 type HorizontalPodAutoscalerSpecPatchInput interface {
 	pulumi.Input
 
@@ -3508,11 +3508,11 @@ func (i HorizontalPodAutoscalerSpecPatchArgs) ToHorizontalPodAutoscalerSpecPatch
 // HorizontalPodAutoscalerSpecPatchPtrInput is an input type that accepts HorizontalPodAutoscalerSpecPatchArgs, HorizontalPodAutoscalerSpecPatchPtr and HorizontalPodAutoscalerSpecPatchPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerSpecPatchPtrInput` via:
 //
-//          HorizontalPodAutoscalerSpecPatchArgs{...}
+//	        HorizontalPodAutoscalerSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -3681,7 +3681,7 @@ type HorizontalPodAutoscalerStatus struct {
 // HorizontalPodAutoscalerStatusInput is an input type that accepts HorizontalPodAutoscalerStatusArgs and HorizontalPodAutoscalerStatusOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusInput` via:
 //
-//          HorizontalPodAutoscalerStatusArgs{...}
+//	HorizontalPodAutoscalerStatusArgs{...}
 type HorizontalPodAutoscalerStatusInput interface {
 	pulumi.Input
 
@@ -3728,11 +3728,11 @@ func (i HorizontalPodAutoscalerStatusArgs) ToHorizontalPodAutoscalerStatusPtrOut
 // HorizontalPodAutoscalerStatusPtrInput is an input type that accepts HorizontalPodAutoscalerStatusArgs, HorizontalPodAutoscalerStatusPtr and HorizontalPodAutoscalerStatusPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusPtrInput` via:
 //
-//          HorizontalPodAutoscalerStatusArgs{...}
+//	        HorizontalPodAutoscalerStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerStatusPtrInput interface {
 	pulumi.Input
 
@@ -3916,7 +3916,7 @@ type HorizontalPodAutoscalerStatusPatch struct {
 // HorizontalPodAutoscalerStatusPatchInput is an input type that accepts HorizontalPodAutoscalerStatusPatchArgs and HorizontalPodAutoscalerStatusPatchOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusPatchInput` via:
 //
-//          HorizontalPodAutoscalerStatusPatchArgs{...}
+//	HorizontalPodAutoscalerStatusPatchArgs{...}
 type HorizontalPodAutoscalerStatusPatchInput interface {
 	pulumi.Input
 
@@ -3963,11 +3963,11 @@ func (i HorizontalPodAutoscalerStatusPatchArgs) ToHorizontalPodAutoscalerStatusP
 // HorizontalPodAutoscalerStatusPatchPtrInput is an input type that accepts HorizontalPodAutoscalerStatusPatchArgs, HorizontalPodAutoscalerStatusPatchPtr and HorizontalPodAutoscalerStatusPatchPtrOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerStatusPatchPtrInput` via:
 //
-//          HorizontalPodAutoscalerStatusPatchArgs{...}
+//	        HorizontalPodAutoscalerStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HorizontalPodAutoscalerStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -4145,7 +4145,7 @@ type MetricIdentifier struct {
 // MetricIdentifierInput is an input type that accepts MetricIdentifierArgs and MetricIdentifierOutput values.
 // You can construct a concrete instance of `MetricIdentifierInput` via:
 //
-//          MetricIdentifierArgs{...}
+//	MetricIdentifierArgs{...}
 type MetricIdentifierInput interface {
 	pulumi.Input
 
@@ -4184,11 +4184,11 @@ func (i MetricIdentifierArgs) ToMetricIdentifierPtrOutputWithContext(ctx context
 // MetricIdentifierPtrInput is an input type that accepts MetricIdentifierArgs, MetricIdentifierPtr and MetricIdentifierPtrOutput values.
 // You can construct a concrete instance of `MetricIdentifierPtrInput` via:
 //
-//          MetricIdentifierArgs{...}
+//	        MetricIdentifierArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type MetricIdentifierPtrInput interface {
 	pulumi.Input
 
@@ -4304,7 +4304,7 @@ type MetricIdentifierPatch struct {
 // MetricIdentifierPatchInput is an input type that accepts MetricIdentifierPatchArgs and MetricIdentifierPatchOutput values.
 // You can construct a concrete instance of `MetricIdentifierPatchInput` via:
 //
-//          MetricIdentifierPatchArgs{...}
+//	MetricIdentifierPatchArgs{...}
 type MetricIdentifierPatchInput interface {
 	pulumi.Input
 
@@ -4343,11 +4343,11 @@ func (i MetricIdentifierPatchArgs) ToMetricIdentifierPatchPtrOutputWithContext(c
 // MetricIdentifierPatchPtrInput is an input type that accepts MetricIdentifierPatchArgs, MetricIdentifierPatchPtr and MetricIdentifierPatchPtrOutput values.
 // You can construct a concrete instance of `MetricIdentifierPatchPtrInput` via:
 //
-//          MetricIdentifierPatchArgs{...}
+//	        MetricIdentifierPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type MetricIdentifierPatchPtrInput interface {
 	pulumi.Input
 
@@ -4471,7 +4471,7 @@ type MetricSpec struct {
 // MetricSpecInput is an input type that accepts MetricSpecArgs and MetricSpecOutput values.
 // You can construct a concrete instance of `MetricSpecInput` via:
 //
-//          MetricSpecArgs{...}
+//	MetricSpecArgs{...}
 type MetricSpecInput interface {
 	pulumi.Input
 
@@ -4510,7 +4510,7 @@ func (i MetricSpecArgs) ToMetricSpecOutputWithContext(ctx context.Context) Metri
 // MetricSpecArrayInput is an input type that accepts MetricSpecArray and MetricSpecArrayOutput values.
 // You can construct a concrete instance of `MetricSpecArrayInput` via:
 //
-//          MetricSpecArray{ MetricSpecArgs{...} }
+//	MetricSpecArray{ MetricSpecArgs{...} }
 type MetricSpecArrayInput interface {
 	pulumi.Input
 
@@ -4616,7 +4616,7 @@ type MetricSpecPatch struct {
 // MetricSpecPatchInput is an input type that accepts MetricSpecPatchArgs and MetricSpecPatchOutput values.
 // You can construct a concrete instance of `MetricSpecPatchInput` via:
 //
-//          MetricSpecPatchArgs{...}
+//	MetricSpecPatchArgs{...}
 type MetricSpecPatchInput interface {
 	pulumi.Input
 
@@ -4655,7 +4655,7 @@ func (i MetricSpecPatchArgs) ToMetricSpecPatchOutputWithContext(ctx context.Cont
 // MetricSpecPatchArrayInput is an input type that accepts MetricSpecPatchArray and MetricSpecPatchArrayOutput values.
 // You can construct a concrete instance of `MetricSpecPatchArrayInput` via:
 //
-//          MetricSpecPatchArray{ MetricSpecPatchArgs{...} }
+//	MetricSpecPatchArray{ MetricSpecPatchArgs{...} }
 type MetricSpecPatchArrayInput interface {
 	pulumi.Input
 
@@ -4761,7 +4761,7 @@ type MetricStatus struct {
 // MetricStatusInput is an input type that accepts MetricStatusArgs and MetricStatusOutput values.
 // You can construct a concrete instance of `MetricStatusInput` via:
 //
-//          MetricStatusArgs{...}
+//	MetricStatusArgs{...}
 type MetricStatusInput interface {
 	pulumi.Input
 
@@ -4800,7 +4800,7 @@ func (i MetricStatusArgs) ToMetricStatusOutputWithContext(ctx context.Context) M
 // MetricStatusArrayInput is an input type that accepts MetricStatusArray and MetricStatusArrayOutput values.
 // You can construct a concrete instance of `MetricStatusArrayInput` via:
 //
-//          MetricStatusArray{ MetricStatusArgs{...} }
+//	MetricStatusArray{ MetricStatusArgs{...} }
 type MetricStatusArrayInput interface {
 	pulumi.Input
 
@@ -4906,7 +4906,7 @@ type MetricStatusPatch struct {
 // MetricStatusPatchInput is an input type that accepts MetricStatusPatchArgs and MetricStatusPatchOutput values.
 // You can construct a concrete instance of `MetricStatusPatchInput` via:
 //
-//          MetricStatusPatchArgs{...}
+//	MetricStatusPatchArgs{...}
 type MetricStatusPatchInput interface {
 	pulumi.Input
 
@@ -4945,7 +4945,7 @@ func (i MetricStatusPatchArgs) ToMetricStatusPatchOutputWithContext(ctx context.
 // MetricStatusPatchArrayInput is an input type that accepts MetricStatusPatchArray and MetricStatusPatchArrayOutput values.
 // You can construct a concrete instance of `MetricStatusPatchArrayInput` via:
 //
-//          MetricStatusPatchArray{ MetricStatusPatchArgs{...} }
+//	MetricStatusPatchArray{ MetricStatusPatchArgs{...} }
 type MetricStatusPatchArrayInput interface {
 	pulumi.Input
 
@@ -5047,7 +5047,7 @@ type MetricTarget struct {
 // MetricTargetInput is an input type that accepts MetricTargetArgs and MetricTargetOutput values.
 // You can construct a concrete instance of `MetricTargetInput` via:
 //
-//          MetricTargetArgs{...}
+//	MetricTargetArgs{...}
 type MetricTargetInput interface {
 	pulumi.Input
 
@@ -5090,11 +5090,11 @@ func (i MetricTargetArgs) ToMetricTargetPtrOutputWithContext(ctx context.Context
 // MetricTargetPtrInput is an input type that accepts MetricTargetArgs, MetricTargetPtr and MetricTargetPtrOutput values.
 // You can construct a concrete instance of `MetricTargetPtrInput` via:
 //
-//          MetricTargetArgs{...}
+//	        MetricTargetArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type MetricTargetPtrInput interface {
 	pulumi.Input
 
@@ -5244,7 +5244,7 @@ type MetricTargetPatch struct {
 // MetricTargetPatchInput is an input type that accepts MetricTargetPatchArgs and MetricTargetPatchOutput values.
 // You can construct a concrete instance of `MetricTargetPatchInput` via:
 //
-//          MetricTargetPatchArgs{...}
+//	MetricTargetPatchArgs{...}
 type MetricTargetPatchInput interface {
 	pulumi.Input
 
@@ -5287,11 +5287,11 @@ func (i MetricTargetPatchArgs) ToMetricTargetPatchPtrOutputWithContext(ctx conte
 // MetricTargetPatchPtrInput is an input type that accepts MetricTargetPatchArgs, MetricTargetPatchPtr and MetricTargetPatchPtrOutput values.
 // You can construct a concrete instance of `MetricTargetPatchPtrInput` via:
 //
-//          MetricTargetPatchArgs{...}
+//	        MetricTargetPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type MetricTargetPatchPtrInput interface {
 	pulumi.Input
 
@@ -5439,7 +5439,7 @@ type MetricValueStatus struct {
 // MetricValueStatusInput is an input type that accepts MetricValueStatusArgs and MetricValueStatusOutput values.
 // You can construct a concrete instance of `MetricValueStatusInput` via:
 //
-//          MetricValueStatusArgs{...}
+//	MetricValueStatusArgs{...}
 type MetricValueStatusInput interface {
 	pulumi.Input
 
@@ -5480,11 +5480,11 @@ func (i MetricValueStatusArgs) ToMetricValueStatusPtrOutputWithContext(ctx conte
 // MetricValueStatusPtrInput is an input type that accepts MetricValueStatusArgs, MetricValueStatusPtr and MetricValueStatusPtrOutput values.
 // You can construct a concrete instance of `MetricValueStatusPtrInput` via:
 //
-//          MetricValueStatusArgs{...}
+//	        MetricValueStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type MetricValueStatusPtrInput interface {
 	pulumi.Input
 
@@ -5617,7 +5617,7 @@ type MetricValueStatusPatch struct {
 // MetricValueStatusPatchInput is an input type that accepts MetricValueStatusPatchArgs and MetricValueStatusPatchOutput values.
 // You can construct a concrete instance of `MetricValueStatusPatchInput` via:
 //
-//          MetricValueStatusPatchArgs{...}
+//	MetricValueStatusPatchArgs{...}
 type MetricValueStatusPatchInput interface {
 	pulumi.Input
 
@@ -5658,11 +5658,11 @@ func (i MetricValueStatusPatchArgs) ToMetricValueStatusPatchPtrOutputWithContext
 // MetricValueStatusPatchPtrInput is an input type that accepts MetricValueStatusPatchArgs, MetricValueStatusPatchPtr and MetricValueStatusPatchPtrOutput values.
 // You can construct a concrete instance of `MetricValueStatusPatchPtrInput` via:
 //
-//          MetricValueStatusPatchArgs{...}
+//	        MetricValueStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type MetricValueStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -5794,7 +5794,7 @@ type ObjectMetricSource struct {
 // ObjectMetricSourceInput is an input type that accepts ObjectMetricSourceArgs and ObjectMetricSourceOutput values.
 // You can construct a concrete instance of `ObjectMetricSourceInput` via:
 //
-//          ObjectMetricSourceArgs{...}
+//	ObjectMetricSourceArgs{...}
 type ObjectMetricSourceInput interface {
 	pulumi.Input
 
@@ -5834,11 +5834,11 @@ func (i ObjectMetricSourceArgs) ToObjectMetricSourcePtrOutputWithContext(ctx con
 // ObjectMetricSourcePtrInput is an input type that accepts ObjectMetricSourceArgs, ObjectMetricSourcePtr and ObjectMetricSourcePtrOutput values.
 // You can construct a concrete instance of `ObjectMetricSourcePtrInput` via:
 //
-//          ObjectMetricSourceArgs{...}
+//	        ObjectMetricSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectMetricSourcePtrInput interface {
 	pulumi.Input
 
@@ -5968,7 +5968,7 @@ type ObjectMetricSourcePatch struct {
 // ObjectMetricSourcePatchInput is an input type that accepts ObjectMetricSourcePatchArgs and ObjectMetricSourcePatchOutput values.
 // You can construct a concrete instance of `ObjectMetricSourcePatchInput` via:
 //
-//          ObjectMetricSourcePatchArgs{...}
+//	ObjectMetricSourcePatchArgs{...}
 type ObjectMetricSourcePatchInput interface {
 	pulumi.Input
 
@@ -6008,11 +6008,11 @@ func (i ObjectMetricSourcePatchArgs) ToObjectMetricSourcePatchPtrOutputWithConte
 // ObjectMetricSourcePatchPtrInput is an input type that accepts ObjectMetricSourcePatchArgs, ObjectMetricSourcePatchPtr and ObjectMetricSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ObjectMetricSourcePatchPtrInput` via:
 //
-//          ObjectMetricSourcePatchArgs{...}
+//	        ObjectMetricSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectMetricSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -6142,7 +6142,7 @@ type ObjectMetricStatus struct {
 // ObjectMetricStatusInput is an input type that accepts ObjectMetricStatusArgs and ObjectMetricStatusOutput values.
 // You can construct a concrete instance of `ObjectMetricStatusInput` via:
 //
-//          ObjectMetricStatusArgs{...}
+//	ObjectMetricStatusArgs{...}
 type ObjectMetricStatusInput interface {
 	pulumi.Input
 
@@ -6182,11 +6182,11 @@ func (i ObjectMetricStatusArgs) ToObjectMetricStatusPtrOutputWithContext(ctx con
 // ObjectMetricStatusPtrInput is an input type that accepts ObjectMetricStatusArgs, ObjectMetricStatusPtr and ObjectMetricStatusPtrOutput values.
 // You can construct a concrete instance of `ObjectMetricStatusPtrInput` via:
 //
-//          ObjectMetricStatusArgs{...}
+//	        ObjectMetricStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectMetricStatusPtrInput interface {
 	pulumi.Input
 
@@ -6316,7 +6316,7 @@ type ObjectMetricStatusPatch struct {
 // ObjectMetricStatusPatchInput is an input type that accepts ObjectMetricStatusPatchArgs and ObjectMetricStatusPatchOutput values.
 // You can construct a concrete instance of `ObjectMetricStatusPatchInput` via:
 //
-//          ObjectMetricStatusPatchArgs{...}
+//	ObjectMetricStatusPatchArgs{...}
 type ObjectMetricStatusPatchInput interface {
 	pulumi.Input
 
@@ -6356,11 +6356,11 @@ func (i ObjectMetricStatusPatchArgs) ToObjectMetricStatusPatchPtrOutputWithConte
 // ObjectMetricStatusPatchPtrInput is an input type that accepts ObjectMetricStatusPatchArgs, ObjectMetricStatusPatchPtr and ObjectMetricStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ObjectMetricStatusPatchPtrInput` via:
 //
-//          ObjectMetricStatusPatchArgs{...}
+//	        ObjectMetricStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectMetricStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -6489,7 +6489,7 @@ type PodsMetricSource struct {
 // PodsMetricSourceInput is an input type that accepts PodsMetricSourceArgs and PodsMetricSourceOutput values.
 // You can construct a concrete instance of `PodsMetricSourceInput` via:
 //
-//          PodsMetricSourceArgs{...}
+//	PodsMetricSourceArgs{...}
 type PodsMetricSourceInput interface {
 	pulumi.Input
 
@@ -6528,11 +6528,11 @@ func (i PodsMetricSourceArgs) ToPodsMetricSourcePtrOutputWithContext(ctx context
 // PodsMetricSourcePtrInput is an input type that accepts PodsMetricSourceArgs, PodsMetricSourcePtr and PodsMetricSourcePtrOutput values.
 // You can construct a concrete instance of `PodsMetricSourcePtrInput` via:
 //
-//          PodsMetricSourceArgs{...}
+//	        PodsMetricSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodsMetricSourcePtrInput interface {
 	pulumi.Input
 
@@ -6648,7 +6648,7 @@ type PodsMetricSourcePatch struct {
 // PodsMetricSourcePatchInput is an input type that accepts PodsMetricSourcePatchArgs and PodsMetricSourcePatchOutput values.
 // You can construct a concrete instance of `PodsMetricSourcePatchInput` via:
 //
-//          PodsMetricSourcePatchArgs{...}
+//	PodsMetricSourcePatchArgs{...}
 type PodsMetricSourcePatchInput interface {
 	pulumi.Input
 
@@ -6687,11 +6687,11 @@ func (i PodsMetricSourcePatchArgs) ToPodsMetricSourcePatchPtrOutputWithContext(c
 // PodsMetricSourcePatchPtrInput is an input type that accepts PodsMetricSourcePatchArgs, PodsMetricSourcePatchPtr and PodsMetricSourcePatchPtrOutput values.
 // You can construct a concrete instance of `PodsMetricSourcePatchPtrInput` via:
 //
-//          PodsMetricSourcePatchArgs{...}
+//	        PodsMetricSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodsMetricSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -6807,7 +6807,7 @@ type PodsMetricStatus struct {
 // PodsMetricStatusInput is an input type that accepts PodsMetricStatusArgs and PodsMetricStatusOutput values.
 // You can construct a concrete instance of `PodsMetricStatusInput` via:
 //
-//          PodsMetricStatusArgs{...}
+//	PodsMetricStatusArgs{...}
 type PodsMetricStatusInput interface {
 	pulumi.Input
 
@@ -6846,11 +6846,11 @@ func (i PodsMetricStatusArgs) ToPodsMetricStatusPtrOutputWithContext(ctx context
 // PodsMetricStatusPtrInput is an input type that accepts PodsMetricStatusArgs, PodsMetricStatusPtr and PodsMetricStatusPtrOutput values.
 // You can construct a concrete instance of `PodsMetricStatusPtrInput` via:
 //
-//          PodsMetricStatusArgs{...}
+//	        PodsMetricStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodsMetricStatusPtrInput interface {
 	pulumi.Input
 
@@ -6966,7 +6966,7 @@ type PodsMetricStatusPatch struct {
 // PodsMetricStatusPatchInput is an input type that accepts PodsMetricStatusPatchArgs and PodsMetricStatusPatchOutput values.
 // You can construct a concrete instance of `PodsMetricStatusPatchInput` via:
 //
-//          PodsMetricStatusPatchArgs{...}
+//	PodsMetricStatusPatchArgs{...}
 type PodsMetricStatusPatchInput interface {
 	pulumi.Input
 
@@ -7005,11 +7005,11 @@ func (i PodsMetricStatusPatchArgs) ToPodsMetricStatusPatchPtrOutputWithContext(c
 // PodsMetricStatusPatchPtrInput is an input type that accepts PodsMetricStatusPatchArgs, PodsMetricStatusPatchPtr and PodsMetricStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PodsMetricStatusPatchPtrInput` via:
 //
-//          PodsMetricStatusPatchArgs{...}
+//	        PodsMetricStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodsMetricStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -7125,7 +7125,7 @@ type ResourceMetricSource struct {
 // ResourceMetricSourceInput is an input type that accepts ResourceMetricSourceArgs and ResourceMetricSourceOutput values.
 // You can construct a concrete instance of `ResourceMetricSourceInput` via:
 //
-//          ResourceMetricSourceArgs{...}
+//	ResourceMetricSourceArgs{...}
 type ResourceMetricSourceInput interface {
 	pulumi.Input
 
@@ -7164,11 +7164,11 @@ func (i ResourceMetricSourceArgs) ToResourceMetricSourcePtrOutputWithContext(ctx
 // ResourceMetricSourcePtrInput is an input type that accepts ResourceMetricSourceArgs, ResourceMetricSourcePtr and ResourceMetricSourcePtrOutput values.
 // You can construct a concrete instance of `ResourceMetricSourcePtrInput` via:
 //
-//          ResourceMetricSourceArgs{...}
+//	        ResourceMetricSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceMetricSourcePtrInput interface {
 	pulumi.Input
 
@@ -7284,7 +7284,7 @@ type ResourceMetricSourcePatch struct {
 // ResourceMetricSourcePatchInput is an input type that accepts ResourceMetricSourcePatchArgs and ResourceMetricSourcePatchOutput values.
 // You can construct a concrete instance of `ResourceMetricSourcePatchInput` via:
 //
-//          ResourceMetricSourcePatchArgs{...}
+//	ResourceMetricSourcePatchArgs{...}
 type ResourceMetricSourcePatchInput interface {
 	pulumi.Input
 
@@ -7323,11 +7323,11 @@ func (i ResourceMetricSourcePatchArgs) ToResourceMetricSourcePatchPtrOutputWithC
 // ResourceMetricSourcePatchPtrInput is an input type that accepts ResourceMetricSourcePatchArgs, ResourceMetricSourcePatchPtr and ResourceMetricSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ResourceMetricSourcePatchPtrInput` via:
 //
-//          ResourceMetricSourcePatchArgs{...}
+//	        ResourceMetricSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceMetricSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -7443,7 +7443,7 @@ type ResourceMetricStatus struct {
 // ResourceMetricStatusInput is an input type that accepts ResourceMetricStatusArgs and ResourceMetricStatusOutput values.
 // You can construct a concrete instance of `ResourceMetricStatusInput` via:
 //
-//          ResourceMetricStatusArgs{...}
+//	ResourceMetricStatusArgs{...}
 type ResourceMetricStatusInput interface {
 	pulumi.Input
 
@@ -7482,11 +7482,11 @@ func (i ResourceMetricStatusArgs) ToResourceMetricStatusPtrOutputWithContext(ctx
 // ResourceMetricStatusPtrInput is an input type that accepts ResourceMetricStatusArgs, ResourceMetricStatusPtr and ResourceMetricStatusPtrOutput values.
 // You can construct a concrete instance of `ResourceMetricStatusPtrInput` via:
 //
-//          ResourceMetricStatusArgs{...}
+//	        ResourceMetricStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceMetricStatusPtrInput interface {
 	pulumi.Input
 
@@ -7602,7 +7602,7 @@ type ResourceMetricStatusPatch struct {
 // ResourceMetricStatusPatchInput is an input type that accepts ResourceMetricStatusPatchArgs and ResourceMetricStatusPatchOutput values.
 // You can construct a concrete instance of `ResourceMetricStatusPatchInput` via:
 //
-//          ResourceMetricStatusPatchArgs{...}
+//	ResourceMetricStatusPatchArgs{...}
 type ResourceMetricStatusPatchInput interface {
 	pulumi.Input
 
@@ -7641,11 +7641,11 @@ func (i ResourceMetricStatusPatchArgs) ToResourceMetricStatusPatchPtrOutputWithC
 // ResourceMetricStatusPatchPtrInput is an input type that accepts ResourceMetricStatusPatchArgs, ResourceMetricStatusPatchPtr and ResourceMetricStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ResourceMetricStatusPatchPtrInput` via:
 //
-//          ResourceMetricStatusPatchArgs{...}
+//	        ResourceMetricStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceMetricStatusPatchPtrInput interface {
 	pulumi.Input
 

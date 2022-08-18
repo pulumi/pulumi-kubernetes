@@ -126,7 +126,7 @@ func (i *IngressClassPatch) ToIngressClassPatchOutputWithContext(ctx context.Con
 // IngressClassPatchArrayInput is an input type that accepts IngressClassPatchArray and IngressClassPatchArrayOutput values.
 // You can construct a concrete instance of `IngressClassPatchArrayInput` via:
 //
-//          IngressClassPatchArray{ IngressClassPatchArgs{...} }
+//	IngressClassPatchArray{ IngressClassPatchArgs{...} }
 type IngressClassPatchArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i IngressClassPatchArray) ToIngressClassPatchArrayOutputWithContext(ctx co
 // IngressClassPatchMapInput is an input type that accepts IngressClassPatchMap and IngressClassPatchMapOutput values.
 // You can construct a concrete instance of `IngressClassPatchMapInput` via:
 //
-//          IngressClassPatchMap{ "key": IngressClassPatchArgs{...} }
+//	IngressClassPatchMap{ "key": IngressClassPatchArgs{...} }
 type IngressClassPatchMapInput interface {
 	pulumi.Input
 

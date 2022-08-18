@@ -24,10 +24,10 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
-// 2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
-//    to 'True'.
-// 3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
+//  1. The Job's '.status.startTime' is set, which indicates that the Job has started running.
+//  2. The Job's '.status.conditions' has a status of type 'Complete', and a 'status' set
+//     to 'True'.
+//  3. The Job's '.status.conditions' do not have a status of type 'Failed', with a
 //     'status' set to 'True'. If this condition is set, we should fail the Job immediately.
 //
 // If the Job has not reached a Ready state after 10 minutes, it will
@@ -142,7 +142,7 @@ func (i *JobPatch) ToJobPatchOutputWithContext(ctx context.Context) JobPatchOutp
 // JobPatchArrayInput is an input type that accepts JobPatchArray and JobPatchArrayOutput values.
 // You can construct a concrete instance of `JobPatchArrayInput` via:
 //
-//          JobPatchArray{ JobPatchArgs{...} }
+//	JobPatchArray{ JobPatchArgs{...} }
 type JobPatchArrayInput interface {
 	pulumi.Input
 
@@ -167,7 +167,7 @@ func (i JobPatchArray) ToJobPatchArrayOutputWithContext(ctx context.Context) Job
 // JobPatchMapInput is an input type that accepts JobPatchMap and JobPatchMapOutput values.
 // You can construct a concrete instance of `JobPatchMapInput` via:
 //
-//          JobPatchMap{ "key": JobPatchArgs{...} }
+//	JobPatchMap{ "key": JobPatchArgs{...} }
 type JobPatchMapInput interface {
 	pulumi.Input
 

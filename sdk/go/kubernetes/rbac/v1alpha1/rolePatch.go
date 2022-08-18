@@ -129,7 +129,7 @@ func (i *RolePatch) ToRolePatchOutputWithContext(ctx context.Context) RolePatchO
 // RolePatchArrayInput is an input type that accepts RolePatchArray and RolePatchArrayOutput values.
 // You can construct a concrete instance of `RolePatchArrayInput` via:
 //
-//          RolePatchArray{ RolePatchArgs{...} }
+//	RolePatchArray{ RolePatchArgs{...} }
 type RolePatchArrayInput interface {
 	pulumi.Input
 
@@ -154,7 +154,7 @@ func (i RolePatchArray) ToRolePatchArrayOutputWithContext(ctx context.Context) R
 // RolePatchMapInput is an input type that accepts RolePatchMap and RolePatchMapOutput values.
 // You can construct a concrete instance of `RolePatchMapInput` via:
 //
-//          RolePatchMap{ "key": RolePatchArgs{...} }
+//	RolePatchMap{ "key": RolePatchArgs{...} }
 type RolePatchMapInput interface {
 	pulumi.Input
 

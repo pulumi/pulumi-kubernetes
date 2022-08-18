@@ -128,7 +128,7 @@ func (i *CustomResourceDefinitionPatch) ToCustomResourceDefinitionPatchOutputWit
 // CustomResourceDefinitionPatchArrayInput is an input type that accepts CustomResourceDefinitionPatchArray and CustomResourceDefinitionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionPatchArrayInput` via:
 //
-//          CustomResourceDefinitionPatchArray{ CustomResourceDefinitionPatchArgs{...} }
+//	CustomResourceDefinitionPatchArray{ CustomResourceDefinitionPatchArgs{...} }
 type CustomResourceDefinitionPatchArrayInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ func (i CustomResourceDefinitionPatchArray) ToCustomResourceDefinitionPatchArray
 // CustomResourceDefinitionPatchMapInput is an input type that accepts CustomResourceDefinitionPatchMap and CustomResourceDefinitionPatchMapOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionPatchMapInput` via:
 //
-//          CustomResourceDefinitionPatchMap{ "key": CustomResourceDefinitionPatchArgs{...} }
+//	CustomResourceDefinitionPatchMap{ "key": CustomResourceDefinitionPatchArgs{...} }
 type CustomResourceDefinitionPatchMapInput interface {
 	pulumi.Input
 

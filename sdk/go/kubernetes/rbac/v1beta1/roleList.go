@@ -118,7 +118,7 @@ func (i *RoleList) ToRoleListOutputWithContext(ctx context.Context) RoleListOutp
 // RoleListArrayInput is an input type that accepts RoleListArray and RoleListArrayOutput values.
 // You can construct a concrete instance of `RoleListArrayInput` via:
 //
-//          RoleListArray{ RoleListArgs{...} }
+//	RoleListArray{ RoleListArgs{...} }
 type RoleListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i RoleListArray) ToRoleListArrayOutputWithContext(ctx context.Context) Rol
 // RoleListMapInput is an input type that accepts RoleListMap and RoleListMapOutput values.
 // You can construct a concrete instance of `RoleListMapInput` via:
 //
-//          RoleListMap{ "key": RoleListArgs{...} }
+//	RoleListMap{ "key": RoleListArgs{...} }
 type RoleListMapInput interface {
 	pulumi.Input
 

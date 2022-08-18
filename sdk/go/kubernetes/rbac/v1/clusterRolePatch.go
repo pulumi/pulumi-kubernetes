@@ -135,7 +135,7 @@ func (i *ClusterRolePatch) ToClusterRolePatchOutputWithContext(ctx context.Conte
 // ClusterRolePatchArrayInput is an input type that accepts ClusterRolePatchArray and ClusterRolePatchArrayOutput values.
 // You can construct a concrete instance of `ClusterRolePatchArrayInput` via:
 //
-//          ClusterRolePatchArray{ ClusterRolePatchArgs{...} }
+//	ClusterRolePatchArray{ ClusterRolePatchArgs{...} }
 type ClusterRolePatchArrayInput interface {
 	pulumi.Input
 
@@ -160,7 +160,7 @@ func (i ClusterRolePatchArray) ToClusterRolePatchArrayOutputWithContext(ctx cont
 // ClusterRolePatchMapInput is an input type that accepts ClusterRolePatchMap and ClusterRolePatchMapOutput values.
 // You can construct a concrete instance of `ClusterRolePatchMapInput` via:
 //
-//          ClusterRolePatchMap{ "key": ClusterRolePatchArgs{...} }
+//	ClusterRolePatchMap{ "key": ClusterRolePatchArgs{...} }
 type ClusterRolePatchMapInput interface {
 	pulumi.Input
 

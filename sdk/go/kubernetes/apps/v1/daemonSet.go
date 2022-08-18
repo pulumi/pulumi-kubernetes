@@ -125,7 +125,7 @@ func (i *DaemonSet) ToDaemonSetOutputWithContext(ctx context.Context) DaemonSetO
 // DaemonSetArrayInput is an input type that accepts DaemonSetArray and DaemonSetArrayOutput values.
 // You can construct a concrete instance of `DaemonSetArrayInput` via:
 //
-//          DaemonSetArray{ DaemonSetArgs{...} }
+//	DaemonSetArray{ DaemonSetArgs{...} }
 type DaemonSetArrayInput interface {
 	pulumi.Input
 
@@ -150,7 +150,7 @@ func (i DaemonSetArray) ToDaemonSetArrayOutputWithContext(ctx context.Context) D
 // DaemonSetMapInput is an input type that accepts DaemonSetMap and DaemonSetMapOutput values.
 // You can construct a concrete instance of `DaemonSetMapInput` via:
 //
-//          DaemonSetMap{ "key": DaemonSetArgs{...} }
+//	DaemonSetMap{ "key": DaemonSetArgs{...} }
 type DaemonSetMapInput interface {
 	pulumi.Input
 

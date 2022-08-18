@@ -128,7 +128,7 @@ func (i *SelfSubjectRulesReviewPatch) ToSelfSubjectRulesReviewPatchOutputWithCon
 // SelfSubjectRulesReviewPatchArrayInput is an input type that accepts SelfSubjectRulesReviewPatchArray and SelfSubjectRulesReviewPatchArrayOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewPatchArrayInput` via:
 //
-//          SelfSubjectRulesReviewPatchArray{ SelfSubjectRulesReviewPatchArgs{...} }
+//	SelfSubjectRulesReviewPatchArray{ SelfSubjectRulesReviewPatchArgs{...} }
 type SelfSubjectRulesReviewPatchArrayInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ func (i SelfSubjectRulesReviewPatchArray) ToSelfSubjectRulesReviewPatchArrayOutp
 // SelfSubjectRulesReviewPatchMapInput is an input type that accepts SelfSubjectRulesReviewPatchMap and SelfSubjectRulesReviewPatchMapOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewPatchMapInput` via:
 //
-//          SelfSubjectRulesReviewPatchMap{ "key": SelfSubjectRulesReviewPatchArgs{...} }
+//	SelfSubjectRulesReviewPatchMap{ "key": SelfSubjectRulesReviewPatchArgs{...} }
 type SelfSubjectRulesReviewPatchMapInput interface {
 	pulumi.Input
 

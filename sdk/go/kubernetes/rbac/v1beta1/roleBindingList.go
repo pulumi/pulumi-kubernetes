@@ -118,7 +118,7 @@ func (i *RoleBindingList) ToRoleBindingListOutputWithContext(ctx context.Context
 // RoleBindingListArrayInput is an input type that accepts RoleBindingListArray and RoleBindingListArrayOutput values.
 // You can construct a concrete instance of `RoleBindingListArrayInput` via:
 //
-//          RoleBindingListArray{ RoleBindingListArgs{...} }
+//	RoleBindingListArray{ RoleBindingListArgs{...} }
 type RoleBindingListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i RoleBindingListArray) ToRoleBindingListArrayOutputWithContext(ctx contex
 // RoleBindingListMapInput is an input type that accepts RoleBindingListMap and RoleBindingListMapOutput values.
 // You can construct a concrete instance of `RoleBindingListMapInput` via:
 //
-//          RoleBindingListMap{ "key": RoleBindingListArgs{...} }
+//	RoleBindingListMap{ "key": RoleBindingListArgs{...} }
 type RoleBindingListMapInput interface {
 	pulumi.Input
 

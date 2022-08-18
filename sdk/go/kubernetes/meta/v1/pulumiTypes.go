@@ -29,7 +29,7 @@ type APIGroup struct {
 // APIGroupInput is an input type that accepts APIGroupArgs and APIGroupOutput values.
 // You can construct a concrete instance of `APIGroupInput` via:
 //
-//          APIGroupArgs{...}
+//	APIGroupArgs{...}
 type APIGroupInput interface {
 	pulumi.Input
 
@@ -68,7 +68,7 @@ func (i APIGroupArgs) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupO
 // APIGroupArrayInput is an input type that accepts APIGroupArray and APIGroupArrayOutput values.
 // You can construct a concrete instance of `APIGroupArrayInput` via:
 //
-//          APIGroupArray{ APIGroupArgs{...} }
+//	APIGroupArray{ APIGroupArgs{...} }
 type APIGroupArrayInput interface {
 	pulumi.Input
 
@@ -168,7 +168,7 @@ type APIGroupList struct {
 // APIGroupListInput is an input type that accepts APIGroupListArgs and APIGroupListOutput values.
 // You can construct a concrete instance of `APIGroupListInput` via:
 //
-//          APIGroupListArgs{...}
+//	APIGroupListArgs{...}
 type APIGroupListInput interface {
 	pulumi.Input
 
@@ -247,7 +247,7 @@ type APIGroupPatch struct {
 // APIGroupPatchInput is an input type that accepts APIGroupPatchArgs and APIGroupPatchOutput values.
 // You can construct a concrete instance of `APIGroupPatchInput` via:
 //
-//          APIGroupPatchArgs{...}
+//	APIGroupPatchArgs{...}
 type APIGroupPatchInput interface {
 	pulumi.Input
 
@@ -355,7 +355,7 @@ type APIResource struct {
 // APIResourceInput is an input type that accepts APIResourceArgs and APIResourceOutput values.
 // You can construct a concrete instance of `APIResourceInput` via:
 //
-//          APIResourceArgs{...}
+//	APIResourceArgs{...}
 type APIResourceInput interface {
 	pulumi.Input
 
@@ -402,7 +402,7 @@ func (i APIResourceArgs) ToAPIResourceOutputWithContext(ctx context.Context) API
 // APIResourceArrayInput is an input type that accepts APIResourceArray and APIResourceArrayOutput values.
 // You can construct a concrete instance of `APIResourceArrayInput` via:
 //
-//          APIResourceArray{ APIResourceArgs{...} }
+//	APIResourceArray{ APIResourceArgs{...} }
 type APIResourceArrayInput interface {
 	pulumi.Input
 
@@ -524,7 +524,7 @@ type APIResourceList struct {
 // APIResourceListInput is an input type that accepts APIResourceListArgs and APIResourceListOutput values.
 // You can construct a concrete instance of `APIResourceListInput` via:
 //
-//          APIResourceListArgs{...}
+//	APIResourceListArgs{...}
 type APIResourceListInput interface {
 	pulumi.Input
 
@@ -618,7 +618,7 @@ type APIResourcePatch struct {
 // APIResourcePatchInput is an input type that accepts APIResourcePatchArgs and APIResourcePatchOutput values.
 // You can construct a concrete instance of `APIResourcePatchInput` via:
 //
-//          APIResourcePatchArgs{...}
+//	APIResourcePatchArgs{...}
 type APIResourcePatchInput interface {
 	pulumi.Input
 
@@ -742,7 +742,7 @@ type APIVersions struct {
 // APIVersionsInput is an input type that accepts APIVersionsArgs and APIVersionsOutput values.
 // You can construct a concrete instance of `APIVersionsInput` via:
 //
-//          APIVersionsArgs{...}
+//	APIVersionsArgs{...}
 type APIVersionsInput interface {
 	pulumi.Input
 
@@ -824,7 +824,7 @@ type APIVersionsPatch struct {
 // APIVersionsPatchInput is an input type that accepts APIVersionsPatchArgs and APIVersionsPatchOutput values.
 // You can construct a concrete instance of `APIVersionsPatchInput` via:
 //
-//          APIVersionsPatchArgs{...}
+//	APIVersionsPatchArgs{...}
 type APIVersionsPatchInput interface {
 	pulumi.Input
 
@@ -910,7 +910,7 @@ type Condition struct {
 // ConditionInput is an input type that accepts ConditionArgs and ConditionOutput values.
 // You can construct a concrete instance of `ConditionInput` via:
 //
-//          ConditionArgs{...}
+//	ConditionArgs{...}
 type ConditionInput interface {
 	pulumi.Input
 
@@ -949,7 +949,7 @@ func (i ConditionArgs) ToConditionOutputWithContext(ctx context.Context) Conditi
 // ConditionArrayInput is an input type that accepts ConditionArray and ConditionArrayOutput values.
 // You can construct a concrete instance of `ConditionArrayInput` via:
 //
-//          ConditionArray{ ConditionArgs{...} }
+//	ConditionArray{ ConditionArgs{...} }
 type ConditionArrayInput interface {
 	pulumi.Input
 
@@ -1055,7 +1055,7 @@ type ConditionPatch struct {
 // ConditionPatchInput is an input type that accepts ConditionPatchArgs and ConditionPatchOutput values.
 // You can construct a concrete instance of `ConditionPatchInput` via:
 //
-//          ConditionPatchArgs{...}
+//	ConditionPatchArgs{...}
 type ConditionPatchInput interface {
 	pulumi.Input
 
@@ -1094,7 +1094,7 @@ func (i ConditionPatchArgs) ToConditionPatchOutputWithContext(ctx context.Contex
 // ConditionPatchArrayInput is an input type that accepts ConditionPatchArray and ConditionPatchArrayOutput values.
 // You can construct a concrete instance of `ConditionPatchArrayInput` via:
 //
-//          ConditionPatchArray{ ConditionPatchArgs{...} }
+//	ConditionPatchArray{ ConditionPatchArgs{...} }
 type ConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -1202,7 +1202,7 @@ type DeleteOptions struct {
 // DeleteOptionsInput is an input type that accepts DeleteOptionsArgs and DeleteOptionsOutput values.
 // You can construct a concrete instance of `DeleteOptionsInput` via:
 //
-//          DeleteOptionsArgs{...}
+//	DeleteOptionsArgs{...}
 type DeleteOptionsInput interface {
 	pulumi.Input
 
@@ -1251,11 +1251,11 @@ func (i DeleteOptionsArgs) ToDeleteOptionsPtrOutputWithContext(ctx context.Conte
 // DeleteOptionsPtrInput is an input type that accepts DeleteOptionsArgs, DeleteOptionsPtr and DeleteOptionsPtrOutput values.
 // You can construct a concrete instance of `DeleteOptionsPtrInput` via:
 //
-//          DeleteOptionsArgs{...}
+//	        DeleteOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DeleteOptionsPtrInput interface {
 	pulumi.Input
 
@@ -1456,7 +1456,7 @@ type DeleteOptionsPatch struct {
 // DeleteOptionsPatchInput is an input type that accepts DeleteOptionsPatchArgs and DeleteOptionsPatchOutput values.
 // You can construct a concrete instance of `DeleteOptionsPatchInput` via:
 //
-//          DeleteOptionsPatchArgs{...}
+//	DeleteOptionsPatchArgs{...}
 type DeleteOptionsPatchInput interface {
 	pulumi.Input
 
@@ -1505,11 +1505,11 @@ func (i DeleteOptionsPatchArgs) ToDeleteOptionsPatchPtrOutputWithContext(ctx con
 // DeleteOptionsPatchPtrInput is an input type that accepts DeleteOptionsPatchArgs, DeleteOptionsPatchPtr and DeleteOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `DeleteOptionsPatchPtrInput` via:
 //
-//          DeleteOptionsPatchArgs{...}
+//	        DeleteOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DeleteOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -1700,7 +1700,7 @@ type GroupVersionForDiscovery struct {
 // GroupVersionForDiscoveryInput is an input type that accepts GroupVersionForDiscoveryArgs and GroupVersionForDiscoveryOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryInput` via:
 //
-//          GroupVersionForDiscoveryArgs{...}
+//	GroupVersionForDiscoveryArgs{...}
 type GroupVersionForDiscoveryInput interface {
 	pulumi.Input
 
@@ -1739,11 +1739,11 @@ func (i GroupVersionForDiscoveryArgs) ToGroupVersionForDiscoveryPtrOutputWithCon
 // GroupVersionForDiscoveryPtrInput is an input type that accepts GroupVersionForDiscoveryArgs, GroupVersionForDiscoveryPtr and GroupVersionForDiscoveryPtrOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryPtrInput` via:
 //
-//          GroupVersionForDiscoveryArgs{...}
+//	        GroupVersionForDiscoveryArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GroupVersionForDiscoveryPtrInput interface {
 	pulumi.Input
 
@@ -1772,7 +1772,7 @@ func (i *groupVersionForDiscoveryPtrType) ToGroupVersionForDiscoveryPtrOutputWit
 // GroupVersionForDiscoveryArrayInput is an input type that accepts GroupVersionForDiscoveryArray and GroupVersionForDiscoveryArrayOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryArrayInput` via:
 //
-//          GroupVersionForDiscoveryArray{ GroupVersionForDiscoveryArgs{...} }
+//	GroupVersionForDiscoveryArray{ GroupVersionForDiscoveryArgs{...} }
 type GroupVersionForDiscoveryArrayInput interface {
 	pulumi.Input
 
@@ -1904,7 +1904,7 @@ type GroupVersionForDiscoveryPatch struct {
 // GroupVersionForDiscoveryPatchInput is an input type that accepts GroupVersionForDiscoveryPatchArgs and GroupVersionForDiscoveryPatchOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryPatchInput` via:
 //
-//          GroupVersionForDiscoveryPatchArgs{...}
+//	GroupVersionForDiscoveryPatchArgs{...}
 type GroupVersionForDiscoveryPatchInput interface {
 	pulumi.Input
 
@@ -1943,11 +1943,11 @@ func (i GroupVersionForDiscoveryPatchArgs) ToGroupVersionForDiscoveryPatchPtrOut
 // GroupVersionForDiscoveryPatchPtrInput is an input type that accepts GroupVersionForDiscoveryPatchArgs, GroupVersionForDiscoveryPatchPtr and GroupVersionForDiscoveryPatchPtrOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryPatchPtrInput` via:
 //
-//          GroupVersionForDiscoveryPatchArgs{...}
+//	        GroupVersionForDiscoveryPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GroupVersionForDiscoveryPatchPtrInput interface {
 	pulumi.Input
 
@@ -1976,7 +1976,7 @@ func (i *groupVersionForDiscoveryPatchPtrType) ToGroupVersionForDiscoveryPatchPt
 // GroupVersionForDiscoveryPatchArrayInput is an input type that accepts GroupVersionForDiscoveryPatchArray and GroupVersionForDiscoveryPatchArrayOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryPatchArrayInput` via:
 //
-//          GroupVersionForDiscoveryPatchArray{ GroupVersionForDiscoveryPatchArgs{...} }
+//	GroupVersionForDiscoveryPatchArray{ GroupVersionForDiscoveryPatchArgs{...} }
 type GroupVersionForDiscoveryPatchArrayInput interface {
 	pulumi.Input
 
@@ -2108,7 +2108,7 @@ type LabelSelector struct {
 // LabelSelectorInput is an input type that accepts LabelSelectorArgs and LabelSelectorOutput values.
 // You can construct a concrete instance of `LabelSelectorInput` via:
 //
-//          LabelSelectorArgs{...}
+//	LabelSelectorArgs{...}
 type LabelSelectorInput interface {
 	pulumi.Input
 
@@ -2147,11 +2147,11 @@ func (i LabelSelectorArgs) ToLabelSelectorPtrOutputWithContext(ctx context.Conte
 // LabelSelectorPtrInput is an input type that accepts LabelSelectorArgs, LabelSelectorPtr and LabelSelectorPtrOutput values.
 // You can construct a concrete instance of `LabelSelectorPtrInput` via:
 //
-//          LabelSelectorArgs{...}
+//	        LabelSelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LabelSelectorPtrInput interface {
 	pulumi.Input
 
@@ -2180,7 +2180,7 @@ func (i *labelSelectorPtrType) ToLabelSelectorPtrOutputWithContext(ctx context.C
 // LabelSelectorArrayInput is an input type that accepts LabelSelectorArray and LabelSelectorArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorArrayInput` via:
 //
-//          LabelSelectorArray{ LabelSelectorArgs{...} }
+//	LabelSelectorArray{ LabelSelectorArgs{...} }
 type LabelSelectorArrayInput interface {
 	pulumi.Input
 
@@ -2312,7 +2312,7 @@ type LabelSelectorPatch struct {
 // LabelSelectorPatchInput is an input type that accepts LabelSelectorPatchArgs and LabelSelectorPatchOutput values.
 // You can construct a concrete instance of `LabelSelectorPatchInput` via:
 //
-//          LabelSelectorPatchArgs{...}
+//	LabelSelectorPatchArgs{...}
 type LabelSelectorPatchInput interface {
 	pulumi.Input
 
@@ -2351,11 +2351,11 @@ func (i LabelSelectorPatchArgs) ToLabelSelectorPatchPtrOutputWithContext(ctx con
 // LabelSelectorPatchPtrInput is an input type that accepts LabelSelectorPatchArgs, LabelSelectorPatchPtr and LabelSelectorPatchPtrOutput values.
 // You can construct a concrete instance of `LabelSelectorPatchPtrInput` via:
 //
-//          LabelSelectorPatchArgs{...}
+//	        LabelSelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LabelSelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -2384,7 +2384,7 @@ func (i *labelSelectorPatchPtrType) ToLabelSelectorPatchPtrOutputWithContext(ctx
 // LabelSelectorPatchArrayInput is an input type that accepts LabelSelectorPatchArray and LabelSelectorPatchArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorPatchArrayInput` via:
 //
-//          LabelSelectorPatchArray{ LabelSelectorPatchArgs{...} }
+//	LabelSelectorPatchArray{ LabelSelectorPatchArgs{...} }
 type LabelSelectorPatchArrayInput interface {
 	pulumi.Input
 
@@ -2518,7 +2518,7 @@ type LabelSelectorRequirement struct {
 // LabelSelectorRequirementInput is an input type that accepts LabelSelectorRequirementArgs and LabelSelectorRequirementOutput values.
 // You can construct a concrete instance of `LabelSelectorRequirementInput` via:
 //
-//          LabelSelectorRequirementArgs{...}
+//	LabelSelectorRequirementArgs{...}
 type LabelSelectorRequirementInput interface {
 	pulumi.Input
 
@@ -2551,7 +2551,7 @@ func (i LabelSelectorRequirementArgs) ToLabelSelectorRequirementOutputWithContex
 // LabelSelectorRequirementArrayInput is an input type that accepts LabelSelectorRequirementArray and LabelSelectorRequirementArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorRequirementArrayInput` via:
 //
-//          LabelSelectorRequirementArray{ LabelSelectorRequirementArgs{...} }
+//	LabelSelectorRequirementArray{ LabelSelectorRequirementArgs{...} }
 type LabelSelectorRequirementArrayInput interface {
 	pulumi.Input
 
@@ -2636,7 +2636,7 @@ type LabelSelectorRequirementPatch struct {
 // LabelSelectorRequirementPatchInput is an input type that accepts LabelSelectorRequirementPatchArgs and LabelSelectorRequirementPatchOutput values.
 // You can construct a concrete instance of `LabelSelectorRequirementPatchInput` via:
 //
-//          LabelSelectorRequirementPatchArgs{...}
+//	LabelSelectorRequirementPatchArgs{...}
 type LabelSelectorRequirementPatchInput interface {
 	pulumi.Input
 
@@ -2669,7 +2669,7 @@ func (i LabelSelectorRequirementPatchArgs) ToLabelSelectorRequirementPatchOutput
 // LabelSelectorRequirementPatchArrayInput is an input type that accepts LabelSelectorRequirementPatchArray and LabelSelectorRequirementPatchArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorRequirementPatchArrayInput` via:
 //
-//          LabelSelectorRequirementPatchArray{ LabelSelectorRequirementPatchArgs{...} }
+//	LabelSelectorRequirementPatchArray{ LabelSelectorRequirementPatchArgs{...} }
 type LabelSelectorRequirementPatchArrayInput interface {
 	pulumi.Input
 
@@ -2756,7 +2756,7 @@ type ListMeta struct {
 // ListMetaInput is an input type that accepts ListMetaArgs and ListMetaOutput values.
 // You can construct a concrete instance of `ListMetaInput` via:
 //
-//          ListMetaArgs{...}
+//	ListMetaArgs{...}
 type ListMetaInput interface {
 	pulumi.Input
 
@@ -2799,11 +2799,11 @@ func (i ListMetaArgs) ToListMetaPtrOutputWithContext(ctx context.Context) ListMe
 // ListMetaPtrInput is an input type that accepts ListMetaArgs, ListMetaPtr and ListMetaPtrOutput values.
 // You can construct a concrete instance of `ListMetaPtrInput` via:
 //
-//          ListMetaArgs{...}
+//	        ListMetaArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ListMetaPtrInput interface {
 	pulumi.Input
 
@@ -2953,7 +2953,7 @@ type ListMetaPatch struct {
 // ListMetaPatchInput is an input type that accepts ListMetaPatchArgs and ListMetaPatchOutput values.
 // You can construct a concrete instance of `ListMetaPatchInput` via:
 //
-//          ListMetaPatchArgs{...}
+//	ListMetaPatchArgs{...}
 type ListMetaPatchInput interface {
 	pulumi.Input
 
@@ -2996,11 +2996,11 @@ func (i ListMetaPatchArgs) ToListMetaPatchPtrOutputWithContext(ctx context.Conte
 // ListMetaPatchPtrInput is an input type that accepts ListMetaPatchArgs, ListMetaPatchPtr and ListMetaPatchPtrOutput values.
 // You can construct a concrete instance of `ListMetaPatchPtrInput` via:
 //
-//          ListMetaPatchArgs{...}
+//	        ListMetaPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ListMetaPatchPtrInput interface {
 	pulumi.Input
 
@@ -3156,7 +3156,7 @@ type ManagedFieldsEntry struct {
 // ManagedFieldsEntryInput is an input type that accepts ManagedFieldsEntryArgs and ManagedFieldsEntryOutput values.
 // You can construct a concrete instance of `ManagedFieldsEntryInput` via:
 //
-//          ManagedFieldsEntryArgs{...}
+//	ManagedFieldsEntryArgs{...}
 type ManagedFieldsEntryInput interface {
 	pulumi.Input
 
@@ -3197,7 +3197,7 @@ func (i ManagedFieldsEntryArgs) ToManagedFieldsEntryOutputWithContext(ctx contex
 // ManagedFieldsEntryArrayInput is an input type that accepts ManagedFieldsEntryArray and ManagedFieldsEntryArrayOutput values.
 // You can construct a concrete instance of `ManagedFieldsEntryArrayInput` via:
 //
-//          ManagedFieldsEntryArray{ ManagedFieldsEntryArgs{...} }
+//	ManagedFieldsEntryArray{ ManagedFieldsEntryArgs{...} }
 type ManagedFieldsEntryArrayInput interface {
 	pulumi.Input
 
@@ -3310,7 +3310,7 @@ type ManagedFieldsEntryPatch struct {
 // ManagedFieldsEntryPatchInput is an input type that accepts ManagedFieldsEntryPatchArgs and ManagedFieldsEntryPatchOutput values.
 // You can construct a concrete instance of `ManagedFieldsEntryPatchInput` via:
 //
-//          ManagedFieldsEntryPatchArgs{...}
+//	ManagedFieldsEntryPatchArgs{...}
 type ManagedFieldsEntryPatchInput interface {
 	pulumi.Input
 
@@ -3351,7 +3351,7 @@ func (i ManagedFieldsEntryPatchArgs) ToManagedFieldsEntryPatchOutputWithContext(
 // ManagedFieldsEntryPatchArrayInput is an input type that accepts ManagedFieldsEntryPatchArray and ManagedFieldsEntryPatchArrayOutput values.
 // You can construct a concrete instance of `ManagedFieldsEntryPatchArrayInput` via:
 //
-//          ManagedFieldsEntryPatchArray{ ManagedFieldsEntryPatchArgs{...} }
+//	ManagedFieldsEntryPatchArray{ ManagedFieldsEntryPatchArgs{...} }
 type ManagedFieldsEntryPatchArrayInput interface {
 	pulumi.Input
 
@@ -3498,7 +3498,7 @@ type ObjectMeta struct {
 // ObjectMetaInput is an input type that accepts ObjectMetaArgs and ObjectMetaOutput values.
 // You can construct a concrete instance of `ObjectMetaInput` via:
 //
-//          ObjectMetaArgs{...}
+//	ObjectMetaArgs{...}
 type ObjectMetaInput interface {
 	pulumi.Input
 
@@ -3581,11 +3581,11 @@ func (i ObjectMetaArgs) ToObjectMetaPtrOutputWithContext(ctx context.Context) Ob
 // ObjectMetaPtrInput is an input type that accepts ObjectMetaArgs, ObjectMetaPtr and ObjectMetaPtrOutput values.
 // You can construct a concrete instance of `ObjectMetaPtrInput` via:
 //
-//          ObjectMetaArgs{...}
+//	        ObjectMetaArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectMetaPtrInput interface {
 	pulumi.Input
 
@@ -3987,7 +3987,7 @@ type ObjectMetaPatch struct {
 // ObjectMetaPatchInput is an input type that accepts ObjectMetaPatchArgs and ObjectMetaPatchOutput values.
 // You can construct a concrete instance of `ObjectMetaPatchInput` via:
 //
-//          ObjectMetaPatchArgs{...}
+//	ObjectMetaPatchArgs{...}
 type ObjectMetaPatchInput interface {
 	pulumi.Input
 
@@ -4070,11 +4070,11 @@ func (i ObjectMetaPatchArgs) ToObjectMetaPatchPtrOutputWithContext(ctx context.C
 // ObjectMetaPatchPtrInput is an input type that accepts ObjectMetaPatchArgs, ObjectMetaPatchPtr and ObjectMetaPatchPtrOutput values.
 // You can construct a concrete instance of `ObjectMetaPatchPtrInput` via:
 //
-//          ObjectMetaPatchArgs{...}
+//	        ObjectMetaPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectMetaPatchPtrInput interface {
 	pulumi.Input
 
@@ -4440,7 +4440,7 @@ type OwnerReference struct {
 // OwnerReferenceInput is an input type that accepts OwnerReferenceArgs and OwnerReferenceOutput values.
 // You can construct a concrete instance of `OwnerReferenceInput` via:
 //
-//          OwnerReferenceArgs{...}
+//	OwnerReferenceArgs{...}
 type OwnerReferenceInput interface {
 	pulumi.Input
 
@@ -4479,7 +4479,7 @@ func (i OwnerReferenceArgs) ToOwnerReferenceOutputWithContext(ctx context.Contex
 // OwnerReferenceArrayInput is an input type that accepts OwnerReferenceArray and OwnerReferenceArrayOutput values.
 // You can construct a concrete instance of `OwnerReferenceArrayInput` via:
 //
-//          OwnerReferenceArray{ OwnerReferenceArgs{...} }
+//	OwnerReferenceArray{ OwnerReferenceArgs{...} }
 type OwnerReferenceArrayInput interface {
 	pulumi.Input
 
@@ -4585,7 +4585,7 @@ type OwnerReferencePatch struct {
 // OwnerReferencePatchInput is an input type that accepts OwnerReferencePatchArgs and OwnerReferencePatchOutput values.
 // You can construct a concrete instance of `OwnerReferencePatchInput` via:
 //
-//          OwnerReferencePatchArgs{...}
+//	OwnerReferencePatchArgs{...}
 type OwnerReferencePatchInput interface {
 	pulumi.Input
 
@@ -4624,7 +4624,7 @@ func (i OwnerReferencePatchArgs) ToOwnerReferencePatchOutputWithContext(ctx cont
 // OwnerReferencePatchArrayInput is an input type that accepts OwnerReferencePatchArray and OwnerReferencePatchArrayOutput values.
 // You can construct a concrete instance of `OwnerReferencePatchArrayInput` via:
 //
-//          OwnerReferencePatchArray{ OwnerReferencePatchArgs{...} }
+//	OwnerReferencePatchArray{ OwnerReferencePatchArgs{...} }
 type OwnerReferencePatchArrayInput interface {
 	pulumi.Input
 
@@ -4722,7 +4722,7 @@ type Preconditions struct {
 // PreconditionsInput is an input type that accepts PreconditionsArgs and PreconditionsOutput values.
 // You can construct a concrete instance of `PreconditionsInput` via:
 //
-//          PreconditionsArgs{...}
+//	PreconditionsArgs{...}
 type PreconditionsInput interface {
 	pulumi.Input
 
@@ -4761,11 +4761,11 @@ func (i PreconditionsArgs) ToPreconditionsPtrOutputWithContext(ctx context.Conte
 // PreconditionsPtrInput is an input type that accepts PreconditionsArgs, PreconditionsPtr and PreconditionsPtrOutput values.
 // You can construct a concrete instance of `PreconditionsPtrInput` via:
 //
-//          PreconditionsArgs{...}
+//	        PreconditionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PreconditionsPtrInput interface {
 	pulumi.Input
 
@@ -4881,7 +4881,7 @@ type PreconditionsPatch struct {
 // PreconditionsPatchInput is an input type that accepts PreconditionsPatchArgs and PreconditionsPatchOutput values.
 // You can construct a concrete instance of `PreconditionsPatchInput` via:
 //
-//          PreconditionsPatchArgs{...}
+//	PreconditionsPatchArgs{...}
 type PreconditionsPatchInput interface {
 	pulumi.Input
 
@@ -4920,11 +4920,11 @@ func (i PreconditionsPatchArgs) ToPreconditionsPatchPtrOutputWithContext(ctx con
 // PreconditionsPatchPtrInput is an input type that accepts PreconditionsPatchArgs, PreconditionsPatchPtr and PreconditionsPatchPtrOutput values.
 // You can construct a concrete instance of `PreconditionsPatchPtrInput` via:
 //
-//          PreconditionsPatchArgs{...}
+//	        PreconditionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PreconditionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -5040,7 +5040,7 @@ type ServerAddressByClientCIDR struct {
 // ServerAddressByClientCIDRInput is an input type that accepts ServerAddressByClientCIDRArgs and ServerAddressByClientCIDROutput values.
 // You can construct a concrete instance of `ServerAddressByClientCIDRInput` via:
 //
-//          ServerAddressByClientCIDRArgs{...}
+//	ServerAddressByClientCIDRArgs{...}
 type ServerAddressByClientCIDRInput interface {
 	pulumi.Input
 
@@ -5071,7 +5071,7 @@ func (i ServerAddressByClientCIDRArgs) ToServerAddressByClientCIDROutputWithCont
 // ServerAddressByClientCIDRArrayInput is an input type that accepts ServerAddressByClientCIDRArray and ServerAddressByClientCIDRArrayOutput values.
 // You can construct a concrete instance of `ServerAddressByClientCIDRArrayInput` via:
 //
-//          ServerAddressByClientCIDRArray{ ServerAddressByClientCIDRArgs{...} }
+//	ServerAddressByClientCIDRArray{ ServerAddressByClientCIDRArgs{...} }
 type ServerAddressByClientCIDRArrayInput interface {
 	pulumi.Input
 
@@ -5149,7 +5149,7 @@ type ServerAddressByClientCIDRPatch struct {
 // ServerAddressByClientCIDRPatchInput is an input type that accepts ServerAddressByClientCIDRPatchArgs and ServerAddressByClientCIDRPatchOutput values.
 // You can construct a concrete instance of `ServerAddressByClientCIDRPatchInput` via:
 //
-//          ServerAddressByClientCIDRPatchArgs{...}
+//	ServerAddressByClientCIDRPatchArgs{...}
 type ServerAddressByClientCIDRPatchInput interface {
 	pulumi.Input
 
@@ -5180,7 +5180,7 @@ func (i ServerAddressByClientCIDRPatchArgs) ToServerAddressByClientCIDRPatchOutp
 // ServerAddressByClientCIDRPatchArrayInput is an input type that accepts ServerAddressByClientCIDRPatchArray and ServerAddressByClientCIDRPatchArrayOutput values.
 // You can construct a concrete instance of `ServerAddressByClientCIDRPatchArrayInput` via:
 //
-//          ServerAddressByClientCIDRPatchArray{ ServerAddressByClientCIDRPatchArgs{...} }
+//	ServerAddressByClientCIDRPatchArray{ ServerAddressByClientCIDRPatchArgs{...} }
 type ServerAddressByClientCIDRPatchArrayInput interface {
 	pulumi.Input
 
@@ -5270,7 +5270,7 @@ type StatusType struct {
 // StatusTypeInput is an input type that accepts StatusTypeArgs and StatusTypeOutput values.
 // You can construct a concrete instance of `StatusTypeInput` via:
 //
-//          StatusTypeArgs{...}
+//	StatusTypeArgs{...}
 type StatusTypeInput interface {
 	pulumi.Input
 
@@ -5382,7 +5382,7 @@ type StatusCause struct {
 // StatusCauseInput is an input type that accepts StatusCauseArgs and StatusCauseOutput values.
 // You can construct a concrete instance of `StatusCauseInput` via:
 //
-//          StatusCauseArgs{...}
+//	StatusCauseArgs{...}
 type StatusCauseInput interface {
 	pulumi.Input
 
@@ -5419,7 +5419,7 @@ func (i StatusCauseArgs) ToStatusCauseOutputWithContext(ctx context.Context) Sta
 // StatusCauseArrayInput is an input type that accepts StatusCauseArray and StatusCauseArrayOutput values.
 // You can construct a concrete instance of `StatusCauseArrayInput` via:
 //
-//          StatusCauseArray{ StatusCauseArgs{...} }
+//	StatusCauseArray{ StatusCauseArgs{...} }
 type StatusCauseArrayInput interface {
 	pulumi.Input
 
@@ -5459,8 +5459,9 @@ func (o StatusCauseOutput) ToStatusCauseOutputWithContext(ctx context.Context) S
 // The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
 //
 // Examples:
-//   "name" - the field "name" on the current resource
-//   "items[0].name" - the field "name" on the first array entry in "items"
+//
+//	"name" - the field "name" on the current resource
+//	"items[0].name" - the field "name" on the first array entry in "items"
 func (o StatusCauseOutput) Field() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatusCause) *string { return v.Field }).(pulumi.StringPtrOutput)
 }
@@ -5512,7 +5513,7 @@ type StatusCausePatch struct {
 // StatusCausePatchInput is an input type that accepts StatusCausePatchArgs and StatusCausePatchOutput values.
 // You can construct a concrete instance of `StatusCausePatchInput` via:
 //
-//          StatusCausePatchArgs{...}
+//	StatusCausePatchArgs{...}
 type StatusCausePatchInput interface {
 	pulumi.Input
 
@@ -5549,7 +5550,7 @@ func (i StatusCausePatchArgs) ToStatusCausePatchOutputWithContext(ctx context.Co
 // StatusCausePatchArrayInput is an input type that accepts StatusCausePatchArray and StatusCausePatchArrayOutput values.
 // You can construct a concrete instance of `StatusCausePatchArrayInput` via:
 //
-//          StatusCausePatchArray{ StatusCausePatchArgs{...} }
+//	StatusCausePatchArray{ StatusCausePatchArgs{...} }
 type StatusCausePatchArrayInput interface {
 	pulumi.Input
 
@@ -5589,8 +5590,9 @@ func (o StatusCausePatchOutput) ToStatusCausePatchOutputWithContext(ctx context.
 // The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
 //
 // Examples:
-//   "name" - the field "name" on the current resource
-//   "items[0].name" - the field "name" on the first array entry in "items"
+//
+//	"name" - the field "name" on the current resource
+//	"items[0].name" - the field "name" on the first array entry in "items"
 func (o StatusCausePatchOutput) Field() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatusCausePatch) *string { return v.Field }).(pulumi.StringPtrOutput)
 }
@@ -5644,7 +5646,7 @@ type StatusDetails struct {
 // StatusDetailsInput is an input type that accepts StatusDetailsArgs and StatusDetailsOutput values.
 // You can construct a concrete instance of `StatusDetailsInput` via:
 //
-//          StatusDetailsArgs{...}
+//	StatusDetailsArgs{...}
 type StatusDetailsInput interface {
 	pulumi.Input
 
@@ -5691,11 +5693,11 @@ func (i StatusDetailsArgs) ToStatusDetailsPtrOutputWithContext(ctx context.Conte
 // StatusDetailsPtrInput is an input type that accepts StatusDetailsArgs, StatusDetailsPtr and StatusDetailsPtrOutput values.
 // You can construct a concrete instance of `StatusDetailsPtrInput` via:
 //
-//          StatusDetailsArgs{...}
+//	        StatusDetailsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type StatusDetailsPtrInput interface {
 	pulumi.Input
 
@@ -5879,7 +5881,7 @@ type StatusDetailsPatch struct {
 // StatusDetailsPatchInput is an input type that accepts StatusDetailsPatchArgs and StatusDetailsPatchOutput values.
 // You can construct a concrete instance of `StatusDetailsPatchInput` via:
 //
-//          StatusDetailsPatchArgs{...}
+//	StatusDetailsPatchArgs{...}
 type StatusDetailsPatchInput interface {
 	pulumi.Input
 
@@ -5926,11 +5928,11 @@ func (i StatusDetailsPatchArgs) ToStatusDetailsPatchPtrOutputWithContext(ctx con
 // StatusDetailsPatchPtrInput is an input type that accepts StatusDetailsPatchArgs, StatusDetailsPatchPtr and StatusDetailsPatchPtrOutput values.
 // You can construct a concrete instance of `StatusDetailsPatchPtrInput` via:
 //
-//          StatusDetailsPatchArgs{...}
+//	        StatusDetailsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type StatusDetailsPatchPtrInput interface {
 	pulumi.Input
 
@@ -6118,7 +6120,7 @@ type StatusPatchType struct {
 // StatusPatchTypeInput is an input type that accepts StatusPatchTypeArgs and StatusPatchTypeOutput values.
 // You can construct a concrete instance of `StatusPatchTypeInput` via:
 //
-//          StatusPatchTypeArgs{...}
+//	StatusPatchTypeArgs{...}
 type StatusPatchTypeInput interface {
 	pulumi.Input
 
@@ -6227,7 +6229,7 @@ type WatchEvent struct {
 // WatchEventInput is an input type that accepts WatchEventArgs and WatchEventOutput values.
 // You can construct a concrete instance of `WatchEventInput` via:
 //
-//          WatchEventArgs{...}
+//	WatchEventArgs{...}
 type WatchEventInput interface {
 	pulumi.Input
 
@@ -6274,10 +6276,10 @@ func (o WatchEventOutput) ToWatchEventOutputWithContext(ctx context.Context) Wat
 }
 
 // Object is:
-//  * If Type is Added or Modified: the new state of the object.
-//  * If Type is Deleted: the state of the object immediately before deletion.
-//  * If Type is Error: *Status is recommended; other types may make sense
-//    depending on context.
+//   - If Type is Added or Modified: the new state of the object.
+//   - If Type is Deleted: the state of the object immediately before deletion.
+//   - If Type is Error: *Status is recommended; other types may make sense
+//     depending on context.
 func (o WatchEventOutput) Object() pulumi.AnyOutput {
 	return o.ApplyT(func(v WatchEvent) interface{} { return v.Object }).(pulumi.AnyOutput)
 }
@@ -6300,7 +6302,7 @@ type WatchEventPatch struct {
 // WatchEventPatchInput is an input type that accepts WatchEventPatchArgs and WatchEventPatchOutput values.
 // You can construct a concrete instance of `WatchEventPatchInput` via:
 //
-//          WatchEventPatchArgs{...}
+//	WatchEventPatchArgs{...}
 type WatchEventPatchInput interface {
 	pulumi.Input
 
@@ -6347,10 +6349,10 @@ func (o WatchEventPatchOutput) ToWatchEventPatchOutputWithContext(ctx context.Co
 }
 
 // Object is:
-//  * If Type is Added or Modified: the new state of the object.
-//  * If Type is Deleted: the state of the object immediately before deletion.
-//  * If Type is Error: *Status is recommended; other types may make sense
-//    depending on context.
+//   - If Type is Added or Modified: the new state of the object.
+//   - If Type is Deleted: the state of the object immediately before deletion.
+//   - If Type is Error: *Status is recommended; other types may make sense
+//     depending on context.
 func (o WatchEventPatchOutput) Object() pulumi.AnyOutput {
 	return o.ApplyT(func(v WatchEventPatch) interface{} { return v.Object }).(pulumi.AnyOutput)
 }

@@ -118,7 +118,7 @@ func (i *IngressList) ToIngressListOutputWithContext(ctx context.Context) Ingres
 // IngressListArrayInput is an input type that accepts IngressListArray and IngressListArrayOutput values.
 // You can construct a concrete instance of `IngressListArrayInput` via:
 //
-//          IngressListArray{ IngressListArgs{...} }
+//	IngressListArray{ IngressListArgs{...} }
 type IngressListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i IngressListArray) ToIngressListArrayOutputWithContext(ctx context.Contex
 // IngressListMapInput is an input type that accepts IngressListMap and IngressListMapOutput values.
 // You can construct a concrete instance of `IngressListMapInput` via:
 //
-//          IngressListMap{ "key": IngressListArgs{...} }
+//	IngressListMap{ "key": IngressListArgs{...} }
 type IngressListMapInput interface {
 	pulumi.Input
 

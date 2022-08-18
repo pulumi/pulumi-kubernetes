@@ -139,7 +139,7 @@ func (i *StatusPatch) ToStatusPatchOutputWithContext(ctx context.Context) Status
 // StatusPatchArrayInput is an input type that accepts StatusPatchArray and StatusPatchArrayOutput values.
 // You can construct a concrete instance of `StatusPatchArrayInput` via:
 //
-//          StatusPatchArray{ StatusPatchArgs{...} }
+//	StatusPatchArray{ StatusPatchArgs{...} }
 type StatusPatchArrayInput interface {
 	pulumi.Input
 
@@ -164,7 +164,7 @@ func (i StatusPatchArray) ToStatusPatchArrayOutputWithContext(ctx context.Contex
 // StatusPatchMapInput is an input type that accepts StatusPatchMap and StatusPatchMapOutput values.
 // You can construct a concrete instance of `StatusPatchMapInput` via:
 //
-//          StatusPatchMap{ "key": StatusPatchArgs{...} }
+//	StatusPatchMap{ "key": StatusPatchArgs{...} }
 type StatusPatchMapInput interface {
 	pulumi.Input
 

@@ -27,7 +27,7 @@ type LocalSubjectAccessReviewType struct {
 // LocalSubjectAccessReviewTypeInput is an input type that accepts LocalSubjectAccessReviewTypeArgs and LocalSubjectAccessReviewTypeOutput values.
 // You can construct a concrete instance of `LocalSubjectAccessReviewTypeInput` via:
 //
-//          LocalSubjectAccessReviewTypeArgs{...}
+//	LocalSubjectAccessReviewTypeArgs{...}
 type LocalSubjectAccessReviewTypeInput interface {
 	pulumi.Input
 
@@ -115,7 +115,7 @@ type LocalSubjectAccessReviewPatchType struct {
 // LocalSubjectAccessReviewPatchTypeInput is an input type that accepts LocalSubjectAccessReviewPatchTypeArgs and LocalSubjectAccessReviewPatchTypeOutput values.
 // You can construct a concrete instance of `LocalSubjectAccessReviewPatchTypeInput` via:
 //
-//          LocalSubjectAccessReviewPatchTypeArgs{...}
+//	LocalSubjectAccessReviewPatchTypeArgs{...}
 type LocalSubjectAccessReviewPatchTypeInput interface {
 	pulumi.Input
 
@@ -198,7 +198,7 @@ type NonResourceAttributes struct {
 // NonResourceAttributesInput is an input type that accepts NonResourceAttributesArgs and NonResourceAttributesOutput values.
 // You can construct a concrete instance of `NonResourceAttributesInput` via:
 //
-//          NonResourceAttributesArgs{...}
+//	NonResourceAttributesArgs{...}
 type NonResourceAttributesInput interface {
 	pulumi.Input
 
@@ -237,11 +237,11 @@ func (i NonResourceAttributesArgs) ToNonResourceAttributesPtrOutputWithContext(c
 // NonResourceAttributesPtrInput is an input type that accepts NonResourceAttributesArgs, NonResourceAttributesPtr and NonResourceAttributesPtrOutput values.
 // You can construct a concrete instance of `NonResourceAttributesPtrInput` via:
 //
-//          NonResourceAttributesArgs{...}
+//	        NonResourceAttributesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NonResourceAttributesPtrInput interface {
 	pulumi.Input
 
@@ -357,7 +357,7 @@ type NonResourceAttributesPatch struct {
 // NonResourceAttributesPatchInput is an input type that accepts NonResourceAttributesPatchArgs and NonResourceAttributesPatchOutput values.
 // You can construct a concrete instance of `NonResourceAttributesPatchInput` via:
 //
-//          NonResourceAttributesPatchArgs{...}
+//	NonResourceAttributesPatchArgs{...}
 type NonResourceAttributesPatchInput interface {
 	pulumi.Input
 
@@ -396,11 +396,11 @@ func (i NonResourceAttributesPatchArgs) ToNonResourceAttributesPatchPtrOutputWit
 // NonResourceAttributesPatchPtrInput is an input type that accepts NonResourceAttributesPatchArgs, NonResourceAttributesPatchPtr and NonResourceAttributesPatchPtrOutput values.
 // You can construct a concrete instance of `NonResourceAttributesPatchPtrInput` via:
 //
-//          NonResourceAttributesPatchArgs{...}
+//	        NonResourceAttributesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NonResourceAttributesPatchPtrInput interface {
 	pulumi.Input
 
@@ -516,7 +516,7 @@ type NonResourceRule struct {
 // NonResourceRuleInput is an input type that accepts NonResourceRuleArgs and NonResourceRuleOutput values.
 // You can construct a concrete instance of `NonResourceRuleInput` via:
 //
-//          NonResourceRuleArgs{...}
+//	NonResourceRuleArgs{...}
 type NonResourceRuleInput interface {
 	pulumi.Input
 
@@ -547,7 +547,7 @@ func (i NonResourceRuleArgs) ToNonResourceRuleOutputWithContext(ctx context.Cont
 // NonResourceRuleArrayInput is an input type that accepts NonResourceRuleArray and NonResourceRuleArrayOutput values.
 // You can construct a concrete instance of `NonResourceRuleArrayInput` via:
 //
-//          NonResourceRuleArray{ NonResourceRuleArgs{...} }
+//	NonResourceRuleArray{ NonResourceRuleArgs{...} }
 type NonResourceRuleArrayInput interface {
 	pulumi.Input
 
@@ -625,7 +625,7 @@ type NonResourceRulePatch struct {
 // NonResourceRulePatchInput is an input type that accepts NonResourceRulePatchArgs and NonResourceRulePatchOutput values.
 // You can construct a concrete instance of `NonResourceRulePatchInput` via:
 //
-//          NonResourceRulePatchArgs{...}
+//	NonResourceRulePatchArgs{...}
 type NonResourceRulePatchInput interface {
 	pulumi.Input
 
@@ -656,7 +656,7 @@ func (i NonResourceRulePatchArgs) ToNonResourceRulePatchOutputWithContext(ctx co
 // NonResourceRulePatchArrayInput is an input type that accepts NonResourceRulePatchArray and NonResourceRulePatchArrayOutput values.
 // You can construct a concrete instance of `NonResourceRulePatchArrayInput` via:
 //
-//          NonResourceRulePatchArray{ NonResourceRulePatchArgs{...} }
+//	NonResourceRulePatchArray{ NonResourceRulePatchArgs{...} }
 type NonResourceRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -744,7 +744,7 @@ type ResourceAttributes struct {
 // ResourceAttributesInput is an input type that accepts ResourceAttributesArgs and ResourceAttributesOutput values.
 // You can construct a concrete instance of `ResourceAttributesInput` via:
 //
-//          ResourceAttributesArgs{...}
+//	ResourceAttributesArgs{...}
 type ResourceAttributesInput interface {
 	pulumi.Input
 
@@ -793,11 +793,11 @@ func (i ResourceAttributesArgs) ToResourceAttributesPtrOutputWithContext(ctx con
 // ResourceAttributesPtrInput is an input type that accepts ResourceAttributesArgs, ResourceAttributesPtr and ResourceAttributesPtrOutput values.
 // You can construct a concrete instance of `ResourceAttributesPtrInput` via:
 //
-//          ResourceAttributesArgs{...}
+//	        ResourceAttributesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceAttributesPtrInput interface {
 	pulumi.Input
 
@@ -998,7 +998,7 @@ type ResourceAttributesPatch struct {
 // ResourceAttributesPatchInput is an input type that accepts ResourceAttributesPatchArgs and ResourceAttributesPatchOutput values.
 // You can construct a concrete instance of `ResourceAttributesPatchInput` via:
 //
-//          ResourceAttributesPatchArgs{...}
+//	ResourceAttributesPatchArgs{...}
 type ResourceAttributesPatchInput interface {
 	pulumi.Input
 
@@ -1047,11 +1047,11 @@ func (i ResourceAttributesPatchArgs) ToResourceAttributesPatchPtrOutputWithConte
 // ResourceAttributesPatchPtrInput is an input type that accepts ResourceAttributesPatchArgs, ResourceAttributesPatchPtr and ResourceAttributesPatchPtrOutput values.
 // You can construct a concrete instance of `ResourceAttributesPatchPtrInput` via:
 //
-//          ResourceAttributesPatchArgs{...}
+//	        ResourceAttributesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceAttributesPatchPtrInput interface {
 	pulumi.Input
 
@@ -1247,7 +1247,7 @@ type ResourceRule struct {
 // ResourceRuleInput is an input type that accepts ResourceRuleArgs and ResourceRuleOutput values.
 // You can construct a concrete instance of `ResourceRuleInput` via:
 //
-//          ResourceRuleArgs{...}
+//	ResourceRuleArgs{...}
 type ResourceRuleInput interface {
 	pulumi.Input
 
@@ -1283,7 +1283,7 @@ func (i ResourceRuleArgs) ToResourceRuleOutputWithContext(ctx context.Context) R
 // ResourceRuleArrayInput is an input type that accepts ResourceRuleArray and ResourceRuleArrayOutput values.
 // You can construct a concrete instance of `ResourceRuleArrayInput` via:
 //
-//          ResourceRuleArray{ ResourceRuleArgs{...} }
+//	ResourceRuleArray{ ResourceRuleArgs{...} }
 type ResourceRuleArrayInput interface {
 	pulumi.Input
 
@@ -1331,7 +1331,8 @@ func (o ResourceRuleOutput) ResourceNames() pulumi.StringArrayOutput {
 }
 
 // Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
-//  "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
+//
+//	"*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
 func (o ResourceRuleOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ResourceRule) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
@@ -1377,7 +1378,7 @@ type ResourceRulePatch struct {
 // ResourceRulePatchInput is an input type that accepts ResourceRulePatchArgs and ResourceRulePatchOutput values.
 // You can construct a concrete instance of `ResourceRulePatchInput` via:
 //
-//          ResourceRulePatchArgs{...}
+//	ResourceRulePatchArgs{...}
 type ResourceRulePatchInput interface {
 	pulumi.Input
 
@@ -1413,7 +1414,7 @@ func (i ResourceRulePatchArgs) ToResourceRulePatchOutputWithContext(ctx context.
 // ResourceRulePatchArrayInput is an input type that accepts ResourceRulePatchArray and ResourceRulePatchArrayOutput values.
 // You can construct a concrete instance of `ResourceRulePatchArrayInput` via:
 //
-//          ResourceRulePatchArray{ ResourceRulePatchArgs{...} }
+//	ResourceRulePatchArray{ ResourceRulePatchArgs{...} }
 type ResourceRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -1461,7 +1462,8 @@ func (o ResourceRulePatchOutput) ResourceNames() pulumi.StringArrayOutput {
 }
 
 // Resources is a list of resources this rule applies to.  "*" means all in the specified apiGroups.
-//  "*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
+//
+//	"*/foo" represents the subresource 'foo' for all resources in the specified apiGroups.
 func (o ResourceRulePatchOutput) Resources() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ResourceRulePatch) []string { return v.Resources }).(pulumi.StringArrayOutput)
 }
@@ -1507,7 +1509,7 @@ type SelfSubjectAccessReviewType struct {
 // SelfSubjectAccessReviewTypeInput is an input type that accepts SelfSubjectAccessReviewTypeArgs and SelfSubjectAccessReviewTypeOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewTypeInput` via:
 //
-//          SelfSubjectAccessReviewTypeArgs{...}
+//	SelfSubjectAccessReviewTypeArgs{...}
 type SelfSubjectAccessReviewTypeInput interface {
 	pulumi.Input
 
@@ -1595,7 +1597,7 @@ type SelfSubjectAccessReviewPatchType struct {
 // SelfSubjectAccessReviewPatchTypeInput is an input type that accepts SelfSubjectAccessReviewPatchTypeArgs and SelfSubjectAccessReviewPatchTypeOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewPatchTypeInput` via:
 //
-//          SelfSubjectAccessReviewPatchTypeArgs{...}
+//	SelfSubjectAccessReviewPatchTypeArgs{...}
 type SelfSubjectAccessReviewPatchTypeInput interface {
 	pulumi.Input
 
@@ -1678,7 +1680,7 @@ type SelfSubjectAccessReviewSpec struct {
 // SelfSubjectAccessReviewSpecInput is an input type that accepts SelfSubjectAccessReviewSpecArgs and SelfSubjectAccessReviewSpecOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewSpecInput` via:
 //
-//          SelfSubjectAccessReviewSpecArgs{...}
+//	SelfSubjectAccessReviewSpecArgs{...}
 type SelfSubjectAccessReviewSpecInput interface {
 	pulumi.Input
 
@@ -1742,7 +1744,7 @@ type SelfSubjectAccessReviewSpecPatch struct {
 // SelfSubjectAccessReviewSpecPatchInput is an input type that accepts SelfSubjectAccessReviewSpecPatchArgs and SelfSubjectAccessReviewSpecPatchOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewSpecPatchInput` via:
 //
-//          SelfSubjectAccessReviewSpecPatchArgs{...}
+//	SelfSubjectAccessReviewSpecPatchArgs{...}
 type SelfSubjectAccessReviewSpecPatchInput interface {
 	pulumi.Input
 
@@ -1781,11 +1783,11 @@ func (i SelfSubjectAccessReviewSpecPatchArgs) ToSelfSubjectAccessReviewSpecPatch
 // SelfSubjectAccessReviewSpecPatchPtrInput is an input type that accepts SelfSubjectAccessReviewSpecPatchArgs, SelfSubjectAccessReviewSpecPatchPtr and SelfSubjectAccessReviewSpecPatchPtrOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewSpecPatchPtrInput` via:
 //
-//          SelfSubjectAccessReviewSpecPatchArgs{...}
+//	        SelfSubjectAccessReviewSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SelfSubjectAccessReviewSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1906,7 +1908,7 @@ type SelfSubjectRulesReviewType struct {
 // SelfSubjectRulesReviewTypeInput is an input type that accepts SelfSubjectRulesReviewTypeArgs and SelfSubjectRulesReviewTypeOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewTypeInput` via:
 //
-//          SelfSubjectRulesReviewTypeArgs{...}
+//	SelfSubjectRulesReviewTypeArgs{...}
 type SelfSubjectRulesReviewTypeInput interface {
 	pulumi.Input
 
@@ -1994,7 +1996,7 @@ type SelfSubjectRulesReviewPatchType struct {
 // SelfSubjectRulesReviewPatchTypeInput is an input type that accepts SelfSubjectRulesReviewPatchTypeArgs and SelfSubjectRulesReviewPatchTypeOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewPatchTypeInput` via:
 //
-//          SelfSubjectRulesReviewPatchTypeArgs{...}
+//	SelfSubjectRulesReviewPatchTypeArgs{...}
 type SelfSubjectRulesReviewPatchTypeInput interface {
 	pulumi.Input
 
@@ -2074,7 +2076,7 @@ type SelfSubjectRulesReviewSpec struct {
 // SelfSubjectRulesReviewSpecInput is an input type that accepts SelfSubjectRulesReviewSpecArgs and SelfSubjectRulesReviewSpecOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewSpecInput` via:
 //
-//          SelfSubjectRulesReviewSpecArgs{...}
+//	SelfSubjectRulesReviewSpecArgs{...}
 type SelfSubjectRulesReviewSpecInput interface {
 	pulumi.Input
 
@@ -2126,7 +2128,7 @@ type SelfSubjectRulesReviewSpecPatch struct {
 // SelfSubjectRulesReviewSpecPatchInput is an input type that accepts SelfSubjectRulesReviewSpecPatchArgs and SelfSubjectRulesReviewSpecPatchOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewSpecPatchInput` via:
 //
-//          SelfSubjectRulesReviewSpecPatchArgs{...}
+//	SelfSubjectRulesReviewSpecPatchArgs{...}
 type SelfSubjectRulesReviewSpecPatchInput interface {
 	pulumi.Input
 
@@ -2162,11 +2164,11 @@ func (i SelfSubjectRulesReviewSpecPatchArgs) ToSelfSubjectRulesReviewSpecPatchPt
 // SelfSubjectRulesReviewSpecPatchPtrInput is an input type that accepts SelfSubjectRulesReviewSpecPatchArgs, SelfSubjectRulesReviewSpecPatchPtr and SelfSubjectRulesReviewSpecPatchPtrOutput values.
 // You can construct a concrete instance of `SelfSubjectRulesReviewSpecPatchPtrInput` via:
 //
-//          SelfSubjectRulesReviewSpecPatchArgs{...}
+//	        SelfSubjectRulesReviewSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SelfSubjectRulesReviewSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -2271,7 +2273,7 @@ type SubjectAccessReviewType struct {
 // SubjectAccessReviewTypeInput is an input type that accepts SubjectAccessReviewTypeArgs and SubjectAccessReviewTypeOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewTypeInput` via:
 //
-//          SubjectAccessReviewTypeArgs{...}
+//	SubjectAccessReviewTypeArgs{...}
 type SubjectAccessReviewTypeInput interface {
 	pulumi.Input
 
@@ -2359,7 +2361,7 @@ type SubjectAccessReviewPatchType struct {
 // SubjectAccessReviewPatchTypeInput is an input type that accepts SubjectAccessReviewPatchTypeArgs and SubjectAccessReviewPatchTypeOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewPatchTypeInput` via:
 //
-//          SubjectAccessReviewPatchTypeArgs{...}
+//	SubjectAccessReviewPatchTypeArgs{...}
 type SubjectAccessReviewPatchTypeInput interface {
 	pulumi.Input
 
@@ -2450,7 +2452,7 @@ type SubjectAccessReviewSpec struct {
 // SubjectAccessReviewSpecInput is an input type that accepts SubjectAccessReviewSpecArgs and SubjectAccessReviewSpecOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewSpecInput` via:
 //
-//          SubjectAccessReviewSpecArgs{...}
+//	SubjectAccessReviewSpecArgs{...}
 type SubjectAccessReviewSpecInput interface {
 	pulumi.Input
 
@@ -2550,7 +2552,7 @@ type SubjectAccessReviewSpecPatch struct {
 // SubjectAccessReviewSpecPatchInput is an input type that accepts SubjectAccessReviewSpecPatchArgs and SubjectAccessReviewSpecPatchOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewSpecPatchInput` via:
 //
-//          SubjectAccessReviewSpecPatchArgs{...}
+//	SubjectAccessReviewSpecPatchArgs{...}
 type SubjectAccessReviewSpecPatchInput interface {
 	pulumi.Input
 
@@ -2597,11 +2599,11 @@ func (i SubjectAccessReviewSpecPatchArgs) ToSubjectAccessReviewSpecPatchPtrOutpu
 // SubjectAccessReviewSpecPatchPtrInput is an input type that accepts SubjectAccessReviewSpecPatchArgs, SubjectAccessReviewSpecPatchPtr and SubjectAccessReviewSpecPatchPtrOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewSpecPatchPtrInput` via:
 //
-//          SubjectAccessReviewSpecPatchArgs{...}
+//	        SubjectAccessReviewSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SubjectAccessReviewSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -2781,7 +2783,7 @@ type SubjectAccessReviewStatus struct {
 // SubjectAccessReviewStatusInput is an input type that accepts SubjectAccessReviewStatusArgs and SubjectAccessReviewStatusOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewStatusInput` via:
 //
-//          SubjectAccessReviewStatusArgs{...}
+//	SubjectAccessReviewStatusArgs{...}
 type SubjectAccessReviewStatusInput interface {
 	pulumi.Input
 
@@ -2824,11 +2826,11 @@ func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusPtrOutputWithC
 // SubjectAccessReviewStatusPtrInput is an input type that accepts SubjectAccessReviewStatusArgs, SubjectAccessReviewStatusPtr and SubjectAccessReviewStatusPtrOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewStatusPtrInput` via:
 //
-//          SubjectAccessReviewStatusArgs{...}
+//	        SubjectAccessReviewStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SubjectAccessReviewStatusPtrInput interface {
 	pulumi.Input
 
@@ -2978,7 +2980,7 @@ type SubjectAccessReviewStatusPatch struct {
 // SubjectAccessReviewStatusPatchInput is an input type that accepts SubjectAccessReviewStatusPatchArgs and SubjectAccessReviewStatusPatchOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewStatusPatchInput` via:
 //
-//          SubjectAccessReviewStatusPatchArgs{...}
+//	SubjectAccessReviewStatusPatchArgs{...}
 type SubjectAccessReviewStatusPatchInput interface {
 	pulumi.Input
 
@@ -3021,11 +3023,11 @@ func (i SubjectAccessReviewStatusPatchArgs) ToSubjectAccessReviewStatusPatchPtrO
 // SubjectAccessReviewStatusPatchPtrInput is an input type that accepts SubjectAccessReviewStatusPatchArgs, SubjectAccessReviewStatusPatchPtr and SubjectAccessReviewStatusPatchPtrOutput values.
 // You can construct a concrete instance of `SubjectAccessReviewStatusPatchPtrInput` via:
 //
-//          SubjectAccessReviewStatusPatchArgs{...}
+//	        SubjectAccessReviewStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SubjectAccessReviewStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -3175,7 +3177,7 @@ type SubjectRulesReviewStatus struct {
 // SubjectRulesReviewStatusInput is an input type that accepts SubjectRulesReviewStatusArgs and SubjectRulesReviewStatusOutput values.
 // You can construct a concrete instance of `SubjectRulesReviewStatusInput` via:
 //
-//          SubjectRulesReviewStatusArgs{...}
+//	SubjectRulesReviewStatusArgs{...}
 type SubjectRulesReviewStatusInput interface {
 	pulumi.Input
 
@@ -3218,11 +3220,11 @@ func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusPtrOutputWithCon
 // SubjectRulesReviewStatusPtrInput is an input type that accepts SubjectRulesReviewStatusArgs, SubjectRulesReviewStatusPtr and SubjectRulesReviewStatusPtrOutput values.
 // You can construct a concrete instance of `SubjectRulesReviewStatusPtrInput` via:
 //
-//          SubjectRulesReviewStatusArgs{...}
+//	        SubjectRulesReviewStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SubjectRulesReviewStatusPtrInput interface {
 	pulumi.Input
 
@@ -3372,7 +3374,7 @@ type SubjectRulesReviewStatusPatch struct {
 // SubjectRulesReviewStatusPatchInput is an input type that accepts SubjectRulesReviewStatusPatchArgs and SubjectRulesReviewStatusPatchOutput values.
 // You can construct a concrete instance of `SubjectRulesReviewStatusPatchInput` via:
 //
-//          SubjectRulesReviewStatusPatchArgs{...}
+//	SubjectRulesReviewStatusPatchArgs{...}
 type SubjectRulesReviewStatusPatchInput interface {
 	pulumi.Input
 
@@ -3415,11 +3417,11 @@ func (i SubjectRulesReviewStatusPatchArgs) ToSubjectRulesReviewStatusPatchPtrOut
 // SubjectRulesReviewStatusPatchPtrInput is an input type that accepts SubjectRulesReviewStatusPatchArgs, SubjectRulesReviewStatusPatchPtr and SubjectRulesReviewStatusPatchPtrOutput values.
 // You can construct a concrete instance of `SubjectRulesReviewStatusPatchPtrInput` via:
 //
-//          SubjectRulesReviewStatusPatchArgs{...}
+//	        SubjectRulesReviewStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SubjectRulesReviewStatusPatchPtrInput interface {
 	pulumi.Input
 

@@ -118,7 +118,7 @@ func (i *PodPresetList) ToPodPresetListOutputWithContext(ctx context.Context) Po
 // PodPresetListArrayInput is an input type that accepts PodPresetListArray and PodPresetListArrayOutput values.
 // You can construct a concrete instance of `PodPresetListArrayInput` via:
 //
-//          PodPresetListArray{ PodPresetListArgs{...} }
+//	PodPresetListArray{ PodPresetListArgs{...} }
 type PodPresetListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PodPresetListArray) ToPodPresetListArrayOutputWithContext(ctx context.Co
 // PodPresetListMapInput is an input type that accepts PodPresetListMap and PodPresetListMapOutput values.
 // You can construct a concrete instance of `PodPresetListMapInput` via:
 //
-//          PodPresetListMap{ "key": PodPresetListArgs{...} }
+//	PodPresetListMap{ "key": PodPresetListArgs{...} }
 type PodPresetListMapInput interface {
 	pulumi.Input
 

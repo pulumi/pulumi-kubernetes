@@ -131,7 +131,7 @@ func (i *VolumeAttachment) ToVolumeAttachmentOutputWithContext(ctx context.Conte
 // VolumeAttachmentArrayInput is an input type that accepts VolumeAttachmentArray and VolumeAttachmentArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentArrayInput` via:
 //
-//          VolumeAttachmentArray{ VolumeAttachmentArgs{...} }
+//	VolumeAttachmentArray{ VolumeAttachmentArgs{...} }
 type VolumeAttachmentArrayInput interface {
 	pulumi.Input
 
@@ -156,7 +156,7 @@ func (i VolumeAttachmentArray) ToVolumeAttachmentArrayOutputWithContext(ctx cont
 // VolumeAttachmentMapInput is an input type that accepts VolumeAttachmentMap and VolumeAttachmentMapOutput values.
 // You can construct a concrete instance of `VolumeAttachmentMapInput` via:
 //
-//          VolumeAttachmentMap{ "key": VolumeAttachmentArgs{...} }
+//	VolumeAttachmentMap{ "key": VolumeAttachmentArgs{...} }
 type VolumeAttachmentMapInput interface {
 	pulumi.Input
 

@@ -118,7 +118,7 @@ func (i *PodList) ToPodListOutputWithContext(ctx context.Context) PodListOutput 
 // PodListArrayInput is an input type that accepts PodListArray and PodListArrayOutput values.
 // You can construct a concrete instance of `PodListArrayInput` via:
 //
-//          PodListArray{ PodListArgs{...} }
+//	PodListArray{ PodListArgs{...} }
 type PodListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PodListArray) ToPodListArrayOutputWithContext(ctx context.Context) PodLi
 // PodListMapInput is an input type that accepts PodListMap and PodListMapOutput values.
 // You can construct a concrete instance of `PodListMapInput` via:
 //
-//          PodListMap{ "key": PodListArgs{...} }
+//	PodListMap{ "key": PodListArgs{...} }
 type PodListMapInput interface {
 	pulumi.Input
 

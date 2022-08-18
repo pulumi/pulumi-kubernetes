@@ -35,7 +35,7 @@ type HTTPIngressPath struct {
 // HTTPIngressPathInput is an input type that accepts HTTPIngressPathArgs and HTTPIngressPathOutput values.
 // You can construct a concrete instance of `HTTPIngressPathInput` via:
 //
-//          HTTPIngressPathArgs{...}
+//	HTTPIngressPathArgs{...}
 type HTTPIngressPathInput interface {
 	pulumi.Input
 
@@ -78,7 +78,7 @@ func (i HTTPIngressPathArgs) ToHTTPIngressPathOutputWithContext(ctx context.Cont
 // HTTPIngressPathArrayInput is an input type that accepts HTTPIngressPathArray and HTTPIngressPathArrayOutput values.
 // You can construct a concrete instance of `HTTPIngressPathArrayInput` via:
 //
-//          HTTPIngressPathArray{ HTTPIngressPathArgs{...} }
+//	HTTPIngressPathArray{ HTTPIngressPathArgs{...} }
 type HTTPIngressPathArrayInput interface {
 	pulumi.Input
 
@@ -126,16 +126,17 @@ func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 }
 
 // PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
-//   done on a path element by element basis. A path element refers is the
-//   list of labels in the path split by the '/' separator. A request is a
-//   match for path p if every p is an element-wise prefix of p of the
-//   request path. Note that if the last element of the path is a substring
-//   of the last element in request path, it is not a match (e.g. /foo/bar
-//   matches /foo/bar/baz, but does not match /foo/barbaz).
-// * ImplementationSpecific: Interpretation of the Path matching is up to
-//   the IngressClass. Implementations can treat this as a separate PathType
-//   or treat it identically to Prefix or Exact path types.
-//   Implementations are required to support all path types.
+//
+//	done on a path element by element basis. A path element refers is the
+//	list of labels in the path split by the '/' separator. A request is a
+//	match for path p if every p is an element-wise prefix of p of the
+//	request path. Note that if the last element of the path is a substring
+//	of the last element in request path, it is not a match (e.g. /foo/bar
+//	matches /foo/bar/baz, but does not match /foo/barbaz).
+//   - ImplementationSpecific: Interpretation of the Path matching is up to
+//     the IngressClass. Implementations can treat this as a separate PathType
+//     or treat it identically to Prefix or Exact path types.
+//     Implementations are required to support all path types.
 func (o HTTPIngressPathOutput) PathType() pulumi.StringOutput {
 	return o.ApplyT(func(v HTTPIngressPath) string { return v.PathType }).(pulumi.StringOutput)
 }
@@ -183,7 +184,7 @@ type HTTPIngressPathPatch struct {
 // HTTPIngressPathPatchInput is an input type that accepts HTTPIngressPathPatchArgs and HTTPIngressPathPatchOutput values.
 // You can construct a concrete instance of `HTTPIngressPathPatchInput` via:
 //
-//          HTTPIngressPathPatchArgs{...}
+//	HTTPIngressPathPatchArgs{...}
 type HTTPIngressPathPatchInput interface {
 	pulumi.Input
 
@@ -226,7 +227,7 @@ func (i HTTPIngressPathPatchArgs) ToHTTPIngressPathPatchOutputWithContext(ctx co
 // HTTPIngressPathPatchArrayInput is an input type that accepts HTTPIngressPathPatchArray and HTTPIngressPathPatchArrayOutput values.
 // You can construct a concrete instance of `HTTPIngressPathPatchArrayInput` via:
 //
-//          HTTPIngressPathPatchArray{ HTTPIngressPathPatchArgs{...} }
+//	HTTPIngressPathPatchArray{ HTTPIngressPathPatchArgs{...} }
 type HTTPIngressPathPatchArrayInput interface {
 	pulumi.Input
 
@@ -274,16 +275,17 @@ func (o HTTPIngressPathPatchOutput) Path() pulumi.StringPtrOutput {
 }
 
 // PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
-//   done on a path element by element basis. A path element refers is the
-//   list of labels in the path split by the '/' separator. A request is a
-//   match for path p if every p is an element-wise prefix of p of the
-//   request path. Note that if the last element of the path is a substring
-//   of the last element in request path, it is not a match (e.g. /foo/bar
-//   matches /foo/bar/baz, but does not match /foo/barbaz).
-// * ImplementationSpecific: Interpretation of the Path matching is up to
-//   the IngressClass. Implementations can treat this as a separate PathType
-//   or treat it identically to Prefix or Exact path types.
-//   Implementations are required to support all path types.
+//
+//	done on a path element by element basis. A path element refers is the
+//	list of labels in the path split by the '/' separator. A request is a
+//	match for path p if every p is an element-wise prefix of p of the
+//	request path. Note that if the last element of the path is a substring
+//	of the last element in request path, it is not a match (e.g. /foo/bar
+//	matches /foo/bar/baz, but does not match /foo/barbaz).
+//   - ImplementationSpecific: Interpretation of the Path matching is up to
+//     the IngressClass. Implementations can treat this as a separate PathType
+//     or treat it identically to Prefix or Exact path types.
+//     Implementations are required to support all path types.
 func (o HTTPIngressPathPatchOutput) PathType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPathPatch) *string { return v.PathType }).(pulumi.StringPtrOutput)
 }
@@ -317,7 +319,7 @@ type HTTPIngressRuleValue struct {
 // HTTPIngressRuleValueInput is an input type that accepts HTTPIngressRuleValueArgs and HTTPIngressRuleValueOutput values.
 // You can construct a concrete instance of `HTTPIngressRuleValueInput` via:
 //
-//          HTTPIngressRuleValueArgs{...}
+//	HTTPIngressRuleValueArgs{...}
 type HTTPIngressRuleValueInput interface {
 	pulumi.Input
 
@@ -354,11 +356,11 @@ func (i HTTPIngressRuleValueArgs) ToHTTPIngressRuleValuePtrOutputWithContext(ctx
 // HTTPIngressRuleValuePtrInput is an input type that accepts HTTPIngressRuleValueArgs, HTTPIngressRuleValuePtr and HTTPIngressRuleValuePtrOutput values.
 // You can construct a concrete instance of `HTTPIngressRuleValuePtrInput` via:
 //
-//          HTTPIngressRuleValueArgs{...}
+//	        HTTPIngressRuleValueArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HTTPIngressRuleValuePtrInput interface {
 	pulumi.Input
 
@@ -457,7 +459,7 @@ type HTTPIngressRuleValuePatch struct {
 // HTTPIngressRuleValuePatchInput is an input type that accepts HTTPIngressRuleValuePatchArgs and HTTPIngressRuleValuePatchOutput values.
 // You can construct a concrete instance of `HTTPIngressRuleValuePatchInput` via:
 //
-//          HTTPIngressRuleValuePatchArgs{...}
+//	HTTPIngressRuleValuePatchArgs{...}
 type HTTPIngressRuleValuePatchInput interface {
 	pulumi.Input
 
@@ -494,11 +496,11 @@ func (i HTTPIngressRuleValuePatchArgs) ToHTTPIngressRuleValuePatchPtrOutputWithC
 // HTTPIngressRuleValuePatchPtrInput is an input type that accepts HTTPIngressRuleValuePatchArgs, HTTPIngressRuleValuePatchPtr and HTTPIngressRuleValuePatchPtrOutput values.
 // You can construct a concrete instance of `HTTPIngressRuleValuePatchPtrInput` via:
 //
-//          HTTPIngressRuleValuePatchArgs{...}
+//	        HTTPIngressRuleValuePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HTTPIngressRuleValuePatchPtrInput interface {
 	pulumi.Input
 
@@ -599,7 +601,7 @@ type IPBlock struct {
 // IPBlockInput is an input type that accepts IPBlockArgs and IPBlockOutput values.
 // You can construct a concrete instance of `IPBlockInput` via:
 //
-//          IPBlockArgs{...}
+//	IPBlockArgs{...}
 type IPBlockInput interface {
 	pulumi.Input
 
@@ -638,11 +640,11 @@ func (i IPBlockArgs) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBlockP
 // IPBlockPtrInput is an input type that accepts IPBlockArgs, IPBlockPtr and IPBlockPtrOutput values.
 // You can construct a concrete instance of `IPBlockPtrInput` via:
 //
-//          IPBlockArgs{...}
+//	        IPBlockArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IPBlockPtrInput interface {
 	pulumi.Input
 
@@ -758,7 +760,7 @@ type IPBlockPatch struct {
 // IPBlockPatchInput is an input type that accepts IPBlockPatchArgs and IPBlockPatchOutput values.
 // You can construct a concrete instance of `IPBlockPatchInput` via:
 //
-//          IPBlockPatchArgs{...}
+//	IPBlockPatchArgs{...}
 type IPBlockPatchInput interface {
 	pulumi.Input
 
@@ -797,11 +799,11 @@ func (i IPBlockPatchArgs) ToIPBlockPatchPtrOutputWithContext(ctx context.Context
 // IPBlockPatchPtrInput is an input type that accepts IPBlockPatchArgs, IPBlockPatchPtr and IPBlockPatchPtrOutput values.
 // You can construct a concrete instance of `IPBlockPatchPtrInput` via:
 //
-//          IPBlockPatchArgs{...}
+//	        IPBlockPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IPBlockPatchPtrInput interface {
 	pulumi.Input
 
@@ -913,10 +915,10 @@ func (o IPBlockPatchPtrOutput) Except() pulumi.StringArrayOutput {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -937,7 +939,7 @@ type IngressType struct {
 // IngressTypeInput is an input type that accepts IngressTypeArgs and IngressTypeOutput values.
 // You can construct a concrete instance of `IngressTypeInput` via:
 //
-//          IngressTypeArgs{...}
+//	IngressTypeArgs{...}
 type IngressTypeInput interface {
 	pulumi.Input
 
@@ -952,10 +954,10 @@ type IngressTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -988,7 +990,7 @@ func (i IngressTypeArgs) ToIngressTypeOutputWithContext(ctx context.Context) Ing
 // IngressTypeArrayInput is an input type that accepts IngressTypeArray and IngressTypeArrayOutput values.
 // You can construct a concrete instance of `IngressTypeArrayInput` via:
 //
-//          IngressTypeArray{ IngressTypeArgs{...} }
+//	IngressTypeArray{ IngressTypeArgs{...} }
 type IngressTypeArrayInput interface {
 	pulumi.Input
 
@@ -1017,10 +1019,10 @@ func (i IngressTypeArray) ToIngressTypeArrayOutputWithContext(ctx context.Contex
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -1095,7 +1097,7 @@ type IngressBackend struct {
 // IngressBackendInput is an input type that accepts IngressBackendArgs and IngressBackendOutput values.
 // You can construct a concrete instance of `IngressBackendInput` via:
 //
-//          IngressBackendArgs{...}
+//	IngressBackendArgs{...}
 type IngressBackendInput interface {
 	pulumi.Input
 
@@ -1134,11 +1136,11 @@ func (i IngressBackendArgs) ToIngressBackendPtrOutputWithContext(ctx context.Con
 // IngressBackendPtrInput is an input type that accepts IngressBackendArgs, IngressBackendPtr and IngressBackendPtrOutput values.
 // You can construct a concrete instance of `IngressBackendPtrInput` via:
 //
-//          IngressBackendArgs{...}
+//	        IngressBackendArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressBackendPtrInput interface {
 	pulumi.Input
 
@@ -1254,7 +1256,7 @@ type IngressBackendPatch struct {
 // IngressBackendPatchInput is an input type that accepts IngressBackendPatchArgs and IngressBackendPatchOutput values.
 // You can construct a concrete instance of `IngressBackendPatchInput` via:
 //
-//          IngressBackendPatchArgs{...}
+//	IngressBackendPatchArgs{...}
 type IngressBackendPatchInput interface {
 	pulumi.Input
 
@@ -1293,11 +1295,11 @@ func (i IngressBackendPatchArgs) ToIngressBackendPatchPtrOutputWithContext(ctx c
 // IngressBackendPatchPtrInput is an input type that accepts IngressBackendPatchArgs, IngressBackendPatchPtr and IngressBackendPatchPtrOutput values.
 // You can construct a concrete instance of `IngressBackendPatchPtrInput` via:
 //
-//          IngressBackendPatchArgs{...}
+//	        IngressBackendPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressBackendPatchPtrInput interface {
 	pulumi.Input
 
@@ -1417,7 +1419,7 @@ type IngressClassType struct {
 // IngressClassTypeInput is an input type that accepts IngressClassTypeArgs and IngressClassTypeOutput values.
 // You can construct a concrete instance of `IngressClassTypeInput` via:
 //
-//          IngressClassTypeArgs{...}
+//	IngressClassTypeArgs{...}
 type IngressClassTypeInput interface {
 	pulumi.Input
 
@@ -1452,7 +1454,7 @@ func (i IngressClassTypeArgs) ToIngressClassTypeOutputWithContext(ctx context.Co
 // IngressClassTypeArrayInput is an input type that accepts IngressClassTypeArray and IngressClassTypeArrayOutput values.
 // You can construct a concrete instance of `IngressClassTypeArrayInput` via:
 //
-//          IngressClassTypeArray{ IngressClassTypeArgs{...} }
+//	IngressClassTypeArray{ IngressClassTypeArgs{...} }
 type IngressClassTypeArrayInput interface {
 	pulumi.Input
 
@@ -1544,7 +1546,7 @@ type IngressClassListType struct {
 // IngressClassListTypeInput is an input type that accepts IngressClassListTypeArgs and IngressClassListTypeOutput values.
 // You can construct a concrete instance of `IngressClassListTypeInput` via:
 //
-//          IngressClassListTypeArgs{...}
+//	IngressClassListTypeArgs{...}
 type IngressClassListTypeInput interface {
 	pulumi.Input
 
@@ -1628,7 +1630,7 @@ type IngressClassParametersReference struct {
 // IngressClassParametersReferenceInput is an input type that accepts IngressClassParametersReferenceArgs and IngressClassParametersReferenceOutput values.
 // You can construct a concrete instance of `IngressClassParametersReferenceInput` via:
 //
-//          IngressClassParametersReferenceArgs{...}
+//	IngressClassParametersReferenceArgs{...}
 type IngressClassParametersReferenceInput interface {
 	pulumi.Input
 
@@ -1673,11 +1675,11 @@ func (i IngressClassParametersReferenceArgs) ToIngressClassParametersReferencePt
 // IngressClassParametersReferencePtrInput is an input type that accepts IngressClassParametersReferenceArgs, IngressClassParametersReferencePtr and IngressClassParametersReferencePtrOutput values.
 // You can construct a concrete instance of `IngressClassParametersReferencePtrInput` via:
 //
-//          IngressClassParametersReferenceArgs{...}
+//	        IngressClassParametersReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressClassParametersReferencePtrInput interface {
 	pulumi.Input
 
@@ -1844,7 +1846,7 @@ type IngressClassParametersReferencePatch struct {
 // IngressClassParametersReferencePatchInput is an input type that accepts IngressClassParametersReferencePatchArgs and IngressClassParametersReferencePatchOutput values.
 // You can construct a concrete instance of `IngressClassParametersReferencePatchInput` via:
 //
-//          IngressClassParametersReferencePatchArgs{...}
+//	IngressClassParametersReferencePatchArgs{...}
 type IngressClassParametersReferencePatchInput interface {
 	pulumi.Input
 
@@ -1889,11 +1891,11 @@ func (i IngressClassParametersReferencePatchArgs) ToIngressClassParametersRefere
 // IngressClassParametersReferencePatchPtrInput is an input type that accepts IngressClassParametersReferencePatchArgs, IngressClassParametersReferencePatchPtr and IngressClassParametersReferencePatchPtrOutput values.
 // You can construct a concrete instance of `IngressClassParametersReferencePatchPtrInput` via:
 //
-//          IngressClassParametersReferencePatchArgs{...}
+//	        IngressClassParametersReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressClassParametersReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -2058,7 +2060,7 @@ type IngressClassPatchType struct {
 // IngressClassPatchTypeInput is an input type that accepts IngressClassPatchTypeArgs and IngressClassPatchTypeOutput values.
 // You can construct a concrete instance of `IngressClassPatchTypeInput` via:
 //
-//          IngressClassPatchTypeArgs{...}
+//	IngressClassPatchTypeArgs{...}
 type IngressClassPatchTypeInput interface {
 	pulumi.Input
 
@@ -2136,7 +2138,7 @@ type IngressClassSpec struct {
 // IngressClassSpecInput is an input type that accepts IngressClassSpecArgs and IngressClassSpecOutput values.
 // You can construct a concrete instance of `IngressClassSpecInput` via:
 //
-//          IngressClassSpecArgs{...}
+//	IngressClassSpecArgs{...}
 type IngressClassSpecInput interface {
 	pulumi.Input
 
@@ -2175,11 +2177,11 @@ func (i IngressClassSpecArgs) ToIngressClassSpecPtrOutputWithContext(ctx context
 // IngressClassSpecPtrInput is an input type that accepts IngressClassSpecArgs, IngressClassSpecPtr and IngressClassSpecPtrOutput values.
 // You can construct a concrete instance of `IngressClassSpecPtrInput` via:
 //
-//          IngressClassSpecArgs{...}
+//	        IngressClassSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressClassSpecPtrInput interface {
 	pulumi.Input
 
@@ -2295,7 +2297,7 @@ type IngressClassSpecPatch struct {
 // IngressClassSpecPatchInput is an input type that accepts IngressClassSpecPatchArgs and IngressClassSpecPatchOutput values.
 // You can construct a concrete instance of `IngressClassSpecPatchInput` via:
 //
-//          IngressClassSpecPatchArgs{...}
+//	IngressClassSpecPatchArgs{...}
 type IngressClassSpecPatchInput interface {
 	pulumi.Input
 
@@ -2334,11 +2336,11 @@ func (i IngressClassSpecPatchArgs) ToIngressClassSpecPatchPtrOutputWithContext(c
 // IngressClassSpecPatchPtrInput is an input type that accepts IngressClassSpecPatchArgs, IngressClassSpecPatchPtr and IngressClassSpecPatchPtrOutput values.
 // You can construct a concrete instance of `IngressClassSpecPatchPtrInput` via:
 //
-//          IngressClassSpecPatchArgs{...}
+//	        IngressClassSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressClassSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -2458,7 +2460,7 @@ type IngressListType struct {
 // IngressListTypeInput is an input type that accepts IngressListTypeArgs and IngressListTypeOutput values.
 // You can construct a concrete instance of `IngressListTypeInput` via:
 //
-//          IngressListTypeArgs{...}
+//	IngressListTypeArgs{...}
 type IngressListTypeInput interface {
 	pulumi.Input
 
@@ -2532,10 +2534,10 @@ func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -2556,7 +2558,7 @@ type IngressPatchType struct {
 // IngressPatchTypeInput is an input type that accepts IngressPatchTypeArgs and IngressPatchTypeOutput values.
 // You can construct a concrete instance of `IngressPatchTypeInput` via:
 //
-//          IngressPatchTypeArgs{...}
+//	IngressPatchTypeArgs{...}
 type IngressPatchTypeInput interface {
 	pulumi.Input
 
@@ -2571,10 +2573,10 @@ type IngressPatchTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -2611,10 +2613,10 @@ func (i IngressPatchTypeArgs) ToIngressPatchTypeOutputWithContext(ctx context.Co
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -2675,7 +2677,7 @@ type IngressRule struct {
 // IngressRuleInput is an input type that accepts IngressRuleArgs and IngressRuleOutput values.
 // You can construct a concrete instance of `IngressRuleInput` via:
 //
-//          IngressRuleArgs{...}
+//	IngressRuleArgs{...}
 type IngressRuleInput interface {
 	pulumi.Input
 
@@ -2712,7 +2714,7 @@ func (i IngressRuleArgs) ToIngressRuleOutputWithContext(ctx context.Context) Ing
 // IngressRuleArrayInput is an input type that accepts IngressRuleArray and IngressRuleArrayOutput values.
 // You can construct a concrete instance of `IngressRuleArrayInput` via:
 //
-//          IngressRuleArray{ IngressRuleArgs{...} }
+//	IngressRuleArray{ IngressRuleArgs{...} }
 type IngressRuleArrayInput interface {
 	pulumi.Input
 
@@ -2750,10 +2752,12 @@ func (o IngressRuleOutput) ToIngressRuleOutputWithContext(ctx context.Context) I
 }
 
 // Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-//    the IP in the Spec of the parent Ingress.
-// 2. The `:` delimiter is not respected because ports are not allowed.
-// 	  Currently the port of an Ingress is implicitly :80 for http and
-// 	  :443 for https.
+//
+//	the IP in the Spec of the parent Ingress.
+//  2. The `:` delimiter is not respected because ports are not allowed.
+//     Currently the port of an Ingress is implicitly :80 for http and
+//     :443 for https.
+//
 // Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 //
 // Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
@@ -2802,7 +2806,7 @@ type IngressRulePatch struct {
 // IngressRulePatchInput is an input type that accepts IngressRulePatchArgs and IngressRulePatchOutput values.
 // You can construct a concrete instance of `IngressRulePatchInput` via:
 //
-//          IngressRulePatchArgs{...}
+//	IngressRulePatchArgs{...}
 type IngressRulePatchInput interface {
 	pulumi.Input
 
@@ -2839,7 +2843,7 @@ func (i IngressRulePatchArgs) ToIngressRulePatchOutputWithContext(ctx context.Co
 // IngressRulePatchArrayInput is an input type that accepts IngressRulePatchArray and IngressRulePatchArrayOutput values.
 // You can construct a concrete instance of `IngressRulePatchArrayInput` via:
 //
-//          IngressRulePatchArray{ IngressRulePatchArgs{...} }
+//	IngressRulePatchArray{ IngressRulePatchArgs{...} }
 type IngressRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -2877,10 +2881,12 @@ func (o IngressRulePatchOutput) ToIngressRulePatchOutputWithContext(ctx context.
 }
 
 // Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
-//    the IP in the Spec of the parent Ingress.
-// 2. The `:` delimiter is not respected because ports are not allowed.
-// 	  Currently the port of an Ingress is implicitly :80 for http and
-// 	  :443 for https.
+//
+//	the IP in the Spec of the parent Ingress.
+//  2. The `:` delimiter is not respected because ports are not allowed.
+//     Currently the port of an Ingress is implicitly :80 for http and
+//     :443 for https.
+//
 // Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 //
 // Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
@@ -2923,7 +2929,7 @@ type IngressServiceBackend struct {
 // IngressServiceBackendInput is an input type that accepts IngressServiceBackendArgs and IngressServiceBackendOutput values.
 // You can construct a concrete instance of `IngressServiceBackendInput` via:
 //
-//          IngressServiceBackendArgs{...}
+//	IngressServiceBackendArgs{...}
 type IngressServiceBackendInput interface {
 	pulumi.Input
 
@@ -2962,11 +2968,11 @@ func (i IngressServiceBackendArgs) ToIngressServiceBackendPtrOutputWithContext(c
 // IngressServiceBackendPtrInput is an input type that accepts IngressServiceBackendArgs, IngressServiceBackendPtr and IngressServiceBackendPtrOutput values.
 // You can construct a concrete instance of `IngressServiceBackendPtrInput` via:
 //
-//          IngressServiceBackendArgs{...}
+//	        IngressServiceBackendArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressServiceBackendPtrInput interface {
 	pulumi.Input
 
@@ -3082,7 +3088,7 @@ type IngressServiceBackendPatch struct {
 // IngressServiceBackendPatchInput is an input type that accepts IngressServiceBackendPatchArgs and IngressServiceBackendPatchOutput values.
 // You can construct a concrete instance of `IngressServiceBackendPatchInput` via:
 //
-//          IngressServiceBackendPatchArgs{...}
+//	IngressServiceBackendPatchArgs{...}
 type IngressServiceBackendPatchInput interface {
 	pulumi.Input
 
@@ -3121,11 +3127,11 @@ func (i IngressServiceBackendPatchArgs) ToIngressServiceBackendPatchPtrOutputWit
 // IngressServiceBackendPatchPtrInput is an input type that accepts IngressServiceBackendPatchArgs, IngressServiceBackendPatchPtr and IngressServiceBackendPatchPtrOutput values.
 // You can construct a concrete instance of `IngressServiceBackendPatchPtrInput` via:
 //
-//          IngressServiceBackendPatchArgs{...}
+//	        IngressServiceBackendPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressServiceBackendPatchPtrInput interface {
 	pulumi.Input
 
@@ -3245,7 +3251,7 @@ type IngressSpec struct {
 // IngressSpecInput is an input type that accepts IngressSpecArgs and IngressSpecOutput values.
 // You can construct a concrete instance of `IngressSpecInput` via:
 //
-//          IngressSpecArgs{...}
+//	IngressSpecArgs{...}
 type IngressSpecInput interface {
 	pulumi.Input
 
@@ -3288,11 +3294,11 @@ func (i IngressSpecArgs) ToIngressSpecPtrOutputWithContext(ctx context.Context) 
 // IngressSpecPtrInput is an input type that accepts IngressSpecArgs, IngressSpecPtr and IngressSpecPtrOutput values.
 // You can construct a concrete instance of `IngressSpecPtrInput` via:
 //
-//          IngressSpecArgs{...}
+//	        IngressSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressSpecPtrInput interface {
 	pulumi.Input
 
@@ -3442,7 +3448,7 @@ type IngressSpecPatch struct {
 // IngressSpecPatchInput is an input type that accepts IngressSpecPatchArgs and IngressSpecPatchOutput values.
 // You can construct a concrete instance of `IngressSpecPatchInput` via:
 //
-//          IngressSpecPatchArgs{...}
+//	IngressSpecPatchArgs{...}
 type IngressSpecPatchInput interface {
 	pulumi.Input
 
@@ -3485,11 +3491,11 @@ func (i IngressSpecPatchArgs) ToIngressSpecPatchPtrOutputWithContext(ctx context
 // IngressSpecPatchPtrInput is an input type that accepts IngressSpecPatchArgs, IngressSpecPatchPtr and IngressSpecPatchPtrOutput values.
 // You can construct a concrete instance of `IngressSpecPatchPtrInput` via:
 //
-//          IngressSpecPatchArgs{...}
+//	        IngressSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -3633,7 +3639,7 @@ type IngressStatus struct {
 // IngressStatusInput is an input type that accepts IngressStatusArgs and IngressStatusOutput values.
 // You can construct a concrete instance of `IngressStatusInput` via:
 //
-//          IngressStatusArgs{...}
+//	IngressStatusArgs{...}
 type IngressStatusInput interface {
 	pulumi.Input
 
@@ -3670,11 +3676,11 @@ func (i IngressStatusArgs) ToIngressStatusPtrOutputWithContext(ctx context.Conte
 // IngressStatusPtrInput is an input type that accepts IngressStatusArgs, IngressStatusPtr and IngressStatusPtrOutput values.
 // You can construct a concrete instance of `IngressStatusPtrInput` via:
 //
-//          IngressStatusArgs{...}
+//	        IngressStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressStatusPtrInput interface {
 	pulumi.Input
 
@@ -3773,7 +3779,7 @@ type IngressStatusPatch struct {
 // IngressStatusPatchInput is an input type that accepts IngressStatusPatchArgs and IngressStatusPatchOutput values.
 // You can construct a concrete instance of `IngressStatusPatchInput` via:
 //
-//          IngressStatusPatchArgs{...}
+//	IngressStatusPatchArgs{...}
 type IngressStatusPatchInput interface {
 	pulumi.Input
 
@@ -3810,11 +3816,11 @@ func (i IngressStatusPatchArgs) ToIngressStatusPatchPtrOutputWithContext(ctx con
 // IngressStatusPatchPtrInput is an input type that accepts IngressStatusPatchArgs, IngressStatusPatchPtr and IngressStatusPatchPtrOutput values.
 // You can construct a concrete instance of `IngressStatusPatchPtrInput` via:
 //
-//          IngressStatusPatchArgs{...}
+//	        IngressStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type IngressStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -3915,7 +3921,7 @@ type IngressTLS struct {
 // IngressTLSInput is an input type that accepts IngressTLSArgs and IngressTLSOutput values.
 // You can construct a concrete instance of `IngressTLSInput` via:
 //
-//          IngressTLSArgs{...}
+//	IngressTLSArgs{...}
 type IngressTLSInput interface {
 	pulumi.Input
 
@@ -3946,7 +3952,7 @@ func (i IngressTLSArgs) ToIngressTLSOutputWithContext(ctx context.Context) Ingre
 // IngressTLSArrayInput is an input type that accepts IngressTLSArray and IngressTLSArrayOutput values.
 // You can construct a concrete instance of `IngressTLSArrayInput` via:
 //
-//          IngressTLSArray{ IngressTLSArgs{...} }
+//	IngressTLSArray{ IngressTLSArgs{...} }
 type IngressTLSArrayInput interface {
 	pulumi.Input
 
@@ -4024,7 +4030,7 @@ type IngressTLSPatch struct {
 // IngressTLSPatchInput is an input type that accepts IngressTLSPatchArgs and IngressTLSPatchOutput values.
 // You can construct a concrete instance of `IngressTLSPatchInput` via:
 //
-//          IngressTLSPatchArgs{...}
+//	IngressTLSPatchArgs{...}
 type IngressTLSPatchInput interface {
 	pulumi.Input
 
@@ -4055,7 +4061,7 @@ func (i IngressTLSPatchArgs) ToIngressTLSPatchOutputWithContext(ctx context.Cont
 // IngressTLSPatchArrayInput is an input type that accepts IngressTLSPatchArray and IngressTLSPatchArrayOutput values.
 // You can construct a concrete instance of `IngressTLSPatchArrayInput` via:
 //
-//          IngressTLSPatchArray{ IngressTLSPatchArgs{...} }
+//	IngressTLSPatchArray{ IngressTLSPatchArgs{...} }
 type IngressTLSPatchArrayInput interface {
 	pulumi.Input
 
@@ -4139,7 +4145,7 @@ type NetworkPolicyType struct {
 // NetworkPolicyTypeInput is an input type that accepts NetworkPolicyTypeArgs and NetworkPolicyTypeOutput values.
 // You can construct a concrete instance of `NetworkPolicyTypeInput` via:
 //
-//          NetworkPolicyTypeArgs{...}
+//	NetworkPolicyTypeArgs{...}
 type NetworkPolicyTypeInput interface {
 	pulumi.Input
 
@@ -4176,7 +4182,7 @@ func (i NetworkPolicyTypeArgs) ToNetworkPolicyTypeOutputWithContext(ctx context.
 // NetworkPolicyTypeArrayInput is an input type that accepts NetworkPolicyTypeArray and NetworkPolicyTypeArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyTypeArrayInput` via:
 //
-//          NetworkPolicyTypeArray{ NetworkPolicyTypeArgs{...} }
+//	NetworkPolicyTypeArray{ NetworkPolicyTypeArgs{...} }
 type NetworkPolicyTypeArrayInput interface {
 	pulumi.Input
 
@@ -4269,7 +4275,7 @@ type NetworkPolicyEgressRule struct {
 // NetworkPolicyEgressRuleInput is an input type that accepts NetworkPolicyEgressRuleArgs and NetworkPolicyEgressRuleOutput values.
 // You can construct a concrete instance of `NetworkPolicyEgressRuleInput` via:
 //
-//          NetworkPolicyEgressRuleArgs{...}
+//	NetworkPolicyEgressRuleArgs{...}
 type NetworkPolicyEgressRuleInput interface {
 	pulumi.Input
 
@@ -4300,7 +4306,7 @@ func (i NetworkPolicyEgressRuleArgs) ToNetworkPolicyEgressRuleOutputWithContext(
 // NetworkPolicyEgressRuleArrayInput is an input type that accepts NetworkPolicyEgressRuleArray and NetworkPolicyEgressRuleArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyEgressRuleArrayInput` via:
 //
-//          NetworkPolicyEgressRuleArray{ NetworkPolicyEgressRuleArgs{...} }
+//	NetworkPolicyEgressRuleArray{ NetworkPolicyEgressRuleArgs{...} }
 type NetworkPolicyEgressRuleArrayInput interface {
 	pulumi.Input
 
@@ -4378,7 +4384,7 @@ type NetworkPolicyEgressRulePatch struct {
 // NetworkPolicyEgressRulePatchInput is an input type that accepts NetworkPolicyEgressRulePatchArgs and NetworkPolicyEgressRulePatchOutput values.
 // You can construct a concrete instance of `NetworkPolicyEgressRulePatchInput` via:
 //
-//          NetworkPolicyEgressRulePatchArgs{...}
+//	NetworkPolicyEgressRulePatchArgs{...}
 type NetworkPolicyEgressRulePatchInput interface {
 	pulumi.Input
 
@@ -4409,7 +4415,7 @@ func (i NetworkPolicyEgressRulePatchArgs) ToNetworkPolicyEgressRulePatchOutputWi
 // NetworkPolicyEgressRulePatchArrayInput is an input type that accepts NetworkPolicyEgressRulePatchArray and NetworkPolicyEgressRulePatchArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyEgressRulePatchArrayInput` via:
 //
-//          NetworkPolicyEgressRulePatchArray{ NetworkPolicyEgressRulePatchArgs{...} }
+//	NetworkPolicyEgressRulePatchArray{ NetworkPolicyEgressRulePatchArgs{...} }
 type NetworkPolicyEgressRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -4487,7 +4493,7 @@ type NetworkPolicyIngressRule struct {
 // NetworkPolicyIngressRuleInput is an input type that accepts NetworkPolicyIngressRuleArgs and NetworkPolicyIngressRuleOutput values.
 // You can construct a concrete instance of `NetworkPolicyIngressRuleInput` via:
 //
-//          NetworkPolicyIngressRuleArgs{...}
+//	NetworkPolicyIngressRuleArgs{...}
 type NetworkPolicyIngressRuleInput interface {
 	pulumi.Input
 
@@ -4518,7 +4524,7 @@ func (i NetworkPolicyIngressRuleArgs) ToNetworkPolicyIngressRuleOutputWithContex
 // NetworkPolicyIngressRuleArrayInput is an input type that accepts NetworkPolicyIngressRuleArray and NetworkPolicyIngressRuleArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyIngressRuleArrayInput` via:
 //
-//          NetworkPolicyIngressRuleArray{ NetworkPolicyIngressRuleArgs{...} }
+//	NetworkPolicyIngressRuleArray{ NetworkPolicyIngressRuleArgs{...} }
 type NetworkPolicyIngressRuleArrayInput interface {
 	pulumi.Input
 
@@ -4596,7 +4602,7 @@ type NetworkPolicyIngressRulePatch struct {
 // NetworkPolicyIngressRulePatchInput is an input type that accepts NetworkPolicyIngressRulePatchArgs and NetworkPolicyIngressRulePatchOutput values.
 // You can construct a concrete instance of `NetworkPolicyIngressRulePatchInput` via:
 //
-//          NetworkPolicyIngressRulePatchArgs{...}
+//	NetworkPolicyIngressRulePatchArgs{...}
 type NetworkPolicyIngressRulePatchInput interface {
 	pulumi.Input
 
@@ -4627,7 +4633,7 @@ func (i NetworkPolicyIngressRulePatchArgs) ToNetworkPolicyIngressRulePatchOutput
 // NetworkPolicyIngressRulePatchArrayInput is an input type that accepts NetworkPolicyIngressRulePatchArray and NetworkPolicyIngressRulePatchArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyIngressRulePatchArrayInput` via:
 //
-//          NetworkPolicyIngressRulePatchArray{ NetworkPolicyIngressRulePatchArgs{...} }
+//	NetworkPolicyIngressRulePatchArray{ NetworkPolicyIngressRulePatchArgs{...} }
 type NetworkPolicyIngressRulePatchArrayInput interface {
 	pulumi.Input
 
@@ -4709,7 +4715,7 @@ type NetworkPolicyListType struct {
 // NetworkPolicyListTypeInput is an input type that accepts NetworkPolicyListTypeArgs and NetworkPolicyListTypeOutput values.
 // You can construct a concrete instance of `NetworkPolicyListTypeInput` via:
 //
-//          NetworkPolicyListTypeArgs{...}
+//	NetworkPolicyListTypeArgs{...}
 type NetworkPolicyListTypeInput interface {
 	pulumi.Input
 
@@ -4793,7 +4799,7 @@ type NetworkPolicyPatchType struct {
 // NetworkPolicyPatchTypeInput is an input type that accepts NetworkPolicyPatchTypeArgs and NetworkPolicyPatchTypeOutput values.
 // You can construct a concrete instance of `NetworkPolicyPatchTypeInput` via:
 //
-//          NetworkPolicyPatchTypeArgs{...}
+//	NetworkPolicyPatchTypeArgs{...}
 type NetworkPolicyPatchTypeInput interface {
 	pulumi.Input
 
@@ -4884,7 +4890,7 @@ type NetworkPolicyPeer struct {
 // NetworkPolicyPeerInput is an input type that accepts NetworkPolicyPeerArgs and NetworkPolicyPeerOutput values.
 // You can construct a concrete instance of `NetworkPolicyPeerInput` via:
 //
-//          NetworkPolicyPeerArgs{...}
+//	NetworkPolicyPeerArgs{...}
 type NetworkPolicyPeerInput interface {
 	pulumi.Input
 
@@ -4921,7 +4927,7 @@ func (i NetworkPolicyPeerArgs) ToNetworkPolicyPeerOutputWithContext(ctx context.
 // NetworkPolicyPeerArrayInput is an input type that accepts NetworkPolicyPeerArray and NetworkPolicyPeerArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPeerArrayInput` via:
 //
-//          NetworkPolicyPeerArray{ NetworkPolicyPeerArgs{...} }
+//	NetworkPolicyPeerArray{ NetworkPolicyPeerArgs{...} }
 type NetworkPolicyPeerArrayInput interface {
 	pulumi.Input
 
@@ -5014,7 +5020,7 @@ type NetworkPolicyPeerPatch struct {
 // NetworkPolicyPeerPatchInput is an input type that accepts NetworkPolicyPeerPatchArgs and NetworkPolicyPeerPatchOutput values.
 // You can construct a concrete instance of `NetworkPolicyPeerPatchInput` via:
 //
-//          NetworkPolicyPeerPatchArgs{...}
+//	NetworkPolicyPeerPatchArgs{...}
 type NetworkPolicyPeerPatchInput interface {
 	pulumi.Input
 
@@ -5051,7 +5057,7 @@ func (i NetworkPolicyPeerPatchArgs) ToNetworkPolicyPeerPatchOutputWithContext(ct
 // NetworkPolicyPeerPatchArrayInput is an input type that accepts NetworkPolicyPeerPatchArray and NetworkPolicyPeerPatchArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPeerPatchArrayInput` via:
 //
-//          NetworkPolicyPeerPatchArray{ NetworkPolicyPeerPatchArgs{...} }
+//	NetworkPolicyPeerPatchArray{ NetworkPolicyPeerPatchArgs{...} }
 type NetworkPolicyPeerPatchArrayInput interface {
 	pulumi.Input
 
@@ -5140,7 +5146,7 @@ type NetworkPolicyPort struct {
 // NetworkPolicyPortInput is an input type that accepts NetworkPolicyPortArgs and NetworkPolicyPortOutput values.
 // You can construct a concrete instance of `NetworkPolicyPortInput` via:
 //
-//          NetworkPolicyPortArgs{...}
+//	NetworkPolicyPortArgs{...}
 type NetworkPolicyPortInput interface {
 	pulumi.Input
 
@@ -5173,7 +5179,7 @@ func (i NetworkPolicyPortArgs) ToNetworkPolicyPortOutputWithContext(ctx context.
 // NetworkPolicyPortArrayInput is an input type that accepts NetworkPolicyPortArray and NetworkPolicyPortArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPortArrayInput` via:
 //
-//          NetworkPolicyPortArray{ NetworkPolicyPortArgs{...} }
+//	NetworkPolicyPortArray{ NetworkPolicyPortArgs{...} }
 type NetworkPolicyPortArrayInput interface {
 	pulumi.Input
 
@@ -5258,7 +5264,7 @@ type NetworkPolicyPortPatch struct {
 // NetworkPolicyPortPatchInput is an input type that accepts NetworkPolicyPortPatchArgs and NetworkPolicyPortPatchOutput values.
 // You can construct a concrete instance of `NetworkPolicyPortPatchInput` via:
 //
-//          NetworkPolicyPortPatchArgs{...}
+//	NetworkPolicyPortPatchArgs{...}
 type NetworkPolicyPortPatchInput interface {
 	pulumi.Input
 
@@ -5291,7 +5297,7 @@ func (i NetworkPolicyPortPatchArgs) ToNetworkPolicyPortPatchOutputWithContext(ct
 // NetworkPolicyPortPatchArrayInput is an input type that accepts NetworkPolicyPortPatchArray and NetworkPolicyPortPatchArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPortPatchArrayInput` via:
 //
-//          NetworkPolicyPortPatchArray{ NetworkPolicyPortPatchArgs{...} }
+//	NetworkPolicyPortPatchArray{ NetworkPolicyPortPatchArgs{...} }
 type NetworkPolicyPortPatchArrayInput interface {
 	pulumi.Input
 
@@ -5378,7 +5384,7 @@ type NetworkPolicySpec struct {
 // NetworkPolicySpecInput is an input type that accepts NetworkPolicySpecArgs and NetworkPolicySpecOutput values.
 // You can construct a concrete instance of `NetworkPolicySpecInput` via:
 //
-//          NetworkPolicySpecArgs{...}
+//	NetworkPolicySpecArgs{...}
 type NetworkPolicySpecInput interface {
 	pulumi.Input
 
@@ -5421,11 +5427,11 @@ func (i NetworkPolicySpecArgs) ToNetworkPolicySpecPtrOutputWithContext(ctx conte
 // NetworkPolicySpecPtrInput is an input type that accepts NetworkPolicySpecArgs, NetworkPolicySpecPtr and NetworkPolicySpecPtrOutput values.
 // You can construct a concrete instance of `NetworkPolicySpecPtrInput` via:
 //
-//          NetworkPolicySpecArgs{...}
+//	        NetworkPolicySpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NetworkPolicySpecPtrInput interface {
 	pulumi.Input
 
@@ -5575,7 +5581,7 @@ type NetworkPolicySpecPatch struct {
 // NetworkPolicySpecPatchInput is an input type that accepts NetworkPolicySpecPatchArgs and NetworkPolicySpecPatchOutput values.
 // You can construct a concrete instance of `NetworkPolicySpecPatchInput` via:
 //
-//          NetworkPolicySpecPatchArgs{...}
+//	NetworkPolicySpecPatchArgs{...}
 type NetworkPolicySpecPatchInput interface {
 	pulumi.Input
 
@@ -5618,11 +5624,11 @@ func (i NetworkPolicySpecPatchArgs) ToNetworkPolicySpecPatchPtrOutputWithContext
 // NetworkPolicySpecPatchPtrInput is an input type that accepts NetworkPolicySpecPatchArgs, NetworkPolicySpecPatchPtr and NetworkPolicySpecPatchPtrOutput values.
 // You can construct a concrete instance of `NetworkPolicySpecPatchPtrInput` via:
 //
-//          NetworkPolicySpecPatchArgs{...}
+//	        NetworkPolicySpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NetworkPolicySpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -5766,7 +5772,7 @@ type NetworkPolicyStatus struct {
 // NetworkPolicyStatusInput is an input type that accepts NetworkPolicyStatusArgs and NetworkPolicyStatusOutput values.
 // You can construct a concrete instance of `NetworkPolicyStatusInput` via:
 //
-//          NetworkPolicyStatusArgs{...}
+//	NetworkPolicyStatusArgs{...}
 type NetworkPolicyStatusInput interface {
 	pulumi.Input
 
@@ -5803,11 +5809,11 @@ func (i NetworkPolicyStatusArgs) ToNetworkPolicyStatusPtrOutputWithContext(ctx c
 // NetworkPolicyStatusPtrInput is an input type that accepts NetworkPolicyStatusArgs, NetworkPolicyStatusPtr and NetworkPolicyStatusPtrOutput values.
 // You can construct a concrete instance of `NetworkPolicyStatusPtrInput` via:
 //
-//          NetworkPolicyStatusArgs{...}
+//	        NetworkPolicyStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NetworkPolicyStatusPtrInput interface {
 	pulumi.Input
 
@@ -5906,7 +5912,7 @@ type NetworkPolicyStatusPatch struct {
 // NetworkPolicyStatusPatchInput is an input type that accepts NetworkPolicyStatusPatchArgs and NetworkPolicyStatusPatchOutput values.
 // You can construct a concrete instance of `NetworkPolicyStatusPatchInput` via:
 //
-//          NetworkPolicyStatusPatchArgs{...}
+//	NetworkPolicyStatusPatchArgs{...}
 type NetworkPolicyStatusPatchInput interface {
 	pulumi.Input
 
@@ -5943,11 +5949,11 @@ func (i NetworkPolicyStatusPatchArgs) ToNetworkPolicyStatusPatchPtrOutputWithCon
 // NetworkPolicyStatusPatchPtrInput is an input type that accepts NetworkPolicyStatusPatchArgs, NetworkPolicyStatusPatchPtr and NetworkPolicyStatusPatchPtrOutput values.
 // You can construct a concrete instance of `NetworkPolicyStatusPatchPtrInput` via:
 //
-//          NetworkPolicyStatusPatchArgs{...}
+//	        NetworkPolicyStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NetworkPolicyStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -6048,7 +6054,7 @@ type ServiceBackendPort struct {
 // ServiceBackendPortInput is an input type that accepts ServiceBackendPortArgs and ServiceBackendPortOutput values.
 // You can construct a concrete instance of `ServiceBackendPortInput` via:
 //
-//          ServiceBackendPortArgs{...}
+//	ServiceBackendPortArgs{...}
 type ServiceBackendPortInput interface {
 	pulumi.Input
 
@@ -6087,11 +6093,11 @@ func (i ServiceBackendPortArgs) ToServiceBackendPortPtrOutputWithContext(ctx con
 // ServiceBackendPortPtrInput is an input type that accepts ServiceBackendPortArgs, ServiceBackendPortPtr and ServiceBackendPortPtrOutput values.
 // You can construct a concrete instance of `ServiceBackendPortPtrInput` via:
 //
-//          ServiceBackendPortArgs{...}
+//	        ServiceBackendPortArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceBackendPortPtrInput interface {
 	pulumi.Input
 
@@ -6207,7 +6213,7 @@ type ServiceBackendPortPatch struct {
 // ServiceBackendPortPatchInput is an input type that accepts ServiceBackendPortPatchArgs and ServiceBackendPortPatchOutput values.
 // You can construct a concrete instance of `ServiceBackendPortPatchInput` via:
 //
-//          ServiceBackendPortPatchArgs{...}
+//	ServiceBackendPortPatchArgs{...}
 type ServiceBackendPortPatchInput interface {
 	pulumi.Input
 
@@ -6246,11 +6252,11 @@ func (i ServiceBackendPortPatchArgs) ToServiceBackendPortPatchPtrOutputWithConte
 // ServiceBackendPortPatchPtrInput is an input type that accepts ServiceBackendPortPatchArgs, ServiceBackendPortPatchPtr and ServiceBackendPortPatchPtrOutput values.
 // You can construct a concrete instance of `ServiceBackendPortPatchPtrInput` via:
 //
-//          ServiceBackendPortPatchArgs{...}
+//	        ServiceBackendPortPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceBackendPortPatchPtrInput interface {
 	pulumi.Input
 
